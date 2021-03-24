@@ -1,0 +1,45 @@
+.stdBlockWrapper{
+    /* height: 550px; */
+    height: auto;
+    padding-top: 50px;
+    margin-top: 50px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.stdBlockTitledata{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+.stdBlockTitledata h1{
+    font-weight: 900;
+    font-size: 70px;
+    color: #ff4157;
+
+}
+.lightbluetext{
+    
+}
+.stdBlockTitledata h3{
+    font-weight: 600;
+    font-size: 50px;
+    color: #000;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .stdBlockTitledata h3{
+        font-size: 25px;
+    }
+    .stdBlockTitledata h1{
+        font-size:30px
+    }
+    .stdBlockTitledata{
+        margin-top: 0px;
+    }
+    .stdBlockTitledata p{
+        font-size: 10px !important;
+    }
+}

@@ -1,0 +1,37 @@
+.pageHgt{
+	/*min-height: 1875px !important;*/
+	width: 100%;
+	/*background-color: #f1f1f1;*/
+}
+.heightblock{
+	height: 650px;
+}
+.dp-blockTitle{
+	text-align: center;
+	font-size: 40px;
+	padding-top: 85px;
+}
+.inputrow{
+	padding: 5px 15px;
+}
+.contactBar:hover .hovertext{
+  display: block;
+  cursor: pointer;
+  text-align: right;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.hovertext{
+  cursor: pointer;
+  color: #fff;
+  width : 100px;
+  right: 5px;
+  display: none;
+}
+.NewLoader{
+            /*background-image: url("/images/spin-Preloader.gif");*/
+            background-repeat: no-repeat;
+            background-size: 98% 100%;
+            height: 500px;
+            width: 100%;
+}

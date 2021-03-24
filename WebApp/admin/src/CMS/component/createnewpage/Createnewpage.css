@@ -1,0 +1,49 @@
+.newpage1stpart{
+	height: 700px;
+	background: #0fb0fd;
+}
+.logopageleftImg img{
+	margin-left: 5%; 
+	margin-top:  3%; 
+
+}
+.sampleexam{
+	display: block;
+	width: 50%;
+	background: blue;
+	margin: 10px auto;
+	border: 3px solid rgba(255,100,100,0);
+	background-color: #a00;
+}
+.nopadding{
+
+	padding: 0px;
+}
+.cnpTitle{
+	height: 75px;
+	padding: 5px;
+	padding-left: 15px;
+	border-bottom: 1px solid #ccc !important;
+}
+.pageleftImg1 img{
+	margin-left: 22%; 
+	margin-top:  15%; 
+}
+.whtclr{
+	color: #fff;
+}
+.ipspanht .ipdivht{
+
+	height: 30px !important;
+}
+.fromcontrolheight{
+	height: 36px;
+}
+.CNPBtnnewPage{
+	position: relative;
+    background-color: #3c8dbc;
+    /* border-radius: 13px; */
+    width: 190px;
+    color: #fff;
+    box-shadow: #999 0px 0px 9px 0px;
+}

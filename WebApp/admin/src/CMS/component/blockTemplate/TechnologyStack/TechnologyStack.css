@@ -1,0 +1,109 @@
+.technologyStackWrapper{
+    height: 690px;
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+.technologyStackDashWrapper{
+    height: 10px;
+}
+.technologyStackDashWrapper ul{
+    list-style: none;
+}
+.technologyStackDashWrapper ul li{
+  float: left;
+}
+.technologyStackDashWrapper .dash1{
+    height: 1px;
+    width: 20px;
+    margin: 2px 2px 2px 40px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.technologyStackDashWrapper .dash2{
+    height: 1px;
+    width: 50px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.technologyStackDashWrapper .dash3{
+    height: 1px;
+    width: 20px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.technologyStackTextWrapper{
+    height: 180px;
+    text-align: center;
+}
+.technologyStackTitle{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #555555;
+}
+.technologyStackDescription{
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #555555;
+    margin: 20px 180px 0px 180px;
+    text-align: center;
+}
+.technologyStackImageNTextWrapper{
+    height: 500px;
+}
+.technologyStackImageWrapper{
+    height: 500px;
+    text-align: center;
+}
+.technologyStackImage{
+    height: 450px;
+}
+
+.technologyStackRepeatedBlockWrapper{
+    height: 500px;
+}
+.technologyStackRepeatedBlock{
+    height: 130px;
+    margin-top: 15px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px #ccc;
+}
+
+.technologyStackIconWrapper{
+    height: 130px;
+    padding: 10px 0px 10px 0px;
+}
+.technologyStackIconBorder{
+    height: 100px;
+    width: 80px;
+    margin-top: 5px;
+    border-right: 1px dashed #999;
+}
+.technologyStackIcon{
+    height: 50px;
+    margin-top: 25px;
+    margin-left: 10px;
+}
+.technologyStackRepeatedBlockTextWrapper{
+    height: 130px;
+    padding: 10px 0px 10px 0px;
+}
+.technologyStackRepeatedBlockTitle{
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #555555;
+}
+.technologyStackRepeatedBlockDescription{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #555555;
+    text-align: justify;
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

@@ -1,0 +1,128 @@
+
+.StaffBannerwrapp{
+	height: 863px;
+	background-size: 100% 100%;
+	background-color: #fff;
+}
+
+.staffBannerLeft{
+	margin-left: 95px;
+}
+
+.h1TitleSB{
+	font-size:65px;
+    line-height: 1.1;
+    letter-spacing: 3px;
+    margin-left: 0px;
+    font-family: 'Montserrat',sans-serif!important;
+    margin-top: 5%; 
+	/* text-align: justify; */
+}
+
+.h1TitleSB strong{
+	font-weight:1000;
+}
+.formWrapperTitle{
+	margin-top: 60px;
+}
+.formWrapperTitle h3{
+	font-family: 'Montserrat',sans-serif!important;
+	font-size: 34px;
+	font-weight: 700;
+    color: #333333;
+}
+.formWrapperTitle h6{
+	font-family: 'Montserrat',sans-serif!important;
+	font-size: 16px;
+	font-weight: 200;
+	color: #555555;
+	margin-bottom: 30px;
+}
+
+.clrwht p small{
+	color: #fff;
+	font-size: 22px;
+	margin-left: 0px;
+	font-family: 'Montserrat',sans-serif!important;
+	letter-spacing: 1px;
+	text-align: justify;
+}
+.clrwht p{
+	margin:-15px 0px 0px;
+}
+.TopBannerIMGUS{
+	
+    height: 350px;
+    margin-top: 16%
+}
+.ReqForm{
+	width:441px;
+    margin-left: 100px;
+    background-color: #fff;
+    border-radius: 10px;
+    height: 510px;
+    margin-top: 16%;
+}
+.nopadding{
+	padding: 0px;
+}
+.mtop10{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.BannerIMGUSBrand{
+	position:absolute;
+	height: 140px;
+    margin-top:-79px;
+    margin-left: 33%;
+    z-index: 5;
+}
+.marginLeft23{
+	height: 40px;
+	margin-left: 0px;
+	margin-top:-5px;
+	background-color:#3340bd;
+	color: #fff;
+	font-weight: bold;
+	font-family: 'Montserrat',sans-serif!important;
+}
+.marginLeft23:hover{
+	margin-left: 0px;
+	margin-top:-5px;
+	background-color:#2431ab;
+	color: #fff;
+}
+.InputBoxCustom{
+	height: 36px;
+	border: 1px solid #333;
+	border-radius: 5px;
+}
+.formWrapper .mtop10 .fa{
+	position:absolute;
+	margin-top:10px;
+	margin-left: 13px;
+	z-index: 10!important;
+}
+.formWrapper .mtop10 .fa-envelope{
+	font-size: 13px;
+	margin-top:11px;
+}
+.formWrapper .mtop10 .fa-mobile{
+	font-size: 18px;
+}
+.formWrapper .mtop10 .fa-lock{
+	font-size:16px;
+}
+.InputBoxCustom{
+	font-size: 18px;
+	padding: 0 40px;
+}
+textarea.form-control {
+    border: 1px solid lightgray;
+	height: auto !important;
+	min-height: 80px;
+}
+.InputBoxCustom {
+    font-size: 16px;
+    padding: 5px 40px;
+}

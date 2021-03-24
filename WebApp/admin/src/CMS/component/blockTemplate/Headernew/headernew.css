@@ -1,0 +1,352 @@
+/* .customSpan{
+  font-size:30px;
+  cursor:pointer;
+  position: fixed;
+  top: 50px;
+  right: 61px;
+  color: #fff;
+  z-index: 9;
+}
+.closebtn1 {
+  position: absolute;
+  z-index: 999;
+  color: #fff;
+  top: 20px;
+  right: 50px;
+  font-size: 60px;
+}
+.logoab {
+   position: absolute; 
+  top: 49px!important;
+  height: 56px!important;
+  left: 118px!important;
+}
+ .headernewlogobox{
+  position: absolute;
+} 
+
+
+.openMenu {
+  height: 0%;
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  background-color:#333;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+.openMenu1 {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 110;
+  top: 0;
+  left: 0;
+  color: #fff;
+  background-color: #333;
+   animation: fadeIn ease;
+  overflow-x: hidden;
+  transition: 0.5s
+}
+.fade-in {
+animation: fadeIn ease 3s;
+-webkit-animation: fadeIn ease 3s;
+-moz-animation: fadeIn ease 3s;
+-o-animation: fadeIn ease 3s;
+-ms-animation: fadeIn ease 3s;
+}
+@keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+.topm a{
+  text-decoration: none;
+  color: #aaa;
+}
+.home:hover{
+  transform: scale(1.15);
+  transition: 0.5s;
+  color: #fff;
+}
+.aboutus:hover{
+  transform: scale(1.15);
+  transition: 0.5s;
+  color: #fff;
+}
+.Services:hover{
+  transform: scale(1.15);
+  transition: 0.5s;
+  color: #fff;
+}
+
+.openMenu .closebtn1 {
+  position: absolute;
+  z-index: 999;
+  color: #fff;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+.topm{
+  position: relative;
+  top: 25%;
+}
+.homehover{
+  background-image: url("/images/2.png");
+  background-repeat: no-repeat;
+}
+.Serviceshover{
+  background-image: url("/images/37.png");
+  background-repeat: no-repeat;
+}
+.aboutushover{
+  background-image: url("/images/6ec.png");
+  background-repeat: no-repeat;
+}
+.portfoliohover{
+  background-image: url("/images/32.png");
+  background-repeat: no-repeat;
+}
+.contactushover{
+  background-image: url("/images/38.png");
+  background-repeat: no-repeat;
+}
+
+.myModalq{
+  z-index: 10;
+}
+.mbtn{
+  z-index: 9;
+  position: fixed;
+  top: 20px;
+} */
+/* ==============================================NewNavBar ========================================= */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+/* 
+body {
+	font-family: "Montserrat", sans-serif;
+	background: #e9e9e9;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+} */
+
+h1 {
+	font-size: 40px;
+  text-align: center;
+}
+
+.container{
+	cursor: pointer;
+	position: absolute;
+	top: 5%;
+	right: 5%;
+	width: 30px;
+	height: 20px;
+}
+
+.bars{
+  margin-top:50px;
+	width: 30px;
+	height: 5px;
+	background: #333333;
+}
+
+.bars::before,
+.bars::after{
+	content: '';
+	position: absolute;
+	width: 30px;
+	height: 5px;
+	background: #333333;
+}
+
+.bars::before{
+	margin-top: 9px;
+}
+
+.bars::after{
+	margin-top: 18px;
+}
+
+.NavBarnewWrapper nav{
+	position: absolute;
+	width: 100%;
+	height: 30px;
+	background: #333333;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	right: -200vw;
+}
+
+.NavBarnewWrapper nav ul {
+  list-style: none;
+  margin-top: -50px;
+}
+
+.NavBarnewWrapper nav ul li{
+  margin:15px 0;
+  text-align: center;
+}
+
+
+
+.NavBarnewWrapper nav ul li a{
+	color: #aaa;
+	font-size: 36px;
+	text-decoration: none;
+	font-weight: bold;
+	position: relative;
+  opacity: 0;
+  font-family: 'Montserrat', sans-serif;
+  pointer-events: none;
+  letter-spacing: 9px;
+  transition: 1s;
+  text-align: center;
+  
+}
+.NavBarnewWrapper nav ul li a:hover{
+  color: #f1f1f1;
+}
+
+.NavBarnewWrapper nav ul li a:after{
+	content: '';
+	width: 100%;
+	position: absolute;
+	height: 3px;
+	border-radius: 5px;
+	background: #fff;
+	bottom: -10px;
+	left: 0;
+	transform-origin: left;
+	transition: transform .5s ease;
+	transform: scaleX(0);
+}
+
+
+.NavBarnewWrapper nav ul li a:hover:after{
+	transform: scaleX(1);
+}
+
+.NavBarnewWrapper nav .close {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 6%;
+	right: 5%;
+	cursor: pointer;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.NavBarnewWrapper nav h2{
+	position: absolute;
+	top:5%;
+	left: 5%;
+	opacity: 0;
+	pointer-events: none;
+	color: #fff;
+	font-size: 2em;
+}
+
+ nav .close div::before,
+ .close div::after{
+	content: '';
+	position: absolute;
+	width: 30px;
+	height: 4px;
+	background: #fff;
+	transition: background .5s ease;
+}
+ .close div::before{
+	transform: rotate(-45deg);
+}
+
+nav .close div::after{
+	transform: rotate(45deg);
+}
+
+.NavBarnewWrapper nav .close:hover div::before,
+.NavBarnewWrapper nav .close:hover div::after{
+	background: rgb(209, 3, 3);
+}
+
+@media (max-width: 992px){
+  h1{
+    font-size: 25px;
+  }
+}
+
+
+/* ==============================================Media Query ========================================= */
+@media (min-width:992px) and (max-width:1200px){
+  .logoab{
+    left: 82px!important;
+  
+  }
+  .customSpan {
+    
+    top: 53px;
+  }
+    
+
+
+} 
+@media (min-width:768px) and (max-width:991px){
+  .logoab {
+    top: 51px!important;
+    left: 45px!important
+  }
+  .customSpan {
+   top:60px!important;
+     
+   }
+  
+
+ } 
+/* ================================================mobile view  ========================================== */
+@media  (max-width: 767px){
+  .logoab {
+    margin-top: -5.75%;
+    margin-left: -27%; 
+  } 
+    .customSpan {
+        margin-top: -3.75%!important;
+        right:25px;
+   
+  }
+
+}
+
+
+

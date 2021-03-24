@@ -1,0 +1,158 @@
+.boxItem1{
+    height: 250px;
+    /* padding: 15px; */
+    background-color: #fff;
+    margin: 5px 0px;
+    /* border-top: 2px solid #2a88bc; */
+    border: 1px solid #efefef;
+    box-shadow: 4px 4px 15px 0px #e1e1e1;
+    /* border-radius: 5px; */
+}
+.boxItem2{
+    height: 300px;
+    /* padding: 15px; */
+    background-color: #fff;
+    margin: 15px 0px;
+    /* border-top: 2px solid #2a88bc; */
+    border: 1px solid #efefef;
+    box-shadow: 4px 4px 15px 0px #e1e1e1;
+    /* border-radius: 5px; */
+}
+/*.boxItem2{
+	height: 250px;
+	background-color: #fff;
+	margin-top: 20px;
+	border-top: 2px solid #2a88bc;
+    border-radius: 5px;
+}*/
+.boxItem3{
+    height: 260px;
+    margin-top: 20px;
+    /* margin: 5px 0px; */
+    margin-bottom: 25px;
+    border: 1px solid #efefef;
+    box-shadow: 4px 4px 15px 0px #e1e1e1;
+/*     overflow-x: hidden; 
+    overflow: scroll;
+    overflow-x: auto;*/
+    /*background-color: #fff
+    margin-top: 16px;*/
+}
+
+.fs30{
+	font-size: 30px;
+    margin-top: 20px;
+    margin-bottom:  2px;
+    color: #333;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.fs20{
+	font-size: 20px;
+
+    color: #444;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.f20s{
+
+    color: #444;
+    font-weight: 500;
+}
+.w20px{
+	width: 17px;
+	font-weight: 600;
+}
+.fs16andml10{
+	font-size: 16px;
+	margin-top: 10px;
+    color: #444;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.fs14{
+	font-size: 14px;
+	margin-top: 10px;
+    color: #444;
+    font-weight: 500;
+
+}
+.fs16{
+	font-size: 16px;
+	/*margin-top: 10px;*/
+  
+
+}
+.custBtn{
+	height: 50px;
+	/*background-color: #09d9c9;*/
+	border: none;
+}
+.mtop10{
+	margin-top: 10px;
+}
+.mtopleft30{
+	margin-top: 30px;
+	margin-left: 30px;
+}
+.clrchange{
+	color: #17c5bd;
+}
+.line5{
+	border-bottom: 1px solid #eee;
+	margin: 5px 0px;
+}
+.h250overflwscroll{
+	height: 300px !important;
+	overflow: hidden;
+}
+
+.bfcolrefefef{
+	background-color: #efefef;
+	    padding: 10px 25px;
+}
+.mtop15bgclrwht{
+	padding: 0px 20px;
+	margin-top: 15px;
+	background-color: #fff;
+}
+.fontawBox{
+	height: 32px;
+    width: 35px;
+    padding-top: 7px;
+    text-align: center;
+    background-color: #efefef;
+}
+.marAlltop7{
+	margin-top: 9px;
+}
+
+.backclrgray{
+	background-color: #efefef !important;
+
+}
+.pdtop9px{
+	padding-top: 9px;
+}
+.boxItem3 table tr{
+	height: 40px;
+}
+
+.boxItem3 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 7px;
+    padding-left: 30px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.colr55a2de{
+	color: #55a2de;
+}
+
+.boxshadow1px{
+	box-shadow: 1px 1px 2px 0px #b1b1b1;
+}
+
+.boxItem3 a{
+	text-decoration: none;
+}

@@ -1,0 +1,112 @@
+.gmapwrapper{
+    height: 620px;
+    background-color: #fff;
+}
+.mapouter{
+    position: relative;
+    text-align: right;    
+}
+.gmap_canvas{
+    overflow: hidden;
+    background: none !important;
+}
+.demogmap_canvas{
+    overflow: hidden;
+    padding: 15px 0px;
+}
+.Glocationmap{
+    height: 80px;
+    text-align: center;
+}
+.location{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+}
+.demoBlack{
+    overflow:hidden;
+    background: #000000d4 !important;
+    margin-top: -12px;
+    height: 500px;
+    width: 900px;
+    padding: 15px 0px;
+}
+.mapcontainer{
+    position: relative;
+    width: 100%;
+    background-color: #000;
+}
+.image{
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: 460px;
+    height: auto;
+    transition: 0.5s ease;
+    backface-visibility: hidden;
+}
+.middle{
+    transition: 0.5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.mapcontainer .image{
+    opacity: 0.3;
+    /* cursor: pointer; */
+}
+.mapcontainer .middle{
+    opacity: 1;
+    background-color: #000000d4 !important;
+    cursor: pointer;
+}
+.text{
+    background-color: #4caf50;
+    color: fff;
+    font-size: 16px;
+    padding: 16px 32px;
+}
+.mapouter{
+    display: none;
+}
+
+
+/* =====================================Media Query================================= */
+
+
+@media (min-width:992px) and (max-width:1200px){
+    .gmapwrapper{
+        height: 724px !important;
+    }  
+}
+
+@media (min-width:768px) and (max-width:991px){
+    .gmapwrapper{
+        height: 615px !important;
+    }
+}
+@media (max-width:767px){
+    .gmapwrapper{
+        height: 615px !important;
+    }
+    .Glocationmap{
+        height: 80px;
+        text-align: center;
+    }
+    .location{
+        font-size: 46px;
+        font-family: 'Montserrat', sans-serif;
+        color: #555555;
+    }
+    .mapouter{
+      position: relative;
+      text-align: right;
+    }
+    .gmap_canvas{
+      overflow: hidden;
+      background: none !important;
+    }
+}

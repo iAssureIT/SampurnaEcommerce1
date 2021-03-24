@@ -1,0 +1,269 @@
+.modalCenter {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+}
+
+
+
+.admin-orders-SubTitleRow input {
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.admin-orders-stat {
+    background: #dd4b39;
+    color: #fff;
+}.newOrder { background: #f36512 !important;}
+.verified {background: #f39c12!important;}
+.green{background-color: rgb(106, 168, 79)!important;}
+.packed{background: #337ab7!important;}
+.colorBlack{color:#fff !important;}
+.disApproved{background: #dd4b39!important;}
+.dispatched {  background: #dd3941;}
+.delivery {background: #78dab6!important;}    
+.Deliveredpaid {background: #00a661!important;}
+.paid{background-color: #0275d8 !important;}
+
+.admin-orders-stat-NewOrder {
+    background: #f36512;
+    color: #fff;
+    padding: 1px 6px;
+}
+.admin-orders-stat-Verified {
+    background: #f39c12;
+    color: #fff;
+}
+.admin-orders-stat-Packed {
+    background: #337ab7;
+    color: #fff;
+    padding: 1px 6px;
+}
+.admin-orders-stat-Inspection {
+    background: #4b4e53;
+    color: #fff;
+    padding: 1px 6px;
+}
+.admin-orders-stat-OrderVerified {
+    background: #dd4b39;
+    color: #fff;
+    padding: 1px 6px;
+}
+.admin-orders-stat-Dispatched {
+    background: #dd3941;
+    color: #fff;
+    padding: 1px 6px;
+}
+.admin-orders-stat-Deliveredpaid {
+    background: #00a661;
+    color: #fff;
+    padding: 1px 6px;
+}
+.admin-orders-stat-Delivered {
+    background: #78dab6;
+    color: #fff;
+    padding: 1px 6px;
+}
+
+.admin-orders-stat-NewOrdericon {
+    background: #f36512;
+    color: #fff;
+    padding:8px 10px;
+}
+.admin-orders-stat-Verifiedicon {
+    background: #f39c12;
+    color: #fff;
+    padding:8px 10px;
+}
+.admin-orders-stat-Packedicon {
+    background: #337ab7;
+    color: #fff;
+    padding:8px 10px;
+}
+.admin-orders-stat-Inspectionicon {
+    background: #4b4e53;
+    color: #fff;
+    padding:8px 10px;
+}
+.admin-orders-stat-OrderVerifiedicon {
+    background: #dd4b39;
+    color: #fff;
+    padding:8px 10px;
+}
+.admin-orders-stat-Dispatchedicon {
+    background: #dd3941;
+    color: #fff;
+    padding:8px 10px;
+    
+}
+.admin-orders-stat-Deliveredicon {
+    background: #999;
+    color: #fff;
+    padding:8px 10px;
+    
+}
+
+
+
+.admin-order-view {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    /*background: #eee;*/
+    cursor: pointer;
+    color: #808080 !important;
+}
+.admin-order-changeStat {
+    display: inline-block;
+    padding: 5px 10px;
+    /* margin-right: 5px; */
+    background: #eee;
+    cursor: pointer;
+}
+.admin-order-changeStatus{
+    display: inline-block;
+    /*padding: 5px 10px;*/
+    /* margin-right: 5px; */
+    background: #eee;
+    cursor: pointer;
+}
+.admin-order-view:hover, .admin-order-changeStat:hover {
+    /* color: #fff !important; */
+    /* background: #444; */
+    /* padding: 5px 25px 5px 13px; */
+
+     color: #337ab7 !important;
+     background:none;
+    /* padding: 5px 25px 5px 13px; */
+}
+
+/* .admin-order-view:visited, .admin-order-changeStat:visited {
+    color: #808080;    
+} */
+
+.comm-status-of-order{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.admin-orders-listofColors {
+    color: #444;
+    font-weight: normal;
+}
+.dispatchdetails{
+    margin-top: 5%;
+}
+.dispatchWrap{
+    border: 1px solid #aaa;
+}
+/* .addBannerWrapperBtn1:hover{
+    background: transparent!important;
+} */
+
+.MuiTypography-h6{
+    /* font-size:2.25rem !important; */
+    font-size: 18px !important;
+}
+.MuiTableCell-head{
+    font-size: 18px !important;
+    /* font-size:1.5em !important; */
+}
+.MuiTableCell-root{
+    font-size:1.2rem !important;
+}
+.MuiTypography-caption{
+    font-size:1em !important;
+}
+.MuiTooltip-tooltip{
+    font-size:1em !important;
+}
+.MuiTableCell-head{
+    background: #7f7f7f !important;
+    color: #fff !important;    
+}
+
+.MUIDataTableHeadCell-fixedHeaderCommon-150{
+    z-index : 0 !important;
+}
+
+
+
+.modalBodyHeight{
+    min-height:130px;
+    padding-top:40px;
+
+}
+.borderColor{
+    background-color: #3c8dbc !important;
+    color:#fff;
+    text-align:center;
+}
+.hideBorder{
+    border:none !important;
+}
+.modal-borderbtn{
+    /*width:100px;*/
+    border:1px solid #777;
+    border-radius:3px;
+    padding:3px;
+    margin-left:8px;
+    margin-bottom:15px;
+    /*cursor: pointer;*/
+    color:#fff;
+    /*margin-top:5px;*/
+}
+
+.modal-greyborderbtn{
+    /*width:100px;*/
+    border:1px solid #808080c9;
+    border-radius:3px;
+    padding:3px;
+    margin-left:8px;
+    margin-bottom:15px;
+    /*cursor: pointer;*/
+    color:#fff;
+    /*margin-top:5px;*/
+}
+
+
+.boldWeight{
+    font-weight:bold !important;
+}
+.not-allowed {
+    color:999 !important;
+     pointer-events: auto! important;
+     cursor: not-allowed! important;
+     background-color: #ffffff;
+     color:#808080c9;
+}
+
+.succesBg{
+    background-color: #f36512 !important;
+}
+
+.normlBtn{
+    background-color: #fff;
+    color: #333;
+}
+
+.blueBtn{
+    background-color: #0275d8 !important;
+
+}
+
+.paddingright25{
+    padding-right: 25px;
+}
+.modal-content-height{
+    margin-top: 65px !important;
+}
+.dispatch-height{
+        margin-top: 176px;
+    margin-right: 40px;
+    margin-left: 26px;
+
+}

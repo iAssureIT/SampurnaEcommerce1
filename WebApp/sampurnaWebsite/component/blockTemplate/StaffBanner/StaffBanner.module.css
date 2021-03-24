@@ -1,0 +1,50 @@
+
+.StaffBannerwrapp{
+	/*position: relative;*/
+	height: 855px;
+	/*background-color: #1c1;*/
+	/*width: auto;*/
+	background-size: 100% 100%;
+	/*background-attachment: fixed;*/
+}
+.h1TitleSB{
+	margin-top: 5%;
+	font-weight: 900;
+	/*text-align: center;*/
+}
+.clrwht{
+	color: #fff;
+
+}
+.TopBannerIMGUS{
+	
+    height: 350px;
+    margin-top: 16%
+}
+.ReqForm{
+    background-color: #fff;
+    border-radius: 10px;
+    height: 465px;
+    margin-top: 20%;
+}
+.nopadding{
+	padding: 0px;
+}
+.mtop10{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.BannerIMGUSBrand{
+	    height: 102px;
+    margin-top: -55px;
+    margin-left: 33%;
+    z-index: 10;
+}
+.marginLeft23{
+	margin-left: 23%
+}
+.InputBoxCustom{
+	height: 36px;
+	border: 1px solid #333;
+	border-radius: 5px;
+}

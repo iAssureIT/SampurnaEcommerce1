@@ -1,0 +1,160 @@
+
+
+  .StaffServieceWrap{
+    height: 800px;
+    margin-top: -50px;
+    /*background-color: #ccc;*/
+  }
+  .staffServiceTitle .staffServiceTitleH1{
+    font-size: 49px;
+      font-family: 'Montserrat', sans-serif!important;
+      color: #333333;
+  }
+  .staffServiceTitle strong{
+    font-weight: 1000;
+  }
+  .StaffBox1a1{
+    margin: 20px 0px;
+    height: 295px;
+    width: 343px;
+    box-shadow: 0px 2px 10px 4px #e9efff;
+    border-radius: 10px;
+    /* box-shadow: 1px 1px 5px 0px rgba(82, 82, 82, 0.75); */
+    transition: .3s;
+    animation-timing-function: linear;
+  }
+  
+  .StaffBox1a1:hover {
+    box-shadow: 0px 2px 10px 4px #e9efff;
+    cursor: pointer;
+      transform: scale(1.09,1.09);
+      cursor: pointer;
+      z-index: 100;
+  }
+  .StaffBox1a1:active {
+    top: 2px;
+    left: 2px;
+    box-shadow: 0px 2px 10px 4px #e9efff;
+  }
+  .StaffBox1a1IMG .StaffboxImageWrapper{
+    height: 135px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .StaffBox1a1IMG{
+    background-color: #e9efff;
+    margin-top: 15px;
+  }
+  .nopadding .paragraph{
+  margin-top: -8px;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif!important;
+  }
+  
+  .stafftextBox1{
+    margin-top: 0px;
+  }
+  .staffBoxBottom{
+    margin-bottom: -22px;
+  }
+  .h3boxTitle{
+    font-family: 'Montserrat', sans-serif!important;
+    font-weight:bold!important;
+    margin: 20px 0px;
+  }
+  .nopadding{
+    padding: 0px;
+  }
+  .dashboxStaffwrapper{
+    height:20px;
+    margin-top: -35px!important;
+    margin-left:586px;
+  }
+  .dashBox{
+    list-style: none;
+    margin: auto;
+    margin: 15px 0px;
+
+    
+  
+  }
+  .dashBox li{
+  	float: left;
+  }
+  .dash1{
+    height: 1px;
+    width: 20px;
+    margin:2px 2px 2px 10px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+  }
+  .dash2{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+  }
+  .dash3 {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+  } 
+
+ /* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+/* (md) Medium Devices (Desktops, 992px to 1199.98px ) */
+@media (min-width:992px) and (max-width:1199.98px){
+.staffBoxBottom{
+  width:46.33333%;
+}
+
+.BoxWrapperMain{
+  margin-left: 11.333333%;  }
+
+} 
+
+/* (sm) Small Devices (Tablets, 768px to 991.98px) */
+@media (min-width:768px) and (max-width:991.98px){
+ .staffBoxBottom{
+   margin-left:73px;
+   padding-bottom: 50px;
+ }
+  .BoxWrapperMain{
+  margin-left: 11.333333%;  }
+
+  
+
+}
+
+
+ 
+
+/* (xs) Extra Small Devices (Phone Landscape, 376px to 767.98px) */
+@media (min-width:376px) and (max-width: 767.98px){
+   /* .BoxWrapperMain{
+  margin-left: 19.333333%;  } */
+  .staffBoxBottom{
+   margin-left:73px;
+   padding-bottom: 40px;
+ }
+
+}
+
+
+/* (xs) Extra Small Devices (Phone Portrait, less than 375.98px) */
+@media (max-width:375.98px){
+
+  .BoxWrapperMain{
+    margin-left: -2.666667%;
+  }
+    .staffBoxBottom{
+   padding-bottom: 30px;
+ }
+
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

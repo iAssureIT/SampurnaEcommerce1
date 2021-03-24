@@ -1,0 +1,40 @@
+.aboutusbanner{
+    background-image: url("/images/aboutbaner.png");
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    height: 300px;
+    background-size: 100% 100% !important;
+    padding-top: 60px;
+  }
+  
+  .aboutbread{
+    background-color:transparent!important;
+    font-size: 16px;
+    color: #A2632C;
+    text-transform: uppercase;
+  }
+  .breadcrumb>li+li:before{
+    color: #777;
+  }
+  
+  .aboutheading{
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 50px;
+  }
+  .aboutbread a{
+    color: #333!important;
+  }
+  .aboutbread a:hover{
+  text-decoration: none;
+  }
+
+  @media only screen and (max-device-width: 480px) {
+    .aboutusbanner{
+      padding-top: 1px;
+      height: 150px;
+    }
+    .aboutbread{
+      font-size: 12px;
+    }
+  }

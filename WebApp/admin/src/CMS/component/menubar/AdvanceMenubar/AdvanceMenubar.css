@@ -1,0 +1,183 @@
+.AdvanceMenuWrapper .navbar-inverse{
+    border: none;
+}
+.AdvanceMenuWrapper{
+    background-image: url("/images/advanceMenu.jpg");
+    background-position: center;
+    height: 800px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0);
+    background-attachment: scroll;
+    /* left: 0px; */
+    background-position: 50% 0px;
+}
+.AdvanceMenuWrapper .navbar{
+    height: 100px;
+    background: #fff;
+}
+.AdvanceMenuWrapper .rightNavbar li a,
+.AdvanceMenuWrapper .navbar-center li a{
+    color: #222 !important;
+    font-size: 12px;
+    /* text-transform: uppercase; */
+}
+.AdvanceMenuWrapper .container{
+    margin-top: 20px;
+}
+
+.MenuDesignTitle{
+    text-align: center;
+    font-size: 25px;
+    margin: 30px 0px;
+    border-bottom: solid 2px #ccc;
+    padding-bottom: 30px;
+}
+.dropdown{
+    position: relative;
+}
+.DropdownMenu{
+    transition: .3s ease;
+}
+.dropdown:hover >:first-child{
+    color: #222 !important;
+}
+.mutilevelDropdown li:hover{
+    text-transform: uppercase;
+    font: 700 13px/40px "Roboto Slab"!important
+}
+
+.AdvanceMenuWrapper .mutilevelDropdown1,
+.AdvanceMenuWrapper .mutilevelDropdown2,
+.AdvanceMenuWrapper .mutilevelDropdown3,
+.AdvanceMenuWrapper .mutilevelDropdown4{
+    opacity:0;
+    visibility: hidden;
+    position:absolute;
+    z-index: 200;
+    width: 250px;
+    padding: 9px 10px;
+    background-color: #fff;
+    color:#000;
+    border: none !important;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+.AdvanceMenuWrapper .mutilevelDropdown1 li a,
+.AdvanceMenuWrapper .mutilevelDropdown2 li a,
+.AdvanceMenuWrapper .mutilevelDropdown3 li a,
+.AdvanceMenuWrapper .mutilevelDropdown4 li a{
+    /* width: 100%; */
+    padding: 0px 10px;
+}
+.AdvanceMenuWrapper .mutilevelDropdown1 .fa-angle-right,
+.AdvanceMenuWrapper .mutilevelDropdown2 .fa-angle-right,
+.AdvanceMenuWrapper .mutilevelDropdown3 .fa-angle-right{
+    margin-top: 15px;
+    font-size: 12px;
+}
+.AdvanceMenuWrapper a:hover {
+    color: #eee !important;
+}
+.navbar-inverse .navbar-nav>.open>a{
+    background-color: transparent !important;
+}
+.DropdownMenu{
+    transition: 0.4s ease;
+}
+.dropDownLevel1:hover .mutilevelDropdown1{
+    display: block; 
+    opacity: 1;
+    visibility: visible;
+}
+.AdvanceMenuWrapper .mutilevelDropdown2,
+.AdvanceMenuWrapper .mutilevelDropdown3,
+.AdvanceMenuWrapper .mutilevelDropdown4{
+    left:0px;
+    top: 30px;
+    display: block; 
+    position:absolute;
+    opacity: 1;
+    visibility: visible;  
+}
+.dropDownLevel2:hover .mutilevelDropdown2,
+.dropDownLevel3:hover .mutilevelDropdown3,
+.dropDownLevel4:hover .mutilevelDropdown4{
+    opacity: 1;
+    visibility: visible;  
+}
+.mutilevelDropdown1 li>a{
+    font-size: 15px;
+    height: auto;
+}
+.mutilevelDropdown2 li>a{
+    font-size: 14px;
+    height: auto;
+}
+.advanceNavbar .mutilevelDropdown1{
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    box-sizing: border-box;
+    /* margin-top: 10px !important; */
+}
+.advanceNavbar .mutilevelDropdown1 .megamenu-dropDown{
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    box-sizing: border-box;
+}
+.advanceNavbar .menuImg{
+    height: 50px;
+    width: 80px;
+    margin: 10px 10px 10px 0px;
+    /* margin-right: 10px; */
+    /* margin-bottom: 10px; */
+}
+.advanceNavbar .ImgMenu{
+    max-width: 230px;
+    height: 180px;
+}
+.advanceNavbar .imgText{
+    font-size: 18px;
+    text-align: center;
+}
+.parentMenu a,
+.dropDownLevel1 a{
+    color: #fff !important;
+    text-transform: capitalize;
+    font: 700 18px/40px "Roboto Slab"!important
+}
+.mutilevelDropdown1 li a{
+    color: #000 !important;
+    text-transform: capitalize;
+    font: 700 13px/40px "Roboto Slab"!important
+}
+.mega-menu-wrap{
+    width: 1284px;
+    position: absolute;
+    background-color: #fff;
+    margin-top: -10px !important;
+    height: 400px;
+    left: -455px;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    box-sizing: border-box;
+}
+
+
+.advanceNavbar .megamenu-dropDown {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    height: 280px;
+    margin-top: -10px;
+    width: 1284px;
+    left: -460px;
+    padding: 20px;
+    background-color: #fff;
+}
+/*============= right navbar ================ */
+.rightNavbar{
+    margin-top: 10px;
+}
+.rightNavbar li a{
+    color:#fff !important;
+    font-size: 12px;
+}

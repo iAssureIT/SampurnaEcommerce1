@@ -1,0 +1,7 @@
+discounted - /api/products/get/listbytype/discounted
+
+featured  - /api/products/get/listbytype/featured
+
+exclusive - /api/products/get/listbytype/exclusive
+
+particular section  - /api/products/get/listbysection/mpsc

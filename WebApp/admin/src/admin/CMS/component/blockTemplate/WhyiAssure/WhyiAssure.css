@@ -1,0 +1,165 @@
+.WhyiAssureheight{
+	/*height: 2400px;*/
+	
+}
+.wBox1{
+	height: 610px;
+	/*background-color: #f3f0f0;*/
+	background-image: url("/images/35.png");
+	background-repeat: no-repeat;
+	background-position:right;
+	
+/*	background-size: 100% 100%;
+	color: #fff;*/
+}
+.wBox2{
+    height: 610px;
+    background-color: #21336c;
+    /* background-image: url(/images/34.png); */
+    background-repeat: no-repeat;
+    color: #fff;
+    /* background-size: 100% 100%; */
+}
+.infoImg1 {
+    height: 405px;
+    margin-top: 85px;
+}
+.infotext1{
+	position: relative;
+	top: 120px;
+}
+.headingb1{
+	position: relative;
+}
+.para1{
+	position: relative;
+	    top: 28px;
+    font-size: 16px;
+    letter-spacing: 1.2px;
+}
+.rdmore{
+	position: relative;
+	top: 60px;
+	letter-spacing: 1px !important;
+    color: #376bff !important;
+    font-weight: 600;
+}
+.rdmore span{
+
+}
+
+/*dash ===== ======================== =============*/
+.dashBoxWiA{
+    list-style: none;
+    position: relative;
+    left: -31px;
+    top: 0px;
+    margin-bottom: 20px;
+}
+.dashBoxWiA li{
+  float: left;
+}
+.dash1WiA,.dash3WiA {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+.dash2WiA{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+/*  /  /  / /  /  / / /  / Dash   /   /   / /   /   /   /   /   /   /  / / /*/
+.nopadding{
+    padding: 0px;
+}
+
+/*====================================================================================*/
+/*====================================================================================*/
+/*============================== Mobile View =========================================*/
+/*====================================================================================*/
+/*====================================================================================*/
+
+
+.WhyiAssureheightxs{
+    height: 2400px;
+    
+}
+.wBox1xs{
+    height: 740px;
+    background-color: #f3f0f0;
+    background-image: url("/images/35.png");
+    background-repeat: no-repeat;
+    background-position:right;
+    
+/*  background-size: 100% 100%;
+    color: #fff;*/
+}
+.wBox2xs{
+    height: 740px;
+    background-color: #21336c;
+    /* background-image: url(/images/34.png); */
+    background-repeat: no-repeat;
+    color: #fff;
+    /* background-size: 100% 100%; */
+}
+.infoImg1xs {
+height: 225px;
+    margin-top: 55px;
+    margin-left: 20px;
+}
+.infotext1xs{
+    position: relative;
+    top: 20px;
+    text-align: center;
+}
+.headingb1xs{
+    position: relative;
+}
+.para1xs{
+    position: relative;
+    top: -2px;
+    font-size: 16px;
+    letter-spacing: 1.2px;
+}
+.rdmorexs{
+    position: relative;
+    top: 10px;
+    letter-spacing: 1px !important;
+    color: #376bff !important;
+    font-weight: 600;
+}
+.rdmorexs span{
+
+}
+
+/*dash ===== ======================== =============*/
+.dashBoxWiAxs{
+    list-style: none;
+    position: relative;
+    left: -31px;
+    top: 0px;
+    margin-bottom: 20px;
+}
+.dashBoxWiAxs li{
+  float: left;
+}
+.dash1WiAxs,.dash3WiAxs {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+.dash2WiAxs{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+/*  /  /  / /  /  / / /  / Dash   /   /   / /   /   /   /   /   /   /  / / /*/

@@ -1,0 +1,121 @@
+.keyFeaturesWrapper{
+    height: 810px;
+    background-color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+.keyFeaturesDashWrapper{
+    height: 10px;
+}
+.keyFeaturesDashWrapper ul{
+    list-style: none;
+}
+.keyFeaturesDashWrapper ul li{
+  float: left;
+}
+.keyFeaturesDashWrapper .dash1{
+    height: 1px;
+    width: 20px;
+    margin: 2px 2px 2px 40px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.keyFeaturesDashWrapper .dash2{
+    height: 1px;
+    width: 50px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.keyFeaturesDashWrapper .dash3{
+    height: 1px;
+    width: 20px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.keyFeaturesTextWrapper{
+    height: 100px;
+    text-align: center;
+}
+.keyFeaturesTitle{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #555555;
+    margin: auto;
+    margin-top: 14px;
+}
+.keyFeaturesTextNImageWrapper{
+    height: 700px;
+}
+.keyFeaturesLeftRepeatedBlockWrapper{
+    height: 660px;
+    padding-top: 20px;
+}
+.keyFeaturesRepeatedBlock{
+    height: 150px;
+    margin-top: 15px;
+}
+.keyFeaturesLeftRepeatedBlockWrapper .keyFeaturesRepeatedBlockTextWrapper{
+    height: 150px;
+    direction: rtl;
+    text-align: justify;
+}
+.keyFeaturesRepeatedBlockTitle{
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #555555;
+}
+.keyFeaturesRepeatedBlockDescription{
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #555555;
+    margin-left: 30px;
+}
+.keyFeaturesIconWrapper{
+    height: 150px;
+}
+.keyFeaturesIconCircleWrapper{
+    height: 55px;
+    width: 55px;
+    background-color: #fff;
+    border-radius: 100%;
+    padding-top: 0.1px;
+    margin-left: 13px;
+    box-shadow: 5px 5px 20px #ccc;
+    text-align: center;
+}
+.keyFeaturesIcon{
+    height: 32px;
+    margin-top: 11.5px;
+}
+
+.keyFeaturesImageWrapper{
+   height: 680px;
+   text-align: center;
+}
+.keyFeaturesImage{
+    height: 680px;
+}
+
+.keyFeaturesRightRepeatedBlockWrapper{
+    height: 660px;
+    padding-top: 20px;
+    text-align: justify;
+}
+.keyFeaturesRightRepeatedBlockWrapper .keyFeaturesRepeatedBlockTextWrapper{
+    height: 150px;
+    text-align: justify;
+}
+.keyFeaturesRightRepeatedBlockWrapper .keyFeaturesRepeatedBlockDescription{
+    margin-left: 0px;
+    margin-right: 30px;
+}
+.keyFeaturesRightRepeatedBlockWrapper .keyFeaturesIconCircleWrapper{
+    margin-left: -28px;
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

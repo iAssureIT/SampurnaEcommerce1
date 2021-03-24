@@ -1,0 +1,162 @@
+.CustomRepHiringModelWrapper{
+	/*position: relative;*/
+  height: 570px;
+  margin-top:24px;
+}
+.nopadding1{
+  padding:0px;
+  margin-left: 12px;
+}
+.nopadding1 p{
+  font-size: 21px;
+  font-family: 'Montserrat', sans-serif!important;
+  color: #555555;
+  text-align: justify;
+  width: 311px;
+  margin-left: -10px;
+  line-height: 1;
+  margin-top: 46px!important;
+}
+.dashboxwrapper{
+    height: 35px;
+
+  }
+  .dashBox{
+    list-style: none;
+    margin-top: 20px!important;
+  }
+  .dashBox li{
+  	float: left;
+  }
+  .dash1{
+    height: 1px;
+    width: 20px;
+    margin:2px 2px 2px 10px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+  }
+  .dash2{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+  }
+  .dash3 {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+  }
+.RepboxT1{
+	margin-left: 54px;
+	margin-top: 45px;
+  height: 344px;
+  width: 360px;
+  border-radius: 6px;
+  transition: .3s;
+}
+.RepboxT1:hover {
+  box-shadow: 0px 20px 40px rgba(0,0,0,0.4);
+  transform: scale(1.05,1.05);
+  cursor: pointer;
+  border: 4px solid lightgray;
+  z-index: 100;
+}
+.RepboxT2{
+	margin-left:-2px;
+	margin-top: 45px;
+  height: 344px;
+  width: 360px;
+  border-radius: 6px;
+  transition: .3s;
+  
+}
+.RepboxT2:hover {
+  box-shadow: 0px 20px 40px rgba(0,0,0,0.4);
+  transform: scale(1.05,1.05);
+  cursor: pointer;
+  border: 4px solid lightgray;
+  z-index: 100;
+}
+.RepboxT1BxShadow{
+    box-shadow: -3px 0px 9px 0px #dad6d6;
+}
+.RepboxT2BxShadow{
+    box-shadow: 3px 0px 9px 0px #dad6d6;
+}
+.RepboxT1Active{
+	margin: 23px 0px;
+  height: 388px;
+  width: 400px;
+  box-shadow: 0px 2px 10px 2px #dad6d6;
+  border-radius: 6px;
+  transition: .3s;
+	/*background-color: #ccc;*/
+}
+
+.RepboxT1Active:hover {
+  box-shadow: 0px 20px 40px rgba(0,0,0,0.4);
+  transform: scale(1.05,1.05);
+  cursor: pointer;
+  border: 4px solid lightgray;
+}
+.RepboxT1Active p{
+  margin-left: -8px;
+  width:342px;
+  font-size: 23px;
+  font-family: 'Montserrat', sans-serif!important; 
+}
+.margin20{
+	margin: 20px;
+}
+.margin20 h1{
+  font-size: 49px;
+  font-family: 'Montserrat', sans-serif!important;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+  color: #333333;
+
+}
+.margin20 strong{
+  font-weight: 1000;
+}
+.iconCircleCRHMMiddle{
+  height: 130px;
+  position: relative;  
+  width: 130px; 
+  left: 28%; 
+  top: 29px; 
+  background-color: #b8c6db;
+  background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%);
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+}
+.iconCircleCRHM{
+	height: 120px;
+    position: relative;  
+    width: 120px; 
+    left: 28%; 
+    top: 29px; 
+    background-color: #b8c6db;
+    background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%);
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+}
+.innerCircleCRHM{
+	position: relative;
+    top: 33px;
+    left: 20px;
+}
+.innerCircleCRHMMiddle{
+  position: relative;
+  top: 38px;
+  left: 24px;
+}
+
+.sptextBox1CRHM h2{
+	position: relative;
+	top: 32px;
+  color: #333333;
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 24px;
+}

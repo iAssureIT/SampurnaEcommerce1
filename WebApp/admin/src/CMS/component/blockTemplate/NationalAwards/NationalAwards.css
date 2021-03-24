@@ -1,0 +1,237 @@
+.nationalAwardWrapper{
+    height: 1100px;
+    background-color: #fff;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+.nationalAwardDashWrapper{
+    height: 10px;
+    margin-top: 260px;
+}
+.nationalAwardDashWrapper ul{
+    list-style: none;
+}
+.nationalAwardDashWrapper ul li{
+  float: left;
+}
+.nationalAwardDashWrapper .dash1{
+    height: 1px;
+    width: 20px;
+    margin: 2px 2px 2px 40px;
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+}
+.nationalAwardDashWrapper .dash2{
+    height: 1px;
+    width: 50px;
+    margin: 2px;
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+}
+.nationalAwardDashWrapper .dash3{
+    height: 1px;
+    width: 20px;
+    margin: 2px;
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+}
+.nationalAwardTitleWrapper{
+    height: 80px;
+    text-align: center;
+}
+.nationalAwardTitle1{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    color: #f1f1f1;
+    margin-top: 14px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.nationalAwardImageNTextWrapper{
+    height: 750px;
+}
+.nationalAwardImageWrapper{
+    height: 650px;
+}
+.nationalAwardImage{
+    height: 300px;
+    margin-top: 90px;
+    margin-left: 210px;
+}
+.nationalAwardTextWrapper1{
+    height: 750px;
+}
+.nationalAwardTextWrapper2{
+    height: 750px;
+}
+.nationalAwardSubTitle1{
+    height: 60px;
+    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: #f1f1f1;
+    letter-spacing: 0.5px;
+    margin-top: 100px;
+    margin-left: 10px;
+}
+/* .nationalAwardText1{
+    height: 160px;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    color: #f1f1f1;
+    letter-spacing: 0.5px;
+    margin-right: 30px;
+} */
+.nationalAwardText2{
+    height: 130px;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    color: #f1f1f1;
+    letter-spacing: 0.5px;
+    margin-right: 30px;
+}
+.tabWrapper{
+    height: 450px;
+}
+.tabWrapper ul{
+    list-style: none;
+}
+.tabWrapper ul li{
+    height: 100px;
+    width: 100px;
+}
+.tabWrapper ul li a{
+    background-color: transparent !important;
+}
+.awardTabImageWrapper{
+    height: 80px;
+    width: 80px;
+}
+.tabWrapper ul li a .awardTabImageWrapper:hover{
+    background-color: transparent !important;
+    border: 7px solid #f1f1f1;
+    border-radius: 100%;
+}
+.awardTabImage{
+    height: 40px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+@media (min-width:992px) and (max-width:1200px){
+    .nationalAwardWrapper{
+        height: 850px !important;
+    }
+    .nationalAwardDashWrapper{
+        height: 20px;
+        margin-top: -219px !important;
+    }
+    .nationalAwardDashWrapper ul{
+        padding-top: 5px;
+    }
+    .nationalAwardDashWrapper .dash1{
+        margin-left: -25% !important;
+    }
+    .nationalAwardTitle1{
+     margin-top: -181px; 
+    }
+    .nationalAwardImageNTextWrapper{
+       margin-top: -170px;
+    }
+    .nationalAwardImage{
+        margin-left: 0% !important;
+    }
+    .nationalAwardText1{
+        margin-left: 10px;
+        text-align: justify !important;
+    }
+    .awardTabImage{
+        height: 105px !important;
+    }
+}
+
+@media (min-width:768px) and (max-width:991px){
+    .nationalAwardWrapper{
+        height: 1273px !important;
+    }
+    .nationalAwardDashWrapper{
+        height: 20px;
+        margin-top: 180px !important;
+    }
+    .nationalAwardDashWrapper ul{
+        padding-top: 5px;
+    }
+    .nationalAwardDashWrapper .dash1{
+        margin-left: 40% !important;
+    }
+    .nationalAwardTextWrapper2{
+        height: 50px;
+        margin-left: 50px;
+        text-align: center;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width:767px){
+    .nationalAwardWrapper{
+        height: 1761px !important;
+    }
+    .nationalAwardDashWrapper{
+        height: 20px;
+        margin-top: 286px !important;
+    }
+    .nationalAwardDashWrapper ul{
+        padding-top: 5px;
+    }
+    .nationalAwardDashWrapper .dash1{
+        margin-left: 22% !important;
+    }
+    .nationalAwardTitleWrapper{
+        height: 108px;
+    }
+    .nationalAwardTitle1{
+        font-size: 30px !important;
+        margin-top: 10px !important;
+    }
+    .nationalAwardImageNTextWrapper{
+        height: 650px !important;
+    }
+    .nationalAwardImageWrapper{
+        height: 380px !important;
+    }
+    .nationalAwardImage{
+        height: 345px;
+        margin-left: 0% !important;
+    }
+    .nationalAwardTextWrapper1{
+        height: 70px !important;
+        margin-left: 0px !important;
+    }
+    .nationalAwardTextWrapper2{
+        margin-top: 10px;
+        padding-top: 5px;
+    } 
+    .nationalAwardSubTitle1{
+        font-size: 17px !important;
+    } 
+    .tabWrapper{
+        height: 600px !important;
+        margin-top: 0px !important; 
+    }
+    .nationalAwardText1{
+        text-align: justify !important;
+    }
+    .awardTabImage{
+        height: 117px !important;        
+    }
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

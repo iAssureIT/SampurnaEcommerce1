@@ -1,0 +1,229 @@
+.Nawardswrapp{
+    height: 850px;
+    background-color: #fff!important;
+}
+.NawardsBgIMG{
+    height: 850px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.awardwrapp{
+    height: 20px;
+    margin-top: 155px;
+}
+ .dashBoxNA{
+    list-style: none;
+    margin: auto;
+}
+ .dashBoxNA li{
+     float: left;
+}
+ .NAdash1,.NAdash3{
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #f1f1f1!important;
+    border-radius: 10px;
+}
+.NAdash2{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #f1f1f1!important;
+    border-radius: 10px;
+}
+.NAh1title{
+    height: 50px;
+    
+
+}
+.nah1title00{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    color: #f1f1f1;
+}
+.narionalawardwrapp{
+    height: 350px;
+}
+.awardleftwrapp{
+    height: 350px;
+}
+.awardIMG{
+    height: 345px;
+    margin-left: 10%;;
+}
+.NATextwrapp{
+    height: 350px;
+    margin-left: -40px;
+}
+.NAtextwrapp1{
+    height: 50px;
+}
+.NAh1title{
+    
+    font-size: 24px;
+    color: #f1f1f1;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-family: 'Montserrat', sans-serif;
+}
+.NAhetitle{
+    font-size: 18px;
+    color: #f1f1f1;
+    letter-spacing: 0.5px;
+    font-family: 'Montserrat', sans-serif;
+}
+.tabwrap{
+    height: 400px;
+    margin-top: -20px; 
+}
+.iassureaward{
+    height: 170px;
+    
+}
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    /*margin-top: 80px;*/
+}
+.bgcolorhide:hover, .nav-pills:active{
+    background-color: transparent !important;
+}
+/* =================================================Media Query======================================== */
+@media (min-width:992px) and (max-width:1200px){
+    .Nawardswrapp{
+        height: 850px!important;
+    }
+    .NawardsBgIMG{
+        height: 850px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    .awardwrapp{
+        height: 20px;
+        margin-top: -219px!important;
+    }
+    .dashBoxNA{
+        padding-top: 5px;
+    }
+    .NAdash1{
+        margin-left: -25%!important;
+    }
+    .nah1title00{
+     margin-top: -181px; 
+    }
+    .narionalawardwrapp{
+       margin-top: -170px;
+    }
+    .awardIMG{
+        margin-left: 0%!important;
+    }
+    .NAhetitle{
+        margin-left: 10px;
+    }
+    .NAhetitle{
+        text-align: justify!important;
+       
+    }
+    .iassureaward{
+        height: 105px!important;
+        
+    }
+    
+
+}
+@media (min-width:768px) and (max-width:991px){
+    .Nawardswrapp{
+        height: 1273px!important;
+    }
+    .NawardsBgIMG{
+        height: 1384px!important;
+        background-size: 200% 100%!important;
+        background-repeat: no-repeat;
+    }
+    .awardwrapp{
+        height: 20px;
+        margin-top: 180px!important;
+    }
+    .dashBoxNA{
+        padding-top: 5px;
+    }
+    .NAdash1{
+        margin-left: 40%!important;
+    }
+    .NAtextwrapp1{
+        height: 50px;
+        margin-left: 50px;
+        text-align: center;
+        margin-top: 30px;
+    }
+}
+@media (max-width:767px){
+    .Nawardswrapp{
+        height: 1761px!important;
+        
+    }
+    .NawardsBgIMG{
+        height: 1922px!important;
+        background-size: 200% 100%!important;
+        background-repeat: no-repeat;
+    }
+    .awardwrapp{
+        height: 20px;
+        margin-top: 286px!important;
+    }
+    .dashBoxNA{
+        padding-top: 5px;
+    }
+    .NAdash1{
+        margin-left: 22%!important;
+    }
+    .NAh1title{
+        height: 108px;
+    }
+    .nah1title00{
+        font-size: 30px!important;
+        margin-top: 10px!important;
+    }
+    .narionalawardwrapp{
+        height: 650px!important;
+        }
+    .awardleftwrapp{
+        height: 380px!important;
+        
+    }
+    .awardIMG{
+        height: 345px;
+        margin-left: 0%!important;
+    }
+    .NATextwrapp{
+        height: 70px!important;
+        margin-left: 0px!important;
+        
+    }
+     .NAtextwrapp1{
+        margin-top: 10px;
+        padding-top: 5px;
+    } 
+     .NAh1title{
+      font-size: 17px!important;
+    } 
+    .tabwrap{
+        height: 600px!important;
+        margin-top: 0px!important; 
+    }
+    .NAhetitle{
+        text-align: justify!important;
+       
+    }
+    .iassureaward{
+        height: 117px!important;
+        
+    }
+    
+    
+    
+    
+    
+}

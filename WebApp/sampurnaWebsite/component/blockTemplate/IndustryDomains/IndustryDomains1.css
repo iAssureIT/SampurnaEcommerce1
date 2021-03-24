@@ -1,0 +1,416 @@
+.industryDomainsHt{
+	height: 900px;
+	background-color: #FFF; 
+	width: 100%;
+}
+
+.ldash{
+    border-bottom: 4px solid;
+    height: 25px;
+    margin: 0px 2px;
+    width: 88px;
+}
+.sdash{
+	border-bottom: 4px solid;
+	height: 25px;
+	width: 25px;
+}
+.ldash::before {
+	position: relative;
+	border-bottom: 4px solid;
+	height: 25px;
+	width: 25px;
+
+}
+
+.ldash::after {
+	position: relative;
+	border-bottom: 4px solid;
+	height: 25px;
+	width: 25px;
+
+}
+/* ---------------------------------blocksection--------------------------------------------- */
+.iDomainBlock{
+	height: 700px;
+	 /* background-color: #ddd;  */
+	position: relative;
+}
+
+.idcol1{
+	height: 205px;
+	background-color: #fff;
+	border-radius: 0px 25px; 
+    margin-bottom: 25px;
+    padding: 5px;
+	position: relative;
+	 top: 50px; 
+    box-shadow: 2px 2px 20px 5px #dad6d6;
+    
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 28%;
+    margin-top: 20px;
+  }
+  .htitle{
+      font-size: 20px;
+    height: 100px;
+    position: relative;
+    margin-top: 28px!important;
+    font-family: 'Montserrat', sans-serif;
+    padding-top: -50px;
+    cursor: pointer;
+
+  }
+/* ---------------------------------blocksection--------------------------------------------- */
+
+.mtop25{
+	margin-top: 25px;
+}
+.innerDomain{
+	position: relative;
+    height: 45px;
+    top: 30px;
+    left: 35px;
+}
+.innerDomain1{
+    position: relative;
+    width: 100%;
+    top: 15px;
+    height: 75px;
+
+    /*left: 29.5%;*/
+
+}
+.innerDomain2{
+    position: relative;
+    height: 75px;
+    top: 30px;
+    left: 25.5%;
+}
+.innerDomain3{
+    position: relative;
+    height: 75px;
+    top: 32px;
+    left: 17.5%;
+}
+.domainTitle{
+    position: relative;
+    left: 15px;
+    font-size: 19px;
+    top: 20px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-align: center;
+}
+.domainTitle1{
+	position: relative;
+    top: 30px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+/*.domainTitle2{
+	position: relative;
+    top: 25px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}*/
+
+.innerDomainRE {
+    position: relative;
+    height: 125px;
+    top: 10px;
+    left: 28%;
+}
+.domainTitleRE{
+	position: relative;  
+    top: -20px; 
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+.innerDomainED {
+    position: relative;
+    height: 115px;
+    top: 15px;
+    left: 31.5%;
+}
+.domainTitleED{
+	position: relative; 
+	top: -10px;  
+    font-weight: 600;
+    letter-spacing: 1.2px;
+
+}
+.innerDomainTL {
+    position: relative;
+    height: 100px;
+    top: 10px;
+    left: 30.5%;
+}
+.domainTitleTI{
+	position: relative; 
+	top: 5px;  
+    font-weight: 600;
+    letter-spacing: 1.2px;
+
+}
+.innerDomainSU{
+    position: relative;
+    height: 88px;
+    top: 20px;
+    left: 25.6%;
+}
+.domainTitleSU{
+	position: relative; 
+	top: 18px;  
+    font-weight: 600;
+    letter-spacing: 1.2px;
+
+}
+
+/*dash ===== ======================== =============*/
+.dashBoxID{
+  list-style: none;
+  position: relative; 
+  left: 21px;
+  top: 10px;
+}
+.dashBoxID li{
+  float: left;
+}
+.dash1ID,.dash3ID {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+.dash1ID{
+    margin-left: 29px;
+}
+.dash2ID{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+.industrydomain{
+    height: 100px; 
+    margin-top: 1px!important;  
+    text-align: center;
+    /* background-color: salmon; */
+
+}
+.hmaintitle{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+    margin-top: 14px;
+}
+
+/* =========================================Media Query========================================================== */
+@media (max-width:767px){
+    .industryDomainsHt{
+        height: 1900px;
+       
+
+
+    }
+.hmaintitle{
+        font-size: 36px;
+        margin-top: 50px;
+    } 
+    .dash1ID{
+        margin-left: 61px;
+    }  
+    .xsview{
+        height: 100px;
+        margin-top: -6px;
+               
+    
+    } 
+    .idcol1{
+        width:118%;
+        margin-left: -9%;
+        height: 166px;
+        
+
+    }
+    .iDomainBlock{
+        height: 1700px;
+        
+    }
+    .xshmview{
+        font-size: 24px;
+        margin-top: -31px;
+
+        
+
+    }
+    .xshmview00{
+        font-size: 24px;
+        margin-top: -31px;
+
+        
+    }
+    .xshmview000{
+        font-size: 24px;
+        margin-top: -31px;
+
+    }
+
+}
+
+
+/*  /  /  / /  /  / / /  / Dash   /   /   / /   /   /   /   /   /   /  / / /*/
+/*===================================================================================*/
+/*===================================================================================*/
+/*============================ Mobile view ==========================================*/
+/*===================================================================================*/
+/*===================================================================================*/
+.xsindustryDomainsHt{
+    height: 1850px;
+    /*margin-top: -200px;*/
+    background-color: #f1f1f2;
+    width: 100%;
+}
+
+.xsiDomainBlock{
+    height: 850px;
+    /*background-color: #aaa;*/
+    position: relative;
+}
+.xsidcol1{
+    height: 180px;
+    background-color: #fff;
+    /*border-radius: 10px;*/
+    position: relative;
+    top: 25px;
+    margin-bottom: 7px;
+    box-shadow: 2px 2px 20px 5px #dad6d6;
+}
+
+.xsinnerDomain{
+    position: relative;
+    height: 45px;
+    top: 30px;
+    left: 35px;
+}
+.xsinnerDomain1{
+
+    position: relative;
+    height: 65px;
+    top: 30px;
+    left: 75px;
+}
+.xsinnerDomain2{
+    position: relative;
+    height: 63px;
+    top: 30px;
+    left: 50px;
+}
+.xsinnerDomain3{
+    position: relative;
+    height: 50px;
+    top: 50px;
+    margin-bottom: 8px;
+    left: 45px;
+}
+.xsdomainTitle{
+    position: relative;
+    top: 25px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+.xsdomainTitle1{
+    position: relative;
+    top: 25px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+
+.xsinnerDomainRE {
+    position: relative;
+    height: 86px;
+    top: 17px;
+    left: 59px;
+}
+.xsdomainTitleRE{
+        position: relative;   
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+.xsinnerDomainED {
+    position: relative;
+    height: 78px;
+    top: 36px;
+    left: 70px;
+}
+.xsdomainTitleED{
+    position: relative; 
+    top: 10px;  
+    font-weight: 600;
+    letter-spacing: 1.2px;
+
+}
+.xsinnerDomainTL {
+    position: relative;
+    height: 66px;
+    top: 32px;
+    left: 69px;
+}
+.xsdomainTitleTI{
+    position: relative; 
+    top: 25px;  
+    font-weight: 600;
+    letter-spacing: 1.2px;
+
+}
+.xsinnerDomainSU{
+    position: relative;
+    height: 60px;
+    top: 38px;
+    left: 59px;
+}
+.xsdomainTitleSU{
+    position: relative; 
+    top: 33px;  
+    font-weight: 600;
+    letter-spacing: 1.2px;
+
+}
+
+/*dash ===== ======================== =============*/
+.xsdashBox{
+  list-style: none;
+  position: relative; 
+  left: 25px;
+  top: 10px;
+}
+.xsdashBox li{
+  float: left;
+}
+.xsdash1,.xsdash3 {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+.xsdash2{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+
+/*===================================================================================*/
+/*===================================================================================*/
+/*============================ Mobile view ==========================================*/
+/*===================================================================================*/
+/*===================================================================================*/

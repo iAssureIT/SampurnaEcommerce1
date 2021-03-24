@@ -1,0 +1,121 @@
+.align_center{
+    text-align: center;
+}
+.freshFoodBlock{
+    margin-top: 100px;
+    text-align: center;
+}
+.title_choose {
+    margin-bottom: 10px;
+    margin-top: 30px;
+    text-align: center;
+}
+.freshFood .title_choose h3 span {
+    font-weight: 300 !important;
+}
+.freshFood .title_choose h3 {
+    font: 700 48px/50px "Roboto Slab";
+    color: #2b2b2b;
+    text-transform: inherit;
+    margin-bottom: 20px;
+}
+.freshFood .title_choose p {
+    max-width: 760px;
+    font: 400 16px/25px "Roboto Slab";
+    color: #666;
+    margin: 0 auto;
+}
+.border_choose {
+    background: url("/images/bg-border_choose.png") repeat-x scroll center;
+    background-repeat: no-repeat;
+    height: 6px;
+    margin: auto;
+    max-width: 480px;
+    text-align: center;
+    margin-top: 30px;
+}
+.freshFood .border_choose .images {
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+    background: #fff;
+    margin-top: -10px;
+}
+.freshFood{
+    background: #fff !important;
+    height: 550px;
+}
+.shippingBlock {
+    box-shadow: none;
+    margin-top: 30px;
+    padding: 0px;
+    background: none;
+}
+.shippingBlock .border {
+    border: 1px solid #e5e5e5;
+    padding: 35px 0px;
+    text-align: center;
+}
+.shippingBlock h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #231f20;
+    font-weight: 700;
+    line-height: 20px;
+    font-family: "Roboto Slab";
+    margin-top: 10px;
+}
+.shippingBlock p {
+    font-family: "Roboto Slab";
+    font-size: 10px;
+    font-weight: 400;
+    /* color: #979777; */
+    color: #333;
+    line-height: 15px;
+}
+.zoom:hover, .zoom:active, .zoom:focus {
+    transform: scale(1.2);
+}
+.freshfoodImg{
+    margin-top: 40px;
+    padding-left: 40px;
+    height: 400px;
+}
+
+@media only screen and (max-device-width: 480px) {  
+    .freshFood .title_choose h3{
+        font: 700 31px/50px "Roboto Slab";
+    }
+    .freshfoodImg{
+        margin-top: 100px;
+        padding-left: 15px;
+    }
+    .shippingBlock h3{
+        font-size: 11px;
+    }
+    .shippingBlock p{
+        font-size: 8px;
+    }
+    .flatSaleBlock {
+        font: 300 20px/50px "Roboto Slab";
+        margin-left: 0px;
+    }
+}
+
+
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+  /* Styles */
+.freshfoodImg{
+    margin-top: 150px;
+}
+.freshFood .title_choose h3{
+    font: 700 35px/50px "Roboto Slab";  
+}
+.freshFoodBlock{
+    padding: 40px;
+}
+}
+

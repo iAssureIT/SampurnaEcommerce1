@@ -1,0 +1,183 @@
+.galleryTable{
+    margin-top: 30px ;
+}
+.galleryTable thead{
+    text-align: center;
+}
+.editCategoryBtn {
+    background: #dd4b39;
+    color: #fff;
+    cursor: pointer;
+    padding: 3px 0px;
+}
+
+.subCatAddLabel {
+    margin-top: 10px;
+}
+
+.categoryListImage{
+    display: flex;
+    justify-content: center;
+}
+
+.categoryListImagePre {
+    /* width: 70px;
+    height: 70px; */
+    overflow: hidden;
+}
+
+.categoryImageShow {
+    width: 100%;
+}
+
+.horizBorderCtgEdit {
+    border: none;
+    background: #266fb9;
+    height: 4px;
+}
+
+.editCatgFromTitle{
+    background: #dd4b39;
+    padding: 10px 0px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.addNewCatgBtn {
+    padding: 5px 20px;
+    background: #00a65a;
+    color: #fff;
+    cursor: pointer;
+}
+
+.addNewCatgBtn:hover {
+    background: #00a65a;
+    color: #fff;
+}
+
+.catgImagUpld2 {
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+}
+
+.catgImagUpld3 {
+    width: 100%;
+    height: 100%;
+}
+
+.editAddNewSubCatgInput{
+    background: #555;
+    /* margin-top: 10px; */
+    color: #fff;
+    padding: 10px 0px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.catgImagUpld1 {
+    margin-top: 10px;
+}
+
+.newSubCatgArr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.edit-cancel-catg {
+    padding: 5px 50px;
+    background: #dd4b39;
+    color: #fff;
+}
+.edit-cancel-catg:hover {
+    background: #dd4b39;
+    color: #fff;
+}
+
+.addCategoryNewBtn1, .addCategoryNewBtn2 {
+    display: inline-block !important;
+}
+
+.addCategoryNewBtn2{
+    margin-left: 5px;
+}
+
+.divideCatgRows {
+    margin-bottom: 10px;
+}
+
+.uploadedImageFromLoclCatg1{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.uploadedImageFromLoclCatg2 {
+    padding-right: 0;
+}
+
+.uploadedImageFromLoclCatg3{
+    width: 30%;
+    height: 30%;
+    margin-bottom: 10px;
+}
+.categoryImage{
+   /* display: none;*/
+}
+.categoryIcon{
+    display: none;
+}
+.categoryTempImage{
+    display: none;
+}
+.categoryTempIcon{
+    display: none;
+}
+#categoryImage{
+    cursor: pointer;
+}
+#categoryIcon{
+    cursor: pointer;
+}
+.categoryImg{
+    margin-bottom: 20px;
+    height: 100px;
+    border: 1px solid #3333333b;
+}
+.deleteSubCategory{
+    background: #dd4b39;
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 9px 12px;
+}
+.deleteSubCategory:hover{
+    opacity: 0.89;
+}
+.categoryImage{
+	border-radius: 10px;
+	height: 165px;
+	border: 1px solid #eee;
+    /* background: #aaa; */
+	width: 165px;
+	background-size: 100%;
+}
+.imgUp{
+	cursor: pointer;
+	opacity: 0;
+	height: 163px;
+    background: #333;
+}
+.btnSubmit{
+    margin-top: 10px;
+}
+.sideways{
+    margin-top: 30px;
+}
+.btnWrapper{
+    margin-right: 120px;
+}
+.adminModal-content{
+    margin-top: 150px;
+}

@@ -1,0 +1,245 @@
+ .pagewrapperheight{
+    height: 850px;
+    background-color:#FFF;        
+} 
+ .bgwrapperheight{
+    height:850px ;
+    width: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+} 
+ .dashwrapp{
+   height: 20px;
+   margin-top: 117px;
+}
+.dashBox1{
+  list-style: none;
+  margin: auto;
+}
+.dashBox1 li{
+ float: left;
+}
+.dash01,.dash03{
+  height: 1px;
+  width: 20px;
+  margin:2px;
+  border: 2px solid #f1f1f1!important;
+  border-radius: 10px;
+}
+.dash02{
+  height: 1px;
+  width: 50px;
+  margin:2px;
+  border: 2px solid #f1f1f1!important;
+  border-radius: 10px;
+}
+.titlewrapper1{
+  height: 108px;
+  text-align: center;
+  margin-top: 3px;
+ }
+ 
+.h1title00{
+  font-size: 46px;
+  font-family: 'Montserrat', sans-serif;
+  color: #f1f1f1;
+
+ }
+ .maincontentwrapper{
+  height: 400px;
+  margin-top: -12px;
+  display: flex;
+    
+ }
+ .contentframework{
+   height: 370px;
+}
+ .hdescription{
+   font-size: 18px;
+   font-family: 'Montserrat', sans-serif;
+   margin-left:12%;
+   color: #f1f1ff;
+   letter-spacing: 0.5px;
+   font-weight: 550; 
+ }
+ 
+ .ftracermore{
+  font-size: 22px;
+  font-family: 'Montserrat', sans-serif;
+  margin-left:12%;
+  color: #f1f1f1;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f1f1!important;
+  width: 18%!important;
+ }
+.arrow{
+  height: 100px;
+  width: 30%;
+  margin-top: -40px; 
+  margin-left: 192px!important;
+  font-size:30px;
+  color: #f1f1f1;
+}
+.imageframework{
+  height: 370px;
+}
+.sideimageftrack{
+    height: 390px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin-left: 60px;
+} 
+/* =======================================Media Query==================================================== */
+    @media (min-width:992px) and (max-width:1200px){
+        .pagewrapperheight{
+            height: 970px;
+            
+        } 
+         .bgwrapperheight{
+            height:980px!important ;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        .dashwrapp{
+            height: 20px!important;
+            margin-top: 161px!important;
+        }
+        .dashBox1{
+            margin-top: -12px!important;
+        }
+        .dash01{
+            margin-left: -25%!important;
+        }
+        .titlewrapper1{
+            height: 100px!important;
+        }
+        .maincontentwrapper{
+            height: 450px!important;
+            margin-top: 10px!important;
+        }
+        .contentframework{
+            height: 390px!important;
+        }
+          .hdescription{
+            text-align: justify; 
+            margin-left:10%!important; 
+        }
+        .imageframework{
+            height: 450px!important;
+        }
+        .sideimageftrack{
+             margin-left: 20px!important;
+        } 
+    
+
+    }
+ @media  (min-width:768px) and  (max-width:991px){
+    .pagewrapperheight{
+        height: 1611px;
+        
+    } 
+     .bgwrapperheight{
+        height:1650px ;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    .dashwrapp{
+        height: 20px!important;
+        margin-top: 301px!important;
+    }
+    .dashBox1{
+        margin-top: -12px!important;
+    }
+    .dash01{
+        margin-left: 40%!important;
+    }
+    .titlewrapper1{
+        height: 100px!important;
+    } 
+    .maincontentwrapper{
+        height: 900px!important;
+        margin-top: 0px!important; 
+        
+    }
+    .contentframework{
+        height: 390px!important;
+       
+        
+     }
+      .hdescription{
+        text-align: justify; 
+        margin-left:0%!important; 
+    }
+    .imageframework{
+        height: 500px!important;
+       
+      }
+      .sideimageftrack{
+        height: 480px!important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        box-sizing: border-box;
+    }
+   
+ } 
+
+@media (max-width:768px){
+    .pagewrapperheight{
+        height: 1670px!important;  
+    }  
+    .bgwrapperheight{
+       height:1650px ;
+       background-size: 200% 103%; 
+       margin-top: -168px;
+    }
+     .dashwrapp{
+        height: 20px!important;
+        margin-top: 70px!important;
+    }
+    .dashBox1{
+        margin-top: -12px!important;
+    }
+    .dash01{
+        margin-left: 24%!important;
+    }
+    .titlewrapper1{
+        height: 150px!important;
+    } 
+    .h1title00{
+        font-size: 23px!important;
+             
+       }
+      
+    .maincontentwrapper{
+        height: 900px!important;
+        margin-top: -56px!important;
+        
+    }  
+    .contentframework{
+        height: 520px!important;
+     }
+      .hdescription{
+       text-align: justify;
+       margin-left:0%!important;
+    } 
+    .imageframework{
+        height: 300px!important;
+        margin-top: 80px;
+      }
+      .sideimageftrack{
+        height: 300px!important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin-left: 0px!important;
+        margin: auto;
+        box-sizing: border-box;
+    }
+       
+      
+
+    
+   
+   
+ 
+ }
+     

@@ -1,0 +1,366 @@
+.endpossibwrapper{
+    height: 550px;
+    background-color:#fff;
+    font-family: 'Montserrat', sans-serif;
+}
+.endlessPossibilityDashWrapper{
+    height: 10px;
+}
+.endlessPossibilityDashWrapper ul{
+    list-style: none;
+}
+.endlessPossibilityDashWrapper ul li{
+  float: left;
+}
+.endlessPossibilityDashWrapper .dash1{
+    height: 1px;
+    width: 20px;
+    margin: 2px 2px 2px 40px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.endlessPossibilityDashWrapper .dash2{
+    height: 1px;
+    width: 50px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.endlessPossibilityDashWrapper .dash3{
+    height: 1px;
+    width: 20px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+  
+
+.circles li:nth-child(6){
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles li:nth-child(7){
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles li:nth-child(8){
+    left: 55%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles li:nth-child(9){
+    left: 20%;
+    width: 35px;
+    height: 35px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles li:nth-child(10){
+    left: 85%;
+    width: 120px;
+    height: 120px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+
+.circles li:nth-child(11){
+    left: 65%;
+    width: 90px;
+    height: 90px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+
+.circles li:nth-child(12){
+    left: 85%;
+    width: 180px;
+    height: 180px;
+    animation-delay: 0s;
+    animation-duration: 15s;
+}
+
+.circles li:nth-child(13){
+    left: 0%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration:20s;
+}
+
+.circles li:nth-child(14){
+    left: 10%;
+    width: 200px;
+    height: 200px;
+    animation-delay: 0s;
+    animation-duration: 16s;
+}
+
+@keyframes animate {
+
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+
+}
+.dashboxwrapper{
+    height: 20px;
+}
+
+.dashBox{
+list-style: none;
+margin-top: -10px;
+}
+
+.dashBox li{
+float: left;
+}
+
+.dash1{
+height: 1px;
+width: 20px;
+margin:2px 2px 2px 10px;
+border: 2px solid #376bff;
+border-radius: 10px;
+}
+
+.dash2{
+height: 1px;
+width: 50px;
+margin:2px;
+border: 2px solid #376bff;
+border-radius: 10px;
+}
+
+.dash3 {
+height: 1px;
+width: 20px;
+margin:2px;
+border: 2px 2px solid #376bff;
+border-radius: 10px;
+}
+
+.endmainrow{
+    height: 100px;
+}
+
+.h1titleless{
+    font-size: 46px;
+    color: #555555;
+    margin: auto;
+    margin-top: 14px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.endlesscontentwrapper{
+    height: 450px;
+    margin-top: -27px;
+    
+}
+.enpsbcontent{
+    height: 450px;
+    /* background-color: darkgoldenrod; */
+}
+.headingtitle{
+    height: 100px;
+}
+
+.mobileappd{
+    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 12%;
+    color: #555555;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    padding-top: 50px;
+}
+.paragraphendpsb01{    
+    font-size: 16px;
+    font-weight: 550;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+    text-align: justify;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+    margin-left: 80px;
+}
+
+.enspsbrmrr{
+    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+    margin-left:12%; 
+    color: #376BFF;
+    cursor: pointer;
+    border-bottom: 1px solid #376BFF!important;
+    width: 18%;    
+}
+   .arrowenspsb{
+    height: 100px;
+    width: 30%;
+    margin-top: -40px;
+    margin-left: 192px; 
+    font-size: 30px;
+    color: #376BFF;
+    padding-top: -10px;
+   }
+   .rightsideendpsbfw{
+    height: 450px;
+    /* background-color: cadetblue; */
+       
+    }
+    .rightsideimgendpsw{
+        height: 425px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin: auto; 
+         /* margin-top: -51px;   */
+         /* margin-left: -8%; */
+    }
+ /* ====================================================Media Query==================================================================    */
+ @media (min-width:992px) and (max-width:1200px){
+    .endpossibwrapper{
+        height: 645px!important;
+        background-color: forestgreen!important;
+    }
+    .dashboxwrapper{
+        height: 20px;
+    }
+     .dashBox {
+        margin-top: 5px!important;
+    } 
+     .dash1{
+      margin-left:-25%!important;
+    } 
+    .endmainrow {
+        height: 108px;
+    }
+   
+ 
+
+ }
+ @media (min-width:768px) and (max-width:991px){
+    .endpossibwrapper{
+        height: 962px!important;
+    }
+     .dashboxwrapper{
+        height: 20px;
+    }
+    .dashBox {
+        padding-top: 5px!important;
+    }
+    .dash1{
+      margin-left:40%!important;
+    } 
+    .endmainrow{
+        height: 86px!important;
+    
+        
+    }
+    .endlesscontentwrapper{
+        height: 829px!important;
+        margin-top: 0px!important;
+    
+        
+        
+    }
+    .enpsbcontent{
+        height: 370px!important;
+        
+        
+    }
+    .paragraphendpsb01{
+        margin-left: 0%!important;
+        text-align: justify;
+    }
+    .rightsideendpsbfw{
+        height: 450px!important;
+        margin-top: 0px!important;
+        
+        
+           
+        }
+        .rightsideimgendpsw{
+            height: 500px;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+                       
+        }
+
+    
+
+
+ }
+    @media(max-width:767px){
+        .endpossibwrapper{
+            height: 1250px!important;
+        }
+        .dashboxwrapper{
+            height: 20px;
+        }
+        .dashBox {
+            padding-top: 5px!important;
+        }
+        .dash1{
+          margin-left:22%!important;
+        }
+        .endmainrow{
+            height: 86px!important;
+            
+        }
+        .h1titleless{
+            font-size: 25px!important;
+        }
+        .endlesscontentwrapper{
+            height: 1100px!important;
+            margin-top: 0px!important;
+            
+            
+        }
+        .enpsbcontent{
+            height: 650px!important;
+            
+        }
+        .paragraphendpsb01{
+            margin-left: 0%!important;
+            text-align: justify;
+        }
+        .rightsideendpsbfw{
+            height: 450px!important;
+            margin-top: 0px!important;
+            
+               
+            }
+        .rightsideimgendpsw{
+                height: 500px;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                margin-top: -100px!important;
+                           
+        }
+        
+   }
+
+
+
+ /* =======================================================Media Query end============================================================== */
+    
+
+

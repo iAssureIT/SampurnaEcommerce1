@@ -1,0 +1,113 @@
+
+.MenuDesignTitle{
+    text-align: center;
+    font-size: 25px;
+    margin: 30px 0px;
+    border-bottom: solid 2px #ccc;
+    padding-bottom: 30px;
+}
+.multilevelMenuWrapper{
+    background-image: url("/images/multilevelMenuBgImg.jpg");
+    height: 800px;
+}
+.multilevelMenuWrapper .navbar{
+    height: 100px;
+    background: transparent;
+}
+.multilevelMenuWrapper .container-fluid{
+    margin-top: 20px;
+}
+.navbar-inverse .navbar-nav>.open>a{
+    background-color: transparent !important;
+}
+.multilevelMenuWrapper .dropdown:hover >:first-child{
+    color: #fff !important;
+}
+.multilevelMenuWrapper .mutilevelDropdown1,
+.multilevelMenuWrapper .mutilevelDropdown2,
+.multilevelMenuWrapper .mutilevelDropdown3,
+.multilevelMenuWrapper .mutilevelDropdown4{
+    opacity:0;
+    visibility: hidden;
+    position:absolute;
+    z-index: 200;
+    width: 200px;
+    padding: 9px 10px;
+    background-color: #000;
+    color:#fff !important;
+    border: none !important;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+.multilevelMenuWrapper .parentMenu a,
+.multilevelMenuWrapper .dropDownLevel1 a{
+    color: #fff !important;
+    text-transform: capitalize;
+    font: 700 18px/40px "Roboto Slab"!important
+}
+.multilevelMenuWrapper .mutilevelDropdown1 li a{
+    color: #fff !important;
+    text-transform: capitalize;
+    font: 700 13px/40px "Roboto Slab"!important;
+    padding-left:10px !important;
+}
+.dropDownLevel2:hover .mutilevelDropdown2,
+.dropDownLevel3:hover .mutilevelDropdown3,
+.dropDownLevel4:hover .mutilevelDropdown4{
+    opacity: 1;
+    visibility: visible;  
+    display: block;
+}
+ .dropDownLevel1:hover .mutilevelDropdown1
+ .dropDownLevel1:hover .megamenu-dropDown{
+    display: block; 
+    opacity: 1;
+    visibility: visible;
+}
+.multilevelMenuWrapper .mutilevelDropdown1{
+    width: auto !important;
+}
+.multilevelMenuWrapper .mutilevelDropdown2{
+    left:0px;
+    top:30px;
+    visibility: visible;
+    opacity: 1;  
+
+    /* top: 0px; */   
+}
+.dropDownLevel1:hover .megamenu-dropDown{
+    display: block; 
+    opacity: 1;
+    visibility: visible;
+}
+.megamenu-dropDown{
+    visibility: hidden;
+    opacity: 0;
+    position:static;
+    height: 280px;
+    /* height: auto; */
+    width: 700px;
+    background-color: #000;
+}
+.multilevelMenuWrapper .mutilevelDropdown1 li a,
+.multilevelMenuWrapper .mutilevelDropdown2 li a,
+.multilevelMenuWrapper .mutilevelDropdown3 li a,
+.multilevelMenuWrapper .mutilevelDropdown4 li a{
+    /* width: 100%; */
+    padding: 0px 10px;
+}
+.multilevelMenuWrapper .mutilevelDropdown1{
+    /* margin-top: 10px !important; */
+}
+.multilevelMenuWrapper .mutilevelDropdown1 li a:hover,
+.multilevelMenuWrapper .mutilevelDropdown2 li a:hover{
+    background-color: #000;
+}
+.multilevelMenuWrapper .levelOneDropdown{
+    width: 250px;
+}
+.megamenuColumn{
+    /* background-color: #000; */
+    /* height: 280px; */
+}

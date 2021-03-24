@@ -1,0 +1,113 @@
+.b1 {
+  border: 2px dashed  black !important;
+  background-color: white !important;
+  color: black;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer !important;
+  margin-top: 25px;
+  outline: none !important;
+  outline: none !important; 
+  outline-offset: 0px !important;
+}
+
+.editIcon{
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 10px;
+  font-size: 18px;
+
+  z-index: 1;
+}
+
+.editIcon:hover{
+  color: #00f;
+  /*font-size: 18px;*/
+}
+.deletbtnIcon:hover{
+  color: #f00;
+  /*font-size: 18px;*/
+}
+.deletbtnIcon{
+  transition: 0.3s;
+  font-size: 18px;
+
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 20px;
+  z-index: 1;
+
+}
+
+#cnBlock  a[aria-expanded="true"] {
+    color: #fff;
+     background: transparent !important; 
+     border-left: none !important;
+    margin-bottom: 1px;
+}
+
+.bgcolorO{
+  /*background-color: #fdf3e1 !important;*/
+  margin-top: 20px;
+  border-bottom: 2px solid #ff6600;
+}
+.bgPanelHead{
+  background-color: #fff !important;
+}
+.AddBlockbtn{
+  border-radius: 20px;
+  margin-bottom: 5px;
+}
+.padd1520{
+  padding: 15px 15px 25px 30px;
+/*  background-image: url("https://i.pinimg.com/564x/98/44/8c/98448ce0204de8bc3e938bed3ab0f019.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;*/
+}
+.br20{
+  border-radius: 20px;
+}
+.BoxLaoutAddblock1{
+  background-color: #fff;
+  margin: 5px 0px;
+}
+.cloneBtn{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.compBorderPadd5{
+  padding: 5px 0px;
+  /*border: 2px solid;*/
+}
+.bottomBorder2px{
+  border-bottom: 1px solid #999;
+  margin-bottom: 5px;
+}
+
+.ml15{
+    margin-left: 15px;
+}
+.fs15{
+  font-size: 16px;
+}
+#collaspePanelID a{
+  color: #fff;
+}
+.pagetypeOFblocks .hinput30{
+      height: 30px !important;
+    margin: 5px 0px;
+}

@@ -1,0 +1,65 @@
+.contactHeader{
+  color: #fff;
+  font-size: 25px;   
+  padding: 5px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  background-color: 
+}
+.contactformBtn{
+  font-weight: 600;
+  padding: 10px 20px;
+  margin-top: 15px;
+  color: #fff
+}
+.cuformWall{
+	height: 500px;
+	/*background-color: #aaa;*/
+}
+.cuformWall h1, .cuformWall h3, .cuformWall p{
+    color: #555;
+}
+.bt30{
+		margin-bottom:  10px;
+	}
+.sbtn{
+    /*background: -webkit-linear-gradient(left,#ffc600 0%,#ff4200 50%,#ffc600 100%);*/
+    color: #FFF!important;
+}
+.sbtn:focus{    
+    border: none !important;
+    box-shadow: none !important;
+}
+.ContactmodalContent{
+  /*background-image: linear-gradient(to bottom right,#f19000d9,rgba(241, 144, 0, 0.45)); */
+  margin-top: 5%;
+  background: #fff;
+  border-radius: 04px;
+  border :none;
+  height: 550px;
+  z-index: 15000;
+}
+.padd10{
+  padding-top: 10px;
+}
+.panel-title>.small, .panel-title>.small>a, .panel-title>a, .panel-title>small, .panel-title>small>a {
+    color: #f57507;
+    font-weight: 550;  
+}
+
+
+.inputtextContent{
+  border: 1px solid #ccc;    
+}
+.closeBtn{
+  font-size: 35px;
+  padding-right: 15px !important;
+  color: #000;
+}
+
+.cancelBtn{
+  background-color: #999;
+}
+.cancelBtn:hover{
+  background-color: #666;
+}

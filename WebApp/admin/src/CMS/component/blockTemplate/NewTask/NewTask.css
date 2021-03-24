@@ -1,0 +1,38 @@
+.pageWrapperMain{
+    /* background-color: lightcoral; */
+    height: 900px;
+}
+
+.boxWrapper{
+    padding:0;
+}
+.pageWrapper{
+    padding-right: 10px;
+}
+ .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #aaa;
+    margin: 0px 0;
+    padding: 10px;
+    width: 100%;
+    min-height: 200px;
+    border: 10px palevioletred solid;
+    color: #fff;
+  }
+
+
+  .inner-img {
+    transition: 1s;
+    position: absolute;
+    height: 182px;
+    width: 235px;
+  }
+  
+  .inner-img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  
+ 

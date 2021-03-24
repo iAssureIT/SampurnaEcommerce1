@@ -1,0 +1,11 @@
+.listOfMenuDesigns{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.menulist{
+    padding: 20px;
+    text-align: center;
+    border: dotted 1px #ccc;
+    margin-bottom: 10px;
+    cursor: pointer;
+}

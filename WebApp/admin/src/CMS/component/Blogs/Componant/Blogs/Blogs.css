@@ -1,0 +1,134 @@
+.blogContainer{
+	height: auto;
+}
+
+.miniDiv1Filter img {
+    transform: scale(1);
+    cursor: pointer;
+    height: 170px;
+    width: 100%;
+    transition-duration: 0.5s;
+}
+.miniDiv1Filter{
+      overflow: hidden;
+    height: 140px;
+}
+.miniDiv1Filter:hover img{
+  transform: scale(1.1);
+  cursor: pointer !important;
+  transition-duration: 0.5s;
+}
+.miniDiv1Filter:hover .miniFilterTextDiv{
+	opacity: 1;
+	    transition-duration: 0.5s;
+
+
+}
+.miniDiv1Filter:hover .miniFilterTextDiv1{
+	opacity: 0;
+	    transition-duration: 0.5s;
+
+
+}
+.margins{
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+}
+.miniFilterTextDiv{
+	position: absolute;
+	height: 200px;
+	opacity: 0;
+	z-index: 1000;
+	transition-duration: 0.5s;
+ font-family:'Montserrat',sans-serif;
+	text-align: center;
+	background-color: rgba(0,0,0,0.9);
+	margin-top: -200px;
+	padding: 50px;
+    cursor: pointer;
+	color: #fff;
+}
+.miniFilterTextDiv label{
+    font-size: 20px;
+    padding-top: 20px; 
+    line-height: 5px;
+    color: #fff;
+}
+.miniFilterTextDiv1{
+	position: absolute;
+	height: 200px;
+	opacity: 1;
+	z-index: 1000;
+	transition-duration: 0.5s;
+ font-family:'Montserrat',sans-serif;
+    cursor: pointer;
+
+	text-align: center;
+	background-color: rgba(0,0,0,0.6);
+	margin-top: -174px;
+	padding: 60px;
+	color: #222;
+}
+.miniFilterTextDiv1 label{
+    font-size: 20px;
+    padding: 15px; 
+    line-height: 20px;
+    color: #fff;
+}
+.shopNowButtonFilters{
+    height: 36px;
+    color: #fff;
+    font-size: 13px;
+    border:1px #fff solid;
+    padding: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    font-weight: bold;
+   	box-shadow: inset 0 0 0 0 #fff;
+    transition: 0.5s all ease-in-out;
+}
+.shopNowButtonFilters:hover{
+  box-shadow: inset 100px 0px 1px 0 #fff !important;
+    box-shadow: inset 0px 100px 1px 0 #fff;
+    cursor: pointer;
+    transition: 0.5s all ease-in-out;
+}
+
+.pad20{
+	padding-top: 20px !important;
+}
+.blogHeading{
+    font-size: 22px;
+    font-weight: bold;
+     font-family:'Montserrat',sans-serif;
+        color: #201A47;
+text-align: center;
+padding: 10px;
+}
+.imgContainerBlog{
+        height: 180px !important;
+     font-family:'Montserrat',sans-serif;
+        overflow: hidden;
+
+}
+.imgContainerBlog img {
+    border: none !important;
+    height: 150px;
+}
+.imgContainerBlog label{
+    font-size: 16px;
+    padding-top: 5px;
+}
+.imgContainerBlog p{
+    font-size: 14px;
+    padding-top: 5px;
+}
+.imgContainerBlog a{
+    font-weight: bold;
+    color:#376bff !important;
+}
+.boxShadow{
+       z-index: 0 !important;
+       box-shadow:  2px 2px 2px 2px #aaa !important;
+
+}

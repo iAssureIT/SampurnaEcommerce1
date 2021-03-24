@@ -1,0 +1,150 @@
+.banerpageheight{
+	height: 740px;
+	 background-color: #fff!important;   
+}
+.banerSBheight{
+	height: 735px;
+	width: 100%;
+	background-size: 100% 100%;
+}
+.logoBox{
+	position: absolute;
+	z-index: 50;
+
+}
+.logo{
+	position: absolute;
+    top: 45px;
+    left: 90px;
+}
+.mtop100SB{
+	height: 300px;
+	width: 100%;  
+	margin-top: 219px;
+	color: #fff;
+	padding-left: 55px;
+}
+.h1TitleSB{
+	font-size: 40px;
+	letter-spacing: 1px;
+	font-family: 'Roboto Condensed', sans-serif;
+	margin-left: 30px;
+
+}
+.h2TitleSB{
+   font-size: 60px;
+    line-height: 1;
+    letter-spacing: 2.5px;
+	font-family: 'Roboto Condensed', sans-serif;
+	margin-left: 25px;
+
+	
+}
+.h3TitleSB{
+	font-size: 24px;
+	letter-spacing: 1px;
+	font-family: 'Roboto Condensed', sans-serif;
+	margin-left: 27px;
+}
+.bannerImgSB{
+	height: 475px;
+	margin-top: 54px;
+}
+/* ============================================Media Query=============================================== */
+@media (min-width:992px) and (max-width:1200px){
+	.h3TitleSB{
+		font-size: 19px!important;
+	}
+}
+@media (min-width:768px) and (max-width:991px){
+	.banerpageheight{
+		height: 1316px!important;
+	  
+	}
+	.banerSBheight{
+		height: 1328px!important;
+		
+	}
+	.mtop100SB{
+		margin-top: 183px!important;
+		
+	} 
+	.h1TitleSB{
+	   margin-left: -10px!important;
+	
+	}
+	.h2TitleSB{
+		margin-left: -10px!important;
+
+    }
+	 .h3TitleSB{
+		 margin-left: -10px!important;
+	}
+	.bannerImgSB{
+		height: 475px;
+		margin-top: 0px!important;
+		margin-left: 16%;
+	}
+}
+@media (max-width:767px){
+	.banerpageheight{
+		height: 1016px!important;
+		  
+	}
+	.banerSBheight{
+		height: 1028px!important;
+		width: 100%;
+		background-size: 100% 100%;
+	}
+	.mtop100SB{
+		height: 182px!important;
+		margin-top: 123px!important;
+		color: #fff;
+		margin-left: -5px;
+		
+	}
+	.h1TitleSB{
+		font-size: 29px!important;
+        margin-left: -53px!important;
+	
+	}
+	.h2TitleSB{
+		font-size: 29px!important;
+	    margin-left: -53px!important;
+	 }
+	 .h3TitleSB{
+		 font-size: 14px!important;
+		margin-left: -53px!important;
+	}
+	.bannerImgSB {
+		
+		 margin-top: 0px!important;
+	}
+	
+	 
+	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+.WantStartProjectWrap{
+	height: 479px;
+	/*position: relative;*/
+	/*background-color: #fff;*/
+	background-size: 100% 100%;
+	color: #fff;
+	margin-top:60px;
+}
+.wantStartProjectTitle{
+	margin-top: 22%;
+	margin-left: 84px;
+}
+.wantStartProjectTitle h1{
+	z-index: 1000;
+	font-size: 46px;
+    font-family: 'Montserrat', sans-serif!important;
+    color: #f1f1f1;
+    letter-spacing: 3px;
+    font-weight: 1000;
+}
+.DescFontWSP{
+	z-index: 1000;
+	font-size: 20px;
+	line-height: 1.45;
+	font-family: 'Montserrat',sans-serif!important;
+    color: #f1f1f1;
+
+}
+.wspbox_imga1{
+	z-index: 1;
+	height: 400px;
+	position: relative;
+    /* top: -35px; */
+    margin-left: 84px;
+}

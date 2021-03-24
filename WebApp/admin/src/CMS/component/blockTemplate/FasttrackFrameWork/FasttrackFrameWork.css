@@ -1,0 +1,220 @@
+.fasttrackFrameworkWrapper{
+    height: 750px;
+	margin: 0px;
+    padding: 0px;
+}
+.fasttrackFrameworkBgImage{
+    height: 750px;
+    background-color: #fff;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-family: 'Montserrat', sans-serif;
+}
+.fasttrackFrameworkDashWrapper{
+    height: 10px;
+    margin-top: 150px;
+}
+.fasttrackFrameworkDashWrapper ul{
+    list-style: none;
+}
+.fasttrackFrameworkDashWrapper ul li{
+  float: left;
+}
+.fasttrackFrameworkDashWrapper .dash1{
+    height: 1px;
+    width: 20px;
+    margin: 2px 2px 2px 40px;
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+}
+.fasttrackFrameworkDashWrapper .dash2{
+    height: 1px;
+    width: 50px;
+    margin: 2px;
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+}
+.fasttrackFrameworkDashWrapper .dash3{
+    height: 1px;
+    width: 20px;
+    margin: 2px;
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+}
+.fasttrackFrameworkTitleWrapper{
+    height: 108px;
+    text-align: center;
+    margin-top: 3px;
+}
+.fasttrackFrameworkTitle1{
+    font-size: 46px;
+    font-family: 'Montserrat', sans-serif;
+    color: #f1f1f1;
+    margin: auto;
+    margin-top: 14px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.fasttrackFrameworkTextNImageWrapper{
+    height: 750px;
+    margin-top: -12px;
+}
+.fasttrackFrameworkTextWrapper{
+    height: 750px;
+}
+.fasttrackFrameworkText1{
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 550;
+    color: #f1f1ff;
+    text-align: justify;
+    letter-spacing: 0.5px;
+    margin-left: 110px;
+    margin-right: 20px;
+}
+.fasttrackFrameworkImageWrapper{
+    height: 750px;
+}
+.fasttrackFrameworkImage{
+    height: 370px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin: auto;
+    transition: 0.1s;
+    margin-top: -20px;
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+@media (min-width:992px) and (max-width:1200px){
+    .fasttrackFrameworkWrapper{
+        height: 970px;
+    }
+    .fasttrackFrameworkBgImage{
+        height: 970px;
+    }
+    .fasttrackFrameworkDashWrapper{
+        height: 20px !important;
+        margin-top: 161px !important;
+    }
+    .fasttrackFrameworkDashWrapper ul{
+        margin-top: -12px !important;
+    }
+    .fasttrackFrameworkDashWrapper .dash1{
+        margin-left: -25% !important;
+    }
+    .fasttrackFrameworkTitleWrapper{
+        height: 100px !important;
+    }
+    .fasttrackFrameworkTextNImageWrapper{
+        height: 450px !important;
+        margin-top: 10px !important;
+    }
+    .fasttrackFrameworkTextWrapper{
+        height: 390px !important;
+    }
+    .fasttrackFrameworkText1{
+        text-align: justify; 
+        margin-left: 10% !important; 
+    }
+    .fasttrackFrameworkImageWrapper{
+        height: 450px !important;
+    }
+    .fasttrackFrameworkImage{
+        margin-left: 20px !important;
+    }
+}
+
+@media (min-width:768px) and  (max-width:991px){
+    .fasttrackFrameworkWrapper{
+        height: 1611px;        
+    }
+    .fasttrackFrameworkBgImage{
+        height: 1611px;
+    }
+    .fasttrackFrameworkDashWrapper{
+        height: 20px !important;
+        margin-top: 301px !important;
+    }
+    .fasttrackFrameworkDashWrapper ul{
+        margin-top: -12px !important;
+    }
+    .fasttrackFrameworkDashWrapper .dash1{
+        margin-left: 40% !important;
+    }
+    .fasttrackFrameworkTitleWrapper{
+        height: 100px !important;
+    } 
+    .fasttrackFrameworkTextNImageWrapper{
+        height: 900px !important;
+        margin-top: 0px !important;
+    }
+    .fasttrackFrameworkTextWrapper{
+        height: 390px !important;
+     }
+    .fasttrackFrameworkText1{
+        text-align: justify; 
+        margin-left: 0% !important; 
+    }
+    .fasttrackFrameworkImageWrapper{
+        height: 500px !important;       
+    }
+    .fasttrackFrameworkImage{
+        height: 480px !important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        box-sizing: border-box;
+    }   
+}
+
+@media (max-width:768px){
+    .fasttrackFrameworkWrapper{
+        height: 1670px !important;
+    }
+    .fasttrackFrameworkBgImage{
+        height: 1670px !important;
+    }
+    .fasttrackFrameworkDashWrapper{
+        height: 20px !important;
+        margin-top: 70px !important;
+    }
+    .fasttrackFrameworkDashWrapper ul{
+        margin-top: -12px !important;
+    }
+    .fasttrackFrameworkDashWrapper .dash1{
+        margin-left: 24% !important;
+    }
+    .fasttrackFrameworkTitleWrapper{
+        height: 150px !important;
+    }
+    .fasttrackFrameworkTitle1{
+        font-size: 23px !important;
+    }
+    .fasttrackFrameworkTextNImageWrapper{
+        height: 900px !important;
+        margin-top: -56px !important;
+    }  
+    .fasttrackFrameworkTextWrapper{
+        height: 520px !important;
+    }
+    .fasttrackFrameworkText1{
+        text-align: justify;
+        margin-left: 0% !important;
+    } 
+    .fasttrackFrameworkImageWrapper{
+        height: 300px !important;
+        margin-top: 80px;
+    }
+    .fasttrackFrameworkImage{
+        height: 300px !important;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin-left: 0px !important;
+        margin: auto;
+        box-sizing: border-box;
+    }
+}
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

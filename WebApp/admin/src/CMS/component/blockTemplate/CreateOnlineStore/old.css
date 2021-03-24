@@ -1,0 +1,88 @@
+.conlinewrapp{
+    height: 450px;
+    background-color: #fff!important;
+     
+}
+.createonlinebgimg{
+    height: 450px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.bgwrappstore{
+    height: 277px;
+    margin-top: 100px;
+}
+.Imgwrapp00{
+    height: 200px;
+   
+}
+ .ecomimgright{
+    height: 298px;
+    margin-left: 12%;
+} 
+.onlinedashwrapp{
+    height: 277px;
+   
+}
+
+ .dashBox04{
+    list-style: none;
+    margin-top:33px;
+  }
+ .dashBox04 li{
+     float: left;
+     
+     
+     
+ }
+ .dash01onstore,.dash03onstore{
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #f1f1f1!important;
+    border-radius: 10px;
+}
+ .dash01onstore{
+    margin-left: 31%;
+} 
+.dash02onstore{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #f1f1f1!important;
+    border-radius: 10px;
+} 
+.onlimnewrapp{
+    height: 70px;
+   
+}
+
+/* .deswrapponline{
+    height: 100px;
+    background-color: burlywood;
+    margin-top: -22px;
+} */
+.onlineh1title00{
+    font-size: 31px;
+    font-family: 'Montserrat', sans-serif;
+    color: #f1f1f1;
+    margin-top: 12px;
+   
+
+} 
+.onlineh1title01{
+    font-size: 15px;
+    color: #f1f1f1;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 10px;
+
+}
+.Imgwrapp000{
+    height: 250px;
+   }
+.ecomimgleft{
+    height: 239px;
+     margin-left: 20%; 
+
+
+}

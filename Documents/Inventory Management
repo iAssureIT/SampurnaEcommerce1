@@ -1,0 +1,132 @@
+Inventory Management + Warehouse Management 
+
+Admin Side 
+1) Inventory Management Dashboard (Use companyID of Admin)
+2) Raw Material Entry    								(Done) => UI-Ashish, API+Integration - Karuna
+3) Finished Goods Entry 								(Done) => UI-Ashish, API+Integration - Karuna
+4) Create Consolidated Shopping List 		(Done) => Ashish Naik
+
+5) Display Consolidated Shopping List 	(TBD) => Ashish Naik
+
+6) Distribution to Franchise    				(TBD)  => 
+7) Delivery Challan 										(TBD)  => 
+
+
+
+Reports 
+1) Productwise Stock History 		(TBD)  => UI+API+Integration - Karuna
+2) Franchisewise Stock History 	(TBD)  => UI+API+Integration - Karuna
+3) Reorder Level Report 				(TBD)  => UI+API+Integration - Karuna
+
+
+
+Analytics
+1) ABC Analysis Report 					(TBD)
+	 (Cost of Inventory)
+2) Aging Report 	 							(TBD)
+	 (Age of Products)
+3) Lifespan Report 							(TBD)
+	 (Quick Perishable, Medium life goods, LongLife goods)
+4) Demand Forecasting 					(TBD)
+
+-------------------------------------------------------------------
+
+Frachise/Vendor Side 
+1) Inventory Management Dashboard (Use companyID of LoggedIn person)
+2) Purchase Order 							(Done)   	=> UI+API+Integration - Ashish
+3) Receive Goods /  											=> UI+API+Integration - Ashish
+	 Accept Delivery Challan 			(Done)
+
+
+4) Store Stock Report 					(TBD)  		=> UI+API+Integration - Karuna 		
+5) Productwise Stock History 		(TBD)  		=> UI+API+Integration - Karuna
+6) Franchisewise Stock History 	(TBD)  		=> UI+API+Integration - Karuna
+7) Reorder Level Report 				(TBD)  		=> UI+API+Integration - Karuna
+
+
+Analytics
+1) ABC Analysis Report 					(TBD)
+	 (Cost of Inventory)
+2) Aging Report 	 							(TBD)
+	 (Age of Products)
+3) Lifespan Report 							(TBD)
+	 (Quick Perishable, Medium life goods, LongLife goods)
+4) Demand Forecasting 					(TBD)
+
+
+
+
+
+Warehousewise Stock Report
+================================
+
+Select Warehouse 			Section 					Category 				 Sub-Category
+[____ All ____v] 	[____ All ____v]	[____ All ____v]	[____ All ____v]
+
+--------------------------------------------------------------------------------------------+
+Warehouse |ProductID | Product | Current  | Purchase |   Total  | Reorder |Category|  Sub   |
+        	|          |	 Name	 |  Stock   |  Price   |   Cost 	|  Level  |        |Category|
+----------|----------|---------|----------|----------|----------|---------|--------|--------|
+					|          | 			   |          |          |          |         |        |        |
+	  W1    |	   P1    |Product1 | 2000 Kg  |  10 Rs   | Rs20,000 |  750 Kg |   xxx  |  xxx   |
+          |          | 			   |          |          |          |         |        |        |
+	  W1    |	   P1    |Product1 |  150 Kg  |  12 Rs   | Rs 1,800 |   xxx   |   xxx  |  xxx   |
+          |          | 			   |          |          |          |         |        |        |
+	  W2    |	   P1    |Product1 | 1080 Kg  |  11.50   | Rs11,950 |   xxx   |   xxx  |  xxx   |
+          |          | 			   |          |          |          |         |        |        |
+	  W1    |	   P2    |Product2 | 2000 Kg  |  10 Rs   | Rs20,000 |   xxx   |   xxx  |  xxx   |
+          |          | 			   |          |          |          |         |        |        |
+	  W1    |	   P2    |Product2 |  150 Kg  |  12 Rs   | Rs 1,800 |   xxx   |   xxx  |  xxx   |
+          |          | 			   |          |          |          |         |        |        |
+	  W2    |	   P3    |Product2 | 1080 Kg  |  11.50   | Rs11,950 |   xxx   |   xxx  |  xxx   |
+          |          | 			   |          |          |          |         |        |        |
+--------------------------------------------------------------------------------------------+
+
+
+
+
+
+2) Productwise Stock History 		(TBD)
+
+
+Select Warehouse 			Section 					Category 				 Sub-Category
+[____ All ____v] 	[____ All ____v]	[____ All ____v]	[____ All ____v]
+
+ProductID = xxxx
+Product Name = xxx
+
+--------------------------------------------------------------------------------------------+
+Warehouse | Current  | Purchase |   Total  | Reorder |Category|  Sub   |
+        	|  Stock   |  Price   |   Cost 	 |  Level  |        |Category|
+----------|----------|----------|----------|---------|--------|--------|
+					| 			   |          |          |          |         |        |        |
+	  W1    | 2000 Kg  |  10 Rs   | Rs20,000 |  750 Kg |   xxx  |  xxx   |
+					|          | 			    |          |          |          |         |        |        |
+--------------------------------------------------------------------------------------------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+============
+New features
+Warehouse Master 										(Done) => UI+API+Integration - Karuna (Single Field Master)
+
+
+Reports 
+1) Warehousewise Stock Report 	(TBD)  => UI+API+Integration - Karuna
+
+

@@ -1,0 +1,41 @@
+1.checkauth implementation 
+2.Socket implementation
+
+
+pagespeed
+
+order no (orderId) should be human readable - 1000, 1001,1002
+
+1. vendor wise order slpit
+2. Arkayu order data
+
+
+ordercollection 
+
+
+vendor order table - (new)
+
+
+
+
+admin - if marketplace
+show vendor wise data
+
+
+report generation
+
+
+eg. product - 
+different vendor have same product type like grocery
+            vendor1   vendor2  vendor3 
+
+grade - A   1000      1050      1100
+
+
+preferences - show duplicate product  yes/no
+
+vendor - productcode  itemcode   vendorId
+
+
+
+UPN - universal product number

@@ -1,0 +1,33 @@
+.blogFormBox{
+	font-family:'Montserrat-Regular';
+
+	margin: 25px 0px;
+}
+.ckbox{
+	height: 375px !important;
+	margin-top: 5px !important;
+}
+.boxform1{
+	position: relative;
+	top: 15px;
+}
+.createBlogLabel{
+	font-size: 20px;
+	margin-top: 25px;
+}
+.noBorder{
+	height: 22px;
+	width: 400px;
+}
+.boxLayoutBlogform{
+	background-color: #fff;
+	height: 850px;
+    margin: 0px 15px 20px 15px;
+    border-top: 2px solid #2a88bc;
+    border-radius: 5px;
+
+}
+
+.padd20lr{
+	padding: 0px 31px;
+}

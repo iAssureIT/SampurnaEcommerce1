@@ -1,0 +1,406 @@
+.footerBlock{
+	height: 341px;
+    background-color: #005b99;  
+}
+ .footerTop{
+   height: 291px;
+   background-size: 100% 100%; 
+ 
+ }  
+ .wrap1{
+     height: 291px;
+    /* background-color: red;   */
+ }
+ .wrap2{
+    height: 291px;
+   /* background-color: red;   */
+}
+.wrap3{
+    height: 291px;
+   /* background-color: red;   */
+}
+.wrap4{
+    height: 291px;
+   /* background-color: red;   */
+}
+ .subwrapp1{
+    height: 291px;
+    }
+    
+  .subwrapp2{
+        height: 291px;
+    }
+   .subwrapp3{
+        height: 291px;
+    }
+    .subwrapp4{
+        height: 291px;
+    }
+    
+    
+    
+.footer1{
+    height: 290px;
+    width: 100%;
+        
+}
+.footer2{
+    height: 290px;
+    width: 100%;
+        
+}
+.footer3{
+    height: 290px;
+    width: 100%;
+        
+}
+.footer4{
+    height: 290px;
+    width: 100%;
+        
+}
+.menubartitle1{
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+   margin-left: -40px;  
+   padding-top: 30px;
+   }
+   .menubartitle2{
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+   margin-left: -40px;  
+   padding-top: 30px;
+   }
+   .menubartitle3{
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+   margin-left: -40px;  
+   padding-top: 30px;
+   }
+   .menubartitle4{
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+   margin-left: -40px;  
+   padding-top: 30px;
+   }
+
+
+
+   .footertitle1{
+    color: #f1f1f1f1;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: -40px; 
+ 
+}
+.footertitle2{
+    color: #f1f1f1f1;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: -40px; 
+ 
+}
+.footertitle3{
+    color: #f1f1f1f1;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: -40px; 
+ 
+}
+
+.footerTop ul{
+	list-style: none;
+}
+ .footer1 a{
+    text-decoration: none;
+    color: #fff;
+
+} 
+.linkedinwrap{
+    height: 40px;
+    width: 40px;
+    margin-top: 14px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: #f1f1f1;   
+}
+.linkedinicon{
+    font-size: 24px;
+    color: #00145b;
+    margin-top: 9px ;
+    margin-left: 9px;
+}
+.linkedinwrap:hover{  
+    cursor: pointer;  
+    color : #fff; 
+    background-color: #376bff;
+    border: 1px solid #fff;     
+}
+ .facebookwrap{
+    height: 40px;
+    width: 40px;
+    margin-top: 14px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: #f1f1f1;  
+    margin-left: 65px; 
+}
+.facebookicon{
+    font-size: 24px;
+    color: #00145b;
+    margin-top: 10px ;
+    margin-left: 12px;
+}
+.facebookwrap:hover{  
+    cursor: pointer;  
+    color : #fff; 
+    background-color: #376bff;
+    border: 1px solid #fff;     
+} 
+.youttubewrap{
+    height: 40px;
+    width: 40px;
+    margin-top: 14px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: #f1f1f1;  
+    margin-left: 132px;
+}
+.youtubeicon{
+    font-size: 24px;
+    color: #00145b;
+    margin-top: 9px ;
+    margin-left: 6px;
+}
+.youttubewrap:hover{  
+    cursor: pointer;  
+    color : #fff; 
+    background-color: #376bff;
+    border: 1px solid #fff;     
+}
+.menubartitle2{
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+   margin-left: -40px;  
+   padding-top: 30px;
+   }
+   .contactBtn{
+    position: relative;
+    top: 72px;
+    width: 150px;
+    left: -27px; 
+    border-width: 0px !important;
+    height: 30px;
+    border-radius: 20px;
+    /* color: #fff; */
+    font-size: 14px;
+    letter-spacing: normal;
+    text-align: center;
+    align-items: flex-start;
+    /* background-color: #68b8ef; */
+    border-color: none !important;
+    color: #05589e;
+    background-color: white; 
+
+
+} 
+.contactBtn:hover{
+	/* color: #fff; 
+    background-color: #286090;  */
+    border-color: #fff !important;  
+    color: #05589e;
+    background-color: white; 
+
+ }
+ .footerBottom{
+	height: 50px;
+	background-color: #004266;
+} 
+.mtop10{
+	margin-top: 14px;
+}
+.copyright{
+    color: #f1f1f1f1;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+.h1titlephone{
+    color: #f1f1f1f1;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: -19px;
+    margin-left: 96px;
+}
+/* ================================Media Query================================================================= */
+@media (min-width:992px) and (max-width:1200px){
+    .footerBlock{
+        height: 273px!important;
+    }
+    .wrap1,.wrap2,.wrap3,.wrap4{
+        height: 200px;
+        
+    }
+    .subwrapp1,.subwrapp2,.subwrapp3,.subwrapp3{
+        height: 207px;
+    }
+    .menubartitle4,.menubartitle3,.menubartitle2,.menubartitle1{
+        font-size: 18px;
+    }
+    .footertitle1,.footertitle2,.footertitle3,.footertitle4{
+        font-size: 13px;
+    }
+    .h1titlephone{
+        margin-top: 3px;
+        margin-left: 0px;
+    }
+    .linkedinwrap,.facebookwrap,.youttubewrap{
+        margin-top: 20px;;
+    }
+    .contactBtn{
+        margin-top: 8px!important;
+      }
+      .footerBottom{
+       margin-top: -67px;
+    }
+
+
+}
+@media (min-width:768px) and (max-width:991px){
+    .footerBlock{
+        height: 273px!important;
+        background-color: #005b99; 
+    }
+    .wrap1,.wrap2,.wrap3,.wrap4{
+        height: 200px;
+    }
+    .footertitle3 {
+        color: #f1f1f1f1;
+        font-size: 14px;
+       margin-left: -40px;
+    }
+    .menubartitle4,.menubartitle3,.menubartitle2,.menubartitle1 {
+        font-size: 16px;
+    }
+    .footertitle1,.footertitle2,.footertitle3,.footertitle4{
+        font-size: 12px;
+    }
+    .subwrapp4 {
+        height: 291px;
+        margin-left: -13%;
+    }
+    .linkedinwrap,.facebookwrap,.youttubewrap{
+        margin-top: 25px;;
+    }
+    .contactBtn{
+        margin-top: 19px!important;
+      }
+    .h1titlephone{
+        
+        font-size: 15px;
+        margin-top: 5px!important;
+        margin-left: -34px!important;
+    }
+    .footerBottom{
+        height: 50px;
+        background-color: #004266;
+        margin-top: -67px;
+    }
+    .copyright{
+        font-size: 15px;
+         width: 152%; 
+         margin-top: 0px!important; 
+            
+        
+
+     }
+     
+   
+
+}
+@media (max-width:767px){
+    .footerBlock{
+        height: 470px!important;
+        background-color: #005b99; 
+    } 
+    .footerTop{
+        height: 422px;
+        background-size: 100% 100%; 
+        
+      
+      } 
+      .wrap1,.wrap2,.wrap3,.wrap4{
+        height: 199px;
+              
+    }
+   .menubartitle1{
+    font-size: 17px;
+        margin-left: -70px!important;  
+       
+       }
+    
+    .footertitle1{
+       
+        font-size: 12px;
+        font-family: 'Montserrat', sans-serif;
+        margin-left: -70px!important; 
+     
+    }
+    .menubartitle2{
+        font-size: 17px;
+        margin-left: -70px!important;  
+       padding-top: 30px;
+       }
+       .footertitle2{
+        font-size: 12px;
+        margin-left: -70px!important; 
+     
+    }
+    .menubartitle3{
+        font-size: 17px;
+        margin-left: -70px!important;  
+        padding-top: 30px;
+       }
+       .footertitle3{
+        
+        font-size: 12px;
+        margin-left: -70px!important; 
+     
+    }
+    .h1titlephone{
+        
+        font-size: 15px;
+        margin-top: 5px!important;
+        margin-left: -56px!important;
+    }
+    .menubartitle4{
+        font-size: 17px;
+        margin-left: -70px!important;
+    }
+    .contactBtn{
+      margin-left: -47px!important;
+    } 
+    .footerBottom{
+        height: 50px;
+        background-color: #004266;
+    } 
+        .copyright{
+        font-size: 9px;
+         width: 280%; 
+         margin-left: -51%!important; 
+         /* background-color: red;  */
+         margin-top: 0px!important; 
+     }
+     .facebookwrap{
+         margin-left: 54px;
+     } 
+     .youttubewrap {
+         margin-left: 105px;
+     }
+
+}
+

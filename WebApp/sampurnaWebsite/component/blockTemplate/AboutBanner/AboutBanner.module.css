@@ -1,0 +1,168 @@
+.aboutbannerwrapp{
+	height: 740px;
+	background-color: #fff!important;   
+	
+}
+
+ .ABOUTbanerheight{
+	height: 735px;
+	background-size: 100% 100%;
+}
+.aboutbannerwrapp .logoBox{
+	position: absolute;
+	/* z-index: 50; */
+
+}
+
+.aboutwannerwrpp{
+	height: 400px;
+	/* background-color: burlywood; */
+	margin-top: 150px;
+}
+.h1Titleus{
+	font-size: 60px;
+	font-family: 'Montserrat', sans-serif;
+    line-height: 1;
+	letter-spacing: 2.5px;
+	color: #f1f1f1;
+	font-weight: 1000;
+	margin-left: 92px;
+	margin-top: 134px;
+}
+.h2Titleus{
+	font-size: 29px;
+	font-family: 'Montserrat', sans-serif;
+    line-height: 1;
+    letter-spacing: 2.5px;
+	margin-left: 92px;
+	color: #f1f1f1;
+
+}
+.aboutfgwrapp{
+	height: 425px;
+	/* background-color: cadetblue; */
+	margin-top: 102px;
+}
+.rightIMGUS{
+	height: 443px;
+	margin-top: 23px;
+	margin-right: 0px;
+}
+.abbannerImg{
+	height: 485px;
+	margin-top: 135px;
+}
+.mtop305{
+    margin-top: 305px;
+    margin-right: 30px;
+    color: #fff;
+}
+.h1Title{
+	font-size: 36px;
+	letter-spacing: 1px;
+}
+.h2Title{
+	font-size: 82px;
+	font-family: 'Montserrat', sans-serif;
+    line-height: 1;
+    letter-spacing: 2.5px;
+    font-weight: 1000;
+}
+.h3Title{
+	font-size: 27px;
+	font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+/* ===========================================================Media Query=================================== */
+@media (min-width:992px) and (max-width:1200px){
+	.aboutbannerwrapp{
+		height: 724px!important;
+	}
+	.ABOUTbanerheight{
+		height: 735px;
+		background-size: 100% 100%;
+	}
+	.aboutwannerwrpp{
+		height: 400px;
+		margin-top: 150px;
+	}
+	.h1Titleus{
+		margin-left: 54px!important;
+		 margin-top: 81px!important; 
+	}
+	.h2Titleus{
+		font-size: 21px!important;
+		margin-left: 54px!important;
+	
+	
+	}
+	.rightIMGUS {
+		height: 463px!important;
+		margin-top: 23px;
+		margin-left: -91px!important;
+	}
+
+}
+@media (max-width:768px) and (max-width:991px){
+	.aboutbannerwrapp{
+		height: 1084px!important;
+		
+	}
+	.ABOUTbanerheight{
+		height: 1088px!important;
+	}
+	.aboutwannerwrpp{
+		height: 200px!important;
+		margin-top: 150px;
+	}
+	.h1Titleus{
+		margin-left: 39px!important;
+		margin-top: 50px!important;
+	}
+	.h2Titleus{
+		margin-left: 40px!important;
+		color: #f1f1f1;
+	}
+	.aboutfgwrapp{
+		height: 510px!important;
+		margin-top: 0px!important;
+		
+	}
+	.rightIMGUS{
+		height: 505px!important;
+		margin-left: 21px!important;
+	}
+}
+@media (max-width:767px){
+	.aboutbannerwrapp{
+		height: 960px!important;
+	}
+	.ABOUTbanerheight{
+		height: 930px!important;
+	}
+	.aboutwannerwrpp{
+		height: 100px!important;
+		margin-top: 150px;
+	}
+	.h1Titleus{
+		font-size: 52px!important;
+		margin-left: -15px!important;
+		margin-top: 0px!important;
+	}
+	.h2Titleus{
+		font-size: 15px!important;
+		margin-left: -13px!important;
+		color: #f1f1f1;
+	
+	}
+	.aboutfgwrapp{
+		margin-top: 0px!important;
+		
+	}
+	.rightIMGUS{
+		margin-left: -21px!important;
+	}
+	
+
+}
+

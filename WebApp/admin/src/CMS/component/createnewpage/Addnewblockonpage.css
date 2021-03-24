@@ -1,0 +1,293 @@
+.wrapperClassspage{
+	min-height: 850px;
+	background-color: #f1f1f1;
+}
+.headerNewPage{
+	background-color: #fff;
+	height: 75px;
+
+}
+.logoaddpageleftImg img{
+	margin-left: 2%;
+}
+.CNPBtnANBOP {
+    position: relative;
+    background-color: #376bff;
+    border-radius: 20px;
+    width: 150px;
+    top: 10px;
+    right: 10px;
+
+    color: #fff;
+    /*box-shadow: #999 0px 0px 9px 0px;*/
+}
+.CNPBtnANBOP:hover{
+    color: #fff !important;
+}
+.CNPBtnANBOPInfo {
+    position: relative;
+    background-color: #376bff;
+    border-radius: 20px;
+    width: 185px;
+    top: 2px;
+    right: 10px;
+    color: #fff;
+    /*box-shadow: #999 0px 0px 9px 0px;*/
+}
+
+.CNPBtnANBOPInfo:hover{
+    color: #fff !important;
+}
+.pageLayoutBoxWrap{
+	min-height: 700px;
+	margin-top: 15px;
+	padding: 20px 85px; 
+}
+.pageLayoutBox{
+	min-height: 700px;
+    box-shadow: #ccc 0px 0px 9px 0px;
+    border-radius: 10px;
+	 
+	background-color: #fff;
+}
+.anpTitle{
+	height: 65px;
+	padding: 5px;
+	padding-left: 15px;
+	border-bottom: 1px solid #ccc !important;
+}
+
+.nbaddedBox{
+	height: 125px;
+	margin-top: 15%;
+    border-radius: 10px;
+	background-color: #f1f1f1;
+
+	border: 1px dashed #ccc;
+
+}
+.mtoph1adbl{
+	margin-top: 6%;
+}
+
+.sidenavaddBlock {
+  height: 100%;
+  width: 0;
+  position: absolute;
+  z-index: 3;
+  top: 75px;
+  right: 0;
+  color: #fff;
+  background-color: #222d32;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 0px;
+}
+.sidenavaddBlock a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  color: #333;
+  display: block;
+  background-color:#fff;
+  transition: 0.3s;
+}
+
+.sidenavaddBlock a:hover {
+  color: #f1f1f1;
+  background-color: #303F9F;
+}
+
+.sidenavaddBlock .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+#mySidenavaddBLOCK{
+  transition: all 0.5s;
+  z-index: 100;
+}
+
+#mySidenavaddBLOCK label{
+  color: #fff;
+}
+
+/*--------------------*/
+.ImgBlockcontainer {
+  position: relative;
+  width: 100%;
+  margin: 10px 0px;
+}
+.ImgBlockcontainer:hover {
+   box-shadow: 0px 0px 10px 4px #555;
+  cursor: pointer;
+
+}
+
+.blockImageAddBLock {
+  opacity: 1;
+  display: block;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middleButtn {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.ImgBlockcontainer:hover .blockImageAddBLock {
+  /*opacity: 0.3;*/
+}
+
+.ImgBlockcontainer:hover .middleButtn {
+  opacity: 1;
+}
+
+
+.blockImageAddBLock {
+  opacity: 1;
+  display: block;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middleButtn {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 20%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.ImgBlockcontainer:hover .middleButtn {
+  opacity: 1;
+}
+
+.blockSelectBtn {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+/*-----------------------------------*/
+/*-----------------------------------*/
+/*-----------------------------------*/
+/*-----------------------------------*/
+/*-----------------------------------*/
+
+.DynamicBlockcontainer {
+  position: relative;
+  width: 100%;
+  margin: 10px 0px;
+}
+.DynamicBlockcontainer:hover {
+   box-shadow: 0px 0px 10px 4px #ccc;
+  cursor: pointer;
+
+}
+
+.DynamicblockImageAddBLock {
+  opacity: 1;
+  display: block;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+
+.DynamicBlockcontainer:hover .DynamicblockImageAddBLock {
+  /*opacity: 0.3;*/
+
+}
+
+.DynamicBlockcontainer:hover .DynamicmiddleButtn {
+  opacity: 1;
+}
+
+
+.DynamicblockImageAddBLock {
+  opacity: 1;
+  display: block;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.DynamicmiddleButtn {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  z-index: 10;
+  top: 10%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  /*text-align: center;*/
+}
+
+.DynamicBlockcontainer:hover .DynamicmiddleButtn {
+  opacity: 1;
+}
+
+
+.DynamicblockSelectWrap{
+  background-color: #4CAF50;
+  width: 200px;
+  text-align: center;
+
+
+}
+.DynamicblockSelectBtn {
+  /*background-color: #4CAF50;*/
+  color: white;
+  font-size: 16px;
+  /*padding: 16px 32px;*/
+}
+.iconincenter{
+  margin: 1px;
+  height: 35px;
+  width: 35px;
+  background-color: #fff;
+}
+.bkclr{
+  color: #333;
+      margin-left: -4px;
+    margin-top: 8px;
+}
+/*-----------------------------------*/
+/*-----------------------------------*/
+/*-----------------------------------*/
+/*-----------------------------------*/
+
+.allBlockModalWidth{
+  width: 90%;
+}
+.btnHoverblockAdd:hover{
+  opacity: 1 !important;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8), 6px 6px 10px rgba(0, 0, 0, 0.2) !important;
+}
+.allblockbtnaddcss{
+  top: 14% !important;
+  left: 91% !important;
+}
+
+.LoaderWrapper{
+  height: 300px;
+  width: 100%;
+  padding-left: 35%;
+  border: 1px solid #f00;
+}

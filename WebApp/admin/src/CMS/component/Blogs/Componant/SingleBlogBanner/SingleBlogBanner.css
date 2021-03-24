@@ -1,0 +1,51 @@
+.sbbannerWall{
+	height: 535px;
+	/*background-color:  #444;*/
+	padding: 0px !important;
+	position: relative;
+  	text-align: center;
+  	color: white;
+  	/*background-image: url("/images/blogBack.jpg");*/
+  	background-size: 100% 100%;
+
+}
+.nopadding{
+	padding: 0px;
+}
+.sbcentered {
+  background-color: #191818ba;
+  padding: 0px !important;
+  height: 535px;
+
+}
+.sbbtextcentered{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fs72{
+  font-weight: 600;
+  font-size: 60px;
+}
+.fs24{
+  font-size: 22px;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 4%;
+ right: -2%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.sbbannerWall:hover .middle {
+  opacity: 1;
+  z-index: 1;
+  cursor: pointer;
+}

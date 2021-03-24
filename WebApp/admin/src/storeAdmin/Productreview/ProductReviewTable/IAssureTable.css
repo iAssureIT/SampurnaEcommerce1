@@ -1,0 +1,54 @@
+.iAssureITtable-bordered > thead > tr > th, .iAssureITtable-bordered > tbody > tr > th, .iAssureITtable-bordered > tfoot > tr > th, .iAssureITtable-bordered > thead > tr > td, .iAssureITtable-bordered > tbody > tr > td, .iAssureITtable-bordered > tfoot > tr > td {
+    border: 1px solid #fff6;
+}
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: #fff;
+}
+.iAssureITtable-bordered{
+  background: #039BE5 !important;
+  border: 1px solid #039BE5;
+}
+.paginationAdminWrap{
+  text-align: center !important;
+  width: 100%;
+}
+.paginationAdminOES > li > a{
+  margin-right: 5px !important;
+  margin-bottom: 5px !important;
+}
+.paginationAdminOES > li{
+    display: inline-block;
+    margin-left: 0 !important;
+    font-size: 10px;
+}
+.queDataCircle p{
+  height: 100%;
+  width: 100%;
+}
+.activeCircle{
+  background: #7f7f7f !important;
+}
+.queDataCircle {
+  padding-top: 4px;
+  font-size: 12px;
+  border: 1px solid #e8e6e6 !important;
+  height: 24px !important;
+  width: 24px !important;
+  border-radius: 100% !important;
+  box-shadow: 3px 4px 7px -3px #aeabab !important;
+  text-align: center;
+}
+.marginTop17{
+	margin-top: 17px;
+}
+
+.adminModal-dialog{
+  position: relative;
+  transform: translate(0,0);
+  margin: 30px auto;
+}
+.totalDataCount {
+    margin-top: 50px;
+    font-size: 16px;
+    text-align: center
+}

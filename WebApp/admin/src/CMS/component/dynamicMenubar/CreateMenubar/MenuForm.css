@@ -1,0 +1,60 @@
+.user{
+    padding: 30px 30px;
+    border: solid 1px #aaa;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.eCommWrapper{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: solid 2px #ccc;
+    border-radius: 5px;
+    min-height: 500px;
+    padding: 20px 0px;
+}
+.eCommTitle{
+    font-size: 22px;
+    font-weight: 500;
+    text-align: left;
+    padding-bottom: 20px;
+    /* border-bottom: solid 2px #aaa; */
+}
+.titleWrapper{
+    border-bottom: solid 2px #aaa;  
+}
+.eCommBtn{
+    margin-top: 0px;
+}
+.menubarForm{
+    margin-top: 20px;
+}
+.menubarTable,
+.menubarWrapper,
+.menusTable{
+    display: none;
+}
+.menubarTable thead,
+.listOfMenuTable thead,
+.menusTable thead{
+    background: #3C8DBC;
+    color:#fff;
+}
+.menubarWrapper{
+    margin-top: 20px;
+}
+
+.trashIcon{
+    color:#f00;
+    font-size: 15px;
+}
+.editIcon{
+    font-size: 15px;
+}
+.submitBtn{
+    margin: 25px 0px !important;
+    /* margin : 12px 0px !important; */
+    padding: 8px;
+}
+.listOfMenuTable{
+    margin-top: 20px;
+}

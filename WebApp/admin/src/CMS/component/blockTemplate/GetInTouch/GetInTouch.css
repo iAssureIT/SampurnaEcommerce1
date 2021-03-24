@@ -1,0 +1,107 @@
+.gettouchwrapp{
+    height: 500px;
+    background-color: #fff; 
+}
+.getInTouchDashWrapper{
+    height: 10px;
+}
+.getInTouchDashWrapper ul{
+    list-style: none;
+}
+.getInTouchDashWrapper ul li{
+  float: left;
+}
+.getInTouchDashWrapper .dash1{
+    height: 1px;
+    width: 20px;
+    margin: 2px 2px 2px 40px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.getInTouchDashWrapper .dash2{
+    height: 1px;
+    width: 50px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.getInTouchDashWrapper .dash3{
+    height: 1px;
+    width: 20px;
+    margin: 2px;
+    border: 2px solid #376bff;
+    border-radius: 10px;
+}
+.gettitlttextWrapper{
+    text-align: center;
+}
+.gettitlttext{
+    font-size: 46px;
+    color: #555555;
+    margin: auto;
+    margin-top: 14px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.getintouchwrapp1{
+    height: 100px;
+    text-align: center;
+}
+.paragraphtext{
+    font-size: 21px;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+    margin-top: 15px;
+}
+.getintouchwrapp2{
+    height: 250px;
+    text-align: center;
+}
+.Getwrapp1{
+    height: 250px;
+}
+.Getwrapp01{
+    height: 65px;
+}
+.wrapper333{
+    border-right: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8;
+}
+
+.Getwrapp02{
+    height: 150px;
+    border-right: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8;
+}
+.Getwrapp03{
+    height: 150px;
+}
+.Getwrapp2{
+    height: 250px;
+}
+.Getwrapp3{
+    height: 250px;
+}
+.contact-img-block{
+    height: 65px;
+}
+.contact-img-block img{
+    width: 100%;
+}
+.GTh1title{
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+    margin-top: 10px;
+}
+.GTh1title2{
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+}
+.GTh1title3{
+    font-size: 17px;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+}

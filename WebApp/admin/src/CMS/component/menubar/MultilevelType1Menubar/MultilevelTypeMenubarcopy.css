@@ -1,0 +1,89 @@
+.cmsHeader{
+    display: none;
+}
+.MenuDesignTitle{
+    text-align: center;
+    font-size: 25px;
+    margin: 30px 0px;
+    border-bottom: solid 2px #ccc;
+    padding-bottom: 30px;
+}
+.multilevelMenuWrapper{
+    background-image: url("/images/multilevelMenuBgImg.jpg");
+    height: 800px;
+}
+.multilevelMenuWrapper .navbar{
+    height: 100px;
+    background: transparent;
+}
+.multilevelMenuWrapper .container{
+    margin-top: 20px;
+}
+.navbar-inverse .navbar-nav>.open>a{
+    background-color: transparent !important;
+}
+.multilevelMenuWrapper .dropdown:hover >:first-child{
+    color: #fff !important;
+}
+.multilevelMenuWrapper .mutilevelDropdown1,
+.multilevelMenuWrapper .mutilevelDropdown2,
+.multilevelMenuWrapper .mutilevelDropdown3,
+.multilevelMenuWrapper .mutilevelDropdown4{
+    opacity:0;
+    visibility: hidden;
+    position:absolute;
+    z-index: 200;
+    width: 250px;
+    padding: 9px 10px;
+    background-color: #000;
+    color:#fff !important;
+    border: none !important;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+.multilevelMenuWrapper .parentMenu a,
+.multilevelMenuWrapper .dropDownLevel1 a{
+    color: #fff !important;
+    text-transform: capitalize;
+    font: 700 18px/40px "Roboto Slab"!important
+}
+.multilevelMenuWrapper .mutilevelDropdown1 li a{
+    color: #fff !important;
+    text-transform: capitalize;
+    font: 700 13px/40px "Roboto Slab"!important;
+    padding-left:10px !important;
+}
+.dropDownLevel2:hover .mutilevelDropdown2,
+.dropDownLevel3:hover .mutilevelDropdown3,
+.dropDownLevel4:hover .mutilevelDropdown4{
+    opacity: 1;
+    visibility: visible;  
+}
+ .dropDownLevel1:hover .mutilevelDropdown1{
+    display: block; 
+    opacity: 1;
+    visibility: visible;
+}
+/*
+
+.multilevelMenuWrapper .mutilevelDropdown2,
+.multilevelMenuWrapper .mutilevelDropdown3,
+.multilevelMenuWrapper .mutilevelDropdown4{
+    opacity:1;
+    visibility: visible;
+    position:absolute;
+    z-index: 200;
+    width: 550px;
+    padding: 9px 10px;
+    background-color: #000;
+    color:#fff !important;
+    border: none !important;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+.multilevelMenuWrapper .mutilevelDropdown1 li{
+    width: 34%;
+}
+ */

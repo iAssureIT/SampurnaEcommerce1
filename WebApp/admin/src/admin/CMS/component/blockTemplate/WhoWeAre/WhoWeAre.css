@@ -1,0 +1,150 @@
+.WhoWeAre{
+	
+}
+.nopadding{
+    padding: 0px;
+}
+
+.wwBox1{
+	height: 610px;
+	/*background-color: #f3f0f0;*/
+    background-color: #21336c;
+    color: #fff;
+}
+.wwBox2{
+	height: 610px;
+	/*background-color: #f3f0f0;*/
+    /*background-color: #f3f0f0;*/
+}
+.winfoImg1 {
+    height: 405px;
+    margin-top: 85px;
+}
+.winfotext1{
+	position: relative;
+	top: 120px;
+}
+.wheadingb1{
+	position: relative;
+}
+.wpara1{
+	position: relative;
+	    top: 28px;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+}
+.wrdmore{
+	position: relative;
+	top: 60px;
+	letter-spacing: 1px !important;
+    color: #376bff !important;
+    font-weight: 600;
+}
+.wrdmore span{
+
+}
+
+/*dash ===== ======================== =============*/
+.dashBoxWwA{
+    list-style: none;
+    position: relative;
+    left: -31px;
+    top: 0px;
+    margin-bottom: 20px;
+}
+.dashBoxWwA li{
+  float: left;
+}
+.dash1WwA,.dash3WwA {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+.dash2WwA{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+/*  /  /  / /  /  / / /  / Dash   /   /   / /   /   /   /   /   /   /  / / /*/
+/*====================================================================================*/
+/*====================================================================================*/
+/*============================== Mobile View =========================================*/
+/*====================================================================================*/
+/*====================================================================================*/
+
+.wwBox1xs{
+    height: 725px;
+    background-color: #f3f0f0;
+}
+.wwBox2xs{
+    height: 725px;
+    /*background-color: #f3f0f0;*/
+}
+.winfoImg1xs {
+    height: 251px;
+    margin-top: 85px;
+}
+.winfoImg2xs {
+    height: 251px;
+    margin-top: 5px;
+}
+.winfotext1xs{
+    position: relative;
+    top: 30px;
+}
+.wheadingb1xs{
+    position: relative;
+    text-align: center;
+}
+.wpara1xs{
+    position: relative;
+    top: 28px;
+    font-size: 16px;
+    letter-spacing: 1.2px;
+}
+.wrdmorexs{
+    position: relative;
+    top: 30px;
+    letter-spacing: 1px !important;
+    color: #376bff !important;
+    font-weight: 600;
+}
+.wrdmore span{
+
+}
+
+/*dash ===== ======================== =============*/
+.dashBoxWwAxs{
+    list-style: none;
+    position: relative;
+    /*left: -31px;*/
+    top: 0px;
+    margin-bottom: 20px;
+}
+.dashBoxWwAxs li{
+  float: left;
+}
+.dash1WwAxs,.dash3WwAxs {
+    height: 1px;
+    width: 20px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+.dash2WwAxs{
+    height: 1px;
+    width: 50px;
+    margin:2px;
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+}
+/*  /  /  / /  /  / / /  / Dash   /   /   / /   /   /   /   /   /   /  / / /*/
+/*====================================================================================*/
+/*====================================================================================*/
+/*============================== Mobile View =========================================*/
+/*====================================================================================*/
+/*====================================================================================*/

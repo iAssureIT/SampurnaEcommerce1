@@ -1,0 +1,104 @@
+.listHeading{
+	padding: 5px;
+	text-align: center;
+}
+.clrwht{
+	color: #fff;
+}
+.deletIcon:hover{
+	color: #f00;
+	cursor: pointer;
+}
+.onHoverClick:hover{
+	color: #f00;
+	cursor: pointer;
+}
+.CNPBtn{
+    position: relative;
+    background-color: #3c8dbc;
+    border-radius: 13px;
+    width: 190px;
+    color: #fff;
+    box-shadow: #999 0px 0px 9px 0px;
+   /* top: 15px;
+    margin: 0px !important;*/
+}
+.CNPBtn .btn{
+	margin: 0px !important;
+}
+.c350{
+	height: 325px !important;
+	width: 100%;
+}
+.h315{
+	height: 345px;
+}
+
+.box-body2{
+	background: #fff;
+    min-height: 400px;
+    color: #333;
+}
+.thead-dark{
+	background-color: #666;
+	color: #fff;
+}
+.bgBluemodalTitle{
+	background: linear-gradient(90deg,#3c8dbc 0,#3c8dbc) !important;
+	color: #fff;
+}
+.bgImgLOP{
+	/*background-image: url("/images/25708584.jpg");*/
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+#newTemplateForm input textarea{
+	border-radius: 20px;
+}
+.mtop70{
+	margin-top: 90px;
+}
+
+ .lb666 {
+	color: #555 !important;
+	font-weight: 500 !important;
+}
+.borderBox{
+/*border: 1px solid #666;*/
+    height: 310px;
+    padding: 8px;
+    /* margin: 5px; */
+    box-shadow: #666 0px 0px 10px 0px;
+}
+.boxItem-LOPages{
+    background-color: #fff;
+    margin: 5px 0px;
+    /* min-height: auto; */
+    height: 500px;
+    overflow: scroll;
+    overflow-x: auto;
+    border-top: 2px solid #2a88bc;
+    border-radius: 5px;
+}
+.boxItem-LOPages2{
+	background-color: #fff;
+	margin: 5px 0px;
+	min-height: auto;
+	border-top: 2px solid #2a88bc;
+    border-radius: 5px;
+}
+.m3all{
+	margin: 3px 0px;
+}
+.lineHr{
+	border-bottom: 1px solid #cfcfcf;
+	margin: 3px 0px;
+}
+.fs14T{
+	font-size: 14px;
+}
+
+#newTemplateForm .hinput30 {
+    height: 30px !important;
+    margin: 5px 0px;
+}

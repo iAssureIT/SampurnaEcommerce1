@@ -1,0 +1,116 @@
+.onlinestorewrapp{
+    height: 600px;
+    background-color: #FFF!important;
+   
+}
+.dashboxwrapper{
+    height: 20px;
+    
+  }
+  .dashBox{
+      list-style: none;
+      margin: auto;
+      
+    
+    }
+    .dashBox li{
+    float: left;
+    }
+    .dash1{
+      height: 1px;
+      width: 20px;
+      margin:2px 2px 2px 10px;
+      border: 2px solid #00ccff;
+      border-radius: 10px;
+    }
+    .dash2{
+      height: 1px;
+      width: 50px;
+      margin:2px;
+      border: 2px solid #00ccff;
+      border-radius: 10px;
+    }
+    .dash3 {
+      height: 1px;
+      width: 20px;
+      margin:2px;
+      border:2px solid #00ccff;
+      border-radius: 10px;
+    }
+    .hcustomtitlewrapp{
+        height: 100px;
+        
+    }
+    .h2titlecustom{
+      font-size: 46px;
+      font-family: 'Montserrat', sans-serif;
+      color: #555555;
+      margin-top: -28px;
+    
+    
+    }
+    .custmowrapper{
+        height: 450px;
+       
+     }
+     .customIMGwrapp{
+      height:440px;
+      
+     
+      }
+     .customleftimage{
+        height: 430px;
+        margin-left: 12%;
+       
+     }
+     .customtextwrapp{
+       height: 440px;
+       padding-top: 40px;
+       margin-left: -67px;
+     }
+     
+      .h1titlecustom{
+     
+       font-size: 18px;
+       font-family: 'Montserrat', sans-serif;
+       color: #555555;
+       letter-spacing: 0.5px;
+       font-weight: 550; 
+        
+     }
+     
+     .h1titlecustom{
+      font-size: 18px;
+      font-family: 'Montserrat', sans-serif;
+      color: #555555;
+      margin-top: 25px;
+      letter-spacing: 0.5px;
+      font-weight: 550; 
+      
+     
+     
+     
+     }
+     .rmoretitle{
+       font-size: 22px;
+       font-family: 'Montserrat', sans-serif;
+       /* margin-left:12%;  */
+       color: #376BFF;
+       cursor: pointer;
+       border-bottom: 1px solid #376BFF!important;
+        width: 18%;
+       
+       
+       }
+      .awrapp{
+       height: 100px;
+       width: 30%;
+       margin-top: -40px;
+       margin-left: 111px;  
+       font-size: 30px;
+       color: #376BFF;
+       padding-top: -10px;
+      }
+     
+      
+  

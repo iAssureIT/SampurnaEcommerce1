@@ -1,0 +1,153 @@
+.eCommerceBannerWrapper{
+	height: 680px;
+	background-color: #fff !important;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	font-family: 'Montserrat', sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+.eCommerceBannerTextWrapper{
+	height: 680px;
+}
+.eCommerceBannerSubTitle{
+    font-size: 40px;
+	font-family: 'Montserrat', sans-serif;
+	color: #f1f1f1;
+	margin-top: 150px;
+	margin-left: 50px;
+}
+.eCommerceBannerTitle{
+	font-size: 80px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 1000;
+	color: #f1f1f1;
+    line-height: 1;
+	letter-spacing: 2.5px;
+	margin-left: 50px;
+	
+	animation: textMotion1 1.5s ease-in-out 2s;
+}
+@keyframes textMotion1{
+     0%{transform: translateX(0px);}
+    20%{transform: translateX(-150px);}
+    40%{transform: translateX(75px);}
+	60%{transform: translateX(-37px);}
+    80%{transform: translateX(0px);}
+}
+.eCommerceBannerDescription{
+	font-size: 25px;
+	font-family: 'Montserrat', sans-serif;
+	color: #f1f1f1;
+    line-height: 1;
+	letter-spacing: 2.5px;
+	margin-top: 15px;
+	margin-left: 50px;
+}
+.eCommerceBannerImageWrapper{
+	height: 680px;
+}
+.eCommerceBannerImage{
+	height: 350px;
+	margin: auto;
+	margin-top: 150px;
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+@media (min-width:992px) and (max-width:1200px){
+	.eCommerceBannerWrapper{
+		height: 755px !important;		
+	}
+	.eCommerceBannerTextWrapper{
+		height: 300px;
+		margin-top: 175px;
+		padding-left: 65px;
+	}
+	.eCommerceBannerTitle{
+		font-size: 40px;
+		margin-left: 17px !important;	
+	}
+	.eCommerceBannerSubTitle{
+		color: #f1f1f1;
+		font-size: 49px !important;
+		margin-left: 17px !important;
+	}
+	.eCommerceBannerDescription{
+		font-size: 20px !important;
+		margin-left: 17px !important;
+	}
+}
+
+@media (min-width:768px) and (max-width:991px){
+	.eCommerceBannerWrapper{
+		height: 1360px !important;
+		background-size: 100% 100% !important;
+	}
+	.eCommerceBannerTextWrapper{
+		height: 300px;
+		margin-top: 175px;
+		padding-left: 65px;
+	}
+	.eCommerceBannerTitle{
+		font-size: 40px;
+		color: #f1f1f1;
+		font-family: 'Roboto Condensed', sans-serif;
+		margin-left: -14px !important;
+	}
+	.eCommerceBannerSubTitle{
+		color: #f1f1f1;
+		font-size: 55px;
+		letter-spacing: 1px;
+		font-family: 'Roboto Condensed', sans-serif;
+		margin-left: -14px !important;
+	}
+	.eCommerceBannerDescription{
+		font-size: 27px !important;
+		color: #f1f1f1;
+		font-family: 'Roboto Condensed', sans-serif;
+		margin-left: -14px !important;
+		text-align: justify;
+	}
+	.eCommerceBannerImageWrapper{
+		height: 400px;
+		margin-top: 100px !important;
+	}
+	.eCommerceBannerImage{
+		height: 400px;
+		margin-left: 75px;
+	}
+}
+
+@media (max-width:767px){
+	.eCommerceBannerWrapper{
+		height: 1365px !important;
+		background-color: #f00 !important;
+		background-size: 200% 100% !important;
+	}
+	.eCommerceBannerTextWrapper{
+		height: 281px !important;
+		margin-top: 148px !important;
+	}
+	.eCommerceBannerTitle{
+		margin-left: -60px !important;
+	}
+	.eCommerceBannerSubTitle{
+		font-size: 37px !important;
+		margin-left: -60px !important;
+	}
+	.eCommerceBannerDescription{
+		font-size: 18px !important;
+		margin-left: -60px !important;
+	}
+	.eCommerceBannerImageWrapper{
+		height: 400px;
+		margin-top: 17px !important;
+	}
+	.eCommerceBannerImage{
+		height: 400px;
+		margin-left: -14px;
+	}
+}

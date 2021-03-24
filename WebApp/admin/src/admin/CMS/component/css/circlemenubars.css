@@ -1,0 +1,156 @@
+/* =============================== Wizard    ==========================*/
+.logopropt{
+    height: 70px;
+    width: 200px;
+    margin-top: 10px;
+}
+.wizard {
+    margin: auto;
+    /*background: #fff;*/
+}
+
+.wizard .nav-tabs {
+    position: relative;
+    margin-bottom: 10px;
+    border-bottom: none !important;
+    padding-bottom: 10px;
+}
+
+.wizard > div.wizard-inner {
+    position: relative;
+}
+.brdrrt{
+    border-right: 1px solid #aaa;
+}
+.uppernoti{
+    background: #fff;
+}
+.connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 64%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 37%;
+    z-index: 1;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    /*color: #555555;*/
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab {
+    width: 45px;
+    height: 45px;
+    line-height: 36px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #f1f1f1;
+    border: 2px solid #e0e0e0;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 18px;
+    color: #000;
+}
+span.round-tab i{
+    /*color:#555555;*/
+    margin-top: 3px;
+}
+.wizard li.active span.round-tab {
+    background: #ffc107;
+    border: 2px solid #ffc107;
+    color: #fff;
+    font-weight: bold;    
+}
+.wizard li.active span.round-tab i{
+    color: #fff;
+
+    margin-top: 3px;
+    /* color: #0275d8; */
+    margin-left: 0px;
+}
+
+.wizard li.tab-done span.round-tab{
+    background-color: #007bff;
+}
+.wizard li.tab-done span.round-tab i{
+    color: #fff;
+}
+
+span.round-tab:hover {
+    /*color: #333;*/
+    /*border: 2px solid #0275d8;*/
+    /**/
+}
+
+.wizard .nav-tabs > li {
+    width: 33%
+}
+
+.wizard .nav-tabs > li a {
+    width: 41px;
+    height: 40px;
+    margin: 20px auto;
+    border-radius: 100%;
+    padding: 0;
+}
+
+.wizard .nav-tabs > li a:hover {
+    background: transparent;
+    border: none;
+}
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 50px;
+}
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+
+.wizardNote{
+    /*border: 1px solid;*/
+    text-align: center;
+    margin-right: 0px;
+}
+/*=========== wizard==========*/
+/* =============== =================================== */
+
+/*.bgoftitle{
+    height: 174px;
+    background: #a2632c!important;
+    background: linear-gradient(90deg,#0e2a3b 0,#34306b);
+    opacity: 0.3;
+    color: #111;
+}
+.bgImgTitleBox{
+    background-image: url("/images/furniture-logo1.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+*/
+.bgoftitle {
+  position: relative;
+  max-width: 100%; /* Maximum width */
+  margin: 0 auto; /* Center it */
+}
+
+.bgoftitle .bgImgTitleBox {
+  position: absolute; /* Position the background text */
+  bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1; /* Grey text */
+  width: 100%; /* Full width */
+  /*padding: 20px;  Some padding */
+}
