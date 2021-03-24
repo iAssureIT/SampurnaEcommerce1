@@ -1,0 +1,133 @@
+.topspace{
+	margin-top:50px;
+}
+.topspace15{
+	margin-top:15px;
+}
+.topspace8{
+	margin-top:8px;
+}
+
+.faq ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #eee;
+}
+
+.faq li {
+  float: left;
+}
+
+.faq li a {
+  display: block;
+  color: #444;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: 700
+}
+
+/* Change the link color to #111 (black) on hover */
+.faq li a:hover {
+  background-color: #A2632C;
+  color:white;
+  cursor:pointer;
+}
+.faq .active {
+  background-color: #4CAF50;
+}
+.rvw{
+	border-right:1px solid #fafafa!important;
+	border-left:1px solid #fafafa!important;
+}
+
+.spcbx{
+	border-top:1px solid #ddd
+}
+.detailtxt{
+	color:#7d7d7d;
+}
+.detailtitle{
+	color:#444;
+	font-weight: 700
+}
+.detailtitle:hover{
+	color: #A2632C;
+  cursor:pointer;
+}
+.reviewtitle{
+	color:#444;
+	    line-height: 1.2;
+    font-size: 2rem;
+}
+.reviewstr{
+	line-height: 1.2!important;
+    font-size: 2rem!important;
+    margin-left:5px;
+    color: #7d7d7d
+}
+.reviewstr:hover{
+	color:#ff5501;
+}
+.inputbx{
+	height:30px;
+	/*border-radius: 3px;*/
+}
+.Submitreviewbtn{
+	 background-color: #A2632C;
+	 border-radius:50px;
+	 color:white;
+	 padding-top:10px;
+	 padding-bottom:10px;
+}
+.Submitreviewbtn:hover{
+	cursor:pointer;
+}
+/*.bannerimg:hover{
+	background:rgba(0,0,0,1);
+}*/
+
+.reviewborder{
+	padding-top: 10px;
+	border:1px solid #dfdfdf;
+	border-radius: 2px;
+	margin-bottom: 10px;
+}
+
+.reviewuserimg img{
+	height: 30px;
+	border-radius: 50%;
+}
+.boxBor{
+	border-top: 1px solid #dfdfdf;
+}
+.allReview{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.allReviewplusSign{
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 700;
+}
+.reviewDate{
+	font-size: 12px;
+}
+.activeStar::before{
+	color: #A2632C !important;
+}
+.reviewStarIcon{
+	overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+	color:#c7c7c7;
+	
+}
+.reviewStarIcon::before{
+	content: '★ ';
+    font-size:18px!important;
+}

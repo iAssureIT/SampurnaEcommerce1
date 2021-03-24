@@ -1,0 +1,71 @@
+.wishlist{
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    margin-bottom: 20px !important;
+    margin-top: 45px !important;
+}
+.wishlistInput{
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #dbd5d5;
+}
+.wishlistInput:focus{
+    outline: none !important;
+}
+.wishProductName{
+    font-weight: 600;
+    font-size: 16px;
+}
+.wishProductPrize{
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: #A2632C;
+}
+.wishAddtoCart{
+    color: #eea236;
+    /* background-color: #f0ad4e; */
+    background: #fff;
+    border-color: #eea236;
+}
+.wishAddtoCart:hover{
+    color: #fff;
+    font-weight: 600;
+    background-color: #f0ad4e; 
+    border-color: #eea236;
+}
+.wishProductDetails{
+    padding: 8px 15px;
+}
+.wishRemove{
+    margin-top: 5px;
+    padding: 6px 6px;
+    font-weight: bold;
+    font-size: 12px;
+    border: transparent;
+    /* border-radius: 15px; */
+    color: red;
+    background: transparent;
+    position: absolute;
+    left: 82%;
+    top: 0%;
+    font-size: 20px;
+    font-weight: 100;
+}
+.wishRemove:hover{
+    cursor: pointer;
+}
+.wishlistNoProduct{
+    padding: 10px;
+    background: #fdf0d5;
+    color: #6f4400;
+
+}
+.wishBack{
+    color: #333;
+    text-decoration: none;
+}
+
+.colageimg img{
+    margin-top: 5px;
+}

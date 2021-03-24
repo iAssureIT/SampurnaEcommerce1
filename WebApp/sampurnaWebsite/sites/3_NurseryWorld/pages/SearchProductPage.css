@@ -1,0 +1,272 @@
+.menubtn{
+  border-radius: 25px;
+  background-color: #eee !important;
+  color: #333;
+  margin-top: 20px;
+
+}
+.menudiv1{
+  margin-top: 20px;
+}
+.menudiv{
+  z-index:1;
+  position:absolute;
+}
+.plusSign{
+  margin-right: 24px;
+  margin-top: 10px;
+}
+.menubtn1{
+  margin-top: 20px;
+  border-radius: 25px;
+
+}
+.links{
+  padding: 0;
+}
+.links li{
+  display: inline-block;
+  list-style: none;
+  padding: 5px;
+}
+
+.links li a{
+  color:#555;
+}
+.showingby
+{
+  color:#A2632C !important;
+  font-weight: 700;
+}
+.selcategory{
+  font-weight: 700;
+}
+
+#accordionExample{
+  padding: 5px 15px 20px;
+}
+
+.pagefilter{
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+.nb-brand .btn-link{
+  color: #555;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 6px 0px;
+}
+.expand{
+  float: right;
+  color: #999;
+}
+
+.form {
+  margin: 0 auto;
+  padding: 100px 30px 0;
+}
+@media (min-width: 800px) {
+  .form {
+    max-width: 60%;
+  }
+}
+
+.input-range {
+  margin-bottom: 160px;
+}
+#collapseThree{
+  padding-top: 20px;
+}
+.input-range{
+  margin-bottom: 30px !important;
+}
+.input-range__track{
+  height: 0.19rem !important;
+  width: 100% !important;
+  right:0% !important;
+  left: 0% !important;
+
+}
+.input-range__track--active{
+  background:#555 !important;
+}
+.input-range__slider{
+  height: 15px !important;
+  width: 15px !important;
+  background:#555 !important;
+  border:1px solid #555 !important;
+  margin-top: -0.85rem !important;
+}
+#slider_min{
+  width: 33%;
+}
+
+#slider_max{
+  width: 33%;
+}
+.color-option{
+  height: 27px;
+    width: 27px;
+}
+.card-body a{
+  display: inline-block;
+  margin: 5px;
+} 
+.subcategory{
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 100 !important;
+
+}
+.subcategory:hover, .subcategory:active, .subcategory:focus  {
+  color: #A2632C !important;
+  text-decoration: none;
+  font-weight: 100 !important;
+}
+.subcategory:visited  {
+  color: #333;
+  text-decoration: none;
+  font-weight: 100 !important;
+}
+/* Create a custom checkbox */
+.centreDetailContainerEcommerce{
+  position: relative;
+  padding-top: 5px;
+ 
+  align-content: center;
+  cursor: pointer;
+  font-size: 10px;
+  user-select: none;
+  text-align: center;
+}
+/* Hide the browser's default checkbox */
+.centreDetailContainerEcommerce input {
+     position: relative;
+    opacity: 0;
+    z-index: 1;
+    cursor: pointer;
+    height: 17px;
+    width: 17px;
+    /* right: 10px; */
+    margin-top: 2px;
+}
+.centreDetailCheckEcommerce {
+  position: absolute;
+  top: 2px;
+  left: 52px;
+  vertical-align: center !important;
+  align-content: center;
+  height: 17px;
+  width: 17px;
+  background-color: #ffffff;
+  border-radius: 3px;
+  border: 2px solid #ddd;
+  margin-left: -37px;
+  z-index: 0;
+}
+.radioCheckEcommerce {
+  position: absolute;
+  top: 2px;
+  left: 52px;
+  vertical-align: center !important;
+  align-content: center;
+  height: 17px;
+  width: 17px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  margin-left: -37px;
+  z-index: 0;
+}
+/* On mouse-over, add a grey background color */
+.centreDetailContainerEcommerce:hover input ~ .centreDetailCheckEcommerce{
+  background-color: #eee;
+}
+/* When the checkbox is checked, add a blue background */
+.centreDetailContainerEcommerce input:checked ~ .centreDetailCheckEcommerce {
+  background-color: #A2632C;
+  border:2px solid #A2632C;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.centreDetailCheckEcommerce:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the checkmark when checked */
+.centreDetailContainerEcommerce input:checked ~ .centreDetailCheckEcommerce:after {
+  display: block;
+}
+/* Style the checkmark/indicator */
+.centreDetailContainerEcommerce .centreDetailCheckEcommerce:after {
+  left: 4px;
+  top: 0px;
+  width: 6px;
+  height: 10px;
+  align-content: center;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+/* On mouse-over, add a grey background color */
+.centreDetailContainerEcommerce:hover input ~ .radioCheckEcommerce{
+  background-color: #eee;
+}
+/* When the checkbox is checked, add a blue background */
+.centreDetailContainerEcommerce input:checked ~ .radioCheckEcommerce {
+  background-color: #A2632C;
+  border:2px solid #A2632C;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.radioCheckEcommerce:after {
+  position: absolute;
+  display: none;
+}
+/* Show the checkmark when checked */
+.centreDetailContainerEcommerce input:checked ~ .radioCheckEcommerce:after {
+  display: block;
+    background-color: transparent;
+}
+/* Style the checkmark/indicator */
+.centreDetailContainerEcommerce .radioCheckEcommerce:after {
+  left: 4px;
+  top: 0px;
+  width: 6px;
+  height: 10px;
+  align-content: center;
+  border: solid white;
+  border-width: 0 3px 3px 0;   
+
+
+  transform: rotate(45deg);
+}
+.centreDetaillistItemEcommerce{
+  padding-left: 25px;
+  padding-top: 5px;
+  font-size: 12px !important;
+}
+.categoryName{
+  color: #555;
+  font-weight: 700;
+  text-decoration: none;
+}
+/*.form-control{
+  width: 80%;
+}*/
+.sortIcon{
+  color: #999;
+  font-size: 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+li{
+  list-style: none
+}
+
+.searchtab>li.active>a, .searchtab>li.active>a:focus, .searchtab>li.active>a:hover{
+  color: #A2632C !important
+} 
+.searchtab>li >a{
+  color: #333
+}

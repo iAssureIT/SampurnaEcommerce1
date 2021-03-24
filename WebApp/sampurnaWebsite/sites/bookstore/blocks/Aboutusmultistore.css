@@ -1,0 +1,58 @@
+.multiicon{
+	font-size: 30px;
+    border: 18px solid #80b435 !important;
+    background-color: #80b435 !important;
+    color: #fff;
+    border-radius: 100%;
+    padding: 6px 9px;
+}
+.aboutheading{
+	margin-top: 90px !important;
+}
+.contactcontent h2, 
+.contactcontent h4{
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.contactcontent h4{
+	margin-top: 40px;
+}
+
+.textparaabout{
+	line-height: 20px;
+	/*color: #999;*/
+	/* padding-left: 128px; */
+	/* padding-right: 126px; */
+	text-align: justify;
+	margin-bottom: 50px;
+}
+.mb50{
+	margin-bottom: 40px;
+}
+.textparaabout1{
+	line-height: 20px;
+	/*color: #999;*/
+	text-align: center;
+	text-align: justify;
+}
+
+.uniFreshPara{
+	text-align: justify;
+}
+.multistorebgimg{
+	background-image: url("/images/aboutleftimg.png");
+	background-size: 100% 100%;
+	/* height: 300px; */
+	margin-bottom: 30px;
+}
+.multistorebgimg2{
+	background-image: url("/images/aboutrightimg.png");
+	background-size: 100% 100%;
+	/* height: 300px; */
+	
+}
+
+.multistorebgimgtext{
+	background:#fff;
+	margin-top: 20px;
+}

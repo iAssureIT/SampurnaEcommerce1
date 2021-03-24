@@ -1,0 +1,10 @@
+.addTitle{
+    color: #666;
+    font-weight: 500;
+}
+.deleteAdd{
+    padding: 9px 15px;
+}
+.deleteAdd:hover{
+    color: red !important;
+}

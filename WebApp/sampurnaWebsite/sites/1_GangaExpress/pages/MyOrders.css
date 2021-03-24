@@ -1,0 +1,200 @@
+
+.account-nav  li  a{
+	color: #555;
+}
+.account-nav li a:hover{
+	color:#A2632C !important;
+}
+
+table > tfoot > tr > th{
+	border-top: 0px solid #ddd !important;	
+	font-weight: 100;
+	text-align: right;
+}
+table > tfoot > tr > td{
+	
+	border-top: 0px solid #ddd !important;
+}
+
+table > tfoot > tr > td:last-of-type {
+   text-align: right;
+}
+.box-content{
+	/* height: 150px; */
+}
+.subtotal{
+	border-top: 1px solid #ddd !important;
+}
+.backtoMyOrdersDiv{
+	text-align: right;
+}
+.backtoMyOrders{
+	color: #999;
+}
+
+.backtoMyOrders:hover{
+	color:#A2632C !important;
+	text-decoration: none;
+}
+.actions{
+	float: right;
+}
+.actions button {
+	width: 35px;
+}
+.actions a {
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    width: 35px;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 20px;
+    font-size: 9px;
+    padding: 5px 0 5px;
+    border: 1px solid #A2632C !important;
+    background: #fff;
+    color: #A2632C;
+    text-transform: uppercase;
+}
+
+
+.actionbtn .btn{
+	background-color: transparent;
+    margin: 0px 5px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 3px;
+    border: 1px solid #A2632C;
+    color: #777;
+    float: right;
+}
+.actionbtn .btn:hover{
+	background-color: #A2632C;
+    color: #fff;
+    float: right;
+}
+.actbtns{
+	float: right;
+}
+.actbtns button{
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    width: 35px;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 20px;
+    font-size: 9px;
+    padding: 5px 0 5px;
+    border: 1px solid #A2632C !important;
+    background: #fff;
+    color: #A2632C;
+    text-transform: uppercase;
+}
+.actions a:hover {
+	color: #A2632C;
+}
+.actbtns button{
+	width: 35px !important;
+	padding: 5px 0 5px;
+	margin-left: 5px;
+}
+.actbtns button:hover{
+	padding: 5px 0 5px;
+}
+.modal-header{
+	height: auto;
+}
+#feedbackProductModal .modal-body{
+	height: 220px;
+}
+.givefeedback {
+   float: left !important;
+}
+.givefeedback:not(:checked) > label, .ratingReview1:not(:checked) > label {
+   float: right !important;
+}
+
+.orderimgsize img{
+	height: 70px;
+}
+.orderIdborder{
+	border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    background : #eeeeee6b;
+}
+.orderbodyborder{
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+
+.orderfooterborder{
+	padding: 10px;
+	border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+.cancelledorder{
+	background: #eeeeee6b;
+}
+.cancelledtext{
+	font-weight:600;
+	color: #ff2236;
+	margin-top: 10px;
+}
+.modalfooterborder{
+	border:none;
+}
+.greybg{
+	background: #eee;
+	padding: 15px;
+}
+
+.productnamecss{
+	/*width: 100%;*/
+}
+.astricsign{
+	color: red;
+}
+.returninputbox{
+	margin-bottom: 15px;
+}
+.tabletext{
+text-align:right ! important;
+}
+
+
+.table-caption{
+	font-weight: 600;
+}
+.outerbox{
+	border : 1px solid #ddd;
+	border-radius: 4px;
+	padding: 14px 18px;
+	margin:10px 0;
+}
+.orderIdButton{
+	width: 196px !important;
+    background-color: #A2632C !important;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0px;
+}
+.orderfootertag span{
+	color : #878787
+}
+.orderfootertag2{
+	float: right;
+}
+.orderfootertag2 span{
+	color : #878787
+}
+.productname{
+	word-break: break-word;
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+}

@@ -1,0 +1,24 @@
+.accountTitle{
+    font-weight: 600;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #aaa; 
+}
+.accountBox{
+    border: 1px solid #dedede;
+     height: 285px; 
+}
+.accountBox div{
+    overflow-wrap: break-word;
+}
+.accountDivHeader{
+    font-weight: 600;
+    padding: 10px;
+    background: #f8f8f8;
+}
+.textwrap{
+	word-break: break-all;
+}
+.anasBtn{
+    background-color: #A2632C;
+    color:#fff;
+}

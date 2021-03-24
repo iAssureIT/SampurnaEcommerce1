@@ -1,0 +1,39 @@
+
+.sitemappWrapper{
+    margin-bottom: 15px;
+}
+
+.siteCat{
+    font-weight: 500;
+    margin-top: 25px;
+}
+.siteCat a{
+    color: #333 !important;
+}
+.siteSubCat {
+    color: #333 !important;
+    
+}
+.siteSec{
+    color: #333 !important;
+}
+
+.pageTitle{
+    text-align: center;
+}
+.subTitles{
+    font-size:22px;
+    font-weight: bold;
+    color:#333333ed
+}
+@media only screen and (max-device-width: 480px) {
+.subTitles{
+    font-size: 15px;
+}
+.siteCat{
+    font-size: 13px;
+}
+.pageTitle h2{
+    font-size: 20px;
+}
+}

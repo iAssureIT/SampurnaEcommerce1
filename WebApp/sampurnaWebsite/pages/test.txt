@@ -1,0 +1,24 @@
+const { formatWithValidation } = require("next/dist/next-server/lib/utils")
+const { apiResolver } = require("next/dist/next-server/server/api-utils")
+
+Header 
+
+Api path [.........]
+
+dynamic        static
+
+static ====> form
+dynamic =====> 
+
+section - section api
+
+-------------
+Parent menus
+-------------
+fruits
+Vegatables
+
+
+category - category api 
+
+fruits - seasional fruits

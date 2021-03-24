@@ -1,0 +1,36 @@
+.editAccount{
+    border-radius: 25px;
+    padding: 8px 25px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.showHideEyeDiv {
+    right: 10px;
+    top: 10px;
+    z-index: 999;
+    position: absolute;
+  }
+  .showPwd2{
+    display: block;
+  }
+  .hidePwd2{
+    display: none;
+  }
+  .showPwd3{
+    display: none;
+  }
+  .hidePwd3{
+    display: block;
+  }
+  .showPwd4{
+    display: block;
+  }
+  .hidePwd4{
+    display: none;
+  }
+  .showPwd5{
+    display: none;
+  }
+  .hidePwd5{
+    display: block;
+  }

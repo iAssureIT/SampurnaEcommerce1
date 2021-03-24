@@ -1,0 +1,34 @@
+.cartBanner{
+    height: 300px;
+    background: url("/images/cartBanner.png");
+    padding: 6% 10%;
+    color: #fff;
+    text-align: center;
+}
+.cartBannerText{
+    color: #fff;
+    text-align: center;
+}
+.cartUL{
+    line-height: 60px;
+    font-size: 1.2rem;
+    list-style: none none;
+    color: #A2632C !important
+}
+.cartUL li{
+    display: inline-block;
+}
+.cartUL li a{
+    color: #fff;
+}
+.cartBannerText  ul::before {
+    position: absolute;
+    content: "";
+    background: url("/images/contact-Recovered.png") no-repeat;
+    bottom: -10px;
+    left: 50%;
+    width: 79px;
+    height: 1px;
+    transform: translate(-50%,0);
+    top: 0;
+}

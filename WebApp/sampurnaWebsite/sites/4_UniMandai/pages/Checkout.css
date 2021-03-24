@@ -1,0 +1,162 @@
+.shippingAddressTitle{
+    padding: 9px;
+}
+.shippingAddress{
+    word-break: break-all;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #ddd;
+}
+.shippingInput{
+    margin-top: 20px;
+}
+.orderConfirmation {
+    text-align: right;
+    border-radius: 15px;
+    color:  #999;
+    font-size: 26px;
+    cursor: pointer;
+}
+.orderConfirmation:hover{
+    color: #A2632C !important
+}
+.shippingLogin{
+    border-radius: 25px;
+}
+.shipLog{
+    margin-top: 15px;
+    color: #999;
+}
+.shipLog label{
+    margin-top: 6px;
+}
+.shippingMethod{
+    margin-top: 50px;
+    padding-bottom: 50px;
+    border: 1px solid #ddd; 
+}
+.shippingMethodTitle{
+    padding: 9px;
+    margin-bottom: 10px;
+}
+.shippingMethod label{
+    margin-top: 15px;
+}
+.shippingMethod input{
+    margin-top: 10px;
+}
+.paymentMethod{
+    margin-top: 30px;
+    padding-bottom: 50px;
+    border: 1px solid #ddd; 
+}
+.paymentMethodTitle{
+    padding: 9px;
+    margin-bottom: 10px;
+}
+.paymentInput{
+    margin-top: 15px;
+}
+.orderImg{
+    height: 100px;
+    width: 100px;
+}
+.orderTable{
+
+}
+.orderTable>tbody>tr>td {
+    padding: 12px 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #fff;
+}
+.orderTable>tbody>tr>td {
+    vertical-align: middle !important;
+}
+.orderTable>thead>tr>th{
+    border-bottom: 1px solid #fff;
+}
+.crossOrder{
+    cursor: pointer;
+    color: #9d9d9d;
+}
+.checkoutBorder{
+    height: 1px;
+    background: #f5f5f5;
+}
+.quantityInput{
+    padding: 5px 10px;
+    border: 1px solid #333;
+}
+.orderReviews{
+    margin-top: 30px;
+    padding-bottom: 50px;
+    border: 1px solid #ddd; 
+}
+.orderReviewsTitle{
+    padding: 9px;
+    margin-bottom: 10px;
+}
+.orderReviews span{
+    font-weight: 500;
+    margin-top: 10px;
+    color: #666;
+}
+.productName{
+    font-weight: 500 !important;
+    color: #333 !important;
+}
+.productPrize{
+    white-space: nowrap;
+    color: #333 !important;
+}
+.couponCode{
+    color: #999;
+}
+.discountCode{
+    cursor: pointer;
+}
+.orderTotalText{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    color: #4b4a4a;
+}
+.orderTotalPrize{
+    color: #A2632C !important;
+    font-size: 18px;
+    font-weight: bold;
+}
+.giftBtn{
+    border-radius: 25px;
+}
+.giftWrapPrize{
+    color: #A2632C !important;
+}
+.placeOrder{
+    border-radius: 25px;
+}
+.required{
+    color: red !important;
+}
+.checkoutAddressModal{
+    /* overflow: hidden; */
+}
+.termsNconditionsmodal{
+    cursor: pointer;
+}
+.listStyle li{
+    list-style: disc;
+}
+.termsNconditionsmodal:hover{
+    color: #A2632C;   
+}
+.close{
+    font-size: 26px;
+    font-weight: 600;
+    opacity: 1;
+}
+.checkoutADDCss{
+    word-break: break-word;
+}

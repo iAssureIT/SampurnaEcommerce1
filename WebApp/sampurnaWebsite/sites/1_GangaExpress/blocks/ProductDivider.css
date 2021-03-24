@@ -1,0 +1,227 @@
+
+.block{
+	margin-bottom: 30px;
+	position: relative;
+    overflow: hidden;
+    
+}
+.block img{
+	height: auto;
+	max-width: 100%;
+}
+.block .divImage {
+    max-width: 100%;
+    transition: all 0.5s;
+    display: block;
+    width: 100%;
+    /*height: 100%;*/
+    transform: scale(1);
+}
+.block:hover .divImage{
+	transform: scale(1.1);
+	transition-duration: 0.5s;
+	opacity: 0.8;
+
+}
+
+.block:hover .figcaption{
+	opacity: 1;
+	transform: scale(1.1);
+	transition-duration: 1s;
+	background-color: rgba(153,153,153,0.2);
+}
+.block:hover .figcaption span{
+	top:135px;
+	font-size: 0.75em;
+}
+
+.block:hover .figcaption::before{
+	opacity: 1;
+	transition-duration: 1s;
+	transform: scale3d(1,1,1);
+}
+
+.block:hover .figcaption2{
+	opacity: 1;
+	transform: scale(1.1);
+	transition-duration: 0.5s;
+	background-color: rgba(153,153,153,0.2);
+}
+
+
+.block:hover .figcaption2::before{
+	opacity: 1;
+	transition-duration: 0.5s;
+	transform: scale3d(1,1,1);
+}
+
+.figcaption{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2em;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.25em;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: block;
+    text-align: center;
+    opacity: 1;
+}
+.figcaption span {
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    font-weight: 700;
+    top: 155px;
+    display: block;
+    margin: 18px -35px;
+}
+.figcaption::before{
+	position: absolute;
+	top: -217px;
+	right: 20px;
+	bottom: 60px;
+	left: 20px;
+	border: 2px solid #fff;
+	box-shadow: 0 0 0 30px rgba(255,255,255,0.2);
+	content: '';
+	opacity: 1;
+	-webkit-transition: opacity .35s,-webkit-transform .35s;
+	transition: opacity .35s,transform .35s;
+	-webkit-transform: scale3d(1.4,1.4,1);
+	transform: scale3d(1.4,1.4,1);
+}
+.figcaption1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2em;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.25em;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: block;
+    text-align: center;
+    opacity: 1;
+}
+.figcaption1::before {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    bottom: 18px;
+    left: 20px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 30px rgba(255,255,255,0.2);
+    content: '';
+    /* opacity: 1; */
+    transition: opacity .35s,transform .35s;
+    transform: scale3d(1.4,1.4,1);
+}
+
+.figcaption1 span {
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    font-size: 0.9em;
+    position: relative;
+    font-weight: 700;
+    top: 155px;
+    display: block;
+    margin: 18px -35px;
+}
+.figcaption2{
+	/*position: absolute;*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*padding: 2em;*/
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.25em;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: block;
+
+}
+
+.figcaption2::before{
+	position: absolute;
+	top: -221px;
+	right: 65px;
+	bottom: 6px;
+	left: 65px;
+	border: 2px solid #fff;
+	box-shadow: 0 0 0 30px rgba(255,255,255,0.2);
+	content: '';
+	opacity: 1;
+	-webkit-transition: opacity .35s,-webkit-transform .35s;
+	transition: opacity .35s,transform .35s;
+	-webkit-transform: scale3d(1.4,1.4,1);
+	transform: scale3d(1.4,1.4,1);
+}
+
+
+.banerbg{
+	background: url("/images/bottombaner.png");
+}
+
+.shopnowbtn{
+	border-radius: 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    border: 2px solid #A2632C;
+    position: absolute;
+    top: 58%;
+    left: 46%;
+    margin-top: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    background-color: #A2632C;
+    transition: 0.3s !important;
+}
+.shopnowbtn:hover{
+    background-color: transparent;
+    color: #A2632C;
+}
+
+.shopByCat{
+	background: #333;
+    color: #fff;
+    padding: 12px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+.flatSaleBlockWrapper{
+    position: absolute;  
+    margin-top: -230px;
+    z-index: 1000 !important; 
+    text-align: center;
+    width: 100%;
+}
+.flatSaleBlock{
+    font-size: 40px;
+    color: #fff;
+    width: 100%;
+    font-weight: 900;
+    text-align: center;
+}
+.OffBlock{
+    color: #A2632C;
+}
+
+.offerText{
+    text-align: center !important;
+    color: #fff;
+}

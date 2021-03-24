@@ -1,0 +1,34 @@
+.banner{
+    height: 300px;
+    background: #54a79b;
+    padding: 6% 10%;
+    color: #fff;
+    text-align: center;
+}
+.bannerText{
+    color: #fff;
+    text-align: center;
+}
+.bannerUL{
+    line-height: 60px;
+    font-size: 1.2rem;
+    list-style: none none;
+    color: #A2632C !important
+}
+.bannerUL li{
+    display: inline-block;
+}
+.bannerUL li a{
+    color: #fff;
+}
+.bannerText  ul::before {
+    position: absolute;
+    content: "";
+    background: url("/images/contact-Recovered.png") no-repeat;
+    bottom: -10px;
+    left: 50%;
+    width: 79px;
+    height: 1px;
+    transform: translate(-50%,0);
+    top: 0;
+}

@@ -1,0 +1,38 @@
+.usereditbtn{
+	background-color: #777;
+	color: #fff;
+	border-radius:0px !important;
+}
+.usereditbtn:hover{
+	color: #fff;
+}
+.btmmargin{
+	margin-top: 20px;
+}
+
+.requiredsign{
+	color: red;
+}
+
+.EditUserProfileWrap {
+    border: 1px solid #f6f6f6;
+	height: auto;
+	padding-bottom: 30px;
+}
+.profileImage{
+	border-radius: 10px;
+	height: 165px;
+	border: 1px solid #eee;
+    /* background: #aaa; */
+	width: 165px;
+	background-size: 100%;
+}
+.imgUp{
+	cursor: pointer;
+	opacity: 0;
+	height: 163px;
+    background: #333;
+}
+.myProfile{
+	padding: 5px;
+}

@@ -1,0 +1,71 @@
+.bannercaro .bannerimg{
+  height: 600px!important;
+
+}
+
+.bannercaro .owl-dots {
+    display: block;
+    position: absolute;
+    text-align: center;
+    top: 505px;
+    left: 603px;
+    margin-top: 70px;
+}
+.bannercaro .owl-dots .owl-dot span{
+background: #fff;
+height: 15px;
+width:15px;
+border: 2px solid #FBBD65;
+
+}
+.bannercaro .owl-dots .owl-dot.active span{
+background: #FBBD65;
+
+}.bannercaro .owl-dots .owl-dot:hover span{
+	background: #FBBD65;
+}
+.bannerAnimation{
+	margin-top: -550px;
+}
+.banner2AnimationImg{
+	margin-top: -600px;
+}
+.banner2TextBox{
+	margin-top: -400px;
+}
+.banner1upImg, .banner1downImg{
+	height: 150px !important;
+}
+.bannertext{
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+	color: #fff;
+	margin-top : 20px;
+}
+.bannertext1{
+	font-size: 20px;
+	font-weight: 500;
+	text-align: center;
+	color: #fff;
+	margin-top : 20px;
+}
+.BannerTitle{
+	text-align: center;
+	font-size: 60px;
+	color: #fff;
+	font-weight: 700;
+}
+.banner2sideImg{
+	height: 500px !important;
+}
+.BannerTitle2{
+	text-align: center;
+	font-size: 50px;
+	color: #fff;
+	font-weight: 700;
+}
+.hrLineBanner{
+	border-bottom: solid 2px #A2632C;
+	margin-top: 33px;
+}

@@ -1,0 +1,85 @@
+
+
+
+.sidebar{
+	/*width: 85%;*/
+}
+.mr20{
+    margin-right: 20px;
+}
+.account-nav li a{
+	text-transform: none;
+	font-size: 14px;
+	font-weight: 100;
+}
+
+.current #atag:hover{
+    background-color:#A2632C !important;
+    color: #fff !important;
+}
+.account-nav .item{
+	margin:3px 0 0;
+	background-color:#eee;
+}
+.nb-brand{
+	background-color:#eee;
+	margin-top: 20px 
+}
+.Featured-Brands-tittle {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #444;
+    border-bottom: solid 1px #ddd;
+    padding: 20px 0;
+    text-align:center;
+}
+
+ul.Featured-Brands {
+    float: left;
+    width: 100%;
+    margin: 20px 0 0;
+    border-bottom: solid 1px #ddd;
+    list-style: none;
+}
+ul.Featured-Brands li {
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.img_logo_brand{
+	width: 70px;
+	height: 70px;
+}
+.nb-brand .viewall form button {
+    background: #A2632C !important;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 25px;
+    padding: 7px 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 0;
+    margin: 15px auto; 
+}
+
+.viewall{
+	text-align:center;
+}
+.mp-title{
+    margin-bottom: 10px;
+}
+.mp-title strong{
+    
+    font-size: 18px;
+}
+
+.account-nav .current{
+    background: #A2632C!important;
+    color: #fff;    
+}
+.account-nav .current a{
+   
+    color: #fff;    
+}
