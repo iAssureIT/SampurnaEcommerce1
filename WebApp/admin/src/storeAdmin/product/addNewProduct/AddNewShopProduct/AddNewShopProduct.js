@@ -85,7 +85,6 @@ class AddNewShopProduct extends Component {
     this.getVendorList();
     this.getTaxData();
     this.getUom();
-
     const userDetails = localStorage.getItem("userDetails");
     const user_ID     = userDetails.user_id;
     const companyID   = userDetails.companyID;
@@ -160,6 +159,9 @@ class AddNewShopProduct extends Component {
     $.validator.addMethod("regxunit", function (value, element, arg) {
       return arg !== value;
     }, "Please select the unit");
+      $.validator.addMethod("regxtax", function (value, element, arg) {
+      return arg !== value;
+    }, "Please select the tax");
     // $.validator.addMethod("regxbrand", function (value, element, regexpr) {
     //   return regexpr.test(value);
     // }, "Brand should only contain letters & number.");
@@ -273,6 +275,10 @@ class AddNewShopProduct extends Component {
         unit :{
           required: true,
           regxunit: "Select Unit"
+        },
+         taxName :{
+          required: true,
+          regxtax: "Select Tax"
         },
         editor1: {
           required: function() 
@@ -460,7 +466,7 @@ class AddNewShopProduct extends Component {
         this.getTaxRates(response.data.taxId)
         this.setState({
           showDiscount: response.data.discountedPrice ? false : true,
-          vendor: response.data.vendorName,
+          vendorName: response.data.vendorName,
           user_ID: response.data.user_ID,
           vendor_ID: response.data.vendor_ID,
           section: response.data.section + '|' + response.data.section_ID,
@@ -532,18 +538,13 @@ class AddNewShopProduct extends Component {
       var vendorName  = this.refs.vendor.value.split('|')[0];
       var user_ID     = this.refs.vendor.value.split('|')[1];
       var vendor_ID   = this.refs.vendor.value.split('|')[2];
-      // console.log("vendor_ID---",vendor_ID);
-    // }else{
-    //   var vendorName  = this.state.userDetails.firstName +" "+ this.state.userDetails.lastName;
-    //   var user_ID     = this.state.userDetails.user_id;
-    //   var vendor_ID   = this.state.appCompany_entity_id;
-    // }
-
+   
     console.log("vendor_ID",vendor_ID);
     console.log("vendorName",vendorName)
 
     var formValues = {
       "vendor_ID"   : vendor_ID,
+      "vendorName"  : this.refs.vendor.value.split('|')[0],
       "section"     : this.refs.section.value.split('|')[0],
       "section_ID"  : this.refs.section.value.split('|')[1],
       "category_ID" : this.refs.category.value.split('|')[1],
@@ -578,54 +579,12 @@ class AddNewShopProduct extends Component {
       "fileName": "Manual",
     }
 
-    console.log("formValues",formValues)
+    console.log("formValues final-------------",formValues)
     if($('#addNewShopProduct').hasClass('required')){
       if($('#addNewShopProduct').valid()){
         if (this.state.productDetails) {
           if (this.state.discountPercentError === "") {
-            // console.log("formValues",formValues);
-            // axios.post('/api/products/post', formValues)
-            //   .then((response) => {
-            //     // console.log('response',response.data.message);
-            //     if (response.data.message === "Item code for this product code already exists.") {
-            //       swal({
-            //         title: "Item code already exist", 
-            //       });
-            //     } else {
-            //       swal({
-            //         title: response.data.message,
-            //       });
-            //       this.setState({
-            //         vendor: "Select Vendor",
-            //         section: "Select Section",
-            //         category: "Select Category",
-            //         categoryNameRlang : "",
-            //         subCategory: "Select Sub-Category",
-            //         brand: "",
-            //         brandNameRlang : "",
-            //         productCode: "",
-            //         itemCode: "",
-            //         productName: "",
-            //         productNameRlang : "",
-            //         productUrl: "",
-            //         productDetails: "",
-            //         shortDescription: "",
-            //         taxInclude : true,
-            //         taxRate : "",
-            //         originalPrice: "",
-            //         discountedPrice: "",
-            //         size: "",
-            //         color: "",
-            //         availableQuantity: "",
-            //         currency: "",
-            //         status: "",
-            //       });
-            //       this.props.history.push('/add-product/image/' + response.data.product_ID);
-            //     }
-            //   })
-            //   .catch((error) => {
-            //     console.log('error', error);
-            //   })
+           
            }
         }else{
         swal({
@@ -1204,7 +1163,6 @@ class AddNewShopProduct extends Component {
                                   </div>
                                   <div className="col-lg-2 col-md-2 col-sm-4 col-xs-4 inputFields">
                                     <label>Unit <i className="redFont">*</i> </label>
-                                    {/*<div className="input-group" id="subCategory">*/}
                                     <select className="form-control allProductSubCategories"  name="unit" id="unit" ref="unit" value={this.state.unit} onChange={this.handleChange.bind(this)}>
                                       <option selected defaultValue="">Select Unit</option>
                                       {this.state.unitOfMeasurementArray && this.state.unitOfMeasurementArray.length > 0 ?
@@ -1259,9 +1217,9 @@ class AddNewShopProduct extends Component {
                                   : null}
                                                                  
                                   <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                                    <label>Tax<i className="redFont">*</i></label>
-                                    <select className="form-control selectdropdown" ref="taxRate" id="taxRate" name="taxName" value={this.state.taxName} onChange={this.onChangeTax.bind(this)}>
-                                      <option value="No tax" selected ="true">No tax</option>
+                                    <label>Tax<i className="redFont"></i></label>
+                                    <select className="form-control selectdropdown" ref="taxName" id="taxName" name="taxName" value={this.state.taxName}  onChange={this.onChangeTax.bind(this)}>
+                                      <option value="No tax" selected ="true">Select Tax</option>
                                       {this.state.taxData && this.state.taxData.length > 0?
                                         this.state.taxData.map((data, i)=>{
                                           var ind = i+ 1;
@@ -1276,7 +1234,7 @@ class AddNewShopProduct extends Component {
                                   </div>
 
                                   <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                                    <label>Tax Rate (%) <i className="redFont">*</i></label>
+                                    <label>Tax Rate (%) <i className="redFont"></i></label>
                                     <select className="form-control selectdropdown" ref="taxRate" id="taxRate" name="taxRate" value={this.state.taxRate} onChange={this.handleChange.bind(this)}>
                                       <option value="0">0% </option>
                                       {/* {console.log("taxRate",this.state.taxRate)} */}

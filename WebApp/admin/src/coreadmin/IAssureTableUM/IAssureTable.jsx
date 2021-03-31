@@ -44,6 +44,14 @@ class IAssureTableUM extends Component {
 		this.showUserDetails = this.showUserDetails.bind(this);
 	}
 	componentDidMount() {
+		var pageUrl = window.location.pathname;
+			console.log("pageUrl now = ",pageUrl);
+			let a = pageUrl ? pageUrl.split('/') : "";
+			// console.log("a>>>> for contact",a);
+			if(pageUrl =="/umlistofusers"){
+			  $(".adminModal").css("marginTop", "75px");
+			  $(".adminModal-dialog").css("marginTop", "0px");
+			}
 		$("html,body").scrollTop(0);
 		window.showUserDetails = this.showUserDetails;
 		// console.log("this.props.tableHeading==>", this.props.tableHeading);
@@ -1232,7 +1240,7 @@ class IAssureTableUM extends Component {
 																	}
 																	{/* <div  id={`userDetails-${value._id}`} onClick={this.showUserDetails.bind(this)} className="modal" role="dialog"> */}
 																	<div id={`userDetails-${value._id}`} className="modal" role="dialog">
-																		<div className="adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
+																		<div className="adminModal adminModal col-lg-12 col-md-12 col-sm-12 col-xs-12">
 																			<div className="modal-content adminModal-content col-lg-8 col-lg-offset-2 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
 																				<div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
 																					<p className="modal-title " id="exampleModalLabel">Login History for User:  <b>{this.state.fullName}</b></p>

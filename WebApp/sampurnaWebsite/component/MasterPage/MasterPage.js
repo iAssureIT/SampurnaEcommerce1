@@ -81,10 +81,10 @@ class MasterPage extends React.Component {
 	// console.log("this.props.pagedata===",this.props.pageData);
     return (
 		
-		<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding masterPageWrapper">
+		<div className="col-12 NoPadding masterPageWrapper">
 			{this.pageHead()}
 			<Header/>			
-			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding componentWrapper">
+			<div className="col-lg-12 NoPadding componentWrapper">
 			{ this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
                 this.props.pageData.pageBlocks.map((result, index)=>{
 					var component = result._id ? result.blockComponentName : "TitleDesc";
@@ -100,8 +100,8 @@ class MasterPage extends React.Component {
 					});
 					
 					return(						
-						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding" key={index}>
-							<OtherComponent block_id={block_id} key={index}/>
+						<div className="col-12 NoPadding" key={index}>
+							<OtherComponent block_id={block_id} key={index}/>							
 						</div>						
                     )
 				})
@@ -113,6 +113,7 @@ class MasterPage extends React.Component {
 			</div>	
 
 			{this.props.pageData.pageURL === 'homepage' ? <BlogCarousel/> : null}
+
 			<ScrollTop />
 			<Footer/>
 			

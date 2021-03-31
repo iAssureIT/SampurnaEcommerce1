@@ -20,7 +20,7 @@ const blogRoutes 						= require('./api/cms/blogs/routes.js');
 const typeMasterRoutes 					= require('./api/cms/TypeMaster/Routes.js');
 const blockTypeMasterRoutes 			= require('./api/cms/BlockTypeMaster/Routes.js');
 const expenseTypeRoutes				    = require("./api/coreAdmin/expenseTypeMaster/RoutesExpenseTypeMaster.js");
-const expenseItemMaster                 = require('./api/coreAdmin/expenseItemMaster/Routes.js')
+const expenseItemMaster                 = require('./api/coreAdmin/expenseItemMaster/Routes.js');
 const addNewBlockTempMasterRoutes 		=  require("./api/cms/AddNewBlockTemplate/routes.js");
 
 // console.log("globalVariable.dbname",dbname);
@@ -218,6 +218,8 @@ const addNewBlockTempMasterRoutes 		=  require("./api/cms/AddNewBlockTemplate/ro
 	//================ CMS ==================
 
 	app.use("/api/menubar",menubarRoutes);
+	app.use("/api/blocktemplate",addNewBlockTempMasterRoutes);
+	
 
 	//=========== Billing Management =========
 	app.use("/api/billingmaster", BillingEntry);

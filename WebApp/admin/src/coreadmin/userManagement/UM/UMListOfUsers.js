@@ -57,6 +57,7 @@ class UMListOfUsers extends Component {
 		const name = target.name;
 	}
 	componentDidMount() {
+		
 		const user_ID = localStorage.getItem("user_ID");
 		var userDetails = (localStorage.getItem('userDetails'));
 		var userData = JSON.parse(userDetails);

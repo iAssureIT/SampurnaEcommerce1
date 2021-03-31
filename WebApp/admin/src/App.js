@@ -18,7 +18,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // console.log("baseURL",axios.defaults.baseURL)
 
-
 function App(){
   return(
     <div>

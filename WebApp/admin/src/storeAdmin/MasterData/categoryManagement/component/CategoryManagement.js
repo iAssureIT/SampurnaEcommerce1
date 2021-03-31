@@ -249,6 +249,7 @@ class CategoryManagement extends Component{
       // console.log('bjgjbmbmb',$('#categoryManagement').valid());
       if($('#categoryManagement').valid()){
         var addRowLength = this.state.subcatgArr ? this.state.subcatgArr.length : null;
+        console.log("addRowLength----------",this.state.subcatgArr);
         var categoryDimentionArray = [];
         
 
@@ -267,6 +268,14 @@ class CategoryManagement extends Component{
               }
               if($(".newSubCatg"+i).val()){
                 console.log("subcategory obj===",obj);
+                 axios.post('/api/category/get/list')
+                  .then((response)=>{
+                    console.log("response in submitCategory",response);
+
+                  })
+                  .catch((error)=>{
+                    console.log('error', error);
+                  });
                 categoryDimentionArray.push(obj);
                 this.setState({
                   allowToSubmit: true
@@ -790,6 +799,7 @@ class CategoryManagement extends Component{
                                                       </div>
                                                   );
                                               })
+
                                             : null
                                           }
                                       </div>

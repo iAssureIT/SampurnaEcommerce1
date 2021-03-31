@@ -23,9 +23,9 @@ class ProductList extends Component {
         this.state = {
             tableHeading: {
                 "productName": 'Product Details',
-                "section": 'Section',
+               /* "section": 'Section',
                 "category": 'Category',
-                // "vendor": 'Vendor',
+                "vendor": 'Vendor',*/
                 "originalPrice": 'Original Price',
                 "discountPercent": 'Discount Percent',
                 "discountedPrice": 'Discounted Price',
@@ -202,6 +202,7 @@ class ProductList extends Component {
             .then((response) => {
                 console.log("reponse for admin list",response);
                  var tableData = response.data.map((a, i) => {
+                    console.log("a.vendorName----",a.vendorName);
                         return {
                             productName : a.productName,
                             section : a.section,
@@ -276,6 +277,7 @@ class ProductList extends Component {
 
     handleChangeFilter(event){
         this.setState({ messageData:{} })
+        console.log("event.target--",event.target);
         if (event.target) {
             var currentSelection = event.target.getAttribute("id");
         }else{
@@ -362,33 +364,6 @@ class ProductList extends Component {
             selectedProducts: this.state.checkedProducts,
             selectedAction: this.state.selectedAction
         }
-        // console.log("formValues--",formValues);
-        
-        //when user unplish any product that time that product should be removed from cart collection if any user alredy added to his cart
-        // if(selectedAction === "Unpublish"){
-        //     axios.patch("/api/carts/removeproductfromcart" ,formValues)
-        //     .then((response)=>{
-        //         this.setState({
-        //             messageData : {
-        //             "type" : "outpage",
-        //             "icon" : "fa fa-check-circle",
-        //             "message" : response.data.message,
-        //             "class": "success",
-        //             "autoDismiss" : false
-        //             }
-        //         })
-        //         setTimeout(() => {
-        //             this.setState({
-        //                 messageData   : {},
-        //             })
-        //         }, 3000);
-                
-        //     })
-        //     .catch((error)=>{
-        //     console.log('error', error);
-        //     })
-        // }
-
         axios.patch('/api/products/patch/productBulkAction', formValues)
             .then((response) => {
                 $('#bulkActionModal').hide();
@@ -466,7 +441,7 @@ class ProductList extends Component {
             "productImage": productImageArray,
             "status": "New"
         };
-        // console.log('formValues', formValues);
+        console.log('formValues', formValues);
         axios.patch('/api/products/patch/gallery', formValues)
             .then((res) => {
                 this.setState({

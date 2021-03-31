@@ -43,10 +43,7 @@ export default function App({ Component, pageProps }) {
         <script type="module" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossOrigin="anonymous"></script>
         <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrzFPcpBm_YD5DfBl9zJ2KwOjiRpOQ1lE&libraries=places"></script>   
-
-        {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script> */}
-         {/* <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script> */}
-                                                        
+                                       
       </Head>
       
       <Component {...pageProps} />  

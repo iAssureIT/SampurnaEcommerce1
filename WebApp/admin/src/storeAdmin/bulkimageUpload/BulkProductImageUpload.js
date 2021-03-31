@@ -151,11 +151,11 @@ class BulkProductImageUpload extends Component{
                                 if(response.data){
                                   const config = {
                                     bucketName      : response.data.bucket,
-                                    dirName         : process.env.ENVIRONMENT,
+                                    dirName         : 'propertiesImages',
                                     region          : response.data.region,
                                     accessKeyId     : response.data.key,
                                     secretAccessKey : response.data.secret,
-                                  }
+                                }
                                   resolve(config);                               
                                 }
                                 

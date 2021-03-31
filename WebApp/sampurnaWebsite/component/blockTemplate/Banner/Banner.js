@@ -92,7 +92,7 @@ export default class Banner extends React.Component {
                     .get('/api/blocks/get/'+this.props.block_id)
                     .then((response)=>{
                         if(response.data){
-                          // console.log("Banner response.data============",response.data);
+                          console.log("Banner response.data============",response.data);
                           
                           this.setState({
                             blocks:response.data,
@@ -271,14 +271,14 @@ export default class Banner extends React.Component {
                                 :null
                                 }
                                 {data.BgImage?
-                                  // <img loading="lazy" className={"img img-responsive lazyload "  +Style.BgImg} src={data.BgImage} alt="banner" />
-                                  <Image
-                                      src={data.BgImage}
-                                      className={Style.img}
-                                      height ={500}
-                                      width={1200}
-                                      layout="responsive"
-                                    />	
+                                  <img loading="lazy" className={"img img-responsive lazyload "  +Style.BgImg} src={data.BgImage} alt="banner" />
+                                  // <Image
+                                  //     src={data.BgImage}
+                                  //     className={Style.img}
+                                  //     height ={500}
+                                  //     width={1200}
+                                  //     layout="responsive"
+                                  //   />	
                                 :null}
                                 {data.FgImage !== null?
                                 <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 "}>
@@ -287,13 +287,13 @@ export default class Banner extends React.Component {
                                     <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalBannerTitle " +Style.blockSubTitle}>{data.SubTitle}</div>
                                   </div>                                  
                                   <div className={"col-lg-5 col-md-6 col-sm-6 col-xs-12 pull-right " +Style.blockTitle}>                               
-                                    {/* <img className={"img img-responsive " +Style.FgImg} src={data.FgImage!==""?data.FgImage:null} alt="banner" />	 */}
-                                    <Image
+                                    <img className={"img img-responsive " +Style.FgImg} src={data.FgImage!==""?data.FgImage:null} alt="banner" />	
+                                    {/* <Image
                                       src={data.FgImage!==""?data.FgImage:null}
                                       className={"img img-responsive"+Style.FgImg}
                                       height ={300}
                                       width={300}
-                                    />	
+                                    />	 */}
                                   </div>	                                  
                                 </div>	
                                 :
