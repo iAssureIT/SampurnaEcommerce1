@@ -50,55 +50,58 @@ export default class Footer extends Component {
 
     render(){
        return(
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding footerWrapper" >
+        <div className="col-12 NoPadding footerWrapper" >
         <br/>
         {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 footerAnimation" style={{'background' : "url("+footerAnimationImg +")" }}></div> */}
        <div className="container-fluid">
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer1">
-            <div className="col-lg-7 col-md-6 col-sm-6 col-xs-12 categoryFooterWrapper">
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 FooterTitle">Online Shopping</div>
-                    <div className=" col-lg-3 col-md-3 col-sm-4 col-xs-12 hrLine"></div>
+        <div className="col-12 footer1">
+          <div className="row">
+            <div className="col-xl-7 categoryFooterWrapper">
+                <div className="col-12 NoPadding">
+                    <div className="col-12 FooterTitle">Online Shopping</div>
+                    <div className=" col-xl-3 hrLine"></div>
                 </div>
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
-                {Array.isArray(this.state.categoryData) && this.state.categoryData.map((data,index)=>{
-                    return(
-                        index <=2 ?
-                        <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12" key={index}>
-                            <div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding sectionName">
-                                <Link href={`/section/${encodeURIComponent(data.sectionUrl)}`}>
-                                    <a className="sectionurl" ><span>{data.section}</span></a>
-                                </Link>
-                            {
-                                data.categorylist.map((cateoryDetails,catindex)=>{            
-                                    return(
-                                    catindex<8?  
-                                        <div key={catindex} className="">                                   
-                                            <div className="categortTitle">
-                                                <Link href={`/category/${encodeURIComponent(cateoryDetails.categoryUrl)}`}>
-                                                    <a><span>{cateoryDetails.category}</span></a>
-                                                </Link>
+                <div className="col-12 NoPadding">
+                  <div className="row">
+                    {Array.isArray(this.state.categoryData) && this.state.categoryData.map((data,index)=>{
+                        return(
+                            index <=2 ?
+                            <div className="col-6 col-xl-4  footerSection" key={index}>
+                                <div className=" col-12 NoPadding sectionName">
+                                    <Link href={`/section/${encodeURIComponent(data.sectionUrl)}`}>
+                                        <a className="sectionurl" ><span>{data.section}</span></a>
+                                    </Link>
+                                {
+                                    data.categorylist.map((cateoryDetails,catindex)=>{            
+                                        return(
+                                        catindex<8?  
+                                            <div key={catindex} className="">                                   
+                                                <div className="categortTitle">
+                                                    <Link href={`/category/${encodeURIComponent(cateoryDetails.categoryUrl)}`}>
+                                                        <a><span>{cateoryDetails.category}</span></a>
+                                                    </Link>
+                                                </div>
                                             </div>
-                                        </div>
-                                    :null
-                                    );                            
-                                })
-                            }
+                                        :null
+                                        );                            
+                                    })
+                                }
+                                </div>
                             </div>
-                        </div>
-                        :null
-                    );
-                    })
-                }
+                            :null
+                        );
+                        })
+                    }
+               </div> 
             </div>
             </div>
 
-            <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12 aboutusFooterWrapper">
+            <div className="col-12 col-xl-2 aboutusFooterWrapper">
                 <div>
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 FooterTitle">About Us</div>
-                    <div className=" col-lg-7 col-md-7 col-sm-6 col-xs-12 hrLine"></div>
+                    <div className="col-12 FooterTitle">About Us</div>
+                    <div className=" col-7 hrLine"></div>
                 </div>
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div className="col-12">
                     <div className="categortTitle"><Link href="/aboutus"><a ><span>&nbsp;About Us</span></a></Link></div>
                     <div className="categortTitle"><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>    
                     <div className="categortTitle"><Link href="/return-policy"><a ><span>&nbsp;Return Policy</span></a></Link></div>
@@ -112,9 +115,9 @@ export default class Footer extends Component {
                                   
                 </div>
             </div>
-            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 onlineShoppingWrapper">               
-                <div className="col-lg-12 col-md-12 col-ms-12 col-xs-12 NoPadding">
-                    <div className="logo col-lg-8 col-md-12 col-sm-12 col-xs-12 NoPadding pull-right hidden-xs">
+            <div className="col-xl-3 col-12 onlineShoppingWrapper">               
+                <div className="col-12 NoPadding">
+                    <div className="logo col-xl-8 col-12 NoPadding pull-right hidden-xs BookStore_logo">
                         <Link href="/">
                         <a  title="BookStore logo ">
                             {/* <img src="/images/eCommerce/kokilaLogo.png" alt="images" className="footerLogoImg col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"/> */}
@@ -126,32 +129,35 @@ export default class Footer extends Component {
                             />
                         </a>
                         </Link>
-                    </div>                    
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-10 FooterTitle FooterTitle2">Connect Us</div>
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-11 NoPadding">
+                    </div> 
+                    <div className="col-xl-12 col-12">
+                     <div className="col-xl-12 col-12 FooterTitle FooterTitle2">Connect Us</div>
+                      <div className="col-10 col-xl-12 NoPadding">
                         <div className="socialMediaIcons pull-right"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram" aria-hidden="true"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube" aria-hidden="true"></i></a></Link></div>  
                         <div className="socialMediaIcons pull-right"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fab fa-twitter" aria-hidden="true"></i></a></Link></div>                   
                     </div>
-                </div>
-            </div>            
-        </div>
-        </div>
-       
-        <div className="footer3 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer_bottom">
-                <div className="col-lg-6 col-sm-12 col-md-6 col-xs-12 copyrighttxt">
-                    <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Multi</span><span className="mandaiColor">Store</span> All Rights Reserved.</p>
-                </div>
-                <div className=" col-md-6 col-lg-6 col-sm-12 col-xs-12 footernabbar NoPadding">
-                    <span className=" pull-right ">Design & Developed by <Link href="http://iassureit.com/"><a target="_blank"> iAssure International Technologies Pvt. Ltd. </a></Link> Version 1.0</span>
+                   </div> 
                 </div>
             </div>
-            
+           </div>             
         </div>
-        </div>  
-        );
+        </div>
+        <div className="footer3 col-12 col-xl-12">
+            <div className="col-12 col-xl-12 footer_bottom">
+              <div className="row">
+                <div className="col-xl-6 copyrighttxt">
+                    <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Multi</span><span className="mandaiColor">Store</span> All Rights Reserved.</p>
+                </div>
+                <div className=" col-xl-6 footernabbar NoPadding">
+                    <span className=" pull-right ">Design & Developed by <Link href="http://iassureit.com/"><a target="_blank"> iAssure International Technologies Pvt. Ltd. </a></Link> Version 1.0</span>
+                </div>
+            </div>  
+        </div>
+       </div> 
+     </div>  
+    );
   } 
 
 }
