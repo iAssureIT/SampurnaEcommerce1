@@ -459,7 +459,7 @@ class AddNewShopProduct extends Component {
   edit(id) {
     axios.get('/api/products/get/one/' + id)
       .then((response) => {
-
+         console.log("edit response----",response.data);
         this.getCategories();
         this.getSubCategories(response.data.category_ID);
         console.log('attributes===>', response.data);
@@ -723,7 +723,7 @@ class AddNewShopProduct extends Component {
         }
       }
     }
-    // console.log("this.refs.vendor.value.split('|')[2]==>",this.state.vendor);
+    console.log("this.refs.category.value==>",this.refs.category.value);
     // console.log("this.refs.vendor.value.split('|')[1]==>",this.refs.vendor.value.split('|')[1]);
     var formValues = {
       "vendor_ID"         : this.state.vendor_ID,
@@ -765,7 +765,7 @@ class AddNewShopProduct extends Component {
       "exclusive"         : productExclusive,
     }
 
-    // console.log("formValues",formValues);
+    console.log("formValues for update",formValues);
     if ($('#addNewShopProduct').valid()) {
       if (this.state.discountPercentError === "") {
         axios.patch('/api/products/patch', formValues)
