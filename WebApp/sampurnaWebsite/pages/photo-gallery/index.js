@@ -34,19 +34,19 @@ componentDidMount(){
 	
 	render() {
 		return (
-			<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NoPadding">
+			<div className="col-12 NoPadding">
 				<Header/>
 				<BreadCrumbs />
-				<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 cshoplistwrap galleryWrapper "+Style.galleryWrapper}>					
-					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div className={"col-12 cshoplistwrap galleryWrapper "+Style.galleryWrapper}>					
+					<div className="col-12">
 					{
 						Array.isArray(this.state.galleryList) && this.state.galleryList.length > 0
 						    		? 
 						    		this.state.galleryList.map((data, index)=>{										
 									return(
 									<div className="col-lg-3 col-md-4 col-sm-3 col-xs-12" key={index}>	
-											<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "+Style.boxShadow}>
-												<div id={"image_"+data._id} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding galleryImg "+Style.galleryImg} data-toggle="modal" data-target={"#"+data._id} area-hidden ="true">
+											<div className={"col-12 NoPadding "+Style.boxShadow}>
+												<div id={"image_"+data._id} className={"col-12 NoPadding galleryImg "+Style.galleryImg} data-toggle="modal" data-target={"#"+data._id} area-hidden ="true">
 													{/* <img className={"img img-responsive mtop10a "+Style.img} src={data.galleryImage}/> */}
 													<Image
 														src={data.galleryImage}
@@ -57,7 +57,7 @@ componentDidMount(){
 											</div> 
 										<div id={data._id} className="modal in" data-backdrop="static" data-keyboard="false" >
 											<div className="modal-dialog" >							
-												<div className="modal-content loginModalContent col-lg-12  col-md-12  col-sm-12 col-xs-12">                            
+												<div className="modal-content loginModalContent col-12">                            
 													<div className="modal-body">   
 														<button type="button" className="close"  data-dismiss="modal" aria-hidden="true" >&times;</button>                                                         
 														<div>
@@ -76,11 +76,11 @@ componentDidMount(){
 									)
 								})
 						    	:
-								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div className="wishlistNoProduct col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25">
+								<div className="col-12">
+									<div className="wishlistNoProduct col-12 mt-25">
 									<i className="fa fa-exclamation-triangle"></i>&nbsp;  There is no data available on this page .
 									</div>
-									<a href="/" className="pull-right mt15 wishBack">Back</a>
+									<a href="/" className="pull-right mt-15 wishBack">Back</a>
 								</div>								
 
 					}						

@@ -42,13 +42,13 @@ class SiteMap extends Component{
     }
     render(){
         return(
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
+            <div className="col-12 NoPadding">
             <Header/>
             <BreadCrumbs />
             <div className="container">
-            <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 pageTitle "+Style.pageTitle}><h2>Sitemap</h2></div>
+            <div className={"col-12 pageTitle "+Style.pageTitle}><h2>Sitemap</h2></div>
 
-            <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 sitemappWrapper "+Style.sitemappWrapper}>
+            <div className={"col-12 sitemappWrapper "+Style.sitemappWrapper}>
                 <h4 className={"subTitles "+Style.subTitles}>Sections</h4>
                 <p>
                     {this.state.sections && this.state.sections.length>0?
