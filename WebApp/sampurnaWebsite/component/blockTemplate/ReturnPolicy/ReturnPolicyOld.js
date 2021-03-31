@@ -1,5 +1,5 @@
 import React, { Component } 		from 'react';
-import 'bootstrap/js/collapse.js';
+// import 'bootstrap/js/collapse.js';
 import "./ReturnPolicy.module.css";
 
 export default class ReturnPolicy extends Component {

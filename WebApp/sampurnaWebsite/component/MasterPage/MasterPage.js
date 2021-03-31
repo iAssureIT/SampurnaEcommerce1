@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import getConfig from 'next/config';
 import Head from 'next/head'
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+// import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {getBlockData} from '../../redux/actions/counterActions';
 import Header from '../blockTemplate/Header/Header.js';

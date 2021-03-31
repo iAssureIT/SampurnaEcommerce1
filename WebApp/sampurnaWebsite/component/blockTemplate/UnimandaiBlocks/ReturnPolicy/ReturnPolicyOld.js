@@ -1,5 +1,5 @@
 import React, { Component } 		from 'react';
-import 'bootstrap/js/collapse.js';
+// import 'bootstrap/js/collapse.js';
 import "./ReturnPolicy1.module.css";
 
 export default class ReturnPolicy extends Component {
@@ -10,8 +10,6 @@ export default class ReturnPolicy extends Component {
 	    	
 	    };
   	}  
-  	  
-
 
   render() {
 		return (

@@ -3,7 +3,7 @@ import React, { Component } 		from 'react';
 // import EcommerceHeader 				from "../../blocks/common/EcommerceHeader/EcommerceHeader.js";
 
 // import EcommerceFooter    			from "../../blocks/common/EcommerceFooter/EcommerceFooter.js";
-import 'bootstrap/js/collapse.js';
+// import 'bootstrap/js/collapse.js';
 import axios from 'axios';
 import "./PrivacyPolicy.module.css";
 

@@ -1,5 +1,5 @@
 import React, { Component } 		from 'react';
-import 'bootstrap/js/collapse.js';
+// import 'bootstrap/js/collapse.js';
 import axios from 'axios';
 import "./ReturnPolicy1.module.css";
 
