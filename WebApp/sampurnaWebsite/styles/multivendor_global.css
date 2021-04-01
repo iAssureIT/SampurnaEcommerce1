@@ -612,4 +612,10 @@ body{
       padding-right: 0px !important;
       text-align: justify;
     }
+    .bannerTitle_{
+      font-size: 24px ! important;
+    }
+    .cartSummary{
+      margin-left: 30px ! important;
+    }
   }

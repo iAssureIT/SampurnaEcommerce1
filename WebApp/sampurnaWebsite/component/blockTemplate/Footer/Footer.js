@@ -56,17 +56,17 @@ export default class Footer extends Component {
        <div className="container-fluid">
         <div className="col-12 footer1">
           <div className="row">
-            <div className="col-xl-7 categoryFooterWrapper">
+            <div className="col-xl-7 col-md-7 categoryFooterWrapper">
                 <div className="col-12 NoPadding">
                     <div className="col-12 FooterTitle">Online Shopping</div>
-                    <div className=" col-xl-3 hrLine"></div>
+                    <div className=" col-xl-3 col-md-3 hrLine"></div>
                 </div>
                 <div className="col-12 NoPadding">
                   <div className="row">
                     {Array.isArray(this.state.categoryData) && this.state.categoryData.map((data,index)=>{
                         return(
                             index <=2 ?
-                            <div className="col-6 col-xl-4  footerSection" key={index}>
+                            <div className="col-6 col-xl-4 col-md-4  footerSection" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
                                     <Link href={`/section/${encodeURIComponent(data.sectionUrl)}`}>
                                         <a className="sectionurl" ><span>{data.section}</span></a>
@@ -96,7 +96,7 @@ export default class Footer extends Component {
             </div>
             </div>
 
-            <div className="col-12 col-xl-2 aboutusFooterWrapper">
+            <div className="col-12 col-xl-2 col-md-3 aboutusFooterWrapper">
                 <div>
                     <div className="col-12 FooterTitle">About Us</div>
                     <div className=" col-7 hrLine"></div>
@@ -115,11 +115,11 @@ export default class Footer extends Component {
                                   
                 </div>
             </div>
-            <div className="col-xl-3 col-12 onlineShoppingWrapper">               
-                <div className="col-12 NoPadding">
-                    <div className="logo col-xl-8 col-12 NoPadding pull-right hidden-xs BookStore_logo">
+            <div className="col-xl-3 col-md-2  col-12 onlineShoppingWrapper">               
+                <div className="row">
+                    <div className="logo col-xl-12 col-6 col-md-12">
                         <Link href="/">
-                        <a  title="BookStore logo ">
+                        <a  title="BookStore logo "style={{float:"right"}}>
                             {/* <img src="/images/eCommerce/kokilaLogo.png" alt="images" className="footerLogoImg col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"/> */}
                             <Image
                                 src="/images/eCommerce/multistoreLogo.png"
@@ -130,9 +130,9 @@ export default class Footer extends Component {
                         </a>
                         </Link>
                     </div> 
-                    <div className="col-xl-12 col-12">
-                     <div className="col-xl-12 col-12 FooterTitle FooterTitle2">Connect Us</div>
-                      <div className="col-10 col-xl-12 NoPadding">
+                    <div className="col-xl-12 col-6">
+                     <div className="col-xl-12 col-md-6 col-12 FooterTitle FooterTitle2">Connect Us</div>
+                      <div className="col-10 col-xl-12 col-md-6 NoPadding">
                         <div className="socialMediaIcons pull-right"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram" aria-hidden="true"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube" aria-hidden="true"></i></a></Link></div>  
@@ -145,12 +145,12 @@ export default class Footer extends Component {
         </div>
         </div>
         <div className="footer3 col-12 col-xl-12">
-            <div className="col-12 col-xl-12 footer_bottom">
+            <div className="col-12 col-xl-12 col-md-12 footer_bottom">
               <div className="row">
-                <div className="col-xl-6 copyrighttxt">
+                <div className="col-xl-6 col-md-6 copyrighttxt">
                     <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Multi</span><span className="mandaiColor">Store</span> All Rights Reserved.</p>
                 </div>
-                <div className=" col-xl-6 footernabbar NoPadding">
+                <div className=" col-xl-6 col-md-6 footernabbar NoPadding">
                     <span className=" pull-right ">Design & Developed by <Link href="http://iassureit.com/"><a target="_blank"> iAssure International Technologies Pvt. Ltd. </a></Link> Version 1.0</span>
                 </div>
             </div>  

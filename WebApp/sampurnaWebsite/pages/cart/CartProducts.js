@@ -377,16 +377,16 @@ class CartProducts extends Component{
         return(            
             <div className="container">
                 {/* <div>cartdata</div> */}
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 cartHeight">
+            <div className="col-12 col-xl-12 cartHeight">
                 {/* <Loader type="fullpageloader"/> */}
                 <div className="row">
                     <Message messageData={this.state.messageData} />
                     {
                         
                         this.props.recentCartData[0] && this.props.recentCartData[0].cartItems.length>0? 
-                        <div className="col-lg-12 col-sm-12 col-xs-12 NOpadding" style={{"marginBottom":"20px"}}>
-                            
-                            <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12  table-responsive cartProduct">
+                        <div className="col-12 col-xl-12 NOpadding" style={{"marginBottom":"20px"}}>
+                           <div className="row">  
+                            <div className="col-xl-9 col-md-12 col-11 table-responsive cartProduct">
                                 <table className="table cartProductTable">
                                     <thead>
                                         <tr>
@@ -409,12 +409,13 @@ class CartProducts extends Component{
                                                     <tr key={index}>
                                                         <td>
                                                             <div>
-                                                                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                               <div className="row">
+                                                                <div className="col-12 col-xl-4 col-md-4">
                                                                     <a href={"/product-detail/" + data.productDetail.productUrl + "/" +data.product_ID} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                         <img className="img  cartProductImg col-lg-12 col-md-12 col-sm-12 col-xs-12" src={data.productDetail.productImage[0] ? data.productDetail.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
                                                                     </a>
                                                                 </div>
-                                                                <div className="col-lg-8 col-md-8 col-sm-8 col-xs-8 cartProductDetail">
+                                                                <div className="col-12 col-xl-8 col-md-8 cartProductDetail">
                                                                     <a href={"/product-detail/" + data.productDetail.productUrl + "/" +data.product_ID}>
                                                                         {data.productDetail.productNameRlang?
                                                                             <h5 className="RegionalFont">{data.productDetail.productNameRlang}</h5>
@@ -438,7 +439,8 @@ class CartProducts extends Component{
                                                                     {data.productDetail.size ? <span className="cartColor">Size : {data.productDetail.size} &nbsp;<span className="CapsUnit">{data.productDetail.unit}</span></span>: null}
                                                                 </div> */}
                                                                     <button productid={data.productDetail._id} id={data._id} onClick={this.moveWishlist.bind(this)} className="globalAddToCartBtn btn wishlistBtn">Move to Wishlist</button>
-                                                                </div>                                                                
+                                                                </div> 
+                                                              </div>                                                                 
                                                             </div>
                                                         </td>
                                                         <td className="nowrap ">
@@ -499,7 +501,7 @@ class CartProducts extends Component{
                                 </table>                                
                             </div>
                             
-                            <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12 NOpadding">
+                            <div className="col-10 col-xl-3 col-md-8 NOpadding">
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 cartSummary">
                                     <strong className="cartSummaryTitle">Summary</strong>
                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -669,6 +671,7 @@ class CartProducts extends Component{
                                 </div>
                                 
                             </div>
+                          </div>  
                         </div>
                         : 
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 textAlignCenter">

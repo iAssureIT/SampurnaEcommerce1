@@ -110,7 +110,7 @@ class Product extends Component{
   
     submitCart(event) { 
       const user_ID = localStorage.getItem('user_ID');
-      // console.log("userId===",user_ID);
+      console.log("userId===",user_ID);
       if(user_ID){
         // console.log("recentCartData===",this.props.recentCartData);
         if(this.props.recentCartData.length>0 && this.props.recentCartData[0].cartItems.length>0){

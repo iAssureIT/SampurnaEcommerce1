@@ -11,13 +11,13 @@ class SmallBanner extends Component{
     }
     render(){
         return(
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="col-12 col-xl-12">
                 <div className="row">
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 banner" style={{"backgroundImage": `url(`+this.props.bannerData.backgroungImage+`)`}}>
-                        <h1 className="hidden-xs hidden-sm">{this.props.bannerData.title}</h1>
-                        <h2 className="hidden-lg hidden-md hidden-xs" >{this.props.bannerData.title}</h2>
-                        <h3 className="hidden-lg hidden-md hidden-sm" >{this.props.bannerData.title}</h3>
-                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bannerText">
+                    <div className="col-12 col-xl-12 banner" style={{"backgroundImage": `url(`+this.props.bannerData.backgroungImage+`)`}}>
+                        <h1 className="hidden-xs hidden-sm bannerTitle_">{this.props.bannerData.title}</h1>
+                       {/* <h2 className="hidden-lg hidden-md hidden-xs" >{this.props.bannerData.title}</h2>
+                        <h3 className="hidden-lg hidden-md hidden-sm" >{this.props.bannerData.title}</h3>*/}
+                        <div className="col-col-xl-12 col-12 bannerText">
                             {
                                 this.props.bannerData.breadcrumb ?
                                     <ul className="bannerUL">

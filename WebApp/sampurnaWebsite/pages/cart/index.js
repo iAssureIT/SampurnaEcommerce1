@@ -104,7 +104,7 @@ class Cart extends Component{
         return(
           <div>
             <Header/>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="col-12 col-xl-12">
                 <div className="row">                    
                     <SmallBanner bannerData={this.state.bannerData}/>
                     <CartProducts />

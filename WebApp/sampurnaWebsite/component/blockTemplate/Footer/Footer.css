@@ -385,7 +385,13 @@
     text-align: left;
     /* padding-left: 20px; */
   }
+  .socialMediaIcons .fab{
+    margin-left: 13px ! important;
   }
+  .FooterTitle{
+    font-size: 14px ! important;
+  }
+}
 
   .footerSection{
     padding-left: 30px ! important;
