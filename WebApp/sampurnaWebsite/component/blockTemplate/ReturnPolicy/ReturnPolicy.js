@@ -41,13 +41,13 @@ componentDidMount(){
 
   render() {
 		return (
-				<div className={"col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12 backColorEF marginTop50 returnPolicyWrapper "+Style.returnPolicyWrapper}>
+				<div className={"col-12 col-xl-10 offset-xl-1  backColorEF marginTop50 returnPolicyWrapper "+Style.returnPolicyWrapper}>
 					<div className="row">						
-						<div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12  ">
+						<div className=" col-12  ">
 							
-								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  mt20  ">
-									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  ">										
-										<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 returnPolicy "+Style.returnPolicy}>
+								<div className="col-12 mt-20">
+									<div className="col-12">										
+										<div className={"col-12 returnPolicy "+Style.returnPolicy}>
 											<div className={"pageTitle globalMainTitle "+Style.pageTitle}>{this.state.blocks.blockTitle}</div>
 											<p className={"commonPara "} dangerouslySetInnerHTML={ { __html: this.state.blocks.blockDescription } }></p>
                                                    				
