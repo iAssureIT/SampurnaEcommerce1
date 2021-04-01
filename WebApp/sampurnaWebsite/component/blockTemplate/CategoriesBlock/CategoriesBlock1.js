@@ -60,26 +60,26 @@ componentDidMount(){
 		return (
 			      <div className={"container-fluid AllBlogsBox " +Style.AllBlogsBox} style={{padding:"0px"}}>
               { blocks && blocks.length > 0 ?
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 blogWrapper">
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ocTitle txt2c offeredTitle text-center">
+                <div className="col-12 blogWrapper">
+                    <div className="col-12 ocTitle txt2c offeredTitle text-center">
 									    <div className={"title4 "+Style.title4}>
                      		<h2 className={"row globalMainTitle  title_inner4 lang_trans globalMainTitle "+Style.textAlign} data-trans="#blog_1554730795823_title">Shop By Category</h2>
                      			<span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
                      		<div className={"line "+Style.line}><span className={Style.span}></span></div>
  								      </div>
                     </div>                                
-                    <div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 courceblockDiv1 movemasterdiv">
-                      <div>
+                    <div className=" col-12 courceblockDiv1 movemasterdiv">
+                      <div className="row">
                         {
                           this.state.blocks && this.state.blocks.length > 0 ?
                           this.state.blocks.map((data, index)=>{
                           return(
                             index<8?
-                                <div className={"col-lg-3 col-md-3 col-sm-12 col-xs-12 NoPadding "} key={index}>
-                                <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding pageWrapper "+Style.pageWrapper}>
+                                <div className={"col-12 col-xl-3 col-sm-3 NoPadding "} key={index}>
+                                <div className={"col-12 NoPadding pageWrapper "+Style.pageWrapper}>
                                 <Link href={`/category/${encodeURIComponent(data.categoryUrl)}`}>
                                   <a>
-                                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12  "+Style.box1+" "+Style.boxWrapper}>
+                                    <div className={"col-12  "+Style.box1+" "+Style.boxWrapper}>
                                       <div className={"col-lg-10 col-lg-offset-1 col-md-8 col-lg-offset-2 col-sm-12 col-xs-12 "+Style.categoryBlockImg}>
                                         {data.categoryImage ? 
                                         // <img src={data.categoryImage} alt="" className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 categoryBlockImg img-responsive lazyload"} loading="lazy" height="200" width="100"/>
@@ -99,12 +99,9 @@ componentDidMount(){
                                         />
                                         }
                                       </div>
-                                      <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12  "+Style.textAlign} title={data.category}>
-                                        <div  className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 categoryTitle "+Style.categoryTitle +" " +Style.ellipsis}>
-                                            <b>{data.category}</b>
-                                            {/* <p className={"textRotate  "+Style.textRotate}>
-                                                <b>{data.category}</b>
-                                            </p>	 */}
+                                      <div className={"col-12  "+Style.textAlign} title={data.category}>
+                                        <div  className={"col-12 categoryTitle "+Style.categoryTitle +" " +Style.ellipsis}>
+                                            <b>{data.category}</b>                                            
                                         </div>                                        
                                       </div>
                                     </div>

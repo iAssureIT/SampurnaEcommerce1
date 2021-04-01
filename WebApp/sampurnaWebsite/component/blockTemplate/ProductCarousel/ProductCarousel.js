@@ -1014,10 +1014,9 @@ class ProductCarousel extends Component {
                   : 
                   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">              
                   <div className={"container-fluid NoPadding" }>
-
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
-                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.BlockWrapper +" " +Style.NoPadding}>   
+                  <div className={"row NoPadding " +Style.BlockWrapper +" " +Style.NoPadding}>     
                     
                     {this.state.categoryData && this.state.categoryData.length>0?    
                     <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-12  filterWrapper " +Style.filterBlockWrapper}> 
@@ -1094,9 +1093,8 @@ class ProductCarousel extends Component {
                     {/* :null */}
                   </div> 
                   :null
-                  } 
-
-                  <div className={"col-lg-9 col-md-9 col-sm-12 col-xs-12 NoPadding ProductViewWrapper "+Style.ProductViewWrapper}> 
+                  }
+                  <div className={"col-9 col-sm-12 col-xs-12 NoPadding ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.rightSidefilter}>
                       <div className="col-lg-3 col-md-3 col-sm-4 col-xs-12 pull-left">     
                         <div className="form-group ">

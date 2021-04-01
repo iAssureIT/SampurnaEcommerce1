@@ -79,8 +79,7 @@ class MasterPage extends React.Component {
 
    render() {	 
 	// console.log("this.props.pagedata===",this.props.pageData);
-    return (
-		
+    return (		
 		<div className="col-12 NoPadding masterPageWrapper">
 			{this.pageHead()}
 			<Header/>			
@@ -89,7 +88,7 @@ class MasterPage extends React.Component {
                 this.props.pageData.pageBlocks.map((result, index)=>{
 					var component = result._id ? result.blockComponentName : "TitleDesc";
 					var block_id=result.block_id._id;
-					// console.log("OtherComponent==",component);
+					console.log("OtherComponent==",component);
 					const OtherComponent = dynamic(() => import('../blockTemplate/'+component+'/'+component+'.js'),
 					
 					{

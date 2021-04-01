@@ -58,20 +58,15 @@ class HelpAndSupport extends Component{
     
     render(){
         // console.log("Blocks data=====",this.state.blocks);
-        return(
-            <div className="row hidden-xs" >
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 subNavBlock">
-                    <div className={"col-md-12 col-lg-12 col-sm-12 col-xs-12 HelpAndSupportWrapper "+Style.HelpAndSupportWrapper}>
+        return(            
+                <div className="col-12 subNavBlock d-none d-sm-block">
+                    <div className={"col-12 HelpAndSupportWrapper "+Style.HelpAndSupportWrapper}>
                        {this.state.blocks.repeatedBlocks.length>0?
-                        <div className={"col-md-12 col-lg-12 col-sm-12 col-xs-12 HelpAndSupportSubWrapper "+Style.HelpAndSupportSubWrapper}>
+                        <div className={"row HelpAndSupportSubWrapper "+Style.HelpAndSupportSubWrapper}>
                             {Array.isArray(this.state.blocks.repeatedBlocks) && this.state.blocks.repeatedBlocks.map((repeatedBlock, index) => {
                             return(
-                                <div className={"col-md-3 col-lg-3 col-sm-6 col-xs-12 " +Style.helpAndSupportBlock} key={index}>
-                                <div className={"col-md-12 col-lg-12 col-sm-12 col-xs-12 servicesBanner "+Style.servicesBanner}>
-                                        {/* <img className={"img-fluid lazyloaded servicesBannerImg "+Style.servicesBannerImg} src={repeatedBlock.Image} alt="free shipping"
-                                            // onMouseOver={e => (e.currentTarget.src  ='http://cdn.shopify.com/s/files/1/0319/5758/1961/files/1_2831cd27-043f-4970-9453-a4cf98321c18.png?v=1580728745')}
-                                            // onMouseOut={e => (e.currentTarget.src = 'http://cdn.shopify.com/s/files/1/0319/5758/1961/files/1_92aa72fc-c987-4611-af05-b03bbbb708b4.png?v=1580725311')}                     
-                                        /> */}
+                                <div className={"col-12 col-xl-3 col-sm-3 " +Style.helpAndSupportBlock} key={index}>
+                                <div className={"col-12 servicesBanner "+Style.servicesBanner}>                                        
                                         <Image
                                             src={repeatedBlock.Image}
                                             className={"img-fluid lazyloaded servicesBannerImg "+Style.servicesBannerImg}
@@ -89,7 +84,7 @@ class HelpAndSupport extends Component{
                         : null }
                     </div>
                 </div>
-            </div>
+            
         )
     }
 

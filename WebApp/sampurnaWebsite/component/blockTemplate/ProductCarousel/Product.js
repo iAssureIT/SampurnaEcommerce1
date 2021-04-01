@@ -286,6 +286,7 @@ class Product extends Component{
       var XSCol = 12/this.state.blockSettings.noOfProductPerXSRow;
       return (
         <div className="col-12">
+          <div className="row">
         {      
             Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
             Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
@@ -462,8 +463,8 @@ class Product extends Component{
             })
             :<div>No products available</div>
             // <Loader type="carouselloader" productLoaderNo = {4}/>
-        
         }
+        </div>
        </div>
       ) 
     }

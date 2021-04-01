@@ -90,7 +90,8 @@
     /* transition: transform .5s ease; */
 }
 .textAlign{
-    text-align: center !important;  
+    /* text-align: center !important;   */
+    justify-content:center;
 }
 .categoryBtn{
     text-decoration: none !important;
