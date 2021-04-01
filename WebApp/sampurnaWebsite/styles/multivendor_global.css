@@ -442,8 +442,8 @@ body{
   font-size:var(--globalMainTitleFontSize) !important;
   text-transform: uppercase !important;
   font-weight: bold !important;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .globalTitle{
@@ -581,6 +581,14 @@ body{
     white-space: nowrap;
     overflow: hidden;
     display: block;
+}
+a{
+  text-decoration: none !important;
+}
+.alert{
+  position: absolute;
+  top: 0 !important;
+  right: 0 !important;
 }
 @media only screen and (max-device-width: 480px) {
   .mobileViewNoPadding{

@@ -83,7 +83,7 @@ class MasterPage extends React.Component {
 		<div className="col-12 NoPadding masterPageWrapper">
 			{this.pageHead()}
 			<Header/>			
-			<div className="col-lg-12 NoPadding componentWrapper">
+			<div className="col-12 NoPadding componentWrapper">
 			{ this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
                 this.props.pageData.pageBlocks.map((result, index)=>{
 					var component = result._id ? result.blockComponentName : "TitleDesc";
@@ -93,7 +93,7 @@ class MasterPage extends React.Component {
 					
 					{
 						loading: () =>
-							<div className="col-lg-6 col-lg-offset-3 col-md-4 col-md-offset-4  col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
+							<div className="col-12 loading">
 								<img src="/images/loader.gif" className=""></img>
 							</div> 
 					});
@@ -105,8 +105,8 @@ class MasterPage extends React.Component {
                     )
 				})
 			:
-			<div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
-				<a href="/"><img className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding" src="/images/eCommerce/404-Page.gif" /></a>
+			<div className=" col-12 NoPadding">
+				<a href="/"><img className=" col-12 NoPadding" src="/images/eCommerce/404-Page.gif" /></a>
 			</div>
 			}
 			</div>	

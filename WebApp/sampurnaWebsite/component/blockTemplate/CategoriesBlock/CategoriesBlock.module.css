@@ -83,7 +83,7 @@
     word-break: unset;
 }
 .categoryBlockImg{
-    /* position: absolute; */
+    display: inline-grid;
     margin-top: 15px;
     height: 225px;
     /* width: 152px; */
@@ -237,6 +237,7 @@
     white-space: nowrap;
     overflow: hidden;
     display: block;
+    text-align: center;
 }
 @media only screen and (max-device-width: 480px) {    
     .box{

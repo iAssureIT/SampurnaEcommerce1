@@ -116,22 +116,19 @@ class ProductCarousel extends Component {
   }
   async componentDidMount(){
     this.getCategoryData();
-    // console.log("2. inside componentDidMount");    
-    // store.dispatch(getWishlistData());  
-    // this.props.getWishlistData();
-    var user_ID = localStorage.getItem("user_ID"); 
-    const websiteModel = localStorage.getItem("websiteModel");      
-    const showLoginAs = localStorage.getItem("showLoginAs"); 
-    if(user_ID!==null){     
-    this.setState({
-      user_ID:user_ID,
-      showLoginAs: showLoginAs,
-      websiteModel:websiteModel
-    },()=>{
-        this.getWishlistData();
-    }); 
-  }
-    // store.dispatch(getCategoryData);
+  //   var user_ID = localStorage.getItem("user_ID"); 
+  //   const websiteModel = localStorage.getItem("websiteModel");      
+  //   const showLoginAs = localStorage.getItem("showLoginAs"); 
+  //   if(user_ID!==null){     
+  //   this.setState({
+  //     user_ID:user_ID,
+  //     showLoginAs: showLoginAs,
+  //     websiteModel:websiteModel
+  //   },()=>{
+  //       this.getWishlistData();
+  //   }); 
+  // }
+    
     //category carousel
     $(".expand").on( "click", function() {      
       $expand = $(this).find(">:first-child");
@@ -205,7 +202,7 @@ class ProductCarousel extends Component {
         },()=>{
           // console.log("state.blockSettings.showCarousel===",this.state.blockSettings.showCarousel);
           // console.log("state.blockSettings.filter===",this.state.filterSettings.length);
-          // console.log("this.props.productApiUrl===",this.props.productApiUrl);
+          console.log("this.props.productApiUrl===",this.props.productApiUrl);
           if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
           }else{
@@ -786,7 +783,7 @@ class ProductCarousel extends Component {
 
           {/* show breadCrumbsLink */}
           { this.state.blockSettings.showCarousel === false?
-          <div className={"col-12 NoPadding " +Style.breadCrumbs}>            
+          <div className={"row " +Style.breadCrumbs}>            
             <ul className={Style.links}>
 								<li><Link href="/"><a>Home / </a></Link></li>&nbsp;
                 {/* {console.log("breadcrum category===",this.state.categoryData)} */}
@@ -804,7 +801,7 @@ class ProductCarousel extends Component {
           </div>
           :null
           }
-        <div className={"col-12 " +Style.customTabContent}>
+        <div className={"col-12 NoPadding "}>
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
               <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
                 <div className={"col-12 "}>                    
@@ -1012,7 +1009,7 @@ class ProductCarousel extends Component {
                     }
                   </Carousel>
                   : 
-                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">              
+                  <div className={"col-12 NoPadding " +Style.ProductListWrapper}>              
                   <div className={"container-fluid NoPadding" }>
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
@@ -1095,38 +1092,37 @@ class ProductCarousel extends Component {
                   :null
                   }
                   <div className={"col-9 col-sm-12 col-xs-12 NoPadding ProductViewWrapper "+Style.ProductViewWrapper}> 
-                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.rightSidefilter}>
-                      <div className="col-lg-3 col-md-3 col-sm-4 col-xs-12 pull-left">     
-                        <div className="form-group ">
+                    <div className="row">
+                      <div className={"col-12 " +Style.rightSidefilter}>
+                        <div className="col-3 col-xs-12 pull-left">     
+                          <div className="form-group ">
                               <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
                               <Select
                                   value={effect}
                                   onChange={this.sortProducts}
                                   options={sortOptions}
                               />
-                        </div> 
-                      </div>
-                      <div className="col-lg-3 col-md-3 col-sm-2 col-xs-12 pull-right">
-                          <div className="form-group ">
-                              <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
-                              <Select
-                                  value={displayProducts}
-                                  onChange={this.limitProducts}
-                                  options={displayProductOptions}
-                              />
+                          </div> 
+                        </div>
+                        <div className="col-3 col-xs-12 pull-right">
+                            <div className="form-group ">
+                                <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
+                                <Select
+                                    value={displayProducts}
+                                    onChange={this.limitProducts}
+                                    options={displayProductOptions}
+                                />
+                          </div>
                         </div>
                       </div>
-                    </div>     
-
-
+                    </div> 
                     <Product newProducts={this.state.newProducts}
-                             productSettings = {this.state.productSettings}
-                             blockSettings   = {this.state.blockSettings}
+                              productSettings = {this.state.productSettings}
+                              blockSettings   = {this.state.blockSettings}
 
-                    />	
+                    />
 
-
-                  </div>
+                  </div>                    
                   </div>                    
                   :
                   // if left side filters are not available in product block

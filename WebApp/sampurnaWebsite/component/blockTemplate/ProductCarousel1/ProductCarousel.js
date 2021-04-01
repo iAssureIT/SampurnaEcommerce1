@@ -714,35 +714,6 @@ class ProductCarousel extends Component {
     
   };
 
-  // sortProducts(event) {
-  //   event.preventDefault();
-	// 	var sortBy = event.target.value;
-	// 	if (sortBy === "alphabeticallyAsc") {
-	// 		let field = 'productName';
-	// 		this.setState({
-	// 			newProducts: this.state.newProducts.sort((a, b) => (a[field] || "").toString().localeCompare((b[field] || "").toString()))
-	// 		});
-	// 	}
-	// 	if (sortBy === "alphabeticallyDsc") {
-	// 		let field = 'productName';
-	// 		this.setState({
-	// 			newProducts: this.state.newProducts.sort((a, b) => -(a[field] || "").toString().localeCompare((b[field] || "").toString()))
-	// 		});
-	// 	}
-	// 	if (sortBy === "priceAsc") {
-	// 		let field = 'discountedPrice';
-	// 		this.setState({
-	// 			newProducts: this.state.newProducts.sort((a, b) => a[field] - b[field])
-	// 		});
-	// 	}
-	// 	if (sortBy === "priceDsc") {
-	// 		let field = 'discountedPrice';
-	// 		this.setState({
-	// 			newProducts: this.state.newProducts.sort((a, b) => b[field] - a[field])
-	// 		});
-	// 	}
-  // }
-
   limitProducts = displayProduct => {
     event.preventDefault();
     // console.log("displayProduct===",displayProduct);

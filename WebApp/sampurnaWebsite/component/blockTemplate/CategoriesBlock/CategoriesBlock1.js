@@ -80,7 +80,7 @@ componentDidMount(){
                                 <Link href={`/category/${encodeURIComponent(data.categoryUrl)}`}>
                                   <a>
                                     <div className={"col-12  "+Style.box1+" "+Style.boxWrapper}>
-                                      <div className={"col-lg-10 col-lg-offset-1 col-md-8 col-lg-offset-2 col-sm-12 col-xs-12 "+Style.categoryBlockImg}>
+                                      <div className={"col-12 "+Style.categoryBlockImg}>
                                         {data.categoryImage ? 
                                         // <img src={data.categoryImage} alt="" className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 categoryBlockImg img-responsive lazyload"} loading="lazy" height="200" width="100"/>
                                         <Image

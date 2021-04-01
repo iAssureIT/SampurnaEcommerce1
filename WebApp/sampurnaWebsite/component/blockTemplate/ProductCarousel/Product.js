@@ -3,8 +3,11 @@ import $                      from 'jquery';
 import axios                  from 'axios';
 import Image                  from 'next/image';
 import Link                   from 'next/link';
+import Message                from '../../CustomizeBlocks/Message/Message.js';
 import Style                  from './ProductCarousel.module.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { connect }            from 'react-redux';
+import store                  from '../../../redux/store.js'; 
+import {getCartData,getWishlistData}  from '../../../redux/actions/index.js'; 
 
 class Product extends Component{
     constructor(props) {
@@ -20,15 +23,26 @@ class Product extends Component{
 
     componentDidMount(){
         // console.log("2. Inside product ComponentDidMount");
+        var user_ID = localStorage.getItem("user_ID"); 
+        const websiteModel = localStorage.getItem("websiteModel");      
+        const showLoginAs = localStorage.getItem("showLoginAs"); 
+        if(user_ID!==null){     
+          this.setState({
+            user_ID:user_ID,
+            showLoginAs: showLoginAs,
+            websiteModel:websiteModel
+          },()=>{
+              this.getWishlistData();
+          }); 
+        }
 
     }
     componentDidUpdate(prevState, nextState){
-        console.log("1.Inside product ComponentDidUpdate prevState",prevState);
-        console.log("2.Inside product ComponentDidUpdate nextstate",nextState);
     }
+
     static getDerivedStateFromProps(nextProps, prevState) {
-      console.log("1.Inside product getDerivedStateFromProps nextProps",nextProps);
-      console.log("2.Inside product getDerivedStateFromProps prevState",prevState);
+      // console.log("1.Inside product getDerivedStateFromProps nextProps",nextProps);
+      // console.log("2.Inside product getDerivedStateFromProps prevState",prevState);
       if (nextProps.newProducts) {
         return ({ 
           newProducts: nextProps.newProducts,
@@ -83,7 +97,8 @@ class Product extends Component{
       } else {
         axios.post('/api/carts/post', formValues)
           .then((response) => {
-            // console.log("this.props.fetchCartData();",this.props.fetchCartData());
+            console.log("this.props.fetchCartData();",this.props.fetchCartData());
+            console.log("cart response;",response.data);
             this.setState({
               messageData: {
                 "type": "outpage",
@@ -133,7 +148,7 @@ class Product extends Component{
                     })
                   }, 3000);
                   break;
-                  console.log("submitCart userId===",this.state);
+                  // console.log("submitCart userId===",this.state);
   
                 }//end if
             }//end for loop
@@ -214,6 +229,22 @@ class Product extends Component{
       }//end else
     }
     }
+    getWishlistData() {
+      axios.get('/api/wishlist/get/wishlistdata/' + this.state.user_ID)    
+        .then((response) => {
+          if(response){
+            // console.log("wislist response====",response.data);
+            this.setState({
+              wishList: response.data
+            },()=>{
+                  // console.log("2.My Wislist products ====",this.state.wishList);
+            })
+          }        
+        })
+        .catch((error) => {
+          console.log('error', error);
+        })
+    }
     addtowishlist(event) {
       event.preventDefault();
       // console.log("recentWishlistData===",this.props.recentWishlistData);
@@ -287,6 +318,7 @@ class Product extends Component{
       return (
         <div className="col-12">
           <div className="row">
+          <Message messageData={this.state.messageData} /> 
         {      
             Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
             Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
@@ -470,4 +502,19 @@ class Product extends Component{
     }
 }
 
-export default Product;
+const mapStateToProps = state => (
+  // console.log("state in productCarousel====",state.data),
+  {
+    recentCartData     : state.data.recentCartData,
+    recentWishlistData : state.data.recentWishlistData,
+    productApiUrl      : state.data.productApiUrl
+    
+  } 
+);
+
+const mapDispatchToProps = {
+  fetchCartData    : getCartData, 
+  getWishlistData: getWishlistData,
+
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
