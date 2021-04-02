@@ -225,7 +225,7 @@ componentDidMount(){
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 										<input className="form-control formControl" name="email" type="email" data-text="clientEmail" placeholder="Your@email.com" ref="email" value={this.state.email} onChange={this.handleChange.bind(this)}/>
 									</div>
-									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  errorMsg ">{this.state.errors.email}</div>
+							 		<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  errorMsg ">{this.state.errors.email}</div>
 								</div>
 								<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12  bt30">
 									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">

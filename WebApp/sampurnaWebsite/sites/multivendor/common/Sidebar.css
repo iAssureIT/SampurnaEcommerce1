@@ -1,20 +1,17 @@
 
 .mr20{
-    margin-right: 20px;
+    /*margin-right: 20px;*/
 }
 .account-nav li a{
 	text-transform: none;
 	font-size: 14px;
 	font-weight: 100;
+    color: #555 !important;
 }
 
-/* .current #atag:hover{
-    background-color:#A2632C !important;
-    color: #fff !important;
-} */
 .account-nav .item{
-	margin:3px 0 0;
-	background-color:#eee;
+	margin:1px;
+	background-color:#ddd !important;
 }
 .nb-brand{
 	background-color:#eee !important;
@@ -33,7 +30,7 @@
 ul.Featured-Brands {
     float: left;
     width: 100%;
-    margin: 20px 0 0;
+    /*margin: 20px 0 0;*/
     border-bottom: solid 1px #ddd;
     list-style: none;
 }
@@ -71,10 +68,17 @@ ul.Featured-Brands li {
 }
 
 .account-nav .current{
-    /* background: #80b435 !important; */
-    /* color: #fff;     */
+    height: 42px;
+    padding: 10px;
+}
+.account-nav .current1{
+    height: 42px;
+    padding: 10px;
+    background-color: #ff4157 !important;
+}
+ .account-nav.items.current1:hover{
+    background-color: #ccc;
 }
 .account-nav .current a{
    
-    color: #fff;    
 }

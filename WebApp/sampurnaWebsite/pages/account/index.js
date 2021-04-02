@@ -97,13 +97,15 @@ class Account extends Component{
                 <div className="container">
                     <br/> 
                     <div className="row">
-                        <div className="col-12 col-lg-3 ">
-                            <Sidebar />
+                        <div className="col-12 col-lg-3">
+                            <div className="row">
+                                <Sidebar />
+                            </div>
                         </div>
                         <div className="col-12 col-lg-9 mt25">
                             <h4 className="accountTitle">Account Dashboard</h4>
                             <p><label className="col-12">Hello {this.state.firstName}</label></p>
-                            <div className="col-12 row mt15 mb15 mobileViewNoPadding">
+                            <div className="col-12 row mt15 mb15 mx-auto mobileViewNoPadding">
                                                             
 
                                 <div className="col-12 col-lg-6 mt15 mb15 mobileViewNoPadding">
@@ -115,7 +117,7 @@ class Account extends Component{
                                                 <p className="col-12 ">{this.state.emailId}</p>
                                                 <p className="col-12 ">{this.state.mobileNumber}</p>
                                                 <div className="col-12 mt100">
-                                                    <button className="btn globalCommonBtn col-12 col-sm-6 " onClick={this.editUser.bind(this)}><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp;
+                                                    <button className="btn globalCommonBtn col-12 col-sm-7 " onClick={this.editUser.bind(this)}><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp;
                                                 {/*<button className="btn btn-warning">CHANGE PASSWORD</button>*/}
                                                 </div>
                                             </div>
@@ -130,7 +132,7 @@ class Account extends Component{
                                             <div className="col-12 mt25 mb25">
                                                 <p className="col-12">You don't subscribe to our newsletter.</p>
                                                 <div className="col-12 mt45">
-                                                    <button className="btn globalCommonBtn col-12 col-sm-6 "><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button>
+                                                    <button className="btn globalCommonBtn col-12 col-sm-7 "><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -166,7 +168,7 @@ class Account extends Component{
                                                     <p className="col-12">You have not set a default billing address.</p>
                                                     <div className="col-12 mt25">
                                                         <button data-toggle="modal" data-target="#checkoutAddressModal"
-                                                         className="btn globalCommonBtn col-12 col-sm-6"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
+                                                         className="btn globalCommonBtn col-12 col-sm-7"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
                                                     </div>
                                                 </div>
                                             }
@@ -196,7 +198,7 @@ class Account extends Component{
                                                 <div className="col-12 mt25 mb15">
                                                     <p className="col-12" style={{wordBreak : "break-word"}}>You have not set a default shipping/billing address.</p>
                                                     <div className="col-12 mt15">
-                                                        <button data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn col-12 col-sm-6"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
+                                                        <button data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn col-12 col-sm-7"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
                                                     </div>
                                                 </div>
                                             }
