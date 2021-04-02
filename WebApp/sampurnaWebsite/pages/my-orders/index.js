@@ -454,15 +454,16 @@ export default class MyOrders extends Component {
           
           {
             this.state.loading ?
-              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 loaderHeight"><Loader type="fullpageloader" /></div> :
+              <div className="col-xl-12 col-12 loaderHeight"><Loader type="fullpageloader" /></div> :
 
-              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+              <div className="col-xl-12 col-12 NOpadding">
                 <br />
-                <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12 myOrderSidebar ">
+               <div className="row"> 
+                <div className="col-xl-3 col-md-3 col-12 myOrderSidebar ">
                   <Sidebar />
                 </div>
 
-                <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div className="col-xl-9 col-md-9 col-12">
                 <h4 className="table-caption">My Orders</h4>
                   
                   {
@@ -473,6 +474,7 @@ export default class MyOrders extends Component {
                           <div key={index} style={{marginBottom:"40px"}} className={data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Cancelled' ? "row cancelledorder" : "row"}>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 orderIdborder"  >
                               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                               <div className="row">
                                 <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding">
                                   <div className="orderIdButton globalBgColor col-lg-8 col-md-12 col-sm-12 col-xs-12 ">{"Order ID : "+(data.orderID)}</div>
                                 </div>  
@@ -491,6 +493,7 @@ export default class MyOrders extends Component {
                                     } */}
                                   </div>
                                 </div>
+                               </div> 
                               </div> 
                             </div>
                             { data.deliveryStatus[data.deliveryStatus.length - 1].status !== 'Cancelled' ?
@@ -506,29 +509,30 @@ export default class MyOrders extends Component {
                                       // console.log("pdata:",pdata);
                                       return(
                                         <div  className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
-                                          <div className="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                          <div className="row ">
+                                          <div className="col-xl-2 col-4 col-xs-4 col-md-4">
                                             <img src={pdata.productImage[0]?pdata.productImage[0]:"/images/eCommerce/notavailable.jpg"} style={{width:"100%"}} alt=""/>
                                           </div>
-                                          <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 NOpadding">
-                                            {pdata.productNameRlang?
-                                              <p> <a href={"/productdetails/"+pdata.product_ID} className="productname RegionalFont">{pdata.productNameRlang}</a></p>
-                                            :
-                                              <p> <a href={"/productdetails/"+pdata.product_ID} className="productname">{pdata.productName}</a></p>
-                                            }
-                                            { 
-                                              pdata.discountPercent ?
-                                              <div>
-                                                <span className="productCost"><i className="fa fa-inr"></i>&nbsp;{pdata.discountedPrice}</span> &nbsp;
-                                                <span className="oldprice productCost"><i className="fa fa-inr oldprice"></i>&nbsp;{pdata.originalPrice}</span> 
-                                              </div>
+                                            <div className="col-xl-4 col-12 col-md-4 NOpadding">
+                                              {pdata.productNameRlang?
+                                                <p> <a href={"/productdetails/"+pdata.product_ID} className="productname RegionalFont">{pdata.productNameRlang}</a></p>
                                               :
-                                              <div>
-                                                <span className="productCost"><i className="fa fa-inr "></i>&nbsp;{pdata.originalPrice}</span> 
-                                              </div>
-                                            }
-                                            
-                                            <p>Quantity: {pdata.quantity}</p>
-                                          </div>  
+                                                <p> <a href={"/productdetails/"+pdata.product_ID} className="productname">{pdata.productName}</a></p>
+                                              }
+                                              { 
+                                                pdata.discountPercent ?
+                                                <div>
+                                                  <span className="productCost"><i className="fa fa-inr"></i>&nbsp;{pdata.discountedPrice}</span> &nbsp;
+                                                  <span className="oldprice productCost"><i className="fa fa-inr oldprice"></i>&nbsp;{pdata.originalPrice}</span> 
+                                                </div>
+                                                :
+                                                <div>
+                                                  <span className="productCost"><i className="fa fa-inr "></i>&nbsp;{pdata.originalPrice}</span> 
+                                                </div>
+                                              }
+                                              
+                                              <p>Quantity: {pdata.quantity}</p>
+                                            </div>  
                                           <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 NOpadding">
                                             <span className="productCost"><i className="fa fa-inr"></i>&nbsp;{pdata.subTotal}</span> &nbsp;
                                           </div>
@@ -564,6 +568,7 @@ export default class MyOrders extends Component {
                                               
                                             </div>
                                           </div>
+                                         </div> 
                                           {
                                                 pdata.status === "Returned" ?
                                                   data.returnProducts.map((value) => {
@@ -588,12 +593,14 @@ export default class MyOrders extends Component {
                           
                             </div>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 orderfooterborder">
+                             <div className="row">
                               <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <p className="orderfootertag"><span>Ordered On: </span>{moment(data.createdAt).format("DD MMMM YYYY")} </p>
                               </div>
                               <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <p className="orderfootertag2"><span>Ordered Total: </span> <i className="fa fa-inr"></i>&nbsp;{data.cartTotal} </p>
                               </div>
+                             </div> 
                             </div>
                           </div>
                         );
@@ -779,6 +786,7 @@ export default class MyOrders extends Component {
                     </div>
                   </div>
                 </div>
+               </div> 
               </div>
 
           }

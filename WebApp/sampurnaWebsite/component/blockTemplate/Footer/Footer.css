@@ -396,6 +396,24 @@
   .footerSection{
     padding-left: 30px ! important;
   }
+  .categoryFooterWrapper{
+    padding-left: 30px ! important;
+  }
+  .onlineShoppingWrapper{
+    padding-right: 40px ! important;
+  }
+  .cartProductTable thead tr{
+    font-size: 14px ! important;
+  }
+  .cartProductTable>thead>tr>th{
+    font-size: 14px ! important;
+  }
+  .cartProductDetail h5{
+    font-size: 15px ! important;
+  }
+  .proWeight span{
+    font-size: 14px ! important;
+  }
  /* .BookStore_logo a{
     float: right ! important;
   }*/

@@ -120,13 +120,13 @@ class ForgotPassword extends Component {
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mobileViewNoPadding">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     </div>
-                    <div className=" col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 siteLogo NoPadding">
+                    <div className=" col-xl-6 offset-xl-3 col-md-6 offset-xl-3 offset-md-3 col-sm-6 col-sm-offset-3 col-xs-8 offset-xs-2 siteLogo NoPadding">
                          {/* <img src="/images/eCommerce/kokilaLogo.png" className="responsive logoImg"></img> */}
                         <Image 
-                            src={"/images/eCommerce/kokilaLogo.png"}
+                            src={"/images/multivendorlogo.jpg"}
                             className={"logoImg"}
-                            height ={60}
-                            width={200}
+                            height ={30}
+                            width={80}
                             layout="responsive"
                         />	
                     </div>
@@ -147,7 +147,7 @@ class ForgotPassword extends Component {
                                     {
                                         this.state.btnLoading
                                             ?
-                                            <div className="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 NOpaddingRight btn globaleCommBtn has-spinner active">
+                                            <div className="col-xl-10 offset-xl-1 col-md-10 offset-xl-1 col-sm-12 col-xs-12 NOpaddingRight btn globaleCommBtn has-spinner active">
                                                 Processing...
                       					        <span className="spinner"><i className="fa fa-refresh fa-spin"></i></span>
                                             </div>
@@ -160,7 +160,7 @@ class ForgotPassword extends Component {
                                     <button id="sendlink" className="btn resetBtn" onClick={this.sendLink.bind(this)}>Send OTP</button>
                                 </div> */}
                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt10">
-                                        <div className="row loginforgotpass textAlignCenter">
+                                        <div className=" loginforgotpass textAlignCenter">
                                             <a href='/' className="" onClick={this.openSignInModal.bind(this)}>Sign In</a>
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@ class ForgotPassword extends Component {
                             <div>
                                 <p className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25">We have sent a reset password link to your email account.</p>
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt10">
-                                    <div className="row loginforgotpass textAlignCenter">
+                                    <div className=" loginforgotpass textAlignCenter">
                                         <a href='/login' className="">Sign In</a>
                                     </div>
                                 </div>

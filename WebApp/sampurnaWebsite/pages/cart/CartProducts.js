@@ -454,7 +454,8 @@ class CartProducts extends Component{
                                                             <span>-</span>
                                                         }
                                                         </td>
-                                                        <td className="nowrap">                                                            
+                                                        <td className="nowrap"> 
+                                                        {console.log("{data.productDetail----------",data.productDetail)}                                                           
                                                             {
                                                                 data.productDetail.availableQuantity > 0 ?
                                                                 <div className="quantityWrapper">
