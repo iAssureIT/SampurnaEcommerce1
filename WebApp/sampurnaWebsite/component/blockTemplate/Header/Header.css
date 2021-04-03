@@ -482,6 +482,9 @@ li a{
     text-transform: capitalize;
     text-align: left !important;
 }
+.loginBackImageHeight{
+    height: auto ! important;
+}
 /* .list-DropDownMenu::before{
     width: 0;
     height: 0;
@@ -534,6 +537,3 @@ li a{
     }
 }
 
-.loginBackImageHeight{
-    height: 560px ! important;
-}

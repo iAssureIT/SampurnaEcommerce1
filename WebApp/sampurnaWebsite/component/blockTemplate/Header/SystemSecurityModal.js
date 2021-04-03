@@ -108,79 +108,79 @@ class header extends React.Component {
     }
    render() {
     return (
-		<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding loginViewWrapper ">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding ">
+		<div className="col-12 NoPadding loginViewWrapper ">
+            <div className="col-12 NoPadding ">
               {this.state.loggedIn ? 
-                <li className="dropdown myaccDropdown col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding ">
-                        <div className="faIcon faLoginIcon col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">     
-                            <span style={{float: "right"}} className="faIcon col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"><span className="loginView col-lg-12 col-md-12 col-sm-12 col-xs-12">My Account</span></span> 
+                <li className="dropdown myaccDropdown col-12">
+                    <span className="col-12 NoPadding ">
+                        <div className="faIcon faLoginIcon col-12 NoPadding">     
+                            <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="loginView col-12">My Account</span></span> 
                         </div>
                     </span>
-                    <ul className="col-lg-3 col-md-3 col-sm-3 col-xs-3 dropdown-menu list-DropDownMenu">                                        
-                        <li className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">                            
+                    <ul className="col-3 dropdown-menu list-DropDownMenu">                                        
+                        <li className="col-12 NOpadding">                            
                             <div className="row">
-                                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <div className="col-2">
                                 <div className="shortnamebk">
                                     <div className="">                                                    
                                         <div className="userinfo">{this.state.firstname}{this.state.lastname}</div>
                                     </div>
                                 </div>
                                 </div>
-                                <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div className="col-10">
+                                <div className="col-12">
                                     <div className="userinfotext"><span >{this.state.userData ? this.state.userData.fullName : null}</span></div>
                                 </div>
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div className="col-12">
                                     <div className="useremail"><span>{this.state.userData ? this.state.userData.email : null}</span></div>
                                 </div>
                                 </div>
                             </div>                            
                         </li>                                  
-                        <li className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding myAccMenu"><Link href="/account"><a>My Profile</a></Link></li>
-                        <li className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding myAccMenu"><Link href="/my-orders"><a>My Orders</a></Link></li>
-                        <li className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding myAccMenu"><Link href="/wishlist"><a>My Wishlist</a></Link></li>
-                        <li className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding myAccMenu globalSignoutBtn signoutBtn"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
+                        <li className="col-12 NOpadding myAccMenu"><Link href="/account"><a>My Profile</a></Link></li>
+                        <li className="col-12 NOpadding myAccMenu"><Link href="/my-orders"><a>My Orders</a></Link></li>
+                        <li className="col-12 NOpadding myAccMenu"><Link href="/wishlist"><a>My Wishlist</a></Link></li>
+                        <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                     </ul>
                 </li>
-                : <span className="beforeLogin col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                    <a href="" className="faIcon faLoginIcon col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                        <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 loginView">Login</span> 
+                : <span className="beforeLogin col-12" >
+                    <a href="" className="faIcon faLoginIcon col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
+                        <span className="col-12 loginView">Login</span> 
                     </a>          
                   </span> 
             }
             </div>
 			<div id="loginFormModal" className="modal in"  data-keyboard="false" >
 				<div className="modal-dialog" >                                        
-					<div className="modal-content loginModalContent col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12 loginBackImageHeight" style={{'background': '#fff'}}>                            
+					<div className="modal-content loginModalContent col-12 col-sm-10 offset-sm-1 loginBackImageHeight" style={{'background': '#fff'}}>                            
                         <div className="modal-body">  
                         <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>                                                           
                                 {this.props.formToShow === "login" ?
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 loginForm mobileViewNoPadding">
+                                    <div className="col-12 loginForm mobileViewNoPadding">
                                         <Login />
                                     </div>  
                                 : null
                                 }  
                                 {this.props.formToShow === "signUp" ?
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 signupForm mobileViewNoPadding">
+                                    <div className="col-12 signupForm mobileViewNoPadding">
                                         <SignUp />
                                     </div>  
                                 : null
                                 } 
                                 {this.props.formToShow === "forgotPassword" ?
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 loginForm mobileViewNoPadding">
+                                    <div className="col-12 loginForm mobileViewNoPadding">
                                         <ForgotPassword />
                                     </div>  
                                 : null
                                 }  
                                 {this.props.formToShow === "confirmOtp" ?
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 loginForm mobileViewNoPadding">
+                                    <div className="col-12 loginForm mobileViewNoPadding">
                                         <ConfirmOtp />
                                     </div>  
                                 : null
                                 } 
                                 {this.props.formToShow === "resetPassword" ?
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 loginForm mobileViewNoPadding">
+                                    <div className="col-12 loginForm mobileViewNoPadding">
                                         <ResetPassword />
                                     </div>  
                                 : null

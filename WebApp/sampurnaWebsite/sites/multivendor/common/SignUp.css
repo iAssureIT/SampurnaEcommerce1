@@ -171,18 +171,12 @@ input[type=number] {
   left: 3px;
 }
 .LoginWrapper{
-  /* background-image: url("/images/signInBackground.png"); */
   border-radius: 5px;
   background-size: 100% 100% !important;
   display: table-cell;
-  /* background-image: url("/images/background.png"); */
-  /* background-color: #ffc; */
   border-radius: 5px;
-  text-align: center;
   vertical-align: middle !important;
   float: unset;
-  /* height: 472px; */
-  /* width: 1300px; */
 }
 
 .innloginwrap{
@@ -329,7 +323,6 @@ input[type=number] {
     background: #fff;
     padding: 15px;
     display: inline-block !important;
-    /* width: 470px; */
     min-height: 300px !important  ;
     box-shadow: 2px 1px 7px 6px #33333326;
     float: unset;
@@ -418,6 +411,7 @@ input[type=number] {
 .innloginwrap{
   margin-bottom: 20px;
 }
+
 @media only screen and (max-device-width: 480px) {
     
     .loginforgotpass label,

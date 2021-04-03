@@ -239,13 +239,13 @@ class Login extends Component {
       // <div id="loginFormModal" style={{ 'height': window.innerHeight + 'px', 'width': window.innerWidth + 'px','background' : "url("+signInBackgroundImg +")" }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper">
         // <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
         // </div>    
-        <div id="loginFormModal"  className="col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper mobileViewNoPadding">    
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mobileViewNoPadding">
-          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding ">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xs-12 NoPadding">
-              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
+        <div id="loginFormModal"  className="col-12 LoginWrapper mobileViewNoPadding">    
+        <div className="col-12 mobileViewNoPadding">
+          <div className="col-12 NoPadding ">
+            <div className="col-12 NoPadding">
+              <div className="col-12 innloginwrap">
                 {/* style={{'background': 'url("../../static/'+publicRuntimeConfig.CURRENT_SITE+'/images/Logo.png")'}} */}
-                <div className=" col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 siteLogo NoPadding">
+                <div className=" col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
                   {/* <img src="/images/eCommerce/kokilaLogo.png" className="responsive logoImg"></img> */}
                   <Image 
                     src={"/images/multivendorlogo.jpg"}
@@ -255,12 +255,12 @@ class Login extends Component {
                     layout="responsive"
                   />	
                 </div>
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div className="col-12">
                   <h4>SIGN IN</h4>
                 </div>
               </div>
               <form id="login" onSubmit={this.userlogin.bind(this)}>
-                <div className="form-group frmhgt textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt25">
+                <div className="form-group frmhgt textAlignLeft col-12 NOpadding mt25">
                   <label>Email ID</label><label className="astricsign">*</label>
                   <input type="email" className="form-control" ref="loginusername" id="loginusername" name="loginusername" placeholder="Email ID"  onChange={this.handleChange.bind(this)}/>
                   <span className="text-danger">{this.state.formerrors.emailIDV}</span>
@@ -268,7 +268,7 @@ class Login extends Component {
                 </div>
 
 
-                <div className="textAlignLeft frmhgt col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mb25">
+                <div className="textAlignLeft frmhgt col-12 NOpadding mb25">
                   <label>Password</label><label className="astricsign">*</label>
                   <input type="password" className="form-control" ref="loginpassword" name="loginpassword" id="loginpassword" placeholder="Password"  onChange={this.handleChange.bind(this)} autoComplete="off"/>
                   <div className="showHideSignDiv">
@@ -281,7 +281,7 @@ class Login extends Component {
                 {
                   this.state.btnLoading
                   ?
-                  <div className="col-lg-3 col-lg-offset-4 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 NoPadding ">
+                  <div className="col-12 col-lg-3 offset-lg-4 col-md-10 offset-md-1  NoPadding ">
                   <div align="center" className="cssload-fond">
                     <div className="cssload-container-general">
                       <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"> </div></div>
@@ -292,21 +292,21 @@ class Login extends Component {
                   </div>
                 </div>
                   :
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
-                      <input id="logInBtn" type="submit" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn globaleCommBtn" value="Sign In" />
+                    <div className="col-12 NoPadding">
+                      <input id="logInBtn" type="submit" className="col-12 btn globaleCommBtn" value="Sign In" />
                     </div>
                 }
 
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt30 mb25 NoPadding">
+                <div className="col-12 mt30 mb25 NoPadding">
                   <div className="row">
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt10 textAlignment">
-                      <div className="row loginforgotpass">
-                        <a href='' className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
+                    <div className="col-12 col-sm-6 mt10 textAlignment">
+                      <div className="loginforgotpass">
+                        <a href='' className="col-12 " onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
                       </div>
                     </div>
-                    <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 textAlignment mt10 ">
+                    <div className="col-12 col-sm-6 textAlignment mt10 ">
                       <div className="row loginforgotpass loginSignupBtn">                        
-                          <a href='' className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " onClick={this.openSignUpModal.bind(this)}>Sign Up</a>                    
+                          <a href='' className="col-12 " onClick={this.openSignUpModal.bind(this)}>Sign Up</a>                    
                       </div>
                     </div>
                   </div>
