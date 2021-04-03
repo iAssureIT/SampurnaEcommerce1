@@ -38,8 +38,42 @@
 .cartProductTable thead tr .itemth, .proWeight{ 
     text-align: center !important;
 }
+@media only screen and (device-width: 667px) {
+  .cartProductDetail {
+      padding: 0px 15px;
+      margin-bottom: 10px !important;
+  }
+}
 @media only screen and (max-device-width: 480px) {  
 .banner{
     height: auto !important;
 } 
+}
+
+@media only screen and (max-device-width: 480px) {
+  .innloginwrap{
+      margin-top: 120px ! important;
+    }
+  .cartProductDetail{
+    font-size: 12px ! important;
+  }  
+  .cartPrice{
+    font-size: 12px ! important;
+  }
+  .ForMobile{
+    width: 400px ! important;
+  }
+    .bannerTitle_{
+      font-size: 24px ! important;
+    }
+    .cartSummary{
+      margin-left: 30px ! important;
+    }
+  }
+
+  .cartProductDetail h5{
+  font-size: 14px ! important;
+}
+.productSize{
+  font-size: 14px ! important;
 }

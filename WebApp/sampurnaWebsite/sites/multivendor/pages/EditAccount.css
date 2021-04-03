@@ -42,3 +42,14 @@
   .hidePwd5{
     display: none !important;
   }
+  
+#editAccount label{
+  font-size: 14px ! important;
+  font-weight: 700 ! important;
+}
+#editAccount input{
+  font-size: 14px ! important;
+}
+#editAccount span{
+  font-size: 14px ! important;
+}

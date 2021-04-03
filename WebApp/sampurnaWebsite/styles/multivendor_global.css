@@ -598,96 +598,50 @@ a{
   right: 0 !important;
 }
 @media only screen and (max-device-width: 480px) {
-  .innloginwrap{
+.innloginwrap{
       margin-top: 120px ! important;
     }
-  .mobileViewNoPadding{
+.cartProductDetail{
+    font-size: 12px ! important;
+  }  
+.cartPrice{
+    font-size: 12px ! important;
+  }
+.mobileViewNoPadding{
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
-  .mobileViewPaddingLeft{
+.mobileViewPaddingLeft{
     padding-left: 10px !important;
   }
-  .annimatedBtn{
+.annimatedBtn{
       font-size: 6px !important;
       margin: 10px 20px !important;
       padding: 7px 12px !important;
   }
-  .middle{
+.middle{
       left: 16% !important;
   }
-  .BennerRightBtn{
+.BennerRightBtn{
     right: -65px !important
   }
-    .globalMainTitle{
+.globalMainTitle{
         font-size: 15px !important;
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    .commonPara{
+.commonPara{
       font-size: 13px;
       padding-left: 0px !important;
       padding-right: 0px !important;
       text-align: justify;
     }
-    .bannerTitle_{
+.bannerTitle_{
       font-size: 24px ! important;
     }
-    .cartSummary{
+.cartSummary{
       margin-left: 30px ! important;
     }
-  }
-  .paymentMethodTitle{
-    font-size: 14px ! important;
-  }
-  .orderReviewsTitle{
-    font-size: 14px ! important;
-  }
-  .paymentInput span{
-    font-size: 14px ! important;
-  }
-  .orderTable>thead>tr>th{
-    font-size: 14px ! important;
-  }
-  .productName{
-    font-size: 14px ! important;
-  }
-  .shippingAddressTitle{
-    font-size: 14px ! important;
-  }
-  .cartColor span{
-    font-size: 14px ! important;
-  }
-  .shippingAddress{
-    font-size: 14px ! important;
-    /*font-weight: 600;*/
-  }
-  .shippingInput input{
-    font-size: 14px! important;
-  }
-  .orderReviews span{
-    font-size: 15px ! important;
-  }
-  .table-caption{
-    font-size: 18px ! important;
-
-  }
-  .table-caption p{
-    font-size: 12px ! important;
-
-  }
-  .box-title{
-    font-size: 14px  !important;
-  }
-  .box-content{
-    font-size: 14px ! important;
-  }
-  .orderTable>tbody>tr>td{
-    font-size: 14px ! important;
-
-  }
-  .cartPrice{
-    font-size: 14px ! important;
   }
   .cartProductPrize {
     color: #5f5f5f ! important;
@@ -696,19 +650,6 @@ a{
     line-height: 30px ! important;
     margin-top: 10px ! important;
     font-size: 16px !important;
-}
-.productSize{
-  font-size: 14px ! important;
-}
-.cartProductDetail h5{
-  font-size: 14px ! important;
-}
-#resetPass label{
-  font-size: 14px ! important;
-  font-weight: 700 ! important;
-}
-#resetPass input{
-  font-size: 14px ! important;
 }
 .dropdown-menu > li > a {
     display: block;

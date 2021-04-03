@@ -59,8 +59,8 @@ class Payment extends Component {
 		<Header />
     <BreadCrumbs />
       <div className="container">
-        <div className="col-12 col-xl-12 NOpadding">
-          <div className="col-xl-10 offset-xl-1 col-md-10 offset-md-1  col-12">
+        <div className="col-12 col-xl-12 col-sm-12 col-xs-12  NOpadding">
+          <div className="col-xl-10 offset-xl-1 col-md-10 offset-md-1 col-sm-12 col-xs-12 col-12">
             <br />
             <br />
             <div className="alert alert-success">
@@ -71,9 +71,9 @@ class Payment extends Component {
             <br />
             <h4 className="table-caption">Order Details</h4>
             <p>Ordered on {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}  | OrderID -  {this.state.orderData.orderID}    {this.state.orderData.shippingtime?<span className="pull-right hidden-xs">Shipping Time : {this.state.orderData.shippingtime}</span>:null}</p>
-            <div className="col-12 col-xl-12 outerbox">
+            <div className="col-12 col-xl-12 col-sm-12 col-xs-12  outerbox">
              <div className="row">
-              <div className="col-xl-4 col-md-4 col-12 mb50">
+              <div className="col-xl-4 col-md-4 col-12 col-sm-12 col-xs-12  mb50">
                 <strong className="box-title">
                   <span>Shipping Address</span>
                 </strong>
@@ -86,7 +86,7 @@ class Payment extends Component {
                   {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.country} <br /> */}
                 </div>
               </div>
-              <div className="col-xl-4 col-md-4 col-12 mb50">
+              <div className="col-xl-4 col-md-4 col-12 col-sm-12 col-xs-12 col-12 mb50">
                 <strong className="box-title">
                   <span>Payment Method</span>
                 </strong>
@@ -96,20 +96,20 @@ class Payment extends Component {
                   }
                 </div>
               </div>
-              <div className="col-xl-3 col-md-3 col-12 mb50">
+              <div className="col-xl-3 col-md-3 col-12 col-sm-12 col-xs-12  mb50">
                 <strong className="box-title">
                   <span>Order Summary</span>
                 </strong>
                 <div className="box-content">
                   <div>
                    <div className="row">
-                    <div className="col-xl-8 col-md-6 col-12"><span>Cart Total:</span>  </div>
-                    <div className="col-xl-4 col-md-6 col-12 NOpadding text-right"><span><i className={"fa fa-" + this.state.orderData.currency}></i> {this.state.orderData.cartTotal}</span> </div>
+                    <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Cart Total:</span>  </div>
+                    <div className="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right"><span><i className={"fa fa-" + this.state.orderData.currency}></i> {this.state.orderData.cartTotal}</span> </div>
                    </div>  
                   </div>
                   <div>
                    <div className="row">
-                    <div className="col-xl-8 col-md-6 col-12 "><span>Shipping:  </span></div>
+                    <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Shipping:  </span></div>
                     <div className="col-xl-4 col-md-6 col-12 NOpadding text-right"><span>Free</span> </div>
                    </div> 
                   </div>
@@ -127,25 +127,25 @@ class Payment extends Component {
                   </div>
                   <div>
                    <div className="row">
-                    <div className="col-xl-8 col-md-6 col-12 "><span>Tax: </span></div>
-                    <div className="col-xl-4 col-md-6 col-12 NOpadding text-right">
+                    <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Tax: </span></div>
+                    <div className="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12 NOpadding text-right">
                       <span><i className={"fa fa-" + this.state.orderData.currency}></i> {parseInt(this.state.orderData.gstTax).toFixed(2)}</span>
                     </div>  
                     </div>
                   </div>
                   <div>
                    <div className="row">
-                      <div className="col-xl-8 col-md-6 col-12 " ><span>Order Total: </span></div>
-                      <div className="col-xl-4 col-md-6 col-12 NOpadding text-right">
+                      <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12" ><span>Order Total: </span></div>
+                      <div className="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12 NOpadding text-right">
                         <span><i className={"fa fa-" + this.state.orderData.currency}></i> {parseInt(this.state.orderData.total).toFixed(2)}</span>
                    </div>   
                     </div>
                   </div>
-                  <div className="brdrbtmpayment col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+                  <div className="brdrbtmpayment col-xl-12 col-md-12 col-sm-12 col-xs-12"></div>
                   <div>
                    <div className="row">
-                      <div className="col-xl-8 col-md-6 col-12 invoiceOrderTotal "><span>Total: </span></div>
-                      <div className="col-xl-4 col-md-6 col-12 NOpadding text-right">
+                      <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12 invoiceOrderTotal "><span>Total: </span></div>
+                      <div className="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right">
                        <div className="row">
                         <span className="invoiceOrderTotal"><i className={"fa fa-" + this.state.orderData.currency}></i> {parseInt(this.state.orderData.total).toFixed(2)}</span>
                        </div> 
@@ -156,8 +156,7 @@ class Payment extends Component {
               </div>
              </div> 
             </div>
-
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 outerbox table-responsive">
+            <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 outerbox table-responsive">
               <table className="table orderTable">
                 <thead>
                   <tr>
@@ -187,7 +186,7 @@ class Payment extends Component {
                                 </a>
 
                                 {data.discountPercent ?
-                                  <div className="col-lg-12 col-md-12 NOpadding">
+                                  <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12  NOpadding">
                                     <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{Math.floor(data.originalPrice)}</span> &nbsp; &nbsp;
                                     <span className="cartPrice"><i className="fa fa-inr"></i>{Math.floor(data.discountedPrice)}</span> &nbsp; &nbsp;
                                     <span className="cartDiscountPercent">( {Math.floor(data.discountPercent)}% Off )</span>

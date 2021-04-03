@@ -203,6 +203,33 @@ text-align:right ! important;
     color: #333;
     text-decoration: none;
 }
+ .table-caption{
+    font-size: 18px ! important;
+
+  }
+  .table-caption p{
+    font-size: 12px ! important;
+
+  }
+  .account-nav .current1 li a{
+  color: #fff ! important;
+
+}
+.orderbodyborder a{
+   font-size: 14px ! important;
+
+}
+.productCost{
+  font-size: 14px ! important;
+}
+.wiztext{
+  font-size: 14px ! important;
+}
+.warning {
+    color: #8a6d3b ! important;
+    background-color: #fcf8e3 ! important;
+    border-color: #faebcc ! important;
+}
 @media only screen and (max-device-width: 480px) {   
 	.custmTabs{
 		font-size: 10px !important;
@@ -225,4 +252,8 @@ text-align:right ! important;
 	.oldprice{
 		text-decoration-line: line-through;
 	}
+}
+.account-nav .current1{
+  background-color: #70a1f1 !important;
+  color: #fff ! important;
 }

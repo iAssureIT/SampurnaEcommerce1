@@ -361,6 +361,11 @@
   .socialMediaIcons{
     text-align: right;
   }
+  @media only screen and (device-width: 667px) {
+  .footerWrapper{
+    height: 600px ! important;
+  }
+}
   @media only screen and (max-device-width: 480px) {    
     .categoryFooterWrapper{
       margin-bottom: 20px;
@@ -392,8 +397,7 @@
     font-size: 14px ! important;
   }
 }
-
-  .footerSection{
+.footerSection{
     padding-left: 30px ! important;
   }
   .categoryFooterWrapper{
@@ -412,7 +416,7 @@
     font-size: 15px ! important;
   }
   .proWeight span{
-    font-size: 14px ! important;
+    font-size: 12px ! important;
   }
  /* .BookStore_logo a{
     float: right ! important;

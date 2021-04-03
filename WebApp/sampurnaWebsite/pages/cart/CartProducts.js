@@ -377,16 +377,16 @@ class CartProducts extends Component{
         return(            
             <div className="container">
                 {/* <div>cartdata</div> */}
-            <div className="col-12 col-xl-12 cartHeight">
+            <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  cartHeight">
                 {/* <Loader type="fullpageloader"/> */}
                 <div className="row">
                     <Message messageData={this.state.messageData} />
                     {
                         
                         this.props.recentCartData[0] && this.props.recentCartData[0].cartItems.length>0? 
-                        <div className="col-12 col-xl-12 NOpadding" style={{"marginBottom":"20px"}}>
+                        <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  NOpadding" style={{"marginBottom":"20px"}}>
                            <div className="row">  
-                            <div className="col-xl-9 col-md-12 col-11 table-responsive cartProduct">
+                            <div className="col-xl-9 col-md-12 col-11 col-sm-12 col-xs-12 table-responsive cartProduct">
                                 <table className="table cartProductTable">
                                     <thead>
                                         <tr>
@@ -410,12 +410,12 @@ class CartProducts extends Component{
                                                         <td>
                                                             <div>
                                                                <div className="row">
-                                                                <div className="col-12 col-xl-4 col-md-4">
-                                                                    <a href={"/product-detail/" + data.productDetail.productUrl + "/" +data.product_ID} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                        <img className="img  cartProductImg col-lg-12 col-md-12 col-sm-12 col-xs-12" src={data.productDetail.productImage[0] ? data.productDetail.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
+                                                                <div className="col-4 ForMobile">
+                                                                    <a href={"/product-detail/" + data.productDetail.productUrl + "/" +data.product_ID}>
+                                                                        <img className="img  cartProductImg col-12" src={data.productDetail.productImage[0] ? data.productDetail.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
                                                                     </a>
                                                                 </div>
-                                                                <div className="col-12 col-xl-8 col-md-8 cartProductDetail">
+                                                                <div className="col-8 cartProductDetail">
                                                                     <a href={"/product-detail/" + data.productDetail.productUrl + "/" +data.product_ID}>
                                                                         {data.productDetail.productNameRlang?
                                                                             <h5 className="RegionalFont">{data.productDetail.productNameRlang}</h5>
@@ -425,7 +425,7 @@ class CartProducts extends Component{
                                                                     </a>
                                                                 {
                                                                     data.productDetail.discountPercent  ?
-                                                                        <div className="col-lg-12 col-md-12 NOpadding">
+                                                                        <div className=" col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NOpadding">
                                                                             <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{data.productDetail.originalPrice}</span> &nbsp; &nbsp;
                                                                             <span className="cartPrice"><i className="fa fa-inr"></i>{data.productDetail.discountedPrice}</span> &nbsp; &nbsp;
                                                                             <span className="cartDiscountPercent">( {Math.floor(data.productDetail.discountPercent)}% Off )</span>
@@ -476,10 +476,10 @@ class CartProducts extends Component{
                                                         <td className="proWeight">  
                                                             { this.state.websiteModel === 'FranchiseModel'? 
                                                                
-                                                                <span className="col-lg-12 NoPadding productSize totalWeight">&nbsp;{data.totalWeight} &nbsp;</span> 
+                                                                <span className=" col-xl-12 col-md-12 col-sm-12 col-xs-12  NoPadding productSize totalWeight">&nbsp;{data.totalWeight} &nbsp;</span> 
                                                             :
-                                                                <span style={{"textAlign":"center"}} className="col-lg-12 NoPadding productSize">{data.productDetail.size} &nbsp; 
-                                                                    {data.productDetail.size ?<span style={{"textAlign":"center"}} className="col-lg-12 NoPadding CapsUnit">{data.productDetail.unit}</span>:'-'}
+                                                                <span style={{"textAlign":"center"}} className="col-xl-12 NoPadding productSize">{data.productDetail.size} &nbsp; 
+                                                                    {data.productDetail.size ?<span style={{"textAlign":"center"}} className="col-xl-12 NoPadding CapsUnit">{data.productDetail.unit}</span>:'-'}
                                                                 </span>
                                                             }
                                                         </td>
@@ -501,11 +501,10 @@ class CartProducts extends Component{
                                     </tbody>
                                 </table>                                
                             </div>
-                            
-                            <div className="col-10 col-xl-3 col-md-8 NOpadding">
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 cartSummary">
+                            <div className="col-10 col-12 col-xl-3 col-md-8 col-sm-12 col-xs-12 NOpadding">
+                                <div className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  cartSummary">
                                     <strong className="cartSummaryTitle">Summary</strong>
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12 ">
                                         <div className="row">
                                             <table className="table table-responsive summaryTable">
                                                 <tbody>
@@ -645,17 +644,17 @@ class CartProducts extends Component{
                                         this.state.minvalueshipping?
                                         <div>
                                            { this.state.minvalueshipping <= this.props.recentCartData[0].total  ?
-                                            <button onClick={this.proceedToCheckout.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommBtn btn cartCheckout">
+                                            <button onClick={this.proceedToCheckout.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 globaleCommBtn btn cartCheckout">
                                                 PROCEED TO CHECKOUT
                                             </button>
                                             :
-                                            <button  className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn globaleCommBtn blockcartCheckout" disabled>
+                                            <button  className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  btn globaleCommBtn blockcartCheckout" disabled>
                                                 PROCEED TO CHECKOUT
                                             </button> 
                                             }
                                         </div>
                                         :
-                                        <button  className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn globaleCommBtn blockcartCheckout">
+                                        <button  className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  btn globaleCommBtn blockcartCheckout">
                                             PROCEED TO CHECKOUT
                                         </button> 
 
@@ -663,7 +662,7 @@ class CartProducts extends Component{
                                      {this.state.minvalueshipping <= this.props.recentCartData[0].total  ?
                                         null
                                     :
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mg20">
+                                    <div className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  mg20">
                                         {/* <span className="minpurchase">Make minimum purchase of Rs.{this.state.minvalueshipping} to checkout your order.</span>&nbsp; */}
                                         <span className="minpurchase">Minimum order should be ₹  {this.state.minvalueshipping} to Checkout & Place Order. 
                                             Add more products worth ₹  {this.state.minvalueshipping - this.props.recentCartData[0].total} to proceed further.</span>
@@ -675,8 +674,8 @@ class CartProducts extends Component{
                           </div>  
                         </div>
                         : 
-                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 textAlignCenter">
-                          <img className="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12" src={"/images/eCommerce/emptycart.png"} alt="" />                          
+                        <div className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  textAlignCenter">
+                          <img className="col-xl-4 offset-xl-4 col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-xs-12" src={"/images/eCommerce/emptycart.png"} alt="" />                          
                         </div>  
                         
                     }

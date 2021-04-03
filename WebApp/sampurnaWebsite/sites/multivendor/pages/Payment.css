@@ -199,4 +199,27 @@ text-align:right ! important;
     font-weight: 600;
     color: #333;
     text-decoration: none;
+    font-size: 14px ! important;
 }
+.paymentMethodTitle{
+    font-size: 14px ! important;
+  }
+.orderReviewsTitle{
+    font-size: 14px ! important;
+  }
+.shippingAddressTitle{
+    font-size: 14px ! important;
+  }
+.orderTable>thead>tr>th{
+    font-size: 14px ! important;
+  }
+.orderTable h5{
+    font-size: 14px  ! important;
+}  
+ .cartColor span{
+    font-size: 14px ! important;
+  }  
+.orderReviews span{
+    font-size: 14px ! important;
+  }  
+  

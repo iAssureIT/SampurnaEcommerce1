@@ -104,7 +104,7 @@ class Cart extends Component{
         return(
           <div>
             <Header/>
-            <div className="col-12 col-xl-12">
+            <div className="col-12 col-xl-12 col-sm-12 col-xs-12 col-12">
                 <div className="row">                    
                     <SmallBanner bannerData={this.state.bannerData}/>
                     <CartProducts />
@@ -116,7 +116,7 @@ class Cart extends Component{
                       const OtherComponent = dynamic(() => import('../../component/blockTemplate/'+component+'/'+component+'.js'),					
                       {
                         loading: () =>
-                          <div className="col-lg-6 col-lg-offset-3 col-md-4 col-md-offset-4  col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
+                          <div className="col-xl-6 col-xl-offset-3 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
                             <img src="/images/loader.gif" className=""></img>
                             {/* loading.... */}
                           </div> 
@@ -125,7 +125,7 @@ class Cart extends Component{
                       var block_id=result.block_id._id; 
                       // console.log("component",component);
 						          return(
-                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding" key={index}>
+                        <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 NoPadding" key={index}>
                           <OtherComponent block_id={block_id} key={index}/>
                           {/* <h1>Wishlist</h1> */}
                         </div>
@@ -134,36 +134,9 @@ class Cart extends Component{
 					          : null
 					          }
                     
-                    {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 homeRow">
-                        {
-                        this.state.wishlistProductsloading ?  
-                        
-                        <Loader type="carouselloader" productLoaderNo = {4}/>      
-                        :
-                        Array.isArray(this.state.wishlistedProducts) && this.state.wishlistedProducts.length > 0 ?                        
-                            <ProductCarousel  
-                                title={'Wishlist'} 
-                                newProducts={this.state.wishlistedProducts} 
-                                type={'wishlist'} 
-                                getWishData={this.getWishlistData.bind(this)}                       
-                            />
-                            : null
-                        
-                        }
-                    </div> */}
-
-
-
-                    {/* <GiftOption /> */}
-                    {/* <div className="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-                        <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                            <Discount />
-                            <EstimateShipping />
-                        </div>
-                    </div> */}
                     
                 </div>
-            </div>
+              </div>
             <Footer/>
           </div>
         )
