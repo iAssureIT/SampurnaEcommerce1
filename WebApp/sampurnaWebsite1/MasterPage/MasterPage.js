@@ -19,7 +19,7 @@ const { publicRuntimeConfig } = getConfig();
 //get site name from next.config.js
 const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
 
-// const Headernew = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/Header1/Header1.js'));
+const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/Header/Header.js'));
 const Footer = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/6_FooterBlocks/Footer/Footer.js'));
 
 
@@ -84,7 +84,7 @@ class MasterPage extends React.Component {
     return (		
 		<div className="col-12 NoPadding masterPageWrapper">
 			{this.pageHead()}
-			{/* <Header/>			 */}
+			<Header/>			
 			<div className="col-12 NoPadding componentWrapper">
 			{ this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
                 this.props.pageData.pageBlocks.map((result, index)=>{
@@ -98,7 +98,7 @@ class MasterPage extends React.Component {
 					{
 						loading: () =>
 							<div className="col-12 loading">
-								<img src="/images/eCommerce/loader.gif" className="col-4 offset-4"></img>
+								<img src="/images/eCommerce/loader.gif" className="col-2 "></img>
 							</div> 
 					});
 					
@@ -110,7 +110,7 @@ class MasterPage extends React.Component {
 				})
 			:
 			<div className=" col-12 NoPadding">				
-				<a href="/"><img className=" col-12 NoPadding" src="/images/eCommerce/404-Page.gif" /></a>
+				<a href="/"><img className=" col-12 NoPadding img-responsive" src="/images/eCommerce/404-Page.gif" /></a>
 			</div>
 			}
 			</div>

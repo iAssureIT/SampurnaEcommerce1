@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link  from 'next/link';
 import SwiperCore, { Navigation, Pagination, EffectFade,EffectFlip, EffectCoverflow, EffectCube, Parallax, Autoplay, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper';
-// import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper-bundle.min.css'
 // import 'swiper/swiper-bundle.min.js';
 import Style from './Banner.module.css';
 // import dynamic from 'next/dynamic';
@@ -92,7 +92,7 @@ export default class Banner extends React.Component {
                     .get('/api/blocks/get/'+this.props.block_id)
                     .then((response)=>{
                         if(response.data){
-                          console.log("Banner response.data============",response.data);
+                          // console.log("Banner response.data============",response.data);
                           
                           this.setState({
                             blocks:response.data,
@@ -237,7 +237,7 @@ export default class Banner extends React.Component {
     }
 
 	render() {
-    console.log("this.state.blocks.repeatedBlocks===",this.state.blocks.repeatedBlocks);
+    // console.log("this.state.blocks.repeatedBlocks===",this.state.blocks.repeatedBlocks);
     var video = document.getElementById("bannerVideo");
     var btn = document.getElementById("myBtn");
 
@@ -250,23 +250,23 @@ export default class Banner extends React.Component {
     }
 
 		return (
-						<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 bannerContainerEcomm " +Style.bannerContainerEcomm}>
+						<div className={"col-12 bannerContainerEcomm " +Style.bannerContainerEcomm}>
 							<div className="row">                 
-                  <div className={"swiper-container " +Style.swiperContainer}>    
-                    <div className="swiper-wrapper ">                   
+                  <div className={"swiper-container col-12 " +Style.swiperContainer}>    
+                    <div className="swiper-wrapper col-12 NoPadding">                   
                          { 
                          !this.state.bannerLoading? 
                          this.state.blocks.repeatedBlocks && this.state.blocks.repeatedBlocks.map((data,index)=>{  
                                          
                          return(                        
-                              <div key={index} className={Style.item +" swiper-slide col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"}>
+                              <div key={index} className={Style.item +" swiper-slide col-12 NoPadding"}>
                                 {data.BgVideo?
-                                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.NOpadding +" " +Style.fullScreen_videoWrap}>
-                                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.NOpadding}>
+                                  <div className={"col-12 " +Style.NOpadding +" " +Style.fullScreen_videoWrap}>
+                                    Banner_item__2k6WT swiper-slide col-12 NoPadding swiper-slide-active<div className={"col-12 " +Style.NOpadding}>
                                       <video autoplay="true" muted loop="true" id="bannerVedio"
                                       src={data.BgVideo} type="video/mp4" width="100%" height="700px"/>
                                     </div> 
-                                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.video_overlay}></div>  
+                                    <div className={"col-12 " +Style.video_overlay}></div>  
                                   </div>                                 
                                 :null
                                 }
@@ -281,12 +281,12 @@ export default class Banner extends React.Component {
                                   //   />	
                                 :null}
                                 {data.FgImage !== null?
-                                <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 "}>
-                                  <div className={"col-lg-10 col-md-10 col-sm-6 col-xs-12 " +Style.titleWrapper}>
-                                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12  " +Style.blockTitle}>{data.Title}</div>	
-                                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalBannerTitle " +Style.blockSubTitle}>{data.SubTitle}</div>
+                                <div className={"col-12 "}>
+                                  <div className={"col-10 col-sm-6 col-xs-12 " +Style.titleWrapper}>
+                                    <div className={"col-12  " +Style.blockTitle}>{data.Title}</div>	
+                                    <div className={"col-12 globalBannerTitle " +Style.blockSubTitle}>{data.SubTitle}</div>
                                   </div>                                  
-                                  <div className={"col-lg-5 col-md-6 col-sm-6 col-xs-12 pull-right " +Style.blockTitle}>                               
+                                  <div className={"col-6 col-xl-5 col-xs-12 pull-right " +Style.blockTitle}>                               
                                     <img className={"img img-responsive " +Style.FgImg} src={data.FgImage!==""?data.FgImage:null} alt="banner" />	
                                     {/* <Image
                                       src={data.FgImage!==""?data.FgImage:null}
@@ -297,17 +297,17 @@ export default class Banner extends React.Component {
                                   </div>	                                  
                                 </div>	
                                 :
-                                <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 "}>
+                                <div className={"col-12 "}>
                                 { index % 2?
                               
-                                <div className={"col-lg-10 col-md-10 col-sm-11 col-xs-12 pull-right " +Style.titleWrapper +" " +Style.evenBlock}>
-                                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.blockTitle}>{data.Title}</div>	
-                                  <div style={{marginBottom : '0px'}} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalBannerTitle " +Style.blockSubTitle}>{data.SubTitle}</div>        
+                                <div className={"col-10 col-xs-12 pull-right " +Style.titleWrapper +" " +Style.evenBlock}>
+                                  <div className={"col-12 " +Style.blockTitle}>{data.Title}</div>	
+                                  <div style={{marginBottom : '0px'}} className={"col-12 globalBannerTitle " +Style.blockSubTitle}>{data.SubTitle}</div>        
                                   {/* <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 "}>                         
                                       <a href={data.Link} className={"animated-button BannerBtn " +Style.BannerBtn }>Shop Now</a>
                                   </div>   */}
-                                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12"}>                         
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                  <div className={"col-12"}>                         
+                                    <div className="col-12">
                                         {/* <a href={data.Link} className="btn annimatedBtn btn1 BennerRightBtn">Shop Now</a> */}
                                         {/* <Link href={data.Link}>
                                           <a className="btn annimatedBtn btn1 BennerRightBtn">Shop Now</a>
@@ -316,13 +316,13 @@ export default class Banner extends React.Component {
                                   </div>                    
                                 </div> 
                                 :
-                                <div className={"col-lg-10 col-md-10 col-sm-11 col-xs-12 pull-left " +Style.titleWrapper +" " +Style.OddBlock}>
-                                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.blockTitle}>{data.Title}</div>	
-                                  <div style={{marginBottom : '30px'}} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalBannerTitle " +Style.blockSubTitle}>{data.SubTitle}</div>        
+                                <div className={"col-10 col-sm-11 col-xs-12 pull-left " +Style.titleWrapper +" " +Style.OddBlock}>
+                                  <div className={"col-12 " +Style.blockTitle}>{data.Title}</div>	
+                                  <div style={{marginBottom : '30px'}} className={"col-12 globalBannerTitle " +Style.blockSubTitle}>{data.SubTitle}</div>        
                                   {/* <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 middle"}>              
                                     <a href={data.Link} className={"animated-button BannerBtn " +Style.BannerBtn }>Shop Now</a>
                                   </div>  */}
-                                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-left"}>                         
+                                  <div className={"col-12 pull-left"}>                         
                                     <div className="middle">
                                         {/* <a href={data.Link} className="btn annimatedBtn btn1">Shop Now</a> */}
                                         {/* <Link href={data.Link}>
@@ -340,7 +340,7 @@ export default class Banner extends React.Component {
                         })
                         
                         :
-                          <div className="col-lg-6 col-lg-offset-3 col-md-4 col-md-offset-4  col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
+                          <div className="col-2 loading">
                               <img src="/images/loader.gif" className="lazyload" loading="lazy"></img>
                               {/* <Image
                                 src={"/images/loader.gif"}                                

@@ -203,7 +203,7 @@ ul:hover > .dropDownLevel3 {
 
 /*============= right navbar ================ */
 .rightNavbar{
-    margin-top: 9px !important;
+    margin-top: 0px !important;
     margin-left: 30px;
     /* width: 300px; */
     /* margin-right: 50px; */
@@ -229,15 +229,8 @@ ul:hover > .dropDownLevel3 {
     font-family: "Montserrat-Medium-Medium";
     /* font-family: "Montserrat-Medium","HelveticaNeue","Helvetica Neue",sans-serif,"Montserrat-Medium","HelveticaNeue","Helvetica Neue",sans-serif !important; */
 }
-.logoBlock{
-    margin-bottom: 20px;
-}
 .logoImg{
     height: 60px;
-}
-.top-header{
-    /* z-index: 10; */
-    /* background-color: #fff; */
 }
 .cartCount{
     padding: 0px 4px;
@@ -324,7 +317,7 @@ ul:hover > .dropDownLevel3 {
 .list-DropDownMenu{
     min-width: 200px !important;
     left: 0px !important;
-    margin-top: 19px !important;
+    margin-top: 10px !important;
     /* border: solid 1px #154799 !important; */
     border-radius: 0px !important;
 }
@@ -482,6 +475,9 @@ li a{
     text-transform: capitalize;
     text-align: left !important;
 }
+.loginBackImageHeight{
+    height: auto ! important;
+}
 /* .list-DropDownMenu::before{
     width: 0;
     height: 0;
@@ -534,6 +530,3 @@ li a{
     }
 }
 
-.loginBackImageHeight{
-    height: 560px ! important;
-}

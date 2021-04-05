@@ -133,10 +133,10 @@ class ResetPassword extends Component {
   }
     render() {
         return (
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper mobileViewNoPadding">
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mobileViewNoPadding">
+            <div className="col-12 LoginWrapper mobileViewNoPadding">
+                <div className="col-12 mobileViewNoPadding">
 
-                    <div className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 siteLogo NoPadding">
+                    <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
                         {/* <img src="/images/eCommerce/kokilaLogo.png" className="responsive logoImg"></img> */}
                         <Image 
                             src={"/images/eCommerce/kokilaLogo.png"}
@@ -146,16 +146,16 @@ class ResetPassword extends Component {
                             layout="responsive"
                         />	
                     </div>
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
+                    <div className="col-12 innloginwrap">
                         <h4>Reset Password</h4>
                     </div>
                     {
                         this.state.showMessage === false ? 
                         <div>
                             <form id="resetPassword">
-                            <div className="form-group textAlignLeft frmhgt col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div className="form-group textAlignLeft frmhgt col-12">
                                 <label>New Password </label><label className="astricsign">*</label>
-                                <input type="password" id="newPassword" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" ref="newPassword" name="newPassword" autoComplete="off" />
+                                <input type="password" id="newPassword" className="form-control col-12" ref="newPassword" name="newPassword" autoComplete="off" />
                                 {/* <div className="showHideSignDiv">
                                     <i className="fa fa-eye showPwd" aria-hidden="true" onClick={this.showNewPass.bind(this)}></i>
                                     <i className="fa fa-eye-slash hidePwd " aria-hidden="true" onClick={this.hideNewPass.bind(this)}></i>
@@ -163,9 +163,9 @@ class ResetPassword extends Component {
                                 <br/>
                                 <div  id="newPasswordmsg"></div>
                             </div>
-                            <div className="form-group frmhgt textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                            <div className="form-group frmhgt textAlignLeft col-12" >
                                 <label>Confirm Password</label><label className="astricsign">*</label>
-                                <input type="password" id="confirmPassword" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" ref="confirmPassword" name="confirmPassword" autoComplete="off" />
+                                <input type="password" id="confirmPassword" className="form-control col-12" ref="confirmPassword" name="confirmPassword" autoComplete="off" />
                                 {/* <div className="showHideSignDiv">
                                     <i className="fa fa-eye showPwd2 showEyeupSign" aria-hidden="true" onClick={this.showConfirmPass.bind(this)}></i>
                                     <i className="fa fa-eye-slash hidePwd2 hideEyeSignup" aria-hidden="true" onClick={this.hideConfirmPass.bind(this)}></i>
@@ -173,15 +173,15 @@ class ResetPassword extends Component {
                                 <br/>
                                 <div id="confirmPass"></div>
                             </div>
-                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25 mb25">
+                            <div className="col-12 mt25 mb25">
                                 <button className="btn loginBtn globaleCommBtn" onClick={this.resetPassword.bind(this)}>Reset Password</button>
                             </div>
                         </form>
                         </div>
                         :
                         <div>
-                            <p className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25 textAlignCenter">Your password has been reset successfully!</p>
-                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt10">
+                            <p className="col-12 mt25 textAlignCenter">Your password has been reset successfully!</p>
+                            <div className="col-12 mt10">
                                 <div className="row loginforgotpass textAlignCenter"> Please &nbsp;
                                     {/* <a href='/login' className=""><b>Click here</b></a> */}
                                     <span className=""onClick={this.openSignInModal.bind(this)} style={{'cursor':'pointer'}} ><b>Click here</b> &nbsp;</span>

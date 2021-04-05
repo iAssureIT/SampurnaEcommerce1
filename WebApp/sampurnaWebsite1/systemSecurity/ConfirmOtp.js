@@ -166,10 +166,10 @@ class ConfirmOtp extends Component {
       // <div style={{ 'height': window.innerHeight + 'px', 'width': window.innerWidth + 'px' }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper">
       //   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
       //   </div>
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
-          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mobileViewNoPadding">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mobileViewNoPadding">
-              <div className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2 siteLogo NoPadding">
+        <div className="col-12 NoPadding">
+          <div className="col-12 mobileViewNoPadding">
+            <div className="col-12 mobileViewNoPadding">
+              <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
                   {/* <img src="/images/eCommerce/kokilaLogo.png" className="responsive logoImg"></img> */}
                   <Image 
                       src={"/images/eCommerce/kokilaLogo.png"}
@@ -179,12 +179,12 @@ class ConfirmOtp extends Component {
                       layout="responsive"
                   />	
               </div>
-              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap mb25">
+              <div className="col-12 innloginwrap mb25">
                 <h4>Confirm OTP</h4>
               </div>
               {
                 this.state.showMessage === false ?
-                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div className="col-12">
                     <p>We've sent you an OTP to your registered Email ID.</p>
                     <div className="">
                       <span> Please enter your OTP below.<br /></span>
@@ -201,23 +201,23 @@ class ConfirmOtp extends Component {
                       <div className="loginforgotpass mt25">
                         <label>Found your Password?</label>&nbsp;<a href="" onClick={this.openSignInModal.bind(this)} className="" >Sign In <b>&#8702;</b></a>
                       </div>
-                      <div className="mt30 col-lg-12 col-md-12 col-sm-12 col-xs-12 mb25 NoPadding">
-                        <div className="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
-                          <div id="resendOtpBtn" onClick={this.resendOtp.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn globaleCommBtn  systemsecBtn">
+                      <div className="mt30 col-12 mb25 NoPadding">
+                        <div className="col-xs-12 col-sm-7">
+                          <div id="resendOtpBtn" onClick={this.resendOtp.bind(this)} className="col-12 btn globaleCommBtn  systemsecBtn">
                               Resend OTP
                           </div>
                         </div>
-                        <div className="col-lg-5 col-md-5 col-sm-5 col-xs-12 ">
-                           <button type="submit" onClick={this.confirmOTP.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn loginBtn globaleCommBtn systemsecBtn">Submit</button>
+                        <div className="col-xs-12 col-sm-5">
+                           <button type="submit" onClick={this.confirmOTP.bind(this)} className="col-12 btn loginBtn globaleCommBtn systemsecBtn">Submit</button>
                         </div>
                       </div>
                     </form>
                   </div>
                   :
-                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div className="col-12">
                     <p className="textAlignCenter">Your Account is verified successfully! Please Sign In to access your account.<br /></p>
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt15">
-                      <a href="" className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-xs-12 button3  btn btn-warning  signupbtn" onClick={this.openSignInModal.bind(this)}>Sign In</a>
+                    <div className="col-12 mt15">
+                      <a href="" className="col-12 col-lg-6 offset-lg-3 col-md-6 offset-md-3 button3  btn btn-warning  signupbtn" onClick={this.openSignInModal.bind(this)}>Sign In</a>
                     </div>
                   </div>
               }

@@ -1,3 +1,33 @@
+/* @import "../styles/app.css"; */
+
+@import "../blocks/5_HeaderBlocks/Header/Header.css";
+@import "../blocks/6_FooterBlocks/Footer/Footer.css";
+
+/* @import "../sites/multivendor/pages/ContactPage.css";
+@import "../sites/multivendor/common/SignUp.css";
+@import "../sites/multivendor/common/Sidebar.css";
+@import "../sites/multivendor/common/StepWizard.css";
+@import "../sites/multivendor/common/Pagealert.css";
+
+@import "../sites/multivendor/blocks/ProductViewEcommerce.css";
+@import "../sites/multivendor/blocks/ProductViewEcommerceDetailsReviewFAQ.css";
+
+@import "../sites/multivendor/blocks/CartProducts.css";
+@import "../sites/multivendor/pages/Cart.css";
+@import "../sites/multivendor/blocks/SmallBanner.css";
+@import "../sites/multivendor/blocks/Message.css";
+@import "../sites/multivendor/pages/Address.css";
+@import "../sites/multivendor/pages/AddressBook.css";
+@import "../sites//multivendor/pages/Checkout.css";
+@import "../sites/multivendor/pages/Payment.css";
+@import "../sites/multivendor/pages/MyOrders.css";
+@import "../sites/multivendor/pages/Account.css";
+@import "../sites/multivendor/pages/EditAccount.css";
+@import "./loader.css";
+@import "../sites/multivendor/pages/Wishlist.css";
+@import "../sites/multivendor/pages/Productreview.css"; */
+
+
 
 /* @font-face {
   font-family: 'aps_dev_priyanka';

@@ -58,9 +58,9 @@ componentDidMount(){
 	render() {
 		var blocks = this.state.blocks;
 		return (
-			      <div className={"container-fluid AllBlogsBox " +Style.AllBlogsBox} style={{padding:"0px"}}>
+			      <div className={"container-fluid " +Style.categoryWrapper} style={{padding:"0px"}}>
               { blocks && blocks.length > 0 ?
-                <div className="col-12 blogWrapper">
+                <div className="col-12 ">
                     <div className="col-12 ocTitle txt2c offeredTitle text-center">
 									    <div className={"title4 "+Style.title4}>
                      		<h2 className={"row globalMainTitle  title_inner4 lang_trans globalMainTitle "+Style.textAlign} data-trans="#blog_1554730795823_title">Shop By Category</h2>
@@ -92,7 +92,7 @@ componentDidMount(){
                                         : 
                                         // <img src="/images/demobook.png" alt="" loading="lazy" className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 categoryBlockImg lazyload "} height="200" width="100"/>
                                         <Image
-                                            src="/images/notavailable.jpg"
+                                            src="/images/eCommerce/notavailable.jpg"
                                             className={"categoryBlockImg"}
                                             height ={260}
                                             width={260}

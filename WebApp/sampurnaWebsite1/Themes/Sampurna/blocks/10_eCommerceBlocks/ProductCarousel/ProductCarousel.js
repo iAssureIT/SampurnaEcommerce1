@@ -204,7 +204,7 @@ class ProductCarousel extends Component {
         },()=>{
           // console.log("state.blockSettings.showCarousel===",this.state.blockSettings.showCarousel);
           // console.log("state.blockSettings.filter===",this.state.filterSettings.length);
-          console.log("this.props.productApiUrl===",this.props.productApiUrl);
+          // console.log("this.props.productApiUrl===",this.props.productApiUrl);
           if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
           }else{
@@ -513,7 +513,7 @@ class ProductCarousel extends Component {
 
   submitCart(event) { 
     const user_ID = localStorage.getItem('user_ID');
-    // console.log("userId===",user_ID);
+    console.log("userId===",user_ID);
     if(user_ID){
       // console.log("recentCartData===",this.props.recentCartData);
       if(this.props.recentCartData.length>0 && this.props.recentCartData[0].cartItems.length>0){
