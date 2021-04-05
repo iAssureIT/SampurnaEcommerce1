@@ -1,6 +1,4 @@
 import React from 'react';
-// import React, { lazy, Suspense } from 'react';
-import loadable from '@loadable/component';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import {connect} from 'react-redux';
@@ -8,19 +6,17 @@ import dynamic from 'next/dynamic';
 import getConfig from 'next/config';
 import Head from 'next/head'
 import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {getBlockData} from '../../redux/actions/counterActions';
 import Header from '../blockTemplate/Header/Header.js';
-// import Header from '../blockTemplate/Multistore_Header/Header.js';
 import Footer from '../blockTemplate/Footer/Footer.js';
 import BlogCarousel from '../blockTemplate/BlogCarousel/BlogCarousel.js';
 import BreadCrumbs from '../CustomizeBlocks/BreadCrumbs/BreadCrumbs.js';
 import ScrollTop   from '../CustomizeBlocks/ScrollTop/ScrollTop.js';
 const { publicRuntimeConfig } = getConfig();
+
 //get site name from next.config.js
 var SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
-// console.log("SITE_NAME",SITE_NAME)
 class MasterPage extends React.Component {
 	constructor(props) {
 		super(props);
@@ -37,9 +33,9 @@ class MasterPage extends React.Component {
 		};
 	}
 	componentDidMount(){
-		// console.log("inside masterpage componentDidmount");
 		this.getPreferences();
 	}
+
 	getPreferences(){
 	//Get all preferences and store them in localstorage	
 	axios.get("/api/adminpreference/get")
@@ -63,6 +59,7 @@ class MasterPage extends React.Component {
 				<title>{SITE_NAME} | {this.props.pageData.pageTitle}</title>
 				<meta name="description" content={this.props.pageData.pageHead.pageDescription === undefined ? null : this.props.pageData.pageHead.pageDescription} /> 
 				<meta name="keywords" content={this.props.pageData.pageHead.pageWords[0]} />
+				<link rel="canonical" href="https://www.sampurna.com/"/>
 				<meta name="author" content={this.props.pageData.pageHead.pageWords[0]} />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				{/* <title>{this.props.pageData.pageHead.pageWords[0]}</title> */}
@@ -72,7 +69,7 @@ class MasterPage extends React.Component {
 				<meta charSet="UTF-8" />
 				<meta name="author" content="" />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<title>Static data</title>
+				<title>{SITE_NAME}</title>
 			</Head>
 		)
 	}

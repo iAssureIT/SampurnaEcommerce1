@@ -1,0 +1,183 @@
+.stdBlockWrapper, .stdBlockWrapperBackground{
+    height: auto;
+    background-size: 200% 200%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 0.1px;
+}
+.stdBlockTitleBlack, .stdBlockTitleWhite{
+    font-size: 30px;
+    color: #555;
+    text-align: center;
+}
+.stdBlockTitleWhite{
+    color: #f1f1f1;
+}
+.stdBlockContentWrapper{
+    height: auto;
+}
+.stdBlockDescriptionWrapper{
+    height: auto;
+}
+.stdBlockDescriptionBlack, .stdBlockDescriptionWhite{
+    font-size: 16px;
+    color: #555;
+    text-align: justify;
+}
+.stdBlockDescriptionWhite{
+    color: #f1f1f1;
+}
+.stdBlockImageWrapper{
+    height: auto;
+    text-align: center;
+}
+.stdBlockFGImage{
+    width: 85%;
+}
+.stdBlockVideoWrapper{
+    height: auto;
+    text-align: center;
+}
+.stdBlockFGVideo{
+    height: auto;
+    width: 100%;
+}
+.stdBlockLeftImageWrapper{
+    height: auto;
+    text-align: center;
+}
+.stdBlockLeftFGImage{
+    width: 85%;
+}
+.stdBlockRightImageWrapper{
+    height: auto;
+    text-align: center;
+}
+.stdBlockRightFGImage{
+    width: 85%;
+}
+.stdBlockSubTitleBlack, .stdBlockSubTitleWhite{
+    font-size: 20px;
+    color: #555;
+    text-align: center;
+}
+.stdBlockSubTitleWhite{
+    color: #f1f1f1;
+}
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
+}
+
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+    .stdBlockTitleBlack, .stdBlockTitleWhite{
+        font-size: 30px;
+    }
+    .stdBlockDescriptionBlack, .stdBlockDescriptionWhite{
+        font-size: 16px;
+    }
+    .stdBlockFGImage{
+        width: 55%;
+    }
+    .stdBlockFGVideo{
+        padding: 0px 60px 0px 60px;
+    }
+    .stdBlockLeftFGImage{
+        width: 55%;
+    }
+    .stdBlockRightFGImage{
+        width: 55%;
+    }
+}
+
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
+    .stdBlockTitleBlack, .stdBlockTitleWhite{
+        font-size: 40px;
+    }
+    .stdBlockDescriptionBlack, .stdBlockDescriptionWhite{
+        font-size: 25px;
+    }
+    .stdBlockFGImage{
+        width: 60%;
+    }
+    .stdBlockLeftFGImage{
+        width: 60%;
+    }
+    .stdBlockRightFGImage{
+        width: 60%;
+    }
+}
+
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+    .stdBlockWrapperBackground{
+        height: 800px;
+        background-size: 100% 100%;
+    }
+    .stdBlockSeparatorWhiteWrapper{
+        margin-top: 140px;
+    }
+    .stdBlockTitleBlack, .stdBlockTitleWhite{
+        font-size: 35px;
+    }
+    .stdBlockDescriptionBlack, .stdBlockDescriptionWhite{
+        font-size: 20px;
+        margin-right: 55px;
+        margin-left: 30px;
+        margin-top: 10px;
+    }
+    .stdBlockFGImage{
+        width: 67%;
+    }
+    .stdBlockLeftFGImage{
+        width: 95%;
+    }
+    .stdBlockRightFGImage{
+        width: 95%;
+    }
+}
+
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+    .stdBlockWrapperBackground{
+        height: 750px;
+        background-size: 100% 100%;
+    }
+    .stdBlockSeparatorWhiteWrapper{
+        margin-top: 130px;
+    }
+    .stdBlockTitleBlack, .stdBlockTitleWhite{
+        font-size: 46px;
+    }
+    .stdBlockDescriptionBlack, .stdBlockDescriptionWhite{
+        font-size: 20px;
+        margin-right: 55px;
+        margin-left: 60px;
+        margin-top: 10px;
+    }
+    .stdBlockFGImage{
+        width: 55%;
+    }
+    .stdBlockFGVideo{
+        padding: 0px 60px 0px 60px;
+    }
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

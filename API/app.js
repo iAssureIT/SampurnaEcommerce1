@@ -215,10 +215,13 @@ const addNewBlockTempMasterRoutes 		=  require("./api/cms/AddNewBlockTemplate/ro
 	app.use('/api/blogs',blogRoutes);
 	app.use('/api/typemaster',typeMasterRoutes);
 	app.use('/api/blocktypemaster',blockTypeMasterRoutes);
+	
 	//================ CMS ==================
 
 	app.use("/api/menubar",menubarRoutes);
-	app.use("/api/blocktemplate",addNewBlockTempMasterRoutes);
+	// app.use("/api/blocktemplate",addNewBlockTempMasterRoutes);
+	// app.use('/api/blocktemplatebyblocktype',addNewBlockTempMasterRoutes);
+	app.use(addNewBlockTempMasterRoutes);
 	
 
 	//=========== Billing Management =========

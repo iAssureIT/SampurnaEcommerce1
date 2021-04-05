@@ -14,6 +14,8 @@ import jQuery from 'jquery';
 import Style                  from './ProductCarousel.module.css';
 import {getCartData,getWishlistData}  from '../../../redux/actions/index.js'; 
 import Product from './Product.js';
+import 'react-multi-carousel/lib/styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 const { publicRuntimeConfig } = getConfig();

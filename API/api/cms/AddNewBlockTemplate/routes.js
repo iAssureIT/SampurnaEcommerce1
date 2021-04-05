@@ -10,6 +10,7 @@ router.get("/get/:blockTemp_id",          	blocktemplateMasterController.getBloc
 router.get("/getcompname/:compName",          	    blocktemplateMasterController.getBlockTemplateByName);
 router.put("/update/",                        blocktemplateMasterController.updateBlockTemplate); 	 		            
 router.delete("/del/:blockTemp_id",  	 		blocktemplateMasterController.delBlockTemplate);
-router.get("/blocktemplatebyblocktype/get/:blockType",      blocktemplateMasterController.getBlockTemplateByBlockType);
+// router.get("/get/:blockType",      blocktemplateMasterController.getBlockTemplateByBlockType);
+router.get("/api/blocktemplatebyblocktype/get/:blockType",  blocktemplateMasterController.getBlockTemplateByBlockType);
 
 module.exports = router;

@@ -4,7 +4,6 @@ import Link           from 'next/link';
 // import $, { event }   from 'jquery';
 import swal 		  from 'sweetalert';
 import Image          from 'next/image';
-
 import Router from 'next/router'; 
 
 import { connect }         from 'react-redux';

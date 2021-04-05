@@ -163,6 +163,7 @@ exports.getBlockTemplateByName = (req,res,next)=>{
 
 exports.getBlockTemplateByBlockType = (req,res,next)=>{
 		    const blockType = req.params.blockType;
+			console.log("blockType===",blockType);
 
 	AddNewBlockTemplate.find({"blockType":blockType})
 				.then(blockTempData=>{
