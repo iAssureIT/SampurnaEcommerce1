@@ -489,7 +489,15 @@ body{
   font-size: 30px;
   padding-top: 100px;
 }
-
+.box-content{
+  font-size: 14px ! important;
+}
+.box-title{
+  font-size: 14px ! important;
+}
+.NOpaddingM{
+  /*padding:0px ! important;*/
+}
 .loading{
   padding-top: 130px;
   height: 400px;
@@ -597,6 +605,9 @@ a{
   top: 0 !important;
   right: 0 !important;
 }
+.productPrize{
+  font-size: 14px! important;
+}
 @media only screen and (max-device-width: 480px) {
 .innloginwrap{
       margin-top: 120px ! important;
@@ -659,4 +670,8 @@ a{
     line-height: 1.42857143;
     color: #333333;
     white-space: nowrap;
+}
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
 }

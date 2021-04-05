@@ -366,6 +366,16 @@
     height: 600px ! important;
   }
 }
+ @media only screen and (max-device-width: 1024px) {    
+  .socialMediaIcons .fab{
+    margin-left: 20px ! important;
+  }
+ } 
+  @media only screen and (device-width: 768px) {    
+  .socialMediaIcons .fab{
+    margin-left: 20px ! important;
+  }
+ } 
   @media only screen and (max-device-width: 480px) {    
     .categoryFooterWrapper{
       margin-bottom: 20px;
@@ -391,7 +401,10 @@
     /* padding-left: 20px; */
   }
   .socialMediaIcons .fab{
-    margin-left: 13px ! important;
+    margin-left: 25px ! important;
+  }
+  .footer3{
+    padding-left: 30px ! important;
   }
   .FooterTitle{
     font-size: 14px ! important;

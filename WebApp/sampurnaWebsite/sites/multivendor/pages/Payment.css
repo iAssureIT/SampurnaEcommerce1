@@ -221,5 +221,13 @@ text-align:right ! important;
   }  
 .orderReviews span{
     font-size: 14px ! important;
-  }  
+  }
+
+@media only screen and (max-device-width: 480px) {
+  .orderTable h5{
+    height: 30px ! important;
+    overflow: hidden;
+    }    
+}
+
   

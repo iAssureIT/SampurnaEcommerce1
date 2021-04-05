@@ -1220,7 +1220,7 @@ class Checkout extends Component {
         return (
             <div>
             < Header/>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
+            <div className="col-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
                 <Message messageData={this.state.messageData} />
                 <div className="row">
                     {/* <Loader type="fullpageloader" /> */}
@@ -1231,38 +1231,38 @@ class Checkout extends Component {
                     </div>                     */}
                     <Address opDone={this.opDones.bind(this)} />
                     <SmallBanner bannerData={this.state.bannerData} />
-                    <div className="col-xl-10 offset-xl-1 col-md-10 offset-md-1 col-12">
+                    <div className="col-12 col-xl-10 offset-xl-1 col-md-12">
                         <form id="checkout">
                            <div className="row">
-                            <div className="col-xl-4">
+                            <div className="col-12 col-xl-4 col-lg-4 col-sm-12">
                                 <div className="col-12 NOpadding">
                                     <div className="col-12 paymentMethod NOpadding">
                                         <div className="col-12 eCommTitle paymentMethodTitle">PAYMENT METHOD <span className="required">*</span></div>
 
                                         <div className="col-12 paymentInput">
                                             {/* <input name="payMethod" ref="payMethod" type="radio" value={this.state.payMethod} className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" checked="true" /> */}
-                                            <input name="paymentmethods" type="radio" value="cod" className="webModelInput col-lg-1 col-md-1 col-sm-2 col-xs-2"
+                                            <input name="paymentmethods" type="radio" value="cod" className="webModelInput col-2 col-md-1"
                                                 checked={this.state.paymentmethods === "cod"} onClick={this.handleChange.bind(this)} />
-                                            <span className="col-lg-11 col-md-11 col-sm-10 col-xs-10">Cash On Delivery</span>
+                                            <span className="col-12 col-md-11 col-sm-10 col-xs-10">Cash On Delivery</span>
                                         </div>
-                                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 paymentInput">
+                                        <div className="col-12 paymentInput">
                                             {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
-                                            <input name="paymentmethods" type="radio" value="crdbt" className="webModelInput col-lg-1 col-md-1 col-sm-2 col-xs-2" checked={this.state.paymentmethods === "crdbt"} onClick={this.handleChange.bind(this)} />
-                                            <span className="col-lg-11 col-md-11 col-sm-10 col-xs-10">Credit / Debit Card</span>
+                                            <input name="paymentmethods" type="radio" value="crdbt" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "crdbt"} onClick={this.handleChange.bind(this)} />
+                                            <span className="col-12 col-md-11 col-sm-10 col-xs-10">Credit / Debit Card</span>
                                         </div>
                                         <div className="errorMsg">{this.state.errors.paymentmethods}</div>
                                         {/*  <button className="btn anasBtn col-lg-3 col-lg-offset-9 col-md-2 col-md-offset-10 col-sm-12 col-xs-12 placeOrder" onClick={this.placeOrder.bind(this)}>Place Order</button> */}
-                                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt15">
+                                        <div className="col-12 mt15">
                                             <div id="payMethod"></div>
                                         </div>
                                     </div>
                                 </div>
                                 {
                                     this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
-                                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingAddress NOpadding">
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS <span className="required">*</span></div>
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 addressWrapper">
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div className="col-12 shippingAddress NOpadding">
+                                            <div className="col-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS <span className="required">*</span></div>
+                                            <div className="col-12 addressWrapper">
+                                                <div className="col-12">
                                                     <label id="checkoutAddess"></label>
                                                 </div>
                                                 {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
@@ -1311,49 +1311,49 @@ class Checkout extends Component {
                                                     null
                                                 }
                                             </div>
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt2">
-                                                <button className="btn globaleCommBtn col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</button>
+                                            <div className="col-12 mt2">
+                                                <button className="btn globaleCommBtn col-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</button>
                                             </div>
                                         </div>
                                         :
-                                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingAddress NOpadding">
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS</div>
+                                        <div className="col-12 shippingAddress NOpadding">
+                                            <div className="col-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS</div>
                                             {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25">SHIPPING 
                                                 <button className="btn modalBtn anasBtn col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</button>
                                             </div> */}
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 addressWrapper">
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput">
-                                                    <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Full Name <span className="required">*</span></label>
+                                            <div className="col-12 addressWrapper">
+                                                <div className="col-12 shippingInput">
+                                                    <label className="col-12 NOpadding">Full Name <span className="required">*</span></label>
                                                     <input type="text" maxLength="50" ref="username" name="username" id="username" value={this.state.username} 
-                                                    onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
+                                                    onChange={this.handleChange.bind(this)} className="col-12 form-control" />
                                                     <div className="errorMsg">{this.state.errors.username}</div>
                                                 </div>
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput">
-                                                    <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Mobile Number <span className="required">*</span></label>
+                                                <div className="col-12 shippingInput">
+                                                    <label className="col-12 NOpadding">Mobile Number <span className="required">*</span></label>
                                                     <input placeholder="Eg. 9876543210" maxLength="10" type="text" ref="mobileNumber" name="mobileNumber" id="mobileNumber" value={this.state.mobileNumber} 
-                                                    onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
+                                                    onChange={this.handleChange.bind(this)} className="col-12 form-control" />
                                                     <div className="errorMsg">{this.state.errors.mobileNumber}</div>
                                                 </div>
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput">
-                                                    <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Email <span className="required">*</span></label>
+                                                <div className="col-12 shippingInput">
+                                                    <label className="col-12 NOpadding">Email <span className="required">*</span></label>
                                                     <input type="email" ref="email" name="email" id="email" value={this.state.email} 
                                                     onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
                                                     <div className="errorMsg">{this.state.errors.email}</div>
                                                 </div>
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput">
-                                                    <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">House No/Office No <span className="required">*</span></label>
+                                                <div className="col-12 shippingInput">
+                                                    <label className="col-12 NOpadding">House No/Office No <span className="required">*</span></label>
                                                     <input type="text" ref="addressLine2" name="addressLine2" id="addressLine2" value={this.state.addressLine2}
                                                     onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
                                                     <div className="errorMsg">{this.state.errors.addressLine2}</div>
                                                 </div>
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput" >
+                                                <div className="col-12 shippingInput" >
                                                     <PlacesAutocomplete value={this.state.addressLine1}
                                                         onChange={this.handleChangePlaces}
                                                         onSelect={this.handleSelect}
                                                     >
                                                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                                             <div>
-                                                                <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Search your address here <span className="required">*</span></label>
+                                                                <label className="col-12 NOpadding">Search your address here <span className="required">*</span></label>
                                                                 <input
                                                                     {...getInputProps({
                                                                         placeholder: 'Start typing ...',
@@ -1398,16 +1398,16 @@ class Checkout extends Component {
                                                 <div className="DeliveryNotPoss">Delivery is not possible on this pincode</div>
                                                 {this.state.pincodeExists ? null : <label style={{ color: "red", fontWeight: "100" }}>This pincode does not exists!</label>}
                                             </div> */}
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput">
-                                                    <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Zip/Postal Code <span className="required">*</span></label>
+                                                <div className="col-12 shippingInput">
+                                                    <label className="col-12 NOpadding">Zip/Postal Code <span className="required">*</span></label>
                                                     <input type="number" ref="pincode" name="pincode" id="pincode" defaultValue={this.state.pincode} maxLength="6" minLength="6"
-                                                     onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" required />
+                                                     onChange={this.handleChange.bind(this)} className="col-12 form-control" required />
                                                     {this.state.pincodeExists ? null : <label className="DeliveryNotPoss" style={{ color: "red" }}>This pincode does not exists!</label>}
                                                     <div className="DeliveryNotPoss">Delivery is not possible on this pincode</div>
                                                     <div className="errorMsg">{this.state.errors.pincode}</div>
                                                 </div>
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput lastField">
-                                                    <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Address type <span className="required">*</span></label>
+                                                <div className="col-12 shippingInput lastField">
+                                                    <label className="col-12 NOpadding">Address type <span className="required">*</span></label>
                                                     <select id="addType" name="addType" ref="addType" defaultValue={this.state.addType} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control">
                                                         <option defaultValue="" disabled>-- Select Address Type -- </option>
                                                         <option defaultValue="Home">Home (All day delivery) </option>
@@ -1419,14 +1419,14 @@ class Checkout extends Component {
                                                 </div>
 
                                             </div>
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 manageHeight"></div>
+                                            <div className="col-12 manageHeight"></div>
                                         </div>
                                 }
                             </div>
-                            <div className="col-xl-8 col-12 col-md-12">
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 orderReviews NOpadding table-responsive">
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 eCommTitle orderReviewsTitle">ORDER REVIEWS</div>
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 orderReviewsWrapper">
+                            <div className="col-12 col-md-12 col-lg-8 col-sm-12">
+                                <div className="col-12 orderReviews NOpadding table-responsive">
+                                    <div className="col-12 eCommTitle orderReviewsTitle">ORDER REVIEWS</div>
+                                    <div className="col-12 orderReviewsWrapper">
                                         <table className="table orderTable">
                                             <thead>
                                                 <tr>
@@ -1456,7 +1456,7 @@ class Checkout extends Component {
                                                                         </a>
 
                                                                         {data.productDetail.discountPercent ?
-                                                                            <div className="col-lg-12 col-md-12 NOpadding">
+                                                                            <div className="col-12 NOpadding">
                                                                                 <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{data.productDetail.originalPrice}</span>&nbsp;
                                                                             <span className="cartPrice"><i className="fa fa-inr"></i>{data.productDetail.discountedPrice}</span> &nbsp; &nbsp;
                                                                             <span className="cartDiscountPercent">( {Math.floor(data.productDetail.discountPercent)}% Off ) </span>
@@ -1505,21 +1505,21 @@ class Checkout extends Component {
                                                 }
                                             </tbody>
                                         </table>
-                                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb25">
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkoutBorder"></div>
+                                        <div className="col-12 mb25">
+                                            <div className="col-12 checkoutBorder"></div>
                                         </div>
                                         <div className="col-12 col-xl-12 NoPadding">
                                            <div className="row">
-                                                <span className="col-xl-6 col-md-6 col-12">Cart Total :</span><span className="col-xl-6 col-md-6 col-12 textAlignRight"><i className={"fa fa-inr"}></i> {this.props.recentCartData.length > 0 ? parseInt(this.props.recentCartData[0].cartTotal) : "0.00"}</span>
-                                                <span className="col-xl-6 col-md-6 col-12">Order Total :</span><span className="col-xl-6 col-md-6 col-12 textAlignRight"><i className={"fa fa-inr"}></i> {this.props.recentCartData.length > 0 ? parseInt(this.props.recentCartData[0].total) : "0.00"}</span>
-                                                <span className="col-xl-6 col-md-6 col-12">Delivery Charges :</span><span className="col-xl-6 col-md-6 col-12 textAlignRight saving">{this.state.shippingCharges > 0 ? this.state.shippingCharges : "Free"}</span>
-                                                <span className="col-xl-6 col-md-6 col-12">Discount 
+                                                <span className="col-md-6 col-12">Cart Total :</span><span className="col-md-6 col-12 textAlignRight"><i className={"fa fa-inr"}></i> {this.props.recentCartData.length > 0 ? parseInt(this.props.recentCartData[0].cartTotal) : "0.00"}</span>
+                                                <span className="col-md-6 col-12">Order Total :</span><span className="col-md-6 col-12 textAlignRight"><i className={"fa fa-inr"}></i> {this.props.recentCartData.length > 0 ? parseInt(this.props.recentCartData[0].total) : "0.00"}</span>
+                                                <span className="col-md-6 col-12">Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight saving">{this.state.shippingCharges > 0 ? this.state.shippingCharges : "Free"}</span>
+                                                <span className="col-md-6 col-12">Discount 
                                                     {this.state.discountin === "Percent"?
                                                     <span> ({this.state.discountvalue > 1 ? this.state.discountvalue:null}%) </span>                                                                       
                                                     :null
                                                     }                                        
                                                 </span>
-                                            <span className="col-xl-6 col-md-6 col-12 textAlignRight discountValue"> - &nbsp;
+                                            <span className="col-md-6 col-12 textAlignRight discountValue"> - &nbsp;
                                                 
                                                 {this.state.discounttype === "Order Base" ?
                                                     <span className="discountValue">
@@ -1539,8 +1539,8 @@ class Checkout extends Component {
                                             
                                             </span>
 
-                                            <span className="col-lg-6 col-md-6 col-sm-6 col-xs-6">Tax :</span> 
-                                            <span className="col-lg-6 col-md-6 col-sm-6 col-xs-6 textAlignRight saving">
+                                            <span className="col-6">Tax :</span> 
+                                            <span className="col-6 textAlignRight saving">
                                             {this.state.taxrate>0? 
                                                 <span>+&nbsp;<i className="fa fa-inr" />
                                                 {Math.round(this.props.recentCartData.length > 0 ?
@@ -1558,12 +1558,12 @@ class Checkout extends Component {
                                                 
                                             
 
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt15">
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 checkoutBorder"></div>
+                                            <div className="col-12 mt15">
+                                                <div className="col-12 checkoutBorder"></div>
                                             </div>
                                             
-                                            <span className="col-lg-6 col-md-6 col-sm-6 col-xs-6 orderTotalText">Grand Total</span>
-                                            <span className="col-lg-6 col-md-6 col-sm-6 col-xs-6 textAlignRight orderTotalPrize globalTotalPrice"><i className={"fa fa-inr"}></i>&nbsp;
+                                            <span className="col-6 orderTotalText">Grand Total</span>
+                                            <span className="col-6 textAlignRight orderTotalPrize globalTotalPrice"><i className={"fa fa-inr"}></i>&nbsp;
                                                 {Math.round(
                                                 Number( this.props.recentCartData.length > 0 ?
                                                         this.state.discountdata !== undefined ?
@@ -1603,22 +1603,22 @@ class Checkout extends Component {
                                     </div>
                                         <div className="col-12 col-xl-12 checkOutTerms">
                                           <div className="row">
-                                            <div className="col-xl-7 col-md-7 col-12 shippingtimes">
+                                            <div className="col-md-7 col-12 shippingtimes">
                                              <div className="row">
-                                                <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-lg-1 col-md-1 col-sm-1 col-xs-1" required />  &nbsp;
-                                                <div className="col-xl-10 col-md-10 termsWrapper">
+                                                <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" required />  &nbsp;
+                                                <div className="col-12 col-xl-10 col-md-10 termsWrapper">
                                                     <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree, to the Terms & Conditions</span> <span className="required">*</span>
                                                 </div>
-                                                <div className="col-xl-11 col-md-11">
-                                                    <div className="errorMsg termConditionErrorMsg col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">{this.state.errors.termsNconditions}</div>
+                                                <div className="col-12 col-xl-11 col-md-11">
+                                                    <div className="errorMsg termConditionErrorMsg col-12 NoPadding">{this.state.errors.termsNconditions}</div>
                                                 </div>
                                                </div> 
                                                 {/* <label id="termsNconditions" className="error"></label> */}
                                                 {/* <label id="termsNconditions" className="error">{this.state.isCheckedError}</label> */}
                                             </div>
-                                            <div className="col-xl-5 col-md-5">
+                                            <div className="col-12 col-xl-5 col-md-5">
                                                 <span className="col-12 col-xl-12 nopadding">Select Shipping Time<span className="required"></span></span>
-                                                <select onChange={this.selectedTimings.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  noPadding  form-control" ref="shippingtime" name="shippingtime" >
+                                                <select onChange={this.selectedTimings.bind(this)} className="col-12  noPadding  form-control" ref="shippingtime" name="shippingtime" >
                                                     <option name="shippingtime" disabled="disabled" selected="true">-- Select --</option>
                                                     {
                                                         this.state.gettimes && this.state.gettimes.length > 0 ?
@@ -1633,14 +1633,14 @@ class Checkout extends Component {
                                                 </select>
                                             </div>
                                             <div className="modal col-xl-6 offset-xl-3 col-md-6 offset-md-3 col-12 checkoutAddressModal" id="termsNconditionsmodal" role="dialog">
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div className="modal-content  col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-                                                        <div className="modal-header globalBgColor checkoutAddressModal col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div className="col-12">
+                                                    <div className="modal-content  col-12 NOpadding">
+                                                        <div className="modal-header globalBgColor checkoutAddressModal col-12">
                                                             <img src="/images/bookLogo.webp" />
                                                             <button type="button" className="close modalclosebut " data-dismiss="modal">&times;</button>
                                                             <h4 className="modal-title modalheadingcont">TERMS AND CONDITIONS</h4>
                                                         </div>
-                                                        <div className="modal-body col-lg-12 col-md-12 col-sm-12 col-xs-12 checkoutAddressModal">
+                                                        <div className="modal-body col-12 checkoutAddressModal">
                                                             <ul className="listStyle">
                                                                 <li>The price of products is as quoted on the site from time to time.</li>
                                                                 <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
@@ -1648,7 +1648,7 @@ class Checkout extends Component {
                                                                 <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
                                                             </ul>
                                                         </div>
-                                                        <div className="modal-footer checkoutAddressModal col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div className="modal-footer checkoutAddressModal col-12">
                                                             <button type="button" className="btn globaleCommBtn" data-dismiss="modal">Cancel</button>
 
                                                         </div>
@@ -1680,7 +1680,7 @@ class Checkout extends Component {
 
 
 
-                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="col-12">
                                     {
                                         !this.state.paymethods ?
                                         <button className=" globaleCommBtn eCommTitle col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" onClick={this.placeOrder.bind(this)}>Place Order</button>

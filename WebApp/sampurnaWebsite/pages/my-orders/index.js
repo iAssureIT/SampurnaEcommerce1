@@ -454,16 +454,16 @@ export default class MyOrders extends Component {
           
           {
             this.state.loading ?
-              <div className="col-xl-12 col-sm-12 col-xs-12 col-12 loaderHeight"><Loader type="fullpageloader" /></div> :
+              <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> :
 
-              <div className="col-xl-12 col-sm-12 col-xs-12 col-12 NOpadding">
+              <div className="col-12 NOpadding">
                 <br />
                <div className="row"> 
-                <div className="col-xl-3 col-md-3 col-sm-12 col-xs-12 col-12 myOrderSidebar ">
+                <div className="col-12 col-xl-3 col-md-12 col-sm-12 myOrderSidebar ">
                   <Sidebar />
                 </div>
 
-                <div className="col-xl-9 col-md-9 col-sm-12 col-xs-12 col-12">
+                <div className="col-12 col-xl-9 col-md-12">
                 <h4 className="table-caption">My Orders</h4>
                   
                   {
@@ -472,14 +472,14 @@ export default class MyOrders extends Component {
                         // console.log("orderData:",data);
                         return (
                           <div key={index} style={{marginBottom:"40px"}} className={data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Cancelled' ? "row cancelledorder" : "row"}>
-                            <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 orderIdborder">
-                              <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                            <div className="col-12 orderIdborder">
+                              <div className="col-12">
                                <div className="row">
-                                <div className="col-xl-6 col-md-6 col-sm-6 col-xs-6 NOpadding">
-                                  <div className="orderIdButton globalBgColor col-lg-8 col-md-12 col-sm-12 col-xs-12 ">{"Order ID : "+(data.orderID)}</div>
+                                <div className="col-6 NOpadding">
+                                  <div className="orderIdButton globalBgColor col-12 col-md-12">{"Order ID : "+(data.orderID)}</div>
                                 </div>  
-                                <div className="col-xl-6 col-md-6 col-sm-6 col-xs-6 NOpadding">
-                                  <div className="actionbtn col-xl-12 col-md-12 col-sm-12 col-12 col-xs-12 NOpadding">
+                                <div className="col-6 NOpadding">
+                                  <div className="actionbtn col-12   NOpadding">
                                     { data.deliveryStatus[data.deliveryStatus.length - 1].status !== 'Cancelled' ? 
                                       <a className="btn filterallalphab" target="_blank" rel="noopener noreferrer" href={"/view-order/" + data._id} title="View Order">
                                       <span> Invoice</span></a> : <div className="pull-right"><span className="cancelledtext"> Cancelled</span></div>
@@ -497,20 +497,20 @@ export default class MyOrders extends Component {
                               </div> 
                             </div>
                             { data.deliveryStatus[data.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                            <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 orderIdborder">
+                            <div className="col-12 orderIdborder">
                               <StepWizard data={data} />
                             </div> :null
 
                             }
-                            <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 orderbodyborder">
+                            <div className="col-12 orderbodyborder">
                               {
                               data.products && data.products.length > 0 ?
                                     data.products.map((pdata, index)=>{
                                       // console.log("pdata:",pdata);
                                       return(
-                                        <div  className="col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
+                                        <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
                                           <div className="row ">
-                                           <div className="col-xl-2 col-4 col-xs-4 col-md-4 col-sm-4 col-xs-2">
+                                           <div className="col-4 col-xl-2 col-md-4 col-sm-4 col-xs-2">
                                             <img src={pdata.productImage[0]?pdata.productImage[0]:"/images/eCommerce/notavailable.jpg"} style={{width:"100%"}} alt=""/>
                                            </div>
                                             <div className="col-4 NOpadding">
@@ -549,7 +549,7 @@ export default class MyOrders extends Component {
                                               ? <p>Out for Delivery</p> : (data.deliveryStatus[data.deliveryStatus.length-1].status === 'Delivered & Paid' ? <p>Delivered on <br/>{moment(data.deliveryStatus[data.deliveryStatus.length-1].date).format("DD MMMM YYYY")}</p>: "") )
                                           }
                                           </div>
-                                          <div className="col-xl-2 col-md-2 col-sm-3 col-xs-6 col-12"> 
+                                          <div className="col-md-2 col-sm-3 col-xs-6 col-12"> 
                                             <div>
                                               {data.status === "Paid" ?
                                                 <div data-th="Order Total" width="100" className="total actbtns">
@@ -592,12 +592,12 @@ export default class MyOrders extends Component {
                             }
                           
                             </div>
-                            <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 orderfooterborder">
+                            <div className="col-12 orderfooterborder">
                              <div className="row">
-                              <div className="col-xl-6 col-md-6 col-sm-6 col-xs-6">
+                              <div className="col-6">
                                 <p className="orderfootertag"><span>Ordered On: </span>{moment(data.createdAt).format("DD MMMM YYYY")} </p>
                               </div>
-                              <div className="col-xl-6 col-md-6 col-sm-6 col-xs-6">
+                              <div className="col-6">
                                 <p className="orderfootertag2"><span>Ordered Total: </span> <i className="fa fa-inr"></i>&nbsp;{data.cartTotal} </p>
                               </div>
                              </div> 
@@ -606,7 +606,7 @@ export default class MyOrders extends Component {
                         );
                       })
                       :
-                      <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 textAlignCenter">
+                      <div className="col-12 textAlignCenter">
                         <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
                         <img src="/images/eCommerce/emptyorder.png" alt=""/>
                       </div>
@@ -656,28 +656,28 @@ export default class MyOrders extends Component {
                           <form id="returnForm">
                             <div className="inputrow">
                               <span>
-                                <label className="col-xl-12 col-md-12 col-sm-12 col-xs-12 NOpadding ">Reason for Return <label className="astricsign">*</label></label>
+                                <label className="col-12 NOpadding ">Reason for Return <label className="astricsign">*</label></label>
 
                               </span>
                               <textarea rows="5" cols="55" className="reasonForReturn" name="reasonForReturn" required></textarea>
                             </div>
                             <div className="inputrow">
-                              <label className="col-xl-12 col-md-12 col-sm-12 col-xs-12 NOpadding  ">Bank Name<label className="astricsign">*</label></label>
+                              <label className="col-12 NOpadding  ">Bank Name<label className="astricsign">*</label></label>
                               <input type="text" ref="bankname" name="bankname" id="bankname" value={this.state.bankname} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
                             </div>
                             <div className="inputrow">
-                              <label className="col-xl-12 col-md-12 col-sm-12 col-xs-12 NOpadding ">Bank Account No<label className="astricsign">*</label></label>
+                              <label className="col-12 NOpadding ">Bank Account No<label className="astricsign">*</label></label>
                               <input type="text" ref="bankacctno" name="bankacctno" id="bankacctno" value={this.state.bankacctno} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
                             </div>
                             <div className="inputrow">
-                              <label className="col-xl-12 col-md-12 col-sm-12 col-xs-12 col-xs-12 NOpadding">IFSC Code<label className="astricsign">*</label></label>
+                              <label className="col-12 NOpadding">IFSC Code<label className="astricsign">*</label></label>
                               <input type="text" ref="ifsccode" name="ifsccode" id="ifsccode" value={this.state.ifsccode} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
                             </div>
                           </form>
 
                         </div>
                         <div className="canreturn modal-footer">
-                          <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                          <div className="col-12">
                             <br />
 
                             <button className="btn btn-danger" onClick={this.returnProductAction.bind(this)} id="returnProductBtn" >Save</button>
@@ -752,7 +752,7 @@ export default class MyOrders extends Component {
                               </tbody>
                             </table>
                             <form className="feedbackForm" id="">
-                              <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 row">
+                              <div className="col-12 row">
                                 <fieldset className="ratingReview stars givefeedback ">
                                   <input type="radio" id="star1" name="ratingReview" checked={this.state.ratingReview === 1 ? true : false} onChange={this.ratingReview.bind(this)} value="1" /><label htmlFor="star1"></label>
                                   <input type="radio" id="star2" name="ratingReview" checked={this.state.ratingReview === 2 ? true : false} onChange={this.ratingReview.bind(this)} value="2" /><label htmlFor="star2"></label>
@@ -764,9 +764,9 @@ export default class MyOrders extends Component {
                               </div>
                               <label className="error">{this.state.reviewStarError}</label>
                               <div className="row inputrow">
-                                <label className="col-xl-12 col-md-12 col-sm-12 col-xs-12 mt15">Write review</label>
-                                <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 ">
-                                  <textarea rows="5" className="col-xl-12 col-md-12 col-sm-12 col-xs-12 " onChange={this.handleChangeReview.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
+                                <label className="col-12 mt15">Write review</label>
+                                <div className="col-12 ">
+                                  <textarea rows="5" className="col-12 " onChange={this.handleChangeReview.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
                                   <label className="error">{this.state.reviewTextError}</label>
                                 </div>
                               </div>
@@ -777,7 +777,7 @@ export default class MyOrders extends Component {
 
                         </div>
                         <div className="modal-footer modalfooterborder ">
-                          <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 actionbtn ">
+                          <div className="col-12 actionbtn ">
                             <button className="btn mt15" onClick={this.submitReview.bind(this)} data-productid={this.state.oneproductdetails && this.state.oneproductdetails._id}
                             >{this.state.rating_ID ? 'Update' :'Submit'}</button>
                           </div>

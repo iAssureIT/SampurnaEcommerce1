@@ -84,22 +84,22 @@ class ViewOrder extends Component {
       <Header />  
       <BreadCrumbs />  
       <div className="container"> 
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+        <div className="col-12 NOpadding">
           {/* <div className="col-lg-2 col-md-2 col-sm-4 col-xs-4 NOpadding mr20" >
             <div className="sidebar">
               <Sidebar />
             </div>
           </div> */}
-
-          <div className="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-          <br/>
-          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
+          <div className="col-12 col-md-10 offset-md-1">
+           <br/>
+          <div className="col-12 NoPadding">
               <button className="pull-right PrintBtn" onClick={this.printInvoice.bind(this)}>Print Receipt</button>
           </div>
           <h4 className="table-caption">Order Details</h4>
           <p>Ordered on {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}  | Order {this.state.orderData.orderID} {this.state.orderData.shippingtime?<span className="pull-right hidden-xs">Shipping Time : {this.state.orderData.shippingtime}</span>:null}</p>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 outerbox">
-              <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 mb20">
+            <div className="col-12 outerbox">
+             <div className="row">
+              <div className="col-12 col-md-4 col-sm-6 mb20">
                 <strong className="box-title">
                     <span>Shipping Address</span>
                 </strong>
@@ -112,7 +112,7 @@ class ViewOrder extends Component {
                 { this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.country } <br/>
                 </div>
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12 mb20">
+              <div className="col-12 col-md-4 col-sm-6 mb20">
                 <strong className="box-title">
                   <span>Payment Method</span>
                 </strong>
@@ -122,37 +122,47 @@ class ViewOrder extends Component {
                 }
                 </div>
               </div>
-              <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12 mb50">
+              <div className="col-12 col-md-3 col-sm-6 mb50">
                   <strong className="box-title">
                     <span>Order Summary</span>
                   </strong>
                   <div className="box-content">
                     <div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span>Cart Total:</span>  </div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><span><i className={"fa fa-" + this.state.orderData.currency}> {this.state.orderData.cartTotal}</i></span> </div>
+                     <div className="row">
+                      <div className="col-6 NOpaddingM"><span>Cart Total:</span>  </div>
+                      <div className="col-6 NOpadding text-right"><span><i className={"fa fa-" + this.state.orderData.currency}> {this.state.orderData.cartTotal}</i></span> </div>
+                     </div> 
                     </div>
                     <div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span>Shipping:  </span></div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><span>Free</span> </div>
+                     <div className="row">
+                      <div className="col-6 NOpaddingM"><span>Shipping:  </span></div>
+                      <div className="col-6  text-right"><span>Free</span> </div>
+                     </div> 
                     </div>
                     <div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span>Discount: </span></div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">
+                     <div className="row"> 
+                      <div className="col-6 NOpaddingM"><span>Discount: </span></div>
+                      <div className="col-6 NOpadding text-right">
                         <span><i className={"fa fa-" + this.state.orderData.currency}> {parseInt(this.state.orderData.discount).toFixed(2)}</i></span>
                       </div>
+                     </div> 
                     </div>
                     <div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span>Order Total: </span></div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">
+                     <div className="row">
+                      <div className="col-6 NOpaddingM"><span>Order Total: </span></div>
+                      <div className="col-6 NOpadding text-right">
                         <span><i className={"fa fa-" + this.state.orderData.currency}> {parseInt(this.state.orderData.total).toFixed(2)}</i></span>
                       </div>
+                     </div> 
                     </div>
-                    <div className="brdrbtmpayment col-lg-12 col-md-6 col-sm-12 col-xs-12"></div>
+                    <div className="brdrbtmpayment col-12"></div>
                     <div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span>Total: </span></div>
-                      <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">
-                        <span><i className={"fa fa-" + this.state.orderData.currency}> {parseInt(this.state.orderData.total).toFixed(2)}</i></span>
-                      </div>
+                      <div className="row"> 
+                        <div className="col-6 NOpaddingM"><span>Total: </span></div>
+                        <div className="col-6 NOpadding text-right">
+                          <span><i className={"fa fa-" + this.state.orderData.currency}> {parseInt(this.state.orderData.total).toFixed(2)}</i></span>
+                        </div>
+                      </div>  
                     </div>
                   </div>
                 </div>
@@ -183,9 +193,9 @@ class ViewOrder extends Component {
                   </div>
                 </div>
               </div> */}
-            
+             </div>
             </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 outerbox table-responsive">
+            <div className="col-12 outerbox table-responsive">
                 <table className="table orderTable">
                   <thead>
                     <tr>
@@ -207,7 +217,7 @@ class ViewOrder extends Component {
                                   <a href={"/productdetails/" + data.product_ID}><h5 className="productName">{data.productName}</h5></a>
 
                                   {data.discountPercent ?
-                                    <div className="col-lg-12 col-md-12 NOpadding">
+                                    <div className="col-12 col-xl-12 col-md-12 NOpadding">
                                       <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{data.originalPrice}</span> &nbsp; &nbsp;
                                       <span className="cartPrice"><i className="fa fa-inr"></i>{data.discountedPrice}</span> &nbsp; &nbsp;
                                       <span className="cartDiscountPercent">({data.discountPercent}%)</span>

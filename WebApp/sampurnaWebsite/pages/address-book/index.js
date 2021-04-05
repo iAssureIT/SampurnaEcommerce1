@@ -125,19 +125,19 @@ class AddressBook extends Component{
         <div className="container">
             <Loader type="fullpageloader" />
             <Address addressId={this.state.addressId} opDone={this.opDone.bind(this)}/>
-            <div className="pagealertnone col-xl-12 col-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="pagealertnone col-12">
               <Message messageData={this.state.messageData} />
             </div>
-                <div className="col-xl-12 col-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
+                <div className="col-12 NoPadding">
                     <br/>
                   <div className="row">  
-                    <div className="col-xl-3 colmd-3 col-xs-12 col-12 NOpadding mr20">
+                    <div className="col-12 col-xl-3 col-md-12 NOpadding mr20">
                         <Sidebar />
                     </div>
-                    <div className="col-xl-8 col-md-8 col-sm-7 col-xs-12 NOpadding mt25">
+                    <div className="col-12 col-xl-9 col-md-12 col-sm-7 NOpadding mt25">
                         <h4 className="addTitle">Default Addresses</h4>
-                        <div className="col-xl-6 col-md-6 col-sm-12 col-xs-12 mt15 mb15">
-                            <div className="col-xl-12 col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div className="col-12 col-md-6 mt15 mb15">
+                            <div className="col-12">
                                 {
                                     this.state.addressLine1 ? 
                                     <div className="row">
@@ -189,10 +189,10 @@ class AddressBook extends Component{
                             </div>
                         </div>*/
                         }
-                        <div className="col-xl-12 col-12 col-md-12 col-sm-12 col-xs-12 NoPadding"> 
+                        <div className="col-12 NoPadding"> 
                             <h4 className="addTitle">Additional Address Entries</h4>
                         </div>
-                        <div className="col-xl-12 col-12 col-md-12 col-sm-12 col-xs-12 mt15 mb25 NOpaddingRight ">
+                        <div className="col-12 mt15 mb25 NOpaddingRight ">
                             
                         
                         {
@@ -200,8 +200,8 @@ class AddressBook extends Component{
                             this.state.deliveryAddresses.map((address , index)=>{
                                 if(index !== 0){
                                     return(
-                                        <div key={'address'+index} className="col-xl-6 col-md-6 col-sm-12 col-xs-12 col-12 mb15 NOpaddingLeft addressHeight">
-                                            <div className="col-xl-12 col-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <div key={'address'+index} className="col-12 col-md-6 mb15 NOpaddingLeft addressHeight">
+                                            <div className="col-12 ">
                                                 <div className="row">
                                                     <p>
                                                         {address.name} <br />
@@ -223,7 +223,7 @@ class AddressBook extends Component{
                             :
                             <p>You have no other address entries in your address book.</p>
                         }
-                        <div className="col-xl-12 col-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt25">
+                        <div className="col-12 NOpadding mt25">
                         <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className="btn globaleCommBtn addressSaveBtn">Add New Address</div>
                         </div>
                     </div>

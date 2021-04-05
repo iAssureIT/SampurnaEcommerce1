@@ -54,20 +54,20 @@ export default class Footer extends Component {
         <br/>
         {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 footerAnimation" style={{'background' : "url("+footerAnimationImg +")" }}></div> */}
        <div className="container-fluid">
-        <div className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12 footer1">
+        <div className="col-12 footer1">
           <div className="row">
-            <div className="col-xl-7 col-md-7 categoryFooterWrapper">
-                <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  NoPadding">
-                    <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  FooterTitle">Online Shopping</div>
-                    <div className=" col-xl-3 col-md-3 col-xs-12 col-sm-12 col-12 hrLine"></div>
+            <div className="col-12 col-md-7 categoryFooterWrapper">
+                <div className="col-12  NoPadding">
+                    <div className="col-12  FooterTitle">Online Shopping</div>
+                    <div className=" col-xl-3 col-md-3 col-12 hrLine"></div>
                 </div>
-                <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  NoPadding">
+                <div className="col-12  NoPadding">
                   <div className="row">
                     {Array.isArray(this.state.categoryData) && this.state.categoryData.map((data,index)=>{
                         return(
                             index <=2 ?
-                            <div className="col-6 col-xl-4 col-md-4 col-sm-4  footerSection" key={index}>
-                                <div className=" col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  NoPadding sectionName">
+                            <div className="col-4 footerSection" key={index}>
+                                <div className=" col-12 NoPadding sectionName">
                                     <Link href={`/section/${encodeURIComponent(data.sectionUrl)}`}>
                                         <a className="sectionurl" ><span>{data.section}</span></a>
                                     </Link>
@@ -95,13 +95,12 @@ export default class Footer extends Component {
                </div> 
             </div>
             </div>
-
             <div className="col-12 col-xl-2 col-md-3 col-sm-6 aboutusFooterWrapper">
                 <div>
-                    <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  FooterTitle">About Us</div>
-                    <div className=" col-7 hrLine"></div>
+                    <div className="col-12 FooterTitle">About Us</div>
+                    <div className="col-7 hrLine"></div>
                 </div>
-                <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12 ">
+                <div className="col-12 ">
                     <div className="categortTitle"><Link href="/aboutus"><a ><span>&nbsp;About Us</span></a></Link></div>
                     <div className="categortTitle"><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>    
                     <div className="categortTitle"><Link href="/return-policy"><a ><span>&nbsp;Return Policy</span></a></Link></div>
@@ -130,9 +129,9 @@ export default class Footer extends Component {
                         </a>
                         </Link>
                     </div> 
-                    <div className="col-xl-12 col-6 col-sm-12">
-                     <div className="col-xl-12 col-md-6 col-12 FooterTitle FooterTitle2">Connect Us</div>
-                      <div className="col-10 col-xl-12 col-md-6 col-sm-12 NoPadding">
+                    <div className="col-12">
+                     <div className="col-12 FooterTitle FooterTitle2">Connect Us</div>
+                      <div className="col-12 col-sm-6 col-lg-12 col-md-12  NoPadding">
                         <div className="socialMediaIcons pull-right"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram" aria-hidden="true"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube" aria-hidden="true"></i></a></Link></div>  
@@ -144,13 +143,13 @@ export default class Footer extends Component {
            </div>             
         </div>
         </div>
-        <div className="footer3 col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12 ">
-            <div className="col-12 col-xl-12 col-md-12 footer_bottom">
+        <div className="footer3 col-12">
+            <div className="col-12 footer_bottom">
               <div className="row">
-                <div className="col-xl-6 col-md-6 col-sm-6 copyrighttxt">
+                <div className="col-12 col-sm-6 copyrighttxt">
                     <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Multi</span><span className="mandaiColor">Store</span> All Rights Reserved.</p>
                 </div>
-                <div className=" col-xl-6 col-md-6 col-sm-6 footernabbar NoPadding">
+                <div className="col-12 col-sm-6 footernabbar NoPadding">
                     <span className=" pull-right ">Design & Developed by <Link href="http://iassureit.com/"><a target="_blank"> iAssure International Technologies Pvt. Ltd. </a></Link> Version 1.0</span>
                 </div>
             </div>  

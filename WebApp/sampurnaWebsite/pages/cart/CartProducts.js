@@ -377,16 +377,16 @@ class CartProducts extends Component{
         return(            
             <div className="container">
                 {/* <div>cartdata</div> */}
-            <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  cartHeight">
+            <div className="col-12 cartHeight">
                 {/* <Loader type="fullpageloader"/> */}
                 <div className="row">
                     <Message messageData={this.state.messageData} />
                     {
                         
                         this.props.recentCartData[0] && this.props.recentCartData[0].cartItems.length>0? 
-                        <div className="col-12  col-xl-12 col-md-12 col-sm-12 col-xs-12  NOpadding" style={{"marginBottom":"20px"}}>
+                        <div className="col-12 NOpadding" style={{"marginBottom":"20px"}}>
                            <div className="row">  
-                            <div className="col-xl-9 col-md-12 col-11 col-sm-12 col-xs-12 table-responsive cartProduct">
+                            <div className="col-12 col-xl-9 col-md-12 table-responsive cartProduct">
                                 <table className="table cartProductTable">
                                     <thead>
                                         <tr>
@@ -425,7 +425,7 @@ class CartProducts extends Component{
                                                                     </a>
                                                                 {
                                                                     data.productDetail.discountPercent  ?
-                                                                        <div className=" col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NOpadding">
+                                                                        <div className="col-12 NOpadding">
                                                                             <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{data.productDetail.originalPrice}</span> &nbsp; &nbsp;
                                                                             <span className="cartPrice"><i className="fa fa-inr"></i>{data.productDetail.discountedPrice}</span> &nbsp; &nbsp;
                                                                             <span className="cartDiscountPercent">( {Math.floor(data.productDetail.discountPercent)}% Off )</span>
@@ -454,8 +454,7 @@ class CartProducts extends Component{
                                                             <span>-</span>
                                                         }
                                                         </td>
-                                                        <td className="nowrap"> 
-                                                        {console.log("{data.productDetail----------",data.productDetail)}                                                           
+                                                        <td className="nowrap">                                                         
                                                             {
                                                                 data.productDetail.availableQuantity > 0 ?
                                                                 <div className="quantityWrapper">
@@ -476,7 +475,7 @@ class CartProducts extends Component{
                                                         <td className="proWeight">  
                                                             { this.state.websiteModel === 'FranchiseModel'? 
                                                                
-                                                                <span className=" col-xl-12 col-md-12 col-sm-12 col-xs-12  NoPadding productSize totalWeight">&nbsp;{data.totalWeight} &nbsp;</span> 
+                                                                <span className="col-12 NoPadding productSize totalWeight">&nbsp;{data.totalWeight} &nbsp;</span> 
                                                             :
                                                                 <span style={{"textAlign":"center"}} className="col-xl-12 NoPadding productSize">{data.productDetail.size} &nbsp; 
                                                                     {data.productDetail.size ?<span style={{"textAlign":"center"}} className="col-xl-12 NoPadding CapsUnit">{data.productDetail.unit}</span>:'-'}
@@ -501,10 +500,10 @@ class CartProducts extends Component{
                                     </tbody>
                                 </table>                                
                             </div>
-                            <div className="col-10 col-12 col-xl-3 col-md-8 col-sm-12 col-xs-12 NOpadding">
-                                <div className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  cartSummary">
+                            <div className="col-12 col-xl-3 col-md-12  offset-xl-0 NOpadding">
+                                <div className="col-12 cartSummary">
                                     <strong className="cartSummaryTitle">Summary</strong>
-                                    <div className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12 ">
+                                    <div className="col-12">
                                         <div className="row">
                                             <table className="table table-responsive summaryTable">
                                                 <tbody>
@@ -674,8 +673,8 @@ class CartProducts extends Component{
                           </div>  
                         </div>
                         : 
-                        <div className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  textAlignCenter">
-                          <img className="col-xl-4 offset-xl-4 col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-xs-12" src={"/images/eCommerce/emptycart.png"} alt="" />                          
+                        <div className="col-12  textAlignCenter">
+                          <img className="col-12 col-md-4 offset-md-4 col-sm-6 offset-sm-3 " src={"/images/eCommerce/emptycart.png"} alt="" />                          
                         </div>  
                         
                     }
