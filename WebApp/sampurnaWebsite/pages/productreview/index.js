@@ -176,34 +176,35 @@ class Productreview extends Component {
     return (
     <div>
      <Header />
-      <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
+      <div className="col-12 NoPadding">
         <Message messageData={this.state.messageData} />
         <SmallBanner bannerData={this.state.bannerData} />
 
         <div className=" container">
           <br />
-          <div className="col-lg-3 col-md-3 col-sm-4 col-xs-12 NOpadding">
+          <div className="row"> 
+          <div className="col-12 col-md-3  NOpadding">
             <Sidebar />
           </div>
-          <div className="col-lg-9 col-md-9 col-sm-8 col-xs-12 NOpadding">
-            <div className="mt25 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div className="col-12 col-lg-9 col-md-9  NOpadding">
+            <div className="mt25 col-12">
               {
                 this.state.reviewData && this.state.reviewData.length > 0 ?
                   this.state.reviewData.map((data, index) => {
                     return (
-                      <div key={index} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewborder topspace15">
+                      <div key={index} className="col-12 reviewborder topspace15">
                         <div className="row">
-                          <div className="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                          <div className="col-12  col-md-2 col-sm-4">
                             <img className="img img-responsive reviewProImg" src={data.productDetails.length >0 ? (data.productDetails[0].productImage[0] ? data.productDetails[0].productImage[0] : "/images/eCommerce/notavailable.jpg") : ""} alt="" />
                           </div>
-                          <div className="col-lg-10 col-md-10 col-sm-8 col-xs-12 ">
+                          <div className="col-12 col-md-10 col-sm-12">
                             <div className="row">
-                              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewuserimg">
+                              <div className="col-12reviewuserimg">
                                   <div className=" pull-right">
                                     <span  id={data.productDetails[0]._id} orderID={data.orderID} onClick={this.getoneproductdetails.bind(this)} data-toggle="modal" data-target="#feedbackProductModal" className=" fa fa-pencil editCursor" title="Give Feedback" ></span>
                                   </div>
-                                  <b><div className="col-lg-11 col-md-11 col-sm-11 col-xs-11">{data.productDetails.length >0 ? data.productDetails[0].productName : ""}</div></b>
-                                  <div className="col-lg-11 col-md-11 col-sm-11 col-xs-11 ">
+                                  <b><div className="col-11">{data.productDetails.length >0 ? data.productDetails[0].productName : ""}</div></b>
+                                  <div className="col-11 ">
                                   {
                                     data.rating ?
                                       _.times(5, (i) => {
@@ -221,25 +222,25 @@ class Productreview extends Component {
                                   }
 
                                   </div>
-                                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 textAlignLeft">
+                                  <div className="col-12 textAlignLeft">
                                     <span>By {data.customerName} </span>
                                     
                                   </div>
                               </div>
-                              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewuserimg">
+                              <div className="col-12 reviewuserimg">
                                 
                                   {/* <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                     <div className="row">
                                       <h5>Review :</h5>
                                     </div>
                                   </div> */}
-                                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 topspace8">
+                                  <div className="col-12 topspace8">
                                       <p>{data.customerReview}</p>
                                       <span> {moment(data.createdAt).format('DD-MM-YYYY')}</span>
                                   </div>
                                   
                               </div>
-                              <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 topspace8">
+                              <div className="col-1topspace8">
                                 
                         
                                 <div className="modal" id="feedbackProductModal" role="dialog">
@@ -273,7 +274,7 @@ class Productreview extends Component {
                                             </tbody>
                                           </table>
                                           <form className="feedbackForm" id="">
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                                            <div className="col-12 row">
                                               <fieldset className="ratingReview stars givefeedback ">
                                                 <input type="radio" id="star1" name="ratingReview" checked={this.state.ratingReview === 5 ? true : false} onChange={this.ratingReview.bind(this)} value="5" /><label htmlFor="star1"></label>
                                                 <input type="radio" id="star2" name="ratingReview" checked={this.state.ratingReview === 4 ? true : false} onChange={this.ratingReview.bind(this)} value="4" /><label htmlFor="star2"></label>
@@ -285,9 +286,9 @@ class Productreview extends Component {
                                             </div>
                                             <label className="error">{this.state.reviewStarError}</label>
                                             <div className="row inputrow">
-                                              <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt15">Write review</label>
-                                              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                                                <textarea rows="5" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " onChange={this.handleChangeReview.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
+                                              <label className="col-12 mt15">Write review</label>
+                                              <div className="col-12">
+                                                <textarea rows="5" className="col-12" onChange={this.handleChangeReview.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
                                                 <label className="error">{this.state.reviewTextError}</label>
                                               </div>
                                             </div>
@@ -298,7 +299,7 @@ class Productreview extends Component {
 
                                       </div>
                                       <div className="modal-footer modalfooterborder ">
-                                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <div className="col-12">
                                           <button className="btn btn-warning mt15" onClick={this.submitReview.bind(this)} data-productid={this.state.oneproductdetails && this.state.oneproductdetails._id}
                                           >{this.state.rating_ID ? 'Update' :'Submit'}</button>
                                         </div>
@@ -318,6 +319,7 @@ class Productreview extends Component {
               }
             </div>
           </div>
+         </div> 
         </div>
       </div>
       <Footer />

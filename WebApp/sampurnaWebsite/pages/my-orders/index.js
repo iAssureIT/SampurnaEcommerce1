@@ -721,8 +721,8 @@ export default class MyOrders extends Component {
                       <div className="modal-content">
                         <div className="modal-header feedbackModalHeader">
                           <img src="/favicon.ico" alt="" />
-                          <button type="button" className="close modalclosebut" onClick={this.closeModal.bind(this)} data-dismiss="modal">&times;</button>
                           <h4 className="modal-title modalheadingcont">PRODUCT REVIEW</h4>
+                           <button type="button" className="close modalclosebut" onClick={this.closeModal.bind(this)} data-dismiss="modal">&times;</button>
                         </div>
                         <div className="modal-body">
                           <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12">
@@ -751,7 +751,7 @@ export default class MyOrders extends Component {
                               }
                               </tbody>
                             </table>
-                            <form className="feedbackForm" id="">
+                            <form className="feedbackForm col-12" id="">
                               <div className="col-12 row">
                                 <fieldset className="ratingReview stars givefeedback ">
                                   <input type="radio" id="star1" name="ratingReview" checked={this.state.ratingReview === 1 ? true : false} onChange={this.ratingReview.bind(this)} value="1" /><label htmlFor="star1"></label>

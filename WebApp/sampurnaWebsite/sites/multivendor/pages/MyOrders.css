@@ -230,6 +230,17 @@ text-align:right ! important;
     background-color: #fcf8e3 ! important;
     border-color: #faebcc ! important;
 }
+.modalheadingcont{
+	margin-top: 0px ! important;
+	margin-left: 11px ! important;
+}
+.modal-header .close{
+	margin-right: 0px ! important;
+	margin-top: -17px ! important;
+}
+.table > thead > tr > th{
+	font-size: 14px ! important;
+}
 @media only screen and (max-device-width: 480px) {   
 	.custmTabs{
 		font-size: 10px !important;

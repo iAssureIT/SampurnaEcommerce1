@@ -122,7 +122,7 @@ class ViewOrder extends Component {
                 }
                 </div>
               </div>
-              <div className="col-12 col-md-3 col-sm-6 mb50">
+              <div className="col-12 col-xl-3 col-md-3 col-sm-6 mb50">
                   <strong className="box-title">
                     <span>Order Summary</span>
                   </strong>
