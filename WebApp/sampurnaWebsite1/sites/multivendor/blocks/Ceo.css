@@ -1,0 +1,222 @@
+.slider-dot-images {
+    /*margin-top: 80px;
+    padding: 0 20px;
+    margin-bottom: 30px;*/
+}
+.container-ver2 {
+    width: 1200px;
+    padding: 0 15px;
+}
+.slider-dot-images .slider-nav {
+    /*max-width: 450px;
+    margin-top: 80px;*/
+}
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+.slick-list {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.draggable {
+    padding: 0px !important;
+}
+.slick-track {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+}
+.space-50 {
+    margin-bottom: 50px !important;
+    height: 500px;
+}
+.sliderback {
+    background: url("/images/back_ceo.jpg") no-repeat;
+    position: relative;
+    padding: 0;
+}
+.CEO_Back{
+	padding:0;
+}
+.slider-dot-images .slider-nav .slick-slide {
+    transform: scale(0.8);
+    transition: all 0.5s ease 0s;
+    opacity: 0.3;
+    cursor: pointer;
+}
+.slick-initialized .slick-slide {
+    display: block;
+}
+.slick-slide {
+    /*display: none;*/
+    float: left;
+    height: 100%;
+    min-height: 1px;
+}
+.slider-dot-images .slider-nav img {
+    /*-webkit-border-radius: 50%;*/
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.slick-slide img {
+    display: block;
+}
+.slick-slide img {
+    width: 100%;
+}
+.slider-dot-images .slider-nav .slick-slide.slick-current, .slider-dot-images .slider-nav .slick-slide:hover {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+/*slick Codepen*/
+/*h3 {
+    background: #fff;
+    color: #3498db;
+    font-size: 36px;
+    line-height: 100px;
+    margin: 10px;
+    padding: 2%;
+    position: relative;
+    text-align: center;
+}
+.action{
+  display:block;
+  margin:100px auto;
+  width:100%;
+  text-align:center;
+}
+.action a {
+  display:inline-block;
+  padding:5px 10px; 
+  background:#f30;
+  color:#fff;
+  text-decoration:none;
+}
+.action a:hover{
+  background:#000;
+}*/
+
+.slick-slide {
+  background: #3a8999;
+  color: white;
+  padding: 40px 0;
+  font-size: 30px;
+  font-family: "Arial", "Helvetica";
+  text-align: center;
+}
+
+.slick-arrow:before {
+  color: black;
+}
+
+.slick-dots {
+  bottom: -30px;
+}
+
+.slick-slide:nth-child(odd) {
+  background: #e84a69;
+}
+.slideimg{
+    /*width: 100%;*/
+    border-radius: 50%;
+}
+.owl-dot{
+    background-image: url("/images/about2.jpg");
+}
+
+.cutom_indicator{
+    
+}
+.cutom_indicator{
+    height: 200px;
+}
+.slider_image1{
+    background-image: url("/images/about2.jpg") ! important;
+    height: 100px;
+}
+#cutom_indicator1 ol>li>img{
+
+}
+#cutom_indicator1 .slider_image1 {
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    opacity: 0.3;
+    background-image: url("/images/about2.jpg");
+}
+#cutom_indicator1 .slider_image2 {
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    opacity: 0.3;
+    background-image: url("/images/about3.jpg");
+}
+#cutom_indicator1 .slider_image3 {
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    background-image: url("/images/about4.jpg");
+}
+#cutom_indicator1 .slider_image4 {
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    opacity: 0.3;
+    background-image: url("/images/about5.jpg");
+}
+#cutom_indicator1 .slider_image5 {
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    opacity: 0.3;
+    background-image: url("/images/about1.jpg");
+}
+#cutom_indicator1 .active{
+    opacity: 1;
+    width: 130px;
+    height: 130px;
+    }
+
+.owl1stclass{
+    transform: translate3d(-1170px, 0px, 0px);
+     transition: all 0s ease 0s; width: 3510px;
+
+}
+.bannerContainerSlick{
+    height: 179px;
+    /*border-top:1px solid #eee;*/
+}
+.bordertop_div{
+    border-top:1px solid #eee;
+
+}
+.slider-dot-images a {
+    color: #80b435;
+    font: 300 14px "Roboto";
+}
+.brand-content .items {
+    padding: 15px 0px;
+    width:15%;
+}
+#bottom_slick .img-responsive{
+    width: 10%;
+}
+#Divbelowslick .items img{
+    width:100% ! important;
+    margin-top: -16px;
+}

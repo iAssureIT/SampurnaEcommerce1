@@ -1,11 +1,11 @@
-import Head from 'next/head';
-import 'bootstrap/dist/css/bootstrap.css';
-import {connect} from 'react-redux';
-import axios from 'axios';
+import Head           from 'next/head';
+import {connect}      from 'react-redux';
+import axios          from 'axios';
 import {setBlockData} from '../redux/actions/index.js';
-import MasterPage from '../component/MasterPage/MasterPage.js'
-import store from '../redux/store.js'
-import getConfig from 'next/config';
+import MasterPage     from '../MasterPage/MasterPage.js'
+import store          from '../redux/store.js'
+import getConfig      from 'next/config';
+import 'bootstrap/dist/css/bootstrap.css';
 const { publicRuntimeConfig } = getConfig();
 
 axios.defaults.baseURL = publicRuntimeConfig.API_BASE_URL;
@@ -26,7 +26,7 @@ function Home({pageData}) {
 }
 
 export async function getServerSideProps({query}){
-  console.log("pageurl query===",query)
+  // console.log("pageurl query===",query)
   const urlParam = query.pageurl ? query.pageurl : 'home-page'
   try{
     const res = await axios.get("api/pages/get/page_block/"+urlParam)
