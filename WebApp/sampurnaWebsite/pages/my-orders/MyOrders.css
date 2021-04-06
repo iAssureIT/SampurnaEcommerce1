@@ -197,6 +197,9 @@ text-align:right ! important;
     color: #333;
     text-decoration: none;
 }
+.ReviewModalHeight{
+	height: 545px ! important;
+}
 @media only screen and (max-device-width: 480px) {   
 	.custmTabs{
 		font-size: 10px !important;

@@ -718,7 +718,7 @@ export default class MyOrders extends Component {
 
                   <div className="modal" id="feedbackProductModal" role="dialog">
                     <div className="modal-dialog">
-                      <div className="modal-content">
+                      <div className="modal-content ReviewModalHeight">
                         <div className="modal-header feedbackModalHeader">
                           <img src="/favicon.ico" alt="" />
                           <h4 className="modal-title modalheadingcont">PRODUCT REVIEW</h4>
