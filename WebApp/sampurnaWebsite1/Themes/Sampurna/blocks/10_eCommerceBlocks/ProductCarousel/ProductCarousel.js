@@ -118,18 +118,18 @@ class ProductCarousel extends Component {
   }
   async componentDidMount(){
     this.getCategoryData();
-  //   var user_ID = localStorage.getItem("user_ID"); 
-  //   const websiteModel = localStorage.getItem("websiteModel");      
-  //   const showLoginAs = localStorage.getItem("showLoginAs"); 
-  //   if(user_ID!==null){     
-  //   this.setState({
-  //     user_ID:user_ID,
-  //     showLoginAs: showLoginAs,
-  //     websiteModel:websiteModel
-  //   },()=>{
-  //       this.getWishlistData();
-  //   }); 
-  // }
+    var user_ID = localStorage.getItem("user_ID"); 
+    const websiteModel = localStorage.getItem("websiteModel");      
+    const showLoginAs = localStorage.getItem("showLoginAs"); 
+    if(user_ID!==null){     
+    this.setState({
+      user_ID:user_ID,
+      showLoginAs: showLoginAs,
+      websiteModel:websiteModel
+    },()=>{
+        this.getWishlistData();
+    }); 
+  }
     
     //category carousel
     $(".expand").on( "click", function() {      
@@ -484,6 +484,7 @@ class ProductCarousel extends Component {
         })
       }, 3000);
     } else {
+      console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)
         .then((response) => {
           // console.log("this.props.fetchCartData();",this.props.fetchCartData());
@@ -505,7 +506,7 @@ class ProductCarousel extends Component {
 
         })
         .catch((error) => {
-          console.log('error', error);
+          console.log('cart post error', error);
         })
     }
   }//end else websiteModel
@@ -513,9 +514,9 @@ class ProductCarousel extends Component {
 
   submitCart(event) { 
     const user_ID = localStorage.getItem('user_ID');
-    console.log("userId===",user_ID);
+    // console.log("userId===",user_ID);
     if(user_ID){
-      // console.log("recentCartData===",this.props.recentCartData);
+      console.log("recentCartData===",this.props.recentCartData);
       if(this.props.recentCartData.length>0 && this.props.recentCartData[0].cartItems.length>0){
           var cartLength = this.props.recentCartData[0].cartItems.length;
           var productId = event.target.id;
@@ -536,7 +537,7 @@ class ProductCarousel extends Component {
                   })
                 }, 3000);
                 break;
-                console.log("submitCart userId===",this.state);
+                // console.log("submitCart userId===",this.state);
 
               }//end if
           }//end for loop
@@ -594,7 +595,8 @@ class ProductCarousel extends Component {
       ['sizeCollage' + currProId]: false
     })
   }else{
-    // console.log("showLogin as====",localStorage.getItem('showLoginAs'));
+
+    console.log("user loged out====",localStorage.getItem('showLoginAs'));
     if(localStorage.getItem('showLoginAs')==="modal"){
       $('#loginFormModal').show();       
       }else{
@@ -837,6 +839,7 @@ class ProductCarousel extends Component {
                         Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
                             var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
                             // var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
+                          //  console.log("data===",data._id);
                             var wishClass = 'r';
                             var tooltipMsg = '';
                             // console.log("this.state.wishList===",this.state.wishList);
