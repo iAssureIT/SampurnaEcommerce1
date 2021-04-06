@@ -116,7 +116,7 @@ class Account extends Component{
                                                 <p className="col-12 textwrap">{this.state.fullName}</p>
                                                 <p className="col-12 ">{this.state.emailId}</p>
                                                 <p className="col-12 ">{this.state.mobileNumber}</p>
-                                                <div className="col-12 mt70">
+                                                <div className="col-12 mt100">
                                                     <button className="btn globalCommonBtn col-12 col-sm-7 " onClick={this.editUser.bind(this)}><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp;
                                                 {/*<button className="btn btn-warning">CHANGE PASSWORD</button>*/}
                                                 </div>
@@ -166,7 +166,7 @@ class Account extends Component{
                                                 :
                                                 <div className="col-12 mt25 mb25">
                                                     <p className="col-12">You have not set a default billing address.</p>
-                                                    <div className="col-12 mt45">
+                                                    <div className="col-12 mt25">
                                                         <button data-toggle="modal" data-target="#checkoutAddressModal"
                                                          className="btn globalCommonBtn col-12 col-sm-7"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
                                                     </div>
