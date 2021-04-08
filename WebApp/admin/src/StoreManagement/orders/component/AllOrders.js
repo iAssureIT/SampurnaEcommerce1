@@ -47,6 +47,8 @@ export default class AllOrders extends Component{
                   var currency = response.data[i].currency;
                   var totalAmount = response.data[i].total;
                   var productarr = [];
+                  var productCount = response.data[i].products.length();
+                  console.log("productCount----",productCount);
                   for(let j in response.data[i].products){
                       allProductsArray.push(response.data[i].products[j]);
                       productarr.push(response.data[i].products[j].productName +' '+response.data[i].products[j].quantity )

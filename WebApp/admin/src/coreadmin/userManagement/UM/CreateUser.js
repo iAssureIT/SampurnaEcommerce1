@@ -783,7 +783,7 @@ class CreateUser extends Component {
                             </div>
                           </div> */}
                           <div className="form-margin col-lg-6 col-md-6 col-xs-12 col-sm-12  valid_box " >
-                            <label >Work Location <span className="requiredsign">*</span></label>
+                            <label >Work Location <span className="requiredsign"></span></label>
                             <div className="input-group col-lg-12 col-md-12 col-xs-12 col-sm-12" id="workLocation">
                               <select className="form-control " value={this.state.workLocation} onChange={this.handleChange} ref="workLocation" id="workLocation" name="workLocation" data-text="workLocation">
                                 <option hidden> --Select-- </option>

@@ -207,7 +207,7 @@ class ProductList extends Component {
                             productName : a.productName,
                             section : a.section,
                             category: a.category,
-                            vendor : a.vendorName,
+                            vendor : a.vendorName.split('|')[0],
                             originalPrice: a.originalPrice,
                             discountPercent: a.discountPercent,
                             discountedPrice: a.discountedPrice,

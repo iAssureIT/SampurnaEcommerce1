@@ -62,6 +62,7 @@ class DailyReport extends Component{
 
     axios.post("/api/orders/get/report/"+startRange+'/'+limitRange, formvalues)
     .then((response)=>{
+      console.log("DailyReports response---",response);
       var tableData = response.data.map((a, i)=>{
         return {
             "orderID"                    : a.orderID,

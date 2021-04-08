@@ -58,6 +58,7 @@ class UMListOfUsers extends Component {
 	}
 	componentDidMount() {
 		
+
 		const user_ID = localStorage.getItem("user_ID");
 		var userDetails = (localStorage.getItem('userDetails'));
 		var userData = JSON.parse(userDetails);
@@ -558,9 +559,12 @@ class UMListOfUsers extends Component {
 				} else {
 					var response = await addRole(formValues);
 					if (response) {
+
 						if (response.data && response.data === 'USER_ROLE_ASSIGNED') {
 							changed++
+
 							swal(" ", changed + " Record(s) Updated Successfully");
+							window.location.reload();
 						}
 						var user = await getUserDetails(selectedId);
 						if (user) {
@@ -746,10 +750,12 @@ class UMListOfUsers extends Component {
 		} else {
 			this.refs.userListDropdown.value = '-'
 			$('#userListDropdownId').removeAttr('disabled');
+			window.reload();
 			swal({
 				title: ' ',
 				text: "Please select atleast one user."
 			});
+
 		}
 	}
 selectedRole(event) {

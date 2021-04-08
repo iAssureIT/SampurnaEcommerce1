@@ -18,6 +18,7 @@ class AddNewShopProduct extends Component {
       vendorArray: [],
       addrows: [1],
       productMode: '',
+      vendorName: '',
       productFeatured: false,
       productExclusive: false,
       catError: false,
@@ -459,10 +460,11 @@ class AddNewShopProduct extends Component {
   edit(id) {
     axios.get('/api/products/get/one/' + id)
       .then((response) => {
-         console.log("edit response----",response.data);
+         console.log("edit response----",response.data.vendorName);
         this.getCategories();
         this.getSubCategories(response.data.category_ID);
-        console.log('attributes===>', response.data);
+        console.log('response.data.category +++++',response.data.category);
+        console.log('response.data.subCategory_ID +++++',response.data.subCategory_ID);
         this.getTaxRates(response.data.taxId)
         this.setState({
           showDiscount: response.data.discountedPrice ? false : true,
@@ -498,7 +500,7 @@ class AddNewShopProduct extends Component {
           currency: response.data.currency,
           status: response.data.status,
         }, () => {
-          // console.log('this', this.state.showDiscount);
+          console.log('this-------------', this.state.vendorName);
 
         })
 
@@ -724,11 +726,12 @@ class AddNewShopProduct extends Component {
       }
     }
     console.log("this.refs.category.value==>",this.refs.category.value);
+    console.log(" this.state.vendorName--------", this.state.vendorName);
     // console.log("this.refs.vendor.value.split('|')[1]==>",this.refs.vendor.value.split('|')[1]);
     var formValues = {
       "vendor_ID"         : this.state.vendor_ID,
       "user_ID"           : this.state.user_ID,
-      "vendorName"        : this.state.vendor,
+      "vendorName"        : this.state.vendorName,
       "section"           : this.refs.section.value.split('|')[0],
       "section_ID"        : this.refs.section.value.split('|')[1],
       "product_ID"        : this.state.editId,
@@ -1017,9 +1020,9 @@ class AddNewShopProduct extends Component {
                                     {this.state.vendorArray && this.state.vendorArray.length > 0 ?
                                       this.state.vendorArray.map((data, index) => {
                                         return (
-                                          this.state.websiteModel == 'SingleOwner'? 
+                                         /* this.state.websiteModel == 'SingleOwner'? 
                                           <option key={index} value={data.companyName + '|' + data.user_ID + '|' + data._id} selected>{data.companyName} - ({"VendorID : "+data.companyID})</option>
-                                          : 
+                                          : */
                                           <option key={index} value={data.companyName + '|' + data.user_ID + '|' + data._id}>{data.companyName} - ({"VendorID : "+data.companyID})</option>
                                           // <option key={index} value={data.companyID} vendorID={data.user_ID} vendorName={data.companyName}>{data.companyName} - ({"VendorID : "+data.companyID})</option>
                                         );
@@ -1060,6 +1063,7 @@ class AddNewShopProduct extends Component {
                                   <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 inputFields" id="categoryDiv">
                                     <label>Category <i className="redFont">*</i></label>
                                     {/*<div className="input-group" id="category">*/}
+                                    {console.log("this.state.category----",this.state.category)}
                                     <select onChange={this.showRelevantSubCategories.bind(this)} value={this.state.category} name="category" className="form-control allProductCategories" aria-describedby="basic-addon1" id="category" ref="category">
                                       <option disabled selected defaultValue="">Select Category</option>
                                       {this.state.categoryArray && this.state.categoryArray.length > 0 ?
@@ -1068,7 +1072,7 @@ class AddNewShopProduct extends Component {
                                         var catRegLang = data.categoryNameRlang ? "<span class='RegionalFont'> "+data.categoryNameRlang+"</span>" : '';
  
                                         return (
-                                          <option key={index} test="one-test" value={data.category + '|' + data._id +'|'+data.categoryNameRlang}>{data.category}</option>
+                                          <option key={index} test="one-test" value={data.category + '|' + data._id}>{data.category}</option>
                                           // <option key={index} value={data.category + '|' + data._id}>{data.categoryNameRlang}</option>
                                           );
                                         })

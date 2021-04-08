@@ -1062,7 +1062,7 @@ exports.fetch_users_Companies = (req,res,next)=>{
 exports.fetch_users_roles = (req,res,next)=>{
 	console.log("inside fetch_users_roles");
 	User.find({roles:req.params.role})
-		.select("profile.firstname profile.lastname profile.status profile.companyID profile.companyName profile.fullName roles profile.email profile.mobile profile.clientId createdAt services.resume.loginTokens")
+		// .select("profile.firstname profile.lastname profile.status profile.companyID profile.companyName profile.fullName roles profile.email profile.mobile profile.clientId createdAt services.resume.loginTokens")
 		.sort({createdAt : -1})
         .skip(req.body.startRange)
         .limit(req.body.limitRange)

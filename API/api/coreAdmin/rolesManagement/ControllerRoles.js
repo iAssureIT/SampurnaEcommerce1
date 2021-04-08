@@ -49,6 +49,7 @@ exports.create_role = (req,res,next)=>{
 };
 exports.list_role = (req,res,next)=>{
     Role.find()
+        .sort({ createdAt: -1 })
         .exec()
         .then(data=>{
             res.status(200).json(data);
