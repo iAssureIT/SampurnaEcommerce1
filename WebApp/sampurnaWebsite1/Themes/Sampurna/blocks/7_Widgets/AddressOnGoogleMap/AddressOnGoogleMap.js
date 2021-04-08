@@ -2,7 +2,6 @@ import React, {Component} 		from 'react';
 import $, { css } 				from 'jquery';
 
 
-import StdBlockSeparatorBlue    from '../../8_Common/StdBlockSeparatorBlue/StdBlockSeparatorBlue.js';
 import StdBlockTitleBlack       from '../../8_Common/StdBlockTitleBlack/StdBlockTitleBlack.js';
 
 
@@ -37,7 +36,6 @@ export default class AddressOnGoogleMap extends Component{
 		return(
 			<section className={"col-12 "+S.addressOnGoogleMapWrapper}>
 				<div className="row">
-					<StdBlockSeparatorBlue />
 					<StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} />
 					<div className={"col-12 demogmap_canvas "+S.demogmap_canvas}>
 						<div className={"mapouter "+S.mapouter} id="mapouter">

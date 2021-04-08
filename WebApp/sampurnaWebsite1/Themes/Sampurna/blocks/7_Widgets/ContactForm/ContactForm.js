@@ -26,35 +26,29 @@ export default class ContactForm extends Component{
         super(props);
         this.state = {
             blocks:{
-                "blockTitle"         : "<b>OUR LOCATIONS</b>",
+                "blockTitle"         : "<b>GET IN TOUCH</b>",
                 "blockSubTitle"      : "",
                 "blockDescription"   : "",
-                "blockComponentName" : "TemplateOverview",
+                "blockComponentName" : "",
                 "blockType"          : "",
                 "bgImage"            : "",
                 "fgImage"            : "/images/001.png",
                 "repeatedBlocks" : [
                     {
-                        Title        : "Delhi (INDIA)", 
-                        SubTitle     : "#323, Amanora Chambers <br/> Magarpatta, Pune,<br/> Maharastra 411228", 
-                        Image        : "https://unimandai.s3.amazonaws.com/CMS/ctlocation_2020101611220.png",
+                        Title        : "Mail Us:", 
+                        SubTitle     : "admin@bookstore.com", 
+                        FGImage1     : "images/CMSBlockType/7_Widgets/mail.png",
                         Link         : "",
                         Description  : ""
                     },
                     { 
-                        Title        : "Mumbai (INDIA)", 
-                        SubTitle     : "#323, Amanora Chambers <br/> Magarpatta,  Pune,<br/> Maharastra 411228", 
-                        Image        : "https://unimandai.s3.amazonaws.com/CMS/ctlocation_2020101611220.png",
+                        Title        : "Phone Us:", 
+                        SubTitle     : "9090909900 / 8008808800", 
+                        FGImage1     : "images/CMSBlockType/7_Widgets/phone.png",
                         Link         : "",
                         Description  : ""
                     },
-                    {
-                        Title        : "Bengaluru (INDIA)", 
-                        SubTitle     : "#323, Amanora Chambers <br/> Magarpatta,  Pune,<br/> Maharastra 411228", 
-                        Image        : "https://unimandai.s3.amazonaws.com/CMS/ctlocation_2020101611220.png",
-                        Link         : "",
-                        Description  : ""
-                    },
+                   
                 ],
                 "bgVideo"			 : "",
                 "fgVideo"			 : "",
@@ -220,18 +214,18 @@ export default class ContactForm extends Component{
             
             <div className={"col-12 contactFormWrapper "+s.contactFormWrapper}>
                 <div className="row">
-                    <div className={"col-md-12 col-lg-4 col-12 addressWrapper "+s.addressWrapper}>
+                    <div className={"col-12 col-lg-4  addressWrapper "+s.addressWrapper}>
                         <div className={" addressTitleWrapper "+s.addressTitleWrapper}>
                             <div className={"addressTitle globalBlockRepeatedTitleFontSize "+s.addressTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockTitle}}></div>
                         </div>
                         {
                             this.state.blocks.repeatedBlocks && this.state.blocks.repeatedBlocks.length > 0
                             ?
-                                this.state.blocks.repeatedBlocks.slice(0,1).map((data, index)=>{
+                                this.state.blocks.repeatedBlocks.map((data, index)=>{
                                     return(
                                         <div className={" row locationPinNTextWrapper "+s.locationPinNTextWrapper} key={index}>
                                             <div className={" locationPinWrapper "+s.locationPinWrapper}>
-                                                <img className={"locationPin "+s.locationPin} src={data.Image} alt=""/>
+                                                <img className={"locationPin "+s.locationPin} src={data.FGImage1} alt=""/>
                                             </div>
                                             <div className={" locationTextWrapper "+s.locationTextWrapper}>
                                                 <div className={"locationText1 globalBlockRepeatedSubTitleFontSize "+s.locationText1} dangerouslySetInnerHTML={{ __html: data.Title } }></div>
@@ -245,7 +239,7 @@ export default class ContactForm extends Component{
                         }
                     </div>
 
-                    <div className={"col-lg-8 col-md-8 col-sm-8 mx-auto formWrapper1 "+s.formWrapper1}>
+                    <div className={"col-8 mx-auto formWrapper1 "+s.formWrapper1}>
                         <div className={"formImage1 "+s.formImage1}>
                             <img src="https://unimandai.s3.amazonaws.com/CMS/cmodel05_202010161194.png" className=" img-fluid  w-100" alt="Form Image1"/>
                         </div>
@@ -264,7 +258,7 @@ export default class ContactForm extends Component{
                         <div className={"formImage6 "+s.formImage6}>
                             <img src="https://unimandai.s3.amazonaws.com/CMS/cmodel08_20201016111232.png" className=" img-fluid  w-100" alt="Form Image6"/>
                         </div>
-                        <div className={"col-lg-6 col-lg-offset-3 col-md-12  col-sm-12 col-xs-12 formWrapper2 "+s.formWrapper2}>
+                        <div className={"col-12 col-lg-6 offset-lg-3 formWrapper2 "+s.formWrapper2}>
                             <div className={"formImage7 "+s.formImage7}>
                                 <img src="https://unimandai.s3.amazonaws.com/CMS/cmodel04_2020101611828.png" className=" img-fluid  w-100" alt="Form Image7"/>
                             </div>

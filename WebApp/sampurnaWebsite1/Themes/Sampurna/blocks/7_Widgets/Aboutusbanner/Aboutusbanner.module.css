@@ -1,0 +1,28 @@
+.blockWrapper{
+  height: 380px;
+   background-size: 100% 100%;
+} 
+.textWrapper{
+   margin-top: 120px;
+   color: #000;
+   text-align: center;
+}
+
+.pageAboutText{
+   word-spacing: 3px;
+   font-size: 30px;
+   margin-top: -120px;
+   padding-top: 130px;
+}
+.pageAboutText1{
+   position: absolute;
+   margin-top: 15px;
+   word-spacing: 2px;
+   font-size: 18px;
+   color: #ff4157!important;
+}
+.subTitle{
+   margin-top: 15px;
+   font-size: 18px;
+   margin-left: -60px;
+}
