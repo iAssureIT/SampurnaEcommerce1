@@ -78,6 +78,7 @@ class EditUserProfile extends Component {
 				"image": this.state.profileImage,
 				"email" : this.state.username
 			}
+			console.log("formvalues---",formvalues);
 			var userDetail = localStorage.getItem("userDetails");
 			var parsedUserDetail = JSON.parse(userDetail);
 			parsedUserDetail.firstName = this.refs.firstName.value;

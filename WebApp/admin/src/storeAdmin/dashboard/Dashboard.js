@@ -63,7 +63,7 @@ export default class Dashboard extends Component{
         <div className="row">
            <section class="content-header">
               <h1>
-                Dashboard
+                
                 <small></small>
               </h1>
               <ol class="breadcrumb">

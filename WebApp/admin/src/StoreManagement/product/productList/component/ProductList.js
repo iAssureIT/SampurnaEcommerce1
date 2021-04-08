@@ -448,7 +448,7 @@ class ProductList extends Component {
                     messageData: {
                         "type": "outpage",
                         "icon": "fa fa-correct",
-                        "message": "Product images are updated successfully",
+                        "message": "Product image updated successfully",
                         "class": "success",
                         "autoDismiss": true
                     }

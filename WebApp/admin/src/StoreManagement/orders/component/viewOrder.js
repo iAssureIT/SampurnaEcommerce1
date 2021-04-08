@@ -85,8 +85,8 @@ class viewOrder extends Component{
               <h4 className="weighttitle table-caption">Order Details</h4>
 
               <p>Ordered on {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}  | Order {this.state.orderData.orderID}</p>
-              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 outerbox">
-                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div className="col-lg-11 col-md-12 col-sm-12 col-xs-12 outerbox">
+                <div className="col-lg-3 col-md-3 col-sm-4 col-xs-4">
                   <strong class="box-title orderDetailTitles">
                       <p>Shipping Address <br /></p>
                   </strong>
@@ -101,7 +101,7 @@ class viewOrder extends Component{
                   <p><strong class="box-title"> Mobile Number :</strong> <span className="box-content">{this.state.mobilenum}</span></p>
                   
                 </div>
-                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                <div className="col-lg-3 col-md-3 col-sm-4 col-xs-6">
                   <strong class="box-title orderDetailTitles">
                     <p>Payment Method</p>
                   </strong>
@@ -148,7 +148,7 @@ class viewOrder extends Component{
                   </div>
                 </div>
                 {this.state.orderData.shippingtime ? 
-                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                <div className="col-lg-3 col-md-3 col-sm-4 col-xs-6">
                   <strong class="box-title orderDetailTitles">
                     <p>Shipping Time</p>
                   </strong>
@@ -162,7 +162,7 @@ class viewOrder extends Component{
 
               </div>
 
-              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 outerbox">
+              <div className="col-lg-11 col-md-12 col-sm-12 col-xs-12 outerbox">
 
               {
                 this.state.orderData.products && this.state.orderData.products.length > 0 ?
