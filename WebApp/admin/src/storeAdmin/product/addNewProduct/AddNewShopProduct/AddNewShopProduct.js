@@ -18,7 +18,6 @@ class AddNewShopProduct extends Component {
       vendorArray: [],
       addrows: [1],
       productMode: '',
-      vendorName: '',
       productFeatured: false,
       productExclusive: false,
       catError: false,
@@ -460,7 +459,7 @@ class AddNewShopProduct extends Component {
   edit(id) {
     axios.get('/api/products/get/one/' + id)
       .then((response) => {
-         console.log("edit response----",response.data.vendorName);
+         console.log("edit response----",response.data);
         this.getCategories();
         this.getSubCategories(response.data.category_ID);
         console.log('response.data.category +++++',response.data.category);
@@ -501,6 +500,7 @@ class AddNewShopProduct extends Component {
           status: response.data.status,
         }, () => {
           console.log('this-------------', this.state.vendorName);
+          console.log('this user_ID-------------', this.state.user_ID);
 
         })
 
@@ -537,17 +537,18 @@ class AddNewShopProduct extends Component {
       }
     }
     // if(this.state.websiteModel === "MarketPlace"){
-      var vendorName  = this.refs.vendor.value.split('|')[0];
-      var user_ID     = this.refs.vendor.value.split('|')[1];
-      var vendor_ID   = this.refs.vendor.value.split('|')[2];
+      var vendorName  = this.refs.vendorName.value.split('|')[0];
+      var user_ID     = this.refs.vendorName.value.split('|')[1];
+      var vendor_ID   = this.refs.vendorName.value.split('|')[2];
    
     console.log("vendor_ID",vendor_ID);
     console.log("vendorName",vendorName)
 
     var formValues = {
       "vendor_ID"   : vendor_ID,
-      "vendorName"  : this.refs.vendor.value.split('|')[0],
+      "vendorName"  : this.refs.vendorName.value.split('|')[0],
       "section"     : this.refs.section.value.split('|')[0],
+      user_ID       : user_ID,
       "section_ID"  : this.refs.section.value.split('|')[1],
       "category_ID" : this.refs.category.value.split('|')[1],
       "category"    : this.refs.category.value.split('|')[0],
@@ -610,7 +611,7 @@ class AddNewShopProduct extends Component {
                 title: response.data.message,
               });
               this.setState({
-                vendor: "Select Vendor",
+                vendorName: "Select Vendor",
                 section: "Select Section",
                 category: "Select Category",
                 subCategory: "Select Sub-Category",
@@ -726,12 +727,16 @@ class AddNewShopProduct extends Component {
       }
     }
     console.log("this.refs.category.value==>",this.refs.category.value);
-    console.log(" this.state.vendorName--------", this.state.vendorName);
+    var vendorName = this.state.vendorName.split('|')[0];
+    var UserID = this.state.user_ID;
+    console.log("UserID--------", UserID);
+     var vendor_ID   = this.refs.vendorName.value.split('|')[2];
+      var user_ID     = this.refs.vendorName.value.split('|')[1];
     // console.log("this.refs.vendor.value.split('|')[1]==>",this.refs.vendor.value.split('|')[1]);
     var formValues = {
       "vendor_ID"         : this.state.vendor_ID,
       "user_ID"           : this.state.user_ID,
-      "vendorName"        : this.state.vendorName,
+      "vendorName"        : vendorName,
       "section"           : this.refs.section.value.split('|')[0],
       "section_ID"        : this.refs.section.value.split('|')[1],
       "product_ID"        : this.state.editId,
@@ -777,7 +782,7 @@ class AddNewShopProduct extends Component {
               title: response.data.message,
             });
             this.setState({
-              vendor: "Select Vendor",
+              vendorName: "Select Vendor",
               section: "Select Section",
               category: "Select Category",
               categoryNameRlang : "",
@@ -989,7 +994,7 @@ class AddNewShopProduct extends Component {
   }
 
   selectVendor(event){
-    console.log("selectVendor",event.target.getAttribute('vendorID'));
+    console.log("selectVendor-------",event.target.getAttribute('vendorID'));
     this.setState({
       [event.target.name] : event.target.value,
       vendorID : event.target.getAttribute('vendorID')
@@ -1015,10 +1020,11 @@ class AddNewShopProduct extends Component {
                                 <div className="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4 inputFields">
                                   <label>Vendor <i className="redFont">*</i></label>
                                   {/* onChange={this.showRelevantSubCategories.bind(this)} */}
-                                  <select value={this.state.vendor} name="vendor" className="form-control allProductCategories" aria-describedby="basic-addon1" id="vendor" ref="vendor" onChange={this.selectVendor.bind(this)} disabled={this.state.websiteModel === 'MarketPlace' ? false : true}>
+                                  <select value={this.state.vendorName} name="vendorName" className="form-control allProductCategories" aria-describedby="basic-addon1" id="vendorName" ref="vendorName" onChange={this.selectVendor.bind(this)} disabled={this.state.websiteModel === 'MarketPlace' ? false : true}>
                                     <option disabled selected defaultValue="">Select Vendor</option>
                                     {this.state.vendorArray && this.state.vendorArray.length > 0 ?
                                       this.state.vendorArray.map((data, index) => {
+                                        {console.log("vendor options----",data)}
                                         return (
                                          /* this.state.websiteModel == 'SingleOwner'? 
                                           <option key={index} value={data.companyName + '|' + data.user_ID + '|' + data._id} selected>{data.companyName} - ({"VendorID : "+data.companyID})</option>
@@ -1039,7 +1045,7 @@ class AddNewShopProduct extends Component {
 
                           </div>
                           {
-                            ((this.state.websiteModel === "MarketPlace" && this.state.vendor) ||  this.state.websiteModel !== "MarketPlace")
+                            ((this.state.websiteModel === "MarketPlace" && this.state.vendorName) ||  this.state.websiteModel !== "MarketPlace")
                             ?
                               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
                                 <div className="addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">

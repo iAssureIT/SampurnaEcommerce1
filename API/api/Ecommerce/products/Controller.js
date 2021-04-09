@@ -151,6 +151,7 @@ exports.bulkUploadProduct = (req,res,next)=>{
                                     if(typeof(productData[k].originalPrice) === 'number' && productData[k].originalPrice >= 0 ){
                                        if(productData[k].websiteModel === "MarketPlace"){
                                         if(EntityDataArray  != "" && EntityDataArray != undefined ){
+                                            console.log("EntityData--->>>>>>",EntityData);
                                             var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
                                            }else{
                                             remark+= "Company Name not found"
@@ -623,7 +624,7 @@ function taxInsert(taxName,taxRate) {
 
 
 var insertProduct = async (section_ID, section, categoryObject, data,taxObject,EntityData = []) => {
-    // console.log('insertProduct data>>>>>>',data);
+    console.log('insertProduct data>>>>>>',data);
     return new Promise(function(resolve,reject){ 
         productDuplicateControl();
         async function productDuplicateControl(){
@@ -657,7 +658,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                 
                     const products = new Products({
                         _id                       : new mongoose.Types.ObjectId(),   
-                        // user_ID                   : vendor,  
+                        user_ID                   : vendor,  
                         vendor_ID                 : productEntity._id, 
                         vendorName                : productEntity.companyName,  
                         section_ID                : section_ID,           

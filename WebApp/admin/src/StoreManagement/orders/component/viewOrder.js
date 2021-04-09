@@ -142,7 +142,8 @@ class viewOrder extends Component{
                     <div>
                       <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span>Total: </span></div>
                       <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">
-                        <span><i className={"fa fa-"+this.state.orderData.currency}> { parseInt(this.state.orderData.total).toFixed(2) }</i></span>
+                      
+                        <span><i className={"fa fa-"+this.state.orderData.currency}> { parseInt(this.state.orderData.cartTotal).toFixed(2) }</i></span>
                       </div>
                     </div>
                   </div>
@@ -169,11 +170,11 @@ class viewOrder extends Component{
                       this.state.orderData.products.map((data, index)=>{
                         var discountedPrice = parseFloat(data.originalPrice) - parseFloat((data.originalPrice * data.discountPercent) / 100).toFixed(2)
                         return(
-                          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12" style={{marginBottom:"10px"}}>
-                            <div className="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                          <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12" style={{marginBottom:"10px"}}>
+                            <div className="col-lg-3 col-md-2 col-sm-2 col-xs-3">
                               <img src={data.productImage[0]} style={{width:"100%"}}/>
                             </div>
-                            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div className="col-lg-8 col-md-3 col-sm-3 col-xs-6">
                               <strong class="box-title">
                                <a href={"/product-details/"+data.product_ID} className="productname">{data.productName}</a><br/>
                               </strong>

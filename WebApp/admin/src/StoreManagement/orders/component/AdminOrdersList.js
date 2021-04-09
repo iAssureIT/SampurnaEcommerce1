@@ -474,7 +474,7 @@ class AdminOrdersList extends Component{
         filter: false,
         responsive: "stacked",
         selectableRows: 'none',
-        customToolbar: () => { return (<CSVLink className="downloadCsv"  filename={this.props.tableTitle ? this.props.tableTitle+'.csv' : 'Order List.csv'} data={csvData}>  <i class="fa fa-cloud-download" aria-hidden="true" style={{color:'gray'}}></i>
+        customToolbar: () => { return (<CSVLink className="downloadCsv"  filename={this.props.tableTitle ? this.props.tableTitle+'.csv' : 'Order List.csv'} data={csvData}>  <i class="fa fa-cloud-download csvDownload1" aria-hidden="true" style={{color:'gray'}}></i>
         </CSVLink>) },
         
       };
@@ -484,7 +484,7 @@ class AdminOrdersList extends Component{
           franchiseColumn,
           { name:"Customer Name" }, 
           // { name:"Shipping Time" },
-          { name:"Total Items" },
+          { name:"Items" },
           { name:"Total Price" },
           { name:"Order Date" },
           { name:"Status",
@@ -493,6 +493,9 @@ class AdminOrdersList extends Component{
               sort: false,
               selectableRows: false, 
               customBodyRender: (value, tableMeta, updateValue) => {
+                console.log("value---------",value);
+                console.log("tableMeta---------",tableMeta);
+                console.log("updateValue---------",updateValue);
                   return (
                     <div>
                       <div className="admin-orders-stat1">
