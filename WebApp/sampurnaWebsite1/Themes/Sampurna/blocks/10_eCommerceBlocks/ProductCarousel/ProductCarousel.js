@@ -770,7 +770,7 @@ class ProductCarousel extends Component {
       !this.state.loading ?
       <div className="col-12">        
           <Message messageData={this.state.messageData} />  
-          {this.state.blockSettings.showTitle?
+          {this.state.blockSettings.showTitle && this.state.newProducts && this.state.newProducts.length > 0 ?
             <div className="col-12">
               <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
                 {this.state.blockSettings.showCarousel ? 
@@ -806,6 +806,7 @@ class ProductCarousel extends Component {
           :null
           }
         <div className={"col-12 NoPadding "}>
+          {this.state.newProducts && this.state.newProducts.length > 0 ?
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
               <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
                 <div className={"col-12 "}>                    
@@ -1334,7 +1335,9 @@ class ProductCarousel extends Component {
                 </div>
               </div>
             </div>
-        </div>
+          :null
+          }
+       </div>
         
         
       </div>

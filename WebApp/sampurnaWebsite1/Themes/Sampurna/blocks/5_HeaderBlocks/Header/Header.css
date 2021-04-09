@@ -48,7 +48,7 @@
     text-decoration: none;
     text-transform: uppercase;
     font-size: 14px;
-    font-weight: 900;
+    font-weight: 700;
     letter-spacing: 0.1px;
     transition: 0.6s ease;
   }
@@ -115,7 +115,7 @@
     text-align: left;
     list-style: none !important;
     box-shadow: 0 -1px 10px 0px rgba(0,0,0,0.1)!important;
-    margin-top: 8px;
+    margin-top: 16px;
 }
 .mutilevelDropdown1 li,
 .mutilevelDropdown2 li,
@@ -192,7 +192,7 @@ ul:hover > .dropDownLevel3 {
     color: var(--color) !important !important;
     background-color: transparent !important;
     text-decoration: none !important;
-    
+   
 }
 
 .faicon{
@@ -200,11 +200,14 @@ ul:hover > .dropDownLevel3 {
     margin-left: 5px;
     margin-right: 5px;
 }
+.faicon:hover{
+    background-color: transparent !important;
+}
 
 /*============= right navbar ================ */
 .rightNavbar{
     margin-top: 0px !important;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     /* width: 300px; */
     /* margin-right: 50px; */
 
@@ -276,31 +279,37 @@ ul:hover > .dropDownLevel3 {
     margin-right: 10px;
 }
 .tableSearch{
-    height: 42px !important;
-    border-radius: 0px !important;
+    height: 40px !important;
+    border-radius: 5px !important;
     border: solid 1px #ddd !important;
 }
 .searchIcon{
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 38px;
-    height: 38px;
+    top: -2px;
+    right: -2px;
+    width: 40px;
+    height: 40px;
     padding: 8px 5px;
     border: none;
     outline: none;
     cursor: pointer;
-    color: #fff;
     background-color: var(--yellowBgColor) !important;
-    color:#fff !important;
+    color: #000 !important;
     text-align: center;
     margin: 2px;
-    border-radius: 0px;
+    transition: 0.6s ease;
+    font-weight: 900;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.searchIcon:hover{
+    background-color: #aaa !important;
+    color: #fff !important;
 }
 
 .cart-count{
     bottom: 70%;
-    left: 50px;
+    left: 20px;
     height: 20px;
     width: 20px;
     text-align: center;
@@ -323,6 +332,9 @@ ul:hover > .dropDownLevel3 {
 }
 .list-DropDownMenu > li > a{
     transition: 0.6s ease;
+    color: #000;
+    text-decoration: none;
+    font-size: 12px;
 }
 .list-DropDownMenu > li > a:hover{
     /* color: var(--color) !important !important; */
@@ -339,6 +351,8 @@ ul:hover > .dropDownLevel3 {
     font-size: 16px;
     cursor: pointer;
     /* margin-top: 10px; */
+    color: #fff;
+    /* border-right: solid 1px #fff; */
     padding-left: 0px !important;
 }
 .userinfo, .userinfotext {
@@ -398,7 +412,7 @@ ul:hover > .dropDownLevel3 {
 }
 .signoutBtn{
     margin-top: 10px !important;
-    margin-bottom: -5px;
+    margin-bottom: -8px;
     padding: 5px 5px;  
     text-align: center;
 }
@@ -408,17 +422,23 @@ ul:hover > .dropDownLevel3 {
     /* border: solid 1px #154799 !important; */
   }
   .loginView{
-      border:solid 1px #ccc;
-      background-color: #fff;
-      color: var(--color) !important;
-      padding: 9px 5px;
+      /* border:solid 1px #ccc; */
+      /* background-color: #fff; */
+      /* color: var(--color) !important; */
+      /* padding: 9px 5px; */
+      font-weight: 600;
+      color: #fff;
+      padding-top: 5px;
       text-align: center;
       font-size: 13px;
       transition: 0.5s ease;
   }
   .loginView:hover{
-    background-color: #fff;
-    color: var(--color) !important; 
+    /* background-color: #fff; */
+    /* color: var(--color) !important;  */
+  }
+  .loginViewWrapper{
+      display: inline-block !important;
   }
   .loginView:hover .list-DropDownMenu{
     margin-top: 2px !important;
@@ -485,6 +505,24 @@ li a{
     border-right: 50px solid transparent;
     border-bottom: 100px solid red;
 } */
+.cartImg{
+    background-color: #1D5EC6;
+}
+.cartCount{
+    color: #fff;
+    font-size: 9px;
+}
+.cartHeader{
+    background-color: #3174E3;
+    height: 40px;
+    font-weight: 600;
+    color: #fff;
+}
+.cartText{
+    /* float: left; */
+    color: #fff !important;
+    font-size: 9px;
+}
 @media only screen and (max-device-width: 480px) {
     .navbar-toggle .icon-bar{
         width: 18px !important;
@@ -518,12 +556,16 @@ li a{
     .myaccDropdown{
         padding-right: 0px !important;
         padding-left: 15px !important;
+        display: inline-block;
+    }
+    .beforeLogin{
+        display: inline-block;
     }
     .systemSecurity{
         position: absolute !important;
-        top: 15px;
-        right: 10px;
-        left: 99px;
+        top: 0px;
+        /* right: 10px; */
+        /* left: 99px; */
     }
     input::-webkit-input-placeholder{
         font-size: 10px !important;

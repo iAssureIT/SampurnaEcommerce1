@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import axios                from 'axios';
 import $                    from 'jquery';
 import dynamic              from 'next/dynamic';
+import getConfig            from 'next/config';
 import {connect}            from 'react-redux';
-
-import Loader       from "../../component/loader/Loader.js";
-import SmallBanner            from '../../component/CustomizeBlocks/SmallBanner/SmallBanner.js';
-import CartProducts           from './CartProducts.js';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+import CartProducts         from './CartProducts.js';
 import {setBlockData ,setProductApiUrl,getCartData} from '../../redux/actions/index.js';
-import store from '../../redux/store.js';
+import store                from '../../redux/store.js';
 
-import ProductCarousel from '../../component/blockTemplate/ProductCarousel/ProductCarousel.js';
-import Header from '../../component/blockTemplate/Header/Header.js';
-import Footer from '../../component/blockTemplate/Footer/Footer.js';
+const { publicRuntimeConfig } = getConfig();
+//get site name from next.config.js
+const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
+// import ProductCarousel from '../../component/blockTemplate/ProductCarousel/ProductCarousel.js';
 
 // import topBannerImg         from '../../static/bookstore/images/cartBanner.png';
 // import Ecommercenewproductcaro from '../../blocks/ProductCarouselEcommerce/Ecommercenewproductcaro.js';
@@ -101,7 +103,7 @@ class Cart extends Component{
         return(
           <div>
             <Header/>
-            <div className="col-12 col-xl-12 col-sm-12 col-xs-12 col-12">
+            <div className="col-12">
                 <div className="row">                    
                     <SmallBanner bannerData={this.state.bannerData}/>
                     <CartProducts />
@@ -109,12 +111,14 @@ class Cart extends Component{
                     { this.props.pageDatapop.pageBlocks && this.props.pageDatapop.pageBlocks.length > 0 ?
 						          this.props.pageDatapop.pageBlocks.map((result, index)=>{                      
 						          var component = result._id ? result.blockComponentName : "TitleDesc";
-						          // const OtherComponent = loadable(() => import('../../component/blockTemplate/'+component+'/'+component+'.js'))
-                      const OtherComponent = dynamic(() => import('../../component/blockTemplate/'+component+'/'+component+'.js'),					
+                      var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
+						         
+                      // const OtherComponent = dynamic(() => import('../../Sampurna/blocks/'+component+'/'+component+'.js'),	
+                      const OtherComponent = dynamic(() => import('../../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),				
                       {
                         loading: () =>
-                          <div className="col-xl-6 col-xl-offset-3 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
-                            <img src="/images/loader.gif" className=""></img>
+                          <div className="col-2 offset-5 loading">
+                            <img src="/images/eCommerce/loader.gif" className=""></img>
                             {/* loading.... */}
                           </div> 
                       }
@@ -122,7 +126,7 @@ class Cart extends Component{
                       var block_id=result.block_id._id; 
                       // console.log("component",component);
 						          return(
-                        <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 NoPadding" key={index}>
+                        <div className="col-12 NoPadding" key={index}>
                           <OtherComponent block_id={block_id} key={index}/>
                           {/* <h1>Wishlist</h1> */}
                         </div>

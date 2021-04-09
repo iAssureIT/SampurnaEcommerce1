@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import '../../../sites/currentSite/pages/Payment.css';
-// import { withRouter } from 'react-router-dom';
-// import { ntc } from '../../ntc/ntc.js';
-import {ntc} from '../../component/CustomizeBlocks/ntc/ntc.js';
-import Header      from '../../component/blockTemplate/Header/Header.js';
-import Footer      from '../../component/blockTemplate/Footer/Footer.js';
 import moment      from 'moment';
-import BreadCrumbs from '../../component/CustomizeBlocks/BreadCrumbs/BreadCrumbs.js';
-// import notavailable from '../../../sites/currentSite/images/notavailable.jpg';
+
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
+import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
+
 class Payment extends Component {
   constructor(props) {
     super(props);

@@ -5,7 +5,7 @@ import Router               from 'next/router'
 import { connect }        from 'react-redux';
 import {getCartData}          from '../../redux/actions/index.js'; 
 import  store                 from '../../redux/store.js'; 
-import Message from '../../component/CustomizeBlocks/Message/Message.js';
+import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 // import {ntc} from '../../ntc/ntc.js';
 // import { size } from 'underscore';
 // import Loader from "../../common/loader/Loader.js";

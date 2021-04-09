@@ -110,11 +110,11 @@ class header extends React.Component {
    render() {
     return (
 		<div className="col-12 NoPadding loginViewWrapper ">
-            <div className="col-12 NoPadding ">
+            <div className="row NoPadding ">
               {this.state.loggedIn ? 
-                <li className="dropdown myaccDropdown col-12">
+                <li className="dropdown myaccDropdown">
                     <span className="col-12 NoPadding ">
-                        <div className="faIcon faLoginIcon col-12 NoPadding">     
+                        <div className="faIcon faLoginIcon col-12 mt-2 NoPadding">     
                             <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="loginView col-12">My Account</span></span> 
                         </div>
                     </span>
@@ -144,7 +144,7 @@ class header extends React.Component {
                         <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                     </ul>
                 </li>
-                : <span className="beforeLogin col-12" >
+                : <span className="beforeLogin " >
                     <a href="" className="faIcon faLoginIcon col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
                         <span className="col-12 loginView">Login</span> 
                     </a>          

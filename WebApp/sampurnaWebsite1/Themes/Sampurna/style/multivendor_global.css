@@ -116,6 +116,9 @@
 body{
   font-family: 'Montserrat-Medium';
 }
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-size: 13px;
+}
 .globalBgColor{
   background-color: var(--globalBgColor);
 }

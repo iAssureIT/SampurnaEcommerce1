@@ -26,17 +26,17 @@ componentDidMount(){
 
 render(){
     return(   
-            <ul className="nav navbar-nav justify-content-center navbar-center main-nav textAlignCenter col-lg-12 col-md-12 col-sm-12 col-xs-12">        
+            <ul className="nav navbar-nav justify-content-left navbar-center main-nav textAlignCenter col-lg-12 col-md-12 col-sm-12 col-xs-12">        
            {          
                  Array.isArray(this.state.categoryData) && this.state.categoryData.map((sectionDetails,sectionindex)=>{                 
                     return( 
                     <li key={sectionindex.toString()} className="dropdown dropDownLevel1">
                         {/* <Link href={"/section/" +sectionDetails.sectionUrl}> */}
                         <Link href={`/section/${encodeURIComponent(sectionDetails.sectionUrl)}`}>
-                            <a className="hidden-xs">{sectionDetails.section}&nbsp;{sectionDetails.categorylist.length > 0?<i className="fa fa-angle-down"></i>:null}</a>
+                            <a className="">{sectionDetails.section}&nbsp;{sectionDetails.categorylist.length > 0?<i className="fa fa-angle-down"></i>:null}</a>
                         </Link>   
 
-                        <span className="sectionForMobile hidden-lg hidden-md ">{sectionDetails.section}&nbsp;{sectionDetails.categorylist.length > 0?<i className="fa fa-angle-down"></i>:null}</span>                    
+                        {/* <span className="sectionForMobile hidden-lg hidden-md ">{sectionDetails.section}&nbsp;{sectionDetails.categorylist.length > 0?<i className="fa fa-angle-down"></i>:null}</span>                     */}
                         
                         {sectionDetails.categorylist.length>8?
                         <div className=" mega-menu-warpper ">

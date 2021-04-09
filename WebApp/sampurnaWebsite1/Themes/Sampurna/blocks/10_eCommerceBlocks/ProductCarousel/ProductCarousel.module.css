@@ -496,6 +496,7 @@ font-weight: bold;
 }
 .categoryUl{
   list-style-type:none;
+  margin-top: -20px;
 }
 .subCategorylia{
   color: black !important;

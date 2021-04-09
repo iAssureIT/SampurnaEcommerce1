@@ -3,25 +3,27 @@ import $, { post } from 'jquery';
 import jQuery from 'jquery';
 import axios from 'axios';
 import Router from 'next/router';
+import Loaderspinner from 'react-loader-spinner';
 
 // const jsdom = require("jsdom");
 // import _ from 'underscore';
-import Message                from '../../component/CustomizeBlocks/Message/Message.js';
-import SmallBanner            from '../../component/CustomizeBlocks/SmallBanner/SmallBanner.js';
-import Address                from '../../component/CustomizeBlocks/Address/Address.js';
-import Loader                 from '../../component/CustomizeBlocks/Loader/Loader.js';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
+import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
+import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
+import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 
 import { connect }            from 'react-redux';
 import {getCartData}          from '../../redux/actions/index.js'; 
 import  store                 from '../../redux/store.js'; 
-import Header from '../../component/blockTemplate/Header/Header.js';
-import Footer from '../../component/blockTemplate/Footer/Footer.js';
-import Loaderspinner from 'react-loader-spinner'
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import moment from 'moment';
 import swal from 'sweetalert';
-import {ntc} from '../../component/CustomizeBlocks/ntc/ntc.js';
+
 // import 'bootstrap/js/modal.js';
 // import 'bootstrap/js/tab.js';
 // import { ntc } from '../../ntc/ntc.js';
@@ -1235,8 +1237,8 @@ class Checkout extends Component {
                         <form id="checkout">
                            <div className="row">
                             <div className="col-12 col-xl-4 col-lg-4 col-sm-12">
-                                <div className="col-12 NOpadding">
-                                    <div className="col-12 paymentMethod NOpadding">
+                                <div className="col-12 NoPadding">
+                                    <div className="col-12 paymentMethod NoPadding">
                                         <div className="col-12 eCommTitle paymentMethodTitle">PAYMENT METHOD <span className="required">*</span></div>
 
                                         <div className="col-12 paymentInput">
@@ -1259,7 +1261,7 @@ class Checkout extends Component {
                                 </div>
                                 {
                                     this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
-                                        <div className="col-12 shippingAddress NOpadding">
+                                        <div className="col-12 shippingAddress NoPadding">
                                             <div className="col-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS <span className="required">*</span></div>
                                             <div className="col-12 addressWrapper">
                                                 <div className="col-12">
@@ -1316,32 +1318,32 @@ class Checkout extends Component {
                                             </div>
                                         </div>
                                         :
-                                        <div className="col-12 shippingAddress NOpadding">
+                                        <div className="col-12 shippingAddress NoPadding">
                                             <div className="col-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS</div>
                                             {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25">SHIPPING 
                                                 <button className="btn modalBtn anasBtn col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</button>
                                             </div> */}
                                             <div className="col-12 addressWrapper">
                                                 <div className="col-12 shippingInput">
-                                                    <label className="col-12 NOpadding">Full Name <span className="required">*</span></label>
+                                                    <label className="col-12 NoPadding">Full Name <span className="required">*</span></label>
                                                     <input type="text" maxLength="50" ref="username" name="username" id="username" value={this.state.username} 
                                                     onChange={this.handleChange.bind(this)} className="col-12 form-control" />
                                                     <div className="errorMsg">{this.state.errors.username}</div>
                                                 </div>
                                                 <div className="col-12 shippingInput">
-                                                    <label className="col-12 NOpadding">Mobile Number <span className="required">*</span></label>
+                                                    <label className="col-12 NoPadding">Mobile Number <span className="required">*</span></label>
                                                     <input placeholder="Eg. 9876543210" maxLength="10" type="text" ref="mobileNumber" name="mobileNumber" id="mobileNumber" value={this.state.mobileNumber} 
                                                     onChange={this.handleChange.bind(this)} className="col-12 form-control" />
                                                     <div className="errorMsg">{this.state.errors.mobileNumber}</div>
                                                 </div>
                                                 <div className="col-12 shippingInput">
-                                                    <label className="col-12 NOpadding">Email <span className="required">*</span></label>
+                                                    <label className="col-12 NoPadding">Email <span className="required">*</span></label>
                                                     <input type="email" ref="email" name="email" id="email" value={this.state.email} 
                                                     onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
                                                     <div className="errorMsg">{this.state.errors.email}</div>
                                                 </div>
                                                 <div className="col-12 shippingInput">
-                                                    <label className="col-12 NOpadding">House No/Office No <span className="required">*</span></label>
+                                                    <label className="col-12 NoPadding">House No/Office No <span className="required">*</span></label>
                                                     <input type="text" ref="addressLine2" name="addressLine2" id="addressLine2" value={this.state.addressLine2}
                                                     onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
                                                     <div className="errorMsg">{this.state.errors.addressLine2}</div>
@@ -1353,7 +1355,7 @@ class Checkout extends Component {
                                                     >
                                                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                                             <div>
-                                                                <label className="col-12 NOpadding">Search your address here <span className="required">*</span></label>
+                                                                <label className="col-12 NoPadding">Search your address here <span className="required">*</span></label>
                                                                 <input
                                                                     {...getInputProps({
                                                                         placeholder: 'Start typing ...',
@@ -1393,13 +1395,13 @@ class Checkout extends Component {
                                                     </PlacesAutocomplete>
                                                 </div>
                                                 {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput">
-                                                <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Zip/Postal Code <span className="required">*</span></label>
+                                                <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Zip/Postal Code <span className="required">*</span></label>
                                                 <input type="number" ref="pincode" name="pincode" id="pincode" value={this.state.pincode} max="6" onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
                                                 <div className="DeliveryNotPoss">Delivery is not possible on this pincode</div>
                                                 {this.state.pincodeExists ? null : <label style={{ color: "red", fontWeight: "100" }}>This pincode does not exists!</label>}
                                             </div> */}
                                                 <div className="col-12 shippingInput">
-                                                    <label className="col-12 NOpadding">Zip/Postal Code <span className="required">*</span></label>
+                                                    <label className="col-12 NoPadding">Zip/Postal Code <span className="required">*</span></label>
                                                     <input type="number" ref="pincode" name="pincode" id="pincode" defaultValue={this.state.pincode} maxLength="6" minLength="6"
                                                      onChange={this.handleChange.bind(this)} className="col-12 form-control" required />
                                                     {this.state.pincodeExists ? null : <label className="DeliveryNotPoss" style={{ color: "red" }}>This pincode does not exists!</label>}
@@ -1407,7 +1409,7 @@ class Checkout extends Component {
                                                     <div className="errorMsg">{this.state.errors.pincode}</div>
                                                 </div>
                                                 <div className="col-12 shippingInput lastField">
-                                                    <label className="col-12 NOpadding">Address type <span className="required">*</span></label>
+                                                    <label className="col-12 NoPadding">Address type <span className="required">*</span></label>
                                                     <select id="addType" name="addType" ref="addType" defaultValue={this.state.addType} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control">
                                                         <option defaultValue="" disabled>-- Select Address Type -- </option>
                                                         <option defaultValue="Home">Home (All day delivery) </option>
@@ -1424,7 +1426,7 @@ class Checkout extends Component {
                                 }
                             </div>
                             <div className="col-12 col-md-12 col-lg-8 col-sm-12">
-                                <div className="col-12 orderReviews NOpadding table-responsive">
+                                <div className="col-12 orderReviews NoPadding table-responsive">
                                     <div className="col-12 eCommTitle orderReviewsTitle">ORDER REVIEWS</div>
                                     <div className="col-12 orderReviewsWrapper">
                                         <table className="table orderTable">
@@ -1456,7 +1458,7 @@ class Checkout extends Component {
                                                                         </a>
 
                                                                         {data.productDetail.discountPercent ?
-                                                                            <div className="col-12 NOpadding">
+                                                                            <div className="col-12 NoPadding">
                                                                                 <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{data.productDetail.originalPrice}</span>&nbsp;
                                                                             <span className="cartPrice"><i className="fa fa-inr"></i>{data.productDetail.discountedPrice}</span> &nbsp; &nbsp;
                                                                             <span className="cartDiscountPercent">( {Math.floor(data.productDetail.discountPercent)}% Off ) </span>
@@ -1634,7 +1636,7 @@ class Checkout extends Component {
                                             </div>
                                             <div className="modal col-xl-6 offset-xl-3 col-md-6 offset-md-3 col-12 checkoutAddressModal" id="termsNconditionsmodal" role="dialog">
                                                 <div className="col-12">
-                                                    <div className="modal-content  col-12 NOpadding">
+                                                    <div className="modal-content  col-12 NoPadding">
                                                         <div className="modal-header globalBgColor checkoutAddressModal col-12">
                                                             <img src="/images/bookLogo.webp" />
                                                             <button type="button" className="close modalclosebut " data-dismiss="modal">&times;</button>
@@ -1660,7 +1662,7 @@ class Checkout extends Component {
                                         {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                             <div id="termsNconditions col-lg-6 col-md-12"></div>
                                         </div> */}
-                                        {/* <div className="col-lg-5  col-md-12 col-sm-12 col-xs-12 NOpaddingRight">
+                                        {/* <div className="col-lg-5  col-md-12 col-sm-12 col-xs-12 NoPaddingRight">
                                             <span className="col-lg-12 col-md-12 col-xs-12 col-sm-12 nopadding">Select Shipping Time<span className="required">*</span></span>   
                                             <select onChange={this.selectedTimings.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  noPadding  form-control" ref="shippingtime" name="shippingtime" >
                                                 <option name="shippingtime" disabled="disabled" selected="true">-- Select --</option>

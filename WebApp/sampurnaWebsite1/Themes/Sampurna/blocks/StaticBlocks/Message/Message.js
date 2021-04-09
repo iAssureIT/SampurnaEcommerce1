@@ -19,7 +19,7 @@ class Message extends Component{
         // console.log("inside message");
     }
     static getDerivedStateFromProps(nextProps, state) {
-        console.log("messagedata nextProps============",nextProps,state);
+        // console.log("messagedata nextProps============",nextProps,state);
         if(nextProps && nextProps.messageData !== undefined){
             // this.setState({
                 return{

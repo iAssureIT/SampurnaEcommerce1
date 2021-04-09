@@ -5,3 +5,7 @@ featured  - /api/products/get/listbytype/featured
 exclusive - /api/products/get/listbytype/exclusive
 
 particular section  - /api/products/get/listbysection/women
+
+
+
+reference Theme -  https://demo.wpthemego.com/themes/sw_onemall/layout3/
