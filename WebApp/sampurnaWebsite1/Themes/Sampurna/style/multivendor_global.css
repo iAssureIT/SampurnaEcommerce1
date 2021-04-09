@@ -130,8 +130,8 @@ body{
   text-decoration-line: line-through;
 }
 .current{
-  color: var(--gobalCurrentColor) !important;
-  background-color: var(--gobalCurrentBgColor) !important;
+  /*color: var(--gobalCurrentColor) !important;*/
+  /*background-color: var(--gobalCurrentBgColor) !important;*/
 }
 .marginTop50{
   margin-top : 50px;

@@ -6,15 +6,13 @@
 	text-transform: none;
 	font-size: 14px;
 	font-weight: 100;
-    color: #555 !important;
 }
 
 .account-nav .item{
 	margin:1px;
-	background-color:#ddd !important;
+	background-color:#eee;
 }
 .nb-brand{
-	background-color:#eee !important;
 	margin-top: 20px 
 }
 .Featured-Brands-tittle {
@@ -70,15 +68,10 @@ ul.Featured-Brands li {
 .account-nav .current{
     height: 42px;
     padding: 10px;
+    color: #000;
 }
 .account-nav .current1{
     height: 42px;
     padding: 10px;
-    background-color: #ff4157 !important;
 }
- .account-nav.items.current1:hover{
-    background-color: #ccc;
-}
-.account-nav .current a{
-   
-}
+ 
