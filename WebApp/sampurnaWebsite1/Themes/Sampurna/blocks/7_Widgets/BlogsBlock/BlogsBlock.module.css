@@ -1,0 +1,38 @@
+.BlockWrapper{
+  height:auto;
+  background-color: #ccc;
+}
+
+.box {
+  background: #fff;
+  height: 350px;
+  border-radius: 2px;
+  /*color: #fff;*/
+  margin-top: 20px;
+}
+
+
+.box img{
+    height: 180px;
+    width:350px;
+    border-radius: 5px;
+}
+.dateTime{
+  margin-top: 20px;
+  color: #5e728e;
+}
+.teamName{
+  margin-top: 40px;
+  text-align: justify;
+  font-size: 18px;
+  color: #1a57ad;
+}
+.teamProfile{
+  text-align: justify;
+  font-size: 16px;
+}
+
+
+
+  
+  
