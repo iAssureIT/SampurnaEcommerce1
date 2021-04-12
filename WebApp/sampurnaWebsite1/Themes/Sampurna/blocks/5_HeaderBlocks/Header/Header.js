@@ -83,49 +83,34 @@ class Header extends React.Component {
                                     <div className="col-8 col-sm-6  NoPadding">                                    
                                         < SystemSecurityModal />
                                     </div>
-                                    <div className="col-4 col-sm-6 cartHeader NoPadding">
-                                    {this.state.userID?  
+                                    <div className="col-4 col-sm-6 cartHeader NoPadding">                                      
                                         <div className="col-12" >
-                                        <div className="row">
-                                        <div className="col-3 p-2 cartImg">                                      
-                                        <Link href="/cart">
-                                            <a className=" " title="Go to cart page" >
-                                                <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
-                                                {/* <Image
-                                                    src="/images/eCommerce/cart.png"
-                                                    className={"rotateImg"}
-                                                    height ={10}
-                                                    width={10}
-                                                    layout="responsive"
-                                                /> */}
-                                                
-                                            </a>
-                                        </Link>
-                                        </div>
-                                        <div className="col-8 text-center NoPadding">
-                                            <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
-                                            <div className="col-12 cartCount NoPadding">
-                                                {this.props.recentCartData.length>0? this.props.recentCartData[0].cartItems.length : 0 }
-                                                item(s)                                
+                                            <div className="row">
+                                                <div className="col-3 p-2 cartImg">  
+                                                {this.state.userID?
+                                                    <Link href="/cart">
+                                                        <a className=" " title="Go to cart page" >
+                                                            <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                                        </a>
+                                                    </Link>
+                                                :
+                                                <Link href="/cart">
+                                                    <a className=" " title="Go to cart page" >
+                                                        <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                                    </a>
+                                                </Link>
+                                                }
+                                                </div>
+                                                <div className="col-8 text-center NoPadding">
+                                                    <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
+                                                    <div className="col-12 cartCount NoPadding">
+                                                        {this.props.recentCartData.length>0? this.props.recentCartData[0].cartItems.length : 0 }
+                                                        item(s)                                
+                                                    </div>
+                                                </div>  
                                             </div>
-                                        </div>  
-                                        </div>
                                         </div>                                      
-                                        :                                    
-                                        <a href="" className=" " data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
-
-                                            <Image
-                                                src="/images/eCommerce/cart.png"
-                                                className={"rotateImg img-responsive"}
-                                                height ={20}
-                                                width={20}
-                                                layout="responsive"
-                                            />
-                                            <span className="cart-count">
-                                                {this.props.recentCartData.length>0? this.props.recentCartData[0].cartItems.length : 0}                                
-                                            </span>
-                                        </a>                                    
-                                    }
+                                     
                                     {/* {this.state.userID?                                        
                                         <Link href="/cart">
                                             <a className=" " title="Go to cart page" >

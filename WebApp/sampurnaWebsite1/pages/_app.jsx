@@ -26,7 +26,7 @@ const { publicRuntimeConfig } = getConfig();
 axios.defaults.baseURL = publicRuntimeConfig.API_BASE_URL;
 const current_site = publicRuntimeConfig.CURRENT_SITE;
 
-console.log("1.app.js current site===",current_site);
+// console.log("1.app.js current site===",current_site);
 // const dynamicCss = dynamic(() => import('../styles/'+current_site+'_global.css'));
 // import '../styles/'+current_site+'global.css';
 
