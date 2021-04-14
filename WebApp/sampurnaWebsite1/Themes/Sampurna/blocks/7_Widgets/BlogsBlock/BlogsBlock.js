@@ -2,12 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 
-// import Team1       from '../images/Team1.jpg';
-// import Team2       from '../images/Team2.jpg';
-// import Team3       from '../images/Team3.jpg';
-
-
-
 import S from './BlogsBlock.module.css';
 
 export default class BlogsBlock extends React.Component {
@@ -19,7 +13,7 @@ constructor(props) {
 			"blockSubTitle"     : "",
 			"blockDescription"  : '',
 			"blockComponentName": "BlogsBlock",
-			"blockType"         : "4_CustomisedBlocks",
+			"blockType"         : "7_Widgets",
 			"bgImage"           : "",
 			"fgImage1"          : "",
 			"fgImage2"          : "",
@@ -29,7 +23,7 @@ constructor(props) {
 									Title      : "2020-12-07TO5:31:41:814Z", 
 									SubTitle   : "Blog Second", 
 									Link       : "by: Bookstore", 
-									FGImage1   : "/images/CMSBlockType/7_Widgets/Blog1.jpg",
+									FGImage1   : "/images/CMSBlockType/7_Widgets/Blog2.jpg",
 									FGImage2   : "",
 									BGImage    : "",
 								},
@@ -37,7 +31,7 @@ constructor(props) {
 									Title      : "2020-12-07TO5:29:56:232Z", 
 									SubTitle   : "Blog First", 
 									Link       : "by: Bookstore", 
-									FGImage1   : "/images/CMSBlockType/7_Widgets/Blog4.jpg",
+									FGImage1   : "/images/CMSBlockType/7_Widgets/Blog1.jpg",
 									FGImage2   : "",
 									BGImage    : "",
 								},
@@ -100,7 +94,7 @@ constructor(props) {
 		
 
 		return (	
-		<section className={"col-12 row mx-auto "+S.BlockWrapper}>
+		<section className={"col-12  mx-auto row "+S.BlockWrapper}>
 
 				{
 				this.state.blocks.repeatedBlocks && this.state.blocks.repeatedBlocks.length > 0 ?
@@ -108,15 +102,16 @@ constructor(props) {
 				return(
 
 				  
-
-						<div className={"col-12 col-sm-6 col-lg-3 "+S.box}>
-							<div className="row">
-								<img src={data.FGImage1} alt="enteprice" className="col-12" />
-								<div className={"col-12 "+S.dateTime}     dangerouslySetInnerHTML={{ __html: data.Title } }></div>
-								<hr></hr>
-							    <div className={"col-12 "+S.teamName}     dangerouslySetInnerHTML={{ __html: data.SubTitle } }></div>
-							    <div className={"col-12 "+S.teamProfile}  dangerouslySetInnerHTML={{ __html: data.Link } }></div>
-						   </div>
+						<div className="col-12  col-xs-6 col-sm-6 col-lg-3">
+							<div className={"col-12 "+S.box}>
+								<div className="row">
+									<img src={data.FGImage1} alt="enteprice"  className="" />
+								</div>	
+									<div className={"col-12 "+S.dateTime}     dangerouslySetInnerHTML={{ __html: data.Title } }></div>
+									<div className="row"><div className={"col-12 "+S.horizontalLine}></div></div>
+								    <div className={"col-12 "+S.teamName}     dangerouslySetInnerHTML={{ __html: data.SubTitle } }></div>
+								    <div className={"col-12 "+S.teamProfile}  dangerouslySetInnerHTML={{ __html: data.Link } }></div>							  
+							</div>
 						</div>
 				
 

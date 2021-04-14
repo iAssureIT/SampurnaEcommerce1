@@ -4,28 +4,35 @@
 }
 
 .box {
-  background: #fff;
   height: 350px;
-  border-radius: 2px;
-  /*color: #fff;*/
+  background-color: #fff;
   margin-top: 20px;
 }
 
 
 .box img{
     height: 180px;
-    width:350px;
-    border-radius: 5px;
+    width:360px;
 }
 .dateTime{
   margin-top: 20px;
-  color: #5e728e;
+  color: #337ab7;
+}
+.horizontalLine {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eeeeee;
 }
 .teamName{
-  margin-top: 40px;
+  margin-top: 20px;
   text-align: justify;
   font-size: 18px;
-  color: #1a57ad;
+  color: #000;
+  
+}
+.teamName:hover{
+  color: #25bbf3;
 }
 .teamProfile{
   text-align: justify;
