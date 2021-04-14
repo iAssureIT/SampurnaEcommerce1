@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import $                    from 'jquery';
 // import axios                from 'axios';
-// import "./Message.css";
+import  Style from "./Message.module.css";
 
 class Message extends Component{
     constructor(props) {
@@ -21,16 +21,16 @@ class Message extends Component{
     static getDerivedStateFromProps(nextProps, state) {
         // console.log("messagedata nextProps============",nextProps,state);
         if(nextProps && nextProps.messageData !== undefined){
-            // this.setState({
+            
                 return{
                 "alertType"   : nextProps.messageData.type?nextProps.messageData.type:'',
                 "class"       : nextProps.messageData.class?nextProps.messageData.class:'',
                 "icon"        : nextProps.messageData.icon?nextProps.messageData.icon:'',
                 "message"     : nextProps.messageData.message?nextProps.messageData.message:'',
                 "autoDismiss" : nextProps.messageData.autoDismiss?nextProps.messageData.autoDismiss:'',
-                // "someMirroredValue": nextProps.someValue
+                
                 }
-            // })
+            
             if(nextProps.messageData.autoDismiss && nextProps.messageData.autoDismiss === true){
                 setTimeout(() => {
                     this.setState({
@@ -39,7 +39,7 @@ class Message extends Component{
                         icon        : "",
                         message     : ""
                     })
-                }, 3000);
+                }, 36000);
             }
         }
         return null;
@@ -55,7 +55,7 @@ class Message extends Component{
     }
     render(){
         return(
-            <div className="">
+            <div className={Style.alertBox}>
             {
                 this.state.alertType && this.state.alertType === 'inpage' ?
                 <div className={"alert alert-"+this.state.class} role="alert">
@@ -65,7 +65,7 @@ class Message extends Component{
                 this.state.alertType && this.state.alertType === 'outpage' ?
                     <div className="row ml-auto pull-right outpageMessage">
                         <div className="alert-group">
-                            <div className={"alert alert-"+this.state.class+" alert-dismissable alertMessage"}>
+                            <div className={"alert alert-"+this.state.class+" alert-dismissable " +Style.alertMessage}>
                                 <button type="button" className="close" onClick={this.close.bind(this)}>×</button>
                                 <div className={this.state.icon+" inpagemessage"} dangerouslySetInnerHTML={{__html : ("&nbsp;"+this.state.message)}} ></div>
                             </div>

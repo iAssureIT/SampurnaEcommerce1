@@ -14,8 +14,8 @@ class Payment extends Component {
     if (!this.props.loading) {
       this.state = {
         "orderData": [],
-		"companyInfo": [],
-		"orderID" : '',
+		    "companyInfo": [],
+		    "orderID" : '',
         // "notificationData" :Meteor.subscribe("notificationTemplate"),
       };
     } else {

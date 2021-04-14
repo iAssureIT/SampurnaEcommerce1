@@ -5,19 +5,16 @@ import { bindActionCreators } from 'redux';
 import { getCartData,recentCartData } from '../../../../redux/actions/index';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import Message from '../../../../component/CustomizeBlocks/Message/Message.js';
+import Message from '../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
 import ReactImageZoom from 'react-image-zoom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import ProductViewEcommerceDetailsReviewFAQ from "./ProductViewEcommerceDetailsReviewFAQ.js";
-// import {ntc} from '../../component/CustomizeBlocks/ntc/ntc.js';
-import {ntc} from '../../../../component/CustomizeBlocks/ntc/ntc.js';
+import {ntc} from '../../../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 import { withRouter } from 'next/router'
 import dynamic from 'next/dynamic';
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
-
-// const notavailable = dynamic(() => import('../../../sites/'+publicRuntimeConfig.CURRENT_SITE+'/images/notavailable.jpg'))
 
 const responsive = {
 	desktop: {
@@ -562,136 +559,137 @@ class ProductViewEcommerce extends Component {
 		
 	}
 	render() {
-		// console.log("product data  =====",this.state);
-		const props = { width: 400, height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : '/images/notavailable.jpg' };
+		// console.log("product data  =====",this.state);eCommerce
+		const props = { width: 400, height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : '/images/eCommerce/notavailable.jpg' };
 		return (
-			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt20 mb20 boxBorder mobileViewNoPadding">
-				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 boxBorderInner mobileViewNoPadding mt50 ">
-					<div className="col-lg-5 col-md-5 col-sm-12 col-xs-12 stickyDiv">
-						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 imageContainer imgCont">
-							<div className="prod-detail-slider prod-detail-filpCommon col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-								<div id="react-app" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs item img-responsiveProduct">
-									<ReactImageZoom {...props} />
-								</div> 
-								<div id="" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
-								<Carousel
-									className="productview"
-									swipeable={true}
-									draggable={true}
-									showDots={false}
-									responsive={responsive}
-									ssr={true} // means to render carousel on server-side.
-									infinite={true}
-									autoPlay={false}
-									autoPlaySpeed={3000}
-									keyBoardControl={true}
-									customTransition="all .20"
-									transitionDuration={500}
-									// containerClass="carousel-container"
-									removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
-									deviceType={this.props.deviceType}
-									//dotListClass="custom-dot-list-style"
-									itemClass="carousel-item-padding-10-px">
-									{	
-										Array.isArray(this.state.productData.productImage) && this.state.productData.productImage.map((data, index) => {
-											// console.log("map 581 =========>",data)
-											return(
-												<img src={data} className="img-responsive prodImgMobileView" onClick={this.onClickImg.bind(this,data)} key={index}></img>											
-											);
-										})
-									}
-								</Carousel>
+			<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
+				<div className="col-12 boxBorderInner mobileViewNoPadding mt50 ">
+					<div className="row">
+						<div className=" col-12 col-sm-5 stickyDiv">
+							<div className="col-12 imageContainer imgCont">
+								<div className="prod-detail-slider prod-detail-filpCommon col-12 ">
+									<div id="react-app" className="col-12 hidden-sm hidden-xs item img-responsiveProduct">
+										<ReactImageZoom {...props} />
+									</div> 
+									<div id="" className="col-12 NoPadding">
+									<Carousel
+										className="productview"
+										swipeable={true}
+										draggable={true}
+										showDots={false}
+										responsive={responsive}
+										ssr={true} // means to render carousel on server-side.
+										infinite={true}
+										autoPlay={false}
+										autoPlaySpeed={3000}
+										keyBoardControl={true}
+										customTransition="all .20"
+										transitionDuration={500}
+										// containerClass="carousel-container"
+										removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
+										deviceType={this.props.deviceType}
+										//dotListClass="custom-dot-list-style"
+										itemClass="carousel-item-padding-10-px">
+										{	
+											Array.isArray(this.state.productData.productImage) && this.state.productData.productImage.map((data, index) => {
+												// console.log("map 581 =========>",data)
+												return(
+													<img src={data} className="img-responsive prodImgMobileView" onClick={this.onClickImg.bind(this,data)} key={index}></img>											
+												);
+											})
+										}
+									</Carousel>
+									</div>
+								</div>
+							</div>
+							{/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  mt50 hidden-lg hidden-md hidden-sm">
+							{
+								this.state.productData && this.state.productData.productImage && this.state.productData.productImage.length > 0 ?
+									this.state.productData.productImage.map((data, index) => {
+										
+										// if (!_.isEmpty(data)) {
+										return (
+											<div key={index} className="item col-lg-12 col-md-12 col-sm-12 col-xs-12 "  >
+												<div className="row">
+													{
+														data && <img data-index={index} id="change-image" onClick={this.changeImage} src={data} className="img-responsive" alt="default" />
+													}
+												</div>
+											</div>
+										);
+										// }
+									})
+									:
+									null
+							}
+						</div> */}
+							<div className="col-12 imageContainer mt50 hidden-sm hidden-xs">
+								<div className="">
+									{/* <Carousel
+										className="owl-theme productview"
+										swipeable={false}
+										draggable={false}
+										showDots={false}
+										responsive={responsive}
+										ssr={true} // means to render carousel on server-side.
+										infinite={true}
+										autoPlay={this.props.deviceType !== "mobile" ? true : false}
+										autoPlaySpeed={3000}
+										keyBoardControl={true}
+										customTransition="all .20"
+										transitionDuration={500}
+										// containerClass="carousel-container"
+										removeArrowOnDeviceType={["tablet", "mobile"]}
+										deviceType={this.props.deviceType}
+										//dotListClass="custom-dot-list-style"
+										itemClass="carousel-item-padding-10-px">
+										{
+											this.state.productData && this.state.productData.productImage && this.state.productData.productImage.length > 0 ?
+												this.state.productData.productImage.map((data, index) => {
+													
+													// if (!_.isEmpty(data)) {
+													return (
+														<div key={index} className="item col-lg-12 col-md-12 col-sm-12 col-xs-12 miniImagesInNew"  >
+															<div className="row">
+																{
+																	data && <img data-index={index} id="change-image" onClick={this.changeImage} src={data} className="img-responsive" alt="default" />
+																}
+															</div>
+														</div>
+													);
+													// }
+												})
+												:
+												null
+										}
+									</Carousel> */}
 								</div>
 							</div>
 						</div>
-						{/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  mt50 hidden-lg hidden-md hidden-sm">
-						{
-							this.state.productData && this.state.productData.productImage && this.state.productData.productImage.length > 0 ?
-								this.state.productData.productImage.map((data, index) => {
-									
-									// if (!_.isEmpty(data)) {
-									return (
-										<div key={index} className="item col-lg-12 col-md-12 col-sm-12 col-xs-12 "  >
-											<div className="row">
-												{
-													data && <img data-index={index} id="change-image" onClick={this.changeImage} src={data} className="img-responsive" alt="default" />
-												}
-											</div>
-										</div>
-									);
-									// }
-								})
-								:
-								null
-						}
-					</div> */}
-						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 imageContainer mt50 hidden-sm hidden-xs">
-							<div className="">
-								{/* <Carousel
-									className="owl-theme productview"
-									swipeable={false}
-									draggable={false}
-									showDots={false}
-									responsive={responsive}
-									ssr={true} // means to render carousel on server-side.
-									infinite={true}
-									autoPlay={this.props.deviceType !== "mobile" ? true : false}
-									autoPlaySpeed={3000}
-									keyBoardControl={true}
-									customTransition="all .20"
-									transitionDuration={500}
-									// containerClass="carousel-container"
-									removeArrowOnDeviceType={["tablet", "mobile"]}
-									deviceType={this.props.deviceType}
-									//dotListClass="custom-dot-list-style"
-									itemClass="carousel-item-padding-10-px">
-									{
-										this.state.productData && this.state.productData.productImage && this.state.productData.productImage.length > 0 ?
-											this.state.productData.productImage.map((data, index) => {
-												
-												// if (!_.isEmpty(data)) {
-												return (
-													<div key={index} className="item col-lg-12 col-md-12 col-sm-12 col-xs-12 miniImagesInNew"  >
-														<div className="row">
-															{
-																data && <img data-index={index} id="change-image" onClick={this.changeImage} src={data} className="img-responsive" alt="default" />
-															}
-														</div>
-													</div>
-												);
-												// }
-											})
-											:
-											null
-									}
-								</Carousel> */}
-							</div>
-						</div>
-					</div>
 
-					<div className="col-lg-6 col-md-6  col-sm-12 col-xs-12 ">
+						<div className="col-12 col-sm-6 ">
 						<Message messageData={this.state.messageData} />
-						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div className="col-12">
 							<div className="row">
 
 							{this.state.productData.brandNameRlang?
-                                <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProduct_brand RegionalFont NoPadding productDetailsMB "} title={this.state.productData.brandNameRlang}>{this.state.productData.brandNameRlang}</div>
+                                <div className={"col-12 globalProduct_brand RegionalFont NoPadding productDetailsMB "} title={this.state.productData.brandNameRlang}>{this.state.productData.brandNameRlang}</div>
                                 :
-                                <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProduct_brand NoPadding productDetailsMB"} title={this.state.productData.brand}>{this.state.productData.brand}</div>
+                                <div className={"col-12 globalProduct_brand NoPadding productDetailsMB"} title={this.state.productData.brand}>{this.state.productData.brand}</div>
                               }
                               {this.state.productData.productNameRlang?
-                                <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProductItemName NoPadding productDetailsMB" } title={this.state.productData.productNameRlang}>
+                                <div className={"col-12 globalProductItemName NoPadding productDetailsMB" } title={this.state.productData.productNameRlang}>
                                     <span className={" RegionalFont ellipsis globalProdName productNameClassNew"}>{this.state.productData.productNameRlang} </span>&nbsp;    
 								    <span className=""> <span className="productCode"> ( Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode} )</span> </span>
-								    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 productDetailsMB">									
+								    <div className="col-12 productDetailsMB">									
 										<div className="undrln row"> </div>
 								    </div>                                    
                                 </div>
                                 :
-                                <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProductItemName NoPadding NoPadding" } title={this.state.productData.productName}>
+                                <div className={"col-12 globalProductItemName NoPadding NoPadding" } title={this.state.productData.productName}>
 									<span className={ "ellipsis globalProdName"}>{this.state.productData.productName} </span>&nbsp;
 									<div ><span className="productNameClassNew"> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> ( <span className="marathiName">{this.state.productData.shortDescription}</span> )</div>
-									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">									
+									<div className="col-12">									
 										<div className="undrln row"> </div>
 									</div>
 								</div>
@@ -710,9 +708,9 @@ class ProductViewEcommerce extends Component {
 								</div> */}
 
 								
-								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 productDetailsMT">
+								<div className="col-12 productDetailsMT">
 									<div className="row">
-										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mb15">
+										<div className="col-12 NOpadding mb15">
 											{this.state.websiteModel ==="FranchiseModel"?
 												<div>
 													{/* {this.state.productData.unit === "Box" || this.state.productData.unit === "Wrap" || this.state.productData.unit === "Pack" || this.state.productData.unit==="pounch" ?
@@ -745,122 +743,127 @@ class ProductViewEcommerce extends Component {
 
 											
 										</div>
-										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+										<div className="col-12 NOpadding">
 											{this.state.reviewAverage ?<div> <div className="col-lg-1 col-md-1 product-reviews-summary ratebox">{this.state.reviewAverage} &nbsp;<i className="fa fa-star"></i></div> &nbsp; {this.state.reviewData.length} ratings and reviews</div> : null}
 										</div>
 									</div>
 
 									<div className="row listspace">
 										{this.state.productData.featureList ?
-											<span className="col-md-12 col-lg-12 col-sm-12 col-xs-12 paddingleftzero paddingrightzero ttl" >
+											<span className="col-12 paddingleftzero paddingrightzero ttl" >
 												Features
 											</span>
 											:
 											null
 										}
-										<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 ttllist" dangerouslySetInnerHTML={{__html: this.state.productData.featureList}}></div>
+										<div className="col-12 ttllist" dangerouslySetInnerHTML={{__html: this.state.productData.featureList}}></div>
 												
 									</div>
 								</div>
-								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 adCart mobileViewNoPadding">
+								<div className="col-12 adCart mobileViewNoPadding">
 									<div className="row spc">
-										<form id="productView" className="col-lg-9 col-md-12 col-sm-12 col-xs-12 NOpadding">
+										<form id="productView" className="col-12 col-xl-9 NOpadding">
+											<div className="row">
 										{
                                             this.state.productData.availableQuantity > 0 ?
-												<div className="col-lg-9 col-md-9 col-sm-9 col-xs-10 NOpadding">
-													<div className="col-lg-3 col-md-3 col-sm-3 col-xs-2 qtyInput globaleCommLargeBtn" id="totalQuanity">
-														1
-													</div>
-													<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-														<i className="fa fa-plus qtyIncrease globaleCommLargeBtn" id="addQuantity" onClick={this.addQuantity.bind(this)}></i><br />
-														<i className="fa fa-minus qtyIncrease globaleCommLargeBtn" id="decreaseQuantity" onClick={this.decreaseQuantity.bind(this)}></i>
-													</div>
-													<div className="col-lg-7 col-md-7 col-sm-7 col-xs-7 NOpadding mobileViewPaddingLeft">
-														{this.state.userid?
-														<div id={this.state.productData._id} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 viewAddtoCart globaleCommLargeBtn"  > &nbsp; Add To Cart</div>
-														:
-														<div id={this.state.productData._id} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 viewAddtoCart globaleCommLargeBtn" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" > &nbsp; Add To Cart</div>
-														}	
+												<div className="col-9 NOpadding">
+													<div className="row">
+														<div className="col-2 col-sm-3 qtyInput globaleCommLargeBtn" id="totalQuanity">
+															1
+														</div>
+														<div className="col-2">
+															<i className="fa fa-plus qtyIncrease globaleCommLargeBtn" id="addQuantity" onClick={this.addQuantity.bind(this)}></i><br />
+															<i className="fa fa-minus qtyIncrease globaleCommLargeBtn" id="decreaseQuantity" onClick={this.decreaseQuantity.bind(this)}></i>
+														</div>
+														<div className="col-7 NOpadding mobileViewPaddingLeft">
+															{this.state.userid?
+															<div id={this.state.productData._id} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 viewAddtoCart globaleCommLargeBtn"  > &nbsp; Add To Cart</div>
+															:
+															<div id={this.state.productData._id} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 viewAddtoCart globaleCommLargeBtn" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" > &nbsp; Add To Cart</div>
+															}	
+														</div>
 													</div>
 												</div>
-											:
-												<div className=" col-lg-9 col-md-9 col-sm-12 col-xs-12 NOpadding pull-right">
-													<span className="soldOut">Sold Out</span>
-													<p className="soldOutP">This item is currently out of stock</p>
-												</div>
-											}
-
-											<div className="col-lg-3 col-md-3 col-sm-3 col-xs-2 mobileViewNoPadding">
-												{this.state.userid?
-												<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn "+this.state.wishIconClass}>
-														{this.state.wishIconClass ==="viewWishListActive"?
-															<i className="fas fa-heart heartIcon"></i>
-														:
-															<i className="far fa-heart heartIcon"></i>
-														}
-												</div>
-												:
-												<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn "+this.state.wishIconClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
-														{this.state.wishIconClass ==="viewWishListActive"?
-															<i className="fas fa-heart heartIcon"></i>
-														:
-															<i className="far fa-heart heartIcon"></i>
-														}
-												</div>												
-												}
+										:
+											<div className=" co-12 col-sm-9 NOpadding pull-right">
+												<span className="soldOut">Sold Out</span>
+												<p className="soldOutP">This item is currently out of stock</p>
 											</div>
-											{this.state.productData.availableQuantity > 0 && this.state.productData.color ?
-												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-													{this.state.relatedProductArray && this.state.relatedProductArray.length>0?
-														this.state.relatedProductArray.map((a,i)=>{
-															if(a.color){
-																var color  = ntc.name(a.color);
-																if(i===0){
-																	return(
-																		<div>
-																			<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt15 detailtitle">Color</label>
-																			<div className="col-lg-1 col-md-1 col-sm-1 col-xs-2 NOpadding">
-																				<label title={color[1]} className="colorBox">
-																					<input title="Please select color first." checked={this.state.selectedColor === a.color ? true : false} value={a.color} name="color" type="radio" id={a._id} onChange={this.setNewProduct.bind(this)}/>
-																					<span style={{'backgroundColor' : a.color}} className="color col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding"></span>
-																				</label>
-																			</div>
-																			
-																		</div>
-																	);
-																}else{
-																	return(
-																		<div className="col-lg-1 col-md-1 col-sm-1 col-xs-2 NOpadding">
+										}
+										
+										<div className="col-2 col-sm-3  mobileViewNoPadding">
+											{this.state.userid?
+											<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn "+this.state.wishIconClass}>
+													{this.state.wishIconClass ==="viewWishListActive"?
+														<i className="fas fa-heart heartIcon"></i>
+													:
+														<i className="far fa-heart heartIcon"></i>
+													}
+											</div>
+											:
+											<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn "+this.state.wishIconClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
+													{this.state.wishIconClass ==="viewWishListActive"?
+														<i className="fas fa-heart heartIcon"></i>
+													:
+														<i className="far fa-heart heartIcon"></i>
+													}
+											</div>												
+											}
+										</div>
+										{this.state.productData.availableQuantity > 0 && this.state.productData.color ?
+										<div className="col-12 NOpadding">
+											{this.state.relatedProductArray && this.state.relatedProductArray.length>0?
+												this.state.relatedProductArray.map((a,i)=>{
+													if(a.color){
+														var color  = ntc.name(a.color);
+															return(
+																<div className="col-12 " key={i}>
+																<div className="row">
+																 { i===0?	
+																	<div>															
+																		<label className="col-12 NOpadding mt15 detailtitle">Color</label>
+																		<div className="col-sm-1 col-2 NOpadding">
 																			<label title={color[1]} className="colorBox">
 																				<input title="Please select color first." checked={this.state.selectedColor === a.color ? true : false} value={a.color} name="color" type="radio" id={a._id} onChange={this.setNewProduct.bind(this)}/>
 																				<span style={{'backgroundColor' : a.color}} className="color col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding"></span>
 																			</label>
 																		</div>
-																	);
+																	</div>
+																	
+																	:
+																	<div className="col-sm-1 col-2 NOpadding">
+																		<label title={color[1]} className="colorBox">
+																			<input title="Please select color first." checked={this.state.selectedColor === a.color ? true : false} value={a.color} name="color" type="radio" id={a._id} onChange={this.setNewProduct.bind(this)}/>
+																			<span style={{'backgroundColor' : a.color}} className="color col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding"></span>
+																		</label>
+																	</div>
 																}
-															}
-														})
-														:
-														null
-													}
-													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding colorError">
-														<label id="color"></label>
-													</div>
-												</div>
-												:
+																</div>
+																</div>
+															);														
+													}													
+												})
+											:
 												null
 											}
+											<div className="col-12 NOpadding colorError">
+												<label id="color"></label>
+											</div>
+										</div>
+										:
+											null
+										}
 											{/* <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt15 detailtitle">Select Size </label> */}
 											{this.state.productData.availableQuantity > 0 ?
-												<div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-													<div className="col-lg-12 col-md-12 col-sm-12 row">
+												<div className=" col-12 NOpadding">
+													<div className="col-12 row">
 													
 													{Array.isArray(this.state.productSizeArray) && this.state.productSizeArray.length>0?
 														this.state.productSizeArray.map((a,i)=>{
 															// console.log("a in product==>",a)
 															if(a.size){																	
 																	return(	
-																	<div>												
+																	<div key={i}>												
 																		{/* <input title="Please select size first." checked={this.state.selectedSize === a.size ? true : false} value={a.size} name="size" type="radio" id={a._id} onChange={this.setNewSizeProduct.bind(this)}/> */}
 																		{/* <span title={a.size} checked={this.state.selectedSize === a.size ? true : false} value={a.size} name="size" type="radio" id={a._id} onClick={this.setNewSizeProduct.bind(this,a._id)} className="checkmark mg15 row col-lg-4 col-md-12 col-sm-12 col-xs-12">{a.size}&nbsp;{a.unit}</span> */}
 																	{/* {	
@@ -894,7 +897,7 @@ class ProductViewEcommerce extends Component {
 												:
 												null
 											}										
-
+										</div>										
 										</form>
 									</div>
 								</div>
@@ -930,15 +933,16 @@ class ProductViewEcommerce extends Component {
 						</div>
 						{
 							this.state.productData.productDetails ? 
-							<div id="gotoreview" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding topspace detailtitle globaltext">DESCRIPTION</div>
+							<div id="gotoreview" className="col-12 NOpadding">
+								<div className="col-12 NOpadding topspace detailtitle globaltext">DESCRIPTION</div>
 								<div className="spcbx topspace15"></div>
-								<div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 NoPadding ttllist" dangerouslySetInnerHTML={{__html: this.state.productData.productDetails}}></div>
+								<div className="col-12 NoPadding ttllist" dangerouslySetInnerHTML={{__html: this.state.productData.productDetails}}></div>
 							</div>
 							:
 							null
 						}
 						<ProductViewEcommerceDetailsReviewFAQ productID = { this.state.productID } />
+					</div>
 					</div>
 				</div>
 				

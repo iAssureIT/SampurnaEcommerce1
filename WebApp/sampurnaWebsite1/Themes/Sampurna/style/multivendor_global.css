@@ -15,7 +15,6 @@
 @import "../../../sites/multivendor/blocks/CartProducts.css";
 @import "../../../sites/multivendor/pages/Cart.css";
 @import "../../../sites/multivendor/blocks/SmallBanner.css";
-@import "../../../sites/multivendor/blocks/Message.css";
 @import "../../../sites/multivendor/pages/Address.css";
 @import "../../../sites/multivendor/pages/AddressBook.css";
 @import "../../../sites/multivendor/pages/Checkout.css";
@@ -68,7 +67,7 @@
   --globaleCommBtnBorderRadius: 5px !important;
   --globaleCommBtnBorder: solid 2px #154799;
   --globaleCommBtnPadding: 14px 20px;
-  --globaleCommBtnfontSize: 16px;
+  --globaleCommBtnfontSize: 15px;
   --globaleCommBtnMarginTop: 10px;
   --globaleCommBtnBgHover: #fff;
   --globaleCommBtnHoverColor: #154799;
@@ -106,6 +105,7 @@
   --Discountcolor : #f83a3a;
   --whiteColor : #fff;
   --yellowBgColor : #FFD43C;
+  --modalBackcolor: #000;
   --color: #154799 !important;
   --border : 1px solid #154799;
   --border2px : 2px solid #154799;
@@ -118,6 +118,9 @@ body{
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   font-size: 13px;
+}
+.a:hover{
+  text-decoration: none !important;
 }
 .globalBgColor{
   background-color: var(--globalBgColor);
@@ -132,6 +135,11 @@ body{
 .current{
   /*color: var(--gobalCurrentColor) !important;*/
   /*background-color: var(--gobalCurrentBgColor) !important;*/
+}
+.modal-backdrop{
+  opacity: 0.7 !important;
+  /* background-color: #000 !important; */
+  background-color: var(--modalBackcolor) !important;
 }
 .marginTop50{
   margin-top : 50px;
@@ -319,7 +327,6 @@ body{
 .rotateImg{
   transform-style: preserve-3d;
   -webkit-transition: all 1.0s ease;
-
 }
 .rotateImg:hover{
   transform: rotateY(360deg);
@@ -350,7 +357,6 @@ body{
   top:20px;
   max-width: 200px;
 }
-
 .carousel-item-padding-10-px{
   padding : 10px;
 }
@@ -480,7 +486,6 @@ body{
   font-size: 30px;
   padding-top: 100px;
 }
-
 .loading{
   padding-top: 130px;
   height: 400px;
@@ -516,11 +521,9 @@ body{
   .textAlignCenter{
     text-align: center
   }
-  
   .siteNotcreated{
     color: #777777
   }
-
   /* annimated button css */
   .middle{
     position: absolute;
@@ -565,7 +568,6 @@ body{
     z-index: -1;
     transition: all 0.6s ease;
   }
-  
   .btn1::before{
     width: 0%;
     height: 100%;

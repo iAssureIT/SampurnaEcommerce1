@@ -126,11 +126,12 @@
     /* border-bottom: solid 1px #ddd; */
     /* padding-bottom: 5px; */
 }
+.dropDownLevel1 a,
 .mutilevelDropdown1 li a,
 .mutilevelDropdown2 li a,
 .mutilevelDropdown3 li a,
 .mutilevelDropdown4 li a{
-    padding: 10px 5px;
+    text-decoration: none !important;
 }
 .mutilevelDropdown1 .fa-angle-right,
 .mutilevelDropdown2 .fa-angle-right,
@@ -236,17 +237,12 @@ ul:hover > .dropDownLevel3 {
     height: 60px;
 }
 .cartCount{
+    color: #fff;
     padding: 0px 4px;
-    border: dotted 1px #154799;
+    /* border: dotted 1px #154799; */
     border-radius: 100%;
     font-size: 12px;
 }
-.modal-backdrop{
-    opacity: 0.7 !important;
-    /* background-color: #F3B0BB !important; */
-    background-color: var(--color) !important;
-}
-
 /*===========Megamenu===============*/
 .megamenu{
     background-color: var(--globalColor) !important;
@@ -344,7 +340,7 @@ ul:hover > .dropDownLevel3 {
     font-size: 14px;
 }
 .beforeLogin{
-    /* margin-top: 10px; */
+    margin-top: 10px;
 }
 .myaccDropdown{
     list-style: none !important;
@@ -430,7 +426,7 @@ ul:hover > .dropDownLevel3 {
       color: #fff;
       padding-top: 5px;
       text-align: center;
-      font-size: 13px;
+      font-size: 15px;
       transition: 0.5s ease;
   }
   .loginView:hover{
@@ -508,10 +504,7 @@ li a{
 .cartImg{
     background-color: #1D5EC6;
 }
-.cartCount{
-    color: #fff;
-    font-size: 9px;
-}
+
 .cartHeader{
     background-color: #3174E3;
     height: 40px;

@@ -26,7 +26,7 @@ componentDidMount(){
 
 render(){
     return(   
-            <ul className="nav navbar-nav justify-content-left navbar-center main-nav textAlignCenter col-lg-12 col-md-12 col-sm-12 col-xs-12">        
+            <ul className="nav navbar-nav justify-content-left navbar-center main-nav col-12">        
            {          
                  Array.isArray(this.state.categoryData) && this.state.categoryData.map((sectionDetails,sectionindex)=>{                 
                     return( 
@@ -43,9 +43,9 @@ render(){
                         <ul className="ulDropdown">
                         {Array.isArray(sectionDetails.categorylist) && sectionDetails.categorylist.map((cateoryDetails,catindex)=>{ 
                             return(
-                            <li key={catindex.toString()} className="dropDownLevel2 col-lg-12">
+                            <li key={catindex.toString()} className="dropDownLevel2 col-12">
                                 <Link href={`/category/${encodeURIComponent(cateoryDetails.categoryUrl)}`}>
-                                    <a className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ellipsis" title={cateoryDetails.category}>{cateoryDetails.category}</a>
+                                    <a className="col-12 ellipsis" title={cateoryDetails.category}>{cateoryDetails.category}</a>
                                 </Link>                                
                             </li> 
                             );

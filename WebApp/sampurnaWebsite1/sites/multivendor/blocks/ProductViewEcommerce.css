@@ -219,7 +219,7 @@
 }
 .priceEcommerceNew{
     /* color:#80b435; */
-    font-size: 1.8rem !important;
+    font-size: 18px !important;
     font-weight: 700;
     line-height: 25px;
 }
@@ -803,8 +803,8 @@ position:relative;
 
 
 .show {
-  width: 400px;
-  height: 400px;
+  /* width: 400px;
+  height: 400px; */
 }
 
 .small-img {

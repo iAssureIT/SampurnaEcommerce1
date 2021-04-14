@@ -341,7 +341,7 @@ export default class Banner extends React.Component {
                         
                         :
                           <div className="col-2 loading">
-                              <img src="/images/loader.gif" className="lazyload" loading="lazy"></img>
+                              <img src="/images/eCommerce/loader.gif" className="lazyload" loading="lazy"></img>
                               {/* <Image
                                 src={"/images/loader.gif"}                                
                                 height ={400}

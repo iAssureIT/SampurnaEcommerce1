@@ -1634,13 +1634,13 @@ class Checkout extends Component {
                                                     }
                                                 </select>
                                             </div>
-                                            <div className="modal col-xl-6 offset-xl-3 col-md-6 offset-md-3 col-12 checkoutAddressModal" id="termsNconditionsmodal" role="dialog">
+                                            <div className="modal col-12 col-sm-6 offset-3 checkoutAddressModal" id="termsNconditionsmodal" role="dialog">
                                                 <div className="col-12">
                                                     <div className="modal-content  col-12 NoPadding">
                                                         <div className="modal-header globalBgColor checkoutAddressModal col-12">
-                                                            <img src="/images/bookLogo.webp" />
-                                                            <button type="button" className="close modalclosebut " data-dismiss="modal">&times;</button>
-                                                            <h4 className="modal-title modalheadingcont">TERMS AND CONDITIONS</h4>
+                                                            <img src="/images/eCommerce/multistoreLogo.png" className="col-3" />
+                                                            <h6 className="modal-title col-8 modalheadingcont text-center">TERMS AND CONDITIONS</h6>
+                                                            <button type="button" className="col-1 close modalclosebut " data-dismiss="modal">&times;</button>
                                                         </div>
                                                         <div className="modal-body col-12 checkoutAddressModal">
                                                             <ul className="listStyle">

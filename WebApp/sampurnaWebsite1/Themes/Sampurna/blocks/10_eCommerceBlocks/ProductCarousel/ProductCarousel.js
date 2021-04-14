@@ -86,7 +86,7 @@ class ProductCarousel extends Component {
         showCarousel       : true,
         totalProducts      : 12,
         leftSideFilters    : false
-      },     
+      }, 
       ProductsLoading : false,
       loading         : true,
       blockTitle: "Fruits",
@@ -787,7 +787,7 @@ class ProductCarousel extends Component {
 
           {/* show breadCrumbsLink */}
           { this.state.blockSettings.showCarousel === false?
-          <div className={"row " +Style.breadCrumbs}>            
+          <div className={ "col-12 NoPadding " +Style.breadCrumbs}>            
             <ul className={Style.links}>
 								<li><Link href="/"><a>Home / </a></Link></li>&nbsp;
                 {/* {console.log("breadcrum category===",this.state.categoryData)} */}
@@ -1342,7 +1342,7 @@ class ProductCarousel extends Component {
         
       </div>
       :
-      <div className="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4  col-sm-4 col-sm-offset-4 col-xs-12 loading">
+      <div className="col-4 offset-4 loading">
           <img loading="lazy" src="/images/eCommerce/loader.gif" className="lazyload"></img>
       </div>
  

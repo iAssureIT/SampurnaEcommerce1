@@ -22,7 +22,7 @@ function Home({pageData,productApi}) {
 
 
 export async function getServerSideProps({query}){
-  console.log("query",query)
+  // console.log("query",query)
   var productApi = "/api/products/get/listbycategory/"+query.categoryUrl;
   const urlParam = query.categoryUrl ? query.categoryUrl : 'product-list'
   const res = await axios.get("api/pages/get/page_block/product-list")

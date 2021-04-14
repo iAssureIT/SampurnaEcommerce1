@@ -27,7 +27,7 @@
     background: #F7BB64;
 }
 .cartProductDetail{
-    padding: 0px 25px;
+    padding: 0px 10px;
     margin-bottom: 10px !important;
 }
 .cartProductDetail a{
@@ -57,25 +57,14 @@
     margin-top: 10px;
     font-size: 18px !important;
 }
-.minusQuantity{
-    border: 1px solid #80b435;
-    cursor: pointer;
-    border-radius: 4px;
-    padding: 10px;
-    background: #fff;
-    color: #80b435;
-}
+.minusQuantity,
 .plusQuantity{
-    border: 1px solid #80b435;
     cursor: pointer;
-    border-radius: 4px;
-    padding: 10px;
-    /* background: #A2632C; */
-    color: #80b435;
+    border-radius: 2px;
+    padding: 5px;
 }
 .inputQuantity{
-    /* border-radius: 4px; */
-    padding: 8px 10px;
+    padding: 4px 5px;
     background: #fff;
     border: 1px solid #dbd5d5;
     color: #5c5c5c;
@@ -101,7 +90,7 @@
 .quantityWrapper{
     text-align: center;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
 }
 .cartDelete{
     margin-top: 6px;
@@ -134,12 +123,20 @@
     margin-top: 20px;
     word-break: break-all;
 }
+.summaryTable>tbody,
+.summaryTable>tbody>tr{
+    display: block !important;
+}
+.summaryTable>tbody>tr{
+    border-top: 1px solid #ddd !important;
+}
+
 .summaryTable>tbody>tr>td {
     /*white-space: nowrap;*/
     padding: 12px 8px;
     line-height: 1.42857143;
     vertical-align: top;
-    border-top: 1px solid #ddd;
+    border-top: none !important;
 }
 .cartCheckout{
     font-weight: 700;

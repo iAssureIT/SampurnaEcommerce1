@@ -112,7 +112,7 @@ class Cart extends Component{
 						          this.props.pageDatapop.pageBlocks.map((result, index)=>{                      
 						          var component = result._id ? result.blockComponentName : "TitleDesc";
                       var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
-						         
+                      var block_id=result.block_id._id; 
                       // const OtherComponent = dynamic(() => import('../../Sampurna/blocks/'+component+'/'+component+'.js'),	
                       const OtherComponent = dynamic(() => import('../../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),				
                       {
@@ -122,8 +122,8 @@ class Cart extends Component{
                             {/* loading.... */}
                           </div> 
                       }
-                      );
-                      var block_id=result.block_id._id; 
+                      ); 
+                      
                       // console.log("component",component);
 						          return(
                         <div className="col-12 NoPadding" key={index}>

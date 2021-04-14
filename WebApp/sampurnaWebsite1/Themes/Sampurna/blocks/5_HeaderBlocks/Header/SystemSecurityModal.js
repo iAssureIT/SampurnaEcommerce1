@@ -153,39 +153,39 @@ class header extends React.Component {
             </div>
 			<div id="loginFormModal" className="modal in"  data-keyboard="false" >
 				<div className="modal-dialog" >                                        
-					<div className="modal-content loginModalContent col-12 col-sm-10 offset-sm-1 loginBackImageHeight" style={{'background': '#fff'}}>                            
+					<div className="modal-content loginModalContent  loginBackImageHeight" style={{'background': '#fff'}}>                            
                         <div className="modal-body">  
-                        <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>                                                           
-                                {this.props.formToShow === "login" ?
-                                    <div className="col-12 loginForm mobileViewNoPadding">
-                                        <Login />
-                                    </div>  
-                                : null
-                                }  
-                                {this.props.formToShow === "signUp" ?
-                                    <div className="col-12 signupForm mobileViewNoPadding">
-                                        <SignUp />
-                                    </div>  
-                                : null
-                                } 
-                                {this.props.formToShow === "forgotPassword" ?
-                                    <div className="col-12 loginForm mobileViewNoPadding">
-                                        <ForgotPassword />
-                                    </div>  
-                                : null
-                                }  
-                                {this.props.formToShow === "confirmOtp" ?
-                                    <div className="col-12 loginForm mobileViewNoPadding">
-                                        <ConfirmOtp />
-                                    </div>  
-                                : null
-                                } 
-                                {this.props.formToShow === "resetPassword" ?
-                                    <div className="col-12 loginForm mobileViewNoPadding">
-                                        <ResetPassword />
-                                    </div>  
-                                : null
-                                }                                                                
+                            <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>                                                           
+                            {this.props.formToShow === "login" ?
+                                <div className="col-12 NoPadding loginForm mobileViewNoPadding">
+                                    <Login />
+                                </div>  
+                            : null
+                            }  
+                            {this.props.formToShow === "signUp" ?
+                                <div className="col-12 signupForm mobileViewNoPadding">
+                                    <SignUp />
+                                </div>  
+                            : null
+                            } 
+                            {this.props.formToShow === "forgotPassword" ?
+                                <div className="col-12 loginForm NoPadding mobileViewNoPadding">
+                                    <ForgotPassword />
+                                </div>  
+                            : null
+                            }  
+                            {this.props.formToShow === "confirmOtp" ?
+                                <div className="col-12 loginForm NoPadding mobileViewNoPadding">
+                                    <ConfirmOtp />
+                                </div>  
+                            : null
+                            } 
+                            {this.props.formToShow === "resetPassword" ?
+                                <div className="col-12 NoPadding loginForm mobileViewNoPadding">
+                                    <ResetPassword />
+                                </div>  
+                            : null
+                            }                                                                
                         </div>
 					</div>
                 </div>

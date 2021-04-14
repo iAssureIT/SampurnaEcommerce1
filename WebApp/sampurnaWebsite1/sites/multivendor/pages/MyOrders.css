@@ -233,7 +233,7 @@ text-align:right ! important;
 }
 .modalheadingcont{
 	margin-top: 0px ! important;
-	margin-left: 11px ! important;
+	/* margin-left: 11px ! important; */
 }
 .modal-header .close{
 	margin-right: 0px ! important;

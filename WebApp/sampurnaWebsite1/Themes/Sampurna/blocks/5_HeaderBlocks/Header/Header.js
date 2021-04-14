@@ -105,7 +105,7 @@ class Header extends React.Component {
                                                     <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
                                                     <div className="col-12 cartCount NoPadding">
                                                         {this.props.recentCartData.length>0? this.props.recentCartData[0].cartItems.length : 0 }
-                                                        item(s)                                
+                                                        &nbsp;item(s)                                
                                                     </div>
                                                 </div>  
                                             </div>

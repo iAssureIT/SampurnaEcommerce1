@@ -173,12 +173,18 @@ input[type=number] {
 .LoginWrapper{
   border-radius: 5px;
   background-size: 100% 100% !important;
-  display: table-cell;
+  /* display: table-cell; */
   border-radius: 5px;
-  vertical-align: middle !important;
-  float: unset;
+  /* vertical-align: middle !important; */
+  /* float: unset; */
 }
-
+#signUpUser label{
+  /* margin-top: 10px; */
+  margin-bottom: 0px;
+}
+.signupForm{
+  margin-top: 15px;
+}
 .innloginwrap{
   text-align: center;
 }
@@ -346,7 +352,7 @@ input[type=number] {
     margin-top: -50px;
   }
   .frmhgt{
-    height:68px;
+    height:80px;
   }
   .frmhgt1{
     height:68px;

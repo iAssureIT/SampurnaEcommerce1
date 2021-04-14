@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {setBlockData ,setProductApiUrl} from '../../redux/actions/index.js';
-import MasterPage from '../../component/MasterPage/MasterPage.js'
+import MasterPage from '../../MasterPage/MasterPage.js'
 import store from '../../redux/store.js'
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
@@ -16,18 +16,18 @@ function Home({pageData,productApi}) {
   store.dispatch(setBlockData(pageData))
   store.dispatch(setProductApiUrl(productApi))
   return (
-      <MasterPage/>
+      <MasterPage pageData = {pageData}/>
   )
 }
 
 
 export async function getServerSideProps({query}){  
-  console.log("query",query)
+  // console.log("query",query)
   var productApi = "/api/products/get/listbysubcategory/"+query.subcategoryUrl;
   const urlParam = query.categoryUrl ? query.categoryUrl : 'product-list'
   const res = await axios.get("api/pages/get/page_block/product-list")
   const pageData = await res.data;
-  console.log("Pagedata--------",pageData);
+  // console.log("Pagedata--------",pageData);
   return {
     props:{
       pageData,

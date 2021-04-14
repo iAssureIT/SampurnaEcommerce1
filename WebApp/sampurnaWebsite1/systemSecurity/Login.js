@@ -247,13 +247,13 @@ class Login extends Component {
                 {/* style={{'background': 'url("../../static/'+publicRuntimeConfig.CURRENT_SITE+'/images/Logo.png")'}} */}
                 <div className=" col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
                   {/* <img src="/images/eCommerce/kokilaLogo.png" className="responsive logoImg"></img> */}
-                  <Image 
-                    src={"/images/multivendorlogo.jpg"}
+                  {/* <Image 
+                    src={"/images/eCommerce/Logo.jpeg"}
                     className={"logoImg"}
                     height ={50}
-                    width={100}
+                    width={40}
                     layout="responsive"
-                  />	
+                  />	 */}
                 </div>
                 <div className="col-12">
                   <h4>SIGN IN</h4>
@@ -292,25 +292,27 @@ class Login extends Component {
                   </div>
                 </div>
                   :
-                    <div className="col-12 NoPadding">
+                    <div className="col-12 ">
                       <input id="logInBtn" type="submit" className="col-12 btn globaleCommBtn" value="Sign In" />
                     </div>
                 }
-
-                <div className="col-12 mt30 mb25 NoPadding">
-                  <div className="row">
-                    <div className="col-12 col-sm-6 mt10 textAlignment">
-                      <div className="loginforgotpass">
-                        <a href='' className="col-12 " onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
+                <div className="col-12 ">
+                  <div className="col-12 mt30 mb25 NoPadding">
+                    <div className="row">
+                      <div className="col-12 col-sm-6 mt10 textAlignment">
+                        <div className="loginforgotpass">
+                          <a href='' className="col-12 NoPadding " onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-12 col-sm-6 textAlignment mt10 ">
-                      <div className="row loginforgotpass loginSignupBtn">                        
-                          <a href='' className="col-12 " onClick={this.openSignUpModal.bind(this)}>Sign Up</a>                    
+                      <div className="col-12 col-sm-6 textAlignment mt10 ">
+                        <div className="row loginforgotpass loginSignupBtn">                        
+                            <a href='' className="col-12 NoPadding " onClick={this.openSignUpModal.bind(this)}>Sign Up</a>                    
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </form>
             </div>
           </div>

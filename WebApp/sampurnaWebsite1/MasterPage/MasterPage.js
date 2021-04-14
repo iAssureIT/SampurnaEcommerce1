@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import dynamic from 'next/dynamic';
@@ -7,13 +7,10 @@ import getConfig from 'next/config';
 import Head from 'next/head'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import {getBlockData} from '../redux/actions/counterActions';
+import ScrollTop from '../Themes/Sampurna/blocks/StaticBlocks/ScrollTop/ScrollTop.js';
 
-// import Header from '../Themes/Sampurna/block/StaticBlocks/Header/Header.js';
-// import Footer from '../Themes/Sampurna/block/StaticBlocks/Footer/Footer.js';
 // import BlogCarousel from '../blockTemplate/BlogCarousel/BlogCarousel.js';
 // import BreadCrumbs from '../Themes/Sampurna/block/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
-// import ScrollTop   from '../Themes/Sampurna/block/StaticBlocks/ScrollTop/ScrollTop.js';
 
 const { publicRuntimeConfig } = getConfig();
 //get site name from next.config.js
@@ -84,21 +81,19 @@ class MasterPage extends React.Component {
     return (		
 		<div className="col-12 NoPadding masterPageWrapper">
 			{this.pageHead()}
-			<Header/>			
+			<Header/>			 
 			<div className="col-12 NoPadding componentWrapper">
 			{ this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
                 this.props.pageData.pageBlocks.map((result, index)=>{
 					var component = result._id ? result.blockComponentName : "TitleDesc";
 					var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
 					var block_id=result.block_id._id;
-					console.log("OtherComponent==",component);
-					const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),
-					// const OtherComponent = dynamic(() => import('../blockTemplate/'+component+'/'+component+'.js'),
-					
+					console.log("result==",result);
+					const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
 					{
 						loading: () =>
 							<div className="col-12 loading">
-								<img src="/images/eCommerce/loader.gif" className="col-2 "></img>
+								<img src="/images/eCommerce/loader.gif" className="col-2 offset-5"></img>
 							</div> 
 					});
 					
@@ -109,16 +104,15 @@ class MasterPage extends React.Component {
                     )
 				})
 			:
-			<div className=" col-12 NoPadding">				
-				<a href="/"><img className=" col-12 NoPadding img-responsive" src="/images/eCommerce/404-Page.gif" /></a>
-			</div>
+				<div className=" col-12 NoPadding">				
+					<a href="/"><img className=" col-12 NoPadding img-responsive" src="/images/eCommerce/404-Page.gif" /></a>
+				</div>
 			}
 			</div>
 			{/* {this.props.pageData.pageURL === 'homepage' ? <BlogCarousel/> : null} */}
 
 			{/* <ScrollTop /> */}
 			<Footer/>
-			
 		</div>
     );
   }
