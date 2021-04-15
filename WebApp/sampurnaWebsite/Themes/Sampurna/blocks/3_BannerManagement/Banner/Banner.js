@@ -287,7 +287,10 @@ export default class Banner extends React.Component {
                                     <div className={"col-12 globalBannerTitle " +Style.blockSubTitle}>{data.SubTitle}</div>
                                   </div>                                  
                                   <div className={"col-6 col-xl-5 col-xs-12 pull-right " +Style.blockTitle}>                               
+                                    {data.FgImage?
                                     <img className={"img img-responsive " +Style.FgImg} src={data.FgImage!==""?data.FgImage:null} alt="banner" />	
+                                    :null
+                                    }
                                     {/* <Image
                                       src={data.FgImage!==""?data.FgImage:null}
                                       className={"img img-responsive"+Style.FgImg}

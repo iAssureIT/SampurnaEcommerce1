@@ -768,7 +768,7 @@ class ProductCarousel extends Component {
     
     return (
       !this.state.loading ?
-      <div className="col-12">        
+      <div className={"col-12 " +Style.NoPadding}>        
           <Message messageData={this.state.messageData} />  
           {this.state.blockSettings.showTitle && this.state.newProducts && this.state.newProducts.length > 0 ?
             <div className="col-12">
@@ -787,7 +787,7 @@ class ProductCarousel extends Component {
 
           {/* show breadCrumbsLink */}
           { this.state.blockSettings.showCarousel === false?
-          <div className={ "col-12 NoPadding " +Style.breadCrumbs}>            
+          <div className={ "col-12 " +Style.breadCrumbs +" " +Style.NoPadding}>            
             <ul className={Style.links}>
 								<li><Link href="/"><a>Home / </a></Link></li>&nbsp;
                 {/* {console.log("breadcrum category===",this.state.categoryData)} */}
@@ -805,7 +805,7 @@ class ProductCarousel extends Component {
           </div>
           :null
           }
-        <div className={"col-12 NoPadding "}>
+        <div className={"col-12 "}>
           {this.state.newProducts && this.state.newProducts.length > 0 ?
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
               <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
@@ -1015,8 +1015,8 @@ class ProductCarousel extends Component {
                     }
                   </Carousel>
                   : 
-                  <div className={"col-12 NoPadding " +Style.ProductListWrapper}>              
-                  <div className={"container-fluid NoPadding" }>
+                  <div className={"col-12 " +Style.ProductListWrapper}>              
+                  <div className={"container-fluid " }>
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
                   <div className={"row NoPadding " +Style.BlockWrapper +" " +Style.NoPadding}>     
