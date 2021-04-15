@@ -5,15 +5,19 @@ MobileApp/eCommApp/node_modules
 
 WebApp/admin/node_modules
 WebApp/vendor/node_modules
+WebApp/franchise/node_modules
+WebApp/ba/node_modules
 WebApp/sampurnaWebsite/node_modules
-WebApp/sampurnaWebsite1/node_modules
 
 WebApp/admin/.env
 WebApp/vendor/.env
+WebApp/franchise/.env
+WebApp/ba/.env
 WebApp/sampurnaWebsite/next.config.js
-WebApp/sampurnaWebsite1/next.config.js
 
 WebApp/admin/build
 WebApp/vendor/build
-WebApp/sampurnaWebsite1/build
+WebApp/franchise/build
+WebApp/ba/build
+WebApp/sampurnaWebsite/build
 

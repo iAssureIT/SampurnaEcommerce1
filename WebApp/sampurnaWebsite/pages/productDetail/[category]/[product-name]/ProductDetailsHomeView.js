@@ -1,6 +1,6 @@
 import React, { Component } 		from 'react';
-import ProductModalViewEcommerce     from "../../../../component/CustomizeBlocks/ProductViewEcommerce/ProductModalViewEcommerce.js";
-import ProducthomeDetailsReviewFAQ 		from "../../../../component/CustomizeBlocks/ProductViewEcommerceDetailsReviewFAQ/ProducthomeDetailsReviewFAQ.js";
+import ProductModalViewEcommerce     from "../../../../Themes/Sampurna/blocks/StaticBlocks/ProductViewEcommerce/ProductModalViewEcommerce.js";
+// import ProducthomeDetailsReviewFAQ 		from "../../../..//Themes/Sampurna/blocks/StaticBlocks/ProductViewEcommerceDetailsReviewFAQ/ProducthomeDetailsReviewFAQ.js";
 import axios                  		from 'axios';
 
 export default class ProductDetailsHomeView extends Component {
@@ -30,7 +30,7 @@ export default class ProductDetailsHomeView extends Component {
 		return (
 		  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop180  backColorGray">
           <ProductModalViewEcommerce productInfo = { this.props.productInfo } />
-          <ProducthomeDetailsReviewFAQ productInfo = { this.props.productInfo } />
+          {/* <ProducthomeDetailsReviewFAQ productInfo = { this.props.productInfo } /> */}
         </div>
 		);
 	}

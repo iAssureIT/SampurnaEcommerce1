@@ -1,0 +1,39 @@
+.nobdrbtmbdr{
+	border: none;
+	border-bottom: 1px solid #666;
+}
+.mtopbotm15{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.nobdrbtmbdrdropdown{
+	border: none;
+	height: 23px;
+    background: transparent;
+    border-bottom: 1px solid #666;
+}
+
+.nobdrbtmbdr:focus {
+    outline: none;
+    outline-offset: -2px;
+}
+
+.nobdrbtmbdrdropdown:focus {
+    outline: none;
+    outline-offset: -2px;
+}
+.width90{
+	width: 90px;
+}
+.width66h{
+	width: 66px;
+	height: 18px;
+	border: none;
+}
+
+.table .input-group-addon{
+	padding: 0px 4px !important;
+}
+.nopadding{
+	padding: 0px;
+}

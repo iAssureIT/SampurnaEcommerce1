@@ -1,0 +1,599 @@
+* {
+    box-sizing: border-box;
+  }
+  .fade.in {
+    display: block !important;
+    opacity: 1;
+  }
+ 
+  .paymentMethods .focus{
+    color: black
+  }
+  
+  /* Create three equal columns that floats next to each other */
+  .column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    sectionContent: "";
+    display: table;
+    clear: both;
+  }
+
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+  }
+
+  .button{
+    background: #3c8dbc;
+    color: #fff;
+    text-transform: uppercase;
+    border: 1px solid #999!important;
+    border-left: 0!important;
+    padding: 5px 8px;
+    border-radius: 4px;
+    position: absolute;
+    right: 1px;
+    top: 0;
+    height: 34px;
+    /* transition: all .4s ease 0s; */
+    /* z-index: 99; */
+  }
+
+  .sectionDiv{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4px;
+    margin-right: 25px;
+    height:85rem;
+  }
+
+  .sectionDiv ul{
+    padding: 1px;
+  }
+
+  .nav-pills {
+    text-align: left;
+  }
+  
+  .nav-pills > li.active > a{
+    border-radius: 5px;
+    color: #fff;
+    background-color:#3c8dbc !important;
+  }
+
+  .nav-pills > li > a{
+    border-radius: 5px;
+    color:black;
+    background-color: white;
+    border: 1px solid #8080808f;
+    padding: 5px 19px;
+
+  }
+
+  .nav-pills > li {
+    padding-bottom: 7px;
+    text-align: center;
+    padding-right: 5px !important;
+    padding-bottom: 6px !important;
+  }
+  .cardBorder{
+    margin-bottom: 10px;
+    height: 146px;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+ .fullScreenBtn{
+   background: #3c8dbc;
+   color: #fff;
+   margin-right: 10px;
+   margin: 1px !important;
+  }
+
+  .optionBtns{
+    display: flex;
+  }
+
+  .card{
+    max-width: 270px;
+    background-color: white;
+    box-shadow: 0px 0px 5px #666;
+  }
+  .productImg {
+    overflow: hidden;
+    /* height: 185px;
+    width: 100%; */
+  }
+
+  .productImg img{
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+  }
+  
+  .item-top{
+    text-align: center;
+  }
+
+  .productDiv{
+    padding-right: 0px;
+    height: 86rem;
+    width: 54%;
+  }
+
+  .searchProduct{width: 57%};
+
+  @media (min-width: 1200px){
+    .sectionDiv {
+      height: 86rem;    
+    }
+  }
+
+  .sectionDiv .box{
+    height: 75px !important ;
+    padding: 6px !important;
+    margin-bottom: 15px !important;
+    cursor: pointer;
+    transition: all 1s;
+    border-top: 0px;
+  }
+
+  .section :hover{
+    transform: 0.5;
+  }
+
+  
+
+  .section .active{
+    outline: 1px solid white;
+    outline-offset: -8px;
+  }
+
+  .sectionContent {
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  
+
+   .logoDiv{
+    width: 10.666667% !important;
+   }
+
+   .billDiv{
+    float: right;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4px;
+    border:1px solid #a9a9a94f;
+  }
+
+  .viewBillDiv{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 4px;
+    border:1px solid #a9a9a94f;
+  }
+  
+  .logoImg{
+    height: 50px;
+    margin-top: 10px;
+  }
+
+  .billLogoDiv{
+    text-align: center;
+    padding-bottom:10px;
+  }
+  
+  .address{
+    padding: 5px;
+    font-size: medium;
+  }
+
+  .barcode {
+    /* Use the name of the face that is installed, or the one you defined above */
+    font-family: 'Code128'; 
+  }
+
+  .billNumber{
+    font-size: large;
+    /* line-height: 65px; */
+  }
+
+  .pullright{
+    float: right;
+    padding-left: 10%;
+  }
+
+  .pullleft{
+    float: left;
+  }
+  .billTable .commontable thead{
+    font-size: smaller;
+    border-top: 1px dashed #66666673;
+    border-bottom: 1px dashed #66666673;
+  }
+
+  .billTable .commontable tfoot{
+    border-top: 1px dashed #66666673;
+    border-bottom: 1px dashed #66666673;
+  }
+
+  .billTable .commontable th,  td { 
+    padding:5px !important;
+    border-top: none !important; 
+    border-bottom: none !important; 
+  }
+
+  .billTable{
+    font-size: smaller;
+    margin-top: 10px; 
+    /* margin-bottom: 50% !important; */
+  }
+
+  .returnItemsTable{
+    margin-top: 20px; 
+    /* margin-bottom: 10% !important; */
+  }
+
+  .Slogan{
+    margin-top: 30% !important;
+  }
+
+  .viewBillTable{
+    /* font-size: smaller; */
+    margin-top: 10px; 
+    margin-bottom: 10% !important;
+  }
+
+  ul.declaration {
+    list-style-type: square;
+  }
+
+  .checkoutBtn{
+    color: #fff;
+    background: #3c8dbc !important;
+  }
+
+  .actionBtn{
+    border-radius: 5px;
+    display: inline-block;
+    color: #fff;
+    background-color: #039be5 !important;
+  }
+
+  .ListProduct {
+    /* overflow-y: scroll; */
+    overflow: auto;
+    height: 810px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    background: #80808021;
+  }
+  .ListProduct::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+  }
+ 
+  .commontable i{
+    font-size: smaller;
+    color: #3c3939c9;
+  }
+
+  .commontable .fa {
+    font-size: smaller !important;
+    /* color: #3c3939c9 !important; */
+  }
+  
+  .marginBottom50{
+    margin-bottom: 50% !important;
+  }
+  
+  .trashIcon{
+    color: #ff0000bf !important;
+  }
+  
+  .topLogoDiv{
+    width: 12.666667% !important;
+  }
+
+  .topLogoDiv img{
+    /* height: 50px; */
+    max-width: 100%;
+    max-height: 100%;
+    margin-bottom: 20px;
+  }
+
+  .itemCodeDiv{
+    float: right;
+  }
+
+  .totalNetAmount{
+    font-size: small;
+    font-weight: 600;
+  }
+
+  #soldOutProduct{
+    /* opacity: 0.6; */
+    cursor: no-drop;
+    /* display: none; */
+  }
+  .checkoutBtn{
+    margin:0 !important
+  }
+
+  .minusQuantity, .plusQuantity {
+    border: 1px solid #80b435;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 7px;
+    color: #80b435;
+}
+
+.modal-title{
+  text-align:center;
+}
+
+.inputIcon{
+  width: 30px;
+}
+
+.discountInput{
+  border-left: 1px solid #b2a2a2b3 !important;
+}
+
+.printbtn{
+  font-size: xx-large;
+  /* border: 1px solid darkgray; */
+  color: gray;
+}
+
+.viewBillBtns{
+  width: 80px;
+  height: 80px;
+  color:white;
+  background-color: #039be5 !important;
+  line-height: 60px;
+  text-align: center;
+}
+
+svg{
+  max-width: 125px !important;
+  max-height: 68px !important;
+  top: -9px;  
+  float: left !important;
+}
+
+.headerbackgroundcolor{
+  /* width:100% !important; */
+}
+
+#dashbordid {
+  /* width: 100%!important; */
+}
+
+.button:hover {
+  /* padding-right: 25px; */
+}
+
+#deactiveProducts{
+  mix-blend-mode: luminosity;
+}
+
+#deactiveProducts > .card{
+  background-color: #eee;
+}
+
+.modal-title{
+  text-align:center;
+}
+
+.modal-body{
+  text-align: center;
+}
+
+.inputIcon{
+  width: 30px;
+}
+
+.discountInput{
+  border-left: 1px solid #b2a2a2b3 !important;
+}
+
+.retrunBillSubtotal{
+  float: right;
+  margin-right: 40px;
+}
+
+.reasonForReturnlabel{
+  float: left;
+  margin-left: 15px;
+}
+
+.redFont{
+  color:red !important
+}
+
+input[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
+}
+
+.textAlignCenter{
+  text-align:'center'
+}
+
+.textAlignLeft{
+  text-align:'left'
+}
+
+.modal-header{
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  color: white;
+}
+
+.paddingTop{
+  padding-top : 30px  !important;
+}
+
+.paddingBottom{
+  padding-bottom : 20px  !important;
+}
+
+.textWhite{
+  color:white !important;
+}
+
+.modal-buttons{
+  margin : 5px !important;
+}
+
+.top30{
+  top:30px;
+}
+
+.paddingTop10 {
+  padding-top: 13px;
+}
+
+.bill-cust-info{
+  font-size: medium;
+  color: gray;
+}
+
+rect{
+  /* height: 84px !important; */
+}
+
+.location-search-input{
+  padding:0px !important;
+}
+
+.totalNetAmount{
+  border-top: 1px dashed #66666673;
+}
+
+.showCustInfoDiv {
+  border: 1px solid #3813133b;
+  padding: 20p;
+  background: #a9a9a914;
+}
+
+.showCustInfoDiv  i {
+  color:gray;
+}
+
+.width20{
+  width: 20%;
+}
+
+.billPage{
+  padding-top: 20px !important;
+}
+
+.BM-dashbord{
+  min-width: 100% !important;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* For tablets: */
+  .sectionDiv{
+    padding: 4px;
+    width: 10.666667%;
+    margin-right: 15px;
+  }
+  .sectionDiv ul li{
+    display: inline; 
+  }
+
+  .sectionDiv .box{
+    word-break: break-all;
+    height: 63px !important;
+  }
+
+  .Billhead{
+    padding-left: 0px;
+  }
+
+  .optionBtns{
+    width: 12.666667%;
+  }
+  .searchProduct {
+    width: 41%;
+  }
+
+  .productImg img {
+    height: 60px;
+    width: 100%;
+  }
+
+  .productDiv{
+    padding-right: '';
+  }
+
+  .productDiv ul li {
+    overflow-wrap: break-word;
+  }
+
+  .card{
+    font-size: smaller;
+    height: 110px;
+    /* width: 90px; */
+  }
+
+  .col-sm-4 {
+    width: 33.33333333%;
+  }
+
+  .cardBorder {
+    height: 121px;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .nav>li>a {
+    padding: 0px 15px;
+    border-radius: 1px;
+  }
+
+  .franhiseInfoDiv{
+    font-size: small;
+  }
+  .logoImg {
+    height: 50px;
+  }
+  .billNumber {
+    font-size: small;
+  }
+  svg{
+    max-width: 95px !important;
+    max-height: 57px !important;
+    float: left !important;
+  }
+  
+  .billButtons{
+    display: grid;
+  }
+
+  /* .col-sm-1 {width: 8.33%;}
+  .col-sm-2 {width: 16.66%;}
+  .col-sm-3 {width: 25%;}
+  .col-sm-4 {width: 33.33%;}
+  .col-sm-5 {width: 41.66%;}
+  .col-sm-6 {width: 50%;}
+  .col-sm-7 {width: 58.33%;}
+  .col-sm-8 {width: 66.66%;}
+  .col-sm-9 {width: 75%;}
+  .col-sm-10 {width: 83.33%;}
+  .col-sm-11 {width: 91.66%;}
+  .col-sm-12 {width: 100%;} */
+}

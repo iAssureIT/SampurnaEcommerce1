@@ -5,7 +5,7 @@ import Router               from 'next/router'
 import { connect }        from 'react-redux';
 import {getCartData}          from '../../redux/actions/index.js'; 
 import  store                 from '../../redux/store.js'; 
-import Message from '../../component/CustomizeBlocks/Message/Message.js';
+import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 // import {ntc} from '../../ntc/ntc.js';
 // import { size } from 'underscore';
 // import Loader from "../../common/loader/Loader.js";
@@ -500,7 +500,7 @@ class CartProducts extends Component{
                                     </tbody>
                                 </table>                                
                             </div>
-                            <div className="col-12 col-xl-3 col-md-12  offset-xl-0 NOpadding">
+                            <div className="col-12 col-xl-3 NoPadding ">
                                 <div className="col-12 cartSummary">
                                     <strong className="cartSummaryTitle">Summary</strong>
                                     <div className="col-12">
@@ -643,17 +643,17 @@ class CartProducts extends Component{
                                         this.state.minvalueshipping?
                                         <div>
                                            { this.state.minvalueshipping <= this.props.recentCartData[0].total  ?
-                                            <button onClick={this.proceedToCheckout.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 globaleCommBtn btn cartCheckout">
+                                            <button onClick={this.proceedToCheckout.bind(this)} className="col-12 globaleCommBtn btn cartCheckout NoPadding">
                                                 PROCEED TO CHECKOUT
                                             </button>
                                             :
-                                            <button  className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  btn globaleCommBtn blockcartCheckout" disabled>
+                                            <button  className="col-12 btn globaleCommBtn blockcartCheckout" disabled>
                                                 PROCEED TO CHECKOUT
                                             </button> 
                                             }
                                         </div>
                                         :
-                                        <button  className="col-12 col-xl-12 col-md-12 col-sm-12 col-xs-12  btn globaleCommBtn blockcartCheckout">
+                                        <button  className="col-12 btn globaleCommBtn blockcartCheckout">
                                             PROCEED TO CHECKOUT
                                         </button> 
 

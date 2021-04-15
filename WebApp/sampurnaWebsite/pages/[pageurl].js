@@ -1,11 +1,11 @@
-import Head from 'next/head';
-import 'bootstrap/dist/css/bootstrap.css';
-import {connect} from 'react-redux';
-import axios from 'axios';
+import Head           from 'next/head';
+import {connect}      from 'react-redux';
+import axios          from 'axios';
 import {setBlockData} from '../redux/actions/index.js';
-import MasterPage from '../component/MasterPage/MasterPage.js'
-import store from '../redux/store.js'
-import getConfig from 'next/config';
+import MasterPage     from '../MasterPage/MasterPage.js'
+import store          from '../redux/store.js'
+import getConfig      from 'next/config';
+import 'bootstrap/dist/css/bootstrap.css';
 const { publicRuntimeConfig } = getConfig();
 
 axios.defaults.baseURL = publicRuntimeConfig.API_BASE_URL;
@@ -19,14 +19,14 @@ function Home({pageData}) {
       <MasterPage pageData={pageData}/> 
     : 
     // <div className="container textAlignCenter siteNotcreated"><h1> This Page Not Found</h1></div>
-    <div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
-				<a href="/"><img className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding" src="/images/eCommerce/404-Page.gif" /></a>
+    <div className=" col-12 NoPadding">
+				<a href="/"><img className=" col-12 NoPadding" src="/images/eCommerce/404-Page.gif" /></a>
 		</div>      
   )
 }
 
 export async function getServerSideProps({query}){
-  //console.log("query",query)
+  // console.log("pageurl query===",query)
   const urlParam = query.pageurl ? query.pageurl : 'home-page'
   try{
     const res = await axios.get("api/pages/get/page_block/"+urlParam)

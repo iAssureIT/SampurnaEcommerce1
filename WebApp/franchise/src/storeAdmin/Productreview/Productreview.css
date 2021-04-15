@@ -1,0 +1,128 @@
+.reports-list-outerTR {
+    background: #266fb9;
+    color: #fff;
+}
+
+.reports-list-outerTableth, .reports-list-outerTabletd {
+    border: 1px solid #266fb9;
+}
+.sales-report-commonpre{
+    display: flex;
+    justify-content: space-around;
+}
+.sales-report-common {
+    background: #ccc;
+    display: block;
+    padding: 10px 30px;
+    color: #333;
+    cursor: pointer;
+    min-width: 15%;
+    text-align: center;
+}
+
+.sales-report-main-class {
+    padding: 10px;
+    background: #eee;
+}
+
+.reports-select-date-boxmain {
+    display: flex;
+    justify-content: center;
+}
+.reports-select-date-boxsec {
+    width: 50%;
+}
+
+.reports-select-date-Title {
+    text-align: center;
+    background: #7d7c7c;
+    color: #fff;
+    padding: 5px;
+}
+
+.reportsDateRef {
+    text-align: center;
+}
+
+.commonReportArrowPoiner{
+    cursor: pointer;
+}
+
+.report-list-downloadMain {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.report-list-downloadPdf, .report-list-downloadPrint {
+    display: inline-block;
+}
+
+.report-list-downloadPdf i, .report-list-downloadPrint i {
+    margin-right: 10px;
+}
+
+.report-list-downloadPdf {
+    padding: 5px 10px;
+    background: #dd4b39;
+    margin-right: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.report-list-downloadPrint {
+    padding: 5px 10px;
+    background: #4b4e53;
+    /* margin-right: 5px; */
+    color: #fff;
+    cursor: pointer;
+}
+
+.report-list-downloadXLXS {
+    padding: 5px 10px;
+    background: #2189d1;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0 !important;
+}
+
+.report-list-downloadXLXS:hover, .report-list-downloadXLXS:active, .report-list-downloadXLXS:visited {
+    background: #2189d1;
+    color: #fff;
+}
+
+.reports-select-date-from1, .reports-select-date-to1 {
+    display: inline-block;
+    width: 50%;
+}
+
+.reports-select-date-from2, .reports-select-date-to2{
+    text-align: center;
+}
+
+.reports-table-main {
+    margin-top: 20px;
+}
+
+.report-currentlyActive {
+    background: #2189d1;
+    color: #fff;
+}
+
+/*.pageContent{
+    margin-top: 50px;
+}*/
+.customerName{
+    font-weight: 600;
+}
+.prodImg{
+    max-height: 200px;
+}
+.adminComment{
+    margin-top: 17px;
+}
+.deactivestar{
+    color: #ccc;
+}
+.activestar{
+    color: gold;
+}

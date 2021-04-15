@@ -1,0 +1,33 @@
+.boxshadeOP{
+	    border: 1px solid #eee;
+	    padding: 20px 0px 20px 0px;
+	    margin-top: 10px;
+}
+.OrgListTitle{
+	font-size: 16px;
+    font-weight: 600;
+    color: #4e4e4e;
+    padding: 11px 15px 5px;
+    background: #eaeaea;
+    margin-top: 10px;
+}
+.customBtnCP:hover{
+	background-color: var(--blue-color);
+	color:#fff;
+
+}
+.customPadding{
+	padding: 10px;
+}
+.labelformCP{
+	margin-top: 5px;
+	font-weight: normal !important;
+}
+.loadingImg img{
+	height: 100%;
+	width: 100%;
+}
+.imgtabCP{
+	height: 40px;
+	width: 40px;
+}

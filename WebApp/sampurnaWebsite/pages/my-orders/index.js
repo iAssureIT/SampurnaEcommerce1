@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import axios                from 'axios';
 import $                    from 'jquery';
-import Sidebar      from '../../component/CustomizeBlocks/Sidebar/Sidebar.js';
 import moment       from "moment";
-import Message      from '../../component/CustomizeBlocks/Message/Message.js';
-import ReturnStatus from "../../component/CustomizeBlocks/Wizard/ReturnStatus.jsx";
-import Loader       from "../../component/CustomizeBlocks/Loader/Loader.js";
-import StepWizard   from "../../component/CustomizeBlocks/Wizard/StepWizard.jsx";
-import Header       from '../../component/blockTemplate/Header/Header.js';
-import Footer       from '../../component/blockTemplate/Footer/Footer.js';
-import BreadCrumbs  from '../../component/CustomizeBlocks/BreadCrumbs/BreadCrumbs.js';
 import { FaStar } from 'react-icons/fa';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
+import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
+import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
+import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
+import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
+import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
 
 export default class MyOrders extends Component {
   constructor(props) {
@@ -718,7 +720,7 @@ export default class MyOrders extends Component {
 
                   <div className="modal" id="feedbackProductModal" role="dialog">
                     <div className="modal-dialog">
-                      <div className="modal-content ReviewModalHeight">
+                      <div className="modal-content">
                         <div className="modal-header feedbackModalHeader">
                           <img src="/favicon.ico" alt="" />
                           <h4 className="modal-title modalheadingcont">PRODUCT REVIEW</h4>

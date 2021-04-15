@@ -1,0 +1,152 @@
+
+@media print {
+    table{
+      border:1px solid red;
+    }
+    .logoDiv{
+      width: 10.666667% !important;
+     }
+  
+     .billDiv{
+      float: right;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 4px;
+      border:1px solid #a9a9a94f;
+      /* height: 86rem; */
+    }
+  
+    .viewBillDiv{
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 4px;
+      border:1px solid #a9a9a94f;
+    }
+    
+    .logoImg{
+      height: 50px;
+      margin-top: 10px;
+    }
+  
+    .billLogoDiv{
+      text-align: center;
+      padding-bottom:10px;
+    }
+    
+    .address{
+      padding: 5px;
+      font-size: medium;
+    }
+  
+    .barcode {
+      /* Use the name of the face that is installed, or the one you defined above */
+      font-family: 'Code128'; 
+    }
+  
+    .billNumber{
+      /* font-size: large; */
+    }
+  
+    .pullright{
+      float: right;
+      padding-left: 10%;
+      /* text-align: end; */
+    }
+  
+    .pullleft{
+      float: left;
+      /* text-align: start; */
+    }
+    table thead{
+      font-size: smaller;
+      border-top: 1px dashed #66666673;
+      border-bottom: 1px dashed #66666673;
+    }
+  
+    tfoot{
+      border-top: 1px dashed #66666673;
+      border-bottom: 1px dashed #66666673;
+    }
+  
+    .table th, .table td { 
+      border-top: none !important; 
+      border-bottom: none !important; 
+    }
+  
+    table{
+      margin-top: 10px; 
+      margin-bottom: 50% !important;
+    }
+  
+    ul.declaration {
+      list-style-type: square;
+    }
+  
+    .checkoutBtn{
+      color: #fff;
+      background-color: #039be5 !important;
+    }
+  
+    .actionBtn{
+      border-radius: 5px;
+      display: inline-block;
+      color: #fff;
+      background-color: #039be5 !important;
+    }
+  
+    .ListProduct {
+      overflow-y: scroll;
+      height: 86rem;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      background:#a9a9a921;
+    }
+    .ListProduct::-webkit-scrollbar { /* WebKit */
+      width: 0;
+      height: 0;
+    }
+   
+    .table i{
+      font-size: smaller;
+      color: #3c3939c9;
+    }
+  
+    .table .fa {
+      font-size: smaller !important;
+      /* color: #3c3939c9 !important; */
+     }
+    
+    .trashIcon{
+      color: #ff0000bf !important;
+    }
+    
+    .topLogoDiv{
+      width: 12.666667% !important;
+    }
+  
+    .topLogoDiv img{
+      /* height: 50px; */
+      max-width: 100%;
+      max-height: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .itemCodeDiv{
+      float: right;
+    }
+  
+    .totalNetAmount{
+      /* font-size: larger; */
+      font-weight: 600;
+    }
+  
+    .checkoutBtn{
+      margin:0 !important
+    }
+  
+    .minusQuantity, .plusQuantity {
+      border: 1px solid #80b435;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 7px;
+      color: #80b435;
+  }
+}

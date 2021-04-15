@@ -1,0 +1,589 @@
+.notbtn{
+
+	border:1px solid #f4f4f4;
+	height: 36px;
+	border-radius: 3px;
+	text-align: center;
+	padding-top: 5px;
+
+}
+.form_heading4{
+	padding-left: 10px;
+	font-size: 10px;
+	margin-bottom: 30px;
+}
+.set_fnt{
+	font-family:'Montserrat-Regular';
+	font-size: 16px;
+	color: #333333;
+}
+.cnt_left{
+	margin-left: 30px;
+}
+.Attach_hand{
+	 margin-top:50px;
+	 margin-left: 100px;
+}
+.down_col{
+	margin-bottom: 15px;
+}
+.acadm_btn{
+	margin-top: 30px;
+}
+.display_map_ac{
+  margin-top: 30px;;
+  margin-left: 15px;
+  padding-top: 30px;
+  border: 1px solid #e5e7e9;
+  border-radius: 3px;
+  width: 95%;
+  box-shadow: 0 0 10px #ccc;
+}
+.timlinePhoto{
+/*	background-image: url("images/44.png");
+*/	background-size: 100% 100%;
+	height: 150px;
+}
+.profileImgSideBar{
+	height: 90px;
+    width: 85px;
+    margin-left: 15px;
+    position: absolute;
+    top: 95px;
+    left: 50px;
+	border: 3px solid #eee;
+	border-radius: 15px;
+	box-shadow: 0px 0px 10px 0px #333;
+}
+.rowWidth{
+
+}
+.nameonProfile{
+	text-align: center;
+	margin-top: 65px;
+}
+.nameonProfile p{
+	font-size: 10px;
+}
+.sapnImages{
+	margin-left: 20%;
+	padding: 14px;
+	margin-top: -5px;
+
+}
+.iconpadding{
+	padding: 5px;
+}
+.sideProfileButton1{
+	width: 80px;
+	height: 34px;
+	border-radius: 20px;
+	margin-left: 9%;
+}
+.sideProfileButton2{
+	width: 80px;
+	height: 34px;
+	border-radius: 20px;
+	margin-left: 12px;
+}
+.profilecontact{
+	margin-top: 25px;	
+}
+.adjust_side{
+	margin-left: -5px;
+}
+.row_sidebar {
+    margin-right: -15px;
+    margin-left: -11px;
+}
+/*Css Added by PL for capital letter*/
+.nameParts{
+  text-transform: capitalize;
+
+}
+.toUpper{
+  text-transform: uppercase;
+}
+.pageSubheaderAc{
+	font-family: 'Montserrat',sans-serif;
+    font-size: 18px;
+    margin-left: 15px;
+    color: #333333;
+    font-weight: 575;
+    padding-bottom: 20px;
+}
+.ReactTable *{
+	text-align: center;
+}
+.ReactTable .rt-tbody .rt-td{
+	font-size: 12px;
+}
+.marginBottom{
+	border-bottom: 1px solid #ecf0f5;
+    margin-bottom: 2em;
+    width: 97.5%;
+    margin-left: 15px;
+    padding-top:10px;
+}	
+/*toggle button*/
+
+.can-toggle {
+  position: relative;
+}
+.can-toggle *, .can-toggle *:before, .can-toggle *:after {
+  box-sizing: border-box;
+}
+.can-toggle input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.can-toggle input[type="checkbox"][disabled] ~ label {
+  pointer-events: none;
+}
+.can-toggle input[type="checkbox"][disabled] ~ label .can-toggle__switch {
+  opacity: 0.4;
+}
+.can-toggle__switch {
+  margin-left: 0px !important;
+}
+
+
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+    color: #ffffff !important;
+}
+
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:before {
+  content: attr(data-unchecked);
+  left: 13px;
+  top:0;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  content: attr(data-checked);
+}
+.can-toggle label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.can-toggle label .can-toggle__label-text {
+  flex: 1;
+  padding-left: 32px;
+}
+.can-toggle label .can-toggle__switch {
+  position: relative;
+}
+.can-toggle label .can-toggle__switch:before {
+  content: attr(data-checked);
+  position: absolute;
+  top: 0;
+ 
+  text-align: center;
+}
+.can-toggle label .can-toggle__switch:after {
+  content: attr(data-unchecked);
+  position: absolute;
+  z-index: 5;
+
+  text-align: center;
+  background: white;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.can-toggle input[type="checkbox"][disabled] ~ label {
+  color: rgba(119, 119, 119, 0.5);
+}
+
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch {
+  background-color: #70c767;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  color: #969899;
+}
+
+.can-toggle label .can-toggle__label-text {
+  flex: 1;
+}
+.can-toggle label .can-toggle__switch {
+  transition: background-color 0.9s cubic-bezier(0, 1, 0.9, 1);
+  background: #848484;
+}
+.can-toggle label .can-toggle__switch:before {
+  color: rgba(255, 255, 255, 0.5);
+}
+.can-toggle label .can-toggle__switch:after {
+  transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.9, 1);
+  transition: transform 0.9s cubic-bezier(0, 1, 0.9, 1);
+  transition: transform 0.9s cubic-bezier(0, 1, 0.9, 1), -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  color: #777;
+}
+
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  -webkit-transform: translate3d(65px, 0, 0);
+          transform: translate3d(65px, 0, 0);
+}
+
+
+.can-toggle label {
+  font-size: 14px;
+}
+.can-toggle label .can-toggle__switch {
+  height: 36px;
+  flex: 0 0 134px;
+  border-radius: 4px;
+}
+.can-toggle__switch{
+  margin-left: 400px;
+}
+.can-toggle label .can-toggle__switch:before {
+  left: 67px;
+  font-size: 12px;
+  line-height: 36px;
+  width: 67px;
+  padding: 0 12px;
+}
+.can-toggle label .can-toggle__switch:after {
+  top: 2px;
+  left: 2px;
+  border-radius: 2px;
+  width: 65px;
+  line-height: 32px;
+  font-size: 12px;
+}
+.can-toggle label .can-toggle__switch:hover:after {
+  /*box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);*/
+}
+.can-toggle.can-toggle--size-large label .can-toggle__switch:hover:after {
+  /*box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);*/
+}
+.can-toggle.demo-rebrand-1 input[type="checkbox"][disabled] ~ label {
+  color: rgba(181, 62, 116, 0.5);
+}
+.can-toggle.demo-rebrand-1 input[type="checkbox"]:focus ~ label .can-toggle__switch, .can-toggle.demo-rebrand-1 input[type="checkbox"]:hover ~ label .can-toggle__switch {
+  background-color: #b53e74;
+}
+.can-toggle.demo-rebrand-1 input[type="checkbox"]:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-1 input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+  color: #8f315c;
+}
+
+.can-toggle.demo-rebrand-1 label .can-toggle__label-text {
+  flex: 1;
+}
+.can-toggle.demo-rebrand-1 label .can-toggle__switch {
+  transition: background-color 0.9s ease-in-out;
+  background: #c14b81;
+}
+.can-toggle.demo-rebrand-1 label .can-toggle__switch:before {
+  color: rgba(255, 255, 255, 0.6);
+}
+.can-toggle.demo-rebrand-1 label .can-toggle__switch:after {
+  transition: -webkit-transform 0.9s ease-in-out;
+  transition: transform 0.9s ease-in-out;
+  transition: transform 0.9s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  color: #b53e74;
+}
+.can-toggle.demo-rebrand-2 input[type="checkbox"][disabled] ~ label {
+  color: rgba(68, 68, 68, 0.5);
+}
+
+.can-toggle.demo-rebrand-2 input[type="checkbox"]:checked ~ label .can-toggle__switch {
+  background-color: #ffffff !important;
+  width: 300px !important;
+}
+.can-toggle.demo-rebrand-2 input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  color: #2E3951;
+}
+
+.can-toggle.demo-rebrand-2 label .can-toggle__label-text {
+  flex: 1;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch {
+  transition: background-color 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  background: #666;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch:before {
+  color: #969899;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch:after {
+  transition: -webkit-transform 0.3s cubic-bezier(.86, 0, 0.07, 1);
+  transition: transform 0.9s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.9s cubic-bezier(0.86, 0, 0.07, 1),
+   -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  color: #ffffff;
+}
+.can-toggle.demo-rebrand-2 input[type="checkbox"]:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-2 input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+  /*box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);*/
+}
+.can-toggle.demo-rebrand-2 input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  -webkit-transform: translate3d(122px, 0, 0);
+          transform: translate3d(122px, 0, 0);
+}
+.can-toggle.demo-rebrand-2 input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after, .can-toggle.demo-rebrand-2 input[type="checkbox"]:checked:hover ~ label .can-toggle__switch:after {
+  /*box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);*/
+}
+.can-toggle.demo-rebrand-2 label {
+  font-size: 13px;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch {
+  height: 37px;
+  flex: 0 0 120px;
+  border-radius: 60px;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch:before {
+  left: 60px;
+  font-size: 13px;
+  line-height: 28px;
+  width: 60px;
+  padding: 0 12px;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch:after {
+  top: 3px;
+  left: 2px;
+  border-radius: 30px;
+  width: 58px;
+  line-height: 25px;
+  font-size: 13px;
+}
+
+.can-toggle {
+  position: relative;
+}
+.can-toggle *, .can-toggle *:before, .can-toggle *:after {
+  box-sizing: border-box;
+}
+.can-toggle input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.can-toggle input[type="checkbox"][disabled] ~ label {
+  pointer-events: none;
+}
+.can-toggle input[type="checkbox"][disabled] ~ label .can-toggle__switch {
+  opacity: 0.4;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:before {
+  content: attr(data-unchecked);
+  left: 13px;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  content: attr(data-checked);
+}
+.can-toggle label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.can-toggle label .can-toggle__label-text {
+  flex: 1;
+  padding-left: 32px;
+}
+.can-toggle label .can-toggle__switch {
+  position: relative;
+}
+.can-toggle label .can-toggle__switch:before {
+  content: attr(data-checked);
+  position: absolute;
+  top: 0;
+
+  text-align: center;
+}
+.can-toggle label .can-toggle__switch:after {
+  content: attr(data-unchecked);
+  position: absolute;
+  z-index: 5;
+ 
+  text-align: center;
+  background: #039BE5;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.can-toggle input[type="checkbox"][disabled] ~ label {
+  color: rgba(119, 119, 119, 0.5);
+}
+
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch {
+  background-color: #70c767;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  color: #ffffff;
+}
+
+
+.can-toggle label .can-toggle__label-text {
+  flex: 1;
+}
+.can-toggle label .can-toggle__switch {
+  transition: background-color 0.9s cubic-bezier(0, 1, 0.9, 1);
+  background: #848484;
+}
+.can-toggle label .can-toggle__switch:before {
+  color: rgba(255, 255, 255, 0.5);
+}
+.can-toggle label .can-toggle__switch:after {
+  transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  transition: transform 0.9s cubic-bezier(0, 1, 0.9, 1);
+  transition: transform 0.9s cubic-bezier(0, 1, 0.9, 1), -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  color: #777;
+}
+
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  -webkit-transform: translate3d(65px, 0, 0);
+          transform: translate3d(65px, 0, 0);
+}
+
+.can-toggle label {
+  font-size: 14px;
+}
+.can-toggle label .can-toggle__switch {
+  height: 36px;
+  flex: 0 0 134px;
+  border-radius: 4px;
+}
+.can-toggle label .can-toggle__switch:before {
+  left: 67px;
+  font-size: 12px;
+  line-height: 36px;
+  width: 67px;
+  padding: 0 12px;
+}
+.can-toggle label .can-toggle__switch:after {
+  top: 2px;
+  left: 2px;
+  border-radius: 2px;
+  width: 65px;
+  line-height: 32px;
+  font-size: 12px;
+}
+
+
+
+.can-toggle.can-toggle--size-large input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  -webkit-transform: translate3d(78px, 0, 0);
+          transform: translate3d(78px, 0, 0);
+}
+
+.can-toggle.can-toggle--size-large label {
+  font-size: 14px;
+}
+.can-toggle.can-toggle--size-large label .can-toggle__switch {
+  height: 50px;
+  flex: 0 0 160px;
+  border-radius: 4px;
+}
+.can-toggle.can-toggle--size-large label .can-toggle__switch:before {
+  left: 80px;
+  font-size: 14px;
+  line-height: 50px;
+  width: 80px;
+  padding: 0 12px;
+}
+.can-toggle.can-toggle--size-large label .can-toggle__switch:after {
+  top: 2px;
+  left: 2px;
+  border-radius: 2px;
+  width: 78px;
+  line-height: 46px;
+  font-size: 14px;
+}
+
+.can-toggle.demo-rebrand-1 input[type="checkbox"][disabled] ~ label {
+  color: rgba(181, 62, 116, 0.5);
+}
+
+
+.can-toggle.demo-rebrand-1 input[type="checkbox"]:checked ~ label .can-toggle__switch {
+  background-color: #44ae7f;
+}
+.can-toggle.demo-rebrand-1 input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  color: #368a65;
+}
+
+.can-toggle.demo-rebrand-1 label .can-toggle__label-text {
+  flex: 1;
+}
+.can-toggle.demo-rebrand-1 label .can-toggle__switch {
+  transition: background-color 0.9s ease-in-out;
+  background: #c14b81;
+}
+.can-toggle.demo-rebrand-1 label .can-toggle__switch:before {
+  color: rgba(255, 255, 255, 0.6);
+}
+.can-toggle.demo-rebrand-1 label .can-toggle__switch:after {
+  transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  color: #b53e74;
+}
+.can-toggle.demo-rebrand-2 input[type="checkbox"][disabled] ~ label {
+  color: rgba(68, 68, 68, 0.5);
+}
+
+.can-toggle.demo-rebrand-2 input[type="checkbox"]:checked ~ label .can-toggle__switch {
+  background-color: #75d32d;
+}
+.can-toggle.demo-rebrand-2 input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  color: #666;
+}
+
+.can-toggle.demo-rebrand-2 label .can-toggle__label-text {
+  flex: 1;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch {
+  transition: background-color 0.9s cubic-bezier(0.86, 0, 0.07, 1);
+  background: #ffffff;
+  border: 1px solid #979797;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch:before {
+  color: #2E3951;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch:after {
+  transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.9s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.9s cubic-bezier(0.86, 0, 0.07, 1), -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  color: #ffffff !important;
+}
+
+.can-toggle.demo-rebrand-2 input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  -webkit-transform: translate3d(122px, 0, 0);
+          transform: translate3d(122px, 0, 0);
+}
+
+.can-toggle.demo-rebrand-2 label {
+  font-size: 13px;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch {
+  height: 30px;
+  flex: 0 0 234px;
+  font-weight: 800;
+  border-radius: 60px;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch:before {
+  left: 120px;
+  font-size: 13px;
+  line-height: 28px;
+  width: 60px;
+  padding: 0 12px;
+}
+.can-toggle.demo-rebrand-2 label .can-toggle__switch:after {
+  top: 2px;
+  left: 2px;
+  border-radius: 30px;
+  width: 106px !important;
+  line-height: 25px;
+  font-size: 13px;
+}
+.unit{
+  margin-top: 30px;
+  font-family:'Montserrat' !important;
+}

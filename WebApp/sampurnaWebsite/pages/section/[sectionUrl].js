@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {setBlockData ,setProductApiUrl} from '../../redux/actions/index.js';
-import MasterPage from '../../component/MasterPage/MasterPage.js'
+import MasterPage from '../../MasterPage/MasterPage.js';
 import store from '../../redux/store.js'
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
@@ -13,15 +13,18 @@ import { useRouter } from "next/router";
 
 function Home({pageData,productApi}) {
   //set data in store
-  // console.log("pagedata===",pageData);
-  store.dispatch(setBlockData(pageData))
+  
+  // store.dispatch(setBlockData(pageData))
   store.dispatch(setProductApiUrl(productApi))
   return (
     pageData.pageBlocks.length>0?
-      <MasterPage/>
+      <MasterPage 
+        pageData = {pageData}
+        
+      />
       :
-      <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " }>
-        <img src="/images/bookscart.gif" className={"col-lg-6 col-lg-offset-3 img-responsive"}/>
+      <div className={"col-12 " }>
+        <img src="/images/bookscart.gif" className={"col-4 offset-3 img-responsive"}/>
       </div>
   )
 }
@@ -46,7 +49,7 @@ const mapStateToProps = state => (
 );
 
 const mapDispatchToProps = {
-  setBlockData: setBlockData,
+  // setBlockData: setBlockData,
   setProductApiUrl: setProductApiUrl
 };
 

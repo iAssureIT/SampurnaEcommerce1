@@ -1,10 +1,13 @@
-import React from 'react';
-import Image from 'next/image';
-import Style from './photo-gallery.module.css';
-import axios from 'axios';
-import Header from '../../component/blockTemplate/Header/Header.js';
-import Footer from '../../component/blockTemplate/Footer/Footer.js';
-import BreadCrumbs from '../../component/CustomizeBlocks/BreadCrumbs/BreadCrumbs.js';
+import React 	   from 'react';
+import Image 	   from 'next/image';
+import Style 	   from './photo-gallery.module.css';
+import axios 	   from 'axios';
+import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Footer      from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import BreadCrumbs from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
+// import Header from '../../component/blockTemplate/Header/Header.js';
+// import Footer from '../../component/blockTemplate/Footer/Footer.js';
+// import BreadCrumbs from '../../component/CustomizeBlocks/BreadCrumbs/BreadCrumbs.js';
 
 export default class Gallery extends React.Component {
 
@@ -90,3 +93,4 @@ componentDidMount(){
 		);
 	}
 }
+

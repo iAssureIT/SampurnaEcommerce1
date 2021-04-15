@@ -1,0 +1,251 @@
+
+/************************************/
+.checkboxAccessContainer{
+  position: relative;
+  padding-left: 15px;
+  align-content: center;
+  cursor: pointer;
+  font-size: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  padding-top: 8px;
+}
+/* Hide the browser's default checkbox */
+.checkboxAccessContainer input {
+  position: relative;
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+  height: 17px;
+  width: 17px;
+  /*right: 10px;*/
+  top: 0px;
+}
+/* Create a custom checkbox */
+.checkboxMark {
+  position: absolute;
+  top: 21%;
+  right: 92%;
+  vertical-align: center !important;
+  align-content: center;
+  height: 17px;
+  width: 17px;
+  background-color: #ffffff;
+  border-radius: 3px;
+  border: 2px solid #ddd;
+}
+
+
+/* On mouse-over, add a grey background color */
+.checkboxAccessContainer:hover input ~ .checkboxMark{
+  background-color: #eee;
+}
+/* When the checkbox is checked, add a blue background */
+.checkboxAccessContainer input:checked ~ .checkboxMark {
+  background-color: #039BE5;
+  border:2px solid #039BE5;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkboxMark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the checkmark when checked */
+.checkboxAccessContainer input:checked ~ .checkboxMark:after {
+  display: block;
+}
+/* Style the checkmark/indicator */
+.checkboxAccessContainer .checkboxMark:after {
+  left: 4px;
+  top: 0px;
+  width: 6px;
+  height: 10px;
+  align-content: center;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.valid_box {
+    height: 60px;
+}
+
+
+
+
+
+
+
+/***************************************/
+.categoryTable{
+  margin-top: 20px;
+}
+.AMWrap, .AM-WrapMain{
+  padding-top: 40px;
+  padding-bottom: 40px;
+    border: 1px solid #aaa;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px 0 rgba(0,0,0,.15);
+    border: 1px solid #eee !important;
+    border-radius: 3px;
+}
+.AM-WrapMain{
+  margin-top: 110px;
+}
+.AM-btn-Wrap{
+  text-align: right;
+}
+.AM-btn-Wrap button{
+  border-radius: 0px !important;
+}
+.moduleNameAM{
+  color: #666;
+    padding-left: 5px;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 18px;
+/*    margin-top: 58px;
+*/}
+.nestedTable{
+  width:100%;
+  border-bottom: 1px solid #eee;
+}
+.nestedTable tr td{
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-align: left;
+    padding-left: 15px;
+}
+.nestedTable:last-child{
+  border-bottom: none !important;
+}
+.AMFTableTD{
+  padding: 0px 0px 0px 5px !important;
+  text-align: left;
+}
+.facilityInnerTD{
+  padding: 5px;
+}
+.AMCheckbox{
+  margin-top: 4.5px !important;
+  margin-bottom: -6px !important;
+}
+.moduleName-AMF{
+  vertical-align: middle !important;
+}
+.F-DeleteBtn{
+  text-align: right;
+}
+
+.moduleNMWrap{
+  padding: 0px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+.AMFTable{
+  padding: 0px;
+  margin-top: 20px;
+}
+.rolesList-AM{
+  margin-top: 20px;
+}
+.AMRoleSelect{
+  text-align: center;
+}
+.AMTableTd{
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 10px !important;
+}
+.nestedTable-AMTable{
+  font-weight: normal;
+  font-size: 14px;
+}
+.srNoAMTable{
+  text-align: center;
+  vertical-align: middle !important;
+}
+.nestedTable-AMTable tr td{
+  vertical-align: middle !important;
+}
+.tableHeader-AM tr th{
+  text-align: center;
+}
+.tableHeader-AM tr th:nth-of-type(2){
+  text-align: left;
+}
+.addModuleOption{
+  color: #f44;
+}
+.AM-modal-body{
+  height: 135px;
+}
+.hiddenCheckbox-AM{
+  opacity: 0;
+}
+.addModuleIcon{
+  float: right;
+    margin-top: -23px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #039BE5;
+}
+
+
+.floating-label {
+  font-family:'Montserrat',sans-serif;
+  color: #333333;
+  position: absolute;
+  pointer-events: none;
+  left: 18px;
+  top: 8px;
+  font-weight: 300;
+  font-size: 13px;
+  transition: 0.2s ease all;
+  text-align: left;
+}
+.floating-label-Date{
+  display: none;
+}
+.inputText:focus ~ .floating-label,.inputText:not(:focus):valid ~ .floating-label,.inputTextSearch:focus ~ .floating-label,.inputTextSearch:not(:focus):valid ~ .floating-label{
+  top: -22px;
+  font-size: 15px;
+  color: #333333;
+  left: 17px;
+  font-weight: bold;
+  display: block;
+  padding: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  width: 85%;
+}
+.box-header{
+  text-align: left !important;
+}
+.swal-button--cancel{
+  background-color: #039BE5;
+  border: none !important;
+  color: #fff;
+  text-decoration: none !important;
+  box-shadow: none;
+  
+}
+.swal-button--cancel:hover  {
+  background-color: #039BE5 !important;
+  border: none !important;
+  color: #fff;
+  
+}
+.deleteIcon {
+    margin-left: 15px;
+    color: #d9534f;
+    cursor: pointer;
+}
+.mb15{
+  margin-bottom: 15px
+}

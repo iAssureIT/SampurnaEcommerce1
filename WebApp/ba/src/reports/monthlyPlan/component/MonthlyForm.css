@@ -1,0 +1,168 @@
+.mr30{
+	margin-right: 30px;
+}
+.notbtn{
+
+	border:1px solid #f4f4f4;
+	height: 36px;
+	border-radius: 3px;
+	text-align: center;
+	padding-top: 5px;
+
+}
+.form_heading4{
+	padding-left: 10px;
+	font-size: 10px;
+	margin-bottom: 30px;
+}
+.set_fnt{
+	font-family:'Montserrat-Regular';
+	font-size: 16px;
+	color: #333333;
+}
+.cnt_left{
+	margin-left: 30px;
+}
+.Attach_hand{
+	 margin-top:50px;
+	 margin-left: 100px;
+}
+.down_col{
+	margin-bottom: 15px;
+}
+.acadm_btn{
+	margin-top: 30px;
+}
+.display_map_ac{
+  margin-top: 30px;;
+  margin-left: 15px;
+  padding-top: 30px;
+  border: 1px solid #e5e7e9;
+  border-radius: 3px;
+  width: 95%;
+  box-shadow: 0 0 10px #ccc;
+}
+.timlinePhoto{
+/*	background-image: url("images/44.png");
+*/	background-size: 100% 100%;
+	height: 150px;
+}
+.profileImgSideBar{
+	height: 90px;
+    width: 85px;
+    margin-left: 15px;
+    position: absolute;
+    top: 95px;
+    left: 50px;
+	border: 3px solid #eee;
+	border-radius: 15px;
+	box-shadow: 0px 0px 10px 0px #333;
+}
+.rowWidth{
+
+}
+.nameonProfile{
+	text-align: center;
+	margin-top: 65px;
+}
+.nameonProfile p{
+	font-size: 10px;
+}
+.sapnImages{
+	margin-left: 20%;
+	padding: 14px;
+	margin-top: -5px;
+
+}
+.iconpadding{
+	padding: 5px;
+}
+.sideProfileButton1{
+	width: 80px;
+	height: 34px;
+	border-radius: 20px;
+	margin-left: 9%;
+}
+.sideProfileButton2{
+	width: 80px;
+	height: 34px;
+	border-radius: 20px;
+	margin-left: 12px;
+}
+.profilecontact{
+	margin-top: 25px;	
+}
+.adjust_side{
+	margin-left: -5px;
+}
+.row_sidebar {
+    margin-right: -15px;
+    margin-left: -11px;
+}
+/*Css Added by PL for capital letter*/
+.nameParts{
+  text-transform: capitalize;
+
+}
+.toUpper{
+  text-transform: uppercase;
+}
+.pageSubheaderAc{
+	font-family: 'Montserrat',sans-serif;
+    font-size: 18px;
+    margin-left: 15px;
+    color: #333333;
+    font-weight: 575;
+    padding-bottom: 20px;
+}
+.boxHeight1{
+	height:55px;
+}
+.boxHeightother{
+	margin-top:10px;
+}
+.addContainerMPV{
+	height: 30px;
+	width:30px;
+	padding: 0px;
+	border-radius: 100px;
+	border: 1px solid #039BE5;
+	color:#000;
+}
+.addContainerMPV:hover{
+	cursor: pointer;
+}
+.addContainerMPV i{
+	font-size:19px;
+	color: #039BE5;
+	padding-left:6px;
+	padding-top: 6px;
+}
+.close i{
+	color:#f00 !important;
+	padding-top: 8px;
+}
+.*:focus{
+	border: none;
+}
+.unit{
+	margin-top: 30px;
+	font-family:'Montserrat' !important;
+}
+
+.ReactTable .rt-tbody .rt-td {
+  padding: 10px;
+}
+/*.ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td{
+	 font-family:'Montserrat',sans-serif !important;
+  background-color: #039BE5 !important;
+  color      :#f2f2f2 !important;
+  font-size  : 14px !important;
+  height     : 40px !important;
+}*/
+.yearDetail:hover{
+	cursor: pointer;
+}
+.slowmotion{
+	transition: all linear 10s;
+}

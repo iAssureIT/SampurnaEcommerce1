@@ -1,0 +1,38 @@
+.pmpageContent{
+	background-color: #ffffff !important;
+    padding-bottom: 15px;
+    min-height: 580px;
+}
+.pmcontentWrap{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #eeeeee;
+    margin-left: 6px;
+
+}
+.mtophr20{
+	margin-top: 20px;
+	margin-bottom:  20px;
+	/*border-top: 1px solid #dedede;
+	padding: 15px 0px ;*/
+}
+.mtop20{
+	border-bottom: 1px solid #dedede;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	
+}
+.h34{
+	height: 34px;
+}
+.Subbtnmtop20{
+	margin-top: 20px;
+}
+.mbt25{
+	margin-bottom: 25px;
+}
+.new_inputbx1{
+	border-top:none;
+	border-bottom:none;
+	border-right: none;
+}

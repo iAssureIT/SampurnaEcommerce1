@@ -1,6 +1,7 @@
 
-.account-nav  li  a{
-	color: #555;
+.account-nav li a {
+    color: black;
+    font-weight: 400;
 }
 .account-nav li a:hover{
 	color:#80b435 !important;
@@ -232,7 +233,7 @@ text-align:right ! important;
 }
 .modalheadingcont{
 	margin-top: 0px ! important;
-	margin-left: 11px ! important;
+	/* margin-left: 11px ! important; */
 }
 .modal-header .close{
 	margin-right: 0px ! important;

@@ -7,7 +7,7 @@ export const setBlockData = (data) => ({
 
 export const getBlockData = (data) => ({
   type: 'GET_BLOCKS_DATA',
-  payload : data
+  payload : datapageData
 })
 
 export function updatePin(pincode,status) {

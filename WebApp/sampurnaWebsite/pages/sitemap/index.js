@@ -3,9 +3,9 @@ import Link                 from 'next/link';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import axios   from 'axios';
-import Header from '../../component/blockTemplate/Header/Header.js';
-import Footer from '../../component/blockTemplate/Footer/Footer.js';
-import BreadCrumbs from '../../component/CustomizeBlocks/BreadCrumbs/BreadCrumbs.js';
+import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Footer      from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import BreadCrumbs from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import Style from './site-map.module.css';
 class SiteMap extends Component{
     constructor(props) {

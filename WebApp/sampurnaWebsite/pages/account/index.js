@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import $                    from 'jquery';
 import Router               from 'next/router';
-import Address              from '../../component/CustomizeBlocks/Address/Address.js';
 import axios                from 'axios';
-import SmallBanner          from '../../component/CustomizeBlocks/SmallBanner/SmallBanner.js';
-import Sidebar              from '../../component/CustomizeBlocks/Sidebar/Sidebar.js';
-import Loader               from "../../component/CustomizeBlocks/Loader/Loader.js";
-import Header               from '../../component/blockTemplate/Header/Header.js';
-import Footer               from '../../component/blockTemplate/Footer/Footer.js';
-// import "../../../sites/currentSite/pages/Account.css";
-// import AccImg from '../../../sites/currentSite/images/my_account.png';
+
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
+import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
+import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
 
 class Account extends Component{
     constructor(props) {
@@ -116,7 +116,7 @@ class Account extends Component{
                                                 <p className="col-12 textwrap">{this.state.fullName}</p>
                                                 <p className="col-12 ">{this.state.emailId}</p>
                                                 <p className="col-12 ">{this.state.mobileNumber}</p>
-                                                <div className="col-12 mt70">
+                                                <div className="col-12 mt100">
                                                     <button className="btn globalCommonBtn col-12 col-sm-7 " onClick={this.editUser.bind(this)}><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp;
                                                 {/*<button className="btn btn-warning">CHANGE PASSWORD</button>*/}
                                                 </div>
@@ -166,7 +166,7 @@ class Account extends Component{
                                                 :
                                                 <div className="col-12 mt25 mb25">
                                                     <p className="col-12">You have not set a default billing address.</p>
-                                                    <div className="col-12 mt45">
+                                                    <div className="col-12 mt25">
                                                         <button data-toggle="modal" data-target="#checkoutAddressModal"
                                                          className="btn globalCommonBtn col-12 col-sm-7"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
                                                     </div>
