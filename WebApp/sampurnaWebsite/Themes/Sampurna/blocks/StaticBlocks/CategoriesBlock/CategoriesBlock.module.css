@@ -239,6 +239,9 @@
     display: block;
     text-align: center;
 }
+.pageWrapper a:hover{
+    text-decoration: none !important;
+}
 @media only screen and (max-device-width: 480px) {    
     .box{
         min-height: 240px;
@@ -257,5 +260,5 @@
 
 
 .categoryWrapper{
-    margin-top: 100px;
+    /* margin-top: 100px; */
 }

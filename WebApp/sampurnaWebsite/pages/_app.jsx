@@ -48,7 +48,7 @@ export default function App({ Component, pageProps }) {
     <Provider store={store}> 
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrzFPcpBm_YD5DfBl9zJ2KwOjiRpOQ1lE&libraries=places"></script>

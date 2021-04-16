@@ -88,12 +88,12 @@ class MasterPage extends React.Component {
 					var component = result._id ? result.blockComponentName : "TitleDesc";
 					var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
 					var block_id=result.block_id._id;
-					console.log("result==",result);
+					// console.log("result==",result);
 					const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
 					{
 						loading: () =>
-							<div className="col-12 loading">
-								<img src="/images/eCommerce/loader.gif" className="col-2 offset-5"></img>
+							<div className="col-2 offset-5 loading">
+								<img src="/images/eCommerce/loader.gif" className="col-12 "></img>
 							</div> 
 					});
 					
