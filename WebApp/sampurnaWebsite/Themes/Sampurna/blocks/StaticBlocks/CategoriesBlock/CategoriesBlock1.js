@@ -39,6 +39,7 @@ export default class CategoriesBlock extends React.Component {
     getCategoriesData(){
 	  axios.get('/api/category/get/list')
       .then((response)=>{
+          console.log("categorydata == ",response.data);
       	this.setState({
       			blocks:response.data
       		});

@@ -137,6 +137,9 @@ body{
 .oldprice{
   text-decoration-line: line-through;
 }
+.swiper-cube-shadow{
+  display: none !important;
+}
 .current{
   /*color: var(--gobalCurrentColor) !important;*/
   /*background-color: var(--gobalCurrentBgColor) !important;*/

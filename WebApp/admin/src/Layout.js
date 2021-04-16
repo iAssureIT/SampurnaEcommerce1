@@ -119,7 +119,7 @@ import MasterData            from "./storeAdmin/MasterData/MasterData.js";
 
 /*===================== CMS ========================*/
 
-import CmsLayout from './CMS/CmsLayout.js';
+// import CmsLayout from './CMS/CmsLayout.js';
 
 
 /*========================================*/
@@ -161,7 +161,8 @@ render() {
     if (this.state.loggedIn) {
         if(a[1] == "cms"){
                 return(                    
-                    <CmsLayout />                   
+                    // <CmsLayout /> 
+                    <div>Cms</div>                  
                 );
         } else{
 

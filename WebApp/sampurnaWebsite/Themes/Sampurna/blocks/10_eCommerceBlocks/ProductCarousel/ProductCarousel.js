@@ -686,7 +686,8 @@ class ProductCarousel extends Component {
   }
   sortProducts = effect => {
     this.setState({ effect });
-    var sortBy = effect.value;    
+    var sortBy = effect.value;
+    // console.log("sortBy==",sortBy);    
     if (sortBy === "alphabeticallyAsc") {
 			let field = 'productName';
 			this.setState({
@@ -697,7 +698,9 @@ class ProductCarousel extends Component {
 			let field = 'productName';
 			this.setState({
 				newProducts: this.state.newProducts.sort((a, b) => -(a[field] || "").toString().localeCompare((b[field] || "").toString()))
-			});
+			},()=>{
+          // console.log("newProducts===",this.state.newProducts);
+      });
 		}
 		if (sortBy === "priceAsc") {
 			let field = 'discountedPrice';
@@ -709,7 +712,9 @@ class ProductCarousel extends Component {
 			let field = 'discountedPrice';
 			this.setState({
 				newProducts: this.state.newProducts.sort((a, b) => b[field] - a[field])
-			});
+			},()=>{
+        // console.log("newProducts===",this.state.newProducts);
+      });
 		}
     
   };
@@ -796,7 +801,7 @@ class ProductCarousel extends Component {
                   <li><Link href={`/section/${encodeURIComponent(this.state.categoryData[0].section.replace(/\s+/g, '-').toLowerCase())}`}><a>
 										{" " +this.state.categoryData[0].section}</a></Link>&nbsp;
                     {this.state.categoryData.length<=1?<a href="">/ {this.state.categoryData[0].category}</a>:null}
-                    {this.state.categoryData[0].subCategory.length<=1?<a href="">/ {this.state.categoryData[0].subCategory[0].subCategoryUrl}</a>:null}
+                    {this.state.categoryData[0].subCategory[0]?<a href="">/ {this.state.categoryData[0].subCategory[0].subCategoryUrl}</a>:null}
                   </li>
 									: ""
 								}
