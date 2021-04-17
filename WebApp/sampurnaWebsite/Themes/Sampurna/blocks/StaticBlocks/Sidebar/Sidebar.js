@@ -24,9 +24,8 @@ export default class Sidebar extends Component {
     }
   	render() {  
     return (
-		<div className="sidebar col-12">			
-		    <br className="hidden-xs" />
-		    <br className="hidden-xs" />        
+		<div className="sidebar col-12 NoPadding">			
+		    <br className="hidden-xs" />		          
       			<nav className="account-nav">
 		            <ul className="nav items">
 		                <li className="nav item col-12 current1">

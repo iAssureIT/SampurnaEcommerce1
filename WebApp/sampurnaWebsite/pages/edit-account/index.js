@@ -305,48 +305,48 @@ class EditAccount extends Component{
                     <div className="col-12 col-xl-3 col-md-12">
                         <Sidebar />
                     </div>
-                    <div className=" col-12 col-xl-9 col-md-12 NOpadding mt25">
+                    <div className=" col-12 col-xl-9 col-md-12 NoPadding mt25">
                         <h4 className="accountTitle">Account Information</h4>
                         <div className="col-12 mt15">
                             <form id="editAccount">
                                 <div className="row">
-                                    <div className="col-12 col-md-6">
+                                    <div className="col-12 col-md-6 mb-2">
                                         <label className="mt15">First Name <i className="requiredsign">*</i></label><br />
-                                        <div id="firstName" className="col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NOpadding">
+                                        <div id="firstName" className="col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding">
                                             <input maxLength="25" type="text" name="firstName"  ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/>
                                         </div>
                                     </div>
-                                    <div className="col-12 col-md-6">
+                                    <div className="col-12 col-md-6 mb-2">
                                         <label className="mt15">Last Name <i className="requiredsign">*</i></label><br />
-                                        <div id="lastName" className="col-12 NOpadding">
+                                        <div id="lastName" className="col-12 NoPadding">
                                             <input maxLength="25" type="text" name="lastName"  ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required />
                                         </div>
                                     </div>
-                                    <div className="col-12 col-md-6">
+                                    <div className="col-12 col-md-6 mb-2">
                                         <label className="mt15">Mobile Number<i className="requiredsign">*</i></label><br />
-                                        <div id="mobNumber" className="col-12 NOpadding">
+                                        <div id="mobNumber" className="col-12 NoPadding">
                                             <input className="col-12 form-control" type="text" maxLength="10" ref="mobNumber" name="mobNumber" id="mobNumber" placeholder="Eg. 9876543210"
                                                  value={this.state.mobNumber}  onChange={this.onChange.bind(this)} required/>
                                         </div>
                                     </div>    
                                     <div className="col-12">   
-                                    <div className="col-12 col-md-6"> 
-                                        <div className="col-12 mt15 NOpadding">
+                                    <div className="col-12 col-md-6 mb-2 NoPadding"> 
+                                        <div className="col-12 mt-2 NoPadding">
                                             <input type="checkbox" id="changeEmail" checked={this.state.changeEmail} onChange={this.changeEmail.bind(this)}/> &nbsp; <span>Change Email</span>
                                         </div> 
-                                        <div className="col-12 mt15 NOpadding">
+                                        <div className="col-12 mt15 NoPadding">
                                             <input type="checkbox" id="changePassword" checked={this.state.changePassword} onChange={this.changePassword.bind(this)}/> &nbsp; <span>Change Password</span>
                                         </div>
-                                        <div id="credentials" className="col-12 mt15 NOpadding">
-                                        <div className="col-12 mt15 NOpadding">
-                                            <h4>{(this.state.changeEmail === true && this.state.changePassword === true? 'Change Email and Password' : (this.state.changeEmail === true ? 'Change Email' : (this.state.changePassword === true? 'Change Password' :"")))}</h4>
+                                        <div id="credentials" className="col-12 mt-2 NoPadding">
+                                        <div className="col-12 mt15 NoPadding">
+                                            <h5>{(this.state.changeEmail === true && this.state.changePassword === true? 'Change Email and Password' : (this.state.changeEmail === true ? 'Change Email' : (this.state.changePassword === true? 'Change Password' :"")))}</h5>
                                         </div>
 
                                         {
                                             this.state.changeEmail === true?
-                                            <div>
+                                            <div className="col-12 mb-2 NoPadding">
                                                 <label className="mt15">Email <i className="requiredsign">*</i></label><br />
-                                                <div id="emailId" className="col-12 NOpadding">
+                                                <div id="emailId" className="col-12 NoPadding">
                                                     <input type="email" name="emailId"  ref="emailId" value={this.state.emailId} 
                                                     onChange={this.onChange.bind(this)} className="col-12 col-md-8 form-control" />
                                                 </div>
@@ -357,9 +357,9 @@ class EditAccount extends Component{
                                         
                                         {
                                             this.state.changeEmail === true || this.state.changePassword === true?
-                                            <div>
+                                            <div className="col-12 mb-2 NoPadding">
                                                 <label className="mt15">Current Password <i className="requiredsign">*</i></label><br />
-                                                <div  id="oldPassword" className="col-12 NOpadding">
+                                                <div  id="oldPassword" className="col-12 NoPadding">
                                                     <input type="text" id="oldPass" type="password" name="oldPassword"  ref="oldPassword" value={this.state.oldPassword} onChange={this.onChange.bind(this)} className="col-xl-8 col-md-8 col-sm-12 col-xs-12 form-control" />
                                                     <div className="showHideEyeDiv">
                                                         <i className="fa fa-eye showPwd4 showEyeupSign" aria-hidden="true" onClick={this.showCurrentPass.bind(this)}></i>
@@ -373,17 +373,17 @@ class EditAccount extends Component{
                                         
                                         {
                                             this.state.changePassword === true?
-                                            <div>
+                                            <div className="col-12 mb-2 NoPadding">
                                                 <label className="mt15">New Password <i className="requiredsign">*</i></label><br />
-                                                <div id="newPassword" className="col-12 NOpadding">
+                                                <div id="newPassword" className="col-12 NoPadding">
                                                     <input type="password" id="newPass" name="newPassword"  ref="newPassword" value={this.state.newPassword} onChange={this.onChange.bind(this)} className="col-xl-8 col-md-8 col-sm-12 col-xs-12 form-control newPassword" />
                                                     <div className="showHideEyeDiv">
                                                         <i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
                                                         <i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
                                                     </div> 
                                                 </div>
-                                                <label className="mt15 col-12 NOpadding">Confirm New Password <i className="requiredsign">*</i></label><br />
-                                                <div id="newPassword2" className="col-12 NOpadding">
+                                                <label className="mt15 col-12 NoPadding">Confirm New Password <i className="requiredsign">*</i></label><br />
+                                                <div id="newPassword2" className="col-12 NoPadding">
                                                     <input type="password" id="newPass2" name="newPassword2"  ref="newPassword2" value={this.state.newPassword2} onChange={this.onChange.bind(this)} className="col-xl-8 col-md-8 col-sm-12 col-xs-12 form-control" />
                                                     <div className="showHideEyeDiv">
                                                         <i className="fa fa-eye showPwd2 showEyeupSign" aria-hidden="true" onClick={this.showConfirmPass.bind(this)}></i>

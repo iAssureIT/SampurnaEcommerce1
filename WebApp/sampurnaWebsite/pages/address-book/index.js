@@ -137,8 +137,8 @@ class AddressBook extends Component{
                         <Sidebar />
                     </div>
                     <div className="col-12 col-xl-9 col-md-12 col-sm-7 NOpadding mt25">
-                        <h4 className="addTitle">Default Addresses</h4>
-                        <div className="col-12 col-md-6 mt15 mb15">
+                        <h5 className="addTitle">Default Addresses</h5>
+                        <div className="col-12 col-md-6 mt-2 mb-4">
                             <div className="col-12">
                                 {
                                     this.state.addressLine1 ? 
@@ -152,20 +152,20 @@ class AddressBook extends Component{
                                             {/* {this.state.state}, {this.state.country} - {this.state.pincode}<br /> */}
                                             Contact Number: {this.state.mobileNumber}
                                         </p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn mt15">Change Billing Address</div>
+                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn mt-2">Change Billing Address</div>
                                         {/* <i id={this.state.deliveryAddressID} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn anasBtn deleteAdd"></i> */}
                                     </div>
                                     :
                                     <div className="row">
                                         <label>Default Billing Address</label>
                                         <p>You have not set a default billing address.</p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt15">Add Billing Address</div>
+                                        <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2">Add Billing Address</div>
                                     </div>
                                 }
                             </div>
                         </div>
                         {
-                        /*<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt15 mb25 NOpaddingRight">
+                        /*<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-2 mb25 NOpaddingRight">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 {this.state.addressLine1 ?
                                     <div className="row">
@@ -178,13 +178,13 @@ class AddressBook extends Component{
                                             {this.state.state}, {this.state.country} - {this.state.pincode}<br />
                                             T: {this.state.mobileNumber}
                                         </p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn btn-warning mt15">Change Shipping Address</div>
+                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn btn-warning mt-2">Change Shipping Address</div>
                                     </div>
                                     :
                                     <div className="row">
                                         <label>Default Shipping Address</label>
                                         <p>You have not set a default shipping address.</p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={'/address'} className="btn btn-warning mt15">Add Shipping Address</div>
+                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={'/address'} className="btn btn-warning mt-2">Add Shipping Address</div>
                                     </div>
                                 }
                                 
@@ -192,9 +192,9 @@ class AddressBook extends Component{
                         </div>*/
                         }
                         <div className="col-12 NoPadding"> 
-                            <h4 className="addTitle">Additional Address Entries</h4>
+                            <h5 className="addTitle">Additional Address Entries</h5>
                         </div>
-                        <div className="col-12 mt15 mb25 NOpaddingRight ">
+                        <div className="col-12 mt-2 mb25 NOpaddingRight ">
                             
                         
                         {
@@ -202,7 +202,7 @@ class AddressBook extends Component{
                             this.state.deliveryAddresses.map((address , index)=>{
                                 if(index !== 0){
                                     return(
-                                        <div key={'address'+index} className="col-12 col-md-6 mb15 NOpaddingLeft addressHeight">
+                                        <div key={'address'+index} className="col-12 col-md-6 mb-2 NOpaddingLeft addressHeight">
                                             <div className="col-12 ">
                                                 <div className="row">
                                                     <p>

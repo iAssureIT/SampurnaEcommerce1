@@ -2,6 +2,7 @@
 .account-nav li a {
     color: black;
     font-weight: 400;
+	text-decoration: none !important;
 }
 .account-nav li a:hover{
 	color:#80b435 !important;
@@ -266,6 +267,6 @@ text-align:right ! important;
 	}
 }
 .account-nav .current1{
-  background-color: #70a1f1 !important;
+  background-color: #D8AB46 !important;
   color: #fff ! important;
 }

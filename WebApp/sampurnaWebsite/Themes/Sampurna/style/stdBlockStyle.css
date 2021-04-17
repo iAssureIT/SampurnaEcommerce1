@@ -7,13 +7,18 @@
     margin-bottom: 20px;
     padding-top: 0.1px;
 }
+.contentWrapper{
+    margin-top: 50px;
+}
 .stdBlockTitleBlack, .stdBlockTitleWhite{
     font-size: 30px;
     color: #555;
-    text-align: center;
+    /* text-align: center; */
 }
 .stdBlockTitleWhite{
-    color: #f1f1f1;
+    color: #000;
+    font-size: 60px;
+    font-weight: 900;
 }
 .stdBlockContentWrapper{
     height: auto;
@@ -24,10 +29,11 @@
 .stdBlockDescriptionBlack, .stdBlockDescriptionWhite{
     font-size: 16px;
     color: #555;
-    text-align: justify;
+    text-align: left;
 }
 .stdBlockDescriptionWhite{
-    color: #f1f1f1;
+    color: #000;
+    font-weight: 700;
 }
 .stdBlockImageWrapper{
     height: auto;
@@ -44,7 +50,7 @@
     height: auto;
     width: 100%;
 }
-.stdBlockLeftImageWrapper{
+.stdBlockLeftImageWrapper{ 
     height: auto;
     text-align: center;
 }
@@ -137,7 +143,7 @@
     .stdBlockDescriptionBlack, .stdBlockDescriptionWhite{
         font-size: 20px;
         margin-right: 55px;
-        margin-left: 30px;
+        /* margin-left: 30px; */
         margin-top: 10px;
     }
     .stdBlockFGImage{
@@ -156,19 +162,19 @@
 @media (min-width: 1200px){
 
     .stdBlockWrapperBackground{
-        height: 750px;
+        height: 500px;
         background-size: 100% 100%;
     }
     .stdBlockSeparatorWhiteWrapper{
         margin-top: 130px;
     }
     .stdBlockTitleBlack, .stdBlockTitleWhite{
-        font-size: 46px;
+        font-size: 80px;
     }
     .stdBlockDescriptionBlack, .stdBlockDescriptionWhite{
-        font-size: 20px;
+        font-size: 35px;
         margin-right: 55px;
-        margin-left: 60px;
+        /* margin-left: 60px; */
         margin-top: 10px;
     }
     .stdBlockFGImage{

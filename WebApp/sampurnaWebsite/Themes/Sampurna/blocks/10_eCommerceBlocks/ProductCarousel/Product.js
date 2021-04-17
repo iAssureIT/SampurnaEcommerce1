@@ -315,6 +315,7 @@ class Product extends Component{
       var MDCol = 12/this.state.blockSettings.noOfProductPerMDRow;
       var SMCol = 12/this.state.blockSettings.noOfProductPerSMRow;
       var XSCol = 12/this.state.blockSettings.noOfProductPerXSRow;
+      // console.log("XSCol==",XSCol);
       return (
         <div className="col-12">
           <div className="row">
@@ -339,7 +340,7 @@ class Product extends Component{
                 var categoryUrl = (data.category).replace(/\s+/g, '-').toLowerCase();
                 // console.log("data product=====",(data.category).replace(/\s+/g, '-').toLowerCase());                    
               return (
-                <div className={"col-lg-"+LGCol+" col-md-"+MDCol+" col-sm-"+SMCol+" col-xs-"+XSCol +" " +Style.productWrap +" " +Style.customePadding}   key={index}> 
+                <div className={" col-sm-"+LGCol+" col-"+XSCol +" " +Style.mobileViewPadding }   key={index}> 
                   {/* <div key={index} className={"col-lg-3 " +Style.singleProduct}>                           */}
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>

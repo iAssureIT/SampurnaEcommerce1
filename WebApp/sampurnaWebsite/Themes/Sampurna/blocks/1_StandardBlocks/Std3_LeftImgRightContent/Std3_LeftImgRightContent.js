@@ -1,15 +1,13 @@
 import React, {Component}       from 'react';
 import axios                    from 'axios';
 
-
 import StdBlockSeparatorWhite   from '../../8_Common/StdBlockSeparatorWhite/StdBlockSeparatorWhite.js';
 import StdBlockSeparatorBlue    from '../../8_Common/StdBlockSeparatorBlue/StdBlockSeparatorBlue.js';
 import StdBlockTitleWhite       from '../../8_Common/StdBlockTitleWhite/StdBlockTitleWhite.js';
 import StdBlockTitleBlack       from '../../8_Common/StdBlockTitleBlack/StdBlockTitleBlack.js';
 
-
-import S                        from './Std3_LeftImgRightContent.module.css';
-
+// import S                        from './Std3_LeftImgRightContent.module.css';
+import Style from './Std3_LeftImgRightContent.module.css';
 
 export default class Std3_LeftImgRightContent extends Component{
     
@@ -73,12 +71,12 @@ export default class Std3_LeftImgRightContent extends Component{
                     this.state.blocks.bgImage
                     ?
                         <section className="col-12 stdBlockWrapperBackground" style={{backgroundImage:"url("+this.state.blocks.bgImage+")"}}>
-                            <StdBlockSeparatorWhite />
+                            {/* <StdBlockSeparatorWhite /> */}
                             <StdBlockTitleWhite blockTitle={this.state.blocks.blockTitle} />
                             <div className="col-12 stdBlockContentWrapper">
                                 <div className="row">
                                     <div className="col-12 col-lg-6 stdBlockImageWrapper">
-                                        <img className="mt-lg-4 mt-xl-0 stdBlockFGImage" src={this.state.blocks.fgImage1} alt="iAssureIT-Standard Block Image" title="iAssureIT-Standard Block Image" />
+                                        <img className="mt-lg-4 mt-xl-0 stdBlockFGImage" src={this.state.blocks.fgImage1} alt="Standard Block Image" title="Standard Block Image" />
                                     </div>
                                     <div className="col-12 col-lg-6 stdBlockDescriptionWrapper">
                                         <p className="mt-5 mt-lg-3 mt-xl-0 stdBlockDescriptionWhite" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>

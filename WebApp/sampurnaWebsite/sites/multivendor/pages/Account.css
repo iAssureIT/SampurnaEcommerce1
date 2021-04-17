@@ -15,6 +15,9 @@
     padding: 10px;
     background: #f8f8f8;
 }
+.accUserDetails{
+    height: 150px;
+}
 .textwrap{
 	word-break: break-all;
 }

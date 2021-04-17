@@ -596,7 +596,7 @@ class ProductCarousel extends Component {
     })
   }else{
 
-    console.log("user loged out====",localStorage.getItem('showLoginAs'));
+    // console.log("user loged out====",localStorage.getItem('showLoginAs'));
     if(localStorage.getItem('showLoginAs')==="modal"){
       $('#loginFormModal').show();       
       }else{
@@ -765,7 +765,7 @@ class ProductCarousel extends Component {
   render() {
     const { effect } = this.state;
     const { displayProducts } = this.state;
-    console.log("1. inside render");    
+    // console.log("1. inside render");    
     
     var LGCol = 12/this.state.blockSettings.noOfProductPerLGRow;
     var MDCol = 12/this.state.blockSettings.noOfProductPerMDRow;

@@ -151,11 +151,12 @@ color: #FBBD65!important;
   border-radius: 3px;
   padding: 3px 6px 3px 5px;
   left: 7.7%;
-  top: 4%;
+  /* top: 4%; */
   width: 50px;
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 480px) {
@@ -202,7 +203,7 @@ color: #FBBD65!important;
   height: 200px;
 }
 .wishlistBtn{
-  margin-top: 20px;
+  /* margin-top: 20px; */
   z-index: 1;
   position: absolute;
 }
@@ -404,7 +405,7 @@ font-weight: bold;
     display: block;
 }
 .wishIcon{ 
-  /* margin-top: 5px; */
+  margin-top: 5px;
   padding: 0px 6px;
   font-weight: bold;
   font-size: 12px;
@@ -430,11 +431,11 @@ font-weight: bold;
 }
 .filterBlockWrapper{
    border: solid 1px #eee;
+   height: max-content;
 }
-
 .NoPadding{
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
 .custom-container{
   height: 100px;
@@ -486,7 +487,7 @@ font-weight: bold;
   transition: max-height 0.2s ease-out;
 } 
 .panelHeading{
-  padding: 18px 15px !important;
+  padding: 5px 10px !important;
   cursor: pointer;
 }
 .panelHeading h4 a{
@@ -496,7 +497,7 @@ font-weight: bold;
 }
 .categoryUl{
   list-style-type:none;
-  margin-top: -20px;
+  margin-top: -10px;
 }
 .subCategorylia{
   color: black !important;
@@ -504,7 +505,8 @@ font-weight: bold;
 }
 
 .subcategoryLi{
-  padding:10px;
+  /* padding:10px; */
+  margin-top: 10px;
   cursor: pointer;
 }
 .panel-body{
@@ -559,4 +561,11 @@ font-weight: bold;
 }
 .ProductListWrapper{
   margin-top: 20px !important;
+}
+
+@media only screen and (max-device-width: 480px) {
+.mobileViewPadding{
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
 }

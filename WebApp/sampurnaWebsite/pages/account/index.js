@@ -89,7 +89,7 @@ class Account extends Component{
     }
     render(){
         return(
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+            <div className="col-12 NoPadding">
             <Header />
             {<Loader type="fullpageloader" />}
                 <SmallBanner bannerData={this.state.bannerData}/>  
@@ -103,7 +103,7 @@ class Account extends Component{
                             </div>
                         </div>
                         <div className="col-12 col-lg-9 mt25">
-                            <h4 className="accountTitle">Account Dashboard</h4>
+                            <h5 className="accountTitle">Account Dashboard</h5>
                             <p><label className="col-12">Hello {this.state.firstName}</label></p>
                             <div className="col-12 row mt15 mb15 mx-auto mobileViewNoPadding">
                                                             
@@ -111,11 +111,13 @@ class Account extends Component{
                                 <div className="col-12 col-lg-6 mt15 mb15 mobileViewNoPadding">
                                     <div className="col-12 accountBox">
                                         <div className="row">
-                                            <div className="accountDivHeader">Contact Information</div>
+                                            <div className="col-12 accountDivHeader">Contact Information</div>
                                             <div className="col-12 mt25 mb25">
-                                                <p className="col-12 textwrap">{this.state.fullName}</p>
-                                                <p className="col-12 ">{this.state.emailId}</p>
-                                                <p className="col-12 ">{this.state.mobileNumber}</p>
+                                                <div className="col-12 NoPadding accUserDetails">
+                                                    <p className="col-12 textwrap">{this.state.fullName}</p>
+                                                    <p className="col-12 ">{this.state.emailId}</p>
+                                                    <p className="col-12 ">{this.state.mobileNumber}</p>
+                                                </div>
                                                 <div className="col-12 mt100">
                                                     <button className="btn globalCommonBtn col-12 col-sm-7 " onClick={this.editUser.bind(this)}><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp;
                                                 {/*<button className="btn btn-warning">CHANGE PASSWORD</button>*/}
@@ -128,9 +130,11 @@ class Account extends Component{
                                 <div className="col-12 col-lg-6 mt15 mb15 mobileViewNoPadding">
                                     <div className="col-12 accountBox">
                                         <div className="row">
-                                            <div className="accountDivHeader">Newsletters</div>
+                                            <div className="col-12 accountDivHeader">Newsletters</div>
                                             <div className="col-12 mt25 mb25">
-                                                <p className="col-12">You don't subscribe to our newsletter.</p>
+                                                <div className="col-12 NoPadding accUserDetails">
+                                                    <p className="col-12">You don't subscribe to our newsletter.</p>
+                                                </div>
                                                 <div className="col-12 mt45">
                                                     <button className="btn globalCommonBtn col-12 col-sm-7 "><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button>
                                                 </div>
@@ -140,25 +144,26 @@ class Account extends Component{
                                 </div>
 
                                 <div className="col-12">
-                                    <label className="col-12 mt15 mb15 row">Address Book</label> 
+                                    <label className="col-12 mt-4 mb-4 row">Address Book</label> 
                                 </div>
                                 
                                 <div className="col-12 col-lg-6 mt15 mobileViewNoPadding">
                                     <div className="col-12 accountBox">
                                         <div className="row">
-                                            <div className="accountDivHeader">Default Billing Address</div>
+                                            <div className="col-12 accountDivHeader">Default Billing Address</div>
                                             { this.state.addressLine1 ?
                                                 <div className="col-12 mt25 mb25">
-                                                    <p className="col-12">{this.state.name}</p>
-                                                    <p className="col-12">
-                                                    {this.state.addressLine2} - &nbsp;
-                                                    {this.state.addressLine1} - &nbsp;
-                                                    {this.state.pincode},<br />                                                
-                                                    {/* {this.state.city},<br />
-                                                    {this.state.state}, {this.state.country} - {this.state.pincode}<br /> */}
-                                                    Contact Number: {this.state.mobileNumber}
-                                                    </p>
-                                                    
+                                                    <div className="col-12 NoPadding accUserDetails">
+                                                        <p className="col-12">{this.state.name}</p>
+                                                        <p className="col-12">
+                                                        {this.state.addressLine2} - &nbsp;
+                                                        {this.state.addressLine1} - &nbsp;
+                                                        {this.state.pincode},<br />                                                
+                                                        {/* {this.state.city},<br />
+                                                        {this.state.state}, {this.state.country} - {this.state.pincode}<br /> */}
+                                                        Contact Number: {this.state.mobileNumber}
+                                                        </p>
+                                                    </div>
                                                     <div className="col-12">
                                                         <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
                                                     </div>
@@ -179,10 +184,10 @@ class Account extends Component{
                                 <div className="col-12 col-lg-6 mt15 mb15 mobileViewNoPadding">
                                     <div className="col-12 accountBox">
                                         <div className="row">
-                                            <div className="accountDivHeader">Default Shipping Address</div>
+                                            <div className="col-12 accountDivHeader">Default Shipping Address</div>
                                             { this.state.addressLine1 ?
                                                 <div className="col-12 mt25 mb25">
-
+                                                <div className="col-12 NoPadding accUserDetails">
                                                     <p className="col-12">
                                                     {this.state.addressLine2 ? this.state.addressLine2+"-" : null} &nbsp;
                                                     {this.state.addressLine1}- &nbsp;
@@ -190,6 +195,7 @@ class Account extends Component{
                                                     Email: {this.state.emailId}<br />
                                                     Contact Number: {this.state.mobileNumber} 
                                                     </p>
+                                                </div>
                                                     <div className="col-12">
                                                         <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
                                                     </div>
