@@ -684,7 +684,8 @@ class ProductCarousel extends Component {
   showRatingBlock(event){
     event.preventDefault();
   }
-  sortProducts = effect => {
+  
+    sortProducts = effect => {
     this.setState({ effect });
     var sortBy = effect.value;
     // console.log("sortBy==",sortBy);    
@@ -699,7 +700,7 @@ class ProductCarousel extends Component {
 			this.setState({
 				newProducts: this.state.newProducts.sort((a, b) => -(a[field] || "").toString().localeCompare((b[field] || "").toString()))
 			},()=>{
-          // console.log("newProducts===",this.state.newProducts);
+          console.log("newProducts===",this.state.newProducts);
       });
 		}
 		if (sortBy === "priceAsc") {
@@ -764,7 +765,7 @@ class ProductCarousel extends Component {
   render() {
     const { effect } = this.state;
     const { displayProducts } = this.state;
-    // console.log("1. inside render");    
+    console.log("1. inside render");    
     
     var LGCol = 12/this.state.blockSettings.noOfProductPerLGRow;
     var MDCol = 12/this.state.blockSettings.noOfProductPerMDRow;
@@ -1127,6 +1128,7 @@ class ProductCarousel extends Component {
                         </div>
                       </div>
                     </div> 
+
                     <Product newProducts={this.state.newProducts}
                               productSettings = {this.state.productSettings}
                               blockSettings   = {this.state.blockSettings}

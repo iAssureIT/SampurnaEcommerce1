@@ -115,29 +115,27 @@ export default class Footer extends Component {
                 </div>
             </div>
             <div className="col-xl-3 col-md-2 col-sm-6  col-12 onlineShoppingWrapper">               
-                <div className="row">
-                    <div className="logo col-xl-12 col-6 col-sm-12 col-md-12">
-                        <Link href="/">
-                        <a  title="BookStore logo "style={{float:"right"}}>
-                            {/* <img src="/images/eCommerce/kokilaLogo.png" alt="images" className="footerLogoImg col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"/> */}
-                            <Image
-                                src="/images/eCommerce/multistoreLogo.png"
-                                className={"footerLogoImg"}
-                                height ={60}
-                                width={200}
-                            />
-                        </a>
-                        </Link>
-                    </div> 
-                    <div className="col-12">
-                     <div className="col-12 FooterTitle FooterTitle2">Connect Us</div>
-                      <div className="col-12 col-sm-6 col-lg-12 col-md-12  NoPadding">
+                <div className="logo col-xl-12 col-6 col-sm-12 col-md-12">
+                    <Link href="/">
+                    <a  title="BookStore logo "style={{float:"right"}}>
+                        {/* <img src="/images/eCommerce/kokilaLogo.png" alt="images" className="footerLogoImg col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"/> */}
+                        <Image
+                            src="/images/eCommerce/multistoreLogo.png"
+                            className={"footerLogoImg"}
+                            height ={60}
+                            width={200}
+                        />
+                    </a>
+                    </Link>
+                </div> 
+                <div className="col-12">
+                    <div className="col-12 FooterTitle FooterTitle2">Connect Us</div>
+                    <div className="col-12 col-sm-6 col-lg-12 col-md-12  NoPadding">
                         <div className="socialMediaIcons pull-right"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram" aria-hidden="true"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube" aria-hidden="true"></i></a></Link></div>  
                         <div className="socialMediaIcons pull-right"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fab fa-twitter" aria-hidden="true"></i></a></Link></div>                   
                     </div>
-                   </div> 
                 </div>
             </div>
            </div>             
