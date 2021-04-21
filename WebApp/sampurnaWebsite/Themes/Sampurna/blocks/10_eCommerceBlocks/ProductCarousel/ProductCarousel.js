@@ -716,8 +716,7 @@ class ProductCarousel extends Component {
 			},()=>{
         // console.log("newProducts===",this.state.newProducts);
       });
-		}
-    
+		}    
   };
   limitProducts = displayProduct => {
     event.preventDefault();

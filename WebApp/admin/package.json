@@ -8,7 +8,7 @@
     "@syncfusion/ej2-react-dropdowns": "^17.3.34",
     "all": "0.0.0",
     "axios": "^0.21.1",
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^3.4.1",
     "bootstrap-toggle": "^2.2.2",
     "browserslist": "^4.6.6",
     "caniuse-lite": "^1.0.30000988",
