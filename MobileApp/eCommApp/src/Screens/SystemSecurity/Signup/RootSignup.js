@@ -11,14 +11,15 @@ import { Button, Icon }       from "react-native-elements";
 import CheckBox               from 'react-native-check-box'
 import ValidationComponent    from "react-native-form-validator";
 import axios                  from 'axios';
-import styles                 from '../../../AppDesigns/currentApp/styles/ScreenStyles/SignupStyles.js';
-import { colors, sizes }      from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes }      from '../../../AppDesigns/currentApp/styles/styles.js';
 import Modal                  from "../../Modal/OpenModal.js";
 import { Fumi }               from 'react-native-textinput-effects';
 import FontAwesomeIcon        from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect }            from 'react-redux';
 import AsyncStorage           from '@react-native-community/async-storage';
+import commonStyles           from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import styles                 from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
 
 
 class RootSignup extends ValidationComponent {
@@ -365,8 +366,8 @@ class RootSignup extends ValidationComponent {
     return (
         <React.Fragment>
           <KeyboardAwareScrollView keyboardShouldPersistTaps="handled">
-            <Text style={styles.signuptitle}>Sign Up</Text>
-              <View style={[styles.formInputView, styles.marginBottom20]}>
+          <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign Up</Text></View>
+              <View style={[commonStyles.formInputView, styles.marginBottom20]}>
                 <Fumi
                   label={'First Name'}
                   onChangeText={(firstName) => { this.setState({ firstName }, () => { this.validInputField('firstName', 'firstNameError'); }) }}
@@ -379,12 +380,13 @@ class RootSignup extends ValidationComponent {
                   iconWidth={40}
                   inputPadding={16}
                   containerStyle={{height:20}}
-                  style={styles.signupemail}
+                  style={commonStyles.inputContainer}
+                  labelStyle={commonStyles.labelStyle}
                 />
                 {this.displayValidationError('firstNameError')}
               </View>
 
-              <View style={[styles.formInputView, styles.marginBottom20]}>
+              <View style={[commonStyles.formInputView, styles.marginBottom20]}>
                 <Fumi
                   label={'Last Name'}
                   onChangeText={(lastName) => { this.setState({ lastName }, () => { this.validInputField('lastName', 'lastNameError'); }) }}
@@ -396,13 +398,14 @@ class RootSignup extends ValidationComponent {
                   iconSize={20}
                   iconWidth={40}
                   inputPadding={16}
-                  style={styles.signupemail}
                   containerStyle={{height:20}}
+                  style={commonStyles.inputContainer}
+                  labelStyle={commonStyles.labelStyle}
                 />
                 {this.displayValidationError('lastNameError')}
               </View>
 
-              <View style={[styles.formInputView, styles.marginBottom20]}>
+              <View style={[commonStyles.formInputView, styles.marginBottom20]}>
                 <Fumi
                   label={'Phone Number'}
                   onChangeText={(mobileNumber) => { this.setState({ mobileNumber }, () => { this.validInputField('mobileNumber', 'mobileNumberError'); }), this.handleMobileChange(mobileNumber) }}
@@ -415,12 +418,13 @@ class RootSignup extends ValidationComponent {
                   iconWidth={40}
                   inputPadding={16}
                   containerStyle={{height:20}}
-                  style={styles.signupemail}
+                  style={commonStyles.inputContainer}
+                  labelStyle={commonStyles.labelStyle}
                 />
                 {this.displayValidationError('mobileNumberError')}
               </View>
 
-              <View style={[styles.formInputView, styles.marginBottom20]}>
+              <View style={[commonStyles.formInputView, styles.marginBottom20]}>
                 <Fumi
                   label={'Pincode'}
                   onChangeText={(pincode) => { this.setState({ pincode }, () => { this.validInputField('pincode', 'pincodeError'); })}}
@@ -433,14 +437,15 @@ class RootSignup extends ValidationComponent {
                   iconWidth={40}
                   inputPadding={16}
                   containerStyle={{height:20}}
-                  style={styles.signupemail}
                   maxLength={6}
                   keyboardType="numeric"
+                  style={commonStyles.inputContainer}
+                  labelStyle={commonStyles.labelStyle}
                 />
                 {this.displayValidationError('pincodeError')}
               </View>
 
-              <View style={[styles.formInputView, styles.marginBottom20]}>
+              <View style={[commonStyles.formInputView, styles.marginBottom20]}>
                 <Fumi
                   label={'Email'}
                   onChangeText={(email) => { this.setState({ email }, () => { this.validInputField('email', 'emailError'); }) }}
@@ -454,12 +459,13 @@ class RootSignup extends ValidationComponent {
                   iconWidth={40}
                   inputPadding={16}
                   containerStyle={{height:20}}
-                  style={styles.signupemail}
+                  style={commonStyles.inputContainer}
+                  labelStyle={commonStyles.labelStyle}
                 />
                 {this.displayValidationError('emailError')}
               </View>
 
-              <View style={[styles.formInputView, styles.marginBottom20]}>
+              <View style={[commonStyles.formInputView, styles.marginBottom20]}>
                 <Fumi
                   label={'Password'}
                   onChangeText={(password) => { this.setState({ password }, () => { this.validInputField('password', 'passwordError'); }), this.passwordChange(password, "password") }}
@@ -474,7 +480,8 @@ class RootSignup extends ValidationComponent {
                   iconWidth={40}
                   inputPadding={16}
                   containerStyle={{height:20}}
-                  style={styles.signupemail}
+                  style={commonStyles.inputContainer}
+                  labelStyle={commonStyles.labelStyle}
                 />
                 <View style={[styles.eyeWrapper, { position: 'absolute', left: '80%', top: 22 }]}>
                   <TouchableOpacity onPress={this.handleShowPassword}>
@@ -484,7 +491,7 @@ class RootSignup extends ValidationComponent {
                 {this.displayValidationError('passwordError')}
               </View>
 
-              <View style={[styles.formInputView]}>
+              <View style={[commonStyles.formInputView]}>
                 <Fumi
                   label={'Confirm Password'}
                   onChangeText={(confirmPassword) => { this.setState({ confirmPassword }, () => { this.validInputField('confirmPassword', 'confirmPasswordError'); }), this.passwordChange(confirmPassword, "confirmPassword") }}
@@ -499,7 +506,8 @@ class RootSignup extends ValidationComponent {
                   iconWidth={40}
                   inputPadding={16}
                   containerStyle={{height:20}}
-                  style={styles.signupemail}
+                  style={commonStyles.inputContainer}
+                  labelStyle={commonStyles.labelStyle}
                 />
                 <View style={[styles.eyeWrapper, { position: 'absolute', left: '80%', top: 22 }]}>
                   <TouchableOpacity onPress={this.handleShowConfirmPassword}>
@@ -535,9 +543,9 @@ class RootSignup extends ValidationComponent {
                   />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', }}>
-                  <Text style={{ fontFamily: "Montserrat-Regular" }}>I agree to the </Text>
+                  <Text style={commonStyles.linkLightText}>I agree to the </Text>
                   <TouchableOpacity>
-                    <Text style={{ fontFamily: "Montserrat-Regular", textDecorationLine: 'underline' }}>
+                    <Text style={commonStyles.linkText}>
                       terms & conditions
                     </Text>
                   </TouchableOpacity>
@@ -556,30 +564,28 @@ class RootSignup extends ValidationComponent {
                   //   buttonStyle={styles.button}
                   //   containerStyle={styles.buttonContainer}
                   // />
-                  <ActivityIndicator size="large" color="#ed3c55" />
+                  <ActivityIndicator size="large" color={colors.theme} />
                   :
                   <Button
-                  onPress={this.handleSubmit.bind(this)}
-                  titleStyle={styles.buttonText}
-                  title="Sign Up"
-                  buttonStyle={styles.button}
-                  containerStyle={styles.buttonContainer}
-                />
+                    onPress={this.handleSubmit.bind(this)}
+                    titleStyle={commonStyles.buttonText}
+                    title="Sign Up"
+                    buttonStyle={commonStyles.button}
+                    containerStyle={commonStyles.buttonContainer}
+                  />
                 }
                  
               </View>
-              <Button
-               onPress={() => this.props.navigation("Login")}
-                // onPress={this.handleSubmit.bind(this)}
-                titleStyle={styles.buttonText1}
-                title="Sign In"
-                buttonStyle={styles.button1}
-                containerStyle={styles.buttonContainer1}
-                icon={
-                  <Icon name="chevron-double-left" type="material-community" size={22} color="#666" style={{}} />
-                }
-              />
-
+              <View style={{alignItems: 'center', justifyContent: 'center',marginVertical:30}}>
+              <TouchableOpacity onPress={() => this.props.navigation("Login")}>
+              <View style={{flexDirection:'row'}}>
+                <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} />
+                <Text style={[commonStyles.linkText]}>
+                    Sign In
+                </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </KeyboardAwareScrollView>
           {this.props.openModal ?
             <Modal navigation={navigation}/>

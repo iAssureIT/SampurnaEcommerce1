@@ -197,7 +197,7 @@ export default class SearchProducts extends React.Component {
                         <View style={[styles.flx1, styles.prdet]}>
                           <View style={[styles.flxdir]}>
                             <Icon
-                              name="rupee"
+                              name={item.currency}
                               type="font-awesome"
                               size={14}
                               color="#333"
@@ -240,7 +240,7 @@ export default class SearchProducts extends React.Component {
                               onPress={() => this.addtocart(item._id)}
                               titleStyle={styles.buttonText1}
                               title="Add"
-                              buttonStyle={styles.buttonGreen}
+                              buttonStyle={styles.button1}
                               containerStyle={styles.buttonContainer2}
                             />
                           </View>
@@ -258,7 +258,7 @@ export default class SearchProducts extends React.Component {
             </View>
             :
             <View style={{ flex: 1, alignItems: 'center', marginTop: '40%' }}>
-              <ActivityIndicator size="large" color="#ed3c55" />
+              <ActivityIndicator size="large" color={colors.theme} />
           </View>
             }
           </View>
@@ -268,7 +268,7 @@ export default class SearchProducts extends React.Component {
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
               <View style={{ justifyContent: 'center', }}>
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
@@ -280,7 +280,7 @@ export default class SearchProducts extends React.Component {
                   onPress={() => this.setState({ addtocart: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>
@@ -292,7 +292,7 @@ export default class SearchProducts extends React.Component {
             hideModalContentWhileAnimating={true}
             style={{ zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
               <View style={{ justifyContent: 'center', }}>
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
@@ -304,7 +304,7 @@ export default class SearchProducts extends React.Component {
                   onPress={() => this.setState({ wishlisted: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>

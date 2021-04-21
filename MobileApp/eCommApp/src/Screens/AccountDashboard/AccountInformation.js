@@ -14,7 +14,7 @@ import Menu from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
-import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import Modal from "react-native-modal";
 export default class AccountInformation extends React.Component {
@@ -366,7 +366,7 @@ export default class AccountInformation extends React.Component {
                     <Button
                       onPress={() => this.updateprofile()}
                       title={"UPDATE PROFILE"}
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       titleStyle={styles.buttonTextEDIT}
                       containerStyle={styles.buttonContainerEDIT}
                     />
@@ -381,7 +381,7 @@ export default class AccountInformation extends React.Component {
               hideModalContentWhileAnimating={true}
               style={{ paddingHorizontal: '5%', zIndex: 999 }}
               animationOutTiming={500}>
-              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
                 <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
                   Your profile is updated!
                 </Text>
@@ -391,7 +391,7 @@ export default class AccountInformation extends React.Component {
                       onPress={() => this.props.navigation.navigate('AccountDashboard')}
                       titleStyle={styles.buttonText1}
                       title="OK"
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer2}
                     />
                   </TouchableOpacity>

@@ -83,7 +83,7 @@ render() {
                         </View>
                     :
                         <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                            <ActivityIndicator size="large" color="#ed3c55" />
+                            <ActivityIndicator size="large" color={colors.theme} />
                         </View>
                     }
                     </View>

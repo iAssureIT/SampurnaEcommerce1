@@ -13,7 +13,7 @@ import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import axios from 'axios';
 import Counter from "react-native-counters";
 
@@ -67,6 +67,7 @@ export default class CartComponent extends React.Component {
                 discounttype: response.data[0].discounttype,
                 discountin: response.data[0].discountin,
                 discountvalue: response.data[0].discountvalue,
+
             },()=>{
               console.log('discountvalue = ', this.state.discountvalue);
                 var amountofgrandtotal =  this.state.discountdata !== undefined ?
@@ -97,12 +98,14 @@ export default class CartComponent extends React.Component {
     this.setState({ loading: true })
     axios.get('/api/Carts/get/cartproductlist/' + this.state.userId)
       .then((response) => {
+        console.log("response",response);
         this.setState({ loading: false })
         if (response.data.length > 0) {
           this.setState({
             subtotalitems: response.data[0].cartItems.length,
             cartData: response.data[0].cartItems,
             subTotal: response.data.subTotal,
+            currency : response.data[0].cartItems[0].productDetail.currency
           }, () => {
             this.gettotalcount();
           })
@@ -270,7 +273,7 @@ export default class CartComponent extends React.Component {
                                     </TouchableOpacity>
                                   <View style={styles.productdets}>
                                     <Icon
-                                      name="rupee"
+                                      name={item.productDetail.currency}
                                       type="font-awesome"
                                       size={12}
                                       color="#666"
@@ -313,7 +316,7 @@ export default class CartComponent extends React.Component {
                                     item.productDetail.availableQuantity > 0 ?
                                       <View style={styles.productdetsprice}>
                                         <Icon
-                                          name="rupee"
+                                           name={item.productDetail.currency}
                                           type="font-awesome"
                                           size={17}
                                           color="#666"
@@ -351,7 +354,7 @@ export default class CartComponent extends React.Component {
                       </View>
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                      <ActivityIndicator size="large" color="#ed3c55" />
+                      <ActivityIndicator size="large" color={colors.theme} />
                     </View>
                 }
                 {
@@ -364,7 +367,7 @@ export default class CartComponent extends React.Component {
                         <View style={{ flex: 0.3 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Icon
-                              name="rupee"
+                               name={this.state.currency}
                               type="font-awesome"
                               size={16}
                               color="#666"
@@ -383,7 +386,7 @@ export default class CartComponent extends React.Component {
                           { 
                           this.state.discountin === "Amount" ? 
                             <Icon
-                              name="rupee"
+                              name={this.state.currency}
                               type="font-awesome"
                               size={15}
                               color="#666"
@@ -413,7 +416,7 @@ export default class CartComponent extends React.Component {
                         <View style={{ flex: 0.3 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Icon
-                              name="rupee"
+                              name={this.state.currency}
                               type="font-awesome"
                               size={15}
                               color="#666"
@@ -470,7 +473,7 @@ export default class CartComponent extends React.Component {
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: "#ed3c55" }}>
+            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
               <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
@@ -494,7 +497,7 @@ export default class CartComponent extends React.Component {
                       onPress={() => this.DeleteItem()}
                       titleStyle={styles.buttonText1}
                       title="Yes"
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer2}
                     />
                 </View>
@@ -508,7 +511,7 @@ export default class CartComponent extends React.Component {
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: "#ed3c55" }}>
+            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
               <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
@@ -522,7 +525,7 @@ export default class CartComponent extends React.Component {
                       onPress={() => this.setState({ wishlisted: false })}
                       titleStyle={styles.buttonText1}
                       title="OK"
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer2}
                     />
                   </TouchableOpacity>

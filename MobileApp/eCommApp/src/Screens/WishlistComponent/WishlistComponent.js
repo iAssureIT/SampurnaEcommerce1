@@ -13,7 +13,7 @@ import Modal from "react-native-modal";
 import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import axios from 'axios';
 export default class WishlistComponent extends React.Component {
   constructor(props) {
@@ -204,33 +204,41 @@ closemodalwishlist(){
                                   <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
                                 </View>
                                 <View style={[styles.flx1, styles.prdet]}>
+                                <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
                                   <View style={[styles.flxdir]}>
                                     <Icon
-                                      name="rupee"
+                                      name={item.currency}
                                       type="font-awesome"
-                                      size={12}
+                                      size={13}
                                       color="#333"
                                       iconStyle={{ marginTop: 5, marginRight: 3 }}
                                     />
-                                    {/* <Text style={styles.ogprice}>{item.originalPrice}  </Text> */}
+                                    <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
+                                  </View>
+                                  <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
+                                    <Icon
+                                      name={item.currency}
+                                      type="font-awesome"
+                                      size={15}
+                                      color="#333"
+                                      iconStyle={{ marginTop: 5}}
+                                    />
                                     {
-                                      item.discountPercent > 0 ?
-                                        <Text style={styles.discountedpricedata}>
-                                          <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
-                                          <Text style={styles.ogprice}> {item.discountedPrice} - <Text style={styles.packofnos}>{item.size} {item.unit}</Text>
-                                          </Text>
-                                        </Text>
-                                        :
-                                        <Text style={styles.ogprice}>{item.originalPrice} - <Text style={styles.packofnos}>{item.size} {item.unit}</Text> </Text>
-                                    }
+                                        item.discountPercent > 0 ?
+                                            <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            </Text>
+                                          :
+                                          <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                                      }
                                   </View>
                                 </View>
+                              </View>
                                 <View style={[styles.flx1,styles.addtocartbtn]}>
                                 <Button
                                   titleStyle={styles.buttonText1}
                                   onPress={() => this.addtocart(item.wishlist_ID,item.product_ID)}
                                   title="MOVE TO CART"
-                                  buttonStyle={styles.buttonGreen}
+                                  buttonStyle={styles.button1}
                                   containerStyle={styles.buttonContainer2}
                                 />
                                 </View> 
@@ -254,7 +262,7 @@ closemodalwishlist(){
                         </View>
                       :
                         <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                          <ActivityIndicator size="large" color="#ed3c55" />
+                          <ActivityIndicator size="large" color={colors.theme}/>
                         </View>
                     }
                   </View>
@@ -267,7 +275,7 @@ closemodalwishlist(){
               hideModalContentWhileAnimating={true}
               style={{ paddingHorizontal: '5%', zIndex: 999 }}
               animationOutTiming={500}>
-              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
                 <View style={{ justifyContent: 'center', }}>
                   <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
                 </View>
@@ -280,7 +288,7 @@ closemodalwishlist(){
                         onPress={() => this.closemodal()}
                         titleStyle={styles.buttonText1}
                         title="OK"
-                        buttonStyle={styles.modalbuttonGreen}
+                        buttonStyle={styles.modalbutton1}
                         containerStyle={styles.buttonContainer1}
                       />
                 </View>
@@ -292,7 +300,7 @@ closemodalwishlist(){
               hideModalContentWhileAnimating={true}
               style={{ paddingHorizontal: '5%', zIndex: 999 }}
               animationOutTiming={500}>
-              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
                 <View style={{ justifyContent: 'center', }}>
                   <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
                 </View>
@@ -305,7 +313,7 @@ closemodalwishlist(){
                         onPress={() => this.closemodalwishlist()}
                         titleStyle={styles.buttonText1}
                         title="OK"
-                        buttonStyle={styles.modalbuttonGreen}
+                        buttonStyle={styles.modalbutton1}
                         containerStyle={styles.buttonContainer1}
                       />
                 </View>
@@ -317,7 +325,7 @@ closemodalwishlist(){
               hideModalContentWhileAnimating={true}
               style={{ paddingHorizontal: '5%', zIndex: 999 }}
               animationOutTiming={500}>
-              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
                 <View style={{ justifyContent: 'center', }}>
                   <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
                 </View>
@@ -329,7 +337,7 @@ closemodalwishlist(){
                         onPress={() => this.setState({ alreadyincarts: false })}
                         titleStyle={styles.buttonText1}
                         title="OK"
-                        buttonStyle={styles.modalbuttonGreen}
+                        buttonStyle={styles.modalbutton1}
                         containerStyle={styles.buttonContainer1}
                       />
                 </View>
@@ -367,7 +375,7 @@ closemodalwishlist(){
 // import Notification from '../../ScreenComponents/Notification/Notification.js';
 // import axios from 'axios';
 // import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
-// import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+// import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 // import Loading from '../../ScreenComponents/Loading/Loading.js';
 // export default class WishlistComponent extends React.Component {
 //   constructor(props) {
@@ -644,7 +652,7 @@ closemodalwishlist(){
 //                                 <View style={[styles.rs, (i % 2 == 0 ? { marginLeft: 5 } : { marginLeft: 15 })]}>
 //                                   <View style={styles.rs}>
 //                                     <Icon
-//                                       name="rupee"
+//                                       name={item.currency}
 //                                       type="font-awesome"
 //                                       size={15}
 //                                       color="#333"
@@ -723,7 +731,7 @@ closemodalwishlist(){
 //                         onPress={() => this.setState({ removewishlistmodal: false })}
 //                         titleStyle={styles.buttonText1}
 //                         title="OK"
-//                         buttonStyle={styles.buttonGreen}
+//                         buttonStyle={styles.button1}
 //                         containerStyle={styles.buttonContainer2}
 //                       />
 //                     {/* </TouchableOpacity>

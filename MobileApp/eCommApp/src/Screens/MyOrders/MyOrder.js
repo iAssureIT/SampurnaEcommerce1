@@ -10,8 +10,9 @@ import Menu from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
+import commonStyles  from '../../AppDesigns/currentApp/styles/commonStyles.js';
 import axios from 'axios';
 import moment from 'moment';
 const labels = ["Order Placed", "Packed", "Out for delivery", "Delivered"];
@@ -20,23 +21,23 @@ const customStyles = {
   currentStepIndicatorSize: 30,
   separatorStrokeWidth: 2,
   currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: '#fe7013',
+  stepStrokeCurrentColor: colors.theme,
   stepStrokeWidth: 3,
-  stepStrokeFinishedColor: '#fe7013',
+  stepStrokeFinishedColor: colors.theme,
   stepStrokeUnFinishedColor: '#aaaaaa',
-  separatorFinishedColor: '#fe7013',
+  separatorFinishedColor: colors.theme,
   separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: '#fe7013',
+  stepIndicatorFinishedColor: colors.theme,
   stepIndicatorUnFinishedColor: '#ffffff',
   stepIndicatorCurrentColor: '#ffffff',
   stepIndicatorLabelFontSize: 13,
   currentStepIndicatorLabelFontSize: 13,
-  stepIndicatorLabelCurrentColor: '#fe7013',
+  stepIndicatorLabelCurrentColor: colors.theme,
   stepIndicatorLabelFinishedColor: '#ffffff',
   stepIndicatorLabelUnFinishedColor: '#aaaaaa',
   labelColor: '#999999',
   labelSize: 13,
-  currentStepLabelColor: '#fe7013',
+  currentStepLabelColor: colors.theme,
 }
 // stepStrokeFinishedColor: '#ed3c55',
 
@@ -280,10 +281,10 @@ export default class MyOrder extends React.Component {
                                   <View style={styles.ordercancelsstatus}>
                                     <Button
                                       onPress={() => this.props.navigation.navigate('OrderDetails', { orderid: item._id })}
-                                      titleStyle={styles.buttonText}
+                                      titleStyle={commonStyles.buttonText1}
                                       title="ORDER DETAILS"
-                                      buttonStyle={styles.buttonGreen}
-                                      containerStyle={styles.buttonContainer2}
+                                      buttonStyle={commonStyles.button}
+                                      containerStyle={commonStyles.buttonContainer}
                                     />
                                   </View>
                                    {item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid" ?
@@ -316,7 +317,7 @@ export default class MyOrder extends React.Component {
                       :
 
                       <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                        <ActivityIndicator size="large" color="#ed3c55" />
+                        <ActivityIndicator size="large" color={colors.theme} />
                       </View>
                   }
 
@@ -333,7 +334,7 @@ export default class MyOrder extends React.Component {
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: "#ed3c55" }}>
+            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
               <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
@@ -358,7 +359,7 @@ export default class MyOrder extends React.Component {
                       onPress={() => this.confirmcancelorderbtn()}
                       titleStyle={styles.buttonText1}
                       title="Yes"
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer2}
                     />
                   </TouchableOpacity>

@@ -15,7 +15,7 @@ import { TextField }          from "react-native-material-textfield";
 import ValidationComponent    from "react-native-form-validator";
 import axios                      from 'axios';
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/ResetPasswordStyles.js';
-import {colors,sizes}         from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {colors,sizes}         from '../../../AppDesigns/currentApp/styles/styles.js';
 import Modal                  from "../../Modal/OpenModal.js";
 import { Fumi }               from 'react-native-textinput-effects';
 import FontAwesomeIcon        from 'react-native-vector-icons/FontAwesome';

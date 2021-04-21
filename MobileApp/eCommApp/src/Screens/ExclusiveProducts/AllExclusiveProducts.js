@@ -20,7 +20,7 @@ import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import axios from 'axios';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
@@ -81,6 +81,7 @@ export default class AllExclusiveProducts extends React.Component {
       var productType = 'exclusive';
       axios.get("/api/products/get/products/listbytype/"+productType)
       .then((response)=>{
+        console.log("response",response);
       if(response.data){
         for (var i = 0; i < response.data.length; i++) {
           var availableSizes = [];
@@ -297,24 +298,33 @@ export default class AllExclusiveProducts extends React.Component {
                                 }                       
                               </View>
                               <View style={[styles.flx1, styles.prdet]}>
-                                <View style={[styles.flxdir]}>
-                                  <Icon
-                                    name="rupee"
-                                    type="font-awesome"
-                                    size={13}
-                                    color="#333"
-                                    iconStyle={{ marginTop: 6, marginRight: 3 }}
-                                  />
+                                <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
+                                  <View style={[styles.flxdir]}>
+                                    <Icon
+                                      name={item.currency}
+                                      type="font-awesome"
+                                      size={13}
+                                      color="#333"
+                                      iconStyle={{ marginTop: 5, marginRight: 3 }}
+                                    />
+                                    <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
+                                  </View>
+                                  <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
+                                    <Icon
+                                      name={item.currency}
+                                      type="font-awesome"
+                                      size={15}
+                                      color="#333"
+                                      iconStyle={{ marginTop: 5, marginRight: 3 }}
+                                    />
                                     {
                                         item.discountPercent > 0 ?
-                                          <Text style={styles.discountedpricedata}>
-                                            <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
-                                            <Text style={styles.ogprice}> {item.discountedPrice}  <Text style={styles.packofnos}>{item.size ? '- '+item.size : ''} {item.unit != 'Number' ? item.unit : ''}</Text>
+                                            <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
-                                          </Text>
                                           :
-                                          <Text style={styles.ogprice}>{item.originalPrice} - <Text style={styles.packofnos}>{item.size ? item.size : ''} {item.unit != 'Number' ? item.unit : ''}</Text> </Text>
+                                          <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
                                       }
+                                  </View>
                                 </View>
                               </View>
                               <View style={styles.addtocartbtn}>
@@ -341,7 +351,7 @@ export default class AllExclusiveProducts extends React.Component {
                                     onPress={() => this.addtocart(item._id)}
                                     titleStyle={styles.modalText}
                                     title="Add"
-                                    buttonStyle={styles.buttonGreen}
+                                    buttonStyle={styles.button1}
                                     containerStyle={styles.buttonContainer2}
                                   />
                                 </View>
@@ -359,7 +369,7 @@ export default class AllExclusiveProducts extends React.Component {
                       </View>
                     :
                       <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                          <ActivityIndicator size="large" color="#ed3c55" />  
+                          <ActivityIndicator size="large" color={colors.theme} />  
                           {/* <BouncingPreloader
                                 icons={[
                                   require("../../AppDesigns/currentApp/images/bellpaper.png"),
@@ -395,7 +405,7 @@ export default class AllExclusiveProducts extends React.Component {
                   onPress={() => this.setState({ addtocart: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>
@@ -419,7 +429,7 @@ export default class AllExclusiveProducts extends React.Component {
                   onPress={() => this.setState({ wishlisted: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>
@@ -443,7 +453,7 @@ export default class AllExclusiveProducts extends React.Component {
                   onPress={() => this.setState({ alreadyinwishlist: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>
@@ -467,7 +477,7 @@ export default class AllExclusiveProducts extends React.Component {
                   onPress={() => this.setState({ alreadyincarts: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>

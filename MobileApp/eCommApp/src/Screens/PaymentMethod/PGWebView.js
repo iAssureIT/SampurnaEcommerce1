@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 
 export default class PGWebView extends React.Component {
   constructor(props) {

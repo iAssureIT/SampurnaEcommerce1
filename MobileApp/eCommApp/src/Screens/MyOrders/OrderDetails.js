@@ -15,7 +15,7 @@ import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import axios from 'axios';
 
@@ -70,7 +70,7 @@ export default class MyOrder extends React.Component {
       .then((response) => {
         var myorders = response.data.products;
         var originalPrice = response.data.total;
-        console.log("originalPrice.orderID:==>>>", response.data.orderID);
+        console.log("originalPrice.orderID:==>>>", response.data);
         // console.log("discountPercent.orderID:==>>>", discountPercent);
         this.setState({
           myorders: myorders,
@@ -80,7 +80,7 @@ export default class MyOrder extends React.Component {
           userFullName: response.data.userFullName,
           mobileNumber: response.data.deliveryAddress.mobileNumber,
           deliveryAddress: response.data.deliveryAddress.addressLine1,
-
+          currency : response.data.currency
         })
       })
       .catch((error) => {
@@ -140,39 +140,45 @@ export default class MyOrder extends React.Component {
                         this.state.myorders.map((pitem, index) => {
                           // console.log("pitem===>", pitem);
                           return (
-                            <View >
                               <View style={styles.prodorderdets}>
                               <View style={styles.imgvw}>
-                                  <Image
+                                  {pitem.productImage[0] ?<Image
                                     style={styles.img15}
                                     source={{ uri: pitem.productImage[0] }}
                                     resizeMode="contain"
+                                  />:
+                                  <Image
+                                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                    style={styles.img15}
                                   />
+                                }
                                 </View>
-                                <View style={styles.flx2}>
-                                  <Text style={styles.proddets}>Product :</Text>
-                                  <Text style={styles.proddets}>Qty :</Text>
-                                  <Text style={styles.proddets}>Price :</Text>
-
-                                </View>
-                                <View style={styles.flx4}>
-                                  <Text style={styles.prodinfo}>{pitem.productName}</Text>
-                                  <Text style={styles.prodinfo}> {pitem.quantity} Pack </Text>
-                                  <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 3 }}>
-                                    <Icon
-                                      name="rupee"
-                                      type="font-awesome"
-                                      size={15}
-                                      color="#388e3c"
-                                      iconStyle={styles.iconrps}
-                                    />
-                                    <Text style={styles.pricenum}>{pitem.originalPrice}</Text>
+                                <View style={{flex:0.7,paddingHorizontal:5}}>
+                                  <View style={{flexDirection:"row"}}>
+                                      <Text style={styles.proddets}>Product :</Text>
+                                      <Text style={styles.prodinfo}>{pitem.productName}</Text>
+                                  </View>  
+                                  <View style={{flexDirection:"row",flex:0.5}}>
+                                      <Text style={styles.proddets}>Qty :</Text>
+                                      <Text style={styles.prodinfo}> {pitem.quantity} Pack </Text>
+                                  </View>  
+                                  <View style={{flexDirection:"row",flex:0.5}}>
+                                      <Text style={styles.proddets}>Price :</Text>
+                                    <View style={styles.flx4}>
+                                    <View style={{ flexDirection: 'row',alignItems:"center"}}>
+                                        <Icon
+                                          name={pitem.currency}
+                                          type="font-awesome"
+                                          size={14}
+                                          color="#388e3c"
+                                          iconStyle={styles.iconrps}
+                                        />
+                                        <Text style={styles.pricenum}> {pitem.originalPrice}</Text>
+                                      </View>
+                                    </View>
                                   </View>
-                                </View>
-                               
+                                </View>  
                               </View>
-                            </View>
-
                           );
                         })
                         :
@@ -187,26 +193,26 @@ export default class MyOrder extends React.Component {
                           <Text style={styles.addtitle}>Total Amount:</Text>
                         </View>
                         <View style={styles.flx3}>
-                          <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 3, }}>
+                          <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 3,alignItems:"center" }}>
                             <Icon
-                              name="rupee"
+                              name={this.state.currency}
                               type="font-awesome"
                               size={15}
                               color="#388e3c"
                               iconStyle={styles.iconrps}
                             />
-                            <Text style={styles.pricenum}>{this.state.totalamount}</Text>
+                            <Text style={styles.pricenum}> {this.state.totalamount}</Text>
                           </View>
                           <Text style={styles.addtitle}>FREE</Text>
-                          <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 3, }}>
+                          <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 3,alignItems:"center" }}>
                             <Icon
-                              name="rupee"
+                              name={this.state.currency}
                               type="font-awesome"
                               size={15}
                               color="#388e3c"
                               iconStyle={styles.iconrps}
                             />
-                            <Text style={styles.pricenum}>{this.state.totalamount}</Text>
+                            <Text style={styles.pricenum}> {this.state.totalamount}</Text>
                           </View>
                         </View>
                       </View>
@@ -214,9 +220,9 @@ export default class MyOrder extends React.Component {
 
                     <View style={styles.addressdetais}>
                       {console.log("this.state",this.state)}
-                      <Text style={styles.addtitle}>Address <Text style={styles.addressdets}>: {this.state.deliveryAddress}</Text></Text>
-                      <Text style={styles.addtitle}>Mobile Number <Text style={styles.addressdets}>: {this.state.mobileNumber}</Text></Text>
-                      <Text style={styles.addtitle}>Email ID  <Text style={styles.addressdets}>: {this.state.userName}</Text></Text>
+                      <Text style={styles.addtitle}>Address <Text style={styles.addressdets}>: {this.state.deliveryAddress ? this.state.deliveryAddress : "NA"}</Text></Text>
+                      <Text style={styles.addtitle}>Mobile Number <Text style={styles.addressdets}>: {this.state.mobileNumber ? this.state.mobileNumber : "NA"}</Text></Text>
+                      <Text style={styles.addtitle}>Email ID  <Text style={styles.addressdets}>: {this.state.userName ? this.state.userName : "NA"}</Text></Text>
                     </View>
                   </View>
                 </View>
@@ -270,7 +276,7 @@ export default class MyOrder extends React.Component {
 // import Footer from '../../ScreenComponents/Footer/Footer1.js';
 // import Notification from '../../ScreenComponents/Notification/Notification.js'
 // import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
-// import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+// import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 // import Loading from '../../ScreenComponents/Loading/Loading.js';
 // const window = Dimensions.get('window');
 

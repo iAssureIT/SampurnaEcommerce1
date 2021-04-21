@@ -182,7 +182,7 @@ export default class MenuCarousel extends ValidationComponent {
 // //   Image,
 // // } from 'react-native';
 // // import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
-// // import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+// // import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 // // import ValidationComponent from "react-native-form-validator";
 
 // // export default class MenuCarousel extends ValidationComponent {
@@ -260,7 +260,7 @@ export default class MenuCarousel extends ValidationComponent {
 //   Image,
 // } from 'react-native';
 // import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
-// import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+// import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 // import ValidationComponent from "react-native-form-validator";
 // import axios                  from 'axios';
 // // import HomePageBanner2_1 from "../../AppDesigns/currentApp/images/Fruits_blocks.png";

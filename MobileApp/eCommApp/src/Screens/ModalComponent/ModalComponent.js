@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import styles from './styles.js';
 import Ripple from 'react-native-material-ripple';
-import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../layouts/Loading/Loading.js';
 import Modal from "react-native-modal";
 

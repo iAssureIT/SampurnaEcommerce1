@@ -19,7 +19,7 @@ import {
 import { Header, Button, Icon, SearchBar } from "react-native-elements";
 
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/ConfirmOrderStyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import axios from "axios";
 export default class ConfirmOrderComponent extends React.Component{

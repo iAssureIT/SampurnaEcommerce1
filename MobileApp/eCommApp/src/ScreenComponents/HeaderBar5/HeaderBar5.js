@@ -9,7 +9,7 @@ import {
 import { Header, Icon ,SearchBar  } from 'react-native-elements';
 import ValidationComponent from "react-native-form-validator";
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import Search from 'react-native-search-box';
 
 
@@ -55,7 +55,7 @@ export default  class HeaderBar4 extends ValidationComponent {
     console.log(this.props)
     return (
       <Header 
-        backgroundColor={'#ed3c55'}
+        backgroundColor={colors.theme}
         // placement="left"
         leftContainerStyle={{backgroundColor:'transparent',paddingHorizontal:15}}
         centerContainerStyle={{backgroundColor:'transparent',paddingLeft:0,paddingRight:0,paddingTop:0}}
@@ -70,7 +70,7 @@ export default  class HeaderBar4 extends ValidationComponent {
         centerComponent={ <Text style={[{fontSize:18,color:'#fff',fontFamily:"Montserrat-SemiBold",textAlign:'center',alignSelf:'center',marginTop:8}]}>{headerTitle}</Text>}
      
        
-        containerStyle={{paddingTop:0,paddingLeft:0,paddingRight:0,backgroundColor:'#ed3c55'}}
+        containerStyle={{paddingTop:0,paddingLeft:0,paddingRight:0,backgroundColor:colors.theme}}
       />
       
     );

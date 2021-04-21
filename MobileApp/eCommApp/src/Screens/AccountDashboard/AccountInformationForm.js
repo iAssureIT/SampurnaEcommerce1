@@ -31,7 +31,7 @@
 // import Notification from '../../ScreenComponents/Notification/Notification.js'
 // // import styles from './AccountDashboardstyles.js';
 // import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
-// import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+// import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 // import Loading from '../../ScreenComponents/Loading/Loading.js';
 // import ConfirmOrderComponent from '../ConfirmOrderComponent/ConfirmOrderComponent.js';
 // const window = Dimensions.get('window');

@@ -15,7 +15,7 @@ import {
 import { Header, Button, Icon, SearchBar } from "react-native-elements";
 
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/BannerComponentStyles.js';
-import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import ValidationComponent from "react-native-form-validator";
 // import Loading from '../../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
 

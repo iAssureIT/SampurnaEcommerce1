@@ -14,7 +14,7 @@ import Menu from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
-import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import Modal from "react-native-modal";
 import { Fumi }               from 'react-native-textinput-effects';
@@ -309,7 +309,7 @@ handleShowConfirmPassword = ()=>{
                     <Button
                       onPress={() => this.handleReset()}
                       title={"Reset Password"}
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       titleStyle={styles.buttonTextEDIT}
                       containerStyle={styles.buttonContainerEDIT}
                     />
@@ -324,7 +324,7 @@ handleShowConfirmPassword = ()=>{
               hideModalContentWhileAnimating={true}
               style={{ paddingHorizontal: '5%', zIndex: 999 }}
               animationOutTiming={500}>
-              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
                 <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
                   Your Password is updated!
                 </Text>
@@ -334,7 +334,7 @@ handleShowConfirmPassword = ()=>{
                       onPress={() => this.changepwd()}
                       titleStyle={styles.buttonText1}
                       title="OK"
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer2}
                     />
                   </TouchableOpacity>

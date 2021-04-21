@@ -15,7 +15,7 @@ import { Button, Icon} from "react-native-elements";
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
-import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import axios from "axios";
 import Modal from "react-native-modal";
@@ -567,7 +567,7 @@ export default class AddressComponent extends React.Component {
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
             animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
               <View style={{ justifyContent: 'center', }}>
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
@@ -582,7 +582,7 @@ export default class AddressComponent extends React.Component {
                       onPress={() => this.addedaddress()}
                       titleStyle={styles.buttonText1}
                       title="OK"
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer2}
                     />
                   </TouchableOpacity>
@@ -607,7 +607,7 @@ export default class AddressComponent extends React.Component {
                     onPress={() => this.setState({ pincodeExists: false })}
                     titleStyle={styles.buttonText1}
                     title="OK"
-                    buttonStyle={styles.buttonGreen}
+                    buttonStyle={styles.button1}
                     containerStyle={styles.buttonContainer2}
                   />
                 </TouchableOpacity>
@@ -630,7 +630,7 @@ export default class AddressComponent extends React.Component {
                     onPress={() => this.setState({ validpincodeaddress: false })}
                     titleStyle={styles.buttonText1}
                     title="OK"
-                    buttonStyle={styles.buttonGreen}
+                    buttonStyle={styles.button1}
                     containerStyle={styles.buttonContainer2}
                   />
                 </TouchableOpacity>

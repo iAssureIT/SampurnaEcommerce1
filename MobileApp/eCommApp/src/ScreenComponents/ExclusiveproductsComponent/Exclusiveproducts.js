@@ -239,12 +239,12 @@ export default class Exclusiveproducts extends React.Component {
                           {
                              productid === item._id ?
                               <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                <Icon size={22} name='heart' type='font-awesome' color='#ed3c55' style={{ backgroundColor: "red" }} />
+                                <Icon size={22} name='heart' type='font-awesome' color={colors.theme} style={{ backgroundColor: "red" }} />
                               </TouchableOpacity>
                               :
 
                               <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                <Icon size={22} name='heart-o' type='font-awesome' color='#ed3c55' style={{ backgroundColor: "red" }} />
+                                <Icon size={22} name='heart-o' type='font-awesome' color={colors.theme} style={{ backgroundColor: "red" }} />
                               </TouchableOpacity>
                           }
 
@@ -270,24 +270,33 @@ export default class Exclusiveproducts extends React.Component {
                         {/* <Text numberOfLines={1} style={[styles.shortDescription]}>{item.shortDescription}</Text> */}
                         </View>
                         <View style={[styles.flx1, styles.prdet]}>
-                          <View style={[styles.flxdir]}>
-                            <Icon
-                              name="rupee"
-                              type="font-awesome"
-                              size={12}
-                              color="#333"
-                              iconStyle={{ marginTop: 5, marginRight: 3 }}
-                            />
-                             {
-                              item.discountPercent > 0 ?
-                                <Text style={styles.discountedpricedata}>
-                                  <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
-                                  <Text style={styles.ogprice}> {item.discountedPrice} - <Text style={styles.packofnos}>{item.size} {item.unit != 'Number' ? item.unit : ''}</Text>
-                                  </Text>
-                                </Text>
-                                :
-                                <Text style={styles.ogprice}>{item.originalPrice} - <Text style={styles.packofnos}>{item.size ? item.size : ''} {item.unit != 'Number' ? item.unit : ''}</Text> </Text>
-                            }
+                          <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
+                            <View style={[styles.flxdir]}>
+                              <Icon
+                                name={item.currency}
+                                type="font-awesome"
+                                size={13}
+                                color="#333"
+                                iconStyle={{ marginTop: 5, marginRight: 3 }}
+                              />
+                              <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
+                            </View>
+                            <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
+                              <Icon
+                                name={item.currency}
+                                type="font-awesome"
+                                size={13}
+                                color="#333"
+                                iconStyle={{ marginTop: 5}}
+                              />
+                              {
+                                  item.discountPercent > 0 ?
+                                      <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                    :
+                                    <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                                }
+                            </View>
                           </View>
                         </View>
                         <View style={styles.addtocartbtn}>
@@ -450,7 +459,7 @@ export default class Exclusiveproducts extends React.Component {
 // } from 'react-native';
 // // import styles from './styles.js';
 // import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FeatureProductComponentStyles.js';
-// import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+// import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 // import ValidationComponent from "react-native-form-validator";
 // // import Loading from '../../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
 

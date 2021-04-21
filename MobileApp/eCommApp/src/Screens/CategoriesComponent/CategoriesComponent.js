@@ -11,7 +11,7 @@ import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import BouncingPreloader from 'react-native-bouncing-preloader';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import axios                      from 'axios';
 
@@ -188,7 +188,7 @@ export default class CategoriesComponent extends React.Component{
                       :
                    
                         <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                          <ActivityIndicator size="large" color="#ed3c55" />
+                          <ActivityIndicator size="large" color={colors.theme} />
                         {/* <BouncingPreloader
                             icons={[
                               require("../../AppDesigns/currentApp/images/bellpaper.png"),

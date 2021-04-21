@@ -10,7 +10,7 @@ import {  Icon ,SearchBar  } from 'react-native-elements';
 import ValidationComponent from "react-native-form-validator";
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FooterStyles.js';
 import axios                      from 'axios';
-import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import { withNavigation }                   from 'react-navigation';
 class Footer extends ValidationComponent {
   constructor(props) {

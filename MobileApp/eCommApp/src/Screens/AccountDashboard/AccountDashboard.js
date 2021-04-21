@@ -14,7 +14,7 @@ import Menu from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
-import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 
 
@@ -147,7 +147,7 @@ export default class AccountDashboard extends React.Component{
                           <Button
                           onPress={()=>this.props.navigation.navigate('AccountInformation')}
                           title={"EDIT Profile"}
-                          buttonStyle={styles.buttonGreen}
+                          buttonStyle={styles.button1}
                           titleStyle={styles.buttonTextEDIT}
                           containerStyle={styles.buttonContainerEDIT}
                           />
@@ -158,7 +158,7 @@ export default class AccountDashboard extends React.Component{
                           <Button
                           onPress={()=>this.props.navigation.navigate('ResetPwd')}
                           title={"Reset Password"}
-                          buttonStyle={styles.buttonGreen}
+                          buttonStyle={styles.button1}
                           titleStyle={styles.buttonTextEDIT}
                           containerStyle={styles.buttonContainerEDIT}
                           />

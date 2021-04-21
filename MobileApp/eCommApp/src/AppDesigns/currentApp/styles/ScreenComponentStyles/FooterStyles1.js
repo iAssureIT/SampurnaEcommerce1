@@ -1,4 +1,5 @@
 import { StyleSheet,Platform } from 'react-native';
+import { colors } from '../styles';
 
 export default StyleSheet.create({
   footer: {
@@ -89,7 +90,7 @@ export default StyleSheet.create({
         color: '#fff',
         fontSize: 10,
         paddingTop: 2,
-        backgroundColor: '#ed3c55',
+        backgroundColor: colors.theme,
         fontFamily: "Montserrat-SemiBold",
       },
       android: {
@@ -103,7 +104,7 @@ export default StyleSheet.create({
         color: '#fff',
         fontSize: 10,
         paddingTop: 2,
-        backgroundColor: '#ed3c55',
+        backgroundColor: colors.theme,
         fontFamily: "Montserrat-SemiBold",
 
       }

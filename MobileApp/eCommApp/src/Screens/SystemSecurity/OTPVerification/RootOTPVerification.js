@@ -17,7 +17,7 @@ import ValidationComponent  from "react-native-form-validator";
 import axios                      from 'axios';
 import Modal                from "react-native-modal";
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/OTPVerificationStyles.js';
-import { colors, sizes }    from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes }    from '../../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
 import { connect }          from 'react-redux';
 import AsyncStorage         from '@react-native-community/async-storage';

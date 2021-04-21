@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import RootOTPVerification from './RootOTPVerification.js';
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/OTPVerificationStyles.js';
-import { colors, sizes }   from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes }   from '../../../AppDesigns/currentApp/styles/styles.js';
 import axios                      from 'axios';
 
 export default class OTPVerification extends Component {
@@ -36,7 +36,7 @@ export default class OTPVerification extends Component {
                <View style={styles.otpvimgvw}>
                     <Image
                     resizeMode="contain"
-                    source={require("../../../AppDesigns/currentApp/images/KokilaBookstoreLogo.png")}
+                    source={require("../../../AppDesigns/currentApp/images/Logo.png")}
                     style={styles.otpvimglogo}
                     />
                </View>

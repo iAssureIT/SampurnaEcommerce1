@@ -12,6 +12,7 @@ import ValidationComponent from "react-native-form-validator";
 import axios              from 'axios'; 
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HeaderBar2Styles.js';
 import { connect }        from 'react-redux';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 class HeaderBars2 extends ValidationComponent {
   constructor(props) {
     super(props);
@@ -94,7 +95,7 @@ class HeaderBars2 extends ValidationComponent {
             <View style={styles.flxdir}>
               <View style={{ marginTop: 10,}}>
                 <TouchableOpacity onPress={this.props.toggle()}>
-                  <Icon size={25} name='bars' type='font-awesome' color='#ed3c55' />
+                  <Icon size={25} name='bars' type='font-awesome' color={colors.theme} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -103,7 +104,7 @@ class HeaderBars2 extends ValidationComponent {
             <View style={styles.flxdircenter}>
               <Image
                 resizeMode="contain"
-                source={require("../../AppDesigns/currentApp/images/KokilaBookstoreLogo.png")}
+                source={require("../../AppDesigns/currentApp/images/Logo.png")}
                 style={styles.whitename}
               />
             </View>
@@ -111,15 +112,15 @@ class HeaderBars2 extends ValidationComponent {
           rightComponent={
               <View style={styles.notificationbell}>
                <TouchableOpacity style={styles.bellIcon} onPress={()=> this.props.navigation.navigate('InAppNotification')}>
-                <Icon name="bell-o" type="font-awesome"    size={25} color="#ed3c55" />
+                <Icon name="bell-o" type="font-awesome"    size={25} color={colors.theme} />
                 <Text style={styles.notificationText}>{this.state.inAppNotificationsCount}</Text>
                </TouchableOpacity> 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} style={{marginLeft:20}}>
-                  <Icon name="phone" type="font-awesome"    size={25} color="#ed3c55" />
+                  <Icon name="phone" type="font-awesome"    size={25} color={colors.theme} />
                 </TouchableOpacity>
 
                 {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate('Stores')}>
-                  <Icon size={25} name="store"  type="font-awesome-5" color='#ed3c55' />
+                  <Icon size={25} name="store"  type="font-awesome-5" color=colors.theme />
                 </TouchableOpacity> */}
               </View>
           }

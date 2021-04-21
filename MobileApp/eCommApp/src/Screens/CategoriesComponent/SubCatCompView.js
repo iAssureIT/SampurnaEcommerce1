@@ -13,7 +13,7 @@ import { Header, Button, Icon, SearchBar } from "react-native-elements";
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import Counter from "react-native-counters";
@@ -42,6 +42,7 @@ export default class SubCatCompView extends React.Component {
       wishlistedproduct: false,
       alreadyinwishlist: false,
       productImage: [],
+      currency:""
     };
   }
 
@@ -152,7 +153,8 @@ export default class SubCatCompView extends React.Component {
           discountPercent: response.data.discountPercent,
           productDetails: response.data.productDetails,
           featureList: response.data.featureList,
-          productImage: response.data.productImage
+          productImage: response.data.productImage,
+          currency : response.data.currency
         })
       })
       .catch((error) => {
@@ -180,7 +182,10 @@ export default class SubCatCompView extends React.Component {
     axios
       .post('/api/Carts/post', formValues)
       .then((response) => {
-        this.props.navigation.navigate('CartComponent', { user_ID: this.state.userId, product_ID: this.state.productID });
+        this.setState({
+          addtocart: true,
+        });
+        // this.props.navigation.navigate('CartComponent', { user_ID: this.state.userId, product_ID: this.state.productID });
       })
       .catch((error) => {
         this.setState({ alreadyincarts: true })
@@ -293,7 +298,7 @@ export default class SubCatCompView extends React.Component {
                 </View>
                 <View style={styles.flxdirview}>
                   <Icon
-                    name="rupee"
+                    name={this.state.currency}
                     type="font-awesome"
                     size={18}
                     color="#333"
@@ -359,7 +364,7 @@ export default class SubCatCompView extends React.Component {
           </ScrollView>
           :
           <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-              <ActivityIndicator size="large" color="#ed3c55" />
+              <ActivityIndicator size="large" color={colors.theme} />
 
           {/* <BouncingPreloader
               icons={[
@@ -391,7 +396,7 @@ export default class SubCatCompView extends React.Component {
                   onPress={() => this.setState({ wishlisted: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>
@@ -416,13 +421,37 @@ export default class SubCatCompView extends React.Component {
                   onPress={() => this.setState({ alreadyinwishlist: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>
             </View>
           </Modal>
+          <Modal isVisible={this.state.addtocart}
+            onBackdropPress={() => this.setState({ addtocart: false })}
+            coverScreen={true}
+            hideModalContentWhileAnimating={true}
+            style={{ paddingHorizontal: '5%', zIndex: 999 }}
+            animationOutTiming={500}>
+            <View style={styles.modalmainvw}>
+              <View style={{ justifyContent: 'center', }}>
+                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+              </View>
+              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
+                Product is added to cart.
+              </Text>
 
+              <View style={styles.yesmodalbtn}>
+                <Button
+                  onPress={() => this.setState({ addtocart: false })}
+                  titleStyle={styles.modalText}
+                  title="OK"
+                  buttonStyle={styles.button1}
+                  containerStyle={styles.buttonContainer1}
+                />
+              </View>
+            </View>
+          </Modal>
           <Modal isVisible={this.state.alreadyincarts}
             onBackdropPress={() => this.setState({ alreadyincarts: false })}
             coverScreen={true}
@@ -441,7 +470,7 @@ export default class SubCatCompView extends React.Component {
                   onPress={() => this.setState({ alreadyincarts: false })}
                   titleStyle={styles.modalText}
                   title="OK"
-                  buttonStyle={styles.modalGreen1}
+                  buttonStyle={styles.button1}
                   containerStyle={styles.buttonContainer1}
                 />
               </View>

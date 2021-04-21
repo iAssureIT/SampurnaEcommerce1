@@ -11,17 +11,21 @@ import {
   Image, TextInput,
   Platform,
   Alert,
+  Keyboard
 } from 'react-native';
 // import AsyncStorage                 from '@react-native-community/async-storage';
 import Modal                        from "react-native-modal";
 import ValidationComponent          from "react-native-form-validator";
 import { Button, Icon }             from "react-native-elements";
 import axios                        from "axios";
-import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/LoginStyles.js';
-import { colors, sizes }            from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
+import commonStyles                 from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
+import { colors, sizes }            from '../../../AppDesigns/currentApp/styles/styles.js';
 import { Fumi }                     from 'react-native-textinput-effects';
 import FontAwesomeIcon              from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons       from 'react-native-vector-icons/MaterialCommunityIcons';
+import LinearGradient from 'react-native-linear-gradient';
+
 const window = Dimensions.get('window');
 
 export default class RootLogIn extends ValidationComponent {
@@ -47,7 +51,6 @@ export default class RootLogIn extends ValidationComponent {
     let valid = true;
 
     this.validate({
-
       email: {
         required: true,
         email: true,
@@ -56,9 +59,7 @@ export default class RootLogIn extends ValidationComponent {
         required: true,
         minlength: 5
       },
-
     });
-
     if (this.isFieldInError("email")) {
       this.setState({ emailError: this.getErrorsInField("email") });
       valid = false;
@@ -71,9 +72,48 @@ export default class RootLogIn extends ValidationComponent {
     } else {
       this.setState({ passwordError: "" });
     }
+    return valid;
+  };
+
+  validInputField = (stateName, stateErr) => {
+    const {
+      email,
+      password,
+    } = this.state;
+    let valid = true;
+
+    this.validate({
+      [stateName]: {
+        required: true,
+      }
+    });
+
+    if (this.isFieldInError(stateName)) {
+      let validinptError = this.getErrorsInField(stateName);
+      this.setState({ validinptError });
+      valid = false;
+    } else {
+      this.setState({ [stateErr]: "" });
+    }
 
     return valid;
   };
+
+
+  displayValidationError = (errorField) => {
+    let error = null;
+    if (this.state[errorField]) {
+      error = <View style={commonStyles.errorWrapper}>
+        <Text style={commonStyles.errorText}>{this.state[errorField][0]}</Text>
+      </View>;
+    }
+    return error;
+  }
+
+  handleShowPassword = () => {
+    this.setState({ showPassword: !this.state.showPassword });
+  }
+
   login() {
     this.setState({ btnLoading: true })
     var auth = {
@@ -137,46 +177,6 @@ export default class RootLogIn extends ValidationComponent {
     }
   }
 
-
-  validInputField = (stateName, stateErr) => {
-    const {
-      email,
-      password,
-    } = this.state;
-    let valid = true;
-
-    this.validate({
-      [stateName]: {
-        required: true,
-      }
-    });
-
-    if (this.isFieldInError(stateName)) {
-      let validinptError = this.getErrorsInField(stateName);
-      this.setState({ validinptError });
-      valid = false;
-    } else {
-      this.setState({ [stateErr]: "" });
-    }
-
-    return valid;
-  };
-
-
-  displayValidationError = (errorField) => {
-    let error = null;
-    if (this.state[errorField]) {
-      error = <View style={styles.errorWrapper}>
-        <Text style={styles.errorText}>{this.state[errorField][0]}</Text>
-      </View>;
-    }
-    return error;
-  }
-
-  handleShowPassword = () => {
-    this.setState({ showPassword: !this.state.showPassword });
-  }
-
   render() {
 
     const messages = {
@@ -192,10 +192,10 @@ export default class RootLogIn extends ValidationComponent {
     const { navigate } = this.props.navigation;
     return (
         <React.Fragment>
-            <View style={styles.textTitleWrapper}><Text style={styles.logintitle}>Sign In</Text></View>
-              <View style={styles.formWrapper}>
+            <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
+              <View style={commonStyles.formWrapper}>
 
-                <View style={[styles.formInputView, styles.marginBottom20]}>
+                <View style={[commonStyles.formInputView, styles.marginBottom20]}>
                   <Fumi
                     label={'Email'}
                     onChangeText={(email) => { this.setState({ email }, () => { this.validInputField('email', 'emailError'); }) }}
@@ -204,15 +204,18 @@ export default class RootLogIn extends ValidationComponent {
                     autoCapitalize='none'
                     iconClass={MaterialCommunityIcons}
                     iconName={'email-variant'}
-                    iconColor={colors.inputText}
+                    iconColor={colors.icon}
                     iconSize={20}
                     iconWidth={40}
                     inputPadding={16}
-                    style={styles.loginemail}
+                    style={commonStyles.inputContainer}
+                    labelStyle={commonStyles.labelStyle}
+                    autoCompleteType="off"
                   />
                 {this.displayValidationError('emailError')}
                 </View>
-                <View style={[styles.formInputView, styles.marginBottom20]}>
+
+                <View style={[commonStyles.formInputView, styles.marginBottom20]}>
                   <Fumi
                     label={'Password'}
                     onChangeText={(password) => { this.setState({ password }, () => { this.validInputField('password', 'passwordError'); }) }}
@@ -222,58 +225,66 @@ export default class RootLogIn extends ValidationComponent {
                     secureTextEntry={this.state.showPassword ? false : true}
                     iconClass={MaterialCommunityIcons}
                     iconName={'lock-open-outline'}
-                    iconColor={colors.inputText}
+                    iconColor={colors.icon}
                     iconSize={22}
                     iconWidth={40}
                     inputPadding={16}
-                    style={styles.loginemail}
+                    style={commonStyles.inputContainer}
+                    labelStyle={commonStyles.labelStyle}
+                    autoCompleteType="off"
                   />
-                  <View style={[styles.eyeWrapper, {position:'absolute',left:'80%',top:22}]}>
+                  
+                  <View style={[commonStyles.eyeWrapper, {position:'absolute',left:'80%',top:22}]}>
                     <TouchableOpacity onPress={this.handleShowPassword}>
                       <Icon name={this.state.showPassword ? "eye-with-line" : "eye"} type="entypo" size={22} color="#aaa" style={{}} />
                     </TouchableOpacity>
                   </View>
-                {this.displayValidationError('passwordError')}
+                  {this.displayValidationError('passwordError')}
                 </View>
 
                 <View style={{marginBottom:15,paddingHorizontal:15}}>
                   {this.state.btnLoading
                     ?
-                    <ActivityIndicator size="large" color="#ed3c55" />
+                    <ActivityIndicator size="large" color={colors.theme} />
                     :
                     <Button
                       onPress={this.login.bind(this)}
-                      titleStyle={styles.buttonText}
+                      titleStyle={commonStyles.buttonText}
                       title="Sign In"
-                      buttonStyle={styles.button}
-                      containerStyle={styles.buttonContainer}
+                      buttonStyle={commonStyles.button}
+                      containerStyle={commonStyles.buttonContainer}
                     />
                   }
                 </View>
+                
                 <View style={{flexDirection:'row',paddingHorizontal:15,marginBottom:30}}>
-                 <View style={{ flex:0.5,alignItems: 'flex-start', justifyContent: 'flex-start', }}>
-                  <TouchableOpacity onPress={() => this.props.navigation("Signup")}>
+                  <View style={{ flex:0.5,alignItems: 'flex-start', justifyContent: 'flex-start', }}>
+                    <TouchableOpacity onPress={() => this.props.navigation("Signup")}>
+                      <View style={{flexDirection:'row'}}>
+                        <Text style={[commonStyles.linkText]} >
+                          Sign Up
+                        </Text>
+                        <Icon name="chevron-double-right" type="material-community" size={22} color={colors.textLight} style={{}} />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{flex:0.5,alignItems: 'flex-end', justifyContent: 'flex-end', }}>
+                    <TouchableOpacity onPress={() => this.props.navigation("ForgotPassword")}>
                     <View style={{flexDirection:'row'}}>
-                      <Text style={[styles.linkText, { color: colors.textLight }]} >
-                        Sign Up
+                      <Text style={[commonStyles.linkText]}>
+                        Forgot Password?
                       </Text>
-                      <Icon name="chevron-double-right" type="material-community" size={22} color="#666" style={{}} />
-                    </View>
-                  </TouchableOpacity>
+                      <Icon name="chevron-double-right" type="material-community" size={22} color={colors.textLight} style={{}} />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
 
-                <View style={{flex:0.5,alignItems: 'flex-end', justifyContent: 'flex-end', }}>
-                  <TouchableOpacity onPress={() => this.props.navigation("ForgotPassword")}>
-                   <View style={{flexDirection:'row'}}>
-                    <Text style={[styles.linkText, { color: colors.textLight }]}>
-                      Forgot Password?
-                    </Text>
-                    <Icon name="chevron-double-right" type="material-community" size={22} color="#666" style={{}} />
-                    </View>
-                  </TouchableOpacity>
+                <View style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center',marginBottom:25 }]}>
+                  <Text style={commonStyles.linkLightText}>Version 1.0</Text>
                 </View>
-                </View>
-              
+
                 <Modal isVisible={this.state.incorrectPwModal}
                   onBackdropPress={() => this.setState({ incorrectPwModal: false })}
                   coverScreen={true}
@@ -297,15 +308,15 @@ export default class RootLogIn extends ValidationComponent {
                     <View style={{ borderBottomRightRadius: 500, marginTop: 15, flexDirection: 'row' }}>
                       <Button
                         onPress={() => this.setState({ incorrectPwModal: true })}
-                        titleStyle={styles.buttonText}
+                        titleStyle={commonStyles.buttonText}
                         title="OK"
                         buttonStyle={{ width: '100%', height: 45, alignItems: 'center', justifyContent: 'center', borderRadius: 50 }}
-                        containerStyle={styles.buttonContainer}
+                        containerStyle={commonStyles.buttonContainer}
                       />
                     </View>
+                    
                   </View>
                 </Modal>
-
             </View>
         </React.Fragment>
     );

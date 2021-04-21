@@ -15,7 +15,7 @@ import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export default class OrderSummary extends React.Component {
@@ -118,7 +118,8 @@ export default class OrderSummary extends React.Component {
             cartData: response.data[0].cartItems,
             subTotal: response.data.subTotal,
             saving: response.data.saving,
-            cartTotal: response.data.cartTotal
+            cartTotal: response.data.cartTotal,
+            currency : response.data[0].cartItems[0].productDetail.currency
           }, () => {
             this.gettotalcount();
           })
@@ -269,7 +270,7 @@ export default class OrderSummary extends React.Component {
                                 <Text style={styles.productname}>{item.productDetail.productName}</Text>
                                 <View style={styles.productdets}>
                                   <Icon
-                                    name="rupee"
+                                    name={item.productDetail.currency}
                                     type="font-awesome"
                                     size={11}
                                     color="#666"
@@ -277,7 +278,7 @@ export default class OrderSummary extends React.Component {
                                   />
                                   <Text style={styles.proddetprice}>{item.productDetail.discountedPrice * item.quantity}</Text>
                                 </View>
-                                <Text style={styles.prodqtyunit}>Size: {item.productDetail.size + " " + item.productDetail.unit}</Text>
+                                {/* <Text style={styles.prodqtyunit}>Size: {item.productDetail.size + " " + item.productDetail.unit}</Text> */}
                                 <Text style={styles.prodqtyunit}>Qty: {item.quantity + " Pack(s)"}</Text>
                               </View>
                             </View>
@@ -292,7 +293,7 @@ export default class OrderSummary extends React.Component {
                         </View>
                     :
                         <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                          <ActivityIndicator size="large" color="#ed3c55" />
+                          <ActivityIndicator size="large" color={colors.theme} />
                         </View>
                   }
                   <Text style={styles.totaldata}>Pricing Details </Text>
@@ -304,7 +305,7 @@ export default class OrderSummary extends React.Component {
                       <View style={styles.flx3}>
                         <View style={styles.endrow}>
                           <Icon
-                            name="rupee"
+                            name={this.state.currency}
                             type="font-awesome"
                             size={15}
                             color="#666"
@@ -327,7 +328,7 @@ export default class OrderSummary extends React.Component {
                         { 
                           this.state.discountin === "Amount" ? 
                             <Icon
-                              name="rupee"
+                              name={this.state.currency}
                               type="font-awesome"
                               size={15}
                               color="#666"
@@ -374,7 +375,7 @@ export default class OrderSummary extends React.Component {
                       <View style={styles.flx3}>
                         <View style={styles.endrow}>
                           <Icon
-                            name="rupee"
+                            name={this.state.currency}
                             type="font-awesome"
                             size={15}
                             color="#666"
@@ -429,7 +430,7 @@ export default class OrderSummary extends React.Component {
                     onPress={() => this.setState({ removewishlistmodal: false })}
                     titleStyle={styles.buttonText1}
                     title="OK"
-                    buttonStyle={styles.buttonGreen}
+                    buttonStyle={styles.button1}
                     containerStyle={styles.buttonContainer2}
                   />
                 </TouchableOpacity>

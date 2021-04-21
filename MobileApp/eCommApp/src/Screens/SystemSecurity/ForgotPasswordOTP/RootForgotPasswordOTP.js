@@ -19,7 +19,7 @@ import axios from "axios";
 // import Modal from "../../Modal/OpenModal.js";
 import Modal from "react-native-modal";
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/ForgotPasswordOTPStyles.js';
-import { colors, sizes } from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes } from '../../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
 import { connect }        from 'react-redux';
 
@@ -190,7 +190,7 @@ class RootOTPVerification extends ValidationComponent {
         return (
             <View>
                 <View style={{ width: '100%',}}>
-                    <View style={styles.textTitleWrapper}><Text style={{ fontSize: 25, color:"#ed3c55", fontFamily: 'Montserrat-SemiBold',textAlign:'center' }}>OTP Verification</Text></View>
+                    <View style={styles.textTitleWrapper}><Text style={{ fontSize: 25, color:colors.theme, fontFamily: 'Montserrat-SemiBold',textAlign:'center' }}>OTP Verification</Text></View>
                     <View style={styles.textTitleWrapper}><Text style={{ fontSize: 17, fontFamily: 'Montserrat-Regular' }}>Please Enter Verification Code</Text></View>
                     <View style={styles.formWrapper}>
                         <View style={[styles.formInputView, styles.otpWrap]}>
@@ -231,7 +231,7 @@ class RootOTPVerification extends ValidationComponent {
                         </View>
                         <View style={{paddingHorizontal:15}}>
                            {this.state.btnLoading ?
-                           <ActivityIndicator size="large" color="#ed3c55" />
+                           <ActivityIndicator size="large" color={colors.theme} />
                             :
                              <Button
                                 onPress={this.handleSubmit.bind(this)}
@@ -260,7 +260,7 @@ class RootOTPVerification extends ValidationComponent {
                     hideModalContentWhileAnimating={true}
                     style={{ zIndex: 999 }}
                     animationOutTiming={500}>
-                    <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+                    <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
                     <View style={{ justifyContent: 'center', }}>
                         <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
                     </View>
@@ -272,7 +272,7 @@ class RootOTPVerification extends ValidationComponent {
                         onPress={() => this.setState({ otpresend: false })}
                         titleStyle={styles.modalText}
                         title="OK"
-                        buttonStyle={styles.modalGreen1}
+                        buttonStyle={styles.button1}
                         containerStyle={styles.buttonContainer1}
                         />
                     </View>

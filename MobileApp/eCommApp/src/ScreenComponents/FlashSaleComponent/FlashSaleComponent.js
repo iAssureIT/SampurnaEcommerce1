@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 // import styles from './styles.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FlashSaleComponentStyles.js';
-import { colors, sizes } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import ValidationComponent from "react-native-form-validator";
 // import Loading from '../../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
 

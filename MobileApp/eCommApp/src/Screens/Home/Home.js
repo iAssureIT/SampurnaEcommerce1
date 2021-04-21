@@ -27,7 +27,7 @@ import PopularComponent from'../../layouts/PopularComponent/PopularComponent.js'
 import Footer from '../../layouts/Footer/Footer.js';
 import Notification from '../../layouts/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/HomeStyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import Drawer from 'react-native-drawer';
 import Loading from '../../layouts/Loading/Loading.js';
 

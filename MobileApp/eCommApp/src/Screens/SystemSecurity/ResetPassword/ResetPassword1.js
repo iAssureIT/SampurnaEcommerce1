@@ -15,7 +15,7 @@ import {
 
 import RootResetPassword    from './RootResetPassword.js';
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/ResetPasswordStyles.js';
-import { colors, sizes }    from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors, sizes }    from '../../../AppDesigns/currentApp/styles/styles.js';
 import ValidationComponent  from "react-native-form-validator";
 
 const window = Dimensions.get('window');
@@ -40,7 +40,7 @@ export default class ResetPassword1 extends ValidationComponent {
                    <View style={styles.resetimgvw}>
                         <Image
                         resizeMode="contain"
-                        source={require("../../../AppDesigns/currentApp/images/KokilaBookstoreLogo.png")}
+                        source={require("../../../AppDesigns/currentApp/images/Logo.png")}
                         style={styles.resetimg}
                         />
                    </View>

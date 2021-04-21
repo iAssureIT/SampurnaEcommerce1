@@ -12,7 +12,7 @@ import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import axios from 'axios';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import { RadioButton } from 'react-native-paper';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
@@ -283,7 +283,7 @@ export default class PaymentMethod extends React.Component {
                   <View style={styles.margTp20}>
                   {this.state.btnLoading?
                       <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                      <ActivityIndicator size="large" color="#ed3c55" />
+                      <ActivityIndicator size="large" color={colors.theme} />
                       </View>
                   :
                       <Button
@@ -302,7 +302,7 @@ export default class PaymentMethod extends React.Component {
                 hideModalContentWhileAnimating={true}
                 style={{ zIndex: 999 }}
                 animationOutTiming={500}>
-                <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" }}>
+                <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
                   <View style={{ justifyContent: 'center', }}>
                     <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
                   </View>
@@ -314,7 +314,7 @@ export default class PaymentMethod extends React.Component {
                       onPress={() => this.confirmorderbtn()}
                       titleStyle={styles.buttonText1}
                       title="OK"
-                      buttonStyle={styles.buttonGreen}
+                      buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer1}
                     />
                   </View>
@@ -336,7 +336,7 @@ export default class PaymentMethod extends React.Component {
 // import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 // // import RazorpayCheckout from 'react-native-razorpay';
 // // import axios from "../../config/axios.js";
-// import { colors } from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+// import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 // export default  class PaymentMethods extends Component {
 
 //   constructor(props){

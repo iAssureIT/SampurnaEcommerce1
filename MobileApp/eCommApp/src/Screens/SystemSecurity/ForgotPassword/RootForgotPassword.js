@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  ScrollView,
   Text,
   View,
   ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import ValidationComponent from "react-native-form-validator";
 import axios from "axios";
-import styles from '../../../AppDesigns/currentApp/styles/ScreenStyles/ForgotPasswordStyles.js';
-import { colors, sizes } from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
+import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
+import commonStyles                 from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import { colors, sizes } from '../../../AppDesigns/currentApp/styles/styles.js';
 import Modal from "../../Modal/OpenModal.js";
 import { Fumi } from 'react-native-textinput-effects';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -170,10 +171,10 @@ class RootForgotPassword extends ValidationComponent {
     return (
       <View>
         <View style={{ width: '100%' }}>
-          <View style={styles.textTitleWrapper}><Text style={styles.fptitle}>Forgot Password</Text></View>
-          <View style={{ paddingHorizontal: 30 }}><Text style={styles.fpsubtitle}>Please enter email id</Text></View>
-          <View style={styles.formWrapper}>
-            <View style={[styles.formInputView, styles.marginBottom30]}>
+          <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Forgot Password</Text></View>
+          <View style={{ paddingHorizontal: 30 }}><Text style={commonStyles.subHeaderText}>Please enter email id</Text></View>
+          <View style={commonStyles.formWrapper}>
+            <View style={[commonStyles.formInputView, styles.marginBottom30]}>
               <Fumi
                 label={'Email'}
                 onChangeText={(email) => { this.setState({ email }, () => { this.validInputField('email', 'emailError'); }) }}
@@ -186,7 +187,8 @@ class RootForgotPassword extends ValidationComponent {
                 iconSize={22}
                 iconWidth={40}
                 inputPadding={16}
-                style={styles.fpemail}
+                style={commonStyles.inputContainer}
+                labelStyle={commonStyles.labelStyle}
               />
               {this.displayValidationError('emailError')}
             </View>
@@ -195,29 +197,28 @@ class RootForgotPassword extends ValidationComponent {
             <View style={{ paddingHorizontal: 15 }}>
               {this.state.btnLoading
                 ?
-                <ActivityIndicator size="large" color="#ed3c55" />
+                <ActivityIndicator size="large" color={colors.theme} />
                 :
                 <Button
                   onPress={this.handleSendOtp}
-                  titleStyle={styles.buttonText}
+                  titleStyle={commonStyles.buttonText}
                   title="Send OTP"
-                  buttonStyle={styles.button}
-                  containerStyle={styles.buttonContainer}
+                  buttonStyle={commonStyles.button}
+                  containerStyle={commonStyles.buttonContainer}
                 />
 
               }
             </View>
-            <Button
-              onPress={() => this.props.navigation("Login")}
-              titleStyle={styles.buttonText1}
-              title="Sign In"
-              buttonStyle={styles.button1}
-              containerStyle={styles.buttonContainer1}
-              icon={
-                <Icon name="chevron-double-left" type="material-community" size={22} color="#666" style={{}} />
-              }
-            />
-
+            <View style={{alignItems: 'center', justifyContent: 'center',marginVertical:30}}>
+              <TouchableOpacity onPress={() => this.props.navigation("Login")}>
+              <View style={{flexDirection:'row'}}>
+                <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} />
+                <Text style={[commonStyles.linkText]}>
+                    Sign In
+                </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
         {this.props.openModal ?

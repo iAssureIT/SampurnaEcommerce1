@@ -16,7 +16,7 @@ import Footer from '../../ScreenComponents/Footer/Footer.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 // import styles from './Contactusstyles.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Contactusstyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js.js';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 export default class ContactUs extends React.Component{
   constructor(props){

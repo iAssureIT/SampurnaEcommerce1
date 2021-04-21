@@ -15,7 +15,7 @@ import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import { connect }        from 'react-redux';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import Drawer from 'react-native-drawer';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import axios from "axios";

@@ -4,7 +4,7 @@ import  HomeStack             from "./src/config/routes.js";
 import  AuthStack             from "./src/config/routes.js";
 import { createAppContainer } from "react-navigation";
 import axios                  from 'axios';
-// import codePush               from 'react-native-code-push';
+import codePush               from 'react-native-code-push';
 
 const HomeStackContainer = createAppContainer(HomeStack);
 const AuthStackContainer = createAppContainer(AuthStack);
@@ -13,6 +13,7 @@ const AuthStackContainer = createAppContainer(AuthStack);
 // axios.defaults.baseURL = 'http://qaunimandaiapi.iassureit.com/';
 // axios.defaults.baseURL = 'http://uatapi.unimandai.com/';
 axios.defaults.baseURL = 'http://qaapi-bookstore.iassureit.in/';
+// axios.defaults.baseURL = 'http://qaapi-sampurna-marketplace.iassureit.in/';
 // axios.defaults.baseURL = 'http://localhost:3366/';
 console.disableYellowBox = true;
 console.log("axios.defaults.baseURL===>",axios.defaults.baseURL);
@@ -30,8 +31,8 @@ class App extends Component {
       );
   }
 }
-// const codePushOptions = {
-//  checkFrequency: codePush.CheckFrequency.ON_APP_START 
-// };
-// export default codePush(codePushOptions)(App);
-export default App;
+const codePushOptions = {
+ checkFrequency: codePush.CheckFrequency.ON_APP_START 
+};
+export default codePush(codePushOptions)(App);
+// export default App;
