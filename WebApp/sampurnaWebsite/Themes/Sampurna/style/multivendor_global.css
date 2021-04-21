@@ -396,7 +396,7 @@ body{
   border:1px solid #ccc;
   text-transform: uppercase;
   transition: var(--globalTransition) !important;
-  font-size: 12px !important;
+  font-size: 11px !important;
   border-radius: var(--globalborderRadious) !important;
   text-align:center;
   padding: 7px 15px !important;

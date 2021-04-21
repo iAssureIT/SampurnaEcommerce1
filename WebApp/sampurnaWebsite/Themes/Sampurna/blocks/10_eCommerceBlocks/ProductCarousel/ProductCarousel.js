@@ -34,7 +34,7 @@ const displayProductOptions = [
   { value: '10', label: '10 Products / page' },
   { value: '20', label: '20 Products / page' },
   { value: '40', label: '40 Products / page' },
-  { value: '80', label: '80 Products / page'}
+  { value: '1000', label: 'All Products / page'}
 ];
 const responsive = {
   desktop: {
@@ -700,7 +700,7 @@ class ProductCarousel extends Component {
 			this.setState({
 				newProducts: this.state.newProducts.sort((a, b) => -(a[field] || "").toString().localeCompare((b[field] || "").toString()))
 			},()=>{
-          console.log("newProducts===",this.state.newProducts);
+          // console.log("newProducts===",this.state.newProducts);
       });
 		}
 		if (sortBy === "priceAsc") {

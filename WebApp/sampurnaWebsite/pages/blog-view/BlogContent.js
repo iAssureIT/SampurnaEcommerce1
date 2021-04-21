@@ -2,7 +2,6 @@ import React from 'react';
 
 export default class BlogContent extends React.Component {
 
-
 	constructor(props) {
 		super(props);
 		this.state = {

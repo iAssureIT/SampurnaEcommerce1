@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {setBlockData} from '../../redux/actions/index.js';
-import MasterPage from '../../component/MasterPage/MasterPage.js'
+import MasterPage from '../../MasterPage/MasterPage.js'
 import store from '../../redux/store.js'
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();

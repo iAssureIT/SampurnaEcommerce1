@@ -448,7 +448,7 @@ class Header2 extends Component{
                         {/*console.log("userImage 366",this.state.userImage)*/}
 
                           <img src={this.state.userImage ? this.state.userImage : "/images/person.png"} className="userIcon"/>
-                          <label className="mailtext">&nbsp;&nbsp;&nbsp;{this.state.fullname ? this.state.fullname : "UniMandai Admin"}</label>
+                          <label className="mailtext">&nbsp;&nbsp;&nbsp;{this.state.fullname ? this.state.fullname : "Sampurna Admin"}</label>
                           {/* <label className="mailtext">&nbsp;&nbsp;&nbsp;UniMandai Admin</label> */}
                         </span>
                         <span className="textAlignCenter" style={{"marginTop": "4px"}}>

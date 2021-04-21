@@ -5,8 +5,9 @@ import Moment               from 'react-moment';
 import axios                from 'axios';
 import swal                 from 'sweetalert';
 import getConfig            from 'next/config';
-import Header               from '../../component/blockTemplate/Header/Header.js';
-import Footer               from '../../component/blockTemplate/Footer/Footer.js';
+
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 
 const { publicRuntimeConfig } = getConfig();
 var projectName = publicRuntimeConfig.CURRENT_SITE;

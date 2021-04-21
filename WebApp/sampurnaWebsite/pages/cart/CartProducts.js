@@ -425,20 +425,24 @@ class CartProducts extends Component{
                                                                     </a>
                                                                 {
                                                                     data.productDetail.discountPercent  ?
-                                                                        <div className="col-12 NOpadding">
+                                                                        <div className="col-12 NoPadding">
                                                                             <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{data.productDetail.originalPrice}</span> &nbsp; &nbsp;
                                                                             <span className="cartPrice"><i className="fa fa-inr"></i>{data.productDetail.discountedPrice}</span> &nbsp; &nbsp;
                                                                             <span className="cartDiscountPercent">( {Math.floor(data.productDetail.discountPercent)}% Off )</span>
                                                                         </div>
                                                                         :
-                                                                        <span className="price"><i className="fa fa-inr"></i>{data.productDetail.originalPrice}</span>
+                                                                        <div className="col-12 NoPadding">
+                                                                            <span className="price"><i className="fa fa-inr"></i>{data.productDetail.originalPrice}</span>
+                                                                        </div>
                                                                 }
 
                                                                 {/* <div>
                                                                     {data.productDetail.color ? <span className="cartColor">Color : <span style={{backgroundColor : data.productDetail.color, padding: '0px 5px'}}>&nbsp;</span> {ntc.name(data.productDetail.color)[1]}, </span> : null}
                                                                     {data.productDetail.size ? <span className="cartColor">Size : {data.productDetail.size} &nbsp;<span className="CapsUnit">{data.productDetail.unit}</span></span>: null}
                                                                 </div> */}
+                                                                <div className="col-12 NoPadding">
                                                                     <button productid={data.productDetail._id} id={data._id} onClick={this.moveWishlist.bind(this)} className="globalAddToCartBtn btn wishlistBtn">Move to Wishlist</button>
+                                                                </div>
                                                                 </div> 
                                                               </div>                                                                 
                                                             </div>

@@ -501,7 +501,7 @@ font-weight: bold;
 }
 .subCategorylia{
   color: black !important;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .subcategoryLi{
