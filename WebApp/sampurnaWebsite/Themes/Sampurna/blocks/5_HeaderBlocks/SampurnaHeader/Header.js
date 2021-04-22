@@ -28,6 +28,7 @@ class Header extends React.Component {
 	 async componentDidMount(){
        await this.props.getCartData();
        await this.props.getWishlistData();
+       this.getCategoriesData();
        var userId = localStorage.getItem('user_ID');
        this.setState({
            "userID": userId
@@ -35,7 +36,18 @@ class Header extends React.Component {
         // console.log("***this.props.recentCartData()===",this.props.recentCartData);
         // document.getElementById("tableSearch").focus();        
     }
-
+    getCategoriesData(){
+        axios.get('/api/category/get/list')
+        .then((response)=>{
+            // console.log("categorydata == ",response.data);
+            this.setState({
+                categorydata:response.data
+                });
+        })
+        .catch(function(error){
+          console.log(error);            
+        })
+    }
     searchProducts() {        
           var searchstr = this.refs.tableSearch.value.trim();
           if(searchstr){          
@@ -56,7 +68,7 @@ class Header extends React.Component {
                             <div className="row logoWrap">
                                 <div className="col-4 col-sm-2 mr-4 logoBlock NoPadding">
                                 <Link href="/">
-                                    <a title="navbar-brand BookStore logo ">
+                                    <a title="navbar-brand Sitelogo ">
                                         {/* <img src="/images/eCommerce/kokilaLogo.png" className="responsive logoImg"></img>  */}
                                         <Image
                                             src="/images/eCommerce/multistoreLogo.png"
@@ -74,7 +86,13 @@ class Header extends React.Component {
                                         <div className="row"> 
                                             <select name="category_product" className=" col-3 category-selection">
                                                 <option value="">All Category</option>
-                                                <option value="uncategorized">Uncategorized</option>                                         
+                                                {Array.isArray(this.state.categorydata) && this.state.categorydata.map((category,index)=>{
+                                                        return(
+                                                            <option value="uncategorized" key={index}>{category.category}</option>                                         
+                                                        )
+                                                    }) 
+                                                }
+                                                
                                             </select>
                                             <input type="text" placeholder="What are you looking for?" 
                                             onChange={this.searchProducts.bind(this)} 
