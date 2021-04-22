@@ -70,10 +70,16 @@ class Header extends React.Component {
                                 </div>
 
                                 <div className="rightNavbar ml-4 mr-4 col-12 col-sm-6 NoPadding">                                
-                                    <div className="col-12 NoPadding">   
-                                        <input type="text" placeholder="What are you looking for?" 
-                                        onChange={this.searchProducts.bind(this)} 
-                                        className="form-control tableSearch col-12" ref="tableSearch" id="tableSearch" name="tableSearch" />
+                                    <div className="col-12 NoPadding">  
+                                        <div className="row"> 
+                                            <select name="category_product" className=" col-3 category-selection">
+                                                <option value="">All Category</option>
+                                                <option value="uncategorized">Uncategorized</option>                                         
+                                            </select>
+                                            <input type="text" placeholder="What are you looking for?" 
+                                            onChange={this.searchProducts.bind(this)} 
+                                            className="form-control tableSearch col-8" ref="tableSearch" id="tableSearch" name="tableSearch" />
+                                        </div>
                                         <div className="searchIcon"><i className="fa fa-search"></i></div>                                    
                                     </div>                                
                                 </div>

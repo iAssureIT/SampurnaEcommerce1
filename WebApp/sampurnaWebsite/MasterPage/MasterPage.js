@@ -15,8 +15,8 @@ import ScrollTop from '../Themes/Sampurna/blocks/StaticBlocks/ScrollTop/ScrollTo
 const { publicRuntimeConfig } = getConfig();
 //get site name from next.config.js
 const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
-
-const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/Header/Header.js'));
+const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/SampurnaHeader/Header.js'));
+// const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/Header/Header.js'));
 const Footer = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/6_FooterBlocks/Footer/Footer.js'));
 
 

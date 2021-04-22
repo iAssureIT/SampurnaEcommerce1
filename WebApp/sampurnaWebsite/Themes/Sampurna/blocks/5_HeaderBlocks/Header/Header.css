@@ -76,7 +76,7 @@
   }
   .dropDownLevel2 a:hover{
       background-color: transparent !important;
-      color: var(--color) !important !important;
+      color: var(--color) !important;
   }
 .multilevelType2MenuWrapper .container{
     margin-top: 20px;
@@ -190,12 +190,11 @@ ul:hover > .dropDownLevel3 {
     transition: 0.6s ease;
 }
 .mutilevelDropdown1 li a:hover{
-    color: var(--color) !important !important;
+    color: var(--color) !important;
     background-color: transparent !important;
     text-decoration: none !important;
    
 }
-
 .faicon{
     text-decoration: none !important;
     margin-left: 5px;
