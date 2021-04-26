@@ -18,10 +18,7 @@ export default StyleSheet.create({
         paddingHorizontal:15,
     },
     inputContainer:{
-        borderWidth:1,
-        borderColor:colors.inputBorderColor,
-        fontFamily: 'Montserrat-Regular',
-        backgroundColor:colors.inputBackgroundColor
+        borderWidth:1,borderColor:colors.inputBorderColor,fontFamily: 'Montserrat-Regular',backgroundColor:colors.inputBackgroundColor
     },
     labelStyle:{
         color:colors.labelStyle
@@ -34,13 +31,14 @@ export default StyleSheet.create({
         height: 45,
         alignSelf: 'center',
         justifyContent: 'center',
-        borderRadius:0,
+        // borderRadius:5,
     },
 
     buttonText:{
         color: colors.buttonText,
         fontSize: 15,
         fontFamily: "Montserrat-SemiBold",
+         borderRadius:0
     },
 
     buttonContainer:{
@@ -56,7 +54,7 @@ export default StyleSheet.create({
 
     button1:{
         width:'100%',
-        backgroundColor: colors.button,
+        backgroundColor: colors.buttonn,
         height: 45,
         alignSelf: 'center',
         justifyContent: 'center',
@@ -100,7 +98,7 @@ export default StyleSheet.create({
 
     // Common Text Styles
     headerText:{
-        fontSize: 22, fontFamily: 'Montserrat-SemiBold',textAlign:'center'
+        fontSize: 25, color:colors.theme, fontFamily: 'Montserrat-SemiBold',textAlign:'center'
     },
     subHeaderText :{
         fontSize: 17, fontFamily: 'Montserrat-Regular',paddingVertical:15 ,alignSelf:"center"

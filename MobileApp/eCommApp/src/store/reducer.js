@@ -8,6 +8,7 @@ const initialState = {
 	user_id     :"",
 	searchText  :"",
 	token       :"",
+	route        : "",
 }
 
 const reducer = (state = initialState,action) => {
@@ -18,6 +19,7 @@ const reducer = (state = initialState,action) => {
 		newState.messageHead 		= action.messageHead;
 		newState.messagesSubHead 	= action.messagesSubHead;
 		newState.messageType 		= action.messageType;
+		newState.route 				= action.route ? action.route : '';
 	}	
 	if(action.type === "SET_USER_ID"){
 		console.log("action.user_id==>",action.user_id)

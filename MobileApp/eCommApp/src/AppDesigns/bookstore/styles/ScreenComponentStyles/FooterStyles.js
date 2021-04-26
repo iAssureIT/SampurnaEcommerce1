@@ -30,7 +30,7 @@ export default StyleSheet.create({
    borderRadius:50,
   },
   Wrapper:{
-    justifyContent:'center',backgroundColor:colors.theme,alignSelf:"center",position:"absolute",zIndex:100,bottom:25,borderWidth:10,borderColor: '#DCDCDC',borderRadius:100,padding:5,
+    justifyContent:'center',backgroundColor:"#ed3c55",alignSelf:"center",position:"absolute",zIndex:100,bottom:25,borderWidth:10,borderColor: '#DCDCDC',borderRadius:100,padding:5,
   },
   footerTitle:{
     textAlign:'center',fontFamily:"Montserrat-SemiBold",fontSize:12

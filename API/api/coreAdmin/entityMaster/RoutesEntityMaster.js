@@ -80,4 +80,9 @@ router.delete('/deleteLocation/:entityID/:locationID',entityMaster.deleteLocatio
 
 router.delete('/deleteContact/:entityID/:contactID',entityMaster.deleteContact);
 
+
+//API Mobile App - Rushikesh Salunkhe
+//Get details to display contact details
+router.get('/get/one', entityMaster.appCompanyDetails);
+
 module.exports = router;

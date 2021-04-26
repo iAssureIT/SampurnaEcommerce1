@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions,Platform} from 'react-native';
-import {colors} from '../styles.js';
+// import {colors} from '../styles.js';
 
 const window = Dimensions.get('window');
 
@@ -22,7 +22,7 @@ export default StyleSheet.create({
             textAlign: 'center',
             color: '#fff',
             fontSize: 12,
-            backgroundColor: colors.theme,
+            backgroundColor: '#dc3545',
             fontFamily:"Montserrat-Regular",
 
 
@@ -30,14 +30,16 @@ export default StyleSheet.create({
       android : {
             position: 'absolute',
             right: 0,
-            top: -4,
+            left:8,
+            top: -8,
             borderRadius: 9,
             width: 18,
             height: 18,
+            padding:1,
             textAlign: 'center',
             color: '#fff',
-            fontSize: 12,
-            backgroundColor: colors.theme,
+            fontSize: 10,
+            backgroundColor: '#dc3545',
             fontFamily:"Montserrat-Regular",
 
       }
@@ -95,7 +97,7 @@ export default StyleSheet.create({
     height:30,
     borderTopWidth:0,
     borderBottomWidth:0,
-    backgroundColor:'transparent'
+    backgroundColor:'transparent',
   },
   searchInputContainer:{
     backgroundColor:'#fff',
@@ -103,11 +105,20 @@ export default StyleSheet.create({
     borderBottomWidth:1,
     borderLeftWidth:1,
     borderRightWidth:1,
-    borderRadius:5
+    borderRadius:5,
+    borderColor:"#ccc",
+     elevation:4,
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: "grey",
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+
+
   },
   searchInput:{
     fontSize:13,
-    color:'#333',
-    fontFamily:"Montserrat-Regular"
+    color:'#ccc',
+    fontFamily:"Montserrat-Regular",
+
   },
 });

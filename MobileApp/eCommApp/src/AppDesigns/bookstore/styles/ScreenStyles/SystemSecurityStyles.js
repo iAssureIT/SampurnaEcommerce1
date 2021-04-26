@@ -20,18 +20,16 @@ export default StyleSheet.create({
     textTitleWrapper:{
         paddingHorizontal: 15, marginTop: 15, marginBottom:15
     },
+
     boxOpacity:{
-        width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
-        backgroundColor:'#fff',
+        width: '100%',borderColor:"#ccc",shadowColor: '#000',backgroundColor:"#fff",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 8,
     },
     boxOpacity1:{
-        width: '100%',borderColor:colors.theme,shadowColor: colors.theme,backgroundColor:colors.inputBackgroundColor,
-        borderWidth:2,
-        borderRadius:15,
+        width: '100%',borderColor:"#ccc",shadowColor: '#000',backgroundColor:"#fff",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,

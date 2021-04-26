@@ -22,7 +22,7 @@ export default StyleSheet.create({
             textAlign: 'center',
             color: '#fff',
             fontSize: 12,
-            backgroundColor: colors.theme,
+            backgroundColor: '#dc3545',
             fontFamily:"Montserrat-Regular",
 
 
@@ -37,7 +37,7 @@ export default StyleSheet.create({
             textAlign: 'center',
             color: '#fff',
             fontSize: 12,
-            backgroundColor: colors.theme,
+            backgroundColor: '#dc3545',
             fontFamily:"Montserrat-Regular",
 
       }

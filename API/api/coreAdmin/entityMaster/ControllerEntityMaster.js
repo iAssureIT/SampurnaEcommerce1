@@ -276,6 +276,8 @@ exports.singleEntity = (req,res,next)=>{
     });
 };
 
+
+
 function getManagerDetails(ID,companyID){
    return new Promise(function(resolve,reject){
         PersonMaster.findOne({"employeeId" : ID,"companyID":companyID},{"firstName":1,middleName:1,lastName:1,contactNo:1,designation:1,department:1,employeeId:1})
@@ -1057,4 +1059,18 @@ exports.countContacts = (req,res,next)=>{
     });
 };
 
+
+
+exports.appCompanyDetails = (req,res,next)=>{
+    EntityMaster.findOne({companyID :1})
+    .exec()
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
+        });
+    });
+};
 

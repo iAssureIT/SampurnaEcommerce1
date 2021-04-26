@@ -14,7 +14,7 @@ import {
   Keyboard
 } from 'react-native';
 // import AsyncStorage                 from '@react-native-community/async-storage';
-import Modal                        from "react-native-modal";
+// import Modal                        from "react-native-modal";
 import ValidationComponent          from "react-native-form-validator";
 import { Button, Icon }             from "react-native-elements";
 import axios                        from "axios";
@@ -24,11 +24,13 @@ import { colors, sizes }            from '../../../AppDesigns/currentApp/styles/
 import { Fumi }                     from 'react-native-textinput-effects';
 import FontAwesomeIcon              from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons       from 'react-native-vector-icons/MaterialCommunityIcons';
-import LinearGradient from 'react-native-linear-gradient';
+import Modal                        from "../../Modal/OpenModal.js";
+import LinearGradient               from 'react-native-linear-gradient';
+import { connect }                  from 'react-redux';
 
 const window = Dimensions.get('window');
 
-export default class RootLogIn extends ValidationComponent {
+class RootLogIn extends ValidationComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,16 +129,19 @@ export default class RootLogIn extends ValidationComponent {
         .then(response => {
           this.setState({ btnLoading: false })
           console.log('response Login====>',response.data)
-          if (response.data.message === "NOT_REGISTER" ) {
-            Alert.alert("", "User Not found")
-          } else if (response.data.message === "INVALID_PASSWORD") {
-            Alert.alert("", "Your password is incorrect. Please enter correct password.")
-          } else if (response.data.message === "USER_UNVERIFIED") {
+           if(response.data.message === 'INVALID_PASSWORD'){
+            this.setState({ btnLoading: false})
+            this.props.openModal(true,"Incorrect Password","Please enter correct password","warning");
+          }else if(response.data.message === 'NOT_REGISTER'){
+            this.setState({ btnLoading: false})
+            this.props.openModal(true,"This Mobile Number is not registered.","","warning");
+          }else if(response.data.message === 'USER_BLOCK'){
+            this.setState({ btnLoading: false})
+            this.props.openModal(true,"Please contact to admin","","warning");
+          }else if(response.data.message === 'USER_UNVERIFIED'){
             console.log('USER_UNVERIFIED Login====>',response.data)
             Alert.alert("", "Your verification is still pending. Click Ok to verify your account.")
-            // .then(success =>{
               console.log('response.data Result==>', response.data)
-            // =================== Notification OTP ==================
             var sendData = {
               "event": "2",
               "toUser_id": response.data.userDetails.user_id,
@@ -146,7 +151,6 @@ export default class RootLogIn extends ValidationComponent {
                   "OTP" : response.data.userDetails.otpEmail,
                 }
               }
-              console.log('Before sendDataToUser==>', sendData)
               axios.post('/api/masternotifications/post/sendNotification', sendData)
               .then((res) => {
                 console.log('sendDataToUser in result==>>>', res.data)
@@ -154,8 +158,9 @@ export default class RootLogIn extends ValidationComponent {
               .catch((error) => { console.log('notification error: ',error)})
             // =================== Notification ==================
             this.props.navigation('OTPVerification',{userID:response.data.userDetails.user_id,Username:response.data.userDetails.firstName});
-            // this.props.navigation('ForgotPasswordOTP');
-            // })
+          }else if(response.data.message === "already_loggedin"){
+            this.setState({ btnLoading: false})
+            this.props.openModal(true,"Your account is currently logged onto another device.","Please log out of the other device or contact your administrator.","warning");
           }else {
             AsyncStorage.multiSet([
               ['user_id', response.data.ID],
@@ -190,6 +195,7 @@ export default class RootLogIn extends ValidationComponent {
     };
 
     const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
     return (
         <React.Fragment>
             <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
@@ -284,40 +290,12 @@ export default class RootLogIn extends ValidationComponent {
                 <View style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center',marginBottom:25 }]}>
                   <Text style={commonStyles.linkLightText}>Version 1.0</Text>
                 </View>
-
-                <Modal isVisible={this.state.incorrectPwModal}
-                  onBackdropPress={() => this.setState({ incorrectPwModal: false })}
-                  coverScreen={true}
-                  hideModalContentWhileAnimating={true}
-                  style={{ paddingHorizontal: '5%', zIndex: 999 }}
-                  animationOutTiming={500}>
-                  <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10 }}>
-                    <View style={{ justifyContent: 'center', backgroundColor: "#dc3545", width: 50, height: 50, borderRadius: 25, overflow: 'hidden' }}>
-                      <Icon size={30} name='x' type='feather' color='#fff' style={{}} />
-                    </View>
-                    <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
-                      Oops!
-                    </Text>
-                    <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center' }}>
-                      You've entered wrong Email or Password
-                    </Text>
-                    <Text style={{ fontFamily: 'Montserrat-Bold', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginVertical: 15 }}>
-                      Please check and try again
-                    </Text>
-
-                    <View style={{ borderBottomRightRadius: 500, marginTop: 15, flexDirection: 'row' }}>
-                      <Button
-                        onPress={() => this.setState({ incorrectPwModal: true })}
-                        titleStyle={commonStyles.buttonText}
-                        title="OK"
-                        buttonStyle={{ width: '100%', height: 45, alignItems: 'center', justifyContent: 'center', borderRadius: 50 }}
-                        containerStyle={commonStyles.buttonContainer}
-                      />
-                    </View>
-                    
-                  </View>
-                </Modal>
             </View>
+            {this.props.openModal ?
+            <Modal navigation={navigation}/>
+            :
+            null
+          }
         </React.Fragment>
     );
 
@@ -354,3 +332,26 @@ RootLogIn.defaultProps = {
     },
   },
 }
+
+const mapStateToProps = (state)=>{
+  // console.log("bState===",state);
+  return {
+    openModal             : state.openModal,
+  }
+  
+};
+
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    openModal  : (openModal,messageHead,messagesSubHead,messageType)=> dispatch({type: "MODAL",
+                            openModal:openModal,
+                            messageHead:messageHead,
+                            messagesSubHead:messagesSubHead,
+                            messageType:messageType,
+                  }),
+    setUserID  : (user_id)=> dispatch({type: "SET_USER_ID",
+                            user_id:user_id,
+                  }),
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(RootLogIn);

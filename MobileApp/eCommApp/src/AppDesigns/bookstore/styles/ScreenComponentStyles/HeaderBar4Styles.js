@@ -21,8 +21,8 @@ export default StyleSheet.create({
             height: 15,
             textAlign: 'center',
             color: '#fff',
-            fontSize: 12,
-            backgroundColor: colors.theme,
+            fontSize: 10,
+            backgroundColor: '#dc3545',
             fontFamily:"Montserrat-Regular",
 
 
@@ -30,14 +30,15 @@ export default StyleSheet.create({
       android : {
             position: 'absolute',
             right: 0,
-            top: -4,
+            left:13,
+            top: -10,
             borderRadius: 9,
             width: 18,
             height: 18,
             textAlign: 'center',
             color: '#fff',
-            fontSize: 12,
-            backgroundColor: colors.theme,
+            fontSize: 10,
+            backgroundColor: '#dc3545',
             fontFamily:"Montserrat-Regular",
 
       }

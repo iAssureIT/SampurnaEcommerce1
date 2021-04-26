@@ -48,7 +48,7 @@ export default StyleSheet.create({
       fontSize:17,fontFamily:'Montserrat-Regular',alignSelf:"center"
     },
     resettitle: {
-      fontSize: 25, color:colors.theme, fontFamily: 'Montserrat-SemiBold',textAlign:'center' 
+      fontSize: 25, color:"#ed3c55", fontFamily: 'Montserrat-SemiBold',textAlign:'center' 
     },
     resetpwd: {
       borderWidth:1,borderColor:"#ccc",fontFamily: 'Montserrat-Regular'

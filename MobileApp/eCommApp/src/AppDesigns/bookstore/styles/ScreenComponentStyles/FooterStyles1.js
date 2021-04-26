@@ -1,5 +1,6 @@
 import { StyleSheet,Platform } from 'react-native';
-import {colors} from '../styles.js';
+import { colors } from '../styles';
+
 export default StyleSheet.create({
   footer: {
     ...Platform.select({
@@ -55,7 +56,7 @@ export default StyleSheet.create({
   },
   Wrapper: {
     justifyContent:'center',
-    backgroundColor: colors.theme,
+    backgroundColor: "#ed3c55",
     alignSelf: "center",
     position: "absolute",
     zIndex: 100,

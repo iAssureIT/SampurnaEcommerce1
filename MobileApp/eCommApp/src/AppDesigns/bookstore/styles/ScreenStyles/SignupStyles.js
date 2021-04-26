@@ -32,7 +32,7 @@ export default StyleSheet.create({
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center' 
   },
   signuptitle:{
-    fontSize: 25, color:colors.theme, fontFamily: 'Montserrat-SemiBold',textAlign:'center',paddingVertical:10
+    fontSize: 25, color:"#ed3c55", fontFamily: 'Montserrat-SemiBold',textAlign:'center',paddingVertical:10
   },
   signupemail:{
     borderWidth:1,borderColor:"#ccc",fontFamily: 'Montserrat-Regular',

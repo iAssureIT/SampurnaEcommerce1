@@ -24,16 +24,16 @@ export default StyleSheet.create({
       width: '50%',height:80 
     },
     fptitle: {
-      fontSize: 25, color:"#ed3c55", fontFamily: 'Montserrat-SemiBold',textAlign:'center'
+      fontSize: 25, color:colors.theme, fontFamily: 'Montserrat-SemiBold',textAlign:'center'
     },
     fpsubtitle: {
       fontSize: 17, fontFamily: 'Montserrat-Regular',paddingVertical:15 ,alignSelf:"center"
     },
     fpemail: {
-      borderWidth:1,borderColor:"#ccc",fontFamily: 'Montserrat-Regular'
+      borderWidth:1,borderColor:"#d8ab46",fontFamily: 'Montserrat-Regular',backgroundColor:"#121212"
     },
     fpopacity: {
-      width: '100%', backgroundColor:'#fff',marginTop:80,borderColor:"#ccc",shadowColor: '#000',
+      width: '100%',borderColor:"#ccc",shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.8,
       shadowRadius: 2,

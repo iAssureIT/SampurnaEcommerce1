@@ -547,7 +547,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 30, 
     paddingHorizontal: 10,
-    borderWidth:2,borderColor:colors.theme 
+    borderWidth:2,borderColor:"#ed3c55" 
   },
 
 

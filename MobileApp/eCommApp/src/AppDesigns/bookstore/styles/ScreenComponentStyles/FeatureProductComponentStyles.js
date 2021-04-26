@@ -517,7 +517,7 @@ export default StyleSheet.create({
 	},
 
 	modalmainvw:{
-		backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme 
+		backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:"#ed3c55" 
 	 },
 
 	buttonContainer1: {

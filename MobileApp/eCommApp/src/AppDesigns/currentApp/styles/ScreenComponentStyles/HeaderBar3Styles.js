@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions,Platform} from 'react-native';
-// import {colors} from '../styles.js';
+import {colors} from '../styles.js';
 
 const window = Dimensions.get('window');
 
@@ -22,7 +22,7 @@ export default StyleSheet.create({
             textAlign: 'center',
             color: '#fff',
             fontSize: 12,
-            backgroundColor: '#dc3545',
+            backgroundColor: colors.theme,
             fontFamily:"Montserrat-Regular",
 
 
@@ -39,7 +39,7 @@ export default StyleSheet.create({
             textAlign: 'center',
             color: '#fff',
             fontSize: 10,
-            backgroundColor: '#dc3545',
+            backgroundColor: colors.theme,
             fontFamily:"Montserrat-Regular",
 
       }

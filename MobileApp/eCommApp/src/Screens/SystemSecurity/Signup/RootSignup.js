@@ -247,7 +247,7 @@ class RootSignup extends ValidationComponent {
             console.log('response.data Result==>', response.data.result)
             // =================== Notification OTP ==================
             var sendData = {
-              "event": "2",
+              "event": "5",
               "toUser_id": response.data.ID,
               "toUserRole":"user",
                 "variables": {
@@ -617,7 +617,6 @@ RootSignup.defaultProps = {
     required: /\S+/,
     letters: /^[a-zA-Z ]+$/,
     lettersOrEmpty: /^[a-zA-Z ]+$|^$/,
-    // mobileNo: /^\d{5}([- ]*)\d{6}$|^(\+91?)?[0]?(91)?[789]\d{9}$|^$/,
     mobileNo: /^(\+91\s)?[0-9]{3}\-[0-9]{3}\-[0-9]{4}$/,
     pincode:/^[1-9][0-9]{5}$/,
   },

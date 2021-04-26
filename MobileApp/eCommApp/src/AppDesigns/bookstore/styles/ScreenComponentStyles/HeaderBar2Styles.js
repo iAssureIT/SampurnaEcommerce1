@@ -45,7 +45,7 @@ export default StyleSheet.create({
         paddingRight: 0,
         backgroundColor: '#fff',
         borderTopWidth: 3,
-        borderTopColor: colors.theme,
+        borderTopColor: "#ed3c55",
         height: 60,
       },
       android: {
@@ -54,7 +54,7 @@ export default StyleSheet.create({
         paddingRight: 0,
         backgroundColor: '#fff',
         borderTopWidth: 3,
-        borderTopColor: colors.theme,
+        borderTopColor: "#ed3c55",
         height: 60,
       }
     })
@@ -72,7 +72,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#fff',
         fontSize: 12,
-        backgroundColor: colors.theme,
+        backgroundColor: '#dc3545',
         fontFamily: "Montserrat-Regular",
 
 
@@ -87,7 +87,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#fff',
         fontSize: 12,
-        backgroundColor: colors.theme,
+        backgroundColor: '#dc3545',
         fontFamily: "Montserrat-Regular",
 
       }
@@ -159,7 +159,7 @@ export default StyleSheet.create({
   },
   header2main: {
 
-    backgroundColor: colors.theme,
+    backgroundColor: "#ed3c55",
     //  elevation: 4, 
     // boxShadow: "10px 5px 5px black"
   },

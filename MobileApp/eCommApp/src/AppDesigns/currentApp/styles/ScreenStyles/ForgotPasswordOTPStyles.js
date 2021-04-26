@@ -45,7 +45,7 @@ export default StyleSheet.create({
         width: '50%',height:80 
     },
     otpvtitle:{
-        fontSize: 25, color:"#ed3c55", fontFamily: 'Montserrat-SemiBold',textAlign:'center' 
+        fontSize: 25, color:colors.theme, fontFamily: 'Montserrat-SemiBold',textAlign:'center' 
     },
     otpvsubtitle:{
         fontSize: 17, fontFamily: 'Montserrat-Regular' 
