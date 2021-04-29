@@ -12,7 +12,7 @@ import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
-import commonStyles  from '../../AppDesigns/currentApp/styles/commonStyles.js';
+import commonStyles  from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import axios from 'axios';
 import moment from 'moment';
 const labels = ["Order Placed", "Packed", "Out for delivery", "Delivered"];
@@ -39,7 +39,7 @@ const customStyles = {
   labelSize: 13,
   currentStepLabelColor: colors.theme,
 }
-// stepStrokeFinishedColor: '#ed3c55',
+// stepStrokeFinishedColor: 'colors.theme',
 
 export default class MyOrder extends React.Component {
   constructor(props) {

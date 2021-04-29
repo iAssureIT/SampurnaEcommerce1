@@ -18,7 +18,7 @@ import FontAwesomeIcon        from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect }            from 'react-redux';
 import AsyncStorage           from '@react-native-community/async-storage';
-import commonStyles           from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import commonStyles           from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
 import styles                 from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
 
 

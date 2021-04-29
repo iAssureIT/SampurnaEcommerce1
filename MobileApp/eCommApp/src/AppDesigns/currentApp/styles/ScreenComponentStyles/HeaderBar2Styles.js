@@ -21,9 +21,9 @@ export default StyleSheet.create({
     height: 30, width: 45, marginTop: 15, marginLeft: 10
   },
   whitename: {
-    height: 65,
-    width: 150,
-    marginTop: 1,
+    // height: 65,
+    // width: 150,
+    // marginTop: 1,
     marginLeft: 50,
     alignSelf: 'center',
     // backgroundColor:'red'

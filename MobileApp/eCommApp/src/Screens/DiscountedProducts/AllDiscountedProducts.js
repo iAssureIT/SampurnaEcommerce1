@@ -169,7 +169,7 @@ export default class AlldiscountedProducts extends React.Component {
         <React.Fragment>
         <HeaderBar3
           goBack={goBack}
-          headerTitle={'Discounted Books'}
+          headerTitle={'Discounted Products'}
           navigate={navigate}
         />
         <View style={styles.addsuperparent}>
@@ -206,12 +206,12 @@ export default class AlldiscountedProducts extends React.Component {
                                 {
                                   productid === item._id ?
                                       <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                        <Icon size={20} name='heart' type='font-awesome' color='#ed3c55'  />
+                                        <Icon size={20} name='heart' type='font-awesome' color={colors.theme}  />
                                       </TouchableOpacity>
                                     :
 
                                       <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                        <Icon size={20} name='heart-o' type='font-awesome' color='#ed3c55'  />
+                                        <Icon size={20} name='heart-o' type='font-awesome' color={colors.theme}   />
                                       </TouchableOpacity>
                                 }
                                 {

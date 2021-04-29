@@ -283,17 +283,17 @@ export default class CartComponent extends React.Component {
                                   </View>
                                   <Counter start={item.quantity} min={1} max={100}
                                     buttonStyle={{
-                                      borderColor: '#ed3c55',
+                                      borderColor: colors.theme,
                                       borderWidth: 1,
                                       borderRadius: 25,
                                       width: 20,
                                       height: 10
                                     }}
                                     buttonTextStyle={{
-                                      color: '#ed3c55',
+                                      color: colors.theme,
                                     }}
                                     countTextStyle={{
-                                      color: '#ed3c55',
+                                      color: colors.theme,
                                     }}
                                     size={5}
                                     onChange={this.onChange.bind(this, item.productDetail._id)} />
@@ -301,7 +301,7 @@ export default class CartComponent extends React.Component {
                                 <View style={styles.flxmg2}>
                                   <View style={styles.proddeletes}>
                                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item.product_ID, item._id)} >
-                                      <Icon size={20} name='heart-o' type='font-awesome' color='#ed3c55' style={{ backgroundColor: "red" }} />
+                                      <Icon size={20} name='heart-o' type='font-awesome' color={colors.theme}  style={{ backgroundColor: "red" }} />
                                     </TouchableOpacity>
                                     <Icon
                                       onPress={() => this.DeleteItemfromcart(item._id)}

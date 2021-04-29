@@ -9,6 +9,7 @@ import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyl
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import {Linking} from 'react-native'
 import Axios from 'axios';
+import { colors,website_url } from '../../AppDesigns/currentApp/styles/styles.js';
 export default class SupportSystem extends React.Component {
   
     constructor(props) {
@@ -16,7 +17,10 @@ export default class SupportSystem extends React.Component {
         this.state = {
             inAppNotifications: '',
             user_id: '',
-            activesub: ''
+            activesub: '',
+            companyName : "",
+            companyPhone : "",
+            companyEmail:""
         };
     }
 
@@ -35,9 +39,13 @@ export default class SupportSystem extends React.Component {
     }
 
     getData(){
-        Axios.get('/api/entitymaster/get/one')
+        Axios.get('/api/entitymaster/getCompany/1')
         .then(res=>{
-            console.log("res",res);
+            this.setState({
+                companyName  : res.data.companyName,
+                companyPhone : res.data.companyPhone,
+                companyEmail : res.data.companyEmail
+            })
         })
         .catch(err=>{
             console.log("err",err);
@@ -67,54 +75,54 @@ export default class SupportSystem extends React.Component {
                         <View style={{ paddingHorizontal: 0 }}>
                                 <View style={{ flex: 1, paddingHorizontal: 20, marginTop: 15, alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
                                     <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: 15 }}>
-                                        Are you facing any issue or do you have any feedback for Kokila Bookstore? Please choose any one of the options below to get in touch with us
+                                        Are you facing any issue or do you have any feedback for {this.state.companyName}? Please choose any one of the options below to get in touch with us.
                                     </Text>
                                 </View>
                                 <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
-                                    <View  style={{ flex: 0.30,marginTop: 5}}>
-                                        <Icon size={40} name='whatsapp' type='material-community' color='#ed3c55' style={{}}/>
+                                    <View  style={{ flex: 0.15,marginTop: 5}}>
+                                        <Icon size={30} name='whatsapp' type='material-community' color='#5FCD65' style={{}}/>
                                     </View>
-                                    <View  style={{ flex: 0.70,marginTop: 13}}>
-                                        <Text onPress={()=>{Linking.openURL('whatsapp://send?text=Dear Kokila Bookstore Support, I need your Help&phone=+9190 2807 9487')}} 
+                                    <View  style={{ flex: 0.85,marginTop: 13}}>
+                                        <Text onPress={()=>{Linking.openURL('whatsapp://send?text='+this.state.companyName+' Support, I need your Help&phone='+this.state.companyPhone)}} 
                                             style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 16 }}>
-                                            +91 90280 79487
+                                            {this.state.companyPhone}
                                         </Text>
 
                                     </View>
                                 </View>
 
                                 <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
-                                    <View  style={{ flex: 0.30,marginTop: 5}}>
-                                        <Icon size={40} name='phone' type='Feather' color='#77b5fe' style={{}}/>
+                                    <View  style={{ flex: 0.15,marginTop: 5}}>
+                                        <Icon size={30} name='phone' type='Feather' color='#77b5fe' style={{}}/>
                                     </View>
-                                    <View  style={{ flex: 0.70,marginTop: 13}}>
-                                        <Text onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} 
+                                    <View  style={{ flex: 0.85,marginTop: 13}}>
+                                        <Text onPress={()=>{Linking.openURL('tel:'+this.state.companyPhone);}} 
                                             style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 16 }}>
-                                            +91 90280 79487
+                                           {this.state.companyPhone}
                                         </Text>
                                     </View>
                                 </View>
 
                                 <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
-                                    <View  style={{ flex: 0.30,marginTop: 5}}>
-                                        <Icon size={40} name='gmail' type='material-community' color='red' style={{}}/>
+                                    <View  style={{ flex: 0.15,marginTop: 5}}>
+                                        <Icon size={30} name='gmail' type='material-community' color='red' style={{}}/>
                                     </View>
-                                    <View  style={{ flex: 0.70,marginTop: 13}}>
-                                        <Text onPress={() => Linking.openURL('mailto:nitinmahale31@gmail.com?subject=I need your help &body=Dear Kokila Bookstore Support,') }
+                                    <View  style={{ flex: 0.85,marginTop: 13}}>
+                                        <Text onPress={() => Linking.openURL('mailto:'+this.state.companyEmail+'?subject=I need your help &body=Dear '+this.state.companyName+' Support,') }
                                         style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 16 }}>
-                                            nitinmahale31@gmail.com
+                                            {this.state.companyEmail}
                                         </Text>
                                     </View>
                                 </View>
 
                                 <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
-                                    <View  style={{ flex: 0.30,marginTop: 5}}>
-                                        <Icon size={40} name='web' type='material-community' color='#666' style={{}}/>
+                                    <View  style={{ flex: 0.15,marginTop: 5}}>
+                                        <Icon size={30} name='web' type='material-community' color='#666' style={{}}/>
                                     </View>
-                                    <View  style={{ flex: 0.70,marginTop: 13}}>
-                                        <Text onPress={() => Linking.openURL('http://qabookstore.iassureit.in/') } 
+                                    <View  style={{ flex: 0.85,marginTop: 13}}>
+                                        <Text onPress={() => Linking.openURL(website_url) } 
                                             style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 16 }}>
-                                            http://qabookstore.iassureit.in/
+                                            {website_url}
                                         </Text>
                                     </View>
                                 </View>
@@ -186,10 +194,10 @@ export default class SupportSystem extends React.Component {
 //                                 </Text>
 //                             </View>
 //                             <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
-//                                 <View  style={{ flex: 0.30,marginTop: 5}}>
-//                                     <Icon size={40} name='whatsapp' type='material-community' color='#666' style={{}}/>
+//                                 <View  style={{ flex: 0.15,marginTop: 5}}>
+//                                     <Icon size={30} name='whatsapp' type='material-community' color='#666' style={{}}/>
 //                                 </View>
-//                                 <View  style={{ flex: 0.70,marginTop: 13}}>
+//                                 <View  style={{ flex: 0.85,marginTop: 13}}>
 //                                     <Text onPress={()=>{Linking.openURL('whatsapp://send?text=Dear UniMandai Support, I need your Help&phone=+9174 9881 2228')}} 
 //                                         style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 20 }}>
 //                                         +91 74 9881 2228
@@ -199,10 +207,10 @@ export default class SupportSystem extends React.Component {
 //                             </View>
 
 //                             <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
-//                                 <View  style={{ flex: 0.30,marginTop: 5}}>
-//                                     <Icon size={40} name='phone' type='Feather' color='#666' style={{}}/>
+//                                 <View  style={{ flex: 0.15,marginTop: 5}}>
+//                                     <Icon size={30} name='phone' type='Feather' color='#666' style={{}}/>
 //                                 </View>
-//                                 <View  style={{ flex: 0.70,marginTop: 13}}>
+//                                 <View  style={{ flex: 0.85,marginTop: 13}}>
 //                                     <Text onPress={()=>{Linking.openURL('tel:+91 74 9881 2228');}} 
 //                                         style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 20 }}>
 //                                         +91 74 9881 2228
@@ -211,10 +219,10 @@ export default class SupportSystem extends React.Component {
 //                             </View>
 
 //                             <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
-//                                 <View  style={{ flex: 0.30,marginTop: 5}}>
-//                                     <Icon size={40} name='email' type='Fontisto' color='#666' style={{}}/>
+//                                 <View  style={{ flex: 0.15,marginTop: 5}}>
+//                                     <Icon size={30} name='email' type='Fontisto' color='#666' style={{}}/>
 //                                 </View>
-//                                 <View  style={{ flex: 0.70,marginTop: 13}}>
+//                                 <View  style={{ flex: 0.85,marginTop: 13}}>
 //                                     <Text onPress={() => Linking.openURL('mailto:admin@unimandai.com?subject=I need your help &body=Dear UniMandai Support,') }
 //                                      style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 20 }}>
 //                                         admin@unimandai.com
@@ -223,10 +231,10 @@ export default class SupportSystem extends React.Component {
 //                             </View>
 
 //                             <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
-//                                 <View  style={{ flex: 0.30,marginTop: 5}}>
-//                                     <Icon size={40} name='web' type='material-community' color='#666' style={{}}/>
+//                                 <View  style={{ flex: 0.15,marginTop: 5}}>
+//                                     <Icon size={30} name='web' type='material-community' color='#666' style={{}}/>
 //                                 </View>
-//                                 <View  style={{ flex: 0.70,marginTop: 13}}>
+//                                 <View  style={{ flex: 0.85,marginTop: 13}}>
 //                                     <Text onPress={() => Linking.openURL('http://unimandai.com/') } 
 //                                         style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 20 }}>
 //                                         www.unimandai.com

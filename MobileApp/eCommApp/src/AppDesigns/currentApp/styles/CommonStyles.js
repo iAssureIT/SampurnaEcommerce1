@@ -97,6 +97,16 @@ export default StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
     },
+    successText:{
+        color: colors.success,
+        fontSize: 12,
+        fontFamily:"Montserrat-Regular",
+      },
+      errorText:{
+        color: colors.errorText,
+        fontSize: 12,
+        fontFamily:"Montserrat-Regular",
+      },
 
     // Common Text Styles
     headerText:{
@@ -115,5 +125,14 @@ export default StyleSheet.create({
         color: colors.textLight,
         fontSize: 15,
         fontFamily:"Montserrat-Regular",
+    },
+
+
+    //add Button Style
+    addBtnStyle: {
+		backgroundColor: colors.button,
+		height: 30,
+		marginLeft: 15,
+		width: "80%",
     },
 });

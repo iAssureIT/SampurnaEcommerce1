@@ -256,16 +256,16 @@ export default class SubCategoriesComp extends React.Component {
                                     />
                                   }
                                   {/* <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                    <Icon size={20} name='heart-o' type='font-awesome' color='#ed3c55' style={{ backgroundColor: "red" }} />
+                                    <Icon size={20} name='heart-o' type='font-awesome' color='colors.theme' style={{ backgroundColor: "red" }} />
                                   </TouchableOpacity> */}
                                   {
                                   productid === item._id ?
                                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                      <Icon size={20} name='heart' type='font-awesome' color='#ed3c55' style={{ backgroundColor: "red" }} />
+                                      <Icon size={20} name='heart' type='font-awesome' color={colors.theme} style={{ backgroundColor: "red" }} />
                                     </TouchableOpacity>
                                   :
                                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                      <Icon size={20} name='heart-o' type='font-awesome' color='#ed3c55' style={{ backgroundColor: "red" }} />
+                                      <Icon size={20} name='heart-o' type='font-awesome' color={colors.theme} style={{ backgroundColor: "red" }} />
                                     </TouchableOpacity>
                                   }
 

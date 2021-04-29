@@ -60,7 +60,7 @@ export default class AllFeatureProducts extends React.Component {
     var productType = 'featured';
     axios.get("/api/products/get/products/listbytype/"+productType)
           .then((response)=>{
-            // console.log("allfeatureproducts response",response);
+            console.log("allfeatureproducts response",response);
             if(response.data){
             for (var i = 0; i < response.data.length; i++) {
               var availableSizes = [];
@@ -89,7 +89,7 @@ export default class AllFeatureProducts extends React.Component {
           }
           })
           .catch((error)=>{
-              console.log('error', error);
+              console.log('error1', error);
           })
   }
   wishlisteddata() {
@@ -163,13 +163,13 @@ export default class AllFeatureProducts extends React.Component {
   }
 
   render() {
-    {console.log("this.props",this.props)}
+    console.log("this.featuredProducts",this.state.featuredProducts)
     const { navigate, goBack } = this.props.navigation;
       return (
         <React.Fragment>
         <HeaderBar3
           goBack={goBack}
-          headerTitle={'Featured Books'}
+          headerTitle={'Featured Products'}
           navigate={navigate}
         />
         <View style={styles.addsuperparent}>
@@ -206,12 +206,12 @@ export default class AllFeatureProducts extends React.Component {
                                 {
                                   productid === item._id ?
                                       <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                        <Icon size={20} name='heart' type='font-awesome' color='#ed3c55'  />
+                                        <Icon size={20} name='heart' type='font-awesome' color={colors.theme} />
                                       </TouchableOpacity>
                                     :
 
                                       <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                        <Icon size={20} name='heart-o' type='font-awesome' color='#ed3c55'  />
+                                        <Icon size={20} name='heart-o' type='font-awesome' color={colors.theme}  />
                                       </TouchableOpacity>
                                 }
                                 {

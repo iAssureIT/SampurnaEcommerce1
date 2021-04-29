@@ -9,12 +9,13 @@ import { Button, Icon } from 'react-native-elements';
 import ValidationComponent from "react-native-form-validator";
 import axios from "axios";
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
-import commonStyle                  from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import commonStyle                  from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { colors, sizes } from '../../../AppDesigns/currentApp/styles/styles.js';
 import Modal from "../../Modal/OpenModal.js";
 import { Fumi } from 'react-native-textinput-effects';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
+import { withNavigation }                   from 'react-navigation';
 
 class RootForgotPassword extends ValidationComponent {
   constructor(props) {
@@ -84,40 +85,6 @@ class RootForgotPassword extends ValidationComponent {
     }
     return error;
   }
-
-  // handleSendOtp = () => {
-  //   this.setState({ btnLoading: true })
-  //   // var formValues = {
-  //   //   "emailSubject" : "Forgot Password",
-  //   //   "emailContent"  : "Use code to reset your password",
-  //   // }
-  //   axios.patch('/api/auth/patch/setsendemailotpusingEmail/' + this.state.email)
-  //     .then(response => {
-  //       console.log("response",response);
-  //       this.setState({ btnLoading: false })
-  //       if (response.data.message == 'OTP_UPDATED') {
-  //         // var messageHead = "OTP Resend successfully!";
-  //         // var messagesSubHead = "Please enter New OTP to verify";
-          
-  //         // this.props.openModal(true,messageHead, messagesSubHead,"success");
-  //         // =================== Notification OTP ==================
-        
-
-  //         // =================== Notification ==================
-
-  //       } else {
-  //         this.setState({ email: "" })
-  //         var messageHead = response.data.message;
-  //         var messagesSubHead = "";
-  //         this.props.openModal(true, messageHead, messagesSubHead, "warning");
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log("error",error);
-  //       this.setState({ btnLoading: false })
-  //     })
-
-  // }
 
   handleSendOtp = () => {
     if(this.validInput()){
@@ -281,6 +248,7 @@ RootForgotPassword.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     user_id: state.user_id,
+    openModal             : state.openModal,
   }
 
 };
@@ -299,4 +267,4 @@ const mapDispatchToProps = (dispatch) => {
     }),
   }
 };
-export default connect(mapStateToProps, mapDispatchToProps)(RootForgotPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(RootForgotPassword));

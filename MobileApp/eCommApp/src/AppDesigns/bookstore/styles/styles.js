@@ -34,3 +34,6 @@ export const sizes = {
   title : 10,
   label : 13,
 }
+export const projectName = "bookstore";
+
+export const website_url = "http://qabookstore.iassureit.in/";

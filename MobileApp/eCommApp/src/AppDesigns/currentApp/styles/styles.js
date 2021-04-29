@@ -16,8 +16,6 @@ export const colors = {
   inputBackgroundColor : "#fff",
   inputBorderColor : "#ccc",
   gradient: ["#d8ab46","#ed3c55"],
-  // button : '#ff3e6c',
-  
   buttonSignUp:'#ed3c55',
   button1 : '#376bff',
   button2 : '#fff',
@@ -29,9 +27,21 @@ export const colors = {
   textDark : '#333333',
   border: '#989898',
   tintColor:'#ff3e6c',
+   danger: "#e25e77",
+  success: "#7DC78A",
+  warning: "#FAD162",
+  info: "#5bc0de",
+  aqua : "#00FFFF"
 };
 
 export const sizes = {
   title : 10,
   label : 13,
 }
+
+export const projectName = "bookstore";
+
+export const website_url = "https://qasite-sampurna-marketplace.iassureit.in/";
+
+
+

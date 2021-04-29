@@ -25,6 +25,7 @@ export default class AccountDashboard extends React.Component{
         inputFocusColor       : colors.textLight,
         isOpen: false,
         starCount: 2.5,
+        loading :true
       
     };
   }
@@ -55,11 +56,13 @@ export default class AccountDashboard extends React.Component{
                   dAddress : dAddress,
                   mobNumber: res.data.profile.mobile,
                   profileImage: res.data.image,
-                  companyID: res.data.companyID
+                  companyID: res.data.companyID,
+                  loading : false
                 })
         
       })
       .catch((error) => {
+        this.setState({loading : false})
         console.log('error', error)
       });
     });
@@ -110,35 +113,45 @@ export default class AccountDashboard extends React.Component{
                 navigate={navigate}
             />
             <View style={styles.acdashsuperparent}>
+            {this.state.loading?
+                 <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+                    <Loading/>
+                 </View>   
+                 :
               <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
                 <View style={styles.acdashparent}>
-                  <View style={styles.accuserinfo}>
+               
+                 <View style={styles.accuserinfo}>
                     <View style={styles.padhr15}>
                     <Text style={styles.acccontactinfo}>User Information</Text>
                     </View>
                      <View style={styles.padhr18}> 
                       
                       <View style={styles.accusermobinfo}>
-                        <Text style={styles.accusermob}>Your Name:</Text>
-                        <Text style={styles.accmobnumber}>: {this.state.fullName}</Text>
+                        <Text style={styles.accusermob}>Your Name</Text>
+                        <Text style={{flex:0.05}}>: </Text>
+                        <Text style={styles.accmobnumber}>{this.state.fullName}</Text>
                       </View>
                     </View>
                      <View style={styles.padhr18}> 
                       <View style={styles.accusermobinfo}>
                         <Text style={styles.accusermob}>Your Address</Text>
-                        <Text style={styles.accmobnumber}>: {this.state.dAddress } </Text> 
+                        <Text style={{flex:0.05}}>: </Text>
+                        <Text style={styles.accmobnumber}>{this.state.dAddress } </Text> 
                       </View>
                     </View>
                     <View style={styles.padhr18}>
                     <View style={styles.accusermobinfo}>
-                      <Text style={styles.accusermob}>Mobile:</Text>
-                      <Text style={styles.accmobnumber}>: {this.state.mobNumber}</Text>
+                      <Text style={styles.accusermob}>Mobile</Text>
+                      <Text style={{flex:0.05}}>: </Text>
+                      <Text style={styles.accmobnumber}>{this.state.mobNumber}</Text>
                     </View>
                     </View>
                     <View style={styles.padhr18}>
                     <View style={styles.accusermobinfo}>
-                      <Text style={styles.accusermob}>Email Address:</Text>
-                      <Text style={styles.accmobnumber}>: {this.state.email}</Text>
+                      <Text style={styles.accusermob}>Email Id</Text>
+                      <Text style={{flex:0.05}}>: </Text>
+                      <Text style={styles.accmobnumber}>{this.state.email}</Text>
                     </View>
                     </View>
                     <View style={styles.acceditbtn}>
@@ -168,7 +181,7 @@ export default class AccountDashboard extends React.Component{
                 </View>
                </View>
                 
-              </ScrollView>
+              </ScrollView>}
               <Footer/>
             </View>
           </React.Fragment>

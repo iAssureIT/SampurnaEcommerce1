@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView }  from 'react-native-keyboard-aware-scroll-view';
 import RootSignup                   from './RootSignup.js';
-import commonStyles    from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import commonStyles    from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
 import styles          from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
 
 

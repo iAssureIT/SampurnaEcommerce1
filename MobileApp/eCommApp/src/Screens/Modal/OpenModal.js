@@ -43,6 +43,7 @@ class OpenModal extends Component {
  
   render() {
     const { navigate, dispatch } = this.props.navigation;
+    console.log("navigate",navigate);
     return (
         <React.Fragment>
 
@@ -104,6 +105,7 @@ class OpenModal extends Component {
   }
 }
  const mapStateToProps = (state)=>{
+   console.log("state",state);
   return {
     openModal             : state.openModal,
     messageHead           : state.messageHead,

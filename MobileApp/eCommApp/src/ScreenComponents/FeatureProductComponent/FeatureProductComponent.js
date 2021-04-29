@@ -7,6 +7,8 @@ import { Dropdown } from 'react-native-material-dropdown';
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FeatureProductComponentStyles.js';
 import { Icon, Button } from "react-native-elements";
 import axios from 'axios';
+import { colors }from '../../AppDesigns/currentApp/styles/styles.js';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 // import { AppEventsLogger } from 'react-native-fbsdk';
 
 export default class FeatureProductComponent extends React.Component {
@@ -179,6 +181,7 @@ export default class FeatureProductComponent extends React.Component {
 
 
   render() {
+    console.log("ProductsDetails",this.state.ProductsDetails)
     return (
       <React.Fragment>
         <View style={styles.maintitle}>
@@ -191,7 +194,7 @@ export default class FeatureProductComponent extends React.Component {
                 onPress={() => this.Viewallfeatureprod()}
                 titleStyle={styles.buttonText1}
                 title="View All"
-                buttonStyle={styles.buttonGreen}
+                buttonStyle={CommonStyles.addBtnStyle}
                 containerStyle={styles.buttonContainer2}
               />
             </View>
@@ -306,12 +309,12 @@ export default class FeatureProductComponent extends React.Component {
                           </View>
                           : null }
                           <View style={styles.sizedrpbtn}>
-                            <Button
+                          <Button
                               onPress={() => this.addtocart(item._id, packsizes)}
-                              titleStyle={styles.buttonText1}
+                              titleStyle={CommonStyles.addBtnText}
                               title="Add"
-                              buttonStyle={styles.buttonGreen}
-                              containerStyle={styles.buttonContainer2}
+                              buttonStyle={CommonStyles.addBtnStyle}
+                              containerStyle={CommonStyles.addBtnClor}
                             />
                           </View>
                         </View>

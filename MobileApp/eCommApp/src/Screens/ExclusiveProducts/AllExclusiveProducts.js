@@ -225,7 +225,7 @@ export default class AllExclusiveProducts extends React.Component {
         <React.Fragment>
         <HeaderBar3
           goBack={goBack}
-          headerTitle={'Exclusive Books'}
+          headerTitle={'Exclusive Products'}
           navigate={navigate}
           toggle={() => this.toggle.bind(this)}
           openControlPanel={() => this.openControlPanel.bind(this)}
@@ -265,16 +265,16 @@ export default class AllExclusiveProducts extends React.Component {
                                   />
                                 }
                                 {/* <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                  <Icon size={20} name='heart-o' type='font-awesome' color='#ed3c55'/>
+                                  <Icon size={20} name='heart-o' type='font-awesome' color='colors.theme'/>
                                 </TouchableOpacity> */}
                                 {
                                   productid === item._id ?
                                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                      <Icon size={20} name='heart' type='font-awesome' color='#ed3c55'/>
+                                      <Icon size={20} name='heart' type='font-awesome' color={colors.theme} />
                                     </TouchableOpacity>
                                     :
                                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                                      <Icon size={20} name='heart-o' type='font-awesome' color='#ed3c55'/>
+                                      <Icon size={20} name='heart-o' type='font-awesome' color={colors.theme} />
                                     </TouchableOpacity>
                                 }
                                 {

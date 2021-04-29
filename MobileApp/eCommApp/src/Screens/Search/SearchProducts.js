@@ -7,6 +7,8 @@ import { Dropdown } from 'react-native-material-dropdown';
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FeatureProductComponentStyles.js';
 import { Icon, Button } from "react-native-elements";
 import axios from 'axios';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export default class SearchProducts extends React.Component {
@@ -138,31 +140,27 @@ export default class SearchProducts extends React.Component {
           <Text style={styles.title}>Search Products </Text>  
         </View>
         <View style={styles.featurelistwrap}>
-          <View style={styles.proddets}>
-            { this.state.ProductsDetails  ?
-              this.state.ProductsDetails && this.state.ProductsDetails.length > 0 ?
+        <View style={styles.proddets}>
+            {this.state.ProductsDetails &&
               this.state.ProductsDetails.map((item, i) => {
-                var availablessiz = [];
-                // var availablessiz =  
-                // item && item.availableSizes && item.availableSizes.length ? 
-                //  item.availableSizes.map((a, i) =>
-                //  ({ label: a.packSize + " Pack", value: a.packSize }) )
-                // : [];
-                availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" :a.productSize === 2000 ? "2 KG" :  a.productSize +" "+ item.unit !== 'Number' ? item.unit : '' , size : a.packSize } }) : [] 
-                // console.log("availablessiz",availablessiz)
+                var x = this.state.wished && this.state.wished.length > 0 ? this.state.wished.filter((abc) => abc.product_ID === item._id) : [];
+                var productid = ''; var y = x.map((wishli, i) => { productid = wishli.product_ID });
+                var availablessiz = []
+                // availablessiz = item.availableSizes.map((a, i) => { return { value: a.productSize +" "+ item.unit , size : a.packSize } })
+                availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
                 const packsizes = availablessiz.length > 0 ? availablessiz[0].value : '';
-                // console.log("availablessiz =========>", availablessiz);
+                // console.log("item value =========>",item);
                 return (
                   <View key={i} style={styles.mainrightside}>
                     <TouchableOpacity onPress={() => this.props.navigate('SubCatCompView', { productID: item._id })}>
                       <View style={styles.flx5}>
-
                         <View style={styles.flx1}>
                           {
                             item.productImage.length > 0 ?
                               <Image
                                 source={{ uri: item.productImage[0] }}
                                 style={styles.subcatimg}
+                                resizeMode="contain"
                               />
                               :
                               <Image
@@ -170,10 +168,17 @@ export default class SearchProducts extends React.Component {
                                 style={styles.subcatimg}
                               />
                           }
-                          <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
-                            <Icon size={22} name='heart-o' type='font-awesome' color='#ed3c55' style={{ backgroundColor: "red" }} />
-                          </TouchableOpacity>
+                          {
+                            productid === item._id ?
+                              <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
+                                <Icon size={22} name='heart' type='font-awesome' color={colors.theme} />
+                              </TouchableOpacity>
+                              :
 
+                              <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item._id)} >
+                                <Icon size={22} name='heart-o' type='font-awesome' color={colors.theme} />
+                              </TouchableOpacity>
+                          }
                           {
                             item.discountPercent > 0 ?
                               <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
@@ -182,66 +187,73 @@ export default class SearchProducts extends React.Component {
                           }
                         </View>
                         <View style={[styles.flx1, styles.protxt]}>
-                        {item.brandNameRlang ?
-                        <Text numberOfLines={1} style={[styles.brandname, (i % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
-                        : 
-                        <Text numberOfLines={1} style={[styles.brandname, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>
-                        }
-                        {item.productName ?
-                        <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
-                        :
-                        <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
-                        }                          
-                        {/* <Text numberOfLines={1} style={[styles.shortDescription]}>{item.shortDescription}</Text> */}
+                          {item.brandNameRlang ?
+                          <Text numberOfLines={1} style={[styles.brandname, (i % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
+                          : 
+                          <Text numberOfLines={1} style={[styles.brandname, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>
+                          }
+                          {item.brandNameRlang ?
+                          <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
+                          :
+                          <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
+                          }                       
                         </View>
                         <View style={[styles.flx1, styles.prdet]}>
-                          <View style={[styles.flxdir]}>
-                            <Icon
-                              name={item.currency}
-                              type="font-awesome"
-                              size={14}
-                              color="#333"
-                              iconStyle={{ marginTop: 3, marginRight: 3 }}
-                            />
-                            {/* <Text style={styles.ogprice}>{item.originalPrice} - <Text style={styles.packofnos}>{item.size} {item.unit}</Text> </Text> */}
-                            {
-                              item.discountPercent > 0 ?
-                                <Text style={styles.discountedpricedata}>
-                                  <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
-                                  <Text style={styles.ogprice}> {item.discountedPrice} {item.size !== 'Number' ?  item.size && item.unit ? <Text style={styles.packofnos}> - {item.size} {item.unit}</Text> : null : ''}
-                                  </Text>
-                                </Text>
-                                :
-                                <Text style={styles.ogprice}>{item.originalPrice} {item.size !== 'Number' ?  <Text style={styles.packofnos}>- {item.size} {item.unit}</Text> : ''} </Text>
-                            }
+                          <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
+                            <View style={[styles.flxdir]}>
+                              <Icon
+                                name={item.currency}
+                                type="font-awesome"
+                                size={13}
+                                color="#333"
+                                iconStyle={{ marginTop: 5, marginRight: 3 }}
+                              />
+                              <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
+                            </View>
+                            <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
+                              <Icon
+                                name={item.currency}
+                                type="font-awesome"
+                                size={13}
+                                color="#333"
+                                iconStyle={{ marginTop: 5}}
+                              />
+                              {
+                                  item.discountPercent > 0 ?
+                                      <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                    :
+                                    <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                                }
+                            </View>
                           </View>
                         </View>
                         <View style={styles.addtocartbtn}>
-                        {availablessiz.length > 0 ?
+                          {availablessiz.length > 0 ? 
                           <View style={styles.addbtn}>
                             <View style={[styles.inputWrapper]}>
                               <View style={styles.inputImgWrapper}></View>
                               <View style={styles.inputTextWrapper}>
-                                  <Dropdown
-                                    onChangeText={(value) => this.handleTypeChange(value,availablessiz)}
-                                    data={availablessiz}
-                                    value={packsizes}
-                                    containerStyle={styles.ddContainer}
-                                    dropdownOffset={{ top: 0, left: 0, bottom: 0 }}
-                                    itemTextStyle={styles.ddItemText}
-                                    inputContainerStyle={{ borderBottomColor: 'transparent', padding: 0 }}
-                                  />
+                                <Dropdown
+                                  onChangeText={(value) => this.handleTypeChange(value, availablessiz)}
+                                  data={availablessiz}
+                                  value={packsizes}
+                                  containerStyle={styles.ddContainer}
+                                  dropdownOffset={{ top: 0, left: 0, bottom: 0 }}
+                                  itemTextStyle={styles.ddItemText}
+                                  inputContainerStyle={{ borderBottomColor: 'transparent', padding: 0 }}
+                                />
                               </View>
                             </View>
                           </View>
-                        : null}
-                         <View style={styles.sizedrpbtn}>
-                            <Button
-                              onPress={() => this.addtocart(item._id)}
-                              titleStyle={styles.buttonText1}
+                          : null }
+                          <View style={styles.sizedrpbtn}>
+                          <Button
+                              onPress={() => this.addtocart(item._id, packsizes)}
+                              titleStyle={CommonStyles.addBtnText}
                               title="Add"
-                              buttonStyle={styles.button1}
-                              containerStyle={styles.buttonContainer2}
+                              buttonStyle={CommonStyles.addBtnStyle}
+                              containerStyle={CommonStyles.addBtnClor}
                             />
                           </View>
                         </View>
@@ -250,16 +262,6 @@ export default class SearchProducts extends React.Component {
                   </View>
                 )
               })
-              :
-              <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-              <Image
-                source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-              />
-            </View>
-            :
-            <View style={{ flex: 1, alignItems: 'center', marginTop: '40%' }}>
-              <ActivityIndicator size="large" color={colors.theme} />
-          </View>
             }
           </View>
           <Modal isVisible={this.state.addtocart}

@@ -136,7 +136,7 @@ export default class SubCatCompView extends React.Component {
         // AppEventsLogger.logEvent('View Content', response.data.originalPrice, response.data.productName);
         
 
-        // console.log("response.data ProductsView =========>", response.data);
+        console.log("response.data ProductsView =========>", response.data);
         this.setState({
           productdata: response.data,
           brand: response.data.brand,
@@ -214,18 +214,6 @@ export default class SubCatCompView extends React.Component {
     this._drawer.open()
   }
 
-  renderPage(item, index) {
-    return (
-      <View key={index}>
-        <ImageBackground
-          style={styles.prodimg}
-          source={{ uri: item.productImage }}
-          resizeMode={"stretch"}
-        >
-        </ImageBackground>
-      </View>
-    );
-  }
 
   searchUpdated(text) {
     this.setState({ searchText: text });
@@ -270,24 +258,24 @@ export default class SubCatCompView extends React.Component {
                   this.state.wishlistedproduct ?
                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
                           onPress={() => this.addtowishlist(this.state.productID)} >
-                      <Icon size={25} name='heart' type='font-awesome' color='#ed3c55' />
+                      <Icon size={25} name='heart' type='font-awesome' color={colors.theme} />
                     </TouchableOpacity>
                   :
                   
                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
                           onPress={() => this.addtowishlist(this.state.productID)} >
-                      <Icon size={25} name='heart-o' type='font-awesome' color='#ed3c55' />
+                      <Icon size={25} name='heart-o' type='font-awesome' color={colors.theme} />
                     </TouchableOpacity>
                 }
    
                 <View style={styles.prodnameview}>
                   {/* (i % 2 == 0 ? {} : { marginLeft: 12 } */}
-                  {this.state.brandNameRlang ?
+                  {this.state.brandNameRlang && this.state.brandNameRlang!=="" ?
                     <Text numberOfLines={1} style={[styles.brandname]} style={styles.regionalBrandName}>{this.state.brandNameRlang}</Text>
                     : 
-                    <Text numberOfLines={1} style={[styles.brandname]}>{item.brand}</Text>
+                    <Text numberOfLines={1} style={[styles.brandname]}>{this.state.brand}</Text>
                   }
-                  {this.state.productNameRlang ?
+                  {this.state.productNameRlang && this.state.productNameRlang !==""?
                     <Text numberOfLines={1} style={[styles.nameprod]} style={styles.regionalProductName}>{this.state.productNameRlang}</Text>
                     :
                     <Text numberOfLines={1} style={[styles.nameprod]}>{this.state.productName}</Text>
@@ -315,17 +303,17 @@ export default class SubCatCompView extends React.Component {
                 <View style={styles.qtys}>
                   <Counter start={1} min={1}
                     buttonStyle={{
-                      borderColor: '#ed3c55',
+                      borderColor: colors.theme,
                       borderWidth: 1,
                       borderRadius: 25,
                       width: 20,
                       height: 10
                     }}
                     buttonTextStyle={{
-                      color: '#ed3c55',
+                      color: colors.theme,
                     }}
                     countTextStyle={{
-                      color: '#ed3c55',
+                      color: colors.theme,
                     }}
                     size={5}
                     value={this.state.countofprod}

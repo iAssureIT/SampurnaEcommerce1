@@ -111,7 +111,6 @@ export default StyleSheet.create({
 		color: colors.buttonText,
 		fontFamily: "Montserrat-Regular",
 		fontSize: 13,
-
 	},
 	mg10:{
 		margin:10,
@@ -328,10 +327,9 @@ export default StyleSheet.create({
 		flex:0.5,
 	}, 
 	inputWrapper : {
-		width:'100%',
-	  	marginLeft:8,
-
-		borderColor:'#ed3c55',
+		margin:10,
+		alignSelf:"center",
+		borderColor:colors.theme,
 		borderWidth:1,
 		flexDirection:'row',
 		borderRadius: 5,
@@ -366,7 +364,7 @@ export default StyleSheet.create({
 	// 	width:"100%",
 	//   },
 	modalGreen1:{
-		backgroundColor: colors.buttonGreen,
+		backgroundColor: colors.button,
 		height: 45,
 		width:"100%",
 	  },

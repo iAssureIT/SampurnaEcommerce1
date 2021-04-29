@@ -21,7 +21,7 @@ import { Fumi }               from 'react-native-textinput-effects';
 import FontAwesomeIcon        from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect }            from 'react-redux';
-
+import commonStyles                 from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
 
 const window = Dimensions.get('window');
 
@@ -251,11 +251,11 @@ render(){
           this.state.passwordMatch=='matched'
           ?
           <View style={{width:'100%'}}>
-            <Text style={styles.successText}>Passwords matched</Text>
+            <Text style={commonStyles.successText}>Passwords matched</Text>
           </View> 
           :
           <View style={{width:'100%'}}>
-            <Text style={styles.errorText}>Passwords not matching</Text>
+            <Text style={commonStyles.errorText}>Passwords not matching</Text>
           </View>
         }
       </View>

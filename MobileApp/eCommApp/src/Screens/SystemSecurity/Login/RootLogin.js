@@ -18,7 +18,7 @@ import {
 import ValidationComponent          from "react-native-form-validator";
 import { Button, Icon }             from "react-native-elements";
 import axios                        from "axios";
-import commonStyles                 from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import commonStyles                 from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
 import { colors, sizes }            from '../../../AppDesigns/currentApp/styles/styles.js';
 import { Fumi }                     from 'react-native-textinput-effects';
@@ -134,7 +134,7 @@ class RootLogIn extends ValidationComponent {
             this.props.openModal(true,"Incorrect Password","Please enter correct password","warning");
           }else if(response.data.message === 'NOT_REGISTER'){
             this.setState({ btnLoading: false})
-            this.props.openModal(true,"This Mobile Number is not registered.","","warning");
+            this.props.openModal(true,"This email id is not registered.","","warning");
           }else if(response.data.message === 'USER_BLOCK'){
             this.setState({ btnLoading: false})
             this.props.openModal(true,"Please contact to admin","","warning");

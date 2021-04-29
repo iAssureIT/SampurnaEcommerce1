@@ -26,13 +26,13 @@ const thirdIndicatorStyles = {
   currentStepIndicatorSize: 30,
   separatorStrokeWidth: 2,
   currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: '#ed3c55',
+  stepStrokeCurrentColor: 'colors.theme',
   stepStrokeWidth: 3,
-  stepStrokeFinishedColor: '#ed3c55',
+  stepStrokeFinishedColor: 'colors.theme',
   stepStrokeUnFinishedColor: '#dedede',
-  separatorFinishedColor: '#ed3c55',
+  separatorFinishedColor: 'colors.theme',
   separatorUnFinishedColor: '#dedede',
-  stepIndicatorFinishedColor: '#ed3c55',
+  stepIndicatorFinishedColor: 'colors.theme',
   stepIndicatorUnFinishedColor: '#ffffff',
   stepIndicatorCurrentColor: '#ffffff',
   stepIndicatorLabelFontSize: 0,
@@ -43,7 +43,7 @@ const thirdIndicatorStyles = {
   labelColor: '#999999',
   labelSize: 13,
   labelFontFamily: 'OpenSans-Italic',
-  currentStepLabelColor: '#ed3c55'
+  currentStepLabelColor: 'colors.theme'
 }
 export default class MyOrder extends React.Component {
   constructor(props) {

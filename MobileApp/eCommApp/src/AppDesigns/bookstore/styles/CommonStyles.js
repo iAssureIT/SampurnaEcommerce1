@@ -95,6 +95,16 @@ export default StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
     },
+    successText:{
+        color: colors.success,
+        fontSize: 12,
+        fontFamily:"Montserrat-Regular",
+      },
+      errorText:{
+        color: colors.errorText,
+        fontSize: 12,
+        fontFamily:"Montserrat-Regular",
+      },
 
     // Common Text Styles
     headerText:{

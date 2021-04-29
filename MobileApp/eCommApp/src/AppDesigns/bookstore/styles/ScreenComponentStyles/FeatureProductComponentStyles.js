@@ -330,7 +330,6 @@ export default StyleSheet.create({
 	inputWrapper : {
 		width:'100%',
 	  	marginLeft:8,
-
 		borderColor:'#ed3c55',
 		borderWidth:1,
 		flexDirection:'row',

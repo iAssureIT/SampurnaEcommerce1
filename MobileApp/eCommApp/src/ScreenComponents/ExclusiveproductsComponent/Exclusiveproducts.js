@@ -7,8 +7,9 @@ import { Dropdown } from 'react-native-material-dropdown';
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FeatureProductComponentStyles.js';
 import { Icon, Button } from "react-native-elements";
 import axios from 'axios';
+import { colors }from '../../AppDesigns/currentApp/styles/styles.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
-
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 export default class Exclusiveproducts extends React.Component {
   constructor(props) {
     super(props);
@@ -201,7 +202,7 @@ export default class Exclusiveproducts extends React.Component {
                 onPress={() => this.Viewallfeatureprod()}
                 titleStyle={styles.buttonText1}
                 title="View All"
-                buttonStyle={styles.buttonGreen}
+                buttonStyle={CommonStyles.addBtnStyle}
                 containerStyle={styles.buttonContainer2}
               />
             </View>
@@ -319,12 +320,12 @@ export default class Exclusiveproducts extends React.Component {
                           </View>
                           : null }
                           <View style={styles.sizedrpbtn}>
-                            <Button
-                              onPress={() => this.addtocart(item._id)}
-                              titleStyle={styles.buttonText1}
+                          <Button
+                              onPress={() => this.addtocart(item._id, packsizes)}
+                              titleStyle={CommonStyles.addBtnText}
                               title="Add"
-                              buttonStyle={styles.buttonGreen}
-                              containerStyle={styles.buttonContainer2}
+                              buttonStyle={CommonStyles.addBtnStyle}
+                              containerStyle={CommonStyles.addBtnClor}
                             />
                           </View>
                         </View>
@@ -351,13 +352,13 @@ export default class Exclusiveproducts extends React.Component {
               </Text>
 
               <View style={styles.yesmodalbtn}>
-                <Button
-                  onPress={() => this.setState({ addtocart: false })}
-                  titleStyle={styles.modalText}
-                  title="OK"
-                  buttonStyle={styles.modalGreen1}
-                  containerStyle={styles.buttonContainer1}
-                />
+              <Button
+                onPress={() => this.addtocart(item._id, packsizes)}
+                titleStyle={CommonStyles.addBtnText}
+                title="Add"
+                buttonStyle={CommonStyles.addBtnStyle}
+                containerStyle={CommonStyles.buttonContainer}
+              />
               </View>
             </View>
           </Modal>

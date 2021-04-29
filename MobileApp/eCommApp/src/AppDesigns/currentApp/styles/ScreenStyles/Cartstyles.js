@@ -73,7 +73,7 @@ export default StyleSheet.create({
     color:'#333'
   },
   flxdir:{
-    flexDirection:'row'
+    flexDirection:'row',
   },
 superparent:{
   flex:1,backgroundColor:'#f1f1f1'
@@ -82,7 +82,7 @@ superparent:{
     flex:0.4,padding:20
   },
   imgwdht:{
-    width: "100%", height:"100%",
+    height:100,width:100
   },
   cartlogoimg:{
      width:'70%',height:40,
@@ -259,8 +259,9 @@ superparent:{
   proddetails:{
     borderWidth:1,borderColor:'#f1f1f1',
     backgroundColor:"#fff",
-    height:130,
-    borderRadius:5,marginTop:10,
+    minHeight:130,
+    borderRadius:5,
+    paddingVertical:10,
   },
   buttonContainer1:{
     marginTop:20,

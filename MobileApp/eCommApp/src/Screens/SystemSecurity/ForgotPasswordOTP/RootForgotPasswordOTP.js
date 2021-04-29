@@ -191,7 +191,7 @@ class RootOTPVerification extends ValidationComponent {
             <View>
                 <View style={{ width: '100%',}}>
                     <View style={styles.textTitleWrapper}><Text style={{ fontSize: 25, color:colors.theme, fontFamily: 'Montserrat-SemiBold',textAlign:'center' }}>OTP Verification</Text></View>
-                    <View style={styles.textTitleWrapper}><Text style={{ fontSize: 17, fontFamily: 'Montserrat-Regular' }}>Please Enter Verification Code</Text></View>
+                    <View style={styles.textTitleWrapper}><Text style={{ fontSize: 17, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View>
                     <View style={styles.formWrapper}>
                         <View style={[styles.formInputView, styles.otpWrap]}>
                             {/* <Text style={styles.otpText}>Email</Text> */}

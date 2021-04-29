@@ -5,7 +5,7 @@ import {
   Image,
 } from 'react-native';
 import RootLogin       from './RootLogin.js';
-import commonStyles    from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import commonStyles    from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
 import styles          from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
 
 export default class Login1 extends Component {

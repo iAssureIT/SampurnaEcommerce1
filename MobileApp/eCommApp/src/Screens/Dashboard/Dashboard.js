@@ -274,7 +274,7 @@ componentWillUnmount () {
                 :
                   (this.state.featuredProducts.length > 0 ? 
                     // <FeatureProductComponent navigate = {navigate} title={'FEATURE PRODUCTS'}  newProducts={this.state.featuredProducts} type={'featured'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
-                    <FeatureProductComponent navigate = {navigate} title={'Featured Books'}  newProducts={this.state.featuredProducts} type={'featured'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
+                    <FeatureProductComponent navigate = {navigate} title={'Featured Products'}  newProducts={this.state.featuredProducts} type={'featured'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
                     : null
                   )
                 }
@@ -283,7 +283,7 @@ componentWillUnmount () {
                 this.props.searchText ? null :
                     (this.state.exclusiveProducts.length > 0 ? 
                       // <ExclusiveProductsData navigate = {navigate} title={'EXCLUSIVE PRODUCTS'}  newProducts={this.state.exclusiveProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
-                      <ExclusiveProductsData navigate = {navigate} title={'Exclusive Books'}  newProducts={this.state.exclusiveProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
+                      <ExclusiveProductsData navigate = {navigate} title={'Exclusive Products'}  newProducts={this.state.exclusiveProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
                       : null
                     )
                 }
@@ -291,7 +291,7 @@ componentWillUnmount () {
                 this.props.searchText ? null :
                     (this.state.exclusiveProducts.length > 0 ? 
                       // <ExclusiveProductsData navigate = {navigate} title={'EXCLUSIVE PRODUCTS'}  newProducts={this.state.exclusiveProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
-                      <DiscountedProductComponent navigate = {navigate} title={'Discounted Books'}  newProducts={this.state.discountedProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
+                      <DiscountedProductComponent navigate = {navigate} title={'Discounted Products'}  newProducts={this.state.discountedProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
                       : null
                     )
                 }

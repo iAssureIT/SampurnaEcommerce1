@@ -10,7 +10,7 @@ import {
   Image, 
 } from 'react-native';
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/SystemSecurityStyles.js';
-import commonStyles                 from '../../../AppDesigns/currentApp/styles/commonStyles.js';
+import commonStyles                 from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
 import RootForgotPassword           from './RootForgotPassword.js';
 import ValidationComponent          from "react-native-form-validator";
 
@@ -30,7 +30,7 @@ export default class ForgotPasswordOTP1 extends ValidationComponent {
                       style={styles.syslogoimg}
                       />
                 </View>
-                <RootForgotPassword navigation={navigate} />
+                <RootForgotPassword />
              </View>
           </View>
           </ImageBackground>
