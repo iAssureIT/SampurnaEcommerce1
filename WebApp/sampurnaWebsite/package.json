@@ -66,9 +66,6 @@
     "validator": "^13.5.1"
   },
   "devDependencies": {
-    "@zeit/next-css": "^1.0.1",
-    "babel-preset-minify": "^0.5.1",
-    "next-purgecss": "^4.0.0",
-    "webpack-bundle-analyzer": "^4.4.0"
+    "webpack": "^5.35.0"
   }
 }

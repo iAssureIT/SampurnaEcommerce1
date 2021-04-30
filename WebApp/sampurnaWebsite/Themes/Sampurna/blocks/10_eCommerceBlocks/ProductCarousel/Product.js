@@ -337,7 +337,7 @@ class Product extends Component{
                   // console.log("wishclassName=",wishClass);
                   tooltipMsg = 'Add To Wishlist';
                 }   
-                var categoryUrl = (data.category).replace(/\s+/g, '-').toLowerCase();
+                var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();
                 // console.log("data product=====",(data.category).replace(/\s+/g, '-').toLowerCase());                    
               return (
                 <div className={" col-sm-"+LGCol+" col-"+XSCol +" " +Style.mobileViewPadding }   key={index}> 

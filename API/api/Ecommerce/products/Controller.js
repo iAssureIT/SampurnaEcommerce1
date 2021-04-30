@@ -2029,7 +2029,7 @@ exports.searchINCategory = (req,res,next)=>{
 };
 
 exports.list_brand = (req,res,next)=>{
-    
+    console.log("req.params.sectionUrl===",req.params.sectionUrl);
     Products.distinct("brand", { "sectionUrl": req.params.sectionUrl })
     .exec()
     .then(data=>{ 
@@ -2043,7 +2043,7 @@ exports.list_brand = (req,res,next)=>{
     });
 };
 exports.listBrandByCategories = (req,res,next)=>{
-    // console.log("listBrandBySubcategories req=====",req.body.filterUrlArray[0]);
+    console.log("listBrandByCategories req=====",req.body.filterUrlArray[0]);
     Category.find({"categoryUrl":req.body.filterUrlArray[0]})
     .exec()
     .then(data=>{ 

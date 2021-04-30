@@ -1,7 +1,7 @@
 module.exports = {
   publicRuntimeConfig: { 
   // Will be available on both server and client
-  API_BASE_URL : 'http://qaapi-sampurna-marketplace.iassureit.in/',
+  API_BASE_URL : 'https://qaapi-sampurna-marketplace.iassureit.in/',
   // API_BASE_URL : 'http://localhost:3038',
   CURRENT_SITE : 'multivendor',
   PROJECT_TYPE : 'ecommerce',
@@ -13,7 +13,10 @@ module.exports = {
   IMGWIDTH  : '100'
   },
   images: {
-      domains: ['sampurna.s3.amazonaws.com'],
+      domains: ['sampurna.s3.amazonaws.com']
   },
-  
+  future: {
+      webpack5: true,
+  },
+ 
 }

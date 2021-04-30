@@ -1,0 +1,13 @@
+Bloks carousel
+
+1. Discounted /deals/offers
+2. New arrivals
+3. Seasonal
+4. Rating
+5. SubCategories
+6. Popular/Tranding
+7. Featured products
+8. Higher profit margin products
+9. Exclusive products
+
+

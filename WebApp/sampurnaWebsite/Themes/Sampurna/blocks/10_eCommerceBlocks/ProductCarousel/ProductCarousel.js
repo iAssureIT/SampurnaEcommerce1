@@ -154,7 +154,6 @@ class ProductCarousel extends Component {
         var html = c + '<span className="moreellipses">' + ellipsestext+ '&nbsp;</span><span className="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" className="morelink">' + moretext + '</a></span>';
         $(this).html(html);
       }
-  
     });
   
     $(".morelink").click(function(){
@@ -179,7 +178,8 @@ class ProductCarousel extends Component {
       var filterUrlType = url[3];
       var filterUrlArray = [];
 			filterUrlArray.push(filterUrl);   
-      // console.log("filterUrlType===",filterUrlType);
+      console.log("filterUrl===",filterUrl);
+      console.log("filterUrlType===",filterUrlType);
       if(filterUrlType === 'section'){
         this.getBrandsBySection(filterUrl);
       }else if(filterUrlType === 'category'){
@@ -207,14 +207,14 @@ class ProductCarousel extends Component {
           // console.log("this.props.productApiUrl===",this.props.productApiUrl);
           if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-          }else{
-            if(this.props.productApiUrl){
+            // console.log("productApiUrl===",productApiUrl);
+          }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-            }else{
+            console.log("productApiUrl===",productApiUrl);
+          }else{
               var productApiUrl = this.state.blockSettings.blockApi;
-            }
+              // console.log("productApiUrl===",productApiUrl);
           }
-
           axios.get(productApiUrl)      
           .then((response)=>{
             if(response.data){     
@@ -277,9 +277,9 @@ class ProductCarousel extends Component {
       })
   }
   getBrandsBySection(sectionUrl) {
+    // console.log("sectionUrl===",sectionUrl);
 		axios.get("/api/products/get/listBrand/" + sectionUrl)
 			.then((response) => {
-
 				this.setState({
 					brands: response.data
 				})
@@ -289,14 +289,14 @@ class ProductCarousel extends Component {
 			})
 	}
 	getBrandsByCategories(filterUrlArray) {
-    // console.log("inside getBrandsByCategories",filterUrlArray);
+    console.log("inside getBrandsByCategories",filterUrlArray);
 		var formValues = {
 			filterUrlArray: filterUrlArray
 		}
 
 		axios.post("/api/products/get/listBrandByCategories", formValues)
 			.then((response) => {
-        // console.log("brand response.data===",response.data);
+        console.log("brand response.data===",response.data);
 				this.setState({
 					brands: response.data
 				})
@@ -314,6 +314,7 @@ class ProductCarousel extends Component {
 
 			.then((response) => {
 				this.setState({
+
 					brands: response.data
 				})
 			})
@@ -322,7 +323,8 @@ class ProductCarousel extends Component {
 			})
   }
   onSelectedItemsChange(filterType, selecteditems){
-
+    console.log("filterType===",filterType);
+    console.log("selecteditems===",selecteditems);
 		var checkboxes = document.getElementsByName('brands[]');
 		var brands = [];
 		for (var i = 0, n = checkboxes.length; i < n; i++) {
@@ -332,6 +334,7 @@ class ProductCarousel extends Component {
 		}
 		if(filterType === 'category') {
 			var selector = this.state.selector;
+      console.log("selector===",selector);
 			delete selector.subCategory_ID;
 			selector.section_ID = this.props.match.params.sectionID;
 			selector.price = this.state.price;
@@ -358,16 +361,17 @@ class ProductCarousel extends Component {
 		}
 		if (filterType === 'brands') {
 			selector = this.state.selector;
+      console.log("selector==",selector);
 			// selector.section_ID = this.props.match.params.sectionID;
 			selector.price = this.state.price;
 			selector.brands = brands;
 
-			if (this.props.match.params.categoryID && !selector.category_ID) {
-				selector.category_ID = this.props.match.params.categoryID;
-			}
-			if (this.props.match.params.subcategoryID && !selector.subCategory_ID) {
-				selector.subCategory_ID = this.props.match.params.subcategoryID;
-			}
+			// if (this.props.match.params.categoryID && !selector.category_ID) {
+			// 	selector.category_ID = this.props.match.params.categoryID;
+			// }
+			// if (this.props.match.params.subcategoryID && !selector.subCategory_ID) {
+			// 	selector.subCategory_ID = this.props.match.params.subcategoryID;
+			// }
 			this.setState({ selector: selector }, () => {
 				this.getFilteredProducts(this.state.selector);
 			})
@@ -778,20 +782,20 @@ class ProductCarousel extends Component {
           {this.state.blockSettings.showTitle && this.state.newProducts && this.state.newProducts.length > 0 ?
             <div className="col-12">
               <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
-                {this.state.blockSettings.showCarousel ? 
+                
                 <div className={ "col-12 " +Style.title4}>
                     <h2 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle "+Style.textAlign} data-trans="#blog_1554730795823_title">{this.state.blockTitle}</h2>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
                     <div className={"line "+Style.line}><span className={Style.span}></span></div>
 			        	</div>
-                : null }
+                
               </div>             
             </div>
           : null
           } 
 
           {/* show breadCrumbsLink */}
-          { this.state.blockSettings.showCarousel === false?
+          { !this.state.blockSettings.showCarousel && this.state.blockSettings.filterSettings ?
           <div className={ "col-12 " +Style.breadCrumbs +" " +Style.NoPadding}>            
             <ul className={Style.links}>
 								<li><Link href="/"><a>Home / </a></Link></li>&nbsp;
@@ -1077,30 +1081,30 @@ class ProductCarousel extends Component {
                     </div> 
 
                     {/* filter product by brand */}
-                    {/* <div className="panel-group" id="accordion">                      
+                    <div className="panel-group" id="accordion">                      
                       <div className={Style.categoryFilterTitle}> Brand </div>  
                       {
                       this.state.brands && this.state.brands.length > 0?
                       this.state.brands.map((brand,index)=>{
+                        // console.log("Brand   ===",brand);
                         var i = index+1;
                         return(
-                          <div className="panelCategory paneldefault">
-                            <div className={"panel-heading "+Style.panelHeading}>
-                              <div className="centreDetailContainerEcommerce">
-                                <input className="col-lg-1 col-md-1 ol-sm-1 col-xs-1" type="checkbox" name="brands[]" onChange={this.onSelectedItemsChange.bind(this, "brands")} value={brand} />
-                                <span className="col-lg-11 col-md-11 ol-sm-11 col-xs-11 centreDetailCheckEcommerce"></span>
+                          <div className="col-12 noPadding panelCategory paneldefault" key={index}>
+                            <div className={"row panel-heading "+Style.panelHeading}>
+                              <div className=" col-1 NoPadding centreDetailContainerEcommerce">
+                                <input className=" " type="checkbox" name="brands[]" onChange={this.onSelectedItemsChange.bind(this, "brands")} value={brand} />
+                                {/* <span className="col-1 centreDetailCheckEcommerce"></span> */}
                               </div>
-                              <span className="centreDetaillistItemEcommerce">{brand}</span>
+                              <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
                             </div>                              
                           </div>
                         )
                         })   
                         :''
                       }
-                    </div>  */}
-                    {/* :null */}
+                    </div> 
                   </div> 
-                  :null
+                  :' '
                   }
                   <div className={"col-9 col-sm-12 col-xs-12 NoPadding ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className="row">
@@ -1112,6 +1116,7 @@ class ProductCarousel extends Component {
                                   value={effect}
                                   onChange={this.sortProducts}
                                   options={sortOptions}
+                                  autoFocus = {false}
                               />
                           </div> 
                         </div>
@@ -1122,6 +1127,7 @@ class ProductCarousel extends Component {
                                     value={displayProducts}
                                     onChange={this.limitProducts}
                                     options={displayProductOptions}
+                                    autoFocus = {false}
                                 />
                           </div>
                         </div>
@@ -1129,8 +1135,8 @@ class ProductCarousel extends Component {
                     </div> 
 
                     <Product newProducts={this.state.newProducts}
-                              productSettings = {this.state.productSettings}
-                              blockSettings   = {this.state.blockSettings}
+                          productSettings = {this.state.productSettings}
+                          blockSettings   = {this.state.blockSettings}
 
                     />
 
@@ -1138,198 +1144,12 @@ class ProductCarousel extends Component {
                   </div>                    
                   :
                   // if left side filters are not available in product block
-                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " }>{
-                      Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
-                        Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
-                            var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
-                            var wishClass = '';
-                            var tooltipMsg = '';
-                            if (x && x.length > 0) {
-                              wishClass = '';
-                              tooltipMsg = 'Remove from wishlist';
-                            } else {
-                              wishClass = '-o';
-                              tooltipMsg = 'Add To Wishlist';
-                            }    
-                            var categoryUrl = (data.category).replace(/\s+/g, '-').toLowerCase();                   
-                          return (                            
-                            // <div className={"col-lg-"+LGCol+" col-md-"+MDCol+" col-sm-"+SMCol+" col-xs-"+XSCol +" " +Style.productWrap +" " +Style.customePadding}   key={index}> 
-                            <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-6 NoPadding " +Style.productWrap +" " +Style.productInnerWrap +" " +Style.NoPadding} key={index}>
-                            { this.state.blockSettings.totalProducts > index ?                         
-                              <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>
-                                <div className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.item-top +" " +Style.NoPadding}>
-                                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.productImg +" " +Style.NoPadding}>
-                                  <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.wishlistBtn}>
-                                    {this.state.productSettings.displayWishlist === true?
-                                        this.state.user_ID?
-                                          <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
-                                        :
-                                        <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
-                                    :null
-                                    }
-                                    {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 " +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
-                                    </div>
-                                    <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
-                                    <a className={Style.product_item_photo } tabIndex="-1" >
-                                      {/* <img loading="lazy" src={data.productImage[0] ? data.productImage[0] : "/images/notavailable.jpg"} alt="ProductImg" className={Style.noAvailableImg +"lazyload"}/> */}
-                                      <Image                                          
-                                        src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
-                                        alt="ProductImg" 
-                                        className={"img-responsive" +Style.NoAvailableImg }
-                                        height={150}
-                                        width={130} />
-                                    </a>
-                                    </Link>
-                                  </div>
-                                  <div className={Style.productDetails +" col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.NoPadding}>                             
-                                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.innerDiv}>
-                                    {this.state.productSettings.displayBrand === true ?
-                                        data.brandNameRlang?
-                                        <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProduct_brand RegionalFont"} title={data.brandNameRlang}>{data.brandNameRlang}</div>
-                                        :
-                                          <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProduct_brand"} title={data.brand}>{data.brand}</div>
 
-                                      :null
-                                      }  
-                                      {this.state.productSettings.displaySection === true ?
-                                        <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProductItemName "} title={data.section}>{data.section}</div>
-                                      :null
-                                      }
-                                      {this.state.productSettings.displayCategory === true ?
-                                        <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProduct_brand" +Style.product_brand} title={data.category}>{data.category}</div>
-                                      :null
-                                      }
-                                      {data.productNameRlang?
-                                      <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProductItemName NoPadding RegionalFont "+Style.NoPadding } title={data.productNameRlang}>
-                                      <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName +" RegionalName"}>{data.productNameRlang} </span>&nbsp;
-                                      {/* {data.shortDescription ?                                                        
-                                          // <span className={ Style.NoPadding +" " +Style.marathiName}>
-                                          //   <span className={Style.bracket}>(</span> 
-                                          //     {data.shortDescription} 
-                                          //   <span className={Style.bracket}>)</span>
-                                          // </span>  
-                                            <span className={ Style.NoPadding +" " +Style.marathiName}>{data.shortDescription}</span>     
-                                                              
-                                      :null
-                                      } */}
-                                      </div>
-                                      :
-                                      <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProductItemName NoPadding "+Style.NoPadding } title={data.productName}>
-                                      <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;</div>
-                                      }
+                    <Product newProducts={this.state.newProducts}
+                        productSettings = {this.state.productSettings}
+                        blockSettings   = {this.state.blockSettings}
 
-                                      {/* comment more */}
-                                      {/* <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 globalProductItemName NoPadding comment more" +Style.NoPadding } title={data.productName}>
-                                        {data.productName} 
-                                        {data.shortDescription ?                                                        
-                                          <span className={ Style.NoPadding +" " +Style.marathiName}><span className={Style.bracket}></span></span>                        
-                                      :null
-                                      }
-                                      </div> */}
-                                      <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding" }>
-                                        {
-                                          localStorage.getItem("websiteModel")=== "FranchiseModel"?                                  
-                                            data.discountPercent ?   
-                                            <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.priceWrapper +" "}>                                   
-                                              <span className={Style.price}><span className={Style.oldprice}><i className="fa fa-inr "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fa fa-inr "></i> {data.discountedPrice} / {data.size}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span>      
-                                            </div> 
-                                            :
-                                              <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.priceWrapper +" "}>
-                                                <span className={Style.price}><i className={Style.price +" fa fa-inr "}></i>&nbsp;{data.originalPrice} / {data.size}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                       
-                                              </div>
-        
-                                          :                                    
-                                          data.discountPercent ?
-                                          <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "+Style.priceWrapper +" " +Style.NoPadding}>
-                                            <span className={Style.price}><span className={Style.oldprice }>&nbsp;<i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice}&nbsp;</span>&nbsp;
-                                            <i className="fa fa-inr"></i>&nbsp;{data.discountedPrice+".00"} { data.size? "/ " +data.size:null}&nbsp;<span className="ProSize">{data.size?data.unit:null}</span>
-                                            </span>
-                                          </div>
-                                          :  
-                                          <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                            <span className={Style.price}><i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice} { data.size? "/ " +data.size:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                      
-                                          </div> 
-                                        }
-                                      </div>
-                                      {this.state.productSettings.displayRating === true ?
-                                        <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
-                                            <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding "} onMouseOver={this.showRatingBlock.bind(this)} >
-                                                <div className={Style.showRating +" col-lg-12 col-md-12 col-sm-12 col-xs-12"}> 4 <i className="fas fa-star"></i></div>                                        
-                                            </span>  
-                                            <span className={"col-lg-5 col-md-5-col-sm-5 col-xs-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
-                                            {this.state.productSettings.displayAssuranceIcon === true ?
-                                              <span className={"col-lg-4 col-md-4 col-sm-4 col-xs-4 NoPadding "+Style.assurenceIcon}>
-                                                {/* <img loading="lazy" className={"img-responsive lazyload col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "} src="/images/assured.png" alt="Assured Img" /></span> */}
-                                                <Image                                          
-                                                src="/images/assured.png"
-                                                alt="Assured Img" 
-                                                className={"img-responsive" +Style.NoAvailableImg }
-                                                height={20}
-                                                width={40} />
-                                              </span>
-                                            :null
-                                            }
-                                        </div>
-                                        :null
-                                      }                              
-                                      <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "}>
-                                        <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "}>                                  
-                                          {
-                                            localStorage.getItem("websiteModel")=== "FranchiseModel"?
-                                            <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.btnWrap +" " +Style.NoPadding}>                                                                             
-                                                <div className={"col-lg-6 col-md-6 col-sm-6 col-xs-6 NoPadding " +Style.selectSizeBox +" " +Style.NoPadding }>                                                                              
-                                                <select className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.selectdropdown +" " +Style.valid +" " +Style.availablesize +" " +Style.NoPadding} currpro={data._id} id={data._id +"-size"} mainsize={data.size} unit={data.unit} name="size" aria-invalid="false">
-                                                  { Array.isArray(data.availableSizes) && data.availableSizes.map((size, index) => {
-                                                      return( 
-                                                        // <option className="selectedSize" value={availablesize.productSize}>{availablesize.packSize} Pack</option>
-                                                        
-                                                          size === 1000?                                                  
-                                                          <option key={index} className="" value={size}> 1 KG</option>
-                                                          :
-                                                          data.unit === "Box" || data.unit === "Wrap" || data.unit === "Pack" || data.unit==="pounch" ?                                                    
-                                                            <option key={index} className="selectedSize" value={size}>{size} Pack</option>
-                                                              :
-                                                          <option key={index} className={Style.selectedSize} value={size}>{size}&nbsp;{data.unit}</option>                                                        
-                                                      )                                                        
-                                                    })
-                                                  }
-                                                </select>                                     
-                                              </div>    
-                                              <button type="submit" color={data.color} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
-                                                title="Add to Cart" className={"col-lg-6 col-md-6 col-sm-6 col-xs-6 fa fa-shopping-cart " }>                                                                         
-                                                &nbsp;Add
-                                              </button>                          
-                                            </div>
-                                            :
-                                            data.availableQuantity > 0 ?
-                                            <div>
-                                              {this.state.user_ID?
-                                                <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
-                                                    &nbsp;Add To Cart
-                                                </button>
-                                              :
-                                                <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
-                                                    &nbsp;Add To Cart
-                                                </button>
-                                              }     
-                                            </div> 
-                                              :
-                                              <div className={Style.outOfStock}>Sold Out</div>
-                                          }
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              :null} 
-                          </div>   
-                                                  
-                          );                        
-                        })
-                        : ''
-                    } 	
-                  </div>
+                    />
                   }  
                   </div>
                   </div>
@@ -1344,8 +1164,6 @@ class ProductCarousel extends Component {
           :null
           }
        </div>
-        
-        
       </div>
       :
       <div className="col-4 offset-4 loading">
@@ -1355,24 +1173,16 @@ class ProductCarousel extends Component {
     );
   }
 }
-
-
-
 const mapStateToProps = state => (
   // console.log("state in productCarousel====",state.data),
   {
     recentCartData     : state.data.recentCartData,
     recentWishlistData : state.data.recentWishlistData,
-    productApiUrl      : state.data.productApiUrl
-    // recentCategoryData : state.data.recentCategoryData,
-    
+    productApiUrl      : state.data.productApiUrl    
   } 
 );
-
 const mapDispatchToProps = {
   fetchCartData    : getCartData, 
   getWishlistData: getWishlistData,
-  // getCategoryData  : getCategoryData, 
-
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCarousel);
