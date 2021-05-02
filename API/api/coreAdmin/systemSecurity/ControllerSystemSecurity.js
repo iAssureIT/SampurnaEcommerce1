@@ -1453,33 +1453,10 @@ exports.set_send_emailotp_usingEmail = (req, res, next) => {
 						User.findOne({ "profile.email": req.params.emailId })
 							.then(user => {
 								if (user) {
-
-									// request({
-									// 	"method": "POST",
-									// 	"url": "http://localhost:" + globalVariable.port + "/send-email",
-									// 	"body": {
-									// 		email: user.profile.email,
-									// 		subject: req.body.emailSubject,
-									// 		text: req.body.emailContent + " " + optEmail,
-									// 	},
-									// 	"json": true,
-									// 	"headers": {
-									// 		"User-Agent": "Test Agent"
-									// 	}
-									// })
-									// 	.then(source => {
-									// 		res.status(201).json({ message: "OTP_UPDATED", userID: user._id })
-									// 	})
-									// 	.catch(err => {
-									// 		res.status(500).json({
-									// 			message: "Failed to Send the send email",
-									// 			error: err
-									// 		});
-									// 	});
 									main();
 									async function main(){ 
 										var sendMail = await sendEmail(req.params.emailId,req.body.emailSubject,req.body.emailContent + " Please enter this otp " + optEmail+ " to reset your password");
-										res.status(200).json({ message: "OTP_UPDATED", ID: user._id })
+										res.status(200).json({ message: "OTP_UPDATED", ID: user._id,profile:user.profile })
 									 }
 								} else {
 									res.status(200).json({ message: "User not found" });
@@ -1507,8 +1484,6 @@ exports.set_send_emailotp_usingEmail = (req, res, next) => {
 			} else if ((user.profile.status).toLowerCase() == "unverified") {
 				res.status(200).json({ message: "USER_UNVERIFIED" });
 			}
-
-	
 		}else{
 			res.status(200).json({ message: "NOT_REGISTER" })
 		}		

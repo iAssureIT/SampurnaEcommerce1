@@ -22,6 +22,7 @@
     "react-native-banner-carousel": "^1.0.3",
     "react-native-bouncing-preloader": "^1.0.1",
     "react-native-check-box": "^2.1.7",
+    "react-native-cli": "^2.0.1",
     "react-native-code-push": "^7.0.1",
     "react-native-config": "^1.1.0",
     "react-native-counters": "^1.2.0",
