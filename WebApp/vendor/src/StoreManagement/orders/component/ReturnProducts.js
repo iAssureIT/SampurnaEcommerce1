@@ -9,7 +9,7 @@ import 'bootstrap/js/tab.js';
 import 'font-awesome/css/font-awesome.min.css';
 import $ from "jquery";
 import moment from "moment";
-import AdminOrdersList from './AdminOrdersList.js';
+import VendorOrdersList from './VendorOrdersList.js';
 import swal         from 'sweetalert';
 
 export default class ReturnProducts extends Component{
@@ -23,6 +23,10 @@ export default class ReturnProducts extends Component{
   }
    
   componentDidMount(){
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
     this.getOrders();
     $('.showmore').click(function () {
       console.log('this',$(this));
@@ -41,7 +45,7 @@ export default class ReturnProducts extends Component{
       }
     },
     errorPlacement: function(error, element) {
-      if (element.attr("name") == "pickupby"){
+      if (element.attr("name") === "pickupby"){
         error.insertAfter("#pickupby");
       }
     }
@@ -56,6 +60,19 @@ export default class ReturnProducts extends Component{
             })
             .catch((error)=>{
                 console.log('error', error);
+                if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
             })
   }
   returnApproveModal(event){
@@ -82,6 +99,19 @@ export default class ReturnProducts extends Component{
           })
           .catch((error)=>{
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
           })   
   }
   addpickupdetails(event){
@@ -108,6 +138,19 @@ export default class ReturnProducts extends Component{
           })
           .catch((error)=>{
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
           })
     }
     
@@ -135,6 +178,19 @@ export default class ReturnProducts extends Component{
           })
           .catch((error)=>{
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
           })
   }
 
@@ -161,12 +217,25 @@ export default class ReturnProducts extends Component{
           })
           .catch((error)=>{
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
           })
   }
   render(){
     
     return(
-      <div className="container-fluid">
+      <div className="container">
         {
           this.state.returnedProducts.length > 0 ? 
           this.state.returnedProducts.map((data,index)=>{
@@ -213,19 +282,19 @@ export default class ReturnProducts extends Component{
                               {
                                 data.returnStatus.filter(function (status) { 
                                 
-                                if(status.status == "Return Approved"){
+                                if(status.status === "Return Approved"){
                                   returnApproved = 1;
                                   returnApprovedOn = moment(status.date).format("DD/MM/YYYY hh:mm a");
                                 }
-                                else if(status.status == "Return Pickup Initiated"){
+                                else if(status.status === "Return Pickup Initiated"){
                                   pickupInitiated = 1;
                                   pickupInitiatedOn = moment(status.date).format("DD/MM/YYYY hh:mm a");;
                                 }
-                                else if(status.status == "Return Pickedup"){
+                                else if(status.status === "Return Pickedup"){
                                   productPickedUp = 1;
                                   productPickedUpOn = moment(status.date).format("DD/MM/YYYY hh:mm a");;
                                 }
-                                else if(status.status == "Return Accepted"){
+                                else if(status.status === "Return Accepted"){
                                   productAccepted = 1;
                                   productAcceptedOn = moment(status.date).format("DD/MM/YYYY hh:mm a");;
                                 }
@@ -234,10 +303,10 @@ export default class ReturnProducts extends Component{
                                 })  
                               }
                                 &nbsp;
-                                { returnApproved != 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.returnApproveModal.bind(this)} data-target="#returnApprove" id={data._id} >Approve</button> : "" }
-                                { returnApproved ==1 && pickupInitiated != 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.addpickupdetails.bind(this)} data-target="#pickupdetailsModal" id={data._id} >Add Pickup Details</button> : "" }
-                                { returnApproved ==1 && pickupInitiated ==1 && productPickedUp != 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.openpickupproduct.bind(this)} data-target="#pickupproductModal" id={data._id} >Pickup Product </button> : ""}
-                                { returnApproved ==1 && pickupInitiated ==1 && productPickedUp && productAccepted != 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.openproductApproval.bind(this)} data-target="#approveProductModal" id={data._id} >Accept Product </button> : ""}
+                                { returnApproved !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.returnApproveModal.bind(this)} data-target="#returnApprove" id={data._id} >Approve</button> : "" }
+                                { returnApproved ==1 && pickupInitiated !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.addpickupdetails.bind(this)} data-target="#pickupdetailsModal" id={data._id} >Add Pickup Details</button> : "" }
+                                { returnApproved ==1 && pickupInitiated ==1 && productPickedUp !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.openpickupproduct.bind(this)} data-target="#pickupproductModal" id={data._id} >Pickup Product </button> : ""}
+                                { returnApproved ==1 && pickupInitiated ==1 && productPickedUp && productAccepted !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.openproductApproval.bind(this)} data-target="#approveProductModal" id={data._id} >Accept Product </button> : ""}
                                 
                               </div>
                               {
@@ -276,14 +345,14 @@ export default class ReturnProducts extends Component{
                                   </div>
                                 }
                                 {
-                                  productArrived == 1 && 
+                                  productArrived === 1 && 
                                   <div className="col-lg-12">
                                   <hr className="hrline" />
                                     <h4>Return Product Arrived: </h4>
                                     <p><label>Arrived On:</label></p>
                                   </div>
                                 }
-                                { productAccepted == 1 && 
+                                { productAccepted === 1 && 
                                   <div>
                                   <div className="col-lg-12">
                                   <hr className="hrline" />
@@ -326,7 +395,7 @@ export default class ReturnProducts extends Component{
               <div className="row">
                 <div className="box">
                   <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                    <h4 className="NOpadding-right">Returned Products</h4>
+                    <h4 className="weighttitle NOpadding-right">Returned Products</h4>
                   </div>
                 </div>
               </div>

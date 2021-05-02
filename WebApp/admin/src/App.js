@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -20,9 +21,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 function App(){
   return(
-    <div>
+    <BrowserRouter>
       <Layout/>
-    </div>
+    </BrowserRouter>
  	);
 }
 

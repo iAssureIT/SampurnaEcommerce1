@@ -1,36 +1,37 @@
-const express 	= require("express");
-const router 	= express.Router();
+const express 		= require("express");
+const router 		= express.Router();
+const checkAuth 	= require('../../../coreAdmin/middlerware/check-auth.js');
 
 const PurchaseEntryController = require('../controllers/PurchaseEntry');
 
-router.post('/post', PurchaseEntryController.insert_purchaseEntry);
+router.post('/post', 											checkAuth, PurchaseEntryController.insert_purchaseEntry);
 
-router.get('/get/list',PurchaseEntryController.list_purchaseEntry);
+router.get('/get/list', 										checkAuth, PurchaseEntryController.list_purchaseEntry);
 
-router.post('/post/getReportOfPurchaseEntry',PurchaseEntryController.get_purchase_entry_report);
+router.post('/post/getReportOfPurchaseEntry', 			checkAuth, PurchaseEntryController.get_purchase_entry_report);
 
-router.get('/get/one/:fetchId'         , PurchaseEntryController.fetch_one);
+router.get('/get/one/:fetchId', 								checkAuth, PurchaseEntryController.fetch_one);
 
-router.patch('/patch/:purchaseID'      , PurchaseEntryController.update_PurchaseEntry);
+router.patch('/patch/:purchaseID', 							checkAuth, PurchaseEntryController.update_PurchaseEntry);
 
-router.delete('/delete/:purchaseID'    ,PurchaseEntryController.delete_purchaseEntry);
+router.delete('/delete/:purchaseID', 						checkAuth, PurchaseEntryController.delete_purchaseEntry);
 
-router.post('/post/datewisepurchase/'   ,PurchaseEntryController.get_datewise_purchaceEntry);
+router.post('/post/datewisepurchase/', 					checkAuth, PurchaseEntryController.get_datewise_purchaceEntry);
 
-router.get('/get/PurchaseNumbers'       , PurchaseEntryController.get_purchase_numbers);
+router.get('/get/PurchaseNumbers', 							checkAuth, PurchaseEntryController.get_purchase_numbers);
 
-router.get('/get/TotalInward/:itemcode' , PurchaseEntryController.get_total_inward);
+router.get('/get/TotalInward/:itemcode', 					checkAuth, PurchaseEntryController.get_total_inward);
 
-router.get('/get/RawMaterialCurrentStock/:itemcode', PurchaseEntryController.raw_material_current_stock);
+router.get('/get/RawMaterialCurrentStock/:itemcode', 	checkAuth, PurchaseEntryController.raw_material_current_stock);
 
 /* Bulk upload code by madhuri */
-router.post('/raw_material_bulk_upload' ,PurchaseEntryController.raw_material_bulk_upload);
+router.post('/raw_material_bulk_upload', 					checkAuth, PurchaseEntryController.raw_material_bulk_upload);
 
-router.get('/get/filedetails/:fileName' ,PurchaseEntryController.filedetails);
+router.get('/get/filedetails/:fileName', 					checkAuth, PurchaseEntryController.filedetails);
 
-router.get('/get/GeneratePurchaseNumber', PurchaseEntryController.generate_purchase_number);
+router.get('/get/GeneratePurchaseNumber', 				checkAuth, PurchaseEntryController.generate_purchase_number);
 /*bulk upload end*/
-router.get('/get/totalRawBalance' ,PurchaseEntryController.get_total_raw_balance);
+router.get('/get/totalRawBalance', 							checkAuth, PurchaseEntryController.get_total_raw_balance);
 
 /*
 router.get('/get/datewisepurchase/:purchaseDate',PurchaseEntryController.get_datewise_purchaceEntry);

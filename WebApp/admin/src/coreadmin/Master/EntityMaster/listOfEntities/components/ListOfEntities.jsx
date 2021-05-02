@@ -73,6 +73,9 @@ class ListOfEntities extends Component {
 	}
 
 	componentDidMount() {
+		var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    	var token         = userDetails.token;
+    	axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 
          this.getData();
           axios.get("/api/adminpreference/get")
@@ -91,6 +94,19 @@ class ListOfEntities extends Component {
 		    })
 		    .catch(error=>{
 		        console.log("Error in preferences = ", error);
+		        if(error.message === "Request failed with status code 401"){
+          		var userDetails =  localStorage.removeItem("userDetails");
+          		localStorage.clear();
+          		swal({  
+              		title : "Your Session is expired.",                
+              		text  : "You need to login again. Click OK to go to Login Page"
+            	})
+	          	.then(okay => {
+	         		if (okay) {
+	           			window.location.href = "/login";
+	         		}
+	          	});
+	        	}
 		    })
 
 		var getcompanyID = localStorage.getItem("company_Id")
@@ -185,7 +201,22 @@ class ListOfEntities extends Component {
           this.setState({RecordsTable:tableData,initial: 'All'})
 			
 		})
-		.catch((error)=>{console.log('error: ',error)})
+		.catch((error)=>{
+			console.log('error: ',error);
+			if(error.message === "Request failed with status code 401"){
+       		var userDetails =  localStorage.removeItem("userDetails");
+       		localStorage.clear();
+       		swal({  
+           		title : "Your Session is expired.",                
+           		text  : "You need to login again. Click OK to go to Login Page"
+         	})
+          	.then(okay => {
+         		if (okay) {
+           			window.location.href = "/login";
+         		}
+          	});
+        	}
+		})
 
 	}
 
@@ -200,6 +231,20 @@ class ListOfEntities extends Component {
 
 			})
 			.catch((error) => {
+				console.log("Error => ",error);
+				if(error.message === "Request failed with status code 401"){
+          		var userDetails =  localStorage.removeItem("userDetails");
+          		localStorage.clear();
+          		swal({  
+              		title : "Your Session is expired.",                
+              		text  : "You need to login again. Click OK to go to Login Page"
+            	})
+	          	.then(okay => {
+	         		if (okay) {
+	           			window.location.href = "/login";
+	         		}
+	          	});
+	        	}
 			})
 	}
 	handleChangeState(stateCode) {
@@ -215,6 +260,7 @@ class ListOfEntities extends Component {
 				})
 			})
 			.catch((error) => {
+				console.log("Error => ",error);
 			})
 	}
 	
@@ -235,6 +281,20 @@ class ListOfEntities extends Component {
 			})
 		})
 		.catch((error) => {
+			console.log("Error => ",error);
+			if(error.message === "Request failed with status code 401"){
+       		var userDetails =  localStorage.removeItem("userDetails");
+       		localStorage.clear();
+       		swal({  
+           		title : "Your Session is expired.",                
+           		text  : "You need to login again. Click OK to go to Login Page"
+         	})
+          	.then(okay => {
+         		if (okay) {
+           			window.location.href = "/login";
+         		}
+          	});
+        	}
 		})
 		var url ='';
 		if(this.state.entityType === "supplier" && this.state.company_id!==''){
@@ -285,6 +345,20 @@ class ListOfEntities extends Component {
 			// $('.selected').removeClass('selectedSupplier');
 		})
 		.catch((error) => {
+			console.log("Error => ",error);
+			if(error.message === "Request failed with status code 401"){
+       		var userDetails =  localStorage.removeItem("userDetails");
+       		localStorage.clear();
+       		swal({  
+           		title : "Your Session is expired.",                
+           		text  : "You need to login again. Click OK to go to Login Page"
+         	})
+          	.then(okay => {
+         		if (okay) {
+           			window.location.href = "/login";
+         		}
+          	});
+        	}
 		})
 	}
 	ShowForm(event) {
@@ -436,6 +510,20 @@ class ListOfEntities extends Component {
 				
 			})
 			.catch((error) => {
+				console.log("Error => ",error);
+				if(error.message === "Request failed with status code 401"){
+          		var userDetails =  localStorage.removeItem("userDetails");
+          		localStorage.clear();
+          		swal({  
+              		title : "Your Session is expired.",                
+              		text  : "You need to login again. Click OK to go to Login Page"
+            	})
+	          	.then(okay => {
+	         		if (okay) {
+	           			window.location.href = "/login";
+	         		}
+	          	});
+	        	}
 			})
 	}
 	getgridFilteredProducts(selector){
@@ -492,6 +580,20 @@ class ListOfEntities extends Component {
 				
 			})
 			.catch((error) => {
+				console.log("Error => ", error);
+				if(error.message === "Request failed with status code 401"){
+          		var userDetails =  localStorage.removeItem("userDetails");
+          		localStorage.clear();
+          		swal({  
+              		title : "Your Session is expired.",                
+              		text  : "You need to login again. Click OK to go to Login Page"
+            	})
+	          	.then(okay => {
+	         		if (okay) {
+	           			window.location.href = "/login";
+	         		}
+	          	});
+	        	}
 			})
 	}
 	editBasicform(event){ 

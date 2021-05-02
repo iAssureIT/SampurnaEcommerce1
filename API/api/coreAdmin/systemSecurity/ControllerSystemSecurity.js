@@ -69,6 +69,7 @@ exports.user_signup_user = (req, res, next) => {
 														email: emailId.toLowerCase(),
 														mobile: req.body.mobNumber,
 														companyID: req.body.companyID,
+														company_id: req.body.company_ID,
 														pincode: req.body.pincode,
 														companyName: req.body.companyName,
 														department	: req.body.department,
@@ -583,7 +584,8 @@ exports.check_username_EmailOTP = (req, res, next) => {
 };
 
 exports.user_login_using_email = (req, res, next) => {
-	// console.log("user_login_using_email req.body = ",req.body);
+	console.log("user_login_using_email req.body = ",req.body);
+	// console.log("=================");
 	var emailId = (req.body.email).toLowerCase(); 
 	var role = (req.body.role).toLowerCase();
 	User.findOne({
@@ -592,7 +594,7 @@ exports.user_login_using_email = (req, res, next) => {
 	})
 		.exec()
 		.then(user => {
-			// console.log("user",user)
+			console.log("user",user)
 			if (user) {
 				if ((user.profile.status).toLowerCase() == "active") {
 					var pwd = user.services.password.bcrypt;
@@ -610,7 +612,8 @@ exports.user_login_using_email = (req, res, next) => {
 									userId: user._id,
 								}, globalVariable.JWT_KEY,
 									{
-										expiresIn: "365d"
+										// expiresIn: "365d"
+										expiresIn: globalVariable.timeOutLimitSecs
 									}
 								);
 
@@ -646,6 +649,7 @@ exports.user_login_using_email = (req, res, next) => {
 													deliveryAddress: user.deliveryAddress,
 													pincode: user.profile.pincode,
 													companyID: user.profile.companyID,
+													company_id: user.profile.company_id,
 													companyName: user.profile.companyName,
 													locationID: user.profile.locationID,
 													user_id: user._id,
@@ -1086,7 +1090,7 @@ exports.logouthistory = (req, res, next) => {
 					}
 					)	.exec()
 					.then(data => {
-							res.status(201).json({data})
+							res.status(200).json({data})
 					})
 					.catch(err => {
 						res.status(500).json({

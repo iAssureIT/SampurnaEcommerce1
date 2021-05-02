@@ -22,7 +22,8 @@ class Login extends Component {
         }
   }
   componentDidMount(){
-    
+    // var userDetail = localStorage.getItem("userDetails");
+    // var userDetails =  localStorage.removeItem("userDetails");
   }
 userlogin(event) {
       event.preventDefault();
@@ -45,6 +46,8 @@ userlogin(event) {
                 lastName: response.data.userDetails.lastName,
                 email: response.data.userDetails.email,
                 phone: response.data.userDetails.phone,
+                // companyID : parseInt(response.data.userDetails.companyID),
+                company_ID : response.data.userDetails.company_id,
                 companyID : parseInt(response.data.userDetails.companyID),
                 companyName : response.data.userDetails.companyName,
                 pincode: response.data.userDetails.pincode,
@@ -53,7 +56,7 @@ userlogin(event) {
                 token: response.data.userDetails.token,
               }
               document.getElementById("logInBtn").value = 'Sign In';
-              localStorage.setItem("token", response.data.token);
+              // localStorage.setItem("token", response.data.token);
               localStorage.setItem("user_ID", response.data.ID);
               localStorage.setItem("roles", response.data.roles);
               localStorage.setItem("companyID", response.data.userDetails.companyID);

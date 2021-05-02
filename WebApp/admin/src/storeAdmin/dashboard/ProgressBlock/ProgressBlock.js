@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { render } from 'react-dom';
 import axios                    from 'axios';
-
+import swal from 'sweetalert';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -28,6 +28,10 @@ export default class ProgressBlock extends Component{
   }
    
   componentDidMount(){
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
       // if(this.props.display){
         this.setState({
           Field: this.props.Field,
@@ -118,11 +122,41 @@ export default class ProgressBlock extends Component{
               compairFieldCount:response.data
             })
           })
-          .catch((err)=>{console.log('compair field err: ',err)})
+          .catch((error)=>{
+            console.log('compair field err: ',error)
+            if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+          .then(okay => {
+          if (okay) {
+              window.location.href = "/login";
+          }
+          });
+        }
+          })
         }
       }
     })
-    .catch((err)=>{console.log('ProgressBlock err: ',err)})
+    .catch((error)=>{
+      console.log('ProgressBlock err: ',error)
+      if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+          .then(okay => {
+          if (okay) {
+              window.location.href = "/login";
+          }
+          });
+        }
+    })
 
   }
 

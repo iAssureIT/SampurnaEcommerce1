@@ -81,11 +81,14 @@ class AddNewShopProduct extends Component {
     this.getTaxRates(id)
   }
   componentDidMount() {
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
     this.getSectionData();
     this.getVendorList();
     this.getTaxData();
     this.getUom();
-    const userDetails = localStorage.getItem("userDetails");
     const user_ID     = userDetails.user_id;
     const companyID   = userDetails.companyID;
     var websiteModel = localStorage.getItem('websiteModel');
@@ -102,6 +105,19 @@ class AddNewShopProduct extends Component {
               })
               .catch(error=>{
                 console.log("Error in getting adminPreference = ", error);
+                if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
               }) 
 
     this.setState({
@@ -131,6 +147,19 @@ class AddNewShopProduct extends Component {
                   appCompany_entity_id  : appCompany_entity_id,
                 });
                 console.log("Error in getting adminPreference = ", error);
+                if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
               }) 
 
         })
@@ -140,6 +169,19 @@ class AddNewShopProduct extends Component {
             user_ID         : user_ID,
           });
           console.log("Error in getting appCompany_entity_id = ", error);
+          if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
         }) ;
 
 
@@ -360,6 +402,19 @@ class AddNewShopProduct extends Component {
       })
       .catch((error) => {
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
       })
   }
   getUom(){
@@ -389,6 +444,19 @@ class AddNewShopProduct extends Component {
 		})
 		.catch((error) => {
 			console.log('error', error);
+      if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+          .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+          });
+      }
 		})
 	}
   showRelevantCategories(event) {
@@ -407,6 +475,19 @@ class AddNewShopProduct extends Component {
       })
       .catch((error) => {
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+            var userDetails =  localStorage.removeItem("userDetails");
+            localStorage.clear();
+            swal({  
+                title : "Your Session is expired.",                
+                text  : "You need to login again. Click OK to go to Login Page"
+            })
+            .then(okay => {
+                if (okay) {
+                    window.location.href = "/login";
+                }
+            });
+        }
       })
   }
   getCategories() {
@@ -418,6 +499,19 @@ class AddNewShopProduct extends Component {
       })
       .catch((error) => {
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+            var userDetails =  localStorage.removeItem("userDetails");
+            localStorage.clear();
+            swal({  
+                title : "Your Session is expired.",                
+                text  : "You need to login again. Click OK to go to Login Page"
+            })
+            .then(okay => {
+                if (okay) {
+                    window.location.href = "/login";
+                }
+            });
+        }
       })
   }
   getSubCategories(categoryID) {
@@ -429,6 +523,19 @@ class AddNewShopProduct extends Component {
       })
       .catch((error) => {
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+              });
+          }
       })
   }
   addNewRow(event) {
@@ -507,6 +614,19 @@ class AddNewShopProduct extends Component {
       })
       .catch((error) => {
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+              });
+          }
       })
   }
   submitProduct(event) {
@@ -639,6 +759,19 @@ class AddNewShopProduct extends Component {
           })
           .catch((error) => {
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
           })
 
         }
@@ -809,6 +942,19 @@ class AddNewShopProduct extends Component {
           })
           .catch((error) => {
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
           })
       }
     }
@@ -925,6 +1071,19 @@ class AddNewShopProduct extends Component {
       })
       .catch((error) => {
         console.log("Error in getVendorList() = ",error);
+        if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
       })
   }
   onClickCkEditor(evt) {
@@ -969,6 +1128,19 @@ class AddNewShopProduct extends Component {
     })
     .catch((error)=>{
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
     });
   }
 
@@ -984,6 +1156,19 @@ class AddNewShopProduct extends Component {
     })
     .catch((error)=>{
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
     });
 
   }

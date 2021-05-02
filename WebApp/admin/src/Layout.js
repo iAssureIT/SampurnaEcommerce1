@@ -8,56 +8,57 @@ import 'font-awesome/css/font-awesome.min.css';
 import CoreLayout from './coreadmin/CoreLayout/CoreLayout.js';
 
 // Section: 1 - SystemSecurity ******************************************************
-import Login                from './coreadmin/systemSecurity/Login.js';
-import ConfirmOtp           from './coreadmin/systemSecurity/ConfirmOtp.js';
-import ForgotPassword       from './coreadmin/systemSecurity/ForgotPassword.js';
-import ResetPassword        from './coreadmin/systemSecurity/ResetPassword.js';
-import ResetPwd             from './coreadmin/systemSecurity/ResetPwd.js';
-import SignUp               from './coreadmin/systemSecurity/SignUp.js';
+import Login                        from './coreadmin/systemSecurity/Login.js';
+import ConfirmOtp                   from './coreadmin/systemSecurity/ConfirmOtp.js';
+import ForgotPassword               from './coreadmin/systemSecurity/ForgotPassword.js';
+import ResetPassword                from './coreadmin/systemSecurity/ResetPassword.js';
+import ResetPwd                     from './coreadmin/systemSecurity/ResetPwd.js';
+import SignUp                       from './coreadmin/systemSecurity/SignUp.js';
 
-import Header               from './coreadmin/common/header/Header.js'; 
-import Footer               from './coreadmin/common/footer/Footer.js';
-import Leftsidebar          from './storeAdmin/leftSidebar/Leftsidebar.js';
+import Header                       from './coreadmin/common/header/Header.js'; 
+import Footer                       from './coreadmin/common/footer/Footer.js';
+import Leftsidebar                  from './storeAdmin/leftSidebar/Leftsidebar.js';
 
 //================== Dashboard ===================
-import Dashboard            from './storeAdmin/dashboard/Dashboard.js'
+import Dashboard                    from './storeAdmin/dashboard/Dashboard.js';
+
 //============== Product Management ==============//
-import AddNewShopProduct    from './storeAdmin/product/addNewProduct/AddNewShopProduct/AddNewShopProduct.js';
-import AddNewProductImages  from './storeAdmin/product/addNewProduct/AddNewProductImages/AddNewProductImages.js';
+import AddNewShopProduct            from './storeAdmin/product/addNewProduct/AddNewShopProduct/AddNewShopProduct.js';
+import AddNewProductImages          from './storeAdmin/product/addNewProduct/AddNewProductImages/AddNewProductImages.js';
 // import CategoryManagement   from './storeAdmin/product/categoryManagement/component/CategoryManagement.js';
 // import SectionManagement    from './storeAdmin/product/sectionManagement/component/SectionManagement.js';
 
-import AddNewBulkProduct    from './StoreManagement/product/productBulkUpload/component/ProductBulkUpload.js';
-import UpdateBulkProduct    from './StoreManagement/product/productBulkUpload/component/productUpdateBulkUpload.js';
-import TemplateManagement   from './StoreManagement/product/productBulkUpload/component/TemplateManagement.js';
+import AddNewBulkProduct            from './StoreManagement/product/productBulkUpload/component/ProductBulkUpload.js';
+import UpdateBulkProduct            from './StoreManagement/product/productBulkUpload/component/productUpdateBulkUpload.js';
+import TemplateManagement           from './StoreManagement/product/productBulkUpload/component/TemplateManagement.js';
 
-import ProductList          from './StoreManagement/product/productList/component/ProductList.js';
-import BulkProductImageUpload from './storeAdmin/bulkimageUpload/BulkProductImageUpload.js'
-import FileWiseProductList  from './StoreManagement/product/fileproductList/component/fileproductList.js';
+import ProductList                  from './StoreManagement/product/productList/component/ProductList.js';
+import BulkProductImageUpload       from './storeAdmin/bulkimageUpload/BulkProductImageUpload.js'
+import FileWiseProductList          from './StoreManagement/product/fileproductList/component/fileproductList.js';
 
-import AllOrdersList        from './StoreManagement/orders/component/AllOrders.js';
-import NewOrdersList        from './StoreManagement/orders/component/NewOrdersList.js';
-import VerifiedOrdersList   from './StoreManagement/orders/component/VerifiedOrdersList.js';
-import PackedOrdersList     from './StoreManagement/orders/component/PackedOrdersList.js';
-import InspectedOrdersList  from './StoreManagement/orders/component/InspectedOrdersList.js';
-import ApprovedOrdersList   from './StoreManagement/orders/component/ApprovedOrdersList.js';
-import DispatchedOrdersList from './StoreManagement/orders/component/DispatchedOrdersList.js';
-import DeliveryInitiatedOrders from './StoreManagement/orders/component/DeliveryInitiatedOrders.js';
-import DeliveredOrders      from './StoreManagement/orders/component/DeliveredOrders.js';
-import ReturnProducts       from './StoreManagement/orders/component/ReturnProducts.js';
+import AllOrdersList                from './StoreManagement/orders/component/AllOrders.js';
+import NewOrdersList                from './StoreManagement/orders/component/NewOrdersList.js';
+import VerifiedOrdersList           from './StoreManagement/orders/component/VerifiedOrdersList.js';
+import PackedOrdersList             from './StoreManagement/orders/component/PackedOrdersList.js';
+import InspectedOrdersList          from './StoreManagement/orders/component/InspectedOrdersList.js';
+import ApprovedOrdersList           from './StoreManagement/orders/component/ApprovedOrdersList.js';
+import DispatchedOrdersList         from './StoreManagement/orders/component/DispatchedOrdersList.js';
+import DeliveryInitiatedOrders      from './StoreManagement/orders/component/DeliveryInitiatedOrders.js';
+import DeliveredOrders              from './StoreManagement/orders/component/DeliveredOrders.js';
+import ReturnProducts               from './StoreManagement/orders/component/ReturnProducts.js';
 
-import DiscountManagement       from './storeAdmin/DiscountManagement/DiscountManagement.js';
-import CouponManagement       from './storeAdmin/CouponManagement/CouponManagement.js';
+import DiscountManagement           from './storeAdmin/DiscountManagement/DiscountManagement.js';
+import CouponManagement             from './storeAdmin/CouponManagement/CouponManagement.js';
 
-import BaList               from './storeAdmin/baManagement/listOfBAs/components/BusinessAssociateList.js';
-import AddNewBA             from './storeAdmin/baManagement/BAOnboarding/basicInfo/basicInfo.js';
-import ProductDetails       from './StoreManagement/product/ProductDetails/ProductDetails.js';
-import viewOrder            from './StoreManagement/orders/component/viewOrder.js';
+import BaList                       from './storeAdmin/baManagement/listOfBAs/components/BusinessAssociateList.js';
+import AddNewBA                     from './storeAdmin/baManagement/BAOnboarding/basicInfo/basicInfo.js';
+import ProductDetails               from './StoreManagement/product/ProductDetails/ProductDetails.js';
+import viewOrder                    from './StoreManagement/orders/component/viewOrder.js';
 
 //================== Reports ===============//
-import Reports              from './admin/Reports/Reports.js';
-import CategoryWiseReports  from './admin/categoryWiseReports/Reports.js';
-import Productreview        from './storeAdmin/Productreview/Productreview.js';
+import Reports                      from './admin/Reports/Reports.js';
+import CategoryWiseReports          from './admin/categoryWiseReports/Reports.js';
+import Productreview                from './storeAdmin/Productreview/Productreview.js';
 
 // import ImageUpload from '../../ImageUpload/ImageUpload.js';
 
@@ -70,52 +71,52 @@ import Productreview        from './storeAdmin/Productreview/Productreview.js';
 // import VendorCategory       from './storeAdmin/vendorManagement/MasterData/VendorCategory/VendorCategory.jsx';
 // import VendorLocationType   from './storeAdmin/vendorManagement/MasterData/VendorLocationType/VendorLocationType.jsx';
 
-import VendorBasicInfo         from './storeAdmin/VendorMaster/VendorBasicInfo.js';
-import VendorLocationDetails   from './storeAdmin/VendorMaster/VendorLocationDetails.js';
-import VendorContactDetails    from './storeAdmin/VendorMaster/VendorContactDetails.js';
-import VendorListOfEntities    from './storeAdmin/VendorMaster/VendorListOfEntities.js';
+import VendorBasicInfo              from './storeAdmin/VendorMaster/VendorBasicInfo.js';
+import VendorLocationDetails        from './storeAdmin/VendorMaster/VendorLocationDetails.js';
+import VendorContactDetails         from './storeAdmin/VendorMaster/VendorContactDetails.js';
+import VendorListOfEntities         from './storeAdmin/VendorMaster/VendorListOfEntities.js';
 
 //============ BA Management =============
-import BABasicInfo         from './storeAdmin/BAmangement/BABasicInfo.js';
-import BALocationDetails   from './storeAdmin/BAmangement/BALocationDetails.js';
-import BAContactDetails    from './storeAdmin/BAmangement/BAContactDetails.js';
-import BAListOfEntities    from './storeAdmin/BAmangement/BAListOfEntities.js';
+import BABasicInfo                  from './storeAdmin/BAmangement/BABasicInfo.js';
+import BALocationDetails            from './storeAdmin/BAmangement/BALocationDetails.js';
+import BAContactDetails             from './storeAdmin/BAmangement/BAContactDetails.js';
+import BAListOfEntities             from './storeAdmin/BAmangement/BAListOfEntities.js';
 
 //============ Franchise Management =============
-import FranchiseBasicInfo       from './storeAdmin/FranchiseMaster/FranchiseBasicInfo.js';
-import FranchiseLocationDetails from './storeAdmin/FranchiseMaster/FranchiseLocationDetails.js';
-import FranchiseContactDetails  from './storeAdmin/FranchiseMaster/FranchiseContactDetails.js';
+import FranchiseBasicInfo           from './storeAdmin/FranchiseMaster/FranchiseBasicInfo.js';
+import FranchiseLocationDetails     from './storeAdmin/FranchiseMaster/FranchiseLocationDetails.js';
+import FranchiseContactDetails      from './storeAdmin/FranchiseMaster/FranchiseContactDetails.js';
 import ListOfEntitiesPage           from './storeAdmin/FranchiseMaster/ListOfEntities.js';
 
 //=============== Preferences =================
 import WebsiteModel from './storeAdmin/preferences/WebsiteModel.js';
 
 //=============== Allowable pincodes ===========
-import AllowablePincodes from './storeAdmin/allowablePincodes/AllowablePincodes.js';
+import AllowablePincodes            from './storeAdmin/allowablePincodes/AllowablePincodes.js';
 
 //=============== Purchase Management =================
 
-import PurchaseManagement  from './storeAdmin/PurchaseManagement/PurchaseManagement.js';
-import RawMaterialStockReport from './storeAdmin/PurchaseManagement/RawMaterialStockReport.js';
-import FinishedGoods       from './storeAdmin/PurchaseManagement/FinishedGoods.js';
-import FranchiseCurrentStock from './storeAdmin/PurchaseManagement/FranchiseCurrentStock.js';
+import PurchaseManagement           from './storeAdmin/PurchaseManagement/PurchaseManagement.js';
+import RawMaterialStockReport       from './storeAdmin/PurchaseManagement/RawMaterialStockReport.js';
+import FinishedGoods                from './storeAdmin/PurchaseManagement/FinishedGoods.js';
+import FranchiseCurrentStock        from './storeAdmin/PurchaseManagement/FranchiseCurrentStock.js';
 
 //=============== Purchase Management =================
 
-import Distribution       from './storeAdmin/DistributionManagement/DistributionManagement.js';
-import FranchiseDeliveryChallan    from './storeAdmin/DistributionManagement/FranchiseDeliveryChallan.js';
-import FranchiseDistribution    from './storeAdmin/DistributionManagement/FranchiseDistribution.js';
-import DeliveryChallans    from './storeAdmin/DistributionManagement/DeliveryChallans.js';
+import Distribution                 from './storeAdmin/DistributionManagement/DistributionManagement.js';
+import FranchiseDeliveryChallan     from './storeAdmin/DistributionManagement/FranchiseDeliveryChallan.js';
+import FranchiseDistribution        from './storeAdmin/DistributionManagement/FranchiseDistribution.js';
+import DeliveryChallans             from './storeAdmin/DistributionManagement/DeliveryChallans.js';
 
-import AdminShoppingList  from './storeAdmin/adminShoppingList/AdminShoppingList.js';
+import AdminShoppingList            from './storeAdmin/adminShoppingList/AdminShoppingList.js';
 
 
-import FranchiseShoppingList from './storeAdmin/FranchiseShoppingList/FranchiseShoppingList.js';
-import FranchiseOrderSummary from './storeAdmin/FranchiseShoppingList/FranchiseOrderSummary.js';
-import OrderPurchaseView from './storeAdmin/FranchiseShoppingList/OrderPurchaseView.js';
+import FranchiseShoppingList        from './storeAdmin/FranchiseShoppingList/FranchiseShoppingList.js';
+import FranchiseOrderSummary        from './storeAdmin/FranchiseShoppingList/FranchiseOrderSummary.js';
+import OrderPurchaseView            from './storeAdmin/FranchiseShoppingList/OrderPurchaseView.js';
 import ExpenseMaster                from './coreadmin/ExpenseTypeMaster/ExpenseType.js';
 
-import MasterData            from "./storeAdmin/MasterData/MasterData.js";
+import MasterData                   from "./storeAdmin/MasterData/MasterData.js";
 
 /*===================== CMS ========================*/
 
@@ -134,31 +135,44 @@ class Layout extends Component  {
         this.state = {
             loggedIn: false,
         }
+        this.logout = this.logout.bind(this)
     }
 
     componentDidMount() {
-        const token = localStorage.getItem("token");
-        if (token !== null && token !== "undefined") {
+        var userDetails = localStorage.getItem("userDetails");
+        if(userDetails){
+            const token = JSON.parse(userDetails).token;
+            if (token !== null && token !== "undefined") {
+                this.setState({
+                    loggedIn: true
+                })
+            } else { 
+                console.log("token is not available");
+            }
+        }else{
+            console.log("userDetails =>",userDetails)
             this.setState({
-                loggedIn: true
+                loggedIn : false
+            },()=>{
+                this.props.history.push("/login");
+                // window.location.reload(1);
             })
-        } else { }
+        }
 
     }
 
     logout() {
-        var token = localStorage.removeItem("token");
+        var token       = localStorage.removeItem("token");
+        var userDetails = localStorage.removeItem("userDetails");
         if (token !== null && token !== "undefined") {
-            this.setState({
-                loggedIn: false
-            })
+            this.setState({ loggedIn : false });
         }
     }
 
-render() {
+    render() {
         var pageUrl = window.location.pathname;
         let a = pageUrl ? pageUrl.split('/') : "";
-    if (this.state.loggedIn) {
+        if (this.state.loggedIn) {
         if(a[1] == "cms"){
                 return(                    
                     // <CmsLayout /> 
@@ -171,7 +185,7 @@ render() {
                     <div className="hold-transition skin-blue fixed sidebar-mini">
                         <div className="content-wrapper">
                             <div className="wrapper">
-                                <Header />
+                                <Header logoutfn={this.logout} />
                                 <Leftsidebar/>
                                 <div className="row">
                                     <div className="container-fluid main-container">
@@ -200,7 +214,7 @@ render() {
                                                         <Route path="/section-management/:sectionID"                    exact strict component={SectionManagement} />*/}
                                                         <Route path="/product-upload"                                   exact strict component={AddNewBulkProduct} />
                                                         <Route path="/update_product-upload"                            exact strict component={UpdateBulkProduct} />
-                                                        <Route path="/template-management"                              exact strict component={TemplateManagement} />
+                                                        {/*<Route path="/template-management"                              exact strict component={TemplateManagement} />*/}
                                                         
                                                         <Route path="/template-management"                              exact strict component={TemplateManagement} />
                                                         <Route path="/template-management/:template_ID"                 exact strict component={TemplateManagement} />
@@ -346,4 +360,4 @@ render() {
 }
 
  
-export default Layout;
+export default withRouter(Layout);

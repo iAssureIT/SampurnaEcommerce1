@@ -28,7 +28,10 @@ class BasicInfo extends Component {
     this.SubmitBasicInfo           = this.SubmitBasicInfo.bind(this);
   }
   componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem("token");
+    // axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem("token");
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token         = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 
     this.setState({
       entityID: this.props.match.params.entityID
@@ -138,6 +141,20 @@ class BasicInfo extends Component {
         })
        })
       .catch((error) => {
+        console.log("Error => ", error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
       })
 
   }
@@ -325,7 +342,20 @@ class BasicInfo extends Component {
             this.props.history.push('/' + this.state.pathname + '/location-details/' + this.props.match.params.entityID)
           })
           .catch((error) => {
-
+            console.log("Error => ",error);
+            if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
           })
       } else {
         axios.post('/api/entitymaster/post', formValues)
@@ -336,7 +366,20 @@ class BasicInfo extends Component {
           this.props.history.push('/' + this.state.pathname + '/location-details/' + response.data.entityID)
         })
         .catch((error) => {
-
+          console.log("Error => ",error);
+          if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
         })
       }
     } else {
@@ -435,6 +478,20 @@ class BasicInfo extends Component {
                 resolve(config);
               })
               .catch(function (error) {
+                console.log("Error => ",error);
+                if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text  : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
               })
 
           })
@@ -519,6 +576,20 @@ class BasicInfo extends Component {
                 resolve(Data.location);
               })
               .catch((error) => {
+                console.log("Error => ",error);
+                if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text  : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
               })
           })
         }
@@ -537,6 +608,20 @@ class BasicInfo extends Component {
                 resolve(config);
               })
               .catch(function (error) {
+                console.log("Error => ",error);
+                if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text  : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
               })
           })
         }
@@ -626,6 +711,20 @@ class BasicInfo extends Component {
           })
         })
         .catch((error) => {
+          console.log("Error => ",error);
+          if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
         })
     }
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
+import swal from 'sweetalert';
 import $     from "jquery";
 import './Header.css';
 import Rightsidebar from '../rightSidebar/Rightsidebar.js';
@@ -27,21 +28,39 @@ export default class Header extends Component {
       $("body").append(adminLte);
     }
     $("html,body").scrollTop(0); */
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token         = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+    console.log("Token => ",token);
+
    var companyName1 = localStorage.getItem("companyName");
    this.setState({
       companyName1:companyName1
 
    })
-    const userDetails = localStorage.getItem("userDetails");
-    const parsedData =  JSON.parse(userDetails);
     
-    axios.get('/api/users/get/' + parsedData.user_id)
+    
+    axios.get('/api/users/get/' + userDetails.user_id)
     .then((res) => {
       this.setState({
         userImage : res.data.image
       });
     })
-    .catch((err) => {
+    .catch((error) => {
+      console.log('logout Error => ',error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text : "You need to login again. Click OK to go to Login Page"
+          })
+          .then(okay => {
+          if (okay) {
+              window.location.href = "/login";
+          }
+          });
+        }
     })
     this.userdata();
 
@@ -62,6 +81,20 @@ export default class Header extends Component {
     })
     .catch((error) => {
       console.log("Error in /api/entitymaster/get/appCompany = ", error);
+
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
     })
    }
    componentWillReceiveProps(nextProps){
@@ -74,6 +107,20 @@ export default class Header extends Component {
           inAppNotificationsCount: notifications.data.length })
       })
       .catch(error => {
+        console.log('logout Error => ',error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
       })
   }
   componentWillUnmount(){
@@ -137,11 +184,38 @@ export default class Header extends Component {
               })
               .catch(error => {
                 console.log("Error in /api/notifications/get/list/Unread/ = ",error);
+                if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
               })
 
           })
           .catch(error => {
             console.log("Error in /api/notifications/get/list/Unread/ = ",error);
+            console.log('logout Error => ',error);
+            if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
           });
 
     }else{
@@ -167,7 +241,20 @@ export default class Header extends Component {
         this.setState({ inAppNotifications: notifications.data,inAppNotificationsCount: notifications.data.length })
       })
       .catch(error => {
-        console.log('notifications error: ==> ',error)
+        console.log('notifications error: ==> ',error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
       })
   }
   render() {

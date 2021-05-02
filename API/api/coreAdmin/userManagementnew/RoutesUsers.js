@@ -9,7 +9,7 @@ router.patch('/patch/restorestatus',UserController.user_update_recover_status);
 
 router.patch('/patch/:ID',UserController.user_update_name_mobile);
 
-router.patch('/patch/profile/:ID',UserController.user_update_name_mobile_profile);
+router.patch('/patch/profile/:ID', UserController.user_update_name_mobile_profile);
 
 router.patch('/patch/status/:ID',UserController.user_update_status);
 

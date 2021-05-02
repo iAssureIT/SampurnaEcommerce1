@@ -9,6 +9,7 @@ import GoogleMapChart from './Charts/GoogleMapChart.js'
 import HorizontalBar  from './Charts/HorizontalBarChart.js'
 import Report         from './Reports/Report.js'
 import ProgressBlock  from './ProgressBlock/ProgressBlock.js'
+import axios             from 'axios';
 
 export default class Dashboard extends Component{
 	constructor(props) {
@@ -25,6 +26,10 @@ export default class Dashboard extends Component{
 	}
 	   
 	componentDidMount(){
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
     $('#dashbordid').removeClass('dashboard-component');
     var websiteModel = localStorage.getItem('websiteModel');
     console.log("websiteModel---->",websiteModel);

@@ -47,11 +47,12 @@ class Department extends Component {
     };
   }
   componentDidMount() {
-      const user_ID = localStorage.getItem("user_ID");
-    var userDetails = (localStorage.getItem('userDetails'));
-    var userData = JSON.parse(userDetails);
-    console.log("userData = ", userData);
-    const companyID = parseInt(userData.companyID);
+    var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
+    const user_ID   = localStorage.getItem("user_ID");
+    const companyID = parseInt(userDetails.companyID);
     this.setState({
      
       "user_ID": user_ID,
@@ -77,6 +78,20 @@ class Department extends Component {
       this.setState({profileCreated:true, companyInfo: res.data}) 
     })
     .catch((error)=>{
+      console.log("Error => ", error);
+      if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
     });
   }
   // componentWillReceiveProps(nextProps) {
@@ -104,11 +119,24 @@ class Department extends Component {
       this.setState({profileCreated:true, companyInfo: res.data}) 
     })
     .catch((error)=>{
+      console.log("Error => ", error);
+      if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
     });
   }
   getFileDetails(fileName){
-    axios
-    .get(this.state.fileDetailUrl+fileName)
+    axios.get(this.state.fileDetailUrl+fileName)
     .then((response)=> {
       console.log("response======",response);
     $('.fullpageloader').hide();  
@@ -140,7 +168,20 @@ class Department extends Component {
     }
     })
     .catch((error)=> { 
-      console.log('error', error);
+      console.log("Error => ", error);
+      if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
     }) 
   }
 

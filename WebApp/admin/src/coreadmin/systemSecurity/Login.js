@@ -85,7 +85,7 @@ class Login extends Component {
               loginTokens : response.data.loginTokens._id
             }
             document.getElementById("logInBtn").value = 'Sign In';
-            localStorage.setItem("token", response.data.token);
+            // localStorage.setItem("token", response.data.token);
             
             localStorage.setItem("companyID", userDetails.companyID);
             localStorage.setItem("user_ID", userDetails.user_id);

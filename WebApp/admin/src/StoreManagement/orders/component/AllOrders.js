@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Route, Switch,Link,location } from 'react-router-dom';
 import axios                  from 'axios';
+import swal                             from 'sweetalert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import $ from "jquery";
@@ -22,6 +23,10 @@ export default class AllOrders extends Component{
   }
    
   componentDidMount(){
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
     this.getOrders();
     var websiteModel = (localStorage.getItem('websiteModel'));
     this.setState({
@@ -98,6 +103,19 @@ export default class AllOrders extends Component{
             })
             .catch((error)=>{
                 console.log('error', error);
+                if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
             })
     }
 

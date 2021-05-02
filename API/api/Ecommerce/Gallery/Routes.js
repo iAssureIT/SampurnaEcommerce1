@@ -1,13 +1,14 @@
-const express 	= require("express");
-const router 	= express.Router();
+const express 		= require("express");
+const router 		= express.Router();
+const checkAuth 	= require('../../coreAdmin/middlerware/check-auth.js');
 
 const galleryController = require('../Gallery/Controller');
 
-router.post('/post',galleryController.insert_image);
+router.post('/post', 				checkAuth, galleryController.insert_image);
 
-router.get('/get',galleryController.fetch_gallery);
+router.get('/get', 					checkAuth, galleryController.fetch_gallery);
 
-router.patch('/remove/:imageId',galleryController.delete_image);
+router.patch('/remove/:imageId', checkAuth, galleryController.delete_image);
 
 
 module.exports = router;

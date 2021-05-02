@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal                   from 'sweetalert';
 import _ from 'underscore';
 import { withRouter } from 'react-router-dom';
 import BulkUploadComponent from './BulkUploadComponent';
@@ -43,6 +44,10 @@ class UpdateProductBulkUpload extends Component {
     }
 
     componentDidMount() {
+        var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+        var token       = userDetails.token;
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;   
+
         const user_ID = localStorage.getItem("user_ID");
         // console.log("User ID = ", user_ID);
         this.setState({
@@ -63,6 +68,19 @@ class UpdateProductBulkUpload extends Component {
           })
           .catch(error=>{
             console.log("Error in getting adminPreference = ", error);
+            if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                    if (okay) {
+                        window.location.href = "/login";
+                    }
+                });
+            }
           }) 
 
         this.getSectionData();
@@ -79,6 +97,19 @@ class UpdateProductBulkUpload extends Component {
           })
           .catch((error) => {
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                    if (okay) {
+                        window.location.href = "/login";
+                    }
+                });
+            }
           })
     }
     showRelevantCategories(event) {
@@ -99,6 +130,19 @@ class UpdateProductBulkUpload extends Component {
           })
           .catch((error) => {
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                    if (okay) {
+                        window.location.href = "/login";
+                    }
+                });
+            }
           })
     }
     showProgressBar() {
@@ -129,6 +173,19 @@ class UpdateProductBulkUpload extends Component {
             })
             .catch((error) => {
                 console.log('error', error);
+                if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                    if (okay) {
+                        window.location.href = "/login";
+                    }
+                });
+            }
             })
     }
     handleChangeCategory(event){
@@ -158,6 +215,19 @@ class UpdateProductBulkUpload extends Component {
           })
           .catch((error) => {
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                    if (okay) {
+                        window.location.href = "/login";
+                    }
+                });
+            }
           })
     }
 

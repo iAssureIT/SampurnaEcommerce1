@@ -84,12 +84,26 @@ export function getProductImage(data) {
     })
   }  
 }
+// export function getAllOrders(data) {
+//   return dispatch =>{
+//     const vendorid = localStorage.getItem('vendor_ID');
+//     console.log('vendorid',vendorid);
+//     return axios.post("/api/orders/get/vendorwiselist/"+vendorid, data)
+//     .then((response)=>{
+//         dispatch(fetchallorders(response.data));
+//     })
+//     .catch((error)=>{
+//           console.log('getAllOrderserror', error);
+//     })
+//   }  
+// }
 export function getAllOrders(data) {
 	return dispatch =>{
-    const vendorid = localStorage.getItem('vendor_ID');
+    const vendorid = JSON.parse(localStorage.getItem("userDetails")).company_ID;
     console.log('vendorid',vendorid);
-    return axios.post("/api/orders/get/vendorwiselist/"+vendorid, data)
+    return axios.post("/api/vendororders/get/vendorwiselist/"+vendorid, data)
     .then((response)=>{
+      console.log("response => ",response)
         dispatch(fetchallorders(response.data));
     })
     .catch((error)=>{
@@ -99,8 +113,8 @@ export function getAllOrders(data) {
 }
 export function getAllOrderCount(){
   return dispatch =>{
-    const vendorid = localStorage.getItem('vendor_ID');
-    return axios.get('/api/orders/get/vendorwisecount/'+vendorid)
+    const vendorid = JSON.parse(localStorage.getItem("userDetails")).company_ID;
+    return axios.get('/api/vendororders/get/vendorwisecount/'+vendorid)
     .then((response)=>{
       dispatch(fetchordercount(response.data));
     })
@@ -111,9 +125,9 @@ export function getAllOrderCount(){
 }
 export function getOrdersStatus(data) {
 	return dispatch =>{
-    const vendorid = localStorage.getItem('vendor_ID');
+    const vendorid = JSON.parse(localStorage.getItem("userDetails")).company_ID;
     console.log('vendorid',vendorid);
-    return axios.post("/api/orders/get/vendororderstatuslist/"+vendorid, data)
+    return axios.post("/api/vendororders/get/vendororderstatuslist/"+vendorid, data)
     .then((response)=>{
       console.log('getOrdersStatus', response.data);
         dispatch(fetchorderstatus(response.data));

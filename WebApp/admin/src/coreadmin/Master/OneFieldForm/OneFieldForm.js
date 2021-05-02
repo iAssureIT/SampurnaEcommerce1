@@ -141,12 +141,14 @@ class OneFieldForm extends React.Component {
         });
     }
     selectHandleChange = effect => {
+        console.log("effect => ",effect);
         this.setState({ effect });
         console.log(`Option selected:`, effect);
         var fieldName = this.props.fields.attributeName
         console.log("fieldName===",fieldName);
         this.setState({
-            fieldName: effect.value
+            fieldName: effect.value,
+            statusRank : effect.statusRank ? effect.statusRank : ''
         }, () => {
         });
       };
@@ -154,11 +156,12 @@ class OneFieldForm extends React.Component {
         event.preventDefault();
         if (this.props.editId) {
             var formValues = {
-                "companyID": this.state.companyID,
-                "fieldID": this.props.editId,
-                "fieldValue": this.state.fieldName.toUpperCase() ? this.state.fieldName.trim() : this.state.fieldName,
-                "iconUrl": this.state.categoryImage,
-                "updatedBy": this.state.user_ID
+                "companyID"     : this.state.companyID,
+                "fieldID"       : this.props.editId,
+                "fieldValue"    : this.state.fieldName.toUpperCase() ? this.state.fieldName.trim() : this.state.fieldName,
+                "iconUrl"       : this.state.categoryImage,
+                "statusRank"    : this.state.statusRank,
+                "updatedBy"     : this.state.user_ID
             }
             //console.log("formValues with image = ",formValues);
             if ($('#' + this.props.fields.attributeName).valid()) {
@@ -169,7 +172,9 @@ class OneFieldForm extends React.Component {
                             this.setState({
                                 fieldName: "",
                                 categoryImage: "",
-                                iconUrl: ""
+                                iconUrl: "",
+                                statusRank      : "",
+                                effect          : {}
                             }, () => {
                                 if (this.props.tableObjects.editUrl1) {
                                     this.props.history.push(this.props.tableObjects.editUrl1);
@@ -189,10 +194,11 @@ class OneFieldForm extends React.Component {
             }
         } else {
             var formValues = {
-                "companyID": this.state.companyID,
-                "fieldValue": this.state.fieldName? this.state.fieldName.trim() : this.state.fieldName,
-                "iconUrl": this.state.categoryImage,
-                "createdBy": this.state.user_ID
+                "companyID"     : this.state.companyID,
+                "fieldValue"    : this.state.fieldName? this.state.fieldName.trim() : this.state.fieldName,
+                "iconUrl"       : this.state.categoryImage,
+                "statusRank"    : this.state.statusRank,
+                "createdBy"     : this.state.user_ID
             }
 
            $(event.target).parent().find('.errorinputText .error:first').focus();
@@ -212,7 +218,9 @@ class OneFieldForm extends React.Component {
                         this.setState({
                             fieldName: "",
                             categoryImage: "",
-                            iconUrl: ""
+                            iconUrl: "",
+                            statusRank      : "",
+                            effect          : {}
                         })
                     })
                     .catch((error) => {
@@ -232,6 +240,7 @@ class OneFieldForm extends React.Component {
             "fieldID": this.props.editId,
             "fieldValue": this.state.fieldName.trim(),
             "iconUrl": this.state.categoryImage,
+            "statusRank"    : this.state.statusRank,
             "updatedBy": this.state.user_ID
         }
         console.log("Update Onefield formValues = ", formValues);
@@ -247,7 +256,8 @@ class OneFieldForm extends React.Component {
                             fieldName       : "",
                             categoryImage   : "",
                             iconUrl         : "",
-
+                            statusRank      : "",
+                            effect          : {}
                         }, () => {
                             this.getData(this.state.startRange, this.state.limitRange);
                             if (this.props.tableObjects.editUrl1) {
@@ -322,7 +332,13 @@ class OneFieldForm extends React.Component {
                         this.setState({
                             "fieldName": response.data[fieldName],
                             "categoryImage": response.data.iconUrl,
-                        });
+                            "statusRank"    : response.data.statusRank,
+                            "effect" : response.data.statusRank ?  {
+                                value       : response.data[fieldName],
+                                label       : response.data[fieldName],
+                                statusRank  : response.data.statusRank,
+                            } : {}
+                        },()=>{});
                     }
                     /*if(response.data.length== 0){
                         swal("Please Update");
@@ -523,9 +539,12 @@ class OneFieldForm extends React.Component {
                                                             <div className="form-margin col-lg-8 col-lg-offset-2 col-md-6 col-sm-12 col-xs-12 pdcls">
                                                                 <div id="OneFieldInput">
                                                                     <label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding-left">{this.props.fields.title} <i className="astrick">*</i></label>
+                                                                    {console.log("effect => ",effect)}
+                                                                    {console.log("this.props.options => ",this.props.options)}
                                                                     {this.props.inputType === "selectBox"?
+
                                                                     <Select
-                                                                        value={effect}
+                                                                        value={this.state.effect}
                                                                         onChange={this.selectHandleChange}
                                                                         options={this.props.options}
                                                                     />

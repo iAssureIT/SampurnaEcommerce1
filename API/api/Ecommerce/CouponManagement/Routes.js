@@ -1,22 +1,23 @@
-const express 	= require("express");
-const router 	= express.Router();
+const express 		= require("express");
+const router 		= express.Router();
+const checkAuth 	= require('../../coreAdmin/middlerware/check-auth.js');
 
 const CouponManagementController = require('./Controller');
 
-router.post('/post', CouponManagementController.insert_coupon);
+router.post('/post', 													checkAuth, CouponManagementController.insert_coupon);
 
-router.get('/get/list',CouponManagementController.get_coupon);
+router.get('/get/list', 												checkAuth, CouponManagementController.get_coupon);
 
-router.get('/get/list-with-limits/:startRange/:limitRange',CouponManagementController.get_discounts_with_limits);
+router.get('/get/list-with-limits/:startRange/:limitRange', checkAuth, CouponManagementController.get_discounts_with_limits);
 
-router.get('/get/count',CouponManagementController.count_discount);
+router.get('/get/count', 												checkAuth, CouponManagementController.count_discount);
 
-router.get('/get/one/:couponID',CouponManagementController.get_single_coupon);
+router.get('/get/one/:couponID', 									checkAuth, CouponManagementController.get_single_coupon);
 
-router.patch('/patch', CouponManagementController.update_coupon);
+router.patch('/patch', 													checkAuth, CouponManagementController.update_coupon);
 
-router.patch('/patch/couponBulkAction', CouponManagementController.couponBulkAction);
+router.patch('/patch/couponBulkAction', 							checkAuth, CouponManagementController.couponBulkAction);
 
-router.delete('/delete/:couponID',CouponManagementController.delete_coupon);
+router.delete('/delete/:couponID', 									checkAuth, CouponManagementController.delete_coupon);
 
 module.exports = router; 

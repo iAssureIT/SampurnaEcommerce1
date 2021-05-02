@@ -1,20 +1,21 @@
-const express 	= require("express");
-const router 	= express.Router();
+const express 			= require("express");
+const router 			= express.Router();
+const checkAuth 		= require('../middlerware/check-auth.js');
 
 const ExpenseItemMaster = require('./Controller.js');
 
-router.post('/post', 						ExpenseItemMaster.insertExpenseItemMaster);
+router.post('/post', 						checkAuth, ExpenseItemMaster.insertExpenseItemMaster);
 
-router.get('/get/list', 					ExpenseItemMaster.getExpenseItemList);
+router.get('/get/list', 					checkAuth, ExpenseItemMaster.getExpenseItemList);
 
-router.get('/get/reimbursementItems', 	ExpenseItemMaster.getReimbursementItems);
+router.get('/get/reimbursementItems', 	checkAuth, ExpenseItemMaster.getReimbursementItems);
 
-router.post('/get/list', 					ExpenseItemMaster.fetchExpenseItemList); 
+router.post('/get/list', 					checkAuth, ExpenseItemMaster.fetchExpenseItemList); 
  
-router.get('/get/one/:fieldID', 			ExpenseItemMaster.fetchSingleExpenseItem);
+router.get('/get/one/:fieldID', 			checkAuth, ExpenseItemMaster.fetchSingleExpenseItem);
 
-router.patch('/patch', 						ExpenseItemMaster.updateExpenseItem);
+router.patch('/patch', 						checkAuth, ExpenseItemMaster.updateExpenseItem);
 
-router.delete('/delete/:fieldID', 		ExpenseItemMaster.deleteExpenseItem);
+router.delete('/delete/:fieldID', 		checkAuth, ExpenseItemMaster.deleteExpenseItem);
 
 module.exports = router;

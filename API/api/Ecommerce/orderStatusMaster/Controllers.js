@@ -18,6 +18,7 @@ exports.insertOrderStatus = (req,res,next)=>{
             const orderStatusMaster = new OrderStatusMaster({
                             _id                         : new mongoose.Types.ObjectId(),
                             orderStatus                 : req.body.fieldValue,
+                            statusRank                  : req.body.statusRank,
                             createdBy                   : req.body.createdBy,
                             createdAt                   : new Date()
                         })
@@ -107,7 +108,10 @@ exports.updateOrderStatus = (req, res, next)=>{
     OrderStatusMaster.updateOne(
             { _id:req.body.fieldID },  
             {
-                $set:   {  'orderStatus'       : req.body.fieldValue  }
+                $set:   {  
+                    'orderStatus'      : req.body.fieldValue,
+                    'statusRank'       : req.body.statusRank 
+                }
             }
         )
         .exec()

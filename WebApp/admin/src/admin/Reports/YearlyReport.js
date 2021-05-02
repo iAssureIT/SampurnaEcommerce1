@@ -3,6 +3,7 @@ import IAssureTable         from "../../coreadmin/IAssureTable/IAssureTable.jsx"
 import moment from 'moment';
 import $ from 'jquery';
 import axios                  from 'axios';
+import swal                   from 'sweetalert';
 import 'font-awesome/css/font-awesome.min.css';
 
 export default class YearlyReport extends Component{
@@ -43,6 +44,9 @@ export default class YearlyReport extends Component{
     }
 
     componentDidMount(){
+      var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+      var token         = userDetails.token;
+      axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
         
         this.setState({
             selectedYear : moment().format('Y'),
@@ -77,7 +81,20 @@ export default class YearlyReport extends Component{
           })
         })
         .catch((error)=>{
-            console.log('error', error);
+            console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
     }
     getData(startRange,limitRange){
@@ -105,7 +122,20 @@ export default class YearlyReport extends Component{
           })
         })
         .catch((error)=>{
-            console.log('error', error);
+            console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
     }
     handleChange(event){

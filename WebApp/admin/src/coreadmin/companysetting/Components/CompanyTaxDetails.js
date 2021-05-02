@@ -50,6 +50,10 @@ class CompanyTaxDetails extends Component{
 
   
   componentDidMount() {
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token         = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token; 
+
     $.validator.addMethod("regxtax", function (value, element, regexpr) {
       return regexpr.test(value);
     }, "Please enter valid tax rate.");
@@ -76,7 +80,20 @@ class CompanyTaxDetails extends Component{
       this.setState({companyTaxData:response.data})
     })
     .catch((error)=>{
-      console.log('error: ',error)
+      console.log("error => ",error);
+      if(error.message === "Request failed with status code 401"){
+        var userDetails =  localStorage.removeItem("userDetails");
+        localStorage.clear();
+        swal({  
+            title : "Your Session is expired.",                
+            text  : "You need to login again. Click OK to go to Login Page"
+        })
+        .then(okay => {
+        if (okay) {
+            window.location.href = "/login";
+        }
+        });
+      }
     })
     
   }
@@ -112,6 +129,20 @@ class CompanyTaxDetails extends Component{
           swal({
                   text: "Failed to add tax details!",
                 });
+          console.log("error => ",error);
+          if(error.message === "Request failed with status code 401"){
+            var userDetails =  localStorage.removeItem("userDetails");
+            localStorage.clear();
+            swal({  
+                title : "Your Session is expired.",                
+                text  : "You need to login again. Click OK to go to Login Page"
+            })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
       }else{
         axios.patch('/api/globalmaster/updateTaxSettings',updatedtaxinfo)
@@ -126,6 +157,20 @@ class CompanyTaxDetails extends Component{
           swal({
                   text: "Failed to update tax details!",
                 });
+          console.log("error => ",error);
+          if(error.message === "Request failed with status code 401"){
+            var userDetails =  localStorage.removeItem("userDetails");
+            localStorage.clear();
+            swal({  
+                title : "Your Session is expired.",                
+                text  : "You need to login again. Click OK to go to Login Page"
+            })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
       }
     }
@@ -141,7 +186,20 @@ class CompanyTaxDetails extends Component{
       this.setState({companyTaxData:response.data})
     })
     .catch((error)=>{
-      console.log('error: ',error)
+      console.log("error => ",error);
+      if(error.message === "Request failed with status code 401"){
+        var userDetails =  localStorage.removeItem("userDetails");
+        localStorage.clear();
+        swal({  
+            title : "Your Session is expired.",                
+            text  : "You need to login again. Click OK to go to Login Page"
+        })
+        .then(okay => {
+        if (okay) {
+            window.location.href = "/login";
+        }
+        });
+      }
     })
 }
 
@@ -169,6 +227,20 @@ editTax(event){
   })
   .catch((error)=>{
     swal(error)
+    console.log("error => ",error);
+      if(error.message === "Request failed with status code 401"){
+        var userDetails =  localStorage.removeItem("userDetails");
+        localStorage.clear();
+        swal({  
+            title : "Your Session is expired.",                
+            text  : "You need to login again. Click OK to go to Login Page"
+        })
+        .then(okay => {
+        if (okay) {
+            window.location.href = "/login";
+        }
+        });
+      }
   })
     
 }
@@ -199,11 +271,38 @@ delTax(event){
       this.setState({companyTaxData:response.data})
     })
     .catch((error)=>{
-      console.log('error: ',error)
+      console.log("error => ",error);
+      if(error.message === "Request failed with status code 401"){
+        var userDetails =  localStorage.removeItem("userDetails");
+        localStorage.clear();
+        swal({  
+            title : "Your Session is expired.",                
+            text  : "You need to login again. Click OK to go to Login Page"
+        })
+        .then(okay => {
+        if (okay) {
+            window.location.href = "/login";
+        }
+        });
+      }
     })
         })
         .catch((error)=>{
           swal(error)
+          console.log("error => ",error);
+          if(error.message === "Request failed with status code 401"){
+            var userDetails =  localStorage.removeItem("userDetails");
+            localStorage.clear();
+            swal({  
+                title : "Your Session is expired.",                
+                text  : "You need to login again. Click OK to go to Login Page"
+            })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
       }else{}
     })

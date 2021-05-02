@@ -67,6 +67,7 @@ class EditUserProfile extends Component {
 
 	// }
 	handleSubmit(event) {
+
 		event.preventDefault();
 		if ($('#editUser').valid()) {
 			var userid = this.state.UserId;
@@ -78,6 +79,7 @@ class EditUserProfile extends Component {
 				"image": this.state.profileImage,
 				"email" : this.state.username
 			}
+
 			console.log("formvalues---",formvalues);
 			var userDetail = localStorage.getItem("userDetails");
 			var parsedUserDetail = JSON.parse(userDetail);
@@ -85,6 +87,13 @@ class EditUserProfile extends Component {
 			parsedUserDetail.lastName = this.refs.lastName.value
 			// console.log("parsedUserDetail",parsedUserDetail)
 			localStorage.setItem('userDetails',JSON.stringify(parsedUserDetail));
+
+			{/*var userDetails 	= JSON.parse(localStorage.getItem("userDetails"));*/}
+			
+			{/*userDetails.firstName = this.refs.firstName.value;*/}
+			{/*userDetails.lastName = this.refs.lastName.value*/}
+			// console.log("userDetails",userDetails)
+			{/*localStorage.setItem('userDetails',JSON.stringify(userDetails));*/}
 
 			// console.log("image formvalues==>", formvalues)
 			axios.patch('/api/users/patch/profile/' + userid, formvalues)
@@ -95,8 +104,6 @@ class EditUserProfile extends Component {
 							title: " ",
 							text: "User updated successfully",
 						});
-						  var userDetails = JSON.parse(localStorage.getItem("userDetails"));
-        console.log("userDetails",userDetails)
 
 		  // Notification Managment started
                 // console.log("userDetails ==> ",this.state.userDetails);
@@ -134,7 +141,22 @@ class EditUserProfile extends Component {
 
                     }
 				})
-				.catch((error) => {});
+				.catch((error) => {
+					console.log('logout Error => ',error);
+					if(error.message === "Request failed with status code 401"){
+	          		var userDetails =  localStorage.removeItem("userDetails");
+	          		localStorage.clear();
+	          		swal({  
+	              		title : "Your Session is expired.",                
+	              		text : "You need to login again. Click OK to go to Login Page"
+	            	})
+		          	.then(okay => {
+		         		if (okay) {
+		           			window.location.href = "/login";
+		         		}
+		          	});
+		        	}
+				});
 		}
 	}
 
@@ -149,6 +171,10 @@ class EditUserProfile extends Component {
 	}
 
 	componentDidMount() {
+		var userDetails 	= JSON.parse(localStorage.getItem("userDetails"));
+	 	var token 			= userDetails.token;
+	 	// axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
 		var userid = this.state.UserId;
 		const firstnameRegex = RegExp(/^[A-za-z']+( [A-Za-z']+)*$/);
 		const lastnameRegex = RegExp(/^[A-za-z']+( [A-Za-z']+)*$/);
@@ -220,6 +246,7 @@ class EditUserProfile extends Component {
 				})
 			})
 			.catch((error) => {
+				console.log("Error getUser => ",error);
 			});
 	}
 	imgBrowse(event) {
@@ -278,6 +305,7 @@ class EditUserProfile extends Component {
 								resolve(Data.location);
 							})
 							.catch((error) => {
+								console.log("Error s3upload => ",error) 
 							})
 					})
 				}
@@ -295,7 +323,9 @@ class EditUserProfile extends Component {
 								}
 								resolve(config);
 							})
-							.catch(function (error) {})
+							.catch(function (error) {
+								console.log("Error getConfig => ",error)
+							})
 					})
 				}
 			}

@@ -1,5 +1,6 @@
 import React, { Component }   from 'react';
 import axios                  from 'axios';
+import swal                   from 'sweetalert';
 import IAssureTable           from "../../coreadmin/IAssureTable/IAssureTable.jsx";
 import moment from 'moment';
 import $ from 'jquery';
@@ -72,16 +73,29 @@ class DailyReport extends Component{
             "deliveryStatus"             : a.status +' '+ a.deliveryStatus[0].status,
 
         }
-    })
+      })
 
-  this.setState({ 
-    tableData : tableData
-  },()=>{ 
-    console.log("tableData tableData",tableData);
-  })
+      this.setState({ 
+        tableData : tableData
+      },()=>{ 
+        console.log("tableData tableData",tableData);
+      })
     })
     .catch((error)=>{
-        console.log('error', error);
+        console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
     })
   }
   getCount(){
@@ -100,7 +114,20 @@ class DailyReport extends Component{
           })
         })
         .catch((error)=>{
-            console.log('error', error);
+            console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
   }
   componentWillReceiveProps(nextProps){
@@ -108,7 +135,10 @@ class DailyReport extends Component{
   }
 
   componentDidMount() {
-    
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token         = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
     document.getElementsByClassName('reportsDateRef').value = moment().startOf('day').format("DD/MM/YYYY") ;
     this.setState({ currentDate:moment().startOf('day').format("YYYY-MM-DD") },()=>{
       this.getCount();  

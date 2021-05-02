@@ -2,6 +2,7 @@ import React, {Component}           from 'react';
 import {render}                     from 'react-dom';
 import $ from "jquery";
 import axios from 'axios';
+import swal                             from 'sweetalert';
 
 import LocationType                 from  '../../Master/LocationType/LocationType.jsx';
 import Department                   from  '../../Master/Department/DepartmentMaster-GlobalMaster.js';
@@ -24,6 +25,9 @@ import '../css/CompanySetting.css';
 	
 	}
   componentDidMount() {
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token         = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 
     if(this.props.match){
       if(this.props.match.params.editId && this.props.match.params.editId !== 'undefined'){
@@ -41,6 +45,20 @@ import '../css/CompanySetting.css';
       this.setState({profileCreated:true, companyInfo: res.data}) 
     })
     .catch((error)=>{
+      console.log("error => ",error);
+      if(error.message === "Request failed with status code 401"){
+        var userDetails =  localStorage.removeItem("userDetails");
+        localStorage.clear();
+        swal({  
+            title : "Your Session is expired.",                
+            text  : "You need to login again. Click OK to go to Login Page"
+        })
+        .then(okay => {
+        if (okay) {
+            window.location.href = "/login";
+        }
+        });
+      }
     });
   }
  
@@ -61,6 +79,20 @@ import '../css/CompanySetting.css';
       this.setState({profileCreated:true, companyInfo: res.data}) 
     })
     .catch((error)=>{
+      console.log("error => ",error);
+      if(error.message === "Request failed with status code 401"){
+        var userDetails =  localStorage.removeItem("userDetails");
+        localStorage.clear();
+        swal({  
+            title : "Your Session is expired.",                
+            text  : "You need to login again. Click OK to go to Login Page"
+        })
+        .then(okay => {
+        if (okay) {
+            window.location.href = "/login";
+        }
+        });
+      }
     });
   }
 

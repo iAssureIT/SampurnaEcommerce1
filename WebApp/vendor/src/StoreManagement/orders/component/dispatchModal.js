@@ -7,7 +7,7 @@ import moment                 from "moment";
 import swal                   from 'sweetalert';
 import _                      from 'underscore';
 
-
+import '../css/VendorOrdersList.css';
 class dispatchModal extends Component{
     constructor(props) {
         super(props);
@@ -37,10 +37,10 @@ class dispatchModal extends Component{
 
         var expDeliveryDate = $('.expDeliveryDate').val();
         
-        if(businessAssociate != '' ){
+        if(businessAssociate !== '' ){
           var formValues = {
                           "orderID"             :  id,
-                          "userid"              :  localStorage.getItem('user_ID'),
+                          "userid"              :  localStorage.getItem('admin_ID'),
                           "businessAssociateId" : businessAssociate
                           }
           console.log(formValues);
@@ -51,10 +51,10 @@ class dispatchModal extends Component{
             swal({
               title : response.data.message,
             });
-             if(response.status == 200){
+             if(response.status === 200){
                 
                     swal({
-                        title: 'Order is dispatched Successflly',
+                        title: 'Order is dispatched successfully',
                     });
                     // this.getOrders();
                     var modal = document.getElementById('adminModal');
@@ -164,18 +164,19 @@ class dispatchModal extends Component{
                 }  
                 {
                 <div className="modal-dialog adminModal addressModal-dialog" id="adminModal">
-                  <div className="modal-content">
-                    <div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">                                                                              
-                      <h4 className="WightFont textAlignCenter col-lg-11 col-md-11 col-sm-11 col-xs-11">DISPATCH ORDER</h4>
-                      <div className="adminCloseCircleDiv pull-right  col-lg-1 col-md-1 col-sm-1 col-xs-12 NOpadding-left NOpadding-right">
-                        <button type="button" className="adminCloseButton" data-dismiss="modal" onClick={this.closeModal.bind(this)} >&times;</button>
-                      </div>
+                  <div className="modal-content dispatch-height">
+                    <div className="modal-header borderColor col-lg-12 col-md-12 col-sm-12 col-xs-12">                                                                              
+                      <h4 className="WightFont textAlignCenter col-lg-11 col-md-11 col-sm-11 col-xs-11 modal-title boldWeight">Dispatch Order</h4>
                     </div>
                     <div className="modal-body">
+                      <div className="adminCloseCircleDiv pull-right  col-lg-1 col-md-1 col-sm-1 col-xs-12 NOpadding-left NOpadding-right" style={{'marginTop':'-48px'}}>
+                        <button type="button" className="adminCloseButton" data-dismiss="modal" onClick={this.closeModal.bind(this)} >&times;</button>
+                        
+                      </div>
                       <form className="dispatchForm" onSubmit={this.addDispatchDetails.bind(this)} id={this.props.orderId}>
                       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       
-                      <div className="row inputrow">
+                      {/* <div className="row inputrow">
                           <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                           <div className="form-group">
                               <br/>
@@ -197,7 +198,7 @@ class dispatchModal extends Component{
                               </div>
                           </div>
                           </div>
-                      </div>
+                      </div> */}
                       <div className="row inputrow">
                           <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                           <div className="form-group">

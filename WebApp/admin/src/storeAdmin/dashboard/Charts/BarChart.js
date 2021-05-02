@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import { render } from 'react-dom';
 import {Bar} from 'react-chartjs-2';
 import axios             from 'axios';
-
+import swal from 'sweetalert';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -49,6 +49,10 @@ export default class BarChart extends Component{
   }
    
   componentDidMount(){
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
     if(this.props.display){
       this.setState({
         boxColor: this.props.boxColor,
@@ -110,7 +114,20 @@ export default class BarChart extends Component{
         }  
       })
       .catch((error)=>{  
-        console.log('error=>',error)      
+        console.log('error=>',error) 
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+          .then(okay => {
+          if (okay) {
+              window.location.href = "/login";
+          }
+          });
+        }     
       });
     }
   }

@@ -26,6 +26,10 @@ class EntityDetails extends Component {
   }
 
 	componentDidMount(){
+		var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    	var token         = userDetails.token;
+    	axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
 		$("html,body").scrollTop(0);
 		this.setState({
   			id : this.props.id
@@ -33,7 +37,7 @@ class EntityDetails extends Component {
 			console.log("id",this.props.id);
 			this.getEntitiesInfo(this.state.id)
 		})
-  }
+  	}
   getEntitiesInfo(id){
   	axios.get("/api/entitymaster/get/one/"+id)
       .then((response)=>{
@@ -46,6 +50,20 @@ class EntityDetails extends Component {
         });
       })
       .catch((error)=>{
+      	console.log("error => ",error);
+      	if(error.message === "Request failed with status code 401"){
+       		var userDetails =  localStorage.removeItem("userDetails");
+       		localStorage.clear();
+       		swal({  
+           		title : "Your Session is expired.",                
+           		text  : "You need to login again. Click OK to go to Login Page"
+         	})
+          	.then(okay => {
+         		if (okay) {
+           			window.location.href = "/login";
+         		}
+          	});
+        	}
       })
   }
 
@@ -106,6 +124,20 @@ class EntityDetails extends Component {
 	  window.location.reload();
     })
     .catch((error)=>{
+    	console.log("error => ",error);
+    	if(error.message === "Request failed with status code 401"){
+    		var userDetails =  localStorage.removeItem("userDetails");
+    		localStorage.clear();
+    		swal({  
+        		title : "Your Session is expired.",                
+        		text  : "You need to login again. Click OK to go to Login Page"
+      	})
+       	.then(okay => {
+      		if (okay) {
+        			window.location.href = "/login";
+      		}
+       	});
+     	}
     })
   }
   closeModal(event){

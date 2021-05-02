@@ -63,8 +63,11 @@ class CompanyInformation extends Component{
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem("token");
-    
+    // axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem("token");
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token         = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
     $.validator.addMethod("regxmobileNumber", function (value, element, regexpr) {
       return regexpr.test(value);
     }, "Please enter valid mobile number.");
@@ -203,6 +206,20 @@ class CompanyInformation extends Component{
               $('#Statedata').val(this.state.companyState);
             })
             .catch((error)=>{
+              console.log("error => ",error);
+              if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                if (okay) {
+                    window.location.href = "/login";
+                }
+                });
+              }
             })
     }
     handleChangeState(event){
@@ -223,6 +240,20 @@ class CompanyInformation extends Component{
               $('#districtData').val(this.state.district);
             })
             .catch((error)=>{
+              console.log("error => ",error);
+              if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                if (okay) {
+                    window.location.href = "/login";
+                }
+                });
+              }
             })
     }
     handleChangeDistrict(event){
@@ -248,6 +279,20 @@ class CompanyInformation extends Component{
               $('#Blocksdata').val(this.state.taluka);
             })
             .catch((error)=>{
+              console.log("error => ",error);
+              if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                if (okay) {
+                    window.location.href = "/login";
+                }
+                });
+              }
             })
     }
     handleChangeBlock(event){
@@ -333,6 +378,20 @@ class CompanyInformation extends Component{
             title: "Company Information submition failed!",
             text: "Company Information submition failed!",
           });
+          console.log("error => ",error);
+          if(error.message === "Request failed with status code 401"){
+            var userDetails =  localStorage.removeItem("userDetails");
+            localStorage.clear();
+            swal({  
+                title : "Your Session is expired.",                
+                text  : "You need to login again. Click OK to go to Login Page"
+            })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
         .finally(function () {
           // always executed
@@ -355,6 +414,20 @@ class CompanyInformation extends Component{
                 title: "Nothing to update!",
                 text: "Nothing to update!",
               });
+          }
+          console.log("error => ",error);
+          if(error.message === "Request failed with status code 401"){
+            var userDetails =  localStorage.removeItem("userDetails");
+            localStorage.clear();
+            swal({  
+                title : "Your Session is expired.",                
+                text  : "You need to login again. Click OK to go to Login Page"
+            })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
           }
         });
     }
@@ -404,6 +477,20 @@ class CompanyInformation extends Component{
                 
             })
             .catch((error) => {
+              console.log("error => ",error);
+              if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                if (okay) {
+                    window.location.href = "/login";
+                }
+                });
+              }
             })
         }else{
             this.setState({pincodeExists : true})

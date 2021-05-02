@@ -1,3 +1,6 @@
+.content{
+    font-family: 'montserrat-font';
+}
 .admin-orders-SubTitleRow input {
     border-radius: 15px;
     margin-bottom: 10px;
@@ -115,7 +118,10 @@
     background: #eee;
     cursor: pointer;
 }
-
+/* .admin-order-view:hover, .admin-order-changeStat:hover {
+    color: #fff !important;
+    background: #444;
+} */
 
 /* .admin-order-view:visited, .admin-order-changeStat:visited {
     color: #808080;    
@@ -284,4 +290,10 @@
   border-radius: 4px;
   padding: 14px 18px;
   margin:10px 0;
+}
+.padding30{
+    padding: 30px;
+}
+.orderDetailTitles{
+    font-size:14px;
 }

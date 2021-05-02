@@ -4,6 +4,7 @@ import TimePicker           from 'rc-time-picker';
 import moment               from 'moment';
 import jQuery               from 'jquery';
 import $                    from 'jquery';
+import axios                  from 'axios';
 import OneFieldForm         from '../../Master/OneFieldForm/OneFieldForm.js';
 
 const format = "h:mm a";
@@ -36,6 +37,10 @@ class Roles extends Component{
       };
   }
   componentDidMount() {
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
         var editId = this.props.match.params.fieldID;
        
         this.setState({

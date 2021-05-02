@@ -1,25 +1,26 @@
-const express 	= require("express");
-const router 	= express.Router();
+const express 		= require("express");
+const router 		= express.Router();
+const checkAuth 	= require('../middlerware/check-auth.js');
 
 const ExpenseTypeMasterContoller = require('./ControllerExpenseTypeMaster.js');
 
-router.post('/insertExpenseType', ExpenseTypeMasterContoller.insertExpenseType);
+router.post('/insertExpenseType', 		checkAuth, ExpenseTypeMasterContoller.insertExpenseType);
 
-router.get('/showAllData', ExpenseTypeMasterContoller.showAllData);
+router.get('/showAllData', 				checkAuth, ExpenseTypeMasterContoller.showAllData);
 
-router.post('/get/list', ExpenseTypeMasterContoller.fetchExpenseTypeList);
+router.post('/get/list', 					checkAuth, ExpenseTypeMasterContoller.fetchExpenseTypeList);
 
-router.get('/get/one/:fieldID', ExpenseTypeMasterContoller.fetchSingleExpenseType);
+router.get('/get/one/:fieldID', 			checkAuth, ExpenseTypeMasterContoller.fetchSingleExpenseType);
 
-router.get('/getSingleData/:id', ExpenseTypeMasterContoller.getSingleData);
+router.get('/getSingleData/:id', 		checkAuth, ExpenseTypeMasterContoller.getSingleData);
 
-router.get('/getDataByType/:type', ExpenseTypeMasterContoller.getDataByType);
+router.get('/getDataByType/:type', 		checkAuth, ExpenseTypeMasterContoller.getDataByType);
 
-router.patch('/updateExpenseType', ExpenseTypeMasterContoller.updateExpenseType);
+router.patch('/updateExpenseType', 		checkAuth, ExpenseTypeMasterContoller.updateExpenseType);
 
-router.delete('/delete/:fieldID', ExpenseTypeMasterContoller.deleteExpenseType);
+router.delete('/delete/:fieldID', 		checkAuth, ExpenseTypeMasterContoller.deleteExpenseType);
 
-router.delete('/get/deleteAllTaxes',ExpenseTypeMasterContoller.deleteAllTaxes);
+router.delete('/get/deleteAllTaxes', 	checkAuth, ExpenseTypeMasterContoller.deleteAllTaxes);
 
 module.exports = router;
 

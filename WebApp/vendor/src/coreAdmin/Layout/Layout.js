@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React, { Component }                       from 'react';
+import { render }                                 from 'react-dom';
+import { connect }                                from 'react-redux';
+import { withRouter }                             from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import $ from "jquery";
 
@@ -92,6 +94,7 @@ class Layout extends Component {
     this.state = {
       loggedIn: false,
     }
+    this.logout = this.logout.bind(this)
   }
 
   componentDidMount() {
@@ -114,28 +117,53 @@ class Layout extends Component {
     });*/
 
 
-    const token = localStorage.getItem("user_ID");
-    // console.log("Dashboard Token = ", token);
-    if (token !== null) {
-      // console.log("*********===***********imin ",token);
-      this.setState({
-        loggedIn: true
-      })
-    } else {
-      // console.log("token is not available");
+    // const token = localStorage.getItem("user_ID");
+    // // console.log("Dashboard Token = ", token);
+    // if (token !== null) {
+    //   // console.log("*********===***********imin ",token);
+    //   this.setState({
+    //     loggedIn: true
+    //   })
+    // } else {
+    //   // console.log("token is not available");
+    // }
+
+    var userDetails = localStorage.getItem("userDetails");
+    if(userDetails){
+        const token = JSON.parse(userDetails).token;
+        if (token !== null && token !== "undefined") {
+            this.setState({
+                loggedIn: true
+            })
+        } else { 
+            console.log("token is not available");
+        }
+    }else{
+        console.log("userDetails =>",userDetails)
+        this.setState({
+            loggedIn : false
+        },()=>{
+            this.props.history.push("/login");
+            // window.location.reload(1);
+        })
     }
 
   }
 
   logout() {
-    var token = localStorage.removeItem("user_ID");
-    if (token !== null) {
-      // console.log("Header Token = ", token);
-      this.setState({
-        loggedIn: false
-      })
-      // browserHistory.push("/login");
-      // this.props.history.push("/login");
+    // var token = localStorage.removeItem("user_ID");
+    // if (token !== null) {
+    //   // console.log("Header Token = ", token);
+    //   this.setState({
+    //     loggedIn: false
+    //   })
+    //   // browserHistory.push("/login");
+    //   // this.props.history.push("/login");
+    // }
+    var token       = localStorage.removeItem("token");
+    var userDetails = localStorage.removeItem("userDetails");
+    if (token !== null && token !== "undefined") {
+        this.setState({ loggedIn : false });
     }
   }
 
@@ -164,14 +192,15 @@ class Layout extends Component {
         <div className="hold-transition skin-blue fixed sidebar-mini">
           <div className="content-wrapper">
             <div className="wrapper">
-              <Header />
+              <Header  logoutfn={this.logout} />
              
               
-              <div className="row">
+              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              {/*<div className="row">*/}
                <Leftsidebar />
-                <div className="container-fluid main-container">
-                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mrBt15">
-                   <div className="dashboardWrapper">
+                <div className="container-fluid main-container NoPadding">
+                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mrBt15 NoPadding">
+                   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding dashboardWrapper">
                     <div className="backColor col-lg-12 col-md-12 col-sm-12 col-xs-12" >
                 {/*<div className="">
                   <VendorSelector />
@@ -291,4 +320,4 @@ class Layout extends Component {
 
   }
 }
-export default Layout;
+export default withRouter(Layout);

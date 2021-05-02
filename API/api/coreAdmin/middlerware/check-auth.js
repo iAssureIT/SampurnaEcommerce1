@@ -1,12 +1,17 @@
 const jwt 				= require('jsonwebtoken');
 const globalVariable	= require('../../../nodemon.js');
 const Users 			= require('../userManagementnew/ModelUsers.js');
+
 const auth = (req, res, next) => {
+	// console.log("req.headers.authorization => ",req.headers)
 	if(req.headers.authorization){
 	    const token = req.headers.authorization.split(" ")[1];
-	    const data = jwt.verify(token, globalVariable.JWT_KEY,(err,decode)=>{
+			// console.log("token => ",token)
+			// console.log("globalVariable.JWT_KEY => ",globalVariable.JWT_KEY)
+	    	const data = jwt.verify(token, globalVariable.JWT_KEY,(err,decode)=>{
+	    		console.log("decode ====> ",decode);
 	    	if(err){
-	    		console.log("err verify ",err);
+	    		console.log("err ====> ",err);
 				res.status(401).json("Not authorized to access this resource");
 	    	}else{
 	    		try{

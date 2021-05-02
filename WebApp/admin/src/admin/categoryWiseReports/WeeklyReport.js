@@ -3,6 +3,7 @@ import IAssureTable             from "../../coreadmin/IAssureTable/IAssureTable.
 import moment from 'moment';
 import $ from 'jquery';
 import axios                  from 'axios';
+import swal                   from 'sweetalert';
 
 export default class WeeklyReport extends Component{
 	constructor(props){
@@ -38,13 +39,29 @@ export default class WeeklyReport extends Component{
     }
 
     componentDidMount(){
+      var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+      var token         = userDetails.token;
+      axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
         
         axios.get("/api/sections/get/list/")
         .then((response)=>{
           this.setState({ sections : response.data })
         })
         .catch((error)=>{
-            console.log('error', error);
+            console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
         this.setState({
             selectedWeekYear : moment().format('Y')+'-'+moment().format('w')+'W',
@@ -81,7 +98,20 @@ export default class WeeklyReport extends Component{
           })
         })
         .catch((error)=>{
-            console.log('error', error);
+            console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
     }
     getData(startDate,endDate, startRange,limitRange,section ,category, subcategory){
@@ -105,7 +135,20 @@ export default class WeeklyReport extends Component{
               })
             })
             .catch((error)=>{
-                console.log('error', error);
+                console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
             })
     }
 	previousWeek(event){
@@ -162,7 +205,20 @@ export default class WeeklyReport extends Component{
           })
         })
         .catch((error)=>{
-            console.log('error', error);
+            console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
     }
     handleCategory(event){
@@ -174,7 +230,20 @@ export default class WeeklyReport extends Component{
           })
         })
         .catch((error)=>{
-            console.log('error', error);
+            console.log("error => ",error);
+        if(error.message === "Request failed with status code 401"){
+          var userDetails =  localStorage.removeItem("userDetails");
+          localStorage.clear();
+          swal({  
+              title : "Your Session is expired.",                
+              text  : "You need to login again. Click OK to go to Login Page"
+          })
+            .then(okay => {
+            if (okay) {
+                window.location.href = "/login";
+            }
+            });
+          }
         })
     }
     handleSubCategory(event){

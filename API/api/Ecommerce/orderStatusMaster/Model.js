@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const orderStatusSchema = mongoose.Schema({
     _id                       : mongoose.Schema.Types.ObjectId,
     orderStatus               : String,
+    statusRank                : Number,
     companyID                 : String,
     createdBy                 : { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     createdAt                 : Date,
@@ -15,4 +16,4 @@ const orderStatusSchema = mongoose.Schema({
                                 ]
 });
 
-module.exports = mongoose.model('orderStatusSchema',orderStatusSchema);
+module.exports = mongoose.model('orderStatus',orderStatusSchema);

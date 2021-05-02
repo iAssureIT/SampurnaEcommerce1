@@ -34,10 +34,12 @@ class FranchiseOrderSummary extends Component {
 	}
 
 	componentDidMount() {
-		const user_ID = localStorage.getItem("user_ID");
-		var userDetails = (localStorage.getItem('userDetails'));
-		var userData = JSON.parse(userDetails);
-		const companyID = parseInt(userData.companyID);
+		var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    	var token         = userDetails.token;
+    	axios.defaults.headers.common['Authorization'] = 'Bearer '+ token; 
+
+		const user_ID = userDetails.user_id;
+		const companyID = parseInt(userDetails.companyID);
 		// console.log("companyID = ", companyID);
 		this.setState({
 			user_ID: user_ID,
@@ -62,7 +64,20 @@ class FranchiseOrderSummary extends Component {
 					})
 	      })
 	      .catch((error) => {
-					console.log("Error in franchiseList = ", error);
+				console.log("Error in franchiseList = ", error);
+	      	if(error.message === "Request failed with status code 401"){
+	       		var userDetails =  localStorage.removeItem("userDetails");
+	       		localStorage.clear();
+	       		swal({  
+	           		title : "Your Session is expired.",                
+	           		text  : "You need to login again. Click OK to go to Login Page"
+	         	})
+	          	.then(okay => {
+	         		if (okay) {
+	           			window.location.href = "/login";
+	         		}
+	          	});
+	        	}
 	      })
 	}
 
@@ -117,7 +132,20 @@ class FranchiseOrderSummary extends Component {
 					})
 			})
 			.catch((error) => {
-				console.log("error",error);
+				console.log("error => ",error);
+	      	if(error.message === "Request failed with status code 401"){
+	       		var userDetails =  localStorage.removeItem("userDetails");
+	       		localStorage.clear();
+	       		swal({  
+	           		title : "Your Session is expired.",                
+	           		text  : "You need to login again. Click OK to go to Login Page"
+	         	})
+	          	.then(okay => {
+	         		if (okay) {
+	           			window.location.href = "/login";
+	         		}
+	          	});
+	        	}
 			});
 	}
 

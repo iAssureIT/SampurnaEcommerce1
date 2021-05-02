@@ -6,7 +6,7 @@ import moment                 from "moment";
 // import IAssureTable           from "../../IAssureTable/IAssureTable.jsx";
 import swal                   from 'sweetalert';
 import _                      from 'underscore';
-import '../css/AdminOrdersList.css';
+import '../css/VendorOrdersList.css';
 import MUIDataTable from "mui-datatables";
 
 class AdminOrdersList extends Component{
@@ -72,7 +72,7 @@ class AdminOrdersList extends Component{
         var status = $(event.currentTarget).attr('data-status');
         var id = $(event.currentTarget).attr('data-id');
         
-        if(status != "Dispatch"){
+        if(status !== "Dispatch"){
             if(status!="Done"){
                 swal({
                     title: 'Do you want to change status to '+status+ "?",
@@ -86,7 +86,7 @@ class AdminOrdersList extends Component{
                         var formValues = {
                           "orderID" :  id,  
                           "status"  :  status,
-                          "userid"  :  localStorage.getItem('user_ID')
+                          "userid"  :  localStorage.getItem('admin_ID')
                         }
                         axios.patch('/api/orders/patch/updateDeliveryStatus', formValues)
                         .then((response)=>{
@@ -127,7 +127,7 @@ class AdminOrdersList extends Component{
                     var formValues = {
                           "orderID" :  id,  
                           "status"  :  status,
-                          "userid"  :  localStorage.getItem('user_ID')
+                          "userid"  :  localStorage.getItem('admin_ID')
                         }
                         axios.patch('/api/orders/patch/updateDeliveryStatus', formValues)
                         .then((response)=>{
@@ -157,10 +157,10 @@ class AdminOrdersList extends Component{
 
         var expDeliveryDate = $('.expDeliveryDate').val();
         
-        if(businessAssociate != '' ){
+        if(businessAssociate !== '' ){
           var formValues = {
                           "orderID"             :  id,
-                          "userid"              :  localStorage.getItem('user_ID'),
+                          "userid"              :  localStorage.getItem('admin_ID'),
                           "businessAssociateId" : businessAssociate
                           }
           console.log(formValues);
@@ -171,11 +171,11 @@ class AdminOrdersList extends Component{
             swal({
               title : response.data.message,
             });
-             if(response.status == 200){
+             if(response.status === 200){
                 //$('#dispatchDetails'+id).modal('hide');
                 
                     swal({
-                        title: 'Order is dispatched Successflly',
+                        title: 'Order is dispatched Successfully',
                         showConfirmButton: false
                     });
                     this.getOrders();
@@ -204,7 +204,7 @@ class AdminOrdersList extends Component{
     }
     render(){
         return(         
-            <div className="container-fluid">
+            <div className="container">
               <div className="row">
                 <div className="formWrapper">
                   <section className="content">
@@ -300,22 +300,22 @@ class AdminOrdersList extends Component{
                                                                       {listData.status}
                                                                   </div>
                                                                   <div className={ 
-                                                                        listData.deliveryStatus[0].status == "New Order" ?
-                                                                         "admin-orders-stat-NewOrder" : ( listData.deliveryStatus[0].status == "Packed" ? "admin-orders-stat-Packed" : 
-                                                                            listData.deliveryStatus[0].status == "Verified"    ? "admin-orders-stat-Verified"   : 
-                                                                            listData.deliveryStatus[0].status == "Inspection"  ? "admin-orders-stat-Inspection" :
-                                                                            listData.deliveryStatus[0].status == "Dispatch Approved"  ? "admin-orders-stat-OrderVerified" :
-                                                                            listData.deliveryStatus[0].status == "Dispatch"    ? "admin-orders-stat-Dispatched" :
-                                                                            listData.deliveryStatus[0].status == "To Deliver"    ? "admin-orders-stat-Dispatched" :
-                                                                            listData.deliveryStatus[0].status == "Delivery Initiated"    ? "admin-orders-stat-Delivered" :
-                                                                            listData.deliveryStatus[0].status == "Delivered & Paid"   ? "admin-orders-stat-Deliveredpaid" : 
-                                                                             listData.deliveryStatus[0].status == "Returned"   ? "admin-orders-stat-Dispatched" : 
-                                                                            listData.deliveryStatus[0].status == "Cancelled"   ? "admin-orders-stat-Dispatched" : ""
+                                                                        listData.deliveryStatus[0].status === "New Order" ?
+                                                                         "admin-orders-stat-NewOrder" : ( listData.deliveryStatus[0].status === "Packed" ? "admin-orders-stat-Packed" : 
+                                                                            listData.deliveryStatus[0].status === "Verified"    ? "admin-orders-stat-Verified"   : 
+                                                                            listData.deliveryStatus[0].status === "Inspection"  ? "admin-orders-stat-Inspection" :
+                                                                            listData.deliveryStatus[0].status === "Dispatch Approved"  ? "admin-orders-stat-OrderVerified" :
+                                                                            listData.deliveryStatus[0].status === "Dispatch"    ? "admin-orders-stat-Dispatched" :
+                                                                            listData.deliveryStatus[0].status === "To Deliver"    ? "admin-orders-stat-Dispatched" :
+                                                                            listData.deliveryStatus[0].status === "Delivery Initiated"    ? "admin-orders-stat-Delivered" :
+                                                                            listData.deliveryStatus[0].status === "Delivered & Paid"   ? "admin-orders-stat-Deliveredpaid" : 
+                                                                             listData.deliveryStatus[0].status === "Returned"   ? "admin-orders-stat-Dispatched" : 
+                                                                            listData.deliveryStatus[0].status === "Cancelled"   ? "admin-orders-stat-Dispatched" : ""
                                                                                 ) 
                                                                                                                                     
                                                                       }>
                                                                       {
-                                                                         listData.deliveryStatus[0].status == "Dispatch" ? "Dispatched" : listData.deliveryStatus[0].status 
+                                                                         listData.deliveryStatus[0].status === "Dispatch" ? "Dispatched" : listData.deliveryStatus[0].status 
                                                                       }
                                                                   </div>
                                                                   <div className="dispatchdetails col-lg-12">
@@ -385,39 +385,39 @@ class AdminOrdersList extends Component{
                                                               </td>
                                                               <td className="col-lg-2 textAlignCenter">
 
-                                                              {listData.deliveryStatus[0].status == "Cancelled" || listData.deliveryStatus[0].status == "Returned" || 
-                                                              listData.deliveryStatus[0].status == "Dispatch" || listData.deliveryStatus[0].status == "Delivery Initiated" ||  listData.deliveryStatus[0].status == "Delivered & Paid" || listData.deliveryStatus[0].status == "New Order"? 
+                                                              {listData.deliveryStatus[0].status === "Cancelled" || listData.deliveryStatus[0].status === "Returned" || 
+                                                              listData.deliveryStatus[0].status === "Dispatch" || listData.deliveryStatus[0].status === "Delivery Initiated" ||  listData.deliveryStatus[0].status === "Delivered & Paid" || listData.deliveryStatus[0].status === "New Order"? 
                                                                       ""
                                                                       :
                                                                   <div className="admin-order-view"  onClick={this.changeToPreviousStatus.bind(this)} data-id={listData._id} data-status={
-                                                                              listData.deliveryStatus[0].status == "New Order"         ? "Nothing" :  
-                                                                              listData.deliveryStatus[0].status == "Verified"          ? "New Order" :  
-                                                                              listData.deliveryStatus[0].status == "Packed"            ? "Verified" :  
-                                                                              listData.deliveryStatus[0].status == "Inspection"        ? "Packed" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch Approved"    ? "Inspection" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch"          ? "Dispatch Approved" :  
-                                                                              listData.deliveryStatus[0].status == "Delivery Initiated"  ? "Dispatch" :
-                                                                              listData.deliveryStatus[0].status == "Delivered & Paid"  ? "Delivery Initiated" : "Nothing"
+                                                                              listData.deliveryStatus[0].status === "New Order"         ? "Nothing" :  
+                                                                              listData.deliveryStatus[0].status === "Verified"          ? "New Order" :  
+                                                                              listData.deliveryStatus[0].status === "Packed"            ? "Verified" :  
+                                                                              listData.deliveryStatus[0].status === "Inspection"        ? "Packed" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch Approved"    ? "Inspection" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch"          ? "Dispatch Approved" :  
+                                                                              listData.deliveryStatus[0].status === "Delivery Initiated"  ? "Dispatch" :
+                                                                              listData.deliveryStatus[0].status === "Delivered & Paid"  ? "Delivery Initiated" : "Nothing"
                                                                           } 
                                                                           title={
-                                                                              listData.deliveryStatus[0].status == "New Order"          ? "Verify The Order" :  
-                                                                              listData.deliveryStatus[0].status == "Verified"           ? "Order Packing" :  
-                                                                              listData.deliveryStatus[0].status == "Packed"             ? "Inspect The Order" :  
-                                                                              listData.deliveryStatus[0].status == "Inspection"         ? "Verify For Dispatch" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch Approved"     ? "Dispatch Order" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch"           ? "Initiate Order Delivery" :  
-                                                                              listData.deliveryStatus[0].status == "Delivery Initiated" ? "Delivered & Paid" :  
-                                                                              listData.deliveryStatus[0].status == "Delivered & Paid"   ? "Done" : "Done"
+                                                                              listData.deliveryStatus[0].status === "New Order"          ? "Verify The Order" :  
+                                                                              listData.deliveryStatus[0].status === "Verified"           ? "Order Packing" :  
+                                                                              listData.deliveryStatus[0].status === "Packed"             ? "Inspect The Order" :  
+                                                                              listData.deliveryStatus[0].status === "Inspection"         ? "Verify For Dispatch" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch Approved"     ? "Dispatch Order" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch"           ? "Initiate Order Delivery" :  
+                                                                              listData.deliveryStatus[0].status === "Delivery Initiated" ? "Delivered & Paid" :  
+                                                                              listData.deliveryStatus[0].status === "Delivered & Paid"   ? "Done" : "Done"
                                                                           } 
                                                                           data-currentstatus={
-                                                                              listData.deliveryStatus[0].status == "New Order"          ? listData.deliveryStatus[0].status :  
-                                                                              listData.deliveryStatus[0].status == "Verified"           ? listData.deliveryStatus[0].status :  
-                                                                              listData.deliveryStatus[0].status == "Packed"             ? listData.deliveryStatus[0].status :  
-                                                                              listData.deliveryStatus[0].status == "Inspection"         ? listData.deliveryStatus[0].status :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch Approved"     ? listData.deliveryStatus[0].status :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch"           ? listData.deliveryStatus[0].status :  
-                                                                              listData.deliveryStatus[0].status == "Delivery Initiated"          ? listData.deliveryStatus[0].status : 
-                                                                              listData.deliveryStatus[0].status == "Delivered & Paid"   ? listData.deliveryStatus[0].status : ""
+                                                                              listData.deliveryStatus[0].status === "New Order"          ? listData.deliveryStatus[0].status :  
+                                                                              listData.deliveryStatus[0].status === "Verified"           ? listData.deliveryStatus[0].status :  
+                                                                              listData.deliveryStatus[0].status === "Packed"             ? listData.deliveryStatus[0].status :  
+                                                                              listData.deliveryStatus[0].status === "Inspection"         ? listData.deliveryStatus[0].status :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch Approved"     ? listData.deliveryStatus[0].status :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch"           ? listData.deliveryStatus[0].status :  
+                                                                              listData.deliveryStatus[0].status === "Delivery Initiated"          ? listData.deliveryStatus[0].status : 
+                                                                              listData.deliveryStatus[0].status === "Delivered & Paid"   ? listData.deliveryStatus[0].status : ""
                                                                           }
                                                                           >
                                                                       <i className="fa fa-undo" aria-hidden="true"></i>
@@ -428,50 +428,50 @@ class AdminOrdersList extends Component{
                                                                       <i className="fa fa-eye" aria-hidden="true"></i>
                                                                   </a>  
                                                                 }
-                                                                  {listData.deliveryStatus[0].status == "Dispatch" || listData.deliveryStatus[0].status == "Delivery Initiated" || listData.deliveryStatus[0].status == "Delivered & Paid" ? 
+                                                                  {listData.deliveryStatus[0].status === "Dispatch" || listData.deliveryStatus[0].status === "Delivery Initiated" || listData.deliveryStatus[0].status === "Delivered & Paid" ? 
                                                                       ""
                                                                       :
                                                                       <div className="admin-order-changeStatus " onClick={this.changeOrderStatus.bind(this)} data-id={listData._id} data-status={
-                                                                              listData.deliveryStatus[0].status == "New Order"         ? "Verified" :  
-                                                                              listData.deliveryStatus[0].status == "Verified"          ? "Packed" :  
-                                                                              listData.deliveryStatus[0].status == "Packed"            ? "Inspection" :  
-                                                                              listData.deliveryStatus[0].status == "Inspection"        ? "Dispatch Approved" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch Approved"    ? "Dispatch" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch"          ? "Delivery Initiated" :  
-                                                                              listData.deliveryStatus[0].status == "Delivery Initiated"         ? "Delivered & Paid" :
-                                                                              listData.deliveryStatus[0].status == "Delivered & Paid"  ? "Done" : "Done"
+                                                                              listData.deliveryStatus[0].status === "New Order"         ? "Verified" :  
+                                                                              listData.deliveryStatus[0].status === "Verified"          ? "Packed" :  
+                                                                              listData.deliveryStatus[0].status === "Packed"            ? "Inspection" :  
+                                                                              listData.deliveryStatus[0].status === "Inspection"        ? "Dispatch Approved" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch Approved"    ? "Dispatch" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch"          ? "Delivery Initiated" :  
+                                                                              listData.deliveryStatus[0].status === "Delivery Initiated"         ? "Delivered & Paid" :
+                                                                              listData.deliveryStatus[0].status === "Delivered & Paid"  ? "Done" : "Done"
                                                                           } 
                                                                           title={
-                                                                              listData.deliveryStatus[0].status == "New Order"          ? "Verify The Order" :  
-                                                                              listData.deliveryStatus[0].status == "Verified"           ? "Order Packing" :  
-                                                                              listData.deliveryStatus[0].status == "Packed"             ? "Inspect The Order" :  
-                                                                              listData.deliveryStatus[0].status == "Inspection"         ? "Approve For Dispatch" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch Approved"     ? "Dispatch Order" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch"           ? "Initiate Order Delivery" :  
-                                                                              listData.deliveryStatus[0].status == "Delivery Initiated" ? "Delivered & Paid" :  
-                                                                              listData.deliveryStatus[0].status == "Delivered & Paid"   ? "Done" : "Done"
+                                                                              listData.deliveryStatus[0].status === "New Order"          ? "Verify The Order" :  
+                                                                              listData.deliveryStatus[0].status === "Verified"           ? "Order Packing" :  
+                                                                              listData.deliveryStatus[0].status === "Packed"             ? "Inspect The Order" :  
+                                                                              listData.deliveryStatus[0].status === "Inspection"         ? "Approve For Dispatch" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch Approved"     ? "Dispatch Order" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch"           ? "Initiate Order Delivery" :  
+                                                                              listData.deliveryStatus[0].status === "Delivery Initiated" ? "Delivered & Paid" :  
+                                                                              listData.deliveryStatus[0].status === "Delivered & Paid"   ? "Done" : "Done"
                                                                           }
                                                                           data-target={
-                                                                              listData.deliveryStatus[0].status == "New Order"         ? "" :  
-                                                                              listData.deliveryStatus[0].status == "Verified"          ? "" :  
-                                                                              listData.deliveryStatus[0].status == "Packed"            ? "" :  
-                                                                              listData.deliveryStatus[0].status == "Inspection"        ? "" :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch Approved"    ? "#dispatchDetails"+listData._id :  
-                                                                              listData.deliveryStatus[0].status == "Dispatch"          ? "" :  
-                                                                              listData.deliveryStatus[0].status == "Delivery Initiated"         ? "" :  
-                                                                              listData.deliveryStatus[0].status == "Delivered & Paid"  ? "" : ""
+                                                                              listData.deliveryStatus[0].status === "New Order"         ? "" :  
+                                                                              listData.deliveryStatus[0].status === "Verified"          ? "" :  
+                                                                              listData.deliveryStatus[0].status === "Packed"            ? "" :  
+                                                                              listData.deliveryStatus[0].status === "Inspection"        ? "" :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch Approved"    ? "#dispatchDetails"+listData._id :  
+                                                                              listData.deliveryStatus[0].status === "Dispatch"          ? "" :  
+                                                                              listData.deliveryStatus[0].status === "Delivery Initiated"         ? "" :  
+                                                                              listData.deliveryStatus[0].status === "Delivered & Paid"  ? "" : ""
                                                                           } 
                                                                           data-toggle="modal"
                                                                           >
                                                                           <i className={  
-                                                                         listData.deliveryStatus[0].status == "New Order"          ? "fa fa-product-hunt admin-orders-stat-NewOrdericon" :  
-                                                                         listData.deliveryStatus[0].status == "Verified"           ? "fa fa-check-square admin-orders-stat-Verifiedicon" :  
-                                                                         listData.deliveryStatus[0].status == "Packed"             ? "fa fa-archive admin-orders-stat-Packedicon" :  
-                                                                         listData.deliveryStatus[0].status == "Inspection"         ? "fa fa-info-circle admin-orders-stat-Inspectionicon" :  
-                                                                         listData.deliveryStatus[0].status == "Dispatch Approved"     ? "fa fa-angellist admin-orders-stat-OrderVerifiedicon" :  
-                                                                         listData.deliveryStatus[0].status == "Dispatch"           ? "fa fa-truck admin-orders-stat-Dispatchedicon" :  
-                                                                         listData.deliveryStatus[0].status == "Delivery Initiated"          ? "fa fa-check-circle admin-orders-stat-Deliveredicon" :  
-                                                                         listData.deliveryStatus[0].status == "Delivered & Paid"   ? "fa fa-check-circle" : ""
+                                                                         listData.deliveryStatus[0].status === "New Order"          ? "fa fa-product-hunt admin-orders-stat-NewOrdericon" :  
+                                                                         listData.deliveryStatus[0].status === "Verified"           ? "fa fa-check-square admin-orders-stat-Verifiedicon" :  
+                                                                         listData.deliveryStatus[0].status === "Packed"             ? "fa fa-archive admin-orders-stat-Packedicon" :  
+                                                                         listData.deliveryStatus[0].status === "Inspection"         ? "fa fa-info-circle admin-orders-stat-Inspectionicon" :  
+                                                                         listData.deliveryStatus[0].status === "Dispatch Approved"     ? "fa fa-angellist admin-orders-stat-OrderVerifiedicon" :  
+                                                                         listData.deliveryStatus[0].status === "Dispatch"           ? "fa fa-truck admin-orders-stat-Dispatchedicon" :  
+                                                                         listData.deliveryStatus[0].status === "Delivery Initiated"          ? "fa fa-check-circle admin-orders-stat-Deliveredicon" :  
+                                                                         listData.deliveryStatus[0].status === "Delivered & Paid"   ? "fa fa-check-circle" : ""
                                                                       }
                                                                          aria-hidden="true"></i>
                                                                       </div>

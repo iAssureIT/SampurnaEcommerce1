@@ -3,6 +3,7 @@ import {render}           from 'react-dom';
 import $                  from "jquery";
 import jQuery from 'jquery';
 import axios              from 'axios';
+import swal                 from 'sweetalert';
 
 import Section            from  './sectionManagement/component/SectionManagement.js';
 import ShippingManagement            from  './shippingManagement/component/ShippingManagement.js';
@@ -33,6 +34,10 @@ import BannerImages       from './BannerImages/component/BannerImages.js';
 	
 	}
   componentDidMount() {
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;   
+
     axios.get("/api/adminPreference/get")
               .then(preference =>{
                 console.log("preference = ",preference.data);
@@ -43,6 +48,19 @@ import BannerImages       from './BannerImages/component/BannerImages.js';
               })
               .catch(error=>{
                 console.log("Error in getting adminPreference = ", error);
+                if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
               }) 
 
       

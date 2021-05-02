@@ -46,6 +46,10 @@ class Department extends Component {
     };
   }
   componentDidMount() {
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
     var editId = this.props.match 
                  ? this.props.match.params.editId
                  : this.props.editId 
@@ -64,6 +68,20 @@ class Department extends Component {
       this.setState({profileCreated:true, companyInfo: res.data}) 
     })
     .catch((error)=>{
+      console.log("Error => ",error)
+      if(error.message === "Request failed with status code 401"){
+        var userDetails =  localStorage.removeItem("userDetails");
+        localStorage.clear();
+        swal({  
+            title : "Your Session is expired.",                
+            text  : "You need to login again. Click OK to go to Login Page"
+        })
+        .then(okay => {
+        if (okay) {
+            window.location.href = "/login";
+        }
+        });
+      }
     });
   }
   // componentWillReceiveProps(nextProps) {
@@ -91,6 +109,20 @@ class Department extends Component {
       this.setState({profileCreated:true, companyInfo: res.data}) 
     })
     .catch((error)=>{
+      console.log("Error => ",error);
+      if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
     });
   }
   getFileDetails(fileName){
@@ -130,6 +162,19 @@ class Department extends Component {
     })
     .catch((error)=> { 
       console.log('error', error);
+      if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
     }) 
   }
 

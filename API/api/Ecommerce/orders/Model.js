@@ -48,11 +48,18 @@ const orderSchema = mongoose.Schema({
             "section_ID"        : { type: mongoose.Schema.Types.ObjectId, ref: 'section' },
             "section"           : String,
             "category_ID"       : { type: mongoose.Schema.Types.ObjectId, ref: 'category' },
+            "vendor_ID"         : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
             "category"          : String,
             "subCategory_ID"    : String,
             "subCategory"       : String,
             "status"            : String,
-            "returnedDate"      : Date
+            "returnedDate"      : Date,
+            "deliveryStatus"    : [{
+                                    "status"          : String,
+                                    "expDeliveryDate" : Date,
+                                    "Date"            : Date,
+                                    "userid"          : String
+                                }]
         }
     ],
     returnedProduct           : Array,

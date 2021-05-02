@@ -399,6 +399,7 @@ class AdminOrdersList extends Component{
     }
 
     getAllorderStatus(){
+      console.log("getAllorderStatus => ")
       axios.get('/api/orderstatus/get/list')
           .then((response) => {
             console.log("getAllorderStatus 402 response ==>",response)

@@ -1,29 +1,30 @@
-const express 	= require("express");
-const router 	= express.Router();
+const express 		= require("express");
+const router 		= express.Router();
+const checkAuth 	= require('../../coreAdmin/middlerware/check-auth.js');
 
 const wishlistsController = require('./Controller');
 
-router.post('/post', wishlistsController.insert_wishlist);
+router.post('/post', 											checkAuth, wishlistsController.insert_wishlist);
 
 // router.patch('/', wishlistsController.update_wishlists);
 
-router.get('/get/list',wishlistsController.list_wishlist);
+router.get('/get/list', 										checkAuth, wishlistsController.list_wishlist);
 
-router.get('/get/userwishlist/:user_ID',wishlistsController.get_user_wishlist);
+router.get('/get/userwishlist/:user_ID', 					checkAuth, wishlistsController.get_user_wishlist);
 
-router.get('/get/wishlistdata/:user_ID',wishlistsController.get_wishlist);
+router.get('/get/wishlistdata/:user_ID', 					checkAuth, wishlistsController.get_wishlist);
 
-router.get('/get/count',wishlistsController.count_wishlist);
+router.get('/get/count', 										checkAuth, wishlistsController.count_wishlist);
 
-router.get('/get/wishlistcount/:user_ID',wishlistsController.usercount_wishlist);
+router.get('/get/wishlistcount/:user_ID', 				checkAuth, wishlistsController.usercount_wishlist);
 
-router.post('/get/list',wishlistsController.list_wishlist_with_limits);
+router.post('/get/list', 										checkAuth, wishlistsController.list_wishlist_with_limits);
 
-router.get('/get/one/:wishID', wishlistsController.fetch_wishlist);
+router.get('/get/one/:wishID', 								checkAuth, wishlistsController.fetch_wishlist);
 
-router.get('/get/one/productwish/:userID/:productID', wishlistsController.fetch_wishlist_product);
+router.get('/get/one/productwish/:userID/:productID', checkAuth, wishlistsController.fetch_wishlist_product);
 
-router.delete('/delete/:wishlist_ID',wishlistsController.delete_wishlist);
+router.delete('/delete/:wishlist_ID', 						checkAuth, wishlistsController.delete_wishlist);
 
 // router.delete('/',wishlistsController.deleteall_wishlist);
 

@@ -1,84 +1,83 @@
-const express 	= require("express");
-const router 	= express.Router();
-const checkAuth = require('../middlerware/check-auth.js');
+const express 			= require("express");
+const router 			= express.Router();
+const checkAuth 		= require('../middlerware/check-auth.js');
 
+const entityMaster	= require('./ControllerEntityMaster');
 
-const entityMaster = require('./ControllerEntityMaster');
+router.post('/post',  												checkAuth, entityMaster.insertEntity);
 
-router.post('/post', entityMaster.insertEntity);
+router.get('/get/:entityType', 									checkAuth, entityMaster.listEntity);
 
-router.get('/get/:entityType',entityMaster.listEntity);
+router.get('/countContacts/:entityType', 						checkAuth, entityMaster.countContacts);
 
-router.get('/countContacts/:entityType',entityMaster.countContacts);
+router.get('/getCompany/:companyID', 							checkAuth, entityMaster.getCompany);
 
-router.get('/getCompany/:companyID',entityMaster.getCompany);
+router.get('/get/count/:entityType', 							checkAuth, entityMaster.countEntity);
 
-router.get('/get/count/:entityType',entityMaster.countEntity);
+router.post('/get/filterEntities', 								checkAuth, entityMaster.filterEntities);
 
-router.post('/get/filterEntities',entityMaster.filterEntities);
+router.get('/get/list/:entityType/:company_id', 			checkAuth, entityMaster.listSupplier);
 
-router.get('/get/list/:entityType/:company_id',entityMaster.listSupplier);
+router.post('/get/gridfilterEntities', 						checkAuth, entityMaster.filterEntities_grid);
 
-router.post('/get/gridfilterEntities',entityMaster.filterEntities_grid);
+router.get('/get/getAllVendors/:city', 						checkAuth, entityMaster.getAllVendors);
 
-router.get('/get/getAllVendors/:city',entityMaster.getAllVendors);
+router.post('/get/getAdminCompany', 							checkAuth, entityMaster.getAdminCompany);
 
-router.post('/get/getAdminCompany',entityMaster.getAdminCompany);
+router.get('/get/one/:entityID', 								checkAuth, entityMaster.singleEntity);
 
-router.get('/get/one/:entityID', entityMaster.singleEntity);
+router.get('/get/one/:entityType/:franchiseId', 			checkAuth, entityMaster.listEntity_franchise);
 
-router.get('/get/one/:entityType/:franchiseId', entityMaster.listEntity_franchise);
+router.get('/get/one/entity/:userID', 							checkAuth, entityMaster.entityDetails);
 
-router.get('/get/one/entity/:userID', entityMaster.entityDetails);
+// router.post('/get/one/companyName/:companyID', checkAuth, entityMaster.companyName);
+router.post('/get/company_name/:companyID', 					 checkAuth, entityMaster.get_companyName);
 
-// router.post('/get/one/companyName/:companyID', entityMaster.companyName);
-router.post('/get/company_name/:companyID', entityMaster.get_companyName);
+router.post('/get/one/companyName', 							checkAuth, entityMaster.get_companyName);
 
-router.post('/get/one/companyName', entityMaster.get_companyName);
+router.get('/get/companyName/:companyID', 					checkAuth, entityMaster.companyName);
 
-router.get('/get/companyName/:companyID', entityMaster.companyName);
+router.get('/get/one/companyNameType/:companyID/:type', 	checkAuth, entityMaster.companyNameType);
 
-router.get('/get/one/companyNameType/:companyID/:type', entityMaster.companyNameType);
+router.get('/get/singlelocation/:entityID/:branchCode', 	checkAuth, entityMaster.branchCodeLocation);
 
-router.get('/get/singlelocation/:entityID/:branchCode',entityMaster.branchCodeLocation);
+router.get('/get/companywiseData/:companyName', 			checkAuth, entityMaster.companyNamewiseData);
 
-router.get('/get/companywiseData/:companyName',entityMaster.companyNamewiseData);
+router.patch('/patch', 												checkAuth, entityMaster.updateEntity);
 
-router.patch('/patch', entityMaster.updateEntity);
+router.patch('/patch/profileStatus', 							checkAuth, entityMaster.updateProfileStatus);
 
-router.patch('/patch/profileStatus', entityMaster.updateProfileStatus);
-
-router.patch('/patch/addLocation', entityMaster.addLocation);
+router.patch('/patch/addLocation', 								checkAuth, entityMaster.addLocation);
  
-router.post('/post/singleLocation',entityMaster.singleLocation);
+router.post('/post/singleLocation', 							checkAuth, entityMaster.singleLocation);
 
-router.post('/getAll',entityMaster.fetchEntities);
+router.post('/getAll', 												checkAuth, entityMaster.fetchEntities);
 
-router.get('/getAllcompany',entityMaster.CompanyfromEntities);
+router.get('/getAllcompany', 										checkAuth, entityMaster.CompanyfromEntities);
 
-router.get('/getAllEntities',entityMaster.getAllEntities);
+router.get('/getAllEntities', 									checkAuth, entityMaster.getAllEntities);
 
-router.post('/getAllLocation',entityMaster.fetchLocationEntities);
+router.post('/getAllLocation', 									checkAuth, entityMaster.fetchLocationEntities);
 
-router.post('/getAllContact',entityMaster.fetchContactEntities);
+router.post('/getAllContact', 									checkAuth, entityMaster.fetchContactEntities);
 
-router.post('/get_worklocation',entityMaster.getWorkLocation);
+router.post('/get_worklocation', 								checkAuth, entityMaster.getWorkLocation);
 
-router.patch('/patch/updateSingleLocation', entityMaster.updateSingleLocation);
+router.patch('/patch/updateSingleLocation', 					checkAuth, entityMaster.updateSingleLocation);
 
-router.patch('/patch/addContact', entityMaster.addContact);
+router.patch('/patch/addContact', 								checkAuth, entityMaster.addContact);
 
-router.post('/post/singleContact',entityMaster.singleContact);
+router.post('/post/singleContact', 								checkAuth, entityMaster.singleContact);
 
-router.patch('/patch/updateSingleContact', entityMaster.updateSingleContact);
+router.patch('/patch/updateSingleContact', 					checkAuth, entityMaster.updateSingleContact);
 
 // router.get('/get/checkBAExists/:emailID', baController.check_ba_exists);
 
-router.delete('/delete/:entityID',entityMaster.deleteEntity);
+router.delete('/delete/:entityID', 								checkAuth, entityMaster.deleteEntity);
 
-router.delete('/deleteLocation/:entityID/:locationID',entityMaster.deleteLocation);
+router.delete('/deleteLocation/:entityID/:locationID', 	checkAuth, entityMaster.deleteLocation);
 
-router.delete('/deleteContact/:entityID/:contactID',entityMaster.deleteContact);
+router.delete('/deleteContact/:entityID/:contactID', 		checkAuth, entityMaster.deleteContact);
 
 
 //API Mobile App - Rushikesh Salunkhe

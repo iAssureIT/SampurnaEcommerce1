@@ -9,14 +9,14 @@ import _                        from 'underscore';
 import 'bootstrap/js/tab.js';
 
 const options = [
-  { value: 'New Order', label: 'New Order' },
-  { value: 'Verified', label: 'Verified' },
-  { value: 'Packed', label: 'Packed' },
-  { value: 'Inspection', label:'Inspection'},
-  { value: 'Dispatch Approved', label:'Dispatch Approved'},
-  { value: 'Delivery Initiated', label: 'Delivery Initiated' },
-  { value: 'Dispatch', label: 'Dispatch' },
-  { value: 'Delivered & Paid', label: 'Delivered & Paid' },
+  { value: 'New Order', label: 'New Order', statusRank : 1},
+  { value: 'Verified', label: 'Verified', statusRank : 2 },
+  { value: 'Packed', label: 'Packed', statusRank : 3},
+  { value: 'Inspection', label:'Inspection', statusRank : 4},
+  { value: 'Dispatch Approved', label:'Dispatch Approved', statusRank : 5},
+  { value: 'Delivery Initiated', label: 'Delivery Initiated', statusRank : 6},
+  { value: 'Dispatch', label: 'Dispatch', statusRank : 7},
+  { value: 'Delivered & Paid', label: 'Delivered & Paid', statusRank : 8},
 ];
 
 class orderStatus extends Component {
@@ -57,7 +57,9 @@ class orderStatus extends Component {
     };
   }
   componentDidMount() {
-
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token       = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 
     
     var editId = this.props.match 
@@ -78,6 +80,20 @@ class orderStatus extends Component {
       this.setState({profileCreated:true, companyInfo: res.data}) 
     })
     .catch((error)=>{
+      console.log("error => ",error);
+      if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
     });
   }
   // componentWillReceiveProps(nextProps) {
@@ -105,6 +121,20 @@ class orderStatus extends Component {
       this.setState({profileCreated:true, companyInfo: res.data}) 
     })
     .catch((error)=>{
+      console.log("error => ",error)
+      if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
     });
   }
   getFileDetails(fileName){
@@ -144,6 +174,19 @@ class orderStatus extends Component {
     })
     .catch((error)=> { 
       console.log('error', error);
+      if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
     }) 
   }
 

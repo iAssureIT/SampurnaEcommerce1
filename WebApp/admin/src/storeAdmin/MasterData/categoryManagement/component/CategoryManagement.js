@@ -66,15 +66,20 @@ class CategoryManagement extends Component{
       console.log("Inside componentWillRecive props",nextProps);
       // console.log("EditId:===",this.state.editId);
       
-      if(nextProps){      
+      if(nextProps && nextProps.editId && nextProps.editId !== "undefined"){      
         this.setState({
            editId : nextProps.editId
+        },()=>{
+          this.edit(this.state.editId);
         })
-        this.edit(nextProps);
       }
     }
   
     componentDidMount(){
+      var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+      var token       = userDetails.token;
+      axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+      
       window.scrollTo(0, 0);
       // console.log("editId:",this.props.editId);
       var inputBox = document.getElementById("categoryRank");
@@ -86,7 +91,7 @@ class CategoryManagement extends Component{
         }
       });
   
-      if(this.state.editId){      
+      if(this.state.editId && this.state.editId !== "undefined"){      
         this.edit(this.state.editId);
       }
       $.validator.addMethod("regxsection", function (value, element, arg) {
@@ -172,6 +177,19 @@ class CategoryManagement extends Component{
       })
       .catch((error)=>{
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
       });
     }
     getData(startRange, limitRange){
@@ -189,6 +207,19 @@ class CategoryManagement extends Component{
       })
       .catch((error)=>{
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
       });
     }
     addNewSubCatArray(event){
@@ -225,6 +256,19 @@ class CategoryManagement extends Component{
       })
       .catch((error)=>{
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
       })
     }
     deleteSubCategory(event){
@@ -330,6 +374,19 @@ class CategoryManagement extends Component{
             })
             .catch((error)=>{
               console.log('error', error);
+              if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
             });
           
 
@@ -339,6 +396,19 @@ class CategoryManagement extends Component{
         })
         .catch((error)=>{
           console.log('error', error);
+          if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
         });
       }
     }
@@ -418,11 +488,37 @@ class CategoryManagement extends Component{
             })
             .catch((error)=>{
               console.log('error', error);
+              if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
             });
           // }
         })
         .catch((error)=>{
           console.log('error', error);
+          if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
         });
       }
     }
@@ -468,6 +564,19 @@ class CategoryManagement extends Component{
       })
       .catch((error)=>{
         console.log('error', error);
+        if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
       });
     }
     uploadImage(event){
@@ -524,6 +633,19 @@ class CategoryManagement extends Component{
                           })
                           .catch((error)=>{
                               console.log(error);
+                              if(error.message === "Request failed with status code 401"){
+                                var userDetails =  localStorage.removeItem("userDetails");
+                                localStorage.clear();
+                                swal({  
+                                    title : "Your Session is expired.",                
+                                    text  : "You need to login again. Click OK to go to Login Page"
+                                })
+                                .then(okay => {
+                                if (okay) {
+                                    window.location.href = "/login";
+                                }
+                                });
+                              }
                           })
                   })
               }   
@@ -545,6 +667,19 @@ class CategoryManagement extends Component{
                           })
                           .catch(function(error){
                               console.log(error);
+                              if(error.message === "Request failed with status code 401"){
+                                var userDetails =  localStorage.removeItem("userDetails");
+                                localStorage.clear();
+                                swal({  
+                                    title : "Your Session is expired.",                
+                                    text  : "You need to login again. Click OK to go to Login Page"
+                                })
+                                .then(okay => {
+                                if (okay) {
+                                    window.location.href = "/login";
+                                }
+                                });
+                              }
                           })
       
                   })
@@ -607,6 +742,19 @@ class CategoryManagement extends Component{
         })
         .catch((error)=>{
               console.log('error', error);
+              if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
         })
     }
     getSearchCount(searchText){
@@ -623,6 +771,19 @@ class CategoryManagement extends Component{
         })
         .catch((error)=>{
               console.log('error', error);
+              if(error.message === "Request failed with status code 401"){
+              var userDetails =  localStorage.removeItem("userDetails");
+              localStorage.clear();
+              swal({  
+                  title : "Your Session is expired.",                
+                  text  : "You need to login again. Click OK to go to Login Page"
+              })
+              .then(okay => {
+              if (okay) {
+                  window.location.href = "/login";
+              }
+              });
+            }
         })
     }
     handleSubCatChange(event){
