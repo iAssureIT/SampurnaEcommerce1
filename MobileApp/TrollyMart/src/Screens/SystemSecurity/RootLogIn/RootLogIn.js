@@ -148,7 +148,6 @@ const window = Dimensions.get('window');
     const [image, setImage] = useState({profile_photo: '', image: ''});
     
   return (
-    <View style={{backgroundColor : "red"}}>
       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
       <View style={{paddingHorizontal:20}}>
           <View style={styles.boxOpacity}>
@@ -228,6 +227,5 @@ const window = Dimensions.get('window');
         </View>
       </View>
     </ImageBackground>
-  </View>
   );
 };

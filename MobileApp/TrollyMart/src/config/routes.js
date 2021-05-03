@@ -15,7 +15,7 @@ import {ForgotPassword}             from '../Screens/SystemSecurity/ForgotPasswo
 import ResetPassword              from '../Screens/SystemSecurity/ResetPassword/ResetPassword1.js';
 import {RootSignUp}               from '../Screens/SystemSecurity/Signup/RootSignUp.js';
 import OTPVerification            from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
-import ForgotPasswordOTP          from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP1.js';
+import {ForgotPasswordOTP}          from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
 
 
 import Dashboard from '../Screens/Dashboard/Dashboard.js';

@@ -50,25 +50,24 @@ const window = Dimensions.get('window');
                       console.log("response",response);
                       setLoading(false);
                         if(response.data.message == 'OTP_UPDATED') {
-                          var sendData = {
-                            "event": "5",
-                            "toUser_id": response.data.ID,
-                            "toUserRole": "user",
-                            "variables": {
-                              "Username": response.data.profile.fullName,
-                              "OTP": response.data.profile.optEmail,
-                            }
-                          }
-                          console.log('sendDataToUser==>', sendData)
-                          axios.post('/api/masternotifications/post/sendNotification', sendData)
-                          .then((res) => {
-                            
-                            console.log('sendDataToUser in result==>>>', res.data)
-                          })
-                          .catch((error) => { console.log('notification error: ', error) })
-                          navigation.navigate('OTPVerification');
+                          // var sendData = {
+                          //   "event": "5",
+                          //   "toUser_id": response.data.ID,
+                          //   "toUserRole": "user",
+                          //   "variables": {
+                          //     "Username": response.data.profile.fullName,
+                          //     "OTP": response.data.profile.optEmail,
+                          //   }
+                          // }
+                          // console.log('sendDataToUser==>', sendData)
+                          // axios.post('/api/masternotifications/post/sendNotification', sendData)
+                          // .then((res) => {
+                          //   console.log('sendDataToUser in result==>>>', res.data)
+                          // })
+                          // .catch((error) => { console.log('notification error: ', error) })
+                          // navigation.navigate('OTPVerification');
                           setToast({text: 'OTP sent successfully!', color: 'green'});
-                          navigation.navigate('OTPVerification',{user_id:response.data.ID})
+                          navigation.navigate('ForgotPasswordOTP',{user_id:response.data.ID})
                       }else if(response.data.message == 'NOT_REGISTER'){
                           setToast({text: "This Email Id is not registered.", color: colors.warning});
                       }else if(response.data.message == 'OTP_NOT_UPDATED'){
@@ -114,7 +113,6 @@ const window = Dimensions.get('window');
     const [image, setImage] = useState({profile_photo: '', image: ''});
     
   return (
-    <View style={{backgroundColor : "red"}}>
       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
       <View style={{paddingHorizontal:20}}>
           <View style={styles.boxOpacity}>
@@ -171,6 +169,5 @@ const window = Dimensions.get('window');
         </View>
       </View>
     </ImageBackground>
-  </View>
   );
 };

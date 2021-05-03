@@ -178,6 +178,17 @@ export default StyleSheet.create({
     justifyContent: 'center',
     borderRadius:50
   },
+  underlineStyleBase: {
+    width: 40,
+    height: 45,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    color:"#333"
+  },
+
+  underlineStyleHighLighted: {
+    borderColor: "#03DAC6",
+  },
 });
 
 
