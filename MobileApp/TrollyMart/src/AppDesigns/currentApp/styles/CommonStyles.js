@@ -131,7 +131,7 @@ export default StyleSheet.create({
     //add Button Style
     addBtnStyle: {
 		backgroundColor: colors.button,
-		height: 30,
+		minHeight: 30,
 		marginLeft: 15,
 		width: "80%",
     },

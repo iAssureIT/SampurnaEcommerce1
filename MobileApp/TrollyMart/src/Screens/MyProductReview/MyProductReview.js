@@ -23,7 +23,7 @@ import { TextField } from 'react-native-material-textfield';
 import { Header, Button, Icon, SearchBar,Rating, AirbnbRating } from "react-native-elements";
 import SideMenu from 'react-native-side-menu';
 import StepIndicator from 'react-native-step-indicator';
-import Menu from '../../ScreenComponents/Menu/Menu.js';
+import {Menu} from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';

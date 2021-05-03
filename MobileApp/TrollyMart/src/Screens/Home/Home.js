@@ -18,7 +18,7 @@ import {
 
 import { Header, Button, Icon, SearchBar } from "react-native-elements";
 import SideMenu from 'react-native-side-menu';
-import Menu from '../../layouts/Menu/Menu.js';
+import {Menu} from '../../layouts/Menu/Menu.js';
 import HeaderBar2 from '../../layouts/HeaderBar2/HeaderBar2.js';
 import BestSellers from '../../layouts/BestSellers/BestSellers.js';
 import BannerComponent from '../../layouts/BannerComponent/BannerComponent.js';

@@ -1,50 +1,47 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {
   Text,
   View,
   TouchableOpacity,
   Image,
   AsyncStorage
-} from "react-native";
-import {Linking} from 'react-native'
-import { Header, Icon, SearchBar,Button } from 'react-native-elements';
-import ValidationComponent from "react-native-form-validator";
-import axios              from 'axios'; 
-import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HeaderBar2Styles.js';
-import { connect }        from 'react-redux';
-import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
-class HeaderBars2 extends ValidationComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText: '',
-      inAppNotificationsCount : 0
+}                                 from "react-native";
+import {Linking}                  from 'react-native'
+import { 
+  Header, 
+  Icon,
+  SearchBar,
+  Button 
+} from 'react-native-elements';
+import ValidationComponent  from "react-native-form-validator";
+import axios                from 'axios'; 
+import styles               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HeaderBar2Styles.js';
+import { connect }          from 'react-redux';
+import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
+
+  const HeaderBars2=(props)=>{
+    const [searchText,useSearchText] = useState('');
+    const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
+    
+    const _goBack = () => {
+      props.goBack();
     }
+
+    const handleNavigation = (screen) => {
+      this.props.navigate(screen);
+    }
+
+    useEffect(() => {
+      console.log("useEffect");
+      getData()
+    },[]);
+ 
+  const getData=()=>{
+    getNotificationList();
+    props.setGloblesearch(searchText);
   }
 
-  _goBack = () => {
-    this.props.goBack();
-  }
-
-  handleNavigation = (screen) => {
-    this.props.navigate(screen);
-  }
-  componentWillUnmount () {
-    this.focusListener.remove()
-  }
-  
-  componentDidMount(){
-    this.getNotificationList();
-    this.focusListener = this.props.navigation.addListener('didFocus', () => {
-      this.getNotificationList();
-    this.setState({searchText : ""}
-      ,()=>{
-          this.props.setGloblesearch(this.state.searchText);
-        })
-    })
-  }
-
-  getNotificationList(){
+  const getNotificationList=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
         console.log("data",data);
@@ -53,9 +50,7 @@ class HeaderBars2 extends ValidationComponent {
             axios.get('/api/notifications/get/list/Unread/' + user_id)
             .then(notifications => {
               console.log("notifications",notifications);
-                this.setState({ 
-                  inAppNotificationsCount: notifications.data.length,
-                })
+                setInAppNotifyCount(notifications.data.length)
             })
             .catch(error => {
                 console.log('error', error)
@@ -63,26 +58,19 @@ class HeaderBars2 extends ValidationComponent {
       });
   }
 
-  updateSearch = searchText => {
-    this.setState({searchText : searchText}
-      ,()=>{
-        // console.log(" serarch==>",this.state.searchText);
-        this.props.setGloblesearch(this.state.searchText);
-      })
+  const updateSearch = (searchText) => {
+    useSearchText(searchText);
+    props.setGloblesearch(searchText);
   };
-  Stores() {
-    this.props.navigation.navigate('Stores');
+
+  const Stores=()=>{
+    props.navigation.navigate('Stores');
   }
-  searchedText = (text)=>{
-    this.setState({
-      searchText      : text,
-      loading         : true,
-      page            : 0,
-      farmerList      : [],
-    });
+
+  const searchedText = (text)=>{
+    useSearchText(text);
 }
 
-  render() {
     return (
       <View style={styles.header2main}>
         <Header
@@ -94,7 +82,7 @@ class HeaderBars2 extends ValidationComponent {
           leftComponent={
             <View style={styles.flxdir}>
               <View style={{ marginTop: 10,}}>
-                <TouchableOpacity onPress={this.props.toggle()}>
+                <TouchableOpacity  onPress={()=> props.navigation.toggleDrawer()}>
                   <Icon size={25} name='bars' type='font-awesome' color={colors.theme} />
                 </TouchableOpacity>
               </View>
@@ -111,11 +99,11 @@ class HeaderBars2 extends ValidationComponent {
           }
           rightComponent={
               <View style={styles.notificationbell}>
-               <TouchableOpacity style={styles.bellIcon} onPress={()=> this.props.navigation.navigate('InAppNotification')}>
+               <TouchableOpacity style={styles.bellIcon} onPress={()=> navigation.navigate('InAppNotification')}>
                 <Icon name="bell-o" type="font-awesome"    size={25} color={colors.theme} />
-                <Text style={styles.notificationText}>{this.state.inAppNotificationsCount}</Text>
+                <Text style={styles.notificationText}>{inAppNotificationsCount}</Text>
                </TouchableOpacity> 
-                <TouchableOpacity onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} style={{marginLeft:20}}>
+                <TouchableOpacity onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} style={{marginLeft:20,justiafyContent:"flex-end"}}>
                   <Icon name="phone" type="font-awesome"    size={25} color={colors.theme} />
                 </TouchableOpacity>
 
@@ -132,14 +120,13 @@ class HeaderBars2 extends ValidationComponent {
             containerStyle={styles.searchContainer}
             inputContainerStyle={styles.searchInputContainer}
             inputStyle={styles.searchInput}
-            onChangeText={this.updateSearch.bind(this)}
-            value={this.state.searchText}
+            onChangeText={updateSearch}
+            value={searchText}
           /> 
         </View>
 
       </View>
     );
-  }
 }
 
 const mapStateToProps = (state) => {

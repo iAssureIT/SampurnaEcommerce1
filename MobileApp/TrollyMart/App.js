@@ -65,7 +65,7 @@ const ToastProviderComponent = props => {
     <Snackbar
       visible={!!props.toast}
       style={{backgroundColor: props.toast?.color}}
-      duration={5000}
+      duration={1000}
       onDismiss={() => props.setToast(null)}>
       {props.toast?.text}
     </Snackbar>

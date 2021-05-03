@@ -11,7 +11,7 @@ import {
 import Drawer from 'react-native-drawer';
 import { Header, Button, Icon, SearchBar } from "react-native-elements";
 import SideMenu from 'react-native-side-menu';
-import Menu from '../../ScreenComponents/Menu/Menu.js';
+import {Menu} from '../../ScreenComponents/Menu/Menu.js';
 import Footer from '../../ScreenComponents/Footer/Footer.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 // import styles from './Contactusstyles.js';

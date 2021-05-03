@@ -7,7 +7,7 @@ import axios                      from 'axios';
 import AuthLoadingScreen from '../ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js';
 import InAppNotification from '../ScreenComponents/InAppNotification/InAppNotification.js';
 
-import Menu from '../ScreenComponents/Menu/Menu.js';
+import {Menu} from '../ScreenComponents/Menu/Menu.js';
 
 /*----SystemSecurity -----*/
 import {RootLogIn }               from '../Screens/SystemSecurity/RootLogIn/RootLogIn.js';
@@ -30,7 +30,7 @@ import AddressComponentforaddressmenu from '../Screens/AddressComponent/AddressC
 import AddressMenu from'../Screens/AddressComponent/AddressMenu.js';
 import WishlistComponent from'../Screens/WishlistComponent/WishlistComponent.js';
 import MyOrder from '../Screens/MyOrders/MyOrder.js';
-import SupportSystem from '../Screens/Help&Support/SupportSystem.js';
+import {SupportSystem} from '../Screens/Help&Support/SupportSystem.js';
 import Stores from '../Screens/Stores/Stores.js';
 import StoreDetails from '../Screens/Stores/StoreDetails.js';
 import AllFeatureProducts from '../Screens/FeatureProducts/AllFeatureProducts.js';
@@ -350,7 +350,7 @@ const drawer = createDrawerNavigator({
 },{
     drawerLockMode: 'locked-closed',
     contentComponent: Menu,
-    drawerPosition: 'right'
+    drawerPosition: 'left'
 });
 
 export default createAppContainer(createSwitchNavigator(

@@ -1,319 +1,198 @@
-import React from 'react';
-import {ScrollView,View,AsyncStorage,} from 'react-native';
+import React, { useState,useEffect }from 'react';
+import {ScrollView,View,Text}       from 'react-native';
+import { Header, Button, 
+        Icon, SearchBar }           from "react-native-elements";
+import SideMenu                     from 'react-native-side-menu';
+import {Menu}                         from '../../ScreenComponents/Menu/Menu.js';
+import HeaderBar2                   from '../../ScreenComponents/HeaderBar2/HeaderBar2.js';
+import {BannerComponent}              from '../../ScreenComponents/BannerComponent/BannerComponent.js';
+import {MenuCarouselSection}        from '../../ScreenComponents/Section/MenuCarouselSection.js';
+import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
+import SearchProducts               from'../Search/SearchProducts.js';
+import Footer                       from '../../ScreenComponents/Footer/Footer1.js';
+import Notification                 from '../../ScreenComponents/Notification/Notification.js'
+import { connect }                  from 'react-redux';
+import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
+import {colors}                     from '../../AppDesigns/currentApp/styles/styles.js';
+import Drawer                       from 'react-native-drawer';
+import Loading                      from '../../ScreenComponents/Loading/Loading.js';
+import axios                        from "axios";
+import {useNavigation}              from '../../config/useNavigation.js';
+import {withCustomerToaster}        from '../../redux/AppState.js';
+import AsyncStorage                 from '@react-native-async-storage/async-storage';
 
-import { Header, Button, Icon, SearchBar } from "react-native-elements";
-import SideMenu from 'react-native-side-menu';
-import Menu from '../../ScreenComponents/Menu/Menu.js';
-import HeaderBar2 from '../../ScreenComponents/HeaderBar2/HeaderBar2.js';
-import BannerComponent from '../../ScreenComponents/BannerComponent/BannerComponent.js';
-import MenuCarouselSection from '../../ScreenComponents/Section/MenuCarouselSection.js';
-import FeatureProductComponent from'../../ScreenComponents/FeatureProductComponent/FeatureProductComponent.js';
-import ExclusiveProductsData from'../../ScreenComponents/ExclusiveproductsComponent/Exclusiveproducts.js';
-import DiscountedProductComponent from'../../ScreenComponents/DiscountedProductComponent/DiscountedProductComponent.js';
-import SearchProducts from'../Search/SearchProducts.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import Notification from '../../ScreenComponents/Notification/Notification.js'
-import { connect }        from 'react-redux';
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
-import Drawer from 'react-native-drawer';
-import Loading from '../../ScreenComponents/Loading/Loading.js';
-import axios from "axios";
+ const Dashboard = withCustomerToaster((props)=>{
+  const {setToast} = props; 
+  const navigation = useNavigation();
+  const [isOpen,setOpen]= useState(false);
+  const [exclusiveProducts,setExclusiveProducts]= useState([]);
+  const [featuredProducts,setFeaturedProducts]= useState([]);
+  const [discountedProducts,setDiscountedProducts]= useState([]);
+  const [categories,setCategories]= useState([]);
+  const [featuredproductsloading,setFeaturedProductsLoading]= useState(true);
+  const [exclusiveprloading,setExclusiveprloading]= useState(true);
+  const [discountedprloading,setDiscountedprloading]= useState(true);
+  const [searchProductsDetails,setSearchProductsDetails]= useState([]);
+  const [countData,setCountData]= useState([]);
+  const [wishList,setWishList]= useState([]);
+  const [user_id,setUserId]= useState('');
+  const [token,setToken]= useState('');
 
-class Dashboard extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      inputFocusColor   : colors.textLight,
-      isOpen            : false,
-      sections          : [],
-      exclusiveProducts : [],
-      featuredProducts  : [],
-      discountedProducts  : [],
-      featuredproductsloading : true
-    };
-    // this.getSections();
-    this.exclusiveProductsData();
-    this.featuredProductData();
-    this.discountedProductsData();
+  useEffect(() => {
+    console.log("useEffect");
+    getData()
+  },[]);
 
-    this.SearchProducts();
-    this.countfun();
+  const getData=async()=>{
+      var data = await AsyncStorage.multiGet(['user_id', 'token']);
+      console.log("data",data);
+      setUserId(data[0][1]);
+      setToken(data[1][1]);
+      countfun(data[0][1]);
+      featuredProductData();
+      exclusiveProductsData();
+      discountedProductsData();
+      searchProducts();
+      getWishData(data[0][1]);
   }
 
-componentDidMount(){
-  this.focusListener = this.props.navigation.addListener('didFocus', () => {
-    console.log("this.componentDidMount IN ===>");
-    AsyncStorage.multiGet(['user_id', 'token'])
-      .then((data) => {
-        userId = data[0][1]
-        // console.log('userId on Dashboard===>', userId);
-        this.setState({
-          userId : userId
-      },()=>{
-        this.countfun();
-      })
+  const countfun=(user_id)=>{
+    axios.get("/api/Carts/get/count/" + user_id)
+    .then((response) => {
+      setCountData(response.data);
+    })
+    .catch((error) => { 
+      console.log("error",error);
+      navigation.navigate('App')
+      setToast({text: 'Something went wrong.', color: 'red'});
+    })
+  }
+
+  const searchProducts=()=>{
+    axios.get("/api/products/get/searchproducts/" + props.searchText)
+      .then((response) => {
+        setSearchProductsDetails([])
       })
       .catch((error) => {
-        console.log('error', error);
+        console.log("error",error);
+        navigation.navigate('App')
+        setToast({text: 'Something went wrong.', color: 'red'});
       })
-    // this.getSections();
-    this.featuredProductData();
-    this.exclusiveProductsData();
-    this.discountedProductsData();
-    this.getWishData();
-    
-     
-  })
-}
-componentWillUnmount () {
-  this.focusListener.remove()
-}
+  }
 
-  UNSAFE_componentWillReceiveProps(nextProps){
-      this.SearchProducts();
-      this.featuredProductData();
-      this.exclusiveProductsData();
-      this.discountedProductsData();
-      this.getWishData();
-      this.countfun();
-  }
-  countfun(){
-    // console.log('footer userId==>', this.state.userId)
-            axios.get("/api/Carts/get/count/" + this.state.userId)
-              .then((response) => {
-                // console.log('footer response.data==>', response.data)
-                this.setState({
-                  getCartCountData: response.data,
-                })
-              })
-              .catch((error) => { })
-  }
-  // getSections(){
-  //     axios.get('/api/sections/get/list')
-  //     .then((response)=>{
-  //         console.log('sect',response.data)
-  //         this.setState({
-  //             sections : response.data
-  //         })
-  //     })
-  //     .catch((error)=>{
-  //         console.log('error', error);
-  //     })
-  // }
-  SearchProducts(){
-    // console.log("Name serarch==>",this.props.searchText);
-    // axios.get("/api/products/get/search/" + this.props.searchText)
-    axios.get("/api/products/get/searchproducts/" + this.props.searchText)
-          .then((response) => {
-            this.setState({
-              SearchProductsDetails: response.data,
-            },()=>{
-              console.log("searchResult of serarch==>",this.state.SearchProductsDetails);
-            })
-            
-          })
-          .catch((error) => {})
-  }
-  featuredProductData(){
+  const featuredProductData=()=>{
     var productType1 = 'featured';
     axios.get("/api/products/get/products/listbytype/"+productType1)
       .then((response)=>{
-        this.setState({
-          featuredproductsloading:false,
-          featuredProducts : response.data
-        })
+        setFeaturedProductsLoading(false);
+        setFeaturedProducts(response.data);
       })
       .catch((error)=>{
+        console.log("error",error);
+        navigation.navigate('App')
+        setToast({text: 'Something went wrong.', color: 'red'});
       })
   }
-  // featuredProductData(){
-  //   var section = 'featured';
-  //   axios.get("/api/products/get/list/mobile/"+section)      
-  //         .then((response)=>{
-  //           if(response.data){
-  //           console.log('featuredProductData Products ==== ' , response.data)
-  //           this.setState({
-  //             vegetableProductsloading:false,
-  //             featuredProducts : response.data
-  //           })
-  //         }
-  //         })
-  //         .catch((error)=>{
-  //             console.log('error', error);
-  //         })
-  // }
-  // exclusiveProductsData(){
-  //   var section = 'exclusive';
-  //   axios.get("/api/products/get/list/mobile/"+section)      
-  //         .then((response)=>{
-  //           if(response.data){
-  //           // console.log('vegetables Products ==== ' , response.data)
-  //           this.setState({
-  //             exclusiveProductsloading:false,
-  //             exclusiveProducts : response.data
-  //           })
-  //         }
-  //         })
-  //         .catch((error)=>{
-  //             console.log('error', error);
-  //         })
-  // }
 
-  exclusiveProductsData(){
+  const exclusiveProductsData=()=>{
     var productType2 = 'exclusive';
     axios.get("/api/products/get/products/listbytype/"+productType2)
     .then((response)=>{
-      this.setState({
-        exclusiveprloading:false,
-        exclusiveProducts : response.data
-      })
+      setExclusiveprloading(false)
+      setExclusiveProducts(response.data)
     })
     .catch((error)=>{
-        // console.log('error', error);
+      console.log("error",error);
+      navigation.navigate('App')
+      setToast({text: 'Something went wrong.', color: 'red'});
     })
   }
 
-  discountedProductsData(){
+  const discountedProductsData=()=>{
     var productType2 = 'discounted';
     axios.get("/api/products/get/products/listbytype/"+productType2)
     .then((response)=>{
-      this.setState({
-        discountedprloading:false,
-        discountedProducts : response.data
-      })
+      setDiscountedProducts[response.data];
+      setDiscountedprloading(false);
     })
     .catch((error)=>{
-        // console.log('error', error);
+      console.log("error",error);
+      navigation.navigate('App')
+      setToast({text: 'Something went wrong.', color: 'red'});
     })
   }
 
-  getWishData(){
-    // var user_ID = localStorage.getItem('user_ID');
-    axios.get('/api/wishlist/get/userwishlist/')
+  const getWishData=(user_id)=>{
+    axios.get('/api/wishlist/get/userwishlist/'+user_id)
     .then((response)=>{
-      this.featuredProductData();
-      this.exclusiveProductsData();
-      this.discountedProductsData();
-      // this.newProductsData();
-      // this.bestSellerData();
-      this.setState({
-        wishList : response.data
-      },()=>{
-      })
+      featuredProductData();
+      exclusiveProductsData();
+      discountedProductsData();
+      setWishList(response.data);
     })
     .catch((error)=>{
-      // console.log('error', error);
+      console.log("error",error);
+      navigation.navigate('App')
+      setToast({text: 'Something went wrong.', color: 'red'});
     })
   }
 
-  updateMenuState(isOpen) {
-    this.setState({ isOpen });
-  }
+  const { navigate,dispatch } = props.navigation;
+  const menu = <Menu navigate={navigate} isOpen={isOpen}/>;
 
-  toggle() {
-    let isOpen = !this.state.isOpen;
-      this.setState({
-        isOpen
-      });
-  }
-
-  closeControlPanel = () => {
-    this._drawer.close()
-  }
-
-  openControlPanel = () => {
-    this._drawer.open()
-  }
-
-  searchUpdated(text){
-    this.setState({ searchText: text });
-  }
-
-  render(){
-
-    const { navigate,dispatch } = this.props.navigation;
-    const menu = <Menu navigate={navigate} isOpen={this.state.isOpen}/>;
-
-    if(this.props.loading){
-      return(
-        <Loading />
-      );
-    }else{
-      return (
-        <Drawer>
-          <SideMenu disableGestures={true} openMenuOffset={300} menu={menu} isOpen={this.state.isOpen}  onChange={isOpen => this.updateMenuState(isOpen)} >
-            <HeaderBar2 
-              navigation={this.props.navigation}
-              toggle={()=>this.toggle.bind(this)} 
-              openControlPanel={()=>this.openControlPanel.bind(this)}
-          
-            />
-            <View style={styles.superparent}>
+    return (
+      <React.Fragment>
+        <SideMenu disableGestures={true} openMenuOffset={300} menu={menu} isOpen={isOpen}  onChange={isOpen => setOpen(isOpen)} > 
+         <HeaderBar2 
+            navigation={navigation}
+            toggle={setOpen} 
+            openControlPanel={()=>_drawer.open()}
+          /> 
+          <View style={styles.superparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View  style={styles.formWrapper}>
-                {/* <View style={styles.bannerwrap}> */}
-                { this.props.searchText ?
+                {props.searchText ?
                   null
-                     
                 :
                   <BannerComponent />
                 }
-                {/* </View> */}
-                <View>
-                { this.props.searchText ?
+                {props.searchText ?
                   null
-                     
                 :
                   <MenuCarouselSection  navigate = {navigate}/>
                 }
-                  </View>
-                { this.props.searchText ?
-                     <SearchProducts navigate = {navigate} title={'Search Products'} searchProds={this.state.SearchProductsDetails}  />
-                     
+                {props.searchText ?
+                  <SearchProducts navigate = {navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
                 :
-                  (this.state.featuredProducts.length > 0 ? 
-                    // <FeatureProductComponent navigate = {navigate} title={'FEATURE PRODUCTS'}  newProducts={this.state.featuredProducts} type={'featured'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
-                    <FeatureProductComponent navigate = {navigate} title={'Featured Products'}  newProducts={this.state.featuredProducts} type={'featured'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
+                  (featuredProducts.length > 0 ? 
+                    <ProductList navigate = {navigate} title={'Featured Products'}  newProducts={featuredProducts} type={'featured'} getWishData={getWishData} wishList={wishList} userId={user_id} categories={categories}/>
                     : null
                   )
                 }
-                {/* {console.log("this.props.searchText====>",this.props.searchText)} */}
-                {
-                this.props.searchText ? null :
-                    (this.state.exclusiveProducts.length > 0 ? 
-                      // <ExclusiveProductsData navigate = {navigate} title={'EXCLUSIVE PRODUCTS'}  newProducts={this.state.exclusiveProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
-                      <ExclusiveProductsData navigate = {navigate} title={'Exclusive Products'}  newProducts={this.state.exclusiveProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
-                      : null
-                    )
+                {props.searchText ? null :
+                  (exclusiveProducts.length > 0 ? 
+                    <ProductList navigate = {navigate} title={'Exclusive Products'}  newProducts={exclusiveProducts} type={'exclusive'} getWishData={getWishData} wishList={wishList} userId={user_id} categories={categories}/>
+                    : null
+                  )
                 }
-                                {
-                this.props.searchText ? null :
-                    (this.state.exclusiveProducts.length > 0 ? 
-                      // <ExclusiveProductsData navigate = {navigate} title={'EXCLUSIVE PRODUCTS'}  newProducts={this.state.exclusiveProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
-                      <DiscountedProductComponent navigate = {navigate} title={'Discounted Products'}  newProducts={this.state.discountedProducts} type={'exclusive'} getWishData={this.getWishData.bind(this)} wishList={this.state.wishList} userId={this.state.userId} categories={this.state.categories}/>
-                      : null
-                    )
+                {props.searchText ? null :
+                  (exclusiveProducts.length > 0 ? 
+                    <ProductList navigate = {navigate} title={'Discounted Products'}  newProducts={discountedProducts} type={'exclusive'} getWishData={getWishData} wishList={wishList} userId={user_id} categories={categories}/>
+                    : null
+                  )
                 }
-
-              </View>
+              </View>  
             </ScrollView>
             <Footer/>
-
-            </View>
-           </SideMenu>
-        </Drawer>
-      );  
-    }
-    
-    
-  }
-}
+          </View> 
+        </SideMenu>
+      </React.Fragment>
+    );  
+})
 
 const mapStateToProps = (state) => {
-  // console.log("Name serarch state==>",state.searchText);
   return {
       searchText: state.searchText,
   }
 };
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard)

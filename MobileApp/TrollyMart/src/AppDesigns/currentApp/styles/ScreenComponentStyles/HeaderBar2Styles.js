@@ -21,7 +21,7 @@ export default StyleSheet.create({
     height: 30, width: 45, marginTop: 15, marginLeft: 10
   },
   whitename: {
-    // height: 65,
+    height: 40,
     // width: 150,
     // marginTop: 1,
     marginLeft: 50,
@@ -33,9 +33,7 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     marginBottom: 30,
   },
-  rightcnt: {
-
-  },
+  
   rightcnt: {
     ...Platform.select({
       ios: {

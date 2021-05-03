@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView,
   Text,
@@ -16,24 +16,15 @@ import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyl
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import axios from 'axios';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-export default class WishlistComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputFocusColor: colors.textLight,
-      isOpen: false,
-      starCount: 2.5,
-      productImage: [],
-      ProductsDetails: '',
-      subCategory_ID: '',
-      category_ID: '',
-      addtocart: false,
-      alreadyincarts: false,
-      wishlisted: false,
-      loading: true,
-      products: [],
-    };
-  }
+
+export const WishlistComponent =() =>{
+  const [isOpen,setOpen] = useState(false);
+  const [productImage,setProductImage] = useState([])
+  const [addtocart,setAddToCart] = useState(false)
+  const [alreadyincarts,setAlreadyInCarts] = useState(false)
+  const [loading,setLoading] = useState(false)
+  const [products,setProducts] = useState(false)
+  
   componentDidMount(){
     this.focusListener = this.props.navigation.addListener('didFocus', () => {
       console.log('hit getWishlistData 1');

@@ -171,7 +171,7 @@ export default StyleSheet.create({
 		position: 'absolute',
 		bottom: "5%",
 		top: 5, 
-		left: 145
+		left: "80%"
 	},
 	width160: { 
 		width: 180,

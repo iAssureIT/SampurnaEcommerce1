@@ -10,7 +10,7 @@ import {
 import { TextField } from 'react-native-material-textfield';
 import { Button, } from "react-native-elements";
 import axios from "axios";
-import Menu from '../../ScreenComponents/Menu/Menu.js';
+import {Menu} from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';

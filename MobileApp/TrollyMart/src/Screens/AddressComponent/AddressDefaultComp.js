@@ -11,7 +11,7 @@ import {
 // import { RadioButton } from 'react-native-paper';
 import { Header, Button, Icon, SearchBar, CheckBox } from "react-native-elements";
 import axios from "axios";
-import Menu from '../../ScreenComponents/Menu/Menu.js';
+import {Menu} from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'

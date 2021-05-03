@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import Modal from "react-native-modal";
 import { Dropdown } from 'react-native-material-dropdown-v2';
-import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FeatureProductComponentStyles.js';
+import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/ProductListStyles.js';
 import { Icon, Button } from "react-native-elements";
 import axios from 'axios';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
