@@ -146,7 +146,7 @@ class ForgotPassword extends Component {
     
         return (
             <div style={{'height': window.innerHeight+'px', 'width': window.innerWidth+'px'}} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper "+customClass}>
-                <div  className="col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-12 col-xs-12 formShadow">
+                <div  className="col-lg-3 col-lg-offset-7 col-md-3 col-md-offset-7 col-sm-4 col-offset-7 col-xs-12 formShadow">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     </div>
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
@@ -157,23 +157,30 @@ class ForgotPassword extends Component {
                         <div>
                             <p className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25">Please enter your registered email address below to receive an OTP.</p>
                             <form id="resetPass">
-                                <div className="textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25" >
+                                {/* <div className="textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25" >
                                     <label className="">Email ID</label><label className="astricsign">*</label>
                                     <input className="form-control col-lg-12 col-md-12 col-sm-12  col-xs-12" placeholder="Email ID" ref="emailLink" name="emailLink" type="text" />
                                     <div id="emailLink"></div>
+                                </div> */}
+                                <div id="emailLink" class="input-group customeInput-group " >
+                                    <span class="input-group-addon"><i className="fa fa-user-o"></i></span>
+                                    <input  type="text" className="form-control" onChange={this.handleChange} ref="emailLink" name="emailLink" placeholder="Email ID" required/>
                                 </div>
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25 mb25">
-                                <button id="sendlink" className="btn resetBtn col-lg-12 col-md-12 col-sm-12 col-xs-12" onClick={this.sendLink.bind(this)}>Send OTP</button>
+
+                                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 mt10">
+                                    <div className="row loginforgotpass textAlignLeft">
+                                        <a href='/login' className="">Sign In</a>
+                                    </div>
                                 </div>
+                                <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 mt25 mb25 pull-right NOpadding">
+                                    <button id="sendlink" className="btn resetBtn col-lg-12 col-md-12 col-sm-12 col-xs-12" onClick={this.sendLink.bind(this)}>Send OTP >></button>
+                                </div>
+                                
 
                                 {/* <div className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-xs-12 mt25 mb25">
                                     <button id="sendlink" className="btn resetBtn" onClick={this.sendLink.bind(this)}>Send OTP</button>
                                 </div> */}
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt10">
-                                    <div className="row loginforgotpass textAlignCenter">
-                                        <a href='/login' className="">Sign In</a>
-                                    </div>
-                                </div>
+                                
                             </form>
                         </div>
                         :

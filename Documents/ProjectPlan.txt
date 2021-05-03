@@ -10,4 +10,68 @@ Bloks carousel
 8. Higher profit margin products
 9. Exclusive products
 
+-------------------------------------------
+Product management
 
+1. Add products form(UPC)
+2. Bulk upload (UPC)
+3. List
+4. Edit/Delete
+5. View Product
+
+--------------------------------------------
+1) Bulk  Update  : vendorId | UPC | Prod ID | ItemID | Name | Quantity | Price
+
+---------------------------------------------
+section wise  - Publish/Unpublish
+add in masterdata
+
+---------------------------------------------
+Information Required
+1. AWS server
+2. S3
+3. Google API key - R
+4. EmailID
+5. SMS gateway
+6. Payment gateway
+7. Play Store 
+8. Apple account - R
+9. Firebase - R
+10. Hot code Publish -R
+11. Notification management
+
+----------------------------------------------
+
+Roles -
+
+Super Admin
+Store Admin
+
+RoleBase access management  ---- later
+----------------------------------------------
+
+1. Admin Login
+2. Technical masterdata
+3. Global masterdata
+4. Company settings
+5. Notification management
+6. Master Data
+
+
+7. Imports Products & Images
+
+------------------------------
+
+Website
+
+1. Theme/Design
+2. Menubar
+3. Banners
+4. Blocks
+
+
+Important point to be work with ashish Sir
+1. Bulk Update
+2. Inventory
+3. Discount
+4. Order management

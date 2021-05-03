@@ -9,7 +9,6 @@ particular section  - /api/products/get/listbysection/women
 
 reference Theme -  https://demo.wpthemego.com/themes/sw_onemall/layout3/
 
-
 Following are our URL for Sampurna MarketPlace 
 API
 http://qaapi-sampurna-marketplace.iassureit.in/

@@ -123,7 +123,7 @@ class ConfirmOtp extends Component {
         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
         </div>
         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt100 mb100">
-          <div className="col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-12 col-xs-12 formShadow">
+          <div className="col-lg-3 col-lg-offset-7 col-md-3 col-md-offset-7 col-sm-6 col-sm-offset-3 col-xs-12 formShadow">
 
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
@@ -149,13 +149,13 @@ class ConfirmOtp extends Component {
                       <div className="loginforgotpass mt25">
                         <lable>Found your Password?</lable>&nbsp;<a href='/login' className="">Sign In <b>&#8702;</b></a>
                       </div>
-                      <div className="mt30 col-lg-12 mb25">
-                        <div className="col-lg-6">
+                      <div className="mt30 col-lg-12 mb25 NOpadding">
+                        <div className="col-lg-6 NOpadding">
                           <div id="resendOtpBtn" onClick={this.resendOtp.bind(this)} className="col-lg-12 btn  systemsecBtn">
                             Resend OTP
                           </div>
                         </div>
-                        <div className="col-lg-6">
+                        <div className="col-lg-6 NOpadding">
                           <button type="submit" onClick={this.confirmOTP.bind(this)} className="col-lg-12 btn loginBtn systemsecBtn">Submit</button>
                         </div>
                       </div>

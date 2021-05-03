@@ -8,6 +8,7 @@ import Head from 'next/head'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ScrollTop from '../Themes/Sampurna/blocks/StaticBlocks/ScrollTop/ScrollTop.js';
+import Banner from '../Themes/Sampurna/blocks/3_BannerManagement/Banner/Banner.js';
 
 // import BlogCarousel from '../blockTemplate/BlogCarousel/BlogCarousel.js';
 // import BreadCrumbs from '../Themes/Sampurna/block/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
@@ -18,6 +19,7 @@ const SITE_NAME =  publicRuntimeConfig.SITE_NAME;
 const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/SampurnaHeader/Header.js'));
 // const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/Header/Header.js'));
 const Footer = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/6_FooterBlocks/Footer/Footer.js'));
+// const Baneer = dynamic(() => import('../Themes/' +SITE_NAME+'/blocks/3_BannerManagement/Banner/Banner.js'));
 
 
 class MasterPage extends React.Component {
@@ -32,11 +34,20 @@ class MasterPage extends React.Component {
 				pageAuthor		: "",
 				pageDescription	: "",
 				pageWords		: [""],
-			}
+			},
+			pageLoaded : false,
 		};
 	}
 	componentDidMount(){
-		this.getPreferences();		
+		this.getPreferences();
+		// console.log("1. render");
+		window.onload = (event) => {			
+			this.setState({
+				"pageLoaded" : true
+			},()=>{
+				console.log('page is fully loaded');
+			})
+		};
 	}
 
 	getPreferences(){
@@ -53,6 +64,7 @@ class MasterPage extends React.Component {
 		console.log("Error in preferences = ", error);
 	})
 	}
+
 	pageHead(){
 		return (
 			this.props.pageData && this.props.pageData.pageHead && Object.keys(this.props.pageData.pageHead).length > 0 ? 
@@ -77,17 +89,23 @@ class MasterPage extends React.Component {
 	}
 
    render() {	 
+	// console.log("2. render");
+	
 	// console.log("masterpage render this.props.pagedata===",this.props.pageData);
     return (		
 		<div className="col-12 NoPadding masterPageWrapper">
 			{this.pageHead()}
 			<Header/>			 
 			<div className="col-12 NoPadding componentWrapper">
-			{ this.props.pageData && this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
+
+			{this.state.pageLoaded ?
+			 this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
+
                 this.props.pageData.pageBlocks.map((result, index)=>{
+					// console.log("this.props.pageData.pageBlocks===",this.props.pageData.pageBlocks);
 					var component = result._id ? result.blockComponentName : "TitleDesc";
 					var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
-					var block_id=result.block_id._id;
+					var block_id=result.block_id?result.block_id._id:"";
 					// console.log("result==",result);
 					const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
 					{
@@ -107,6 +125,13 @@ class MasterPage extends React.Component {
 				<div className=" col-12 NoPadding">				
 					<a href="/"><img className=" col-12 NoPadding img-responsive" src="/images/eCommerce/404-Page.gif" /></a>
 				</div>
+			
+			:
+				
+				<div className="col-12 NoPadding">
+					<div> Page not fully loaded</div>
+					{/* <Banner block_id="" />							 */}
+				</div>	
 			}
 			</div>
 			{/* {this.props.pageData.pageURL === 'homepage' ? <BlogCarousel/> : null} */}

@@ -67,9 +67,9 @@ class BannerImages extends Component{
     submitImage(event){
       event.preventDefault();
       // console.log('bjgjbmbmb',$('#galleryManagement').valid());
-      if($('#bannerimages').valid()){      
+      // if($('#bannerimages').valid()){      
             var formValues = {              
-              "bannerimages"             : this.state.bannerimages,              
+              "bannerimages"             : this.state.bannerimages            
             }
 
             // console.log("formValues===",formValues);
@@ -101,9 +101,10 @@ class BannerImages extends Component{
                 });
               }
             });          
-      }else{
-          $('#bannerimages').valid()
-        }
+      
+      // else{
+      //     $('#bannerimages').valid()
+      //   }
     }
     Removefromgallery(event){
       event.preventDefault();

@@ -66,7 +66,7 @@ class Login extends Component {
       document.getElementById("logInBtn").value = this.setState({ btnLoading: true });
       axios.post('/api/auth/post/login', auth)
       .then((response) => {
-        console.log("in login response----",response.data)
+        // console.log("in login response----",response.data)
           // this.props.setGlobalUser(response.data.userDetails);
           if (response.data.ID) {
             this.setState({ btnLoading: false });
@@ -207,26 +207,36 @@ class Login extends Component {
         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
         </div>
         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div className="col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-12 col-xs-12 formShadow">
+          <div className="col-lg-3 col-lg-offset-7 col-md-3 col-md-offset-7 col-sm-6 col-sm-offset-3  col-xs-12 formShadow">
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xs-12">
               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
                 <h3>Sign In</h3>
               </div>
               <form id="login" onSubmit={this.userlogin.bind(this)}>
-                <div className="form-group textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt25">
+                {/* <div className="form-group textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mt25">
                   <label>Email ID</label><label className="astricsign">*</label>
                   <input type="email" className="form-control" onChange={this.handleChange} ref="loginusername" id="loginusername" name="loginusername" placeholder="Email ID" required />
-                </div>
-                <div className="textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mb25">
-
+                </div> */}
+                {/* <div className="textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding mb25">
                   <label>Password</label><label className="astricsign">*</label>
                   <input type="password" className="form-control" ref="loginpassword" name="loginpassword" id="loginpassword" placeholder="Password" required />
                   <div className="showHideSignDiv">
                     <i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
                     <i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
                   </div>
-
-                </div>
+                </div> */}
+                
+                  <div id="loginusername" class="input-group customeInput-group " >
+                    <span class="input-group-addon"><i className="fa fa-user-o"></i></span>
+                    <input  type="text" className="form-control" onChange={this.handleChange} ref="loginusername" name="loginusername" placeholder="Email ID" required/>
+                  </div>
+                  <div class="input-group customeInput-group">
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    <input id="loginpassword" type="password" class="form-control" ref="loginpassword" name="loginpassword"  placeholder="Password" required />
+                  </div>
+                
+                
+                
                 {/* <div className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-xs-12 NOpaddingRight">
                   <input id="logInBtn" type="submit" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn loginBtn" value="Sign In" />
                 </div> */}
@@ -244,17 +254,23 @@ class Login extends Component {
                   </div>
                 </div>
                   :
-                  <div className="form-group textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-                    <input id="logInBtn" type="submit" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn loginBtn" value="Sign In" />
+                  <div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding ">
+                      <div className="loginforgotpass col-lg-5 col-md-8 col-sm-8 col-xs-8 NOpadding pull-left">
+                        <a href='/forgotpassword' className="">Forgot Password?</a>
+                      </div>
+                      <div className="form-group textAlignCenter col-lg-4  col-md-4 col-sm-4 col-xs-8 pull-right NOpadding">
+                        <input id="logInBtn" type="submit" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn loginBtn" value="Sign In >>" />
+                      </div>
                   </div>
+                  
                 }
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt30 mb25">
                   <div className="row">
-                    <div className="textAlignCenter col-lg-12 col-md-12 col-sm-12 col-xs-12 mt10">
+                    {/* <div className="textAlignCenter col-lg-12 col-md-12 col-sm-12 col-xs-12 mt10">
                       <div className="row loginforgotpass">
                         <a href='/forgotpassword' className="">Forgot Password?</a>
                       </div>
-                    </div>
+                    </div> */}
                     {process.env.REACT_APP_USERID ?
                     <div className="col-lg-12 sampleTable">
                     <div className="table-responsive col-lg-12 col-md-12">
@@ -277,9 +293,6 @@ class Login extends Component {
                     :
                     null
                     }
-
-                    
-
                   </div>
                 </div>
               </form>

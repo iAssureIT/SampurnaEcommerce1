@@ -60,7 +60,7 @@ class SectionManagement extends Component {
     axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 
     var adminID = localStorage.getItem("admin_ID");
-    console.log("adminID>>>",adminID);
+    // console.log("adminID>>>",adminID);
     this.setState({
       editId : this.props.editId,
     },()=>{
@@ -209,9 +209,9 @@ class SectionManagement extends Component {
     // }
 
   submitsection(event) {
-    console.log("inside submit----");
+    // console.log("inside submit----");
     var adminID = localStorage.getItem("admin_ID");
-    console.log("adminID>>>",adminID);
+    // console.log("adminID>>>",adminID);
     event.preventDefault();
     if ($('#sectionManagement').valid()) {
       var formValues = {
@@ -220,7 +220,7 @@ class SectionManagement extends Component {
         "createdBy"   : localStorage.getItem("admin_ID"),
         "sectionImage"  : this.state.sectionImage
       }
-      console.log("section----",formValues);
+      // console.log("section----",formValues);
       axios.post('/api/sections/post', formValues)
         .then((response) => {
          /* swal({text: response.data.message,});*/
@@ -233,7 +233,7 @@ class SectionManagement extends Component {
             "sectionRank" : '',
             "sectionImage" :''
           });
-            window.location.reload();
+            // window.location.reload();
           this.getData(this.state.startRange, this.state.limitRange);
         })
         .catch((error) => {
