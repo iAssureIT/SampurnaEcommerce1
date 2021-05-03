@@ -117,7 +117,10 @@ class Gallery extends Component{
               swal({
                 text  : response.data.message,
               });
-              window.location.reload();
+              // window.location.reload();
+              
+              this.getGalleryData();
+              
               this.setState({
                 "galleryImage"                 : "",                
               });
@@ -153,7 +156,8 @@ class Gallery extends Component{
         swal({
           text  : response.data.message,
         });
-        window.location.reload();        
+        this.getGalleryData()
+        // window.location.reload();        
        
       })
       .catch((error)=>{

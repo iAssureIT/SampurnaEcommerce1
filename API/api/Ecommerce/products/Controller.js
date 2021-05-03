@@ -14,7 +14,8 @@ const franchisegoods       = require('../distributionManagement/Model');
 const EntityMaster         = require('../../coreAdmin/entityMaster/ModelEntityMaster');
 var subcategoryArray=[];
 exports.insert_product = (req,res,next)=>{
-    // console.log("response",res);
+    // console.log("response ===========>",res);
+    console.log("req =>=>=>=>=>=>=>=>=>=> ",req.body);
     Products.find({"itemCode" : req.body.itemCode,"vendor_ID":req.body.vendor_ID})
         .exec()
         .then(data =>{
@@ -57,6 +58,7 @@ exports.insert_product = (req,res,next)=>{
                 offered                   : req.body.offered,
                 unit                      : req.body.unit,
                 size                      : req.body.size,
+                universalProductCode      : req.body.universalProductCode,
                 color                     : req.body.color,
                 attributes                : req.body.attributes,
                 taxName                   : req.body.taxName,
@@ -90,6 +92,7 @@ exports.insert_product = (req,res,next)=>{
 };
 
 exports.bulkUploadProduct = (req,res,next)=>{
+    console.log("req.body => ",req.body);
     var record = []; 
     var i = 0;
     var found = 0;
@@ -690,6 +693,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                         offered                   : data.offered,
                         unit                      : data.unit ? data.unit : "",
                         size                      : data.size ? data.size : "",
+                        universalProductCode      : data.universalProductCode ? data.universalProductCode : "",
                         color                     : data.color ? data.color : "",
                         exclusive                 : data.exclusive,
                         featured                  : data.featured,
@@ -824,6 +828,7 @@ exports.update_product = (req,res,next)=>{
                 offered                   : req.body.offered,
                 unit                      : req.body.unit,
                 size                      : req.body.size,
+                universalProductCode      : req.body.universalProductCode,
                 color                     : req.body.color,
                 createdAt                 : new Date()
                 }

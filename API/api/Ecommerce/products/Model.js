@@ -39,6 +39,7 @@ const productsSchema = mongoose.Schema({
     productBrochurePDF        : String,
     productInfoPDF            : String,
     status                    : String,
+    universalProductCode      : String,
     featured                  : Boolean,
     exclusive                 : Boolean,
     newProduct                : Boolean,
