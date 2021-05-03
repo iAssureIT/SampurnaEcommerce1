@@ -27,7 +27,6 @@ class Login extends Component {
     }
   }
   componentDidMount() {
-
     $.validator.addMethod("regxemail", function (value, element, regexpr) {
       return regexpr.test(value);
     }, "Please enter a valid email address.");
@@ -82,7 +81,7 @@ class Login extends Component {
               user_id   : response.data.userDetails.user_id,
               roles     : response.data.userDetails.roles,
               token     : response.data.userDetails.token, 
-              loginTokens : response.data.loginTokens._id
+              loginTokens : response.data.loginTokens.ID
             }
             document.getElementById("logInBtn").value = 'Sign In';
             // localStorage.setItem("token", response.data.token);
@@ -91,7 +90,10 @@ class Login extends Component {
             localStorage.setItem("user_ID", userDetails.user_id);
             localStorage.setItem("roles", response.data.roles);
             localStorage.setItem('userDetails', JSON.stringify(userDetails));
-            localStorage.setItem("loginTokensLastID",response.data.loginTokens._id)
+            localStorage.setItem("loginTokensLastID",response.data.loginTokens._ID);
+            
+            // var token         = userDetails.token;
+            axios.defaults.headers.common['Authorization'] = 'Bearer '+ response.data.userDetails.token;
             axios.get("/api/adminPreference/get")
             .then(preference =>{
               var websiteModel = preference.data[0].websiteModel;
@@ -103,7 +105,20 @@ class Login extends Component {
               localStorage.setItem("preferencedata",preferencedata);
             })
             .catch(error=>{
-                console.log("Error in getting adminPreference ===> ", error);
+                console.log("error => ",error);
+                if(error.message === "Request failed with status code 401"){
+                    var userDetails =  localStorage.removeItem("userDetails");
+                    localStorage.clear();
+                    swal({  
+                        title : "Your Session is expired.",                
+                        text  : "You need to login again. Click OK to go to Login Page"
+                    })
+                    .then(okay => {
+                        if (okay) {
+                            window.location.href = "/login";
+                        }
+                    });
+                }
               }) 
 
             this.setState({

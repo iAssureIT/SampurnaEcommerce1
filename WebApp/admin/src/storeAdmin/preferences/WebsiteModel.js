@@ -22,15 +22,16 @@ class WebsiteModel extends Component {
             "showDiscount"     : "",
             "showCoupenCode"   : "",
             "showOrderStatus"  : "",
-
-
-
-
         };
-        
     }
+
     componentDidMount(){        
         // console.log("2.inside component didmount");
+        var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+        var token         = userDetails.token;
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+        console.log("userDetails = > ",userDetails);
+        console.log("Bearer = > ",(axios.defaults.headers.common['Authorization'] = 'Bearer '+ token));
     }
 
     componentWillMount() {
@@ -53,7 +54,20 @@ class WebsiteModel extends Component {
             }
         })
         .catch(error=>{
-            console.log("Error in preferences = ", error);
+            console.log("error => ",error);
+            // if(error.message === "Request failed with status code 401"){
+            //     var userDetails =  localStorage.removeItem("userDetails");
+            //     localStorage.clear();
+            //     swal({  
+            //         title : "Your Session is expired.",                
+            //         text  : "You need to login again. Click OK to go to Login Page"
+            //     })
+            //     .then(okay => {
+            //         if (okay) {
+            //             window.location.href = "/login";
+            //         }
+            //     });
+            // }
         })
     }  
     
@@ -74,33 +88,44 @@ class WebsiteModel extends Component {
     }
     submit(event){ 
         event.preventDefault();    
-                var formValues = {
-                    "websiteModel"     : this.state.websiteModel ,  
-                    "askPincodeToUser" : this.state.askPincodeToUser,   
-                    "showLoginAs"      : this.state.showLoginAs,      
-                    "showInventory"    : this.state.showInventory,  
-                    "showDiscount"     : this.state.showDiscount,    
-                    "showCoupenCode"   : this.state.showCoupenCode,  
-                    "showOrderStatus"  : this.state.showOrderStatus,    
-                }
-                 console.log('formValues', formValues);
-                if($("#websiteModelId").valid()){        
-                    axios.post('/api/adminpreference/post', formValues)
-                    .then((response)=>{                
-                        console.log("response after insert webapp:",response.data.message); 
-                        swal({
-                            text : response.data.message
-
-                        }) 
-                                     
-                    window.location.reload();
-                    })
-                    .catch((error)=>{
-                        console.log('error', error);
-                    })
-                }
-        
-         
+        var formValues = {
+            "websiteModel"     : this.state.websiteModel ,  
+            "askPincodeToUser" : this.state.askPincodeToUser,   
+            "showLoginAs"      : this.state.showLoginAs,      
+            "showInventory"    : this.state.showInventory,  
+            "showDiscount"     : this.state.showDiscount,    
+            "showCoupenCode"   : this.state.showCoupenCode,  
+            "showOrderStatus"  : this.state.showOrderStatus,    
+        }
+            console.log('formValues', formValues);
+        if($("#websiteModelId").valid()){        
+            axios.post('/api/adminpreference/post', formValues)
+            .then((response)=>{                
+                console.log("response after insert webapp:",response.data.message); 
+                swal({
+                    text : response.data.message
+                }) 
+                                
+            window.location.reload();
+            })
+            .catch((error)=>{
+                console.log("error => ",error);
+                // if(error.message === "Request failed with status code 401"){
+                //     var userDetails =  localStorage.removeItem("userDetails");
+                //     localStorage.clear();
+                //     swal({  
+                //         title : "Your Session is expired.",                
+                //         text  : "You need to login again. Click OK to go to Login Page"
+                //     })
+                //     .then(okay => {
+                //         if (okay) {
+                //             window.location.href = "/login";
+                //         }
+                //     });
+                // }
+                
+            })
+        }        
     }
         
     render() {        

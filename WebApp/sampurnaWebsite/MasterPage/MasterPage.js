@@ -55,7 +55,7 @@ class MasterPage extends React.Component {
 	}
 	pageHead(){
 		return (
-			this.props.pageData.pageHead && Object.keys(this.props.pageData.pageHead).length > 0 ? 
+			this.props.pageData && this.props.pageData.pageHead && Object.keys(this.props.pageData.pageHead).length > 0 ? 
 			<Head>
 				<meta charSet="UTF-8" />
 				<title>{SITE_NAME} | {this.props.pageData.pageTitle}</title>
@@ -83,7 +83,7 @@ class MasterPage extends React.Component {
 			{this.pageHead()}
 			<Header/>			 
 			<div className="col-12 NoPadding componentWrapper">
-			{ this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
+			{ this.props.pageData && this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
                 this.props.pageData.pageBlocks.map((result, index)=>{
 					var component = result._id ? result.blockComponentName : "TitleDesc";
 					var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
