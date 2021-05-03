@@ -8,7 +8,7 @@ router.post('/post', 													checkAuth, categoryController.insert_category)
 
 router.patch('/patch', 													checkAuth, categoryController.update_category);
 
-router.get('/get/list', 												checkAuth, categoryController.list_section);
+router.get('/get/list', 												 categoryController.list_section);
 
 router.get('/get/list/:section_ID', 								checkAuth, categoryController.list_category);
 

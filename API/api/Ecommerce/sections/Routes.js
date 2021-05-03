@@ -14,7 +14,7 @@ router.get('/get/count', 												checkAuth, sectionsController.count_section
 
 router.get('/get/one/:sectionID', 									checkAuth, sectionsController.get_single_section);
 
-router.get('/get/get_megamenu_list', 								checkAuth, sectionsController.get_megamenu_list);
+router.get('/get/get_megamenu_list', 							   sectionsController.get_megamenu_list);
 
 router.patch('/patch', 													checkAuth, sectionsController.update_section);
 

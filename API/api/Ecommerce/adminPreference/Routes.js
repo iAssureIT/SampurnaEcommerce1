@@ -7,6 +7,6 @@ const adminPreferenceController = require('../adminPreference/Controller');
 //route for website model
 router.post('/post', 	checkAuth, adminPreferenceController.insert_preferences);
 
-router.get('/get', 		checkAuth, adminPreferenceController.get_preferences);
+router.get('/get', 	    adminPreferenceController.get_preferences);
 
 module.exports = router;

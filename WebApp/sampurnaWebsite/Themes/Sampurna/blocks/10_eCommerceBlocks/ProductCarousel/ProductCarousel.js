@@ -178,8 +178,8 @@ class ProductCarousel extends Component {
       var filterUrlType = url[3];
       var filterUrlArray = [];
 			filterUrlArray.push(filterUrl);   
-      console.log("filterUrl===",filterUrl);
-      console.log("filterUrlType===",filterUrlType);
+      // console.log("filterUrl===",filterUrl);
+      // console.log("filterUrlType===",filterUrlType);
       if(filterUrlType === 'section'){
         this.getBrandsBySection(filterUrl);
       }else if(filterUrlType === 'category'){
@@ -210,7 +210,7 @@ class ProductCarousel extends Component {
             // console.log("productApiUrl===",productApiUrl);
           }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-            console.log("productApiUrl===",productApiUrl);
+            // console.log("productApiUrl===",productApiUrl);
           }else{
               var productApiUrl = this.state.blockSettings.blockApi;
               // console.log("productApiUrl===",productApiUrl);
@@ -323,8 +323,8 @@ class ProductCarousel extends Component {
 			})
   }
   onSelectedItemsChange(filterType, selecteditems){
-    console.log("filterType===",filterType);
-    console.log("selecteditems===",selecteditems);
+    // console.log("filterType===",filterType);
+    // console.log("selecteditems===",selecteditems);
 		var checkboxes = document.getElementsByName('brands[]');
 		var brands = [];
 		for (var i = 0, n = checkboxes.length; i < n; i++) {

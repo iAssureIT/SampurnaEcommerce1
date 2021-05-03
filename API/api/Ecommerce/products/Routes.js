@@ -33,11 +33,11 @@ router.get('/get/productcode/:productCode', 								checkAuth, productController
 
 //router.get('/get/brandlist',productController.list_brand);
 
-router.get('/get/listbytype/:productType', 								checkAuth, productController.list_productby_type);
+router.get('/get/listbytype/:productType', 							    productController.list_productby_type);
 
 // router.get('/get/sectiontype/:section',productController.list_productby_section);
 
-router.get('/get/products/listbytype/:productType', 					checkAuth, productController.list_productby_type_mobile);
+router.get('/get/products/listbytype/:productType', 					productController.list_productby_type_mobile);
 
 router.get('/get/listbytypeNcategory/:categoryID/:productType', 	checkAuth, productController.list_productby_type_category);
 
@@ -45,12 +45,11 @@ router.get('/get/list/:sectionID', 											checkAuth, productController.list_
 
 router.get('/get/listby/category/:categoryID', 							checkAuth, productController.list_productby_category);
 
-router.get('/get/listbycategory/:categoryUrl', 							checkAuth, productController.list_productby_categoryUrl);
+router.get('/get/listbycategory/:categoryUrl', 						  productController.list_productby_categoryUrl);
 
-router.get('/get/listbysection/:sectionUrl', 							checkAuth, productController.list_productby_sectionUrl);
+router.get('/get/listbysection/:sectionUrl', 						  productController.list_productby_sectionUrl);
 
-router.get('/get/listbysubcategory/:subcategoryUrl', 					checkAuth, productController.list_productby_subcategoryUrl);
-
+router.get('/get/listbysubcategory/:subcategoryUrl', 				  productController.list_productby_subcategoryUrl);
 
 router.get('/get/list/:categoryID/:subcategoryID', 					checkAuth, productController.list_productby_subcategory);
 
