@@ -18,7 +18,7 @@ import OTPVerification            from '../Screens/SystemSecurity/OTPVerificatio
 import {ForgotPasswordOTP}          from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
 
 
-import Dashboard from '../Screens/Dashboard/Dashboard.js';
+import {Dashboard} from '../Screens/Dashboard/Dashboard.js';
 import CategoriesComponent from'../Screens/CategoriesComponent/CategoriesComponent.js';
 import SubCategoriesComp from'../Screens/CategoriesComponent/SubCategoriesComp.js';
 import SubCatCompView from'../Screens/CategoriesComponent/SubCatCompView.js';
@@ -28,7 +28,7 @@ import AddressDefaultComp from '../Screens/AddressComponent/AddressDefaultComp.j
 import AddressComponent from '../Screens/AddressComponent/AddressComponent.js';
 import AddressComponentforaddressmenu from '../Screens/AddressComponent/AddressComponentforaddressmenu.js';
 import AddressMenu from'../Screens/AddressComponent/AddressMenu.js';
-import WishlistComponent from'../Screens/WishlistComponent/WishlistComponent.js';
+import {WishlistComponent} from'../Screens/WishlistComponent/WishlistComponent.js';
 import MyOrder from '../Screens/MyOrders/MyOrder.js';
 import {SupportSystem} from '../Screens/Help&Support/SupportSystem.js';
 import Stores from '../Screens/Stores/Stores.js';

@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-ActivityIndicator,
-AsyncStorage,
-StatusBar,
-StyleSheet,
-View,
+    ActivityIndicator,
+    StatusBar,
+    StyleSheet,
+    View,
 } from 'react-native';
-// import axios from "../../config/axios.js";
+import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default class AuthLoadingScreen extends React.Component {
@@ -21,8 +21,10 @@ _bootstrapAsync = async () => {
 var token ;
 var user_id ;
 const userToken = await AsyncStorage.getItem('token');
+if(userToken){
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ userToken;
+}
 this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-// this.props.navigation.navigate('App');
 };
 
 // Render any loading content that you like here

@@ -13,7 +13,7 @@ import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import axios from 'axios';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
-// import { RadioButton } from 'react-native-paper';
+import { RadioButton } from 'react-native-paper';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export default class PaymentMethod extends React.Component {
@@ -158,42 +158,43 @@ export default class PaymentMethod extends React.Component {
       deliveryAddress: deliveryAddress,
       paymentMethod:this.state.paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
     }
-    // console.log("orderData==>", deliveryAddress);
+    console.log("orderData==>", orderData);
     axios.post('/api/orders/post', orderData)
       .then((result) => {
-        // console.log("orderData==>", result.data);
+        console.log("orderData==>", result.data);
         axios.get('/api/orders/get/one/' + result.data.order_ID)
           .then((res) => {
-            // if (this.state.paymentmethods === 'cod') {
-              // this.setState({paymethods : true})
+            if (this.state.paymentmethods === 'cod') {
+              this.props.navigation.navigate('Dashboard')
+              this.setState({paymethods : true})
               this.setState({ btnLoading: false,paymentmod: true })
-          // } else {
-          //     // this.setState({paymethods : true})
-          //     var paymentdetails = {
-          //         MERCHANT_ID: this.state.partnerid,
-          //         MERCHANT_ACCESS_CODE: this.state.secretkey,
-          //         REFERENCE_NO: result.data.order_ID,
-          //         AMOUNT: this.state.totalamountpay,
-          //         CUSTOMER_MOBILE_NO: mobile,
-          //         CUSTOMER_EMAIL_ID: this.state.email,
-          //         PRODUCT_CODE: "testing",
-          //     }
-          //     // console.log('paymentdetails in result==>>>', paymentdetails)
-          //     axios.post('/api/orders/pgcall/post', paymentdetails)
-          //         .then((payurl) => {
+          } else {
+              // this.setState({paymethods : true})
+              var paymentdetails = {
+                  MERCHANT_ID: this.state.partnerid,
+                  MERCHANT_ACCESS_CODE: this.state.secretkey,
+                  REFERENCE_NO: result.data.order_ID,
+                  AMOUNT: this.state.totalamountpay,
+                  CUSTOMER_MOBILE_NO: mobile,
+                  CUSTOMER_EMAIL_ID: this.state.email,
+                  PRODUCT_CODE: "testing",
+              }
+              // console.log('paymentdetails in result==>>>', paymentdetails)
+              axios.post('/api/orders/pgcall/post', paymentdetails)
+                  .then((payurl) => {
                       
-          //             if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
-          //               // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
-          //               this.props.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
-          //             }
-          //             this.setState({ btnLoading: false })
-          //         })
-          //         .catch((error) => {
-          //             console.log("return to checkout");
-          //             console.log(error);
-          //             this.setState({ btnLoading: false })
-          //         })
-          // }
+                      if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
+                        // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
+                        this.props.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
+                      }
+                      this.setState({ btnLoading: false })
+                  })
+                  .catch((error) => {
+                      console.log("return to checkout");
+                      console.log(error);
+                      this.setState({ btnLoading: false })
+                  })
+          }
             console.log("orderdetails=====>", res.data);
             // =================== Notification OTP ==================
             var sendData = {

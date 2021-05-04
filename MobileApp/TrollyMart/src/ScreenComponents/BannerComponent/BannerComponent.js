@@ -6,7 +6,7 @@ import {
   ImageBackground,
 }                       from 'react-native';
 import styles           from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/BannerComponentStyles.js';
-import Carousel         from 'react-native-banner-carousel';
+import Carousel         from 'react-native-banner-carousel-updated';
 import axios            from 'axios';
 
 const BannerHeight = 230;
@@ -25,18 +25,18 @@ export const BannerComponent=()=>{
       setBannerImages(res.data)
     })
     .catch((error)=>{
-      console.log('error', error);
+      console.log('error1111', error);
     })
 }
 
   const renderPage=(image, index)=>{
-    onsole.log("each Banner Images",image.bannerImages)
-    var bannerImages = image.bannerImages ? {uri : image.bannerImages} : require("../../AppDesigns/currentApp/images/no_banner_image.png")
+    console.log("each Banner Images",image.bannerimages)
+    var bannerImages = image.bannerimages ? {uri : image.bannerimages} : require("../../AppDesigns/currentApp/images/no_banner_image.png")
     return (
       <View key={index}>
         <ImageBackground 
           style={{ width:"100%", height: 230,}} 
-          source={{ uri: image.bannerImages }}
+          source={bannerImages}
           // resizeMode={"contain"}
         >
         </ImageBackground>
@@ -47,12 +47,13 @@ export const BannerComponent=()=>{
   return (
     <View style={styles.bannerWrapper}>
         <Carousel
-            autoplay
-            autoplayTimeout={5000}
-            loop
+            autoplay={true}
+            autoplayTimeout={10000}
+            loop={true}
             index={0}
           //  pageSize={BannerWidth}
             pageSize={360}
+        
             >
           {bannerImages.map((image, index) => renderPage(image, index))}
         </Carousel>

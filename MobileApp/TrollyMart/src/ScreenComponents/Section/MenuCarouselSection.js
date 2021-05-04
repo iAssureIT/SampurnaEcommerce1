@@ -4,12 +4,13 @@ import {Text,View,
       ImageBackground}        from 'react-native';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
 import axios                  from 'axios';
-import Animated from "react-native-reanimated";
+import Animated               from "react-native-reanimated";
+import {useNavigation}        from '../../config/useNavigation.js';
 
 export const MenuCarouselSection = ()=>{
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const [sectionDetails,setSections]=useState([])
-
+  const navigation = useNavigation();
   useEffect(() => {
     console.log("useEffect");
     getData()
@@ -47,8 +48,8 @@ export const MenuCarouselSection = ()=>{
             sectionDetails && sectionDetails.map((data, index) => {                                                               
               return (
                 <View key={index} style={styles.mainrightside}>
-                    <TouchableOpacity onPress={()=>this.props.navigate('CategoriesComponent',{section_id:data._id})}>
-                    <ImageBackground onPress={()=>this.props.navigate('CategoriesComponent',{section_id:data._id})} source={data.sectionImage ? {uri : data.sectionImage}:noImage} style={styles.sectionImages}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('CategoriesComponent',{section_id:data._id})}>
+                    <ImageBackground onPress={()=>navigation.navigate('CategoriesComponent',{section_id:data._id})} source={data.sectionImage ? {uri : data.sectionImage}:noImage} style={styles.sectionImages}>
                         <Text style={styles.sectionTitle}>{data.section}</Text>
                       </ImageBackground>
                     </TouchableOpacity>

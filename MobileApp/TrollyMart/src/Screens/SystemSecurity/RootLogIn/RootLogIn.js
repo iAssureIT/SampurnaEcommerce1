@@ -64,7 +64,8 @@ const window = Dimensions.get('window');
                       AsyncStorage.multiSet([
                         ['user_id', res.data.ID],
                         ['token', res.data.token],
-                      ])
+                      ]);
+                      axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.token;
                       dispatch(
                         setUserDetails({
                           user_id     : res.data.ID,

@@ -3,15 +3,15 @@ import {ScrollView,View,Text}       from 'react-native';
 import { Header, Button, 
         Icon, SearchBar }           from "react-native-elements";
 import SideMenu                     from 'react-native-side-menu';
-import {Menu}                         from '../../ScreenComponents/Menu/Menu.js';
+import {Menu}                       from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar2                   from '../../ScreenComponents/HeaderBar2/HeaderBar2.js';
-import {BannerComponent}              from '../../ScreenComponents/BannerComponent/BannerComponent.js';
+import {BannerComponent}            from '../../ScreenComponents/BannerComponent/BannerComponent.js';
 import {MenuCarouselSection}        from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
 import SearchProducts               from'../Search/SearchProducts.js';
 import Footer                       from '../../ScreenComponents/Footer/Footer1.js';
 import Notification                 from '../../ScreenComponents/Notification/Notification.js'
-import { connect }                  from 'react-redux';
+import { connect,useDispatch,useSelector }      from 'react-redux';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
 import {colors}                     from '../../AppDesigns/currentApp/styles/styles.js';
 import Drawer                       from 'react-native-drawer';
@@ -20,23 +20,26 @@ import axios                        from "axios";
 import {useNavigation}              from '../../config/useNavigation.js';
 import {withCustomerToaster}        from '../../redux/AppState.js';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
+import { getList } 		              from '../../redux/productList/actions';
+import { getWishList } 		          from '../../redux/wishDetails/actions';
 
- const Dashboard = withCustomerToaster((props)=>{
+export const Dashboard = withCustomerToaster((props)=>{
+   console.log("props",props);
+  const dispatch 		= useDispatch();
   const {setToast} = props; 
   const navigation = useNavigation();
   const [isOpen,setOpen]= useState(false);
-  const [exclusiveProducts,setExclusiveProducts]= useState([]);
-  const [featuredProducts,setFeaturedProducts]= useState([]);
-  const [discountedProducts,setDiscountedProducts]= useState([]);
   const [categories,setCategories]= useState([]);
-  const [featuredproductsloading,setFeaturedProductsLoading]= useState(true);
-  const [exclusiveprloading,setExclusiveprloading]= useState(true);
-  const [discountedprloading,setDiscountedprloading]= useState(true);
   const [searchProductsDetails,setSearchProductsDetails]= useState([]);
   const [countData,setCountData]= useState([]);
-  const [wishList,setWishList]= useState([]);
   const [user_id,setUserId]= useState('');
   const [token,setToken]= useState('');
+  const store = useSelector(store => ({
+    searchText  : store.searchText,
+    productList : store.productList,
+    wishList    : store.wishDetails.wishList
+  }));
+  const {searchText,productList,wishList} = store; 
 
   useEffect(() => {
     console.log("useEffect");
@@ -49,11 +52,11 @@ import AsyncStorage                 from '@react-native-async-storage/async-stor
       setUserId(data[0][1]);
       setToken(data[1][1]);
       countfun(data[0][1]);
-      featuredProductData();
-      exclusiveProductsData();
-      discountedProductsData();
+      dispatch(getList('featured'));
+      dispatch(getList('exclusive'));
+      dispatch(getList('discounted'));
+      dispatch(getWishList(data[0][1]));
       searchProducts();
-      getWishData(data[0][1]);
   }
 
   const countfun=(user_id)=>{
@@ -80,65 +83,9 @@ import AsyncStorage                 from '@react-native-async-storage/async-stor
       })
   }
 
-  const featuredProductData=()=>{
-    var productType1 = 'featured';
-    axios.get("/api/products/get/products/listbytype/"+productType1)
-      .then((response)=>{
-        setFeaturedProductsLoading(false);
-        setFeaturedProducts(response.data);
-      })
-      .catch((error)=>{
-        console.log("error",error);
-        navigation.navigate('App')
-        setToast({text: 'Something went wrong.', color: 'red'});
-      })
-  }
 
-  const exclusiveProductsData=()=>{
-    var productType2 = 'exclusive';
-    axios.get("/api/products/get/products/listbytype/"+productType2)
-    .then((response)=>{
-      setExclusiveprloading(false)
-      setExclusiveProducts(response.data)
-    })
-    .catch((error)=>{
-      console.log("error",error);
-      navigation.navigate('App')
-      setToast({text: 'Something went wrong.', color: 'red'});
-    })
-  }
 
-  const discountedProductsData=()=>{
-    var productType2 = 'discounted';
-    axios.get("/api/products/get/products/listbytype/"+productType2)
-    .then((response)=>{
-      setDiscountedProducts[response.data];
-      setDiscountedprloading(false);
-    })
-    .catch((error)=>{
-      console.log("error",error);
-      navigation.navigate('App')
-      setToast({text: 'Something went wrong.', color: 'red'});
-    })
-  }
-
-  const getWishData=(user_id)=>{
-    axios.get('/api/wishlist/get/userwishlist/'+user_id)
-    .then((response)=>{
-      featuredProductData();
-      exclusiveProductsData();
-      discountedProductsData();
-      setWishList(response.data);
-    })
-    .catch((error)=>{
-      console.log("error",error);
-      navigation.navigate('App')
-      setToast({text: 'Something went wrong.', color: 'red'});
-    })
-  }
-
-  const { navigate,dispatch } = props.navigation;
-  const menu = <Menu navigate={navigate} isOpen={isOpen}/>;
+  const menu = <Menu navigate={navigation.navigate} isOpen={isOpen}/>;
 
     return (
       <React.Fragment>
@@ -159,25 +106,25 @@ import AsyncStorage                 from '@react-native-async-storage/async-stor
                 {props.searchText ?
                   null
                 :
-                  <MenuCarouselSection  navigate = {navigate}/>
+                  <MenuCarouselSection  navigate = {navigation.navigate}/>
                 }
                 {props.searchText ?
-                  <SearchProducts navigate = {navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
+                  <SearchProducts navigate = {navigation.navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
                 :
-                  (featuredProducts.length > 0 ? 
-                    <ProductList navigate = {navigate} title={'Featured Products'}  newProducts={featuredProducts} type={'featured'} getWishData={getWishData} wishList={wishList} userId={user_id} categories={categories}/>
+                  (productList.featureList.length > 0 ? 
+                    <ProductList navigate = {navigation.navigate} title={'Featured Products'}  newProducts={productList.featureList} type={'featured'} route={'AllFeatureProducts'}  wishList={wishList} userId={user_id} categories={categories}/>
                     : null
                   )
                 }
                 {props.searchText ? null :
-                  (exclusiveProducts.length > 0 ? 
-                    <ProductList navigate = {navigate} title={'Exclusive Products'}  newProducts={exclusiveProducts} type={'exclusive'} getWishData={getWishData} wishList={wishList} userId={user_id} categories={categories}/>
+                  (productList.exclusiveList.length > 0  ? 
+                    <ProductList navigate = {navigation.navigate} title={'Exclusive Products'}  newProducts={productList.exclusiveList} type={'exclusive'} route={'AllExclusiveProducts'}  wishList={wishList} userId={user_id} categories={categories}/>
                     : null
                   )
                 }
                 {props.searchText ? null :
-                  (exclusiveProducts.length > 0 ? 
-                    <ProductList navigate = {navigate} title={'Discounted Products'}  newProducts={discountedProducts} type={'exclusive'} getWishData={getWishData} wishList={wishList} userId={user_id} categories={categories}/>
+                    (productList.discountedList.length > 0  ? 
+                    <ProductList navigate = {navigation.navigate} title={'Discounted Products'}  newProducts={productList.discountedList} type={'discounted'} route={'AllDiscountedProducts'}  wishList={wishList} userId={user_id} categories={categories}/>
                     : null
                   )
                 }
@@ -189,10 +136,3 @@ import AsyncStorage                 from '@react-native-async-storage/async-stor
       </React.Fragment>
     );  
 })
-
-const mapStateToProps = (state) => {
-  return {
-      searchText: state.searchText,
-  }
-};
-export default connect(mapStateToProps)(Dashboard)

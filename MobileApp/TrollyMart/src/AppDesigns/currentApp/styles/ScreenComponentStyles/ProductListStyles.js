@@ -178,14 +178,13 @@ export default StyleSheet.create({
 		padding: 3,
 	},
 	mainrightside: {
-		width: "50%",
-		padding: 5,
+		flex:0.5,
+		padding:5
 	},
 	proddets: {
-		width: '100%',
+		flex:1,
 		flexDirection: 'row',
-		flexWrap: 'wrap', 
-		marginBottom: '18%'
+		marginBottom:"18%"
 	},
 	nameprod: {
 		fontSize: 15, fontFamily: "Montserrat-SemiBold", color: '#666'

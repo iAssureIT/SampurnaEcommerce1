@@ -1,122 +1,111 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   ScrollView,
   Text,
   View,
   TouchableOpacity,
   Image,
-  AsyncStorage,
   ActivityIndicator,
 } from 'react-native';
-import {  Icon,Button} from "react-native-elements";
-import Modal from "react-native-modal";
-import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
-import axios from 'axios';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {  Icon,Button}          from "react-native-elements";
+import Modal                    from "react-native-modal";
+import HeaderBar3               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import Footer                   from '../../ScreenComponents/Footer/Footer1.js';
+import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
+import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
+import axios                    from 'axios';
+import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import AsyncStorage             from '@react-native-async-storage/async-storage';
+import {useNavigation}          from '../../config/useNavigation.js';
+import {withCustomerToaster}    from '../../redux/AppState.js';
+import { connect,useDispatch }  from 'react-redux';
 
-export const WishlistComponent =() =>{
+export const WishlistComponent  = withCustomerToaster((props)=>{
+  const {setToast,productList,wishList} = props; 
   const [isOpen,setOpen] = useState(false);
-  const [productImage,setProductImage] = useState([])
-  const [addtocart,setAddToCart] = useState(false)
-  const [alreadyincarts,setAlreadyInCarts] = useState(false)
-  const [loading,setLoading] = useState(false)
-  const [products,setProducts] = useState(false)
-  
-  componentDidMount(){
-    this.focusListener = this.props.navigation.addListener('didFocus', () => {
-      console.log('hit getWishlistData 1');
-      this.getWishlistData()
-    })
-  }
+  const [productImage,setProductImage] = useState([]);
+  const [addtocart,setAddToCart] = useState(false);
+  const [alreadyincarts,setAlreadyInCarts] = useState(false);
+  const [loading,setLoading] = useState(false);
+  const [products,setProducts] = useState([]);
+  const [user_id,setUserId] = useState('');
+  const [removefromwishlist,setRemoveFromWishList] = useState(false);
+  const navigation = useNavigation();
+  useEffect(() => {
+    getWishlistData();
+  },[]);
 
-   UNSAFE_componentWillReceiveProps(nextProps){
-    this.getWishlistData();
-  }
-  getWishlistData() {
-    console.log('add to cart wishlist==>');
-    this.setState({loading:true})
-    AsyncStorage.multiGet(['user_id', 'token'])
-    .then((data) => {
-      userId = data[0][1];
-    this.setState({ userId:userId });
-      axios.get('/api/wishlist/get/userwishlist/' + userId)
-      .then((response) => {
-        console.log('res.data wishlist==>', response.data);
-        if(response.data.length > 0){
-          response.data.map((a, i) => {
+  const getWishlistData = async() =>{
+    setLoading(true)
+    var data = await AsyncStorage.multiGet(['user_id', 'token']);
+      setUserId(data[0][1]);
+        if(wishList && wishList.length > 0){
+          wishList.map((a, i) => {
             axios.get('/api/products/get/one/' + a.product_ID)
               .then((res) => {
-                console.log('res.data wishlist==>', res.data);
-                this.setState({loading:false})
-                var products = this.state.products;
                 var item = products.find(item => item.product_ID === res.data._id );
                 if(item){
                   null
                 }else{
                 products.push({
-                  "productName": res.data.productName,
-                  "originalPrice": res.data.originalPrice,
-                  "availableQuantity": res.data.availableQuantity,
-                  "bestSeller": res.data.bestSeller,
-                  "brand": res.data.brand,
-                  "category": res.data.category,
-                  "currency": res.data.currency,
-                  "discountPercent": res.data.discountPercent,
-                  "discountedPrice": res.data.discountedPrice,
-                  "productCode": res.data.productCode,
-                  "productImage": res.data.productImage,
-                  "product_ID": res.data._id,
-                  "wishlist_ID": a._id
+                  "productName"       : res.data.productName,
+                  "originalPrice"     : res.data.originalPrice,
+                  "availableQuantity" : res.data.availableQuantity,
+                  "bestSeller"        : res.data.bestSeller,
+                  "brand"             : res.data.brand,
+                  "category"          : res.data.category,
+                  "currency"          : res.data.currency,
+                  "discountPercent"   : res.data.discountPercent,
+                  "discountedPrice"   : res.data.discountedPrice,
+                  "productCode"       : res.data.productCode,
+                  "productImage"      : res.data.productImage,
+                  "product_ID"        : res.data._id,
+                  "wishlist_ID"       : a._id
                 });
               }
-                this.setState({
-                  products: products
-                })
+              console.log("products",products);
+                setProducts(products);
+                setLoading(false);
               })
               .catch((error) => {
-                this.setState({loading:false})
-                console.log('error', error);
+                console.log("error",error);
+                setLoading(false);
+                navigation.navigate('App')
+                setToast({text: 'Something went wrong.', color: 'red'});
               })
           })
         }else{
-          this.setState({loading:false})
+          setLoading(false);
         }
-        
-      })
-      .catch((error) => {
-        this.setState({loading:false})
-        console.log('error', error);
-      })
-    })
-    .catch((error) => {
-      this.setState({loading:false})
-      console.log('error', error);
-    })
   } 
-closemodal(){
-  this.setState({ addtocart: false });
-}
-closemodalwishlist(){
-  this.setState({ removefromwishlist: false });
-}
-  removefromwishlist(id) {
+
+  const closemodal =()=>{
+    setAddToCart(false)
+  }
+
+  const closemodalwishlist=()=>{
+    setRemoveFromWishList(false)
+  }
+
+  const removefromwishlist_func = (id)=> {
     console.log("ididid", id);
     axios.delete('/api/wishlist/delete/' + id)
       .then((response) => {
-        this.getWishlistData();
-        this.setState({ removefromwishlist: true, products: []})
+        console.log("response",response);
+        getWishlistData();
+        setRemoveFromWishList(true);
+        setProducts([])
       })
       .catch((error) => {
-        console.log('error', error);
+        console.log("error",error);
+        navigation.navigate('App')
+        setToast({text: 'Something went wrong.', color: 'red'});
       })
   }
 
-  addtocart(wishlist_ID,product_ID) {
+  const addToCart = (wishlist_ID,product_ID)=> {
     const formValues = {
-      "user_ID": this.state.userId,
+      "user_ID": this.state.user_id,
       "product_ID": product_ID,
       "quantity": 1,
     }
@@ -125,127 +114,124 @@ closemodalwishlist(){
       .then((response) => {
         axios.delete('/api/wishlist/delete/' + wishlist_ID)
         .then((response) => {
-          this.getWishlistData();
-          this.setState({ addtocart: true, products: [], })
-          console.log("ReMove from cart",response.data)
+          getWishlistData();
+          setAddToCart(true);
+          setProducts([]);
         })
         .catch((error) => {
-          console.log('error', error);
+          console.log("error",error);
+          navigation.navigate('App')
+          setToast({text: 'Something went wrong.', color: 'red'});
         })
-      
       })
       .catch((error) => {
-        this.setState({ alreadyincarts: true })
-        console.log('error', error);
+        setAlreadyInCarts(true)
+        navigation.navigate('App')
+        setToast({text: 'Something went wrong.', color: 'red'});
       })
   }
 
-  toggle() {
+  const toggle = ()=>{
     let isOpen = !this.state.isOpen;
-    this.setState({
-      isOpen
-    });
+    setOpen(isOpen);
   }
 
-
-  render() {
-    const { navigate,goBack } = this.props.navigation;
       return (
         <React.Fragment>
           <HeaderBar3
-            goBack={goBack}
+            goBack={navigation.goBack}
             headerTitle={'My Wishlist'}
-            navigate={navigate}
-            openControlPanel={() => this.openControlPanel.bind(this)}
+            navigate={navigation.navigate}
+            openControlPanel={() =>openControlPanel()}
           />
           <View style={styles.addsuperparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
                <View style={styles.formWrapper}><View>
                   <View style={styles.proddets}>
-                    {!this.state.loading ?
-                      this.state.products &&this.state.products.length > 0 ?
-                          this.state.products.map((item, i) => {
-                        return ( 
-                          <View key={i} style={styles.width160}>
-                            <TouchableOpacity  onPress={() => this.props.navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
-                              <View style={styles.flx5}>
-                                <View style={styles.flx1}>
-                                 {item.productImage.length> 0 ?
-                                      <Image
-                                        source={{ uri: item.productImage[0] }}
-                                        style={styles.subcatimg}
-                                        resizeMode="contain"
-                                      />
-                                    :
-                                      <Image
-                                        source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                                        style={styles.subcatimg}
-                                      />
+                    {!loading ?
+                      products &&products.length > 0 ?
+                          products.map((item, i) => {
+                          return ( 
+                            <View key={i} style={styles.width160}>
+                              <TouchableOpacity  onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
+                                <View style={styles.flx5}>
+                                  <View style={styles.flx1}>
+                                  {item.productImage.length> 0 ?
+                                        <Image
+                                          source={{ uri: item.productImage[0] }}
+                                          style={styles.subcatimg}
+                                          resizeMode="contain"
+                                        />
+                                      :
+                                        <Image
+                                          source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                          style={styles.subcatimg}
+                                        />
+                                    }
+                                  <TouchableOpacity style={[styles.flx1,styles.wishlisthrt]} onPress={() => removefromwishlist_func(item.wishlist_ID)} >
+                                    <Icon size={18} name='close' type='fontAwesome' color='red' style={{}} />
+                                  </TouchableOpacity>
+                                  {
+                                      item.discountPercent > 0 ?
+                                        <Text style={styles.peroff}> {item.discountPercent}% OFF</Text> 
+                                      :
+                                        null
                                   }
-                                 <TouchableOpacity style={[styles.flx1,styles.wishlisthrt]} onPress={() => this.removefromwishlist(item.wishlist_ID)} >
-                                  <Icon size={18} name='close' type='fontAwesome' color='red' style={{}} />
-                                 </TouchableOpacity>
-                                 {
-                                    item.discountPercent > 0 ?
-                                      <Text style={styles.peroff}> {item.discountPercent}% OFF</Text> 
-                                    :
-                                      null
-                                 }
-                                </View>  
-                                <View style={[styles.flx1, styles.protxt]}>
-                                  <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
-                                </View>
-                                <View style={[styles.flx1, styles.prdet]}>
-                                <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
-                                  <View style={[styles.flxdir]}>
-                                    <Icon
-                                      name={item.currency}
-                                      type="font-awesome"
-                                      size={13}
-                                      color="#333"
-                                      iconStyle={{ marginTop: 5, marginRight: 3 }}
-                                    />
-                                    <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
+                                  </View>  
+                                  <View style={[styles.flx1, styles.protxt]}>
+                                    <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
                                   </View>
-                                  <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
-                                    <Icon
-                                      name={item.currency}
-                                      type="font-awesome"
-                                      size={15}
-                                      color="#333"
-                                      iconStyle={{ marginTop: 5}}
-                                    />
-                                    {
-                                        item.discountPercent > 0 ?
-                                            <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                          :
-                                          <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
-                                      }
+                                  <View style={[styles.flx1, styles.prdet]}>
+                                  <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
+                                    <View style={[styles.flxdir]}>
+                                      <Icon
+                                        name={item.currency}
+                                        type="font-awesome"
+                                        size={13}
+                                        color="#333"
+                                        iconStyle={{ marginTop: 5, marginRight: 3 }}
+                                      />
+                                      <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
+                                    </View>
+                                    <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
+                                      <Icon
+                                        name={item.currency}
+                                        type="font-awesome"
+                                        size={15}
+                                        color="#333"
+                                        iconStyle={{ marginTop: 5}}
+                                      />
+                                      {
+                                          item.discountPercent > 0 ?
+                                              <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                              </Text>
+                                            :
+                                            <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                                        }
+                                    </View>
                                   </View>
                                 </View>
-                              </View>
-                                <View style={[styles.flx1,styles.addtocartbtn]}>
-                                <Button
-                                  titleStyle={styles.buttonText1}
-                                  onPress={() => this.addtocart(item.wishlist_ID,item.product_ID)}
-                                  title="MOVE TO CART"
-                                  buttonStyle={styles.button1}
-                                  containerStyle={styles.buttonContainer2}
-                                />
-                                </View> 
-                              </View>
-                            </TouchableOpacity>
-                          </View>
-                        )
-                      })
-                      :
+                                  <View style={[styles.flx1,styles.addtocartbtn]}>
+                                  <Button
+                                    titleStyle={styles.buttonText1}
+                                    onPress={() => addToCart(item.wishlist_ID,item.product_ID)}
+                                    title="MOVE TO CART"
+                                    buttonStyle={styles.button1}
+                                    containerStyle={styles.buttonContainer2}
+                                  />
+                                  </View> 
+                                </View>
+                              </TouchableOpacity>
+                            </View>
+                          )
+                        })
+                        :
                         <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
                           <Image
                             source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
                           />
                           <Button
-                              onPress={() => this.props.navigation.navigate('Dashboard')}
+                              onPress={() => navigation.navigate('Dashboard')}
                               // title={"Click Here To Continue Shopping"}
                               title={"Add Products"}
                               buttonStyle={styles.buttonshopping}
@@ -261,7 +247,7 @@ closemodalwishlist(){
                 </View>
               </View>
             </ScrollView>
-            <Modal isVisible={this.state.addtocart}
+            {/* <Modal isVisible={this.state.addtocart}
               onBackdropPress={() => this.setState({ addtocart: false })}
               coverScreen={true}
               hideModalContentWhileAnimating={true}
@@ -334,11 +320,20 @@ closemodalwishlist(){
                       />
                 </View>
               </View>
-            </Modal>
+            </Modal> */}
          
             <Footer />
           </View>
         </React.Fragment>
       );
-    }
-}
+})
+
+const mapStateToProps = (state) => {
+  console.log("state props",state);
+  return {
+      searchText  : state.searchText,
+      productList : state.productList,
+      wishList    : state.wishDetails.wishList
+  }
+};
+export default connect(mapStateToProps)(WishlistComponent)

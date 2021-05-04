@@ -8,15 +8,15 @@ import {
   ActivityIndicator,
   AsyncStorage,
 } from 'react-native';
-import { Dropdown } from 'react-native-material-dropdown-v2';
+import { Dropdown }     from 'react-native-material-dropdown-v2';
 import { Icon, Button } from "react-native-elements";
-import Modal from "react-native-modal";
-import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import Notification from '../../ScreenComponents/Notification/Notification.js'
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
-import axios from 'axios';
+import Modal            from "react-native-modal";
+import HeaderBar3       from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import Footer           from '../../ScreenComponents/Footer/Footer1.js';
+import Notification     from '../../ScreenComponents/Notification/Notification.js'
+import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
+import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
+import axios            from 'axios';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export default class AlldiscountedProducts extends React.Component {

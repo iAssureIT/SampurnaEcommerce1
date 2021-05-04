@@ -231,7 +231,7 @@ export default class CartComponent extends React.Component {
       <React.Fragment>
         <HeaderBar5
           goBack={goBack}
-          headerTitle={'My Cart'}
+          headerTitle={'react-native-material-dropdown-v2'}
           navigate={navigate}
           openControlPanel={() => this.openControlPanel.bind(this)}
         />
