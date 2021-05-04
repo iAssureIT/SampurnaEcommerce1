@@ -215,13 +215,20 @@ exports.fetch_wishlist_product = (req,res,next)=>{
     });
 };
 exports.delete_wishlist = (req,res,next)=>{
-        console.log("req.params.wishlist_ID",req.params.wishlist_ID);
-    Wishlists.deleteOne({_id:req.params.wishlist_ID})
+    console.log("req.params.wishlist_ID",req.params.wishlist_ID);
+    Wishlists.deleteOne({_id :ObjectID(req.params.wishlist_ID)})
     .exec()
     .then(data=>{
-        res.status(200).json({
-            "message": "Product removed from wishlist successfully."
-        });
+        console.log("data => ",data);
+        if(data.deletedCount === 1){
+            res.status(200).json({
+                "message": "Product removed from wishlist successfully."
+            });
+        }else{
+            res.status(200).json({
+                "message": "Product not removed from wishlist."
+            });
+        }
     })
     .catch(err =>{
         console.log(err);

@@ -225,6 +225,8 @@ class AddNewBulkProduct extends Component {
         this.setState({
             [name]: event.target.value,
             messageData : {}
+        },()=>{
+            console.log("vendor => ", this.state.vendor);
         });
     }
     getVendorList() {
@@ -308,7 +310,7 @@ class AddNewBulkProduct extends Component {
             "xls"
         ]
         const requiredData = {vendor: this.state.vendor};
-        // console.log("required data:",requiredData);
+        console.log("required data:",requiredData);
         return (
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding NOpadding-right">
                 <section className="content">

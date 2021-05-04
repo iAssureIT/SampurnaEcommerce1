@@ -68,7 +68,7 @@ constructor(props) {
         var token         = userDetails.token;
         axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
         
-        const user_ID = localStorage.getItem("user_ID");
+        const user_ID = userDetails.user_id;
         // console.log("User ID = ", user_ID);
         this.setState({
           user_ID : user_ID
@@ -286,11 +286,11 @@ constructor(props) {
                                     else {
                                         documentObj[count][header[k]] = record[k];
                                     }
-                                    // console.log(" requireddata vendor props:",this.props.requiredData.vendor);
+                                    console.log(" requireddata vendor props:",this.props.requiredData);
                                     // console.log("localStorage.getItem('admin_ID'):",localStorage.getItem('admin_ID'));
                                     documentObj[count]['filename'] = file.name;
-                                    documentObj[count]['vendor'] = this.props.requiredData.vendor;
-                                    documentObj[count]['createdBy'] = localStorage.getItem('admin_ID');
+                                    // documentObj[count]['vendor'] = this.props.requiredData.vendor;
+                                    documentObj[count]['createdBy'] = this.state.user_ID;
                                     documentObj[count]['websiteModel'] = this.state.websiteModel;
                                 }
                             }
@@ -348,6 +348,7 @@ constructor(props) {
         var formValues = this.state.finalData;
         // formValues.push(this.state.websiteModel);
         console.log("formValues in bulk",formValues);
+        console.log("this.props.url",this.props.url);
         $('.fullpageLoader').show();
         if (!this.state.fileWarningError) {
             axios.post(this.props.url, formValues)
@@ -365,8 +366,7 @@ constructor(props) {
                     })
                     
                     $('.filedetailsDiv').show()
-                    axios
-                        .post(this.props.fileDetailUrl,{"fileName":this.state.fileName})
+                    axios.post(this.props.fileDetailUrl,{"fileName":this.state.fileName})
                         .then((response)=> {
                           console.log("bulk response",response)
                         $('.fullpageLoader').hide();  

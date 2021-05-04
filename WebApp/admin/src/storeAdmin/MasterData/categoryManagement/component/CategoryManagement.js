@@ -304,33 +304,37 @@ class CategoryManagement extends Component{
           // console.log("addRowLength",addRowLength);
           if(addRowLength){
             for(var i=0;i<addRowLength;i++){
-              var obj = {
-                   "index"             : i,
-                   "subCategoryCode"   : catCodeLength+'|'+i,
-                   "subCategoryTitle"  : $(".newSubCatg"+i).val(),
-                   "subCategoryUrl"    : $(".subcategoryUrl"+i).val(),
-              }
-              if($(".newSubCatg"+i).val()){
-                console.log("subcategory obj===",obj);
-                 axios.post('/api/category/get/list')
-                  .then((response)=>{
-                    console.log("response in submitCategory",response);
+              console.log("1 => ",($(".attributeName" + i).val()));
+              console.log("2 => ",($(".attributeValue" + i).val()));
+              if(($(".attributeName" + i).val()) !== "" && ($(".attributeValue" + i).val()) !== ""){
+                var obj = {
+                    "index"             : i,
+                    "subCategoryCode"   : catCodeLength+'|'+i,
+                    "subCategoryTitle"  : $(".newSubCatg"+i).val(),
+                    "subCategoryUrl"    : $(".subcategoryUrl"+i).val(),
+                }
+                if($(".newSubCatg"+i).val()){
+                  console.log("subcategory obj===",obj);
+                  axios.post('/api/category/get/list')
+                    .then((response)=>{
+                      console.log("response in submitCategory",response);
 
+                    })
+                    .catch((error)=>{
+                      console.log('error', error);
+                    });
+                  categoryDimentionArray.push(obj);
+                  this.setState({
+                    allowToSubmit: true
                   })
-                  .catch((error)=>{
-                    console.log('error', error);
-                  });
-                categoryDimentionArray.push(obj);
-                this.setState({
-                  allowToSubmit: true
-                })
 
-              }else{
-                // console.log("subCategoryTitleErrora"+i, " subCategoryTitlea0Error");
-                this.setState({
-                  ["subCategoryTitleErrora"+i] : "This field is required.",
-                  allowToSubmit: false
-                })
+                }else{
+                  // console.log("subCategoryTitleErrora"+i, " subCategoryTitlea0Error");
+                  this.setState({
+                    ["subCategoryTitleErrora"+i] : "This field is required.",
+                    allowToSubmit: false
+                  })
+                }
               }
             }
           }

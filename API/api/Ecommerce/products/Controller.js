@@ -91,85 +91,84 @@ exports.insert_product = (req,res,next)=>{
     });
 };
 
+/*================== Produt Bulk Upload ================== */
 exports.bulkUploadProduct = (req,res,next)=>{
     console.log("req.body => ",req.body);
-    var record = []; 
-    var i = 0;
-    var found = 0;
+    var record          = []; 
+    var i               = 0;
+    var found           = 0;
+    var failedRecords   = [];
     var catid;
     var subcatid;
-    var failedRecords = [];
     getData();
 
     async function getData(){
-        var productData = req.body;
-        console.log("productData---",productData);
-        var TotalCount  = 0;
-        var Count  = 0;
+        var productData     = req.body;
+        var TotalCount      = 0;
+        var Count           = 0;
         var DuplicateCount  = 0;
-        var invalidData = [];
-        var invalidObjects = [];
-        var remark = ''; 
+        var invalidData     = [];
+        var invalidObjects  = [];
+        var remark          = ''; 
+        console.log("productData---",productData);
 
         for(k = 0 ; k < productData.length ; k++){
-             if(productData[k].subCategory != undefined ) {
-                 var subcatNew= productData[k].subCategory;
-                }
+            if(productData[k].subCategory != undefined ) {
+                var subcatNew = productData[k].subCategory;
+            }
             var allEntityData = await fetchAllEntities("vendor");
             if(productData[k].websiteModel === "MarketPlace"){
-              var EntityData = allEntityData.filter((data)=>{
-                console.log("productData[k].CompanyName------------",productData[k].CompanyName);
-                  if (data.companyName == productData[k].CompanyName) {
-                    return data;
+                var EntityData = allEntityData.filter((data)=>{
+                    console.log("productData[k].CompanyName------------",productData[k].CompanyName);
+                    if (data.companyName == productData[k].CompanyName) {
+                        return data;
                     }
-                  }) 
-                 var EntityDataArray = EntityData.map((entityArr, i)=>{
+                }) 
+                var EntityDataArray = EntityData.map((entityArr, i)=>{
                     return entityArr.companyName;
-                  })
-              }else{
+                })
+            }else{
                 var EntityData = allEntityData.filter((data)=>{
                     // console.log("data.companyName == productData[k].CompanyName",data.companyName == productData[k].CompanyName);
-                      if (data.companyName == allEntityData[0].companyName) {
+                    if (data.companyName == allEntityData[0].companyName) {
                         return data;
-                        }
+                    }
                 }) 
                 var EntityDataArray = allEntityData[0].companyName;
-              }
-              console.log("productData[k].itemCode--",productData[k].itemCode);
-               if(productData[k].section != undefined && productData[k].itemCode != undefined){
+            }
+            console.log("productData[k].itemCode--",productData[k].itemCode);
+            if(productData[k].section != undefined && productData[k].itemCode != undefined){
                 if (productData[k].section.trim() != '') {
                     var sectionObject = await sectionInsert(productData[k].section)
                     // console.log('category',productData[k].category.toString())
                     if (productData[k].category.toString() != undefined){
-                        var categoryObject = await categoryInsert(productData[k].category,subcatNew,productData[k].section,sectionObject.section_ID,productData[k].categoryNameRlang);
-                        var taxObject = []
+                        var categoryObject  = await categoryInsert(productData[k].category,subcatNew,productData[k].section,sectionObject.section_ID,productData[k].categoryNameRlang);
+                        var taxObject       = []
+                        
                         if(productData[k].taxName){
-                          taxObject = await taxInsert(productData[k].taxName,productData[k].taxRate);
+                            taxObject = await taxInsert(productData[k].taxName,productData[k].taxRate);
                         }
                         // console.log('taxObject',taxObject)
 
-                        if (productData[k].itemCode != undefined) {
+                        if (productData[k].itemCode !== undefined) {
                             if(typeof(productData[k].discountPercent) === 'number' && productData[k].discountPercent >= 0){
-                                 if(typeof(productData[k].discountedPrice) === 'number' && productData[k].discountedPrice >= 0){
+                                if(typeof(productData[k].discountedPrice) === 'number' && productData[k].discountedPrice >= 0){
                                     if(typeof(productData[k].originalPrice) === 'number' && productData[k].originalPrice >= 0 ){
-                                       if(productData[k].websiteModel === "MarketPlace"){
-                                        if(EntityDataArray  != "" && EntityDataArray != undefined ){
-                                            console.log("EntityData--->>>>>>",EntityData);
-                                            var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
-                                           }else{
-                                            remark+= "Company Name not found"
-
-                                           }
-                                       }else{
-                                        //  var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
-                                        if(EntityDataArray  != "" && EntityDataArray != undefined ){
-                                            var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
-                                           }else{
-                                            remark+= "Vendor not found"
-
-                                           }
-
-                                       } 
+                                        if(productData[k].websiteModel === "MarketPlace"){
+                                            if(EntityDataArray  != "" && EntityDataArray != undefined ){
+                                                console.log("EntityData--->>>>>>",EntityData);
+                                                var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
+                                            }else{
+                                                remark+= "Company Name not found";
+                                            }
+                                        }else{
+                                            //  var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
+                                            if(EntityDataArray  != "" && EntityDataArray != undefined ){
+                                                var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
+                                            }else{
+                                                remark+= "Vendor not found";
+                                            }
+                                        } 
                                         // console.log('insertProductObject',insertProductObject)
                                         if (insertProductObject != 0) {
                                             Count++;
@@ -179,63 +178,64 @@ exports.bulkUploadProduct = (req,res,next)=>{
                                             remark += "Item code should not be duplicate, ";
                                         }
                                     }else{
-                                       remark += "Original Price should be number,"; 
+                                        remark += "Original Price should be number,"; 
                                     }
-                                 }else{
+                                }else{
                                     remark += "Discount Price should be number,";
-                                 }  
+                                }  
                             }else{
                                remark += "Discount Percent should be number,";
-                            }  
-                           
+                            }                            
                         }  
                     }
                 }
             }
             
-        if (productData[k].itemCode != undefined) {
-            TotalCount++;
-            if(productData[k].section == undefined){
-                 remark += "section not found";
-            }
-            if (productData[k].category == undefined) {
-                remark += ", category not found, ";
-            }
-            if (productData[k].productCode == undefined) {
-                remark += "Product code not found, ";
-            }
-            if (productData[k].productName == undefined) {
-                remark += "Product name not found, ";
-            }
-            // if (productData[k].brand == undefined) {
-            //     remark += "brand not found, ";
-            // }
-            // if (productData[k].availableQuantity == undefined) {
-            //     remark += "product quantity not found, ";
-            // }
-            if (productData[k].originalPrice == undefined) {
-                remark += "product price not found, ";
-            }
-
-        }
-            
+            if (productData[k].itemCode !== undefined) {
+                TotalCount++;
+                if(productData[k].section === undefined){
+                    remark += "section not found";
+                }
+                if (productData[k].category === undefined) {
+                    remark += ", category not found, ";
+                }
+                if (productData[k].productCode === undefined) {
+                    remark += "Product code not found, ";
+                }
+                if (productData[k].productName === undefined) {
+                    remark += "Product name not found, ";
+                }
+                if (productData[k].universalProductCode === undefined) {
+                    remark += "Universal Product Count not found, ";
+                }
+                // if (productData[k].brand == undefined) {
+                //     remark += "brand not found, ";
+                // }
+                // if (productData[k].availableQuantity == undefined) {
+                //     remark += "product quantity not found, ";
+                // }
+                if (productData[k].originalPrice == undefined) {
+                    remark += "product price not found, ";
+                }
+            }            
 
             if (remark != '') {
-                invalidObjects = productData[k];
-                invalidObjects.remark = remark;
+                invalidObjects          = productData[k];
+                invalidObjects.remark   = remark;
                 invalidData.push(invalidObjects);
             } 
             remark = '';
         }
         
         failedRecords.FailedRecords = invalidData
-        failedRecords.fileName = productData[0].filename;
-        failedRecords.totalRecords = TotalCount;
+        failedRecords.fileName      = productData[0].filename;
+        failedRecords.totalRecords  = TotalCount;
 
         await insertFailedRecords(failedRecords); 
         
-        var msgstr = "";
+        var msgstr  = "";
         var warning = false;
+
         if (DuplicateCount > 0 && Count > 0) {
             if (DuplicateCount > 1 && Count > 1) {
                msgstr =  " " + Count+" products are added successfully and "+"\n"+DuplicateCount+" products are duplicate";
@@ -249,19 +249,17 @@ exports.bulkUploadProduct = (req,res,next)=>{
 
             }else if(DuplicateCount == 1 && Count > 1){
                 msgstr =  " " + Count+" products are added successfully and "+"\n"+DuplicateCount+" product is duplicate";
-            }
-            
+            }            
         }
         else if(DuplicateCount > 0 && Count == 0)
         {
             if (DuplicateCount > 1) {
-                msgstr = "Failed to add products as "+DuplicateCount+" products are duplicate";
+                msgstr  = "Failed to add products as "+DuplicateCount+" products are duplicate";
                 warning = true;
             }else{
-                msgstr = "Failed to add products as "+DuplicateCount+" product is duplicate";
+                msgstr  = "Failed to add products as "+DuplicateCount+" product is duplicate";
                 warning = true;
-            }
-            
+            }            
         }
         else if(DuplicateCount == 0 && Count > 0)
         { 
@@ -271,11 +269,11 @@ exports.bulkUploadProduct = (req,res,next)=>{
                 msgstr = " " + Count+" product is added successfully";
             }            
         }else{
-            msgstr = "Failed to add products";
+            msgstr  = "Failed to add products";
             warning = true;
         }
         res.status(200).json({
-            "message": msgstr,
+            "message" : msgstr,
             "warning" : warning
         });
     }
@@ -637,7 +635,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                 })
             var productEntity  = await findVendor(vendorData);
             var vendor = '';
-                // console.log('vendorData',data.vendor);
+                console.log('vendorData',data.vendor);
                 // console.log("productEntity",productEntity)
             if(data.unit){
                var insertUOM = await insertUnitOfMeasurment(data.unit);
@@ -662,7 +660,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                     const products = new Products({
                         _id                       : new mongoose.Types.ObjectId(),   
                         user_ID                   : vendor,  
-                        vendor_ID                 : productEntity._id, 
+                        vendor_ID                 : ObjectId(productEntity._id), 
                         vendorName                : productEntity.companyName,  
                         section_ID                : section_ID,           
                         section                   : section,      
@@ -704,7 +702,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                         taxName                   : taxObject ? taxObject.taxName : 'No Tax',
                         taxRate                   : taxObject ? (taxObject.GSTRate == undefined && taxObject.GSTRate != ''  ? 0 : taxObject.GSTRate ) : 0,
                         fileName                  : data.filename,
-                        createdBy                 : data.createdBy,
+                        createdBy                 : ObjectId(data.createdBy),
                         createdAt                 : new Date()
                     });
              
@@ -952,7 +950,8 @@ exports.update_product_multiple = (req,res,next)=>{
 
 exports.list_product = (req,res,next)=>{
     // Products.find({"status": "Publish"}).sort({'productName': 1})       
-    Products.find({"status": "Publish"}).sort({'itemCode': 1})       
+    Products.find({"status": "Publish"}).sort({'itemCode': 1})  
+    // Products.find().sort({'itemCode': 1})     
     .exec()
     .then(data=>{
         // console.log("data",data);
@@ -1012,76 +1011,146 @@ exports.wishlist_product = (req,res,next)=>{
 };
 
 
-exports.list_productby_type_mobile = (req,res,next)=>{
+// exports.list_productby_type_mobile = (req,res,next)=>{
     
-    var productType = req.params.productType;
+//     var productType = req.params.productType;
 
-    selector={};
+//     selector={};
+//     if(productType == 'featured'){
+//         selector={'featured':true,  "status": "Publish"};
+//         Products.find(selector) 
+//         .limit(6)      
+//         .exec()
+//         .then(data=>{
+//             res.status(200).json(data);
+//         })
+//         .catch(err =>{
+//             console.log(err);
+//             res.status(500).json({
+//                 error: err
+//             });
+//         });
+//     }
+//     else if(productType == 'exclusive'){
+//         selector={'exclusive':true,  "status": "Publish"};
+//         Products.find(selector)     
+//         .limit(6)        
+//         .exec()
+//         .then(data=>{
+//             res.status(200).json(data);
+//         })
+//         .catch(err =>{
+//             console.log(err);
+//             res.status(500).json({
+//                 error: err
+//             });
+//         });
+//     }
+//     else if(productType == 'discounted'){
+//         selector={'discountPercent': { $gt:0 } ,  "status": "Publish"};
+//         Products.find(selector)      
+//         .limit(10)       
+//         .exec()
+//         .then(data=>{
+//             // console.log('discounted ===>>>', data);
+//             res.status(200).json(data);
+//         })
+//         .catch(err =>{
+//             console.log(err);
+//             res.status(500).json({
+//                 error: err
+//             });
+//         });
+//     }
+//     else if(productType == 'bestSeller'){
+//         selector={'bestSeller':true,  "status": "Publish"};
+//         Products.find(selector)       
+//         .limit(10)      
+//         .exec()
+//         .then(data=>{
+//             res.status(200).json(data);
+//         })
+//         .catch(err =>{
+//             console.log(err);
+//             res.status(500).json({
+//                 error: err
+//             });
+//         });
+//     }
+//     else{
+//         res.status(200).json([]);
+//     }
+    
+// };
+
+exports.list_productby_type_mobile = (req,res,next)=>{
+    var {productType,user_ID} = req.params;
+    var selector={};
+    var limit = 10;
     if(productType == 'featured'){
+        limit =6;
         selector={'featured':true,  "status": "Publish"};
-        Products.find(selector) 
-        .limit(6)      
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
     }
     else if(productType == 'exclusive'){
+        limit =6;
         selector={'exclusive':true,  "status": "Publish"};
-        Products.find(selector)     
-        .limit(6)        
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
     }
     else if(productType == 'discounted'){
+        limit =10;
         selector={'discountPercent': { $gt:0 } ,  "status": "Publish"};
-        Products.find(selector)      
-        .limit(10)       
-        .exec()
-        .then(data=>{
-            // console.log('discounted ===>>>', data);
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
     }
     else if(productType == 'bestSeller'){
+        limit =10;
         selector={'bestSeller':true,  "status": "Publish"};
-        Products.find(selector)       
-        .limit(10)      
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+    }
+  
+    Products.find(selector) 
+    .limit(limit)      
+    .exec()
+    .then(products=>{
+        if(products){
+            for (let k = 0; k < products.length; k++) {
+                products[k] = {...products[k]._doc, isWish:false};
+            }
+            
+            console.log("products => ",products);
+            if(user_ID){
+                Wishlists.find({user_ID:user_ID})
+                .then(wish=>{
+                    console.log("wish => ",wish)
+                    if(wish.length > 0){
+                        for(var i=0; i<products.length; i++){
+                            console.log("wisinside for => ")
+                            for(var j=0; j<wish.length; j++){
+                                if(String(wish[j].product_ID) === String(products[i]._id)){
+                                    console.log("Inside")
+                                    products[i]= {...products[i], isWish:true};
+                                    breakStatus = true;
+                                    break;
+                                }
+                            }
+                        }   
+                        if(j >= wish.length){
+                            console.log("final productlist => ", products);
+                            res.status(200).json(products);
+                        }       
+                    }else{
+                        res.status(200).json(products);
+                    }
+                 })
+            }else{
+                res.status(200).json(productsr);
+            }    
+        }else{
+            res.status(404).json('Product Details not found');
+        }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
         });
-    }
-    else{
-        res.status(200).json([]);
-    }
-    
+    });
 };
 exports.list_product_bySection = (req,res,next)=>{
     var section = req.params.section;

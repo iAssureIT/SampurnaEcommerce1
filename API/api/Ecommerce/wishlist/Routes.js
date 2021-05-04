@@ -24,7 +24,7 @@ router.get('/get/one/:wishID', 								checkAuth, wishlistsController.fetch_wish
 
 router.get('/get/one/productwish/:userID/:productID', checkAuth, wishlistsController.fetch_wishlist_product);
 
-router.delete('/delete/:wishlist_ID', 						checkAuth, wishlistsController.delete_wishlist);
+router.delete('/delete/:wishlist_ID', 						wishlistsController.delete_wishlist);
 
 // router.delete('/',wishlistsController.deleteall_wishlist);
 

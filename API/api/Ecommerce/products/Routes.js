@@ -37,7 +37,7 @@ router.get('/get/listbytype/:productType', 							    productController.list_pro
 
 // router.get('/get/sectiontype/:section',productController.list_productby_section);
 
-router.get('/get/products/listbytype/:productType', 					productController.list_productby_type_mobile);
+router.get('/get/products/listbytype/:productType/:user_ID', 					productController.list_productby_type_mobile);
 
 router.get('/get/listbytypeNcategory/:categoryID/:productType', 	checkAuth, productController.list_productby_type_category);
 

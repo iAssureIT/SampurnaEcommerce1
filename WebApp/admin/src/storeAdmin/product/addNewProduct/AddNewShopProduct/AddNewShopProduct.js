@@ -52,7 +52,7 @@ class AddNewShopProduct extends Component {
 	
 	 		if (nextProps.match.params.id) {
 				this.setState({
-					editId 	: editId,
+					editId 		: editId,
 					addrows 	: [1],
 				})
 				this.edit(editId);
@@ -659,17 +659,22 @@ class AddNewShopProduct extends Component {
 		var productExclusive = false;
 	 }
 	 if (addRowLength && addRowLength > 0) {
-		var productDimentionArray = [];
-		var productArr = [];
+		var productDimentionArray 	= [];
+		var productArr 				= [];
+
 		for (var i = 0; i < addRowLength; i++) {
-		  var obj = {
-			 "index": i,
-			 "attributeName": $(".attributeName" + i).val(),
-			 "attributeValue": $(".attributeValue" + i).val(),
-		  }
-		  if ($('.attributeNameRef').hasClass("attributeName" + i) && $('.attributeValueRef').hasClass("attributeValue" + i)) {
-			 productDimentionArray.push(obj);
-		  }
+			console.log("1 => ",($(".attributeName" + i).val()));
+			console.log("2 => ",($(".attributeValue" + i).val()));
+			if(($(".attributeName" + i).val()) !== "" && ($(".attributeValue" + i).val()) !== ""){
+				var obj = {
+					"index"				: i,
+					"attributeName"		: $(".attributeName" + i).val(),
+					"attributeValue"	: $(".attributeValue" + i).val(),
+				}
+				if ($('.attributeNameRef').hasClass("attributeName" + i) && $('.attributeValueRef').hasClass("attributeValue" + i)) {
+					productDimentionArray.push(obj);
+				}
+			}
 		}
 	 }
 	 // if(this.state.websiteModel === "MarketPlace"){
@@ -701,14 +706,14 @@ class AddNewShopProduct extends Component {
 		"productUrl"  : this.refs.productUrl.value,
 		"productDetails"  : this.state.productDetails,
 		"shortDescription": this.state.shortDescription ? this.refs.shortDescription.value : '',
-		"featureList" : this.state.content,
-		"attributes"  : productDimentionArray,
+		
 		"taxInclude"  : this.state.taxInclude,
 		"taxRate"     : this.state.taxRate,
 		"originalPrice": this.refs.originalPrice.value,
 		"discountPercent": this.refs.discountPercent.value ? this.refs.discountPercent.value : "0",
 		"discountedPrice": this.state.discountedPrice ? this.state.discountedPrice : this.state.originalPrice,
 		"availableQuantity": this.refs.availableQuantity.value,
+		"featureList" : this.state.content,
 		"unit": this.state.unit,
 		"size": this.refs.size.value,
 		"universalProductCode": this.state.universalProductCode,
@@ -718,6 +723,10 @@ class AddNewShopProduct extends Component {
 		"featured": productFeatured,
 		"exclusive": productExclusive,
 		"fileName": "Manual",
+	 }
+	 console.log("productDimentionArray => ", productDimentionArray);
+	 if(productDimentionArray.length > 0){
+		formValues.attributes = productDimentionArray;
 	 }
 
 	 console.log("formValues final-------------",formValues)
@@ -864,18 +873,23 @@ class AddNewShopProduct extends Component {
 	 } else {
 		var productExclusive = false;
 	 }
+	 console.log("addRowLength => ",addRowLength);
 	 if (addRowLength && addRowLength > 0) {
 		var productDimentionArray = [];
 		var productArr = [];
 		for (var i = 0; i < addRowLength; i++) {
-		  var obj = {
-			 "index": i,
-			 "attributeName": $(".attributeName" + i).val(),
-			 "attributeValue": $(".attributeValue" + i).val(),
-		  }
-		  if ($('.attributeNameRef').hasClass("attributeName" + i) && $('.attributeValueRef').hasClass("attributeValue" + i)) {
-			 productDimentionArray.push(obj);
-		  }
+			console.log("1 => ",($(".attributeName" + i).val()));
+			console.log("2 => ",($(".attributeValue" + i).val()));
+			if(($(".attributeName" + i).val()) !== "" && ($(".attributeValue" + i).val()) !== ""){
+				var obj = {
+					"index": i,
+					"attributeName": $(".attributeName" + i).val(),
+					"attributeValue": $(".attributeValue" + i).val(),
+				}
+				if ($('.attributeNameRef').hasClass("attributeName" + i) && $('.attributeValueRef').hasClass("attributeValue" + i)) {
+					productDimentionArray.push(obj);
+				}
+			}
 		}
 	 }
 	 console.log("this.refs.category.value==>",this.refs.category.value);
