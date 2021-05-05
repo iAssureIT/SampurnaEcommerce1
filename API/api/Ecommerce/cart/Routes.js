@@ -4,13 +4,13 @@ const checkAuth 	= require('../../coreAdmin/middlerware/check-auth.js');
 
 const cartController = require('./Controller');
 
-router.post('/post', 								checkAuth, cartController.insert_cartid);
+router.post('/post', 								 cartController.insert_cartid);
 
 // router.post('/paymentgatewaypinepg/post', cartController.paymentgatewaypinepg);
 
 router.get('/get/list/:user_ID', 				checkAuth, cartController.list_cart);
 
-router.get('/get/cartproductlist/:user_ID', 	checkAuth, cartController.list_cart_product);
+router.get('/get/cartproductlist/:user_ID', 	 cartController.list_cart_product);
 
 router.get('/get/list', 							checkAuth, cartController.all_list_cart);
 

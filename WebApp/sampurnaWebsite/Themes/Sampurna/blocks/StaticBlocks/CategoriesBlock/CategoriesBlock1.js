@@ -90,6 +90,7 @@ componentDidMount(){
                                             height ={260}
                                             width={260}
                                         />
+
                                         : 
                                         // <img src="/images/demobook.png" alt="" loading="lazy" className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 categoryBlockImg lazyload "} height="200" width="100"/>
                                         <Image
@@ -97,6 +98,7 @@ componentDidMount(){
                                             className={"categoryBlockImg"}
                                             height ={260}
                                             width={260}
+                                            // layout={"fill"}
                                         />
                                         }
                                       </div>

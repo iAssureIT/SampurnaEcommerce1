@@ -204,12 +204,18 @@ class Login extends Component {
     }
     return (
       <div style={{'height': window.innerHeight+'px', 'width': window.innerWidth+'px'}} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper "+customClass}>
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
-        </div>
-        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div className="col-lg-3 col-lg-offset-7 col-md-3 col-md-offset-7 col-sm-6 col-sm-offset-3  col-xs-12 formShadow">
+        {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap"></div> */}
+        <div className="col-lg-12 adminLOgo ">
+              <img src="images/admin/sampurnaLogo.png " className="col-lg-2" />
+          </div>
+        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">         
+          <div className="col-lg-6 loginLeftImg hidden-xs">
+              <img src="images/admin/1.png" />
+          </div>
+          <div className="col-lg-4 col-sm-6 col-xs-12 formShadow">
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xs-12">
               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
+                <h3 className="adminTitle">Admin</h3>
                 <h3>Sign In</h3>
               </div>
               <form id="login" onSubmit={this.userlogin.bind(this)}>
@@ -225,13 +231,14 @@ class Login extends Component {
                     <i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
                   </div>
                 </div> */}
-                
-                  <div id="loginusername" class="input-group customeInput-group " >
-                    <span class="input-group-addon"><i className="fa fa-user-o"></i></span>
-                    <input  type="text" className="form-control" onChange={this.handleChange} ref="loginusername" name="loginusername" placeholder="Email ID" required/>
-                  </div>
-                  <div class="input-group customeInput-group">
-                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                  {/* <div className="col-12 NOpadding loginInputWrapper"> */}
+                    <div id="loginusername" className="input-group customeInput-group " >
+                      <span className="input-group-addon"><i className="fa fa-user-o"></i></span>
+                      <input  type="text" className="form-control" onChange={this.handleChange} ref="loginusername" name="loginusername" placeholder="Email ID" required/>
+                    </div>
+                  
+                  <div className="input-group customeInput-group">
+                    <span className="input-group-addon"><i class="fa fa-lock"></i></span>
                     <input id="loginpassword" type="password" class="form-control" ref="loginpassword" name="loginpassword"  placeholder="Password" required />
                   </div>
                 
@@ -254,12 +261,12 @@ class Login extends Component {
                   </div>
                 </div>
                   :
-                  <div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding ">
-                      <div className="loginforgotpass col-lg-5 col-md-8 col-sm-8 col-xs-8 NOpadding pull-left">
+                  <div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding customeInput-group">
+                      <div className="loginforgotpass col-lg-6 col-md-6 col-sm-6 col-xs-12 NOpadding pull-left ">
                         <a href='/forgotpassword' className="">Forgot Password?</a>
                       </div>
-                      <div className="form-group textAlignCenter col-lg-4  col-md-4 col-sm-4 col-xs-8 pull-right NOpadding">
-                        <input id="logInBtn" type="submit" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn loginBtn" value="Sign In >>" />
+                      <div className="form-group textAlignCenter col-lg-4  col-md-4 col-sm-4 col-xs-12 pull-right NOpadding">
+                        <input id="logInBtn" type="submit" className="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn loginBtn" value="Sign In" />
                       </div>
                   </div>
                   

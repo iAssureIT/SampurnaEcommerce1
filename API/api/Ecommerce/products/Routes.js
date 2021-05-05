@@ -23,7 +23,7 @@ router.patch('/patch', 															checkAuth, productController.update_produc
 
 router.patch('/patch/availablequantity', 									checkAuth, productController.update_availablequantity);
 
-router.get('/get/list', 														checkAuth, productController.list_product);
+router.get('/get/list', 														 productController.list_product);
 // in used
 // router.get('/get/listbysection/:section',productController.list_product_bySection);
 
@@ -33,41 +33,40 @@ router.get('/get/productcode/:productCode', 								checkAuth, productController
 
 //router.get('/get/brandlist',productController.list_brand);
 
-router.get('/get/listbytype/:productType', 							    productController.list_productby_type);
+router.get('/get/listbytype/:productType', 						productController.list_productby_type);
 
-// router.get('/get/sectiontype/:section',productController.list_productby_section);
+router.get('/get/products/listbytype/:productType', 			productController.list_productby_type_mobile);
 
-router.get('/get/products/listbytype/:productType/:user_ID', 					productController.list_productby_type_mobile);
+router.get('/get/products/listbytype/:productType/:user_ID', 	productController.list_productby_type_mobile);
+router.get('/get/listbytypeNcategory/:categoryID/:productType', productController.list_productby_type_category);
 
-router.get('/get/listbytypeNcategory/:categoryID/:productType', 	checkAuth, productController.list_productby_type_category);
+router.get('/get/list/:sectionID', 								productController.list_productby_section);
 
-router.get('/get/list/:sectionID', 											checkAuth, productController.list_productby_section);
+router.get('/get/listby/category/:categoryID', 					productController.list_productby_category);
 
-router.get('/get/listby/category/:categoryID', 							checkAuth, productController.list_productby_category);
+router.get('/get/listbycategory/:categoryUrl', 				    productController.list_productby_categoryUrl);
 
-router.get('/get/listbycategory/:categoryUrl', 						  productController.list_productby_categoryUrl);
+router.get('/get/listbysection/:sectionUrl', 					productController.list_productby_sectionUrl);
 
-router.get('/get/listbysection/:sectionUrl', 						  productController.list_productby_sectionUrl);
+router.get('/get/listbysubcategory/:subcategoryUrl', 			productController.list_productby_subcategoryUrl);
 
-router.get('/get/listbysubcategory/:subcategoryUrl', 				  productController.list_productby_subcategoryUrl);
+router.get('/get/list/:categoryID/:subcategoryID', 				productController.list_productby_subcategory);
 
-router.get('/get/list/:categoryID/:subcategoryID', 					checkAuth, productController.list_productby_subcategory);
+router.put('/attribute', 										productController.update_product_attribute);
 
-router.put('/attribute', 														checkAuth, productController.update_product_attribute);
+router.put('/status', 											productController.update_product_status);
 
-router.put('/status', 															checkAuth, productController.update_product_status);
+router.put('/multiple', 										productController.update_product_multiple);
 
-router.put('/multiple', 														checkAuth, productController.update_product_multiple);
+router.get('/get/count', 										productController.count_product);
 
-router.get('/get/count', 														checkAuth, productController.count_product);
+router.get('/get/published/count',  							productController.count_published_product);
 
-router.get('/get/published/count',  										checkAuth, productController.count_published_product);
+router.get('/get/vendorwisecount/:vendorID', 					productController.count_vendor_product);
 
-router.get('/get/vendorwisecount/:vendorID', 							checkAuth, productController.count_vendor_product);
+router.post('/get/files', 										productController.fetch_file);
 
-router.post('/get/files', 														checkAuth, productController.fetch_file);
-
-router.post('/get/searchfile', 												checkAuth, productController.search_file);
+router.post('/get/searchfile', 									productController.search_file);
 
 router.post('/get/vendorfiles',												checkAuth, productController.fetch_vendor_file);
 
@@ -87,15 +86,13 @@ router.patch('/patch/bulkimages/', 											checkAuth, productController.uploa
 
 router.patch('/remove/image', 												checkAuth, productController.remove_photo);
 
-router.get('/get/one/:productID', 											checkAuth, productController.fetch_product);
+router.get('/get/one/:productID', 											 productController.fetch_product);
 
-router.get('/get/hotproduct', 												checkAuth, productController.fetch_hot_product);
+router.get('/get/hotproduct', 												 productController.fetch_hot_product);
 
 router.delete('/delete/:productID', 										checkAuth, productController.delete_product);
 
 router.delete('/file/delete/:fileName', 									checkAuth, productController.delete_file);
-
-// router.delete('/file/delete',productController.delete_file);
 
 router.get('/get/adminsearch/:searchstr', 								checkAuth, productController.admin_search_product);
 
@@ -109,7 +106,7 @@ router.get('/get/searchproducts/:searchstr', 							checkAuth, productController
 
 router.post('/post/searchINCategory', 										checkAuth, productController.searchINCategory);
 
-router.get('/get/listBrand/:sectionID', 									checkAuth, productController.list_brand);
+router.get('/get/listBrand/:sectionID', 									 productController.list_brand);
 
 router.post('/get/listBrandByCategories', 								checkAuth, productController.listBrandByCategories);
 

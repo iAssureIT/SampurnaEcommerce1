@@ -39,30 +39,35 @@ class MasterPage extends React.Component {
 		};
 	}
 	componentDidMount(){
+		console.log('inside componentDidMount => ',this.props);
+		// console.log("pageLoaded===",this.state.pageLoaded);
 		this.getPreferences();
-		// console.log("1. render");
-		window.onload = (event) => {			
+		console.log("1 timestamp = ", new Date() );
+		window.onload = (event) => {	
+			// console.log('inside onload');
 			this.setState({
 				"pageLoaded" : true
 			},()=>{
-				console.log('page is fully loaded');
+				console.log("2 timestamp = ", new Date() );
+				// console.log('page is fully loaded');
 			})
-		};
+		};		
 	}
 
 	getPreferences(){
-	//Get all preferences and store them in localstorage	
-	axios.get("/api/adminpreference/get")
-	.then(preferences =>{
-		var askpincodeToUser = preferences.data[0].askPincodeToUser;
-		localStorage.setItem('preferences',askpincodeToUser);
-		localStorage.setItem("websiteModel",preferences.data[0].websiteModel);      
-		localStorage.setItem("showLoginAs",preferences.data[0].showLoginAs); 
-		// localStorage.setItem('preferences', JSON.stringify(preferences));
-	})
-	.catch(error=>{
-		console.log("Error in preferences = ", error);
-	})
+		//Get all preferences and store them in localstorage
+		// console.log("inside preferences");	
+		axios.get("/api/adminpreference/get")
+			.then(preferences =>{
+				var askpincodeToUser = preferences.data[0].askPincodeToUser;
+				localStorage.setItem('preferences',askpincodeToUser);
+				localStorage.setItem("websiteModel",preferences.data[0].websiteModel);      
+				localStorage.setItem("showLoginAs",preferences.data[0].showLoginAs); 
+				// localStorage.setItem('preferences', JSON.stringify(preferences));		
+			})
+			.catch(error=>{
+				console.log("Error in preferences = ", error);
+			})
 	}
 
 	pageHead(){
@@ -99,40 +104,41 @@ class MasterPage extends React.Component {
 			<div className="col-12 NoPadding componentWrapper">
 
 			{this.state.pageLoaded ?
-			 this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
-
-                this.props.pageData.pageBlocks.map((result, index)=>{
-					// console.log("this.props.pageData.pageBlocks===",this.props.pageData.pageBlocks);
-					var component = result._id ? result.blockComponentName : "TitleDesc";
-					var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
-					var block_id=result.block_id?result.block_id._id:"";
-					// console.log("result==",result);
-					const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
-					{
-						loading: () =>
-							<div className="col-2 offset-5 loading">
-								<img src="/images/eCommerce/loader.gif" className="col-12 "></img>
-							</div> 
-					});
-					
-					return(						
-						<div className="col-12 NoPadding" key={index}>
-							<OtherComponent block_id={block_id} key={index}/>							
-						</div>						
-                    )
-				})
-			:
-				<div className=" col-12 NoPadding">				
-					<a href="/"><img className=" col-12 NoPadding img-responsive" src="/images/eCommerce/404-Page.gif" /></a>
-				</div>
-			
+				this.props.pageData && this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
+					this.props.pageData.pageBlocks.map((result, index)=>{
+						// console.log("this.props.pageData.pageBlocks===",this.props.pageData.pageBlocks);
+						var component = result._id ? result.blockComponentName : "TitleDesc";
+						var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
+						var block_id=result.block_id?result.block_id._id:"";
+						// console.log("result==",result);
+						const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
+						{
+							loading: () =>
+								<div className="col-2 offset-5 loading">
+									<img src="/images/eCommerce/loader.gif" className="col-12 "></img>
+								</div> 
+						});
+						
+						return(						
+							<div className="col-12 NoPadding" key={index}>
+								<OtherComponent block_id={block_id} key={index}/>							
+							</div>						
+						)
+					})
+				:
+					<div className=" col-12 NoPadding">				
+						<a href="/"><img className=" col-12 NoPadding img-responsive" src="/images/eCommerce/404-Page.gif" /></a>
+					</div>
+	
+				
+				
 			:
 				
 				<div className="col-12 NoPadding">
-					<div> Page not fully loaded</div>
-					{/* <Banner block_id="" />							 */}
-				</div>	
-			}
+					<div> Page not fully loaded</div>					
+				</div>
+				
+			 }
 			</div>
 			{/* {this.props.pageData.pageURL === 'homepage' ? <BlogCarousel/> : null} */}
 

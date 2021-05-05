@@ -107,7 +107,7 @@ class Cart extends Component{
                 <div className="row">                    
                     <SmallBanner bannerData={this.state.bannerData}/>
                     <CartProducts />
-                    {/* { console.log("this.props.pageData.pageBlocks length===",this.props.pageData.pageBlocks.length)} */}
+                    { console.log("this.props.pageData.pageBlocks length===",this.props.pageData)}
                     { this.props.pageDatapop.pageBlocks && this.props.pageDatapop.pageBlocks.length > 0 ?
 						          this.props.pageDatapop.pageBlocks.map((result, index)=>{                      
 						          var component = result._id ? result.blockComponentName : "TitleDesc";
@@ -124,7 +124,7 @@ class Cart extends Component{
                       }
                       ); 
                       
-                      // console.log("component",component);
+                      console.log("component",component);
 						          return(
                         <div className="col-12 NoPadding" key={index}>
                           <OtherComponent block_id={block_id} key={index}/>

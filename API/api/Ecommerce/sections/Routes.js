@@ -4,22 +4,23 @@ const checkAuth 	= require('../../coreAdmin/middlerware/check-auth.js');
 
 const sectionsController = require('./Controller');
 
-router.post('/post', 													checkAuth, sectionsController.insert_section);
-
-router.get('/get/list', 												checkAuth, sectionsController.get_sections);
+router.post('/post', 						checkAuth, sectionsController.insert_section);
 
 router.get('/get/list-with-limits/:startRange/:limitRange', checkAuth, sectionsController.get_sections_with_limits);
 
-router.get('/get/count', 												checkAuth, sectionsController.count_section);
+router.patch('/patch', 						checkAuth, sectionsController.update_section);
 
-router.get('/get/one/:sectionID', 									checkAuth, sectionsController.get_single_section);
+router.delete('/delete/:sectionID', 		checkAuth, sectionsController.delete_section);
 
-router.get('/get/get_megamenu_list', 							   sectionsController.get_megamenu_list);
+router.delete('/get/deleteAllSections', 	checkAuth, sectionsController.deleteAllSections);
 
-router.patch('/patch', 													checkAuth, sectionsController.update_section);
 
-router.delete('/delete/:sectionID', 								checkAuth, sectionsController.delete_section);
+router.get('/get/list', 					sectionsController.get_sections);
 
-router.delete('/get/deleteAllSections', 							checkAuth, sectionsController.deleteAllSections);
+router.get('/get/count', 					sectionsController.count_section);
+
+router.get('/get/one/:sectionID', 			sectionsController.get_single_section);
+
+router.get('/get/get_megamenu_list', 		sectionsController.get_megamenu_list);
 
 module.exports = router; 

@@ -6,11 +6,11 @@ const projectsettingController = require('./ControllerProjectSettings.js');
 
 router.post('/post', 					checkAuth, projectsettingController.create_projectSettings);
 
-router.get('/get/:type', 				checkAuth, projectsettingController.fetch_projectsettings);
+router.get('/get/:type', 				 projectsettingController.fetch_projectsettings);
 
 router.post('/getS3Details/:type', 	checkAuth, projectsettingController.fetch_projectsettings);
 
-router.get('/get/all', 					checkAuth, projectsettingController.fetch_projectsettings_all);
+router.get('/get/all', 					 projectsettingController.fetch_projectsettings_all);
 
 router.patch('/patch/:type', 			checkAuth, projectsettingController.patch_projectsettings);
 

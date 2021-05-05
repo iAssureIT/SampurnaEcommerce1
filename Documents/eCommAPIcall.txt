@@ -24,3 +24,8 @@ http://qasite-sampurna-marketplace.iassureit.in/
 
 CMS 
 https://qacms-marketplace-sampurna.iassureit.in/
+
+
+
+System limit for number of file watchers reached
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p

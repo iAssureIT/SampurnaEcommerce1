@@ -160,8 +160,12 @@
   position: relative;
   left: 3px;
 }
+.adminLOgo{
+  margin-top: 2%;
+  margin-bottom: 8%;
+}
 .LoginWrapper{
-  background-image: url("/images/login1.jpg");
+  background-image: url("/images/admin/loginBackground.png");
   border-radius: 5px;
   background-size: contain; 
   display: table-cell;
@@ -169,15 +173,27 @@
   border-radius: 5px;
   background-size: 100% 100%;
   text-align: center;
-  vertical-align: middle !important;
+  /* vertical-align: middle !important; */
   float: unset;
   /* height: 472px; */
-  width: 1300px;
+  /* width: 1300px; */
 }
-
+.loginLeftImg{
+  /* background-image: url("/images/admin/1.png"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 500px;
+}
+.loginInputWrapper{
+  height: 60px;
+}
+#loginusername-error{
+  text-align: left !important;
+  margin-top: 2px;
+}
 .innloginwrap{
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
 }
 .labelCss{
   font-weight: normal !important;
@@ -199,6 +215,9 @@
   /* border-radius: 20px; */
 
 }
+.adminTitle{
+  color:#d8ab46;
+}
 .loginforgotpass{
   margin-top: 20px;
   text-align: left !important;
@@ -207,7 +226,7 @@
   text-decoration: underline;
   /* color: #555; */
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
 }
 .loginforgotpass a:hover{
   text-decoration: underline;
@@ -272,7 +291,7 @@
     height: 40px !important;   
 }
 .customeInput-group{
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 .customeInput-group .input-group-addon{
   background-color: transparent !important;
@@ -308,8 +327,8 @@
   /* border-radius: 25px; */
   padding: 9px 15px;
   /* background-color: #80B435;   */
-  /* background-color: #154799; */
-  background-color : var(--blue-color ) !important;
+  background-color: #154799;
+  /* background-color : var(--blue-color ) !important; */
   color: #fff !important;
 }
 .loginusername-error{

@@ -17,7 +17,6 @@ import Style                  from './ProductCarousel.module.css';
 import {getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
 import Product from './Product.js';
 
-
 const { publicRuntimeConfig } = getConfig();
 var projectName = publicRuntimeConfig.CURRENT_SITE;
 const productImgHeight = publicRuntimeConfig.IMGHeight;
@@ -199,7 +198,7 @@ class ProductCarousel extends Component {
            blockSettings   : response.data.blockSettings,  
            productSetting  : response.data.productSettings,   
            blockTitle      : response.data.blockTitle, 
-           loading         : false,  
+          //  loading         : false,  
           
         },()=>{
           // console.log("state.blockSettings.showCarousel===",this.state.blockSettings.showCarousel);
@@ -207,18 +206,18 @@ class ProductCarousel extends Component {
           // console.log("this.props.productApiUrl===",this.props.productApiUrl);
           if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-            // console.log("productApiUrl===",productApiUrl);
+            console.log("productApiUrl===",productApiUrl);
           }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-            // console.log("productApiUrl===",productApiUrl);
-          }else{
+            console.log("productApiUrl===",productApiUrl);
+          }else{ 
               var productApiUrl = this.state.blockSettings.blockApi;
-              // console.log("productApiUrl===",productApiUrl);
+              console.log("productApiUrl===",productApiUrl);
           }
           axios.get(productApiUrl)      
           .then((response)=>{
             if(response.data){     
-            // console.log("response.data in product carousel===",response.data);       
+            console.log("response.data in product carousel===",response.data);       
             if(localStorage.getItem('websiteModel')=== "FranchiseModel"){
               for(var i=0;i<response.data.length;i++){       
                   var availableSizes = [];         
@@ -236,7 +235,8 @@ class ProductCarousel extends Component {
               // console.log("newProducts===",this.state.newProducts);
               if(this.state.newProducts.length>0){
                 this.setState({
-                  ProductsLoading : true
+                  ProductsLoading : true,
+                  loading         : false
                 });  
               }
                 // console.log("Products list===",this.state.newProducts);
@@ -361,7 +361,7 @@ class ProductCarousel extends Component {
 		}
 		if (filterType === 'brands') {
 			selector = this.state.selector;
-      console.log("selector==",selector);
+      // console.log("selector==",selector);
 			// selector.section_ID = this.props.match.params.sectionID;
 			selector.price = this.state.price;
 			selector.brands = brands;
@@ -488,7 +488,7 @@ class ProductCarousel extends Component {
         })
       }, 3000);
     } else {
-      console.log("formValues==",formValues);
+      // console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)
         .then((response) => {
           // console.log("this.props.fetchCartData();",this.props.fetchCartData());
@@ -520,7 +520,7 @@ class ProductCarousel extends Component {
     const user_ID = localStorage.getItem('user_ID');
     // console.log("userId===",user_ID);
     if(user_ID){
-      console.log("recentCartData===",this.props.recentCartData);
+      // console.log("recentCartData===",this.props.recentCartData);
       if(this.props.recentCartData.length>0 && this.props.recentCartData[0].cartItems.length>0){
           var cartLength = this.props.recentCartData[0].cartItems.length;
           var productId = event.target.id;
@@ -782,13 +782,11 @@ class ProductCarousel extends Component {
           {this.state.blockSettings.showTitle && this.state.newProducts && this.state.newProducts.length > 0 ?
             <div className="col-12">
               <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
-                
                 <div className={ "col-12 " +Style.title4}>
                     <h2 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle "+Style.textAlign} data-trans="#blog_1554730795823_title">{this.state.blockTitle}</h2>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
                     <div className={"line "+Style.line}><span className={Style.span}></span></div>
 			        	</div>
-                
               </div>             
             </div>
           : null
@@ -1133,13 +1131,15 @@ class ProductCarousel extends Component {
                         </div>
                       </div>
                     </div> 
+                    {this.state.newProducts.length>=1?
+                      <Product newProducts={this.state.newProducts}
+                            productSettings = {this.state.productSettings}
+                            blockSettings   = {this.state.blockSettings}
 
-                    <Product newProducts={this.state.newProducts}
-                          productSettings = {this.state.productSettings}
-                          blockSettings   = {this.state.blockSettings}
-
-                    />
-
+                      />
+                    :
+                      <div>No Products available </div>
+                    }
                   </div>                    
                   </div>                    
                   :
@@ -1166,10 +1166,9 @@ class ProductCarousel extends Component {
        </div>
       </div>
       :
-      <div className="col-4 offset-4 loading">
-          <img loading="lazy" src="/images/eCommerce/loader.gif" className="lazyload"></img>
+      <div className="col-2 offset-5 ">          
+          <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
       </div>
- 
     );
   }
 }
