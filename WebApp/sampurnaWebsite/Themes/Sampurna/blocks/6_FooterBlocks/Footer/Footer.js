@@ -115,7 +115,7 @@ export default class Footer extends Component {
                 </div>
             </div>
             <div className="col-xl-3 col-md-2 col-sm-6  col-12 onlineShoppingWrapper">               
-                <div className="logo col-xl-12 col-6 col-sm-12 col-md-12">
+                <div className="logo col-12">
                     <Link href="/">
                     <a  title="BookStore logo "style={{float:"right"}}>
                         {/* <img src="/images/eCommerce/kokilaLogo.png" alt="images" className="footerLogoImg col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"/> */}

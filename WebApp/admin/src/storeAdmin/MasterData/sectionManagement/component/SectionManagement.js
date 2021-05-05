@@ -535,7 +535,7 @@ class SectionManagement extends Component {
                                               <div className="prodImageInner">
                                                   <span className="prodImageCross" title="Delete" data-imageUrl={this.state.sectionImage} onClick={this.deleteImage.bind(this)} >x</span>
                                               </div>
-                                              <img title="view Image" alt="Please wait..." src={this.state.sectionImage ? this.state.sectionImage : "/images/notavailable.jpg"} className="img-responsive" />
+                                              <img title="view Image" alt="Please wait..." data-imageurl={this.state.sectionImage ? this.state.sectionImage : "/images/notavailable.jpg"} className="img-responsive" />
                                             </div>    
                                           </div>
                                         </div>

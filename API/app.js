@@ -7,7 +7,6 @@ var   nodeMailer				= require('nodemailer');
 const globalVariable			= require('./nodemon.js');
 const fs 						= require('fs');
 
-
 // Routes - CMSork/eComm3/eCommV3/WebApp/admin$ 
 // const blockRoutes 				= require('./api/cms/routes/blocks.js');
 // const pageRoutes 					= require('./api/cms/routes/pages.js');

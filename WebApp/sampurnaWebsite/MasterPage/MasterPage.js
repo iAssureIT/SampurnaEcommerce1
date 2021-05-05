@@ -17,9 +17,8 @@ const { publicRuntimeConfig } = getConfig();
 //get site name from next.config.js
 const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
 const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/SampurnaHeader/Header.js'));
-// const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/Header/Header.js'));
 const Footer = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/6_FooterBlocks/Footer/Footer.js'));
-// const Baneer = dynamic(() => import('../Themes/' +SITE_NAME+'/blocks/3_BannerManagement/Banner/Banner.js'));
+// const Banner = dynamic(() => import('../Themes/' +SITE_NAME+'/blocks/3_BannerManagement/Banner/Banner.js'));
 
 
 class MasterPage extends React.Component {
@@ -53,10 +52,12 @@ class MasterPage extends React.Component {
 			})
 		};		
 	}
+	getInitialProps(){
+		console.log("inside getInitial props");
+	}
 
 	getPreferences(){
 		//Get all preferences and store them in localstorage
-		// console.log("inside preferences");	
 		axios.get("/api/adminpreference/get")
 			.then(preferences =>{
 				var askpincodeToUser = preferences.data[0].askPincodeToUser;
@@ -126,7 +127,7 @@ class MasterPage extends React.Component {
 						)
 					})
 				:
-					<div className=" col-12 NoPadding">				
+					<div className=" col-12 NoPadding">								
 						<a href="/"><img className=" col-12 NoPadding img-responsive" src="/images/eCommerce/404-Page.gif" /></a>
 					</div>
 	
@@ -135,13 +136,13 @@ class MasterPage extends React.Component {
 			:
 				
 				<div className="col-12 NoPadding">
+					{/* <Banner />	 */}
 					<div> Page not fully loaded</div>					
 				</div>
 				
 			 }
 			</div>
 			{/* {this.props.pageData.pageURL === 'homepage' ? <BlogCarousel/> : null} */}
-
 			{/* <ScrollTop /> */}
 			<Footer/>
 		</div>

@@ -217,7 +217,7 @@ class ProductCarousel extends Component {
           axios.get(productApiUrl)      
           .then((response)=>{
             if(response.data){     
-            console.log("response.data in product carousel===",response.data);       
+            // console.log("response.data in product carousel===",response.data);       
             if(localStorage.getItem('websiteModel')=== "FranchiseModel"){
               for(var i=0;i<response.data.length;i++){       
                   var availableSizes = [];         
