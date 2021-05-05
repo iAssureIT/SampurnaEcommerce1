@@ -8,6 +8,7 @@ import IAssureTable           from '../../../../coreadmin/IAssureTable/IAssureTa
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
 import '../css/CategoryManagement.css';
+// import { set } from 'mongoose';
 
 class CategoryManagement extends Component{
     constructor(props) {
@@ -324,6 +325,13 @@ class CategoryManagement extends Component{
                       console.log('error', error);
                     });
                   categoryDimentionArray.push(obj);
+                  // var finalCategoryArray = Array.from(new Set(categoryDimentionArray.map(c => c.subCategoryTitle.toLowerCase())))
+                  // .map(id => {
+                  //   console.log("")
+                  //   return{
+                  //     subCategoryTitle : subCategoryTitle,
+                  //   }
+                  // })
                   this.setState({
                     allowToSubmit: true
                   })
@@ -347,7 +355,7 @@ class CategoryManagement extends Component{
               "category"                  : this.refs.category.value,
               "categoryNameRlang"         : this.refs.categoryNameRlang.value,
               "categoryUrl"               : this.refs.categoryUrl.value,
-              "subCategory"               : categoryDimentionArray ? categoryDimentionArray : "",
+              "subCategory"               : categoryDimentionArray ? categoryDimentionArray : [],
               "categoryDescription"       : this.refs.categoryDescription.value,
               "categoryImage"             : this.state.categoryImage,
               "categoryRank"              : this.state.categoryRank,
@@ -392,11 +400,6 @@ class CategoryManagement extends Component{
               });
             }
             });
-          
-
-
-
-
         })
         .catch((error)=>{
           console.log('error', error);
@@ -526,9 +529,10 @@ class CategoryManagement extends Component{
         });
       }
     }
-    edit(id){
-      var editId = id.editId; 
-      console.log("edit Id send to axios:",editId);
+    edit(editId){
+      // var editId = id.editId; 
+      // console.log("edit Id send to axios:",editId);
+      // console.log("Id send to axios:",id);
       axios.get('/api/category/get/one/'+editId)
       .then((response)=>{
         console.log('record to be edit', response.data);
@@ -923,7 +927,7 @@ class CategoryManagement extends Component{
                                         
                                         <div className="divideCatgRows categoryImgWrapper">
                                             <label>Category Image</label>                                                                    
-                                            <input type="file" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" />
+                                            <input type="file" name="file" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" />
                                         </div>
                                       }
                                       {

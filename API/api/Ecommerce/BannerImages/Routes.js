@@ -6,7 +6,7 @@ const BannerImagesController = require('../BannerImages/Controller.js');
 
 router.post('/post', 				checkAuth, BannerImagesController.insert_image);
 
-router.get('/get', 					checkAuth, BannerImagesController.fetch_bannerimgs);
+router.get('/get', 					BannerImagesController.fetch_bannerimgs);
 
 router.patch('/remove/:imageId', checkAuth, BannerImagesController.delete_image);
 
