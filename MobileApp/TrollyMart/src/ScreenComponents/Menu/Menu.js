@@ -56,7 +56,7 @@ export const Menu=()=>{
             source={require('../../AppDesigns/currentApp/images/user.jpg')}                 
           />
         <View style={{paddingTop:40,paddingLeft:4}}>
-          <Text style={{fontSize:18,color: "#333"}}>Hi, {firstName}</Text>
+          <Text style={{fontSize:18,color: "#333"}}>Hi, {firstName ? firstName : "User"}</Text>
         </View>	
         </View>
       <View style={styles.menuWrapper}>

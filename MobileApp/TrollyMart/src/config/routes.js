@@ -2,47 +2,47 @@ import { createSwitchNavigator }  from 'react-navigation';
 import { createDrawerNavigator }  from 'react-navigation-drawer';
 import { createStackNavigator }   from 'react-navigation-stack';
 import { createAppContainer }     from 'react-navigation';
-import { Animated, Easing } from 'react-native';
+import { Animated, Easing }       from 'react-native';
 import axios                      from 'axios';
-import AuthLoadingScreen from '../ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js';
-import InAppNotification from '../ScreenComponents/InAppNotification/InAppNotification.js';
+import AuthLoadingScreen          from '../ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js';
+import InAppNotification          from '../ScreenComponents/InAppNotification/InAppNotification.js';
 
-import {Menu} from '../ScreenComponents/Menu/Menu.js';
+import {Menu}                     from '../ScreenComponents/Menu/Menu.js';
 
 /*----SystemSecurity -----*/
 import {RootLogIn }               from '../Screens/SystemSecurity/RootLogIn/RootLogIn.js';
-import {ForgotPassword}             from '../Screens/SystemSecurity/ForgotPassword/ForgotPassword.js';
+import {ForgotPassword}           from '../Screens/SystemSecurity/ForgotPassword/ForgotPassword.js';
 import ResetPassword              from '../Screens/SystemSecurity/ResetPassword/ResetPassword1.js';
 import {RootSignUp}               from '../Screens/SystemSecurity/Signup/RootSignUp.js';
 import OTPVerification            from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
-import {ForgotPasswordOTP}          from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
+import {ForgotPasswordOTP}        from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
 
 
-import {Dashboard} from '../Screens/Dashboard/Dashboard.js';
-import CategoriesComponent from'../Screens/CategoriesComponent/CategoriesComponent.js';
-import SubCategoriesComp from'../Screens/CategoriesComponent/SubCategoriesComp.js';
-import SubCatCompView from'../Screens/CategoriesComponent/SubCatCompView.js';
-import CartComponent from '../Screens/CartComponent/CartComponent.js';
-import ConfirmOrderComponent from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';
-import AddressDefaultComp from '../Screens/AddressComponent/AddressDefaultComp.js';
-import AddressComponent from '../Screens/AddressComponent/AddressComponent.js';
-import AddressComponentforaddressmenu from '../Screens/AddressComponent/AddressComponentforaddressmenu.js';
-import AddressMenu from'../Screens/AddressComponent/AddressMenu.js';
-import {WishlistComponent} from'../Screens/WishlistComponent/WishlistComponent.js';
-import MyOrder from '../Screens/MyOrders/MyOrder.js';
-import {SupportSystem} from '../Screens/Help&Support/SupportSystem.js';
-import Stores from '../Screens/Stores/Stores.js';
-import StoreDetails from '../Screens/Stores/StoreDetails.js';
-import AllFeatureProducts from '../Screens/FeatureProducts/AllFeatureProducts.js';
-import AllExclusiveProducts from '../Screens/ExclusiveProducts/AllExclusiveProducts.js';
-import AllDiscountedProducts from '../Screens/DiscountedProducts/AllDiscountedProducts.js';
-import OrderDetails from '../Screens/MyOrders/OrderDetails.js';
-import AccountDashboard from '../Screens/AccountDashboard/AccountDashboard.js';
-import AccountInformation from'../Screens/AccountDashboard/AccountInformation.js';
-import ResetPwd from'../Screens/AccountDashboard/ResetPwd.js';
-import MyProductReview from'../Screens/MyProductReview/MyProductReview.js';
-import OrderSummary from'../Screens/OrderSummary/OrderSummary.js';
-import PaymentMethod from '../Screens/PaymentMethod/PaymentMethod.js';
+import {Dashboard}                from '../Screens/Dashboard/Dashboard.js';
+import CategoriesComponent        from'../Screens/CategoriesComponent/CategoriesComponent.js';
+import SubCategoriesComp          from'../Screens/CategoriesComponent/SubCategoriesComp.js';
+import SubCatCompView             from'../Screens/CategoriesComponent/SubCatCompView.js';
+import CartComponent              from '../Screens/CartComponent/CartComponent.js';
+import ConfirmOrderComponent      from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';
+import AddressDefaultComp         from '../Screens/AddressComponent/AddressDefaultComp.js';
+import AddressComponent           from '../Screens/AddressComponent/AddressComponent.js';
+import AddressComponentforaddress from '../Screens/AddressComponent/AddressComponentforaddressmenu.js';
+import AddressMenu                from'../Screens/AddressComponent/AddressMenu.js';
+import {WishlistComponent}        from'../Screens/WishlistComponent/WishlistComponent.js';
+import MyOrder                    from '../Screens/MyOrders/MyOrder.js';
+import {SupportSystem}            from '../Screens/Help&Support/SupportSystem.js';
+import Stores                     from '../Screens/Stores/Stores.js';
+import StoreDetails               from '../Screens/Stores/StoreDetails.js';
+import AllFeatureProducts         from '../Screens/FeatureProducts/AllFeatureProducts.js';
+import AllExclusiveProducts       from '../Screens/ExclusiveProducts/AllExclusiveProducts.js';
+import AllDiscountedProducts      from '../Screens/DiscountedProducts/AllDiscountedProducts.js';
+import OrderDetails               from '../Screens/MyOrders/OrderDetails.js';
+import AccountDashboard           from '../Screens/AccountDashboard/AccountDashboard.js';
+import AccountInformation         from'../Screens/AccountDashboard/AccountInformation.js';
+import ResetPwd                   from'../Screens/AccountDashboard/ResetPwd.js';
+import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
+import OrderSummary               from'../Screens/OrderSummary/OrderSummary.js';
+import PaymentMethod              from '../Screens/PaymentMethod/PaymentMethod.js';
 // import PGWebView from '../Screens/PaymentMethod/PGWebView.js';
 // import searchProducts from '../Screens/Search/searchProducts.js';
 // import SearchComponent from '../Screens/Search/SearchComponent.js';
@@ -166,8 +166,8 @@ const HomeStack = createStackNavigator({
      header: null,
     }
   },
-  AddressComponentforaddressmenu:{
-    screen:AddressComponentforaddressmenu,
+  AddressComponentforaddress:{
+    screen:AddressComponentforaddress,
     navigationOptions:{
      header: null,
     }
@@ -263,7 +263,6 @@ InAppNotification: {
 
 const AuthStack = createStackNavigator({
 
-
   RootLogIn: {
     screen: RootLogIn,
     headerMode : "none",
@@ -319,29 +318,6 @@ const AuthStack = createStackNavigator({
 
 });
 
-// const drawer = createDrawerNavigator({
-//   Home : {
-//     screen: HomeStack
-//   }
-// },{
-//     drawerLockMode: 'locked-closed',
-//     contentComponent: Menu,
-//     drawerPosition: 'right'
-// });
-
-
-// export default createAppContainer(createSwitchNavigator(
-//   {
-//     AuthLoading : AuthLoadingScreen,
-//     App         : drawer,
-//     Auth        : AuthStack,
-//   },
-//   {
-//     initialRouteName: 'AuthLoading',
-//     unmountInactiveRoutes: true,
-//   }
-// ));
-
 
 const drawer = createDrawerNavigator({
   Home: {
@@ -361,6 +337,6 @@ export default createAppContainer(createSwitchNavigator(
   },
   {
     unmountInactiveRoutes: true,
-    initialRouteName: 'AuthLoading',
+    initialRouteName: 'App',
   }
 ));
