@@ -214,7 +214,7 @@ exports.filterEntityMapping = (req, res, next)=>{
 
     var selector = {};
     
-    console.log(req.body)
+    // console.log(req.body)
     for (var key in req.body) {
 
         if (key=='corporateIds' && req.body.corporateIds.length > 0 ) {
@@ -244,9 +244,9 @@ exports.filterEntityMapping = (req, res, next)=>{
             selector['$or'].push({ "corporate.locations.district" :  { $in: req.body.districts } });
             selector['$or'].push({ "vendor.locations.district" :  { $in: req.body.districts } });
         }
-        console.log('selector',selector);
+        // console.log('selector',selector);
     }
-    console.log(selector)
+    // console.log(selector)
     EntityMapping.aggregate([
         {
             $lookup: {
@@ -289,7 +289,7 @@ exports.searchEntityMapping = (req, res, next)=>{
     selector["$or"].push({ "corporate.groupName"    : { $regex : req.params.str, $options: "i"}  })
     selector["$or"].push({ "vendor.groupName"    : { $regex : req.params.str, $options: "i"} })
     
-    console.log(selector)
+    // console.log(selector)
     EntityMapping.aggregate([
         {
             $lookup: {

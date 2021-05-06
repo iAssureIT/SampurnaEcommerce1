@@ -2,7 +2,7 @@ const mongoose	        = require("mongoose");
 const PaymentGateway   = require('./Model.js');
 
 exports.insertPaymentInfo = (req, res, next) => {
-    console.log("req.body In paymentgateway=>", req.body.namepayg);
+    // console.log("req.body In paymentgateway=>", req.body.namepayg);
     PaymentGateway
         .find({})
         .then(data =>{
@@ -103,7 +103,7 @@ exports.fetch_PaymentGateway_all = (req, res, next)=>{
 };
 
 exports.updatePaymentgateway = (req, res, next)=>{
-    console.log("req.params.id==>",req.params.id);
+    // console.log("req.params.id==>",req.params.id);
         PaymentGateway.updateOne(
                 { _id:req.params.id},  
                 {

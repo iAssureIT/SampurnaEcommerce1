@@ -24,7 +24,7 @@ exports.insert_franchise_goods = (req,res,next)=>{
                 });
                 franchiseGoods.save()
                 .then(data=>{
-                    console.log("data",data);
+                    // console.log("data",data);
                     res.status(200).json({
                         "franchiseGoodsId":data._id,
                         "message": "purchaseEntry Submitted Successfully."

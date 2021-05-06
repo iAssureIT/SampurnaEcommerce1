@@ -248,10 +248,10 @@ var insertFailedRecords = async (invalidData,updateBadData) => {
 
 
 exports.bulkUploadVehicleBrand = (req, res, next)=>{
-    console.log("inside bulk upload brand");
+    // console.log("inside bulk upload brand");
      // var vehiclebrands = [{brand:"mesh"}];
     var vehiclebrands = req.body.data;
-    console.log("vehiclebrands",vehiclebrands);
+    // console.log("vehiclebrands",vehiclebrands);
 
     var validData = [];
     var validObjects = [];
@@ -269,12 +269,12 @@ exports.bulkUploadVehicleBrand = (req, res, next)=>{
             if (vehiclebrands[k].brand == '-') {
                 remark += "department not found, " ;  
             }
-            console.log("remark",remark)
+            // console.log("remark",remark)
 
               if (remark == '') {
                 // var allDepartments = await fetchAllDepartments(req.body.reqdata);
                 // console.log("alldepartments",allDepartments);
-                 console.log()
+                //  console.log()
                   var allbrands = await fetchAllBrands(req.body.reqdata);
                   var brandExists = allbrands.filter((data)=>{
                     if (data.brand == vehiclebrands[k].brand)
@@ -283,7 +283,7 @@ exports.bulkUploadVehicleBrand = (req, res, next)=>{
                     }
                 })
                
-                 console.log("in else validObjects",brandExists);
+                //  console.log("in else validObjects",brandExists);
                 if (brandExists.length==0) {
                     validObjects = vehiclebrands[k];
                     validObjects.fileName       = req.body.fileName;
@@ -341,7 +341,7 @@ exports.fetch_file = (req,res,next)=>{
 };
 exports.filedetails = (req,res,next)=>{
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
     BrandMaster.find( { fileName:req.params.fileName }  )
     .exec()
     .then(data=>{

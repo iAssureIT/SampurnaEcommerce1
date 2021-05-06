@@ -3,7 +3,7 @@ const mongoose	= require("mongoose");
 const VendorLocationType = require('./Model');
 
 exports.insert_vendor_location = (req,res,next)=>{
-    console.log('inser');
+    // console.log('inser');
 	VendorLocationType.find()
 		.exec()
 		.then(data =>{

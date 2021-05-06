@@ -388,7 +388,7 @@ exports.addTaxSettings = (req,res,next)=>{
     var formateddate = new Date(toDateForPreviousRecordISOFormat);
     var toDateForPreviousRecord = formateddate.getFullYear()+'-' + (formateddate.getMonth()+1) + '-'+formateddate.getDate();
     var checkTaxSettings = Companysettings.find({'_id': req.body.companyId},{taxSettings:{$exists: true}})
-    console.log('checkTaxSettings: ',checkTaxSettings)
+    // console.log('checkTaxSettings: ',checkTaxSettings)
     if(checkTaxSettings){
 
     }
@@ -408,15 +408,15 @@ exports.addTaxSettings = (req,res,next)=>{
     ])
     .exec()
     .then((res)=>{
-        console.log('res=>',res)
+        // console.log('res=>',res)
     })
     .catch((err)=>{console.log('err: ',err)})
 
-    console.log('formateddate: ',formateddate)
-    console.log('queryResult: ',queryResult)
+    // console.log('formateddate: ',formateddate)
+    // console.log('queryResult: ',queryResult)
     if(queryResult){
-        console.log('inside if')
-        console.log('req.body.taxType: ',req.body.taxType)
+        // console.log('inside if')
+        // console.log('req.body.taxType: ',req.body.taxType)
         Companysettings.updateOne({'taxSettings':
                       {
                         $elemMatch:

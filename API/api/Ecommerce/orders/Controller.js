@@ -18,7 +18,7 @@ var request 					= require('request-promise');
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
-  	console.log("Inside order post",req.body); 
+  	// console.log("Inside order post",req.body); 
   	if (req.body.cartItems.length > 0) {
 	 	for (k = 0; k < req.body.cartItems.length; k++) {
 			Products.updateOne(
@@ -39,7 +39,7 @@ exports.insert_orders = (req, res, next) => {
 		Adminpreference.findOne()
 		.then(preferenceData => {
 			if (preferenceData.websiteModel === "FranchiseModel") {
-				console.log("inside adminpreferences, Address===",autogenerateOrderId);
+				// console.log("inside adminpreferences, Address===",autogenerateOrderId);
 				var pincode = req.body.deliveryAddress.pincode;
 				
 				if (pincode) {
@@ -48,20 +48,20 @@ exports.insert_orders = (req, res, next) => {
 					.then(franchiseObjects => {
 						main();
 						async function main() {
-						  	console.log("Allowaable Pincode data ============",franchiseObjects);                 
+						  	// console.log("Allowaable Pincode data ============",franchiseObjects);                 
 						  	if (franchiseObjects) {
 							 	var franchiseID;
 							 	var matchedFranchise = [];
-							 	console.log("Pincode Length : ",franchiseObjects.length);
+							 	// console.log("Pincode Length : ",franchiseObjects.length);
 							 	
 							 	for (var franchiseObj of franchiseObjects) {
-									console.log("Pincodes:",franchiseObj.allowablePincodes.includes(pincode));
+									// console.log("Pincodes:",franchiseObj.allowablePincodes.includes(pincode));
 									if (franchiseObj.allowablePincodes.includes(pincode)) {
 									  	franchiseID = req.body.franchise_id ? req.body.franchise_id : franchiseObj.franchiseID; //code by madhuri
 									  
 									  	if (franchiseID !== undefined) {
 										 	matchedFranchise.push({ franchiseID: franchiseID });
-										 	console.log("matchedFranchise ===", matchedFranchise);
+										 	// console.log("matchedFranchise ===", matchedFranchise);
 									  	}
 									}
 							 	}//end for loop 
@@ -298,7 +298,7 @@ exports.insert_orders = (req, res, next) => {
 										
 										if (Flatitude && Flongitude) {
 										  	distance = findDistance(Flatitude, Flongitude, req.body.deliveryAddress.latitude, req.body.deliveryAddress.longitude, 'K');
-										  	console.log("franchiseid = ", franchiseid,  " | distance = ",distance);
+										  	// console.log("franchiseid = ", franchiseid,  " | distance = ",distance);
 										  	resolve(distance);
 										}
 									}
@@ -308,7 +308,7 @@ exports.insert_orders = (req, res, next) => {
 					})
 				}// end if pincode
 			} else {
-				console.log("discount===",req.body.discount);
+				// console.log("discount===",req.body.discount);
 				var status 	= req.body.status == 'Paid' ? "Paid" : "UnPaid";
 				const order = new Orders({
 				  	_id 					: new mongoose.Types.ObjectId(),
@@ -354,12 +354,12 @@ exports.insert_orders = (req, res, next) => {
 
 				order.save()
 				.then(orderdata => {
-					console.log("orderdata =====> ",orderdata);
+					// console.log("orderdata =====> ",orderdata);
 					processData();
 					async function processData(){
 						if (preferenceData.websiteModel === "MarketPlace") {
 							var splitVendorOrders = await addSplitVendorOrders(orderdata._id);
-							console.log("splitVendorOrders => ",splitVendorOrders)
+							// console.log("splitVendorOrders => ",splitVendorOrders)
 						}
 						var header 	= "<table><tbody><tr><td align='center' width='100%'><a><img src='http://http://anashandicrafts.iassureit.com/images/anasLogo.png' style='width:25%'></a></td></tr></table>";
 						var body  	= "";
@@ -559,21 +559,21 @@ exports.insert_orders = (req, res, next) => {
 			Orders.findOne({"_id" : ObjectId(orderID)})
 			.exec()
 			.then(data => {
-				console.log("data => ", data);
+				// console.log("data => ", data);
 				processData();
 				async function processData(){
 					if (data && data.products && data.products.length > 0) {
 						const uniqueVendorArray = [...new Set(data.products.map(item => String(item.vendor_ID)))];
-						console.log("uniqueVendorArray => ",uniqueVendorArray);
+						// console.log("uniqueVendorArray => ",uniqueVendorArray);
 
 						for (var i = 0; i < uniqueVendorArray.length; i++) {
-							console.log("uniqueVendorArray[i] => ",uniqueVendorArray[i]);
+							// console.log("uniqueVendorArray[i] => ",uniqueVendorArray[i]);
 							var filteredVendorProducts = data.products.filter(function(product){
 							   return String(product.vendor_ID) === String(uniqueVendorArray[i]);
 							});
-							console.log("filteredVendorProducts => ",filteredVendorProducts);
+							// console.log("filteredVendorProducts => ",filteredVendorProducts);
 							var vendorData = await getVendorData(uniqueVendorArray[i]);
-							console.log("vendorData => ",vendorData);
+							// console.log("vendorData => ",vendorData);
 							var formValues = {
 								orderID                   	: data.orderID,
 								order_ID                   : data._id,
@@ -598,10 +598,10 @@ exports.insert_orders = (req, res, next) => {
 								createdBy                 	: data.createdBy,
 								createdAt                 	: new Date()
 							}
-							console.log("formValues => ",formValues);
+							// console.log("formValues => ",formValues);
 							await axios.post('http://localhost:'+globalVariable.port+'/api/vendororders/post', formValues)
 			            .then((response) => {
-			               console.log("response => ",response);
+			            //    console.log("response => ",response);
 			            })
 			            .catch(error=>{
 			               console.log("error => ",error);
@@ -620,7 +620,7 @@ exports.insert_orders = (req, res, next) => {
 			Entitymaster.findOne({"_id" : ObjectId(vendor_ID)})
 			.exec()
 			.then(data => {
-				console.log("vendor Id data => ", data);				
+				// console.log("vendor Id data => ", data);				
 			  	resolve({
 			  		vendorID : data.companyID
 			  	});
@@ -1933,7 +1933,7 @@ exports.neworderscount = (req, res, next) => {
 
 
 exports.totalOrdersByPeriod = (req, res, next) => {
-  console.log('sdash', moment(req.params.startTime).tz('Asia/Kolkata').startOf('day').toDate())
+//   console.log('sdash', moment(req.params.startTime).tz('Asia/Kolkata').startOf('day').toDate())
   Orders.aggregate([
 	 {
 		$match: {

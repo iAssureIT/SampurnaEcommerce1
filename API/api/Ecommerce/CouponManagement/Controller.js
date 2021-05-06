@@ -24,7 +24,7 @@ exports.insert_coupon = (req, res, next) => {
             createdBy           :  req.body.createdBy  ,
         createdAt: new Date()
     });
-    console.log("CoupenObj===>", CoupenObj);
+    // console.log("CoupenObj===>", CoupenObj);
     CoupenObj
         .save()
         .then(data => {
@@ -40,7 +40,7 @@ exports.insert_coupon = (req, res, next) => {
 };
 
 exports.get_coupon = (req, res, next) => {
-    console.log("<><><><><><><><><><><><><>");
+    // console.log("<><><><><><><><><><><><><>");
     Coupen.find({})
         .sort({createdAt : -1})
         .exec()
@@ -68,7 +68,7 @@ exports.get_single_coupon = (req, res, next) => {
 };
 
 exports.update_coupon = (req, res, next) => {
-    console.log("Update Body = ", req.body);
+    // console.log("Update Body = ", req.body);
     Coupen.updateOne(
         { _id: req.body.couponID },
         {
@@ -109,7 +109,7 @@ exports.update_coupon = (req, res, next) => {
 
 exports.couponBulkAction = (req, res, next) => {
     var field = req.body.selectedAction;
-    console.log('field', field);
+    // console.log('field', field);
     switch (field) {
         case 'Active':
             Coupen.updateMany(

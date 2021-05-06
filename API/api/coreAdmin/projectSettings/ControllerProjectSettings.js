@@ -178,7 +178,7 @@ exports.patch_projectsettings = (req, res, next)=>{
                                 )
             .exec()
             .then(data=>{
-                console.log("req.DATA===>",data);
+                // console.log("req.DATA===>",data);
                 if(data.nModified == 1){
                     res.status(200).json({
                         message : "DETAILS_UPDATED",

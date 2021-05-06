@@ -386,9 +386,9 @@ exports.fetch_file = (req,res,next)=>{
     });   
 };
 exports.filedetails = (req,res,next)=>{
-    console.log('req',req,'res',res);
+    // console.log('req',req,'res',res);
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
     UnitOfMeasurmentMaster.find( { fileName:req.params.fileName  }
     )
     .exec()
@@ -415,7 +415,7 @@ exports.filedetails = (req,res,next)=>{
 
 exports.bulkUploadEmployee = (req, res, next)=>{
     var departments = req.body.data;
-    console.log("departments",departments);
+    // console.log("departments",departments);
 
     var validData = [];
     var validObjects = [];
@@ -475,7 +475,7 @@ exports.fetch_file = (req,res,next)=>{
 };
 exports.filedetails = (req,res,next)=>{
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
     // UnitOfMeasurmentMaster.find({ $match : { type: req.params.type, fileName:req.params.fileName } })
     UnitOfMeasurmentMaster.find( { fileName:req.params.fileName  } )
     .exec()
@@ -500,7 +500,7 @@ exports.filedetails = (req,res,next)=>{
 };
 
 exports.deleteAllUnits = (req, res, next) => {
-    console.log("called");
+    // console.log("called");
     UnitOfMeasurmentMaster.remove({})
       .exec()
       .then(data => {

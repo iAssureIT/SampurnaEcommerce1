@@ -116,7 +116,7 @@ exports.update_companysettinginfo = (req,res,next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -159,7 +159,7 @@ exports.addLocation = (req,res,next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -174,7 +174,7 @@ exports.singleLocation = (req,res,next)=>{
             res.status(200).json(data);
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -188,7 +188,7 @@ exports.singleTaxDetails = (req,res,next)=>{
             res.status(200).json(data);
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -227,7 +227,7 @@ exports.update_location = (req,res,next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -256,7 +256,7 @@ exports.update_taxDetails = (req,res,next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -283,7 +283,7 @@ exports.delete_location = (req,res,next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -310,7 +310,7 @@ exports.delete_taxDetails = (req,res,next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -344,7 +344,7 @@ exports.addBankDetails = (req,res,next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -375,7 +375,7 @@ exports.updateBankDetails = (req,res,next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({
                 error: err
             });
@@ -395,12 +395,14 @@ exports.addTaxSettings = (req,res,next)=>{
         Companysettings.find({'_id': req.body.companyId})
         .exec()
         .then((res)=>{
-            console.log('res=>',res)
+            // console.log('res=>',res)
         })
-        .catch((err)=>{console.log('checkTaxSettingsData err: ',err)})
+        .catch((err)=>{
+            console.log('checkTaxSettingsData err: ',err)
+        })
     
     }
-    console.log('checkTaxSettings: ',checkTaxSettings)
+    // console.log('checkTaxSettings: ',checkTaxSettings)
     if(checkTaxSettings){
 
     }
@@ -424,16 +426,16 @@ exports.addTaxSettings = (req,res,next)=>{
     ])
     .exec()
     .then((res)=>{
-        console.log('res=>',res)
+        // console.log('res=>',res)
     })
     .catch((err)=>{console.log('queryResultData err: ',err)})
     }
 
-    console.log('formateddate: ',formateddate)
-    console.log('queryResult: ',queryResult)
+    // console.log('formateddate: ',formateddate)
+    // console.log('queryResult: ',queryResult)
     if(queryResult){
-        console.log('inside if')
-        console.log('req.body.taxType: ',req.body.taxType)
+        // console.log('inside if')
+        // console.log('req.body.taxType: ',req.body.taxType)
         Companysettings.updateOne({'taxSettings':
                       {
                         $elemMatch:

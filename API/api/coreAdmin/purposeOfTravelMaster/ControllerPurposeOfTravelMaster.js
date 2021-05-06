@@ -77,7 +77,7 @@ exports.getPurposeOfTravel = (req, res, next)=>{
         }); 
 };
 exports.fetchSinglePurposeOfTravel = (req, res, next)=>{
-    console.log('req.params.fieldID: ',req.params.fieldID)
+    // console.log('req.params.fieldID: ',req.params.fieldID)
     PurposeOfTravelMaster.findOne({ _id: req.params.fieldID })
         .exec()
         .then(data=>{

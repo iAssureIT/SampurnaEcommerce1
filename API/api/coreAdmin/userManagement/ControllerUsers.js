@@ -272,7 +272,7 @@ exports.user_signup_user_email_otp = (req,res,next)=>{
 };
 
 exports.user_login = (req,res,next) =>{
-	console.log("Inside user_login");
+	// console.log("Inside user_login");
 	User.findOne({emails:{$elemMatch:{address:req.body.email}}})
 		.exec()
 		.then(user => {
@@ -560,12 +560,12 @@ exports.user_update_status = (req,res,next)=>{
 };
 
 exports.user_update_delete_status = (req,res,next)=>{
-	console.log("req.body.user_id_tobedeleted==>",req.body.user_id_tobedeleted);
+	// console.log("req.body.user_id_tobedeleted==>",req.body.user_id_tobedeleted);
 	User.findOne({_id:req.body.user_id_tobedeleted})
 		.exec()
 		.then(user=>{
 			if(user){
-				console.log("req.user==>",user);
+				// console.log("req.user==>",user);
 				var newstatus = "";
 				if(user.profile.status === 'active'){
 					newstatus = 'deleted-active';
@@ -583,7 +583,7 @@ exports.user_update_delete_status = (req,res,next)=>{
 				)
 				.exec() 
 		        .then(data=>{
-					console.log("RESPONSE.data==>",data);
+					// console.log("RESPONSE.data==>",data);
 		            if(data.nModified == 1){
 		                User.updateOne(
 							{_id:req.body.user_id_tobedeleted},
@@ -844,10 +844,10 @@ exports.fetch_user_ID = (req,res,next)=>{
 		.exec()
 		.then(data=>{
 			if(data){
-				console.log('userdata',data);
+				// console.log('userdata',data);
 				var loginTokenscount = data.services.resume.loginTokens.length;
 				var statuslogLength = data.statusLog.length;
-				console.log('loginTokenscount',loginTokenscount,"statuslogLength",statuslogLength);
+				// console.log('loginTokenscount',loginTokenscount,"statuslogLength",statuslogLength);
 
 				res.status(200).json({
 					"_id"		: data._id,
@@ -879,7 +879,7 @@ exports.fetch_user_ID = (req,res,next)=>{
 
 exports.post_list_deleted_users = (req,res,next)=>{
 	var companyID= parseInt(req.body.companyID);
-	console.log("req.body==>",req.body);
+	// console.log("req.body==>",req.body);
 	if(req.body.companyID){
 		if(companyID === 1){
 			// var selector = {roles:{$ne:["admin"]}};
@@ -887,7 +887,7 @@ exports.post_list_deleted_users = (req,res,next)=>{
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
+		// console.log("selector==>",selector);
 		User.find(selector)
 			.select("profile.firstname profile.lastname profile.status profile.companyID profile.companyName profile.fullName roles profile.email profile.mobile profile.clientId createdAt services.resume.loginTokens statusLog")
 			.sort({createdAt : -1})
@@ -947,7 +947,7 @@ exports.post_list_users = (req,res,next)=>{
 	var companyID= req.body.companyID;
 	var startRange= req.body.startRange;
 	var limitRange= req.body.limitRange;
-	console.log("=====================req==================",req.body,startRange,limitRange);
+	// console.log("=====================req==================",req.body,startRange,limitRange);
 	if(req.body.companyID){
 		if(companyID === 1){
 			// var selector = {roles:{$ne:["admin"]}, "profile.status":{$ne:"deleted-active"}};
@@ -966,7 +966,7 @@ exports.post_list_users = (req,res,next)=>{
 			.exec()
 			.then(data=>{
 				if(data){
-					console.log("--------------data----------",data);
+					// console.log("--------------data----------",data);
 					var i = 0;
 					var returnData = [];
 					for(i = 0 ; i < data.length ; i++){
@@ -995,7 +995,7 @@ exports.post_list_users = (req,res,next)=>{
 						});
 					}
 					if( i >= data.length){
-						console.log('returnData=============>',returnData);
+						// console.log('returnData=============>',returnData);
 						res.status(200).json(returnData);
 					}
 				}else{
@@ -1043,7 +1043,7 @@ exports.fetch_users_Companies = (req,res,next)=>{
 										"fullName"	: data[i].profile.fullName,
 										"lastLogin"       : loginTokenscount > 0 ? data[i].services.resume.loginTokens[loginTokenscount-1].loginTimeStamp : null ,
 									});
-					console.log("returnData==>",returnData);
+					// console.log("returnData==>",returnData);
 				}
 				if( i >= data.length){
 					res.status(200).json(returnData);
@@ -1060,7 +1060,7 @@ exports.fetch_users_Companies = (req,res,next)=>{
 };
 
 exports.fetch_users_roles = (req,res,next)=>{
-	console.log("inside fetch_users_roles");
+	// console.log("inside fetch_users_roles");
 	User.find({roles:req.params.role})
 		// .select("profile.firstname profile.lastname profile.status profile.companyID profile.companyName profile.fullName roles profile.email profile.mobile profile.clientId createdAt services.resume.loginTokens")
 		.sort({createdAt : -1})
@@ -1068,7 +1068,7 @@ exports.fetch_users_roles = (req,res,next)=>{
         .limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log("roles data",data);
+			// console.log("roles data",data);
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -1088,7 +1088,7 @@ exports.fetch_users_roles = (req,res,next)=>{
 										"fullName"	: data[i].profile.fullName,
 										"lastLogin"       : loginTokenscount > 0 ? data[i].services.resume.loginTokens[loginTokenscount-1].loginTimeStamp : null ,
 									});
-					console.log("returnData==>",returnData);
+					// console.log("returnData==>",returnData);
 				}
 				if( i >= data.length){
 					res.status(200).json(returnData);
@@ -1108,15 +1108,15 @@ exports.fetch_users_status = (req,res,next)=>{
 	// User.find({"profile.status":req.params.status})
 	var companyID= parseInt(req.body.companyID);
 	var status   = req.params.status;
-	console.log("req.body==>",req.body);
+	// console.log("req.body==>",req.body);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var selector = {roles:{$ne:["admin"]}};
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
-		console.log("req.params.status==>",status);
+		// console.log("selector==>",selector);
+		// console.log("req.params.status==>",status);
 		// User.find({"profile.status":status})
 		User.aggregate([
 			{$match:selector},
@@ -1129,7 +1129,7 @@ exports.fetch_users_status = (req,res,next)=>{
         .limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log('data',data);
+			// console.log('data',data);
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -1171,14 +1171,14 @@ exports.fetch_users_status_roles = (req,res,next)=>{
 	var companyID= parseInt(req.body.companyID);
 	var status   = req.params.status;
 	var role   = req.params.role;
-	console.log("req.body==>",req.body);
+	// console.log("req.body==>",req.body);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var selector = {roles:{$ne:["admin"]}};
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
+		// console.log("selector==>",selector);
 		User.aggregate([
 			{$match:selector},
 			{$match:{"profile.status": {$nin:["deleted-active","deleted-blocked" ]}}},
@@ -1189,7 +1189,7 @@ exports.fetch_users_status_roles = (req,res,next)=>{
         .limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log('data in role status==>>',data);
+			// console.log('data in role status==>>',data);
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -1410,17 +1410,17 @@ exports.change_password_email_verify = (req,res,next)=>{
 
 exports.search_text = (req, res, next)=>{
 	var companyID= parseInt(req.body.companyID);
-	console.log("req.body in search==>",req.body);
+	// console.log("req.body in search==>",req.body);
 	if(req.body.companyID){
 		var selector = {};
 		if(companyID === 1){
-			console.log("req.body in search companyID==>",companyID);
+			// console.log("req.body in search companyID==>",companyID);
 			selector = {roles:{$ne:["admin"]}};
 		}else{
-			console.log("req.body in search ekse companyID==>",companyID);
+			// console.log("req.body in search ekse companyID==>",companyID);
 			selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
+		// console.log("selector==>",selector);
 	User.aggregate([
 		{$match:selector},
 		{$match:{"profile.status": {$nin:["deleted-active","deleted-blocked" ]}}},
@@ -1444,7 +1444,7 @@ exports.search_text = (req, res, next)=>{
 	.limit(req.body.limitRange)
 	.exec()
 	.then(data=>{
-		console.log("Data in search==>",data)
+		// console.log("Data in search==>",data)
 		if(data){
 			var i = 0;
 			var returnData = [];
@@ -1500,7 +1500,7 @@ exports.search_text_delete = (req, res, next)=>{
 	.limit(req.body.limitRange)
 	.exec()
 	.then(data=>{
-		console.log("Data in delete list==>",data)
+		// console.log("Data in delete list==>",data)
 		if(data){
 			var i = 0;
 					var returnData = [];
@@ -1548,7 +1548,7 @@ exports.search_text_delete = (req, res, next)=>{
 			// 						"statusupdatedBy" : statuslogLength > 0 ? data[i].statusLog[statuslogLength-1].updatedBy : "-"
 			// 					});
 			// }
-			console.log("returnData in delete list==>",returnData)
+			// console.log("returnData in delete list==>",returnData)
 			if( i >= data.length){
 				res.status(200).json(returnData);
 			}

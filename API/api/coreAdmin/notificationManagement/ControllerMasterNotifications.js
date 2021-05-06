@@ -137,7 +137,7 @@ exports.update_masternotification = (req,res,next)=>{
 };
 
 exports.update_status = (req,res,next)=>{
-    console.log('req.body==>',req.body)
+    // console.log('req.body==>',req.body)
     Masternotifications.updateOne(
         { _id:req.body.notifId},  
         {
@@ -305,7 +305,7 @@ exports.send_notifications = (req, res, next) => {
 
 
                     }else{
-                        console.log('No data found')
+                        // console.log('No data found')
                     }
                     // console.log('***************************************************')
                 }//i
@@ -327,7 +327,7 @@ function callTemplates(mode,userData,role,templateName,variables){
              // //==============  SEND EMAIL ================
             if(mode === 'Email'){
                 var toEmail = userData.email;
-                console.log("Template Details====",templateName,userData.role[0],variables);
+                // console.log("Template Details====",templateName,userData.role[0],variables);
                 // const emailDetails = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
                 const emailDetails = await getTemplateDetailsEmail(templateName,userData.role[0],variables);
                 // const sendMail = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
@@ -379,12 +379,12 @@ function getAdminUserData() {
 }
 
 function getSelfUserData(toUserId) {
-    console.log("toUserId",toUserId);
+    // console.log("toUserId",toUserId);
     return new Promise(function (resolve, reject) {
         User.findOne({ "_id": toUserId })
             .exec()
             .then(data => {
-                console.log("data",data)
+                // console.log("data",data)
                 if(data && data.profile){
                     resolve({email:data.profile.email,
                             id: data._id,
@@ -500,18 +500,18 @@ function getOtherAdminData(role,company_id){
 //     // })
 // }
 function sendSMS(MobileNumber,text){
-    console.log('=====INSIDE SMS======',MobileNumber,text)
+    // console.log('=====INSIDE SMS======',MobileNumber,text)
         GlobalMaster.findOne({type:'SMS'})
         .exec() 
         .then(data=>{
-            console.log('data.authID,data.authToken,data.sourceMobile: ',data.authToken,data.sourceMobile)
+            // console.log('data.authID,data.authToken,data.sourceMobile: ',data.authToken,data.sourceMobile)
             var msg91 = require("msg91")(data.authToken, "FIVEBE", "4" );
             var mobileNo = MobileNumber;
             // console.log("mobileNo IN SMS=====>",MobileNumber.replaceAll("[\\D]", ""));
-            console.log("mobileNo IN SMS=====>",mobileNo);
+            // console.log("mobileNo IN SMS=====>",mobileNo);
             msg91.send(mobileNo, text.toString(), function(err, response){
-                console.log(err);
-                console.log("response IN SMS =====>",response);
+                // console.log(err);
+                // console.log("response IN SMS =====>",response);
             });
         })
         .catch(err =>{
@@ -542,7 +542,7 @@ function sendInAppNotification(toUserId,email,event,notificationDetails){
 }
 
 function sendEmail(toEmail,subject,content,attachment){
-    console.log('====**INSIDE EMAIL**=====',toEmail,subject,content,attachment)
+    // console.log('====**INSIDE EMAIL**=====',toEmail,subject,content,attachment)
     if(attachment == null || attachment == undefined || attachment == ""){
         var attachment = []
     }else{
@@ -552,7 +552,7 @@ function sendEmail(toEmail,subject,content,attachment){
       GlobalMaster.findOne({type:'EMAIL'})
         .exec() 
         .then(data=>{
-            console.log("541 data ==> ",data )
+            // console.log("541 data ==> ",data )
             const senderEmail = data.user;
             const senderEmailPwd = data.password;
             // create reusable transporter object using the default SMTP transport
@@ -577,9 +577,9 @@ function sendEmail(toEmail,subject,content,attachment){
                 // console.log("Mail option===",mailOptions);
                let info =  transporter.sendMail(mailOptions, (error, info) => {
                    if(error){
-                        console.log("Message sent error:======", error);
+                        // console.log("Message sent error:======", error);
                    }else{
-                    console.log("Message sent info:======",info);
+                    // console.log("Message sent info:======",info);
                    }
                 });
                 // res.status(200).json({message:"Notification sent",data:data});
@@ -605,7 +605,7 @@ function getTemplateDetailsEmail(templateName,role,variables) {
             .exec()
             .then(NotificationData => {
                 if (NotificationData) {
-                    console.log("NotificationData.content===",NotificationData.content);
+                    // console.log("NotificationData.content===",NotificationData.content);
                     var content = NotificationData.content;
                     var wordsplit = [];
                     if (content.indexOf('[') > -1) {
@@ -641,7 +641,7 @@ function getTemplateDetailsEmail(templateName,role,variables) {
                     .exec()
                     .then(NotificationData => {
                         if(NotificationData){
-                            console.log("----------NotificationData.content===",NotificationData.content);
+                            // console.log("----------NotificationData.content===",NotificationData.content);
                             var content = NotificationData.content;
                             var wordsplit = [];
                             if (content.indexOf('[') > -1) {
@@ -854,7 +854,7 @@ function getTemplateDetailsInApp(templateName,role,variables) {
 exports.filedetails = (req,res,next)=>{
     // console.log('req------',req,'res',res);
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
     Masternotifications.find( { fileName:req.params.fileName  }
     )
     .exec()
@@ -897,7 +897,7 @@ function getcompany(entityType,company){
        EntityMaster.findOne({companyName : { $regex : company, $options: "i"},entityType : entityType})
         .exec()
         .then(data=>{
-            console.log("company data----",data);
+            // console.log("company data----",data);
             if(data){
                 resolve(data._id);
             }else{
@@ -929,7 +929,7 @@ function getEvent(templateName){
 
 exports.bulkUploadNotification = (req, res, next) => {
     var Notification = req.body.data;
-    console.log("Notification",req.body.data)
+    // console.log("Notification",req.body.data)
     var validData = [];
     var validObjects = [];
     var invalidData = [];
@@ -969,7 +969,7 @@ exports.bulkUploadNotification = (req, res, next) => {
             // }
             var companylist=[];
             var company = await getcompany(Notification[k].entityType,Notification[k].company)
-            console.log("company list",company);
+            // console.log("company list",company);
             if(Notification[k].company != '-' && company){
                 if(company.message === 'COMPANY_NOT_FOUND'){
                     remark += "company not found, ";

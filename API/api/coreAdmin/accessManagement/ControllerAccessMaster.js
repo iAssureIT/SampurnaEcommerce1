@@ -6,7 +6,7 @@ const gloabalVariable = require('../../../nodemon.js');
 var   ObjectId          = require('mongodb').ObjectID;
 
 exports.insertAccess = (req,res,next)=>{
-    console.log(req.body) 
+    // console.log(req.body) 
     var accessData = req.body;
     AccessMaster.deleteMany({})
         .exec()
@@ -46,11 +46,11 @@ exports.getAccess = (req,res,next)=>{
         }); 
 };
 exports.getRolewiseAccess = (req,res,next)=>{
-    console.log(req.body)
+    // console.log(req.body)
     AccessMaster.find({ "role" : {$in : req.body} })
         .exec() 
         .then(data=>{
-            console.log(data)
+            // console.log(data)
             res.status(200).json(data);
         })
         .catch(err =>{
@@ -60,15 +60,15 @@ exports.getRolewiseAccess = (req,res,next)=>{
 
 
 exports.getRolewiseAccessToModule = (req,res,next)=>{
-    console.log(req.body)
+    // console.log(req.body)
     AccessMaster.find({ "role" : {$in : req.body.roles}, "module.module" : req.body.module })
         .exec() 
         .then(data=>{
-            console.log(data)
+            // console.log(data)
             data.length>0 ? res.status(200).json({access:true}):res.status(200).json({access:false});
         })
         .catch(err =>{
-            console.log(err.response)
+            // console.log(err.response)
             res.status(500).json({ error: err });
         }); 
 };
@@ -79,15 +79,15 @@ exports.getAccessToFacilityOfModule = (req,res,next)=>{
     
     var selector = { "role" : {$in : req.body.roles}, 
                         "module.module" : req.body.module, "module.facility" : req.body.facility }
-    console.log(selector)                    
+    // console.log(selector)                    
     AccessMaster.find(selector)
         .exec() 
         .then(data=>{
-            console.log(data)
+            // console.log(data)
             data.length>0 ? res.status(200).json({access:true}):res.status(200).json({access:false});
         })
         .catch(err =>{
-            console.log(err.response)
+            // console.log(err.response)
             res.status(500).json({ error: err });
         }); 
 };

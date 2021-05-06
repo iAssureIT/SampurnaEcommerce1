@@ -624,7 +624,7 @@ exports.bulkUploadEmployee = (req, res, next) => {
             if (employees[k].companyID == '-') {
                 remark += "companyID not found, ";
             }
-            console.log("remark", remark)
+            // console.log("remark", remark)
 
             if (remark == '') {
                 var departmentId, designationId;
@@ -1087,7 +1087,7 @@ exports.personProfilePhoto = (req, res, next) => {
 exports.getPersonProfilePhoto = (req, res, next) => {
     PersonMaster.findOne({ userId: req.params.userId }, { profilePhoto: 1, firstName: 1, lastName: 1, contactNo: 1, _id: 0 })
         .then(data => {
-            console.log(data)
+            // console.log(data)
             if (data) {
                 res.status(200).json(data);
             } else {
@@ -1375,7 +1375,7 @@ exports.getDriverListForAllocation = (req, res, next) => {
                         };
                     }
                 }
-                console.log("validDrivers",validDrivers);
+                // console.log("validDrivers",validDrivers);
                 BookingMaster.find({
                     status: { $elemMatch: { allocatedToDriver: { $in: driverIDArray } } },
                     statusValue: { $nin: ["Cancel By User", "Cancel By Vendor", "Cancel By Admin"] },
@@ -1401,12 +1401,12 @@ exports.getDriverListForAllocation = (req, res, next) => {
                     ]
                 })
                     .then(bookedDrivers => {
-                        console.log("bookedDrivers", bookedDrivers);
+                        // console.log("bookedDrivers", bookedDrivers);
                         var availabilityStatus = '';
                         if (bookedDrivers && bookedDrivers.length > 0) {
                             for (var i = 0; i < bookedDrivers.length; i++) {
                                 var status = bookedDrivers[i].status.filter((elem) => { return elem.value === "Trip Allocated To Driver" });;
-                                console.log("status", status);
+                                // console.log("status", status);
                                 for (let k = 0; k < validDrivers.length; k++) {
                                     if (status[status.length - 1].allocatedToDriver.equals(validDrivers[k]._id)) {
                                         validDrivers[k] = { ...validDrivers[k], availabilityStatus: 'Booked' };
@@ -1507,14 +1507,14 @@ exports.tempDeleteDriver = (req, res, next) => {
                 )
                     .exec()
                     .then(mapping => {
-                        console.log("mapping", mapping);
+                        // console.log("mapping", mapping);
                         if (mapping) {
                             BookingMaster.findOne(
                                 { driverID: req.body.driverID },
                             )
                                 .exec()
                                 .then(booking => {
-                                    console.log("mappif_booking", booking);
+                                    // console.log("mappif_booking", booking);
                                     if (booking) {
 
                                     } else {
@@ -1550,7 +1550,7 @@ exports.tempDeleteDriver = (req, res, next) => {
                                                         })
                                                         .exec()
                                                         .then(details => {
-                                                            console.log("details", details);
+                                                            // console.log("details", details);
                                                             if (details.nModified === 1) {
                                                                 VehicleDriverMapping.updateOne(
                                                                     { _id: mapping._id },
@@ -1569,8 +1569,8 @@ exports.tempDeleteDriver = (req, res, next) => {
                                                                 )
                                                                     .exec()
                                                                     .then(mapping => {
-                                                                        console.log("unmapping", mapping)
-                                                                        console.log("mappingif deleted")
+                                                                        // console.log("unmapping", mapping)
+                                                                        // console.log("mappingif deleted")
                                                                         res.status(200).json({ deleted: true });
                                                                     })
                                                                     .catch(err => {
@@ -1609,7 +1609,7 @@ exports.tempDeleteDriver = (req, res, next) => {
                             )
                                 .exec()
                                 .then(booking => {
-                                    console.log("mappelse_booking", booking);
+                                    // console.log("mappelse_booking", booking);
                                     if (booking) {
 
 
@@ -1634,7 +1634,7 @@ exports.tempDeleteDriver = (req, res, next) => {
                                         )
                                             .exec()
                                             .then(data => {
-                                                console.log("RESPONSE.data==>", data);
+                                                // console.log("RESPONSE.data==>", data);
                                                 if (data.nModified == 1) {
                                                     PersonMaster.updateOne(
                                                         { _id: req.body.driverID },
@@ -1649,7 +1649,7 @@ exports.tempDeleteDriver = (req, res, next) => {
                                                         })
                                                         .exec()
                                                         .then(details => {
-                                                            console.log("details", details);
+                                                            // console.log("details", details);
                                                             if (details.nModified === 1) {
                                                                 res.status(200).json({ deleted: true });
                                                             } else {
@@ -1696,8 +1696,8 @@ exports.tempDeleteDriver = (req, res, next) => {
 // End
 
 exports.searchPersonByID_Name = (req, res, next) => {
-    console.log('req.params.companyID: ',req.params.companyID)
-    console.log('req.params.str: ',req.params.str)
+    // console.log('req.params.companyID: ',req.params.companyID)
+    // console.log('req.params.str: ',req.params.str)
     PersonMaster.aggregate([
         { $match: { "company_Id": ObjectID(req.params.companyID) } },
         {

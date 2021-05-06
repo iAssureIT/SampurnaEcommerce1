@@ -13,11 +13,12 @@ exports.insertDesignation = (req,res,next)=>{
             return data;
         }
         })    
-    console.log("designation",allDesignations);
-    console.log("designation.length > 0",designation.length);
+    // console.log("designation",allDesignations);
+    // console.log("designation.length > 0",designation.length);
         if (designation.length > 0) {
             res.status(200).json({ duplicated : true });
-        }else{console.log("designation",designation);
+        }else{
+            // console.log("designation",designation);
             const designationMaster = new DesignationMaster({
                             _id                         : new mongoose.Types.ObjectId(),
                             companyID                   : req.body.companyID,
@@ -27,7 +28,7 @@ exports.insertDesignation = (req,res,next)=>{
                         })
                         designationMaster.save()
                         .then(data=>{
-                             console.log("designation data",data);
+                            //  console.log("designation data",data);
                             res.status(200).json({ created : true, fieldID : data._id });
                         })
                         .catch(err =>{
@@ -58,7 +59,7 @@ var fetchDesignations = async ()=>{
         // .skip(req.body.startRange)
         // .limit(req.body.limitRange)
         .then(data=>{
-            console.log("data===",data);
+            // console.log("data===",data);
             resolve( data );
         })
         .catch(err =>{
@@ -84,7 +85,7 @@ exports.fetchDesignations = (req, res, next)=>{
         .limit(req.body.limitRange)
         .exec()
         .then(data=>{
-            console.log("data===",data);
+            // console.log("data===",data);
             res.status(200).json(data);
         })
         .catch(err =>{
@@ -341,7 +342,7 @@ exports.delete_file = (req,res,next)=>{
 
 exports.bulkUploadDesignation = (req, res, next)=>{
     var designations = req.body.data;
-    console.log("designations",designations);
+    // console.log("designations",designations);
 
     var validData = [];
     var validObjects = [];
@@ -369,7 +370,7 @@ exports.bulkUploadDesignation = (req, res, next)=>{
                             }
                         })
                        
-                 console.log("in else validObjects",designationExists);
+                //  console.log("in else validObjects",designationExists);
                 if (designationExists.length==0) {
                     validObjects = designations[k];
                     validObjects.fileName       = req.body.fileName;
@@ -411,14 +412,14 @@ exports.bulkUploadDesignation = (req, res, next)=>{
 
 exports.filedetails = (req,res,next)=>{
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
 
     DesignationMaster.find( { fileName:req.params.fileName  } )
 
     .exec()
     .then(data=>{
         //finaldata.push({goodrecords: data})
-         console.log("data===404",data)
+        //  console.log("data===404",data)
         finaldata.goodrecords = data;
         FailedRecords.find({fileName:req.params.fileName})  
             .exec()

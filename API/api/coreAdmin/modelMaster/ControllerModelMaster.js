@@ -290,7 +290,7 @@ exports.bulkUploadVehicleModel = (req, res, next)=>{
                         return data;
                     }
                 })
-                console.log("brandExists",brandExists);
+                // console.log("brandExists",brandExists);
                 if (brandExists.length>0) {
                     brandId = brandExists[0]._id;
                 }else{
@@ -304,8 +304,8 @@ exports.bulkUploadVehicleModel = (req, res, next)=>{
 
                 if (modelExists.length==0) {
                     validObjects = models[k];
-                    console.log('validObjects=====',validObjects);
-                    console.log('models[k]=====',models[k]);
+                    // console.log('validObjects=====',validObjects);
+                    // console.log('models[k]=====',models[k]);
                     validObjects.brandId          = brandId;
                     validObjects.model          = models[k].model;
                     validObjects.fileName       = req.body.fileName;
@@ -313,7 +313,7 @@ exports.bulkUploadVehicleModel = (req, res, next)=>{
                     validObjects.createdAt      = new Date();
 
                     validData.push(validObjects);  
-                    console.log('validDataaa',validData);
+                    // console.log('validDataaa',validData);
 
                 }else{
                     remark += "Model already exists." ; 
@@ -325,7 +325,7 @@ exports.bulkUploadVehicleModel = (req, res, next)=>{
             }
 
         }
-        console.log("validData",validData);
+        // console.log("validData",validData);
         ModelMaster.insertMany(validData)
         .then(data=>{
             

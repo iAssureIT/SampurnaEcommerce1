@@ -17,7 +17,7 @@ exports.insertWarehouse = (req,res,next)=>{
                             })
                             warehouseMaster.save()
                             .then(data=>{
-                                console.log("data",data);
+                                // console.log("data",data);
                                 res.status(200).json({ created : true, fieldID : data._id });
                             })
                             .catch(err =>{

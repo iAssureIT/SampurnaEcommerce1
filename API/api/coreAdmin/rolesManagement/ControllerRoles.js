@@ -1,13 +1,13 @@
 const mongoose	= require("mongoose");
 const Role      = require('./ModelRoles.js');
 exports.create_role = (req,res,next)=>{
-    console.log("in roles");
+    // console.log("in roles");
     if(req.body.fieldValue){
 
     	Role.findOne({role:req.body.fieldValue})
     		.exec()
     		.then(data =>{
-                console.log("data",data)
+                // console.log("data",data)
     			if(data){
     				res.status(200).json({
                         duplicated : true,
@@ -137,11 +137,11 @@ exports.update_role = (req,res,next)=>{
     }
 };
 exports.delete_role = (req,res,next)=>{
-    console.log("req.params.ID ",req.params.ID);
+    // console.log("req.params.ID ",req.params.ID);
     Role.deleteOne({_id:req.params.ID})
         .exec()
         .then(data=>{
-            console.log('data ',data);
+            // console.log('data ',data);
             if(data.deletedCount === 1){
                res.status(200).json({ deleted : true });
             }else{

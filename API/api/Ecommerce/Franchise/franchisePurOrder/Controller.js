@@ -258,7 +258,7 @@ exports.list_franchisePO = (req,res,next)=>{
         
 // };
 exports.allorder_franchise = (req,res,next)=>{
-    console.log("req.body.date",req.body.date)
+    // console.log("req.body.date",req.body.date)
         FranchisePO.find({orderDate:req.body.date})
 			.sort({createdAt : -1})
 			.skip(req.body.startRange)
@@ -326,12 +326,12 @@ function entityID(franchise_id){
 };
 
 function franchiseDelivery(po_id){
-    console.log("po_id",po_id);
+    // console.log("po_id",po_id);
     return new Promise(function(resolve,reject){ 
         FranchiseDelivery.find({ franchisePO_id: po_id })
         .exec()
         .then(res=>{
-            console.log('res in franchiseGoods ==>',res);
+            // console.log('res in franchiseGoods ==>',res);
             resolve(res);
         })
         .catch(err =>{
@@ -421,7 +421,7 @@ exports.order_franchise = (req,res,next)=>{
         });
 };
 exports.search_PO = (req, res, next)=>{
-	console.log("req.body in search==>",req.body.searchText);
+	// console.log("req.body in search==>",req.body.searchText);
 	FranchisePO.aggregate([
 		{$match:
 			{$or:
@@ -433,7 +433,7 @@ exports.search_PO = (req, res, next)=>{
 	])
 	.exec()
 	.then(data=>{
-        console.log("Data in search==>",data)
+        // console.log("Data in search==>",data)
         main();
         async function main(){
             if(data){
@@ -442,7 +442,7 @@ exports.search_PO = (req, res, next)=>{
                 for(i = 0 ; i < data.length ; i++){
                     var AllUnits = ""
                     AllUnits = await franchiseentityID(data[i].franchise_id);
-                    console.log('data in AllUnits ==>',AllUnits.length > 0 || AllUnits.length !== null ? AllUnits : null);
+                    // console.log('data in AllUnits ==>',AllUnits.length > 0 || AllUnits.length !== null ? AllUnits : null);
                     returnData.push({
                         "_id"		      : data[i]._id,
                         "orderNo"         : data[i].orderNo,
@@ -453,7 +453,7 @@ exports.search_PO = (req, res, next)=>{
                         
                     });
                 }
-                console.log('data in returnData ==>',returnData);
+                // console.log('data in returnData ==>',returnData);
                 if( i >= data.length){
                     res.status(200).json(returnData);
                 }

@@ -281,14 +281,14 @@ exports.user_login = (req,res,next) =>{
 				var pwd = user.services.password.bcrypt;
 				if(pwd){
 					bcrypt.compare(req.body.password,pwd,(err,result)=>{
-						console.log("err ",err,"result",result);
+						// console.log("err ",err,"result",result);
 						if(err || !result){
 							return res.status(401).json({
 								message: 'Auth failed'
 							});		
 						}
 						if(result){
-							console.log("result ====> ",globalVariable); 
+							// console.log("result ====> ",globalVariable); 
 							const token = jwt.sign({
 								email 	: req.body.email,
 								userId	:  user._id ,
@@ -343,26 +343,26 @@ exports.user_login = (req,res,next) =>{
 		});
 };
 exports.admin_login = (req,res,next) =>{
-	console.log("admin login")
+	// console.log("admin login")
 	User.findOne({
 					emails	: {$elemMatch:{address:req.body.email}},
 					roles   : ["admin"]
 				})
 		.exec()
 		.then(user => {
-			console.log("user ",user);
+			// console.log("user ",user);
 			if(user != null && user != undefined){
 				var pwd = user.services.password.bcrypt;
 				if(pwd){
 					bcrypt.compare(req.body.password,pwd,(err,result)=>{
-						console.log("admin err ",err,"result",result);
+						// console.log("admin err ",err,"result",result);
 						if(err || !result){
 							return res.status(401).json({
 								message: 'Auth failed'
 							});		
 						}
 						if(result){
-							console.log("admin result ====> ",globalVariable); 
+							// console.log("admin result ====> ",globalVariable); 
 							const token = jwt.sign({
 								email 	: req.body.email,
 								userId	:  user._id ,
@@ -384,7 +384,7 @@ exports.admin_login = (req,res,next) =>{
 								)
 								.exec()
 								.then(updateUser=>{
-									console.log("admin updateUser ",updateUser);
+									// console.log("admin updateUser ",updateUser);
 									if(updateUser.nModified == 1){
 										res.status(200).json({
 													message	: 'Auth successful',
@@ -551,8 +551,8 @@ exports.user_update_role = (req,res,next)=>{
 	}
 };
 exports.user_update_password_ID = (req,res,next)=>{
-	console.log("user_update_password_ID params ",req.params);
-	console.log("user_update_password_ID body ",req.body);
+	// console.log("user_update_password_ID params ",req.params);
+	// console.log("user_update_password_ID body ",req.body);
 	User.findOne({_id:req.params.ID})
 		.exec()
 		.then(user=>{
@@ -603,7 +603,7 @@ exports.fetch_user_ID = (req,res,next)=>{
 		.exec()
 		.then(data=>{
 			if(data){
-			console.log("fetch_user_ID",data);
+			// console.log("fetch_user_ID",data);
 				res.status(200).json({
 					"_id"		: data._id,
 					"firstname" : data.profile.firstname,
@@ -903,7 +903,7 @@ exports.update_email_otp_email = (req,res,next) =>{
 				});
 };
 exports.change_password_email_verify = (req,res,next)=>{
-	console.log("email ",req.body);
+	// console.log("email ",req.body);
 	User.findOne({username : req.body.emailId})
 		.exec()
 		.then(data=>{

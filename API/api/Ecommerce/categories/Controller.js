@@ -161,7 +161,7 @@ exports.searchCategory = (req,res,next)=>{
     .limit(parseInt(req.body.limitRange))
     .exec()
     .then(data=>{
-        console.log('data', data);
+        // console.log('data', data);
 
         var allData = data.map((x, i)=>{
             return {
@@ -252,9 +252,12 @@ exports.fetch_categories_by_section = (req,res,next)=>{
 };
 
 exports.delete_category = (req,res,next)=>{
+    console.log("In Delete Categories => ", req.paramas.categoryID);
+
     Category.deleteOne({_id:req.params.categoryID})
     .exec()
     .then(data=>{
+        console.log("Data After Deleteing Category => ",data)
         res.status(200).json({
             "message": "Category Deleted Successfully!"
         });

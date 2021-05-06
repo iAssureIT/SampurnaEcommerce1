@@ -28,7 +28,7 @@ exports.insertExpenseType = (req,res,next)=>{
                 })
                 expenseTypeMaster.save()
                 .then(data=>{
-                    console.log(" insertExpenseType data",data)
+                    // console.log(" insertExpenseType data",data)
 
                     res.status(200).json({ created : true, fieldID : data._id });
                 })

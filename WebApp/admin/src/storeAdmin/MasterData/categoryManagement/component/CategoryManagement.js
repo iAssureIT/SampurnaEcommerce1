@@ -8,6 +8,7 @@ import IAssureTable           from '../../../../coreadmin/IAssureTable/IAssureTa
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
 import '../css/CategoryManagement.css';
+import { result } from 'underscore';
 // import { set } from 'mongoose';
 
 class CategoryManagement extends Component{
@@ -67,7 +68,7 @@ class CategoryManagement extends Component{
       console.log("Inside componentWillRecive props",nextProps);
       // console.log("EditId:===",this.state.editId);
       
-      if(nextProps && nextProps.editId && nextProps.editId !== "undefined"){      
+      if(nextProps && nextProps.editId && nextProps.editId !== undefined &&  nextProps.history.location.pathname !== "/project-master-data"){      
         this.setState({
            editId : nextProps.editId
         },()=>{
@@ -325,13 +326,30 @@ class CategoryManagement extends Component{
                       console.log('error', error);
                     });
                   categoryDimentionArray.push(obj);
-                  // var finalCategoryArray = Array.from(new Set(categoryDimentionArray.map(c => c.subCategoryTitle.toLowerCase())))
-                  // .map(id => {
-                  //   console.log("")
+                  // var finalCategoryArray = Array.from(new Set(categoryDimentionArray.map(c => c.subCategoryTitle.toLowerCase()))).map(subCategoryTitle => {
+                  //   console.log("c => ",c);
+                  //   console.log("id => ",subCategoryTitle);
                   //   return{
                   //     subCategoryTitle : subCategoryTitle,
                   //   }
                   // })
+                  categoryDimentionArray.push(obj);
+                  var result = [];
+                  if(categoryDimentionArray.length > 0){                    
+                    const map    = new Map();
+                    for (const item of categoryDimentionArray) {
+                        if(!map.has(item.subCategoryTitle)){
+                            map.set(item.subCategoryTitle, true);    // set any value to Map
+                            result.push({
+                              index             : item.index,
+                              subCategoryTitle  : item.subCategoryTitle,
+                              subCategoryCode   : item.subCategoryCode,
+                              subCategoryUrl    : item.subCategoryUrl,
+                            });
+                        }
+                    }
+                    // console.log("result => ", result);
+                  }
                   this.setState({
                     allowToSubmit: true
                   })
@@ -355,7 +373,8 @@ class CategoryManagement extends Component{
               "category"                  : this.refs.category.value,
               "categoryNameRlang"         : this.refs.categoryNameRlang.value,
               "categoryUrl"               : this.refs.categoryUrl.value,
-              "subCategory"               : categoryDimentionArray ? categoryDimentionArray : [],
+              // "subCategory"               : categoryDimentionArray ? categoryDimentionArray : [],
+              "subCategory"               : result,
               "categoryDescription"       : this.refs.categoryDescription.value,
               "categoryImage"             : this.state.categoryImage,
               "categoryRank"              : this.state.categoryRank,
@@ -423,8 +442,9 @@ class CategoryManagement extends Component{
       event.preventDefault();
       // console.log('bjgjbmbmb',$('#categoryManagement').valid());
       if($('#categoryManagement').valid()){
-        var addRowLength = this.state.subcatgArr ? this.state.subcatgArr.length : null;
-        var categoryDimentionArray = [];
+        var addRowLength            = this.state.subcatgArr ? this.state.subcatgArr.length : null;
+        var categoryDimentionArray  = [];
+        var newresult               = [];
         
         var formValues = {
           "category_ID"               : this.state.editId,
@@ -432,7 +452,8 @@ class CategoryManagement extends Component{
           "section_ID"                : this.state.section_ID,
           "category"                  : this.refs.category.value,
           "categoryUrl"               : this.refs.categoryUrl.value,
-          "subCategory"               : categoryDimentionArray,
+          // "subCategory"               : categoryDimentionArray,
+          "subCategory"               : newresult,
           "categoryDescription"       : this.refs.categoryDescription.value,
           "categoryImage"             : this.state.categoryImage,
           "categoryRank"              : this.state.categoryRank,
@@ -445,15 +466,17 @@ class CategoryManagement extends Component{
         .then((response)=>{
           var catCodeLength = response.data.dataCount;
           if(addRowLength){
+            console.log("addRowLength => ",addRowLength);  
             for(var i=0;i<addRowLength;i++){
               var obj = {
                    "index"             : i,
                    "subCategoryCode"   : catCodeLength+'|'+i,
                    "subCategoryTitle"  : $(".newSubCatg"+i).val(),
-                   "subCategoryUrl"  : $(".subcategoryUrl"+i).val(),
+                   "subCategoryUrl"    : $(".subcategoryUrl"+i).val(),
               }
               if($(".newSubCatg"+i).val()){
-                categoryDimentionArray.push(obj);
+                categoryDimentionArray.push(obj);            
+                  
                 this.setState({
                   allowToUpdate: true
                 })
@@ -465,13 +488,31 @@ class CategoryManagement extends Component{
                 })
               }
             }
+            if(i >= addRowLength){
+              if(categoryDimentionArray.length > 0){    
+                console.log("categoryDimentionArray => ",categoryDimentionArray);                
+                const map    = new Map();
+                for (const item1 of categoryDimentionArray) {
+                  console.log("item => ", item1)
+                    if(!map.has(item1.subCategoryTitle)){
+                        map.set(item1.subCategoryTitle, true);    // set any value to Map
+                        newresult.push({
+                          index             : item1.index,
+                          subCategoryTitle  : item1.subCategoryTitle,
+                          subCategoryCode   : item1.subCategoryCode,
+                          subCategoryUrl    : item1.subCategoryUrl,
+                        });
+                    }
+                }
+              }
+                console.log("newresult => ", newresult);
+            }
           }
 
           // if(this.state.allowToUpdate === true){
             // console.log("In update");
             axios.patch('/api/category/patch', formValues)
             .then((response)=>{
-
               swal({
                 text  : response.data.message,
               });
@@ -487,10 +528,14 @@ class CategoryManagement extends Component{
                 "editId"                        : '',
                 "subcatgArr"                    : [],
                 "categoryNameRlang"             : '',
-
-                categoryImage : "",
+                "categoryImage"                 : "",
+              },()=>{
+                this.props.history.push('/project-master-data');
+                // this.props.editId = '';
               });
-            //  this.props.history.push('/category-management');
+              console.log("props => ",this.props);
+              // this.props.history.push('/category-management');
+              
               // window.location.href ='/project-master-data';
             })
             .catch((error)=>{

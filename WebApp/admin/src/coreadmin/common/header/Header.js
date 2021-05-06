@@ -298,17 +298,22 @@ class Header2 extends Component {
 	}
 
 	logout(event) {
-		event.preventDefault()
+		event.preventDefault();
+		console.log("in Logout function");
 
 		$("script[src='/js/adminLte.js']").remove();
 		$("link[href='/css/dashboard.css']").remove();
-		var token = localStorage.getItem("token");
-		var usersData = localStorage.getItem('userDetails');
-		var UserDetail = JSON.parse(usersData);
+		// var token = localStorage.getItem("token");
+		// var usersData = localStorage.getItem('userDetails');
+		// var UserDetail = JSON.parse(usersData);
+
+		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
 		var loginTokensLastID = localStorage.getItem('loginTokensLastID');
-		axios.post('/api/users/post/logout', { "emailId": UserDetail.email, "token": token, user_ID: UserDetail.user_id })
+		axios.post('/api/users/post/logout', { "emailId": userDetails.email, "token": userDetails.token, user_ID: userDetails.user_id })
 			.then(notifications => {
-				if (token !== null) {
+				console.log(" Logout response => ",notifications.data);
+				if (userDetails.token !== null) {
 					this.setState({
 						loggedIn: false
 					}, () => {
@@ -316,8 +321,6 @@ class Header2 extends Component {
 						window.location = "/login";
 					})
 				}
-
-
 			})
 			.catch(error => {
 				console.log('logout error: ==> ', error)

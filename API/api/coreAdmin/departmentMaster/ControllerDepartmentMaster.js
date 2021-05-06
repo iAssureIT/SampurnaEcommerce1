@@ -95,7 +95,7 @@ exports.getAllDepartments = (req, res, next)=>{
         .sort({createdAt : -1})
         .exec()
         .then(data=>{
-            console.log("getAllDepartments=============",data);
+            // console.log("getAllDepartments=============",data);
            res.status(200).json(data);
         })
         .catch(err =>{

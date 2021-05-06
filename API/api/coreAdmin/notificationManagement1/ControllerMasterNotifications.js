@@ -160,7 +160,7 @@ exports.deleteall_masternotification = (req,res,next)=>{
     Masternotifications.deleteMany({})
         .exec()
         .then(data=>{
-            console.log('data ',data);
+            // console.log('data ',data);
             if(data.deletedCount > 0){
                 res.status(200).json("All Master notification deleted");
             }else{
@@ -221,30 +221,30 @@ exports.send_notifications = (req, res, next) => {
                     var company = req.body.company;
                     var templateName = returnData[i].event;
                     var mode = returnData[i].templateType;
-                    console.log('========================================================')
-                    console.log('role=>',role)
+                    // console.log('========================================================')
+                    // console.log('role=>',role)
 
                     if(role == 'admin'){
-                        console.log('admin==>',mode,role,templateName,company)
+                        // console.log('admin==>',mode,role,templateName,company)
                         var userData = await getAdminUserData();
                         await callTemplates(mode,userData,role,templateName,company,req.body.variables)
                     }else if(req.body.toUser_id){
-                         console.log('self==>',mode,role,templateName,company)
+                        //  console.log('self==>',mode,role,templateName,company)
                         var userData = await getSelfUserData(req.body.toUser_id);
                         await callTemplates(mode,userData,role,templateName,company,req.body.variables)
                     }else if(req.body.intendedUser_id){
-                         console.log('manager==>',mode,role,templateName,company)
+                        //  console.log('manager==>',mode,role,templateName,company)
                         var userData = await getIntendedUserData(req.body.intendedUser_id);
                         await callTemplates(mode,userData,role,templateName,company,req.body.variables)
                     }else if(req.body.intendedUserRole && req.body.company_id){
-                         console.log('corporate==>',mode,role,templateName,company)
+                        //  console.log('corporate==>',mode,role,templateName,company)
                         var userData = await getOtherAdminData(req.body.intendedUserRole,req.body.company_id);
                         await callTemplates(mode,userData,role,templateName,company,req.body.variables)
                     }else{
-                        console.log('No data found')
+                        // console.log('No data found')
                     }
 
-                    console.log('***************************************************')
+                    // console.log('***************************************************')
 
                 }//i
             }//returnData
@@ -261,7 +261,7 @@ function callTemplates(mode,userData,role,templateName,company,variables){
         async function sub(){
              // //==============  SEND EMAIL ================
             if(mode === 'Email'){
-                console.log('1')
+                // console.log('1')
                 var toEmail = userData.email;
                 const emailDetails = await getTemplateDetailsEmail(company,templateName,role,variables);
                 const sendMail = await sendEmail(toEmail,emailDetails.subject,emailDetails.content)
@@ -270,7 +270,7 @@ function callTemplates(mode,userData,role,templateName,company,variables){
 
               // //==============  SEND INAPP ================
             if(mode === 'Notification'){
-                console.log('2')
+                // console.log('2')
                 var toUserId = userData.id;
                 const notificationDetails = await getTemplateDetailsInApp(company,templateName,role,variables); 
                 const sendNotification = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
@@ -279,7 +279,7 @@ function callTemplates(mode,userData,role,templateName,company,variables){
 
                // //==============  SEND SMS ================
             if(mode === 'SMS'){
-                console.log('................3.................')
+                // console.log('................3.................')
                 var toMobile = userData.mobile;
                 const SMSDetails = await getTemplateDetailsSMS(company,templateName,role,variables);
                 var text = SMSDetails.content.replace(/<[^>]+>/g, '');
@@ -400,7 +400,7 @@ function getOtherAdminData(role,company_id){
 
 
 function sendSMS(MobileNumber,text){
-    console.log('=====INSIDE SMS======',MobileNumber,text)
+    // console.log('=====INSIDE SMS======',MobileNumber,text)
     // return new Promise(function (resolve, reject) {
 
         GlobalMaster.findOne({type:'SMS'})
@@ -413,7 +413,7 @@ function sendSMS(MobileNumber,text){
             dst = MobileNumber,
             text = text
             ).then((result) => {
-                console.log('result: ',result)
+                // console.log('result: ',result)
                 return(result)
             })
             .catch(error => {
@@ -451,7 +451,7 @@ function sendInAppNotification(toUserId,email,event,notificationDetails){
 }
 
 function sendEmail(toEmail,subject,content){
-    console.log('====**INSIDE EMAIL**=====',toEmail,subject,content)
+    // console.log('====**INSIDE EMAIL**=====',toEmail,subject,content)
     // async function main() { 
       GlobalMaster.findOne({type:'EMAIL'})
         .exec() 
@@ -477,7 +477,7 @@ function sendEmail(toEmail,subject,content){
                     html: "<pre>" + content + "</pre>", // html body
                 };
                let info =  transporter.sendMail(mailOptions, (error, info) => {
-                    console.log("Message sent: %s", error,info);
+                    // console.log("Message sent: %s", error,info);
                 });
              
               // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
@@ -500,7 +500,7 @@ function sendEmail(toEmail,subject,content){
 
 
 function getTemplateDetailsEmail(company,templateName,role,variables) {
-    console.log(company,templateName, variables)
+    // console.log(company,templateName, variables)
     
     return new Promise(function (resolve, reject) {
         Masternotifications
@@ -590,7 +590,7 @@ function getTemplateDetailsEmail(company,templateName,role,variables) {
    
 }
 function getTemplateDetailsSMS(company, templateName,role,variables) {
-    console.log('|||||||||||||INSIDE SMS TEMPLATE||||||||||||',company, templateName,role,variables)
+    // console.log('|||||||||||||INSIDE SMS TEMPLATE||||||||||||',company, templateName,role,variables)
     return new Promise(function (resolve, reject) {
         Masternotifications
             .findOne({ "event": templateName, "templateType": 'SMS', "company": company, "role":role, status:'active' })
@@ -673,7 +673,7 @@ function getTemplateDetailsSMS(company, templateName,role,variables) {
 }
 
 function getTemplateDetailsInApp(company, templateName,role,variables) {
-    console.log('in app: ',company,templateName, variables)
+    // console.log('in app: ',company,templateName, variables)
     return new Promise(function (resolve, reject) {
         Masternotifications
             .findOne({ "event": templateName, "templateType": 'Notification', "company": company, "role":role, status:'active' })

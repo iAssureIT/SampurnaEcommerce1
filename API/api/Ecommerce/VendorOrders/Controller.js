@@ -19,7 +19,7 @@ var request               = require('request-promise');
 
 /*========== Insert Vendor Orders ==========*/
 exports.insert_vendor_orders = (req, res, next) => {
-  	console.log("Inside insert_vendor_orders",req.body); 
+  	// console.log("Inside insert_vendor_orders",req.body); 
   	// if (req.body.cartItems.length > 0) {
   	//   for (k = 0; k < req.body.cartItems.length; k++) {
   	//     Products.updateOne(
@@ -156,8 +156,8 @@ exports.list_order = (req, res, next) => {
 
 /*=========== return all vendor orders ==========*/
 exports.vendor_order_list = (req, res, next) => {
-	console.log("body => ",req.body)
-	console.log("params => ",req.params.vendorID)
+	// console.log("body => ",req.body)
+	// console.log("params => ",req.params.vendorID)
   	VendorOrders.aggregate([
 	 	{ "$unwind" : "$products" },
 	 	{"$lookup" : 
@@ -188,9 +188,9 @@ exports.vendor_order_list = (req, res, next) => {
 	.limit(parseInt(req.body.limitRange))
 	.exec()
 	.then(data => {
-	 	console.log("data => ",data);
+	 	// console.log("data => ",data);
 		var tableData = data.map((a, i) => {
-	 	console.log("a => ",a.products);
+	 	// console.log("a => ",a.products);
 		  	return {
 			 	"orderID"			: a.orderID,
 			 	"vendorOrderID"	: a.vendorOrderID,
@@ -200,7 +200,7 @@ exports.vendor_order_list = (req, res, next) => {
 			 	"status"				: a.status
 		  	}
 		})
-		console.log("tableData => ",tableData);
+		// console.log("tableData => ",tableData);
 		res.status(200).json(tableData);
 	})
 	.catch(err => {
@@ -378,7 +378,7 @@ exports.list_order_with_limits = (req, res, next) => {
 	 .sort({ createdAt: -1 })
 	 .exec()
 	 .then(data => {
-		console.log("data in order ==>", data);
+		// console.log("data in order ==>", data);
 		res.status(200).json(data);
 	 })
 	 .catch(err => {
@@ -434,7 +434,7 @@ exports.delete_order = (req, res, next) => {
 /*=========== Update Vendor Order Delivery Status ===========*/
 exports.updateDeliveryStatus = (req, res, next) => {
   	var status = req.body.status === "Delivered & Paid" ? "Paid" : "UnPaid";
-  	console.log("body => ", req.body);
+  	// console.log("body => ", req.body);
 
   	VendorOrders.updateOne(
 	 	{ '_id' : ObjectId(req.body.orderID) },
@@ -462,7 +462,7 @@ exports.updateDeliveryStatus = (req, res, next) => {
   	)
 	.exec()
 	.then(data => {
-		console.log(data);
+		// console.log(data);
 		if (data.nModified == 1) {
 
 		 	VendorOrders.findOne({ _id: req.body.orderID })
@@ -646,7 +646,7 @@ exports.updateDeliveryStatus = (req, res, next) => {
 
 /*========== Update Product Delivery Status In Main Order ==========*/
 function updateProductDeliveryStatusInOrders(orderID, vendor_ID, status, userID) {
-	console.log("formValues => ",orderID, " ", vendor_ID, " ", status, " ", userID);
+	// console.log("formValues => ",orderID, " ", vendor_ID, " ", status, " ", userID);
 	return new Promise(function (resolve, reject) {
 		Orders.updateOne(
 			{ "_id" : ObjectId(orderID), "products.vendor_ID" : ObjectId(vendor_ID) },
@@ -665,7 +665,7 @@ function updateProductDeliveryStatusInOrders(orderID, vendor_ID, status, userID)
 		)
 		.exec()
 		.then(data => {
-			console.log("orders update data => ",data);
+			// console.log("orders update data => ",data);
 		  	resolve(data);
 		})
   	})
@@ -1168,7 +1168,7 @@ exports.get_reports_franchise = (req, res, next) => {
 	 });
 };
 exports.get_reports = (req, res, next) => {
-  console.log("get reports data", req.body.startDate, req.body.endDate);
+//   console.log("get reports data", req.body.startDate, req.body.endDate);
   Orders.find({
 	 createdAt: {
 		$gte: moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate(),
@@ -1409,7 +1409,7 @@ exports.neworderscount = (req, res, next) => {
 
 
 exports.totalOrdersByPeriod = (req, res, next) => {
-  console.log('sdash', moment(req.params.startTime).tz('Asia/Kolkata').startOf('day').toDate())
+//   console.log('sdash', moment(req.params.startTime).tz('Asia/Kolkata').startOf('day').toDate())
   Orders.aggregate([
 	 {
 		$match: {
@@ -1975,7 +1975,7 @@ exports.getMonthwiseOrders = (req,res,next)=>{
 	 ])
 	 .exec()
 	 .then(orderDetails=>{
-		console.log("orderDetails",orderDetails);
+		// console.log("orderDetails",orderDetails);
 		  var returnData = []
 		  var totalCost = "" ;
 		  var totalOrders = "" ;
@@ -2101,7 +2101,7 @@ exports.franchise_daily_orders_count = (req, res, next) => {
 	 ])
 	 .exec()
 	 .then(data => {
-		console.log("datatatatta",data);
+		// console.log("datatatatta",data);
 		var count = data.length > 0 ?  data.length : 0;
 		if(count == undefined){
 			  res.status(200).json({ "dataCount": 0 });
@@ -2151,10 +2151,10 @@ exports.paymentgatewaycall = (req, res, next) => {
 				  "Content-Type"                : "application/x-www-form-urlencoded",
 			 }
 		} 
-		console.log('paymentdetails ===> ', paymentdetails);
+		// console.log('paymentdetails ===> ', paymentdetails);
 		axios.post(redirecturl,paymentdetails,config)
 			 .then(result => {
-				  console.log('getpaymentgateway Response===> ', result.data);
+				//   console.log('getpaymentgateway Response===> ', result.data);
 				  res.status(200).json({
 					 "message": "Payment gateway Successfully Got URL.",
 					 "result": result.data
@@ -2184,7 +2184,7 @@ exports.update_order_payment = (req, res, next) => {
   )
 	 .exec()
 	 .then(data => {
-		console.log('getpaymentgateway UPdate order Response===> ', data);
+		// console.log('getpaymentgateway UPdate order Response===> ', data);
 
 		if (data.nModified == 1) {
 		  res.status(200).json({

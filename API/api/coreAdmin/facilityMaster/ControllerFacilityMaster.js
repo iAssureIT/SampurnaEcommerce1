@@ -70,7 +70,7 @@ exports.fetchFacilities = (req, res, next)=>{
         .limit(req.body.limitRange)
         .exec()
         .then(data=>{
-            console.log(data)
+            // console.log(data)
 
             var alldata = data.map((a, i)=>{
                     // console.log("a ",a);
@@ -163,7 +163,7 @@ exports.updateFacility = (req, res, next)=>{
             }
         })
         .catch(err =>{
-            console.log(err);
+            // console.log(err);
             res.status(500).json({ error: err });
         });
 };

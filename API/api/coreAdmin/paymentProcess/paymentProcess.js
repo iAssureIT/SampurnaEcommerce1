@@ -22,7 +22,7 @@ exports.payment_response = (req,res,next) =>{
 	var _id = req.params.order_id;
 	
 	var generated_signature = sha256.hmac('VgF165CC3e5vKlfqwPnbeckJ', req.body.razorpay_order_id+"|"+req.body.razorpay_payment_id);
-	console.log("generated_signature",generated_signature);
+	// console.log("generated_signature",generated_signature);
 	if (generated_signature == req.body.razorpay_signature) { 
 	  Orders.updateOne(
                     { "_id": _id},
@@ -39,12 +39,12 @@ exports.payment_response = (req,res,next) =>{
          .then(data=>{
          	// res.redirect("http://localhost:3000/paymentResponse");
             if(data.nModified === 1){
-         	console.log("req.body.razorpay_order_id",req.body.razorpay_order_id);
+         	// console.log("req.body.razorpay_order_id",req.body.razorpay_order_id);
 
          		Orders.findOne({ "paymentOrderId":req.body.razorpay_order_id})
          		.then((orderDetails)=>{
-         			console.log("orderDetails--",orderDetails);
-         			console.log("globalVariable.url ",globalVariable.url);
+         			// console.log("orderDetails--",orderDetails);
+         			// console.log("globalVariable.url ",globalVariable.url);
          			
          			var url = globalVariable.url+"payment-response/"+orderDetails.paymentOrderId;
          			if(url){
@@ -62,8 +62,8 @@ exports.payment_response = (req,res,next) =>{
             }
          })
 	} else {
-		console.log("payment Failed",JSON.stringify(req.body));
-		console.log("req.body.razorpay_order_id",req.body.razorpay_order_id);
+		// console.log("payment Failed",JSON.stringify(req.body));
+		// console.log("req.body.razorpay_order_id",req.body.razorpay_order_id);
 		Orders.updateOne(
                         { "_id" : _id},
                         {
@@ -76,12 +76,12 @@ exports.payment_response = (req,res,next) =>{
          .exec()
          .then(data=>{
          	if(data.nModified === 1){
-         	console.log("req.body.razorpay_order_id",req.body.razorpay_order_id);
+         	// console.log("req.body.razorpay_order_id",req.body.razorpay_order_id);
 
          		Orders.findOne({ "_id":_id})
          		.then((orderDetails)=>{
-         			console.log("orderDetails--",orderDetails);
-         			console.log("globalVariable.url ",globalVariable.url);
+         			// console.log("orderDetails--",orderDetails);
+         			// console.log("globalVariable.url ",globalVariable.url);
          			var url = globalVariable.url+"payment-response/"+orderDetails.paymentOrderId;
          			if(url){
 						res.redirect(url);
@@ -138,7 +138,7 @@ exports.create_order = (req, res, next) => {
 												"createdBy"			: req.body.createdBy,
 												"createdAt"			: new Date(),
 											});
-						console.log("order ",order);
+						// console.log("order ",order);
 
 
 						order.save()

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Vendors = require('./Model');
 
 exports.insert_vendor = (req, res, next) => {
-    console.log("insert new vender ");
+    // console.log("insert new vender ");
     Vendors.find({website: req.body.website, emailId : req.body.emailId})
         .exec()
         .then(data => {
@@ -61,7 +61,7 @@ exports.insert_vendor = (req, res, next) => {
         });
 };
 exports.update_vendor = (req, res, next) => {
-    console.log("vender update");
+    // console.log("vender update");
     Vendors.updateOne(
         { _id: req.body.edit_ID },
         {
@@ -128,7 +128,7 @@ exports.get_greatest_vendorid = (req, res, next) => {
         });
 };
 exports.insert_vendor_location = (req, res, next) => {
-    console.log('req', req.params, req.body);
+    // console.log('req', req.params, req.body);
     Vendors.updateOne(
         { _id: req.params.vendorID },
         {
@@ -158,7 +158,7 @@ exports.insert_vendor_location = (req, res, next) => {
         });
 };
 exports.update_vendor_location = (req, res, next) => {
-    console.log('req', req.params, req.body);
+    // console.log('req', req.params, req.body);
     Vendors.updateOne(
         { "_id": req.params.vendorID, "locationDetails._id": req.params.locationID },
         {
@@ -197,7 +197,7 @@ exports.update_vendor_location = (req, res, next) => {
         });
 };
 exports.delete_vendor_location = (req, res, next) => {
-    console.log('req', req.params, req.body);
+    // console.log('req', req.params, req.body);
     Vendors.updateOne(
         { "_id": req.params.vendorID, "locationDetails._id": req.params.locationID },
         {
@@ -279,7 +279,7 @@ exports.insert_vendor_contact = (req, res, next) => {
     });
 };
 exports.update_vendor_contact = (req, res, next) => {
-    console.log(req.params, req.body)
+    // console.log(req.params, req.body)
     Vendors.updateOne(
         { "_id": req.params.vendorID, "contactDetails._id": req.params.contactID },
         {

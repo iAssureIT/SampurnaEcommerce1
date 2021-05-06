@@ -137,7 +137,7 @@ exports.countEntity = (req,res,next)=>{
 
 exports.companyNamewiseData=(req,res,next)=>{
 
-    console.log("req.body.companyName",req.params.companyName);
+    // console.log("req.body.companyName",req.params.companyName);
 
     EntityMaster.find({"companyName"    : req.params.companyName})
          .exec()
@@ -150,7 +150,7 @@ exports.companyNamewiseData=(req,res,next)=>{
             res.status(500).json({
                 error: err
             });
-                 console.log("err for company",err);
+                //  console.log("err for company",err);
         });
 };
 
@@ -349,14 +349,14 @@ exports.fetchContactEntities = (req, res, next)=>{
 };
 
 exports.getWorkLocation = (req, res, next)=>{
-    console.log("body=>",req.body)
+    // console.log("body=>",req.body)
     var selector = {};
     if(req.body.company_id){
         selector = {'_id':ObjectID(req.body.company_id)}
     }else{
         selector = {"entityType":req.body.entityType} 
     }
-    console.log("selector",selector);
+    // console.log("selector",selector);
     EntityMaster.aggregate([
         { $match :selector},
         { $unwind: "$locations" }
@@ -614,7 +614,7 @@ exports.updateDocInLoc= (req,res,next)=>{
     EntityMaster.find({"_id":req.body.entityID, "locations.state":req.body.state},{_id: 0, 'locations.$': 1})
     .exec()
     .then(data=>{
-         console.log('results====>',JSON.stringify(data[0].locations[0].GSTIN)) 
+        //  console.log('results====>',JSON.stringify(data[0].locations[0].GSTIN)) 
          // EntityMaster.updateOne({"_id":entityID, "locations._id":})
 //              const category = await Category.findOne({ _id:req.params.categoryId });
 // const lastIndex: number = category.items.length - 1;
@@ -796,7 +796,7 @@ exports.getAllEntities = (req,res,next)=>{
 
 exports.updateSingleContact = (req,res,next)=>{
     var contactdetails = req.body.contactDetails;
-    console.log('contactdetails', contactdetails, contactdetails.createUser);
+    // console.log('contactdetails', contactdetails, contactdetails.createUser);
     EntityMaster.find({"contactPersons.email": contactdetails.email, _id: { $ne: req.body.entityID}, "contactPersons._id" : {$ne : req.body.contactID},"contactPersons.employeeID" : {$ne : req.body.employeeID} })
     .then((datas)=>{
         if(datas.length > 0){

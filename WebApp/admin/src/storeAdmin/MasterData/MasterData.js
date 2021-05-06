@@ -131,12 +131,12 @@ import BannerImages       from './BannerImages/component/BannerImages.js';
                         </ul>   
                       </div>                      
                       <div className="tab-content col-lg-9 col-md-9 col-xs-12 col-sm-12">   
-                        <div className="tab-pane active" id="Section">  <Section           editId={this.state.editId}/>  </div>
-                        <div className="tab-pane" id="Category">        <Category          editId={this.state.editId}/>  </div>
-                        <div className="tab-pane" id="UnitOfMeasurment"><UnitOfMeasurment  editId={this.state.editId}/>  </div>  
+                        <div className="tab-pane active" id="Section">    <Section            editId={this.state.editId}/>  </div>
+                        <div className="tab-pane" id="Category">          <Category           editId={this.state.editId} history={this.props.history}/>  </div>
+                        <div className="tab-pane" id="UnitOfMeasurment">  <UnitOfMeasurment   editId={this.state.editId}/>  </div>  
                         <div className="tab-pane" id="ShippingManagement"><ShippingManagement editId={this.state.editId}/>  </div>  
-                        <div className="tab-pane" id="TimeManagement"><TimeManagement editId={this.state.editId}/>  </div>  
-                        <div className="tab-pane" id="PhotoGallery"><PhotoGallery editId={this.state.editId}/>  </div>  
+                        <div className="tab-pane" id="TimeManagement">    <TimeManagement     editId={this.state.editId}/>  </div>  
+                        <div className="tab-pane" id="PhotoGallery">      <PhotoGallery       editId={this.state.editId}/>  </div>  
                         {/* {console.log("this.state.websiteModel",this.state.websiteModel)} */}
                         { this.state.showOrderStatus !== "No" ?<div className="tab-pane" id="OrderStatus"><OrderStatus editId={this.state.editId}/></div>  :null}
                         {/* <div className="tab-pane" id="TaxName">         <TaxName           editId={this.state.editId}/>  </div>

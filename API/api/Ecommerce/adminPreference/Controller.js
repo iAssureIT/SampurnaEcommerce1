@@ -7,7 +7,7 @@ exports.insert_preferences = (req, res, next) => {
 		.exec()
 		.then(data =>{
 			if(data){
-              console.log("data:",data);
+            //   console.log("data:",data);
                 Adminpreference.updateOne(
                     { _id:data._id},  
                     {
@@ -49,7 +49,7 @@ exports.insert_preferences = (req, res, next) => {
             adminpreference.save(
                 function(err){
                     if(err){
-                        console.log("error:",err);
+                        // console.log("error:",err);
                         return  res.status(500).json({
                             error: err
                         });          

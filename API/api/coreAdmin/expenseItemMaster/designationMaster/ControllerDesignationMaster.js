@@ -337,7 +337,7 @@ exports.delete_file = (req,res,next)=>{
 
 exports.bulkUploadDesignation = (req, res, next)=>{
     var designations = req.body.data;
-    console.log("designations",designations);
+    // console.log("designations",designations);
 
     var validData = [];
     var validObjects = [];
@@ -365,7 +365,7 @@ exports.bulkUploadDesignation = (req, res, next)=>{
                             }
                         })
                        
-                 console.log("in else validObjects",designationExists);
+                //  console.log("in else validObjects",designationExists);
                 if (designationExists.length==0) {
                     validObjects = designations[k];
                     validObjects.fileName       = req.body.fileName;
@@ -406,7 +406,7 @@ exports.bulkUploadDesignation = (req, res, next)=>{
 
 exports.filedetails = (req,res,next)=>{
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
 
     DesignationMaster.find( { fileName:req.params.fileName  } )
 

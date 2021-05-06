@@ -50,7 +50,7 @@ const FailedRecords = require('../failedRecords/ModelFailedRecords');
 //     });
 // };
 exports.insertDocuments = (req, res, next) => {
-    console.log("req.body In Doc entity=>", req.body.fieldValue);
+    // console.log("req.body In Doc entity=>", req.body.fieldValue);
     DocumentEntityMaster
         .find({documententity:req.body.fieldValue})
         .then(data =>{
@@ -69,7 +69,7 @@ exports.insertDocuments = (req, res, next) => {
                         res.status(200).json({ created: true, fieldID: data._id });
                     })
                     .catch(err => {
-                        console.log("err", err.code)
+                        // console.log("err", err.code)
                         if (err.code == 11000) {
                             res.status(409).json({ duplicated: true });
                         } else {
@@ -291,10 +291,10 @@ var insertFailedRecords = async (invalidData, updateBadData) => {
 
 
 exports.bulkUploadVehicledocument = (req, res, next) => {
-    console.log("inside bulk upload document");
+    // console.log("inside bulk upload document");
     // var vehicledocuments = [{document:"mesh"}];
     var vehicledocuments = req.body.data;
-    console.log("vehicledocuments", vehicledocuments);
+    // console.log("vehicledocuments", vehicledocuments);
 
     var validData = [];
     var validObjects = [];
@@ -312,12 +312,12 @@ exports.bulkUploadVehicledocument = (req, res, next) => {
             if (vehicledocuments[k].document == '-') {
                 remark += "department not found, ";
             }
-            console.log("remark", remark)
+            // console.log("remark", remark)
 
             if (remark == '') {
                 // var allDepartments = await fetchAllDepartments(req.body.reqdata);
                 // console.log("alldepartments",allDepartments);
-                console.log()
+                // console.log()
                 var alldocuments = await fetchAlldocuments(req.body.reqdata);
                 var documentExists = alldocuments.filter((data) => {
                     if (data.document == vehicledocuments[k].document) {
@@ -325,7 +325,7 @@ exports.bulkUploadVehicledocument = (req, res, next) => {
                     }
                 })
 
-                console.log("in else validObjects", documentExists);
+                // console.log("in else validObjects", documentExists);
                 if (documentExists.length == 0) {
                     validObjects = vehicledocuments[k];
                     validObjects.fileName = req.body.fileName;
@@ -383,7 +383,7 @@ exports.fetch_file = (req, res, next) => {
 };
 exports.filedetails = (req, res, next) => {
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
     DocumentEntityMaster.find({ fileName: req.params.fileName })
         .exec()
         .then(data => {

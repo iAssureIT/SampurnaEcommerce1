@@ -16,7 +16,7 @@ function getRandomInt(min, max) {
 };
 
 exports.user_signup_user = (req, res, next) => {
-	console.log("<><><><><><><><><><><>",req.body);
+	// console.log("<><><><><><><><><><><>",req.body);
 	var username = "EMAIL";
 	if(req.body.username){
 		if(req.body.username === "EMAIL"){
@@ -29,12 +29,12 @@ exports.user_signup_user = (req, res, next) => {
 		if(req.body.email && req.body.pwd && req.body.role){
 			var emailId = req.body.email;
 			var role_lower = String(req.body.role).toLowerCase();
-			console.log("role ", role_lower);
+			// console.log("role ", role_lower);
 			if (role_lower && emailId) {
 				Role.findOne({ role: role_lower })
 					.exec()
 					.then(role => {
-						console.log("role",role);
+						// console.log("role",role);
 						if (role) {
 
 							User.find({ "username": emailId.toLowerCase() })
@@ -584,7 +584,7 @@ exports.check_username_EmailOTP = (req, res, next) => {
 };
 
 exports.user_login_using_email = (req, res, next) => {
-	console.log("user_login_using_email req.body = ",req.body);
+	// console.log("user_login_using_email req.body = ",req.body);
 	// console.log("=================");
 	var emailId = (req.body.email).toLowerCase(); 
 	var role = (req.body.role).toLowerCase();
@@ -594,7 +594,7 @@ exports.user_login_using_email = (req, res, next) => {
 	})
 		.exec()
 		.then(user => {
-			console.log("user",user)
+			// console.log("user",user)
 			if (user) {
 				if ((user.profile.status).toLowerCase() == "active") {
 					var pwd = user.services.password.bcrypt;
@@ -685,7 +685,7 @@ exports.user_login_using_email = (req, res, next) => {
 				} else if ((user.profile.status).toLowerCase() == "unverified") {
 					// res.status(200).json({ message: "USER_UNVERIFIED" });
 					var emailOTP = getRandomInt(1000, 9999);
-					console.log("emailOTP ===>",emailOTP);
+					// console.log("emailOTP ===>",emailOTP);
 					User.updateOne(
 						{ "username": emailId.toLowerCase() },
 						{
@@ -696,12 +696,12 @@ exports.user_login_using_email = (req, res, next) => {
 					)
 						.exec()
 						.then(data => {
-							console.log("emailOTP  data===>",data);
+							// console.log("emailOTP  data===>",data);
 							if (data.nModified === 1) {
 								User.find({ "profile.email": emailId.toLowerCase() })
 									.exec()
 									.then(usersdata => {
-										console.log("emailOTP  data===>",usersdata[0].profile);
+										// console.log("emailOTP  data===>",usersdata[0].profile);
 											res.status(200).json({
 												message: 'USER_UNVERIFIED',
 												userDetails: {
@@ -743,7 +743,7 @@ exports.user_login_using_email = (req, res, next) => {
 exports.user_login_using_mobile = (req, res, next) => {
 	var mobNumber = req.body.mobNumber;
 	var role = (req.body.role).toLowerCase();
-	console.log('mobNumber & role', mobNumber,role);
+	// console.log('mobNumber & role', mobNumber,role);
 	User.findOne({
 		"profile.mobile": mobNumber,
 		"roles": role,
@@ -751,7 +751,7 @@ exports.user_login_using_mobile = (req, res, next) => {
 	.exec()
 	.then(user => {
 		if (user) {
-			console.log('user role', user);
+			// console.log('user role', user);
 			if ((user.profile.status).toLowerCase() == "active") {
 				var pwd = user.services.password.bcrypt;
 				
@@ -861,7 +861,7 @@ exports.user_login_using_mobile_email = (req, res, next) => {
 		if (user) {
 			if ((user.profile.status).toLowerCase() == "active") {
 				var pwd = user.services.password.bcrypt;
-				console.log('pwd', pwd);
+				// console.log('pwd', pwd);
 				if (pwd) {
 					bcrypt.compare(req.body.password, pwd, (err, result) => {
 						if (err) {
@@ -1069,13 +1069,12 @@ exports.user_login_with_companyID = (req, res, next) => {
 };
 
 exports.logouthistory = (req, res, next) => {
-	// console.log("res -----");
-	console.log("res -----",req.body);
+	// console.log("Logout Body",req.body);
 	// var emailId = req.body.emailId;
 	User.findOne({ _id: req.body.user_ID })
 		.exec()
 		.then(user => {
-			console.log("user",user);
+			// console.log("user",user);
 				User.updateOne(
 					{
 						"username": req.body.emailId,
@@ -1085,12 +1084,12 @@ exports.logouthistory = (req, res, next) => {
 						$set: {
 							
 								"services.resume.loginTokens.$.logoutTimeStamp": new Date(),
-						
 						}
 					}
-					)	.exec()
+					).exec()
 					.then(data => {
-							res.status(200).json({data})
+						// console.log("logout data => ", data);
+						res.status(200).json({data})
 					})
 					.catch(err => {
 						res.status(500).json({
@@ -1156,7 +1155,7 @@ exports.user_update_password_withoutotp_username = (req, res, next) => {
 	User.findOne({ username: req.params.username })
 		.exec()
 		.then(user => {
-			console.log("user ", user);
+			// console.log("user ", user);
 			if (user) {
 				bcrypt.hash(req.body.pwd, 10, (err, hash) => {
 					User.updateOne(
@@ -1320,19 +1319,19 @@ exports.set_send_emailotp_usingID = (req, res, next) => {
 						}
 					})
 					.catch(err => {
-						console.log('user error ', err);
+						// console.log('user error ', err);
 						res.status(500).json({
 							message: "Failed to find User",
 							error: err
 						});
 					});
 			} else {
-				console.log("data not modified");
+				// console.log("data not modified");
 				res.status(401).json({ message: "OTP_NOT_UPDATED" })
 			}
 		})
 		.catch(err => {
-			console.log('user error ', err);
+			// console.log('user error ', err);
 			res.status(500).json({
 				message: "Failed to update User",
 				error: err
@@ -1409,7 +1408,7 @@ function sendEmail(toEmail,subject,content){
                     html: "<pre>" + content + "</pre>", // html body
                 };
                let info =  transporter.sendMail(mailOptions, (error, info) => {
-                    console.log("Message sent: %s", error,info);
+                    // console.log("Message sent: %s", error,info);
                 });
              
               // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
@@ -1435,10 +1434,10 @@ exports.set_send_emailotp_usingEmail = (req, res, next) => {
 	User.findOne({ "profile.email": req.params.emailId })
 	.then(user => {
 		if(user){
-			console.log('user status====',user.profile.status)
+			// console.log('user status====',user.profile.status)
  			if ((user.profile.status).toLowerCase() === "active") {
  				var optEmail = getRandomInt(1000, 9999);
-				console.log("optEmail", optEmail, req.body);
+				// console.log("optEmail", optEmail, req.body);
 				User.updateOne(
 					{ "profile.email": req.params.emailId },
 					{
@@ -1479,7 +1478,7 @@ exports.set_send_emailotp_usingEmail = (req, res, next) => {
 					});
 				});
  			}else if ((user.profile.status).toLowerCase() == "blocked") {
-				console.log("user.USER_BLOCK IN ==>")
+				// console.log("user.USER_BLOCK IN ==>")
 				res.status(200).json({ message: "USER_BLOCK" });
 			} else if ((user.profile.status).toLowerCase() == "unverified") {
 				res.status(200).json({ message: "USER_UNVERIFIED" });

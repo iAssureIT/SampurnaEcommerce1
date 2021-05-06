@@ -11,7 +11,7 @@ exports.insert_adminPO = (req,res,next)=>{
             createdBy                 : req.body.user_id,
             createdAt                 : new Date()
         });
-        console.log("req.body orderNo = ",req.body);
+        // console.log("req.body orderNo = ",req.body);
 
         adminPO.save()
         .then(data => {

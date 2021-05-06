@@ -14,7 +14,7 @@ exports.insert_discount = (req, res, next) => {
         createdBy: req.body.createdBy,
         createdAt: new Date()
     });
-    console.log("DiscountObj===>", DiscountObj);
+    // console.log("DiscountObj===>", DiscountObj);
     DiscountObj
         .save()
         .then(data => {
@@ -56,7 +56,7 @@ exports.get_single_discount = (req, res, next) => {
 };
 
 exports.update_discount = (req, res, next) => {
-    console.log("Update Body = ", req.body);
+    // console.log("Update Body = ", req.body);
     Discounts.updateOne(
         { _id: req.body.discountID },
         {

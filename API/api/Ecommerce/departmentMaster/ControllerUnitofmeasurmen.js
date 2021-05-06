@@ -280,7 +280,7 @@ var insertFailedRecords = async (invalidData,updateBadData) => {
 exports.bulkUploadDepartment = (req, res, next)=>{
     // var departments = [{department:"mesh"},{department:"mesh1"},{department:"mesh2"}];
     var departments = req.body.data;
-    console.log("departments",departments);
+    // console.log("departments",departments);
 
     var validData = [];
     var validObjects = [];
@@ -298,22 +298,22 @@ exports.bulkUploadDepartment = (req, res, next)=>{
             if (departments[k].unit == '-') {
                 remark += "Unit not found, " ;  
             }
-            console.log("remark",remark)
+            // console.log("remark",remark)
 
               if (remark == '') {
                 // var allDepartments = await fetchAllDepartments(req.body.reqdata);
                 // console.log("alldepartments",allDepartments);
-                 console.log()
+                //  console.log()
                   var alldepartments = await fetchAllDepartments(req.body.reqdata);
                   var departmentExists = alldepartments.filter((data)=>{
-                    console.log("data",data);
+                    // console.log("data",data);
                     if (data.unit == departments[k].unit)
                          {
                         return data;
                     }
                 })
-               console.log("data",departments[k].unit);
-                 console.log("in else validObjects",departmentExists);
+            //    console.log("data",departments[k].unit);
+                //  console.log("in else validObjects",departmentExists);
                 if (departmentExists.length==0) {
                     validObjects = departments[k];
                     validObjects.fileName       = req.body.fileName;
@@ -322,7 +322,7 @@ exports.bulkUploadDepartment = (req, res, next)=>{
                     validObjects.createdAt      = new Date();
 
                     validData.push(validObjects); 
-                    console.log("validData",validData);
+                    // console.log("validData",validData);
 
                 }else{
                     
@@ -339,7 +339,7 @@ exports.bulkUploadDepartment = (req, res, next)=>{
         }
         Unitofmeasurment.insertMany(validData)
         .then(data=>{
-             console.log("validObjects data============",data)
+            //  console.log("validObjects data============",data)
         })
         .catch(err =>{
             console.log(err);
@@ -388,9 +388,9 @@ exports.fetch_file = (req,res,next)=>{
     });   
 };
 exports.filedetails = (req,res,next)=>{
-    console.log('req',req,'res',res);
+    // console.log('req',req,'res',res);
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
     Unitofmeasurment.find( { fileName:req.params.fileName  }
     )
     .exec()

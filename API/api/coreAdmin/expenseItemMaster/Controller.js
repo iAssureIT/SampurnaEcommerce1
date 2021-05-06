@@ -76,7 +76,7 @@ var fetchExpenseItemList = async (req,res,next)=>{
 };
 
 exports.fetchExpenseItemList = (req, res, next)=>{
-    console.log("in fetchExpenseItemList")
+    // console.log("in fetchExpenseItemList")
     ExpenseItemMaster.aggregate([
             {
             $lookup:
@@ -96,7 +96,7 @@ exports.fetchExpenseItemList = (req, res, next)=>{
         .exec()
         .then(data=>{
             var alldata = data.map((a, i)=>{
-                    console.log("a =>",a);
+                    // console.log("a =>",a);
                     return {
                         "_id"                : a._id,
                         "expenseType"        : a.type,
@@ -144,11 +144,11 @@ exports.getReimbursementItems = (req, res, next) => {
 };
 
 exports.fetchSingleExpenseItem = (req, res, next) => {
-    console.log("Expense field Id = ", req.params.fieldID);
+    // console.log("Expense field Id = ", req.params.fieldID);
     ExpenseItemMaster.findOne({ _id: req.params.fieldID })
         .exec()
         .then(data => {
-            console.log("Expense One Data = ", data);
+            // console.log("Expense One Data = ", data);
             res.status(200).json(data);
         })
         .catch(err => {
@@ -158,7 +158,7 @@ exports.fetchSingleExpenseItem = (req, res, next) => {
 
 exports.updateExpenseItem = (req, res, next) => {
     
-    console.log("req.params.fieldID==>",req.body.id)
+    // console.log("req.params.fieldID==>",req.body.id)
     ExpenseItemMaster.updateOne(
             { _id: req.body.id },
             {
@@ -172,7 +172,7 @@ exports.updateExpenseItem = (req, res, next) => {
         )
         .exec()
         .then(data => {
-            console.log("reqdata==>",data)
+            // console.log("reqdata==>",data)
             if (data.nModified == 1) {
                 ExpenseItemMaster.updateOne(
                     { _id: req.body.fieldID },

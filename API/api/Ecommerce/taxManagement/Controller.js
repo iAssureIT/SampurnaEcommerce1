@@ -94,8 +94,8 @@ exports.one_preference = (req, res, next)=>{
     });         
 };
 exports.one_rate_preference = (req, res, next)=>{
-    console.log("Tax Data body = ", req.body);
-    console.log("Tax Data params = ", req.params);
+    // console.log("Tax Data body = ", req.body);
+    // console.log("Tax Data params = ", req.params);
     Preference.findOne({"taxDetails._id" : req.params.preferenceID})
     .exec()
     .then(data=>{
@@ -186,7 +186,7 @@ exports.submit_rate_preference = (req,res,next)=>{
         });
 };
 exports.update_rate_preference = (req,res,next)=>{
-    console.log("Id = ", req.body);
+    // console.log("Id = ", req.body);
     Preference.updateOne(
         { "_id":req.body.preferenceID, "taxDetails._id" : req.body.taxRateID},  
         {

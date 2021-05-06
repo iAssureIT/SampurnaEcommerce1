@@ -336,7 +336,7 @@ var fetchAllOrderStatuses = async ()=>{
         // .skip(req.body.startRange)
         // .limit(req.body.limitRange)
         .then(data=>{
-            console.log("fetchAllOrderStatuses data",data)
+            // console.log("fetchAllOrderStatuses data",data)
             resolve( data );
         })
         .catch(err =>{
@@ -348,7 +348,7 @@ var fetchAllOrderStatuses = async ()=>{
 exports.orderBulkUpload = (req,res,next)=>{
     
     var orderStatuslist = req.body.data;
-    console.log("orderStatuslist",orderStatuslist);
+    // console.log("orderStatuslist",orderStatuslist);
       var validData = [];
     var validObjects = [];
     var invalidData = [];
@@ -364,14 +364,14 @@ exports.orderBulkUpload = (req,res,next)=>{
             if (orderStatuslist[k].orderStatus == '-') {
                 remark += "order Status not found, " ;  
             }
-             console.log("remark",remark)
+            //  console.log("remark",remark)
              if (remark == '') {
                  var allorderStatus = await fetchAllOrderStatuses(req.body.reqdata);
-                  console.log("req.body.reqdata",req.body.reqdata);
+                //   console.log("req.body.reqdata",req.body.reqdata);
                   var orderStatusExists = allorderStatus.filter((data)=>{
-                     console.log("data",data)
-                     console.log("data.orderStatus",data.orderStatus);
-                            console.log("orderStatuslist[k].orderStatus",orderStatuslist[k].orderStatus);
+                    //  console.log("data",data)
+                    //  console.log("data.orderStatus",data.orderStatus);
+                            // console.log("orderStatuslist[k].orderStatus",orderStatuslist[k].orderStatus);
                        
                     if (data.orderStatus == orderStatuslist[k].orderStatus)
                          {
@@ -379,11 +379,11 @@ exports.orderBulkUpload = (req,res,next)=>{
                     }
                 })
 
-                  console.log("in else validObjects",orderStatusExists);
+                //   console.log("in else validObjects",orderStatusExists);
                 if (orderStatusExists.length==0) {
 
                     validObjects = orderStatuslist[k];
-                    console.log("validObjects",validObjects)
+                    // console.log("validObjects",validObjects)
                     validObjects.fileName       = req.body.fileName;
                     // validObjects.createdBy      = req.body.reqdata.createdBy;
                     validObjects.createdAt      = new Date();
@@ -394,7 +394,7 @@ exports.orderBulkUpload = (req,res,next)=>{
                 else{
                     
                     remark += "Order Status already exists." ; 
-                    console.log("validObjects remark",remark)
+                    // console.log("validObjects remark",remark)
                     invalidObjects = orderStatuslist[k];
                     invalidObjects.failedRemark = remark;
                     invalidData.push(invalidObjects); 
@@ -403,7 +403,7 @@ exports.orderBulkUpload = (req,res,next)=>{
         }
          OrderStatusMaster.insertMany(validData)
         .then(data=>{
-            console.log("validObjects data",data)
+            // console.log("validObjects data",data)
              //res.status(200).json(data);
         })
         .catch(err =>{
@@ -448,9 +448,9 @@ exports.fetch_file = (req,res,next)=>{
     });   
 };
 exports.filedetails = (req,res,next)=>{
-    console.log('req',req,'res',res);
+    // console.log('req',req,'res',res);
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
     OrderStatusMaster.find( { fileName:req.params.fileName  }
     )
     .exec()

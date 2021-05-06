@@ -128,7 +128,7 @@ exports.get_datewise_purchaceEntry = (req, res, next)=>{
     }
 
 
-    console.log("selector",selector);
+    // console.log("selector",selector);
     PurchaseEntry.find(selector)
     .then(data=>{
     //    console.log("data----=",data);
@@ -328,7 +328,7 @@ exports.raw_material_bulk_upload = (req,res,next)=>{
                                         if(typeof productData[k].quantity  === 'number'){
                                             if(typeof productData[k].amount  === 'number'){
                                                 productData[k].fileName = req.body.fileName;
-                                                console.log("insert filename",productData[k].fileName);
+                                                // console.log("insert filename",productData[k].fileName);
                                                 var insertPurchaseEntryObj = await insertPurchaseEntry(productData[k]);
                                                 if (insertPurchaseEntryObj != 0) {
                                                     Count++;

@@ -32,7 +32,7 @@ exports.getfranchisestock = (req,res,next)=>{
                             let obj = finGoods.find(o => o._id.prodcode === pCode && o._id.itemcode === iCode);
                             
                             if(typeof obj !== "undefined"){
-                                console.log("if obj = ",obj.total);
+                                // console.log("if obj = ",obj.total);
                                 currentStock = obj.total;
                                 fgUnitQty    = obj._id.fgUnitQty;
                                 fgUnitWt     = obj._id.fgUnitWt;
@@ -56,7 +56,7 @@ exports.getfranchisestock = (req,res,next)=>{
                         });
 
                         if(franchiseStock.length > 0){
-                            console.log("franchiseStock = ",franchiseStock);
+                            // console.log("franchiseStock = ",franchiseStock);
                             res.status(200).json(franchiseStock);                            
                         }
                     })

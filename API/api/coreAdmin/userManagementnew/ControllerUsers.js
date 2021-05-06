@@ -86,7 +86,7 @@ exports.user_signup_admin = (req,res,next)=>{
 };
 
 exports.user_signup_user = (req,res,next)=>{
-	console.log("user_signup_user req.body = ", req.body);
+	// console.log("user_signup_user req.body = ", req.body);
 	if(req.body.role && req.body.email && req.body.pwd){
 		User.find({emails:{$elemMatch:{address:req.body.email}}})
 			.exec()
@@ -272,7 +272,7 @@ exports.user_signup_user_email_otp = (req,res,next)=>{
 };
 
 exports.user_login = (req,res,next) =>{
-	console.log("Inside user_login");
+	// console.log("Inside user_login");
 	User.findOne({emails:{$elemMatch:{address:req.body.email}}})
 		.exec()
 		.then(user => {
@@ -519,7 +519,7 @@ exports.user_update_name_mobile = (req,res,next)=>{
 	User.findOne({_id:req.params.ID})
 		.exec()
 		.then(user=>{
-		console.log("useruseruser",user.profile.email)
+		// console.log("useruseruser",user.profile.email)
 			if(user){
 				User.updateOne(
 					{_id:req.params.ID},
@@ -544,7 +544,7 @@ exports.user_update_name_mobile = (req,res,next)=>{
 				)
 				.exec()
 				.then(data=>{
-					console.log("Update Profile data ====>>>",data);
+					// console.log("Update Profile data ====>>>",data);
 					if(data.nModified == 1){
 						res.status(200).json("USER_UPDATED");
 					}else{
@@ -673,13 +673,13 @@ exports.user_update_status = (req,res,next)=>{
 };
 
 exports.user_update_delete_status = (req,res,next)=>{
-	console.log("*******&&&&&&&&&**************",req.body);
-	console.log("req.body.user_id_tobedeleted==>",req.body.user_id_tobedeleted);
+	// console.log("*******&&&&&&&&&**************",req.body);
+	// console.log("req.body.user_id_tobedeleted==>",req.body.user_id_tobedeleted);
 	User.findOne({_id:req.body.user_id_tobedeleted})
 		.exec()
 		.then(user=>{
 			if(user){
-				console.log("req.user==>",user);
+				// console.log("req.user==>",user);
 				var newstatus = "";
 				if(user.profile.status === 'active'){
 					newstatus = 'deleted-active';
@@ -697,7 +697,7 @@ exports.user_update_delete_status = (req,res,next)=>{
 				)
 				.exec() 
 		        .then(data=>{
-					console.log("RESPONSE.data==>",data);
+					// console.log("RESPONSE.data==>",data);
 		            if(data.nModified == 1){
 		                User.updateOne(
 							{_id:req.body.user_id_tobedeleted},
@@ -955,7 +955,7 @@ exports.fetch_user_ID = (req,res,next)=>{
 		.exec()
 		.then(data=>{
 			if(data){
-			console.log("fetch_user_ID",data);
+			// console.log("fetch_user_ID",data);
 			var loginTokenscount = data.services.resume.loginTokens.length;
 			var statuslogLength = data.statusLog.length;
 			// console.log("inside  fetch_user_ID ",data)
@@ -1095,7 +1095,7 @@ exports.user_update_password_withoutotp_ID = (req, res, next) => {
 	User.findOne({ _id: req.params.ID })
 		.exec()
 		.then(user => {
-			console.log("user_update_password_withoutotp_ID===========>>>>>>",user)
+			// console.log("user_update_password_withoutotp_ID===========>>>>>>",user)
 			if (user) {
 				bcrypt.hash(req.body.pwd, 10, (err, hash) => {
 					User.updateOne(
@@ -1141,7 +1141,7 @@ exports.post_list_users = (req,res,next)=>{
 	var startRange= req.body.startRange;
 	var limitRange= req.body.limitRange;
 
-	console.log("=====================req==================",req.body,startRange,limitRange);
+	// console.log("=====================req==================",req.body,startRange,limitRange);
 	if(req.body.companyID){
 		if(companyID === 1){
 			// var selector = {roles:{$ne:["admin"]}, "profile.status":{$ne:"deleted-active"}};
@@ -1152,7 +1152,7 @@ exports.post_list_users = (req,res,next)=>{
 			// var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 			var selector = {"profile.companyID":companyID,"profile.status":{$ne:"deleted-active"}};
 		}
-		console.log("selector",selector)
+		// console.log("selector",selector)
 		User.find(selector)
 			// .select("profile.firstname profile.lastname profile.status profile.companyID profile.companyName profile.fullName roles profile.email profile.mobile profile.clientId createdAt services.resume.loginTokens statusLog")
 			.sort({createdAt : -1})
@@ -1190,7 +1190,7 @@ exports.post_list_users = (req,res,next)=>{
 						});
 					}
 					if( i >= data.length){
-						console.log('returnData=============>',returnData);
+						// console.log('returnData=============>',returnData);
 						res.status(200).json(returnData);
 					}
 				}else{
@@ -1214,12 +1214,12 @@ exports.fetch_users_withlimits = (req,res,next)=>{
 	var companyID= req.body.companyID;
 	var startRange= req.body.startRange;
 	var limitRange= req.body.limitRange;
-	console.log("=====================req==================",req.body,startRange,limitRange);
+	// console.log("=====================req==================",req.body,startRange,limitRange);
 	if(req.body.companyID){
 		if(companyID === 1){
 			// var selector = {roles:{$ne:["admin"]}, "profile.status":{$ne:"deleted-active"}};
 			var selector = {"profile.status":{$ne:"deleted-active"}};
-			console.log("selector",selector);
+			// console.log("selector",selector);
 
 		}else{
 			// var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
@@ -1275,18 +1275,18 @@ exports.fetch_users_withlimits = (req,res,next)=>{
 
 
 exports.fetch_users_Companies = (req,res,next)=>{
-	console.log("re============>",req.body);
+	// console.log("re============>",req.body);
 	var companyID =req.body.companyID;
     var companyName = req.params.company;
 	// User.find({roles:req.params.role})
-	console.log("companyID",companyID);
+	// console.log("companyID",companyID);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var selector = {roles:{$ne:["admin"]}};
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
+		// console.log("selector==>",selector);
 		User.aggregate([
 			{$match:selector},
 			{$match:{"profile.status": {$nin:["deleted-active","deleted-blocked" ]}}},
@@ -1335,18 +1335,18 @@ exports.fetch_users_Companies = (req,res,next)=>{
 	}
 };
 exports.fetch_users_roles = (req,res,next)=>{
-	console.log("re============>",req.body);
+	// console.log("re============>",req.body);
 	var companyID =req.body.companyID;
     var role = req.params.role;
 	// User.find({roles:req.params.role})
-	console.log("companyID",companyID);
+	// console.log("companyID",companyID);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var selector = {roles:{$ne:["admin"]}};
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
+		// console.log("selector==>",selector);
 		User.aggregate([
 			{$match:selector},
 			{$match:{"profile.status": {$nin:["deleted-active","deleted-blocked" ]}}},
@@ -1378,7 +1378,7 @@ exports.fetch_users_roles = (req,res,next)=>{
 										"fullName"	: data[i].profile.fullName,
 										"lastLogin"       : loginTokenscount > 0 ? data[i].services.resume.loginTokens[loginTokenscount-1].loginTimeStamp : null ,
 									});
-					console.log("returnData==>",returnData);
+					// console.log("returnData==>",returnData);
 				}
 				if( i >= data.length){
 					res.status(200).json(returnData);
@@ -1399,15 +1399,15 @@ exports.fetch_users_status = (req,res,next)=>{
 	// User.find({"profile.status":req.params.status})
 	var companyID= req.body.companyID;
 	var status   = req.params.status;
-	console.log("req.body==>",req.body);
+	// console.log("req.body==>",req.body);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var selector = {roles:{$ne:["admin"]}};
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
-		console.log("req.params.status==>",status);
+		// console.log("selector==>",selector);
+		// console.log("req.params.status==>",status);
 		// User.find({"profile.status":status})
 		User.aggregate([
 			{$match:selector},
@@ -1420,7 +1420,7 @@ exports.fetch_users_status = (req,res,next)=>{
         .limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log('data',data);
+			// console.log('data',data);
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -1462,15 +1462,15 @@ exports.fetch_users_company_status_role = (req,res,next)=>{
 	var company   = req.params.company;
 	var status   = req.params.status;
 	var role   = req.params.role;
-	console.log("req.body==>",req.body);
-	console.log("req.params==>",req.params);
+	// console.log("req.body==>",req.body);
+	// console.log("req.params==>",req.params);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var selector = {roles:{$ne:["admin"]}};
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
+		// console.log("selector==>",selector);
 		User.aggregate([
 			{$match:selector},
 			{$match:{"profile.status": {$nin:["deleted-active","deleted-blocked" ]}}},
@@ -1481,7 +1481,7 @@ exports.fetch_users_company_status_role = (req,res,next)=>{
         .limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log('data in Status company==>>',data);
+			// console.log('data in Status company==>>',data);
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -1522,8 +1522,8 @@ exports.fetch_users_company_status = (req,res,next)=>{
 	var companyID= req.body.companyID;
 	var company   = req.params.company;
 	var status   = req.params.status;
-	console.log("req.body==>",req.body);
-	console.log("req.params==>",req.params);
+	// console.log("req.body==>",req.body);
+	// console.log("req.params==>",req.params);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var companynames= {"profile.companyName" :company };
@@ -1531,8 +1531,8 @@ exports.fetch_users_company_status = (req,res,next)=>{
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
-		console.log("profile.companyName==>",companynames);
+		// console.log("selector==>",selector);
+		// console.log("profile.companyName==>",companynames);
 		User.aggregate([
 			{$match:selector},
 			{$match:{"profile.status": {$nin:["deleted-active","deleted-blocked" ]}}},
@@ -1543,7 +1543,7 @@ exports.fetch_users_company_status = (req,res,next)=>{
         .limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log('data in Status company==>>',data);
+			// console.log('data in Status company==>>',data);
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -1584,9 +1584,9 @@ exports.fetch_users_company_roles = (req,res,next)=>{
 	var companyID= req.body.companyID;
 	var company   = req.params.company;
 	var role   = req.params.role;
-	console.log("status => role=>companyID=>",req.body);
+	// console.log("status => role=>companyID=>",req.body);
 	
-	console.log("req.params==>",req.params);
+	// console.log("req.params==>",req.params);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var companynames= {"profile.companyName" :company };
@@ -1594,8 +1594,8 @@ exports.fetch_users_company_roles = (req,res,next)=>{
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
-		console.log("profile.companyName==>",companynames);
+		// console.log("selector==>",selector);
+		// console.log("profile.companyName==>",companynames);
 		User.aggregate([
 			{$match:selector},
 			{$match:{"profile.status": {$nin:["deleted-active","deleted-blocked" ]}}},
@@ -1606,7 +1606,7 @@ exports.fetch_users_company_roles = (req,res,next)=>{
         .limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log('data in role company==>>',data);
+			// console.log('data in role company==>>',data);
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -1648,14 +1648,14 @@ exports.fetch_users_status_roles = (req,res,next)=>{
 	var companyID= req.body.companyID;
 	var status   = req.params.status;
 	var role   = req.params.role;
-	console.log("status => role=>companyID=>",req.body,status,role);
+	// console.log("status => role=>companyID=>",req.body,status,role);
 	if(req.body.companyID){
 		if(companyID === 1){
 			var selector = {roles:{$ne:["admin"]}};
 		}else{
 			var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
 		}
-		console.log("selector==>",selector);
+		// console.log("selector==>",selector);
 		User.aggregate([
 			{$match:selector},
 			{$match:{"profile.status": {$nin:["deleted-active","deleted-blocked" ]}}},
@@ -1666,7 +1666,7 @@ exports.fetch_users_status_roles = (req,res,next)=>{
         .limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log('data in role status==>>',data);
+			// console.log('data in role status==>>',data);
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -1690,7 +1690,7 @@ exports.fetch_users_status_roles = (req,res,next)=>{
 				}
 				if( i >= data.length){
 					res.status(200).json(returnData);
-					console.log('returnData================	',returnData);
+					// console.log('returnData================	',returnData);
 				}
 			}else{
 				res.status(200).json({message:"USER_NOT_FOUND"});
@@ -1932,7 +1932,7 @@ exports.search_text = (req, res, next)=>{
 	.limit(req.body.limitRange)
 	.exec()
 	.then(data=>{
-		console.log("Data in search==>",data)
+		// console.log("Data in search==>",data)
 		if(data){
 			var i = 0;
 			var returnData = [];
@@ -1992,10 +1992,10 @@ exports.search_textCompRoleStatus = (req, res, next)=>{
 	    selector['$and']=[];
 	    var companyID = req.body.companyID
 	    if(companyID === 1){
-			console.log("req.body in search companyID==>",companyID);
+			// console.log("req.body in search companyID==>",companyID);
 			selector["$and"].push({roles:{$ne:["admin"]}})
 		}else{
-			console.log("req.body in search ekse companyID==>",companyID);
+			// console.log("req.body in search ekse companyID==>",companyID);
 			selector["$and"].push({"profile.companyID":companyID,roles:{$ne:["admin"]}})
 		}
 		// console.log("selector",selector);
@@ -2043,7 +2043,7 @@ exports.search_textCompRoleStatus = (req, res, next)=>{
 			selector["$or"].push({ "profile.companyName"	: { "$regex": req.body.search, $options: "i" } })
 			selector["$or"].push({ "profile.fullName"	: { "$regex": req.body.search, $options: "i" } })
 	    }*/
-			console.log("selector in search ekse selector==>",selector);
+			// console.log("selector in search ekse selector==>",selector);
 
 		User.aggregate([
 			{$match:selector},
@@ -2069,7 +2069,7 @@ exports.search_textCompRoleStatus = (req, res, next)=>{
 		.limit(req.body.limitRange)
 		.exec()
 		.then(data=>{
-			console.log("Data in search==>",data)
+			// console.log("Data in search==>",data)
 			if(data){
 				var i = 0;
 				var returnData = [];
@@ -2127,7 +2127,7 @@ exports.search_text_delete = (req, res, next)=>{
 	.limit(req.body.limitRange)
 	.exec()
 	.then(data=>{
-		console.log("Data in delete list==>",data)
+		// console.log("Data in delete list==>",data)
 		if(data){
 			var i = 0;
 					var returnData = [];
@@ -2176,7 +2176,7 @@ exports.search_text_delete = (req, res, next)=>{
 			// 						"statusupdatedBy" : statuslogLength > 0 ? data[i].statusLog[statuslogLength-1].updatedBy : "-"
 			// 					});
 			// }
-			console.log("returnData in delete list==>",returnData)
+			// console.log("returnData in delete list==>",returnData)
 			if( i >= data.length){
 				res.status(200).json(returnData);
 			}
@@ -2257,7 +2257,7 @@ exports.getID = (req,res,next)=>{
 };
 
 exports.getUserList = (req,res,next)=>{
-	console.log("getUserList = ", req.body);
+	// console.log("getUserList = ", req.body);
 	User.findOne(
 				{
 					"profile.companyID" 	: req.body.companyID,
@@ -2266,7 +2266,7 @@ exports.getUserList = (req,res,next)=>{
 			)
 		.exec()
 		.then(data=>{
-			console.log("data = ",data);
+			// console.log("data = ",data);
 			res.status(200).json(data);
 		})
 		.catch(err =>{
@@ -2282,7 +2282,7 @@ exports.getUserOtp = (req, res, next) => {
 	    User.findOne({ _id: req.params.user_id })
         .exec()
         .then(data=>{
-        	console.log("data===>",data)
+        	// console.log("data===>",data)
             res.status(200).json(data.profile.otpMobile);
         })
         .catch(err =>{
@@ -2296,7 +2296,7 @@ exports.getuserCount = (req, res, next) => {
 	    .count()
         .exec()
         .then(data=>{
-        	console.log("data===>",data)
+        	// console.log("data===>",data)
             res.status(200).json({count:data});
         })
         .catch(err =>{
@@ -2377,7 +2377,7 @@ exports.countUsers = (req,res,next)=>{
 
 
 exports.deleteAllUsers = (req, res, next) => {
-	console.log("deleteAllUsers");
+	// console.log("deleteAllUsers");
 	User.remove({})
 	  .exec()
 	  .then(data => {

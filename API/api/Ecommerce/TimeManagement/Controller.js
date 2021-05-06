@@ -13,7 +13,7 @@ exports.insert_Time = (req,res,next)=>{
                         createdBy 				  : req.body.createdBy, 	
                         createdAt                 : new Date()
                     });
-                    console.log('TimeObj==>', TimeObj);
+                    // console.log('TimeObj==>', TimeObj);
                     TimeObj.save()
                     .then(data=>{
                         res.status(200).json({
@@ -60,7 +60,7 @@ exports.get_single_Time = (req,res,next)=>{
 };
 
 exports.update_Time = (req,res,next)=>{
-    console.log("Update Body = ", req.body);
+    // console.log("Update Body = ", req.body);
     Time.updateOne(
             { _id:req.body.TimeID},  
             {

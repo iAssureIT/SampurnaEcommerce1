@@ -88,7 +88,7 @@ exports.fetch_one = (req,res,next)=>{
         });
 };   
 exports.update_FinishedGoodsEntry = (req,res,next)=>{
-    console.log("req.body.ProductCode",req.body)
+    // console.log("req.body.ProductCode",req.body)
     var finishGoodId       = req.params.purchaseID;
     var OutwardRawMaterial = req.body.OutwardRawMaterial;
     var OutwardUnit        = req.body.OutwardUnit;
@@ -150,7 +150,7 @@ exports.update_FinishedGoodsEntry = (req,res,next)=>{
 
 //update finish goods array in purchase entry
 function update_purchase_entry(obj){
-    console.log("obj.FinishGoodsId",obj.FinishGoodId,obj);
+    // console.log("obj.FinishGoodsId",obj.FinishGoodId,obj);
      return new Promise(function(resolve,reject){ 
         PurchaseEntry.find({"finishedGoodsArray.FinishGoodsId": mongoose.Types.ObjectId(obj.FinishGoodId)})
         .then(data=>{
@@ -186,7 +186,7 @@ function update_purchase_entry(obj){
                                   )
                                   .exec()
                                   .then(data2=>{
-                                    console.log("up2 data",data2);
+                                    // console.log("up2 data",data2);
                                        // resolve(1)
                                   })
                                   .catch(err =>{

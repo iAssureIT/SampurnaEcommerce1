@@ -9,7 +9,7 @@ exports.insert_image = (req,res,next)=>{
                     bannerimages              : req.body.bannerimages,                    
                     createdAt                 : new Date()
                 });
-                console.log("gallery:",gallery);
+                // console.log("gallery:",gallery);
                 gallery.save()
                 .then(data=>{
                     res.status(200).json({

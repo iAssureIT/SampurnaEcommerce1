@@ -16,7 +16,7 @@ exports.insert_shipping = (req,res,next)=>{
                         createdBy 				  : req.body.createdBy, 	
                         createdAt                 : new Date()
                     });
-                    console.log('ShippingObj==>', ShippingObj);
+                    // console.log('ShippingObj==>', ShippingObj);
                     ShippingObj.save()
                     .then(data=>{
                         res.status(200).json({
@@ -63,7 +63,7 @@ exports.get_single_Shipping = (req,res,next)=>{
 };
 
 exports.update_shipping = (req,res,next)=>{
-    console.log("Update Body = ", req.body);
+    // console.log("Update Body = ", req.body);
     Shipping.updateOne(
             { _id:req.body.shippingID},  
             {

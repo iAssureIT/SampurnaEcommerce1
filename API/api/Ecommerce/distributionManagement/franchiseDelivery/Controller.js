@@ -71,7 +71,7 @@ function generate_delivery_Challan() {
         .exec()
         .then(data=>{
             if(data){
-                console.log("data",data);
+                // console.log("data",data);
                  const  dcChallan = data.deliveryChallanNum.replace('DC','');
                  const number = Number(dcChallan) + Number(1);
                  dc_challan = "DC" + number;
@@ -104,7 +104,7 @@ exports.update_delivery_attribute = (req,res,next)=>{
                        if(req.body.attribute == "deliveryAccepted" || req.body.attribute == "deliveryCompleted"){
                             //if accepted insert into frinchise goods
                             var updateFinishedGoods = await update_franchise_goods(req.body.FranchiseDeliveryId,req.body.itemcode);
-                            console.log("updateFinishedGoods",updateFinishedGoods);
+                            // console.log("updateFinishedGoods",updateFinishedGoods);
                        }
 
                        if(req.body.attribute == "deliveryRejected"){
@@ -234,7 +234,7 @@ exports.get_delivery_challans_for_po = (req,res,next)=>{
 };
 
 var manage_finished_goods = async (data,deliveryDate) => {
-      console.log('manage_finished_goods',data);
+    //   console.log('manage_finished_goods',data);
     return new Promise(function(resolve,reject){ 
         updateFinishGoodsControl();
         async function updateFinishGoodsControl(){
