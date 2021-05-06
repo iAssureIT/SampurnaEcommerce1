@@ -38,10 +38,10 @@ class MasterPage extends React.Component {
 		};
 	}
 	componentDidMount(){
-		console.log('inside componentDidMount => ',this.props);
+		// console.log('inside componentDidMount => ',this.props);
 		// console.log("pageLoaded===",this.state.pageLoaded);
 		this.getPreferences();
-		console.log("1 timestamp = ", new Date() );
+		// console.log("1 timestamp = ", new Date() );
 		window.onload = (event) => {	
 			// console.log('inside onload');
 			this.setState({
@@ -137,7 +137,7 @@ class MasterPage extends React.Component {
 				
 				<div className="col-12 NoPadding">
 					{/* <Banner />	 */}
-					<div> Page not fully loaded</div>					
+					<div> Page loading...</div>					
 				</div>
 				
 			 }
