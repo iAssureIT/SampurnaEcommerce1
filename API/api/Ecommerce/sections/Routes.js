@@ -14,6 +14,7 @@ router.delete('/delete/:sectionID', 		checkAuth, sectionsController.delete_secti
 
 router.delete('/get/deleteAllSections', 	checkAuth, sectionsController.deleteAllSections);
 
+router.post('/get/list', 	                sectionsController.get_list_for_section_category_block);
 
 router.get('/get/list', 					sectionsController.get_sections);
 

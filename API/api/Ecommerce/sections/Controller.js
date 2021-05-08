@@ -232,3 +232,59 @@ exports.deleteAllSections = (req, res, next) => {
 		});
 	  });
   };
+
+
+/**=========== get_list_for_section_category_block() =========== */
+exports.get_list_for_section_category_block = (req,res,next)=>{
+    console.log("req.body => ",req.body);
+   
+    var selector        = {}; 
+    selector['$and']    = [];
+
+    if(req.body.section && req.body.section != "All"){
+        selector["$and"].push({"corporateId": ObjectId(req.body.company) })
+    }
+    if(req.body.category && req.body.category != "All"){
+        selector["$and"].push({"departmentId": ObjectId(req.body.department) })
+    }else{
+        selector["$and"].push({"departmentId": {$ne: ""} })
+    }
+    if(req.body.startDate && req.body.endDate){
+        selector["$and"].push({"createdAt": {$gte : new Date(req.body.startDate), $lt : new Date(req.body.endDate) } })
+    }
+    if(req.body.status === "All"){
+        selector["$and"].push({"statusValue": {$ne: ""} })
+    }else if(req.body.status === "Paid"){
+        selector["$and"].push({"statusValue": "Paid" })
+    }else if(req.body.status === "Unpaid"){
+        selector["$and"].push({"statusValue": "Unpaid" })
+    }
+
+    Sections.aggregate([
+    { $lookup:
+        {
+         from           : 'categories',
+         localField     : '_id',
+         foreignField   : 'section_ID',
+         as             : 'categorylist'
+        }
+    },
+    {
+        // $sort: {
+        //   "categorylist.createdAt": -1
+        // }
+        $sort: {
+            "sectionRank": 1
+          }
+    }
+    ])
+    .exec()
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
+        });
+    });
+};

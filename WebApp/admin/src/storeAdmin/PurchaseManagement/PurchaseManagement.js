@@ -108,6 +108,10 @@ export default class PurchaseManagement extends React.Component {
 	
 
 	componentDidMount(){
+		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      	var token       = userDetails.token;
+      	axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
 		this.getproducts();
 		var serchByDate = moment(new Date()).format("YYYY-MM-DD");
 		var editId = this.props.match.params.purchaseId;
@@ -273,7 +277,20 @@ export default class PurchaseManagement extends React.Component {
 		}
 		})
 		.catch((error)=> { 
-		  console.log('error', error);
+			console.log("error => ",error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
 		}) 
 	} 
 
@@ -306,6 +323,19 @@ export default class PurchaseManagement extends React.Component {
         })
         .catch((error)=>{
             console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
         });
     }
 	getData(startRange, limitRange){ 
@@ -369,7 +399,20 @@ export default class PurchaseManagement extends React.Component {
 				});
 			})
 		.catch((error)=>{
-			console.log("error = ", error);              
+			console.log("error = ", error);      
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}        
 		}); 
 		
     }
@@ -389,6 +432,19 @@ export default class PurchaseManagement extends React.Component {
 		})
 		.catch((error) => {
 			console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
 		})
 	}
 
@@ -412,6 +468,19 @@ export default class PurchaseManagement extends React.Component {
 		})
 		.catch((error) => {
 			console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
 		})
 	}
 
@@ -429,6 +498,19 @@ export default class PurchaseManagement extends React.Component {
             })
             .catch((error) => {
                 console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+					var userDetails =  localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+						title : "Your Session is expired.",                
+						text  : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+						if (okay) {
+							window.location.href = "/login";
+						}
+					});
+				}
             })
 	}
     setunCheckedUser(value){
@@ -596,7 +678,20 @@ export default class PurchaseManagement extends React.Component {
 			})
 		})
 		.catch((error) => {
-			
+			console.log("error => ", error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
 		})
     }
     Submit(event){
@@ -630,7 +725,20 @@ export default class PurchaseManagement extends React.Component {
 				})
 				.catch(function (error) {
 				// handle error
-					console.log(error);
+					console.log("error => ",console.error());
+					if(error.message === "Request failed with status code 401"){
+						var userDetails =  localStorage.removeItem("userDetails");
+						localStorage.clear();
+						swal({  
+							title : "Your Session is expired.",                
+							text  : "You need to login again. Click OK to go to Login Page"
+						})
+						.then(okay => {
+							if (okay) {
+								window.location.href = "/login";
+							}
+						});
+					}
 				});
 				this.setState({
 					amount            : "",     
@@ -700,6 +808,19 @@ export default class PurchaseManagement extends React.Component {
             })
             .catch((error)=>{
                 console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+					var userDetails =  localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+						title : "Your Session is expired.",                
+						text  : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+						if (okay) {
+							window.location.href = "/login";
+						}
+					});
+				}
             })
        }
 	}

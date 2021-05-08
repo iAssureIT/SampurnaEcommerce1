@@ -61,6 +61,10 @@ export default class FranchiseCurrentStock extends React.Component {
 	
 
 	componentDidMount(){
+		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      	var token       = userDetails.token;
+      	axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
 		this.getproducts();
 		var serchByDate = moment(new Date()).format("YYYY-MM-DD");
 		// console.log("today",today);
@@ -80,13 +84,26 @@ export default class FranchiseCurrentStock extends React.Component {
 	
 	getTotalSTock(itemCode){
 		axios.get('/api/purchaseEntry/get/RawMaterialCurrentStock/'+itemCode)
-				.then(stockdata => {
-					// console.log("stockdata",stockdata.data);
-					 return stockdata.data;
+		.then(stockdata => {
+			// console.log("stockdata",stockdata.data);
+				return stockdata.data;
+		})
+		.catch(error=>{
+			console.log("error => ",error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
 				})
-				.catch(error=>{
-					console.log("error in getTotalOutward = ", error);
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
 				});
+			}
+		});
 	}
 	
 	getCurrentStockReport(){
@@ -130,7 +147,20 @@ export default class FranchiseCurrentStock extends React.Component {
 			})
 		})
 		.catch((error)=>{
-			console.log("error = ", error);              
+			console.log("error => ",error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}              
 		}); 
 		
 	}
@@ -170,7 +200,20 @@ export default class FranchiseCurrentStock extends React.Component {
 			})
 		})
 		.catch((error) => {
-			
+			console.log("error => ",error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
 		})
 	}
 	
@@ -214,15 +257,28 @@ export default class FranchiseCurrentStock extends React.Component {
     getFranchiseList(){
 		axios.get('/api/entitymaster/get/franchise/')
         .then((response) => {
-          this.setState({
-            "franchiseList": response.data,
-          },()=>{
+        	this.setState({
+            	"franchiseList": response.data,
+          	},()=>{
 						// console.log("franchiseList = ",this.state.franchiseList);
-					})
-	      })
-	      .catch((error) => {
-					console.log("Error in franchiseList = ", error);
-	      })
+			})
+	    })
+	    .catch((error) => {
+			console.log("error => ",error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+	  	})
     }
     
 	render() {

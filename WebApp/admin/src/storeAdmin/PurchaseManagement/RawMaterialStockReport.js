@@ -60,6 +60,10 @@ export default class RawMaterialStockReport extends React.Component {
 	
 
 	componentDidMount(){
+		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      	var token       = userDetails.token;
+      	axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
 		this.getproducts();
 		var serchByDate = moment(new Date()).format("YYYY-MM-DD");
 		// console.log("today",today);
@@ -79,13 +83,26 @@ export default class RawMaterialStockReport extends React.Component {
 	
 	getTotalSTock(itemCode){
 		axios.get('/api/purchaseEntry/get/RawMaterialCurrentStock/'+itemCode)
-				.then(stockdata => {
-					// console.log("stockdata",stockdata.data);
-					 return stockdata.data;
+		.then(stockdata => {
+			// console.log("stockdata",stockdata.data);
+				return stockdata.data;
+		})
+		.catch(error=>{
+			console.log("error => ",error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
 				})
-				.catch(error=>{
-					console.log("error in getTotalOutward = ", error);
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
 				});
+			}
+		});
 	}
 	
 	getReportBetweenDates(){
@@ -104,30 +121,41 @@ export default class RawMaterialStockReport extends React.Component {
 		.post('/api/purchaseentry/post/getReportOfPurchaseEntry/',reportFilterData)
 		.then((response)=>{
 			var tableData = response.data.map((a, i) => {
-
-					return {
-						_id                  : a._id,
-						Date   				 : a.purchaseDate ? moment(a.purchaseDate).format("DD-MMM-YYYY") : "",
-						// itemCode             : a.itemCode     ? a.itemCode     : "",
-						// productCode          : a.productCode  ? a.productCode  : "",
-						productName 	     : a.productName  ? a.productName +' - '+ a.productCode +' - '+ a.itemCode: "" ,
-						UnitRate             : a.unitRate     ? a.unitRate +' <i class="fa fa-rupee" style="font-size": "small"></i> / '+a.unitOfMeasurement     : 0,
-						OpeningStock         : a.openingStock  ? a.openingStock : 0,
-						StockAddedToday      : a.quantity     ? a.quantity +' '+a.unit     : 0,
-						totalStock           : a.totalStock    ? a.totalStock +' '+ a.StockUnit : 0,
-						
-					}
-
+				return {
+					_id                  : a._id,
+					Date   				 : a.purchaseDate ? moment(a.purchaseDate).format("DD-MMM-YYYY") : "",
+					// itemCode             : a.itemCode     ? a.itemCode     : "",
+					// productCode          : a.productCode  ? a.productCode  : "",
+					productName 	     : a.productName  ? a.productName +' - '+ a.productCode +' - '+ a.itemCode: "" ,
+					UnitRate             : a.unitRate     ? a.unitRate +' <i class="fa fa-rupee" style="font-size": "small"></i> / '+a.unitOfMeasurement     : 0,
+					OpeningStock         : a.openingStock  ? a.openingStock : 0,
+					StockAddedToday      : a.quantity     ? a.quantity +' '+a.unit     : 0,
+					totalStock           : a.totalStock    ? a.totalStock +' '+ a.StockUnit : 0,
+					
+				}
 			})
 
-				this.setState({
-				  tableData 		: tableData,          
-				},()=>{
-					console.log("tableData",tableData);
-				})
-				})
+			this.setState({
+				tableData 		: tableData,          
+			},()=>{
+				console.log("tableData",tableData);
+			})
+		})
 		.catch((error)=>{
-			console.log("error = ", error);              
+			console.log("error => ",error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}           
 		}); 
 		
 	}
@@ -167,7 +195,20 @@ export default class RawMaterialStockReport extends React.Component {
 			})
 		})
 		.catch((error) => {
-			
+			console.log("error => ",error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
 		})
 	}
 	
