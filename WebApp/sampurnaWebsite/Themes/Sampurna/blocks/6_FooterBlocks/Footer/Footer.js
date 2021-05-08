@@ -145,7 +145,7 @@ export default class Footer extends Component {
             <div className="col-12 footer_bottom">
               <div className="row">
                 <div className="col-12 col-sm-6 copyrighttxt">
-                    <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Multi</span><span className="mandaiColor">Store</span> All Rights Reserved.</p>
+                    <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Trolly</span><span className="mandaiColor">Mart</span> All Rights Reserved.</p>
                 </div>
                 <div className="col-12 col-sm-6 footernabbar NoPadding">
                     <span className=" pull-right ">Design & Developed by <Link href="http://iassureit.com/"><a target="_blank"> iAssure International Technologies Pvt. Ltd. </a></Link> Version 1.0</span>

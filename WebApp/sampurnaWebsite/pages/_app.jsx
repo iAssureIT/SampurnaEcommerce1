@@ -58,7 +58,7 @@ export default function App({ Component, pageProps }) {
 	        console.log(error)
 	    })
 	}, []);
-  console.log("googleAPIKey",googleAPIKey);
+  // console.log("googleAPIKey",googleAPIKey);
   return (
     <Provider store={store}> 
     <Head>
@@ -66,16 +66,8 @@ export default function App({ Component, pageProps }) {
       <link rel="shortcut icon" href="/favicon.png" />
       <link rel="preconnect" href="https://fonts.gstatic.com"/>
       <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
-      <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=places"}></script>
-      {/* <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
-      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossOrigin="anonymous"/>
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossOrigin="anonymous"/>
-      <script type="module" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" crossOrigin="anonymous"></script>
-    
-      <script type="module" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossOrigin="anonymous"></script>
-      <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrzFPcpBm_YD5DfBl9zJ2KwOjiRpOQ1lE&libraries=places"></script>    */}
-                                    
+      {/* <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=places"}></script> */}
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2Ubr7BFRt1rjOU9XajVBNRUV5w8VLe0k&libraries=geometry,drawing,places"></script>                      
     </Head>
     <Component {...pageProps} />  
   </Provider>
