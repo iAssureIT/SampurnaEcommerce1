@@ -7,7 +7,7 @@ const productStock 			= require('./Controller2');
 
 router.post('/post', 															checkAuth, productController.insert_product);
 
-router.post('/post/bulkUploadProduct', 									checkAuth, productController.bulkUploadProduct);
+router.post('/post/bulkUploadProduct', 									productController.bulkUploadProduct);
 
 // router.post('/post/bulkUploadProductSiggleowner', productController.bulkUploadProductSigleowner);
 
@@ -15,9 +15,9 @@ router.post('/post/bulkUploadProductUpdate', 							checkAuth, productController
 
 // router.get('/get/filedetails/:fileName',productController.filedetails);
 
-router.post('/get/filedetails/', 											checkAuth, productController.filedetails);
+router.post('/get/filedetails/', 											productController.filedetails);
 
-router.post('/get/wishlist/product', 										checkAuth, productController.wishlist_product);
+router.post('/get/wishlist/product', 										productController.wishlist_product);
 
 router.patch('/patch', 															checkAuth, productController.update_product);
 

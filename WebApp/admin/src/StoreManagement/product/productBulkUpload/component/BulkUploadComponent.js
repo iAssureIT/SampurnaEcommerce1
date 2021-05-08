@@ -67,6 +67,7 @@ constructor(props) {
         var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
         var token         = userDetails.token;
         axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+        console.log("token => ",token)
         
         const user_ID = userDetails.user_id;
         // console.log("User ID = ", user_ID);

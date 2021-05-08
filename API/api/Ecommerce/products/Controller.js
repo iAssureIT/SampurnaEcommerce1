@@ -13,6 +13,8 @@ var UnitOfMeasurmentMaster = require('../departmentMaster/ModelUnitofmeasurment'
 const franchisegoods       = require('../distributionManagement/Model');
 const EntityMaster         = require('../../coreAdmin/entityMaster/ModelEntityMaster');
 var subcategoryArray=[];
+
+
 exports.insert_product = (req,res,next)=>{
     // console.log("response ===========>",res);
     // console.log("req =>=>=>=>=>=>=>=>=>=> ",req.body);
@@ -110,47 +112,59 @@ exports.bulkUploadProduct = (req,res,next)=>{
         var invalidData     = [];
         var invalidObjects  = [];
         var remark          = ''; 
-        // console.log("productData---",productData);
 
         // Get All Sections
-        // var allSectionsData = await fetchAllSections();
-        // console.log("allSectionsData => ",allSectionsData);
+        var allSectionsData = await fetchAllSections();
 
-        // Get All Categories
-        // var allCategoriesData = await fetchAllCategories();
-        // console.log("allCategoriesData => ",allCategoriesData);
+        // Get All Vendors
+        var allEntityData = await fetchAllEntities("vendor");
 
         for(k = 0 ; k < productData.length ; k++){
-            if(productData[k].subCategory != undefined ) {
-                var subcatNew = productData[k].subCategory;
+
+            // console.log("productData K => ",productData[k]);
+            if(productData[k].subCategory !== undefined ) {
+                var inputSubcategory = productData[k].subCategory;
             }
-            var allEntityData = await fetchAllEntities("vendor");
+
             if(productData[k].websiteModel === "MarketPlace"){
-                var EntityData = allEntityData.filter((data)=>{
-                    // console.log("productData[k].CompanyName------------",productData[k].CompanyName);
-                    if (data.companyName == productData[k].CompanyName) {
-                        return data;
+                var EntityData = allEntityData.filter((vendorData)=>{
+                    if (vendorData.companyID === productData[k].VendorCompanyID) {
+                        return vendorData;
                     }
-                }) 
-                var EntityDataArray = EntityData.map((entityArr, i)=>{
-                    return entityArr.companyName;
-                })
+                })                
+                // console.log("EntityData = ", EntityData );
             }else{
-                var EntityData = allEntityData.filter((data)=>{
-                    // console.log("data.companyName == productData[k].CompanyName",data.companyName == productData[k].CompanyName);
-                    if (data.companyName == allEntityData[0].companyName) {
-                        return data;
+                var EntityData = allEntityData.filter((vendorData)=>{
+                    if (vendorData.companyID === allEntityData[0].companyID) {
+                        return vendorData;
                     }
                 }) 
-                var EntityDataArray = allEntityData[0].companyName;
+                // var EntityDataArray = allEntityData[0].companyName;
             }
-            // console.log("productData[k].itemCode--",productData[k].itemCode);
+
             if(productData[k].section !== undefined && productData[k].itemCode !== undefined){
-                if (productData[k].section.trim() !== '') {
-                    var sectionObject = await sectionInsert(productData[k].section)
-                    // console.log('category',productData[k].category.toString())
-                    if (productData[k].category.toString() != undefined){
-                        var categoryObject  = await categoryInsert(productData[k].category,subcatNew,productData[k].section,sectionObject.section_ID,productData[k].categoryNameRlang);
+                var inputSection = productData[k].section.trim();
+                if (inputSection !== '') { 
+                    
+                    if (allSectionsData && allSectionsData.length > 0) {
+                        const sectionExists = allSectionsData.some(sectiondata => sectiondata.section.toLowerCase() === inputSection.toLowerCase());
+                        
+                        if (!sectionExists) {
+                            var sectionObject = await sectionInsert(productData[k].section); 
+                            allSectionsData.push(sectionObject)
+                        }
+                    }else{
+                        var sectionObject = await sectionInsert(productData[k].section);
+                        allSectionsData.push(sectionObject)
+                    }                   
+                    
+                    var inputCategory = productData[k].category.trim();
+                    if (inputCategory !== undefined){                        
+                        var section = allSectionsData.filter(function (e) {
+                            return e.section.toLowerCase() === productData[k].section.toLowerCase();
+                        });  
+
+                        var categoryObject  = await categoryInsert(inputCategory, inputSubcategory, inputSection, section[0]._id, productData[k].categoryNameRlang);                        
                         var taxObject       = []
                         
                         if(productData[k].taxName){
@@ -163,16 +177,15 @@ exports.bulkUploadProduct = (req,res,next)=>{
                                 if(typeof(productData[k].discountedPrice) === 'number' && productData[k].discountedPrice >= 0){
                                     if(typeof(productData[k].originalPrice) === 'number' && productData[k].originalPrice >= 0 ){
                                         if(productData[k].websiteModel === "MarketPlace"){
-                                            if(EntityDataArray  != "" && EntityDataArray != undefined ){
-                                                // console.log("EntityData--->>>>>>",EntityData);
-                                                var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
+                                            if(EntityData && EntityData.length > 0 ){
+                                                var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0],EntityData);
                                             }else{
                                                 remark+= "Company Name not found";
                                             }
-                                        }else{
-                                            //  var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
-                                            if(EntityDataArray  != "" && EntityDataArray != undefined ){
-                                                var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
+                                        }else{                                            
+                                            var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0]);
+                                            if(EntityDataArray  !== "" && EntityDataArray !== undefined ){
+                                                var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0],EntityData);
                                             }else{
                                                 remark+= "Vendor not found";
                                             }
@@ -213,7 +226,7 @@ exports.bulkUploadProduct = (req,res,next)=>{
                 if (productData[k].productName === undefined) {
                     remark += "Product name not found, ";
                 }
-                if (productData[k].universalProductCode === undefined) {
+                if (productData[k].UPC === undefined) {
                     remark += "Universal Product Count not found, ";
                 }
                 // if (productData[k].brand == undefined) {
@@ -287,23 +300,29 @@ exports.bulkUploadProduct = (req,res,next)=>{
     }
 };
 
+/**=============== insertFailedRecords() ===============*/
 var insertFailedRecords = async (invalidData) => {
-     //console.log('invalidData',invalidData);
+    //console.log('invalidData',invalidData);
     return new Promise(function(resolve,reject){ 
-    FailedRecords.find({fileName:invalidData.fileName})  
-            .exec()
-            .then(data=>{
+        FailedRecords.find({fileName:invalidData.fileName})  
+        .exec()
+        .then(data=>{
             if(data.length>0){
                 // console.log('data',data)   
                 if (data[0].failedRecords.length>0) {
-                    FailedRecords.updateOne({ fileName:invalidData.fileName},  
-                        {   $set:   { 'failedRecords': [] } })
-                        .then(data=>{
+                    FailedRecords.updateOne(
+                        { fileName : invalidData.fileName },  
+                        { $set : { 'failedRecords': [] } 
+                    })
+                    .then(data=>{
                         if(data.nModified == 1){
-                            FailedRecords.updateOne({ fileName:invalidData.fileName},  
-                                {   $set:   {'totalRecords': invalidData.totalRecords},
-                                    $push:  { 'failedRecords' : invalidData.FailedRecords } 
-                                })
+                            FailedRecords.updateOne(
+                                {fileName : invalidData.fileName},  
+                                {
+                                    $set :  {'totalRecords'     : invalidData.totalRecords},
+                                    $push:  { 'failedRecords'   : invalidData.FailedRecords } 
+                                }
+                            )
                             .then(data=>{
                                 if(data.nModified == 1){
                                     resolve(data);
@@ -315,8 +334,8 @@ var insertFailedRecords = async (invalidData) => {
                         }else{
                             resolve(0);
                         }
-                        })
-                        .catch(err =>{ reject(err); });
+                    })
+                    .catch(err =>{ reject(err); });
 
                 }else{
                     FailedRecords.updateOne({ fileName:invalidData.fileName},  
@@ -333,119 +352,107 @@ var insertFailedRecords = async (invalidData) => {
                     .catch(err =>{ reject(err); });
                 }
             }else{
-                    const failedRecords = new FailedRecords({
+                const failedRecords = new FailedRecords({
                     _id                     : new mongoose.Types.ObjectId(),                    
                     failedRecords           : invalidData.FailedRecords,
                     fileName                : invalidData.fileName,
                     totalRecords            : invalidData.totalRecords,
                     createdAt               : new Date()
-                    });
-                    
-                    failedRecords
-                    .save()
-                    .then(data=>{
-                        resolve(data._id);
-                    })
-                    .catch(err =>{
-                        console.log(err);
-                        reject(err);
-                    });
+                });
+                
+                failedRecords
+                .save()
+                .then(data=>{
+                    resolve(data._id);
+                })
+                .catch(err =>{
+                    console.log(err);
+                    reject(err);
+                });
             }
-            })  
-    
+        })     
     })            
 }
 
+/**=============== sectionInsert() ===============*/
 function sectionInsert(sectionName) {
     return new Promise(function(resolve,reject){    
         sectionDuplicateControl();
         async function sectionDuplicateControl(){
-            var sectionPresent = await findSection(sectionName);
-            //console.log('sectionPresent',sectionPresent)
 
             var sectionUrl = sectionName.replace(/\s+/g, '-').toLowerCase();
-            if(sectionPresent === 0){
-                  Sections.find().sort({sectionRank:-1}).limit(1)
-                 .exec()
-                 .then(data=>{
-                    var sectionrank = 1;
-                    if(data.length > 0){
-                        // console.log("section dta",data[0]);
-                        sectionrank = data[0].sectionRank + 1;
-                    }   
-                    // console.log("sectionrank",sectionrank);
-                     const sectionObj = new Sections({
-                        _id                       : new mongoose.Types.ObjectId(),
-                        section                   : sectionName,
-                        sectionUrl                : sectionUrl, 
-                        sectionRank               : sectionrank,
-                        createdAt                 : new Date()
-                    });
+            
+            Sections.find().sort({sectionRank:-1}).limit(1)
+            .exec()
+            .then(data=>{
+                var sectionrank = 1;
+                if(data.length > 0){
+                    sectionrank = data[0].sectionRank + 1;
+                }   
+                
+                const sectionObj = new Sections({
+                    _id                       : new mongoose.Types.ObjectId(),
+                    section                   : sectionName,
+                    sectionUrl                : sectionUrl, 
+                    sectionRank               : sectionrank,
+                    createdAt                 : new Date()
+                });
 
-                    sectionObj
-                    .save()
-                    .then(data=>{
-                        // console.log('insertdection',data);
-                        resolve({ section_ID : data._id, section: sectionName });
-                    })
-                    .catch(err =>{
-                        console.log(err);
-                        reject(err);
-                    });
-                 })
-                   
-            }else{
-                Sections.findOne({ section : { "$regex": sectionName, $options: "i"} })
-                .exec()
-                .then(sectionObject=>{
-                    if(sectionObject){
-                        //console.log('section',sectionObject);
-                        resolve({section_ID : sectionObject._id, section : sectionObject.section});
-                    }else{
-                        resolve(0);
-                    }
+                sectionObj
+                .save()
+                .then(data=>{
+                    resolve({ _id : data._id, section: sectionName });
                 })
-            }
-        }
-
-        
+                .catch(err =>{
+                    console.log(err);
+                    reject(err);
+                });
+            })
+        }        
     })                   
 }
 
+/**=============== categoryInsert() ===============*/
 function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRlang) {
-      if(subcatgName != undefined){
-        var subcat = subcatgName;
-        var subcarUrl= subcat.replace(/\s+/g, '-').toLowerCase();
-      }
-      if(subcatgName != undefined){
+    // console.log("subcatgName => ",subcatgName);
+    if(subcatgName && subcatgName !== undefined){
+        var subcat      = subcatgName;
+        var subcarUrl   = subcat.replace(/\s+/g, '-').toLowerCase();
         subcategoryArray.push(subcatgName);
-      }
-       var addRowLength = subcategoryArray.length;
-          if(addRowLength){
-                    for(var i=0;i<addRowLength;i++){
+    }
 
-                      var obj = {
-                           "index"             : i,
-                           "subCategoryCode"   : 1+'|'+i,
-                           "subCategoryTitle"  : subcat,
-                           "subCategoryUrl"    : subcarUrl,
-                      }
-                    }
-                  }  
+    var addRowLength = subcategoryArray.length;
+    // console.log("subcatgName => ",subcatgName);
+    // console.log("addRowLength => ",addRowLength);
+    if(addRowLength){
+        for(var i = 0; i < addRowLength; i++){
+            var obj = {
+                "index"             : i,
+                "subCategoryCode"   : 1+'|'+i,
+                "subCategoryTitle"  : subcat,
+                "subCategoryUrl"    : subcarUrl,
+            }
+        }
+    }  
+
     return new Promise(function(resolve,reject){    
         categoryDuplicateControl();
         async function categoryDuplicateControl(){
-            var categoryPresent = await findCat(catgName);
-           
-             var subcategory=[];
+            var categoryPresent = await findCategory(catgName, section);
             
             if(categoryPresent === 0){
+                Category.find().sort({categoryRank:-1}).limit(1)
+                 .exec()
+                 .then(data=>{
+                    var categoryRank = 1;
+                    if(data.length > 0){
+                        categoryRank = data[0].categoryRank + 1;
+                    }   
 
-                // subcategory.push({"subCategoryUrl":subcarUrl,"subCategoryTitle":subcat,"index": addRowLength})
-
-                const categoryObj = new Category({
+                    const categoryObj = new Category({
                         _id                       : new mongoose.Types.ObjectId(),                    
                         category                  : catgName,
+                        categoryRank              : categoryRank,
                         categoryNameRlang         : categoryNameRlang,
                         categoryUrl               : catgName.replace(/\s+/g, '-').toLowerCase(),
                         subCategory               : obj,
@@ -456,67 +463,81 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                         section_ID                : section,
                         createdAt                 : new Date()
                     });
-                    // console.log('categoryObj-------------',categoryObj);
+
                     categoryObj
                     .save()
                     .then(data=>{
-                    //    console.log('insertCategory',data.subCategory);
-                        resolve({category_ID : data._id, category : catgName,categoryNameRlang:categoryNameRlang,subCategory_ID : (data.subCategory && data.subCategory.length>0 ? data.subCategory[0]._id : null) });
-
+                        // console.log("category added => ", data);
+                        resolve({
+                            _id                 : data._id, 
+                            category            : catgName, 
+                            categoryNameRlang   : categoryNameRlang,
+                            subCategory_ID      : (data.subCategory && data.subCategory.length > 0 ? data.subCategory[0]._id : null) 
+                        });
                     })
                     .catch(err =>{
                         console.log(err);
                         reject(err);
                     });
-            }else{
+                })
+            }else{                
                 if (categoryPresent.subCategory) {
-
-                var subcatg = categoryPresent.subCategory.find(subcatgObj => subcatgObj.subCategoryTitle === subcatgName);
-                
-                if(subcatg){
-                    resolve({category_ID : categoryPresent._id, category: categoryPresent.category,categoryNameRlang:categoryPresent.categoryNameRlang, subCategory_ID : subcatg._id});
+                    var subcatg = categoryPresent.subCategory.find(subcatgObj => subcatgObj.subCategoryTitle === subcatgName);
+                    // console.log("subcatg => ", subcatg);
+                    if(subcatg && subcatg !== undefined){
+                        resolve({
+                            _id                 : subcatg._id, 
+                            category            : catgName, 
+                            categoryNameRlang   : categoryNameRlang,
+                            subCategory_ID      : (subcatg.subCategory && subcatg.subCategory.length > 0 ? subcatg.subCategory[0]._id : null) 
+                        });
+                    }else{
+                        Category.updateOne(
+                            { _id:categoryPresent._id},  
+                            {
+                                $push:  { 
+                                    'subCategory' : {
+                                        subCategoryTitle    : subcatgName, 
+                                        subCategoryUrl      : subcarUrl,
+                                        index               : addRowLength, 
+                                        subCategoryCode     : 1+'|'+addRowLength
+                                    }
+                                }
+                            }
+                        )
+                        .exec()
+                        .then(addedsubcat=>{
+                            if (addedsubcat.nModified == 1 ) {
+                                Category.findOne({ category : catgName})
+                                .exec()
+                                .then(categoryObject=>{
+                                    if(categoryObject){                                        
+                                        resolve({
+                                            _id                 : categoryPresent._id, 
+                                            category            : categoryPresent.category,
+                                            categoryNameRlang   : categoryPresent.categoryNameRlang, 
+                                            subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id});
+                                    }else{
+                                        resolve(0);
+                                    }
+                                })
+                            }
+                        })
+                        .catch(err =>{
+                            console.log(err);
+                            reject(err);
+                        });
+                    }
                 }else{
-                    //update Category collection for a new subCategory;
-                    Category.updateOne(
-                        { _id:categoryPresent._id},  
-                        {
-                            $push:  { 'subCategory' : {subCategoryTitle : subcatgName, subCategoryUrl:subcarUrl,"index":addRowLength, "subCategoryCode"   : 1+'|'+addRowLength}}
-                        }
-                    )
-                    .exec()
-                    .then(addedsubcat=>{
-                        // console.log("addedsubcat-----",addedsubcat);
-                        if (addedsubcat.nModified == 1 ) {
-                            Category.findOne({ category : catgName})
-                                    .exec()
-                                    .then(categoryObject=>{
-                                        // console.log("categoryObject------",categoryObject);
-                                        if(categoryObject){
-                                           // console.log('subcategoryPresent',categoryObject.subCategory[categoryObject.subCategory.length-1]._id)
-
-                                            //resolve(categoryObject);
-                                            resolve({category_ID : categoryPresent._id, category: categoryPresent.category,categoryNameRlang:categoryPresent.categoryNameRlang, subCategory_ID : categoryObject.subCategory[categoryObject.subCategory.length-1]._id});
-                                        }else{
-                                            resolve(0);
-                                        }
-                                    })
-                        }
-                    })
-                    .catch(err =>{
-                        console.log(err);
-                        reject(err);
+                    resolve({
+                        _id                 : categoryPresent._id, 
+                        category            : categoryPresent.category,
+                        categoryNameRlang   : categoryPresent.categoryNameRlang,
+                        subCategory_ID      : (data.subCategory && data.subCategory.length > 0 ? data.subCategory[0]._id : null) 
                     });
-
-                }
-                }
-                else{
-                    resolve({category_ID : categoryPresent._id, category: categoryPresent.category,categoryNameRlang:categoryPresent.categoryNameRlang});
-                }
-                
+                }                
             }
-        }
-
-        
+        }        
     })                   
 } 
 
@@ -552,6 +573,26 @@ function findCat(catgName) {
     });
 }
 
+
+function findCategory(catgName, section_id) {
+    return new Promise(function(resolve,reject){  
+    Category.findOne({ category : { "$regex": catgName, $options: "i"}, section_ID : ObjectId(section_id) })
+                .exec()
+                .then(categoryObject=>{
+                    // console.log("categoryObject=> ", categoryObject);
+                    if(categoryObject){
+                        resolve(categoryObject);
+                    }else{
+                        resolve(0);
+                    }
+                })
+    })
+    .catch(err =>{
+        console.log(err);
+        reject(err);
+    });
+}
+
 var fetchAllData = async ()=>{
     return new Promise(function(resolve,reject){ 
     ExpenseTypeMaster.find({type : 'NO TAX'})
@@ -565,10 +606,39 @@ var fetchAllData = async ()=>{
         }); 
     });
 };
+
 var fetchAllEntities = async (type) => {
     return new Promise(function (resolve, reject) {
         EntityMaster.find({entityType:type})
             .sort({ createdAt: -1 })
+            .then(data => {
+                resolve(data);
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+};
+
+/* ============== Fetch all Sections ============== */
+var fetchAllSections = async (type) => {
+    return new Promise(function (resolve, reject) {
+        Sections.find({},{section : 1})
+            .then(data => {
+                // console.log("Section Data => ", data);
+                resolve(data);
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+};
+
+/* ============== Fetch all Categories ============== */
+var fetchAllCategories = async (type) => {
+    return new Promise(function (resolve, reject) {
+        Category.find()
+            .sort({ createdAt: -1, })
             .then(data => {
                 resolve(data);
             })
@@ -633,18 +703,21 @@ function taxInsert(taxName,taxRate) {
 
 
 var insertProduct = async (section_ID, section, categoryObject, data,taxObject,EntityData = []) => {
-    // console.log('insertProduct data>>>>>>',data);
+    console.log('insertProduct data>>>>>>',data);
+    console.log("EntityData in product insert => ",EntityData)
     return new Promise(function(resolve,reject){ 
         productDuplicateControl();
         async function productDuplicateControl(){
             var productPresent = await findProduct(data.productCode, data.itemCode,data.productName);
-            var vendorData = EntityData.map((vendorarr, i)=>{
-                   return vendorarr.companyName;
-                })
-            var productEntity  = await findVendor(vendorData);
+            // var vendorData = EntityData.map((vendorarr, i)=>{
+            //        return vendorarr.companyName;
+            //     })
+            // var productEntity  = await findVendor(vendorData);
+            var productEntity  = EntityData[0];
             var vendor = '';
-                // console.log('vendorData',data.vendor);
-                // console.log("productEntity",productEntity)
+            // console.log('vendorData',data.vendor);
+            // console.log('vendorData',data.vendor);
+            console.log("productEntity",productEntity)
             if(data.unit){
                var insertUOM = await insertUnitOfMeasurment(data.unit);
             }
@@ -699,7 +772,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                         offered                   : data.offered,
                         unit                      : data.unit ? data.unit : "",
                         size                      : data.size ? data.size : "",
-                        universalProductCode      : data.universalProductCode ? data.universalProductCode : "",
+                        universalProductCode      : data.UPC ? data.UPC : "",
                         color                     : data.color ? data.color : "",
                         exclusive                 : data.exclusive,
                         featured                  : data.featured,
@@ -3023,6 +3096,7 @@ exports.bulkUploadProductUpdate = (req,res,next)=>{
 
 var updateProductBulk = async (section_ID, section, categoryObject,data,taxObject=[],EntityData=[]) => {
     // console.log("taxObject--",taxObject);
+    
         var vendorData = EntityData.map((vendorarr, i)=>{
             return vendorarr.companyName;
         })
