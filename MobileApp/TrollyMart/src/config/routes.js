@@ -1,12 +1,12 @@
-import { createSwitchNavigator }  from 'react-navigation';
-import { createDrawerNavigator }  from 'react-navigation-drawer';
-import { createStackNavigator }   from 'react-navigation-stack';
-import { createAppContainer }     from 'react-navigation';
+import React, { useEffect }       from 'react';
+import {NavigationContainer}      from '@react-navigation/native';
+import { createStackNavigator }   from '@react-navigation/stack';
+import { createDrawerNavigator }  from '@react-navigation/drawer';
+// import { createAppContainer }     from 'react-navigation';
 import { Animated, Easing }       from 'react-native';
 import axios                      from 'axios';
-import AuthLoadingScreen          from '../ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js';
+import {AuthLoadingScreen}        from '../ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js';
 import InAppNotification          from '../ScreenComponents/InAppNotification/InAppNotification.js';
-
 import {Menu}                     from '../ScreenComponents/Menu/Menu.js';
 
 /*----SystemSecurity -----*/
@@ -16,327 +16,92 @@ import ResetPassword              from '../Screens/SystemSecurity/ResetPassword/
 import {RootSignUp}               from '../Screens/SystemSecurity/Signup/RootSignUp.js';
 import OTPVerification            from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
 import {ForgotPasswordOTP}        from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
-
-
 import {Dashboard}                from '../Screens/Dashboard/Dashboard.js';
-import CategoriesComponent        from'../Screens/CategoriesComponent/CategoriesComponent.js';
+import {CategoriesComponent}       from'../Screens/CategoriesComponent/CategoriesComponent.js';
 import SubCategoriesComp          from'../Screens/CategoriesComponent/SubCategoriesComp.js';
-import SubCatCompView             from'../Screens/CategoriesComponent/SubCatCompView.js';
-import CartComponent              from '../Screens/CartComponent/CartComponent.js';
+import {SubCatCompView}             from'../Screens/CategoriesComponent/SubCatCompView.js';
+import {CartComponent}            from '../Screens/CartComponent/CartComponent.js';
 import ConfirmOrderComponent      from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';
-import AddressDefaultComp         from '../Screens/AddressComponent/AddressDefaultComp.js';
-import AddressComponent           from '../Screens/AddressComponent/AddressComponent.js';
+import {AddressDefaultComp}       from '../Screens/AddressComponent/AddressDefaultComp.js';
+import {AddressComponent}         from '../Screens/AddressComponent/AddressComponent.js';
 import AddressComponentforaddress from '../Screens/AddressComponent/AddressComponentforaddressmenu.js';
 import AddressMenu                from'../Screens/AddressComponent/AddressMenu.js';
 import {WishlistComponent}        from'../Screens/WishlistComponent/WishlistComponent.js';
-import MyOrder                    from '../Screens/MyOrders/MyOrder.js';
+import {MyOrder}                    from '../Screens/MyOrders/MyOrder.js';
 import {SupportSystem}            from '../Screens/Help&Support/SupportSystem.js';
 import Stores                     from '../Screens/Stores/Stores.js';
 import StoreDetails               from '../Screens/Stores/StoreDetails.js';
 import AllFeatureProducts         from '../Screens/FeatureProducts/AllFeatureProducts.js';
 import AllExclusiveProducts       from '../Screens/ExclusiveProducts/AllExclusiveProducts.js';
 import AllDiscountedProducts      from '../Screens/DiscountedProducts/AllDiscountedProducts.js';
-import OrderDetails               from '../Screens/MyOrders/OrderDetails.js';
+import {OrderDetails}               from '../Screens/MyOrders/OrderDetails.js';
 import AccountDashboard           from '../Screens/AccountDashboard/AccountDashboard.js';
 import AccountInformation         from'../Screens/AccountDashboard/AccountInformation.js';
 import ResetPwd                   from'../Screens/AccountDashboard/ResetPwd.js';
 import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
-import OrderSummary               from'../Screens/OrderSummary/OrderSummary.js';
-import PaymentMethod              from '../Screens/PaymentMethod/PaymentMethod.js';
-// import PGWebView from '../Screens/PaymentMethod/PGWebView.js';
-// import searchProducts from '../Screens/Search/searchProducts.js';
-// import SearchComponent from '../Screens/Search/SearchComponent.js';
+import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
+import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';
 
-let SlideFromRight = (index, position, width)=>{
-  const translateX = position.interpolate({
-    inputRange: [index -1,index],
-    outputRange: [width, 0],
-  })
-  return {transform: [{translateX}]}
-};
-
-let SlideFromBottom = (index, position, height)=>{
-  const translateY = position.interpolate({
-    inputRange: [index -1,index],
-    outputRange: [height, 0],
-  })
-  return {transform: [{translateY}]}
-};
-
-let SlideFromTop = (index, position, height)=>{
-  const translateXY = position.interpolate({
-    inputRange: [index-1,index,index+1],
-    outputRange: [height,0,0],
-  })
-  return {transform: [{translateY:translateXY}]}
-};
-
-const TransitionConfiguration = () =>{
-  return {
-    transitionSpec : {
-      duration: 750,
-      easing: Easing.out(Easing.poly(4)),
-      timing: Animated.timing,
-      useNativeDriver: true,
-    },
-    screenInterpolator: (sceneProps) => {
-      const { layout, position, scene } = sceneProps;
-      const width = layout.initWidth;
-      const height = layout.initHeight;
-      const { index, route } = scene;
-      const params = route.params || {};
-      const transition = params.transition || 'default';
-      return {
-        default : SlideFromRight(index, position, width),
-        bottomTransition: SlideFromBottom(index, position, height),
-        topTransition: SlideFromTop(index, position, height)
-      }[transition];
-    },
-  }
-}
-
-const HomeStack = createStackNavigator({
-  
-  Dashboard: {
-    screen: Dashboard,
-    navigationOptions: {
-     header: null,
-     headerBackTitleVisible:false,
-    }
-  },
-  CategoriesComponent: {
-    screen: CategoriesComponent,
-    navigationOptions: {
-      header: null,
-    }
-  },
- 
-  SubCategoriesComp: {
-    screen: SubCategoriesComp,
-    navigationOptions: {
-       header: null,
-    }
-  },
-  AllFeatureProducts: {
-    screen: AllFeatureProducts,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  AllExclusiveProducts: {
-    screen: AllExclusiveProducts,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  AllDiscountedProducts:{
-    screen: AllDiscountedProducts,
-    navigationOptions: {
-      header: null,
-    }
-  },
-
-  SubCatCompView: {
-    screen: SubCatCompView,
-    navigationOptions: {
-      header: null,
-    }
-  },
-  CartComponent:{
-    screen: CartComponent,
-    navigationOptions: {
-     header: null,
-    }
-  },
-   ConfirmOrderComponent:{
-    screen: ConfirmOrderComponent,
-    navigationOptions: {
-    header: null,
-    }
-  },
-  AddressDefaultComp:{
-    screen: AddressDefaultComp,
-    navigationOptions: {
-     header: null,
-    }
-  },
-  AddressComponent:{
-    screen:AddressComponent,
-    navigationOptions:{
-     header: null,
-    }
-  },
-  AddressComponentforaddress:{
-    screen:AddressComponentforaddress,
-    navigationOptions:{
-     header: null,
-    }
-  },
-  AddressMenu:{
-    screen:AddressMenu,
-    navigationOptions:{
-    header: null,
-    }
-  },
-WishlistComponent:{
-   screen:WishlistComponent,
-    navigationOptions:{
-    header:null
-    }
-},
-MyOrder:{
-   screen:MyOrder,
-    navigationOptions:{
-     header: null,
-    }
-},
-OrderDetails:{
-   screen:OrderDetails,
-    navigationOptions:{
-     header: null,
-    }
-},
-AccountDashboard:{
-   screen:AccountDashboard,
-    navigationOptions:{
-     header: null,
-    }
-},
-ResetPwd:{
-   screen:ResetPwd,
-    navigationOptions:{
-     header: null,
-    }
-},
-AccountInformation:{
-   screen:AccountInformation,
-    navigationOptions:{
-    header: null,
-    }
-},
-MyProductReview:{
-   screen:MyProductReview,
-    navigationOptions:{
-     header: null,
-    }
-}, 
-SupportSystem:{
-   screen:SupportSystem,
-    navigationOptions:{
-     header: null,
-    }
-}, 
- 
-OrderSummary:{
-   screen:OrderSummary,
-    navigationOptions:{
-     header: null,
-    }
-}, 
-PaymentMethod:{
-   screen:PaymentMethod,
-    navigationOptions:{
-     header: null,
-    }
-}, 
-Stores:{
-  screen:Stores,
-   navigationOptions:{
-    header: null,
-   }
-},
-StoreDetails:{
-  screen:StoreDetails,
-   navigationOptions:{
-    header: null,
-   }
-},
-InAppNotification: {
-  screen: InAppNotification,
-  navigationOptions: {
-    header: null
-  }
-},
-},{
-  transitionConfig: TransitionConfiguration
-});
-
-const AuthStack = createStackNavigator({
-
-  RootLogIn: {
-    screen: RootLogIn,
-    headerMode : "none",
-    navigationOptions: {
-      header:null,
-    }
-  },
-  ResetPassword: {
-    screen: ResetPassword,
-    navigationOptions: {
-      header:null,
-      // headerShown: false
-    }
-  },
-
-  OTPVerification: {
-    screen: OTPVerification,
-    navigationOptions: {
-      header:null,
-      // headerShown: false
-    }
-  },
-
-  ForgotPassword: {
-    screen: ForgotPassword,
-    navigationOptions: {
-      header:null,
-      // headerShown: false
-    }
-  },
-  ForgotPasswordOTP: {
-    screen: ForgotPasswordOTP,
-    navigationOptions: {
-      header:null,
-      // headerShown: false
-    }
-  },
-  Signup: {
-    screen: RootSignUp,
-    navigationOptions: {
-      header:null,
-      
-      // headerShown: false
-    }
-  },
-  OTPVerification: {
-    screen: OTPVerification,
-    navigationOptions: {
-      header:null,
-      // headerShown: false
-    }
-  },
-
-});
+const Home = createDrawerNavigator();
+export const HomeStack = () => (
+  <Home.Navigator headerMode="none" drawerContent={ (props) => <Menu { ...props } />}>
+    <Home.Screen name="Dashboard"                   component={Dashboard} />
+    <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} />
+    <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp} />
+    <Home.Screen name="AllFeatureProducts"          component={AllFeatureProducts} />
+    <Home.Screen name="AllExclusiveProducts"        component={AllExclusiveProducts} />
+    <Home.Screen name="AllDiscountedProducts"       component={AllDiscountedProducts} />
+    <Home.Screen name="SubCatCompView"              component={SubCatCompView} />
+    <Home.Screen name="CartComponent"               component={CartComponent} />
+    <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} />
+    <Home.Screen name="AddressDefaultComp"          component={AddressDefaultComp} />
+    <Home.Screen name="AddressComponent"            component={AddressComponent} />
+    <Home.Screen name="AddressComponentforaddress"  component={AddressComponentforaddress} />
+    <Home.Screen name="AddressMenu"                 component={AddressMenu} />
+    <Home.Screen name="WishlistComponent"           component={WishlistComponent} />
+    <Home.Screen name="MyOrder"                     component={MyOrder} />
+    <Home.Screen name="OrderDetails"                component={OrderDetails} />
+    <Home.Screen name="AccountDashboard"            component={AccountDashboard} />
+    <Home.Screen name="ResetPwd"                    component={ResetPwd} />
+    <Home.Screen name="AccountInformation"          component={AccountInformation} />
+    <Home.Screen name="MyProductReview"             component={MyProductReview} />
+    <Home.Screen name="SupportSystem"               component={SupportSystem} />
+    <Home.Screen name="OrderSummary"                component={OrderSummary} />
+    <Home.Screen name="PaymentMethod"               component={PaymentMethod} />
+    <Home.Screen name="Stores"                      component={Stores} />
+    <Home.Screen name="StoreDetails"                component={StoreDetails} />
+    <Home.Screen name="InAppNotification"           component={InAppNotification} /> 
+  </Home.Navigator>
+);
 
 
-const drawer = createDrawerNavigator({
-  Home: {
-    screen: HomeStack
-  }
-},{
-    drawerLockMode: 'locked-closed',
-    contentComponent: Menu,
-    drawerPosition: 'left'
-});
+const RegisterRoutes = createStackNavigator();
+export const RegisterStack = () => (
+  <RegisterRoutes.Navigator
+    headerMode="none"
+    initialRouteName={"RootLogIn"}>
+    <RegisterRoutes.Screen name={"RootLogIn"}         component={RootLogIn} />
+    <RegisterRoutes.Screen name={"ResetPassword"}     component={ResetPassword} />
+    <RegisterRoutes.Screen name={"OTPVerification"}   component={OTPVerification} />
+    <RegisterRoutes.Screen name={"ForgotPassword"}    component={ForgotPassword} />
+    <RegisterRoutes.Screen name={"ForgotPasswordOTP"} component={ForgotPasswordOTP} />
+    <RegisterRoutes.Screen name={"Signup"}        component={RootSignUp} />
+    {/* <RegisterRoutes.Screen name={"OTPVerification"} component={OTPVerification} /> */}
+  </RegisterRoutes.Navigator>
+);
 
-export default createAppContainer(createSwitchNavigator(
-  {
-    AuthLoading: AuthLoadingScreen,
-    App: drawer,
-    Auth: AuthStack,
-  },
-  {
-    unmountInactiveRoutes: true,
-    initialRouteName: 'App',
-  }
-));
+const App = createStackNavigator();
+const AppStack = () => (
+  <App.Navigator headerMode="none">
+      <App.Screen name="App" component={HomeStack} />
+      <App.Screen name="Auth" component={RegisterStack} />
+  </App.Navigator>
+);
+
+export const AppContainer = () => {
+  return (
+    <NavigationContainer>
+        <AppStack />
+    </NavigationContainer>
+  );
+};  

@@ -2,6 +2,7 @@ const mongoose	= require("mongoose");
 var ObjectId = require('mongodb').ObjectID;
 const Carts = require('../cart/Model');
 const Orders = require('../orders/Model');
+const Wishlists = require('../wishlist/Model');
 // import axios from 'axios';
 const _ = require('underscore');    
 exports.insert_cartid = (req,res,next)=>{
@@ -174,9 +175,45 @@ exports.list_cart_product = (req,res,next)=>{
     ])
     .exec()
     .then(data=>{
-        res.status(200).json(data);
+        if(data && data[0].cartItems){
+            for (let k = 0; k < data[0].cartItems.length; k++) {
+                data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
+            }
+            console.log("data[0].cartItems[k]",data[0]);
+            if(req.params.user_ID!=='null'){
+                Wishlists.find({user_ID:req.params.user_ID})
+                .then(wish=>{
+                    if(wish.length > 0){
+                        for(var i=0; i<wish.length; i++){
+                            for(var j=0; j<data[0].cartItems.length; j++){
+                                if(String(wish[i].product_ID) === String(data[0].cartItems[j].product_ID)){
+                                    data[0].cartItems[j]= {...data[0].cartItems[j], isWish:true};
+                                    break;
+                                }
+                            }
+                        }   
+                        if(i >= wish.length){
+                            res.status(200).json(data);
+                        }       
+                    }else{
+                        res.status(200).json(data);
+                    }
+                 })
+                 .catch(err =>{
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            }else{
+                res.status(200).json(data);
+            }    
+        }else{
+            res.status(404).json('Product Details not found');
+        }
     })
     .catch(err =>{
+        console.log("err",err);
         res.status(500).json({
             error: err
         });
@@ -199,10 +236,14 @@ exports.count_cart = (req,res,next)=>{
     Carts.findOne({"user_ID": req.params.user_ID})     
         .exec()
         .then(data=>{
-            res.status(200).json(data.cartItems.length);
-
+            if(data && data.cartItems){
+                res.status(200).json(data.cartItems.length);
+            }else{
+                res.status(200).json(0);
+            }
         })
         .catch(err =>{
+            console.log("err",err);
             res.status(500).json({
                 error: err
             });

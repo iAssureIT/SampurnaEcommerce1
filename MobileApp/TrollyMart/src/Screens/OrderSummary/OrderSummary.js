@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   ScrollView,
   Text,
@@ -7,134 +7,132 @@ import {
   Image,
   Alert,ActivityIndicator,
 } from 'react-native';
-import { Dropdown } from 'react-native-material-dropdown-v2';
-import { Button, Icon, } from "react-native-elements";
-import Modal from "react-native-modal";
-import axios from "axios";
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import Notification from '../../ScreenComponents/Notification/Notification.js'
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
+import { Dropdown }       from 'react-native-material-dropdown-v2';
+import { Button, Icon, }  from "react-native-elements";
+import Modal              from "react-native-modal";
+import axios              from "axios";
+import HeaderBar5         from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {Footer}           from '../../ScreenComponents/Footer/Footer1.js';
+import Notification       from '../../ScreenComponents/Notification/Notification.js'
+import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
+import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
+import {withCustomerToaster}  from '../../redux/AppState.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
-export default class OrderSummary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputFocusColor: colors.textLight,
-      isOpen: false,
-      starCount: 2.5,
-      shippingtiming: "",
-      "startRange": 0,
-      "limitRange": 10,
-    };
-    this.handleTypeChange = this.handleTypeChange.bind(this);
+  export const OrderSummary = withCustomerToaster((props)=>{
+    const {navigation,route}=props;
+    console.log("props",props);
+    const [shippingTiming,setShippingTiming]=useState("");
+    const [startRange,setStartRange]=useState(0);
+    const [limitRange,setLimitRange]=useState(10);
+    const [addDataAddType,setAddDataAddType]=useState("");
+    const [addDataName,setAddDataName]=useState("");
+    const [addDataAddressLine1,setAddDataAddressLine1]=useState("");
+    const [addDataAddressLine2,setAddDataAddressLine2]=useState("");
+    const [addDataCity,setAddDataCity]=useState("");
+    const [addDataCountry,setAddDataCountry]=useState("");
+    const [addDataPincode,setAddDataPincode]=useState("");
+    const [addDataMobileNumber,setAddDataMobileNumber]=useState("");
+    const [addDataState,setAddDataState]=useState("");
+    const [getTimes,setGetTimes]=useState([]);
+    const [discountdata,setDiscountData] = useState('');
+    const [discounttype,setDiscountType] = useState('');
+    const [discountin,setDiscountIn] = useState('');
+    const [discountvalue,setDiscountValue] = useState('');
+    const [amountofgrandtotal,setAmountofgrandtotal] = useState('');
+    const {product_ID,user_id,addData}=route.params;
+    const [loading,setLoading] = useState(true);
+    const [cartData, setCartData] = useState('');
+    const [subtotalitems,setSubTotalItems] = useState('');
+    const [subtotal,setSubTotal] = useState('');
+    const [currency,setCurrency] = useState('');
+    const [totaloriginalprice, setOrignalPrice] = useState(0);
+    const [saving,setTotalSaving] =useState(0);
+    useEffect(() => {
+      getData();
+  }, []);
+
+  const getData=()=>{
+    setAddDataAddType(addData.addType);
+    setAddDataName(addData.name);
+    setAddDataAddressLine1(addData.addressLine1);
+    setAddDataAddressLine2(addData.addressLine2);
+    setAddDataCity(addData.city);
+    setAddDataCountry(addData.country);
+    setAddDataPincode(addData.pincode);
+    setAddDataMobileNumber(addData.mobileNumber);
+    setAddDataState(addData.state);
+    
+    getCartData(user_id, product_ID);
+    getTimes_func(startRange, limitRange);
+    getDiscounteData(startRange, limitRange);
   }
 
-  displayValidationError = (errorField) => {
-    let error = null;
-    if (this.state[errorField]) {
-      error = <View style={{ width: '100%' }}>
-        <Text style={{ color: '#dc3545' }}>{this.state[errorField][0]}</Text>
-      </View>;
-    }
-    return error;
+  const handleTypeChange = (value) => {
+    console.log('getTimes ===> ', value);
+    setShippingTiming(value);
   }
-  componentDidMount() {
-    const product_ID = this.props.navigation.getParam('product_ID', 'No product_ID');
-    const user_id = this.props.navigation.getParam('user_id', 'No user_ID');
-    const adddata = this.props.navigation.getParam('adddata', 'No adddata');
-    this.setState({
-      product_ID: product_ID,
-      user_ID: user_id,
-      adddata: adddata,
-      adddataaddType: adddata.addType,
-      adddataname: adddata.name,
-      adddataaddressLine1: adddata.addressLine1,
-      adddataaddressLine2: adddata.addressLine2,
-      adddatacity: adddata.city,
-      adddatacountry: adddata.country,
-      adddatapincode: adddata.pincode,
-      adddatamobileNumber: adddata.mobileNumber,
-      adddatastate: adddata.state,
-    }, () => {
-      this.getCartData(this.state.user_ID, this.state.product_ID);
-      this.gettimes(this.state.startRange, this.state.limitRange);
-      this.getdiscounteddata(this.state.startRange, this.state.limitRange);
-    })
-  }
-  handleTypeChange = (value) => {
-    console.log('gettimes ===> ', value);
-    this.setState({
-      shippingtiming: value,
-    });
-  }
-  gettimes(startRange, limitRange) {
+
+  const getTimes_func=(startRange, limitRange)=>{
     axios.get('/api/time/get/list-with-limits/' + startRange + '/' + limitRange)
       .then((response) => {
         var array = response.data.map((a, i) => { return { label: a.fromtime + " - " + a.totime, value: a.fromtime + "-" + a.totime } })
-        this.setState({
-          gettimes: array
-        })
+        setGetTimes(array);
       })
       .catch((error) => {
         console.log('error', error);
       });
   }
-  getdiscounteddata(startRange, limitRange) {
+
+  const getDiscounteData=(startRange, limitRange)=>{
     axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
         .then((response) => {
             console.log('tableData = ', response.data[0]);
-            this.setState({
-                discountdata: response.data[0],
-                discounttype: response.data[0].discounttype,
-                discountin: response.data[0].discountin,
-                discountvalue: response.data[0].discountvalue,
-            },()=>{
-              console.log('discountvalue = ', this.state.discountvalue);
-                var amountofgrandtotal =  this.state.discountdata !== undefined ?
-                                            this.state.totaloriginalprice && this.state.discountin === "Percent" ?
-                                              this.state.totaloriginalprice - (this.state.totaloriginalprice * this.state.discountvalue)/ 100
-                                            : this.state.totaloriginalprice - this.state.discountvalue
-                                          : this.state.totaloriginalprice
-            console.log('amountofgrandtotal = ', amountofgrandtotal);
-            this.setState({amountofgrandtotal : amountofgrandtotal})
-             })
+            if(response.data && response.data.length > 0) {
+              setDiscountData(response.data[0]);
+              setDiscountType(response.data[0].discounttype);
+              setDiscountIn(response.data[0].discountin);
+              setDiscountValue(response.data[0].discountvalue);
+
+                  var amountofgrandtotal =  response.data[0] !== undefined ?
+                                              totaloriginalprice && response.data[0].discountin === "Percent" ?
+                                                      totaloriginalprice - (totaloriginalprice * response.data[0].discountvalue)/ 100
+                                                      : totaloriginalprice - response.data[0].discountvalue
+                                                  : totaloriginalprice
+              console.log('amountofgrandtotal = ', amountofgrandtotal);
+              setAmountofgrandtotal(amountofgrandtotal);
+            }  
         })
         .catch((error) => {
             console.log('error', error);
         });
 }
-  getCartData() {
-    this.setState({ loading: true })
-    axios.get('/api/Carts/get/cartproductlist/' + userId)
-      .then((response) => {
-        this.setState({ loading: false })
-        if (response.data.length > 0) {
-          // console.log("Item size==>", response.data[0].cartItems[0].productDetail);
-          this.setState({
-            subtotalitems: response.data[0].cartItems.length,
-            cartData: response.data[0].cartItems,
-            subTotal: response.data.subTotal,
-            saving: response.data.saving,
-            cartTotal: response.data.cartTotal,
-            currency : response.data[0].cartItems[0].productDetail.currency
-          }, () => {
-            this.gettotalcount();
-          })
-        } else {
-          this.setState({
-            cartData: [],
-          })
-        }
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
-  }
-  gettotalcount() {
-    var resdata = this.state.cartData;
+
+
+   
+const getCartData=(userId)=>{
+  axios.get('/api/Carts/get/cartproductlist/' + userId)
+    .then((response) => {
+      setLoading(false);
+      if(response.data.length > 0) {
+        setSubTotalItems(response.data[0].cartItems.length);
+        setCartData(response.data[0].cartItems);
+        setSubTotal(response.data[0].subTotal);
+        setTotalSaving(response.data.saving);''
+        setCurrency(response.data[0].cartItems[0].productDetail.currency);
+        gettotalcount(response.data[0].cartItems);
+      } else {
+        setCartData([]);
+      }
+
+    })
+    .catch((error) => {
+      setLoading(false);
+      console.log('error', error);
+    })
+}
+
+  const gettotalcount=(resdata)=>{
     let UserArray = [];
     for (let i = 0; i < resdata.length; i++) {
       var totalprice = resdata[i].subTotal;
@@ -143,68 +141,58 @@ export default class OrderSummary extends React.Component {
     let totalAmount = UserArray.reduce(function (prev, current) {
       return prev + +current
     }, 0);
-    this.setState({
-      totaloriginalprice: totalAmount,
-    })
+    setOrignalPrice(totalAmount);
   }
-  handleZipChange(value) {
-    let x = value.replace(/\D/g, '').match(/(\d{0,5})(\d{0,4})/);
-    let y = !x[2] ? x[1] : x[1] + '-' + x[2];
-    this.setState({
-      zipcode: y,
-    });
-  }
-  paymentmethodspage() {
+  
+ 
+  const paymentmethodspage=()=>{
     // AppEventsLogger.logEvent('Initiate Checkout');
-    // this.props.navigation.navigate('PaymentMethod', { cartdata: this.state.cartData, adddata: this.state.adddata, userID: this.state.user_ID, totalamountpay: this.state.totaloriginalprice, shippingtime: this.state.shippingtiming, })
-    var amt =   this.state.discountdata !== undefined ?
-        this.state.totaloriginalprice && this.state.discountin === "Percent" ?
-            this.state.totaloriginalprice - (this.state.totaloriginalprice * this.state.discountvalue)/ 100
-            : this.state.totaloriginalprice - this.state.discountvalue
-        : this.state.totaloriginalprice;
-    this.props.navigation.navigate('PaymentMethod', { cartdata: this.state.cartData, adddata: this.state.adddata, userID: this.state.user_ID, totalamountpay: amt, discount: this.state.discountvalue, shippingtime: this.state.shippingtiming, })
+    // this.props.navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, totalamountpay: totaloriginalprice, shippingtime: shippingTiming, })
+    var amt =   discountdata !== undefined ?
+        totaloriginalprice && discountin === "Percent" ?
+            totaloriginalprice - (totaloriginalprice * discountvalue)/ 100
+            : totaloriginalprice - discountvalue
+        : totaloriginalprice;
+    navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, totalamountpay: amt, discount: discountvalue, shippingtime: shippingTiming, })
   }
 
-  handleDelete = (id) => {
-    Alert.alert("", "Are you sure you want to delete ?", [
-      { text: "Cancel" },
-      {
-        text: "Delete",
-        onPress: () => {
-          this.deleteCompetitor(id);
-        }
-      },
-    ]);
-  };
+  // const handleDelete = (id) => {
+  //   Alert.alert("", "Are you sure you want to delete ?", [
+  //     { text: "Cancel" },
+  //     {
+  //       text: "Delete",
+  //       onPress: () => {
+  //         this.deleteCompetitor(id);
+  //       }
+  //     },
+  //   ]);
+  // };
 
-  render() {
-    const { navigate, goBack } = this.props.navigation;
-    let fromtotimes = this.state.shippingtimes;
     return (
       <React.Fragment>
         <HeaderBar5
-          goBack={goBack}
+          goBack={navigation.goBack}
           headerTitle={'Order Summary'}
-          navigate={navigate}
+          navigate={navigation.navigate}
         />
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
             <View style={styles.padhr15}>
               <View style={styles.addcmporder}>
                 <View style={styles.orderaddchkbx}>
-                  <Text style={styles.addname}>{this.state.adddataname} </Text>
-                  <Text style={styles.addoffice}> {this.state.adddataaddType} </Text>
+                  <Text style={styles.addname}>{addDataName}</Text>
+                  <Text style={styles.addoffice}>{addDataAddType}</Text>
                 </View>
-                <View style={styles.orderpadhr18}>
-                  <Text style={styles.address}> {this.state.adddataaddressLine1}</Text>
+                <View style={{}}>
+                  <Text style={styles.address}>{addDataAddressLine1}</Text>
                   <View style={styles.mobflx}>
                     <Text style={styles.mobileno}>Mobile:</Text>
-                    <Text style={styles.mobilenum}>{this.state.adddatamobileNumber}</Text>
+                    <Text style={styles.mobilenum}>{addDataMobileNumber}</Text>
                   </View>
                   <View style={styles.confirmbtn}>
                     <TouchableOpacity >
                       <Button
-                        onPress={() => this.props.navigation.navigate('AddressDefaultComp', this.state.user_ID)}
+                        onPress={() => navigation.navigate('AddressDefaultComp', user_id)}
                         title={"Change or Add Address"}
                         buttonStyle={styles.button1}
                         containerStyle={styles.buttonContainer1}
@@ -217,12 +205,12 @@ export default class OrderSummary extends React.Component {
                   <View style={[styles.inputWrapper]}>
                     <View style={styles.inputImgWrapper}></View>
                     <View style={styles.inputTextWrapper}>
-                      {/* {console.log("Times in data=>",this.state.gettimes)} */}
+                      {/* {console.log("Times in data=>",getTimes)} */}
                       <Dropdown
                         placeholder={"-- Select Time --"}
-                        onChangeText={(value) => this.handleTypeChange(value)}
-                        data={this.state.gettimes}
-                        value={this.state.shippingtiming}
+                        onChangeText={(value) => handleTypeChange(value)}
+                        data={getTimes}
+                        value={shippingTiming}
                         containerStyle={styles.ddContainer}
                         dropdownOffset={{ top: 0, left: 0 }}
                         itemTextStyle={styles.ddItemText}
@@ -245,9 +233,9 @@ export default class OrderSummary extends React.Component {
               <View style={styles.formWrapper}>
                 <Text style={styles.totaldata}>You're Buying</Text>
                 <View style={styles.cartdetails}>
-                  {!this.state.loading ?
-                    this.state.cartData && this.state.cartData.length > 0 ?
-                      this.state.cartData.map((item, index) => {
+                  {!loading ?
+                    cartData && cartData.length > 0 ?
+                      cartData.map((item, index) => {
                         return (
                           <View key={index} style={styles.proddetails}>
                             <View style={styles.flxdir}>
@@ -300,18 +288,18 @@ export default class OrderSummary extends React.Component {
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdata}>
                       <View style={styles.flx7}>
-                        <Text style={styles.totaldata}>Total ({this.state.subtotalitems} Item(s)) </Text>
+                        <Text style={styles.totaldata}>Total ({subtotalitems} Item(s)) </Text>
                       </View>
                       <View style={styles.flx3}>
                         <View style={styles.endrow}>
                           <Icon
-                            name={this.state.currency}
+                            name={currency}
                             type="font-awesome"
                             size={15}
                             color="#666"
                             iconStyle={styles.iconstyle}
                           />
-                          <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{this.state.totaloriginalprice}</Text>
+                          <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{totaloriginalprice}</Text>
                         </View>
                       </View>
                     </View>
@@ -326,9 +314,9 @@ export default class OrderSummary extends React.Component {
                         <View style={styles.endrow}>
                         
                         { 
-                          this.state.discountin === "Amount" ? 
+                          discountin === "Amount" ? 
                             <Icon
-                              name={this.state.currency}
+                              name={currency}
                               type="font-awesome"
                               size={15}
                               color="#666"
@@ -336,10 +324,10 @@ export default class OrderSummary extends React.Component {
                             />
                           : null 
                         }
-                        <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{this.state.discountvalue > 1 ? this.state.discountvalue : 0.00}</Text>
+                        <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{discountvalue > 1 ? discountvalue : 0.00}</Text>
                          
                          {
-                           this.state.discountin === "Percent" ? 
+                           discountin === "Percent" ? 
                               <Icon
                                 name="percent"
                                 type="font-awesome"
@@ -351,7 +339,7 @@ export default class OrderSummary extends React.Component {
                           } 
                          
                          
-                          {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{this.state.discountvalue}</Text> */}
+                          {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{discountvalue}</Text> */}
                         </View>
                       </View>
                     </View>
@@ -375,24 +363,24 @@ export default class OrderSummary extends React.Component {
                       <View style={styles.flx3}>
                         <View style={styles.endrow}>
                           <Icon
-                            name={this.state.currency}
+                            name={currency}
                             type="font-awesome"
                             size={15}
                             color="#666"
                             iconStyle={styles.iconstyle}
                           />
-                          <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{  this.state.discountdata !== undefined ?
-                                            this.state.totaloriginalprice && this.state.discountin === "Percent" ?
-                                                    this.state.totaloriginalprice - (this.state.totaloriginalprice * this.state.discountvalue)/ 100
-                                                    : this.state.totaloriginalprice - this.state.discountvalue
-                                                : this.state.totaloriginalprice}</Text>
+                          <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{  discountdata !== undefined ?
+                                            totaloriginalprice && discountin === "Percent" ?
+                                                    totaloriginalprice - (totaloriginalprice * discountvalue)/ 100
+                                                    : totaloriginalprice - discountvalue
+                                                : totaloriginalprice}</Text>
                         </View>
                       </View>
                     </View>
                     <View style={styles.margTp20}>
                       <TouchableOpacity >
                         <Button
-                          onPress={() => this.paymentmethodspage()}
+                          onPress={() => paymentmethodspage()}
                           title={"PROCEED TO BUY"}
                           buttonStyle={styles.button1}
                           containerStyle={styles.buttonContainer1}
@@ -410,7 +398,7 @@ export default class OrderSummary extends React.Component {
           <Footer />
         </View>
 
-        <Modal isVisible={this.state.removewishlistmodal}
+        {/* <Modal isVisible={removewishlistmodal}
           onBackdropPress={() => this.setState({ removewishlistmodal: false })}
           coverScreen={true}
           hideModalContentWhileAnimating={true}
@@ -437,8 +425,7 @@ export default class OrderSummary extends React.Component {
               </View>
             </View>
           </View>
-        </Modal>
+        </Modal> */}
       </React.Fragment>
     );
-  }
-}
+})

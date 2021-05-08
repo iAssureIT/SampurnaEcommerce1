@@ -5,18 +5,18 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert,
-  AsyncStorage,ActivityIndicator,
+  Alert,ActivityIndicator,
 } from 'react-native';
 import { Header, Button, Icon, SearchBar,CheckBox } from "react-native-elements";
 import axios from "axios";
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class AddressMenu extends React.Component{
   constructor(props){

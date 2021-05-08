@@ -9,7 +9,7 @@ import * as Yup             from 'yup';
 import {withCustomerToaster} from '../../../redux/AppState.js';
 import styles  from '../../../AppDesigns/currentApp/styles/ScreenStyles/ForgotPasswordOTPStyles.js';
 import {useDispatch}        from 'react-redux';
-import {useNavigation}      from '../../../config/useNavigation.js';
+
 import {Formik}             from 'formik';
 import commonStyle         from '../../../AppDesigns/currentApp/styles/CommonStyles.js';
 import OTPInputView         from '@twotalltotems/react-native-otp-input';
@@ -24,9 +24,9 @@ const LoginSchema = Yup.object().shape({
 //wrap component with withCustomerToaster hoc
 export const ForgotPasswordOTP = withCustomerToaster((props) => {
   const [btnLoading, setLoading] = useState(false);
-  const {setToast} = props; //setToast function bhetta
+  const {setToast,navigation} = props; //setToast function bhetta
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  
   const user_id = navigation.getParam('user_id');
   console.log("user_id",user_id);
   return (

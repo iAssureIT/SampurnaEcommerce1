@@ -35,7 +35,7 @@ export default  class HeaderBar5 extends ValidationComponent {
 
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // console.log(nextProps);
     if(nextProps){
       this.setState({

@@ -3,97 +3,52 @@ import {
   Text,
   View,
   TouchableOpacity,
-  AsyncStorage,
   Image
 } from "react-native";
-import {  Icon ,SearchBar  } from 'react-native-elements';
-import ValidationComponent from "react-native-form-validator";
-import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FooterStyles.js';
-import axios                      from 'axios';
-import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
-import { withNavigation }                   from 'react-navigation';
-class Footer extends ValidationComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText:'',
-      getCartCountData:''
+import {  Icon ,SearchBar  }  from 'react-native-elements';
+import ValidationComponent    from "react-native-form-validator";
+import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FooterStyles.js';
+import axios                  from 'axios';
+import {colors}               from '../../AppDesigns/currentApp/styles/styles.js';
+import AsyncStorage           from '@react-native-async-storage/async-storage';
+
+import { getWishList } 		   from '../../redux/wishDetails/actions';
+import { connect,
+  useDispatch,
+  useSelector }         from 'react-redux';
+
+  export const Footer = (props)=>{
+    const {navigation}=props;
+  const [cartCountData,setCartCountData] = useState('');
+  const [user_id,setUserId] = useState('');
+  
+  const dispatch 		= useDispatch();
+
+  useEffect(() => {
+    getData()
+  },[user_id]);
+
+  handleNavigation = (screen) =>{
+    this.props.navigate(screen);
+  }
+  const getData=async()=>{
+    var data = await AsyncStorage.multiGet(['user_id','token']);
+    setUserId(data[0][1]);
+    if(data[0][1]){
+      getCartCount(data[0][1]);
     }
   }
 
-  _goBack = () =>{
-    this.props.goBack();
-  }
-  
-  UNSAFE_componentWillMount() {
-   
-  }
-
-    handleNavigation = (screen) =>{
-      this.props.navigate(screen);
-
-  }
-
-
-  componentDidMount(){
-    AsyncStorage.multiGet(['user_id','token'])
-    .then((data)=>{
-     userId = data[0][1],
-      this.setState({
-        userId : userId,
-      },()=>{
-        console.log('userId',this.state.userId)
-      })
-  })
-    this.getCartCount();
-      
-  }
-
-  getCartCount(){
-    axios.get("/api/Carts/get/count/"+this.state.user_ID)
-    .then((response)=>{
-      console.log("this.state.user_ID ============== ",this.state.user_ID);
-      console.log("response.data getCartCountData =========>", response.data);
-      this.setState({
-        getCartCountData: response.data,    
-      })
+  const getCartCount=(user_id)=>{
+    axios.get("/api/Carts/get/count/"+user_id)
+    .then((response)=>{ 
+      setCartCountData(response.data)
     }) 
     .catch((error)=>{
-      // console.log('error', error);
+      console.log('error', error);
     })
   }
 
-
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
-    if(nextProps){
-      this.setState({
-        count:parseInt(nextProps.count)
-      })
-    }
-  }
-  updateSearch = searchText => {
-    this.setState({ searchText });
-  };
-
-  componentWillUnmount() {
-  }
-  HomeNavigate() {
-      this.props.navigation.navigate('Dashboard');
-  }
-  cart() {
-      this.props.navigation.navigate('CartComponent',{user_ID:this.state.userId});
-  }
-  wishlist() {
-      this.props.navigation.navigate('WishlistComponent',{user_ID:this.state.userId});
-  }
-
-  _goBack = () => {
-    this.props.goBack();
-  };
-
-  render() {
-    var { navigation } = this.props;
     return (
      <View>
           <View  style={styles.footer}>
@@ -101,7 +56,7 @@ class Footer extends ValidationComponent {
                {/* this.props.navigation('') */}
                
                     <View style={styles.iconOuterWrapper}>
-                      <TouchableOpacity onPress={() => this.HomeNavigate()} >  
+                      <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} >  
                       {/* <TouchableOpacity onPress={()=> this.props.navigation.navigate('Dashboard')} > */}
                          <Icon name="home" type="feather" size={25}  color="#666"/>   
                          <Text style={styles.footerTitle}>Home</Text>
@@ -110,7 +65,7 @@ class Footer extends ValidationComponent {
                 
                     <View>
                      <View style={styles.Wrapper}>
-                          <TouchableOpacity onPress={()=> this.cart()}>
+                          <TouchableOpacity onPress={()=> navigation.navigate('CartComponent',{user_ID:user_id})}>
                                <View style={styles.outerWrapper}>
                                     <Icon name="shopping-cart" type="feather" size={20}  color="#fff"/>
                                </View>
@@ -119,7 +74,7 @@ class Footer extends ValidationComponent {
                     </View>
 
                     <View style={styles.iconOuterWrapper2}>
-                        <TouchableOpacity onPress={()=> this.wishlist()}>
+                        <TouchableOpacity onPress={()=> {dispatch(getWishList(user_id));navigation.navigate('WishlistComponent',{user_ID:user_id})}}>
                           <Icon name="heart-o" type="font-awesome" size={20}  color="#666"/>
                           <Text style={styles.footerTitle}>Wishlist</Text>
                         </TouchableOpacity>
@@ -130,5 +85,3 @@ class Footer extends ValidationComponent {
       
     );
   }
-}
-export default  withNavigation(Footer);

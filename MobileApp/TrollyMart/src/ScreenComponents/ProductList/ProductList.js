@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList, Alert
+  TouchableOpacity, Image, FlatList, Alert,SafeAreaView
 } from 'react-native';
 import Modal                  from "react-native-modal";
 import { Dropdown }           from 'react-native-material-dropdown-v2';
@@ -12,13 +12,16 @@ import { colors }             from '../../AppDesigns/currentApp/styles/styles.js
 import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {withCustomerToaster}  from '../../redux/AppState.js';
 import AsyncStorage           from '@react-native-async-storage/async-storage';
-import {useNavigation}        from '../../config/useNavigation.js';
-import { connect,useDispatch,useSelector }from 'react-redux';
-import { getList } 		              from '../../redux/productList/actions';
-import { getWishList } 		          from '../../redux/wishDetails/actions';
 
+import { connect,
+        useDispatch,
+        useSelector }         from 'react-redux';
+import { getList } 		        from '../../redux/productList/actions';
+import { getWishList } 		    from '../../redux/wishDetails/actions';
+import { useNavigation }                from '@react-navigation/native';
 export const ProductList = withCustomerToaster((props)=>{
   const {setToast} = props; 
+  const navigation = useNavigation();
   const dispatch 		= useDispatch();
   const [productImg,setProductImg]= useState([]);
   const [newProducts,setNewProducts]= useState([]);
@@ -27,19 +30,17 @@ export const ProductList = withCustomerToaster((props)=>{
   const [type,setType]= useState('');
   const [addtocart,setAddtocart]= useState(false);
   const [wishlisted,setWishlisted]= useState(false);
-  const [alreadyincarts,setAlreadyincarts]= useState(false);
   const [wishlistedproduct,setWishlistedproduct]= useState(false);
   const [wishlistedalready,setWishlistedalready]= useState(false);
   const [wishlistremove,setWishlistremove]= useState(false);
   const [packsizes,setPacksizes]= useState('');
   const [user_id,setUserId]= useState('');
   const [token,setToken]= useState('');
-  const navigation = useNavigation();
+  
 
   useEffect(() => {
-    console.log("useEffect");
     getData()
-  },[]);
+  },[props.newProducts]);
 
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
@@ -65,18 +66,8 @@ export const ProductList = withCustomerToaster((props)=>{
     setProductDetails(props.newProducts);
     setType(props.type);
     var data =  await AsyncStorage.multiGet(['user_id', 'token']);
-    console.log("data",data);
     setUserId(data[0][1]);
     setToken(data[1][1]);
-    let wished = [];
-    for (var i = 0; i < props.wishList.length; i++) {
-      wished.push({
-        'product_ID': props.wishList[i].product_ID,
-      })
-      if (wished[i].product_ID) {
-        setWished(wished)
-      }
-    }
   }
 
  
@@ -88,22 +79,18 @@ export const ProductList = withCustomerToaster((props)=>{
 
   const addToCart=(productid)=>{
     const formValues = {
-      "user_ID": props.userId,
-      "product_ID": productid,
-      "quantity": packsizes === "" || 0 ? 1 : packsizes,
+      "user_ID"     : props.userId,
+      "product_ID"  : productid,
+      "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
     }
-    console.log("formValues addtocart==>", formValues);
     axios
       .post('/api/Carts/post', formValues)
       .then((response) => {
-        console.log("response",response);
         setAddtocart(true);
         setToast({text: 'Product is added to cart.', color: 'green'});
       })
       .catch((error) => {
-        setAlreadyincarts(true);
         console.log("error",error);
-        // navigation.navigate('App')
         setToast({text: 'Product is already in cart.', color: colors.warning});
       })
   }
@@ -119,54 +106,29 @@ export const ProductList = withCustomerToaster((props)=>{
     }
     axios.post('/api/wishlist/post', wishValues)
       .then((response) => {
-        console.log("response check",response);
-          dispatch(getList('featured'));
-          dispatch(getList('exclusive'));
-          dispatch(getList('discounted'));
-          dispatch(getWishList(user_id));
-          setToast({text: response.data.message, color: 'green'});
+        dispatch(getList('featured',user_id));
+        dispatch(getList('exclusive',user_id));
+        dispatch(getList('discounted',user_id));
+        dispatch(getWishList(user_id));
+        setToast({text: response.data.message, color: 'green'});
       })
       .catch((error) => {
         console.log('error', error);
       })
   }
 
-  const removefromwishlist_func = (id)=> {
-    console.log("ididid", id);
-    axios.delete('/api/wishlist/delete/' + id)
-      .then((response) => {
-        setToast({text: response.data.message, color: 'green'});
-        dispatch(getList('featured'));
-        dispatch(getList('exclusive'));
-        dispatch(getList('discounted'));
-        dispatch(getWishList(data[0][1]));
-      })
-      .catch((error) => {
-        console.log("error",error);
-        navigation.navigate('App')
-        setToast({text: 'Something went wrong.', color: 'red'});
-      })
-  }
 
   const _renderlist = ({ item, i })=>{
-    var x = wished && wished.length > 0 ? wished.filter((abc) => abc.product_ID === item._id) : [];
-    console.log("xxxxxxxxxxxxxxx",x);
-    var productid = ''; 
-    var y = x.map((wishli, i) => { productid = wishli.product_ID });
-    console.log("productid",productid);
-    console.log("item",item._id);
-    console.log("item",productid === item._id);
     var availablessiz = [];
     availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
-    const packsizes = availablessiz.length > 0 ? availablessiz[0].value : '';
-   
+    const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
     return (
       <View key={i}  style={styles.mainrightside} >
         <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id })}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
               {
-                item.productImage.length > 0 ?
+                item.productImage && item.productImage.length > 0 ?
                   <Image
                     source={{ uri: item.productImage[0] }}
                     style={styles.subcatimg}
@@ -178,17 +140,9 @@ export const ProductList = withCustomerToaster((props)=>{
                     style={styles.subcatimg}
                   />
               }
-              {
-                productid === item._id ?
-                  <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => removefromwishlist_func(item._id)} >
-                    <Icon size={22} name='heart' type='font-awesome' color={colors.theme} />
-                  </TouchableOpacity>
-                  :
-
-                  <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id)} >
-                    <Icon size={22} name='heart-o' type='font-awesome' color={colors.theme} />
-                  </TouchableOpacity>
-              }
+                <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id)} >
+                  <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
+                </TouchableOpacity>
               {
                 item.discountPercent > 0 ?
                   <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
@@ -238,7 +192,7 @@ export const ProductList = withCustomerToaster((props)=>{
               </View>
             </View>
             <View style={styles.addtocartbtn}>
-              {availablessiz.length > 0 ? 
+              {availablessiz && availablessiz.length > 0 ? 
               <View style={styles.addbtn}>
                 <View style={[styles.inputWrapper]}>
                   <View style={styles.inputImgWrapper}></View>
@@ -275,10 +229,10 @@ export const ProductList = withCustomerToaster((props)=>{
   return (
     <React.Fragment>
         <View style={styles.maintitle}>
-          <View style={styles.maintitle}>
+          {props.title&&<View style={styles.maintitle}>
             <Text style={styles.title}>{props.title} </Text>
-          </View>
-          <View style={styles.viewalltxt}>
+          </View>}
+          {props.route &&<View style={styles.viewalltxt}>
             <View style={styles.sizedrpbtn}>
               <Button
                 onPress={() => viewallfeatureprod()}
@@ -288,9 +242,9 @@ export const ProductList = withCustomerToaster((props)=>{
                 containerStyle={styles.buttonContainer2}
               />
             </View>
-          </View>
+          </View>}
         </View>
-        <View style={styles.proddets}>
+        <SafeAreaView style={styles.proddets}>
           {productsDetails &&
             <FlatList
               data={productsDetails}
@@ -298,7 +252,8 @@ export const ProductList = withCustomerToaster((props)=>{
               renderItem={_renderlist} 
               nestedScrollEnabled={true}
               numColumns={2}
-              // nestedScrollEnabled
+              keyExtractor={item => item._id}
+              nestedScrollEnabled
               // refreshControl={
               //     <RefreshControl
               //       refreshing={this.state.refresh}
@@ -309,7 +264,7 @@ export const ProductList = withCustomerToaster((props)=>{
           }
           {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>
             </View>*/}
-        </View> 
+        </SafeAreaView> 
       </React.Fragment>
     );
 })

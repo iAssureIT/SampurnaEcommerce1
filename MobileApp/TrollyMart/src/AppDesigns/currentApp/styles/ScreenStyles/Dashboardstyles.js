@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems:'center',
     minHeight:'100%',
     backgroundColor: '#fff',
-    padding:15
+    // padding:15
   },
   marginBottom30:{
     marginBottom:30,

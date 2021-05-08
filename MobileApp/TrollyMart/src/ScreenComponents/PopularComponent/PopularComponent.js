@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
-  AsyncStorage,
   TextInput,
   Alert
 } from 'react-native';
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/PopularComponentsStyles.js';
 import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import ValidationComponent from "react-native-form-validator";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import Loading from '../../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
 
 const window = Dimensions.get('window');

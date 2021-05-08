@@ -160,6 +160,7 @@ export default StyleSheet.create({
   },
     formInputView: {
     width:'100%',
+    paddingHorizontal:10,
   },
 
   marginBottom20:{
@@ -234,16 +235,18 @@ export default StyleSheet.create({
   },
 
   ddContainer:{
-    backgroundColor:'transparent',
+    backgroundColor:'#fff',
     height: "auto",
-    paddingLeft:4
+    paddingLeft:4,
+    backgroundColor:"#fff"
     // fontFamily:"Montserrat-Regular"
   },
   ddItemText:{
     fontFamily:"Montserrat-Regular"
   },
   ddInputContainer:{
-    borderBottomColor: 'transparent',
+    borderBottomColor: '#fff',
+    backgroundColor:"#fff"
     // paddingLeft:5
   },
   ddLabelText:{
@@ -322,6 +325,7 @@ export default StyleSheet.create({
     backgroundColor:'#fff',
     marginTop:10,marginBottom:15,
     borderRadius:15,
+    minHeight:50,
     
   },
   addcmporder:{
@@ -344,7 +348,8 @@ export default StyleSheet.create({
     flex:0.9,
   },
   addchkbx:{
-    flex:1,flexDirection:'row',paddingHorizontal:2,paddingVertical:2,
+    flex:1,flexDirection:'row',paddingHorizontal:2,paddingVertical:2,alignItems:"center",
+    justifyContent:"center"
   },
   orderaddchkbx:{
     flexDirection:'row',paddingHorizontal:2,paddingVertical:2,

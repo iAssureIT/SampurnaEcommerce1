@@ -8,8 +8,6 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
-  AsyncStorage,
-
 } from 'react-native';
 import BouncingPreloader from 'react-native-bouncing-preloader';
 import { Dropdown } from 'react-native-material-dropdown-v2';
@@ -17,12 +15,13 @@ import { Icon, Button } from "react-native-elements";
 import Modal from "react-native-modal";
 import {Menu} from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export default class AllExclusiveProducts extends React.Component {
@@ -148,7 +147,7 @@ export default class AllExclusiveProducts extends React.Component {
   //     .catch((error)=>{})
   // }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.allExclusiveproducts();
     this.wishlisteddata();
   }

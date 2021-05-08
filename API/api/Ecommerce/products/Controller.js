@@ -1093,7 +1093,9 @@ exports.wishlist_product = (req,res,next)=>{
 
 
 exports.list_productby_type_mobile = (req,res,next)=>{
+    console.log("req.params=>",req.params);
     var {productType,user_ID} = req.params;
+    console.log("user_ID",user_ID);
     var selector={};
     var limit = 10;
     if(productType == 'featured'){
@@ -1121,34 +1123,33 @@ exports.list_productby_type_mobile = (req,res,next)=>{
             for (let k = 0; k < products.length; k++) {
                 products[k] = {...products[k]._doc, isWish:false};
             }
-            
-            // console.log("products => ",products);
-            if(user_ID){
+            if(user_ID!=='null'){
                 Wishlists.find({user_ID:user_ID})
                 .then(wish=>{
-                    // console.log("wish => ",wish)
                     if(wish.length > 0){
-                        for(var i=0; i<products.length; i++){
-                            // console.log("wisinside for => ")
-                            for(var j=0; j<wish.length; j++){
-                                if(String(wish[j].product_ID) === String(products[i]._id)){
-                                    // console.log("Inside")
-                                    products[i]= {...products[i], isWish:true};
-                                    breakStatus = true;
+                        for(var i=0; i<wish.length; i++){
+                            for(var j=0; j<products.length; j++){
+                                if(String(wish[i].product_ID) === String(products[j]._id)){
+                                    products[j]= {...products[j], isWish:true};
                                     break;
                                 }
                             }
                         }   
-                        if(j >= wish.length){
-                            // console.log("final productlist => ", products);
+                        if(i >= wish.length){
                             res.status(200).json(products);
                         }       
                     }else{
                         res.status(200).json(products);
                     }
                  })
+                 .catch(err =>{
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
             }else{
-                res.status(200).json(productsr);
+                res.status(200).json(products);
             }    
         }else{
             res.status(404).json('Product Details not found');

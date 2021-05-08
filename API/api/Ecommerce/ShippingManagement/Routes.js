@@ -8,7 +8,7 @@ router.post('/post', 													checkAuth, shippingController.insert_shipping)
 
 router.get('/get/list', 												checkAuth, shippingController.get_Shipping);
 
-router.get('/get/list-with-limits/:startRange/:limitRange', checkAuth, shippingController.get_Shipping_with_limits);
+router.get('/get/list-with-limits/:startRange/:limitRange', shippingController.get_Shipping_with_limits);
 
 router.get('/get/count', 												checkAuth, shippingController.count_section);
 

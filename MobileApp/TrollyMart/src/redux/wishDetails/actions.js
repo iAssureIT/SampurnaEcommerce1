@@ -14,10 +14,9 @@ export const getWishList= (user_id) => {
         type: SET_LOADING,
         payload: true,
     });
-    console.log("user_id",user_id);
+    console.log("user_id getWishList",user_id);
         axios.get('/api/wishlist/get/userwishlist/'+user_id)
         .then((response)=>{
-            console.log("response getList",response,"user_id",user_id);
             dispatch({
                 type    : WISH_LIST,
                 payload : {
@@ -26,8 +25,7 @@ export const getWishList= (user_id) => {
             });
         })
         .catch((error)=>{
-            console.log("error getList",error);
-            navigation.navigate('App')
+            console.log("error getWishList",error);
             // setToast({text: 'Something went wrong.', color: 'red'});
         })
     };

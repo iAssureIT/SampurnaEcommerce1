@@ -44,8 +44,7 @@ export default class Home extends React.Component{
     };
   }
 
-  componentWillReceiveProps(nextProps){
-  }
+ 
 
   updateMenuState(isOpen) {
     this.setState({ isOpen });

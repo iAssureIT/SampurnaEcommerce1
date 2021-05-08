@@ -10,12 +10,12 @@ import {
   Image, TextInput,
   Platform,
   Alert,
-  AsyncStorage
 } from 'react-native';
 import RootOTPVerification from './RootOTPVerification.js';
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/OTPVerificationStyles.js';
 import { colors, sizes }   from '../../../AppDesigns/currentApp/styles/styles.js';
 import axios                      from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class OTPVerification extends Component {
   render() {

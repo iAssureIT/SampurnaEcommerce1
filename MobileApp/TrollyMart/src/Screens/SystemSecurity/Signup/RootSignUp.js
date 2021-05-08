@@ -20,13 +20,13 @@ import {FormPhoneInput}          from '../../../ScreenComponents/PhoneInput/Phon
 import {FormButton}         from '../../../ScreenComponents/FormButton/FormButton';
 import * as Yup             from 'yup';
 import {useDispatch}        from 'react-redux';
-import {useNavigation}      from '../../../config/useNavigation.js';
+
 import {emailValidator,specialCharacterValidator,mobileValidator}     from '../../../config/validators.js';
 import {Formik}             from 'formik';
 import {setToast, withCustomerToaster} from '../../../redux/AppState.js';
 import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
-import PhoneInput from "react-native-phone-number-input";
+import PhoneInput           from "react-native-phone-number-input";
 
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
@@ -60,9 +60,9 @@ const window = Dimensions.get('window');
   export const RootSignUp = withCustomerToaster((props)=>{
     const [btnLoading, setLoading] = useState(false);
     const [password_matched, setPasswordMatched] = useState(false);
-    const {setToast} = props; //setToast function bhetta
+    const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
-    const navigation = useNavigation();
+    
       return (
         <React.Fragment>
           <Formik
@@ -70,7 +70,7 @@ const window = Dimensions.get('window');
               console.log("data",data);
               if(password_matched){
                 setLoading(true);
-                let {firstName, lastName,mobileNumber,email_id,password} = data;
+                let {firstName, lastName,mobileNumber,email_id,password,countryCode} = data;
                 var formValues = {
                   firstname   : firstName,
                   lastname    : lastName,
@@ -80,6 +80,7 @@ const window = Dimensions.get('window');
                   pwd         : password,
                   role        : 'user',
                   status      : 'unverified',
+                  countryCode : countryCode
                 }
                 axios.post('/api/auth/post/signup/user/otp',formValues)
                 .then((response) => {
@@ -116,18 +117,19 @@ const window = Dimensions.get('window');
                   setToast({text: 'Something went wrong.', color: 'red'});
                 })
               }else{
-                setToast({text: 'Please confirm your password', color: 'red'});
+                setToast({text: 'Please confirm your password', color: colors.warning});
                 setLoading(false);
               }
             }}
             validationSchema={LoginSchema}
             initialValues={{
-              firstName : '',
-              lastName: '',
-              mobileNumber : '',
-              email_id  : '',
-              password  : '',
-              confirm_password : ''
+              firstName         : '',
+              lastName          : '',
+              mobileNumber      : '',
+              email_id          : '',
+              password          : '',
+              confirm_password  : '',
+              countryCode       : ''
             }}>
             {(formProps) => (
               <FormBody
@@ -162,6 +164,7 @@ const window = Dimensions.get('window');
     const [value, setValue] = useState("");
     const [formattedValue, setFormattedValue] = useState("");
     const [valid, setValid] = useState(false);
+    const [countryCode, setCountryCode] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
   const phoneInput = useRef(null);
 
@@ -179,6 +182,10 @@ const window = Dimensions.get('window');
         }
       }
   }
+
+  const getCountryCode=(e)=>{
+      console.log("e",e);
+  } 
 
   return (
        <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
@@ -204,7 +211,7 @@ const window = Dimensions.get('window');
                     touched         = {touched}
                     iconName        = {'user-circle-o'}
                     iconType        = {'font-awesome'}
-                    autoCapitalize  = "none"
+                    // autoCapitalize  = "none"
                   />
                   <FormInput
                     labelName       = "Last Name"
@@ -216,7 +223,7 @@ const window = Dimensions.get('window');
                     touched         = {touched}
                     iconName        = {'user-circle-o'}
                     iconType        = {'font-awesome'}
-                    autoCapitalize  = "none"
+                    // autoCapitalize  = "none"
                   />
                  {/* <FormPhoneInput 
                     ref={phoneInput}
@@ -240,7 +247,7 @@ const window = Dimensions.get('window');
                   <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
                       <Text>Phone Number</Text>{' '}
                       <Text style={{color: 'red', fontSize: 12}}>
-                      {props.required && '*'}
+                      *
                       </Text>
                   </Text>
                       <PhoneInput
@@ -248,13 +255,17 @@ const window = Dimensions.get('window');
                         defaultValue={value}
                         defaultCode="AE"
                         layout="first"
-                        onChangeFormattedText={(text) => {
+                        onChangeText={(text) => {
                           console.log("text",text);
-                          setValue(text);
-                          setFieldValue('mobileNumber',text)
                           const checkValid = phoneInput.current?.isValidNumber(text);
-                          console.log("checkValid",checkValid);
-                          setValid(checkValid)
+                          const callingCode = phoneInput.current?.getCallingCode(text);
+                          const countryCode = phoneInput.current?.getCountryCode(text);
+                          var mobileNumber = "+"+callingCode+" "+text;
+                          setValue(text);
+                          setFieldValue('mobileNumber',mobileNumber)
+                          setFieldValue('countryCode',countryCode)
+                          setValid(checkValid);
+
                         }}
                         containerStyle= {styles1.containerStyle}
                         textContainerStyle={styles1.textContainerStyle}

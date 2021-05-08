@@ -13,8 +13,7 @@ import {
   Image,
   TextInput,
   Alert,
-  Linking,
-  AsyncStorage
+  Linking
 } from 'react-native';
 import { Button, Icon }       from "react-native-elements";
 import ValidationComponent    from "react-native-form-validator";
@@ -22,6 +21,7 @@ import styles                 from './styles.js';
 import Modal                  from "react-native-modal";
 import { connect }            from 'react-redux';
 import { colors, sizes }       from '../../AppDesigns/currentApp/styles/styles.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const window = Dimensions.get('window');
 

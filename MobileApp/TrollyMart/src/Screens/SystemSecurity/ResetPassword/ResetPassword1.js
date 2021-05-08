@@ -10,13 +10,13 @@ import {
   Image, TextInput,
   Platform,
   Alert,
-  AsyncStorage
 } from 'react-native';
 
 import RootResetPassword    from './RootResetPassword.js';
 import styles                       from '../../../AppDesigns/currentApp/styles/ScreenStyles/ResetPasswordStyles.js';
 import { colors, sizes }    from '../../../AppDesigns/currentApp/styles/styles.js';
 import ValidationComponent  from "react-native-form-validator";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const window = Dimensions.get('window');
 

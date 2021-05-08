@@ -58,7 +58,7 @@ superparent:{
   flex:1,backgroundColor:'#f1f1f1'
   },
   flxpd:{
-    flex:0.4,padding:20
+    flex:0.4,paddingHorizontal:10
   },
   imgwdht:{
     width: "100%", height:150,
@@ -289,9 +289,6 @@ superparent:{
   padhr18:{
     paddingHorizontal:50
   },
-  orderpadhr18:{
-    paddingHorizontal:10
-  },
   addcmpbtn:{
     flex:0.5,paddingHorizontal:0
   },
@@ -300,7 +297,7 @@ superparent:{
     // flex:0.8,
   },
   addcmporder:{
-    backgroundColor:'#fff',marginTop:10,marginBottom:15,
+    backgroundColor:'#fff',marginTop:10,marginBottom:15,paddingHorizontal:15
   },
   flx8:{
     flex:0.8,
@@ -333,7 +330,7 @@ superparent:{
   },
   addname:{
     fontSize:14,fontFamily:"Montserrat-SemiBold",marginTop:15,
-    flex:0.7,alignItems:"flex-start",marginHorizontal:15,
+    flex:0.7,alignItems:"flex-start"
   },
   address:{
     fontSize:13,fontFamily:"Montserrat-Regular",color:'#666'
@@ -471,8 +468,8 @@ superparent:{
       alignItems:'center',
     },
     inputWrapper : {
-      width:'95%',
-    marginLeft:10,
+      width:'100%',
+      // marginLeft:10,
       // borderColor:'#666',
       borderColor:'#ed3c55',
       borderWidth:1,
@@ -605,7 +602,7 @@ superparent:{
       flex:0.5,paddingHorizontal:15,
     },
     confirmbtn:{
-      flex:0.5,paddingHorizontal:10,
+      flex:0.5
     },
     mobileno:{
       flex:0.2,fontSize:13,fontFamily:"Montserrat-Regular",color:'#666'

@@ -225,6 +225,7 @@ exports.user_signup_user = (req, res, next) => {
 };
 
 exports.user_signup_user_otp = (req, res, next) => {
+	console.log("req body",req.body);
 	var username = "EMAIL";
 	if(req.body.username){
 		if(req.body.username === "EMAIL"){
@@ -281,6 +282,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 															mobile: req.body.mobNumber,
 															createdAt: new Date(),
 															otpEmail: emailOTP,
+															countryCode : req.body.countryCode,
 															status: req.body.status ? req.body.status : "Inactive",
 															createdBy: req.body.createdBy,
 														},
@@ -644,6 +646,7 @@ exports.user_login_using_email = (req, res, next) => {
 													firstName: user.profile.firstname,
 													lastName: user.profile.lastname,
 													email: user.profile.email,
+													countryCode : user.profile.countryCode,
 													phone: user.profile.phone,
 													city: user.profile.city,
 													deliveryAddress: user.deliveryAddress,

@@ -45,7 +45,7 @@
 //     };
 //   }
 
-//   componentWillReceiveProps(nextProps){
+//   UNSAFE_componentWillReceiveProps(nextProps){
 //   }
 
 //   updateMenuState(isOpen) {

@@ -90,6 +90,7 @@ const userSchema = mongoose.Schema({
 						image 					: String,
 						otpMobile	  			: String,
 						pincode	  				: String,
+						countryCode             : String,
 						mobileVerified			: Boolean,
 						email 					: String,
 						otpEmail	  			: String,

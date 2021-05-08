@@ -37,7 +37,7 @@ export default  class HeaderBar3 extends ValidationComponent {
 
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps){
       this.setState({
         count:parseInt(nextProps.count)

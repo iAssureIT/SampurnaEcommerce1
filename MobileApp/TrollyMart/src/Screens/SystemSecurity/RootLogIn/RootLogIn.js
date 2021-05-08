@@ -16,7 +16,6 @@ import {FormInput}          from '../../../ScreenComponents/FormInput/FormInput'
 import {FormButton}         from '../../../ScreenComponents/FormButton/FormButton';
 import * as Yup             from 'yup';
 import {useDispatch}        from 'react-redux';
-import {useNavigation}      from '../../../config/useNavigation.js';
 import {emailValidator}     from '../../../config/validators.js';
 import {Formik}             from 'formik';
 import {withCustomerToaster} from '../../../redux/AppState.js';
@@ -36,10 +35,11 @@ const window = Dimensions.get('window');
 
 
   export const RootLogIn = withCustomerToaster((props)=>{
+    console.log("RootLogIn props",props)
     const [btnLoading, setLoading] = useState(false);
-    const {setToast} = props; //setToast function bhetta
+    const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
-    const navigation = useNavigation();
+    // 
       return (
         <React.Fragment>
           <Formik
@@ -74,6 +74,7 @@ const window = Dimensions.get('window');
                           lastName    : res.data.userDetails.lastName,
                           email       : res.data.userDetails.email,
                           mobile      : res.data.userDetails.mobile,
+                          countryCode : res.data.userDetails.countryCode,
                           fullName    : res.data.userDetails.fullName,
                           company_id  : res.data.userDetails.company_id,
                           companyID   : res.data.userDetails.companyID,
@@ -93,15 +94,15 @@ const window = Dimensions.get('window');
                   }else if(res.data.message === 'USER_BLOCK'){
                     setToast({text: "Please contact to admin", color: colors.warning});
                     setLoading(false);
-                  }else if(response.data.message === 'USER_UNVERIFIED'){
+                  }else if(res.data.message === 'USER_UNVERIFIED'){
                     setToast({text: "Your verification is still pending.", color: colors.warning});
                     var sendData = {
                       "event": "2",
-                      "toUser_id": response.data.userDetails.user_id,
+                      "toUser_id": res.data.userDetails.user_id,
                       "toUserRole":"user",
                         "variables": {
-                          "Username" : response.data.userDetails.firstName,
-                          "OTP" : response.data.userDetails.otpEmail,
+                          "Username" : res.data.userDetails.firstName,
+                          "OTP" : res.data.userDetails.otpEmail,
                         }
                       }
                       axios.post('/api/masternotifications/post/sendNotification', sendData)

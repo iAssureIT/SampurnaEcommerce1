@@ -133,7 +133,7 @@ export default class NotificationHeader extends ValidationComponent {
   UNSAFE_componentWillMount() {
    
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // console.log(nextProps);
     if(nextProps){
       this.setState({

@@ -8,12 +8,11 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
-  AsyncStorage,
   TextInput,
   Alert
 } from 'react-native';
 import { Header, Button, Icon, SearchBar } from "react-native-elements";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/BannerComponentStyles.js';
 import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import ValidationComponent from "react-native-form-validator";

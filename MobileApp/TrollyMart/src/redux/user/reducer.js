@@ -27,6 +27,7 @@ export default (state = initialUserState, {type, payload}) => {
         lastName    : payload.lastName,
         fullName    : payload.fullName,
         email       : payload.email,
+        countryCode : payload.countryCode,
         mobile      : payload.mobile,
         companyName : payload.companyName,
         user_id     : payload.user_id,

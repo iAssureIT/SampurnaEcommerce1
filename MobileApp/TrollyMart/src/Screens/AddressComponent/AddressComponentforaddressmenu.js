@@ -5,20 +5,20 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  AsyncStorage
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { TextField } from 'react-native-material-textfield';
 import { Button, Icon, } from "react-native-elements";
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import axios from "axios";
 import Modal from "react-native-modal";
 import ValidationComponent from 'react-native-form-validator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class AddressComponentforaddressmenu extends ValidationComponent{
   constructor(props) {
@@ -40,7 +40,7 @@ class AddressComponentforaddressmenu extends ValidationComponent{
       pincodeExists: false,
     };
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // this.allowpincodes();
   }
   updateMenuState(isOpen) {

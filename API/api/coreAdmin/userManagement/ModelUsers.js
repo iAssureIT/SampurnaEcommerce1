@@ -37,6 +37,7 @@ const userSchema = mongoose.Schema({
 						otpEmail	  			: String,
 						emailVerified			: Boolean,
 						mobileVerified			: Boolean,
+						countryCode             : String,
 						status					: String,
 						createdOn 				: String,
 					},

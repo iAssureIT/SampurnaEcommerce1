@@ -3,6 +3,7 @@ var ObjectID = require('mongodb').ObjectID;
 const Wishlists = require('./Model');
 
 exports.insert_wishlist = (req,res,next)=>{
+    console.log("check insert_wishlist");
 	Wishlists.find({user_ID:req.body.user_ID, product_ID:req.body.product_ID})
 		.exec()
 		.then(data =>{ 
@@ -100,31 +101,32 @@ exports.get_user_wishlist = (req,res,next)=>{
         .populate("product_ID")      
         .exec()
         .then(data=>{
-                //   console.log("wishlist res.data",data);
-                  var allData = data.map((x, i)=>{
-                    return {
-                        "_id"              : x.product_ID._id,
-                        "productName"      : x.product_ID.productName,
-                        "productNameRlang" : x.product_ID.productNameRlang,
-                        "brandNameRlang"   : x.product_ID.brandNameRlang,
-                        "productUrl"       : x.product_ID.productUrl,
-                        "originalPrice"    : x.product_ID.originalPrice,
-                        "availableQuantity": x.product_ID.availableQuantity,
-                        "size"             : x.product_ID.size,
-                        "shortDescription" : x.product_ID.shortDescription,
-                        "unit"             : x.product_ID.unit, 
-                        "bestSeller"       : x.product_ID.bestSeller,
-                        "brand"            : x.product_ID.brand,
-                        "category"         : x.product_ID.category,
-                        "currency"         : x.product_ID.currency,
-                        "discountPercent"  : x.product_ID.discountPercent,
-                        "discountedPrice"  : x.product_ID.discountedPrice,
-                        "productCode"      : x.product_ID.productCode,
-                        "productImage"     : x.product_ID.productImage,
-                        "product_ID"       : x.product_ID._id,
-                        "wishlist_ID"      : x._id
-                    }
-                });            
+                console.log("wishlist res.data",data);
+                var allData = data.map((x, i)=>{
+                return {
+                    "_id"              : x.product_ID._id,
+                    "productName"      : x.product_ID.productName,
+                    "productNameRlang" : x.product_ID.productNameRlang,
+                    "brandNameRlang"   : x.product_ID.brandNameRlang,
+                    "productUrl"       : x.product_ID.productUrl,
+                    "originalPrice"    : x.product_ID.originalPrice,
+                    "availableQuantity": x.product_ID.availableQuantity,
+                    "size"             : x.product_ID.size,
+                    "shortDescription" : x.product_ID.shortDescription,
+                    "unit"             : x.product_ID.unit, 
+                    "bestSeller"       : x.product_ID.bestSeller,
+                    "brand"            : x.product_ID.brand,
+                    "category"         : x.product_ID.category,
+                    "currency"         : x.product_ID.currency,
+                    "discountPercent"  : x.product_ID.discountPercent,
+                    "discountedPrice"  : x.product_ID.discountedPrice,
+                    "productCode"      : x.product_ID.productCode,
+                    "productImage"     : x.product_ID.productImage,
+                    "product_ID"       : x.product_ID._id,
+                    "wishlist_ID"      : x._id,
+                    "isWish"           : true
+                }
+            });            
             // console.log("allData===",allData);
             res.status(200).json(allData);
             

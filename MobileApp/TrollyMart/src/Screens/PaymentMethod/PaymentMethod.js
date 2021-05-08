@@ -1,130 +1,110 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {
   ScrollView,
   Text,
   View,
-  Image,AsyncStorage,
+  Image,
   Alert,ActivityIndicator,
 } from 'react-native';
 import { Button, Icon,} from "react-native-elements";
 import Modal from "react-native-modal";
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import axios from 'axios';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import { RadioButton } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {withCustomerToaster}  from '../../redux/AppState.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
-export default class PaymentMethod extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked: 'first',
-      inputFocusColor: colors.textLight,
-      isOpen: false,
-      btnLoading: false,
-      paymentmod: false,
-      paymentmethods: "cod",
-    };
-  }
-  componentDidMount() {
-    const cartdata = this.props.navigation.getParam('cartdata', 'No product_ID');
-    const userID = this.props.navigation.getParam('userID', 'No userID');
-    const adddata = this.props.navigation.getParam('adddata', 'No adddata');
-    const totalamountpay = this.props.navigation.getParam('totalamountpay', 'No totalamountpay');
-    const shippingtime = this.props.navigation.getParam('shippingtime', 'No shippingtime');
-    const discount = this.props.navigation.getParam('discount', 'No discount');
-    this.setState({
-      cartdata: cartdata,
-      user_ID: userID,
-      adddata: adddata,
-      discount: discount,
-      totalamountpay: totalamountpay,
-      shippingtime: shippingtime,
-    }, () => {
-    })
+export const PaymentMethod = withCustomerToaster((props)=>{
+  console.log(" PaymentMethod props",props)
+  const {navigation,route}=props;
+  
+  const [checked,setChecked]                = useState('first');
+  const [btnLoading,setBtnLoading]          = useState(false);
+  const [paymentmod,setPaymentMode]         = useState(false);
+  const [paymentmethods,setPaymentMethods]  = useState("cod");
+  // const [environment,setEnvironment]        = useState(false);
+  const [namepayg,setNamePayg]              = useState('');
+  const [partnerid,setPartnerId]            = useState('');
+  const [secretkey,setSecretKey]            = useState('');
+  const [status,setStatus]                  = useState('');
+  const [email,setEmail]                    = useState('');
+  const [fullName,setFullName]              = useState('');
+  const [mobNumber,setMobileNumber]         = useState('');
+
+  const {cartdata,userID,addData,totalamountpay,shippingtime,discount} = route.params;
+  console.log("navigation",navigation);
+  console.log("route",route);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData=()=>{
     var type = "PG"
     axios.post('/api/projectsettings/getS3Details/' + type)
-        .then(result => {
-            //    console.log('projectsettings Response===> ', result.data);
-            this.setState({
-                environment: result.data.environment,
-                namepayg: result.data.namepayg,
-                partnerid: result.data.partnerid,
-                secretkey: result.data.secretkey,
-                status: result.data.status,
-            })
-        })
-        .catch(err => {
-            console.log('Errr', err);
-        })
+    .then(result => {
+      console.log("getData result",result);
+        // setEnvironment(result.data.environment);
+        setNamePayg(result.data.namepayg);
+        setPartnerId(result.data.partnerid);
+        setSecretKey(result.data.secretkey);
+        setStatus(result.data.status);
+    })
+    .catch(err => {
+        console.log('Errr', err);
+    })
         
-        AsyncStorage.multiGet(['token', 'user_id'])
-        .then((data) => {
-          this.setState({ user_id: data[1][1] })
-          axios.get('/api/ecommusers/'+data[1][1])
-          .then((res) => {
-            // console.log("res.data.image==>", res.data.profile);
-            var dAddress = res.data.deliveryAddress.length>0 ? res.data.deliveryAddress[0].addressLine1 : null;
-            this.setState({
-                      fullName: res.data.profile.fullName,
-                      email: res.data.profile.email,
-                      mobNumber: res.data.profile.mobile,
-                    })
-            
-          })
-          .catch((error) => {
-            console.log('error', error)
-          });
-        });
+    AsyncStorage.multiGet(['token', 'user_id'])
+    .then((data) => {
+      axios.get('/api/ecommusers/'+data[1][1])
+      .then((res) => {
+        var dAddress = res.data.deliveryAddress.length>0 ? res.data.deliveryAddress[0].addressLine1 : null;
+        setFullName(res.data.profile.fullName);
+        setEmail(res.data.profile.email);
+        setMobileNumber(res.data.profile.mobile);
+      })
+      .catch((error) => {
+        console.log('error', error)
+      });
+    });
   }
-  handleDelete = (id) => {
-    Alert.alert("", "Are you sure you want to delete ?", [
-      { text: "Cancel" },
-      {
-        text: "Delete",
-        onPress: () => {
-          this.deleteCompetitor(id);
-        }
-      },
-    ]);
-  };
-  paymentgateway(){
-    this.setState({ checked: 'second',paymentmethods:"creditdebitcard" });
-    
-    // var amount = this.state.totalamountpay;
-    // this.props.navigation.navigate("RazorPaygateway", { amount: amount});  
-        
-  }
-  continuepage(id) {
-    // this.props.navigation.navigate('PGWebView')
-    this.setState({ btnLoading: true })
-    var cartItems = this.state.cartdata.map((a, i) => {
-      return {
-        "product_ID": a.productDetail._id,
-        "productName": a.productDetail.productName,
-        "discountPercent": a.productDetail.discountPercent,
-        "discountedPrice": a.productDetail.discountedPrice,
-        "originalPrice": a.productDetail.originalPrice,
-        "color": a.productDetail.color,
-        "size": a.productDetail.size,
-        "currency": a.productDetail.currency,
-        "quantity": a.quantity,
-        "subTotal": a.subTotal,
-        "saving": a.saving,
-        "productImage": a.productDetail.productImage,
-        "section_ID": a.productDetail.section_ID,
-        "section": a.productDetail.section,
-        "category_ID": a.productDetail.category_ID,
-        "category": a.productDetail.category,
-        "subCategory_ID": a.productDetail.subCategory_ID,
-        "subCategory": a.productDetail.subCategory,
-        "vendor_ID": a.productDetail.vendor_ID,
 
+
+  const paymentgateway=()=>{
+    setChecked('second');
+    setPaymentMethods("creditdebitcard");
+  }
+
+  const continuepage=(id)=>{
+    setBtnLoading(true);
+    var cartItems = cartdata.map((a, i) => {
+      return {
+        "product_ID"      : a.productDetail._id,
+        "productName"     : a.productDetail.productName,
+        "discountPercent" : a.productDetail.discountPercent,
+        "discountedPrice" : a.productDetail.discountedPrice,
+        "originalPrice"   : a.productDetail.originalPrice,
+        "color"           : a.productDetail.color,
+        "size"            : a.productDetail.size,
+        "currency"        : a.productDetail.currency,
+        "quantity"        : a.quantity,
+        "subTotal"        : a.subTotal,
+        "saving"          : a.saving,
+        "productImage"    : a.productDetail.productImage,
+        "section_ID"      : a.productDetail.section_ID,
+        "section"         : a.productDetail.section,
+        "category_ID"     : a.productDetail.category_ID,
+        "category"        : a.productDetail.category,
+        "subCategory_ID"  : a.productDetail.subCategory_ID,
+        "subCategory"     : a.productDetail.subCategory,
+        "vendor_ID"       : a.productDetail.vendor_ID,
       }
     })
-    var value = this.state.adddata.mobileNumber;
+    var value = addData.mobileNumber;
     var mobile = "";
     value = value.replace(/\s/g, '');
     if(value.startsWith("+")){
@@ -134,72 +114,73 @@ export default class PaymentMethod extends React.Component {
     }
 
     var deliveryAddress = {
-      "name": this.state.adddata.name,
-      "addressLine1": this.state.adddata.addressLine1,
-      "addressLine2": this.state.adddata.addressLine2,
-      "pincode": this.state.adddata.pincode,
-      "city": this.state.adddata.city,
-      "state": this.state.adddata.state,
-      "mobileNumber": mobile,
-      "district": this.state.adddata.district,
-      "country": this.state.adddata.country,
-      "addType": this.state.adddata.addType,
-      "latitude": this.state.adddata.latitude,
-      "longitude": this.state.adddata.longitude,
+      "name"          : addData.name,
+      "addressLine1"  : addData.addressLine1,
+      "addressLine2"  : addData.addressLine2,
+      "pincode"       : addData.pincode,
+      "city"          : addData.city,
+      "state"         : addData.state,
+      "mobileNumber"  : mobile,
+      "district"      : addData.district,
+      "country"       : addData.country,
+      "addType"       : addData.addType,
+      "latitude"      : addData.latitude,
+      "longitude"     : addData.longitude,
     }
+
     var orderData = {
-      user_ID: this.state.user_ID,
-      cartItems: cartItems,
-      total: this.state.totalamountpay,
-      shippingtime: this.state.shippingtime,
-      cartTotal: this.state.cartdata[0].cartTotal,
-      discount: this.state.discount,
-      cartQuantity: this.state.cartdata[0].cartQuantity,
-      deliveryAddress: deliveryAddress,
-      paymentMethod:this.state.paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
+      user_ID         : userID,
+      cartItems       : cartItems,
+      total           : totalamountpay,
+      shippingtime    : shippingtime,
+      cartTotal       : cartdata[0].cartTotal,
+      discount        : discount,
+      cartQuantity    : cartdata[0].cartQuantity,
+      deliveryAddress : deliveryAddress,
+      paymentMethod   : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
     }
+
     console.log("orderData==>", orderData);
     axios.post('/api/orders/post', orderData)
       .then((result) => {
         console.log("orderData==>", result.data);
         axios.get('/api/orders/get/one/' + result.data.order_ID)
           .then((res) => {
-            if (this.state.paymentmethods === 'cod') {
-              this.props.navigation.navigate('Dashboard')
-              this.setState({paymethods : true})
-              this.setState({ btnLoading: false,paymentmod: true })
+            if (paymentmethods === 'cod') {
+              navigation.navigate('Dashboard')
+              setPaymentMethods("Cash On Delivery");
+              setBtnLoading(false);
+              setPaymentMode(true);
           } else {
-              // this.setState({paymethods : true})
               var paymentdetails = {
-                  MERCHANT_ID: this.state.partnerid,
-                  MERCHANT_ACCESS_CODE: this.state.secretkey,
-                  REFERENCE_NO: result.data.order_ID,
-                  AMOUNT: this.state.totalamountpay,
-                  CUSTOMER_MOBILE_NO: mobile,
-                  CUSTOMER_EMAIL_ID: this.state.email,
-                  PRODUCT_CODE: "testing",
+                  MERCHANT_ID           : partnerid,
+                  MERCHANT_ACCESS_CODE  : secretkey,
+                  REFERENCE_NO          : result.data.order_ID,
+                  AMOUNT                : totalamountpay,
+                  CUSTOMER_MOBILE_NO    : mobile,
+                  CUSTOMER_EMAIL_ID     : email,
+                  PRODUCT_CODE          : "testing",
               }
               // console.log('paymentdetails in result==>>>', paymentdetails)
               axios.post('/api/orders/pgcall/post', paymentdetails)
                   .then((payurl) => {
-                      
                       if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
                         // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
-                        this.props.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
+                        navigation.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
                       }
-                      this.setState({ btnLoading: false })
+                      setBtnLoading(false);
                   })
                   .catch((error) => {
                       console.log("return to checkout");
                       console.log(error);
-                      this.setState({ btnLoading: false })
+                      setBtnLoading(false);
                   })
           }
             console.log("orderdetails=====>", res.data);
             // =================== Notification OTP ==================
             var sendData = {
               "event": "3",
-              "toUser_id": this.state.user_ID,
+              "toUser_id": user_ID,
               "toUserRole": "user",
               "variables": {
                 "Username": res.data.userFullName,
@@ -218,24 +199,22 @@ export default class PaymentMethod extends React.Component {
           })
       })
       .catch((error) => {
-        this.setState({ btnLoading: false })
+        setBtnLoading(false);
         console.log(error);
       })
   }
-  confirmorderbtn = () => {
-    this.setState({ paymentmod: false });
+
+  const confirmorderbtn = () => {
+    setPaymentMode(false);
     // AppEventsLogger.logEvent('Purchase');
-    this.props.navigation.navigate('Dashboard')
+    navigation.navigate('Dashboard')
   }
 
-  render() {
-    const { checked } = this.state;
-    const { navigate, goBack } = this.props.navigation;
       return (
         <React.Fragment>
           <HeaderBar5
-            goBack={goBack}
-            navigate={navigate}
+            goBack={navigation.goBack}
+            navigate={navigation.navigate}
             headerTitle={"Payment Methods"}
           />
           <View style={styles.superparent}>
@@ -254,7 +233,7 @@ export default class PaymentMethod extends React.Component {
                         style={styles.radiobtn}
                         value="first"
                         status={checked === 'first' ? 'checked' : 'unchecked'}
-                        onPress={() => { this.setState({ checked: 'first' }); }}
+                        onPress={() => setChecked('first')}
                       />
                       <Text style={styles.free}>Cash on Delivary</Text>
                     </View>
@@ -265,7 +244,7 @@ export default class PaymentMethod extends React.Component {
                         value="second"
                         // disabled
                         status={checked === 'second' ? 'checked' : 'unchecked'}
-                        onPress={() => this.paymentgateway()}
+                        onPress={() => paymentgateway()}
                       />
                       <Text style={styles.free}>Credit/Debit Card</Text>
                     </View>
@@ -282,13 +261,13 @@ export default class PaymentMethod extends React.Component {
                     </View>
                   </View> */}
                   <View style={styles.margTp20}>
-                  {this.state.btnLoading?
+                  {btnLoading?
                       <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
                       <ActivityIndicator size="large" color={colors.theme} />
                       </View>
                   :
                       <Button
-                        onPress={() => this.continuepage()}
+                        onPress={() => continuepage()}
                         title={"CONFIRM ORDER"}
                         buttonStyle={styles.button1}
                         containerStyle={styles.buttonContainer1}
@@ -297,7 +276,7 @@ export default class PaymentMethod extends React.Component {
                   </View>
                 </View>
               </View>
-              <Modal isVisible={this.state.paymentmod}
+              {/* <Modal isVisible={paymentmod}
                 onBackdropPress={() => this.setState({ paymentmod: false })}
                 coverScreen={true}
                 hideModalContentWhileAnimating={true}
@@ -320,14 +299,13 @@ export default class PaymentMethod extends React.Component {
                     />
                   </View>
                 </View>
-              </Modal>
+              </Modal> */}
             </ScrollView>
             <Footer />
           </View>
         </React.Fragment>
       );
-    }
-}
+    })
 
 
 
@@ -357,7 +335,7 @@ export default class PaymentMethod extends React.Component {
 //   }
 //   paywithquikwallet(){
 //     var amount = this.props.navigation.getParam('amount', '')
-//     this.props.navigation.navigate("paymentGatewayWebView", { amount: amount, plan_id: this.state.subscription._id });
+//     this.props.navigation.navigate("paymentGatewayWebView", { amount: amount, plan_id: subscription._id });
 //   }
 //   paywithrazorpay(){  
 //     var amount = this.props.navigation.getParam('amount', '')

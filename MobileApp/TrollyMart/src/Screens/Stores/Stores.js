@@ -5,13 +5,13 @@ import {
   Text,
   View,
   Image,
-  AsyncStorage,
   ActivityIndicator,
 } from 'react-native';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default class Stores extends React.Component {
   constructor(props) {
     super(props);

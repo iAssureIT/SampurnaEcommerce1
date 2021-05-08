@@ -9,7 +9,7 @@ import styles           from '../../AppDesigns/currentApp/styles/ScreenComponent
 import Carousel         from 'react-native-banner-carousel-updated';
 import axios            from 'axios';
 
-const BannerHeight = 230;
+const BannerWidth = Dimensions.get('window').width;
 
 export const BannerComponent=()=>{
   const [bannerImages,setBannerImages]=useState([])
@@ -21,7 +21,6 @@ export const BannerComponent=()=>{
   const getData=()=>{
     axios.get('/api/bannerimgs/get')
     .then((res)=>{
-      console.log('bannerimgs res', res.data);
       setBannerImages(res.data)
     })
     .catch((error)=>{
@@ -30,14 +29,13 @@ export const BannerComponent=()=>{
 }
 
   const renderPage=(image, index)=>{
-    console.log("each Banner Images",image.bannerimages)
     var bannerImages = image.bannerimages ? {uri : image.bannerimages} : require("../../AppDesigns/currentApp/images/no_banner_image.png")
     return (
       <View key={index}>
         <ImageBackground 
-          style={{ width:"100%", height: 230,}} 
+          style={{ width:"100%", height: 180,}} 
           source={bannerImages}
-          // resizeMode={"contain"}
+          resizeMode={"stretch"}
         >
         </ImageBackground>
       </View>
@@ -52,7 +50,7 @@ export const BannerComponent=()=>{
             loop={true}
             index={0}
           //  pageSize={BannerWidth}
-            pageSize={360}
+            pageSize={BannerWidth}
         
             >
           {bannerImages.map((image, index) => renderPage(image, index))}

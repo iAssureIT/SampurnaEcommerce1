@@ -9,15 +9,14 @@ import axios from 'axios';
 
 
 
-export const getList = (productType1) => {
+export const getList = (productType1,user_id) => {
     return async (dispatch, getState) => {
     dispatch({
         type: SET_LOADING,
         payload: true,
     });
-        axios.get("/api/products/get/products/listbytype/"+productType1)
+        axios.get("/api/products/get/products/listbytype/"+productType1+"/"+user_id)
         .then((response)=>{
-            console.log("response getList")
             if(productType1==="featured"){
                 dispatch({
                     type        : SET_FEATURE_LIST,
@@ -43,8 +42,6 @@ export const getList = (productType1) => {
         })
         .catch((error)=>{
             console.log("error getList",error);
-            navigation.navigate('App')
-            setToast({text: 'Something went wrong.', color: 'red'});
         })
     };
 };

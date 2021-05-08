@@ -9,8 +9,7 @@ import {
     ImageBackground,
     Image,
     TextInput,
-    ActivityIndicator,
-    AsyncStorage, Alert
+    ActivityIndicator, Alert
 } from 'react-native';
 import { TextField } from "react-native-material-textfield";
 import { Button, Icon } from "react-native-elements";
@@ -22,6 +21,7 @@ import styles                       from '../../../AppDesigns/currentApp/styles/
 import { colors, sizes } from '../../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../../AppDesigns/currentApp/styles/ScreenComponentStyles/LoadingStyles.js';
 import { connect }        from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const window = Dimensions.get('window');
 

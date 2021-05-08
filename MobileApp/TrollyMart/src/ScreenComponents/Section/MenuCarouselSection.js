@@ -5,12 +5,14 @@ import {Text,View,
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
 import axios                  from 'axios';
 import Animated               from "react-native-reanimated";
-import {useNavigation}        from '../../config/useNavigation.js';
 
-export const MenuCarouselSection = ()=>{
+
+export const MenuCarouselSection = (props)=>{
+  console.log("props",props);
+  const {navigation}=props;
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const [sectionDetails,setSections]=useState([])
-  const navigation = useNavigation();
+  
   useEffect(() => {
     console.log("useEffect");
     getData()

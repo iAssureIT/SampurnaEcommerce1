@@ -1,140 +1,117 @@
 
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import {
-  ScrollView,Text,View,TouchableOpacity,Image,Alert,AsyncStorage,ActivityIndicator
-} from 'react-native';
-import Modal from "react-native-modal";
-import { Button, Icon,} from "react-native-elements";
-import StepIndicator from 'react-native-step-indicator';
-import {Menu} from '../../ScreenComponents/Menu/Menu.js';
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
-import Loading from '../../ScreenComponents/Loading/Loading.js';
-import commonStyles  from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import axios from 'axios';
-import moment from 'moment';
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ActivityIndicator}    from 'react-native';
+import Modal            from "react-native-modal";
+import { Button, Icon,Card} from "react-native-elements";
+import StepIndicator    from 'react-native-step-indicator';
+import {Menu}           from '../../ScreenComponents/Menu/Menu.js';
+import HeaderBar5       from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {Footer}         from '../../ScreenComponents/Footer/Footer1.js';
+import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
+import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
+import Loading          from '../../ScreenComponents/Loading/Loading.js';
+import commonStyles     from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import axios            from 'axios';
+import moment           from 'moment';
+import AsyncStorage     from '@react-native-async-storage/async-storage';
+
 const labels = ["Order Placed", "Packed", "Out for delivery", "Delivered"];
 const customStyles = {
-  stepIndicatorSize: 25,
-  currentStepIndicatorSize: 30,
-  separatorStrokeWidth: 2,
-  currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: colors.theme,
-  stepStrokeWidth: 3,
-  stepStrokeFinishedColor: colors.theme,
-  stepStrokeUnFinishedColor: '#aaaaaa',
-  separatorFinishedColor: colors.theme,
-  separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: colors.theme,
-  stepIndicatorUnFinishedColor: '#ffffff',
-  stepIndicatorCurrentColor: '#ffffff',
-  stepIndicatorLabelFontSize: 13,
-  currentStepIndicatorLabelFontSize: 13,
-  stepIndicatorLabelCurrentColor: colors.theme,
-  stepIndicatorLabelFinishedColor: '#ffffff',
-  stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-  labelColor: '#999999',
-  labelSize: 13,
-  currentStepLabelColor: colors.theme,
+  stepIndicatorSize                 : 25,
+  currentStepIndicatorSize          : 30,
+  separatorStrokeWidth              : 2,
+  currentStepStrokeWidth            : 3,
+  stepStrokeCurrentColor            : colors.theme,
+  stepStrokeWidth                   : 3,
+  stepStrokeFinishedColor           : colors.theme,
+  stepStrokeUnFinishedColor         : '#aaaaaa',
+  separatorFinishedColor            : colors.theme,
+  separatorUnFinishedColor          : '#aaaaaa',
+  stepIndicatorFinishedColor        : colors.theme,
+  stepIndicatorUnFinishedColor      : '#ffffff',
+  stepIndicatorCurrentColor         : '#ffffff',
+  stepIndicatorLabelFontSize        : 13,
+  currentStepIndicatorLabelFontSize : 13,
+  stepIndicatorLabelCurrentColor    : colors.theme,
+  stepIndicatorLabelFinishedColor   : '#ffffff',
+  stepIndicatorLabelUnFinishedColor : '#aaaaaa',
+  labelColor                        : '#999999',
+  labelSize                         : 13,
+  currentStepLabelColor             : colors.theme,
 }
 // stepStrokeFinishedColor: 'colors.theme',
 
-export default class MyOrder extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputFocusColor: colors.textLight,
-      isOpen: false,
-      cancelordermodal: false,
-    };
-  }
-  componentDidMount() {
-    this.getorderlist();
-  }
-  getorderlist() {
+export const MyOrder =(props)=>{
+  const [isOpen,setOpen]=useState(false);
+  const [user_id,setUserId]=useState('');
+  const [fullName,setFullName]=useState('');
+  const [email,setEmail]=useState('');
+  const [mobNumber,setMobNumber]=useState('');
+  const [myorders,setMyOrders]=useState([]);
+  const [cancelOrderModal,setCancelOrderModal]=useState(false);
+  const [cancelOrderId,setCancelOrderId]=useState('');
+  const {navigation}=props;
+  useEffect(() => {
+    getorderlist();
+}, [props]);
+
+ const getorderlist=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
-        this.setState({ user_id: data[1][1] })
+        setUserId(data[1][1]);
         axios.get('/api/ecommusers/' + data[1][1])
           .then((res) => {
-            this.setState({
-              fullName: res.data.profile.fullName,
-              email: res.data.profile.email,
-              mobNumber: res.data.profile.mobile,
-            })
-
+            setFullName(res.data.profile.fullName);
+            setEmail(res.data.profile.email);
+            setMobNumber(res.data.profile.mobile);
           })
           .catch((error) => {
             console.log('error', error)
           });
-        axios.get('/api/orders/get/list/' + data[1][1])
+
+          axios.get('/api/orders/get/list/' + data[1][1])
           .then((response) => {
-            // console.log("response LIst:==>>>", response.data);
-            var myorders = response.data
-            this.setState({ myorders: myorders })
+            setMyOrders(response.data)
           })
           .catch((error) => {
             console.log('error', error)
           });
       });
   }
-  componentWillReceiveProps(nextProps) {
-    this.getorderlist();
+
+  const toggle=()=>{
+    let isOpen = !isOpen;
+    setOpen(isOpen);
   }
 
-  updateMenuState(isOpen) {
-    this.setState({ isOpen });
+  const openControlPanel = () => {
+   _drawer.open()
   }
 
-  displayValidationError = (errorField) => {
-    let error = null;
-    if (this.state[errorField]) {
-      error = <View style={{ width: '100%' }}>
-        <Text style={{ color: '#dc3545' }}>{this.state[errorField][0]}</Text>
-      </View>;
-    }
-    return error;
-  }
-
-  toggle() {
-    let isOpen = !this.state.isOpen;
-    this.setState({
-      isOpen
-    });
-  }
-
-  closeControlPanel = () => {
-    this._drawer.close()
-  }
-
-  openControlPanel = () => {
-    this._drawer.open()
-  }
-  confirmcancelorderbtn = () => {
+  const confirmcancelorderbtn = () => {
     var formValues = {
-      "orderID": this.state.cancelorderid,
-      "userid": this.state.user_id,
+      "orderID": cancelOrderId,
+      "userid": user_id,
     }
-    console.log("formValues==>", formValues);
     axios.patch('/api/orders/get/cancelOrder', formValues)
       .then((response) => {
-        // console.log("response cancel order==>", response.data);
-        axios.get('/api/orders/get/one/' + this.state.cancelorderid)
+        axios.get('/api/orders/get/one/' + cancelOrderId)
           .then((res) => {
-            // console.log("res cancel order==>", res.data);
-            this.setState({
-              cancelordermodal: false,
-            });
-            this.getorderlist();
+            setCancelOrderModal(false);
+            getorderlist();
             Alert.alert(
               "Your order has been cancelled."
             );
-            // =================== Notification OTP ==================
             var sendData = {
               "event": "4",
-              "toUser_id": this.state.user_id,
+              "toUser_id": user_id,
               "toUserRole": "user",
               "variables": {
                 "Username": res.data.userFullName,
@@ -146,43 +123,19 @@ export default class MyOrder extends React.Component {
             axios.post('/api/masternotifications/post/sendNotification', sendData)
               .then((res) => { })
               .catch((error) => { console.log('notification error: ', error) })
-            // =================== Notification ==================
-           
             
           })
           .catch((error) => {
           })
       });
   }
-  cancelorderbtn = (id) => {
-    this.setState({
-      cancelordermodal: true,
-      cancelorderid: id,
-    });
+  
+  const cancelorderbtn = (id) => {
+    setCancelOrderModal(true);
+    setCancelOrderId(id);
   }
 
-  handleZipChange(value) {
-    let x = value.replace(/\D/g, '').match(/(\d{0,5})(\d{0,4})/);
-    let y = !x[2] ? x[1] : x[1] + '-' + x[2];
-    this.setState({
-      zipcode: y,
-    });
-  }
-
-  handleDelete = (id) => {
-    Alert.alert("", "Are you sure you want to delete ?", [
-      { text: "Cancel" },
-      {
-        text: "Delete",
-        onPress: () => {
-          this.deleteCompetitor(id);
-        }
-      },
-    ]);
-  };
-  render() {
-    const { navigate, dispatch, goBack } = this.props.navigation;
-    if (this.props.loading) {
+    if (props.loading) {
       return (
         <Loading />
       );
@@ -190,21 +143,21 @@ export default class MyOrder extends React.Component {
       return (
         <React.Fragment>
           <HeaderBar5
-            goBack={goBack}
-            navigate={navigate}
+            goBack={navigation.goBack}
+            navigate={navigation.navigate}
             headerTitle={"My Orders"}
-            toggle={() => this.toggle.bind(this)}
-            openControlPanel={() => this.openControlPanel.bind(this)}
+            toggle={() => toggle()}
+            openControlPanel={() => openControlPanel()}
           />
           <View style={styles.superparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
                 <View style={styles.parent}>
                   {
-                    this.state.myorders ?
-                      this.state.myorders.length > 0 ?
-                        this.state.myorders.map((item, i) => {
-                          // this.activitysteps(item.deliveryStatus)
+                    myorders ?
+                      myorders.length > 0 ?
+                        myorders.map((item, i) => {
+                          // activitysteps(item.deliveryStatus)
                           var position = 0;
                           console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",item.deliveryStatus[item.deliveryStatus.length - 1].status);
                           if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New Order") {
@@ -228,24 +181,25 @@ export default class MyOrder extends React.Component {
                                   item.products && item.products.length > 0 ?
                                     item.products.map((pitem, index) => {
                                       return (
-                                          <View style={styles.prodorders}>
-                                            <View style={styles.flx3}>
-                                              <View style={styles.imgvw}>
-                                              {pitem.productImage.length > 0 ? <Image
-                                                  style={styles.img15}
-                                                  source={{ uri: pitem.productImage[0] }}
-                                                  resizeMode="contain"
-                                                />
-                                                :
-                                                <Image
-                                                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                                                  style={styles.img15}
-                                                />
-                                                }
-                                              </View>
-                                              <Text style={styles.myorderprodinfo}>{pitem.productName}</Text>
+                                          <Card key={index} containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+                                            <View style={{flex:.25}}>
+                                            {pitem.productImage.length > 0 ? <Image
+                                                style={styles.img15}
+                                                source={{ uri: pitem.productImage[0] }}
+                                                resizeMode="contain"
+                                              />
+                                              :
+                                              <Image
+                                                source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                                style={styles.img15}
+                                                resizeMode="contain"
+                                              />
+                                              }
                                             </View>
-                                          </View>
+                                            <View style={{flex:.75}}>
+                                              <Text style={styles.myorderprodinfo}>{pitem.productName}</Text> 
+                                           </View> 
+                                          </Card>
                                       );
                                     })
                                     : null
@@ -280,7 +234,7 @@ export default class MyOrder extends React.Component {
                                 <View style={styles.ordercancelstatus}>
                                   <View style={styles.ordercancelsstatus}>
                                     <Button
-                                      onPress={() => this.props.navigation.navigate('OrderDetails', { orderid: item._id })}
+                                      onPress={() => navigation.navigate('OrderDetails', { orderid: item._id })}
                                       titleStyle={commonStyles.buttonText1}
                                       title="ORDER DETAILS"
                                       buttonStyle={commonStyles.button}
@@ -292,7 +246,7 @@ export default class MyOrder extends React.Component {
                                     :
                                     <View style={styles.orderdetailsstatus}>
                                       <Button
-                                        onPress={() => this.cancelorderbtn(item._id)}
+                                        onPress={() => cancelorderbtn(item._id)}
                                         titleStyle={styles.buttonText}
                                         title="CANCEL ORDER"
                                         buttonStyle={styles.buttonRED}
@@ -328,8 +282,8 @@ export default class MyOrder extends React.Component {
 
           </View>
           <Footer />
-          <Modal isVisible={this.state.cancelordermodal}
-            onBackdropPress={() => this.setState({ cancelordermodal: false })}
+          <Modal isVisible={cancelOrderModal}
+            onBackdropPress={() => setCancelOrderModal(false)}
             coverScreen={true}
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
@@ -339,13 +293,13 @@ export default class MyOrder extends React.Component {
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
               <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
-                Are you sure you want to Cancel this order?
+                Are you sure you want to Cancel order?
               </Text>
               <View style={styles.cancelbtn}>
                 <View style={styles.cancelvwbtn}>
                   <TouchableOpacity>
                     <Button
-                      onPress={() => this.setState({ cancelordermodal: false })}
+                      onPress={() => setCancelOrderModal(false)}
                       titleStyle={styles.buttonText}
                       title="NO"
                       buttonStyle={styles.buttonRED}
@@ -356,7 +310,7 @@ export default class MyOrder extends React.Component {
                 <View style={styles.ordervwbtn}>
                   <TouchableOpacity>
                     <Button
-                      onPress={() => this.confirmcancelorderbtn()}
+                      onPress={() => confirmcancelorderbtn()}
                       titleStyle={styles.buttonText1}
                       title="Yes"
                       buttonStyle={styles.button1}
@@ -370,5 +324,4 @@ export default class MyOrder extends React.Component {
         </React.Fragment>
       );
     }
-  }
 }

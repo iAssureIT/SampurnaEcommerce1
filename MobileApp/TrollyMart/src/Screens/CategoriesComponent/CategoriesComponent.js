@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   Text,
@@ -6,79 +6,48 @@ import {
   TouchableOpacity,
   Image,ActivityIndicator,
 } from 'react-native';
-import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import Notification from '../../ScreenComponents/Notification/Notification.js'
-import BouncingPreloader from 'react-native-bouncing-preloader';
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
-import Loading from '../../ScreenComponents/Loading/Loading.js';
-import axios                      from 'axios';
+import HeaderBar3         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {Footer}           from '../../ScreenComponents/Footer/Footer1.js';
+import Notification       from '../../ScreenComponents/Notification/Notification.js'
+import BouncingPreloader  from 'react-native-bouncing-preloader';
+import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
+import {colors}           from '../../AppDesigns/currentApp/styles/styles.js';
+import Loading            from '../../ScreenComponents/Loading/Loading.js';
+import axios              from 'axios';
 
-export default class CategoriesComponent extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      	inputFocusColor      : colors.textLight,
-      	isOpen               : false,  
-        categoriesImg        : [], 
-      	categories           : [],
-        subCategory          : [],
-        categoryImage        : [],
-        section_id           : '',
-        showView             : false,
-        subCategoryTitle     : '',
-        subCategory_ID       : '',
-        categoryUrl          : ''
+export const CategoriesComponent=(props)=>{
+  console.log("props",props);
+  const {navigation,route}=props;
+  const [isOpen,setOpen] =useState(false);
+  const [categories,setCategories] = useState([]);
+  const [subCategory,setSubCategory] = useState([]);
+  const [category_ID,setCategoryId] = useState('');
+  const [categoryName,setCategoryName] = useState('');
+  const {section_id}=route.params;
+  useEffect(() => {
+    console.log("useEffect");
+     getCategories(section_id);
+  },[section_id]);
 
-    };
-  }
-  componentDidMount(){
-     const section_id = this.props.navigation.getParam('section_id','No section_id');
-      this.setState({
-        section_id: section_id,
-        },()=>{
-        this.focusListener = this.props.navigation.addListener('didFocus', () => {
-          this.getCategories();
-        })
-      })
-  }
-  
-  componentWillUnmount () {
-    this.focusListener.remove()
-  }
 
-  UNSAFE_componentWillReceiveProps(nextProps){
-    this.getCategories();
-  }
-
-  getCategories(){
-    axios.get("/api/category/get/list/"+this.state.section_id)
+  const getCategories=(section_id)=>{
+    axios.get("/api/category/get/list/"+section_id)
     .then((response)=>{
-      // console.log('response.data categoriesId ================>', response.data );
-      this.setState({
-        categories  : response.data,
-        
-      })
+      setCategories(response.data);
     })
     .catch((error)=>{})
   }
 
-  handlePressCategoryMenu(id){
+  const handlePressCategoryMenu=(id)=>{
     axios.get("/api/category/get/one/"+id)
       .then((res)=>{
-        console.log('subcategorys Before for=======>', res.data);
-      this.setState({
-        showView       : true,
-        category_ID    : id,
-        categoryName   : res.data.category,
-        subCategory    : res.data.subCategory,
-      },()=>{
-        // console.log('subcategorys Before for=======>', this.state.subCategory);
-        if(this.state.subCategory.length>0){
-          this.props.navigation.navigate('SubCategoriesComp',{category_ID:this.state.category_ID,categoryName:this.state.categoryName})
+        setCategoryId(id);
+        setCategoryName(res.data.category);
+        setSubCategory(res.data.subCategory);
+        if(res.data.subCategory.length>0){
+          this.props.navigation.navigate('SubCategoriesComp',{category_ID:id,categoryName:res.data.category})
           let subcatid = [];
-          let subcategorys = this.state.subCategory ? this.state.subCategory : [];
+          let subcategorys = res.data.subCategory ? res.data.subCategory : [];
           // console.log('subcategorys Before for=======>', subcategorys);
             for(var i=0;i<subcategorys.length;i++){
             subcatid.push({
@@ -86,7 +55,7 @@ export default class CategoriesComponent extends React.Component{
             })
           }
        }else{
-        this.props.navigation.navigate('SubCategoriesComp',{category_ID:this.state.category_ID, categoryName:this.state.categoryName})
+        props.navigation.navigate('SubCategoriesComp',{category_ID:this.state.category_ID, categoryName:this.state.categoryName})
 
         //   Alert.alert(
         //     "Category Not Found",
@@ -99,38 +68,22 @@ export default class CategoriesComponent extends React.Component{
         }
       
        })
-    })
     .catch((error)=>{})
   }
-  componentWillReceiveProps(nextProps){
+
+
+  const toggle=()=>{
+    let isOpen = !isOpen;
+    setOpen(isOpen)
   }
 
-  updateMenuState(isOpen) {
-    this.setState({ isOpen });
+
+  const openControlPanel = () => {
+   _drawer.open()
   }
 
-  toggle() {
-    let isOpen = !this.state.isOpen;
-      this.setState({
-        isOpen
-      });
-  }
 
-  closeControlPanel = () => {
-    this._drawer.close()
-  }
-
-  openControlPanel = () => {
-    this._drawer.open()
-  }
-
-  searchUpdated(text){
-    this.setState({ searchText: text });
-  }
-
-  render(){
-    const {navigate,goBack} = this.props.navigation;
-    if(this.props.loading){
+    if(props.loading){
       return(
         <Loading />
       );
@@ -138,25 +91,25 @@ export default class CategoriesComponent extends React.Component{
       return (
         <React.Fragment>
             <HeaderBar3 
-                goBack ={goBack}
-            	  navigate={navigate}
+                goBack ={props.navigation.goBack}
+            	  navigate={props.navigation.navigate}
                 // headerTitle={"Category & SubCategory"}
                 headerTitle={"Categories"}
-              	toggle={()=>this.toggle.bind(this)} 
-              	openControlPanel={()=>this.openControlPanel.bind(this)}
+              	toggle={()=>toggle} 
+              	// openControlPanel={()=>this.openControlPanel.bind(this)}
             />
             <View style={styles.addsuperparent}>
             	<ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               		<View  style={styles.formWrapper}>
                			<ScrollView >
                				<View style={styles.menuWrapper}>
-                      {this.state.categories ?
-                        this.state.categories.length > 0 ?
-                        this.state.categories.map((item,index)=>{
+                      {categories ?
+                        categories.length > 0 ?
+                        categories.map((item,index)=>{
                           if (index < 8 ) {
                           return(
                           <View key={index} style={styles.colmwisecat}>
-                            <TouchableOpacity onPress={()=>this.handlePressCategoryMenu(item._id)}>
+                            <TouchableOpacity onPress={()=>handlePressCategoryMenu(item._id)}>
                                <View style={styles.imageMenucatsub} >
                                       {
                                         item.categoryImage.length > 0 ?
@@ -219,7 +172,5 @@ export default class CategoriesComponent extends React.Component{
       );  
     }
   }
-}
-
 
 

@@ -28,9 +28,11 @@ export default StyleSheet.create({
     fontSize:14,fontFamily:"Montserrat-SemiBold",textAlign:'center',marginTop:10
   },
   proddets:{
-    fontSize:12,fontFamily:"Montserrat-SemiBold",
-     color:'#666',paddingVertical:5,
-     flex:0.3
+    fontSize:12,
+    fontFamily:"Montserrat-SemiBold",
+    color:'#666',
+    paddingVertical:5,
+    flex:0.3
   },
   addtitle:{
     fontSize:14,fontFamily:"Montserrat-SemiBold",
@@ -50,7 +52,7 @@ export default StyleSheet.create({
     fontSize:12,
     flex:0.7,
     fontFamily:"Montserrat-SemiBold",
-     color:'#333',paddingVertical:5,
+    color:'#333',paddingVertical:5,
      
   },
   addressdets:{
@@ -61,11 +63,10 @@ export default StyleSheet.create({
      color:'#333',paddingVertical:5
   },
   myorderprodinfo:{
+    flex:1,
     fontSize:12,
-    textAlign:'center',
     fontFamily:"Montserrat-SemiBold",
     color:'#333',
-    paddingVertical:5,
   },
   myordereddate:{
     fontSize:12,
@@ -140,23 +141,23 @@ export default StyleSheet.create({
   },
   totalpayment:{
     marginTop:25,
-    borderTopWidth:2,
+    borderTopWidth:1,
     borderTopColor:'#ccc',
   },
   addressdetais:{
     marginTop:25,
-    borderTopWidth:2,
+    borderTopWidth:1,
     borderTopColor:'#ccc',
   },
   myorderdets:{
     flex:1,
-		flexDirection: 'row',
-		flexWrap: 'wrap', 
+		// flexDirection: 'row',
+		// flexWrap: 'wrap', 
   },
   prodorders:{
-    width:(window.width-65)/2,
-    padding: 5,
-    marginTop:5
+    flexDirection:"row",
+    margin:0,
+    marginTop:15,
   },
   flx7:{
     flex:0.6,
@@ -235,9 +236,6 @@ export default StyleSheet.create({
     flex:1,flexDirection:'row',backgroundColor:'#fff',
     borderWidth:1,borderColor:'#f1f1f1',marginTop:15
   },
-  // imgvw:{
-  //   flex:0.4,backgroundColor:'#f1f1f1',borderWidth:1,borderColor:'#f1f1f1',height:80,
-  // },
   namefordelivery:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",
     color:'#333',marginVertical:5,
@@ -253,12 +251,8 @@ export default StyleSheet.create({
     fontSize:12,fontFamily:"Montserrat-SemiBold",
     color:'#c10000',marginRight:10
   },
-  imgvw:{
-    flex:0.3,borderWidth:1,
-    borderColor:'#f1f1f1',height:80
-  },
   img15:{
-    width: "100%",height:80
+    width: 60,height:60
   },
   productqtyty:{
     flex:0.8,backgroundColor:'#f1f1f1',borderWidth:1,

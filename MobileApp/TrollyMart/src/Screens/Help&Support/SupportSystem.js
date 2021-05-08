@@ -6,22 +6,23 @@ import {
 } from 'react-native';
 import {Icon,}                  from "react-native-elements";
 import HeaderBar5               from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-import Footer                   from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                   from '../../ScreenComponents/Footer/Footer1.js';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {Linking}                from 'react-native'
 import Axios                    from 'axios';
 import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
-import {useNavigation}          from '../../config/useNavigation.js';
+;
 
 export const SupportSystem = (props)=>{
+    const {navigation}=props;
     const [user_id,setUserId]               = useState('');
     const [companyName,setCompanyName]      = useState('');
     const [companyEmail,setCompanyEmail]    = useState('');
     const [companyPhone,setCompanyPhone]    = useState('');
     const [loading,setLoading]              = useState(true);
-    const navigation                        = useNavigation();
+    
     useEffect(() => {
         AsyncStorage.multiGet(['token', 'user_id'])
         .then((data) => {

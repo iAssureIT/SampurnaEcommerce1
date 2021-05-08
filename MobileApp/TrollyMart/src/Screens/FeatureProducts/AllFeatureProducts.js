@@ -11,11 +11,11 @@ import { Dropdown }             from 'react-native-material-dropdown-v2';
 import { Icon, Button }         from "react-native-elements";
 import Modal                    from "react-native-modal";
 import HeaderBar3               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import Footer                   from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                   from '../../ScreenComponents/Footer/Footer1.js';
 import Notification             from '../../ScreenComponents/Notification/Notification.js'
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
-import {useNavigation}        from '../../config/useNavigation.js';
+
 import { connect,useDispatch,useSelector }from 'react-redux';
 import { getList } 		              from '../../redux/productList/actions';
 import { getWishList } 		          from '../../redux/wishDetails/actions';
@@ -42,7 +42,7 @@ import ValidationComponent from 'react-native-form-validator';
     // const [packsizes,setPacksizes]= useState('');
     // const [user_id,setUserId]= useState('');
     // const [token,setToken]= useState('');
-    // const navigation = useNavigation();
+    // 
   constructor(props) {
     super(props);
     this.state = {
@@ -74,7 +74,7 @@ import ValidationComponent from 'react-native-form-validator';
           })
       })
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.allfeatureproducts();
     this.wishlisteddata();
   }

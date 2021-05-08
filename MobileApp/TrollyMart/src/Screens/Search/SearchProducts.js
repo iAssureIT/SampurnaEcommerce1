@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Text, View, TouchableOpacity, Image,AsyncStorage,ActivityIndicator,
+  Text, View, TouchableOpacity, Image,ActivityIndicator,
 } from 'react-native';
 import Modal from "react-native-modal";
 import { Dropdown } from 'react-native-material-dropdown-v2';
@@ -9,6 +9,7 @@ import { Icon, Button } from "react-native-elements";
 import axios from 'axios';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export default class SearchProducts extends React.Component {
@@ -56,7 +57,7 @@ export default class SearchProducts extends React.Component {
       ProductsDetails: this.props.searchProds,
     })
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     var searchlength = nextProps.searchProds; 
     // console.log('searchlength ===> ', searchlength);
     if (searchlength && nextProps.searchProds.length) {

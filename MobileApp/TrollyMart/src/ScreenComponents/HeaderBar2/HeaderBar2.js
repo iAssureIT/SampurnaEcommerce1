@@ -3,8 +3,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
-  AsyncStorage
+  Image
 }                                 from "react-native";
 import {Linking}                  from 'react-native'
 import { 
@@ -18,19 +17,17 @@ import axios                from 'axios';
 import styles               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HeaderBar2Styles.js';
 import { connect }          from 'react-redux';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
+import AsyncStorage         from '@react-native-async-storage/async-storage';
 
   const HeaderBars2=(props)=>{
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
-    
+    const{navigation}=props;
     const _goBack = () => {
       props.goBack();
     }
 
-    const handleNavigation = (screen) => {
-      this.props.navigate(screen);
-    }
-
+   
     useEffect(() => {
       console.log("useEffect");
       getData()
@@ -45,8 +42,10 @@ import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
         console.log("data",data);
-          var token = data[0][1]
-          var user_id = data[1][1]
+          var token = data[0][1];
+          var user_id = data[1][1];
+          if(user_id){
+          console.log("Header user_id",user_id);
             axios.get('/api/notifications/get/list/Unread/' + user_id)
             .then(notifications => {
               console.log("notifications",notifications);
@@ -55,6 +54,7 @@ import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
             .catch(error => {
                 console.log('error', error)
             })
+          }
       });
   }
 
@@ -63,9 +63,7 @@ import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
     props.setGloblesearch(searchText);
   };
 
-  const Stores=()=>{
-    props.navigation.navigate('Stores');
-  }
+ 
 
   const searchedText = (text)=>{
     useSearchText(text);
@@ -82,7 +80,7 @@ import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
           leftComponent={
             <View style={styles.flxdir}>
               <View style={{ marginTop: 10,}}>
-                <TouchableOpacity  onPress={()=> props.navigation.toggleDrawer()}>
+                <TouchableOpacity  onPress={()=> navigation.toggleDrawer()}>
                   <Icon size={25} name='bars' type='font-awesome' color={colors.theme} />
                 </TouchableOpacity>
               </View>

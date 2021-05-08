@@ -35,7 +35,7 @@ router.get('/get/productcode/:productCode', 								checkAuth, productController
 
 router.get('/get/listbytype/:productType', 						productController.list_productby_type);
 
-router.get('/get/products/listbytype/:productType', 			productController.list_productby_type_mobile);
+// router.get('/get/products/listbytype/:productType', 			productController.list_productby_type_mobile);
 
 router.get('/get/products/listbytype/:productType/:user_ID', 	productController.list_productby_type_mobile);
 router.get('/get/listbytypeNcategory/:categoryID/:productType', productController.list_productby_type_category);
@@ -102,7 +102,7 @@ router.get('/get/searchcount/:searchstr/:vendorID', 					checkAuth, productContr
 
 router.get('/get/search/:searchstr', 										checkAuth, productController.search_product);
 
-router.get('/get/searchproducts/:searchstr', 							checkAuth, productController.search_product_mobileapp);
+router.get('/get/searchproducts/:searchstr', 							productController.search_product_mobileapp);
 
 router.post('/post/searchINCategory', 										checkAuth, productController.searchINCategory);
 

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   ScrollView,
   Text,
@@ -9,242 +9,155 @@ import {
   Image,ActivityIndicator,
 
 } from 'react-native';
-import { Header, Button, Icon, SearchBar } from "react-native-elements";
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Counter from "react-native-counters";
-import Modal from "react-native-modal";
-// import {AppEventsLogger} from 'react-native-fbsdk';    
+import { Header, 
+        Button, 
+        Icon, 
+        SearchBar }   from "react-native-elements";
+import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
+import HeaderBar5     from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
+import { colors }     from '../../AppDesigns/currentApp/styles/styles.js';
+import axios          from 'axios';
+import AsyncStorage   from '@react-native-async-storage/async-storage';
+import Counter        from "react-native-counters";
+import Modal          from "react-native-modal";
 
-export default class SubCatCompView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputFocusColor: colors.textLight,
-      isOpen: false,
-      starCount: 2.5,
-      productID: '',
-      countofprod: '',
-      productName: '',
-      productUrl: '',
-      discountedPrice: '',
-      originalPrice: '',
-      color: '',
-      discountPercent: '',
-      productDetails: '',
-      featureList: '',
-      wishlisted: '',
-      alreadyincarts: false,
-      wishlistedproduct: false,
-      alreadyinwishlist: false,
-      productImage: [],
-      currency:""
-    };
-  }
+export const SubCatCompView =(props)=>{
+  const [isOpen,setOpen]                    = useState(false);
+  const [countofprod,setCounterProd]        = useState(1);
+  const [wishlisted,setWishListed]          = useState('');
+  const [alreadyincarts,setAlreadyInCarts]  = useState(false);
+  const [wishlistedproduct,setWishListedProduct] = useState(false);
+  const [alreadyinwishlist,setAlreadyInWishlist] = useState(false);
+  const [user_id,setUserId]                = useState('');
+  const [productdata,setProductData]        = useState([]);
+  const [number,setNumber]                = useState('');
+  const [addToCart,setAddToCart]          = useState(false);
+  const {navigation,route} =props;
+  const {productID}=route.params;
 
-  componentDidMount() {
-    this.focusListener = this.props.navigation.addListener('didFocus', () => {
+  useEffect(() => {
+    console.log("useEffect");
+    getData();
+  },[props]);
 
-    const productID = this.props.navigation.getParam('productID', 'No productID');
-    // console.log('productID-------------------------->', productID);
-    this.setState({
-      productID: productID
-    }, () => {
-      this.getProductsView(this.state.productID);
-    })
-
+  const getData=()=>{
+    getProductsView(productID);
     AsyncStorage.multiGet(['user_id', 'token'])
-      .then((data) => {
-        userId = data[0][1],
-          this.setState({
-            userId: userId,
-          }, () => {
-            console.log('userId', this.state.userId)
-            this.wishlisteddata(this.state.userId);
-            
-          })
-      })
+    .then((data) => {
+        setUserId(data[0][1]);
+        wishlisteddata(data[0][1]);
     })
   }
-  componentWillUnmount () {
-    this.focusListener.remove()
-    
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps){
-    this.getProductsView(nextProps.productID);
-    this.wishlisteddata(this.state.userId);
-  }
-
-  wishlisteddata(userId){
-    axios.get('/api/wishlist/get/userwishlist/'+ userId)
+ 
+  const wishlisteddata=(user_id)=>{
+    axios.get('/api/wishlist/get/userwishlist/'+ user_id)
     .then((response) => {
-      
       var wishprod = response.data;
       let wished = [];
-        
           for(var i=0;i<wishprod.length;i++){
           wished.push({
             'product_ID':  wishprod[i].product_ID,
           })
-          if(wished[i].product_ID === this.state.productID){
-            this.setState({ wishlistedproduct: true })
+          if(wished[i].product_ID === productID){
+            setWishListedProduct(true);
           } 
-          // console.log('wished After for=======>', wished);
-          // console.log('wished After for=======>', this.state.productID);
         }
     })
     .catch((error) => {
       console.log('error', error);
     })
   }
-  addtowishlist = (productid) => {
+
+  const addtowishlist = (productid) => {
     const wishValues = {
-      "user_ID": this.state.userId,
+      "user_ID": user_id,
       "product_ID": productid,
     }
     console.log("wishValuess==>", wishValues);
     axios.post('/api/wishlist/post', wishValues)
       .then((response) => {
-        this.wishlisteddata(this.state.userId);        
+        wishlisteddata(user_id);        
         console.log(" response wishValuess==>", response.data);
         if(response.data.message === "Product removed from wishlist successfully."){
-          this.setState({
-            alreadyinwishlist: true,
-            wishlistedproduct: false, 
-          });
+          setAlreadyInCarts(true);
+          setWishListedProduct(true);
         }else{
-          this.setState({
-            wishlisted: true,
-             wishlistedproduct: true, 
-          });
+          setWishListed(true);
+          setWishListedProduct(true);
         }
       })
       .catch((error) => {
         console.log('error', error);
       })
   }
-  getProductsView(productID) {
-    // console.log(" ProductsView =========>", productID);
 
+  const getProductsView=(productID)=>{
     axios.get("/api/Products/get/one/" + productID)
       .then((response) => {
-        // AppEventsLogger.logEvent('View Content', response.data.originalPrice, response.data.productName);
-        
-
         console.log("response.data ProductsView =========>", response.data);
-        this.setState({
-          productdata: response.data,
-          brand: response.data.brand,
-          brandNameRlang: response.data.brandNameRlang,
-          productName: response.data.productName,
-          productNameRlang : response.data.productNameRlang,
-          shortDescription: response.data.shortDescription,
-          productUrl: response.data.productUrl,
-          discountedPrice: response.data.discountedPrice,
-          originalPrice: response.data.originalPrice,
-          color: response.data.color,
-          size: response.data.size,
-          unit: response.data.unit,
-          discountPercent: response.data.discountPercent,
-          productDetails: response.data.productDetails,
-          featureList: response.data.featureList,
-          productImage: response.data.productImage,
-          currency : response.data.currency
-        })
+        setProductData(response.data);
       })
       .catch((error) => {
-        // console.log('error', error);
+        console.log('error', error);
       })
   }
-  onChange(number, type) {
-    // console.log(id, number, type) // 1, + or -
-    // console.log("number ==>", number)
-    // console.log("type ==>", type)
+
+  const onChange=(number, type)=>{
     var carqty = {};
-    this.setState({
-      number: parseInt(number),
-      plusminustype: type
-    });
+    setCounterProd(parseInt(number));
+    setNumber(parseInt(number));
   }
-  handlePressAddCart() {
-    // console.log("this.state.number addCart =========>", this.state.number === undefined || "" ? 1: this.state.number);
+
+  
+  const handlePressAddCart=()=>{
     const formValues = {
-      "user_ID": this.state.userId,
-      "product_ID": this.state.productID,
-      "quantity": this.state.number === undefined || "" ? 1 : this.state.number,
+      "user_ID": user_id,
+      "product_ID": productID,
+      "quantity": number === undefined || "" ? 1 : number,
     }
     console.log("formValues addCart =========>", formValues);
     axios
       .post('/api/Carts/post', formValues)
       .then((response) => {
-        this.setState({
-          addtocart: true,
-        });
-        // this.props.navigation.navigate('CartComponent', { user_ID: this.state.userId, product_ID: this.state.productID });
+        setAddToCart(true);
       })
       .catch((error) => {
-        this.setState({ alreadyincarts: true })
+        setAlreadyInCarts(true);
         console.log('error', error);
       })
   }
 
-
-
-  updateMenuState(isOpen) {
-    this.setState({ isOpen });
-  }
-
-  toggle() {
-    let isOpen = !this.state.isOpen;
-    this.setState({
-      isOpen
-    });
-  }
-
-  closeControlPanel = () => {
-    this._drawer.close()
-  }
-
-  openControlPanel = () => {
-    this._drawer.open()
+  const toggle=()=>{
+    let isOpen = !isOpen;
+    setOpen(isOpen)
   }
 
 
-  searchUpdated(text) {
-    this.setState({ searchText: text });
+  const openControlPanel = () => {
+    _drawer.open()
   }
 
 
-  render() {
-    console.log("this.state.",this.state)
-    const { navigate, dispatch, goBack } = this.props.navigation;
     return (
       <React.Fragment>
         <HeaderBar5
-          goBack={goBack}
-          navigate={navigate}
-          headerTitle={this.state.productName}
-          toggle={() => this.toggle.bind(this)}
-          openControlPanel={() => this.openControlPanel.bind(this)}
+          goBack={navigation.goBack}
+          navigate={navigation.navigate}
+          headerTitle={productdata.productName }
+          toggle={() => toggle()}
+          // openControlPanel={() => openControlPanel()}
         />
         <View style={styles.prodviewcatsuperparent}>
         {
-          this.state.productName  && this.state.discountedPrice ?
-
-        
+          productdata && productdata.productName  && productdata.discountedPrice ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
             <View style={styles.formWrapper}>
-
               <Text numberOfLines={1} style={styles.produrl}></Text>
               <View style={styles.imgvw}>
-                {this.state.productImage.length > 0 ?
+                {productdata.productImage && productdata.productImage.length > 0 ?
                   <Image
-                    source={{ uri: this.state.productImage[0] }}
+                    source={{ uri: productdata.productImage[0] }}
                     style={styles.saleimg}
                     resizeMode="contain"
                   />
@@ -255,50 +168,50 @@ export default class SubCatCompView extends React.Component {
                   />
                 }
                 {
-                  this.state.wishlistedproduct ?
+                  wishlistedproduct ?
                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
-                          onPress={() => this.addtowishlist(this.state.productID)} >
+                          onPress={() =>addtowishlist(productID)} >
                       <Icon size={25} name='heart' type='font-awesome' color={colors.theme} />
                     </TouchableOpacity>
                   :
                   
                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
-                          onPress={() => this.addtowishlist(this.state.productID)} >
+                          onPress={() =>addtowishlist(productID)} >
                       <Icon size={25} name='heart-o' type='font-awesome' color={colors.theme} />
                     </TouchableOpacity>
                 }
    
                 <View style={styles.prodnameview}>
                   {/* (i % 2 == 0 ? {} : { marginLeft: 12 } */}
-                  {this.state.brandNameRlang && this.state.brandNameRlang!=="" ?
-                    <Text numberOfLines={1} style={[styles.brandname]} style={styles.regionalBrandName}>{this.state.brandNameRlang}</Text>
+                  {productdata.brandNameRlang && productdata.brandNameRlang!=="" ?
+                    <Text numberOfLines={1} style={[styles.brandname]} style={styles.regionalBrandName}>{productdata.brandNameRlang}</Text>
                     : 
-                    <Text numberOfLines={1} style={[styles.brandname]}>{this.state.brand}</Text>
+                    <Text numberOfLines={1} style={[styles.brandname]}>{productdata.brand}</Text>
                   }
-                  {this.state.productNameRlang && this.state.productNameRlang !==""?
-                    <Text numberOfLines={1} style={[styles.nameprod]} style={styles.regionalProductName}>{this.state.productNameRlang}</Text>
+                  {productdata.productNameRlang && productdata.productNameRlang !==""?
+                    <Text numberOfLines={1} style={[styles.nameprod]} style={styles.regionalProductName}>{productdata.productNameRlang}</Text>
                     :
-                    <Text numberOfLines={1} style={[styles.nameprod]}>{this.state.productName}</Text>
+                    <Text numberOfLines={1} style={[styles.nameprod]}>{productdata.productName}</Text>
                   }
-                  {/* <Text numberOfLines={1} style={styles.brandname}>{this.state.brand}</Text>
-                  <Text numberOfLines={1} style={styles.productname}>{this.state.productName}</Text>
-                  <Text numberOfLines={1} style={styles.shortDescription}>{this.state.shortDescription}</Text> */}
+                  {/* <Text numberOfLines={1} style={styles.brandname}>{brand}</Text>
+                  <Text numberOfLines={1} style={styles.productname}>{productName}</Text>
+                  <Text numberOfLines={1} style={styles.shortDescription}>{shortDescription}</Text> */}
                 </View>
                 <View style={styles.flxdirview}>
                   <Icon
-                    name={this.state.currency}
+                    name={productdata.currency}
                     type="font-awesome"
                     size={18}
                     color="#333"
                     iconStyle={styles.rupeeicn}
                   />
-                  {/* <Text style={styles.rupeetxt}> {this.state.discountedPrice}</Text> */}
-                  <Text style={styles.proddetprice}>{this.state.discountedPrice}  {this.state.size ? <Text style={styles.packofnos}> - {this.state.size}  {this.state.unit}</Text> : null}</Text>
+                  {/* <Text style={styles.rupeetxt}> {discountedPrice}</Text> */}
+                  <Text style={styles.proddetprice}>{productdata.discountedPrice}  {productdata.size ? <Text style={styles.packofnos}> - {productdata.size}  {productdata.unit}</Text> : null}</Text>
                 </View>
               </View>
               <View style={styles.orderstatus}>
                 <View style={styles.kgs}>
-                  <Text style={styles.orderstatustxt}>{this.state.size} {this.state.unit !== 'Number' ? this.state.unit : ''}</Text>
+                  <Text style={styles.orderstatustxt}>{productdata.size} {productdata.unit !== 'Number' ? productdata.unit : ''}</Text>
                 </View>
                 <View style={styles.qtys}>
                   <Counter start={1} min={1}
@@ -316,23 +229,23 @@ export default class SubCatCompView extends React.Component {
                       color: colors.theme,
                     }}
                     size={5}
-                    value={this.state.countofprod}
-                    onChange={this.onChange.bind(this)} />
+                    value={countofprod}
+                    onChange={()=>onChange()} />
                 </View>
               </View>
               <View style={styles.detailclr}>
-                {this.state.color ? 
-                <Text style={styles.detailcolor}>Details: {this.state.color}</Text>
+                {productdata.color ? 
+                <Text style={styles.detailcolor}>Details: {productdata.color}</Text>
                 : null}
                 {
-                  this.state.productDetails == "-" ?
+                  productdata.productDetails == "-" ?
                     <Text style={styles.detaildetailstxt}>"Product details not available"</Text>
                     :
-                    <Text style={styles.detaildetailstxt}>{this.state.productDetails.replace(/<[^>]*>/g, '').replace(/\&nbsp;/g, '')}</Text>
+                    <Text style={styles.detaildetailstxt}>{productdata.productDetails.replace(/<[^>]*>/g, '').replace(/\&nbsp;/g, '')}</Text>
                 }
                 <View>
-                  <Button
-                    onPress={() => this.handlePressAddCart()}
+                 <Button
+                    onPress={() => handlePressAddCart()}
                     title={"ADD TO CART"}
                     buttonStyle={styles.button1}
                     containerStyle={styles.buttonContainer1}
@@ -345,7 +258,7 @@ export default class SubCatCompView extends React.Component {
                         iconStyle={styles.mgrt10}
                       />
                     }
-                  />
+                  /> 
                 </View>
               </View>
             </View>
@@ -353,21 +266,10 @@ export default class SubCatCompView extends React.Component {
           :
           <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
               <ActivityIndicator size="large" color={colors.theme} />
-
-          {/* <BouncingPreloader
-              icons={[
-                require("../../AppDesigns/currentApp/images/bellpaper.png"),
-                require("../../AppDesigns/currentApp/images/carrot.png"),
-                require("../../AppDesigns/currentApp/images/mangooo.png"),
-                require("../../AppDesigns/currentApp/images/tomato.png"),
-              ]}
-              leftRotation="-680deg"
-              rightRotation="360deg"
-              speed={2000} /> */}
         </View>
         }
-          <Modal isVisible={this.state.wishlisted}
-            onBackdropPress={() => this.setState({ wishlisted: false })}
+          <Modal isVisible={wishlisted}
+            onBackdropPress={() => setWishListed(false)}
             coverScreen={true}
             hideModalContentWhileAnimating={true}
             style={{ zIndex: 999 }}
@@ -381,7 +283,7 @@ export default class SubCatCompView extends React.Component {
                 </Text>
               <View style={styles.yesmodalbtn}>
                 <Button
-                  onPress={() => this.setState({ wishlisted: false })}
+                  onPress={() => setWishListed(false)}
                   titleStyle={styles.modalText}
                   title="OK"
                   buttonStyle={styles.button1}
@@ -391,8 +293,8 @@ export default class SubCatCompView extends React.Component {
             </View>
           </Modal>
 
-          <Modal isVisible={this.state.alreadyinwishlist}
-            onBackdropPress={() => this.setState({ alreadyinwishlist: false })}
+          <Modal isVisible={alreadyinwishlist}
+            onBackdropPress={() => setAlreadyInWishlist(false)}
             coverScreen={true}
             hideModalContentWhileAnimating={true}
             style={{ zIndex: 999 }}
@@ -406,7 +308,7 @@ export default class SubCatCompView extends React.Component {
               </Text>
               <View style={styles.yesmodalbtn}>
                 <Button
-                  onPress={() => this.setState({ alreadyinwishlist: false })}
+                  onPress={() => setAlreadyInWishlist(false)}
                   titleStyle={styles.modalText}
                   title="OK"
                   buttonStyle={styles.button1}
@@ -415,8 +317,8 @@ export default class SubCatCompView extends React.Component {
               </View>
             </View>
           </Modal>
-          <Modal isVisible={this.state.addtocart}
-            onBackdropPress={() => this.setState({ addtocart: false })}
+          <Modal isVisible={addToCart}
+            onBackdropPress={() => setAddToCart(false)}
             coverScreen={true}
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
@@ -431,7 +333,7 @@ export default class SubCatCompView extends React.Component {
 
               <View style={styles.yesmodalbtn}>
                 <Button
-                  onPress={() => this.setState({ addtocart: false })}
+                  onPress={() => setAddToCart(false)}
                   titleStyle={styles.modalText}
                   title="OK"
                   buttonStyle={styles.button1}
@@ -440,8 +342,8 @@ export default class SubCatCompView extends React.Component {
               </View>
             </View>
           </Modal>
-          <Modal isVisible={this.state.alreadyincarts}
-            onBackdropPress={() => this.setState({ alreadyincarts: false })}
+          <Modal isVisible={alreadyincarts}
+            onBackdropPress={() => setAlreadyInCarts(false)}
             coverScreen={true}
             hideModalContentWhileAnimating={true}
             style={{ zIndex: 999 }}
@@ -455,7 +357,7 @@ export default class SubCatCompView extends React.Component {
               </Text>
               <View style={styles.yesmodalbtn}>
                 <Button
-                  onPress={() => this.setState({ alreadyincarts: false })}
+                  onPress={() => setAlreadyInCarts(false)}
                   titleStyle={styles.modalText}
                   title="OK"
                   buttonStyle={styles.button1}
@@ -468,9 +370,7 @@ export default class SubCatCompView extends React.Component {
         <Footer />
       </React.Fragment>
     );
-
   }
-}
 
 
 

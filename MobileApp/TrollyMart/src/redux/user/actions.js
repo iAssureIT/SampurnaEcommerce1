@@ -12,16 +12,16 @@ export const setUserDetails = (payload) => {
   };
 };
 
-export const getUserDetails = (user_id,person_id) => {
+export const getUserDetails = (user_id) => {
   return async (dispatch, getState) => {
     dispatch({
       type: SET_LOADING,
       payload: true,
     });
     const store = getState();
-    Axios.get('/api/users/get/user_details/'+user_id) 
+    Axios.get('/api/users/get/id/'+user_id) 
     .then(res => {
-      console.log("res",res);
+      console.log("getUserDetails res",res);
       dispatch({
         type: SET_USER_DETAILS,
         payload: {
@@ -30,6 +30,7 @@ export const getUserDetails = (user_id,person_id) => {
           lastName    : res.data.profile.lastname,
           email       : res.data.profile.email,
           mobile      : res.data.profile.mobile,
+          countryCode : res.data.profile.countryCode,
           fullName    : res.data.profile.fullName,
           company_id  : res.data.profile.company_id,
           companyID   : res.data.profile.companyID,

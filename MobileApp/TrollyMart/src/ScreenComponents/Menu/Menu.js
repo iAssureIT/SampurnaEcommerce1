@@ -10,12 +10,15 @@ import { Icon, Avatar }         from 'react-native-elements';
 import axios                    from "axios";
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuStyles.js';
-import {useNavigation}          from '../../config/useNavigation.js';
-export const Menu=()=>{
+import {withCustomerToaster}     from '../../redux/AppState.js';
+
+export const Menu = (props)=>{
+  console.log("PROPS",props);
+  const {navigation}=props;
   const [firstName,setFirstName] = useState('');
   const [lastName,setLastName]   = useState('');
   const [user_id,setUserId]      = useState('');
-  const navigation                = useNavigation();
+  ;
   useEffect(() => {
     console.log("useEffect");
     getData()
@@ -24,23 +27,25 @@ export const Menu=()=>{
   const getData=()=>{
     AsyncStorage.getItem('user_id')
     .then((userId)=>{
-      axios
-      .get('/api/users/get/'+userId)
-      .then((user)=>{
-        setFirstName(user.data.firstname);
-        setLastName(user.data.lastname);
-        setUserId(userId);
-      })
-      .catch((error)=>{
-        console.log("error=>",error)
-      })
+      if(userId){
+        axios
+        .get('/api/users/get/'+userId)
+        .then((user)=>{
+          setFirstName(user.data.firstname);
+          setLastName(user.data.lastname);
+          setUserId(userId);
+        })
+        .catch((error)=>{
+          console.log("error=>",error)
+        })
+      } 
     })
   }
 
   const logout=()=>{
     AsyncStorage.removeItem('user_id');
     AsyncStorage.removeItem('token');
-    navigation.navigate('Login');
+    navigation.navigate('Auth');
   };
   
   return (
@@ -130,6 +135,7 @@ export const Menu=()=>{
             </Text>
           </View>
         </TouchableOpacity> 
+        {user_id ?
         <TouchableOpacity onPress={()=>logout()}>
           <View style={styles.menu}>
             <Icon 
@@ -144,6 +150,21 @@ export const Menu=()=>{
             </Text>
           </View>
         </TouchableOpacity>
+        :
+        <TouchableOpacity onPress={()=>logout()}>
+          <View style={styles.menu}>
+            <Icon 
+              size={23} 
+              name='login' 
+              type='material-community' 
+              color='#666' 
+              containerStyle={styles.iconContainer}
+            />
+            <Text style={styles.menuText}>
+              Login
+            </Text>
+          </View>
+        </TouchableOpacity>}
       </View>
       </ImageBackground>
   </ScrollView>

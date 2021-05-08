@@ -16,11 +16,11 @@ router.get('/get/list', 							checkAuth, cartController.all_list_cart);
 
 router.get('/get/one/:user_ID', 					checkAuth, cartController.user_cart);
 
-router.get('/get/count/:user_ID', 				checkAuth, cartController.count_cart);
+router.get('/get/count/:user_ID', 				     cartController.count_cart);
 
 router.patch('/remove', 							checkAuth, cartController.remove_cart_items);
 
-router.patch('/quantity', 							checkAuth, cartController.change_cart_item_quantity);
+router.patch('/quantity', 							cartController.change_cart_item_quantity);
 
 router.patch('/address', 							checkAuth, cartController.add_address_to_cart);
 

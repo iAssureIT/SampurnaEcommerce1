@@ -8,7 +8,7 @@ router.post('/post',                              					checkAuth, DiscountManage
 
 router.get('/get/list',                                    		checkAuth, DiscountManagementController.get_discounts);
 
-router.get('/get/list-with-limits/:startRange/:limitRange',		checkAuth, DiscountManagementController.get_discounts_with_limits);
+router.get('/get/list-with-limits/:startRange/:limitRange',	DiscountManagementController.get_discounts_with_limits);
 
 router.get('/get/count',                                    	checkAuth, DiscountManagementController.count_discount);
 

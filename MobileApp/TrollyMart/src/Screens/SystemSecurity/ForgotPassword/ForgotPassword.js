@@ -16,7 +16,7 @@ import {FormInput}          from '../../../ScreenComponents/FormInput/FormInput'
 import {FormButton}         from '../../../ScreenComponents/FormButton/FormButton';
 import * as Yup             from 'yup';
 import {useDispatch}        from 'react-redux';
-import {useNavigation}      from '../../../config/useNavigation.js';
+
 import {emailValidator}     from '../../../config/validators.js';
 import {Formik}             from 'formik';
 import {withCustomerToaster} from '../../../redux/AppState.js';
@@ -36,9 +36,9 @@ const window = Dimensions.get('window');
 
   export const ForgotPassword = withCustomerToaster((props)=>{
     const [btnLoading, setLoading] = useState(false);
-    const {setToast} = props; //setToast function bhetta
+    const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
-    const navigation = useNavigation();
+    
       return (
         <React.Fragment>
           <Formik

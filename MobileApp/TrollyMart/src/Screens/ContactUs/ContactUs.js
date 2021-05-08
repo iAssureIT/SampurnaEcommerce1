@@ -27,7 +27,7 @@ export default class ContactUs extends React.Component{
     };
   }
 
-  componentWillReceiveProps(nextProps){
+  UNSAFE_componentWillReceiveProps(nextProps){
   }
 
   updateMenuState(isOpen) {

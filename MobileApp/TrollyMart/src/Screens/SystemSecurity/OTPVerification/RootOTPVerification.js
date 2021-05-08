@@ -170,7 +170,7 @@ class RootOTPVerification extends ValidationComponent {
                 })
                 .catch((error) => { console.log('notification error: ',error)})
               // =================== Notification ==================
-            this.props.navigation('Login');
+            this.props.navigation('RootLogIn');
           }else{
             var messageHead = "Please enter correct OTP.";
             var messagesSubHead = "";

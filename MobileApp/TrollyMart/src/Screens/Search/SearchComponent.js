@@ -20,7 +20,7 @@
 // import Menu from '../../ScreenComponents/Menu/Menu.js';
 // import HeaderBar2 from '../../ScreenComponents/HeaderBar2/HeaderBar2.js';
 // import searchProducts from'../../Screens/Search/searchProducts.js';
-// import Footer from '../../ScreenComponents/Footer/Footer1.js';
+// import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 
 // import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
 // import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
@@ -122,7 +122,7 @@
 //     })
 //   }
 
-//   componentWillReceiveProps(nextProps){
+//   UNSAFE_componentWillReceiveProps(nextProps){
 //   }
 
 //   updateMenuState(isOpen) {

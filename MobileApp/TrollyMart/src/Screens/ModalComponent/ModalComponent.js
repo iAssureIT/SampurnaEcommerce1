@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
-  AsyncStorage,
   TextInput,
   Alert
 } from 'react-native';
@@ -17,7 +16,7 @@ import Ripple from 'react-native-material-ripple';
 import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../layouts/Loading/Loading.js';
 import Modal from "react-native-modal";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const window = Dimensions.get('window');
 

@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  AsyncStorage,
   Alert,
 } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
@@ -12,11 +11,12 @@ import { Button, } from "react-native-elements";
 import axios from "axios";
 import {Menu} from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
 import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import Modal from "react-native-modal";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default class AccountInformation extends React.Component {
   constructor(props) {
     super(props);

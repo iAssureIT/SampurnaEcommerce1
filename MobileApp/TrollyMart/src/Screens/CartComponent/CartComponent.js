@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {
   ScrollView,
   Text,
@@ -6,193 +6,168 @@ import {
   TouchableOpacity,
   Image,ActivityIndicator,
 } from 'react-native';
-import { Button, Icon, } from "react-native-elements";
-import Modal from "react-native-modal";
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import { Button, Icon, }  from "react-native-elements";
+import Modal              from "react-native-modal";
+import HeaderBar5         from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
-import Notification from '../../ScreenComponents/Notification/Notification.js'
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
-import axios from 'axios';
-import Counter from "react-native-counters";
+import {Footer}             from '../../ScreenComponents/Footer/Footer1.js';
+import Notification       from '../../ScreenComponents/Notification/Notification.js'
+import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
+import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
+import axios              from 'axios';
+import Counter            from "react-native-counters";
+import {withCustomerToaster}  from '../../redux/AppState.js';
 
-export default class CartComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputFocusColor: colors.textLight,
-      isOpen: false,
-      starCount: 2.5,
-      cartData: '',
-      cart: [],
-      totalCartPrice: '',
-      productData: {},
-      productCartData: [],
-      vatPercent: 0,
-      companyInfo: "",
-      totaloriginalprice: 0,
-      cartProduct: "",
-      startRange: 0,
-      limitRange: 10,
-      removefromcart: false,
-      wishlisted: false,
-      loading: false,
-      shippingCharges: 0,
-      quantityAdded: 0,
-      totalIndPrice: 0,
-    };
+import { getList } 		        from '../../redux/productList/actions';
+import { connect,
+  useDispatch,
+  useSelector }         from 'react-redux';
+
+// export default class CartComponent extends React.Component {
+  export const CartComponent = withCustomerToaster((props)=>{
+    console.log("props",props);
+    const dispatch 		= useDispatch();
+    const {setToast,navigation,route} = props; 
+    const [cartData, setCartData] = useState('');
+    const [totaloriginalprice, setOrignalPrice] = useState(0);
+    const [startRange, setStartRange] = useState(0);
+    const [limitRange, setLimitRange] = useState(10);
+    const [removefromcart,setRemoveFromCart] =useState(false);
+    const [wishlisted,setWishListed] =useState(false);
+    const [loading,setLoading] =useState(false);
+    const [shippingCharges,setShippingCharges] =useState(0);
+    const [quantityAdded,setQuantityAdded] =useState(0);
+    const [totalIndPrice,setTotalIndPrice] =useState(0);
+    const [userId,setUserId] =useState(''); 
+    const [product_ID,setProductId] =useState(''); 
+    const [discountdata,setDiscountData] = useState('');
+    const [discounttype,setDiscountType] = useState('');
+    const [discountin,setDiscountIn] = useState('');
+    const [discountvalue,setDiscountValue] = useState('');
+    const [amountofgrandtotal,setAmountofgrandtotal] = useState('');
+    const [minvalueshipping,setMinValueShipping] = useState('');
+    const [subtotalitems,setSubTotalItems] = useState('');
+    const [subtotal,setSubTotal] = useState('');
+    const [currency,setCurrency] = useState('');
+    const [cartitemid,setCartItemId] = useState('');
+    const [incresecartnum,setIncreaseCartNum] = useState('');
+
+    
+
+  useEffect(() => {
+    getData()
+  },[props]); 
+
+  const getData=()=>{
+    const { product_ID, userId } = route.params;
+    setLoading(true);
+    getshippingamount(startRange,limitRange);
+    setUserId(userId);
+    setProductId(product_ID)
+    getCartItems(userId);
+    getdiscounteddata(startRange,limitRange);
   }
-  componentDidMount() {
-    const product_ID = this.props.navigation.getParam('product_ID', 'No product_ID');
-    const userId = this.props.navigation.getParam('user_ID', 'No user_ID');
-    this.getshippingamount(this.state.startRange, this.state.limitRange);
-    this.setState({
-      product_ID: product_ID,
-      userId: userId
-    }, () => {
-      this.getCartItems(this.state.userId, this.state.product_ID);
-      this.getdiscounteddata(this.state.startRange, this.state.limitRange);
-    })
-  }
-  UNSAFE_componentWillReceiveProps() {
-    this.getCartItems(this.state.userId, this.state.product_ID);
-  }
-  getdiscounteddata(startRange, limitRange) {
+
+  const getdiscounteddata=(startRange, limitRange)=>{
     axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
         .then((response) => {
             console.log('tableData = ', response.data[0]);
-            this.setState({
-                discountdata: response.data[0],
-                discounttype: response.data[0].discounttype,
-                discountin: response.data[0].discountin,
-                discountvalue: response.data[0].discountvalue,
+            if(response.data && response.data.length > 0) {
+              setDiscountData(response.data[0]);
+              setDiscountType(response.data[0].discounttype);
+              setDiscountIn(response.data[0].discountin);
+              setDiscountValue(response.data[0].discountvalue);
 
-            },()=>{
-              console.log('discountvalue = ', this.state.discountvalue);
-                var amountofgrandtotal =  this.state.discountdata !== undefined ?
-                                            this.state.totaloriginalprice && this.state.discountin === "Percent" ?
-                                                    this.state.totaloriginalprice - (this.state.totaloriginalprice * this.state.discountvalue)/ 100
-                                                    : this.state.totaloriginalprice - this.state.discountvalue
-                                                : this.state.totaloriginalprice
-            console.log('amountofgrandtotal = ', amountofgrandtotal);
-            this.setState({amountofgrandtotal : amountofgrandtotal})
-             })
+                  var amountofgrandtotal =  response.data[0] !== undefined ?
+                                              totaloriginalprice && response.data[0].discountin === "Percent" ?
+                                                      totaloriginalprice - (totaloriginalprice * response.data[0].discountvalue)/ 100
+                                                      : totaloriginalprice - response.data[0].discountvalue
+                                                  : totaloriginalprice
+              console.log('amountofgrandtotal = ', amountofgrandtotal);
+              setAmountofgrandtotal(amountofgrandtotal);
+            }  
         })
         .catch((error) => {
             console.log('error', error);
         });
 }
-  getshippingamount(startRange, limitRange) {
+
+const getshippingamount=(startRange, limitRange)=>{
     axios.get('/api/shipping/get/list-with-limits/' + startRange + '/' + limitRange)
       .then((response) => {
-        this.setState({
-          minvalueshipping: response.data[0].shippingcosting,
-        })
+        setMinValueShipping(response.data[0].shippingcosting);
       })
       .catch((error) => {
         console.log('error', error);
       });
   }
-  getCartItems() {
-    this.setState({ loading: true })
-    axios.get('/api/Carts/get/cartproductlist/' + this.state.userId)
+ 
+const getCartItems=(userId)=>{
+    axios.get('/api/Carts/get/cartproductlist/' + userId)
       .then((response) => {
-        console.log("response",response);
-        this.setState({ loading: false })
-        if (response.data.length > 0) {
-          this.setState({
-            subtotalitems: response.data[0].cartItems.length,
-            cartData: response.data[0].cartItems,
-            subTotal: response.data.subTotal,
-            currency : response.data[0].cartItems[0].productDetail.currency
-          }, () => {
-            this.gettotalcount();
-          })
+        setLoading(false);
+        if(response.data.length > 0) {
+          setSubTotalItems(response.data[0].cartItems.length);
+          setCartData(response.data[0].cartItems);
+          setSubTotal(response.data[0].cartTotal);
+          setCurrency(response.data[0].cartItems[0].productDetail.currency);
+          gettotalcount(response.data[0].cartItems);
         } else {
-          this.setState({
-            cartData: [],
-          })
+          setCartData([]);
         }
 
       })
       .catch((error) => {
-        this.setState({ loading: false })
+        setLoading(false);
         console.log('error', error);
       })
   }
-  getCartData() {
-    axios.get('/api/Carts/get/cartproductlist/' + this.state.userId)
-      .then((response) => {
-        if (response.data.length > 0) {
-          this.setState({
-            subtotalitems: response.data[0].cartItems.length,
-            cartData: response.data[0].cartItems,
-            subTotal: response.data.subTotal,
-          }, () => {
-            this.gettotalcount();
-          })
-        } else {
-          this.setState({
-            cartData: [],
-          })
-        }
 
-      })
-      .catch((error) => {
-        this.setState({ loading: false })
-        console.log('error', error);
-      })
-  }
-  DeleteItem() {
+
+  const deleteItem=()=>{
     const formValues = {
-      "user_ID": this.state.userId,
-      "cartItem_ID": this.state.cartitemid,
+      "user_ID": userId,
+      "cartItem_ID": cartitemid,
     }
+    console.log("formValues",formValues);
     axios.patch("/api/carts/remove", formValues)
       .then((response) => {
-        this.getCartData(this.state.userId, this.state.product_ID);
-        this.setState({
-          removefromcart: false,
-        })
+        getCartItems(userId);
+        setRemoveFromCart(false)
       })
+      .catch((error) => {
+        console.log('error', error);
+      });
   }
-  DeleteItemfromcart(cartitemid) {
-    this.setState({
-      removefromcart: true,
-      cartitemid: cartitemid,
 
-    })
+  const deleteItemFromCart=(cartitemid)=>{
+    setRemoveFromCart(true);
+    setCartItemId(cartitemid);
   }
-  addtowishlist = (productid, cartid) => {
+
+
+  const addToWishList = (productid) => {
     const wishValues = {
-      "user_ID": this.state.userId,
+      "user_ID": userId,
       "product_ID": productid,
     }
     axios.post('/api/wishlist/post', wishValues)
       .then((response) => {
-        const formValues = {
-          "user_ID": this.state.userId,
-          "cartItem_ID": cartid,
-        }
-        axios.patch("/api/carts/remove", formValues)
-          .then((response) => {
-            this.setState({
-              wishlisted: true,
-            });
-            this.getCartData(this.state.userId, this.state.product_ID);
-          })
-          .catch((error) => {
-            console.log('error', error);
-          })
+        console.log("response check",response);
+        getCartItems(userId);
+        dispatch(getList('featured',userId));
+        dispatch(getList('exclusive',userId));
+        dispatch(getList('discounted',userId));
+        // dispatch(getWishList(user_id));
+        setToast({text: response.data.message, color: 'green'});
       })
       .catch((error) => {
         console.log('error', error);
       })
   }
-  gettotalcount() {
-    var resdata = this.state.cartData;
-    // console.log('resdata', resdata[0].subTotal);
+
+
+  const gettotalcount=(resdata)=>{
     let UserArray = [];
     for (let i = 0; i < resdata.length; i++) {
       var totalprice = resdata[i].subTotal;
@@ -201,54 +176,50 @@ export default class CartComponent extends React.Component {
     let totalAmount = UserArray.reduce(function (prev, current) {
       return prev + +current
     }, 0);
-    this.setState({
-      totaloriginalprice: totalAmount,
-    })
+    setOrignalPrice(totalAmount);
   }
-  onChange(product_ID, number, type) {
-    console.log(product_ID, number, type) // 1, + or -
+
+  const onChange=(number,product_ID)=>{
     const quantity = parseInt(number);
     const formValues = {
-      "user_ID": this.state.userId,
+      "user_ID": userId,
       "product_ID": product_ID,
       "quantityAdded": quantity,
     }
+    console.log("formValues",formValues);
     axios.patch("/api/carts/quantity", formValues)
       .then((response) => {
-        this.getCartData(this.state.userId, this.state.product_ID);
-        this.setState({
-          incresecartnum: formValues.quantityAdded
-        })
+        console.log("response",response);
+        setIncreaseCartNum(formValues.quantityAdded);
+        getCartItems(userId);
       })
       .catch((error) => {
         console.log('error', error);
       })
   }
 
-  render() {
-    const { navigate, dispatch, goBack } = this.props.navigation;
     return (
       <React.Fragment>
         <HeaderBar5
-          goBack={goBack}
+          goBack={navigation.goBack}
           headerTitle={'My Cart'}
-          navigate={navigate}
-          openControlPanel={() => this.openControlPanel.bind(this)}
+          navigate={navigation.navigate}
+          openControlPanel={() => openControlPanel}
         />
         <View style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
             <View style={styles.formWrapper}>
               <View style={styles.cartdetails}>
                 {
-                  !this.state.loading ?
-                    this.state.cartData && this.state.cartData.length > 0 ?
-                      this.state.cartData.map((item, i) => {
+                  !loading ?
+                    cartData && cartData.length > 0 ?
+                      cartData.map((item, i) => {
                         return (
                           <View key={i}>
                             <View key={i} style={styles.proddetails}>
                               <View style={styles.flxdir}>
                                 <View style={styles.flxpd}>
-                                  <TouchableOpacity onPress={() => this.props.navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
+                                  <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
                                     {item.productDetail.productImage.length > 0 ?
                                       <Image
                                         style={styles.imgwdht}
@@ -263,8 +234,7 @@ export default class CartComponent extends React.Component {
                                   </TouchableOpacity>
                                 </View>
                                 <View style={styles.flxmg}>
-                                  <TouchableOpacity onPress={() => this.props.navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
-                                    {console.log("cartcomponent item",item)}
+                                  <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
                                     {item.productDetail.productNameRlang ?
                                     <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.productDetail.productNameRlang}</Text>
                                     : 
@@ -296,15 +266,16 @@ export default class CartComponent extends React.Component {
                                       color: colors.theme,
                                     }}
                                     size={5}
-                                    onChange={this.onChange.bind(this, item.productDetail._id)} />
+                                    onChange={(e)=>onChange(e,item.productDetail._id)} 
+                                    />
                                 </View>
                                 <View style={styles.flxmg2}>
                                   <View style={styles.proddeletes}>
-                                    <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => this.addtowishlist(item.product_ID, item._id)} >
-                                      <Icon size={20} name='heart-o' type='font-awesome' color={colors.theme} />
+                                    <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID)} >
+                                      <Icon size={20} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
                                     </TouchableOpacity>
                                     <Icon
-                                      onPress={() => this.DeleteItemfromcart(item._id)}
+                                      onPress={() => deleteItemFromCart(item._id)}
                                       name="delete"
                                       type="AntDesign"
                                       size={20}
@@ -322,8 +293,8 @@ export default class CartComponent extends React.Component {
                                           color="#666"
                                           iconStyle={styles.iconstyle}
                                         />
-                                        <Text id={item._id} value={this.state['quantityAdded|' + item._id]} style={styles.proprice}>
-                                          {/* {item.productDetail.discountedPrice * item.size } */}
+                                        {/* <Text id={item._id} value={this.state['quantityAdded|' + item._id]} style={styles.proprice}> */}
+                                       <Text id={item._id}  style={styles.proprice}>
                                           {item.productDetail.size > 0 ?
                                             item.productDetail.discountedPrice * item.quantity
                                             :
@@ -346,7 +317,7 @@ export default class CartComponent extends React.Component {
                           source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
                         />
                         <Button
-                              onPress={() => this.props.navigation.navigate('Dashboard')}
+                              onPress={() => navigation.navigate('Dashboard')}
                               title={"Add Products"}
                               buttonStyle={styles.buttonshopping}
                               containerStyle={styles.continueshopping}
@@ -358,22 +329,22 @@ export default class CartComponent extends React.Component {
                     </View>
                 }
                 {
-                  this.state.cartData && this.state.cartData.length > 0 && this.state.subtotalitems ?
+                  cartData && cartData.length > 0 && subtotalitems ?
                     <View style={styles.totaldetails}>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.7 }}>
-                          <Text style={styles.totaldata}>Subtotal ({this.state.subtotalitems} Item(s)) </Text>
+                          <Text style={styles.totaldata}>Subtotal ({subtotalitems} Item(s)) </Text>
                         </View>
                         <View style={{ flex: 0.3 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Icon
-                               name={this.state.currency}
+                               name={currency}
                               type="font-awesome"
                               size={16}
                               color="#666"
                               iconStyle={styles.iconstyle}
                             />
-                            <Text style={styles.totalpriceincart}>{this.state.totaloriginalprice}</Text>
+                            <Text style={styles.totalpriceincart}>{totaloriginalprice}</Text>
                           </View>
                         </View>
                       </View>
@@ -384,9 +355,9 @@ export default class CartComponent extends React.Component {
                         <View style={{ flex: 0.3 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           { 
-                          this.state.discountin === "Amount" ? 
+                          discountin === "Amount" ? 
                             <Icon
-                              name={this.state.currency}
+                              name={currency}
                               type="font-awesome"
                               size={15}
                               color="#666"
@@ -394,9 +365,9 @@ export default class CartComponent extends React.Component {
                             />
                           : null 
                         }
-                        <Text style={styles.totalpriceincart}>{this.state.discountvalue > 1 ? this.state.discountvalue : 0.00}</Text>
+                        <Text style={styles.totalpriceincart}>{discountvalue > 1 ? discountvalue : 0.00}</Text>
                          {
-                           this.state.discountin === "Percent" ? 
+                           discountin === "Percent" ? 
                               <Icon
                                 name="percent"
                                 type="font-awesome"
@@ -416,18 +387,18 @@ export default class CartComponent extends React.Component {
                         <View style={{ flex: 0.3 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Icon
-                              name={this.state.currency}
+                              name={currency}
                               type="font-awesome"
                               size={15}
                               color="#666"
                               iconStyle={styles.iconstyle}
                             />
-                            {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{this.state.amountofgrandtotal}</Text> */}
-                            <Text style={styles.totalpriceincart}>{  this.state.discountdata !== undefined ?
-                                this.state.totaloriginalprice && this.state.discountin === "Percent" ?
-                                    this.state.totaloriginalprice - (this.state.totaloriginalprice * this.state.discountvalue)/ 100
-                                    : this.state.totaloriginalprice - this.state.discountvalue
-                                : this.state.totaloriginalprice}
+                            {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{amountofgrandtotal}</Text> */}
+                            <Text style={styles.totalpriceincart}>{  discountdata !== undefined ?
+                                totaloriginalprice && discountin === "Percent" ?
+                                    totaloriginalprice - (totaloriginalprice * discountvalue)/ 100
+                                    : totaloriginalprice - discountvalue
+                                : totaloriginalprice}
                             </Text>
                           </View>
                         </View>
@@ -436,10 +407,10 @@ export default class CartComponent extends React.Component {
                         <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                       </View>
                       <View>
-                        {this.state.minvalueshipping <= this.state.totaloriginalprice ?
+                        {minvalueshipping <= totaloriginalprice ?
                           <View>
                             <Button
-                              onPress={() => this.props.navigation.navigate('AddressDefaultComp', { userID: this.state.userId })}
+                              onPress={() => navigation.navigate('AddressDefaultComp', { userID: userId })}
                               title={"PROCEED TO CHECKOUT"}
                               buttonStyle={styles.button1}
                               containerStyle={styles.buttonContainer1}
@@ -452,8 +423,8 @@ export default class CartComponent extends React.Component {
                           </View>
                           :
                           <View>
-                            <Text style={styles.minpurchase}>Minimum order should be ₹{this.state.minvalueshipping} to Checkout & Place Order.
-                                 {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth ₹{this.state.minvalueshipping - this.state.totaloriginalprice} to proceed further.</Text> </Text>
+                            <Text style={styles.minpurchase}>Minimum order should be ₹{minvalueshipping} to Checkout & Place Order.
+                                 {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth ₹{minvalueshipping - totaloriginalprice} to proceed further.</Text> </Text>
                           </View>
 
                         }
@@ -467,8 +438,8 @@ export default class CartComponent extends React.Component {
             </View>
           </ScrollView>
           <Footer />
-          <Modal isVisible={this.state.removefromcart}
-            onBackdropPress={() => this.setState({ removefromcart: false })}
+          <Modal isVisible={removefromcart}
+            onBackdropPress={() => setRemoveFromCart(false)}
             coverScreen={true}
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
@@ -484,7 +455,7 @@ export default class CartComponent extends React.Component {
                 <View style={styles.cancelvwbtn}>
                   <TouchableOpacity>
                     <Button
-                      onPress={() => this.setState({ removefromcart: false })}
+                      onPress={() => setRemoveFromCart(false)}
                       titleStyle={styles.buttonText}
                       title="NO"
                       buttonStyle={styles.buttonRED}
@@ -494,7 +465,7 @@ export default class CartComponent extends React.Component {
                 </View>
                 <View style={styles.ordervwbtn}>
                     <Button
-                      onPress={() => this.DeleteItem()}
+                      onPress={() => deleteItem()}
                       titleStyle={styles.buttonText1}
                       title="Yes"
                       buttonStyle={styles.button1}
@@ -505,8 +476,8 @@ export default class CartComponent extends React.Component {
             </View>
           </Modal>
 
-          <Modal isVisible={this.state.wishlisted}
-            onBackdropPress={() => this.setState({ wishlisted: false })}
+          <Modal isVisible={wishlisted}
+            onBackdropPress={() => setWishListed(false)}
             coverScreen={true}
             hideModalContentWhileAnimating={true}
             style={{ paddingHorizontal: '5%', zIndex: 999 }}
@@ -522,7 +493,7 @@ export default class CartComponent extends React.Component {
                 <View style={styles.cancelvwbtn}>
                   <TouchableOpacity>
                     <Button
-                      onPress={() => this.setState({ wishlisted: false })}
+                      onPress={() => setWishListed(false)}
                       titleStyle={styles.buttonText1}
                       title="OK"
                       buttonStyle={styles.button1}
@@ -536,8 +507,7 @@ export default class CartComponent extends React.Component {
         </View>
       </React.Fragment>
     );
-  }
-}
+})
 
 
 

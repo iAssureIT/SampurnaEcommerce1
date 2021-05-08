@@ -9,53 +9,55 @@ import {BannerComponent}            from '../../ScreenComponents/BannerComponent
 import {MenuCarouselSection}        from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
 import SearchProducts               from'../Search/SearchProducts.js';
-import Footer                       from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                       from '../../ScreenComponents/Footer/Footer1.js';
 import Notification                 from '../../ScreenComponents/Notification/Notification.js'
 import { connect,useDispatch,useSelector }      from 'react-redux';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
 import {colors}                     from '../../AppDesigns/currentApp/styles/styles.js';
-import Drawer                       from 'react-native-drawer';
 import Loading                      from '../../ScreenComponents/Loading/Loading.js';
 import axios                        from "axios";
-import {useNavigation}              from '../../config/useNavigation.js';
+// 
 import {withCustomerToaster}        from '../../redux/AppState.js';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 import { getList } 		              from '../../redux/productList/actions';
 import { getWishList } 		          from '../../redux/wishDetails/actions';
 
 export const Dashboard = withCustomerToaster((props)=>{
-   console.log("props",props);
-  const dispatch 		= useDispatch();
-  const {setToast} = props; 
-  const navigation = useNavigation();
+  console.log("props",props);
+  const dispatch = useDispatch();
+  const {setToast,navigation} = props; 
+  // 
   const [isOpen,setOpen]= useState(false);
   const [categories,setCategories]= useState([]);
   const [searchProductsDetails,setSearchProductsDetails]= useState([]);
   const [countData,setCountData]= useState([]);
   const [user_id,setUserId]= useState('');
   const [token,setToken]= useState('');
+
   const store = useSelector(store => ({
     searchText  : store.searchText,
     productList : store.productList,
     wishList    : store.wishDetails.wishList
   }));
-  const {searchText,productList,wishList} = store; 
 
+
+  const {searchText,productList,wishList} = store;
   useEffect(() => {
-    console.log("useEffect");
     getData()
-  },[]);
+  },[user_id]);
 
   const getData=async()=>{
       var data = await AsyncStorage.multiGet(['user_id', 'token']);
-      console.log("data",data);
       setUserId(data[0][1]);
       setToken(data[1][1]);
-      countfun(data[0][1]);
-      dispatch(getList('featured'));
-      dispatch(getList('exclusive'));
-      dispatch(getList('discounted'));
-      dispatch(getWishList(data[0][1]));
+     
+      dispatch(getList('featured',data[0][1]));
+      dispatch(getList('exclusive',data[0][1]));
+      dispatch(getList('discounted',data[0][1]));
+      if(data[0][1]){
+        countfun(data[0][1]);
+        dispatch(getWishList(data[0][1]));
+      }
       searchProducts();
   }
 
@@ -89,29 +91,31 @@ export const Dashboard = withCustomerToaster((props)=>{
 
     return (
       <React.Fragment>
-        <SideMenu disableGestures={true} openMenuOffset={300} menu={menu} isOpen={isOpen}  onChange={isOpen => setOpen(isOpen)} > 
+       
          <HeaderBar2 
             navigation={navigation}
             toggle={setOpen} 
             openControlPanel={()=>_drawer.open()}
           /> 
           <View style={styles.superparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-              <View  style={styles.formWrapper}>
+            <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
+            <View  style={[styles.formWrapper]}>
                 {props.searchText ?
                   null
                 :
                   <BannerComponent />
                 }
+            </View>      
+             <View  style={[styles.formWrapper,{padding:15}]}> 
                 {props.searchText ?
                   null
                 :
-                  <MenuCarouselSection  navigate = {navigation.navigate}/>
+                  <MenuCarouselSection  navigation = {navigation}/>
                 }
                 {props.searchText ?
                   <SearchProducts navigate = {navigation.navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
                 :
-                  (productList.featureList.length > 0 ? 
+                  (productList.featureList && productList.featureList.length > 0 ? 
                     <ProductList navigate = {navigation.navigate} title={'Featured Products'}  newProducts={productList.featureList} type={'featured'} route={'AllFeatureProducts'}  wishList={wishList} userId={user_id} categories={categories}/>
                     : null
                   )
@@ -132,7 +136,6 @@ export const Dashboard = withCustomerToaster((props)=>{
             </ScrollView>
             <Footer/>
           </View> 
-        </SideMenu>
       </React.Fragment>
     );  
 })

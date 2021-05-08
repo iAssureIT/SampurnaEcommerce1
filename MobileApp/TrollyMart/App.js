@@ -1,32 +1,33 @@
-import React, { useEffect,useState }   from "react";
-import {View,Text}            from "react-native";
-import  HomeStack             from "./src/config/routes.js";
-import  AuthStack             from "./src/config/routes.js";
-import { createAppContainer } from "react-navigation";
+import React, 
+      { useEffect,useState }  from "react";
 import axios                  from 'axios';
 import codePush               from 'react-native-code-push';
-import {Provider, connect}                    from 'react-redux';
-import {Provider as ProviderPaper, Snackbar}  from 'react-native-paper';
-import store                                  from './src/redux/store';
-import {setToast}                             from './src/redux/AppState';
-import { request,check,PERMISSIONS,RESULTS }  from 'react-native-permissions';
-const HomeStackContainer = createAppContainer(HomeStack);
-const AuthStackContainer = createAppContainer(AuthStack);
+import {Provider, connect}    from 'react-redux';
+import {Provider as ProviderPaper, 
+      Snackbar}               from 'react-native-paper';
+import store                  from './src/redux/store';
+import {setToast}             from './src/redux/AppState';
+import { request,
+        check,
+        PERMISSIONS,
+        RESULTS }             from 'react-native-permissions';
+import { LogBox }             from 'react-native';
+import {AuthLoadingScreen}    from "./src/ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js";
+import {NavigationContainer}  from "@react-navigation/native";
 // axios.defaults.baseURL = 'http://qaapi-bookstore.iassureit.in/';
 // axios.defaults.baseURL = 'https://qaapi-sampurna-marketplace.iassureit.in/';
-axios.defaults.baseURL = 'http://10.39.1.89:3366/';
-// console.disableYellowBox = true;
-console.log("axios.defaults.baseURL===>",axios.defaults.baseURL);
-console.log("store",store);
-
- const App = () => {
+// axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com/';
+axios.defaults.baseURL = 'http://10.39.1.161:3366';
+ const App = (props) => {
   const [token, setToken] = useState('');
   const [toast, setAppToast] = React.useState(null);
-
+  console.log("props",props);
   useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested','Animated: `useNativeDriver`']);
     const unSubscribe = store.subscribe(() => {
-      setToken(store.getState()?.userReducer?.token || '');
+      StatusBar.setHidden(true);
       setAppToast(store.getState()?.appStateReducer?.toastState);
+      setToken(store.getState()?.userReducer?.token || '');
        request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
         .then(result => {
           switch (result) {
@@ -52,12 +53,13 @@ console.log("store",store);
       unSubscribe();
     };
   }, []);
-    return( 
-        <Provider store={store}>
-          <HomeStackContainer />
+
+  return( 
+      <Provider store={store}>
+          <AuthLoadingScreen />
           <ToastProvider toast={toast} />
-        </Provider>  
-      );
+      </Provider>  
+    );
 }
 
 const ToastProviderComponent = props => {
@@ -66,13 +68,16 @@ const ToastProviderComponent = props => {
       visible={!!props.toast}
       style={{backgroundColor: props.toast?.color}}
       duration={1000}
-      onDismiss={() => props.setToast(null)}>
+      onDismiss={() => props.setToast(null)}
+      // position= {'top'}
+      >
       {props.toast?.text}
+      
     </Snackbar>
   );
 };
 
-const ToastProvider = connect(
+ const ToastProvider = connect(
   null,
   dispatch => ({
     setToast: payload => dispatch(setToast(payload)),
