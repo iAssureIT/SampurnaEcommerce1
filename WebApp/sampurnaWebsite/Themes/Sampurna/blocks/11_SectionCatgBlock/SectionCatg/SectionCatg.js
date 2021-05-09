@@ -200,9 +200,9 @@ class ShoppingVerticals extends Component {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {  
                         return (
-                        <div className="col-12 sectionCategoryBlock"  key={index}> 
-                            <div className="productImg col-12 NoPadding">
-                              <a className="product photo product-item-photo collage" tabIndex="-1" href={data.itemUrl}>
+                        <div className="col-12 sectionCategoryBlock NoPadding"  key={index}> 
+                            <div className="itemImg col-12 NoPadding">
+                              <a className="product photo product-item-photo collage" tabIndex="-1" href={"/section/"+data.itemUrl}>
                                 <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" />
                               </a>
                             </div>
@@ -220,7 +220,7 @@ class ShoppingVerticals extends Component {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {                      
                         return (
-                          // 
+                          index<8?
                           <div className="col-3">
                                 <div className="productImg col-12 NoPadding">
                                   <a className="product photo product-item-photo collage" tabIndex="-1" href={data.itemUrl}>
@@ -234,7 +234,8 @@ class ShoppingVerticals extends Component {
                                           productSetting= {this.state.productSetting}
                                           filterSettings= {this.state.filterSettings}
                                 />   */}
-                          </div>                            
+                          </div> 
+                          :''                           
                         );
                       
                       })

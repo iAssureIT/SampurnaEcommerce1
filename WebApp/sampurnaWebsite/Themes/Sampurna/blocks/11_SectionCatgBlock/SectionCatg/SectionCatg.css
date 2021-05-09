@@ -10,3 +10,6 @@
 .producttextclass{
     margin-top: 20px;
 }
+.itemImg img{
+    border-radius: 10px;
+}

@@ -334,7 +334,7 @@ class ProductCarousel extends Component {
 		}
 		if(filterType === 'category') {
 			var selector = this.state.selector;
-      console.log("selector===",selector);
+      // console.log("selector===",selector);
 			delete selector.subCategory_ID;
 			selector.section_ID = this.props.match.params.sectionID;
 			selector.price = this.state.price;
@@ -783,7 +783,7 @@ class ProductCarousel extends Component {
             <div className="col-12">
               <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
                 <div className={ "col-12 " +Style.title4}>
-                    <h2 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle "+Style.textAlign} data-trans="#blog_1554730795823_title">{this.state.blockTitle}</h2>
+                    <h4 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle "+Style.textAlign} data-trans="#blog_1554730795823_title">{this.state.blockTitle}</h4>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
                     <div className={"line "+Style.line}><span className={Style.span}></span></div>
 			        	</div>

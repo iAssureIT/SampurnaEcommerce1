@@ -26,6 +26,10 @@ https://devvendor.knock-knockeshop.com/login
 Dev Website
 https://devwebsite.knock-knockeshop.com/login
 
+Dev CMS
+https://devcms.knock-knockeshop.com/login
+
+
 
 Following are our URL for Sampurna MarketPlace 
 API
