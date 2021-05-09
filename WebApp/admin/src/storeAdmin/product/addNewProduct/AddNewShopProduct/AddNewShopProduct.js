@@ -581,11 +581,11 @@ class AddNewShopProduct extends Component {
   edit(id) {
 	 axios.get('/api/products/get/one/' + id)
 		.then((response) => {
-			console.log("edit response----",response.data);
+			// console.log("edit response----",response.data);
 		  this.getCategories();
 		  this.getSubCategories(response.data.category_ID);
-		  console.log('response.data.category +++++',response.data.category);
-		  console.log('response.data.subCategory_ID +++++',response.data.subCategory_ID);
+		//   console.log('response.data.category +++++',response.data.category);
+		//   console.log('response.data.subCategory_ID +++++',response.data.subCategory_ID);
 		  this.getTaxRates(response.data.taxId)
 		  this.setState({
 			 showDiscount: response.data.discountedPrice ? false : true,
@@ -622,8 +622,8 @@ class AddNewShopProduct extends Component {
 			 currency: response.data.currency,
 			 status: response.data.status,
 		  }, () => {
-			 console.log('this-------------', this.state.vendorName);
-			 console.log('this user_ID-------------', this.state.user_ID);
+			//  console.log('this-------------', this.state.vendorName);
+			//  console.log('this user_ID-------------', this.state.user_ID);
 
 		  })
 
@@ -1214,7 +1214,7 @@ class AddNewShopProduct extends Component {
   }
 
   selectVendor(event){
-	 console.log("selectVendor-------",event.target.getAttribute('vendorID'));
+	//  console.log("selectVendor-------",event.target.getAttribute('vendorID'));
 	 this.setState({
 		[event.target.name] : event.target.value,
 		vendorID : event.target.getAttribute('vendorID')
@@ -1266,7 +1266,7 @@ class AddNewShopProduct extends Component {
 								  </div>
 								  {
 									 ((this.state.websiteModel === "MarketPlace" && this.state.vendorName) ||  this.state.websiteModel !== "MarketPlace")
-									 ?
+									 ? 
 										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 										  <div className="addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">
 
@@ -1289,7 +1289,7 @@ class AddNewShopProduct extends Component {
 											 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 inputFields" id="categoryDiv">
 												<label>Category <i className="redFont">*</i></label>
 												{/*<div className="input-group" id="category">*/}
-												{console.log("this.state.category----",this.state.category)}
+												{/* {console.log("this.state.category----",this.state.category)} */}
 												<select onChange={this.showRelevantSubCategories.bind(this)} value={this.state.category} name="category" className="form-control allProductCategories" aria-describedby="basic-addon1" id="category" ref="category">
 												  <option disabled selected defaultValue="">Select Category</option>
 												  {this.state.categoryArray && this.state.categoryArray.length > 0 ?

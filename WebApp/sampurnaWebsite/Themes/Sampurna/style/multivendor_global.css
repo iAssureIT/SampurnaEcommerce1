@@ -1,8 +1,8 @@
-/* @import "../styles/app.css"; */
 
 @import "../blocks/5_HeaderBlocks/SampurnaHeader/Header.css";
 /* @import "../blocks/5_HeaderBlocks/Header/Header.css"; */
 @import "../blocks/6_FooterBlocks/Footer/Footer.css";
+@import "../blocks/11_SectionCatgBlock/SectionCatg/SectionCatg.css";
 
 @import "../../../sites/multivendor/pages/ContactPage.css";
 @import "../../../sites/multivendor/common/SignUp.css";

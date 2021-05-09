@@ -2,7 +2,7 @@ const mongoose	= require("mongoose");
 const Block = require('./models.js');
 
 exports.create_block = (req,res,next)=>{
-    console.log("Request.body ======",req.body);
+    // console.log("Request.body ======",req.body);
 	const block = new Block({
             _id                 : new mongoose.Types.ObjectId(),
             displayOnPage	    :  req.body.displayOnPage,
@@ -26,6 +26,7 @@ exports.create_block = (req,res,next)=>{
             blockSettings   : req.body.blockSettings,
             productSettings : req.body.productSettings,
             filterSettings  : [],
+            groupSettings   : req.body.groupSettings,
             
             // createdBy           : req.body.user_ID,
             createdAt           : new Date(),
@@ -61,7 +62,7 @@ exports.list_block = (req,res,next)=>{
 };
 
 exports.similar_list_block = (req,res,next)=>{
-            console.log("=-=-=-=-=-=-=-=-=-=-",req.params.blockComponentName);
+            // console.log("=-=-=-=-=-=-=-=-=-=-",req.params.blockComponentName);
 
     Block.find({blockComponentName:req.params.blockComponentName})
         .exec()

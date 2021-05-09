@@ -205,12 +205,12 @@ class Login extends Component {
     return (
       <div style={{'height': window.innerHeight+'px', 'width': window.innerWidth+'px'}} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper "+customClass}>
         {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap"></div> */}
-        <div className="col-lg-12 adminLOgo ">
-              <img src="images/admin/sampurnaLogo.png " className="col-lg-2" />
+        <div className="col-lg-2 adminLOgo ">
+              <img src="images/admin/sampurnaLogo.png " className="col-lg-12" />
           </div>
         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">         
-          <div className="col-lg-6 loginLeftImg hidden-xs">
-              <img src="images/admin/1.png" />
+          <div className="col-lg-8 loginLeftImg hidden-xs">
+              <img src="images/admin/1.png" className="col-lg-6 col-lg-offset-2"/>
           </div>
           <div className="col-lg-4 col-sm-6 col-xs-12 formShadow">
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xs-12">

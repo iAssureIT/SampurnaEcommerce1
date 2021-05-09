@@ -6,6 +6,10 @@ exclusive - /api/products/get/listbytype/exclusive
 
 particular section  - /api/products/get/listbysection/women
 
+Shop By Section - /api/sections/get/get_megamenu_list
+ 
+Shop By Category - /api/category/get/list
+
 
 reference Theme -  https://demo.wpthemego.com/themes/sw_onemall/layout3/
 

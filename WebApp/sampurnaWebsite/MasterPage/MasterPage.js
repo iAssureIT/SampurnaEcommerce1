@@ -48,12 +48,12 @@ class MasterPage extends React.Component {
 				"pageLoaded" : true
 			},()=>{
 				console.log("2 timestamp = ", new Date() );
-				// console.log('page is fully loaded');
+				console.log('Page loaded');
 			})
 		};		
 	}
 	getInitialProps(){
-		console.log("inside getInitial props");
+		// console.log("inside getInitial props");
 	}
 
 	getPreferences(){

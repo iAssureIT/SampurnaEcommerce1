@@ -162,7 +162,7 @@
 }
 .adminLOgo{
   margin-top: 2%;
-  margin-bottom: 8%;
+  margin-bottom: 2%;
 }
 .LoginWrapper{
   background-image: url("/images/admin/loginBackground.png");
@@ -183,6 +183,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
+  margin-top: 30px;
 }
 .loginInputWrapper{
   height: 60px;
@@ -369,6 +370,7 @@
     min-height: 300px !important  ;
     box-shadow: 2px 1px 7px 6px #33333326;
     float: unset;
+    margin-top: -20px;
   }
   .logininput label{
     font-weight: 500;

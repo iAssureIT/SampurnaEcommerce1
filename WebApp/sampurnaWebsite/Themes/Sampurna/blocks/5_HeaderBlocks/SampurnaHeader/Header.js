@@ -15,7 +15,6 @@ import parse, { domToReact } from 'html-react-parser';
 import Megamenu            from './Megamenu.js';
 import SystemSecurityModal from './SystemSecurityModal.js';
 
-
 class Header extends React.Component {
 	constructor(props) {
 		super(props);
