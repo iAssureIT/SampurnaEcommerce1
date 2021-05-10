@@ -1138,18 +1138,27 @@ class ProductCarousel extends Component {
 
                       />
                     :
-                      <div>No Products available </div>
+                    <div className="col-2 offset-5 ">          
+                        <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
+                    </div>
                     }
                   </div>                    
                   </div>                    
                   :
                   // if left side filters are not available in product block
+                    <div >
+                    {this.state.newProducts.length>=1?
+                        <Product newProducts={this.state.newProducts}
+                            productSettings = {this.state.productSettings}
+                            blockSettings   = {this.state.blockSettings}
 
-                    <Product newProducts={this.state.newProducts}
-                        productSettings = {this.state.productSettings}
-                        blockSettings   = {this.state.blockSettings}
-
-                    />
+                        />
+                    :
+                        <div className="col-2 offset-5 ">          
+                            <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
+                        </div>
+                    }
+                    </div>
                   }  
                   </div>
                   </div>
@@ -1166,9 +1175,7 @@ class ProductCarousel extends Component {
        </div>
       </div>
       :
-      <div className="col-2 offset-5 ">          
-          <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
-      </div>
+      ""
     );
   }
 }

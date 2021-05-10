@@ -47,8 +47,8 @@ class MasterPage extends React.Component {
 			this.setState({
 				"pageLoaded" : true
 			},()=>{
-				console.log("2 timestamp = ", new Date() );
-				console.log('Page loaded');
+				// console.log("2 timestamp = ", new Date() );
+				// console.log('Page loaded');
 			})
 		};		
 	}
@@ -104,8 +104,8 @@ class MasterPage extends React.Component {
 			<Header/>			 
 			<div className="col-12 NoPadding componentWrapper">
 
-			{this.state.pageLoaded ?
-				this.props.pageData && this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
+			{/* {this.state.pageLoaded ? */}
+				{this.props.pageData && this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
 					this.props.pageData.pageBlocks.map((result, index)=>{
 						// console.log("this.props.pageData.pageBlocks===",this.props.pageData.pageBlocks);
 						var component = result._id ? result.blockComponentName : "TitleDesc";
@@ -133,15 +133,18 @@ class MasterPage extends React.Component {
 	
 				
 				
-			:
+			// :
 				
-				<div className="col-12 NoPadding">
-					{/* <Banner />	 */}
-					<div> Page loading...</div>					
-				</div>
+			// 	<div className="col-12 NoPadding">
+			// 		{/* <Banner />	 */}
+			// 		<div> Page loading...</div>					
+			// 	</div>
 				
-			 }
+			//  }
+			
+			}
 			</div>
+			
 			{/* {this.props.pageData.pageURL === 'homepage' ? <BlogCarousel/> : null} */}
 			{/* <ScrollTop /> */}
 			<Footer/>

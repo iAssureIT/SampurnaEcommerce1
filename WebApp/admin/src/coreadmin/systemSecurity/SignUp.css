@@ -183,7 +183,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
-  margin-top: 30px;
+  margin-top: 60px;
 }
 .loginInputWrapper{
   height: 60px;
@@ -367,7 +367,8 @@
     border-radius: 10px;
     display: inline-block !important;
     /* width: 470px; */
-    min-height: 300px !important  ;
+    /* min-height: 300px !important  ; */
+    height: 460px;
     box-shadow: 2px 1px 7px 6px #33333326;
     float: unset;
     margin-top: -20px;

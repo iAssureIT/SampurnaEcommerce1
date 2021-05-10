@@ -23,10 +23,6 @@ const { publicRuntimeConfig } = getConfig();
 axios.defaults.baseURL = publicRuntimeConfig.API_BASE_URL;
 const current_site = publicRuntimeConfig.CURRENT_SITE;
 
-// console.log("1.app.js current site===",current_site);
-// const dynamicCss = dynamic(() => import('../styles/'+current_site+'_global.css'));
-// import '../styles/'+current_site+'global.css';
-
 if (typeof window !== "undefined") {
     require("jquery");
     require("popper.js");
@@ -58,7 +54,7 @@ export default function App({ Component, pageProps }) {
       <link rel="shortcut icon" href="/favicon.png" />
       <link rel="preconnect" href="https://fonts.gstatic.com"/>
       <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
-      {/* <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=places"}></script> */}
+      {/* <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=geometry,drawing,places"}></script> */}
       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2Ubr7BFRt1rjOU9XajVBNRUV5w8VLe0k&libraries=geometry,drawing,places"></script>                      
     </Head>
     <Component {...pageProps} />  

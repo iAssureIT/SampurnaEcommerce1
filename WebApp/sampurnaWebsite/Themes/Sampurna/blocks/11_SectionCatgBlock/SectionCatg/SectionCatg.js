@@ -164,9 +164,7 @@ class ShoppingVerticals extends Component {
     
     return (
       <div className="col-12 mt20">
-        <div className="row">          
           {this.state.groupSettings.showTitle?
-
           <div className="col-12">
             <div className="col-12 productcomponentheading text-center">
               <div className="producttextclass  col-12">
@@ -176,8 +174,7 @@ class ShoppingVerticals extends Component {
               </div>            
             </div>
           </div>
-          :null}          
-
+          :null}   
           <div className="col-12 tab-content customTabContent ">
             { this.state.groupSettings.showCarousel === true?
                 <Carousel  
@@ -242,10 +239,8 @@ class ShoppingVerticals extends Component {
                       : ''
                   }	
                 </div>    
-            }
-              
+            } 
           </div>
-        </div>
       </div>
     );
   }
