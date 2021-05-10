@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {  Icon,Button}          from "react-native-elements";
 import Modal                    from "react-native-modal";
-import HeaderBar3               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}                   from '../../ScreenComponents/Footer/Footer1.js';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';

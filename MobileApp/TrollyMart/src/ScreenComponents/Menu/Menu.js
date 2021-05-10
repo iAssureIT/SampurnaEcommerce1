@@ -22,7 +22,7 @@ export const Menu = (props)=>{
   useEffect(() => {
     console.log("useEffect");
     getData()
-  },[]);
+  },[props]);
 
   const getData=()=>{
     AsyncStorage.getItem('user_id')

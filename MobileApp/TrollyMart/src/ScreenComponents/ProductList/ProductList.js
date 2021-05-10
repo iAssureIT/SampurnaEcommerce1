@@ -4,7 +4,8 @@ import {
   TouchableOpacity, Image, FlatList, Alert,SafeAreaView
 } from 'react-native';
 import Modal                  from "react-native-modal";
-import { Dropdown }           from 'react-native-material-dropdown-v2';
+import { Dropdown } from 'react-native-material-dropdown-v2';
+// import DropDownPicker from 'react-native-dropdown-picker';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/ProductListStyles.js';
 import { Icon, Button }       from "react-native-elements";
 import axios                  from 'axios';
@@ -36,11 +37,9 @@ export const ProductList = withCustomerToaster((props)=>{
   const [packsizes,setPacksizes]= useState('');
   const [user_id,setUserId]= useState('');
   const [token,setToken]= useState('');
-  
-
   useEffect(() => {
     getData()
-  },[props.newProducts]);
+  },[props]);
 
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
@@ -78,21 +77,25 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
   const addToCart=(productid)=>{
-    const formValues = {
-      "user_ID"     : props.userId,
-      "product_ID"  : productid,
-      "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
-    }
-    axios
-      .post('/api/Carts/post', formValues)
-      .then((response) => {
-        setAddtocart(true);
-        setToast({text: 'Product is added to cart.', color: 'green'});
-      })
-      .catch((error) => {
-        console.log("error",error);
-        setToast({text: 'Product is already in cart.', color: colors.warning});
-      })
+    if(props.userId){
+      const formValues = {
+        "user_ID"     : props.userId,
+        "product_ID"  : productid,
+        "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
+      }
+      axios
+        .post('/api/Carts/post', formValues)
+        .then((response) => {
+          setAddtocart(true);
+          setToast({text: 'Product is added to cart.', color: 'green'});
+        })
+        .catch((error) => {
+          console.log("error",error);
+          setToast({text: 'Product is already in cart.', color: colors.warning});
+        })
+    }else{
+      navigation.navigate('Auth');
+    }  
   }
 
   const viewallfeatureprod=()=>{
@@ -192,25 +195,32 @@ export const ProductList = withCustomerToaster((props)=>{
               </View>
             </View>
             <View style={styles.addtocartbtn}>
-              {availablessiz && availablessiz.length > 0 ? 
-              <View style={styles.addbtn}>
-                <View style={[styles.inputWrapper]}>
-                  <View style={styles.inputImgWrapper}></View>
+              {/*availablessiz && availablessiz.length > 0 ? 
                   <View style={styles.inputTextWrapper}>
-                    <Dropdown
-                      onChangeText={(value) => handleTypeChange(value, availablessiz)}
-                      data={availablessiz}
-                      value={packsizes}
-                      containerStyle={styles.ddContainer}
-                      dropdownOffset={{ top: 0, left: 0, bottom: 0 }}
-                      itemTextStyle={styles.ddItemText}
-                      inputContainerStyle={{ borderBottomColor: 'transparent', padding: 0 }}
-                    />
+                   <Dropdown
+                      onChangeText    = {(value) => handleTypeChange(value, availablessiz)}
+                      data            = {availablessiz}
+                      value           = {packsizes}
+                      containerStyle  = {styles.ddContainer}
+                      inputContainerStyle = {styles.ddInputContainer}
+                      // dropdownPosition={- 5}
+                      baseColor       = {'white'}
+                      labelFontSize   ={10}
+                      rippleCentered  ={true}
+                      dropdownOffset  = {{ top:0, left: 0, bottom: 0 }}
+                      itemTextStyle   = {styles.ddItemText}
+                      disabledLineType= 'none'
+                      underlineColor  = 'transparent'
+                      style           = {{height:30,
+                                          backgroundColor:"#fff",
+                                          borderWidth:1,
+                                          borderColor:colors.theme,
+                                          borderRadius:5
+                                        }}
+                    /> 
                   </View>
-                </View>
-              </View>
-              : null }
-              <View style={styles.sizedrpbtn}>
+              : null */}
+             <View style={styles.sizedrpbtn}>
               <Button
                   onPress={() => addToCart(item._id, packsizes)}
                   titleStyle={CommonStyles.addBtnText}

@@ -52,7 +52,7 @@ export const MenuCarouselSection = (props)=>{
                 <View key={index} style={styles.mainrightside}>
                     <TouchableOpacity onPress={()=>navigation.navigate('CategoriesComponent',{section_id:data._id})}>
                     <ImageBackground onPress={()=>navigation.navigate('CategoriesComponent',{section_id:data._id})} source={data.sectionImage ? {uri : data.sectionImage}:noImage} style={styles.sectionImages}>
-                        <Text style={styles.sectionTitle}>{data.section}</Text>
+                        <Text style={[styles.sectionTitle,{color:data.sectionImage?"#fff":"#333"}]}>{data.section}</Text>
                       </ImageBackground>
                     </TouchableOpacity>
                 </View>

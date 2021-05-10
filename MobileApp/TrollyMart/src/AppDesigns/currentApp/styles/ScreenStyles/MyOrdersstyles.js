@@ -16,7 +16,8 @@ export default StyleSheet.create({
   },
   formWrapper:{
   	paddingHorizontal:15,
-    flex:1
+    flex:1,
+    marginBottom:80
   },
   categoryTitle:{
    color:'#333',textAlign:'center',marginTop:5,marginBottom:10,fontSize:13,fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
@@ -313,7 +314,7 @@ export default StyleSheet.create({
   },
   parent:{
     flex:1,
-    marginBottom:'80%'
+    // marginBottom:'80%'
   },
   storeparent:{
     flex:1,

@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   Image,ActivityIndicator,
+  Dimensions
 } from 'react-native';
 import { Button, Icon, }  from "react-native-elements";
 import Modal              from "react-native-modal";
@@ -23,6 +24,7 @@ import { connect,
   useDispatch,
   useSelector }         from 'react-redux';
 
+  const window = Dimensions.get('window');
 // export default class CartComponent extends React.Component {
   export const CartComponent = withCustomerToaster((props)=>{
     console.log("props",props);
@@ -207,12 +209,11 @@ const getCartItems=(userId)=>{
           openControlPanel={() => openControlPanel}
         />
         <View style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
-          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-            <View style={styles.formWrapper}>
+          <ScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="handled" >
+            <View style={{flex:1}}>
+            { !loading ?
               <View style={styles.cartdetails}>
-                {
-                  !loading ?
-                    cartData && cartData.length > 0 ?
+                    {cartData && cartData.length > 0 ?
                       cartData.map((item, i) => {
                         return (
                           <View key={i}>
@@ -323,10 +324,7 @@ const getCartItems=(userId)=>{
                               containerStyle={styles.continueshopping}
                         />
                       </View>
-                    :
-                    <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                      <ActivityIndicator size="large" color={colors.theme} />
-                    </View>
+                    
                 }
                 {
                   cartData && cartData.length > 0 && subtotalitems ?
@@ -435,6 +433,10 @@ const getCartItems=(userId)=>{
                     null
                 }
               </View>
+              :
+              <View style={{ height: window.height, alignItems: 'center',justifyContent:"center" }}>
+                <ActivityIndicator size="large" color={colors.theme} />
+              </View>}
             </View>
           </ScrollView>
           <Footer />

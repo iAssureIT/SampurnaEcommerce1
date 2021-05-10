@@ -44,7 +44,7 @@ export const Dashboard = withCustomerToaster((props)=>{
   const {searchText,productList,wishList} = store;
   useEffect(() => {
     getData()
-  },[user_id]);
+  },[props]);
 
   const getData=async()=>{
       var data = await AsyncStorage.multiGet(['user_id', 'token']);

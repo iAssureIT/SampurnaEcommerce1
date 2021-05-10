@@ -14,7 +14,7 @@ import { Dropdown } from 'react-native-material-dropdown-v2';
 import { Icon, Button } from "react-native-elements";
 import Modal from "react-native-modal";
 import {Menu} from '../../ScreenComponents/Menu/Menu.js';
-import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';

@@ -18,7 +18,7 @@ import OTPVerification            from '../Screens/SystemSecurity/OTPVerificatio
 import {ForgotPasswordOTP}        from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
 import {Dashboard}                from '../Screens/Dashboard/Dashboard.js';
 import {CategoriesComponent}       from'../Screens/CategoriesComponent/CategoriesComponent.js';
-import SubCategoriesComp          from'../Screens/CategoriesComponent/SubCategoriesComp.js';
+import {SubCategoriesComp}          from'../Screens/CategoriesComponent/SubCategoriesComp.js';
 import {SubCatCompView}             from'../Screens/CategoriesComponent/SubCatCompView.js';
 import {CartComponent}            from '../Screens/CartComponent/CartComponent.js';
 import ConfirmOrderComponent      from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';

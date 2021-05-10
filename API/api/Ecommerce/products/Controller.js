@@ -1765,11 +1765,10 @@ exports.list_productby_section = (req,res,next)=>{
     });
 };
 exports.list_productby_category = (req,res,next)=>{
-    // console.log("categoryID==============",req.params.categoryID);
+    console.log("req.params.categoryID",req.params.categoryID);
     Products.find({category_ID : req.params.categoryID, "status": "Publish"})
     .exec()
     .then(data=>{
-        // console.log("category data ===:", data);
         res.status(200).json(data);
     })
     .catch(err =>{
@@ -1784,8 +1783,6 @@ exports.list_productby_categoryUrl = (req,res,next)=>{
     Category.find({categoryUrl : req.params.categoryUrl})
     .exec()
     .then(data=>{
-        // console.log("category data ===:", data);
-        // res.status(200).json(data);
         Products.find({category_ID : data[0]._id, "status": "Publish"})
         .exec()
         .then(productData=>{

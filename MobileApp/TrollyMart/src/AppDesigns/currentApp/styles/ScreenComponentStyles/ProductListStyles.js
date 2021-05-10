@@ -322,9 +322,7 @@ export default StyleSheet.create({
 			}
 		})
 	}, 
-	addbtn: {
-		flex:0.5,
-	}, 
+ 
 	inputWrapper : {
 		margin:10,
 		alignSelf:"center",
@@ -332,22 +330,36 @@ export default StyleSheet.create({
 		borderWidth:1,
 		flexDirection:'row',
 		borderRadius: 5,
+		backgroundColor:"#fff",
+		// height:30,
 	  },
 	
 	  inputTextWrapper : {
-		width:'95%',
+		width:'80%',
+		alignSelf:"center",
+		backgroundColor:"#fff",
+		marginBottom:15
+		// height:30,
 	  },
 	  marginBottom20:{
 		marginBottom: 20
 	  },
 		inputImgWrapper : {
-		width:'8%', 
+		// width:'8%', 
 	  },
 	  ddContainer:{
 		backgroundColor:'transparent',
-		height: "auto",
-		paddingLeft:2,
-		height:30,
+		padding:0,
+		// borderWidth:1,
+		// height:30,
+		// marginVertical:15,
+		// paddingLeft:2,
+		margin:0,
+		
+	  },
+	  ddInputContainer:{
+		  padding:0,
+		  margin:0
 	  },
 	cancelbtn: {
 		flexDirection: 'row', paddingRight: 10,

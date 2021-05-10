@@ -152,7 +152,6 @@ export const MyOrder =(props)=>{
           <View style={styles.superparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <View style={styles.parent}>
                   {
                     myorders ?
                       myorders.length > 0 ?
@@ -274,9 +273,6 @@ export const MyOrder =(props)=>{
                         <ActivityIndicator size="large" color={colors.theme} />
                       </View>
                   }
-
-
-                </View>
               </View>
             </ScrollView>
 

@@ -24,10 +24,9 @@ export default StyleSheet.create({
     fontWeight:'bold'
   },
   menuWrapper:{
-    marginTop:20, 
-    marginBottom:100, 
-    // flexDirection:'row',
-    width:"100%"
+    flex:1,
+    flexDirection:"row",
+    margin:15
   },
   containerViews:{
     // backgroundColor:'#ff0'
@@ -40,11 +39,11 @@ export default StyleSheet.create({
    backgroundColor: '#ccc',marginRight:15
   },
   imageMenucatsub:{ 
-    borderWidth:1,borderColor:'#f1f1f1',
+    borderWidth:1,
+    borderColor:'#f1f1f1',
     borderRadius:5,
     marginBottom:4,
     backgroundColor: '#ccc',
-    marginRight:15
   },
   categoryname:{
     color:'#333',textAlign:'center',
@@ -91,6 +90,7 @@ export default StyleSheet.create({
 		flex:0.5,
 	}, 
   formWrapper:{
+    flex:1,
     paddingHorizontal:35,
     paddingLeft:5,    
     paddingRight:5,
@@ -154,12 +154,12 @@ export default StyleSheet.create({
   },
   addsuperparent:{
     flex:1,
-    backgroundColor:'#fff'
+    backgroundColor:'#fff',
   },
   
  
   colmwisecat:{
-    flex:1,
+    flex:0.47,
     // marginBottom:40,
   },
  
