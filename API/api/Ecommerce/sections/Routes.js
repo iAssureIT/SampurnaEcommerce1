@@ -10,6 +10,8 @@ router.get('/get/list-with-limits/:startRange/:limitRange', checkAuth, sectionsC
 
 router.patch('/patch', 						checkAuth, sectionsController.update_section);
 
+router.patch('/patch/status', 				checkAuth, sectionsController.update_section_status);
+
 router.delete('/delete/:sectionID', 		checkAuth, sectionsController.delete_section);
 
 router.delete('/get/deleteAllSections', 	checkAuth, sectionsController.deleteAllSections);

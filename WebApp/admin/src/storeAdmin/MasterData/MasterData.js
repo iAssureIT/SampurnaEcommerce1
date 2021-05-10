@@ -5,10 +5,10 @@ import jQuery from 'jquery';
 import axios              from 'axios';
 import swal                 from 'sweetalert';
 
-import Section            from  './sectionManagement/component/SectionManagement.js';
+import Section            from  './sectionManagement/component/SectionManagementNew.js';
 import ShippingManagement            from  './shippingManagement/component/ShippingManagement.js';
 import TimeManagement            from  './timeManagement/component/TimeManagement.js';
-import Category           from  './categoryManagement/component/CategoryManagement.js';
+import Category           from  './categoryManagement/component/NewCategoryManagement.js';
 import TaxName            from  './TaxName/TaxName.js';
 import TaxRate            from  './TaxRate/TaxRate.js';
 // import UnitOfMeasurment   from  './UnitOfMeasurment/UnitOfMeasurmentMaster.js';

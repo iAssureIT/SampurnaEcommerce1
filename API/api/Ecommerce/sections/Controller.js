@@ -399,3 +399,49 @@ var getCategoryBrands = async(section_id, category_id, subCategory_id) =>{
         });
     });    
 } 
+
+
+exports.update_section_status = (req,res,next)=>{
+    console.log("update_section_status Body = ", req.body);
+    Sections.updateOne(
+        { _id : ObjectId(req.body.item_id)},  
+        { $set : 
+            {
+                status   : req.body.status
+            }
+        }
+    )
+    .exec()
+    .then(data=>{
+        console.log(data);
+        Category.updateMany(
+            {section_ID : req.body.item_id},
+            { $set : 
+                {
+                    status                      : req.body.status,
+                    'subCategory.$[].status' 	: req.body.status,	
+                }
+            })
+            .exec()
+            .then(data=>{
+                console.log(data);
+            }) 
+            .catch(err =>{console.log(err);})
+    
+        // if(data.nModified == 1){
+            res.status(200).json({
+                "message": "Section Updated Successfully!"
+            });
+        // }else{
+        //     res.status(401).json({
+        //         "message": "Section Not Found"
+        //     });
+        // }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};

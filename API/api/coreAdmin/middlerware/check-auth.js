@@ -6,7 +6,7 @@ const auth = (req, res, next) => {
 	// console.log("req.headers.authorization => ",req.headers)
 	if(req.headers.authorization){
 	    const token = req.headers.authorization.split(" ")[1];
-			console.log("token => ",token)
+			// console.log("token => ",token)
 			// console.log("globalVariable.JWT_KEY => ",globalVariable.JWT_KEY)
 	    	const data = jwt.verify(token, globalVariable.JWT_KEY,(err,decode)=>{
 	    		// console.log("decode ====> ",decode);

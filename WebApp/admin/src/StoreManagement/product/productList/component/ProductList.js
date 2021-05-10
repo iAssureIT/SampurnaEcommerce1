@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import IAssureTable from "../../ProductTable/IAssureTable.jsx";
-import swal from 'sweetalert';
-import _ from 'underscore';
+import axios                from 'axios';
+import swal                 from 'sweetalert';
+import _                    from 'underscore';
+import $                    from "jquery";
+import { CheckBoxSelection, 
+    Inject, 
+    MultiSelectComponent }  from '@syncfusion/ej2-react-dropdowns';
+import Message              from '../../../../storeAdmin/message/Message.js';
+import IAssureTable         from "../../ProductTable/IAssureTable.jsx";
+
 import '../css/productList.css';
-import Message from '../../../../storeAdmin/message/Message.js';
-import { CheckBoxSelection, Inject, MultiSelectComponent } from '@syncfusion/ej2-react-dropdowns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 import 'bootstrap/js/tab.js';
 import 'font-awesome/css/font-awesome.min.css';
-import $ from "jquery";
 import "@syncfusion/ej2-base/styles/material.css";
 import "@syncfusion/ej2-buttons/styles/material.css";
 import "@syncfusion/ej2-inputs/styles/material.css";

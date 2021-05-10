@@ -1,5 +1,6 @@
 const mongoose	= require("mongoose");
 
+var ObjectId    = require('mongodb').ObjectID;
 const Category = require('./Model');
 const { json } = require("body-parser");
 
@@ -126,6 +127,20 @@ exports.list_category_with_limits = (req,res,next)=>{
     .exec()
     .then(data=>{
         // console.log('data', data);
+        // var allData = data.map((x, i)=>{
+        //     return {
+        //         "_id"                   : x._id,
+        //         "section"               : x.section,
+        //         "category"              : x.category,
+        //         "categoryNameRlang"     : x.categoryNameRlang ? "<span class='RegionalFont'>"+x.categoryNameRlang+"</span>" : '-',
+        //         "categoryRank"          : x.categoryRank ? x.categoryRank : '',
+        //         "subCategory"           : x.subCategory ? ((x.subCategory.map((a, i)=>{return '<p>'+a.subCategoryTitle+'</p>'})).toString()).replace(/,/g, " ") : [],
+        //         "categoryDescription"   : x.categoryDescription ? x.categoryDescription : '',
+        //         "categoryImage"         : x.categoryImage,
+        //         "categoryIcon"          : x.categoryIcon,
+        //         "status"                : x.status,
+        //     }
+        // })
         var allData = data.map((x, i)=>{
             return {
                 "_id"                   : x._id,
@@ -133,12 +148,24 @@ exports.list_category_with_limits = (req,res,next)=>{
                 "category"              : x.category,
                 "categoryNameRlang"     : x.categoryNameRlang ? "<span class='RegionalFont'>"+x.categoryNameRlang+"</span>" : '-',
                 "categoryRank"          : x.categoryRank ? x.categoryRank : '',
-                "subCategory"           : x.subCategory ? ((x.subCategory.map((a, i)=>{return '<p>'+a.subCategoryTitle+'</p>'})).toString()).replace(/,/g, " ") : [],
+                "subCategory"           : x.subCategory 
+                                            ? 
+                                                (x.subCategory.map((a, i)=>{
+                                                    return {
+                                                        _id                : a._id,
+                                                        subCategoryTitle    : a.subCategoryTitle,
+                                                        status              : a.status
+                                                    }                                                 
+                                                }))
+                                            :
+                                                [],
                 "categoryDescription"   : x.categoryDescription ? x.categoryDescription : '',
                 "categoryImage"         : x.categoryImage,
                 "categoryIcon"          : x.categoryIcon,
+                "status"                : x.status,
             }
         })
+        console.log("allData => ",allData)
         res.status(200).json(allData);
     })
     .catch(err =>{
@@ -301,4 +328,40 @@ exports.deleteAllCategories = (req, res, next) => {
                 error: err
             });
         });
+};
+
+exports.update_category_status = (req,res,next)=>{
+    console.log("update_category_status Body = ", req.body);
+    console.log(" req.body.item_id ====" ,req.body.item_id);
+    console.log(" req.body.status ====" ,req.body.status);
+    Category.updateOne(
+        { _id : ObjectId(req.body.item_id)},  
+        { $set : 
+            {
+                status                      : req.body.status,
+                // 'subCategory.$[].status' 	: req.body.status,	
+            }
+        }
+    )
+    .exec()
+    .then(data=>{
+        console.log("data => ", data);
+        
+    
+        // if(data.nModified == 1){
+            res.status(200).json({
+                "message": "Category Updated Successfully!"
+            });
+        // }else{
+        //     res.status(401).json({
+        //         "message": "Section Not Found"
+        //     });
+        // }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
 };

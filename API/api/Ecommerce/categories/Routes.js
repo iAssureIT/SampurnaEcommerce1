@@ -22,7 +22,7 @@ router.post('/searchCategoryCount', 		categoryController.searchCategoryCount);
 
 router.get('/get/list-with-limits/:startRange/:limitRange', categoryController.get_Category_with_limits);
 
-
+router.patch('/patch/status', 				checkAuth, categoryController.update_category_status);
 
 router.post('/post', 					    checkAuth, categoryController.insert_category);
 

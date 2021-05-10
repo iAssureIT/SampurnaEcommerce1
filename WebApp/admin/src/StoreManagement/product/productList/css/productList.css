@@ -134,12 +134,14 @@ margin-top: 10px;
 color: #fff;
 margin-top: 4px;
 padding: 5px 5px;
+text-align: center;
 }
 .prodStatUnpublish {
     background: #dd4b39;
 color: #fff;
 margin-top: 4px;
 padding: 5px 4px;
+text-align: center;
 }
 
 .prodStatDraft {
@@ -147,6 +149,7 @@ padding: 5px 4px;
 color: #fff;
 margin-top: 4px;
 padding: 5px 5px;
+text-align: center;
 }
 
 .publishAllProductsClient {

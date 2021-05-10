@@ -287,7 +287,7 @@ constructor(props) {
                                     else {
                                         documentObj[count][header[k]] = record[k];
                                     }
-                                    console.log(" requireddata vendor props:",this.props.requiredData);
+                                    // console.log(" requireddata vendor props:",this.props.requiredData);
                                     // console.log("localStorage.getItem('admin_ID'):",localStorage.getItem('admin_ID'));
                                     documentObj[count]['filename'] = file.name;
                                     // documentObj[count]['vendor'] = this.props.requiredData.vendor;
