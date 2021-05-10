@@ -6,6 +6,7 @@ const sectionsSchema = mongoose.Schema({
     sectionUrl           	: String,
     sectionRank             : Number,
     sectionImage            : String,
+    status                  : String,
     createdBy               : String,
     createdAt               : Date
     });

@@ -12,7 +12,7 @@ const categorySchema = mongoose.Schema({
             subCategoryCode   : String,
             subCategoryTitle  : String,
             subCategoryUrl    : String,
-            
+            status            : String
 	    }
     ],
     categoryDescription       : String,
@@ -20,6 +20,7 @@ const categorySchema = mongoose.Schema({
     categoryIcon              : String,
     section                   : String,
     section_ID                : { type: mongoose.Schema.Types.ObjectId, ref: 'sections' },
+    status                    : String, 
     createdBy                 : String,
     createdAt                 : Date
 });

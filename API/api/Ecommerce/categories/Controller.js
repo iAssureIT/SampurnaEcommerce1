@@ -25,6 +25,7 @@ exports.insert_category = (req,res,next)=>{
                     categoryIcon              : req.body.categoryIcon,
                     section                   : req.body.section,
                     section_ID                : req.body.section_ID,
+                    status                    : "Published",
                     createdAt                 : new Date()
                 });
                 // console.log("Category:",category);

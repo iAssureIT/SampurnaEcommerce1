@@ -395,6 +395,7 @@ function sectionInsert(sectionName) {
                     section                   : sectionName,
                     sectionUrl                : sectionUrl, 
                     sectionRank               : sectionrank,
+                    status                    : "Published",
                     createdAt                 : new Date()
                 });
 
@@ -431,6 +432,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                 "subCategoryCode"   : 1+'|'+i,
                 "subCategoryTitle"  : subcat,
                 "subCategoryUrl"    : subcarUrl,
+                "status"            : "Published",
             }
         }
     }  
@@ -461,6 +463,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                         categoryIcon              : '',
                         section                   : sectionname,
                         section_ID                : section,
+                        status                    : "Published",
                         createdAt                 : new Date()
                     });
 
@@ -499,7 +502,8 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                                     'subCategory' : {
                                         subCategoryTitle    : subcatgName, 
                                         subCategoryUrl      : subcarUrl,
-                                        index               : addRowLength, 
+                                        index               : addRowLength,                                        
+                                        status              : "Published", 
                                         subCategoryCode     : 1+'|'+addRowLength
                                     }
                                 }
@@ -747,7 +751,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                         section                   : section,      
                         category                  : categoryObject.category,
                         categoryNameRlang         : categoryObject.categoryNameRlang,
-                        category_ID               : categoryObject.category_ID,
+                        category_ID               : categoryObject._id,
                         subCategory               : data.subCategory,
                         subCategory_ID            : categoryObject.subCategory_ID ? categoryObject.subCategory_ID : null,
                         brand                     : data.brand ? data.brand : "",

@@ -345,6 +345,7 @@ class CategoryManagement extends Component{
                               subCategoryTitle  : item.subCategoryTitle,
                               subCategoryCode   : item.subCategoryCode,
                               subCategoryUrl    : item.subCategoryUrl,
+                              status            : "Published",
                             });
                         }
                     }
@@ -398,6 +399,7 @@ class CategoryManagement extends Component{
                 "categoryImage"                 : "",
                 "categoryRank"                  : "",
                 "categoryNameRlang"             : '',
+                "status"                        : ''
 
               });
               $(':input').val('');

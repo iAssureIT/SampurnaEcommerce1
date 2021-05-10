@@ -15,7 +15,8 @@ exports.insert_section = (req,res,next)=>{
                         section                   : req.body.section,
                         sectionUrl                : sectionUrl,
                         sectionRank               : req.body.sectionRank,
-                        createdBy 				  : req.body.createdBy, 	
+                        createdBy 				  : req.body.createdBy, 
+                        status                    : "Published", 	
                         createdAt                 : new Date(),
                         sectionImage              : req.body.sectionImage
                     });
@@ -243,15 +244,17 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
     var selector        = {}; 
     selector['$and']    = [];
 
-    if(req.body.section && req.body.section != "All"){
+    selector["$and"].push({"status": "Published"})
+    if(req.body.section && (req.body.section).toLowerCase() != "all"){
         selector["$and"].push({"_id": ObjectId(req.body.section) })
     }else{
         selector["$and"].push({"_id": {$ne: ""} })
     }
-    if(req.body.carousel){
-        var limitRange = req.body.displayItemsInCarousel * 2;
-    }else if(req.body.numberOfRows && req.body.numberOfItemsPerRow){
-        var limitRange = req.body.numberOfRows * req.body.numberOfItemsPerRow;
+
+    if(req.body.showCarousel){
+        var limitRange = req.body.displayItemInCarousel * 2;
+    }else if(req.body.numOfRows && req.body.numOfItemPerRow){
+        var limitRange = req.body.numOfRows * req.body.numOfItemPerRow;
     }
 
     Sections.aggregate([
@@ -272,66 +275,73 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
         if (sectiondata && sectiondata.length > 0) {  
             processData();
             async function processData(){
-                if (req.body.showOnlySections && req.body.section && req.body.section === "All") {
+                if (req.body.showOnlySection && req.body.section && (req.body.section).toLowerCase() === "all") {
                     // console.log("In Show only Sections => ", sectiondata);
                     for (var i = 0; i < sectiondata.length; i++) {
                         // console.log("sectiondata[i] => ", i, sectiondata[i]);
-                        returnData.push({
-                            _id         : sectiondata[i]._id,
-                            itemName    : sectiondata[i].section,
-                            itemUrl     : sectiondata[i].sectionUrl,
-                            itemImagUrl : sectiondata[i].sectionImage
-                        })                    
+                        if(sectiondata[i].status === "Published"){
+                            returnData.push({
+                                _id         : sectiondata[i]._id,
+                                itemName    : sectiondata[i].section,
+                                itemUrl     : sectiondata[i].sectionUrl,
+                                itemImg     : sectiondata[i].sectionImage
+                            })    
+                        }                
                     }
                     if(i >= sectiondata.length){
-                        console.log("returnData => ", returnData);
+                        // console.log("returnData => ", returnData);
                         res.status(200).json(returnData.slice(startRange, limitRange));
                     }
-                } else if (req.body.showOnlyCategories && req.body.section && req.body.section !== "All" && req.body.category && req.body.category === "All"){
+                } else if (req.body.showOnlyCategory && req.body.section && (req.body.section).toLowerCase() !== "all" && req.body.category && (req.body.category).toLowerCase() === "all"){
                     // console.log("In Show only Categories => ", sectiondata[0].categorylist);
 
                     if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
                         for (var j = 0; j < sectiondata[0].categorylist.length; j++) {
                             // console.log("sectiondata[0].categorylist[j] => ", j, sectiondata[0].categorylist[j]);
-                            returnData.push({
-                                _id         : sectiondata[0].categorylist[j]._id,
-                                itemName    : sectiondata[0].categorylist[j].category,
-                                itemUrl     : sectiondata[0].categorylist[j].categoryUrl,
-                                itemImagUrl : sectiondata[0].categorylist[j].categoryImage
-                            })    
+                            if(sectiondata[0].categorylist[j].status === "Published"){
+                                returnData.push({
+                                    _id         : sectiondata[0].categorylist[j]._id,
+                                    itemName    : sectiondata[0].categorylist[j].category,
+                                    itemUrl     : sectiondata[0].categorylist[j].categoryUrl,
+                                    itemImg     : sectiondata[0].categorylist[j].categoryImage
+                                })  
+                            }  
                         }
                         if(j >= sectiondata[0].categorylist.length){
-                            console.log("returnData => ", returnData);
+                            // console.log("returnData => ", returnData);
                             res.status(200).json(returnData.slice(startRange, limitRange));
                         }                
                     }
-                } else if (req.body.showOnlySubCategories && req.body.section && req.body.section !== "All" && req.body.category && req.body.category !== "All" && req.body.subCategory && req.body.subCategory === "All"){
+                } else if (req.body.showOnlySubCategory && req.body.section && (req.body.section).toLowerCase() !== "all" && req.body.category && (req.body.category).toLowerCase() !== "all" && req.body.subCategory && (req.body.subCategory).toLowerCase() === "all"){
                     // console.log("In Show only SubCategories => ", sectiondata[0].categorylist);
                     if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
                         var filteredCategory = sectiondata[0].categorylist.filter((filteredcategory)=> String(filteredcategory._id) === String(req.body.category));
                         // console.log("filteredCategory => ",filteredCategory);
+                        // console.log("filteredCategory => ",sectiondata[0].categorylist);
                         if(filteredCategory && filteredCategory.length > 0 && filteredCategory[0].subCategory  && filteredCategory[0].subCategory.length > 0){
                             for (var k = 0; k < filteredCategory[0].subCategory.length; k++) {
                                 // console.log("filteredCategory[0].subCategory[j] => ", k, filteredCategory[0].subCategory[k]);
-                                returnData.push({
-                                    _id         : filteredCategory[0].subCategory[k]._id,
-                                    itemName    : filteredCategory[0].subCategory[k].subCategoryTitle,
-                                    itemUrl     : filteredCategory[0].subCategory[k].subCategoryUrl,
-                                    itemImagUrl : filteredCategory[0].subCategory[k].subCategoryImage
-                                })    
+                                if(filteredCategory[0].subCategory[k].status === "Published"){
+                                    returnData.push({
+                                        _id         : filteredCategory[0].subCategory[k]._id,
+                                        itemName    : filteredCategory[0].subCategory[k].subCategoryTitle,
+                                        itemUrl     : filteredCategory[0].subCategory[k].subCategoryUrl,
+                                        itemImg     : filteredCategory[0].subCategory[k].subCategoryImage
+                                    })   
+                                } 
                             }
                             if(k >= filteredCategory[0].subCategory.length){
-                                console.log("returnData => ", returnData);
+                                // console.log("returnData => ", returnData);
                                 res.status(200).json(returnData.slice(startRange, limitRange));
                             }   
                         }             
                     }
-                }else if (req.body.showOnlyBrands && req.body.section && req.body.section !== "All" && req.body.category && req.body.category !== "All"){
+                }else if (req.body.showOnlyBrand && req.body.section && (req.body.section).toLowerCase() !== "all" && req.body.category && (req.body.category).toLowerCase() !== "all"){
                     // console.log("In Show only Brands => ", sectiondata[0].categorylist);
                     if (sectiondata[0].categorylist && sectiondata[0].categorylist.length > 0) {
                         var filteredCategory = sectiondata[0].categorylist.filter((filteredcategory)=> String(filteredcategory._id) === String(req.body.category));
                             
-                        if(req.body.subCategory && req.body.subCategory !== "All"){
+                        if(req.body.subCategory && (req.body.subCategory).toLowerCase() !== "all"){
                             if(filteredCategory && filteredCategory.length > 0){
                                 var subcategoryBrands = await getCategoryBrands(req.body.section, req.body.category, req.body.subCategory);
                                 // console.log("subcategoryBrands=> ",subcategoryBrands);
@@ -363,11 +373,14 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
     });
 };
 
-
+/** =========== getCategoryBrands() =========== */
 var getCategoryBrands = async(section_id, category_id, subCategory_id) =>{
     var selector = {};
     if(section_id && section_id !== undefined){
         selector.section_ID =  ObjectId(section_id);
+    }
+    if(category_id && category_id !== undefined){
+        selector.category_ID = ObjectId(category_id);        
     }
     if(subCategory_id && subCategory_id !== undefined){
         selector.subCategory_ID = ObjectId(subCategory_id);
