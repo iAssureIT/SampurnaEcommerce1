@@ -27,9 +27,9 @@ router.get('/get/list', 														 productController.list_product);
 // in used
 // router.get('/get/listbysection/:section',productController.list_product_bySection);
 
-router.get('/get/list/mobile/:section', 									checkAuth, productController.list_product_bySection_mobile);
+router.get('/get/list/mobile/:section', 									 productController.list_product_bySection_mobile);
 
-router.get('/get/productcode/:productCode', 								checkAuth, productController.list_product_code);
+router.get('/get/productcode/:productCode', 							 productController.list_product_code);
 
 //router.get('/get/brandlist',productController.list_brand);
 
@@ -74,7 +74,7 @@ router.get('/get/files/count', 												checkAuth, productController.fetch_fi
 
 router.get('/get/vendorfiles/count/:vendorID', 							checkAuth, productController.fetch_vendorfile_count);
  
-router.post('/get/list', 														checkAuth, productController.list_product_with_limits);
+router.post('/get/list', 														 productController.list_product_with_limits);
 
 router.post('/get/vendorwiselist', 											checkAuth, productController.list_product_with_vendor);
 
@@ -108,27 +108,27 @@ router.post('/post/searchINCategory', 										checkAuth, productController.sea
 
 router.get('/get/listBrand/:sectionID', 									 productController.list_brand);
 
-router.post('/get/listBrandByCategories', 								checkAuth, productController.listBrandByCategories);
+router.post('/get/listBrandByCategories', 								 productController.listBrandByCategories);
 
-router.post('/get/listBrandBySubcategories', 							checkAuth, productController.listBrandBySubcategories);
+router.post('/get/listBrandBySubcategories', 							 productController.listBrandBySubcategories);
 
-router.get('/get/listSize/:sectionID', 									checkAuth, productController.list_size);
+router.get('/get/listSize/:sectionID', 									 productController.list_size);
 
-router.get('/get/listSizeByCategory/:categoryID', 						checkAuth, productController.listSizeByCategory);
+router.get('/get/listSizeByCategory/:categoryID', 					 productController.listSizeByCategory);
 
-router.get('/get/listSizeBySubcategory/:subcategoryID', 				checkAuth, productController.listSizeBySubcategory);
+router.get('/get/listSizeBySubcategory/:subcategoryID', 				 productController.listSizeBySubcategory);
 
-router.get('/get/listColor/:sectionID', 									checkAuth, productController.list_color);
+router.get('/get/listColor/:sectionID', 									 productController.list_color);
 
-router.get('/get/listColorByCategory/:categoryID', 					checkAuth, productController.listColorByCategory);
+router.get('/get/listColorByCategory/:categoryID', 					 productController.listColorByCategory);
 
-router.get('/get/listColorBySubcategory/:subcategoryID', 			checkAuth, productController.listColorBySubcategory);
+router.get('/get/listColorBySubcategory/:subcategoryID', 			 productController.listColorBySubcategory);
 
-router.get('/get/minmaxprice/:sectionID', 								checkAuth, productController.get_minmaxprice);
+router.get('/get/minmaxprice/:sectionID', 								 productController.get_minmaxprice);
 
-router.get('/get/listGroceryBrand', 										checkAuth, productController.list_grocerybrand);
+router.get('/get/listGroceryBrand', 										 productController.list_grocerybrand);
 
-router.get('/get/getmegamenulist', 											checkAuth, productController.get_menu_list);
+router.get('/get/getmegamenulist', 											 productController.get_menu_list);
 
 router.post('/post/list/adminFilterProducts', 							checkAuth, productController.admin_filter_products);
 

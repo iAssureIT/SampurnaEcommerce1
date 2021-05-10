@@ -17,8 +17,19 @@ class ForgotPassword extends Component {
         }
     }
     componentDidMount(){
-        this.validation();
-    }
+        var windowHeight = window.innerHeight;
+        console.log("windowHeight===",windowHeight);
+        var height = windowHeight - 460;
+        var marginHeight = height/2;
+        console.log("marginHeight===",marginHeight);
+        // $('.formShadow').style("margin-top": marginHeight);
+        $('.formShadow').css({
+        'margin-top': (marginHeight),
+        'margin-bottom': (marginHeight)
+        });
+            this.validation();
+        }
+
     // sendLink(event) {
     //     event.preventDefault();
     //     var email = this.refs.emailLink.value;
@@ -146,7 +157,16 @@ class ForgotPassword extends Component {
     
         return (
             <div style={{'height': window.innerHeight+'px', 'width': window.innerWidth+'px'}} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper "+customClass}>
-                <div  className="col-lg-3 col-lg-offset-7 col-md-3 col-md-offset-7 col-sm-4 col-offset-7 col-xs-12 formShadow">
+                
+                <div className="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                    <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 adminLOgo">
+                            <img src="images/admin/sampurnaLogo.png " className="col-lg-12" />
+                    </div>
+                    <div className="col-lg-12 loginLeftImg hidden-xs">
+                        <img src="images/admin/1.png" className="col-lg-6 col-lg-offset-2"/>
+                    </div>
+                </div>
+                <div  className="col-lg-4 col-md-5 col-sm-5 col-xs-12 formShadow">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     </div>
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">

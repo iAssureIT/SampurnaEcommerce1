@@ -247,7 +247,12 @@ export default class AdminDashboard extends Component{
                   <a href="/file-wise-product-list" data-id="/file-wise-product-list" title="Product Bulk Upload" onClick={this.activeMenu.bind(this)}>
                     <i className="fa fa-circle-o dashr" />File Wise Product List
                   </a> 
-                </li>  
+                </li>
+                <li className="noPadLR"> 
+                  <a href="/add-deals" data-id="/add-deals" title="Deals Upload" onClick={this.activeMenu.bind(this)}>
+                    <i className="fa fa-circle-o dashr" />Deals Management
+                  </a> 
+                </li>   
               
               </ul>
             </li>

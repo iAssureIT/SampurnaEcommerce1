@@ -185,10 +185,7 @@ class ProductCarousel extends Component {
         this.getBrandsByCategories(filterUrlArray);
       }else if(filterUrlType === 'subcategory'){
         this.getBrandsBySubcategories(filterUrl);
-      }
-
-      // console.log("newProducts====",this.state.newProducts); 
-      // console.log("Props====",this.props);       
+      }    
       if(this.props.block_id){
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((response)=>{
@@ -201,18 +198,15 @@ class ProductCarousel extends Component {
           //  loading         : false,  
           
         },()=>{
-          // console.log("state.blockSettings.showCarousel===",this.state.blockSettings.showCarousel);
-          // console.log("state.blockSettings.filter===",this.state.filterSettings.length);
-          // console.log("this.props.productApiUrl===",this.props.productApiUrl);
           if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-            console.log("productApiUrl===",productApiUrl);
+            // console.log("productApiUrl===",productApiUrl);
           }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-            console.log("productApiUrl===",productApiUrl);
+            // console.log("productApiUrl===",productApiUrl);
           }else{ 
-              var productApiUrl = this.state.blockSettings.blockApi;
-              console.log("productApiUrl===",productApiUrl);
+              var productApiUrl = this.props.productApiUrl;
+              // console.log("productApiUrl===",this.props.productApiUrl);
           }
           axios.get(productApiUrl)      
           .then((response)=>{

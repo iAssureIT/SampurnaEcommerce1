@@ -28,11 +28,9 @@ class Login extends Component {
   }
   componentDidMount() {
     var windowHeight = window.innerHeight;
-    console.log("windowHeight===",windowHeight);
     var height = windowHeight - 460;
     var marginHeight = height/2;
-    console.log("marginHeight===",marginHeight);
-    // $('.formShadow').style("margin-top": marginHeight);
+    // console.log("marginHeight===",marginHeight);
     $('.formShadow').css({
       'margin-top': (marginHeight),
       'margin-bottom': (marginHeight)
@@ -217,7 +215,7 @@ class Login extends Component {
       <div style={{'height': window.innerHeight+'px', 'width': window.innerWidth+'px'}} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper "+customClass}>
         {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap"></div> */}
         <div className="col-lg-7 col-md-7 col-sm-6 col-xs-12">
-          <div className="col-lg-3 col-md-3 col-sm-3 col-xs-3 adminLOgo NOPadding">
+          <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 adminLOgo">
                 <img src="images/admin/sampurnaLogo.png " className="col-lg-12" />
           </div>
           <div className="col-lg-12 loginLeftImg hidden-xs">

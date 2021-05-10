@@ -118,14 +118,12 @@ import ExpenseMaster                from './coreadmin/ExpenseTypeMaster/ExpenseT
 
 import MasterData                   from "./storeAdmin/MasterData/MasterData.js";
 
-/*===================== CMS ========================*/
-
-// import CmsLayout from './CMS/CmsLayout.js';
 
 
-/*========================================*/
+/*===================== Deals Management ========================*/
 
-
+//  import AddDEals from './storeAdmin/product/DealsManagement/DealsManagement.js';
+import AddDEals from './storeAdmin/product/DealsManagement/DealsManagement.js';
 
 
 class Layout extends Component  {

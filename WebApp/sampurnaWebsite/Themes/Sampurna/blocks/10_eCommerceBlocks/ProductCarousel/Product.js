@@ -309,7 +309,7 @@ class Product extends Component{
   
 
     render(){
-      // console.log("1. Inside product render");
+      console.log("1. newProducts----",this.state.newProducts);
 
       var LGCol = 12/this.state.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.state.blockSettings.noOfProductPerMDRow;
@@ -320,7 +320,7 @@ class Product extends Component{
         <div className="col-12">
           <div className="row">
           <Message messageData={this.state.messageData} /> 
-        {      
+          {      
             Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
             Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
                 var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
@@ -358,13 +358,15 @@ class Product extends Component{
                         <div className={styleMedia.ImgWrapper}>
                         <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
                         <a className={Style.product_item_photo } tabIndex="-1" >
-                          <img loading="lazy" src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" className={Style.noAvailableImg +" " +Style.productImg +"lazyload img-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"}/>
-                          {/* <Image                                           
-                            src={data.productImage[0] ? data.productImage[0] : "/images/notavailable.jpg"}
+                          {/* <img loading="lazy" src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" className={Style.noAvailableImg +" " +Style.productImg +"lazyload img-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"}/> */}
+                          <Image                                           
+                            src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                             alt="ProductImg" 
-                            className={"img-responsive" +Style.NoAvailableImg }
-                            height={160}
-                            width={150} /> */}
+                            className={"img-responsive " +Style.NoAvailableImg }
+                            height={260}
+                            width={265} 
+                            layout={'intrinsic'}
+                            />
                         </a>
                         </Link>
                         </div>

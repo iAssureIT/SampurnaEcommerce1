@@ -14,15 +14,7 @@ import store                from '../../redux/store.js';
 const { publicRuntimeConfig } = getConfig();
 //get site name from next.config.js
 const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
-// import ProductCarousel from '../../component/blockTemplate/ProductCarousel/ProductCarousel.js';
 
-// import topBannerImg         from '../../static/bookstore/images/cartBanner.png';
-// import Ecommercenewproductcaro from '../../blocks/ProductCarouselEcommerce/Ecommercenewproductcaro.js';
-// import "../../../sites/currentSite/pages/Cart.css";
-
-
-// import $                    from 'jquery'; 
-// import axios                from 'axios';
 // import GiftOption           from '../../blocks/GiftOption/GiftOption.js';
 // import Discount             from '../../blocks/Discount/Discount.js';
 // import EstimateShipping     from '../../blocks/EstimateShipping/EstimateShipping.js';
@@ -51,50 +43,6 @@ class Cart extends Component{
         // var productApi = "/api/wishlist/get/wishlistdata/"+user_ID;
         // console.log("productApi on cart page",productApi);
         store.dispatch(setProductApiUrl(productApi));
-
-        // axios.get('/api/wishlist/get/userwishlist/'+user_ID)
-        //   .then((response) => {
-        //     // $('.fullpageloader').hide();
-        //     console.log("wislist response:---",response.data);           
-        //     response.data.map((a, i) => {
-        //       axios.get('/api/products/get/one/' + a.product_ID)
-        //         .then((res) => {
-        //           var products = this.state.products;
-        //           products.push({
-        //             "_id"              : res.data._id,
-        //             "productName"      : res.data.productName,
-        //             "productUrl"       : res.data.productUrl,
-        //             "originalPrice"    : res.data.originalPrice,
-        //             "availableQuantity": res.data.availableQuantity,
-        //             "size"             : res.data.size,
-        //             "shortDescription" : res.data.shortDescription,
-        //             "unit"             : res.data.unit, 
-        //             "bestSeller"       : res.data.bestSeller,
-        //             "brand"            : res.data.brand,
-        //             "category"         : res.data.category,
-        //             "currency"         : res.data.currency,
-        //             "discountPercent": res.data.discountPercent,
-        //             "discountedPrice": res.data.discountedPrice,
-        //             "productCode": res.data.productCode,
-        //             "productImage": res.data.productImage,
-        //             "product_ID": res.data._id,
-        //             "wishlist_ID": a._id
-        //           });
-        //           this.setState({
-        //             wishlistProductsloading:false,
-        //             wishlistedProducts : products,
-        //           })
-                  
-        //         })
-        //         .catch((error) => {
-        //           console.log('error', error);
-        //         })
-        //     })
-        //   })
-        //   .catch((error) => {
-        //     console.log('error', error);
-        //   })
-    
        }
 
     render(){
@@ -107,7 +55,7 @@ class Cart extends Component{
                 <div className="row">                    
                     <SmallBanner bannerData={this.state.bannerData}/>
                     <CartProducts />
-                    { console.log("this.props.pageData.pageBlocks length===",this.props.pageData)}
+                    {/* { console.log("this.props.pageData.pageBlocks length===",this.props.pageData)} */}
                     { this.props.pageDatapop.pageBlocks && this.props.pageDatapop.pageBlocks.length > 0 ?
 						          this.props.pageDatapop.pageBlocks.map((result, index)=>{                      
 						          var component = result._id ? result.blockComponentName : "TitleDesc";
@@ -124,7 +72,7 @@ class Cart extends Component{
                       }
                       ); 
                       
-                      console.log("component",component);
+                      // console.log("component",component);
 						          return(
                         <div className="col-12 NoPadding" key={index}>
                           <OtherComponent block_id={block_id} key={index}/>
@@ -145,7 +93,7 @@ class Cart extends Component{
 }
 
 export async function getServerSideProps({query}){
-  // console.log("user_ID",query);
+  // console.log("query===",query);
 	const urlParam = 'wishlist-carousel'
 	const res = await axios.get("api/pages/get/page_block/"+urlParam)
 	const pageDatapop = await res.data;
@@ -163,8 +111,8 @@ export async function getServerSideProps({query}){
   );
   
   const mapDispatchToProps = {
-	setBlockData: setBlockData,
-	setProductApiUrl: setProductApiUrl
+    setBlockData: setBlockData,
+    setProductApiUrl: setProductApiUrl
   };
   
   

@@ -96,25 +96,14 @@ class ShoppingVerticals extends Component {
           .then((blockApiResponse)=>{
             if(blockApiResponse.data){    
             var itemList = []; 
-            if(this.state.groupSettings.showOnlySection){
-              
-              for(var i=0;i<blockApiResponse.data.length;i++){ 
-                itemList.push({
-                  "itemImg" : blockApiResponse.data[i].sectionImage,
-                  "itemUrl" : blockApiResponse.data[i].sectionUrl,
-                  "item"    : blockApiResponse.data[i].section,
-                })      
-              } 
-            }else if(this.state.groupSettings.showOnlyCategory){
-              for(var i=0;i<blockApiResponse.data.length;i++){ 
-                itemList.push({
-                  "itemImg" : blockApiResponse.data[i].categoryImage,
-                  "itemUrl" : blockApiResponse.data[i].categoryUrl,
-                  "item"    : blockApiResponse.data[i].category,
-                }) 
-              }
-            }
-
+            var itemList = []; 
+            for(var i=0;i<blockApiResponse.data.length;i++){ 
+                  itemList.push({
+                    "itemImg" : blockApiResponse.data[i].itemImg?blockApiResponse.data[i].itemImg:"",
+                    "itemUrl" : blockApiResponse.data[i].itemUrl,
+                    "item"    : blockApiResponse.data[i].itemName,
+                  })      
+            } 
             this.setState({
               itemList     : itemList,
               // itemList        : blockApiResponse.data,
@@ -140,7 +129,8 @@ class ShoppingVerticals extends Component {
     const responsive = {
       desktop: {
         breakpoint: { max: 3000, min: 1024 },
-        items: 5,
+        // items: this.state.groupSettings.displayItemInCarousel,
+        item:6,
         slidesToSlide: 1 // optional, default to 1.
       },
       tablet: {
@@ -157,11 +147,12 @@ class ShoppingVerticals extends Component {
 
     // console.log("inside rendor this.state.itemList===",this.state.itemList);
     // console.log("this.state.groupSettings.showCarousel",this.state.groupSettings.showCarousel);
+    var XLcol = 12/this.state.groupSettings.numOfItemPerRow;
     var LGCol = 12/this.state.groupSettings.noOfItemPerLGRow;
     var MDCol = 12/this.state.groupSettings.noOfItemPerMDRow;
     var SMCol = 12/this.state.groupSettings.noOfItemPerSMRow;
     var XSCol = 12/this.state.groupSettings.noOfItemPerXSRow;
-    
+
     return (
       <div className="col-12 mt20">
           {this.state.groupSettings.showTitle?
@@ -206,7 +197,6 @@ class ShoppingVerticals extends Component {
                             <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>
                         </div>                            
                         );
-                      
                       })
                       : ''
                   }
@@ -218,7 +208,7 @@ class ShoppingVerticals extends Component {
                       Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {                      
                         return (
                           index<8?
-                          <div className="col-3">
+                          <div className={"col-"+XLcol}>
                                 <div className="productImg col-12 NoPadding">
                                   <a className="product photo product-item-photo collage" tabIndex="-1" href={data.itemUrl}>
                                     <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />

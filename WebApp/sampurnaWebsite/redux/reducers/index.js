@@ -61,6 +61,7 @@ const reducer = (state = initialState,action) =>{
         case "PINCODE_DATA" : 
             return {...state, deliveryPincode: action.deliveryPincode,pincodeStatus:action.pincodeStatus}     
         case "SET_PRODUCT-APIURL" : 
+        console.log("action.apiUrl====",action.pageUrl);
         return {...state, productApiUrl: action.pageUrl}     
             
             

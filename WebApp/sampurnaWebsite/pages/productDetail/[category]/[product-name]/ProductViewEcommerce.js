@@ -762,7 +762,7 @@ class ProductViewEcommerce extends Component {
 								</div>
 								<div className="col-12 adCart mobileViewNoPadding">
 									<div className="row spc">
-										<form id="productView" className="col-12 col-xl-9 NOpadding">
+										<form id="productView" className="col-12 NOpadding">
 											<div className="row">
 										{
                                             this.state.productData.availableQuantity > 0 ?

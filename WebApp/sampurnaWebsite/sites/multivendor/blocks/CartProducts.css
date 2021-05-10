@@ -122,10 +122,12 @@
     line-height: 30px;
     margin-top: 20px;
     word-break: break-all;
+    display: inline-table;
 }
 .summaryTable>tbody,
 .summaryTable>tbody>tr{
-    display: block !important;
+    /* display: block !important; */
+    width: 100%;
 }
 .summaryTable>tbody>tr{
     border-top: 1px solid #ddd !important;

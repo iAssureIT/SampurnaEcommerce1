@@ -225,7 +225,10 @@ color: #FBBD65!important;
   width: 100%;
 }
 .NoAvailableImg{
-width: 100%;
+  width: 100%;
+  background-image: url("/images/eCommerce/productloader.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .hoveractions1 a{
   display: block;
@@ -486,13 +489,16 @@ font-weight: bold;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 } 
+.centreDetaillistItemEcommerce{
+  font-size: 15px !important;
+}
 .panelHeading{
   padding: 5px 10px !important;
   cursor: pointer;
 }
 .panelHeading h4 a{
   text-decoration: none !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
   color: #000;
 }
 .categoryUl{
@@ -502,6 +508,7 @@ font-weight: bold;
 .subCategorylia{
   color: black !important;
   text-decoration: none !important;
+  font-size: 15px;
 }
 
 .subcategoryLi{

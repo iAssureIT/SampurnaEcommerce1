@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }) {
 	useEffect(() => {
 	 	axios.get("/api/projectSettings/get/GOOGLE",)
 	    .then((response) => {
-        console.log("googleAPIKey response",response);
+        // console.log("googleAPIKey response",response);
 	      	setGoogleAPIKey(response.data.googleapikey)
 	    })
 	    .catch((error) =>{
