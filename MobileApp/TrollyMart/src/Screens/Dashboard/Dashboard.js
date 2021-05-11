@@ -21,9 +21,10 @@ import {withCustomerToaster}        from '../../redux/AppState.js';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 import { getList } 		              from '../../redux/productList/actions';
 import { getWishList } 		          from '../../redux/wishDetails/actions';
+import { useIsFocused } from "@react-navigation/native";
 
 export const Dashboard = withCustomerToaster((props)=>{
-  console.log("props",props);
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const {setToast,navigation} = props; 
   // 
@@ -32,6 +33,7 @@ export const Dashboard = withCustomerToaster((props)=>{
   const [searchProductsDetails,setSearchProductsDetails]= useState([]);
   const [countData,setCountData]= useState([]);
   const [user_id,setUserId]= useState('');
+  const [limit,setLimit]= useState(6);
   const [token,setToken]= useState('');
 
   const store = useSelector(store => ({
@@ -43,7 +45,7 @@ export const Dashboard = withCustomerToaster((props)=>{
 
   const {searchText,productList,wishList} = store;
   useEffect(() => {
-    getData()
+    getData();
   },[props]);
 
   const getData=async()=>{
@@ -51,9 +53,9 @@ export const Dashboard = withCustomerToaster((props)=>{
       setUserId(data[0][1]);
       setToken(data[1][1]);
      
-      dispatch(getList('featured',data[0][1]));
-      dispatch(getList('exclusive',data[0][1]));
-      dispatch(getList('discounted',data[0][1]));
+      dispatch(getList('featured',data[0][1],limit));
+      dispatch(getList('exclusive',data[0][1],limit));
+      dispatch(getList('discounted',data[0][1],limit));
       if(data[0][1]){
         countfun(data[0][1]);
         dispatch(getWishList(data[0][1]));
@@ -115,20 +117,52 @@ export const Dashboard = withCustomerToaster((props)=>{
                 {props.searchText ?
                   <SearchProducts navigate = {navigation.navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
                 :
-                  (productList.featureList && productList.featureList.length > 0 ? 
-                    <ProductList navigate = {navigation.navigate} title={'Featured Products'}  newProducts={productList.featureList} type={'featured'} route={'AllFeatureProducts'}  wishList={wishList} userId={user_id} categories={categories}/>
+                  (productList.featuredList && productList.featuredList.length > 0 ? 
+                    <ProductList 
+                      navigate    = {navigation.navigate} 
+                      title       = {'Featured Products'}  
+                      newProducts = {productList.featuredList} 
+                      type        = {'featured'} 
+                      route       = {'AllProductList'}  
+                      wishList    = {wishList} 
+                      userId      = {user_id} 
+                      categories  = {categories} limit={limit}
+                      loading     = {productList.loading}
+                      />
                     : null
                   )
                 }
                 {props.searchText ? null :
                   (productList.exclusiveList.length > 0  ? 
-                    <ProductList navigate = {navigation.navigate} title={'Exclusive Products'}  newProducts={productList.exclusiveList} type={'exclusive'} route={'AllExclusiveProducts'}  wishList={wishList} userId={user_id} categories={categories}/>
+                    <ProductList 
+                      navigate    = {navigation.navigate} 
+                      title       = {'Exclusive Products'}  
+                      newProducts = {productList.exclusiveList} 
+                      type        = {'exclusive'} 
+                      route       = {'AllProductList'}  
+                      wishList    = {wishList} 
+                      userId      = {user_id} 
+                      categories  = {categories} 
+                      limit       = {limit}
+                      loading     = {productList.loading}
+                    />
                     : null
                   )
                 }
                 {props.searchText ? null :
                     (productList.discountedList.length > 0  ? 
-                    <ProductList navigate = {navigation.navigate} title={'Discounted Products'}  newProducts={productList.discountedList} type={'discounted'} route={'AllDiscountedProducts'}  wishList={wishList} userId={user_id} categories={categories}/>
+                    <ProductList 
+                      navigate    = {navigation.navigate} 
+                      title       = {'Discounted Products'}  
+                      newProducts = {productList.discountedList} 
+                      type        = {'discounted'} 
+                      route       = {'AllProductList'}  
+                      wishList    = {wishList} 
+                      userId      = {user_id} 
+                      categories  = {categories} 
+                      limit       = {limit}
+                      loading     = {productList.loading}
+                      />
                     : null
                   )
                 }

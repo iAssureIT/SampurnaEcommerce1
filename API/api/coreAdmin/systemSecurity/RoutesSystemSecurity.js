@@ -24,4 +24,9 @@ router.get('/get/checkmobileotp/usingID/:ID/:mobileotp',UserController.check_use
 router.patch('/patch/setsendmobileotpusingID/:ID',UserController.set_send_mobileotp_usingID);//working
 router.patch('/patch/setsendmobileotpusingMobile/:mobileNo',UserController.set_send_mobileotp_usingMobile);//working
 
+
+//new api for systemsecurity
+router.post('/post/login/mob_email',UserController.user_login_mob_email); 
+
+
 module.exports = router;

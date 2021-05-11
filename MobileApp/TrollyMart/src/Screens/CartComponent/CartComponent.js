@@ -157,9 +157,9 @@ const getCartItems=(userId)=>{
       .then((response) => {
         console.log("response check",response);
         getCartItems(userId);
-        dispatch(getList('featured',userId));
-        dispatch(getList('exclusive',userId));
-        dispatch(getList('discounted',userId));
+        dispatch(getList('featured',userId,6));
+        dispatch(getList('exclusive',userId,6));
+        dispatch(getList('discounted',userId,10));
         // dispatch(getWishList(user_id));
         setToast({text: response.data.message, color: 'green'});
       })
@@ -408,10 +408,10 @@ const getCartItems=(userId)=>{
                         {minvalueshipping <= totaloriginalprice ?
                           <View>
                             <Button
-                              onPress={() => navigation.navigate('AddressDefaultComp', { userID: userId })}
-                              title={"PROCEED TO CHECKOUT"}
-                              buttonStyle={styles.button1}
-                              containerStyle={styles.buttonContainer1}
+                              onPress        = {() => navigation.navigate('AddressDefaultComp', { userID: userId,"delivery":true })}
+                              title          = {"PROCEED TO CHECKOUT"}
+                              buttonStyle    = {styles.button1}
+                              containerStyle = {styles.buttonContainer1}
                             />
                             <View style={styles.flxdata}>
                               <View style={{ flex: 1 }}>
@@ -424,10 +424,8 @@ const getCartItems=(userId)=>{
                             <Text style={styles.minpurchase}>Minimum order should be ₹{minvalueshipping} to Checkout & Place Order.
                                  {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth ₹{minvalueshipping - totaloriginalprice} to proceed further.</Text> </Text>
                           </View>
-
                         }
                       </View>
-
                     </View>
                     :
                     null

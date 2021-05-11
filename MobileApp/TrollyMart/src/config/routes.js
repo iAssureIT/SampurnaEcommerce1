@@ -27,16 +27,14 @@ import {AddressComponent}         from '../Screens/AddressComponent/AddressCompo
 import AddressComponentforaddress from '../Screens/AddressComponent/AddressComponentforaddressmenu.js';
 import AddressMenu                from'../Screens/AddressComponent/AddressMenu.js';
 import {WishlistComponent}        from'../Screens/WishlistComponent/WishlistComponent.js';
-import {MyOrder}                    from '../Screens/MyOrders/MyOrder.js';
+import {MyOrder}                  from '../Screens/MyOrders/MyOrder.js';
 import {SupportSystem}            from '../Screens/Help&Support/SupportSystem.js';
 import Stores                     from '../Screens/Stores/Stores.js';
 import StoreDetails               from '../Screens/Stores/StoreDetails.js';
-import AllFeatureProducts         from '../Screens/FeatureProducts/AllFeatureProducts.js';
-import AllExclusiveProducts       from '../Screens/ExclusiveProducts/AllExclusiveProducts.js';
-import AllDiscountedProducts      from '../Screens/DiscountedProducts/AllDiscountedProducts.js';
-import {OrderDetails}               from '../Screens/MyOrders/OrderDetails.js';
-import AccountDashboard           from '../Screens/AccountDashboard/AccountDashboard.js';
-import AccountInformation         from'../Screens/AccountDashboard/AccountInformation.js';
+import {AllProductList}           from '../Screens/AllProductList/AllProductList.js';
+import {OrderDetails}             from '../Screens/MyOrders/OrderDetails.js';
+import {AccountDashboard}         from '../Screens/AccountDashboard/AccountDashboard.js';
+import {AccountInformation}         from'../Screens/AccountDashboard/AccountInformation.js';
 import ResetPwd                   from'../Screens/AccountDashboard/ResetPwd.js';
 import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
 import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
@@ -48,9 +46,7 @@ export const HomeStack = () => (
     <Home.Screen name="Dashboard"                   component={Dashboard} />
     <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} />
     <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp} />
-    <Home.Screen name="AllFeatureProducts"          component={AllFeatureProducts} />
-    <Home.Screen name="AllExclusiveProducts"        component={AllExclusiveProducts} />
-    <Home.Screen name="AllDiscountedProducts"       component={AllDiscountedProducts} />
+    <Home.Screen name="AllProductList"          component={AllProductList} />
     <Home.Screen name="SubCatCompView"              component={SubCatCompView} />
     <Home.Screen name="CartComponent"               component={CartComponent} />
     <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} />

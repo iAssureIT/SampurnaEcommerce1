@@ -14,7 +14,6 @@ export const getWishList= (user_id) => {
         type: SET_LOADING,
         payload: true,
     });
-    console.log("user_id getWishList",user_id);
         axios.get('/api/wishlist/get/userwishlist/'+user_id)
         .then((response)=>{
             dispatch({

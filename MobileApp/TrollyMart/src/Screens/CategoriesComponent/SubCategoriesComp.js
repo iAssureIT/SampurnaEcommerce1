@@ -19,6 +19,8 @@ import axios            from 'axios';
 import AsyncStorage     from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 import {ProductList}    from'../../ScreenComponents/ProductList/ProductList.js';
+import { connect,useDispatch,useSelector }      from 'react-redux';
+import { getCategoryWiseList } 		  from '../../redux/productList/actions';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export const SubCategoriesComp = (props)=>{
@@ -34,47 +36,47 @@ export const SubCategoriesComp = (props)=>{
   const [packSize,setPackSize]=useState('');
   const {navigation,route}=props;
   const {categoryName,category_ID}=route.params;
-  
-  console.log("route.params",route.params);
+  const store = useSelector(store => ({
+    productList : store.productList,
+    userDetails : store.userDetails,
+  }));
+  console.log("store",store);
+  const {productList,userDetails} = store;
+
+
+  console.log("productList",productList);
   useEffect(() => {
     console.log("Called");
-    getData(category_ID);
+    getData();
  },[props,isFocused]);
+ 
 
  const getData=()=>{
     AsyncStorage.multiGet(['user_id', 'token'])
     .then((data) => {
       console.log("data",data);
       setUserId(data[0][1]);
-      wishlisteddata();
-     axios.get("/api/products/get/listby/category/"+category_ID)
-      .then((response) => {
-        console.log("response products",response);
-        for (var i = 0; i < response.data.length; i++) {
+        for (var i = 0; i < productList.categoryWiseList.length; i++) {
           var availableSizes = [];
-          if (response.data[i].size) {
+          if (productList.categoryWiseList[i].size) {
             availableSizes.push(
               {
-                "productSize": response.data[i].size * 1,
+                "productSize": productList.categoryWiseList[i].size * 1,
                 "packSize": 1,
               },
               {
-                "productSize": response.data[i].size * 2,
+                "productSize": productList.categoryWiseList[i].size * 2,
                 "packSize": 2,
               },
               {
-                "productSize": response.data[i].size * 4,
+                "productSize": productList.categoryWiseList[i].size * 4,
                 "packSize": 4,
               },
             )
-            response.data[i].availableSizes = availableSizes;
+            productList.categoryWiseList[i].availableSizes = availableSizes;
           }
         }
-        setProductDetails(response.data);
-      })
-      .catch((error) => {
-        console.log("error",error)
-      })
+        setProductDetails(productList.categoryWiseList);
     })
   }
 
@@ -150,7 +152,7 @@ export const SubCategoriesComp = (props)=>{
           <View style={styles.addsuperparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <ProductList navigate = {navigation.navigate} newProducts={productsDetails}   userId={userId}/>
+                <ProductList navigate = {navigation.navigate} newProducts={productList.categoryWiseList}  userId={userId} category_ID={category_ID} loading={productList.loading}/>
               </View>
             </ScrollView>
             <Modal isVisible={addtocart}

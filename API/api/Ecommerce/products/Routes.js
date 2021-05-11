@@ -37,12 +37,12 @@ router.get('/get/listbytype/:productType', 						productController.list_productb
 
 // router.get('/get/products/listbytype/:productType', 			productController.list_productby_type_mobile);
 
-router.get('/get/products/listbytype/:productType/:user_ID', 	productController.list_productby_type_mobile);
+router.get('/get/products/listbytype/:productType/:user_ID/:limit', 	productController.list_productby_type_mobile);
 router.get('/get/listbytypeNcategory/:categoryID/:productType', productController.list_productby_type_category);
 
 router.get('/get/list/:sectionID', 								productController.list_productby_section);
 
-router.get('/get/listby/category/:categoryID', 					productController.list_productby_category);
+router.get('/get/listby/category/:categoryID/:user_ID', 		productController.list_productby_category);
 
 router.get('/get/listbycategory/:categoryUrl', 				    productController.list_productby_categoryUrl);
 

@@ -183,6 +183,7 @@ export default StyleSheet.create({
 	},
 	proddets: {
 		flex:1,
+		height:Dimensions.get('window').height,
 		flexDirection: 'row',
 		marginBottom:"18%"
 	},

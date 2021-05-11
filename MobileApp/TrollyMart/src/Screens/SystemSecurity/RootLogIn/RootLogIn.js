@@ -23,13 +23,13 @@ import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
-    email_id: Yup.string()
-      .required('This field is required')
-      .test(
-        'email validation test',
-        'Enter a valid email address',
-        emailValidator,
-      ),
+    // username: Yup.string()
+    //   .required('This field is required')
+    //   .test(
+    //     'email validation test',
+    //     'Enter a valid email address',
+    //     emailValidator,
+    //   ),
     password: Yup.string().required('This field is required'),
   });
 
@@ -46,14 +46,15 @@ const window = Dimensions.get('window');
             onSubmit={(data) => {
               console.log("data",data);
               setLoading(true);
-              let {email_id, password} = data;
+              let {username, password} = data;
               const payload = {
-                email     : email_id,
+                username  : username,
                 password  : password,
                 role      : "user"
               };
+              console.log()
               axios
-                .post('/api/auth/post/login', payload)
+                .post('/api/auth/post/login/mob_email', payload)
                 .then((res) => {
                   console.log("res",res);
                   setLoading(false);
@@ -89,7 +90,7 @@ const window = Dimensions.get('window');
                     setToast({text: "Please enter correct password", color: colors.warning});
                     setLoading(false);
                   }else if(res.data.message === 'NOT_REGISTER'){
-                    setToast({text: "This Email Id is not registered.", color: colors.warning});
+                    setToast({text: "This username is not registered.", color: colors.warning});
                     setLoading(false);
                   }else if(res.data.message === 'USER_BLOCK'){
                     setToast({text: "Please contact to admin", color: colors.warning});
@@ -120,7 +121,7 @@ const window = Dimensions.get('window');
             }}
             validationSchema={LoginSchema}
             initialValues={{
-              email_id: '',
+              username: '',
               password: '',
             }}>
             {(formProps) => (
@@ -163,11 +164,11 @@ const window = Dimensions.get('window');
                 <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
             <View style={commonStyles.formWrapper}>
             <FormInput
-              labelName       = "Email Id"
+              labelName       = "Email Id/Mobile No"
               placeholder     = "Email Id"
-              onChangeText    = {handleChange('email_id')}
+              onChangeText    = {handleChange('username')}
               required        = {true}
-              name            = "email_id"
+              name            = "username"
               errors          = {errors}
               touched         = {touched}
               iconName        = {'email'}

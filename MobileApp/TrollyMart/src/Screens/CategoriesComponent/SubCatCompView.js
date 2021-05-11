@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,ActivityIndicator,
-
+  Dimensions
 } from 'react-native';
 import { Header, 
         Button, 
@@ -21,6 +21,7 @@ import axios          from 'axios';
 import AsyncStorage   from '@react-native-async-storage/async-storage';
 import Counter        from "react-native-counters";
 import Modal          from "react-native-modal";
+import Carousel       from 'react-native-banner-carousel-updated';
 
 export const SubCatCompView =(props)=>{
   const [isOpen,setOpen]                    = useState(false);
@@ -35,7 +36,7 @@ export const SubCatCompView =(props)=>{
   const [addToCart,setAddToCart]          = useState(false);
   const {navigation,route} =props;
   const {productID}=route.params;
-
+  const BannerWidth = Dimensions.get('window').width-100;
   useEffect(() => {
     console.log("useEffect");
     getData();
@@ -138,6 +139,10 @@ export const SubCatCompView =(props)=>{
     _drawer.open()
   }
 
+  const renderImage=(image, index)=>{
+    console.log("image",image);
+    
+  }
 
     return (
       <React.Fragment>
@@ -155,16 +160,31 @@ export const SubCatCompView =(props)=>{
             <View style={styles.formWrapper}>
               <Text numberOfLines={1} style={styles.produrl}></Text>
               <View style={styles.imgvw}>
-                {productdata.productImage && productdata.productImage.length > 0 ?
-                  <Image
-                    source={{ uri: productdata.productImage[0] }}
-                    style={styles.saleimg}
-                    resizeMode="contain"
-                  />
+                {productdata.productImage && productdata.productImage.length>0 ?
+                 <Carousel
+                    autoplay={false}
+                    autoplayTimeout={10000}
+                    loop={false}
+                    index={0}
+                  //  pageSize={BannerWidth}
+                    pageSize={370}
+                    >
+                    {productdata.productImage.map((image, index) => {
+                    console.log("image>>>>>>",image);
+                    return (
+                      <Image
+                      source={{ uri: image}}
+                      style={styles.saleimg}
+                      resizeMode="contain"
+                    />
+                    );
+                  })}
+                  </Carousel>
                   :
                   <Image
                     source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
                     style={styles.saleimg}
+                    resizeMode="contain"
                   />
                 }
                 {

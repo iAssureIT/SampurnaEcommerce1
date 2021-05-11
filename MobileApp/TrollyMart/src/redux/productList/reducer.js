@@ -2,20 +2,22 @@ import {
     SET_FEATURE_LIST, 
     SET_EXCLUSIVE_LIST,
     SET_DISCOUNTED_LIST,
-    SET_LOADING
+    SET_LOADING,
+    SET_CATEGORY_WISE_LIST
   } from './types';
   
   const initialUserState = {
-    featureList   : [],
-    exclusiveList : [],
-    discountedList : [],
+    featuredList       : [],
+    exclusiveList     : [],
+    discountedList    : [],
+    categoryWiseList  : []
   };
   export default (state = initialUserState, {type, payload}) => {
     switch (type) {
       case SET_FEATURE_LIST:
         return {
           ...state,
-          featureList : payload.featureList
+          featuredList : payload.featuredList
         };
         case SET_EXCLUSIVE_LIST:
         return {
@@ -27,6 +29,11 @@ import {
           ...state,
           discountedList : payload.discountedList
         };
+        case SET_CATEGORY_WISE_LIST:
+          return {
+            ...state,
+            categoryWiseList : payload
+          };
       case SET_LOADING:
         return {
           ...state,

@@ -3,18 +3,18 @@ import {colors} from '../styles.js';
 const window = Dimensions.get('window');
 
 export default StyleSheet.create({
+  
   menuWrapper:{
     marginTop:20,
     flexDirection:'row',
     flex:1
   },
   imageMenuWraper:{ 
-  borderWidth:1,borderColor:'#f1f1f1',borderRadius:5,width: 150, height:85, backgroundColor: '#ccc',marginRight:15
+    borderWidth:1,borderColor:'#f1f1f1',borderRadius:5,width: 150, height:85, backgroundColor: '#ccc',marginRight:15
   },
   formWrapper:{
   	paddingHorizontal:15,
     marginTop:15
-
   },
   categoryTitle:{
    color:'#333',textAlign:'center',marginTop:5,marginBottom:10,fontSize:13,fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 
@@ -261,7 +261,7 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular"
   },
   addsuperparent:{
-    flex:1,backgroundColor:'#f1f1f1'
+    flex:1,backgroundColor:'#f1f1f1',
   },
   flxdir1:{
     flex:1,flexDirection: "row"
@@ -314,12 +314,12 @@ export default StyleSheet.create({
   continuebtn:{
     flex:1,marginBottom:50,
   },
-  addcmpchkbxbordergreen:{
+  addcmpchkbxslect:{
     backgroundColor:'#fff',
     marginTop:0,marginBottom:15,
     borderRadius:15,
     borderWidth:1,
-    borderColor:'#ed3c55'
+    borderColor:colors.theme
   },
   addcmpchkbx:{
     backgroundColor:'#fff',

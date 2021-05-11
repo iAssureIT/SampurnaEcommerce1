@@ -23,7 +23,7 @@ import {setToast,
   withCustomerToaster}        from '../../redux/AppState.js';
 // export default class AddressDefaultComp extends React.Component {
   export const AddressDefaultComp = withCustomerToaster((props)=>{
-    const {setToast,navigation} = props; 
+    const {setToast,navigation,route} = props; 
     const isFocused = useIsFocused();
     const [isChecked,setIsChecked] = useState(false);
     const [checked,setChecked]     = useState('first');
@@ -31,11 +31,11 @@ import {setToast,
     const [addressid,setAddressId]  = useState('');
     const [adddata,setAddData]  = useState('');
     const [selectedindex,setSelectedIndex]  = useState(-1);
-    
-    const [user_id,setUserId]      = useState('');
+    const [user_id,setUserId] = useState('');
+    const {delivery}=route.params;
     useEffect(() => {
       getAddressList()
-    },[isFocused]); 
+    },[props,isFocused]); 
   
   const getAddressList=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
@@ -98,109 +98,107 @@ import {setToast,
     setAddressId(id);
     setAddData(adddata);
     setSelectedIndex(selectedindex);
-}
-
-      return (
-        <React.Fragment>
-          <HeaderBar5
-            goBack={navigation.goBack}
-            headerTitle={'Delivery Addresses'}
-            navigate={navigation.navigate}
-          />
-          <View style={styles.addsuperparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-              <View style={styles.padhr15}>
-                <View style={styles.addcmpbtn}>
-                    <Button
-                      onPress={() => navigation.navigate('AddressComponent')}
-                      title={"ADD NEW ADDRESS"}
-                      buttonStyle={styles.button1}
-                      containerStyle={styles.buttonContainer1}
-                      titleStyle={styles.buttonTextEDIT}
-                    />
-                </View>
-                {deliveryAddress ?
-                  deliveryAddress.length > 0 ?
-                  deliveryAddress.map((item, i) => {
-                    return (
-                      <View key={i} 
-                      style={[(
-                        selectedindex === i ?
-                            styles.addcmpchkbxbordergreen
-                        :
-                            styles.addcmpchkbx
-                        )]}>
-                      <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item) }} >
-                        
-                          <View style={styles.addchkbx}>
-                            <View style={styles.nameofcontact}>
-                              <Text style={styles.addname}> {item.name}</Text>
-                            </View>
-                            <View style={styles.chkvw}>
-                            </View>
-                            <View style={styles.proddeletes}>
-                              <Icon
-                                onPress={() => deleteAdress(item._id)}
-                                name="delete"
-                                type="AntDesign"
-                                size={18}
-                                color="#ff4444"
-                                iconStyle={styles.iconstyle}
-                              />
-                            </View>
-                          </View>
-                          <View style={styles.padhr18}>
-                            <Text style={styles.address}>{item.addressLine1}</Text>
-                            <View style={styles.mobflx}>
-                              <Text style={styles.mobileno}>Mobile:</Text>
-                              <Text style={styles.mobilenum}>{item.mobileNumber}</Text>
-                            </View>
-                          </View>
-
-                      </TouchableOpacity>
-                      </View>
-                    )
-                  })
-                  :
-                  <View style={styles.addcmpchkbx}>
-                    <View style={styles.addchkbx}>
-                      <Text style={styles.addnotfound}>Address Not Found:</Text>
-                    </View>
-                  </View>
-                :
-                  <View style={styles.addcmpchkbx}>
-                    <ActivityIndicator size="large" color="#00ff00" />
-                  </View>
-                }
-                <View style={styles.continuebtn}>
-                  {
-                    addressid ?
-                      <TouchableOpacity >
-                        <Button
-                          onPress={() => navigation.navigate('OrderSummary', { addData: adddata, user_id: user_id })}
-                          title={"CONTINUE"}
-                          buttonStyle={styles.button1}
-                          containerStyle={styles.buttonContainer1}
-                          titleStyle={styles.buttonTextEDIT}
-                        />
-                      </TouchableOpacity>
-                      :
-                      <TouchableOpacity >
-                        <Button
-                          title={"CONTINUE"}
-                          buttonStyle={styles.buttondis}
-                          containerStyle={styles.buttonContainer1}
-                          titleStyle={styles.buttonTextEDIT}
-                        />
-                      </TouchableOpacity>
-                  }
-                </View>
+  }
+    return (
+      <React.Fragment>
+        <HeaderBar5
+          goBack={navigation.goBack}
+          headerTitle={delivery ? 'Delivery Addresses' : 'My Addresses'}
+          navigate={navigation.navigate}
+        />
+        <View style={styles.addsuperparent}>
+          <ScrollView contentContainerStyle={styles.container} style={{marginBottom:50}} keyboardShouldPersistTaps="handled" >
+            <View style={styles.padhr15}>
+              <View style={styles.addcmpbtn}>
+                  <Button
+                    onPress={() => navigation.navigate('AddressComponent',{"delivery":delivery})}
+                    title={"ADD NEW ADDRESS"}
+                    buttonStyle={styles.button1}
+                    containerStyle={styles.buttonContainer1}
+                    titleStyle={styles.buttonTextEDIT}
+                  />
               </View>
-            </ScrollView>
-            <Footer />
-          </View>
-        </React.Fragment>
-      );
+              {deliveryAddress ?
+                deliveryAddress.length > 0 ?
+                deliveryAddress.map((item, i) => {
+                  return (
+                    <View key={i} 
+                    style={[(
+                      selectedindex === i ?
+                          styles.addcmpchkbxslect
+                      :
+                          styles.addcmpchkbx
+                      )]}>
+                    <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item) }} >
+                        <View style={styles.addchkbx}>
+                          <View style={styles.nameofcontact}>
+                            <Text style={styles.addname}> {item.name}</Text>
+                          </View>
+                          <View style={styles.chkvw}>
+                          </View>
+                          <View style={styles.proddeletes}>
+                            <Icon
+                              onPress={() => deleteAdress(item._id)}
+                              name="delete"
+                              type="AntDesign"
+                              size={18}
+                              color="#ff4444"
+                              iconStyle={styles.iconstyle}
+                            />
+                          </View>
+                        </View>
+                        <View style={styles.padhr18}>
+                          <Text style={styles.address}>{item.addressLine1}</Text>
+                          <View style={styles.mobflx}>
+                            <Text style={styles.mobileno}>Mobile:</Text>
+                            <Text style={styles.mobilenum}>{item.mobileNumber}</Text>
+                          </View>
+                        </View>
+
+                    </TouchableOpacity>
+                    </View>
+                  )
+                })
+                :
+                <View style={styles.addcmpchkbx}>
+                  <View style={styles.addchkbx}>
+                    <Text style={styles.addnotfound}>Address Not Found:</Text>
+                  </View>
+                </View>
+              :
+                <View style={styles.addcmpchkbx}>
+                  <ActivityIndicator size="large" color="#00ff00" />
+                </View>
+              }
+              {delivery && <View style={styles.continuebtn}>
+                {
+                  addressid ?
+                    <TouchableOpacity >
+                      <Button
+                        onPress={() => navigation.navigate('OrderSummary', { addData: adddata, user_id: user_id })}
+                        title={"CONTINUE"}
+                        buttonStyle={styles.button1}
+                        containerStyle={styles.buttonContainer1}
+                        titleStyle={styles.buttonTextEDIT}
+                      />
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity >
+                      <Button
+                        title={"CONTINUE"}
+                        buttonStyle={styles.buttondis}
+                        containerStyle={styles.buttonContainer1}
+                        titleStyle={styles.buttonTextEDIT}
+                      />
+                    </TouchableOpacity>
+                }
+              </View>}
+            </View>
+          </ScrollView>
+          <Footer />
+        </View>
+      </React.Fragment>
+    );
 })
 
 

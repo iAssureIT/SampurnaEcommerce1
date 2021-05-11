@@ -20,25 +20,33 @@ import AsyncStorage             from '@react-native-async-storage/async-storage'
 import {withCustomerToaster}    from '../../redux/AppState.js';
 import { connect,useDispatch,useSelector }  from 'react-redux';
 import {ProductList}            from'../../ScreenComponents/ProductList/ProductList.js';
+import { useIsFocused } from "@react-navigation/native";
 
-export const WishlistComponent  = withCustomerToaster((props)=>{
-  const {navigation}=props;
+export const AllProductList  = withCustomerToaster((props)=>{
+  const {navigation,route}=props;
+  const {type}=route.params;
   const store = useSelector(store => ({
-    searchText  : store.searchText,
     productList : store.productList,
-    wishList    : store.wishDetails.wishList,
-    loading     : store.wishDetails.loading
   }));
   const {searchText,productList,wishList} = store;
-  console.log("store WishlistComponent",wishList);
-  const [loading,setLoading] = useState(false);
+  const [loading,setLoading] = useState(props.loading);
   const [user_id,setUserId] = useState('');
+  const listType = type+"List";
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+      console.log("store",store);
+  },[store]);
   
+  const capitalize=(str)=>{
+    return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     return (
       <React.Fragment>
         <HeaderBar3
           goBack={navigation.goBack}
-          headerTitle={'My Wishlist'}
+          headerTitle={capitalize(type)+" Products"}
           navigate={navigation.navigate}
           openControlPanel={() =>openControlPanel()}
         />
@@ -47,14 +55,16 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
               <View style={styles.formWrapper}>
                 <View style={{marginTop:15}}>
                   {!loading ?
-                    wishList && wishList.length > 0 ?
+                    productList[listType] && productList[listType].length > 0 ?
                       <ProductList 
-                        navigate    = {navigation.navigate} 
-                        newProducts = {wishList}  
-                        userId      = {user_id} 
-                        categories  = {[]}
-                        loading     = {loading}
-                      />
+                        navigate        = {navigation.navigate} 
+                        newProducts     = {productList[listType]}  
+                        userId          = {user_id} 
+                        categories      = {[]}
+                        limit           = {50}
+                        type            = {type}
+                        loading         = {productList.loading}
+                    />
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
                       <Image

@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList, Alert,SafeAreaView
+  TouchableOpacity, Image, FlatList, Alert,SafeAreaView,RefreshControl
 } from 'react-native';
 import Modal                  from "react-native-modal";
 import { Dropdown } from 'react-native-material-dropdown-v2';
@@ -17,11 +17,12 @@ import AsyncStorage           from '@react-native-async-storage/async-storage';
 import { connect,
         useDispatch,
         useSelector }         from 'react-redux';
-import { getList } 		        from '../../redux/productList/actions';
+import { getList,getCategoryWiseList } 		        from '../../redux/productList/actions';
 import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { useNavigation }                from '@react-navigation/native';
+import { ActivityIndicator } from 'react-native-paper';
 export const ProductList = withCustomerToaster((props)=>{
-  const {setToast} = props; 
+  const {setToast,category_ID,loading} = props; 
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
   const [productImg,setProductImg]= useState([]);
@@ -37,8 +38,11 @@ export const ProductList = withCustomerToaster((props)=>{
   const [packsizes,setPacksizes]= useState('');
   const [user_id,setUserId]= useState('');
   const [token,setToken]= useState('');
+  const [refresh,setRefresh] =useState(false);
+  const [limit,setLimit]= useState(props.limit);
   useEffect(() => {
-    getData()
+    getData();
+    setRefresh(loading);
   },[props]);
 
   const getData=async()=>{
@@ -98,9 +102,24 @@ export const ProductList = withCustomerToaster((props)=>{
     }  
   }
 
-  const viewallfeatureprod=()=>{
-    navigation.navigate(props.route)
+  const viewall=(limitRange)=>{
+    dispatch(getList(type,user_id,limitRange));
+    navigation.navigate(props.route,{"type":type})
   }
+
+  const onEnd=()=>{
+    var limitRange =limit + 10;
+    setLimit(limitRange);
+    console.log("type",type);
+    dispatch(getList(type,user_id,limitRange));
+  }
+
+  const refreshControl=()=>{
+    setRefresh(true);
+    dispatch(getList(type,user_id,limit));
+    dispatch(getWishList(user_id));
+  }
+
 
   const addToWishList = (productid) => {
     const wishValues = {
@@ -109,10 +128,11 @@ export const ProductList = withCustomerToaster((props)=>{
     }
     axios.post('/api/wishlist/post', wishValues)
       .then((response) => {
-        dispatch(getList('featured',user_id));
-        dispatch(getList('exclusive',user_id));
-        dispatch(getList('discounted',user_id));
+        dispatch(getList(type,user_id,limit));
         dispatch(getWishList(user_id));
+        if(category_ID){
+          dispatch(getCategoryWiseList(category_ID,user_id));
+        } 
         setToast({text: response.data.message, color: 'green'});
       })
       .catch((error) => {
@@ -121,120 +141,130 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
 
-  const _renderlist = ({ item, i })=>{
-    var availablessiz = [];
-    availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
-    const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
-    return (
-      <View key={i}  style={styles.mainrightside} >
-        <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id })}>
-          <View style={styles.flx5}>
-            <View style={styles.flx1}>
-              {
-                item.productImage && item.productImage.length > 0 ?
-                  <Image
-                    source={{ uri: item.productImage[0] }}
-                    style={styles.subcatimg}
-                    resizeMode="contain"
-                  />
-                  :
-                  <Image
-                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                    style={styles.subcatimg}
-                  />
-              }
-                <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id)} >
-                  <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
-                </TouchableOpacity>
-              {
-                item.discountPercent > 0 ?
-                  <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
-                  :
-                  null
-              }
-            </View>
-            <View style={[styles.flx1, styles.protxt]}>
-              {item.brandNameRlang ?
-              <Text numberOfLines={1} style={[styles.brandname, (i % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
-              : 
-              <Text numberOfLines={1} style={[styles.brandname, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>
-              }
-              {item.brandNameRlang ?
-              <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
-              :
-              <Text numberOfLines={1} style={[styles.nameprod, (i % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
-              }                       
-            </View>
-            <View style={[styles.flx1, styles.prdet]}>
-              <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
-                <View style={[styles.flxdir]}>
-                  <Icon
-                    name={item.currency}
-                    type="font-awesome"
-                    size={13}
-                    color="#333"
-                    iconStyle={{ marginTop: 5, marginRight: 3 }}
-                  />
-                  <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
-                </View>
-                <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
-                  <Icon
-                    name={item.currency}
-                    type="font-awesome"
-                    size={13}
-                    color="#333"
-                    iconStyle={{ marginTop: 5}}
-                  />
-                  {item.discountPercent > 0 ?
-                        <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                        </Text>
-                      :
-                      <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
-                    }
-                </View>
+  const _renderlist = ({ item, index })=>{
+      var availablessiz = [];
+      availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
+      const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
+      return (
+        <View key={index}  style={styles.mainrightside} >
+          <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id })}>
+            <View style={styles.flx5}>
+              <View style={styles.flx1}>
+                {
+                  item.productImage && item.productImage.length > 0 ?
+                    <Image
+                      source={{ uri: item.productImage[0] }}
+                      style={styles.subcatimg}
+                      resizeMode="stretch"
+                    />
+                    :
+                    <Image
+                      source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                      style={styles.subcatimg}
+                    />
+                }
+                  <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id)} >
+                    <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
+                  </TouchableOpacity>
+                {
+                  item.discountPercent > 0 ?
+                    <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
+                    :
+                    null
+                }
               </View>
-            </View>
-            <View style={styles.addtocartbtn}>
-              {/*availablessiz && availablessiz.length > 0 ? 
-                  <View style={styles.inputTextWrapper}>
-                   <Dropdown
-                      onChangeText    = {(value) => handleTypeChange(value, availablessiz)}
-                      data            = {availablessiz}
-                      value           = {packsizes}
-                      containerStyle  = {styles.ddContainer}
-                      inputContainerStyle = {styles.ddInputContainer}
-                      // dropdownPosition={- 5}
-                      baseColor       = {'white'}
-                      labelFontSize   ={10}
-                      rippleCentered  ={true}
-                      dropdownOffset  = {{ top:0, left: 0, bottom: 0 }}
-                      itemTextStyle   = {styles.ddItemText}
-                      disabledLineType= 'none'
-                      underlineColor  = 'transparent'
-                      style           = {{height:30,
-                                          backgroundColor:"#fff",
-                                          borderWidth:1,
-                                          borderColor:colors.theme,
-                                          borderRadius:5
-                                        }}
-                    /> 
+              <View style={[styles.flx1, styles.protxt]}>
+                {item.brandNameRlang ?
+                <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
+                : 
+                <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>
+                }
+                {item.brandNameRlang ?
+                <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
+                :
+                <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
+                }                       
+              </View>
+              <View style={[styles.flx1, styles.prdet]}>
+                <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
+                  <View style={[styles.flxdir]}>
+                    <Icon
+                      name={item.currency}
+                      type="font-awesome"
+                      size={13}
+                      color="#333"
+                      iconStyle={{ marginTop: 5, marginRight: 3 }}
+                    />
+                    <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
                   </View>
-              : null */}
-             <View style={styles.sizedrpbtn}>
-              <Button
-                  onPress={() => addToCart(item._id, packsizes)}
-                  titleStyle={CommonStyles.addBtnText}
-                  title="Add"
-                  buttonStyle={CommonStyles.addBtnStyle}
-                  containerStyle={CommonStyles.addBtnClor}
-                />
+                  <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
+                    <Icon
+                      name={item.currency}
+                      type="font-awesome"
+                      size={13}
+                      color="#333"
+                      iconStyle={{ marginTop: 5}}
+                    />
+                    {item.discountPercent > 0 ?
+                          <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          </Text>
+                        :
+                        <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                      }
+                  </View>
+                </View>
+              </View>
+              <View style={styles.addtocartbtn}>
+                {/*availablessiz && availablessiz.length > 0 ? 
+                    <View style={styles.inputTextWrapper}>
+                    <Dropdown
+                        onChangeText    = {(value) => handleTypeChange(value, availablessiz)}
+                        data            = {availablessiz}
+                        value           = {packsizes}
+                        containerStyle  = {styles.ddContainer}
+                        inputContainerStyle = {styles.ddInputContainer}
+                        // dropdownPosition={- 5}
+                        baseColor       = {'white'}
+                        labelFontSize   ={10}
+                        rippleCentered  ={true}
+                        dropdownOffset  = {{ top:0, left: 0, bottom: 0 }}
+                        itemTextStyle   = {styles.ddItemText}
+                        disabledLineType= 'none'
+                        underlineColor  = 'transparent'
+                        style           = {{height:30,
+                                            backgroundColor:"#fff",
+                                            borderWidth:1,
+                                            borderColor:colors.theme,
+                                            borderRadius:5
+                                          }}
+                      /> 
+                    </View>
+                : null */}
+              <View style={styles.sizedrpbtn}>
+                <Button
+                    onPress={() => addToCart(item._id, packsizes)}
+                    titleStyle={CommonStyles.addBtnText}
+                    title="Add"
+                    buttonStyle={CommonStyles.addBtnStyle}
+                    containerStyle={CommonStyles.addBtnClor}
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
+          </TouchableOpacity>
+        </View>
+      )
   }
+
+  const renderFooter = () => {
+    //it will show indicator at the bottom of the list when data is loading otherwise it returns null
+     if (!loading) return null;
+     return (
+       <ActivityIndicator
+         style={{ color: colors.theme }}
+       />
+     );
+   };
   
   return (
     <React.Fragment>
@@ -245,7 +275,7 @@ export const ProductList = withCustomerToaster((props)=>{
           {props.route &&<View style={styles.viewalltxt}>
             <View style={styles.sizedrpbtn}>
               <Button
-                onPress={() => viewallfeatureprod()}
+                onPress={() => {viewall(10)}}
                 titleStyle={styles.buttonText1}
                 title="View All"
                 buttonStyle={CommonStyles.addBtnStyle}
@@ -255,21 +285,27 @@ export const ProductList = withCustomerToaster((props)=>{
           </View>}
         </View>
         <SafeAreaView style={styles.proddets}>
+          {console.log("limit check",limit)}
+          {console.log("loading",loading)}
           {productsDetails &&
             <FlatList
-              data={productsDetails}
+              data={productsDetails.slice(0, limit)}
               showsVerticalScrollIndicator={false}
               renderItem={_renderlist} 
               nestedScrollEnabled={true}
               numColumns={2}
-              keyExtractor={item => item._id}
+              keyExtractor={item => item._id.toString()}
               nestedScrollEnabled
-              // refreshControl={
-              //     <RefreshControl
-              //       refreshing={this.state.refresh}
-              //       onRefresh={() => this.onRefresh()}
-              //     />
-              // } 
+              // initialNumToRender={6}
+              ListFooterComponent={()=>loading && <ActivityIndicator color={colors.theme}/>}
+              onEndReachedThreshold={0.5}
+              onEndReached={()=>{limit > 6 && onEnd()}}
+              refreshControl={
+                  <RefreshControl
+                    refreshing={refresh}
+                    onRefresh={() => refreshControl()}
+                  />
+              } 
               /> 
           }
           {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>

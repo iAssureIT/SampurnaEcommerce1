@@ -79,7 +79,7 @@ export const Menu = (props)=>{
             </Text>
           </View>
         </TouchableOpacity>
-          <TouchableOpacity onPress={()=> navigation.navigate('AddressMenu')} >
+          <TouchableOpacity onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
           <View style={styles.menu}>
             <Icon 
               size={22} 

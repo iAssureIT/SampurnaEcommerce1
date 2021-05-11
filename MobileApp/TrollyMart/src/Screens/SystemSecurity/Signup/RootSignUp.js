@@ -244,12 +244,12 @@ const window = Dimensions.get('window');
                     name            = "mobileNumber"
                   /> */}
                   <View style={{marginHorizontal:10,marginVertical:5}}>
-                  <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
-                      <Text>Phone Number</Text>{' '}
-                      <Text style={{color: 'red', fontSize: 12}}>
-                      *
-                      </Text>
-                  </Text>
+                    <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
+                        <Text>Phone Number</Text>{' '}
+                        <Text style={{color: 'red', fontSize: 12}}>
+                        *
+                        </Text>
+                    </Text>
                       <PhoneInput
                         ref={phoneInput}
                         defaultValue={value}
@@ -260,12 +260,11 @@ const window = Dimensions.get('window');
                           const checkValid = phoneInput.current?.isValidNumber(text);
                           const callingCode = phoneInput.current?.getCallingCode(text);
                           const countryCode = phoneInput.current?.getCountryCode(text);
-                          var mobileNumber = "+"+callingCode+" "+text;
+                          var mobileNumber = text;
                           setValue(text);
                           setFieldValue('mobileNumber',mobileNumber)
                           setFieldValue('countryCode',countryCode)
                           setValid(checkValid);
-
                         }}
                         containerStyle= {styles1.containerStyle}
                         textContainerStyle={styles1.textContainerStyle}

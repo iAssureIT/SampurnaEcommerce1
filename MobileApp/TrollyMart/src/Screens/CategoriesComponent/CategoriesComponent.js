@@ -15,9 +15,10 @@ import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/
 import {colors}           from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading            from '../../ScreenComponents/Loading/Loading.js';
 import axios              from 'axios';
+import { getCategoryWiseList } from '../../redux/productList/actions.js';
+import { connect,useDispatch,useSelector }      from 'react-redux';
 
 export const CategoriesComponent=(props)=>{
-  console.log("props",props);
   const {navigation,route}=props;
   const [isOpen,setOpen] =useState(false);
   const [categories,setCategories] = useState([]);
@@ -25,7 +26,12 @@ export const CategoriesComponent=(props)=>{
   const [category_ID,setCategoryId] = useState('');
   const [categoryName,setCategoryName] = useState('');
   const [loading,setLoading] = useState(true)
+  const dispatch = useDispatch();
   const {section_id}=route.params;
+  const store = useSelector(store => ({
+    userDetails : store.userDetails,
+  }));
+  const {userDetails} = store;
 
   useEffect(() => {
      getCategories(section_id);
@@ -47,6 +53,7 @@ export const CategoriesComponent=(props)=>{
         setCategoryName(res.data.category);
         setSubCategory(res.data.subCategory);
         if(res.data.subCategory.length>0){
+          dispatch(getCategoryWiseList(id,userDetails.user_id ? userDetails.user_id : null));
           navigation.navigate('SubCategoriesComp',{category_ID:id,categoryName:res.data.category})
           let subcatid = [];
           let subcategorys = res.data.subCategory ? res.data.subCategory : [];
@@ -56,7 +63,8 @@ export const CategoriesComponent=(props)=>{
             })
           }
        }else{
-          props.navigation.navigate('SubCategoriesComp',{category_ID:this.state.category_ID, categoryName:this.state.categoryName})
+           dispatch(getCategoryWiseList(category_ID));
+            props.navigation.navigate('SubCategoriesComp',{category_ID:category_ID, categoryName:categoryName})
         }
        })
     .catch((error)=>{})

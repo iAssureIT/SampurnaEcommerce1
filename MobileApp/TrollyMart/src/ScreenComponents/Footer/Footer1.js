@@ -15,13 +15,11 @@ import { useNavigation }                from '@react-navigation/native';
 
 export const Footer =(props)=>{
   const navigation = useNavigation();
-  console.log("navigation",navigation);
   const [cartCount,setCartCount]=useState(0);
   const dispatch = useDispatch();
   const store = useSelector(store => ({
     userDetails  : store.userDetails,
   }));
-  console.log("store",store);
   const {userDetails} = store;
 
   useEffect(() => {
@@ -32,7 +30,6 @@ export const Footer =(props)=>{
     if(userDetails.user_id){
       axios.get("/api/Carts/get/count/" + userDetails.user_id)
       .then((response) => {
-        console.log("response",response);
         setCartCount(response.data);
       })
       .catch((error) => {

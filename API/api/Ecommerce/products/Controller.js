@@ -1098,29 +1098,24 @@ exports.wishlist_product = (req,res,next)=>{
 
 exports.list_productby_type_mobile = (req,res,next)=>{
     console.log("req.params=>",req.params);
-    var {productType,user_ID} = req.params;
+    var {productType,user_ID,limit} = req.params;
     console.log("user_ID",user_ID);
     var selector={};
-    var limit = 10;
     if(productType == 'featured'){
-        limit =6;
         selector={'featured':true,  "status": "Publish"};
     }
     else if(productType == 'exclusive'){
-        limit =6;
         selector={'exclusive':true,  "status": "Publish"};
     }
     else if(productType == 'discounted'){
-        limit =10;
         selector={'discountPercent': { $gt:0 } ,  "status": "Publish"};
     }
     else if(productType == 'bestSeller'){
-        limit =10;
         selector={'bestSeller':true,  "status": "Publish"};
     }
   
     Products.find(selector) 
-    .limit(limit)      
+    .limit(parseInt(limit))      
     .exec()
     .then(products=>{
         if(products){
@@ -1765,11 +1760,47 @@ exports.list_productby_section = (req,res,next)=>{
     });
 };
 exports.list_productby_category = (req,res,next)=>{
+    var {categoryID,user_ID} = req.params;
     console.log("req.params.categoryID",req.params.categoryID);
-    Products.find({category_ID : req.params.categoryID, "status": "Publish"})
+    Products.find({category_ID : categoryID, "status": "Publish"})
     .exec()
-    .then(data=>{
-        res.status(200).json(data);
+    .then(products=>{
+        if(products){
+            for (let k = 0; k < products.length; k++) {
+                products[k] = {...products[k]._doc, isWish:false};
+            }
+            if(user_ID && user_ID!=='null'){
+                Wishlists.find({user_ID:user_ID})
+                .then(wish=>{
+                    if(wish.length > 0){
+                        for(var i=0; i<wish.length; i++){
+                            for(var j=0; j<products.length; j++){
+                                if(String(wish[i].product_ID) === String(products[j]._id)){
+                                    products[j]= {...products[j], isWish:true};
+                                    break;
+                                }
+                            }
+                        }   
+                        if(i >= wish.length){
+                            res.status(200).json(products);
+                        }       
+                    }else{
+                        res.status(200).json(products);
+                    }
+                 })
+                 .catch(err =>{
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            }else{
+                res.status(200).json(products);
+            }    
+        }else{
+            res.status(404).json('Product Details not found');
+        }
+        // res.status(200).json(data);
     })
     .catch(err =>{
         console.log(err);

@@ -192,7 +192,7 @@ const getCartData=(userId)=>{
                   <View style={styles.confirmbtn}>
                     <TouchableOpacity >
                       <Button
-                        onPress={() => navigation.navigate('AddressDefaultComp', user_id)}
+                        onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
                         title={"Change or Add Address"}
                         buttonStyle={styles.button1}
                         containerStyle={styles.buttonContainer1}

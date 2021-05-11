@@ -60,7 +60,7 @@ import PhoneInput                   from "react-native-phone-number-input";
 
 export const AddressComponent = withCustomerToaster((props)=>{
   const [btnLoading, setLoading] = useState(false);
-    const {setToast,navigation} = props; //setToast function bhetta
+    const {setToast,navigation,route} = props; //setToast function bhetta
     const dispatch = useDispatch();
     
     const [googleapikey,setGoogleAPIKey] = useState('');
@@ -69,7 +69,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
     }));
 
     const {userDetails}= store;
-
+    const {delivery}=route.params;  
     console.log("store",store);
 
 
@@ -81,7 +81,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
         setGoogleAPIKey(response.data.googleapikey)
       })
       .catch((error) => {});
-    },[]);
+    },[props]);
 
       return (
         <React.Fragment>
@@ -107,7 +107,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
               console.log("formValues",formValues);
               axios.patch('/api/ecommusers/patch/address', formValues)
               .then((response) => {
-                navigation.navigate('AddressDefaultComp');
+                navigation.navigate('AddressDefaultComp',{"delivery":delivery});
               })
               .catch((error) => {
                 console.log('error', error)
@@ -169,11 +169,11 @@ export const AddressComponent = withCustomerToaster((props)=>{
       const [valid, setValid] = useState(false);
       const [showMessage, setShowMessage] = useState(false);
       const phoneInput = useRef(null);
-      var mobileNumber = values.mobileNumber.split(" ");
-      if(mobileNumber && mobileNumber.length >0){
-        var countryCode = mobileNumber[0].trim('+');
-        var number      = mobileNumber[1];
-      }
+      // var mobileNumber = values.mobileNumber.split(" ");
+      // if(mobileNumber && mobileNumber.length >0){
+      //   var countryCode = mobileNumber[0].trim('+');
+      //   var number      = mobileNumber[1];
+      // }
       var ShippingType = [{ value: 'Home', }, { value: 'Office', }, { value: 'Relative', }, { value: 'Friend', }];
       console.log("values",values);
       const pincodeexistsornot=(pincode,formatted_address,area,city,state,country,latlong)=>{
@@ -226,7 +226,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                 </Text>
                     <PhoneInput
                       ref={phoneInput}
-                      defaultValue={values.mobileNumber.split(" ")[1]}
+                      defaultValue={values.mobileNumber}
                       defaultCode={values.countryCode}
                       layout="first"
                       onChangeFormattedText={(text) => {
