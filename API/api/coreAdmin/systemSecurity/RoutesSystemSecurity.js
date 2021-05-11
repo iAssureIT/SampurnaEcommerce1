@@ -27,6 +27,7 @@ router.patch('/patch/setsendmobileotpusingMobile/:mobileNo',UserController.set_s
 
 //new api for systemsecurity
 router.post('/post/login/mob_email',UserController.user_login_mob_email); 
+router.post('/post/signup/user/otp/new',UserController.user_signup_user_otp_new); 
 
 
 module.exports = router;
