@@ -47,6 +47,9 @@ app.use((req, res, next) => {
 	next();
 });
 
+const startupRoutes			   				= require("./api/coreAdmin/userManagementnew/startupRoutes.js");
+
+
 // Routes which should handle requests
 /*========== Core Admin ===================*/
 const systemRoutes			   	    		= require("./api/coreAdmin/systemSecurity/RoutesSystemSecurity.js");
@@ -116,6 +119,8 @@ const Gallery                        		= require("./api/Ecommerce/Gallery/Routes
 // const unitOfMeasurment       			= require("./api/Ecommerce/unitOfMeasurement/RoutesUnitOfMeasurment");
 
 
+
+app.use("/startup", startupRoutes);	
 
 
 app.use("/api/users", 						systemRoutes);
