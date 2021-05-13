@@ -5,7 +5,8 @@ import axios     from 'axios';
 import Switch    from "react-switch";
 import $         from 'jquery';
 import S3FileUpload           from 'react-s3';
-// import IAssureTable           from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
+import moment from 'moment';
+import IAssureTable           from '../../../coreadmin/IAssureTable/IAssureTable.jsx';
 import 'jquery-validation';
 
 import  './DealsManagement.css';
@@ -18,7 +19,7 @@ const textSwitch={
     color          : "#fff",
     paddingRight   : 2,
     paddingLeft    : 2,
-    paddingTop     : 2,
+    paddingTop     : 2, 
 }
 class DealsManagement extends React.Component {
 	constructor(props) {
@@ -30,7 +31,7 @@ class DealsManagement extends React.Component {
             sectionID             : "",
             categoryID            : "", 
             subCategoryID         : "",
-            discountInPercentage  : 0,
+            dealInPercentage      : 0,
             updateAllProductPrice : '',
             // updatelimitedProducts : false,
             dealImg               : "",
@@ -38,6 +39,31 @@ class DealsManagement extends React.Component {
             enddate               : "End Date",
             errors                : {},
             fields                : {},
+
+            "tableHeading": { 
+                discounttype: "Discount Type",
+                discountin: "Discount In",
+                discountparameters: "Discount Parameters",
+                discountquantity: "Discount Quantity",
+                discountamount: "Discount Amount",
+                discountvalue: "Discount Value",
+                startdate: "Start Date",
+                enddate: "End Date",
+                actions: 'Action',
+              },
+              "tableObjects": {
+                deleteMethod: 'delete',
+                apiLink: '/api/deals/',
+                paginationApply: true,
+                searchApply: false,
+                editUrl: '/add-deals'
+              },
+              "startRange": 0,
+              "limitRange": 10,
+              // "editId": this.props.editId ? this.props.editId : ''
+              "minstartdate" : '',
+              "tableName" : "DiscountMgmt"
+
         };
     }
 
@@ -53,7 +79,7 @@ class DealsManagement extends React.Component {
         $.validator.addMethod("regxsubCategory", function (value, element, arg) {
             return arg !== value;
         }, "Please select subCategory.");
-        $.validator.addMethod("regxdiscountInPercentage", function (value, element, arg) {
+        $.validator.addMethod("regxdealInPercentage", function (value, element, arg) {
             return arg !== value;
         }, "Please add discount percentage.");
         $.validator.addMethod("regxupdateAllProductPrice", function (value, element, arg) {
@@ -78,11 +104,11 @@ class DealsManagement extends React.Component {
           dealImg:{
             required:true,
           },
-          discountInPercentage:{
+          dealInPercentage:{
             required:true,
             min : 1,
             max: 100,
-            regxdiscountInPercentage : "Please enter discount percentage"
+            regxdealInPercentage : "Please enter discount percentage"
           },
           updateAllProductPrice:{
             required:true,
@@ -105,8 +131,8 @@ class DealsManagement extends React.Component {
           if (element.attr("name") === "subCategory") {
             error.insertAfter("#subCategory");
           }
-          if (element.attr("name") === "discountInPercentage") {
-            error.insertAfter("#discountInPercentage");
+          if (element.attr("name") === "dealInPercentage") {
+            error.insertAfter("#dealInPercentage");
           }
           if (element.attr("name") === "updateAllProductPrice") {
             error.insertAfter("#updateAllProductPrice");
@@ -119,6 +145,8 @@ class DealsManagement extends React.Component {
           }
         }
       });
+
+    //   this.getData(this.state.startRange, this.state.limitRange);
     }
     getSectionData() {
         axios.get('/api/sections/get/list')
@@ -164,9 +192,9 @@ class DealsManagement extends React.Component {
             formIsValid = false;
             errors["subCategory"] = "This field is required.";
         }        
-		if (!fields["discountInPercentage"]) {
+		if (!fields["dealInPercentage"]) {
 			formIsValid = false;
-			errors["discountInPercentage"] = "This field is required.";
+			errors["dealInPercentage"] = "This field is required.";
 		}
 		
         if (!fields["updateAllProductPrice"]) {
@@ -316,7 +344,7 @@ class DealsManagement extends React.Component {
             section               : this.state.section,
             category              : this.state.category, 
             subCategory           : this.state.subCategory,
-            discountInPercentage  : this.state.discountInPercentage
+            dealInPercentage  : this.state.dealInPercentage
         }
         axios.patch('/api/deals/patch/'+formValues)
 		  .then( (response)=> {
@@ -326,7 +354,45 @@ class DealsManagement extends React.Component {
 		    	console.log(error);
 		  	});
     }
-
+    getData(startRange, limitRange) {
+        axios.get('/api/deals/get/list' + startRange + '/' + limitRange)
+          .then((response) => {
+            console.log('tableData = ', response.data);
+            var tableData = response.data.map((a, i) => {
+                        return {
+                            _id: a._id,
+                            "discounttype"  : a.discounttype,
+                "discountin"    : a.discountin,
+                "discountparameters"  : a.discountparameters,
+                "discountquantity"  : a.discountquantity,
+                "discountamount"  : a.discountamount,
+                "discountvalue" : a.discountvalue,
+                "startdate"     : moment(a.startdate).format("DD/MM/YYYY"),
+                "enddate"       : moment(a.enddate).format("DD/MM/YYYY"),
+                            
+                        }
+                    })
+            this.setState({
+              tableData: tableData
+            })
+          })
+          .catch((error) => {
+            console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                  var userDetails =  localStorage.removeItem("userDetails");
+                  localStorage.clear();
+                  swal({  
+                      title : "Your Session is expired.",                
+                      text  : "You need to login again. Click OK to go to Login Page"
+                  })
+                  .then(okay => {
+                  if (okay) {
+                      window.location.href = "/login";
+                  }
+                  });
+                }
+          });
+      }
     showRelevantCategories(event) {
         var section = event.target.value;
         var value = event.target.value.split("_");
@@ -656,7 +722,18 @@ class DealsManagement extends React.Component {
                                 </div>
                             </div>
                                                        
-                        </form>
+                        </form> 
+                        {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 discountManagementTable">
+                            <IAssureTable
+                            tableHeading={this.state.tableHeading}
+                            twoLevelHeader={this.state.twoLevelHeader}
+                            dataCount={this.state.dataCount}
+                            tableData={this.state.tableData}
+                            getData={this.getData.bind(this)}
+                            tableObjects={this.state.tableObjects}
+                            tableName ={this.state.tableName}
+                            />
+                        </div> */}
                     </div>
                 </div>
             </div>

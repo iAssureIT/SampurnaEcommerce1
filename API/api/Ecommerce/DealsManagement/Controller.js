@@ -105,6 +105,7 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
             });
         })
     }else{
+        console.log("dealInPercentage less than ");
         Products.updateOne(
             { _id : ObjectId(productResponse._id , {dealInPercentage : {$lt: dealInPercentage}})},  
             {

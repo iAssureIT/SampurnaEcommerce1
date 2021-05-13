@@ -8,6 +8,10 @@ router.get('/get/list', 					categoryController.list_section);
 
 router.get('/get/list/:section_ID', 		categoryController.list_category);
 
+// router.get('/get/listbyurl/:categoryurl', 	categoryController.list_category_byurl);
+// router.get('/get/listbyurl/:sectionurl', 	categoryController.list_subCategory_byurl);
+// router.get('/get/listbyurl/:categoryurl', 	categoryController.list_category);
+
 router.get('/get/count', 					categoryController.count_category);
 
 router.post('/get/list', 					categoryController.list_category_with_limits);
