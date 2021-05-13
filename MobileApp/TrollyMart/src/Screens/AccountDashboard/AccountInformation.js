@@ -212,7 +212,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
                         </Text>
                             <PhoneInput
                               ref={phoneInput}
-                              defaultValue={values.mobileNumber.split(" ")[1]}
+                              defaultValue={values.mobileNumber}
                               defaultCode={values.countryCode}
                               layout="first"
                               onChangeText={(text) => {

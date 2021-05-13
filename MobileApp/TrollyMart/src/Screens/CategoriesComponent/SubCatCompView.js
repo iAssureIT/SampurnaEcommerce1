@@ -22,7 +22,7 @@ import AsyncStorage   from '@react-native-async-storage/async-storage';
 import Counter        from "react-native-counters";
 import Modal          from "react-native-modal";
 import Carousel       from 'react-native-banner-carousel-updated';
-
+import {SimilarProducts} from '../../ScreenComponents/SimilarProducts/SimilarProducts.js';
 export const SubCatCompView =(props)=>{
   const [isOpen,setOpen]                    = useState(false);
   const [countofprod,setCounterProd]        = useState(1);
@@ -282,6 +282,7 @@ export const SubCatCompView =(props)=>{
                 </View>
               </View>
             </View>
+            <SimilarProducts category_id={productdata.category_ID} user_id={user_id}/>
           </ScrollView>
           :
           <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>

@@ -1,6 +1,6 @@
 import React, { useEffect }       from 'react';
 import {NavigationContainer}      from '@react-navigation/native';
-import { createStackNavigator }   from '@react-navigation/stack';
+import { createStackNavigator,CardStyleInterpolators,TransitionPresets }   from '@react-navigation/stack';
 import { createDrawerNavigator }  from '@react-navigation/drawer';
 // import { createAppContainer }     from 'react-navigation';
 import { Animated, Easing }       from 'react-native';
@@ -12,9 +12,9 @@ import {Menu}                     from '../ScreenComponents/Menu/Menu.js';
 /*----SystemSecurity -----*/
 import {RootLogIn }               from '../Screens/SystemSecurity/RootLogIn/RootLogIn.js';
 import {ForgotPassword}           from '../Screens/SystemSecurity/ForgotPassword/ForgotPassword.js';
-import ResetPassword              from '../Screens/SystemSecurity/ResetPassword/ResetPassword1.js';
+import {ResetPassword}              from '../Screens/SystemSecurity/ResetPassword/ResetPassword.js';
 import {RootSignUp}               from '../Screens/SystemSecurity/Signup/RootSignUp.js';
-import OTPVerification            from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
+import {OTPVerification}            from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
 import {ForgotPasswordOTP}        from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
 import {Dashboard}                from '../Screens/Dashboard/Dashboard.js';
 import {CategoriesComponent}       from'../Screens/CategoriesComponent/CategoriesComponent.js';
@@ -41,8 +41,19 @@ import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
 import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';
 
 const Home = createDrawerNavigator();
+console.log("TransitionPresets",TransitionPresets);
+
+const TransitionScreenOptions = {
+  ...TransitionPresets.ModalTransition, // This is where the transition happens
+};
+
+
 export const HomeStack = () => (
-  <Home.Navigator headerMode="none" drawerContent={ (props) => <Menu { ...props } />}>
+  <Home.Navigator 
+    headerMode            = "none"
+    mode="modal"
+    drawerContent   = { (props) => <Menu { ...props } />}
+  >
     <Home.Screen name="Dashboard"                   component={Dashboard} />
     <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} />
     <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp} />
@@ -88,9 +99,11 @@ export const RegisterStack = () => (
 
 const App = createStackNavigator();
 const AppStack = () => (
-  <App.Navigator headerMode="none">
+  <App.Navigator headerMode="none" >
       <App.Screen name="App" component={HomeStack} />
       <App.Screen name="Auth" component={RegisterStack} />
+      <App.Screen name="SubCatCompView" component={SubCatCompView} />
+      <App.Screen name="Dashboard" component={Dashboard} />
   </App.Navigator>
 );
 

@@ -24,10 +24,10 @@ const LoginSchema = Yup.object().shape({
 //wrap component with withCustomerToaster hoc
 export const ForgotPasswordOTP = withCustomerToaster((props) => {
   const [btnLoading, setLoading] = useState(false);
-  const {setToast,navigation} = props; //setToast function bhetta
-  const dispatch = useDispatch();
+  const {setToast,navigation,route} = props; //setToast function bhetta
+  const {user_id}=route.params;
+  // const dispatch = useDispatch();
   
-  const user_id = navigation.getParam('user_id');
   console.log("user_id",user_id);
   return (
     <React.Fragment>
@@ -41,7 +41,7 @@ export const ForgotPasswordOTP = withCustomerToaster((props) => {
                 console.log("response",response);
                 setLoading(false);
                 if (response.data.message == 'SUCCESS') {
-                   navigation.navigate('ChangePassword',{user_id:user_id});
+                   navigation.navigate('ResetPassword',{user_id:user_id});
                 }else{
                     setToast({text: 'Please enter correct OTP.', color: colors.warning});
                 }

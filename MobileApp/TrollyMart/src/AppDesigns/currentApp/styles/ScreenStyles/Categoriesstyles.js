@@ -94,6 +94,7 @@ export default StyleSheet.create({
     paddingHorizontal:35,
     paddingLeft:5,    
     paddingRight:5,
+    backgroundColor:"#fff"
   },
   categoryTitle:{
    color:'#333',textAlign:'center',
@@ -236,7 +237,7 @@ export default StyleSheet.create({
   },
   prodviewcatsuperparent:{
     flex:1,
-    backgroundColor:'#fff',marginBottom:50
+    backgroundColor:'#eee',marginBottom:50
   },
   flxmg:{
     flexDirection:"row",marginTop:15

@@ -457,9 +457,11 @@ exports.user_signup_user_otp = (req, res, next) => {
 };
 
 exports.check_userID_EmailOTP = (req, res, next) => {
+	console.log("req params",req.params)
 	User.find({ _id: ObjectID(req.params.ID), "profile.otpEmail": req.params.emailotp })
 		.exec()
 		.then(data => {
+			console.log("data",data);
 			if (data.length > 0) {
 				User.updateOne(
 					{ _id: ObjectID(req.params.ID) },
@@ -1550,7 +1552,11 @@ exports.user_login_mob_email = (req, res, next) => {
 	var role = (req.body.role).toLowerCase();
 	User.findOne({$or:[
 			{"profile.mobile" : username},
-			{"profile.email"  : username}
+			{$and:[
+				{"profile.email"  :  username},
+				{"profile.email"  :  {$ne:''}}
+			]
+			},
 		],"roles": role}
 	)
 		.exec()
@@ -1714,14 +1720,18 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 					.then(role => {
 						if (role) {
 							User.find({$or:[
-								{"profile.mobile" : username},
-								{"profile.email"  : username}
+									{"profile.mobile" : req.body.mobNumber},
+									{$and:[
+											{"profile.email"  :  req.body.email},
+											{"profile.email"  :  {$ne:''}}
+										]
+									},
 								]})
 								.exec()
 								.then(user => {
 									if (user.length > 0) {
 										return res.status(200).json({
-											message: 'Email Id already exits.'
+											message: 'User already exits.'
 										});
 									} else {
 										bcrypt.hash(req.body.pwd, 10, (err, hash) => {
@@ -1754,7 +1764,7 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 															companyName: req.body.companyName,
 															mobile: req.body.mobNumber,
 															createdAt: new Date(),
-															otpEmail: emailOTP,
+															otpEmail: 1234,
 															countryCode : req.body.countryCode,
 															status: req.body.status ? req.body.status : "Inactive",
 															createdBy: req.body.createdBy,
@@ -1830,3 +1840,61 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 		}
 };
 
+
+exports.set_send_otp = (req, res, next) => {
+	console.log("re body",req.body);
+	User.findOne({$or:[
+		{"profile.mobile" : req.params.username},
+		{$and:[
+			{"profile.email"  :  req.params.username},
+			{"profile.email"  :  {$ne:''}}
+		]
+		}]}
+	)
+	.then(user => {
+		if(user){
+			console.log('user status====',user)
+ 			if ((user.profile.status).toLowerCase() === "active") {
+ 				var optEmail = getRandomInt(1000, 9999);
+				// console.log("optEmail", optEmail, req.body);
+				User.updateOne(
+					{ "_id": ObjectID(user._id)},
+					{
+						$set: {
+							"profile.otpEmail": '1234',
+						},
+					}
+				)
+				.exec()
+				.then(data => {
+					console.log("data",data);
+					if (data.nModified === 1) {
+						res.status(200).json({ message: "OTP_UPDATED", ID: user._id,profile:user.profile })
+					} else {
+						res.status(200).json({ message: "OTP_NOT_UPDATED", ID: user._id,profile:user.profile })
+					}
+				})
+				.catch(err => {
+					res.status(500).json({
+						message: "Failed to update User",
+						error: err
+					});
+				});
+ 			}else if ((user.profile.status).toLowerCase() == "blocked") {
+				// console.log("user.USER_BLOCK IN ==>")
+				res.status(200).json({ message: "USER_BLOCK" });
+			} else if ((user.profile.status).toLowerCase() == "unverified") {
+				res.status(200).json({ message: "USER_UNVERIFIED" });
+			}
+		}else{
+			res.status(200).json({ message: "NOT_REGISTER" })
+		}		
+	})
+	.catch(err => {
+		console.log("err",err)
+		res.status(500).json({
+			message: "Failed to find User",
+			error: err
+		});
+	});				
+};

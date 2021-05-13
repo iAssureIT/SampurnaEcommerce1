@@ -1904,10 +1904,9 @@ exports.list_productby_subcategory = (req,res,next)=>{
     });
 };
 
-
 exports.search_product = (req,res,next)=>{
     // console.log("req body in se// localStorage.setItem("pincode", response.data.pincode);arch ==>",req.body);
-    // console.log("req params in search ==>",req.params);
+    console.log("req params in search ==>",req.params);
     Products.find(
             {
                 "$and" : [
@@ -1920,9 +1919,9 @@ exports.search_product = (req,res,next)=>{
                     {"subCategory"                : {'$regex' : req.params.searchstr , $options: "i"} },
                     {"productDetails"             : {'$regex' : req.params.searchstr , $options: "i"} }, 
                     {"shortDescription"           : {'$regex' : req.params.searchstr , $options: "i"} }, 
-                    {"featureList.feature"  : {'$regex' : req.params.searchstr , $options: "i"} }, 
-                    {"attributes.attributeName" : {'$regex' : req.params.searchstr , $options: "i"} },
-                    {"attributes.attributeValue" : {'$regex' : req.params.searchstr , $options: "i"} } 
+                    {"featureList.feature"        : {'$regex' : req.params.searchstr , $options: "i"} }, 
+                    {"attributes.attributeName"   : {'$regex' : req.params.searchstr , $options: "i"} },
+                    {"attributes.attributeValue"  : {'$regex' : req.params.searchstr , $options: "i"} } 
                     ] 
                 },
                 { "$or": [{"status":"Publish"}] }
@@ -1930,8 +1929,43 @@ exports.search_product = (req,res,next)=>{
             }
         )
     .exec()
-    .then(data=>{
-        res.status(200).json(data);
+    .then(products=>{
+        console.log("products",products);
+        if(products){
+            for (let k = 0; k < products.length; k++) {
+                products[k] = {...products[k]._doc, isWish:false};
+            }
+            if(req.params.user_id && req.params.user_id!=='null'){
+                Wishlists.find({user_ID:req.params.user_id})
+                .then(wish=>{
+                    if(wish.length > 0){
+                        for(var i=0; i<wish.length; i++){
+                            for(var j=0; j<products.length; j++){
+                                if(String(wish[i].product_ID) === String(products[j]._id)){
+                                    products[j]= {...products[j], isWish:true};
+                                    break;
+                                }
+                            }
+                        }   
+                        if(i >= wish.length){
+                            res.status(200).json(products);
+                        }       
+                    }else{
+                        res.status(200).json(products);
+                    }
+                 })
+                 .catch(err =>{
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            }else{
+                res.status(200).json(products);
+            }    
+        }else{
+            res.status(404).json('Product Details not found');
+        }
     })
     .catch(err =>{
         console.log(err);
@@ -1940,6 +1974,7 @@ exports.search_product = (req,res,next)=>{
         });
     });
 };
+
 exports.search_product_mobileapp = (req,res,next)=>{
     // console.log("req params in search ==>",req.params);
     var selector = {};
@@ -3218,6 +3253,25 @@ exports.checkItemCodeExists = (req,res,next)=>{
 
             });
         }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({  
+            error: err
+        });
+    });
+}
+
+
+exports.search_suggestion = (req,res,next)=>{
+    console.log("req.body=>",req.body);
+    // Products.find({"section" : { "$regex": req.body.searchText, $options: "i"}},{category:1})
+    Products.find({"section" : { $regex:new RegExp('^'+req.body.searchText+'.*', "i")}},{section:1})
+    .limit(10)
+    .then(data =>{
+        var section = data.map(a=>a.section);
+        section= [...new Set(section)];
+        res.status(200).json(section);
     })
     .catch(err =>{
         console.log(err);

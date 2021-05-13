@@ -146,5 +146,12 @@ export default StyleSheet.create({
     color:'#333',
     fontFamily:"Montserrat-Regular"
   },
-
+  flatList:{
+    paddingLeft: 15, 
+    marginTop:10, 
+    paddingBottom:15,
+    fontSize: 15,
+    borderBottomColor: colors.theme,
+    borderBottomWidth:0.5
+}
 });

@@ -82,7 +82,7 @@ const window = Dimensions.get('window');
                   status      : 'unverified',
                   countryCode : countryCode
                 }
-                axios.post('/api/auth/post/signup/user/otp',formValues)
+                axios.post('/api/auth/post/signup/user/otp/new',formValues)
                 .then((response) => {
                   setLoading(false)
                   if(response.data.message == 'USER_CREATED'){            

@@ -200,4 +200,5 @@ export default StyleSheet.create({
     fontFamily: "Montserrat-Regular",
 
   },
+ 
 });

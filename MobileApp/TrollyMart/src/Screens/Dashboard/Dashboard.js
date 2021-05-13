@@ -1,5 +1,5 @@
 import React, { useState,useEffect }from 'react';
-import {ScrollView,View,Text}       from 'react-native';
+import {ScrollView,View,Text,FlatList, TouchableOpacity,ActivityIndicator}       from 'react-native';
 import { Header, Button, 
         Icon, SearchBar }           from "react-native-elements";
 import SideMenu                     from 'react-native-side-menu';
@@ -21,8 +21,9 @@ import {withCustomerToaster}        from '../../redux/AppState.js';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 import { getList } 		              from '../../redux/productList/actions';
 import { getWishList } 		          from '../../redux/wishDetails/actions';
-import { useIsFocused } from "@react-navigation/native";
-
+import { useIsFocused }             from "@react-navigation/native";
+import { SET_SEARCH_CALL,SET_SEARCH_TEXT,SET_SUGGETION_LIST} 	        from '../../redux/globalSearch/types';
+import { getSearchResult } 	from '../../redux/globalSearch/actions';
 export const Dashboard = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
@@ -37,14 +38,23 @@ export const Dashboard = withCustomerToaster((props)=>{
   const [token,setToken]= useState('');
 
   const store = useSelector(store => ({
-    searchText  : store.searchText,
-    productList : store.productList,
-    wishList    : store.wishDetails.wishList
+    productList     : store.productList,
+    wishList        : store.wishDetails.wishList,
+    globalSearch    : store.globalSearch,
   }));
+  console.log("store",store);
 
 
-  const {searchText,productList,wishList} = store;
+  const {productList,wishList,globalSearch} = store;
   useEffect(() => {
+    dispatch({
+      type:SET_SEARCH_CALL,
+      payload:false
+    })
+    dispatch({
+      type:SET_SUGGETION_LIST,
+      payload:[]
+    })
     getData();
   },[props]);
 
@@ -52,7 +62,6 @@ export const Dashboard = withCustomerToaster((props)=>{
       var data = await AsyncStorage.multiGet(['user_id', 'token']);
       setUserId(data[0][1]);
       setToken(data[1][1]);
-     
       dispatch(getList('featured',data[0][1],limit));
       dispatch(getList('exclusive',data[0][1],limit));
       dispatch(getList('discounted',data[0][1],limit));
@@ -100,24 +109,59 @@ export const Dashboard = withCustomerToaster((props)=>{
             openControlPanel={()=>_drawer.open()}
           /> 
           <View style={styles.superparent}>
+          {
+            globalSearch.search ?
+              globalSearch.loading ?
+              <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+                <Loading/>
+              </View>
+              :
+              <FlatList 
+                data={globalSearch.suggestionList.concat(['','','','','','','','','','','','','','','',''])} 
+                // data={globalSearch.suggestionList} 
+                // keyExtractor = {(item)=>item}
+                // extraData = {query} 
+                renderItem = {({item}) =>
+                  <TouchableOpacity onPress={()=>{
+                      dispatch({type:SET_SEARCH_CALL,payload:false});
+                      dispatch({type:SET_SEARCH_TEXT,payload:item});
+                      dispatch(getSearchResult(item,user_id))}}>
+                    <Text style={styles.flatList}>{`${item}`}</Text> 
+                  </TouchableOpacity> }
+            />
+            :
             <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
-            <View  style={[styles.formWrapper]}>
-                {props.searchText ?
-                  null
-                :
-                  <BannerComponent />
-                }
-            </View>      
+              <View  style={[styles.formWrapper]}>
+                  {globalSearch.searchText ?
+                    null
+                  :
+                    <BannerComponent />
+                  }
+              </View>
              <View  style={[styles.formWrapper,{padding:15}]}> 
-                {props.searchText ?
+                {globalSearch.searchText ?
                   null
                 :
                   <MenuCarouselSection  navigation = {navigation}/>
                 }
-                {props.searchText ?
-                  <SearchProducts navigate = {navigation.navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
+                {globalSearch.searchText ?
+                  // <SearchProducts navigate = {navigation.navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
+                  <ProductList 
+                      navigate    = {navigation.navigate} 
+                      title       = {'Search Products'}  
+                      newProducts = {globalSearch.searchList} 
+                      // type        = {'featured'} 
+                      // route       = {'AllProductList'}  
+                      // wishList    = {wishList} 
+                      searchText     = {globalSearch.searchText}
+                      userId         = {user_id} 
+                      categories     = {categories} 
+                      limit          = {20}
+                      loading        = {productList.loading}
+                      />
                 :
-                  (productList.featuredList && productList.featuredList.length > 0 ? 
+                <View>
+                  {productList.featuredList && productList.featuredList.length > 0 ? 
                     <ProductList 
                       navigate    = {navigation.navigate} 
                       title       = {'Featured Products'}  
@@ -126,14 +170,12 @@ export const Dashboard = withCustomerToaster((props)=>{
                       route       = {'AllProductList'}  
                       wishList    = {wishList} 
                       userId      = {user_id} 
-                      categories  = {categories} limit={limit}
+                      categories  = {categories} 
+                      limit={6}
                       loading     = {productList.loading}
                       />
-                    : null
-                  )
-                }
-                {props.searchText ? null :
-                  (productList.exclusiveList.length > 0  ? 
+                    : null}
+                  {productList.exclusiveList.length > 0  ? 
                     <ProductList 
                       navigate    = {navigation.navigate} 
                       title       = {'Exclusive Products'}  
@@ -143,14 +185,11 @@ export const Dashboard = withCustomerToaster((props)=>{
                       wishList    = {wishList} 
                       userId      = {user_id} 
                       categories  = {categories} 
-                      limit       = {limit}
+                      limit       = {6}
                       loading     = {productList.loading}
                     />
-                    : null
-                  )
-                }
-                {props.searchText ? null :
-                    (productList.discountedList.length > 0  ? 
+                    : null}
+                  {productList.discountedList.length > 0  ? 
                     <ProductList 
                       navigate    = {navigation.navigate} 
                       title       = {'Discounted Products'}  
@@ -160,14 +199,14 @@ export const Dashboard = withCustomerToaster((props)=>{
                       wishList    = {wishList} 
                       userId      = {user_id} 
                       categories  = {categories} 
-                      limit       = {limit}
+                      limit       = {6}
                       loading     = {productList.loading}
                       />
-                    : null
-                  )
+                    : null}
+                  </View>  
                 }
               </View>  
-            </ScrollView>
+            </ScrollView>}
             <Footer/>
           </View> 
       </React.Fragment>

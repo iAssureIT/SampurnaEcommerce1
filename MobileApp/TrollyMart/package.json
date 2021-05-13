@@ -25,6 +25,7 @@
     "npm": "^7.11.2",
     "react": "17.0.1",
     "react-native": "0.64.0",
+    "react-native-autocomplete-input": "^5.0.0",
     "react-native-banner-carousel-updated": "^1.2.1",
     "react-native-bouncing-preloader": "^1.0.1",
     "react-native-check-box": "^2.1.7",

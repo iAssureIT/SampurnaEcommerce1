@@ -21,6 +21,7 @@ import { getList,getCategoryWiseList } 		        from '../../redux/productList/a
 import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { useNavigation }                from '@react-navigation/native';
 import { ActivityIndicator } from 'react-native-paper';
+import { getSearchResult } 	from '../../redux/globalSearch/actions';
 export const ProductList = withCustomerToaster((props)=>{
   const {setToast,category_ID,loading} = props; 
   const navigation = useNavigation();
@@ -39,9 +40,10 @@ export const ProductList = withCustomerToaster((props)=>{
   const [user_id,setUserId]= useState('');
   const [token,setToken]= useState('');
   const [refresh,setRefresh] =useState(false);
-  const [limit,setLimit]= useState(props.limit);
+  const [limit,setLimit]= useState(0);
   useEffect(() => {
     getData();
+    setLimit(props.limit);
     setRefresh(loading);
   },[props]);
 
@@ -110,7 +112,6 @@ export const ProductList = withCustomerToaster((props)=>{
   const onEnd=()=>{
     var limitRange =limit + 10;
     setLimit(limitRange);
-    console.log("type",type);
     dispatch(getList(type,user_id,limitRange));
   }
 
@@ -132,6 +133,9 @@ export const ProductList = withCustomerToaster((props)=>{
         dispatch(getWishList(user_id));
         if(category_ID){
           dispatch(getCategoryWiseList(category_ID,user_id));
+        } 
+        if(props.searchText){
+          dispatch(getSearchResult(props.searchText,user_id));
         } 
         setToast({text: response.data.message, color: 'green'});
       })
@@ -285,27 +289,25 @@ export const ProductList = withCustomerToaster((props)=>{
           </View>}
         </View>
         <SafeAreaView style={styles.proddets}>
-          {console.log("limit check",limit)}
-          {console.log("loading",loading)}
           {productsDetails &&
             <FlatList
-              data={productsDetails.slice(0, limit)}
-              showsVerticalScrollIndicator={false}
-              renderItem={_renderlist} 
-              nestedScrollEnabled={true}
-              numColumns={2}
-              keyExtractor={item => item._id.toString()}
+              data                          = {productsDetails.slice(0, limit)}
+              showsVerticalScrollIndicator  = {false}
+              renderItem                    = {_renderlist} 
+              nestedScrollEnabled           = {true}
+              numColumns                    = {2}
+              keyExtractor                  = {item => item._id.toString()}
               nestedScrollEnabled
-              // initialNumToRender={6}
-              ListFooterComponent={()=>loading && <ActivityIndicator color={colors.theme}/>}
-              onEndReachedThreshold={0.5}
-              onEndReached={()=>{limit > 6 && onEnd()}}
-              refreshControl={
-                  <RefreshControl
-                    refreshing={refresh}
-                    onRefresh={() => refreshControl()}
-                  />
-              } 
+              initialNumToRender            = {6}
+              ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
+              onEndReachedThreshold         = {0.1}
+              onEndReached                  = {()=>{limit > 6 && onEnd()}}
+              // refreshControl={
+              //     <RefreshControl
+              //       refreshing={refresh}
+              //       onRefresh={() => refreshControl()}
+              //     />
+              // } 
               /> 
           }
           {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>

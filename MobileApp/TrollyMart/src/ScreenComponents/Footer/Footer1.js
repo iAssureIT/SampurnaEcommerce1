@@ -12,6 +12,7 @@ import { connect,
 import { getWishList } 		              from '../../redux/wishDetails/actions';
 import {withCustomerToaster}            from '../../redux/AppState.js';
 import { useNavigation }                from '@react-navigation/native';
+import { getSearchResult,getSuggestion } 	from '../../redux/globalSearch/actions';
 
 export const Footer =(props)=>{
   const navigation = useNavigation();
@@ -43,7 +44,7 @@ export const Footer =(props)=>{
         <View style={styles.footer}>
           <View style={{ flexDirection: 'row', flex: 1 }}>
             <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} >
+              <TouchableOpacity onPress={() => navigation.push('Dashboard')} >
                 <Icon name="home" type="feather" size={15} color="#666" />
                 <Text style={styles.footerTitle}>Home</Text>
               </TouchableOpacity>

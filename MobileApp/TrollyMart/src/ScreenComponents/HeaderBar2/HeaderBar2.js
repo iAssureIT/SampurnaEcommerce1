@@ -15,27 +15,35 @@ import {
 import ValidationComponent  from "react-native-form-validator";
 import axios                from 'axios'; 
 import styles               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HeaderBar2Styles.js';
-import { connect }          from 'react-redux';
+import { connect,useDispatch,useSelector }      from 'react-redux';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
-
+import { getSearchResult,getSuggestion } 	from '../../redux/globalSearch/actions';
+import { SET_SEARCH_CALL,SET_SUGGETION_LIST} 	from '../../redux/globalSearch/types';
+// import {Autocomplete}       from  'react-native-autocomplete-input';
   const HeaderBars2=(props)=>{
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
+    const [user_id,setUserId] = useState('');
+    const dispatch = useDispatch();
+    const [list,setList]=useState([])
     const{navigation}=props;
-    const _goBack = () => {
-      props.goBack();
-    }
 
+    const store = useSelector(store => ({
+      globalSearch    : store.globalSearch,
+    }));
+    const {globalSearch} = store;
    
     useEffect(() => {
       console.log("useEffect");
       getData()
     },[]);
+
+    
  
   const getData=()=>{
+    useSearchText(globalSearch.searchText);
     getNotificationList();
-    props.setGloblesearch(searchText);
   }
 
   const getNotificationList=()=>{
@@ -44,6 +52,7 @@ import AsyncStorage         from '@react-native-async-storage/async-storage';
         console.log("data",data);
           var token = data[0][1];
           var user_id = data[1][1];
+          setUserId(user_id);
           if(user_id){
           console.log("Header user_id",user_id);
             axios.get('/api/notifications/get/list/Unread/' + user_id)
@@ -58,16 +67,30 @@ import AsyncStorage         from '@react-native-async-storage/async-storage';
       });
   }
 
-  const updateSearch = (searchText) => {
+  const getKeywords = (searchText) => {
     useSearchText(searchText);
-    props.setGloblesearch(searchText);
+    var payload={"searchText":searchText}
+    console.log("payload",payload);
+    if(searchText && searchText.length >= 2){
+      dispatch(getSuggestion(payload));
+    }else if(searchText===""){
+      dispatch({
+        type     : SET_SUGGETION_LIST,
+        payload  : []
+      });
+      // dispatch({type:SET_SEARCH_CALL,payload:false})
+      dispatch(getSearchResult(searchText,user_id))
+    }
   };
 
- 
-
-  const searchedText = (text)=>{
-    useSearchText(text);
-}
+  const updateSearch = (searchText) =>{
+    console.log("calling");
+    useSearchText(searchText);
+    var payload={"searchText":searchText}
+    console.log("payload",payload);
+    dispatch({type:SET_SEARCH_CALL,payload:false})
+    dispatch(getSearchResult(searchText,user_id))
+  }
 
     return (
       <View style={styles.header2main}>
@@ -113,34 +136,20 @@ import AsyncStorage         from '@react-native-async-storage/async-storage';
           containerStyle={styles.rightcnt}
         />
         <View style={styles.searchvw}>
-           <SearchBar
-            placeholder='Search for Product, Brands and More'
-            containerStyle={styles.searchContainer}
-            inputContainerStyle={styles.searchInputContainer}
-            inputStyle={styles.searchInput}
-            onChangeText={updateSearch}
-            value={searchText}
-          /> 
+          <SearchBar
+            placeholder         = 'Search for Product, Brands and More'
+            containerStyle      = {styles.searchContainer}
+            inputContainerStyle = {styles.searchInputContainer}
+            inputStyle          = {styles.searchInput}
+            onChangeText        = {(searchText)=>getKeywords(searchText)}
+            onFocus             = {()=>dispatch({type:SET_SEARCH_CALL,payload:true})}
+            value               = {searchText}
+            onSubmitEditing     = {(searchText)=>updateSearch(searchText)}
+            returnKeyType       = 'search'
+          />
         </View>
 
       </View>
     );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    // selectedVehicle: state.selectedVehicle,
-    // purposeofcar: state.purposeofcar,
-
-  }
-};
-
-const mapDispatchToProps = (dispatch)=>{
-return {
-    setGloblesearch   : (searchText) => dispatch({
-          searchText  : searchText,
-          type        : "SET_GLOBAL_Search",
-    })
-}
-};
-export default connect(mapStateToProps,mapDispatchToProps)(HeaderBars2);
+export default HeaderBars2;

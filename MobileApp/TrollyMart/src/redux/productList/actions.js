@@ -8,8 +8,6 @@ import {
 import {Dispatch} from 'redux';
 import axios from 'axios';
 
-
-
 export const getList = (productType,user_id,limit) => {
     console.log("limit",limit);
     return async (dispatch, getState) => {

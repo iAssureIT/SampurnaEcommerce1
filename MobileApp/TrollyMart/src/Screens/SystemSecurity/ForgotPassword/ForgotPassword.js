@@ -24,13 +24,8 @@ import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
-    email_id: Yup.string()
+    username: Yup.string()
       .required('This field is required')
-      .test(
-        'email validation test',
-        'Enter a valid email address',
-        emailValidator,
-      ),
   });
 
 
@@ -44,8 +39,8 @@ const window = Dimensions.get('window');
           <Formik
               onSubmit={(data) => {
                 setLoading(true);
-                let {email_id} = data;
-                axios.patch('/api/auth/patch/setsendemailotpusingEmail/'+email_id)
+                let {username} = data;
+                axios.patch('/api/auth/patch/set_send_otp/'+username)
                   .then(response => {
                       console.log("response",response);
                       setLoading(false);
@@ -65,11 +60,11 @@ const window = Dimensions.get('window');
                           //   console.log('sendDataToUser in result==>>>', res.data)
                           // })
                           // .catch((error) => { console.log('notification error: ', error) })
-                          // navigation.navigate('OTPVerification');
+                          navigation.navigate('ForgotPasswordOTP',{user_id:response.data.ID});
                           setToast({text: 'OTP sent successfully!', color: 'green'});
                           navigation.navigate('ForgotPasswordOTP',{user_id:response.data.ID})
                       }else if(response.data.message == 'NOT_REGISTER'){
-                          setToast({text: "This Email Id is not registered.", color: colors.warning});
+                          setToast({text: "This username is not registered.", color: colors.warning});
                       }else if(response.data.message == 'OTP_NOT_UPDATED'){
                           setToast({text: 'Something went wrong.', color: 'red'});
                       }
@@ -84,7 +79,7 @@ const window = Dimensions.get('window');
             }}
             validationSchema={LoginSchema}
             initialValues={{
-              email_id: '',
+              username: '',
             }}>
             {(formProps) => (
               <FormBody
@@ -126,11 +121,11 @@ const window = Dimensions.get('window');
                 <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
             <View style={commonStyles.formWrapper}>
             <FormInput
-              labelName       = "Email Id"
-              placeholder     = "Email Id"
-              onChangeText    = {handleChange('email_id')}
+              labelName       = "Email Id/Mobile No"
+              placeholder     = "Email Id/Mobile No"
+              onChangeText    = {handleChange('username')}
               required        = {true}
-              name            = "email_id"
+              name            = "username"
               errors          = {errors}
               touched         = {touched}
               iconName        = {'email'}

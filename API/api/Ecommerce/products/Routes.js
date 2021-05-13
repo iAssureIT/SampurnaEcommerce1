@@ -100,9 +100,11 @@ router.get('/get/search/:searchstr/:vendorID', 							checkAuth, productControll
 
 router.get('/get/searchcount/:searchstr/:vendorID', 					checkAuth, productController.vendor_search_count_product);
 
-router.get('/get/search/:searchstr', 										checkAuth, productController.search_product);
+router.get('/get/search/website/:searchstr/:user_id', 						productController.search_product);
 
-router.get('/get/searchproducts/:searchstr', 							productController.search_product_mobileapp);
+router.post('/get/search/suggestion', 						                    productController.search_suggestion);
+
+router.get('/get/searchproducts/:searchstr', 							    productController.search_product_mobileapp);
 
 router.post('/post/searchINCategory', 										checkAuth, productController.searchINCategory);
 
