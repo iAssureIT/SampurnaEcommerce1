@@ -219,6 +219,8 @@ class Layout extends Component  {
                                                         <Route path="/product-list"                                     exact strict component={ProductList} />
                                                         <Route path="/product-image-bulk-upload"                        exact strict component={BulkProductImageUpload} />
                                                         <Route path="/file-wise-product-list"                           exact strict component={FileWiseProductList} />
+                                                        <Route path="/add-deals"                           exact strict component={AddDEals} />
+                                                        
                                                         {/* <Route path="/image" exact strict component={ImageUpload} /> */}
 
                                                         {/* Vendor Management */}

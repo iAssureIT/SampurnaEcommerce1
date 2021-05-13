@@ -1,0 +1,242 @@
+const mongoose   = require("mongoose");
+const Deals      = require('./Model');
+const Products   = require('../products/Model');
+var ObjectId               = require('mongodb').ObjectID;
+
+exports.insert_deals = (req, res, next) => {
+    // console.log("request.body===",req.body);
+    const DealsObj = new Deals({
+        _id: new mongoose.Types.ObjectId(),
+        section               : req.body.section,
+        category              : req.body.category,
+        subCategory           : req.body.subCategory,
+        sectionID             : req.body.sectionID,
+        categoryID            : req.body.categoryID, 
+        subCategoryID         : req.body.subCategoryID,
+        dealInPercentage      : req.body.dealInPercentage,
+        updateAllProductPrice : req.body.updateAllProducts,
+        // updateLimittedProducts: req.body.updateLimittedProducts,
+        dealImg               : req.body.dealImg,
+        startdate             : req.body.startdate,
+        enddate               : req.body.enddate,
+        createdBy             : req.body.createdBy,
+        createdAt             : new Date()
+    });
+    DealsObj
+        .save()
+        .then(dealsResponse => {
+                Products.find({"section_ID" : req.body.sectionID, "category_ID": req.body.categoryID })
+                .then(productResponse =>{
+                    // console.log("productResponse====",productResponse);
+                    
+                    if(productResponse){
+                        //if(req.body.updateAllProducts){
+                            dealInPercentage = req.body.dealInPercentage;
+                            main();
+                            async function main(){
+                                for(var i=0;i<productResponse.length;i++){   
+                                    // console.log("productResponse i = > ",productResponse[i]);
+                                   var updateResponse = await updateProductData(productResponse[i],dealInPercentage,req.body.updateAllProducts);
+                                    // console.log("updateResponse = > ",updateResponse);
+
+                                }
+                                if(i >= productResponse.length){
+                                    res.status(200).json({
+                                        "message": "Products Updated successfully."
+                                    });
+                                }
+                            }
+                        //}
+                    }
+
+
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+
+            //}//if
+
+            // res.status(200).json({
+            //     "message": "Deals is submitted successfully."
+            // });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+var updateProductData = async(productResponse,dealInPercentage,updateAllProducts) =>{
+    // console.log("productResponse id ===",productResponse._id);
+    
+    return new Promise(function (resolve, reject) {
+    if(updateAllProducts){                     
+            Products.updateOne(
+            { _id : ObjectId(productResponse._id)},  
+            {
+                $set:{
+                    discountPercent           : dealInPercentage,
+                    discountedPrice           : productResponse.originalPrice - dealInPercentage*productResponse.originalPrice/100,
+                }
+            }
+        )
+        .exec()
+        .then(data=>{
+            console.log("data = > ",data)
+            if(data.nModified === 1){
+                resolve({
+                    "message": "Deals added and Product also Updated Successfully.",
+                    // "product_ID" : data._id
+                });
+            }else{
+                resolve({
+                    "message": "Product Not Found"
+                });
+            }
+        })
+        .catch(err =>{
+            console.log(err);
+            reject({
+                error: err
+            });
+        })
+    }else{
+        Products.updateOne(
+            { _id : ObjectId(productResponse._id , {dealInPercentage : {$lt: dealInPercentage}})},  
+            {
+                $set:{
+                    discountPercent           : dealInPercentage,
+                    discountedPrice           : productResponse.originalPrice - dealInPercentage*productResponse.originalPrice/100,
+                }
+            }
+        )
+        .exec()
+        .then(data=>{
+            console.log("data = > ",data)
+            if(data.nModified === 1){
+                resolve({
+                    "message": "Deals added and Product also Updated Successfully.",
+                    // "product_ID" : data._id
+                });
+            }else{
+                resolve({
+                    "message": "Product Not Found"
+                });
+            }
+        })
+        .catch(err =>{
+            console.log(err);
+            reject({
+                error: err
+            });
+        })
+    }
+    })
+   
+}
+
+exports.get_deals = (req, res, next) => {
+    Deals.find()
+        .exec()
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+exports.get_single_deal = (req, res, next) => {
+    Deals.findOne({ _id: req.params.dealID })
+        .exec()
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+exports.update_deal = (req, res, next) => {
+    // console.log("Update Body = ", req.body);
+    Deals.updateOne(
+        { _id: req.body.dealID },
+        {
+            $set: {
+                section              :  req.body.section,
+                category             : req.body.category,
+                subCategory          : req.body.subCategory,
+                dealInPercentage     : req.body.dealInPercentage,
+                dealImg              : req.body.dealImg,
+                startdate            : req.body.startdate,
+                enddate              : req.body.enddate,
+                startdate            : req.body.startdate,
+                enddate              : req.body.enddate,
+            }
+        }
+    )
+        .exec()
+        .then(data => {
+            res.status(200).json({
+                "message": "Deal Updated Successfully."
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+exports.delete_deal = (req, res, next) => {
+    Deals.deleteOne({ _id: req.params.dealID })
+        .exec()
+        .then(data => {
+            res.status(200).json({
+                "message": "deal Deleted Successfully."
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+exports.count_deal = (req, res, next) => {
+    Deals.find({})
+        .exec()
+        .then(data => {
+            res.status(200).json({ "dataCount": data.length });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+exports.get_deals_with_limits = (req, res, next) => {
+    Deals.find()
+        .skip(parseInt(req.params.startRange))
+        .limit(parseInt(req.params.limitRange))
+        .exec()
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+};

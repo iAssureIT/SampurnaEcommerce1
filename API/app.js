@@ -20,6 +20,7 @@ const blockTypeMasterRoutes 			= require('./api/cms/BlockTypeMaster/Routes.js');
 const addNewBlockTempMasterRoutes 		= require("./api/cms/AddNewBlockTemplate/routes.js");
 const menubarRoutes                  	= require("./api/cms/routes/menubar.js");
 
+
 // console.log("globalVariable.dbname",dbname);
 mongoose.connect('mongodb://localhost/'+globalVariable.dbname,{
 // mongoose.connect('mongodb://localhost/'+dbname,{
@@ -118,10 +119,15 @@ const BillingEntry							= require("./api/Ecommerce/billingManagement/Routes.js"
 const Gallery                        		= require("./api/Ecommerce/Gallery/Routes.js");
 // const unitOfMeasurment       			= require("./api/Ecommerce/unitOfMeasurement/RoutesUnitOfMeasurment");
 
+<<<<<<< Updated upstream
 
 
 app.use("/startup", startupRoutes);	
 
+=======
+/*========== Deals management ===========*/
+const addDeals                              = require("./api/Ecommerce/DealsManagement/Routes.js");
+>>>>>>> Stashed changes
 
 app.use("/api/users", 						systemRoutes);
 app.use("/api/auth", 						systemRoutes);
@@ -194,7 +200,7 @@ app.use("/api/menubar",						menubarRoutes);
 // app.use("/api/masternotifications",notificationRoutes);
 // app.use("/api/preference",preferenceurl);
 // app.use("/api/notifications",notificationRoutes);
-
+app.use('/api/deals/', addDeals);
 app.use(addNewBlockTempMasterRoutes);
 
 //=========== Billing Management =========

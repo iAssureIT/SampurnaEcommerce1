@@ -309,7 +309,7 @@ class Product extends Component{
   
 
     render(){
-      console.log("1. newProducts----",this.state.newProducts);
+      // console.log("1. newProducts----",this.state.newProducts);
 
       var LGCol = 12/this.state.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.state.blockSettings.noOfProductPerMDRow;
@@ -357,6 +357,7 @@ class Product extends Component{
                         </div>
                         <div className={styleMedia.ImgWrapper}>
                         <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
+                        {/* <Link href={"/productDetail/"+categoryUrl+"/"+data.productUrl+"/"+data._id}> */}
                         <a className={Style.product_item_photo } tabIndex="-1" >
                           {/* <img loading="lazy" src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" className={Style.noAvailableImg +" " +Style.productImg +"lazyload img-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"}/> */}
                           <Image                                           

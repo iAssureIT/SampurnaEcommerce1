@@ -84,6 +84,17 @@ const blocksSchema = mongoose.Schema({
 		noOfItemPerSMRow      : Number,
 		noOfItemPerXSRow      : Number,
 	},
+	dealSettings : {
+		blockTitle 		      : String,
+		blockApi 		      : String,
+		section               : String,
+		category              : String, 
+		subCategory           : String,
+		showOnlySection       : Boolean,
+		showOnlyCategory      : Boolean,
+		showOnlyBrand         : Boolean,
+		showOnlySubCategory   : Boolean,
+	}, 
 	filterSettings      :[
 		{
 			filterLabel : String,

@@ -27,6 +27,7 @@ exports.create_block = (req,res,next)=>{
             productSettings : req.body.productSettings,
             filterSettings  : [],
             groupSettings   : req.body.groupSettings,
+            dealSettings   : req.body.dealSettings,
             
             // createdBy           : req.body.user_ID,
             createdAt           : new Date(),
