@@ -6,6 +6,7 @@ import SideMenu                     from 'react-native-side-menu';
 import {Menu}                       from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar2                   from '../../ScreenComponents/HeaderBar2/HeaderBar2.js';
 import {BannerComponent}            from '../../ScreenComponents/BannerComponent/BannerComponent.js';
+import {MarketingBlock}             from '../../ScreenComponents/MarketingBlock/MarketingBlock.js';
 import {MenuCarouselSection}        from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
 import SearchProducts               from'../Search/SearchProducts.js';
@@ -151,6 +152,16 @@ export const Dashboard = withCustomerToaster((props)=>{
                   <MenuCarouselSection  navigation = {navigation}/>
                 }
                 {globalSearch.searchText ?
+                  null
+                :
+                  <MarketingBlock  
+                    navigation  = {navigation}
+                    section     = 'Home'
+                    category    = 'All'
+                    subCategory = 'All'
+                  />
+                }
+                {globalSearch.searchText ?
                   // <SearchProducts navigate = {navigation.navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
                   <ProductList 
                       navigate    = {navigation.navigate} 
@@ -181,6 +192,16 @@ export const Dashboard = withCustomerToaster((props)=>{
                       loading     = {productList.loading}
                       />
                     : null}
+                    {globalSearch.searchText ?
+                      null
+                    :
+                    <MarketingBlock  
+                      navigation  = {navigation}
+                      section     = 'All'
+                      category    = 'Men'
+                      subCategory = 'All'
+                    />
+                    }
                   {productList.exclusiveList.length > 0  ? 
                     <ProductList 
                       navigate    = {navigation.navigate} 
@@ -195,6 +216,16 @@ export const Dashboard = withCustomerToaster((props)=>{
                       loading     = {productList.loading}
                     />
                     : null}
+                    {globalSearch.searchText ?
+                      null
+                    :
+                    <MarketingBlock  
+                      navigation  = {navigation}
+                      section     = 'All'
+                      category    = 'Men'
+                      subCategory = 'All'
+                    />
+                    }
                   {productList.discountedList.length > 0  ? 
                     <ProductList 
                       navigate    = {navigation.navigate} 

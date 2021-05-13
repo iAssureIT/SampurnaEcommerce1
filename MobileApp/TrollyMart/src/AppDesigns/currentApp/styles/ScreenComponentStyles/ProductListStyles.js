@@ -179,7 +179,7 @@ export default StyleSheet.create({
 	},
 	mainrightside: {
 		flex:0.5,
-		padding:5
+		padding:5,
 	},
 	proddets: {
 		flex:1,
