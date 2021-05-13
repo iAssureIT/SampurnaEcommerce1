@@ -5,6 +5,7 @@ const Category             = require('../categories/Model');
 const Sections             = require('../sections/Model');
 const FailedRecords        = require('../failedRecords/Model');
 const Orders               = require('../orders/Model');
+const ProductInventory     = require('../ProductInventory/Model');
 const Carts                = require('../cart/Model');
 const Wishlists            = require('../wishlist/Model');
 const ExpenseTypeMaster    = require('../../coreAdmin/expenseTypeMaster/ModelExpenseTypeMaster');
@@ -172,7 +173,7 @@ exports.bulkUploadProduct = (req,res,next)=>{
                         }
                         // console.log('taxObject',taxObject)
 
-                        if (productData[k].itemCode !== undefined) {
+                        if (productData[k].itemCode !== undefined && productData[k].productCode !== undefined) {
                             if(typeof(productData[k].discountPercent) === 'number' && productData[k].discountPercent >= 0){
                                 if(typeof(productData[k].discountedPrice) === 'number' && productData[k].discountedPrice >= 0){
                                     if(typeof(productData[k].originalPrice) === 'number' && productData[k].originalPrice >= 0 ){
@@ -220,6 +221,9 @@ exports.bulkUploadProduct = (req,res,next)=>{
                 if (productData[k].category === undefined) {
                     remark += ", category not found, ";
                 }
+                console.log("condition *=> ",(productData[k].productCode === undefined));
+                console.log("productCode *=> ",productData[k].productCode);
+
                 if (productData[k].productCode === undefined) {
                     remark += "Product code not found, ";
                 }
@@ -415,19 +419,23 @@ function sectionInsert(sectionName) {
 
 /**=============== categoryInsert() ===============*/
 function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRlang) {
-    // console.log("subcatgName => ",subcatgName);
-    if(subcatgName && subcatgName !== undefined){
+    console.log("subcatgName => ",subcatgName);
+    var addRowLength        = 0;
+    var subcategoryArray    = [];
+    var obj                 = []; 
+    console.log("condition => ",(subcatgName !== undefined))
+    if(subcatgName !== undefined){        
         var subcat      = subcatgName;
         var subcarUrl   = subcat.replace(/\s+/g, '-').toLowerCase();
         subcategoryArray.push(subcatgName);
     }
 
-    var addRowLength = subcategoryArray.length;
-    // console.log("subcatgName => ",subcatgName);
-    // console.log("addRowLength => ",addRowLength);
-    if(addRowLength){
+    addRowLength = subcategoryArray.length;
+    console.log("subcatgName => ",subcatgName);
+    console.log("addRowLength => ",addRowLength);
+    if(addRowLength && addRowLength > 0){
         for(var i = 0; i < addRowLength; i++){
-            var obj = {
+            obj = {
                 "index"             : i,
                 "subCategoryCode"   : 1+'|'+i,
                 "subCategoryTitle"  : subcat,
@@ -450,7 +458,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                     if(data.length > 0){
                         categoryRank = data[0].categoryRank + 1;
                     }   
-
+                    // console.log("-----------obj 1 ----------",obj)
                     const categoryObj = new Category({
                         _id                       : new mongoose.Types.ObjectId(),                    
                         category                  : catgName,
@@ -486,15 +494,17 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
             }else{                
                 if (categoryPresent.subCategory) {
                     var subcatg = categoryPresent.subCategory.find(subcatgObj => subcatgObj.subCategoryTitle === subcatgName);
-                    // console.log("subcatg => ", subcatg);
-                    if(subcatg && subcatg !== undefined){
+                    // console.log("*****subcatg => ", subcatg);
+
+                    if(subcatg !== undefined){
                         resolve({
                             _id                 : subcatg._id, 
                             category            : catgName, 
                             categoryNameRlang   : categoryNameRlang,
                             subCategory_ID      : (subcatg.subCategory && subcatg.subCategory.length > 0 ? subcatg.subCategory[0]._id : null) 
                         });
-                    }else{
+                    }else if(subcatgName !== undefined){                        
+                        console.log("*****ele => ", subcatgName);
                         Category.updateOne(
                             { _id:categoryPresent._id},  
                             {
@@ -530,7 +540,24 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                         .catch(err =>{
                             console.log(err);
                             reject(err);
-                        });
+                        });                    
+                    }else {                        
+                        console.log("*****elessss => ", subcatgName);
+                        
+                        Category.findOne({ category : catgName})
+                        .exec()
+                        .then(categoryObject=>{
+                            if(categoryObject){                                        
+                                resolve({
+                                    _id                 : categoryPresent._id, 
+                                    category            : categoryPresent.category,
+                                    categoryNameRlang   : categoryPresent.categoryNameRlang, 
+                                    // subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
+                                });
+                            }else{
+                                resolve(0);
+                            }
+                        })                            
                     }
                 }else{
                     resolve({
@@ -794,6 +821,40 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                 products
                 .save()
                 .then(data=>{
+                    // console.log("product added => ",data);
+                    const productInventory = new ProductInventory({
+                        _id                       : new mongoose.Types.ObjectId(), 
+                        vendor_ID                 : ObjectId(data.vendor_ID), 
+                        universalProductCode      : data.universalProductCode ? data.universalProductCode : "",
+                        productCode               : data.productCode ? data.productCode : "",
+                        itemCode                  : data.itemCode ? data.itemCode : "",
+                        productName               : data.productName,
+                        shortDescription          : data.shortDescription ? data.shortDescription : "",
+                        currentQuantity           : data.availableQuantity ? data.availableQuantity : "",
+                        originalPrice             : data.originalPrice,
+                        discountPercent           : data.discountPercent,
+                        discountedPrice           : data.discountedPrice, 
+                        inwardDetails             : [ 
+                                                        {
+                                                            date                : new Date(),
+                                                            qty                 : data.availableQuantity,
+                                                            originalPrice       : data.originalPrice,
+                                                            discountPercent     : data.discountPercent,
+                                                            discountedPrice     : data.discountedPrice, 
+                                                            addedBy             : ObjectId(data.createdBy),
+                                                        }
+                        ],
+                        createdBy                 : ObjectId(data.createdBy),
+                        createdAt                 : new Date()
+                    });
+                    productInventory.save()
+                    .then(iventoryData=>{
+                        // console.log("iventoryData---------",iventoryData);
+                    })
+                    .catch(err =>{
+                        console.log("error---------",err);
+                        reject(err);
+                    });
                     resolve(data._id);
                 })
                 .catch(err =>{
@@ -2962,24 +3023,230 @@ var insertUnitOfMeasurment = async(unit,created) =>{
     });
 }
 
-// bulk update 
-exports.bulkUploadProductUpdate = (req,res,next)=>{
-    var record = []; 
-    var i = 0;
-    var found = 0;
+// bulk Product update 
+exports.bulkProductUpdate = (req,res,next)=>{
+    // console.log("req.body bulkProductUpdate => ",req.body);
+    var record          = []; 
+    var failedRecords   = [];
+    var i               = 0;
+    var found           = 0;
     var catid;
     var subcatid;
-    var failedRecords = [];
     getData();
 
     async function getData(){
-        var productData = req.body;
-        var TotalCount  = 0;
-        var Count  = 0;
+        var productData     = req.body;
+        var TotalCount      = 0;
+        var Count           = 0;
         var DuplicateCount  = 0;
-        var invalidData = [];
-        var invalidObjects = [];
-        var remark = ''; 
+        var invalidData     = [];
+        var invalidObjects  = [];
+        var remark          = ''; 
+
+        var allEntityData = await fetchAllEntities("vendor");
+
+        for(k = 0 ; k < productData.length ; k++){
+            if(productData[k].websiteModel === "MarketPlace"){
+                var EntityData = allEntityData.filter((data)=>{                
+                    if (String(data._id) === String(productData[k].vendor_id)) {
+                        return data;
+                    }
+                }) 
+                console.log("EntityData => ",EntityData);
+                 var EntityDataArray = EntityData.map((entityArr, i)=>{
+                    return entityArr.companyName;
+                  })
+              }else{
+                var EntityData = allEntityData.filter((data)=>{
+                    // console.log("data.companyName == productData[k].CompanyName",data.companyName == productData[k].CompanyName);
+                      if (data.companyName == allEntityData[0].companyName) {
+                        return data;
+                        }
+                }) 
+    
+                // var EntityDataArray = allEntityData[0].companyName;
+            }
+            if(productData[k].productCode !== undefined && productData[k].itemCode !== undefined){
+                // if (productData[k].section.trim() != '') {
+                //     var sectionObject = await sectionInsert(productData[k].section)
+                   
+                    // if (productData[k].category != undefined) {
+                    //     var categoryObject = await categoryInsert(productData[k].category,productData[k].subCategory,productData[k].section,sectionObject.section_ID,productData[k].categoryNameRlang);
+                    //     var taxObject = []
+                    //     if(productData[k].taxName){
+                    //         taxObject = await taxInsert(productData[k].taxName,productData[k].taxRate);
+                    //         // console.log("taxObject in main---",taxObject)
+                    //     }
+                        // if (productData[k].itemCode != undefined) {
+                            // if(typeof(productData[k].discountPercent) === 'number' && productData[k].discountPercent >= 0){
+                            //      if(typeof(productData[k].discountedPrice) === 'number' && productData[k].discountedPrice >= 0){
+                            //         if(typeof(productData[k].originalPrice) === 'number' && productData[k].originalPrice >= 0 ){
+
+                                    //     if(productData[k].websiteModel === "MarketPlace"){
+                                    //        if(EntityDataArray  != "" && EntityDataArray != undefined ){
+                                    //         var updateProductObject = await updateProductBulk(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
+                                    //        }else{
+                                    //         remark+= "Company Name not found"
+                                    //        }
+                                    //    }else{
+                                    //     var updateProductObject = await updateProductBulk(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
+                                    //    } 
+                                       if(productData[k].websiteModel === "MarketPlace"){
+                                        if(EntityData  !== "" && EntityData !== undefined ){
+                                            console.log("Called 1")
+                                            var updateProductObject = await updateProductBulkRecords(productData[k]);
+                                           }else{
+                                            remark+= "Company Name not found"
+
+                                           }
+                                       }else{
+                                        console.log("Called 2")
+                                        //  var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
+                                        if(EntityDataArray  != "" && EntityDataArray != undefined ){
+                                            var updateProductObject = await updateProductBulkRecords(productData[k]);
+                                           }else{
+                                            remark+= "Vendor not found"
+
+                                           }
+
+                                       } 
+
+                                         console.log('updateProductBulk => ',updateProductObject)
+
+                                        if (updateProductObject !== 0 && updateProductObject !== null) {
+                                            if(updateProductObject.nModified !== 0){
+                                                Count++;
+                                            }
+                                        }else{
+                                            // console.log('else updateProductBulk',updateProductObject)
+
+                                            DuplicateCount++;
+                                            remark += "Product Not Found ";
+                                        }
+                            //         }else{
+                            //            remark += "Original Price should be number"; 
+                            //         }
+                            //      }else{
+                            //         remark += "Discount Price should be number";
+                            //      }  
+                            // }else{
+                            //    remark += "Discount Percent should be number";
+                            // } 
+                            
+                        // }  
+                    // }
+                // }
+            }
+            
+        if (productData[k].itemCode !== undefined) {
+            TotalCount++;
+            // if(productData[k].section == undefined){
+            //      remark += "section not found";
+            // }
+            // if (productData[k].category == undefined) {
+            //     remark += ", category not found, ";
+            // }
+            if (productData[k].productCode === undefined) {
+                remark += "Product code not found, ";
+            }
+            // if (productData[k].productName == undefined) {
+            //     remark += "Product name not found, ";
+            // }
+            // if (productData[k].brand == undefined) {
+            //     remark += "brand not found, ";
+            // }
+            if (productData[k].availableQuantity === undefined) {
+                remark += "product quantity not found, ";
+            }
+            // if (productData[k].originalPrice == undefined) {
+            //     remark += "product price not found, ";
+            // }
+
+        }
+            
+
+            if (remark != '') {
+                invalidObjects = productData[k];
+                invalidObjects.remark = remark;
+                invalidData.push(invalidObjects);
+            } 
+            remark = '';
+        }
+        
+        failedRecords.FailedRecords = invalidData
+        failedRecords.fileName = productData[0].filename;
+        failedRecords.totalRecords = TotalCount;
+
+        await insertFailedRecords(failedRecords); 
+        
+        var msgstr = "";
+        var warning = false;
+        if (DuplicateCount > 0 && Count > 0) {
+            if (DuplicateCount > 1 && Count > 1) {
+               msgstr =  " " + Count+" products are updated successfully and "+"\n"+DuplicateCount+" products are duplicate";
+            }
+            else if(DuplicateCount ==1 && Count == 1 ){
+                msgstr =  " " + Count+" product is updated successfully and "+"\n"+DuplicateCount+" product is duplicate";
+            }
+            else if(DuplicateCount > 1 && Count == 1)
+            {
+                msgstr =  " " + Count+" product is updated successfully and "+"\n"+DuplicateCount+" products are duplicate";
+            }else if(DuplicateCount == 1 && Count > 1){
+                msgstr =  " " + Count+" products are updated successfully and "+"\n"+DuplicateCount+" product is duplicate";
+            }
+            
+        }
+        else if(DuplicateCount > 0 && Count == 0)
+        {
+            if (DuplicateCount > 1) {
+                msgstr = "Failed to update products as "+DuplicateCount+" products are duplicate";
+                warning = true;
+            }else{
+                msgstr = "Failed to update products as "+DuplicateCount+" product is duplicate";
+                warning = true;
+            }
+            
+        }
+        else if(DuplicateCount == 0 && Count > 0)
+        { 
+            if (Count > 1) {
+                msgstr = " " + Count+" products are updated successfully";
+            }else{
+                msgstr = " " + Count+" product is updated successfully";
+            }            
+        }else{
+            msgstr = "Failed to update products";
+            warning = true;
+        }
+
+        console.log("msgstr",msgstr);
+        res.status(200).json({
+            "message": msgstr,
+            "warning": warning
+        });
+    }
+};
+
+
+// bulk update 
+exports.bulkUploadProductUpdate = (req,res,next)=>{
+    console.log("req.body => ",req.body);
+    var record          = []; 
+    var failedRecords   = [];
+    var i               = 0;
+    var found           = 0;
+    var catid;
+    var subcatid;
+    getData();
+
+    async function getData(){
+        var productData     = req.body;
+        var TotalCount      = 0;
+        var Count           = 0;
+        var DuplicateCount  = 0;
+        var invalidData     = [];
+        var invalidObjects  = [];
+        var remark          = ''; 
 
         for(k = 0 ; k < productData.length ; k++){
             var allEntityData = await fetchAllEntities("vendor");
@@ -3046,9 +3313,9 @@ exports.bulkUploadProductUpdate = (req,res,next)=>{
 
                                        } 
 
-                                        //  console.log('updateProductBulk',updateProductObject)
+                                         console.log('updateProductBulk => ',updateProductObject)
 
-                                        if (updateProductObject != 0) {
+                                        if (updateProductObject !== 0) {
                                             if(updateProductObject.nModified !== 0){
                                                 Count++;
                                             }
@@ -3182,7 +3449,7 @@ var updateProductBulk = async (section_ID, section, categoryObject,data,taxObjec
                 {
                     $set:{
                         user_ID                   : vendor,  
-                        vendor_ID                : productEntity._id, 
+                        vendor_ID                 : productEntity._id, 
                         vendorName                : productEntity.companyName, 
                         section_ID                : section_ID,           
                         section                   : section,      
@@ -3228,13 +3495,115 @@ var updateProductBulk = async (section_ID, section, categoryObject,data,taxObjec
                 }
             )
             .exec()
-            .then(data=>{
-                 resolve(data);
+            .then(data=>{                
+                resolve(data);
             })
             .catch(err =>{
                 reject(err);
             });
        
+    });
+}
+
+/**======= updateProductBulkRecords() =======*/
+var updateProductBulkRecords = async (data) => {
+    // console.log("data--",data);
+    
+    return new Promise(function(resolve,reject){ 
+        ProductInventory.findOne(
+            { 
+                universalProductCode : data.UPC,  
+                vendor_ID            : ObjectId(data.vendor_id)
+            },
+        )
+        .then(inventoryData=>{
+            ProductInventory.updateOne(
+                { 
+                    universalProductCode : data.UPC,  
+                    vendor_ID            : ObjectId(data.vendor_id)
+                },  
+                {
+                    $set:{
+                        currentQuantity           : data.qty ? (data.action.toLowerCase() === "add" ? inventoryData.currentQuantity + data.qty : data.qty)  : "",
+                        originalPrice             : data.originalPrice,
+                        discountPercent           : data.discountPercent,
+                        discountedPrice           : data.discountedPrice, 
+                    },
+                    $push:{ 
+                        inwardDetails  : {
+                                            date            : new Date(),
+                                            qty             : data.qty ? (data.action.toLowerCase() === "add" ? inventoryData.currentQuantity + data.qty : data.qty)  : "",
+                                            originalPrice   : data.originalPrice,
+                                            discountPercent : data.discountPercent,
+                                            discountedPrice : data.discountedPrice,
+                                            addedBy         : ObjectId(data.createdBy),
+                        },
+                        updateLog       : {
+                                            date        : new Date(),
+                                            updatedBy   : ObjectId(data.createdBy),
+                        }
+                    }
+                }
+            )
+            .then(inventoryupdateData=>{
+                // console.log("inventoryupdateData---------",inventoryupdateData);
+                // console.log("data.UPC---------",data.UPC);
+                // console.log("data.vendor_id---------",data.vendor_id);
+                Products.findOne(
+                    { 
+                        universalProductCode    : data.UPC,
+                        vendor_ID               : ObjectId(data.vendor_id)
+                    } 
+                )
+                .exec()
+                .then(productdata=>{
+                    // console.log("productData => ",productdata);              
+                    if(productdata && productdata !== undefined){     
+                        Products.updateOne(
+                            { 
+                                universalProductCode    : data.UPC,
+                                vendor_ID               : ObjectId(data.vendor_id)
+                            },  
+                            {
+                                $set:{
+                                    originalPrice             : data.originalPrice ? data.originalPrice : 0,
+                                    discountPercent           : data.discountPercent ? data.discountPercent : 0,  
+                                    discountedPrice           : data.discountPercent === 0 ? (data.originalPrice ? data.originalPrice : 0) : data.discountedPrice,
+                                    availableQuantity         : data.qty ? (data.action.toLowerCase() === "add" ? productdata.availableQuantity + data.qty : data.qty)  : "",
+                                    fileName                  : data.filename,
+                                    updatedBy                 : data.createdBy,
+                                    updatedAt                 : new Date()
+                                }
+                            }
+                        )
+                        .exec()
+                        .then(updatedproductdata=>{                        
+                            
+                            // var inventoryUpdate = await updateProductInventory(data.itemCode, data.productCode, data.vendor_id);
+                            resolve(updatedproductdata);
+                                                
+                        })
+                        .catch(err =>{
+                            reject(err);
+                        });
+                    
+                }else{
+                    resolve(productdata);
+                }
+            })
+            .catch(err =>{
+                reject(err);
+            });
+            })
+            .catch(err =>{
+                console.log("error---------",err);
+                reject(err);
+            }); 
+        })
+        .catch(err =>{
+            console.log("error---------",err);
+            reject(err);
+        });          
     });
 }
 

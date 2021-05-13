@@ -63,10 +63,12 @@ constructor(props) {
   }
 
       componentDidMount() {
-        const user_ID = localStorage.getItem("user_ID");
-        // console.log("User ID = ", user_ID);
+        var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+        const user_ID     = userDetails._id;
+        var company_ID    = userDetails.company_ID;
         this.setState({
-          user_ID : user_ID
+          user_ID     : user_ID,
+          company_ID  : company_ID
         });
 
 
@@ -269,10 +271,10 @@ constructor(props) {
                                     }
                                     // console.log(" requireddata vendor props:",this.props.requiredData.vendor);
                                     // console.log("localStorage.getItem('admin_ID'):",localStorage.getItem('admin_ID'));
-                                    documentObj[count]['filename'] = file.name;
-                                    documentObj[count]['vendor'] = this.props.requiredData.vendor;
-                                    documentObj[count]['createdBy'] = localStorage.getItem('admin_ID');
-                                    documentObj[count]['websiteModel'] = this.state.websiteModel;
+                                    documentObj[count]['filename']      = file.name;
+                                    documentObj[count]['vendor_id'] 	  = this.state.company_ID;
+                                    documentObj[count]['createdBy']     = this.state.user_ID;
+                                    documentObj[count]['websiteModel']  = this.state.websiteModel;
                                 }
                             }
                             //attributeArray = [];

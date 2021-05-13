@@ -1,0 +1,51 @@
+  /******* ===================== *******/
+ /         Inventory Management        /
+/******* ===================== *******/
+
+======================================================================================================
+1) Daily Inward Entry(Bulk Update) - Admin + Vendor
+
+Model = {
+    _id             : ObjectID
+    UPC             : String
+    productCode     : String
+    itemCode        : String
+    currentQty      : Number
+    originalPrice   : Number
+    descountPer     : Number 
+    discountedPrice : Number
+    inwardDetails   : {
+                        date                : Date,
+                        qty                 : Number,
+                        originalPrice       : Number,
+                        descountPer         : Number,
+                        discountedPrice     : Number,
+                        addedBy             : (UserID)
+    },
+    createdBy       : (UserID),
+    createdAt       : Date,
+    updateLog       : {
+                        updatedBy   : (UserID),
+                        updatedAt   : Date()
+    }
+}
+
+Excel File Format :
++---------------------------------------------------------------------------------------------------+
+| UPC  | itemCode | productCode | qty | originalPrice | discountPercent | discountedPrice |	action  |
+|------|----------|-------------|-----|---------------|-----------------|-----------------|---------|
+| 1020 | I101     | P101        | 100 |           100 |             10  |              90 | replace |
+|------|----------|-------------|-----|---------------|-----------------|-----------------|---------|
+| 1020 | I101     | P101        | 100 |           100 |             10  |              90 | add     |
++---------------------------------------------------------------------------------------------------+
+Note : After Update in Inventory collection update products Collection
+
+======================================================================================================
+
+API's For Product 
+1. Products By Lowest Price 
+2. Products By Fastest Delivery(Use Haversine Formula)
+3. Master for Distance Range
+
+
+

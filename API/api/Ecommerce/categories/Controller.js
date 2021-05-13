@@ -151,11 +151,15 @@ exports.list_category_with_limits = (req,res,next)=>{
                 "subCategory"           : x.subCategory 
                                             ? 
                                                 (x.subCategory.map((a, i)=>{
-                                                    return {
-                                                        _id                : a._id,
-                                                        subCategoryTitle    : a.subCategoryTitle,
-                                                        status              : a.status
-                                                    }                                                 
+                                                    console.log("a.subCategoryTitle=> ",a.subCategoryTitle)
+                                                    if(a.subCategoryTitle && a.subCategoryTitle !== undefined){
+                                                        return {
+                                                            _id                 : a._id+"-"+x._id,
+                                                            subCategoryTitle    : a.subCategoryTitle,
+                                                            status              : a.status,
+                                                        }
+                                                    }  
+                                                                                                  
                                                 }))
                                             :
                                                 [],
@@ -165,7 +169,7 @@ exports.list_category_with_limits = (req,res,next)=>{
                 "status"                : x.status,
             }
         })
-        console.log("allData => ",allData)
+        // console.log("allData => ",allData)
         res.status(200).json(allData);
     })
     .catch(err =>{
@@ -351,6 +355,42 @@ exports.update_category_status = (req,res,next)=>{
         // if(data.nModified == 1){
             res.status(200).json({
                 "message": "Category Updated Successfully!"
+            });
+        // }else{
+        //     res.status(401).json({
+        //         "message": "Section Not Found"
+        //     });
+        // }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
+exports.update_subcategory_status = (req,res,next)=>{
+    console.log("update_subcategory_status Body = ", req.body);
+    console.log(" req.body.item_id ====" ,req.body.item_id);
+    console.log(" req.body.status ====" ,req.body.status);
+
+    Category.updateOne(
+        { _id : ObjectId(req.body.item_id.split("-")[1]), 'subCategory._id' : ObjectId(req.body.item_id.split("-")[0])},  
+        { $set : 
+            {
+                // status                      : req.body.status,
+                'subCategory.$.status' 	: req.body.status,	
+            }
+        }
+    )
+    .exec()
+    .then(data=>{
+        console.log("SubCategory Updated data => ", data);       
+    
+        // if(data.nModified == 1){
+            res.status(200).json({
+                "message": "SubCategory Updated Successfully!"
             });
         // }else{
         //     res.status(401).json({

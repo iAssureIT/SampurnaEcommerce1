@@ -24,6 +24,8 @@ router.get('/get/list-with-limits/:startRange/:limitRange', categoryController.g
 
 router.patch('/patch/status', 				checkAuth, categoryController.update_category_status);
 
+router.patch('/patch/subcategory/status', 	checkAuth, categoryController.update_subcategory_status);
+
 router.post('/post', 					    checkAuth, categoryController.insert_category);
 
 router.patch('/patch', 						checkAuth, categoryController.update_category);

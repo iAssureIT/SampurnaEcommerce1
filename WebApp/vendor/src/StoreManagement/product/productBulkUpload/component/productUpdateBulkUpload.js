@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import _ from 'underscore';
-import { withRouter } from 'react-router-dom';
-import BulkUploadComponent from './BulkUploadComponent';
+import axios                from 'axios';
+import _                    from 'underscore';
+import { withRouter }       from 'react-router-dom';
+import BulkUploadComponent  from './BulkUploadComponent';
 import  '../css/productBulkUpload.css'
 // import Message from '../../../../storeAdmin/message/Message.js';
 
@@ -180,13 +180,10 @@ class UpdateProductBulkUpload extends Component {
                                 <div className="">
                                     <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                         <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-left" >
-                                            <h4 className="weighttitle NOpadding-right">Product Update Bulk Upload</h4>
-                                        </div>
-                                        
-                                    </div> 
-                                
-                                    {
-                                        this.state.preference === "MarketPlace" 
+                                            <h4 className="weighttitle NOpadding-right">Product Bulk Update</h4>
+                                        </div>                                        
+                                    </div>                                 
+                                    {this.state.preference === "MarketPlace" 
                                         ?
                                             <div>
                                                 localStorage.getItem('roles') === 'admin' 
@@ -196,7 +193,8 @@ class UpdateProductBulkUpload extends Component {
                                                             <button type="button" className="btn col-lg-2 col-md-2 col-sm-12 col-xs-12 addexamform clickforhideshow pull-right" >Add Template</button>
                                                         </a>
                                                     </div>
-                                                : null
+                                                : 
+                                                null
 
                                                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 inputFields marginTopp">
                                                     <label>Vendor <i className="redFont">*</i></label>

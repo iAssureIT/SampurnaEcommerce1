@@ -55,3 +55,17 @@
     color: #FFF;
     background-color: #2189d2;
 }
+.vendorSelect{
+    height: 55px;
+    box-shadow: 0px 0px 1px #999;
+    padding: 1%;
+}
+.btnstyle{
+    height: 55px;
+    /* box-shadow: 0px 0px 1px #999; */
+    padding: 1%;
+    width:  100%;
+}
+.btnDiv{
+    margin-top:  2% !important;
+}

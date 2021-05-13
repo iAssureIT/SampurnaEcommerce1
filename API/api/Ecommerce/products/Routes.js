@@ -11,7 +11,9 @@ router.post('/post/bulkUploadProduct', 									productController.bulkUploadProd
 
 // router.post('/post/bulkUploadProductSiggleowner', productController.bulkUploadProductSigleowner);
 
-router.post('/post/bulkUploadProductUpdate', 							checkAuth, productController.bulkUploadProductUpdate);
+// router.post('/post/bulkUploadProductUpdate', 							checkAuth, productController.bulkUploadProductUpdate);
+
+router.post('/post/bulkUploadProductUpdate', 							 productController.bulkProductUpdate);
 
 // router.get('/get/filedetails/:fileName',productController.filedetails);
 
