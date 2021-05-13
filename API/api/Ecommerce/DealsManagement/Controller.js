@@ -105,13 +105,12 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
             });
         })
     }else{
-        console.log("dealInPercentage less than ");
         Products.updateOne(
             { _id : ObjectId(productResponse._id , {dealInPercentage : {$lt: dealInPercentage}})},  
             {
                 $set:{
                     discountPercent           : dealInPercentage,
-                    discountedPrice           : productResponse.originalPrice - dealInPercentage*productResponse.originalPrice/100,
+                    discountedPrice           : productResponse.originalPrice - dealInPercentage/100*productResponse.originalPrice,
                 }
             }
         )

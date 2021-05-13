@@ -455,7 +455,7 @@ class DealsManagement extends React.Component {
                 if (file) {
                     var fileName  = file.name; 
                     var ext = fileName.split('.').pop();  
-                    if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
+                    if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG" || ext==="gif"){
                         if (file) {
                             var objTitle = { fileInfo :file }
                             dealImg = objTitle ;                          
