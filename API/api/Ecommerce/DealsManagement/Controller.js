@@ -9,13 +9,9 @@ exports.insert_deals = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         section               : req.body.section,
         category              : req.body.category,
-        subCategory           : req.body.subCategory,
-        sectionID             : req.body.sectionID,
-        categoryID            : req.body.categoryID, 
-        subCategoryID         : req.body.subCategoryID,
+        subCategory           : req.body.subCategory,       
         dealInPercentage      : req.body.dealInPercentage,
         updateAllProductPrice : req.body.updateAllProducts,
-        // updateLimittedProducts: req.body.updateLimittedProducts,
         dealImg               : req.body.dealImg,
         startdate             : req.body.startdate,
         enddate               : req.body.enddate,
@@ -31,7 +27,7 @@ exports.insert_deals = (req, res, next) => {
                     
                     if(productResponse){
                         //if(req.body.updateAllProducts){
-                            dealInPercentage = req.body.dealInPercentage;
+                            dealInPercentage = parseInt(req.body.dealInPercentage);
                             main();
                             async function main(){
                                 for(var i=0;i<productResponse.length;i++){   
@@ -110,13 +106,13 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
             {
                 $set:{
                     discountPercent           : dealInPercentage,
-                    discountedPrice           : productResponse.originalPrice - dealInPercentage/100*productResponse.originalPrice,
+                    discountedPrice           : productResponse.originalPrice - productResponse.originalPrice*dealInPercentage/100,
                 }
             }
         )
         .exec()
         .then(data=>{
-            console.log("data = > ",data)
+            // console.log("data = > ",data)
             if(data.nModified === 1){
                 resolve({
                     "message": "Deals added and Product also Updated Successfully.",

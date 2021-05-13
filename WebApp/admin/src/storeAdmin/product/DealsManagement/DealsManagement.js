@@ -276,20 +276,13 @@ class DealsManagement extends React.Component {
             enddate : ''
           })
         }
-        // let fields = this.state.fields;
-		// fields[event.target.name] = true;
-		// this.setState({
-		//   fields
-		// });
       }
     handleChangeSubcategory(event) {
         const target 	= event.target;
         const name 		= target.name;
-        var value = event.target.value.split('_')
-        // console.log("value===",value);
+        var value = event.target.value;
         this.setState({
-           [name]: value[1],
-           "subCategoryID" : value[0]
+           [name]: value,
         });
      }
 
@@ -297,16 +290,12 @@ class DealsManagement extends React.Component {
     submitDealsInfo(event){
         event.preventDefault();
         var formValues = {
-                section               : this.state.section,
-                category              : this.state.category, 
+                section               : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[1],
+                category              : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[1],
                 subCategory           : this.state.subCategory,
-                sectionID             : this.state.sectionID,
-                categoryID            : this.state.categoryID, 
-                subCategoryID         : this.state.subCategoryID,
                 dealInPercentage      : this.state.dealInPercentage,
                 dealImg               : this.state.dealImg,
                 updateAllProducts     : this.state.updateAllProductPrice,
-                // updateLimittedProducts: this.state.updateLimittedProducts,
                 startdate             : this.state.startdate,
                 enddate               : this.state.enddate,
             }
@@ -318,9 +307,9 @@ class DealsManagement extends React.Component {
                 if (response.data) {
                     swal("Thank you. Your deals added successfully.");
                     this.setState({
-                        section 		      : '',
-                        category 		      : '',
-                        subCategory 		  : '',
+                        section 		      : 'all',
+                        category 		      : 'all',
+                        subCategory 		  : 'all',
                         dealInPercentage  : "",
                         updateAllProductPrice : "" ,  
                         dealImg               : "",   
@@ -339,7 +328,6 @@ class DealsManagement extends React.Component {
     updateDealsInfo(event){
         event.preventDefault();
         var urlParam = this.state.urlParam;
-        // console.log("urlParam===",urlParam);
         var formValues = {
             section               : this.state.section,
             category              : this.state.category, 
@@ -359,16 +347,16 @@ class DealsManagement extends React.Component {
           .then((response) => {
             console.log('tableData = ', response.data);
             var tableData = response.data.map((a, i) => {
-                        return {
-                            _id: a._id,
-                            "discounttype"  : a.discounttype,
-                "discountin"    : a.discountin,
+                return {
+                _id                   : a._id,
+                "discounttype"        : a.discounttype,
+                "discountin"          : a.discountin,
                 "discountparameters"  : a.discountparameters,
-                "discountquantity"  : a.discountquantity,
-                "discountamount"  : a.discountamount,
-                "discountvalue" : a.discountvalue,
-                "startdate"     : moment(a.startdate).format("DD/MM/YYYY"),
-                "enddate"       : moment(a.enddate).format("DD/MM/YYYY"),
+                "discountquantity"    : a.discountquantity,
+                "discountamount"      : a.discountamount,
+                "discountvalue"       : a.discountvalue,
+                "startdate"           : moment(a.startdate).format("DD/MM/YYYY"),
+                "enddate"             : moment(a.enddate).format("DD/MM/YYYY"),
                             
                         }
                     })
@@ -399,15 +387,15 @@ class DealsManagement extends React.Component {
         // console.log("value===",value[0]);
 
         this.setState({
-           section: value[1],
+           section: event.target.value,
            sectionID: value[0],
         },()=>{
             axios.get('/api/category/get/list/' +this.state.sectionID)
             .then((response) => {
               this.setState({
                  categoryArray: response.data,
-                 category: "Select Category",
-                 subCategory: "Select Sub-Category",
+                 category: "all",
+                 subCategory: "all",
               })
             })
             .catch((error) => {
@@ -427,8 +415,8 @@ class DealsManagement extends React.Component {
               }
             })
         })
-       
      }
+
      showRelevantSubCategories(event) {
         event.preventDefault();
         const target = event.target;
@@ -438,14 +426,14 @@ class DealsManagement extends React.Component {
         // console.log("target attribute--",event.currentTarget.getAttribute("category"));
         // console.log("event===",event.target);
         this.setState({
-           category: value[1],
+           category: event.target.value,
            categoryID : value[0],
            categoryNameRlang : categoryNameRlang
         },()=>{
             this.getSubCategories(this.state.categoryID);
         });
-        
      } 
+
      uploadImage(event){
         event.preventDefault();
         var dealImg = "";
@@ -517,7 +505,6 @@ class DealsManagement extends React.Component {
                 function getConfig(){
                     return new Promise(function(resolve,reject){
                         axios
-                            // .get('/api/projectSettings/get/one/s3')
                             .get('/api/projectSettings/get/S3')
                             .then((response)=>{
                               // console.log("s3 response :",response.data);
@@ -554,7 +541,6 @@ class DealsManagement extends React.Component {
       }
      radioBoxClick(event){
          var name = event.target.name;
-        //  console.log("radiobox name ===",name);
             this.setState({
                 [name] : event.target.value,
             },()=>{
@@ -581,7 +567,7 @@ class DealsManagement extends React.Component {
                                             {this.state.sectionArray && this.state.sectionArray.length > 0 ? 
                                                 this.state.sectionArray.map((data, index) => {
                                                 return (
-                                                    <option key={index} name={data.section} value={data._id}>{data.section}</option>
+                                                    <option key={index} name={data.section} value={data._id+"_"+data.section}>{data.section}</option>
                                                 );
                                                 })
                                                 :
@@ -599,7 +585,7 @@ class DealsManagement extends React.Component {
                                                 {this.state.categoryArray && this.state.categoryArray.length > 0 ?
                                                     this.state.categoryArray.map((data, index) => {
                                                     return (
-                                                        <option key={index} value={data._id}>{data.category}</option>
+                                                        <option key={index} value={data._id+"_"+data.category}>{data.category}</option>
                                                     );
                                                     })
                                                     :
@@ -617,7 +603,7 @@ class DealsManagement extends React.Component {
                                                 {this.state.subcategoryArray && this.state.subcategoryArray.length > 0 ?
                                                     this.state.subcategoryArray.map((data, index) => {
                                                     return (
-                                                        <option value={data._id} key={index}>{data.subCategoryTitle}</option>
+                                                        <option value={data.subCategoryTitle} key={index}>{data.subCategoryTitle}</option>
                                                     );
                                                     })
                                                 :
