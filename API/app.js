@@ -119,15 +119,10 @@ const BillingEntry							= require("./api/Ecommerce/billingManagement/Routes.js"
 const Gallery                        		= require("./api/Ecommerce/Gallery/Routes.js");
 // const unitOfMeasurment       			= require("./api/Ecommerce/unitOfMeasurement/RoutesUnitOfMeasurment");
 
-<<<<<<< Updated upstream
-
-
 app.use("/startup", startupRoutes);	
 
-=======
 /*========== Deals management ===========*/
 const addDeals                              = require("./api/Ecommerce/DealsManagement/Routes.js");
->>>>>>> Stashed changes
 
 app.use("/api/users", 						systemRoutes);
 app.use("/api/auth", 						systemRoutes);
