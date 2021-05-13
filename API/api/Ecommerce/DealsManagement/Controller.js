@@ -4,7 +4,7 @@ const Products   = require('../products/Model');
 var ObjectId               = require('mongodb').ObjectID;
 
 exports.insert_deals = (req, res, next) => {
-    // console.log("request.body===",req.body);
+    console.log("request.body===",req.body);
     const DealsObj = new Deals({
         _id: new mongoose.Types.ObjectId(),
         section               : req.body.section,
@@ -140,7 +140,23 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
 }
 
 exports.get_deals = (req, res, next) => {
-    Deals.find()
+    var selector        = {}; 
+    selector['$and']    = [];
+    
+    selector["$and"].push({"startdate": { $lte : new Date() }})
+    selector["$and"].push({"enddate": { $gte : new Date() }})
+
+    if(req.body.section && (req.body.section).toLowerCase() != "all"){
+        selector["$and"].push({"section": req.body.section })
+    }
+    if(req.body.category && (req.body.category).toLowerCase() != "all"){
+        selector["$and"].push({"category": req.body.category })
+    }
+    if(req.body.subCategory && (req.body.subCategory).toLowerCase() != "all"){
+        selector["$and"].push({"subCategory": req.body.subCategory })
+    }
+
+    Deals.find(selector)
         .exec()
         .then(data => {
             res.status(200).json(data);

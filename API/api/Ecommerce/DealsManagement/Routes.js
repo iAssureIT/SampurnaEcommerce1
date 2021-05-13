@@ -6,7 +6,7 @@ const DealsManagementController = require('./Controller');
 
 router.post('/post',                              				    DealsManagementController.insert_deals);
 
-router.post('/get/list',                                    		    DealsManagementController.get_deals);
+router.post('/get/list',                                    		DealsManagementController.get_deals);
 
 // router.get('/get/list-with-limits/:startRange/:limitRange',	    DealsManagementController.get_deals_with_limits);
 
