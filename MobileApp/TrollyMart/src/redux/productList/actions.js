@@ -9,7 +9,6 @@ import {Dispatch} from 'redux';
 import axios from 'axios';
 
 export const getList = (productType,user_id,limit) => {
-    console.log("limit",limit);
     return async (dispatch, getState) => {
     dispatch({
         type: SET_LOADING,
@@ -17,8 +16,6 @@ export const getList = (productType,user_id,limit) => {
     });
         axios.get("/api/products/get/products/listbytype/"+productType+"/"+user_id+"/"+limit)
         .then((response)=>{
-            console.log("response",response);
-            console.log("productType",productType);
             dispatch({
                 type: SET_LOADING,
                 payload: false,
@@ -66,7 +63,6 @@ export const getCategoryWiseList = (category_ID,user_id) => {
     });
         axios.get("/api/products/get/listby/category/"+category_ID+"/"+user_id)
         .then((response)=>{
-            console.log("getCategoryWiseList",response);
             dispatch({
                 type: SET_CATEGORY_WISE_LIST,
                 payload: response.data,

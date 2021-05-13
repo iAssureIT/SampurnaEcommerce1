@@ -22,8 +22,10 @@ import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { useNavigation }                from '@react-navigation/native';
 import { ActivityIndicator } from 'react-native-paper';
 import { getSearchResult } 	from '../../redux/globalSearch/actions';
+import { useIsFocused }             from "@react-navigation/native";
 export const ProductList = withCustomerToaster((props)=>{
   const {setToast,category_ID,loading} = props; 
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
   const [productImg,setProductImg]= useState([]);
@@ -40,11 +42,9 @@ export const ProductList = withCustomerToaster((props)=>{
   const [user_id,setUserId]= useState('');
   const [token,setToken]= useState('');
   const [refresh,setRefresh] =useState(false);
-  const [limit,setLimit]= useState(0);
+  const [limit,setLimit]= useState(props.limit);
   useEffect(() => {
     getData();
-    setLimit(props.limit);
-    setRefresh(loading);
   },[props]);
 
   const getData=async()=>{
@@ -106,13 +106,17 @@ export const ProductList = withCustomerToaster((props)=>{
 
   const viewall=(limitRange)=>{
     dispatch(getList(type,user_id,limitRange));
-    navigation.navigate(props.route,{"type":type})
+    navigation.navigate(props.route,{"type":type,"limit":limitRange})
   }
 
   const onEnd=()=>{
     var limitRange =limit + 10;
     setLimit(limitRange);
-    dispatch(getList(type,user_id,limitRange));
+    if(type === "Search"){
+      dispatch(getSearchResult(props.searchText,user_id,limitRange));
+    }else{
+      dispatch(getList(type,user_id,limitRange));
+    }
   }
 
   const refreshControl=()=>{
@@ -135,7 +139,7 @@ export const ProductList = withCustomerToaster((props)=>{
           dispatch(getCategoryWiseList(category_ID,user_id));
         } 
         if(props.searchText){
-          dispatch(getSearchResult(props.searchText,user_id));
+          dispatch(getSearchResult(props.searchText,user_id,limit));
         } 
         setToast({text: response.data.message, color: 'green'});
       })
@@ -260,16 +264,7 @@ export const ProductList = withCustomerToaster((props)=>{
       )
   }
 
-  const renderFooter = () => {
-    //it will show indicator at the bottom of the list when data is loading otherwise it returns null
-     if (!loading) return null;
-     return (
-       <ActivityIndicator
-         style={{ color: colors.theme }}
-       />
-     );
-   };
-  
+
   return (
     <React.Fragment>
         <View style={styles.maintitle}>
@@ -291,17 +286,24 @@ export const ProductList = withCustomerToaster((props)=>{
         <SafeAreaView style={styles.proddets}>
           {productsDetails &&
             <FlatList
-              data                          = {productsDetails.slice(0, limit)}
+              data                          = {productsDetails}
               showsVerticalScrollIndicator  = {false}
               renderItem                    = {_renderlist} 
               nestedScrollEnabled           = {true}
               numColumns                    = {2}
               keyExtractor                  = {item => item._id.toString()}
-              nestedScrollEnabled
+              // nestedScrollEnabled
               initialNumToRender            = {6}
               ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-              onEndReachedThreshold         = {0.1}
-              onEndReached                  = {()=>{limit > 6 && onEnd()}}
+              onEndReachedThreshold         = {0.5}
+              onEndReached={({ distanceFromEnd }) => {
+                if(distanceFromEnd >= 0 && limit > 6) {
+                  onEnd();
+                     //Call pagination function
+                }
+              }}
+              // onEndReached                  = {()=>{limit > 6 && onEnd()}}
+              // onScroll                      = {()=>{limit > 6 && onEnd()}}       
               // refreshControl={
               //     <RefreshControl
               //       refreshing={refresh}

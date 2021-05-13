@@ -3,7 +3,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
+  Image,
+  Keyboard
 }                                 from "react-native";
 import {Linking}                  from 'react-native'
 import { 
@@ -19,7 +20,11 @@ import { connect,useDispatch,useSelector }      from 'react-redux';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import { getSearchResult,getSuggestion } 	from '../../redux/globalSearch/actions';
-import { SET_SEARCH_CALL,SET_SUGGETION_LIST} 	from '../../redux/globalSearch/types';
+import { SET_SEARCH_CALL,
+      SET_SUGGETION_LIST,
+      SET_SEARCH_TEXT,
+      SET_SERACH_LIST
+    } 	from '../../redux/globalSearch/types';
 // import {Autocomplete}       from  'react-native-autocomplete-input';
   const HeaderBars2=(props)=>{
     const [searchText,useSearchText] = useState('');
@@ -35,9 +40,8 @@ import { SET_SEARCH_CALL,SET_SUGGETION_LIST} 	from '../../redux/globalSearch/typ
     const {globalSearch} = store;
    
     useEffect(() => {
-      console.log("useEffect");
       getData()
-    },[]);
+    },[props]);
 
     
  
@@ -49,15 +53,12 @@ import { SET_SEARCH_CALL,SET_SUGGETION_LIST} 	from '../../redux/globalSearch/typ
   const getNotificationList=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
-        console.log("data",data);
           var token = data[0][1];
           var user_id = data[1][1];
           setUserId(user_id);
           if(user_id){
-          console.log("Header user_id",user_id);
             axios.get('/api/notifications/get/list/Unread/' + user_id)
             .then(notifications => {
-              console.log("notifications",notifications);
                 setInAppNotifyCount(notifications.data.length)
             })
             .catch(error => {
@@ -69,27 +70,23 @@ import { SET_SEARCH_CALL,SET_SUGGETION_LIST} 	from '../../redux/globalSearch/typ
 
   const getKeywords = (searchText) => {
     useSearchText(searchText);
-    var payload={"searchText":searchText}
-    console.log("payload",payload);
+    if(!globalSearch.search){
+      dispatch({type:SET_SEARCH_CALL,payload:true})
+    }
     if(searchText && searchText.length >= 2){
-      dispatch(getSuggestion(payload));
+      dispatch(getSuggestion({"searchText":searchText}));
     }else if(searchText===""){
-      dispatch({
-        type     : SET_SUGGETION_LIST,
-        payload  : []
-      });
-      // dispatch({type:SET_SEARCH_CALL,payload:false})
-      dispatch(getSearchResult(searchText,user_id))
+      dispatch({type : SET_SUGGETION_LIST, payload  : []});
+      dispatch({type : SET_SEARCH_TEXT,    payload  : ''})
+      dispatch({type : SET_SERACH_LIST,    payload  : []})
     }
   };
 
-  const updateSearch = (searchText) =>{
-    console.log("calling");
+  const updateSearch = () =>{
     useSearchText(searchText);
-    var payload={"searchText":searchText}
-    console.log("payload",payload);
-    dispatch({type:SET_SEARCH_CALL,payload:false})
-    dispatch(getSearchResult(searchText,user_id))
+    dispatch({type:SET_SEARCH_CALL,payload:false});
+    dispatch(getSearchResult(searchText,user_id,10));
+    Keyboard.dismiss();
   }
 
     return (
@@ -136,15 +133,23 @@ import { SET_SEARCH_CALL,SET_SUGGETION_LIST} 	from '../../redux/globalSearch/typ
           containerStyle={styles.rightcnt}
         />
         <View style={styles.searchvw}>
+          {(globalSearch.search || globalSearch.searchList.length >0) && <Icon size={30} name='keyboard-arrow-left' type='MaterialIcons' color={"#fff"} onPress={()=>  {
+              dispatch({type : SET_SUGGETION_LIST, payload  : []});
+              dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+              dispatch({type : SET_SERACH_LIST,    payload  : []});
+              dispatch({type:SET_SEARCH_CALL,payload:false});
+              useSearchText('');
+              Keyboard.dismiss();
+          } }/>}
           <SearchBar
             placeholder         = 'Search for Product, Brands and More'
-            containerStyle      = {styles.searchContainer}
+            containerStyle      = {[styles.searchContainer,(globalSearch.search || globalSearch.searchList.length >0)?styles.flex09:styles.flex1]}
             inputContainerStyle = {styles.searchInputContainer}
             inputStyle          = {styles.searchInput}
             onChangeText        = {(searchText)=>getKeywords(searchText)}
             onFocus             = {()=>dispatch({type:SET_SEARCH_CALL,payload:true})}
             value               = {searchText}
-            onSubmitEditing     = {(searchText)=>updateSearch(searchText)}
+            onSubmitEditing     = {()=>updateSearch()}
             returnKeyType       = 'search'
           />
         </View>

@@ -169,7 +169,7 @@ export default StyleSheet.create({
 	},
 	wishlisthrt: {
 		position: 'absolute',
-		bottom: "5%",
+		// bottom: "5%",
 		top: 5, 
 		left: "80%"
 	},

@@ -23,7 +23,7 @@ axios.defaults.baseURL = 'http://10.39.1.59:3366';
   const [toast, setAppToast] = React.useState(null);
   console.log("props",props);
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested','Animated: `useNativeDriver`']);
+    LogBox.ignoreAllLogs();
     const unSubscribe = store.subscribe(() => {
       StatusBar.setHidden(true);
       setAppToast(store.getState()?.appStateReducer?.toastState);

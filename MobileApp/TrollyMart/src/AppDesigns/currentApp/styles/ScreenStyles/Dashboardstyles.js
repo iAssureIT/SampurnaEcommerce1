@@ -147,11 +147,16 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular"
   },
   flatList:{
-    paddingLeft: 15, 
-    marginTop:10, 
-    paddingBottom:15,
+    flexDirection:"row",
+    borderBottomColor: "#ddd", 
+    borderBottomWidth:0.3,
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  flatListText:{
+    paddingVertical:5,
     fontSize: 15,
-    borderBottomColor: colors.theme,
-    borderBottomWidth:0.5
+    flex:0.85,
+    // fontFamily: 'Montserrat-Medium'
 }
 });

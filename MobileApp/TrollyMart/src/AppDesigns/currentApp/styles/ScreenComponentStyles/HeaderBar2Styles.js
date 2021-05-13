@@ -29,9 +29,12 @@ export default StyleSheet.create({
     // backgroundColor:'red'
   },
   searchvw: {
-    paddingTop: 15,
+    height:80,
     paddingHorizontal: 15,
-    marginBottom: 30,
+    flexDirection:'row',
+    justifyContent:"center",
+    alignItems:"center",
+    justifyContent:"space-between"
   },
   
   rightcnt: {
@@ -174,10 +177,15 @@ export default StyleSheet.create({
   searchContainer: {
     width: '100%',
     padding: 0,
-    height: 30,
     borderTopWidth: 0,
     borderBottomWidth: 0,
-    backgroundColor: '#ed3c55',
+    backgroundColor: colors.theme,
+  },
+  flex1:{
+    flex:1,
+  },
+  flex09:{
+    flex:0.98
   },
   searchInputContainer: {
     backgroundColor: '#fff',
@@ -191,8 +199,6 @@ export default StyleSheet.create({
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 10,
-
-
   },
   searchInput: {
     fontSize: 13,

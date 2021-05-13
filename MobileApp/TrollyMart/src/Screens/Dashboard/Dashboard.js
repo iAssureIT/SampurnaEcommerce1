@@ -1,5 +1,5 @@
 import React, { useState,useEffect }from 'react';
-import {ScrollView,View,Text,FlatList, TouchableOpacity,ActivityIndicator}       from 'react-native';
+import {ScrollView,View,Text,FlatList, TouchableOpacity,Keyboard}       from 'react-native';
 import { Header, Button, 
         Icon, SearchBar }           from "react-native-elements";
 import SideMenu                     from 'react-native-side-menu';
@@ -22,8 +22,9 @@ import AsyncStorage                 from '@react-native-async-storage/async-stor
 import { getList } 		              from '../../redux/productList/actions';
 import { getWishList } 		          from '../../redux/wishDetails/actions';
 import { useIsFocused }             from "@react-navigation/native";
-import { SET_SEARCH_CALL,SET_SEARCH_TEXT,SET_SUGGETION_LIST} 	        from '../../redux/globalSearch/types';
+import { SET_SEARCH_CALL,SET_SEARCH_TEXT,SET_SUGGETION_LIST,SET_SERACH_LIST} 	        from '../../redux/globalSearch/types';
 import { getSearchResult } 	from '../../redux/globalSearch/actions';
+import Highlighter from 'react-native-highlight-words';
 export const Dashboard = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
@@ -42,21 +43,15 @@ export const Dashboard = withCustomerToaster((props)=>{
     wishList        : store.wishDetails.wishList,
     globalSearch    : store.globalSearch,
   }));
-  console.log("store",store);
-
 
   const {productList,wishList,globalSearch} = store;
   useEffect(() => {
-    dispatch({
-      type:SET_SEARCH_CALL,
-      payload:false
-    })
-    dispatch({
-      type:SET_SUGGETION_LIST,
-      payload:[]
-    })
+    dispatch({type : SET_SUGGETION_LIST, payload  : []});
+    dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+    dispatch({type : SET_SERACH_LIST,    payload  : []});
+    dispatch({type:SET_SEARCH_CALL,payload:false});
     getData();
-  },[props]);
+  },[props,isFocused]);
 
   const getData=async()=>{
       var data = await AsyncStorage.multiGet(['user_id', 'token']);
@@ -78,7 +73,6 @@ export const Dashboard = withCustomerToaster((props)=>{
       setCountData(response.data);
     })
     .catch((error) => { 
-      console.log("error",error);
       navigation.navigate('App')
       setToast({text: 'Something went wrong.', color: 'red'});
     })
@@ -90,7 +84,6 @@ export const Dashboard = withCustomerToaster((props)=>{
         setSearchProductsDetails([])
       })
       .catch((error) => {
-        console.log("error",error);
         navigation.navigate('App')
         setToast({text: 'Something went wrong.', color: 'red'});
       })
@@ -117,16 +110,29 @@ export const Dashboard = withCustomerToaster((props)=>{
               </View>
               :
               <FlatList 
+                keyboardShouldPersistTaps='handled'
                 data={globalSearch.suggestionList.concat(['','','','','','','','','','','','','','','',''])} 
-                // data={globalSearch.suggestionList} 
                 // keyExtractor = {(item)=>item}
-                // extraData = {query} 
                 renderItem = {({item}) =>
                   <TouchableOpacity onPress={()=>{
                       dispatch({type:SET_SEARCH_CALL,payload:false});
                       dispatch({type:SET_SEARCH_TEXT,payload:item});
-                      dispatch(getSearchResult(item,user_id))}}>
-                    <Text style={styles.flatList}>{`${item}`}</Text> 
+                      dispatch(getSearchResult(item,user_id,10));
+                      Keyboard.dismiss();
+                     }} style={styles.flatList}>
+                       <Highlighter
+                        highlightStyle={{backgroundColor: '#eee'}}
+                        searchWords={[globalSearch.searchText]}
+                        textToHighlight={`${item}`}
+                        style={styles.flatListText}
+                      />
+                      {/* <Text style={styles.flatListText}>{`${item}`}</Text>  */}
+                      {
+                        item && item!=='' ? 
+                        <Icon size={22} name={'external-link'} type='font-awesome' color={"#aaa"} iconStyle={{flex:0.1}} />
+                        :
+                        null
+                      }
                   </TouchableOpacity> }
             />
             :

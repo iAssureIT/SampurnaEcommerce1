@@ -28,14 +28,13 @@ export const AllProductList  = withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     productList : store.productList,
   }));
-  const {searchText,productList,wishList} = store;
+  const {productList} = store;
   const [loading,setLoading] = useState(props.loading);
   const [user_id,setUserId] = useState('');
   const listType = type+"List";
   const isFocused = useIsFocused();
-
   useEffect(() => {
-      console.log("store",store);
+    console.log("store",store);
   },[store]);
   
   const capitalize=(str)=>{
@@ -61,7 +60,7 @@ export const AllProductList  = withCustomerToaster((props)=>{
                         newProducts     = {productList[listType]}  
                         userId          = {user_id} 
                         categories      = {[]}
-                        limit           = {50}
+                        limit           = {10}
                         type            = {type}
                         loading         = {productList.loading}
                     />

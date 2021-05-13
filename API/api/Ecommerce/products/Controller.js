@@ -1989,6 +1989,7 @@ exports.search_product = (req,res,next)=>{
                 ]
             }
         )
+    .limit(parseInt(req.params.limit))
     .exec()
     .then(products=>{
         console.log("products",products);
@@ -3632,21 +3633,131 @@ exports.checkItemCodeExists = (req,res,next)=>{
 }
 
 
-exports.search_suggestion = (req,res,next)=>{
+exports.search_suggestion = async(req,res,next)=>{
     console.log("req.body=>",req.body);
     // Products.find({"section" : { "$regex": req.body.searchText, $options: "i"}},{category:1})
-    Products.find({"section" : { $regex:new RegExp('^'+req.body.searchText+'.*', "i")}},{section:1})
-    .limit(10)
-    .then(data =>{
-        var section = data.map(a=>a.section);
-        section= [...new Set(section)];
-        res.status(200).json(section);
-    })
-    .catch(err =>{
-        console.log(err);
-        res.status(500).json({  
-            error: err
+    var section     = await getSection(req.body.searchText);
+    var category    = await getCategory(req.body.searchText);
+    var subCategory = await getSubCat(req.body.subCategory);
+    var brand       = await getBrand(req.body.searchText);
+    var product     = await getProduct(req.body.searchText);
+    var all         = await getAll(req.body.searchText);
+    var result      = section.concat(category).concat(subCategory).concat(brand).concat(product).concat(all);
+    result          = result.filter(item => item !== undefined) 
+    result          = [...new Set(result)]
+    res.status(200).json(result);
+}
+
+
+function getSection(searchText) {
+    return new Promise(function(resolve,reject){  
+        Products.find({"section" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{section:1})
+        .limit(10)
+        .then(data =>{
+            var section = data.map(a=>a.section);
+            resolve(section);
+        })
+        .catch(err =>{
+            console.log(err);
+            reject(err);
         });
     });
-
 }
+function getCategory(searchText) {
+    return new Promise(function(resolve,reject){  
+        Products.find({"category" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{category:1})
+        .limit(10)
+        .then(data =>{
+            var category = data.map(a=>a.category);
+            resolve(category);
+        })
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        });
+    });
+}
+
+function getBrand(searchText) {
+    return new Promise(function(resolve,reject){  
+        Products.find({"brand" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{brand:1})
+        .limit(10)
+        .then(data =>{
+            var brand = data.map(a=>a.brand);
+            resolve(brand);
+        })
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        });
+    });
+}
+function getProduct(searchText) {
+    return new Promise(function(resolve,reject){  
+        Products.find({"productName" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{productName:1})
+        .limit(10)
+        .then(data =>{
+            var productName = data.map(a=>a.productName);
+            productName= [...new Set(productName)]
+            resolve(productName);
+        })
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        });
+    });
+}
+
+function getSubCat(searchText) {
+    return new Promise(function(resolve,reject){  
+        Products.find({"subCategory" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{subCategory:1})
+        .limit(10)
+        .then(data =>{
+            var subCategory = data.map(a=>a.subCategory);
+            resolve(subCategory);
+        })
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        });
+    });
+}
+
+
+function getAll(searchText) {
+    return new Promise(function(resolve,reject){  
+        Products.find(
+            {
+                "$and" : [
+                { "$or": 
+                    [
+                    {"brand"                      : {'$regex' : searchText , $options: "i"} },
+                    {"section"                    : {'$regex' : searchText , $options: "i"} },
+                    {"category"                   : {'$regex' : searchText , $options: "i"} },
+                    {"subCategory"                : {'$regex' : searchText , $options: "i"} },
+                    {"productName"                : {'$regex' : searchText , $options: "i"} },
+                    ] 
+                },
+                { "$or": [{"status":"Publish"}] }
+                ]
+            },
+            {brand:1,section:1,category:1,subCategory:1,productName:1}
+        )
+        .limit(10)
+        .then(data =>{
+            var brand       = data.map(a=>a.brand);
+            var section     = data.map(a=>a.section);
+            var category    = data.map(a=>a.category);
+            var subCategory = data.map(a=>a.subCategory);
+            var product     = data.map(a=>a.productName);
+            var result      = product.concat(category).concat(subCategory).concat(section).concat(brand);
+            console.log("result",result);
+            resolve(result);
+        })
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        });
+    });
+}
+

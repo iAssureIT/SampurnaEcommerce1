@@ -70,7 +70,7 @@ export default  class HeaderBar5 extends ValidationComponent {
         centerComponent={ <Text style={[{fontSize:18,color:'#fff',fontFamily:"Montserrat-SemiBold",textAlign:'center',alignSelf:'center',marginTop:8}]}>{headerTitle}</Text>}
      
        
-        containerStyle={{paddingTop:0,paddingLeft:0,paddingRight:0,backgroundColor:colors.theme}}
+        containerStyle={{paddingTop:0,paddingLeft:0,paddingRight:0,backgroundColor:colors.theme,height:60}}
       />
       
     );

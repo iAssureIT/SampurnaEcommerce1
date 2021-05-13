@@ -14,7 +14,6 @@ import {
     search          : false
   };
   export default (state = initialUserState, {type, payload}) => {
-    console.log("type",type,"payload",payload);
     switch (type) {
       case SET_SERACH_LIST:
         return {

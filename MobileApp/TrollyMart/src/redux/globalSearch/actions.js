@@ -7,18 +7,13 @@ import {
 import {dispatch} from 'redux';
 import axios from 'axios';
 
-export const getSearchResult = (searchText,user_id) => {
-    console.log("searchText",searchText);
+export const getSearchResult = (searchText,user_id,limit) => {
     return async (dispatch, getState) => {
         dispatch({
             type: SET_LOADING,
             payload: true,
         });
-        dispatch({
-            type: SET_SEARCH_TEXT,
-            payload: searchText,
-        });
-        axios.get("/api/products/get/search/website/" + searchText+"/"+user_id)
+        axios.get("/api/products/get/search/website/" + searchText+"/"+user_id+"/"+limit)
         .then((response) => {
             dispatch({
                 type: SET_SERACH_LIST,
@@ -41,11 +36,13 @@ export const getSearchResult = (searchText,user_id) => {
 };
 
 export const getSuggestion = (payload) => {
-    console.log("payload",payload);
     return async (dispatch, getState) => {
+        dispatch({
+            type: SET_SEARCH_TEXT,
+            payload: payload.searchText,
+        });
         axios.post("/api/products/get/search/suggestion",payload)
         .then((response) => {
-            console.log("response getSuggestion",response);
             dispatch({
                 type: SET_SUGGETION_LIST,
                 payload: response.data,
