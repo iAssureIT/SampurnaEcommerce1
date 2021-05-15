@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1023694532217",
+    "project_id": "knockknock-149cc",
+    "storage_bucket": "knockknock-149cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023694532217:android:d44a479633df981ccf6ea8",
+        "android_client_info": {
+          "package_name": "com.trollymart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023694532217-sao3jccvtoq00fdhk27qubd9hni8tdj2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trollymart",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1023694532217-4b1v4vf0oukma7c8c1bnogpr40b28kii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCckP_s2p8bi4KsqjrEnc5jnjU7hWl1Yrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023694532217-4b1v4vf0oukma7c8c1bnogpr40b28kii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

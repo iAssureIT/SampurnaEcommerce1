@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import axios from 'axios';
@@ -47,7 +47,7 @@ render() {
     const { navigate, goBack } = this.props.navigation;
     return (
         <React.Fragment>
-            <HeaderBar5
+            <HeaderBar3
                 goBack={goBack}
                 navigate={navigate}
                 headerTitle={"Our Stores"}/>

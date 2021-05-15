@@ -12,7 +12,7 @@ import { Header,
         Icon, 
         SearchBar,
       Card }   from "react-native-elements";
-import HeaderBar5     from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
 import Notification   from '../../ScreenComponents/Notification/Notification.js';
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
@@ -100,7 +100,7 @@ export const OrderDetails=(props)=>{
     } else {
       return (
         <React.Fragment>
-          <HeaderBar5
+          <HeaderBar3
             goBack={navigation.goBack}
             navigate={navigation.navigate}
             headerTitle={"My Orders Details"}

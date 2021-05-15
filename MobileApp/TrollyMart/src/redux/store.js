@@ -9,11 +9,13 @@ import userDetails            from './user';
 import productList            from './productList';
 import wishDetails            from './wishDetails';
 import globalSearch            from './globalSearch';
+import location            from './location';
 const appReducer = combineReducers({
   userDetails,
   productList,
   wishDetails,
   globalSearch,
+  location,
   appStateReducer: AppStateReducer,
 });
 

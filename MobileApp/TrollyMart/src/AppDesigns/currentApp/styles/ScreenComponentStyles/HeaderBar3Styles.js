@@ -74,21 +74,27 @@ export default StyleSheet.create({
     }),
   },
 
-  container:{
-    backgroundColor:'#fff',
-    padding:0,
-    margin:0,
-    paddingTop:0,
+  container: {
+    backgroundColor: colors.theme,
+    padding: 0,
+    margin: 0,
+    paddingTop: 0,
     ...Platform.select({
-      ios:{
-        height: 85 ,
-        paddingTop:25,
+      ios: {
+        height: 85,
+        // paddingTop: 25,
 
       },
-      android : {
-
+      android: {
+        paddingTop: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        backgroundColor: colors.theme,
+        borderTopWidth: 3,
+        borderTopColor: colors.theme,
+        height: 60,
       }
-    }) 
+    })
   },
 
   searchContainer:{

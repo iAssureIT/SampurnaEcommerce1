@@ -5,6 +5,7 @@ import {
   Dimensions,
   ImageBackground,
   TouchableOpacity,
+  SafeAreaView,
 }                       from 'react-native';
 import styles           from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/BannerComponentStyles.js';
 import Carousel         from 'react-native-banner-carousel-updated';
@@ -19,7 +20,7 @@ export const MarketingBlock=(props)=>{
   useEffect(() => {
     console.log("useEffect");
     getData()
-  },[props]);
+  },[]);
 
   const getData=()=>{
     var payload={
@@ -60,17 +61,19 @@ export const MarketingBlock=(props)=>{
   }
 
   return (
-    <View style={[styles.bannerWrapper,{marginBottom:15}]}>
-        <Carousel
-            autoplay        = {true}
-            autoplayTimeout = {10000}
-            loop            = {true}
-            index           = {0}
-          //  pageSize={BannerWidth}
-            pageSize        = {width-30 }
-            >
-          {images.map((image, index) => renderPage(image, index))}
-        </Carousel>
-    </View>
+    images && images.length >0 ?<SafeAreaView>
+        <View style={[styles.bannerWrapper,{marginTop:15,marginBottom:15}]}>
+            <Carousel
+                autoplay        = {true}
+                autoplayTimeout = {10000}
+                loop            = {true}
+                index           = {0}
+            //  pageSize={BannerWidth}
+                pageSize        = {width-30 }
+                >
+            {images.map((image, index) => renderPage(image, index))}
+            </Carousel>
+        </View>
+    </SafeAreaView> :null
   );
 }

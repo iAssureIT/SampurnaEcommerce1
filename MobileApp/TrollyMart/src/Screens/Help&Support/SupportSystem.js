@@ -5,7 +5,7 @@ import {
   View,ge,
 } from 'react-native';
 import {Icon,}                  from "react-native-elements";
-import HeaderBar5               from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}                   from '../../ScreenComponents/Footer/Footer1.js';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
@@ -58,7 +58,7 @@ export const SupportSystem = (props)=>{
     } else {
         return (
             <React.Fragment>
-            <HeaderBar5
+            <HeaderBar3
                 goBack={navigation.goBack}
                 navigate={navigation.navigate}
                 headerTitle={"Help & Support"}

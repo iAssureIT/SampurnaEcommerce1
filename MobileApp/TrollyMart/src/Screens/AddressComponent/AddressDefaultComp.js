@@ -10,7 +10,7 @@ import {
 // import { RadioButton } from 'react-native-paper';
 import { Button, Icon}    from "react-native-elements";
 import axios              from "axios";
-import HeaderBar5         from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}             from '../../ScreenComponents/Footer/Footer1.js';
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
@@ -101,7 +101,7 @@ import {setToast,
   }
     return (
       <React.Fragment>
-        <HeaderBar5
+        <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={delivery ? 'Delivery Addresses' : 'My Addresses'}
           navigate={navigation.navigate}

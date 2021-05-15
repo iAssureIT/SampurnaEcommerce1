@@ -471,7 +471,7 @@ superparent:{
       width:'100%',
       // marginLeft:10,
       // borderColor:'#666',
-      borderColor:'#ed3c55',
+      borderColor:colors.theme,
       borderWidth:1,
       flexDirection:'row',
       borderRadius: 5,
@@ -572,7 +572,8 @@ superparent:{
       paddingHorizontal:2
     },
     ddStyle:{
-      fontFamily:"Montserrat-Regular"
+      fontFamily:"Montserrat-Regular",
+      backgroundColor:"#fff"
     },
     addsuperparent:{
       flex:1,backgroundColor:'#f1f1f1'

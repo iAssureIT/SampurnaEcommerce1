@@ -12,7 +12,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { TextField } from 'react-native-material-textfield';
 import { Button, Icon} from "react-native-elements";
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
@@ -253,7 +253,7 @@ export default class AddressComponent extends React.Component {
     let ShippingType = [{ value: 'Home', }, { value: 'Office', }, { value: 'Relative', }, { value: 'Friend', }];
       return (
         <React.Fragment>
-          <HeaderBar5
+          <HeaderBar3
             goBack={goBack}
             headerTitle={'Add Delivery Address'}
             navigate={navigate}

@@ -19,13 +19,15 @@ import { request,
         RESULTS }       from 'react-native-permissions';
 import {AppContainer} from "../../config/routes.js";
 import { AuthContext }  from "../../config/authContext";
-
+import Geolocation from 'react-native-geolocation-service';
+import { SET_USER_ADDRESS}          from '../../redux/location/types';
 
  export const AuthLoadingScreen=(props)=>{
     const {navigation}=props;
     const [isLoading,setLoading]=useState(true);
     const [user_id,setUserId]= useState(null);
     const [userToken,setUserToken]= useState(null);
+    const [location,setLocation]= useState(null);
     const dispatch 		= useDispatch();
     useEffect(() => {
       _bootstrapAsync();
@@ -34,40 +36,25 @@ import { AuthContext }  from "../../config/authContext";
     _bootstrapAsync = async () => {
       const userToken = await AsyncStorage.getItem('token');
       const user_id = await AsyncStorage.getItem('user_id');
-      console.log("user_id",user_id);
-      console.log("userToken",userToken);
+      var new_loc = JSON.parse(await AsyncStorage.getItem('location'));
+      console.log("new_loc",new_loc);
+      if(new_loc){
+        setLocation(new_loc);
+        dispatch({
+          type: SET_USER_ADDRESS,
+          payload:new_loc
+        })
+      }
       setUserId(user_id);
       setUserToken(userToken);
-        request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
-        .then(result => {
-            console.log("result",result);
-          switch (result) {
-            case RESULTS.UNAVAILABLE:
-              console.log('This feature is not available (on this device / in this context)');
-              break;
-            case RESULTS.DENIED:
-              console.log('The permission has not been requested / is denied but requestable');
-              break;
-            case RESULTS.GRANTED:
-              break;
-            case RESULTS.BLOCKED:
-              console.log('The permission is denied and not requestable anymore');
-              break;
-            }
-          })
-          .catch(error => {
-            console.log("error=>",error);
-          });
-          setLoading(false)
-          
-        if(user_id&& userToken){
-          var axios1= axios.defaults.headers.common['Authorization'] = 'Bearer '+ userToken;
-          console.log("axios",axios1);
-            dispatch(getUserDetails(user_id));
-        }
+      setLoading(false)
+      if(user_id&& userToken){
+        var axios1= axios.defaults.headers.common['Authorization'] = 'Bearer '+ userToken;
+        console.log("axios",axios1);
+          dispatch(getUserDetails(user_id));
+      }
     };
-
     return (
-      <AppContainer />
+      <AppContainer location={location}/>
     );
 }

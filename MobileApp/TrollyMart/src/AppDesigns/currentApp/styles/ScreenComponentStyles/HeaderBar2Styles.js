@@ -29,7 +29,8 @@ export default StyleSheet.create({
     // backgroundColor:'red'
   },
   searchvw: {
-    height:80,
+    marginTop:10,
+    height:60,
     paddingHorizontal: 15,
     flexDirection:'row',
     justifyContent:"center",
@@ -37,29 +38,6 @@ export default StyleSheet.create({
     justifyContent:"space-between"
   },
   
-  rightcnt: {
-    ...Platform.select({
-      ios: {
-        marginTop: 30,
-        paddingTop: 0,
-        paddingLeft: 0,
-        paddingRight: 0,
-        backgroundColor: '#fff',
-        borderTopWidth: 3,
-        borderTopColor: colors.theme,
-        height: 60,
-      },
-      android: {
-        paddingTop: 0,
-        paddingLeft: 0,
-        paddingRight: 0,
-        backgroundColor: '#fff',
-        borderTopWidth: 3,
-        borderTopColor: colors.theme,
-        height: 60,
-      }
-    })
-  },
   notificationText: {
 
     ...Platform.select({
@@ -150,11 +128,17 @@ export default StyleSheet.create({
     ...Platform.select({
       ios: {
         height: 85,
-        paddingTop: 25,
+        // paddingTop: 25,
 
       },
       android: {
-
+        paddingTop: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        backgroundColor: '#fff',
+        borderTopWidth: 3,
+        borderTopColor: colors.theme,
+        height: 60,
       }
     })
   },

@@ -33,7 +33,7 @@ export default StyleSheet.create({
     flex:0.9
   },
   flx3:{
-    flex:0.9,
+    // flex:0.9,
     flexDirection:"row"
   },
   catimg: {

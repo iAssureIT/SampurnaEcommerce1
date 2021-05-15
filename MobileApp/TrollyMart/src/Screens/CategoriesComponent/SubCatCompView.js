@@ -14,7 +14,7 @@ import { Header,
         Icon, 
         SearchBar }   from "react-native-elements";
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import HeaderBar5     from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
 import { colors }     from '../../AppDesigns/currentApp/styles/styles.js';
 import axios          from 'axios';
@@ -146,7 +146,7 @@ export const SubCatCompView =(props)=>{
 
     return (
       <React.Fragment>
-        <HeaderBar5
+        <HeaderBar3
           goBack={navigation.goBack}
           navigate={navigation.navigate}
           headerTitle={productdata.productName }

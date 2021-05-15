@@ -3,7 +3,7 @@ import {
   ScrollView,Text,View,AsyncStorage,
 } from 'react-native';
 import {Icon,} from "react-native-elements";
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
@@ -61,7 +61,7 @@ export default class SupportSystem extends React.Component {
         } else {
         return (
             <React.Fragment>
-            <HeaderBar5
+            <HeaderBar3
                 goBack={goBack}
                 navigate={navigate}
                 headerTitle={"Help & Support"}
@@ -149,7 +149,7 @@ export default class SupportSystem extends React.Component {
 // import { ScrollView, Dimensions } from 'react-native';
 // import { Icon } from "react-native-elements";
 // import {Linking} from 'react-native'
-// import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+// import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 // import Footer from '../../ScreenComponents/Footer/Footer1.js';
 
 // class SupportSystem extends React.PureComponent {
@@ -178,7 +178,7 @@ export default class SupportSystem extends React.Component {
 //         const {navigation} = this.props;
 //         return (
 //             <ScrollView keyboardShouldPersistTaps="handled" >
-//                   <HeaderBar5
+//                   <HeaderBar3
 //                     goBack={goBack}
 //                     navigate={navigate}
 //                     headerTitle={"My Orders"}

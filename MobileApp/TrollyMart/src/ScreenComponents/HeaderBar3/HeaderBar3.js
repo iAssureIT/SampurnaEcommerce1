@@ -40,13 +40,13 @@ export const HeaderBar3 = (props)=>{
           rightComponent={
               <View style={{flexDirection:'row'}}>
                   <TouchableOpacity>
-                    <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginTop:10,alignSelf:'center'}}>
+                    <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
                       <Icon name="bell-o" type="font-awesome" size={23}  color="#fff" style={styles.bellIcon}/>
                     </View>
                   </TouchableOpacity>
               </View>
           }
-          containerStyle={{paddingTop:0,paddingLeft:0,paddingRight:0,backgroundColor:colors.theme,height:60}}
+          containerStyle={styles.container}
         />
       </View>
     );

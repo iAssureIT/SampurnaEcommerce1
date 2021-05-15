@@ -18,6 +18,12 @@ target 'TrollyMart' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'Permission-LocationAccuracy', :path => "../node_modules/react-native-permissions/ios/LocationAccuracy"
+
+  pod 'Permission-LocationAlways', :path => "../node_modules/react-native-permissions/ios/LocationAlways"
+
+  pod 'Permission-LocationWhenInUse', :path => "../node_modules/react-native-permissions/ios/LocationWhenInUse"
+
   target 'TrollyMartTests' do
     inherit! :complete
     # Pods for testing

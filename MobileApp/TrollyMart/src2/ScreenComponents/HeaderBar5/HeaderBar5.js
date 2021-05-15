@@ -13,7 +13,7 @@ import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
 import Search from 'react-native-search-box';
 
 
-export default  class HeaderBar5 extends ValidationComponent {
+export default  class HeaderBar3 extends ValidationComponent {
   constructor(props) {
     super(props);
     this.state = {

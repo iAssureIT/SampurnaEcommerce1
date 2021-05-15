@@ -119,7 +119,7 @@ export default class ContactUs extends React.Component{
           	side="right"
           	>
           	<SideMenu disableGestures={true} openMenuOffset={300} menu={menu} isOpen={this.state.isOpen}  onChange={isOpen => this.updateMenuState(isOpen)} >
-            <HeaderBar5
+            <HeaderBar3
               goBack={goBack}
               headerTitle={ 'Contact Us'}
           	  navigate={navigate}

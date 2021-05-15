@@ -1,3 +1,2 @@
-export const SET_USER_DETAILS = 'SET_USER_DETAILS';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_USER_ADDRESS = 'SET_USER_ADDRESS';

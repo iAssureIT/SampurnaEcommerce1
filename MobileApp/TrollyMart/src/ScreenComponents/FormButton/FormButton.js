@@ -1,6 +1,6 @@
 import React  from 'react';
 import {StyleSheet}       from 'react-native';
-import {Button}     from 'react-native-elements';
+import {Button}           from 'react-native-elements';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
 export const FormButton = props => {
   const {title,background,...rest} = props;
@@ -17,7 +17,7 @@ export const FormButton = props => {
 
 const styles = StyleSheet.create({
   containerStyle:{
-    width:'45%',
+    width :'45%',
     alignSelf:"center",
     marginVertical:15,
   },

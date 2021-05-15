@@ -24,7 +24,7 @@ import { Header, Button, Icon, SearchBar,Rating, AirbnbRating } from "react-nati
 import SideMenu from 'react-native-side-menu';
 import StepIndicator from 'react-native-step-indicator';
 import Menu from '../../ScreenComponents/Menu/Menu.js';
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
@@ -138,7 +138,7 @@ export default class MyProductReview extends React.Component{
             side="right"
             >
             <SideMenu disableGestures={true} openMenuOffset={300} menu={menu} isOpen={this.state.isOpen}  onChange={isOpen => this.updateMenuState(isOpen)} >
-            <HeaderBar5
+            <HeaderBar3
                 goBack ={goBack}
                 navigate={navigate}
                 headerTitle={"Product Reviews"}

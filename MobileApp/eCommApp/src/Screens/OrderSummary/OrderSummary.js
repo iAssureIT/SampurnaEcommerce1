@@ -11,7 +11,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { Button, Icon, } from "react-native-elements";
 import Modal from "react-native-modal";
 import axios from "axios";
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
@@ -182,7 +182,7 @@ export default class OrderSummary extends React.Component {
     let fromtotimes = this.state.shippingtimes;
     return (
       <React.Fragment>
-        <HeaderBar5
+        <HeaderBar3
           goBack={goBack}
           headerTitle={'Order Summary'}
           navigate={navigate}

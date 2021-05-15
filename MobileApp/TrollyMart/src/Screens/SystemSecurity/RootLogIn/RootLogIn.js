@@ -21,15 +21,17 @@ import {Formik}             from 'formik';
 import {withCustomerToaster} from '../../../redux/AppState.js';
 import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
+// import {
+//   GoogleSignin,
+//   GoogleSigninButton,
+//   statusCodes,
+// } from '@react-native-google-signin/google-signin';
+
+// GoogleSignin.configure();
+
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
-    // username: Yup.string()
-    //   .required('This field is required')
-    //   .test(
-    //     'email validation test',
-    //     'Enter a valid email address',
-    //     emailValidator,
-    //   ),
+    username: Yup.string().required('This field is required'),
     password: Yup.string().required('This field is required'),
   });
 
@@ -205,6 +207,16 @@ const window = Dimensions.get('window');
               background  = {true}
               loading     = {btnLoading}
             />
+            <View style={{alignItems:"center",justifyContent:"center"}}>
+              <Text style={{paddingVertical:15}}>OR</Text>
+             {/* <GoogleSigninButton
+              style={{ width: 192, height: 48 }}
+              size={GoogleSigninButton.Size.Wide}
+              color={GoogleSigninButton.Color.Dark}
+              // onPress={this._signIn}
+              // disabled={this.state.isSigninInProgress} 
+              /> */}
+              </View>
             <View
               style={[
                 {

@@ -7,7 +7,7 @@ import Modal from "react-native-modal";
 import { Button, Icon,} from "react-native-elements";
 import StepIndicator from 'react-native-step-indicator';
 import Menu from '../../ScreenComponents/Menu/Menu.js';
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
@@ -189,7 +189,7 @@ export default class MyOrder extends React.Component {
     } else {
       return (
         <React.Fragment>
-          <HeaderBar5
+          <HeaderBar3
             goBack={goBack}
             navigate={navigate}
             headerTitle={"My Orders"}

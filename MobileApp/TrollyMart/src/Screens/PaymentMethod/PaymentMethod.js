@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Button, Icon,} from "react-native-elements";
 import Modal from "react-native-modal";
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import axios from 'axios';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
@@ -20,11 +20,10 @@ import {withCustomerToaster}  from '../../redux/AppState.js';
 
 export const PaymentMethod = withCustomerToaster((props)=>{
   console.log(" PaymentMethod props",props)
-  const {navigation,route}=props;
+  const {navigation,route,setToast}=props;
   
   const [checked,setChecked]                = useState('first');
   const [btnLoading,setBtnLoading]          = useState(false);
-  const [paymentmod,setPaymentMode]         = useState(false);
   const [paymentmethods,setPaymentMethods]  = useState("cod");
   // const [environment,setEnvironment]        = useState(false);
   const [namepayg,setNamePayg]              = useState('');
@@ -80,139 +79,141 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   }
 
   const continuepage=(id)=>{
-    setBtnLoading(true);
-    var cartItems = cartdata.map((a, i) => {
-      return {
-        "product_ID"      : a.productDetail._id,
-        "productName"     : a.productDetail.productName,
-        "discountPercent" : a.productDetail.discountPercent,
-        "discountedPrice" : a.productDetail.discountedPrice,
-        "originalPrice"   : a.productDetail.originalPrice,
-        "color"           : a.productDetail.color,
-        "size"            : a.productDetail.size,
-        "currency"        : a.productDetail.currency,
-        "quantity"        : a.quantity,
-        "subTotal"        : a.subTotal,
-        "saving"          : a.saving,
-        "productImage"    : a.productDetail.productImage,
-        "section_ID"      : a.productDetail.section_ID,
-        "section"         : a.productDetail.section,
-        "category_ID"     : a.productDetail.category_ID,
-        "category"        : a.productDetail.category,
-        "subCategory_ID"  : a.productDetail.subCategory_ID,
-        "subCategory"     : a.productDetail.subCategory,
-        "vendor_ID"       : a.productDetail.vendor_ID,
-      }
-    })
-    var value = addData.mobileNumber;
-    var mobile = "";
-    value = value.replace(/\s/g, '');
-    if(value.startsWith("+")){
-      var temp = value.substring(3, value.length);
-      mobile = temp;
-      console.log(mobile);
-    }
+    setToast({text: 'Your order is confirmed. Thank you for shopping with us.', color: 'green'});
+    navigation.navigate('Dashboard');
+    // setBtnLoading(true);
+    // var cartItems = cartdata.map((a, i) => {
+    //   return {
+    //     "product_ID"      : a.productDetail._id,
+    //     "productName"     : a.productDetail.productName,
+    //     "discountPercent" : a.productDetail.discountPercent,
+    //     "discountedPrice" : a.productDetail.discountedPrice,
+    //     "originalPrice"   : a.productDetail.originalPrice,
+    //     "color"           : a.productDetail.color,
+    //     "size"            : a.productDetail.size,
+    //     "currency"        : a.productDetail.currency,
+    //     "quantity"        : a.quantity,
+    //     "subTotal"        : a.subTotal,
+    //     "saving"          : a.saving,
+    //     "productImage"    : a.productDetail.productImage,
+    //     "section_ID"      : a.productDetail.section_ID,
+    //     "section"         : a.productDetail.section,
+    //     "category_ID"     : a.productDetail.category_ID,
+    //     "category"        : a.productDetail.category,
+    //     "subCategory_ID"  : a.productDetail.subCategory_ID,
+    //     "subCategory"     : a.productDetail.subCategory,
+    //     "vendor_ID"       : a.productDetail.vendor_ID,
+    //   }
+    // })
+    // var value = addData.mobileNumber;
+    // var mobile = "";
+    // value = value.replace(/\s/g, '');
+    // if(value.startsWith("+")){
+    //   var temp = value.substring(3, value.length);
+    //   mobile = temp;
+    //   console.log(mobile);
+    // }
 
-    var deliveryAddress = {
-      "name"          : addData.name,
-      "addressLine1"  : addData.addressLine1,
-      "addressLine2"  : addData.addressLine2,
-      "pincode"       : addData.pincode,
-      "city"          : addData.city,
-      "state"         : addData.state,
-      "mobileNumber"  : mobile,
-      "district"      : addData.district,
-      "country"       : addData.country,
-      "addType"       : addData.addType,
-      "latitude"      : addData.latitude,
-      "longitude"     : addData.longitude,
-    }
+    // var deliveryAddress = {
+    //   "name"          : addData.name,
+    //   "addressLine1"  : addData.addressLine1,
+    //   "addressLine2"  : addData.addressLine2,
+    //   "pincode"       : addData.pincode,
+    //   "city"          : addData.city,
+    //   "state"         : addData.state,
+    //   "mobileNumber"  : mobile,
+    //   "district"      : addData.district,
+    //   "country"       : addData.country,
+    //   "addType"       : addData.addType,
+    //   "latitude"      : addData.latitude,
+    //   "longitude"     : addData.longitude,
+    // }
 
-    var orderData = {
-      user_ID         : userID,
-      cartItems       : cartItems,
-      total           : totalamountpay,
-      shippingtime    : shippingtime,
-      cartTotal       : cartdata[0].cartTotal,
-      discount        : discount,
-      cartQuantity    : cartdata[0].cartQuantity,
-      deliveryAddress : deliveryAddress,
-      paymentMethod   : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
-    }
+    // var orderData = {
+    //   user_ID         : userID,
+    //   cartItems       : cartItems,
+    //   total           : totalamountpay,
+    //   shippingtime    : shippingtime,
+    //   cartTotal       : cartdata[0].cartTotal,
+    //   discount        : discount,
+    //   cartQuantity    : cartdata[0].cartQuantity,
+    //   deliveryAddress : deliveryAddress,
+    //   paymentMethod   : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
+    // }
 
-    console.log("orderData==>", orderData);
-    axios.post('/api/orders/post', orderData)
-      .then((result) => {
-        console.log("orderData==>", result.data);
-        axios.get('/api/orders/get/one/' + result.data.order_ID)
-          .then((res) => {
-            if (paymentmethods === 'cod') {
-              navigation.navigate('Dashboard')
-              setPaymentMethods("Cash On Delivery");
-              setBtnLoading(false);
-              setPaymentMode(true);
-          } else {
-              var paymentdetails = {
-                  MERCHANT_ID           : partnerid,
-                  MERCHANT_ACCESS_CODE  : secretkey,
-                  REFERENCE_NO          : result.data.order_ID,
-                  AMOUNT                : totalamountpay,
-                  CUSTOMER_MOBILE_NO    : mobile,
-                  CUSTOMER_EMAIL_ID     : email,
-                  PRODUCT_CODE          : "testing",
-              }
-              // console.log('paymentdetails in result==>>>', paymentdetails)
-              axios.post('/api/orders/pgcall/post', paymentdetails)
-                  .then((payurl) => {
-                      if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
-                        // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
-                        navigation.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
-                      }
-                      setBtnLoading(false);
-                  })
-                  .catch((error) => {
-                      console.log("return to checkout");
-                      console.log(error);
-                      setBtnLoading(false);
-                  })
-          }
-            console.log("orderdetails=====>", res.data);
-            // =================== Notification OTP ==================
-            var sendData = {
-              "event": "3",
-              "toUser_id": user_ID,
-              "toUserRole": "user",
-              "variables": {
-                "Username": res.data.userFullName,
-                "amount": res.data.total,
-                "orderid": res.data.orderID,
-                "shippingtime": res.data.shippingtime,
-              }
-            }
-            console.log('sendDataToUser==>', sendData)
-            axios.post('/api/masternotifications/post/sendNotification', sendData)
-              .then((res) => {
-                // console.log('sendDataToUser in result==>>>', res.data)
-              })
-              .catch((error) => { console.log('notification error: ', error) })
-            // =================== Notification ==================
-          })
-      })
-      .catch((error) => {
-        setBtnLoading(false);
-        console.log(error);
-      })
-  }
-
-  const confirmorderbtn = () => {
-    setPaymentMode(false);
-    // AppEventsLogger.logEvent('Purchase');
-    navigation.navigate('Dashboard')
+    // console.log("orderData==>", orderData);
+    // axios.post('/api/orders/post', orderData)
+    //   .then((result) => {
+    //     console.log("orderData==>", result.data);
+    //     axios.get('/api/orders/get/one/' + result.data.order_ID)
+    //       .then((res) => {
+    //         console.log("res",res);
+    //         if (paymentmethods === 'cod') {
+    //           navigation.navigate('Dashboard');
+    //           // setPaymentMethods("cod");
+    //           setBtnLoading(false);
+    //           setPaymentMode(true);
+    //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+    //       } else {
+    //           //  navigation.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
+    //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+    //            navigation.navigate('Dashboard');
+    //           // var paymentdetails = {
+    //           //     MERCHANT_ID           : partnerid,
+    //           //     MERCHANT_ACCESS_CODE  : secretkey,
+    //           //     REFERENCE_NO          : result.data.order_ID,
+    //           //     AMOUNT                : totalamountpay,
+    //           //     CUSTOMER_MOBILE_NO    : mobile,
+    //           //     CUSTOMER_EMAIL_ID     : email,
+    //           //     PRODUCT_CODE          : "testing",
+    //           // }
+    //           // // console.log('paymentdetails in result==>>>', paymentdetails)
+    //           // axios.post('/api/orders/pgcall/post', paymentdetails)
+    //           //     .then((payurl) => {
+    //           //         if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
+    //           //           // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
+    //           //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+    //           //         }
+    //           //         setBtnLoading(false);
+    //           //     })
+    //           //     .catch((error) => {
+    //           //         console.log("return to checkout");
+    //           //         console.log(error);
+    //           //         setBtnLoading(false);
+    //           //     })
+    //       }
+    //         console.log("orderdetails=====>", res.data);
+    //         // =================== Notification OTP ==================
+    //         var sendData = {
+    //           "event": "3",
+    //           "toUser_id": user_ID,
+    //           "toUserRole": "user",
+    //           "variables": {
+    //             "Username": res.data.userFullName,
+    //             "amount": res.data.total,
+    //             "orderid": res.data.orderID,
+    //             "shippingtime": res.data.shippingtime,
+    //           }
+    //         }
+    //         console.log('sendDataToUser==>', sendData)
+    //         axios.post('/api/masternotifications/post/sendNotification', sendData)
+    //           .then((res) => {
+    //             // console.log('sendDataToUser in result==>>>', res.data)
+    //           })
+    //           .catch((error) => { console.log('notification error: ', error) })
+    //         // =================== Notification ==================
+    //       })
+    //   })
+    //   .catch((error) => {
+    //     console.log("error",error);
+    //     setBtnLoading(false);
+    //     console.log(error);
+    //   })
   }
 
       return (
         <React.Fragment>
-          <HeaderBar5
+          <HeaderBar3
             goBack={navigation.goBack}
             navigate={navigation.navigate}
             headerTitle={"Payment Methods"}
@@ -261,133 +262,22 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                     </View>
                   </View> */}
                   <View style={styles.margTp20}>
-                  {btnLoading?
-                      <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                      <ActivityIndicator size="large" color={colors.theme} />
-                      </View>
-                  :
-                      <Button
-                        onPress={() => continuepage()}
-                        title={"CONFIRM ORDER"}
-                        buttonStyle={styles.button1}
-                        containerStyle={styles.buttonContainer1}
-                      />
-                  }
-                  </View>
-                </View>
-              </View>
-              {/* <Modal isVisible={paymentmod}
-                onBackdropPress={() => this.setState({ paymentmod: false })}
-                coverScreen={true}
-                hideModalContentWhileAnimating={true}
-                style={{ zIndex: 999 }}
-                animationOutTiming={500}>
-                <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
-                  <View style={{ justifyContent: 'center', }}>
-                    <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-                  </View>
-                  <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20, }}>
-                    Your order is confirmed.Thank you for shopping with us.
-                </Text>
-                  <View style={styles.yesmodalbtn}>
                     <Button
-                      onPress={() => this.confirmorderbtn()}
-                      titleStyle={styles.buttonText1}
-                      title="OK"
+                      onPress={() => continuepage()}
+                      title={"CONFIRM ORDER"}
                       buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer1}
+                      loading={btnLoading}
                     />
                   </View>
                 </View>
-              </Modal> */}
+              </View>
             </ScrollView>
             <Footer />
           </View>
         </React.Fragment>
       );
     })
-
-
-
-// import React, { Component } from "react";
-// import {View,ImageBackground,Text,TouchableHighlight, Alert,} from "react-native";
-// import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
-// import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
-// // import RazorpayCheckout from 'react-native-razorpay';
-// // import axios from "../../config/axios.js";
-// import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
-// export default  class PaymentMethods extends Component {
-
-//   constructor(props){
-//     super(props);
-//     this.state = {
-//       showPaymentSuccess: true,
-//       openModal         : false,
-//       subscription      : '',
-//       user_id           : ''
-//     };
-//   }
-//   componentDidMount(){
-   
-//   }
-//   componentWillUnmount() {
-    
-//   }
-//   paywithquikwallet(){
-//     var amount = this.props.navigation.getParam('amount', '')
-//     this.props.navigation.navigate("paymentGatewayWebView", { amount: amount, plan_id: subscription._id });
-//   }
-//   paywithrazorpay(){  
-//     var amount = this.props.navigation.getParam('amount', '')
-//     var plan_id = this.props.navigation.getParam('plan_id', '')
-//     this.props.navigation.navigate("RazorPaygateway", { amount: amount, plan_id: plan_id });  
-    
-//   }
-//   render(){
-//     const { navigate, goBack } = this.props.navigation;
-//     return(
-//       <React.Fragment>
-//           <HeaderBar5
-//             goBack={goBack}
-//             navigate={navigate}
-//             headerTitle={"Payment Methods"}
-//           />
-//             {/* <ImageBackground
-//               // source={require('../../images/monthly-inner.jpg')}
-//               resizeMode='cover'
-//               style={styles.bgContainer}> */}
-//                 <View style={styles.detailsBlock}>
-//                     <View style={styles.detailsTextWrap}>
-//                         <Text style={styles.paymethodtitle}>Payment Methods</Text>
-//                         <View style={{ flexDirection: 'row' }}>
-//                             <View style={{ flex: 1,marginBottom:50 }}>
-//                                 <TouchableHighlight onPress={() => this.paywithrazorpay()}>
-//                                      <ImageBackground
-//                                         resizeMode="contain"
-//                                         // source={require("../../images/razerpaybackground.png")}
-//                                         style={{ width: '100%', height: 100 }}>
-//                                             <Text style={styles.paytitle}>Pay using Razorpay </Text>
-//                                             <Text style={styles.payacctitle}> **** **** *** 1234 </Text>
-//                                     </ImageBackground>
-//                                 </TouchableHighlight>
-//                             </View>
-                            
-//                         </View>
-                        
-//                     </View>
-//                     {/* <View style={{ backgroundColor: '#fff', borderBottomLeftRadius: 30, borderBottomRightRadius: 30, padding: '5%' }}></View> */}
-//               </View>
-//             {/* </ImageBackground> */}
-//       </React.Fragment>
-//     );
-//   }
-// }
-
-
-
-
-
-
 
 
 

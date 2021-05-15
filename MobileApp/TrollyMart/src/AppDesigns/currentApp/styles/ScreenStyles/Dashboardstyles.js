@@ -5,7 +5,8 @@ const window = Dimensions.get('window');
 export default StyleSheet.create({
   container:{
     alignItems:'center',
-    minHeight:'100%',
+    // flex:1,
+    minHeight:"100%",
     backgroundColor: '#fff',
     // padding:15
   },

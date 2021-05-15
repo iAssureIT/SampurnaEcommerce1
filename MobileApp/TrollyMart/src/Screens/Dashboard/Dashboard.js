@@ -43,7 +43,9 @@ export const Dashboard = withCustomerToaster((props)=>{
     productList     : store.productList,
     wishList        : store.wishDetails.wishList,
     globalSearch    : store.globalSearch,
+    location        : store.location
   }));
+  console.log("store",store);
 
   const {productList,wishList,globalSearch} = store;
   useEffect(() => {
@@ -52,7 +54,7 @@ export const Dashboard = withCustomerToaster((props)=>{
     dispatch({type : SET_SERACH_LIST,    payload  : []});
     dispatch({type:SET_SEARCH_CALL,payload:false});
     getData();
-  },[props,isFocused]);
+  },[]);
 
   const getData=async()=>{
       var data = await AsyncStorage.multiGet(['user_id', 'token']);
@@ -145,7 +147,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                     <BannerComponent />
                   }
               </View>
-             <View  style={[styles.formWrapper,{padding:15}]}> 
+             <View  style={[styles.formWrapper,{padding:15,marginBottom:'18%'}]}> 
                 {globalSearch.searchText ?
                   null
                 :
@@ -156,7 +158,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                 :
                   <MarketingBlock  
                     navigation  = {navigation}
-                    section     = 'Home'
+                    section     = 'Men'
                     category    = 'All'
                     subCategory = 'All'
                   />
@@ -197,8 +199,8 @@ export const Dashboard = withCustomerToaster((props)=>{
                     :
                     <MarketingBlock  
                       navigation  = {navigation}
-                      section     = 'All'
-                      category    = 'Men'
+                      section     = 'Home'
+                      category    = 'All'
                       subCategory = 'All'
                     />
                     }
@@ -221,8 +223,8 @@ export const Dashboard = withCustomerToaster((props)=>{
                     :
                     <MarketingBlock  
                       navigation  = {navigation}
-                      section     = 'All'
-                      category    = 'Men'
+                      section     = 'Women'
+                      category    = 'All'
                       subCategory = 'All'
                     />
                     }

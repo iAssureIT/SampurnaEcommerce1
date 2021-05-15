@@ -24,7 +24,7 @@ render() {
     const { navigate, goBack } = this.props.navigation;
       return (
         <React.Fragment>
-            <HeaderBar5
+            <HeaderBar3
             goBack={goBack}
             navigate={navigate}
             headerTitle={"UniMandai"}

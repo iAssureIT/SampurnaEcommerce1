@@ -154,7 +154,7 @@ export const ProductList = withCustomerToaster((props)=>{
       availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
       const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
       return (
-        <View key={index}  style={styles.mainrightside} >
+        <View key={index}  style={[styles.mainrightside,index%2===1&&{marginLeft:'5%'}]} >
           <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id })}>
             <View style={styles.flx5}>
               <View style={styles.flx1}>
@@ -283,7 +283,7 @@ export const ProductList = withCustomerToaster((props)=>{
             </View>
           </View>}
         </View>
-        <SafeAreaView style={styles.proddets}>
+        <View style={styles.proddets}>
           {productsDetails &&
             <FlatList
               data                          = {productsDetails}
@@ -314,7 +314,7 @@ export const ProductList = withCustomerToaster((props)=>{
           }
           {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>
             </View>*/}
-        </SafeAreaView> 
+        </View> 
       </React.Fragment>
     );
 })

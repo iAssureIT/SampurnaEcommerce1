@@ -11,7 +11,7 @@ import { Dropdown }       from 'react-native-material-dropdown-v2';
 import { Button, Icon, }  from "react-native-elements";
 import Modal              from "react-native-modal";
 import axios              from "axios";
-import HeaderBar5         from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}           from '../../ScreenComponents/Footer/Footer1.js';
 import Notification       from '../../ScreenComponents/Notification/Notification.js'
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
@@ -50,7 +50,7 @@ import {withCustomerToaster}  from '../../redux/AppState.js';
     const [saving,setTotalSaving] =useState(0);
     useEffect(() => {
       getData();
-  }, []);
+  }, [props]);
 
   const getData=()=>{
     setAddDataAddType(addData.addType);
@@ -170,7 +170,7 @@ const getCartData=(userId)=>{
 
     return (
       <React.Fragment>
-        <HeaderBar5
+        <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={'Order Summary'}
           navigate={navigation.navigate}

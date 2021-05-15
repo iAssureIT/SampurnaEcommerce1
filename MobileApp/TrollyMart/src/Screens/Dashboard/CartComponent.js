@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Button, Icon, } from "react-native-elements";
 import Modal from "react-native-modal";
-import HeaderBar5 from '../../ScreenComponents/HeaderBar5/HeaderBar5.js';
+import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
 import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
@@ -229,7 +229,7 @@ export default class CartComponent extends React.Component {
     const { navigate, dispatch, goBack } = this.props.navigation;
     return (
       <React.Fragment>
-        <HeaderBar5
+        <HeaderBar3
           goBack={goBack}
           headerTitle={'react-native-material-dropdown-v2'}
           navigate={navigate}

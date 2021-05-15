@@ -25,19 +25,21 @@ import { SET_SEARCH_CALL,
       SET_SEARCH_TEXT,
       SET_SERACH_LIST
     } 	from '../../redux/globalSearch/types';
+import { useNavigation }                from '@react-navigation/native';
 // import {Autocomplete}       from  'react-native-autocomplete-input';
   const HeaderBars2=(props)=>{
+    const navigation = useNavigation();
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
     const [user_id,setUserId] = useState('');
     const dispatch = useDispatch();
     const [list,setList]=useState([])
-    const{navigation}=props;
 
     const store = useSelector(store => ({
-      globalSearch    : store.globalSearch,
+      globalSearch  : store.globalSearch,
+      location      : store.location
     }));
-    const {globalSearch} = store;
+    const {globalSearch,location} = store;
    
     useEffect(() => {
       getData()
@@ -92,6 +94,7 @@ import { SET_SEARCH_CALL,
     return (
       <View style={styles.header2main}>
         <Header
+          statusBarProps={{ barStyle: 'light-content' }}
           backgroundColor={'transparent'}
           placement="left"
           leftContainerStyle={styles.leftside}
@@ -122,7 +125,7 @@ import { SET_SEARCH_CALL,
                 <Text style={styles.notificationText}>{inAppNotificationsCount}</Text>
                </TouchableOpacity> 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} style={{marginLeft:20,justiafyContent:"flex-end"}}>
-                  <Icon name="phone" type="font-awesome"    size={25} color={colors.theme} />
+                  <Icon name="phone" type="font-awesome"  size={25} color={colors.theme} />
                 </TouchableOpacity>
 
                 {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate('Stores')}>
@@ -130,7 +133,7 @@ import { SET_SEARCH_CALL,
                 </TouchableOpacity> */}
               </View>
           }
-          containerStyle={styles.rightcnt}
+          containerStyle={styles.container}
         />
         <View style={styles.searchvw}>
           {(globalSearch.search || globalSearch.searchList.length >0) && <Icon size={30} name='keyboard-arrow-left' type='MaterialIcons' color={"#fff"} onPress={()=>  {
@@ -152,8 +155,12 @@ import { SET_SEARCH_CALL,
             onSubmitEditing     = {()=>updateSearch()}
             returnKeyType       = 'search'
           />
+          
         </View>
-
+          <TouchableOpacity style={{height:30,backgroundColor:colors.theme,alignItems:"center",paddingHorizontal:5,flexDirection:"row",justifyContent:"space-between"}} onPress={()=>navigation.navigate('Location')}>
+              <Icon name="crosshairs-gps" type="material-community" size={20} color={colors.white} iconStyle={{}}/>
+              <Text numberOfLines={1} style={{flex:.98,color:colors.white}}>{location.address}</Text>
+          </TouchableOpacity>
       </View>
     );
 }

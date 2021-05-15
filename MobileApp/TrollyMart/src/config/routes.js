@@ -39,6 +39,7 @@ import ResetPwd                   from'../Screens/AccountDashboard/ResetPwd.js';
 import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
 import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
 import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';
+import {Location}                 from '../Screens/Location/Location.js';
 
 const Home = createDrawerNavigator();
 console.log("TransitionPresets",TransitionPresets);
@@ -86,31 +87,37 @@ const RegisterRoutes = createStackNavigator();
 export const RegisterStack = () => (
   <RegisterRoutes.Navigator
     headerMode="none"
-    initialRouteName={"RootLogIn"}>
+    >
     <RegisterRoutes.Screen name={"RootLogIn"}         component={RootLogIn} />
     <RegisterRoutes.Screen name={"ResetPassword"}     component={ResetPassword} />
     <RegisterRoutes.Screen name={"OTPVerification"}   component={OTPVerification} />
     <RegisterRoutes.Screen name={"ForgotPassword"}    component={ForgotPassword} />
     <RegisterRoutes.Screen name={"ForgotPasswordOTP"} component={ForgotPasswordOTP} />
     <RegisterRoutes.Screen name={"Signup"}        component={RootSignUp} />
+    <RegisterRoutes.Screen name="Location"  component={Location} />
     {/* <RegisterRoutes.Screen name={"OTPVerification"} component={OTPVerification} /> */}
   </RegisterRoutes.Navigator>
 );
 
 const App = createStackNavigator();
-const AppStack = () => (
-  <App.Navigator headerMode="none" >
+const AppStack = (props) => (
+  <App.Navigator headerMode="none">
+    {props.location ?
       <App.Screen name="App" component={HomeStack} />
+      :
+      <App.Screen name="Location"  component={Location} />
+    }  
       <App.Screen name="Auth" component={RegisterStack} />
       <App.Screen name="SubCatCompView" component={SubCatCompView} />
       <App.Screen name="Dashboard" component={Dashboard} />
   </App.Navigator>
 );
 
-export const AppContainer = () => {
+export const AppContainer = (props) => {
+  console.log("AppContainer props",props)
   return (
     <NavigationContainer>
-        <AppStack />
+        <AppStack location={props.location}/>
     </NavigationContainer>
   );
 };  

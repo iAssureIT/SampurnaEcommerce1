@@ -14,10 +14,11 @@ import { request,
 import { LogBox,StatusBar }             from 'react-native';
 import {AuthLoadingScreen}    from "./src/ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js";
 import {NavigationContainer}  from "@react-navigation/native";
+
 // axios.defaults.baseURL = 'http://qaapi-bookstore.iassureit.in/';
 // axios.defaults.baseURL = 'https://qaapi-sampurna-marketplace.iassureit.in/';
 // axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com/';
-axios.defaults.baseURL = 'http://10.39.1.59:3366';
+axios.defaults.baseURL = 'http://10.39.1.91:3366';
  const App = (props) => {
   const [token, setToken] = useState('');
   const [toast, setAppToast] = React.useState(null);
@@ -28,27 +29,7 @@ axios.defaults.baseURL = 'http://10.39.1.59:3366';
       StatusBar.setHidden(true);
       setAppToast(store.getState()?.appStateReducer?.toastState);
       setToken(store.getState()?.userReducer?.token || '');
-       request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
-        .then(result => {
-          switch (result) {
-            case RESULTS.UNAVAILABLE:
-              console.log('This feature is not available (on this device / in this context)');
-              break;
-  
-            case RESULTS.DENIED:
-              console.log('The permission has not been requested / is denied but requestable');
-              break;
-            case RESULTS.GRANTED:
-              break;
-            case RESULTS.BLOCKED:
-              console.log('The permission is denied and not requestable anymore');
-              break;
-            }
-          })
-          .catch(error => {
-            console.log("error=>",error);
-          });
-        });
+    });
     return () => {
       unSubscribe();
     };

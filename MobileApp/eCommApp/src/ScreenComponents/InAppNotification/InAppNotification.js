@@ -5,7 +5,7 @@ import axios from "axios";
 import Loading from '../Loading/Loading.js';
 import HTML from 'react-native-render-html';
 import styles from './styles.js';
-import HeaderBar5 from "../HeaderBar5/HeaderBar5.js";
+import HeaderBar3 from "../HeaderBar3/HeaderBar3.js";
 var moment = require('moment');
 import AsyncStorage                 from '@react-native-community/async-storage';
 
@@ -61,7 +61,7 @@ export default class InAppNotification extends Component {
 
         return (
             <ScrollView keyboardShouldPersistTaps="handled" >
-                <HeaderBar5
+                <HeaderBar3
                     goBack={goBack}
                     headerTitle={'Notifications'}
                     navigate={navigate}
