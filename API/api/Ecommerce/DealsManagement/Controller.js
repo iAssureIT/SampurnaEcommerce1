@@ -1,7 +1,7 @@
 const mongoose   = require("mongoose");
 const Deals      = require('./Model');
 const Products   = require('../products/Model');
-var ObjectId               = require('mongodb').ObjectID;
+var ObjectId     = require('mongodb').ObjectID;
 
 exports.insert_deals = (req, res, next) => {
     console.log("request.body===",req.body);

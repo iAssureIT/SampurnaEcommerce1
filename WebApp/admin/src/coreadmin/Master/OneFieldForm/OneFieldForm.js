@@ -209,7 +209,12 @@ class OneFieldForm extends React.Component {
                         if (response.data.created) {
                             swal(" ", this.state.fieldName.charAt(0).toUpperCase() + this.state.fieldName.slice(1) + " " +this.props.fields.title + "  Submitted Successfully!");
                         } else {
-                            swal(" ", this.state.fieldName.toUpperCase() + " " + this.props.fields.title + " already exists!");
+                            console.log("this.props.tableObjects => ",this.props.tableObjects.showfieldName)
+                            if(!this.props.tableObjects.showfieldTitle){
+                                swal(" ", this.props.fields.title + " " + " already exists");                            
+                            }else{
+                                swal(" ", this.state.fieldName + " " + this.props.fields.title+" already exists");            
+                            }
                         }
                         this.getData(this.state.startRange, this.state.limitRange);
                         if (this.props.getSecondFieldData) {
@@ -299,7 +304,8 @@ class OneFieldForm extends React.Component {
                 console.log("inside response ",response)
                 var tableData = response.data.map((a, i) => {
                     // console.log("269 onsefield form get data map ==> ",tableData)
-                    // console.log("269 onsefield form get data map ==> ",a)
+                    console.log("269 onsefield form get data map ==> ",a)
+                    console.log("this.props.fields.attributeName ==> ",this.props.fields.attributeName)
                     return ({
                         _id: a._id,
                         companyID: a.companyID ? a.companyID : this.state.companyID,
@@ -312,7 +318,7 @@ class OneFieldForm extends React.Component {
                 this.setState({
                     ["tableData" + this.props.fields.attributeName]: filterByCompanyID
                 }, () => {
-                    // console.log("line 219 this.state = ", this.state);
+                    console.log("line 219 this.state = ", this.state);
                 })
 
             })

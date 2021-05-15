@@ -18,7 +18,7 @@ Model = {
                         date                : Date,
                         qty                 : Number,
                         originalPrice       : Number,
-                        descountPer         : Number,
+                        descountPercent     : Number,
                         discountedPrice     : Number,
                         addedBy             : (UserID)
     },

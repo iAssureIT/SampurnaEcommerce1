@@ -192,3 +192,6 @@
 .adminModal-content{
     margin-top: 150px;
 }
+.actionLinks{
+    cursor: pointer;
+}

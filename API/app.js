@@ -77,7 +77,8 @@ const entityRoutes			    			= require("./api/coreAdmin/entityMaster/RoutesEntity
 /*========== eCommerce Operations ===========*/
 const eCommUsersRoutes    					= require("./api/Ecommerce/eCommSystemSecurity/Routes");
 const productsRoutes						= require("./api/Ecommerce/products/Routes"); 
-const categoryRoutes						= require("./api/Ecommerce/categories/Routes"); 
+const categoryRoutes						= require("./api/Ecommerce/categories/Routes");
+const distanceRangeRoutes					= require("./api/Ecommerce/DistanceRange/Routes"); 
 const ordersRoutes							= require("./api/Ecommerce/orders/Routes"); 
 const vendorOrdersRoutes					= require("./api/Ecommerce/VendorOrders/Routes"); 
 const cartsRoutes							= require("./api/Ecommerce/cart/Routes"); 
@@ -89,6 +90,7 @@ const taxSetting          					= require("./api/Ecommerce/taxManagement/Routes")
 const ReturnedProductsRoutes  				= require("./api/Ecommerce/returnedProducts/Routes"); 
 const BulkUploadTemplate					= require("./api/Ecommerce/bulkUploadTemplate/Routes"); 
 const adminPreference     					= require("./api/Ecommerce/adminPreference/Routes");
+const storePreference     					= require("./api/Ecommerce/StorePreferences/Routes");
 const unitOfMeasurment    					= require("./api/Ecommerce/departmentMaster/RoutesUnitofmeasurment");
 const orderStatus    						= require("./api/Ecommerce/orderStatusMaster/Routes");
 const BannerImages         					= require("./api/Ecommerce/BannerImages/Routes.js");
@@ -139,6 +141,7 @@ app.use("/api/masternotifications",	 		masternotificationRoutes);
 app.use('/api/notifications', 				notificationRoutes);
 app.use("/api/locationtypemaster", 			locationTypeMasterRoutes);	
 app.use("/api/products", 					productsRoutes);
+app.use("/api/distancerange", 				distanceRangeRoutes);
 app.use("/api/category", 					categoryRoutes);
 app.use("/api/orders", 						ordersRoutes);
 app.use("/api/vendororders", 				vendorOrdersRoutes);
@@ -152,6 +155,7 @@ app.use("/api/customerQuery", 				customerQueryRoutes);
 app.use("/api/customerReview", 				customerReviewRoutes);
 app.use("/api/preference", 					taxSetting);
 app.use("/api/adminpreference", 			adminPreference);
+app.use("/api/storepreference", 			storePreference);
 app.use("/api/sections", 					SectionRoutes);
 app.use("/api/shipping", 					ShippingRoutes);
 app.use("/api/time", 						TimingRoutes);

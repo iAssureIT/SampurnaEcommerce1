@@ -72,6 +72,7 @@ exports.countUnitOfMeasurment = (req, res, next)=>{
 
 
 exports.fetchUnitOfMeasurment = (req, res, next)=>{
+    console.log("req.body => ",req.body)
     UnitOfMeasurmentMaster.find({})
         .sort({createdAt : -1})
         .skip(req.body.startRange)

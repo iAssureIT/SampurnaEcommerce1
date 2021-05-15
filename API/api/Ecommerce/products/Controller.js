@@ -3761,3 +3761,49 @@ function getAll(searchText) {
     });
 }
 
+
+/**=========== products_by_lowest_price() =========== */
+exports.products_by_lowest_price = (req,res,next)=>{
+    console.log("req.body => ",req.body);
+
+    var selector        = {};
+    selector['$and']    = [];
+
+    selector["$and"].push({"status": "Publish"})
+    if(req.body.sectionID && req.body.sectionID !== '' && req.body.sectionID !== undefined){
+        selector["$and"].push({"section_ID": ObjectId(req.body.sectionID) })
+    }
+    if(req.body.categoryID && req.body.categoryID !== '' && req.body.categoryID !== undefined){
+        selector["$and"].push({"category_ID": ObjectId(req.body.categoryID) })
+    }
+    if(req.body.subcategoryID && req.body.subcategoryID !== '' && req.body.subcategoryID !== undefined){
+        selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
+    }
+    console.log("selector => ",selector)
+    Products.aggregate([ 
+        {$match : selector},
+        {$sort  : { 
+                        "universalProductCode"  : 1, 
+                        "discountedPrice"       : 1 
+                } 
+        }, 
+        { $group: {
+                    _id   : '$universalProductCode',
+                    "doc" : {"$first" : "$$ROOT"}
+            
+                }
+        },
+        { "$replaceRoot" : {"newRoot" : "$doc"}}  
+    ])
+    .exec()
+    .then(data=>{
+        console.log("data => ", data);
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};

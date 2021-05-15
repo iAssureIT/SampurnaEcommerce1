@@ -157,7 +157,7 @@ router.get('/get/attributesbycategory/:categoryID', 					checkAuth, productContr
 
 router.get('/get/attributesbysubcategory/:subCategoryID', 			checkAuth, productController.getattributesbysubcategory);
 
-
+router.post('/get/list/lowestprice', 											productController.products_by_lowest_price);
 //================================================== for franchise
 
 router.get('/get/franchisestock', 											productStock.getfranchisestock);
