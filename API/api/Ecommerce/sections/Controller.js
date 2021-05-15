@@ -238,9 +238,8 @@ exports.deleteAllSections = (req, res, next) => {
 
 /**=========== get_list_for_section_category_block() =========== */
 exports.get_list_for_section_category_block = (req,res,next)=>{
-    console.log("req.body => ",req.body);
+    console.log("secreq.body => ",req.body);
     var startRange = 0;
-   
     var selector        = {}; 
     selector['$and']    = [];
 

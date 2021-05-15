@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export const setBlockData = (data) => ({
-  type: 'SET_BLOCKS_DATA',
-  payload : data
+    type: 'SET_BLOCKS_DATA',
+    payload : data
 })
 
 export const getBlockData = (data) => ({
-  type: 'GET_BLOCKS_DATA',
-  payload : datapageData
+    type: 'GET_BLOCKS_DATA',
+    payload : datapageData
 })
 
 export function updatePin(pincode,status) {
@@ -46,6 +46,7 @@ export function updateForm(formValue) {
     formToShow: formValue
   }
 }
+
 export function getCartData() {
 	return dispatch =>{
 	const userid = localStorage.getItem('user_ID');  
@@ -69,7 +70,6 @@ export function getCartData() {
 export function getWishlistData() {
 	return dispatch =>{
 	const userid = localStorage.getItem('user_ID');
-  
     if (userid) {      
       // return axios.get('/api/wishlist/get/userwishlist/'+userid)
       axios.get('/api/wishlist/get/wishlistdata/'+userid) 
@@ -77,8 +77,7 @@ export function getWishlistData() {
         if(response){
           // console.log("action wishlist response===",response.data);
           // dispatch(setWishlistData(response.data));
-        }
-                
+        }       
       })
       .catch((error)=>{
         console.log('error', error);

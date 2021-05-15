@@ -7,6 +7,7 @@ import getConfig from 'next/config';
 import Head from 'next/head'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import {getBlockData} from '../redux/actions/counterActions';
 import ScrollTop from '../Themes/Sampurna/blocks/StaticBlocks/ScrollTop/ScrollTop.js';
 import Banner from '../Themes/Sampurna/blocks/3_BannerManagement/Banner/Banner.js';
 
@@ -111,7 +112,7 @@ class MasterPage extends React.Component {
 						var component = result._id ? result.blockComponentName : "TitleDesc";
 						var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
 						var block_id=result.block_id?result.block_id._id:"";
-						// console.log("result==",result);
+						// console.log("component==",component);
 						const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
 						{
 							loading: () =>

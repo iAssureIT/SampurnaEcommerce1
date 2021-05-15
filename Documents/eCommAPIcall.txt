@@ -6,10 +6,13 @@ exclusive - /api/products/get/listbytype/exclusive
 
 particular section  - /api/products/get/listbysection/women
 
-Shop By Section - /api/sections/get/get_megamenu_list
+Shop By Section - /api/sections/get/list
  
-Shop By Category - /api/category/get/list
+Shop By Category - /api/sections/get/list
 
+for Deal block - /api/deals/get/list
+
+CMS Block API - 
 
 reference Theme -  https://demo.wpthemego.com/themes/sw_onemall/layout3/
 
@@ -24,7 +27,7 @@ Dev Vendor:
 https://devvendor.knock-knockeshop.com/login
 
 Dev Website
-https://devwebsite.knock-knockeshop.com/login
+https://devwebsite.knock-knockeshop.com/
 
 Dev CMS
 https://devcms.knock-knockeshop.com/login

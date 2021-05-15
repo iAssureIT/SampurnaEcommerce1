@@ -33,7 +33,6 @@ class DealsManagement extends React.Component {
             subCategoryID         : "",
             dealInPercentage      : 0,
             updateAllProductPrice : '',
-            // updatelimitedProducts : false,
             dealImg               : "",
             startdate             : "Start Date",
             enddate               : "End Date",
@@ -292,15 +291,18 @@ class DealsManagement extends React.Component {
         var formValues = {
                 section               : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[1],
                 category              : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[1],
-                subCategory           : this.state.subCategory,
+                subCategory           : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[1],
+                sectionID             : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[0],
+                categoryID            : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[0],
+                subCategoryID         : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[0],
                 dealInPercentage      : this.state.dealInPercentage,
                 dealImg               : this.state.dealImg,
-                updateAllProducts     : this.state.updateAllProductPrice,
+                updateAllProductPrice : this.state.updateAllProductPrice,
                 startdate             : this.state.startdate,
                 enddate               : this.state.enddate,
             }
     
-    //   console.log("formValues====",formValues);
+      console.log("formValues====",formValues);
         if ($('#addDealsForm').valid()) {
         axios.post('/api/deals/post',formValues)
             .then( (response)=> {
@@ -540,6 +542,7 @@ class DealsManagement extends React.Component {
         }
       }
      radioBoxClick(event){
+         console.log("name => ",event.target.name);
          var name = event.target.name;
             this.setState({
                 [name] : event.target.value,
@@ -603,7 +606,7 @@ class DealsManagement extends React.Component {
                                                 {this.state.subcategoryArray && this.state.subcategoryArray.length > 0 ?
                                                     this.state.subcategoryArray.map((data, index) => {
                                                     return (
-                                                        <option value={data.subCategoryTitle} key={index}>{data.subCategoryTitle}</option>
+                                                        <option value={data._id+"_"+data.subCategoryTitle} key={index}>{data.subCategoryTitle}</option>
                                                     );
                                                     })
                                                 :
@@ -651,9 +654,9 @@ class DealsManagement extends React.Component {
                                     </div>
 
                                     <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 checkboxWrapper">
-                                        <input type="radio" id="updateAllProductPrice" onClick={this.radioBoxClick.bind(this)} className="col-lg-1 col-md-1 col-sm-1 col-xs-1" name="updateAllProductPrice" value="true" />
+                                        <input type="radio" id="updateAllProductPrice" onClick={this.radioBoxClick.bind(this)} className="col-lg-1 col-md-1 col-sm-1 col-xs-1" name="updateAllProductPrice" value="true" checked={this.state.updateAllProductPrice === "true"}/>
                                         <label for="updatelimittedProductPrice" className="col-lg-11 col-md-11 col-sm-11 col-xs-11 radioLable">Update All product price</label><br />
-                                        <input type="radio" id="updateAllProductPrice" onClick={this.radioBoxClick.bind(this)} className="col-1 col-md-1 col-sm-1 col-xs-1" name="updateAllProductPrice" value="false" />
+                                        <input type="radio" id="updateAllProductPrice" onClick={this.radioBoxClick.bind(this)} className="col-1 col-md-1 col-sm-1 col-xs-1" name="updateAllProductPrice" value="false" checked={this.state.updateAllProductPrice === "false"}/>
                                         <label for="updatelimittedProductPrice" className="col-lg-11 col-md-11 col-sm-11 col-xs-11 radioLable">Update only price whose current discount percentage is less than this discount</label><br />
                                     </div>
 

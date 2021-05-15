@@ -48,16 +48,16 @@ class ShoppingVerticals extends Component {
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((blockresponse)=>{
         if(blockresponse.data){
-        // console.log("groupsettings response data====",blockresponse.data);                
+        // console.log("Dealsettings response data====",blockresponse.data);                
         this.setState({
-           dealSettings    : blockresponse.data.dealsSettings,   
+           dealSettings    : blockresponse.data.dealSettings,   
            blockTitle       : blockresponse.data.blockTitle,
         },()=>{
-          // console.log("after setstate groupSettings===",this.state.groupSettings);
-          axios.post(blockresponse.data.dealSettings.blockApi,this.state.dealSettings)      
+          console.log("after setstate dealSettings===",this.state.dealSettings.blockApi);
+          axios.post(this.state.dealSettings.blockApi,this.state.dealSettings)      
           .then((blockApiResponse)=>{
             if(blockApiResponse.data){    
-              console.log("SectionBlock list response data====", blockApiResponse.data,blockApiResponse.data.length);  
+              console.log("DealBlock list response data====", blockApiResponse.data,blockApiResponse.data.length);  
               var itemList = []; 
                 for(var i=0;i<blockApiResponse.data.length;i++){ 
                       itemList.push({
@@ -70,7 +70,7 @@ class ShoppingVerticals extends Component {
               itemList     : itemList,
               Productsloading : false,              
             },()=>{
-                console.log("itemList after filter===",this.state.itemList);
+                // console.log("itemList after filter===",this.state.itemList);
             });
           }
           })
@@ -109,19 +109,6 @@ class ShoppingVerticals extends Component {
     return (
       <div className="col-12 mt20">
         <div className="row">          
-          {/* {this.state.dealSettings.showTitle?
-
-          <div className="col-12">
-            <div className="col-12 productcomponentheading text-center">
-              <div className="producttextclass  col-lg-12">
-                <h3 className="row">
-                  <b>{this.state.blockTitle}</b> 
-                </h3> 
-              </div>            
-            </div>
-          </div>
-          :null}           */}
-
           <div className="col-12 tab-content customTabContent ">
             { Array.isArray(this.state.itemList) && this.state.itemList.length>4?
                 <Carousel  
@@ -153,7 +140,6 @@ class ShoppingVerticals extends Component {
                             {/* <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div> */}
                         </div>                            
                         );
-                      
                       })
                       : ''
                   }
@@ -164,23 +150,21 @@ class ShoppingVerticals extends Component {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {                      
                         return (
-                          // 
-                          <div className={"col-"+XLcol}>
+                          <div className={"col-"+XLcol} key={index}>
+                              <div className="col-12">
                                 <div className="productImg col-12 NoPadding">
                                   <a className="product photo product-item-photo collage" tabIndex="-1" href={data.itemUrl}>
                                     <img src={data.dealImg ? data.dealImg : "/images/CMSImages/notavailable.jpg"} alt="ProductImg" />
                                   </a>
                                 </div>
-                                {/* <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div> */}
+                              </div>
                           </div>                            
                         );
-                      
                       })
                       : ''
                   }	
                 </div>    
-            }
-              
+            } 
           </div>
         </div>
       </div>

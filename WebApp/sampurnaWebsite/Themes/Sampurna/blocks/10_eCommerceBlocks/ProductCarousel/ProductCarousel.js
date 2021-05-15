@@ -205,7 +205,7 @@ class ProductCarousel extends Component {
             var productApiUrl = this.props.productApiUrl;
             // console.log("productApiUrl===",productApiUrl);
           }else{ 
-              var productApiUrl = this.props.productApiUrl;
+              var productApiUrl = this.state.blockSettings.blockApi;
               // console.log("productApiUrl===",this.props.productApiUrl);
           }
           axios.get(productApiUrl)      

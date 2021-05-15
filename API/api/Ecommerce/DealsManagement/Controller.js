@@ -9,9 +9,12 @@ exports.insert_deals = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         section               : req.body.section,
         category              : req.body.category,
-        subCategory           : req.body.subCategory,       
+        subCategory           : req.body.subCategory,  
+        sectionID             : req.body.sectionID,
+        categoryID            : req.body.categoryID,
+        subCategoryID         : req.body.subCategoryID,    
         dealInPercentage      : req.body.dealInPercentage,
-        updateAllProductPrice : req.body.updateAllProducts,
+        updateAllProductPrice : req.body.updateAllProductPrice,
         dealImg               : req.body.dealImg,
         startdate             : req.body.startdate,
         enddate               : req.body.enddate,
@@ -23,7 +26,8 @@ exports.insert_deals = (req, res, next) => {
         .then(dealsResponse => {
                 Products.find({"section_ID" : req.body.sectionID, "category_ID": req.body.categoryID })
                 .then(productResponse =>{
-                    // console.log("productResponse====",productResponse);
+
+                    console.log("productResponse====",productResponse);
                     
                     if(productResponse){
                         //if(req.body.updateAllProducts){
@@ -31,9 +35,9 @@ exports.insert_deals = (req, res, next) => {
                             main();
                             async function main(){
                                 for(var i=0;i<productResponse.length;i++){   
-                                    // console.log("productResponse i = > ",productResponse[i]);
-                                   var updateResponse = await updateProductData(productResponse[i],dealInPercentage,req.body.updateAllProducts);
-                                    // console.log("updateResponse = > ",updateResponse);
+                                    console.log("productResponse i = > ",productResponse[i]);
+                                   var updateResponse = await updateProductData(productResponse[i],dealInPercentage,req.body.updateAllProductPrice);
+                                    console.log("updateResponse = > ",updateResponse);
 
                                 }
                                 if(i >= productResponse.length){
@@ -70,7 +74,7 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
     // console.log("productResponse id ===",productResponse._id);
     
     return new Promise(function (resolve, reject) {
-    if(updateAllProducts){                     
+    if(updateAllProducts==="true"){                     
             Products.updateOne(
             { _id : ObjectId(productResponse._id)},  
             {
@@ -136,6 +140,7 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
 }
 
 exports.get_deals = (req, res, next) => {
+    console.log("Inside get deals req.body===",req.body);
     var selector        = {}; 
     selector['$and']    = [];
     
@@ -151,7 +156,7 @@ exports.get_deals = (req, res, next) => {
     if(req.body.subCategory && (req.body.subCategory).toLowerCase() != "all"){
         selector["$and"].push({"subCategory": req.body.subCategory })
     }
-
+    console.log("selector===",selector);
     Deals.find(selector)
         .exec()
         .then(data => {
