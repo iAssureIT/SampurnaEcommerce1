@@ -14,8 +14,8 @@ router.get('/get/list/:startRange/:limitRange',	         DealsManagementControll
 
 // router.get('/get/one/:dealID',                          	checkAuth, DealsManagementController.get_single_deals);
 
-// router.patch('/patch',                                      	checkAuth, DealsManagementController.update_deals);
+// router.patch('/patch',                                   DealsManagementController.update_deals);
 
-// router.delete('/delete/:dealID',                        	checkAuth, DealsManagementController.delete_deals);
+router.delete('/delete/:dealID',                         DealsManagementController.delete_deals);
 
 module.exports = router; 

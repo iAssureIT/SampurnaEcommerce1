@@ -24,7 +24,24 @@ exports.insert_deals = (req, res, next) => {
     DealsObj
         .save()
         .then(dealsResponse => {
-                Products.find({"section_ID" : req.body.sectionID, "category_ID": req.body.categoryID })
+
+                if(req.body.sectionID === "all" &&  req.body.categoryID === "all"){
+                   var query = {
+                        
+                    }
+                }else if(req.body.sectionID !=="all" && req.body.categoryID === "all"){
+                    var query = {
+                        "section_ID" : req.body.sectionID
+                    }
+                }
+                else{
+                    var query = {
+                        "section_ID" : req.body.sectionID, 
+                        "category_ID": req.body.categoryID 
+                    }
+                }
+                // Products.find({"section_ID" : req.body.sectionID, "category_ID": req.body.categoryID })
+                Products.find(query)
                 .then(productResponse =>{
 
                     console.log("productResponse====",productResponse);
@@ -48,8 +65,6 @@ exports.insert_deals = (req, res, next) => {
                             }
                         //}
                     }
-
-
                 })
                 .catch(err => {
                     res.status(500).json({
@@ -71,7 +86,7 @@ exports.insert_deals = (req, res, next) => {
 };
 
 var updateProductData = async(productResponse,dealInPercentage,updateAllProducts) =>{
-    // console.log("productResponse id ===",productResponse._id);
+    console.log("productResponse id ===",productResponse._id);
     
     return new Promise(function (resolve, reject) {
     if(updateAllProducts==="true"){                     
@@ -140,7 +155,7 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
 }
 
 exports.get_deals = (req, res, next) => {
-    console.log("Inside get deals req.body===",req.body);
+    // console.log("Inside get deals req.body===",req.body);
     var selector        = {}; 
     selector['$and']    = [];
     
@@ -156,7 +171,7 @@ exports.get_deals = (req, res, next) => {
     if(req.body.subCategory && (req.body.subCategory).toLowerCase() != "all"){
         selector["$and"].push({"subCategory": req.body.subCategory })
     }
-    console.log("selector===",selector);
+    // console.log("selector===",selector);
     Deals.find(selector)
         .exec()
         .then(data => {
@@ -183,7 +198,7 @@ exports.get_single_deal = (req, res, next) => {
 };
 
 exports.update_deal = (req, res, next) => {
-    // console.log("Update Body = ", req.body);
+    console.log("Update Body = ", req.body);
     Deals.updateOne(
         { _id: req.body.dealID },
         {
@@ -243,7 +258,25 @@ exports.count_deal = (req, res, next) => {
         });
 };
 
+exports.delete_deals = (req, res, next) => {
+
+    Deals.deleteOne({ _id: req.params.dealID })
+    .exec()
+    .then(data => {
+        res.status(200).json({
+            "message": "Deals Deleted Successfully."
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
 exports.get_deals_with_limits = (req, res, next) => {
+
     Deals.find()
         .skip(parseInt(req.params.startRange))
         .limit(parseInt(req.params.limitRange))

@@ -24,7 +24,7 @@ router.get('/get/getAllVendors/:city', 						checkAuth, entityMaster.getAllVendo
 
 router.post('/get/getAdminCompany', 							checkAuth, entityMaster.getAdminCompany);
 
-router.get('/get/one/:entityID', 								checkAuth, entityMaster.singleEntity);
+router.get('/get/one/:entityID', 								entityMaster.singleEntity);
 
 router.get('/get/one/:entityType/:franchiseId', 			checkAuth, entityMaster.listEntity_franchise);
 
@@ -35,7 +35,7 @@ router.post('/get/company_name/:companyID', 					 checkAuth, entityMaster.get_co
 
 router.post('/get/one/companyName', 							checkAuth, entityMaster.get_companyName);
 
-router.get('/get/companyName/:companyID', 					checkAuth, entityMaster.companyName);
+router.get('/get/companyName/:companyID', 					entityMaster.companyName);
 
 router.get('/get/one/companyNameType/:companyID/:type', 	checkAuth, entityMaster.companyNameType);
 

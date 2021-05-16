@@ -874,14 +874,15 @@ class ProductCarousel extends Component {
                                     </div>
                                     <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
                                     <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
-                                    <a className={Style.product_item_photo } tabIndex="-1" >
-                                      <img loading="lazy" src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" className={Style.noAvailableImg +" " +Style.productImg +"lazyload img-responsive NoPadding"}/>
-                                      {/* <Image                                           
-                                        src={data.productImage[0] ? data.productImage[0] : "/images/notavailable.jpg"}
+                                    <a className={Style.product_item_photo } tabIndex="-1" >                                      
+                                      <Image                                           
+                                        src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                                         alt="ProductImg" 
-                                        className={"img-responsive" +Style.NoAvailableImg }
-                                        height={160}
-                                        width={150} /> */}
+                                        className={"img-responsive " +Style.NoAvailableImg }
+                                        height={300}
+                                        width={265} 
+                                        layout={'intrinsic'}
+                                      />
                                     </a>
                                     </Link>
                                     </div>

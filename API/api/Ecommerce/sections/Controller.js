@@ -249,12 +249,14 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
     }else{
         selector["$and"].push({"_id": {$ne: ""} })
     }
-
+    
     if(req.body.showCarousel){
         var limitRange = req.body.displayItemInCarousel * 2;
     }else if(req.body.numOfRows && req.body.numOfItemPerRow){
         var limitRange = req.body.numOfRows * req.body.numOfItemPerRow;
     }
+
+    // console.log("selector => ",selector)
 
     Sections.aggregate([
         {$match : selector},

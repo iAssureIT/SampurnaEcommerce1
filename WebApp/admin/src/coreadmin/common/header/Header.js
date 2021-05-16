@@ -229,7 +229,7 @@ class Header2 extends Component {
 
 				})
 				.catch(error => {
-					console.log("Error in /api/notifications/get/list/Unread/ = ", error);
+					console.log("Error  = ", error);
 					// console.log("error => ",error);
 					if (error.message === "Request failed with status code 401") {
 						var userDetails = localStorage.removeItem("userDetails");

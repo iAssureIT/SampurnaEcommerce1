@@ -13,6 +13,10 @@
 .dealImg{
     margin-top: 23px !important;
 }
+.img-thumbnail{
+    height: 50px !important;
+    width: 100px !important;
+}
 .fieldWrapper{
     margin-top: 20px !important;
 }

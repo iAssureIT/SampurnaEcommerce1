@@ -28,11 +28,11 @@ class DealsManagement extends React.Component {
             section               : "all",
             category              : "all", 
             subCategory           : "all",
-            sectionID             : "",
-            categoryID            : "", 
-            subCategoryID         : "",
+            sectionID             : "all",
+            categoryID            : "all", 
+            subCategoryID         : "all",
             dealInPercentage      : 0,
-            updateAllProductPrice : '',
+            updateAllProductPrice : 'true',
             dealImg               : "",
             startdate             : "Start Date",
             enddate               : "End Date",
@@ -40,12 +40,11 @@ class DealsManagement extends React.Component {
             fields                : {},
 
             "tableHeading": { 
-                discounttype: "Discount Type",
-                discountin: "Discount In",
-                discountparameters: "Discount Parameters",
-                discountquantity: "Discount Quantity",
-                discountamount: "Discount Amount",
-                discountvalue: "Discount Value",
+                section: "Section",
+                category: "Category",
+                subCategory: "SubCategory",
+                dealInPercentage: "Discount Value",
+                dealImg      : "Deal Image",
                 startdate: "Start Date",
                 enddate: "End Date",
                 actions: 'Action',
@@ -61,13 +60,14 @@ class DealsManagement extends React.Component {
               "limitRange": 10,
               // "editId": this.props.editId ? this.props.editId : ''
               "minstartdate" : '',
-              "tableName" : "DiscountMgmt"
+              "tableName" : "DealsMgmt"
 
         };
     }
 
     componentDidMount(){
         this.getSectionData();
+        this.getData(this.state.startRange, this.state.limitRange);
 
         $.validator.addMethod("regxsection", function (value, element, arg) {
             return arg !== value;
@@ -145,7 +145,7 @@ class DealsManagement extends React.Component {
         }
       });
 
-    //   this.getData(this.state.startRange, this.state.limitRange);
+      
     }
     getSectionData() {
         axios.get('/api/sections/get/list')
@@ -279,7 +279,7 @@ class DealsManagement extends React.Component {
     handleChangeSubcategory(event) {
         const target 	= event.target;
         const name 		= target.name;
-        var value = event.target.value;
+        var value = event.target.value.split("_")[1];
         this.setState({
            [name]: value,
         });
@@ -319,6 +319,7 @@ class DealsManagement extends React.Component {
                         enddate               : "", 
                         
                     });	 
+                    this.getData(this.state.startRange, this.state.limitRange);
                 }   	 
             })
             .catch(function (error) {        
@@ -344,30 +345,85 @@ class DealsManagement extends React.Component {
 		    	console.log(error);
 		  	});
     }
-    getData(startRange, limitRange) {
-        axios.get('/api/deals/get/list' + startRange + '/' + limitRange)
+    updateDealsInfo(event) {
+      event.preventDefault();
+      if ($('#addDealsForm').valid()) {
+        var formValues = {
+          section               : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[1],
+          category              : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[1],
+          subCategory           : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[1],
+          sectionID             : this.state.section && this.state.section === "all" ? this.state.section : this.state.section.split("_")[0],
+          categoryID            : this.state.category && this.state.category === "all" ? this.state.category : this.state.category.split("_")[0],
+          subCategoryID         : this.state.subCategory && this.state.subCategory ==="all" ? this.state.subCategory : this.state.subCategory.split("_")[0],
+          dealInPercentage      : this.state.dealInPercentage,
+          dealImg               : this.state.dealImg,
+          updateAllProductPrice : this.state.updateAllProductPrice,
+          startdate             : this.state.startdate,
+          enddate               : this.state.enddate,
+      }
+      axios.patch('/api/deals/patch/'+formValues)
           .then((response) => {
-            console.log('tableData = ', response.data);
-            var tableData = response.data.map((a, i) => {
-                return {
-                _id                   : a._id,
-                "discounttype"        : a.discounttype,
-                "discountin"          : a.discountin,
-                "discountparameters"  : a.discountparameters,
-                "discountquantity"    : a.discountquantity,
-                "discountamount"      : a.discountamount,
-                "discountvalue"       : a.discountvalue,
-                "startdate"           : moment(a.startdate).format("DD/MM/YYYY"),
-                "enddate"             : moment(a.enddate).format("DD/MM/YYYY"),
-                            
-                        }
-                    })
+            swal({
+              text: response.data.message,
+            });
+            this.getData(this.state.startRange, this.state.limitRange);
             this.setState({
-              tableData: tableData
-            })
+              section 		      : 'all',
+              category 		      : 'all',
+              subCategory 		  : 'all',
+              dealInPercentage  : "",
+              updateAllProductPrice : "" ,  
+              dealImg               : "",   
+              startdate             : "",
+              enddate               : "", 
+              
+          });	
+            this.props.history.push('/add-deals');
           })
           .catch((error) => {
             console.log('error', error);
+            if(error.message === "Request failed with status code 401"){
+                var userDetails =  localStorage.removeItem("userDetails");
+                localStorage.clear();
+                swal({  
+                    title : "Your Session is expired.",                
+                    text  : "You need to login again. Click OK to go to Login Page"
+                })
+                .then(okay => {
+                if (okay) {
+                    window.location.href = "/login";
+                }
+                });
+              }
+          });
+      }
+  
+    }
+    getData(startRange, limitRange) {
+        axios.get('/api/deals/get/list/'+ startRange + '/' + limitRange)
+          .then((response) => {
+            // console.log('tableData = ', response.data);
+            var tableData = response.data.map((a, i) => {
+                  return {
+                  _id                   : a._id,
+                  "section"             : a.section,
+                  "category"            : a.category,
+                  "subCategory"         : a.subCategory,
+                  "dealInPercentage"    : a.dealInPercentage,
+                  "updateAllProductPrice" : a.updateAllProductPrice,
+                  "dealImg"             : "<img class="+" img-thumbnail " +"src="+a.dealImg +" />" ,
+                  "startdate"           : moment(a.startdate).format("DD/MM/YYYY"),
+                  "enddate"             : moment(a.enddate).format("DD/MM/YYYY"),                            
+                }
+                })
+            this.setState({
+              tableData: tableData
+            },()=>{
+              // console.log("tableData after setstate====",this.state.tableData);
+            })
+          })
+          .catch((error) => {
+            // console.log('error in deals getData', error);
             if(error.message === "Request failed with status code 401"){
                   var userDetails =  localStorage.removeItem("userDetails");
                   localStorage.clear();
@@ -385,6 +441,7 @@ class DealsManagement extends React.Component {
       }
     showRelevantCategories(event) {
         var section = event.target.value;
+        // console.log("section===",section);
         var value = event.target.value.split("_");
         // console.log("value===",value[0]);
 
@@ -420,18 +477,14 @@ class DealsManagement extends React.Component {
      }
 
      showRelevantSubCategories(event) {
-        event.preventDefault();
-        const target = event.target;
-        const name = target.name;
-        var categoryNameRlang = event.target.value.split('|')[2];
+        event.preventDefault();       
+        // var categoryNameRlang = event.target.value.split('|')[2];
         var value = event.target.value.split("_");
-        // console.log("target attribute--",event.currentTarget.getAttribute("category"));
-        // console.log("event===",event.target);
         this.setState({
            category: event.target.value,
            categoryID : value[0],
-           categoryNameRlang : categoryNameRlang
         },()=>{
+            console.log("this.state.categoryID===",this.state.categoryID);
             this.getSubCategories(this.state.categoryID);
         });
      } 
@@ -709,10 +762,9 @@ class DealsManagement extends React.Component {
                                     </div> 
                                     
                                 </div>
-                            </div>
-                                                       
+                            </div>                     
                         </form> 
-                        {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 discountManagementTable">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 discountManagementTable">
                             <IAssureTable
                             tableHeading={this.state.tableHeading}
                             twoLevelHeader={this.state.twoLevelHeader}
@@ -722,7 +774,7 @@ class DealsManagement extends React.Component {
                             tableObjects={this.state.tableObjects}
                             tableName ={this.state.tableName}
                             />
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -206,7 +206,7 @@ class AddNewShopProduct extends Component {
 			}, "Please select the sub category");
 			$.validator.addMethod("regxsection", function (value, element, arg) {
 				return arg !== value;
-			}, "Please select the section");
+			}, "Please select the section"); 
 			$.validator.addMethod("regxunit", function (value, element, arg) {
 				return arg !== value;
 			}, "Please select the unit");

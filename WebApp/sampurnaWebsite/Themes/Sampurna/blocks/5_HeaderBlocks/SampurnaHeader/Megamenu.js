@@ -7,6 +7,7 @@ constructor(props){
     super(props);
     this.state = {
         menudata : {},
+        categoryData : [],
     }
 }
 componentDidMount(){

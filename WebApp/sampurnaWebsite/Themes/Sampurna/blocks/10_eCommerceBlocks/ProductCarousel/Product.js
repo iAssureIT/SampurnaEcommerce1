@@ -367,7 +367,7 @@ class Product extends Component{
                             height={260}
                             width={265} 
                             layout={'intrinsic'}
-                            />
+                          />
                         </a>
                         </Link>
                         </div>
