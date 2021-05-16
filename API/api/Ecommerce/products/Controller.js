@@ -734,8 +734,8 @@ function taxInsert(taxName,taxRate) {
 
 
 var insertProduct = async (section_ID, section, categoryObject, data,taxObject,EntityData = []) => {
-    // console.log('insertProduct data>>>>>>',data);
-    // console.log("EntityData in product insert => ",EntityData)
+    console.log('insertProduct data>>>>>>',data);
+    console.log("EntityData in product insert => ",EntityData)
     return new Promise(function(resolve,reject){ 
         productDuplicateControl();
         async function productDuplicateControl(){

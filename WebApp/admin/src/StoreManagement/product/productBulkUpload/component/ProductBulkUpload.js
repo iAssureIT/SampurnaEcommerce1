@@ -309,7 +309,7 @@ class AddNewBulkProduct extends Component {
             "xlsx",
             "xls"
         ]
-        const requiredData = {vendor: this.state.vendor};
+        const requiredData = {vendor: this.state.vendor, vendorShow : false};
         console.log("required data:",requiredData);
         return (
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding NOpadding-right">

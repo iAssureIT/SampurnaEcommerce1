@@ -188,6 +188,7 @@ class CategoryManagement extends Component{
 		this.getSectionData();
 		this.getDataCount();
 		this.getData(this.state.startRange,this.state.limitRange);
+		// this.getSubCategoryData(this.state.startRange,this.state.limitRange);
 	}
 
 	getDataCount(){
@@ -246,18 +247,19 @@ class CategoryManagement extends Component{
 			},()=>{
 				console.log("categories data => ",this.state.tableData);
 				if(this.state.category_id && this.state.category_id !== "undefined"){
-					this.openSubCategoryModal(this.state.category_id);
+					this.getSubCategoryData();
+					// this.openSubCategoryModal(this.state.category_id);
 				}
 			})
 		})
 		.catch((error)=>{
 			console.log('error', error);
-			if(error.message === "Request failed with status code 401"){
+			if(error.message === "Request Failed with Status Code 401"){
 				localStorage.removeItem("userDetails");
 				localStorage.clear();
 				swal({  
-					title : "Your Session is expired.",                
-					text  : "You need to login again. Click OK to go to Login Page"
+					title : "Your Session is Expired.",                
+					text  : "You need to login again. Click OK to Go to Login Page"
 				})
 				.then(okay => {
 					if (okay) {
@@ -267,12 +269,89 @@ class CategoryManagement extends Component{
 			}
 		});
 	}
+
+
+	/**=========== getSubCategoryData() ===========*/
+	getSubCategoryData(){
+		if (this.state.category_id) {	
+			console.log("id => ", this.state.category_id)
+
+			axios.get('/api/category/get/one/'+this.state.category_id)
+			.then((response)=>{
+				console.log('One category tableData', response.data);
+				if(response.data && response.data !== undefined && response.data.subCategory && response.data.subCategory.length > 0){	
+					var subcategorytableData = response.data.subCategory;
+					this.setState({
+						subcategorytableData 	: subcategorytableData,
+						subcategoryDataCount 	: subcategorytableData.length,
+						category_id 		 	: this.state.category_id,
+						categoryName 			: response.data.category
+					})
+				}else{					
+					this.setState({
+						subcategorytableData 	: [],
+						subcategoryDataCount 	: 0,
+						category_id 			: this.state.category_id,
+						categoryName 			: ''
+					})
+				}
+				console.log("subcategorytableData => ",this.state.subcategorytableData);
+				// if(filteredCategory && filteredCategory.length > 0 && filteredCategory[0].subCategories && filteredCategory[0].subCategories.length > 0){
+				// 	var subcategorytableData = filteredCategory[0].subCategories;
+				// 	this.setState({
+				// 		subcategorytableData 	: subcategorytableData,
+				// 		subcategoryDataCount 	: subcategorytableData.length,
+				// 		category_id 		 	: category_id,
+				// 		categoryName 			: filteredCategory[0].category
+				// 	})
+				// }
+				// var tableData = response.data.reverse().map((a, i)=>{                      
+				// 	return{ 
+				// 		_id                   : a._id,
+				// 		section               : a.section,
+				// 		category              : a.category,
+				// 		categoryNameRlang     : a.categoryNameRlang,
+				// 		categoryRank          : a.categoryRank,
+				// 		categoryDescription   : a.categoryDescription,
+				// 		subCategory           : "<a aria-hidden='true' class='actionLinks' title='Show all SubCategories' id='" + a._id + "'data-toggle='modal' data-target='#subCategoryModal' onclick=window.openSubCategoryModal('"+ a._id + "')> View </a>",
+				// 		status                : a.status,
+				// 		subCategories 		  : a.subCategory
+				// 	}
+				// })
+				// this.setState({
+				// 	tableData : tableData
+				// },()=>{
+				// 	console.log("categories data => ",this.state.tableData);
+				// 	if(this.state.category_id && this.state.category_id !== "undefined"){
+				// 		this.openSubCategoryModal(this.state.category_id);
+				// 	}
+				// })
+			})
+			.catch((error)=>{
+				console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+					localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+						title : "Your Session is expired.",                
+						text  : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+						if (okay) {
+							window.location.href = "/login";
+						}
+					});
+				}
+			});
+		}
+	}
 	
 	/*======== openSubCategoryModal() ========*/
 	openSubCategoryModal(category_id){
-		console.log("category_id => ",category_id);
 		this.setState({downloadFlag : false});
 		if(category_id){			
+			console.log("category_id => ",category_id);
+			console.log("tableData => ",this.state.tableData);
 			if(this.state.tableData && this.state.tableData.length > 0){
 				var filteredCategory = this.state.tableData.filter((filteredcategory)=> String(filteredcategory._id) === String(category_id));
 				console.log("filteredCategory => ",filteredCategory);
@@ -915,8 +994,8 @@ class CategoryManagement extends Component{
 	}
 	handleSubCatChange(event){
 		this.setState({
-			[event.target.name] 								: event.target.value,
-			["subCategoryTitleError"+event.target.id] : event.target.value ? "" : "This field is required."
+			[event.target.name] 						: event.target.value,
+			["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
 		})
 	}
 
@@ -924,8 +1003,8 @@ class CategoryManagement extends Component{
 		const target = event.target;
 		const name   = target.name;
 		this.setState({
-			 [name] 													: event.target.value,
-			 ["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
+			[name] 										: event.target.value,
+			["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
 		});
 		var url = event.target.value;
 		if(url){
@@ -1113,7 +1192,7 @@ class CategoryManagement extends Component{
 																	twoLevelHeader        = {this.state.twoLevelHeader} 
 																	dataCount             = {this.state.subcategoryDataCount}
 																	tableData             = {this.state.subcategorytableData}
-																	getData               = {this.getData.bind(this)}
+																	getData               = {this.getSubCategoryData.bind(this)}
 																	tableObjects          = {this.state.subcategorytableObjects}
 																	getSearchText         = {this.getSearchText.bind(this)} 
 																	tableName             = {this.state.subtableName}

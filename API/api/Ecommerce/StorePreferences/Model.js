@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 
 const storePreferenceSchema = mongoose.Schema({
-	_id			                : mongoose.Schema.Types.ObjectId,    
+	_id			              : mongoose.Schema.Types.ObjectId,    
     maxRadius                 : String,
     minOrderValue             : String,
-    defaultServiseCharges     : String,
-    serviseChargesByDistance  : String,
+    defaultServiceCharges     : String,
+    serviseChargesByDistance  : [
+                                    {
+                                        minDistance     : Number,
+                                        maxDistance     : Number
+                                    }
+    ],
     createdAt                 : Date
 });
 

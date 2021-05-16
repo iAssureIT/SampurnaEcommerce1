@@ -151,7 +151,7 @@ exports.list_category_with_limits = (req,res,next)=>{
                 "subCategory"           : x.subCategory 
                                             ? 
                                                 (x.subCategory.map((a, i)=>{
-                                                    console.log("a.subCategoryTitle=> ",a.subCategoryTitle)
+                                                    // console.log("a.subCategoryTitle=> ",a.subCategoryTitle)
                                                     if(a.subCategoryTitle && a.subCategoryTitle !== undefined){
                                                         return {
                                                             _id                 : a._id+"-"+x._id,
@@ -259,7 +259,33 @@ exports.fetch_category = (req,res,next)=>{
     Category.findOne({_id : req.params.categoryID})
     .exec()
     .then(data=>{
-        res.status(200).json(data);
+        res.status(200).json({
+            "_id"                   : data._id,
+            "section"               : data.section,
+            "category"              : data.category,
+            "categoryNameRlang"     : data.categoryNameRlang ? "<span class='RegionalFont'>"+data.categoryNameRlang+"</span>" : '-',
+            "categoryRank"          : data.categoryRank ? data.categoryRank : '',
+            "subCategory"           : data.subCategory 
+                                        ? 
+                                            (data.subCategory.map((a, i)=>{
+                                                // console.log("a.subCategoryTitle=> ",a.subCategoryTitle)
+                                                if(a.subCategoryTitle && a.subCategoryTitle !== undefined){
+                                                    return {
+                                                        _id                 : a._id+"-"+data._id,
+                                                        subCategoryTitle    : a.subCategoryTitle,
+                                                        status              : a.status,
+                                                    }
+                                                }  
+                                                                                                
+                                            }))
+                                        :
+                                            [],
+            "categoryDescription"   : data.categoryDescription ? x.categoryDescription : '',
+            "categoryImage"         : data.categoryImage,
+            "categoryIcon"          : data.categoryIcon,
+            "status"                : data.status
+        })
+        // res.status(200).json(data);
     })
     .catch(err =>{
         console.log(err);
@@ -284,12 +310,12 @@ exports.fetch_categories_by_section = (req,res,next)=>{
 };
 
 exports.delete_category = (req,res,next)=>{
-    console.log("In Delete Categories => ", req.paramas.categoryID);
+    // console.log("In Delete Categories => ", req.paramas.categoryID);
 
     Category.deleteOne({_id:req.params.categoryID})
     .exec()
     .then(data=>{
-        console.log("Data After Deleteing Category => ",data)
+        // console.log("Data After Deleteing Category => ",data)
         res.status(200).json({
             "message": "Category Deleted Successfully!"
         });
@@ -343,7 +369,7 @@ exports.update_category_status = (req,res,next)=>{
         { $set : 
             {
                 status                      : req.body.status,
-                // 'subCategory.$[].status' 	: req.body.status,	
+                'subCategory.$[].status' 	: req.body.status,	
             }
         }
     )

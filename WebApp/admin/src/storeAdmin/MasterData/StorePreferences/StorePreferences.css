@@ -1,0 +1,12 @@
+.distanceRangeArray{
+    margin-bottom: 15px;
+}
+.deleteDistanceRange {
+    text-align: center;
+    background: #dd4b39;
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 9px 12px;
+}

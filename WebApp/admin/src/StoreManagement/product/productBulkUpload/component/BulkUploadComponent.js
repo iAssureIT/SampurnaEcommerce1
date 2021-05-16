@@ -513,7 +513,8 @@ class BulkUploadComponent extends Component{
 			"xls",
 			"csv"
 		]
-
+		console.log("required Data  => ", this.props.requiredData);
+		console.log("vendorShow => ",this.props.requiredData.vendorShow);
 		return (
 			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<Loader type="fullpageloader" percentage={this.state.percentage}/>
@@ -534,7 +535,7 @@ class BulkUploadComponent extends Component{
 							</ul>
 						</div>
 					</div>
-					{localStorage.getItem('roles') === 'admin' 
+					{localStorage.getItem('roles') === 'admin' && this.props.requiredData && this.props.requiredData.vendorShow
 					?
 						<div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 inputFields marginTopp">
 							<label>Vendor <i className="redFont">*</i></label>
