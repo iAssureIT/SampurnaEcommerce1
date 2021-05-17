@@ -146,5 +146,8 @@ export default StyleSheet.create({
     color:'#333',
     fontFamily:"Montserrat-Regular"
   },
-
+  bottomModal: {
+    justifyContent: "flex-end",
+    margin: 0,
+  },
 });

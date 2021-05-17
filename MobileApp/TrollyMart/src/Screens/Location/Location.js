@@ -1,5 +1,5 @@
 import React,{ useState,useEffect,useRef}from 'react';
-import {View,Dimensions}            from 'react-native';
+import {View,Dimensions,Image,Modal,TouchableOpacity,StyleSheet,SafeAreaView,Text}            from 'react-native';
 import {Icon }                      from "react-native-elements";
 import {HeaderBar3}                 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
@@ -24,10 +24,16 @@ navigator.geolocation = require('react-native-geolocation-service');
 
 export const Location = withCustomerToaster((props)=>{
     const {navigation}=props;
-    const [region,setRegion]=useState()
+    const [region,setRegion]=useState({
+        latitude: 23.4241,
+        longitude: 53.8478,
+        latitudeDelta: 23.4241 * 0.0001,
+        longitudeDelta: 53.8478 * 0.0001 
+    })
     const [googleapikey,setGoogleAPIKey] = useState('');
     const [address,setAddress] = useState('');
     const [coords,setCoords] = useState('');
+    const [btnLoading,setBtnLoading] = useState(false);
     const [selection,setSelection] = useState({start:0,end:0});
     const dispatch = useDispatch();
     const mapStyle = [];
@@ -41,7 +47,16 @@ export const Location = withCustomerToaster((props)=>{
             Geocoder.init(response.data.googleapikey);
             getCurrentPosition();
         })
-        .catch((error) => {});
+        .catch((error) => {
+            if (error.response.status == 401) {
+                AsyncStorage.removeItem('user_id');
+                AsyncStorage.removeItem('token');
+                setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+                navigation.navigate('Auth')
+              }else{
+                setToast({text: 'Something went wrong.', color: 'red'});
+              }  
+        });
     },[props]);
 
     const getCurrentPosition = ()=>{
@@ -69,10 +84,11 @@ export const Location = withCustomerToaster((props)=>{
                         })
                         Geocoder.from(latitude, longitude)
                         .then(json => {
+                            conso
                             var address = json.results[0].formatted_address;
                             console.log(address);
                             setAddress(address);
-                            ref.current?.setAddressText(address);
+                            // ref.current?.setAddressText(address);
                         })
                         .catch(error => console.warn(error));
                     },
@@ -89,11 +105,20 @@ export const Location = withCustomerToaster((props)=>{
             }
           })
           .catch(error => {
-            console.log("error=>",error);
+            if (error.response.status == 401) {
+                AsyncStorage.removeItem('user_id');
+                AsyncStorage.removeItem('token');
+                setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+                navigation.navigate('Auth')
+              }else{
+                setToast({text: 'Something went wrong.', color: 'red'});
+              }  
           });
     }
 
     const addMarker=(coordinate)=>{
+        setBtnLoading(true);
+        console.log("coordinate",coordinate);
         if(coordinate){
             setRegion({
                 latitude: coordinate.latitude,
@@ -103,10 +128,12 @@ export const Location = withCustomerToaster((props)=>{
             })
             Geocoder.from(coordinate.latitude,coordinate.longitude).then(
                 json => {
+                    console.log("json",json);
                 var address = json.results[0].formatted_address;
                 console.log(address);
                 setAddress(address);
-                ref.current?.setAddressText(address);
+                setBtnLoading(false);
+                // ref.current?.setAddressText(address);
             },
             error => {
             console.error("err1",error);
@@ -124,11 +151,25 @@ export const Location = withCustomerToaster((props)=>{
         navigation.navigate('Dashboard');
     }  
 
+    console.log("region",region)
+
+    const regionChnage = (e)=>{
+        // addMarker(e);
+        console.log("e",e);
+    }
+
     return (
         <View style={{flex:1}}>
+            <HeaderBar3
+            goBack={navigation.goBack}
+            navigate={navigation.navigate}
+            headerTitle={"Location"}
+            toggle={() => toggle()}
+            openControlPanel={() => openControlPanel()}
+          />
           <GooglePlacesAutocomplete
             ref={ref}
-            placeholder='Search'
+            placeholder='Search or the move app...'
             onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
                 var address = details.formatted_address;
@@ -208,28 +249,33 @@ export const Location = withCustomerToaster((props)=>{
             fetchDetails={true}
             isRowScrollable={true}
         />
-        <View style={{width:window.width,position:'absolute',zIndex:9999,alignItems:"center",marginTop:window.height-100}}>
-            <FormButton
+        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-180,backgroundColor:"#fff",height:200,borderTopRightRadius:30,borderTopLeftRadius:30,padding:15}}>
+            <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5}}>Delivery Location</Text>
+            <View style={{flexDirection:"row",justifyContent:"space-between",height:60}}>
+                <Icon name="crosshairs-gps" type='material-community' size={20} color="black" />
+                <Text style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>{address}</Text>
+            </View>   
+            <View style={{justifyContent:"flex-end"}}>
+                <FormButton
                     title       = {'Confirm Location'}
                     onPress     = {()=>confirmLocation()}
                     background  = {true}
-                    icon        = {{name: "crosshairs-gps",type : 'material-community',size: 15,color: "white"}}
+                    icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
                     // loading     = {btnLoading}
-                  />
+                    />
+            </View>        
+        </View>
+        <View pointerEvents="none" style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0,zIndex:30, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
+            <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/marker.png")} style={{height:50,width:35}}/>
         </View>    
          <MapView
                 provider={PROVIDER_GOOGLE}
                 ref={map => map = map}
                 region = {region}
                 style={[{width:window.width,height:window.height}]}
+                onRegionChangeComplete={addMarker}
                 customMapStyle={mapStyle}
             > 
-             {coords.latitude &&<MapView.Marker
-                coordinate={coords}
-                draggable={true}
-                onDragEnd={(e) =>addMarker(e.nativeEvent.coordinate)}
-              />
-           }
         </MapView>
        </View> 
     );  

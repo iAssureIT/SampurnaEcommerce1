@@ -9,7 +9,7 @@ import {BannerComponent}            from '../../ScreenComponents/BannerComponent
 import {MarketingBlock}             from '../../ScreenComponents/MarketingBlock/MarketingBlock.js';
 import {MenuCarouselSection}        from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
-import SearchProducts               from'../Search/SearchProducts.js';
+// import SearchProducts               from'../Search/SearchProducts.js';
 import {Footer}                       from '../../ScreenComponents/Footer/Footer1.js';
 import Notification                 from '../../ScreenComponents/Notification/Notification.js'
 import { connect,useDispatch,useSelector }      from 'react-redux';
@@ -23,9 +23,13 @@ import AsyncStorage                 from '@react-native-async-storage/async-stor
 import { getList } 		              from '../../redux/productList/actions';
 import { getWishList } 		          from '../../redux/wishDetails/actions';
 import { useIsFocused }             from "@react-navigation/native";
-import { SET_SEARCH_CALL,SET_SEARCH_TEXT,SET_SUGGETION_LIST,SET_SERACH_LIST} 	        from '../../redux/globalSearch/types';
-import { getSearchResult } 	from '../../redux/globalSearch/actions';
-import Highlighter from 'react-native-highlight-words';
+import { SET_SEARCH_CALL,
+        SET_SEARCH_TEXT,
+        SET_SUGGETION_LIST,
+        SET_SERACH_LIST} 	          from '../../redux/globalSearch/types';
+import { getSearchResult } 	        from '../../redux/globalSearch/actions';
+import Highlighter                  from 'react-native-highlight-words';
+
 export const Dashboard = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
@@ -75,9 +79,13 @@ export const Dashboard = withCustomerToaster((props)=>{
     .then((response) => {
       setCountData(response.data);
     })
-    .catch((error) => { 
-      navigation.navigate('App')
-      setToast({text: 'Something went wrong.', color: 'red'});
+    .catch((error) => {
+      if (error.response.status == 401) {
+        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+        navigation.navigate('App')
+      }else{
+        setToast({text: 'Something went wrong.', color: 'red'});
+      }  
     })
   }
 
@@ -87,8 +95,12 @@ export const Dashboard = withCustomerToaster((props)=>{
         setSearchProductsDetails([])
       })
       .catch((error) => {
-        navigation.navigate('App')
-        setToast({text: 'Something went wrong.', color: 'red'});
+        if (error.response.status == 401) {
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('App')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       })
   }
 

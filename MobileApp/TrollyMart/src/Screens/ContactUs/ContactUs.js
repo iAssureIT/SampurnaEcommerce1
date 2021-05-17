@@ -8,7 +8,6 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import Drawer from 'react-native-drawer';
 import { Header, Button, Icon, SearchBar } from "react-native-elements";
 import SideMenu from 'react-native-side-menu';
 import {Menu} from '../../ScreenComponents/Menu/Menu.js';

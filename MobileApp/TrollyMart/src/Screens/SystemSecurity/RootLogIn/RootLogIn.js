@@ -208,7 +208,7 @@ const window = Dimensions.get('window');
               loading     = {btnLoading}
             />
             <View style={{alignItems:"center",justifyContent:"center"}}>
-              <Text style={{paddingVertical:15}}>OR</Text>
+              {/* <Text style={{paddingVertical:15}}>OR</Text> */}
              {/* <GoogleSigninButton
               style={{ width: 192, height: 48 }}
               size={GoogleSigninButton.Size.Wide}

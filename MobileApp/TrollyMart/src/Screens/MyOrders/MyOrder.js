@@ -81,7 +81,14 @@ export const MyOrder =(props)=>{
             setMyOrders(response.data)
           })
           .catch((error) => {
-            console.log('error', error)
+            if (error.response.status == 401) {
+              AsyncStorage.removeItem('user_id');
+              AsyncStorage.removeItem('token');
+              setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+              navigation.navigate('Auth')
+            }else{
+              setToast({text: 'Something went wrong.', color: 'red'});
+            }  
           });
       });
   }
@@ -126,6 +133,14 @@ export const MyOrder =(props)=>{
             
           })
           .catch((error) => {
+            if (error.response.status == 401) {
+              AsyncStorage.removeItem('user_id');
+              AsyncStorage.removeItem('token');
+              setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+              navigation.navigate('Auth')
+            }else{
+              setToast({text: 'Something went wrong.', color: 'red'});
+            }  
           })
       });
   }
@@ -159,9 +174,9 @@ export const MyOrder =(props)=>{
                           // activitysteps(item.deliveryStatus)
                           var position = 0;
                           console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",item.deliveryStatus[item.deliveryStatus.length - 1].status);
-                          if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New Order") {
+                          if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New Order" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Verified") {
                             position = 0;
-                          } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed") {
+                          } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch Approved" ) {
                             position = 1;
                           } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch") {
                             position = 2;
@@ -169,9 +184,6 @@ export const MyOrder =(props)=>{
                            else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid") {
                             position = 4;
                           }  
-                          else {
-                             position = 4;
-                           }
                           return (
                             <View style={styles.prodinfoparent}>
                               <View style={styles.orderid}><Text style={styles.orderidinfo}>Order ID : {item.orderID}</Text></View>

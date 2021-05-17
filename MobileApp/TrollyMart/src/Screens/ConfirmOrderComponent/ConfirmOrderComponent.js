@@ -31,7 +31,7 @@ export default class ConfirmOrderComponent extends React.Component{
   	};
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps){
   }
 
   updateMenuState(isOpen) {

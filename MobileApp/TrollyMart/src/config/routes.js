@@ -53,6 +53,15 @@ export const HomeStack = () => (
   <Home.Navigator 
     headerMode            = "none"
     mode="modal"
+    screenOptions={{
+      gestureEnabled:true,
+      gestureDirection:'horizontal',
+      cardStyleInterpolator:CardStyleInterpolators.forHorizontalIOS
+      // transitionSpec:{
+      //   open:config,
+      //   close:closeConfig
+      // }
+    }}
     drawerContent   = { (props) => <Menu { ...props } />}
   >
     <Home.Screen name="Dashboard"                   component={Dashboard} />
@@ -100,24 +109,59 @@ export const RegisterStack = () => (
 );
 
 const App = createStackNavigator();
-const AppStack = (props) => (
+const AppStack = () => (
   <App.Navigator headerMode="none">
-    {props.location ?
       <App.Screen name="App" component={HomeStack} />
-      :
-      <App.Screen name="Location"  component={Location} />
-    }  
       <App.Screen name="Auth" component={RegisterStack} />
       <App.Screen name="SubCatCompView" component={SubCatCompView} />
       <App.Screen name="Dashboard" component={Dashboard} />
+      <App.Screen name="Location" component={Location} />
   </App.Navigator>
 );
 
-export const AppContainer = (props) => {
-  console.log("AppContainer props",props)
+const LocationMain = createStackNavigator();
+const LocationStack = () => (
+  <LocationMain.Navigator headerMode="none">
+      <LocationMain.Screen name="Location" component={Location} />
+      <LocationMain.Screen name="App" component={HomeStack} />
+      <LocationMain.Screen name="Auth" component={RegisterStack} />
+      <LocationMain.Screen name="SubCatCompView" component={SubCatCompView} />
+      <LocationMain.Screen name="Dashboard" component={Dashboard} />
+  </LocationMain.Navigator>
+);
+
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 50,
+    mass: 3,
+    overshootClamping: false,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+
+const closeConfig = {
+  animation: 'timing',
+  config: {
+   duration:500,
+   easing:Easing.linear,
+  },
+};
+
+export const AppContainer = () => {
   return (
     <NavigationContainer>
-        <AppStack location={props.location}/>
+        <AppStack/>
+    </NavigationContainer>
+  );
+};  
+
+export const LocationContainer = () => {
+  return (
+    <NavigationContainer >
+        <LocationStack/>
     </NavigationContainer>
   );
 };  

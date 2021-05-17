@@ -80,7 +80,14 @@ import {withCustomerToaster}  from '../../redux/AppState.js';
         setGetTimes(array);
       })
       .catch((error) => {
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       });
   }
 
@@ -104,7 +111,14 @@ import {withCustomerToaster}  from '../../redux/AppState.js';
             }  
         })
         .catch((error) => {
-            console.log('error', error);
+          if (error.response.status == 401) {
+            AsyncStorage.removeItem('user_id');
+            AsyncStorage.removeItem('token');
+            setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+            navigation.navigate('Auth')
+          }else{
+            setToast({text: 'Something went wrong.', color: 'red'});
+          }  
         });
 }
 
@@ -128,7 +142,14 @@ const getCartData=(userId)=>{
     })
     .catch((error) => {
       setLoading(false);
-      console.log('error', error);
+      if (error.response.status == 401) {
+        AsyncStorage.removeItem('user_id');
+        AsyncStorage.removeItem('token');
+        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+        navigation.navigate('Auth')
+      }else{
+        setToast({text: 'Something went wrong.', color: 'red'});
+      }  
     })
 }
 
@@ -153,6 +174,7 @@ const getCartData=(userId)=>{
             totaloriginalprice - (totaloriginalprice * discountvalue)/ 100
             : totaloriginalprice - discountvalue
         : totaloriginalprice;
+    console.log("cartData",cartData);
     navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, totalamountpay: amt, discount: discountvalue, shippingtime: shippingTiming, })
   }
 

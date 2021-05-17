@@ -80,7 +80,17 @@ export const AddressComponent = withCustomerToaster((props)=>{
       .then((response) => {
         setGoogleAPIKey(response.data.googleapikey)
       })
-      .catch((error) => {});
+      .catch((error) => {
+        setLoading(false);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
+      })
     },[props]);
 
       return (

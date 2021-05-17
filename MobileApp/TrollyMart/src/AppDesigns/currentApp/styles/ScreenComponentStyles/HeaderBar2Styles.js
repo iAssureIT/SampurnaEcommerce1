@@ -30,7 +30,7 @@ export default StyleSheet.create({
   },
   searchvw: {
     marginTop:10,
-    height:60,
+    height:40,
     paddingHorizontal: 15,
     flexDirection:'row',
     justifyContent:"center",
@@ -183,6 +183,7 @@ export default StyleSheet.create({
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 10,
+    height:40
   },
   searchInput: {
     fontSize: 13,

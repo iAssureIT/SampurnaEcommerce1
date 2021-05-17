@@ -22,10 +22,10 @@ import { TextField } from 'react-native-material-textfield';
 import { Header, Button, Icon, SearchBar,Rating, AirbnbRating } from "react-native-elements";
 import SideMenu from 'react-native-side-menu';
 import StepIndicator from 'react-native-step-indicator';
-import {Menu} from '../../ScreenComponents/Menu/Menu.js';
-import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import Menu from '../../ScreenComponents/Menu/Menu.js';
+import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
-import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
+import Footer from '../../ScreenComponents/Footer/Footer1.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/ProductReviewstyles.js';
 import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
@@ -125,7 +125,18 @@ export default class MyProductReview extends React.Component{
       );
     }else{
       return (
-        <React.Fragment>
+        <Drawer
+            ref={(ref) => this._drawer = ref}
+            content={
+              <Notification 
+                  navigate          = {this.props.navigation.navigate} 
+                  updateCount       = {()=>this.updateCount.bind(this)}  
+                  closeControlPanel = {()=>this.closeControlPanel.bind(this)} 
+              />
+            }
+            side="right"
+            >
+            <SideMenu disableGestures={true} openMenuOffset={300} menu={menu} isOpen={this.state.isOpen}  onChange={isOpen => this.updateMenuState(isOpen)} >
             <HeaderBar3
                 goBack ={goBack}
                 navigate={navigate}
@@ -177,7 +188,8 @@ export default class MyProductReview extends React.Component{
               </ScrollView>
             </View>
             <Footer/>
-        </React.Fragment>
+          </SideMenu>
+        </Drawer>
       );  
     }
   }

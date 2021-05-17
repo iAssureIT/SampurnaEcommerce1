@@ -6,15 +6,15 @@ import {
   Image,
   Alert,ActivityIndicator,
 } from 'react-native';
-import { Button, Icon,} from "react-native-elements";
-import Modal from "react-native-modal";
-import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
-import axios from 'axios';
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
-import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
-import { RadioButton } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Button, Icon,}       from "react-native-elements";
+import Modal                  from "react-native-modal";
+import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
+import axios                  from 'axios';
+import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
+import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
+import { RadioButton }        from 'react-native-paper';
+import AsyncStorage           from '@react-native-async-storage/async-storage';
 import {withCustomerToaster}  from '../../redux/AppState.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
@@ -35,7 +35,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const [mobNumber,setMobileNumber]         = useState('');
 
   const {cartdata,userID,addData,totalamountpay,shippingtime,discount} = route.params;
-  console.log("navigation",navigation);
+  console.log("cartdata",cartdata);
   console.log("route",route);
 
   useEffect(() => {
@@ -67,7 +67,14 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         setMobileNumber(res.data.profile.mobile);
       })
       .catch((error) => {
-        console.log('error', error)
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       });
     });
   }
@@ -79,69 +86,69 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   }
 
   const continuepage=(id)=>{
-    setToast({text: 'Your order is confirmed. Thank you for shopping with us.', color: 'green'});
-    navigation.navigate('Dashboard');
-    // setBtnLoading(true);
-    // var cartItems = cartdata.map((a, i) => {
-    //   return {
-    //     "product_ID"      : a.productDetail._id,
-    //     "productName"     : a.productDetail.productName,
-    //     "discountPercent" : a.productDetail.discountPercent,
-    //     "discountedPrice" : a.productDetail.discountedPrice,
-    //     "originalPrice"   : a.productDetail.originalPrice,
-    //     "color"           : a.productDetail.color,
-    //     "size"            : a.productDetail.size,
-    //     "currency"        : a.productDetail.currency,
-    //     "quantity"        : a.quantity,
-    //     "subTotal"        : a.subTotal,
-    //     "saving"          : a.saving,
-    //     "productImage"    : a.productDetail.productImage,
-    //     "section_ID"      : a.productDetail.section_ID,
-    //     "section"         : a.productDetail.section,
-    //     "category_ID"     : a.productDetail.category_ID,
-    //     "category"        : a.productDetail.category,
-    //     "subCategory_ID"  : a.productDetail.subCategory_ID,
-    //     "subCategory"     : a.productDetail.subCategory,
-    //     "vendor_ID"       : a.productDetail.vendor_ID,
-    //   }
-    // })
-    // var value = addData.mobileNumber;
-    // var mobile = "";
-    // value = value.replace(/\s/g, '');
-    // if(value.startsWith("+")){
-    //   var temp = value.substring(3, value.length);
-    //   mobile = temp;
-    //   console.log(mobile);
-    // }
+    // setToast({text: 'Your order is confirmed. Thank you for shopping with us.', color: 'green'});
+    // navigation.navigate('Dashboard');
+    setBtnLoading(true);
+    var cartItems = cartdata.map((a, i) => {
+      return {
+        "product_ID"      : a.productDetail._id,
+        "productName"     : a.productDetail.productName,
+        "discountPercent" : a.productDetail.discountPercent,
+        "discountedPrice" : a.productDetail.discountedPrice,
+        "originalPrice"   : a.productDetail.originalPrice,
+        "color"           : a.productDetail.color,
+        "size"            : a.productDetail.size,
+        "currency"        : a.productDetail.currency,
+        "quantity"        : a.quantity,
+        "subTotal"        : a.subTotal,
+        "saving"          : a.saving,
+        "productImage"    : a.productDetail.productImage,
+        "section_ID"      : a.productDetail.section_ID,
+        "section"         : a.productDetail.section,
+        "category_ID"     : a.productDetail.category_ID,
+        "category"        : a.productDetail.category,
+        "subCategory_ID"  : a.productDetail.subCategory_ID,
+        "subCategory"     : a.productDetail.subCategory,
+        "vendor_ID"       : a.productDetail.vendor_ID,
+      }
+    })
+    var value = addData.mobileNumber;
+    var mobile = "";
+    value = value.replace(/\s/g, '');
+    if(value.startsWith("+")){
+      var temp = value.substring(3, value.length);
+      mobile = temp;
+      console.log(mobile);
+    }
 
-    // var deliveryAddress = {
-    //   "name"          : addData.name,
-    //   "addressLine1"  : addData.addressLine1,
-    //   "addressLine2"  : addData.addressLine2,
-    //   "pincode"       : addData.pincode,
-    //   "city"          : addData.city,
-    //   "state"         : addData.state,
-    //   "mobileNumber"  : mobile,
-    //   "district"      : addData.district,
-    //   "country"       : addData.country,
-    //   "addType"       : addData.addType,
-    //   "latitude"      : addData.latitude,
-    //   "longitude"     : addData.longitude,
-    // }
+    var deliveryAddress = {
+      "name"          : addData.name,
+      "addressLine1"  : addData.addressLine1,
+      "addressLine2"  : addData.addressLine2,
+      "pincode"       : addData.pincode,
+      "city"          : addData.city,
+      "state"         : addData.state,
+      "mobileNumber"  : mobile,
+      "district"      : addData.district,
+      "country"       : addData.country,
+      "addType"       : addData.addType,
+      "latitude"      : addData.latitude,
+      "longitude"     : addData.longitude,
+    }
 
-    // var orderData = {
-    //   user_ID         : userID,
-    //   cartItems       : cartItems,
-    //   total           : totalamountpay,
-    //   shippingtime    : shippingtime,
-    //   cartTotal       : cartdata[0].cartTotal,
-    //   discount        : discount,
-    //   cartQuantity    : cartdata[0].cartQuantity,
-    //   deliveryAddress : deliveryAddress,
-    //   paymentMethod   : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
-    // }
+    var orderData = {
+      user_ID         : userID,
+      cartItems       : cartItems,
+      total           : totalamountpay,
+      shippingtime    : shippingtime,
+      cartTotal       : cartdata[0].cartTotal,
+      discount        : discount,
+      cartQuantity    : cartdata[0].cartQuantity,
+      deliveryAddress : deliveryAddress,
+      paymentMethod   : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
+    }
 
-    // console.log("orderData==>", orderData);
+    console.log("orderData==>", orderData);
     // axios.post('/api/orders/post', orderData)
     //   .then((result) => {
     //     console.log("orderData==>", result.data);

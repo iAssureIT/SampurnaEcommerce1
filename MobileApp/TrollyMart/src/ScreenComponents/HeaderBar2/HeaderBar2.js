@@ -25,10 +25,13 @@ import { SET_SEARCH_CALL,
       SET_SEARCH_TEXT,
       SET_SERACH_LIST
     } 	from '../../redux/globalSearch/types';
-import { useNavigation }                from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/native';
+
 // import {Autocomplete}       from  'react-native-autocomplete-input';
   const HeaderBars2=(props)=>{
-    const navigation = useNavigation();
+    const {navigation} = props;;
+    console.log("navigation",navigation);
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
     const [user_id,setUserId] = useState('');
@@ -103,7 +106,7 @@ import { useNavigation }                from '@react-navigation/native';
           leftComponent={
             <View style={styles.flxdir}>
               <View style={{ marginTop: 10,}}>
-                <TouchableOpacity  onPress={()=> navigation.toggleDrawer()}>
+                <TouchableOpacity  onPress={()=> navigation.dispatch(DrawerActions.toggleDrawer())}>
                   <Icon size={25} name='bars' type='font-awesome' color={colors.theme} />
                 </TouchableOpacity>
               </View>

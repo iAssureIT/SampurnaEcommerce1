@@ -66,7 +66,14 @@ export const SubCatCompView =(props)=>{
         }
     })
     .catch((error) => {
-      console.log('error', error);
+      if (error.response.status == 401) {
+        AsyncStorage.removeItem('user_id');
+        AsyncStorage.removeItem('token');
+        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+        navigation.navigate('Auth')
+      }else{
+        setToast({text: 'Something went wrong.', color: 'red'});
+      }  
     })
   }
 
@@ -89,7 +96,14 @@ export const SubCatCompView =(props)=>{
         }
       })
       .catch((error) => {
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       })
   }
 
@@ -100,7 +114,14 @@ export const SubCatCompView =(props)=>{
         setProductData(response.data);
       })
       .catch((error) => {
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       })
   }
 
@@ -125,7 +146,14 @@ export const SubCatCompView =(props)=>{
       })
       .catch((error) => {
         setAlreadyInCarts(true);
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       })
   }
 

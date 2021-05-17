@@ -45,7 +45,6 @@ export const Menu = (props)=>{
   const logout=()=>{
     AsyncStorage.removeItem('user_id');
     AsyncStorage.removeItem('token');
-    AsyncStorage.removeItem('location');
     navigation.navigate('Auth');
   };
   

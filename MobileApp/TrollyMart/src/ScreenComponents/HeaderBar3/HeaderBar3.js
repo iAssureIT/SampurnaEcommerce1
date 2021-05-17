@@ -38,7 +38,7 @@ export const HeaderBar3 = (props)=>{
           }
           centerComponent={ <Text style={[{fontSize:18,color:'#fff',fontFamily:"Montserrat-SemiBold",textAlign:'center',alignSelf:'center'}]}>{headerTitle}</Text>}
           rightComponent={
-              <View style={{flexDirection:'row'}}>
+              <View style={{flexDirection:'row',marginTop:5}}>
                   <TouchableOpacity>
                     <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
                       <Icon name="bell-o" type="font-awesome" size={23}  color="#fff" style={styles.bellIcon}/>

@@ -62,12 +62,14 @@ import { connect,
 
   const getData=()=>{
     const { product_ID, userId } = route.params;
-    setLoading(true);
-    getshippingamount(startRange,limitRange);
-    setUserId(userId);
-    setProductId(product_ID)
-    getCartItems(userId);
-    getdiscounteddata(startRange,limitRange);
+    if(userId){
+      setLoading(true);
+      getshippingamount(startRange,limitRange);
+      setUserId(userId);
+      setProductId(product_ID)
+      getCartItems(userId);
+      getdiscounteddata(startRange,limitRange);
+    } 
   }
 
   const getdiscounteddata=(startRange, limitRange)=>{
@@ -90,7 +92,14 @@ import { connect,
             }  
         })
         .catch((error) => {
-            console.log('error', error);
+          if (error.response.status == 401) {
+            AsyncStorage.removeItem('user_id');
+            AsyncStorage.removeItem('token');
+            setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+            navigation.navigate('Auth')
+          }else{
+            setToast({text: 'Something went wrong.', color: 'red'});
+          }  
         });
 }
 
@@ -100,7 +109,14 @@ const getshippingamount=(startRange, limitRange)=>{
         setMinValueShipping(response.data[0].shippingcosting);
       })
       .catch((error) => {
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       });
   }
  
@@ -121,7 +137,14 @@ const getCartItems=(userId)=>{
       })
       .catch((error) => {
         setLoading(false);
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       })
   }
 
@@ -138,7 +161,14 @@ const getCartItems=(userId)=>{
         setRemoveFromCart(false)
       })
       .catch((error) => {
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       });
   }
 
@@ -164,7 +194,14 @@ const getCartItems=(userId)=>{
         setToast({text: response.data.message, color: 'green'});
       })
       .catch((error) => {
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       })
   }
 
@@ -196,7 +233,14 @@ const getCartItems=(userId)=>{
         getCartItems(userId);
       })
       .catch((error) => {
-        console.log('error', error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
       })
   }
 
