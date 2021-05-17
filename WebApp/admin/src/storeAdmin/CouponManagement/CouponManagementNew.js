@@ -401,6 +401,9 @@ class CouponManagement extends Component {
                 return {
                     coupontitle         : a.coupontitle,
                     couponcode          : a.couponcode,
+                    section             : a.section,
+                    category            : a.category,
+                    subCategory         : a.subCategory,
                     // coupentype          : a.coupentype,
                     coupenin            : a.coupenin,
                     coupenvalue         : a.coupenvalue,

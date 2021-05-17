@@ -1,7 +1,7 @@
 const mongoose  = require("mongoose");
 const Coupen    = require('./Model');
 
-
+/**=========== insert_coupon ===========*/
 exports.insert_coupon = (req, res, next) => {
     console.log("req.body => ",req.body);
 
@@ -23,16 +23,6 @@ exports.insert_coupon = (req, res, next) => {
         coupenImage         : req.body.coupenImage,
         createdBy           : req.body.createdBy,
         createdAt           : new Date()
-        // maxdiscountvalue    :  req.body.maxdiscountvalue,
-        // coupentype          :  req.body.coupentype  ,
-        // couponcodeusage     :  req.body.couponcodeusage,
-        // availablefor        :  req.body.availablefor,
-        // selectedCategory    :  req.body.selectedCategory   ,
-        // discounttype: req.body.discounttype,
-        // selectedBrand       :  req.body.selectedBrand   ,
-        // selectedProducts    :  req.body.selectedProducts   ,
-        // description         :  req.body.description   ,
-        // termscondition      :  req.body.termscondition ,
     });
     console.log("CoupenObj===>", CoupenObj);
     CoupenObj
@@ -49,6 +39,7 @@ exports.insert_coupon = (req, res, next) => {
         });
 };
 
+/**=========== get_coupon ===========*/
 exports.get_coupon = (req, res, next) => {
     // console.log("<><><><><><><><><><><><><>");
     Coupen.find({})
@@ -64,6 +55,28 @@ exports.get_coupon = (req, res, next) => {
         });
 };
 
+/**=========== get_coupon ===========*/
+exports.get_coupon_by_couponcode = (req, res, next) => {
+    // console.log("<><><><><><><><><><><><><>");
+    Coupen.findOne({"couponcode" : req.params.couponCode})
+        .exec()
+        .then(data => {
+            console.log("couponcode data ", data);
+            
+            if(data){
+                res.status(200).json(data);
+            }else{
+                res.status(200).json({message : "This promotional code you entered is not valid...!"});
+            }
+            
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+/**=========== get_single_coupon ===========*/
 exports.get_single_coupon = (req, res, next) => {
     Coupen.findOne({ _id: req.params.couponID })
         .exec()
@@ -77,6 +90,7 @@ exports.get_single_coupon = (req, res, next) => {
         });
 };
 
+/**=========== update_coupon ===========*/
 exports.update_coupon = (req, res, next) => {
     // console.log("Update Body = ", req.body);
     Coupen.updateOne(
@@ -117,6 +131,7 @@ exports.update_coupon = (req, res, next) => {
         });
 };
 
+/**=========== couponBulkAction ===========*/
 exports.couponBulkAction = (req, res, next) => {
     var field = req.body.selectedAction;
     // console.log('field', field);
@@ -173,6 +188,8 @@ exports.couponBulkAction = (req, res, next) => {
             });
     }
 };
+
+/**=========== delete_coupon ===========*/
 exports.delete_coupon = (req, res, next) => {
     Coupen.deleteOne({ _id: req.params.couponID })
         .exec()
@@ -189,7 +206,7 @@ exports.delete_coupon = (req, res, next) => {
         });
 };
 
-
+/**===========  ===========*/
 exports.count_discount = (req, res, next) => {
     Coupen.find({})
         .exec()
@@ -204,6 +221,7 @@ exports.count_discount = (req, res, next) => {
         });
 };
 
+/**===========  ===========*/
 exports.get_discounts_with_limits = (req, res, next) => {
     Coupen.find()
         .skip(parseInt(req.params.startRange))

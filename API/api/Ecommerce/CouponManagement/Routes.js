@@ -14,6 +14,8 @@ router.get('/get/count', 												checkAuth, CouponManagementController.count
 
 router.get('/get/one/:couponID', 									checkAuth, CouponManagementController.get_single_coupon);
 
+router.get('/get/one_by_couponcode/:couponCode', 						CouponManagementController.get_coupon_by_couponcode);
+
 router.patch('/patch', 													checkAuth, CouponManagementController.update_coupon);
 
 router.patch('/patch/couponBulkAction', 							checkAuth, CouponManagementController.couponBulkAction);
