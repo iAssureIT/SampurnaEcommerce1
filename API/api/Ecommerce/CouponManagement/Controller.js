@@ -1,5 +1,6 @@
 const mongoose  = require("mongoose");
 const Coupen    = require('./Model');
+const Order     = require('../orders/Model');
 
 /**=========== insert_coupon ===========*/
 exports.insert_coupon = (req, res, next) => {
@@ -58,15 +59,18 @@ exports.get_coupon_by_couponcode = (req, res, next) => {
     // console.log("params => ",req.params.couponCode);
     Coupen.findOne({"couponcode" : req.params.couponCode})
     .exec()
-    .then(data => {
-        console.log("couponcode data ", data);
-        
-        if(data){
-            res.status(200).json(data);
+    .then(coupen => {
+        if(coupen){
+            Order.find({coupen_id:coupen._id}).count()
+            .then(count=>{
+                res.status(200).json(coupen);
+            })
+            .catch(err=>{
+                console.log("err",err)
+            })
         }else{
             res.status(200).json({message : "This promotional code you entered is not valid...!"});
-        }
-        
+        }    
     })
     .catch(err => {
         res.status(500).json({

@@ -251,9 +251,14 @@ const getCartItems=(userId)=>{
   }
 
   const applyCoupen=()=>{
-      axios.get('/api/coupen/get/one/'+coupenCode)
+      axios.get('/api/coupon/get/one_by_couponcode/'+coupenCode+"/"+userId)
       .then(res=>{
         console.log("res",res);
+        if(res.data.message){
+          setToast({text: res.data.message, color:'red'});
+        }else{
+            // if(totalPrice > res.data.)
+        }
       })
       .catch(err=>{
         console.log("err",err);
@@ -539,7 +544,7 @@ const getCartItems=(userId)=>{
                         <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                       </View>
                       <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
-                        <View style={{flex:.8}}>
+                        <View style={{flex:.7}}>
                           <Input
                             // label                 =  {<Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,}}>
                             //                             <Text>Promotional Code</Text>{' '}
@@ -556,10 +561,10 @@ const getCartItems=(userId)=>{
                             autoCapitalize        = 'characters'
                           />
                         </View>  
-                        <View style={{flex:.2}}>
+                        <View style={{flex:.3}}>
                           <FormButton 
-                            onSubmit    = {applyCoupen}
-                            title       = {'Add'}
+                            onPress    = {()=>applyCoupen()}
+                            title       = {'Apply'}
                             background  = {true}
                           /> 
                         </View>  

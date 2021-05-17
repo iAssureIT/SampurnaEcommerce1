@@ -9,6 +9,7 @@ const orderSchema = mongoose.Schema({
     allocatedToFranchise      : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
     emailID                   : String,
     BA_ID                     : { type: mongoose.Schema.Types.ObjectId, ref: 'businessAssociate' }, 
+    coupon_id                 : { type: mongoose.Schema.Types.ObjectId, ref: 'coupon' }, 
     userFullName              : String,
     userName                  : String,
     numericOrderID            : Number,
