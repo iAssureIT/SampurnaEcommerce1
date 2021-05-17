@@ -10,8 +10,8 @@ class ShoppingVerticals extends Component {
     super(props);
     this.state = {      
       productType        : props.type,
-      itemList        : [
-       
+      itemList           : [
+        
       ],
       Productsloading    : true,
       blockTitle         : "Shopping Verticals",      
@@ -30,9 +30,9 @@ class ShoppingVerticals extends Component {
         showOnlySubCategory   : false,
         numOfRows             : 2,    
         numOfItemPerRow       : 4,      
-        noOfItemPerLGRow      : 6,
-        noOfItemPerMDRow      : 4,
-        noOfItemPerSMRow      : 3,
+        noOfItemPerLGRow      : 3,
+        noOfItemPerMDRow      : 3,
+        noOfItemPerSMRow      : 4,
         noOfItemPerXSRow      : 2,
     }, 
     };
@@ -44,7 +44,7 @@ class ShoppingVerticals extends Component {
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((blockresponse)=>{
         if(blockresponse.data){
-        console.log("groupsettings response data====",blockresponse.data);                
+        // console.log("groupsettings response data====",blockresponse.data);                
         this.setState({
            groupSettings    : blockresponse.data.groupSettings,   
            blockTitle       : blockresponse.data.blockTitle,
@@ -66,7 +66,7 @@ class ShoppingVerticals extends Component {
               itemList     : itemList,
               Productsloading : false,              
             },()=>{
-                console.log("itemList after set state===",this.state.itemList);
+                // console.log("itemList after set state===",this.state.itemList);
             });
           }
           })
@@ -83,11 +83,18 @@ class ShoppingVerticals extends Component {
   }
 
   render() {
+    var XLcol = 12/this.state.groupSettings.numOfItemPerRow;
+    var LGCol = 12/this.state.groupSettings.noOfItemPerLGRow;
+    var MDCol = 12/this.state.groupSettings.noOfItemPerMDRow;
+    var SMCol = 12/this.state.groupSettings.noOfItemPerSMRow;
+    var XSCol = 12/this.state.groupSettings.noOfItemPerXSRow;
+    var url;
+
     const responsive = {
       desktop: {
         breakpoint: { max: 3000, min: 1024 },
-        // items: this.state.groupSettings.displayItemInCarousel,
-        item: 12/this.state.groupSettings.numOfItemPerRow,
+        items: 4,
+        item: XLcol,
         slidesToSlide: 1 // optional, default to 1.
       },
       tablet: {
@@ -97,18 +104,14 @@ class ShoppingVerticals extends Component {
       },
       mobile: {
         breakpoint: { max: 464, min: 0 },
-        items: 1,
+        items: XSCol,
         slidesToSlide: 1 // optional, default to 1.
       }
     };
 
     // console.log("inside rendor this.state.itemList===",this.state.itemList);
     // console.log("this.state.groupSettings.noOfItem",this.state.groupSettings.showCarousel);
-    var XLcol = 12/this.state.groupSettings.numOfItemPerRow;
-    var LGCol = 12/this.state.groupSettings.noOfItemPerLGRow;
-    var MDCol = 12/this.state.groupSettings.noOfItemPerMDRow;
-    var SMCol = 12/this.state.groupSettings.noOfItemPerSMRow;
-    var XSCol = 12/this.state.groupSettings.noOfItemPerXSRow;
+    
 
     return (
       <div className="col-12 mt20">
@@ -124,61 +127,79 @@ class ShoppingVerticals extends Component {
           </div>
           :null}   
           <div className="col-12 tab-content customTabContent ">
-            { this.state.groupSettings.showCarousel?
-                <Carousel  
-                  className="customnNavButton"
-                  swipeable={false}
-                  draggable={true}
-                  showDots={false}
-                  responsive={responsive}
-                  ssr={true} // means to render carousel on server-side.
-                  infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                  autoPlaySpeed={3000}
-                  keyBoardControl={true}
-                  customTransition="all .20"
-                  transitionDuration={500}                      
-                  removeArrowOnDeviceType={["mobile"]}
-                  deviceType={this.props.deviceType}                      
-                  itemClass="carousel-item-padding-10-px">
-                  {
-                    Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
-                      Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {  
-                        return (
-                        <div className="col-12 sectionCategoryBlock NoPadding"  key={index}> 
-                        {console.log("his.state.itemList => ",this.state.itemList)}
-                            {/* <div className="itemImg col-12 NoPadding">
-                              <a className="product photo product-item-photo collage" tabIndex="-1" href={"/section/"+data.itemUrl}>
-                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" />
-                              </a>
-                            </div>
-                            <div className="col-12 item_Name text-center" title={data.item}>{data.itemUrl}</div> */}
-                        </div>                            
-                        );
-                      })
-                      : ''
+          { this.state.groupSettings.showCarousel === true?
+           this.state.itemList && this.state.itemList.length > 0 ?
+           <Carousel 
+           className="customnNavButton"
+              swipeable={false}
+              draggable={true}
+              showDots={false}
+              responsive={responsive}
+              ssr={true} // means to render carousel on server-side.
+              infinite={true}
+              autoPlay={this.props.deviceType !== "mobile" ? true : false}
+              autoPlaySpeed={3000}
+              keyBoardControl={true}
+              customTransition="all .20"
+              transitionDuration={500}                      
+              removeArrowOnDeviceType={["mobile"]}
+              deviceType={this.props.deviceType}  
+              containerClass="carousel-container">
+                {this.state.itemList.map((data, index) => {  
+                  { if(this.state.groupSettings.showOnlySection){
+                    url = "/section/"+data.itemUrl;
+                   }else if(this.state.groupSettings.showOnlyCategory){
+                    url = "/category/"+data.itemUrl;
+                   }else{
+                    url = "/subcategory/"+data.itemUrl;
+                   }
                   }
-                </Carousel>                    
-                :
-                <div className="row sectionCategoryBlock">                      
-                  {
-                    Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
-                      Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {                      
-                        return (
-                          <div className={"col-"+XLcol} key={index}>
-                                <div className="productImg col-12 NoPadding">
-                                  <a className="product photo product-item-photo collage" tabIndex="-1" href={data.itemUrl}>
-                                    <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />
-                                  </a>
-                                </div>
-                                <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>                              
-                          </div>                    
-                        );
-                      })
-                      : ''
-                  }	
-                </div>    
-            } 
+                  return (
+                  <div className="col-12 sectionCategoryBlock"  key={index}> 
+                      <a href={url} className ="secCateblock"> 
+                        <div className="itemImg col-12 NoPadding">
+                          <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
+                            <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" />
+                          </a>
+                        </div>
+                        <div className="col-12 item_Name text-center" title={data.item}>{data.itemUrl}</div>
+                      </a>
+                  </div>                            
+                  );
+                })
+              }
+          </Carousel>
+          : ''
+        :
+          <div className="row sectionCategoryBlock">                      
+            {
+              Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
+                Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => { 
+                  { if(this.state.groupSettings.showOnlySection){
+                    url = "/section/"+data.itemUrl;
+                   }else if(this.state.groupSettings.showOnlyCategory){
+                    url = "/category/"+data.itemUrl;
+                   }else{
+                    url = "/subcategory/"+data.itemUrl;
+                   }
+                  }                     
+                  return (
+                    <div className={"col-"+XLcol} key={index}>
+                      <a href={url} className ="secCateblock"> 
+                          <div className="productImg col-12 ">
+                            <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
+                              <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />
+                            </a>
+                          </div>
+                          <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>  
+                      </a>                             
+                    </div>                    
+                  );
+                })
+                : ''
+            }	
+          </div>    
+        } 
           </div>
       </div>
     );

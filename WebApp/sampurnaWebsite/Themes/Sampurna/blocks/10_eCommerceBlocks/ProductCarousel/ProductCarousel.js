@@ -200,18 +200,18 @@ class ProductCarousel extends Component {
         },()=>{
           if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-            // console.log("productApiUrl===",productApiUrl);
+            console.log("productApiUrl===",productApiUrl);
           }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
             var productApiUrl = this.props.productApiUrl;
-            // console.log("productApiUrl===",productApiUrl);
+            console.log("productApiUrl===",productApiUrl);
           }else{ 
               var productApiUrl = this.state.blockSettings.blockApi;
-              // console.log("productApiUrl===",this.props.productApiUrl);
+              console.log("productApiUrl===",this.props.productApiUrl);
           }
           axios.get(productApiUrl)      
           .then((response)=>{
             if(response.data){     
-            // console.log("response.data in product carousel===",response.data);       
+            console.log("response.data in product carousel===",response.data);       
             if(localStorage.getItem('websiteModel')=== "FranchiseModel"){
               for(var i=0;i<response.data.length;i++){       
                   var availableSizes = [];         
@@ -233,7 +233,7 @@ class ProductCarousel extends Component {
                   loading         : false
                 });  
               }
-                // console.log("Products list===",this.state.newProducts);
+                console.log("Products list===",this.state.newProducts);
                 // this.getFilteredProducts(this.state.selector);
             });
           }

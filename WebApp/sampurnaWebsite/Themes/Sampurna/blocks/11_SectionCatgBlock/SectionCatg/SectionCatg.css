@@ -1,6 +1,7 @@
 .item_Name{
     font-size: 18px;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .sectionCategoryBlock img{
@@ -12,4 +13,13 @@
 }
 .itemImg img{
     border-radius: 10px;
+}
+.secCateblock{
+    text-decoration: none !important;
+    color: #000;
+    transition: 0.6s ease;
+    margin-bottom: 15px;
+}
+.secCateblock:hover{
+    color: lightcoral;
 }

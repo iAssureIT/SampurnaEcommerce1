@@ -68,18 +68,18 @@ export default class Banner extends React.Component {
 
     componentDidMount(){
       if(this.state.blocks.animationSettings.effect === "flip"){
-      this.swiper = new Swiper('.swiper-container', {        
-        effect: 'flip',
-        grabCursor: true,                       
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },        
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-      });
+      // this.swiper = new Swiper('.swiper-container', {        
+      //   effect: 'flip',
+      //   grabCursor: true,                       
+      //   navigation: {
+      //     nextEl: '.swiper-button-next',
+      //     prevEl: '.swiper-button-prev',
+      //   },        
+      //   pagination: {
+      //     el: '.swiper-pagination',
+      //     clickable: true,
+      //   },
+      // });
     }
 
       $(document).ready(function(){		
@@ -249,7 +249,7 @@ export default class Banner extends React.Component {
       }
     }
 
-		return (
+		return ( 
 						<div className={"col-12 bannerContainerEcomm " +Style.bannerContainerEcomm}>
 							<div className="row">                 
                   <div className={"swiper-container col-12 " +Style.swiperContainer}>    
@@ -262,7 +262,7 @@ export default class Banner extends React.Component {
                               <div key={index} className={Style.item +" swiper-slide col-12 NoPadding"}>
                                 {data.BgVideo?
                                   <div className={"col-12 " +Style.NOpadding +" " +Style.fullScreen_videoWrap}>
-                                    Banner_item__2k6WT swiper-slide col-12 NoPadding swiper-slide-active<div className={"col-12 " +Style.NOpadding}>
+                                    <div className={"col-12 " +Style.NOpadding}>
                                       <video autoplay="true" muted loop="true" id="bannerVedio"
                                       src={data.BgVideo} type="video/mp4" width="100%" height="700px"/>
                                     </div> 

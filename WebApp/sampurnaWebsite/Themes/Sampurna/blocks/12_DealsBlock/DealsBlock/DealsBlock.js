@@ -1,6 +1,7 @@
 import React, { Component }   from 'react';
 import $                      from 'jquery';
 import axios                  from 'axios';
+import Image                  from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -53,11 +54,11 @@ class ShoppingVerticals extends Component {
            dealSettings    : blockresponse.data.dealSettings,   
            blockTitle       : blockresponse.data.blockTitle,
         },()=>{
-          console.log("after setstate dealSettings===",this.state.dealSettings.blockApi);
+          // console.log("after setstate dealSettings===",this.state.dealSettings.blockApi);
           axios.post(this.state.dealSettings.blockApi,this.state.dealSettings)      
           .then((blockApiResponse)=>{
             if(blockApiResponse.data){    
-              console.log("DealBlock list response data====", blockApiResponse.data,blockApiResponse.data.length);  
+              // console.log("DealBlock list response data====", blockApiResponse.data,blockApiResponse.data.length);  
               var itemList = []; 
                 for(var i=0;i<blockApiResponse.data.length;i++){ 
                       itemList.push({
@@ -148,13 +149,21 @@ class ShoppingVerticals extends Component {
                 <div className="row sectionCategoryBlock">                      
                   {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
-                      Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {                      
+                      this.state.itemList.map((data, index) => {                      
                         return (
                           <div className={"col-"+XLcol} key={index}>
                               <div className="col-12">
                                 <div className="productImg col-12 NoPadding">
                                   <a className="product photo product-item-photo collage" tabIndex="-1" href={data.itemUrl}>
-                                    <img src={data.dealImg ? data.dealImg : "/images/CMSImages/notavailable.jpg"} alt="ProductImg" />
+                                    <img src={data.dealImg ? data.dealImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />
+                                    {/* <Image                                           
+                                        src={data.dealImg ? data.dealImg: "/images/eCommerce/notavailable.jpg"}
+                                        alt="ProductImg" 
+                                        className={"img-responsive NoAvailableImg"}
+                                        height={400}
+                                        width={1200} 
+                                        layout={'intrinsic'}
+                                      /> */} 
                                   </a>
                                 </div>
                               </div>

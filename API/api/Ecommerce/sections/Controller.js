@@ -256,7 +256,7 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
         var limitRange = req.body.numOfRows * req.body.numOfItemPerRow;
     }
 
-    // console.log("selector => ",selector)
+    console.log("selector => ",selector)
 
     Sections.aggregate([
         {$match : selector},
@@ -271,7 +271,7 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
     ])
     .exec()
     .then(sectiondata=>{
-        // console.log("section data => ", sectiondata);
+        console.log("section data => ", sectiondata);
         var returnData = [];
         if (sectiondata && sectiondata.length > 0) {  
             processData();
