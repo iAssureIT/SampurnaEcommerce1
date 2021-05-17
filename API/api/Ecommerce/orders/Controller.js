@@ -576,7 +576,7 @@ exports.insert_orders = (req, res, next) => {
 							// console.log("vendorData => ",vendorData);
 							var formValues = {
 								orderID                   	: data.orderID,
-								order_ID                   : data._id,
+								order_ID                   	: data._id,
 								vendorOrderID             	: data.orderID + "-" + vendorData.vendorID,
 								user_ID                   	: data.user_ID,
 								emailID                   	: data.emailID,
@@ -593,8 +593,8 @@ exports.insert_orders = (req, res, next) => {
 								productLength             	: filteredVendorProducts.length,
 								deliveryAddress           	: data.deliveryAddress,
 								deliveryStatus            	: data.deliveryStatus,
-								vendorID 						: vendorData.vendorID,
-								vendor_ID 						: uniqueVendorArray[i],
+								vendorID 					: vendorData.vendorID,
+								vendor_ID 					: uniqueVendorArray[i],
 								createdBy                 	: data.createdBy,
 								createdAt                 	: new Date()
 							}

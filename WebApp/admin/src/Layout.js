@@ -49,7 +49,7 @@ import DeliveredOrders              from './StoreManagement/orders/component/Del
 import ReturnProducts               from './StoreManagement/orders/component/ReturnProducts.js';
 
 import DiscountManagement           from './storeAdmin/DiscountManagement/DiscountManagement.js';
-import CouponManagement             from './storeAdmin/CouponManagement/CouponManagement.js';
+import CouponManagement             from './storeAdmin/CouponManagement/CouponManagementNew.js';
 
 import BaList                       from './storeAdmin/baManagement/listOfBAs/components/BusinessAssociateList.js';
 import AddNewBA                     from './storeAdmin/baManagement/BAOnboarding/basicInfo/basicInfo.js';

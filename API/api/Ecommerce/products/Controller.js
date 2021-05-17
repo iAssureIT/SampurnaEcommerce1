@@ -133,7 +133,7 @@ exports.bulkUploadProduct = (req,res,next)=>{
                         return vendorData;
                     }
                 })                
-                // console.log("EntityData = ", EntityData );
+                console.log("EntityData = ", EntityData );
             }else{
                 var EntityData = allEntityData.filter((vendorData)=>{
                     if (vendorData.companyID === allEntityData[0].companyID) {
@@ -3026,7 +3026,7 @@ var insertUnitOfMeasurment = async(unit,created) =>{
 
 // bulk Product update 
 exports.bulkProductUpdate = (req,res,next)=>{
-    // console.log("req.body bulkProductUpdate => ",req.body);
+    console.log("req.body bulkProductUpdate => ",req.body);
     var record          = []; 
     var failedRecords   = [];
     var i               = 0;
@@ -3115,6 +3115,7 @@ exports.bulkProductUpdate = (req,res,next)=>{
                                          console.log('updateProductBulk => ',updateProductObject)
 
                                         if (updateProductObject !== 0 && updateProductObject !== null) {
+                                            console.log("updateProductObject.nModified => ",updateProductObject.nModified);
                                             if(updateProductObject.nModified !== 0){
                                                 Count++;
                                             }
@@ -3156,7 +3157,7 @@ exports.bulkProductUpdate = (req,res,next)=>{
             // if (productData[k].brand == undefined) {
             //     remark += "brand not found, ";
             // }
-            if (productData[k].availableQuantity === undefined) {
+            if (productData[k].qty === undefined) {
                 remark += "product quantity not found, ";
             }
             // if (productData[k].originalPrice == undefined) {
@@ -3167,21 +3168,22 @@ exports.bulkProductUpdate = (req,res,next)=>{
             
 
             if (remark != '') {
-                invalidObjects = productData[k];
-                invalidObjects.remark = remark;
+                invalidObjects          = productData[k];
+                invalidObjects.remark   = remark;
                 invalidData.push(invalidObjects);
             } 
             remark = '';
         }
         
         failedRecords.FailedRecords = invalidData
-        failedRecords.fileName = productData[0].filename;
-        failedRecords.totalRecords = TotalCount;
+        failedRecords.fileName      = productData[0].filename;
+        failedRecords.totalRecords  = TotalCount;
 
         await insertFailedRecords(failedRecords); 
         
-        var msgstr = "";
+        var msgstr  = "";
         var warning = false;
+
         if (DuplicateCount > 0 && Count > 0) {
             if (DuplicateCount > 1 && Count > 1) {
                msgstr =  " " + Count+" products are updated successfully and "+"\n"+DuplicateCount+" products are duplicate";
@@ -3194,8 +3196,7 @@ exports.bulkProductUpdate = (req,res,next)=>{
                 msgstr =  " " + Count+" product is updated successfully and "+"\n"+DuplicateCount+" products are duplicate";
             }else if(DuplicateCount == 1 && Count > 1){
                 msgstr =  " " + Count+" products are updated successfully and "+"\n"+DuplicateCount+" product is duplicate";
-            }
-            
+            }            
         }
         else if(DuplicateCount > 0 && Count == 0)
         {
@@ -3216,7 +3217,7 @@ exports.bulkProductUpdate = (req,res,next)=>{
                 msgstr = " " + Count+" product is updated successfully";
             }            
         }else{
-            msgstr = "Failed to update products";
+            msgstr  = "Failed to update products";
             warning = true;
         }
 
@@ -3369,20 +3370,20 @@ exports.bulkUploadProductUpdate = (req,res,next)=>{
             
 
             if (remark != '') {
-                invalidObjects = productData[k];
-                invalidObjects.remark = remark;
+                invalidObjects          = productData[k];
+                invalidObjects.remark   = remark;
                 invalidData.push(invalidObjects);
             } 
             remark = '';
         }
         
         failedRecords.FailedRecords = invalidData
-        failedRecords.fileName = productData[0].filename;
-        failedRecords.totalRecords = TotalCount;
+        failedRecords.fileName      = productData[0].filename;
+        failedRecords.totalRecords  = TotalCount;
 
         await insertFailedRecords(failedRecords); 
         
-        var msgstr = "";
+        var msgstr  = "";
         var warning = false;
         if (DuplicateCount > 0 && Count > 0) {
             if (DuplicateCount > 1 && Count > 1) {

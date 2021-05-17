@@ -103,7 +103,7 @@ class BulkUploadComponent extends Component{
 		})  
 	}
 
-	/**===========  =========== */
+	/**=========== componentWillReceiveProps() =========== */
   	componentWillReceiveProps(nextProps) {
   	/*axios
 		  .get(this.props.fileDetailUrl+"products.xlsx")
@@ -381,7 +381,7 @@ class BulkUploadComponent extends Component{
 					if (response) {
 						this.setState({
 							fileDetails 			: response.data,
-							failedRecordsCount 	: response.data.failedRecords.length,
+							failedRecordsCount 		: response.data.failedRecords.length,
 							goodDataCount 			: response.data.goodrecords.length
 						});
 
@@ -390,17 +390,17 @@ class BulkUploadComponent extends Component{
 							return{
 								"remark"        		: a.remark        		? a.remark    : '-',
 								"section"       		: a.section        		? a.section    : '-',
-								"category"      		: a.category     			? a.category : '-',
+								"category"      		: a.category     		? a.category : '-',
 								"categoryNameRlang" 	: a.categoryNameRlang 	? "<span class='RegionalFont'>"+a.categoryNameRlang+"</span>" : '-',
-								"brand"          		: a.brand     				? a.brand : '-',
+								"brand"          		: a.brand     			? a.brand : '-',
 								"brandNameRlang"		: a.brandNameRlang 		? "<span class='RegionalFont'>"+a.brandNameRlang+"</span>" : '-',
-								"productName"   		: a.productName     		? a.productName : '-',
-								"productNameRlang"	: a.productNameRlang 	? "<span class='RegionalFont'>"+a.productNameRlang+"</span>" : '-',
-								"productCode"   		: a.productCode     		? a.productCode : '-',
-								"itemCode"      		: a.itemCode     			? a.itemCode : '-',
-								"originalPrice" 		: a.originalPrice 		? "<i class='fa fa-"+a.currency.toLowerCase()+"'></i> "+a.originalPrice.toString() : '-',
-								"discountedPrice" 	: a.discountedPrice 		? "<i class='fa fa-"+a.currency.toLowerCase()+"'></i> "+a.discountedPrice.toString() : '-', 
-								"size"   				: a.size     				? a.size : '-', 
+								"productName"   		: a.productName     	? a.productName : '-',
+								"productNameRlang"		: a.productNameRlang 	? "<span class='RegionalFont'>"+a.productNameRlang+"</span>" : '-',
+								"productCode"   		: a.productCode     	? a.productCode : '-',
+								"itemCode"      		: a.itemCode     		? a.itemCode : '-',
+								"originalPrice" 		: a.originalPrice 		? "<i class='fa fa-"+a.currency+"'></i> "+a.originalPrice.toString() : '-',
+								"discountedPrice" 		: a.discountedPrice 	? "<i class='fa fa-"+a.currency+"'></i> "+a.discountedPrice.toString() : '-', 
+								"size"   				: a.size     			? a.size : '-', 
 								// "color"   : a.color     ? a.color : '-'
 							}
 						})
@@ -409,17 +409,17 @@ class BulkUploadComponent extends Component{
 							return{
 								"remark"        		: a.remark        		? a.remark    : '-',
 								"section"       		: a.section        		? a.section    : '-',
-								"category"      		: a.category     			? a.category : '-',
-								"categoryNameRlang"	: a.categoryNameRlang 	? "<span class='RegionalFont'>"+a.categoryNameRlang+"</span>" : '-',
-								"brand"         		: a.brand     				? a.brand : '-',
+								"category"      		: a.category     		? a.category : '-',
+								"categoryNameRlang"		: a.categoryNameRlang 	? "<span class='RegionalFont'>"+a.categoryNameRlang+"</span>" : '-',
+								"brand"         		: a.brand     			? a.brand : '-',
 								"brandNameRlang"		: a.brandNameRlang 		? "<span class='RegionalFont'>"+a.brandNameRlang+"</span>" : '-',
-								"productName"   		: a.productName     		? a.productName : '-',
-								"productNameRlang"	: a.productNameRlang 	? "<span class='RegionalFont'>"+a.productNameRlang+"</span>" : '-',
-								"productCode"   		: a.productCode     		? a.productCode : '-',
-								"itemCode"      		: a.itemCode     			? a.itemCode : '-',
-								"originalPrice" 		: a.originalPrice 		? "<i class='fa fa-"+a.currency.toLowerCase()+"'></i> "+a.originalPrice.toString() : '-',
-								"discountedPrice" 	: a.discountedPrice 		? "<i class='fa fa-"+a.currency.toLowerCase()+"'></i> "+a.discountedPrice.toString() : '-',
-								"size"          		: a.size     				? a.size : '-', 
+								"productName"   		: a.productName     	? a.productName : '-',
+								"productNameRlang"		: a.productNameRlang 	? "<span class='RegionalFont'>"+a.productNameRlang+"</span>" : '-',
+								"productCode"   		: a.productCode     	? a.productCode : '-',
+								"itemCode"      		: a.itemCode     		? a.itemCode : '-',
+								"originalPrice" 		: a.originalPrice 		? "<i class='fa fa-"+a.currency+"'></i> "+a.originalPrice.toString() : '-',
+								"discountedPrice" 		: a.discountedPrice 	? "<i class='fa fa-"+a.currency+"'></i> "+a.discountedPrice.toString() : '-',
+								"size"          		: a.size     			? a.size : '-', 
 								// "color"         : a.color     ? a.color : '-',
 							}
 						})
@@ -514,7 +514,7 @@ class BulkUploadComponent extends Component{
 			"csv"
 		]
 		console.log("required Data  => ", this.props.requiredData);
-		console.log("vendorShow => ",this.props.requiredData.vendorShow);
+		console.log("vendorShow => ",this.props.requiredData.showVendor);
 		return (
 			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<Loader type="fullpageloader" percentage={this.state.percentage}/>
@@ -535,7 +535,7 @@ class BulkUploadComponent extends Component{
 							</ul>
 						</div>
 					</div>
-					{localStorage.getItem('roles') === 'admin' && this.props.requiredData && this.props.requiredData.vendorShow
+					{localStorage.getItem('roles') === 'admin' && this.props.requiredData && this.props.requiredData.showVendor
 					?
 						<div className="col-lg-4 col-md-4 col-sm-4 col-xs-4 inputFields marginTopp">
 							<label>Vendor <i className="redFont">*</i></label>
@@ -581,7 +581,7 @@ class BulkUploadComponent extends Component{
 					</div>
 					{this.state.finalData.length > 0 
 					?
-						<div className="col-lg-2 col-md-2 col-sm-3 col-xs-5">
+						<div className="col-lg-2 col-md-2 col-sm-3 col-xs-5 btnDiv">
 							<button className="submitBtn btn btnSubmit button3 btnstyle"
 								onClick={this.bulkUpload.bind(this)} >Submit
 							</button>

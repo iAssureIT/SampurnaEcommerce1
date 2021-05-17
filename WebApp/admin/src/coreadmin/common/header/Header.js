@@ -108,6 +108,7 @@ class Header2 extends Component {
 		.then((response) => {
 			console.log("/api/entitymaster/get/appCompany response.data = ", response.data);
 			if (response.data.length > 0) {
+				
 				this.setState({
 					entityList: response.data,
 					entityID: response.data[0]._id
