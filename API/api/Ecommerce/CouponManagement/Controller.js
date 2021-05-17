@@ -3,7 +3,7 @@ const Coupen    = require('./Model');
 
 /**=========== insert_coupon ===========*/
 exports.insert_coupon = (req, res, next) => {
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
 
     const CoupenObj = new Coupen({
         _id                 : new mongoose.Types.ObjectId(),
@@ -16,7 +16,7 @@ exports.insert_coupon = (req, res, next) => {
         coupenvalue         : req.body.coupenvalue,
         minPurchaseAmount   : req.body.minPurchaseAmount,
         maxDiscountAmount   : req.body.maxDiscountAmount,
-        numOfOrders         : req.body.numOfOrders,
+        couponLimit         : req.body.numOfOrders,
         status              : req.body.status,
         startdate           : req.body.startdate, 
         enddate             : req.body.enddate,
@@ -24,70 +24,70 @@ exports.insert_coupon = (req, res, next) => {
         createdBy           : req.body.createdBy,
         createdAt           : new Date()
     });
-    console.log("CoupenObj===>", CoupenObj);
     CoupenObj
-        .save()
-        .then(data => {
-            res.status(200).json({
-                "message": "Coupen is submitted successfully."
-            });
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            });
+    .save()
+    .then(data => {
+        res.status(200).json({
+            "message": "Coupen is submitted successfully."
         });
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
+    });
 };
 
 /**=========== get_coupon ===========*/
 exports.get_coupon = (req, res, next) => {
-    // console.log("<><><><><><><><><><><><><>");
     Coupen.find({})
-        .sort({createdAt : -1})
-        .exec()
-        .then(data => {
-            res.status(200).json(data);
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            });
+    .sort({createdAt : -1})
+    .exec()
+    .then(data => {
+        res.status(200).json(data);
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
         });
+    });
 };
 
 /**=========== get_coupon ===========*/
 exports.get_coupon_by_couponcode = (req, res, next) => {
-    // console.log("<><><><><><><><><><><><><>");
+    // console.log("params => ",req.params.couponCode);
     Coupen.findOne({"couponcode" : req.params.couponCode})
-        .exec()
-        .then(data => {
-            console.log("couponcode data ", data);
-            
-            if(data){
-                res.status(200).json(data);
-            }else{
-                res.status(200).json({message : "This promotional code you entered is not valid...!"});
-            }
-            
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            });
+    .exec()
+    .then(data => {
+        console.log("couponcode data ", data);
+        
+        if(data){
+            res.status(200).json(data);
+        }else{
+            res.status(200).json({message : "This promotional code you entered is not valid...!"});
+        }
+        
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
         });
+    });
 };
+
 /**=========== get_single_coupon ===========*/
 exports.get_single_coupon = (req, res, next) => {
+    // console.log("params => ",req.params.couponID);
     Coupen.findOne({ _id: req.params.couponID })
-        .exec()
-        .then(data => {
-            res.status(200).json(data);
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            });
+    .exec()
+    .then(data => {
+        res.status(200).json(data);
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
         });
+    });
 };
 
 /**=========== update_coupon ===========*/
@@ -97,50 +97,47 @@ exports.update_coupon = (req, res, next) => {
         { _id: req.body.couponID },
         {
             $set: {
-            coupontitle         :  req.body.coupontitle  ,
-            couponcode          :  req.body.couponcode  ,
-            coupentype          :  req.body.coupentype  ,
-            couponcodeusage     :  req.body.couponcodeusage,
-            coupenin            :  req.body.coupenin ,
-            coupenvalue         :  req.body.coupenvalue ,
-            maxdiscountvalue    :  req.body.maxdiscountvalue ,
-            status              :  req.body.status ,
-            availablefor        :  req.body.availablefor,
-            startdate           :  req.body.startdate  , 
-            enddate             :  req.body.enddate   ,
-            selectedCategory    :  req.body.selectedCategory   ,
-            selectedBrand       :  req.body.selectedBrand   ,
-            selectedProducts    :  req.body.selectedProducts   ,
-            description         :  req.body.description   ,
-            termscondition      :  req.body.termscondition ,
-            coupenImage         :  req.body.coupenImage  ,
+                section 			: req.body.section_ID,
+                category 			: req.body.category_ID,
+                subCategory 		: req.body.subCategory_ID,
+                coupontitle         : req.body.coupontitle,
+                couponcode          : req.body.couponcode,
+                coupenin            : req.body.coupenin,
+                coupenvalue         : req.body.coupenvalue,
+                minPurchaseAmount   : req.body.minPurchaseAmount,
+                maxDiscountAmount   : req.body.maxDiscountAmount,
+                couponLimit         : req.body.numOfOrders,
+                status              : req.body.status,
+                startdate           : req.body.startdate, 
+                enddate             : req.body.enddate,
+                coupenImage         : req.body.coupenImage
             }
         }
     )
-        .exec()
-        .then(data => {
-            res.status(200).json({
-                "message": "Coupon Updated Successfully."
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+    .exec()
+    .then(data => {
+        res.status(200).json({
+            "message": "Coupon Updated Successfully."
         });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
 };
 
 /**=========== couponBulkAction ===========*/
 exports.couponBulkAction = (req, res, next) => {
-    var field = req.body.selectedAction;
-    // console.log('field', field);
-    switch (field) {
+    var action = req.body.selectedAction;
+    // console.log('action =>', action);
+    switch (action) {
         case 'Active':
             Coupen.updateMany(
                 {"_id": { "$in": req.body.selectedProducts}},
                 {$set:{"status":"Active"}}
-                )
+            )
             .exec()
             .then(data => {
                 return res.status(200).json({
@@ -191,48 +188,50 @@ exports.couponBulkAction = (req, res, next) => {
 
 /**=========== delete_coupon ===========*/
 exports.delete_coupon = (req, res, next) => {
+    // console.log("params => ",req.params.couponID);
     Coupen.deleteOne({ _id: req.params.couponID })
-        .exec()
-        .then(data => {
-            res.status(200).json({
-                "message": "Coupen Deleted Successfully."
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+    .exec()
+    .then(data => {
+        res.status(200).json({
+            "message": "Coupen Deleted Successfully."
         });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
 };
 
-/**===========  ===========*/
+/**=========== count_discount ===========*/
 exports.count_discount = (req, res, next) => {
     Coupen.find({})
-        .exec()
-        .then(data => {
-            res.status(200).json({ "dataCount": data.length });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+    .exec()
+    .then(data => {
+        res.status(200).json({ "dataCount": data.length });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
         });
+    });
 };
 
-/**===========  ===========*/
+/**=========== get_discounts_with_limits ===========*/
 exports.get_discounts_with_limits = (req, res, next) => {
+    // console.log("params => ",req.params);
     Coupen.find()
-        .skip(parseInt(req.params.startRange))
-        .limit(parseInt(req.params.limitRange))
-        .exec()
-        .then(data => {
-            res.status(200).json(data);
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            });
+    .skip(parseInt(req.params.startRange))
+    .limit(parseInt(req.params.limitRange))
+    .exec()
+    .then(data => {
+        res.status(200).json(data);
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
         });
+    });
 };

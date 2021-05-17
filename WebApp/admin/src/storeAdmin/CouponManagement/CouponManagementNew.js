@@ -50,33 +50,33 @@ class CouponManagement extends Component {
 	      config: "",
 
 	      "tableHeading": { 
-	      	coupontitle : "Coupon Title",
-	        couponcode : "Coupon Code",
-	        coupentype: "Coupon Type",
-	        coupenin: "Coupon In",
-	        coupenvalue: "Coupon Value",
-	        couponcodeusage: "Coupon Usage",
-	        status : "status",
-	        selectedCategory      : "Category",
-	        selectedBrand     : "Brand",
-	        selectedProducts  : "Products",
-	        startdate: "Start Date",
-	        enddate: "End Date",
-	        actions: 'Action',
+            section             : "Section",
+            category            : "Category",
+            subCategory         : "SubCategory",
+            status              : "status",
+	      	coupontitle         : "Coupon Title",
+	        couponcode          : "Coupon Code",
+	        coupenin            : "Coupon In",
+	        coupenvalue         : "Coupon Value",
+	        minPurchaseAmount   : "Min Purchase Order",
+	        maxDiscountAmount   : "Max Discount Amount",
+	        startdate           : "Start Date",
+	        enddate             : "End Date",
+	        actions             : 'Action',
 	      },
 	      "tableObjects": {
-	        deleteMethod: 'delete',
-	        apiLink: '/api/coupen/',
-	        paginationApply: true,
-	        searchApply: false,
-	        editUrl: '/coupon-management'
+	        deleteMethod    : 'delete',
+	        apiLink         : '/api/coupen/',
+	        paginationApply : true,
+	        searchApply     : false,
+	        editUrl         : '/coupon-management'
 	      },
-	      "startRange": 0,
-	      "limitRange": 100,
-	      selector: {},
-	      productCountByStatus: "",
+	      "startRange"      : 0,
+	      "limitRange"      : 100,
+	      selector              : {},
+	      productCountByStatus  : "",
 	      // "editId": this.props.editId ? this.props.editId : ''
-	      "minstartdate" : ''
+	      "minstartdate"        : ''
 	    };
 		    this.onEditorChange = this.onEditorChange.bind(this);
 
@@ -393,17 +393,19 @@ class CouponManagement extends Component {
 
 	}
 	gettableData() {
-
 		axios.get('/api/coupon/get/list')
 	      .then((response) => {
 	        console.log('tableData = ', response.data);
 	        var tableData = response.data.map((a, i) => {
+                console.log("a => ",a);
                 return {
                     coupontitle         : a.coupontitle,
                     couponcode          : a.couponcode,
                     section             : a.section,
                     category            : a.category,
                     subCategory         : a.subCategory,
+                    maxDiscountAmount   : a.maxDiscountAmount,
+                    minPurchaseAmount   : a.minPurchaseAmount,
                     // coupentype          : a.coupentype,
                     coupenin            : a.coupenin,
                     coupenvalue         : a.coupenvalue,
@@ -412,9 +414,9 @@ class CouponManagement extends Component {
                     /*selectedCategory      : a.selectedCategory,
                     selectedBrand     : a.selectedBrand,
                     selectedProducts  : a.selectedProducts,	*/
-                    selectedCategory    : a.selectedCategory.length > 0 ? a.selectedCategory.map((data,index)=>{return data.label}) : "" ,
-                    selectedBrand       : a.selectedBrand.length > 0 ? a.selectedBrand.map((data,index)=>{return data.label}) : "",
-                    selectedProducts    : a.selectedProducts.length > 0 ? a.selectedProducts.map((data,index)=>{return data.label}) : "",
+                    // selectedCategory    : a.selectedCategory.length > 0 ? a.selectedCategory.map((data,index)=>{return data.label}) : "" ,
+                    // selectedBrand       : a.selectedBrand.length > 0 ? a.selectedBrand.map((data,index)=>{return data.label}) : "",
+                    // selectedProducts    : a.selectedProducts.length > 0 ? a.selectedProducts.map((data,index)=>{return data.label}) : "",
                     "startdate"         : moment(a.startdate).format("DD/MM/YYYY"),
                     "enddate"           : moment(a.enddate).format("DD/MM/YYYY"),
                     _id: a._id,
@@ -1397,8 +1399,9 @@ render() {
 				                  twoLevelHeader={this.state.twoLevelHeader}
 				                  dataCount={this.state.dataCount}
 				                  tableData={this.state.tableData}
-				                  getData={this.getData.bind(this)}
-				                  selectedProducts={this.selectedProducts.bind(this)}
+                                  getData={this.gettableData.bind(this)}
+				                //   getData={this.getData.bind(this)}
+				                //   selectedProducts={this.selectedProducts.bind(this)}
 				                  tableObjects={this.state.tableObjects}
 				                />
 			                </div>
