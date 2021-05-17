@@ -250,6 +250,16 @@ const getCartItems=(userId)=>{
       })
   }
 
+  const applyCoupen=()=>{
+      axios.get('/api/coupen/get/one/'+coupenCode)
+      .then(res=>{
+        console.log("res",res);
+      })
+      .catch(err=>{
+        console.log("err",err);
+      })
+  }
+
     return (
       <React.Fragment>
         <HeaderBar3
@@ -548,6 +558,7 @@ const getCartItems=(userId)=>{
                         </View>  
                         <View style={{flex:.2}}>
                           <FormButton 
+                            onSubmit    = {applyCoupen}
                             title       = {'Add'}
                             background  = {true}
                           /> 
