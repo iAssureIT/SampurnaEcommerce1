@@ -7,28 +7,31 @@ import {
   Image,ActivityIndicator,
   Dimensions
 } from 'react-native';
-import { Button, Icon, }  from "react-native-elements";
-import Modal              from "react-native-modal";
-import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import { Button, Icon,Input } from "react-native-elements";
+import Modal                  from "react-native-modal";
+import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
-import {Footer}             from '../../ScreenComponents/Footer/Footer1.js';
-import Notification       from '../../ScreenComponents/Notification/Notification.js'
-import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
-import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
-import axios              from 'axios';
-import Counter            from "react-native-counters";
+import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
+import Notification           from '../../ScreenComponents/Notification/Notification.js'
+import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
+import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
+import axios                  from 'axios';
+import Counter                from "react-native-counters";
 import {withCustomerToaster}  from '../../redux/AppState.js';
-
+// import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
+import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { getList } 		        from '../../redux/productList/actions';
 import { connect,
   useDispatch,
-  useSelector }         from 'react-redux';
+  useSelector }               from 'react-redux';
+
+
 
   const window = Dimensions.get('window');
 // export default class CartComponent extends React.Component {
   export const CartComponent = withCustomerToaster((props)=>{
     console.log("props",props);
-    const dispatch 		= useDispatch();
+    const dispatch = useDispatch();
     const {setToast,navigation,route} = props; 
     const [cartData, setCartData] = useState('');
     const [totaloriginalprice, setOrignalPrice] = useState(0);
@@ -39,7 +42,7 @@ import { connect,
     const [loading,setLoading] =useState(false);
     const [shippingCharges,setShippingCharges] =useState(0);
     const [quantityAdded,setQuantityAdded] =useState(0);
-    const [totalIndPrice,setTotalIndPrice] =useState(0);
+    const [totalPrice,setTotalPrice] =useState(0);
     const [userId,setUserId] =useState(''); 
     const [product_ID,setProductId] =useState(''); 
     const [discountdata,setDiscountData] = useState('');
@@ -53,6 +56,7 @@ import { connect,
     const [currency,setCurrency] = useState('');
     const [cartitemid,setCartItemId] = useState('');
     const [incresecartnum,setIncreaseCartNum] = useState('');
+    const [coupenCode,setCoupenCode] = useState('');
 
     
 
@@ -68,20 +72,19 @@ import { connect,
       setUserId(userId);
       setProductId(product_ID)
       getCartItems(userId);
-      getdiscounteddata(startRange,limitRange);
+      // getdiscounteddata(startRange,limitRange);
     } 
   }
 
   const getdiscounteddata=(startRange, limitRange)=>{
     axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
         .then((response) => {
-            console.log('tableData = ', response.data[0]);
+            console.log('tableData = ', response.data);
             if(response.data && response.data.length > 0) {
               setDiscountData(response.data[0]);
               setDiscountType(response.data[0].discounttype);
               setDiscountIn(response.data[0].discountin);
               setDiscountValue(response.data[0].discountvalue);
-
                   var amountofgrandtotal =  response.data[0] !== undefined ?
                                               totaloriginalprice && response.data[0].discountin === "Percent" ?
                                                       totaloriginalprice - (totaloriginalprice * response.data[0].discountvalue)/ 100
@@ -123,6 +126,7 @@ const getshippingamount=(startRange, limitRange)=>{
 const getCartItems=(userId)=>{
     axios.get('/api/Carts/get/cartproductlist/' + userId)
       .then((response) => {
+        console.log("getCartItems ===>",response)
         setLoading(false);
         if(response.data.length > 0) {
           setSubTotalItems(response.data[0].cartItems.length);
@@ -130,6 +134,8 @@ const getCartItems=(userId)=>{
           setSubTotal(response.data[0].cartTotal);
           setCurrency(response.data[0].cartItems[0].productDetail.currency);
           gettotalcount(response.data[0].cartItems);
+          setDiscountValue(response.data[0].discount);
+          setTotalPrice(response.data[0].total)
         } else {
           setCartData([]);
         }
@@ -253,7 +259,7 @@ const getCartItems=(userId)=>{
           openControlPanel={() => openControlPanel}
         />
         <View style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
-          <ScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" >
             <View style={{flex:1}}>
             { !loading ?
               <View style={styles.cartdetails}>
@@ -286,7 +292,7 @@ const getCartItems=(userId)=>{
                                     <Text style={styles.productname}>{item.productDetail.productName}</Text>
                                     }
                                     </TouchableOpacity>
-                                  <View style={styles.productdets}>
+                                  {/* <View style={styles.productdets}>
                                     <Icon
                                       name={item.productDetail.currency}
                                       type="font-awesome"
@@ -295,25 +301,62 @@ const getCartItems=(userId)=>{
                                       iconStyle={styles.iconstyle}
                                     />
                                     <Text style={styles.proddetprice}>{item.productDetail.discountedPrice} Per {item.productDetail.size}  {item.productDetail.unit.toUpperCase()}</Text>
-                                  </View>
-                                  <Counter start={item.quantity} min={1} max={100}
-                                    buttonStyle={{
-                                      borderColor: colors.theme,
-                                      borderWidth: 1,
-                                      borderRadius: 25,
-                                      width: 20,
-                                      height: 10
-                                    }}
-                                    buttonTextStyle={{
-                                      color: colors.theme,
-                                    }}
-                                    countTextStyle={{
-                                      color: colors.theme,
-                                    }}
-                                    size={5}
-                                    onChange={(e)=>onChange(e,item.productDetail._id)} 
+                                  </View> */}
+                                  <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
+
+
+                                {item.productDetail.availableQuantity > 0 ?
+                                <View style={[styles.flxdir]}>
+                                  <View style={[styles.flxdir]}>
+                                    <Icon
+                                      name={item.productDetail.currency}
+                                      type="font-awesome"
+                                      size={13}
+                                      color="#333"
+                                      iconStyle={{ marginTop: 5, marginRight: 3 }}
                                     />
+                                    <Text style={styles.discountpricecut}>{item.productDetail.originalPrice * item.quantity}</Text>
+                                  </View>
+                                  <View style={[styles.flxdir,{marginLeft:8,alignItems:"center"}]}>
+                                    <Icon
+                                      name={item.productDetail.currency}
+                                      type="font-awesome"
+                                      size={13}
+                                      color="#333"
+                                      iconStyle={{ marginTop: 5}}
+                                    />
+                                      <Text style={styles.ogprice}>{item.productDetail.discountedPrice * item.quantity} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                  </View>
+                                  <View style={[styles.flxdir,{marginLeft:8,alignItems:"center"}]}>
+                                      <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                  </View>
                                 </View>
+                                :
+                                 <Text style={styles.totaldata}>SOLD OUT</Text>
+                               }
+
+                              </View>
+
+                              <Counter start={item.quantity} min={1} max={100}
+                                buttonStyle={{
+                                  borderColor: colors.theme,
+                                  borderWidth: 1,
+                                  borderRadius: 25,
+                                  width: 20,
+                                  height: 10
+                                }}
+                                buttonTextStyle={{
+                                  color: colors.theme,
+                                }}
+                                countTextStyle={{
+                                  color: colors.theme,
+                                }}
+                                size={5}
+                                onChange={(e)=>onChange(e,item.productDetail._id)} 
+                                />
+                            </View>
                                 <View style={styles.flxmg2}>
                                   <View style={styles.proddeletes}>
                                     <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID)} >
@@ -329,26 +372,26 @@ const getCartItems=(userId)=>{
                                     />
                                   </View>
                                   {
-                                    item.productDetail.availableQuantity > 0 ?
-                                      <View style={styles.productdetsprice}>
-                                        <Icon
-                                           name={item.productDetail.currency}
-                                          type="font-awesome"
-                                          size={17}
-                                          color="#666"
-                                          iconStyle={styles.iconstyle}
-                                        />
-                                        {/* <Text id={item._id} value={this.state['quantityAdded|' + item._id]} style={styles.proprice}> */}
-                                       <Text id={item._id}  style={styles.proprice}>
-                                          {item.productDetail.size > 0 ?
-                                            item.productDetail.discountedPrice * item.quantity
-                                            :
-                                            item.productDetail.discountedPrice
-                                          }
-                                        </Text>
-                                      </View>
-                                      :
-                                      <Text style={styles.totaldata}>SOLD OUT</Text>
+                                    // item.productDetail.availableQuantity > 0 ?
+                                    //   <View style={styles.productdetsprice}>
+                                    //     <Icon
+                                    //        name={item.productDetail.currency}
+                                    //       type="font-awesome"
+                                    //       size={17}
+                                    //       color="#666"
+                                    //       iconStyle={styles.iconstyle}
+                                    //     />
+                                    //     {/* <Text id={item._id} value={this.state['quantityAdded|' + item._id]} style={styles.proprice}> */}
+                                    //    <Text id={item._id}  style={styles.proprice}>
+                                    //       {item.quantity > 0 ?
+                                    //         item.productDetail.discountedPrice * item.quantity
+                                    //         :
+                                    //         item.productDetail.discountedPrice
+                                    //       }
+                                    //     </Text>
+                                    //   </View>
+                                    //   :
+                                    //   <Text style={styles.totaldata}>SOLD OUT</Text>
                                   }
                                 </View>
                               </View>
@@ -386,18 +429,18 @@ const getCartItems=(userId)=>{
                               color="#666"
                               iconStyle={styles.iconstyle}
                             />
-                            <Text style={styles.totalpriceincart}>{totaloriginalprice}</Text>
+                            <Text style={styles.totalpriceincart}>{subtotal}</Text>
                           </View>
                         </View>
                       </View>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.7 }}>
-                          <Text style={styles.totaldata}>Discount </Text>
+                          <Text style={styles.totaldata}>You Saved </Text>
                         </View> 
                         <View style={{ flex: 0.3 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           { 
-                          discountin === "Amount" ? 
+                          // discountin === "Amount" ? 
                             <Icon
                               name={currency}
                               type="font-awesome"
@@ -405,7 +448,7 @@ const getCartItems=(userId)=>{
                               color="#666"
                               iconStyle={styles.iconstyle}
                             />
-                          : null 
+                          // : null 
                         }
                         <Text style={styles.totalpriceincart}>{discountvalue > 1 ? discountvalue : 0.00}</Text>
                          {
@@ -424,6 +467,48 @@ const getCartItems=(userId)=>{
                       </View>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.7 }}>
+                          <Text style={styles.totaldata}>TAX </Text>
+                        </View> 
+                        <View style={{ flex: 0.3 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          { 
+                          // discountin === "Amount" ? 
+                            <Icon
+                              name={currency}
+                              type="font-awesome"
+                              size={15}
+                              color="#666"
+                              iconStyle={styles.iconstyle}
+                            />
+                          // : null 
+                        }
+                        <Text style={styles.totalpriceincart}>0</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.7 }}>
+                          <Text style={styles.totaldata}>Delivery Charges </Text>
+                        </View> 
+                        <View style={{ flex: 0.3 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          { 
+                          // discountin === "Amount" ? 
+                            <Icon
+                              name={currency}
+                              type="font-awesome"
+                              size={15}
+                              color="#666"
+                              iconStyle={styles.iconstyle}
+                            />
+                          // : null 
+                        }
+                        <Text style={styles.totalpriceincart}>0</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.7 }}>
                           <Text style={styles.totaldata}>Grand Total </Text>
                         </View>
                         <View style={{ flex: 0.3 }}>
@@ -436,18 +521,38 @@ const getCartItems=(userId)=>{
                               iconStyle={styles.iconstyle}
                             />
                             {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{amountofgrandtotal}</Text> */}
-                            <Text style={styles.totalpriceincart}>{  discountdata !== undefined ?
-                                totaloriginalprice && discountin === "Percent" ?
-                                    totaloriginalprice - (totaloriginalprice * discountvalue)/ 100
-                                    : totaloriginalprice - discountvalue
-                                : totaloriginalprice}
-                            </Text>
+                            <Text style={styles.totalpriceincart}>{totalPrice}</Text>
                           </View>
                         </View>
                       </View>
                       <View style={{ flex: 1, marginTop: 10 }}>
                         <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                       </View>
+                      <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
+                        <View style={{flex:.8}}>
+                          <Input
+                            // label                 =  {<Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,}}>
+                            //                             <Text>Promotional Code</Text>{' '}
+                            //                           </Text>}
+                            placeholder           = "Enter promotional code"
+                            onChangeText          = {(text)=>setCoupenCode(text)}
+                            autoCapitalize        = "none"
+                            keyboardType          = "email-address"
+                            inputContainerStyle   = {styles.containerStyle}
+                            containerStyle        = {{paddingHorizontal:0}}
+                            placeholderTextColor  = {'#bbb'}
+                            inputStyle            = {{fontSize: 16}}
+                            inputStyle            = {{textAlignVertical: "top"}}
+                            autoCapitalize        = 'characters'
+                          />
+                        </View>  
+                        <View style={{flex:.2}}>
+                          <FormButton 
+                            title       = {'Add'}
+                            background  = {true}
+                          /> 
+                        </View>  
+                      </View>  
                       <View>
                         {minvalueshipping <= totaloriginalprice ?
                           <View>
@@ -519,39 +624,12 @@ const getCartItems=(userId)=>{
               </View>
             </View>
           </Modal>
-
-          <Modal isVisible={wishlisted}
-            onBackdropPress={() => setWishListed(false)}
-            coverScreen={true}
-            hideModalContentWhileAnimating={true}
-            style={{ paddingHorizontal: '5%', zIndex: 999 }}
-            animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
-              <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
-                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-              </View>
-              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
-                Product is move to wishlist.
-                </Text>
-              <View style={styles.cancelbtn}>
-                <View style={styles.cancelvwbtn}>
-                  <TouchableOpacity>
-                    <Button
-                      onPress={() => setWishListed(false)}
-                      titleStyle={styles.buttonText1}
-                      title="OK"
-                      buttonStyle={styles.button1}
-                      containerStyle={styles.buttonContainer2}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </Modal>
         </View>
       </React.Fragment>
     );
 })
+
+
 
 
 

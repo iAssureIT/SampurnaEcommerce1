@@ -3797,9 +3797,43 @@ exports.products_by_lowest_price = (req,res,next)=>{
         { "$replaceRoot" : {"newRoot" : "$doc"}}  
     ])
     .exec()
-    .then(data=>{
-        console.log("data => ", data);
-        res.status(200).json(data);
+    .then(products=>{
+        console.log("products",products);
+        if(products){
+            for (let k = 0; k < products.length; k++) {
+                products[k] = {...products[k], isWish:false};
+            }
+            if(req.body.user_id && req.body.user_id!=='null'){
+                Wishlists.find({user_ID:req.body.user_id})
+                .then(wish=>{
+                    if(wish.length > 0){
+                        for(var i=0; i<wish.length; i++){
+                            for(var j=0; j<products.length; j++){
+                                if(String(wish[i].product_ID) === String(products[j]._id)){
+                                    products[j]= {...products[j], isWish:true};
+                                    break;
+                                }
+                            }
+                        }   
+                        if(i >= wish.length){
+                            res.status(200).json(products);
+                        }       
+                    }else{
+                        res.status(200).json(products);
+                    }
+                 })
+                 .catch(err =>{
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            }else{
+                res.status(200).json(products);
+            }    
+        }else{
+            res.status(404).json('Product Details not found');
+        }
     })
     .catch(err =>{
         console.log(err);

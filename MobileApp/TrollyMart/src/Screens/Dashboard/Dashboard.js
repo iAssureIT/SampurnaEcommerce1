@@ -37,6 +37,7 @@ export const Dashboard = withCustomerToaster((props)=>{
   // 
   const [isOpen,setOpen]= useState(false);
   const [categories,setCategories]= useState([]);
+  const [value,setValue]= useState('lowestprice');
   const [searchProductsDetails,setSearchProductsDetails]= useState([]);
   const [countData,setCountData]= useState([]);
   const [user_id,setUserId]= useState('');
@@ -104,6 +105,7 @@ export const Dashboard = withCustomerToaster((props)=>{
       })
   }
 
+  
 
 
   const menu = <Menu navigate={navigation.navigate} isOpen={isOpen}/>;
@@ -159,11 +161,28 @@ export const Dashboard = withCustomerToaster((props)=>{
                     <BannerComponent />
                   }
               </View>
-             <View  style={[styles.formWrapper,{padding:15,marginBottom:'18%'}]}> 
+              <View style={[styles.tabWrap]}>
+                  <TouchableOpacity
+                    onPress = {()=>setValue('lowestprice')}
+                    style={[(value === "lowestprice" ? styles.activeTabView:styles.tabView),styles.tabBorder,styles.borderRadiusLeft]}
+                  >
+                      <Text style={value === "lowestprice" ? styles.tabText : styles.tabText1}>Lowest Price</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress = {()=>setValue('lowestlocation')}
+                    style={[(value === "lowestlocation" ? styles.activeTabView:styles.tabView),styles.borderRadiusRight]}
+                  >
+                    <Text style={value === "lowestlocation" ? styles.tabText : styles.tabText1}>Lowest Location</Text>
+                  </TouchableOpacity>
+                </View> 
+             <View  style={[styles.formWrapper,{paddingHorizontal:15,paddingVertical:5, marginBottom:'18%'}]}> 
                 {globalSearch.searchText ?
                   null
                 :
-                  <MenuCarouselSection  navigation = {navigation}/>
+                  <MenuCarouselSection
+                    navigation  = {navigation} 
+                    type        = {value}
+                  />
                 }
                 {globalSearch.searchText ?
                   null

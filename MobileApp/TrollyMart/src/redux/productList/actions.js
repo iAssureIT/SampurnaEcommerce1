@@ -55,13 +55,19 @@ export const getList = (productType,user_id,limit) => {
 
 
 
-export const getCategoryWiseList = (category_ID,user_id) => {
+export const getCategoryWiseList = (category_ID,user_id,type,section_id) => {
     return async (dispatch, getState) => {
     dispatch({
         type: SET_LOADING,
         payload: true,
     });
-        axios.get("/api/products/get/listby/category/"+category_ID+"/"+user_id)
+    var payload = {
+        "sectionID"     : section_id,
+        "categoryID"    : category_ID,
+        "subcategoryID" : "",
+        "user_id"       : user_id
+    }
+        axios.post("/api/products/get/list/"+type,payload)
         .then((response)=>{
             dispatch({
                 type: SET_CATEGORY_WISE_LIST,

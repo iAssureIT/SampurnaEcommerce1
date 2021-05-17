@@ -176,7 +176,7 @@ export const MyOrder =(props)=>{
                           console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",item.deliveryStatus[item.deliveryStatus.length - 1].status);
                           if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New Order" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Verified") {
                             position = 0;
-                          } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch Approved" ) {
+                          } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
                             position = 1;
                           } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch") {
                             position = 2;

@@ -35,7 +35,8 @@ export const SubCategoriesComp = (props)=>{
   const [wished,setWished]=useState('');
   const [packSize,setPackSize]=useState('');
   const {navigation,route}=props;
-  const {categoryName,category_ID}=route.params;
+  const {categoryName,category_ID,section_id,type}=route.params;
+  console.log("route",route);
   const store = useSelector(store => ({
     productList : store.productList,
     userDetails : store.userDetails,
@@ -173,7 +174,7 @@ export const SubCategoriesComp = (props)=>{
           <View style={styles.addsuperparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <ProductList navigate = {navigation.navigate} newProducts={productList.categoryWiseList}  userId={userId} category_ID={category_ID} loading={productList.loading}/>
+                <ProductList navigate = {navigation.navigate} newProducts={productList.categoryWiseList}  userId={userId} category_ID={category_ID} section_id={section_id} list_type={type} loading={productList.loading}/>
               </View>
             </ScrollView>
             <Modal isVisible={addtocart}

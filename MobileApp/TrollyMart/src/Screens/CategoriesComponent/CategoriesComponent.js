@@ -27,7 +27,7 @@ export const CategoriesComponent=(props)=>{
   const [categoryName,setCategoryName] = useState('');
   const [loading,setLoading] = useState(true)
   const dispatch = useDispatch();
-  const {section_id}=route.params;
+  const {section_id,type}=route.params;
   const store = useSelector(store => ({
     userDetails : store.userDetails,
   }));
@@ -63,8 +63,8 @@ export const CategoriesComponent=(props)=>{
         setCategoryName(res.data.category);
         setSubCategory(res.data.subCategory);
         if(res.data.subCategory.length>0){
-          dispatch(getCategoryWiseList(id,userDetails.user_id ? userDetails.user_id : null));
-          navigation.navigate('SubCategoriesComp',{category_ID:id,categoryName:res.data.category})
+          dispatch(getCategoryWiseList(id,userDetails.user_id ? userDetails.user_id : null,type,section_id));
+          props.navigation.navigate('SubCategoriesComp',{category_ID:category_ID, categoryName:categoryName,section_id:section_id,type:type})
           let subcatid = [];
           let subcategorys = res.data.subCategory ? res.data.subCategory : [];
             for(var i=0;i<subcategorys.length;i++){
@@ -73,8 +73,8 @@ export const CategoriesComponent=(props)=>{
             })
           }
        }else{
-           dispatch(getCategoryWiseList(category_ID));
-            props.navigation.navigate('SubCategoriesComp',{category_ID:category_ID, categoryName:categoryName})
+            dispatch(getCategoryWiseList(id,userDetails.user_id ? userDetails.user_id : null,type,section_id));
+            props.navigation.navigate('SubCategoriesComp',{category_ID:category_ID, categoryName:categoryName,section_id:section_id,type:type})
         }
        })
     .catch((error)=>{

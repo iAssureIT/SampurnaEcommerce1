@@ -35,7 +35,7 @@ const xOffset = new Animated.Value(0);
   const _renderlist = ({ item, i })=>{
     return (
       <View key={i} style={styles.mainrightside}>
-        <TouchableOpacity onPress={()=>navigation.navigate('CategoriesComponent',{section_id:item._id})}>
+        <TouchableOpacity onPress={()=>navigation.navigate('CategoriesComponent',{section_id:item._id,type:props.type})}>
         <ImageBackground onPress={()=>navigation.navigate('CategoriesComponent',{section_id:item._id})} source={item.sectionImage ? {uri : item.sectionImage}:noImage} style={styles.sectionImages}>
             <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.section}</Text>
           </ImageBackground>

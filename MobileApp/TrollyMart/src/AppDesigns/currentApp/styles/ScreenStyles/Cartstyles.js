@@ -281,6 +281,30 @@ superparent:{
     marginTop:20,
     marginBottom:10,
   },
+  containerStyle:{
+    borderWidth:1,
+    borderRadius:3,
+    // marginVertical:5,
+    borderColor:"#ccc",
+    paddingHorizontal: 0,
+    height:43,
+  },
+  leftIconContainerStyle:{
+    borderRightWidth:1,
+    borderColor:"#ccc",
+    paddingLeft:15,
+    paddingRight:15,
+    margin:0
+  },
+  originalprice: {
+		textDecorationLine: 'line-through', fontSize: 12, fontFamily: "Montserrat-Regular",
+	},
+	ogprice: {
+		fontSize: 14, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
+	},
+	discountpricecut: {
+		fontSize: 14, fontFamily: "Montserrat-SemiBold",
+		textDecorationLine: 'line-through',
 
-  
+	},
 })

@@ -24,7 +24,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { getSearchResult } 	from '../../redux/globalSearch/actions';
 import { useIsFocused }             from "@react-navigation/native";
 export const ProductList = withCustomerToaster((props)=>{
-  const {setToast,category_ID,loading} = props; 
+  const {setToast,category_ID,loading,section_id,list_type} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
@@ -136,7 +136,7 @@ export const ProductList = withCustomerToaster((props)=>{
         dispatch(getList(type,user_id,limit));
         dispatch(getWishList(user_id));
         if(category_ID){
-          dispatch(getCategoryWiseList(category_ID,user_id));
+          dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
         } 
         if(props.searchText){
           dispatch(getSearchResult(props.searchText,user_id,limit));

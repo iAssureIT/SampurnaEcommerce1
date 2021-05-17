@@ -159,5 +159,55 @@ export default StyleSheet.create({
     fontSize: 15,
     flex:0.85,
     // fontFamily: 'Montserrat-Medium'
-}
+},
+tabWrap:{
+  flex:1,
+  flexDirection: 'row',
+  height:35,
+  marginTop:15,
+  marginRight:15,
+  alignSelf:"flex-end"
+},
+activeTabView:{
+  flex:0.3,
+  padding: 5,
+  justifyContent:'center',
+  alignItems:"center",
+  backgroundColor: colors.theme,
+  elevation: 6,
+},
+
+tabView:{
+  flex:0.3,
+  padding: 5,
+  justifyContent:'center',
+  alignItems:"center",
+  backgroundColor: colors.white,
+  elevation: 6,
+},
+
+tabBorder:{
+  borderRightWidth:1,
+  borderColor: colors.primary,
+},
+tabText:{
+  fontSize: 12,
+  color: colors.white,
+  fontFamily: 'Roboto-Regular',
+  marginLeft: 5
+},
+tabText1:{
+  fontSize: 12,
+  color: 'black',
+  fontFamily: 'Roboto-Regular',
+  marginLeft: 5
+},
+borderRadiusLeft:{
+  borderTopLeftRadius: 5,
+  borderBottomLeftRadius: 5,
+},
+borderRadiusRight:{
+  borderTopRightRadius: 5,
+  borderBottomRightRadius: 5,
+},
 });
