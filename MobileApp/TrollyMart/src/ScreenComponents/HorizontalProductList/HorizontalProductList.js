@@ -66,7 +66,7 @@ export const HorizontalProductList =(props)=>{
 
   const _renderlist = ({ item, index })=>{
       return (
-          <TouchableOpacity style={{width:150,marginRight:10,height:230,backgroundColor:"#fff"}} onPress={() => navigation.push('SubCatCompView',{productID: item._id })}>
+          <TouchableOpacity style={{width:160,marginRight:10,height:230,backgroundColor:"#fff"}} onPress={() => navigation.push('SubCatCompView',{productID: item._id })}>
                <View style={styles.flx1}>
                 {
                   item.productImage && item.productImage.length > 0 ?

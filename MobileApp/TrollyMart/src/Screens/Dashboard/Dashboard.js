@@ -250,7 +250,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                     />
                     {section && section.length > 0 &&
                         <HorizontalProductList 
-                          sectio_id={section[1]._id}
+                          sectio_id={section[4]._id}
                         />
                       }
                     </View>  
@@ -281,7 +281,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                     />
                       {section && section.length > 0 &&
                         <HorizontalProductList 
-                          sectio_id={section[2]._id}
+                          sectio_id={section[3]._id}
                         />
                       }
                      </View> 

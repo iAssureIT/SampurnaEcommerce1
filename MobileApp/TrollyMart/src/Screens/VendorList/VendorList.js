@@ -29,6 +29,7 @@ export const VendorList = withCustomerToaster((props)=>{
     const [loading,setLoading] =useState(false);
     const [value,setValue] =useState('lowestprice');
     const section = props.route.params?.section;
+    const section_id = props.route.params?.section_id;
     const [vendorList,setVendorList] =useState([
         {
             companyName : "Choitaram",
@@ -57,16 +58,34 @@ export const VendorList = withCustomerToaster((props)=>{
     ]);
     const {navigation} =props;
     useEffect(() => {
-        // getSection();
+        getData();
     },[props]);
+
+    const getData = ()=>{
+       var formValues =  {
+            "startRange" : 0,
+            "limitRange" : 10,
+            "section_ID" : section_id,
+            "latitude"   : "",
+            "longitude"  : ""
+        }
+        axios.post('/api/entitymaster/post/vendor/list',formValues)
+        .then(res=>{
+            console.log("getData res",res);
+            setVendorList(res.data)
+        })
+        .catch(err=>{
+            console.log("err",err)
+        })
+    }
 
     const _renderlist = ({ item, index })=>{
         return (
             <Card containerStyle={{flex:1,padding:0,marginHorizontal:0}}>
-                <Card.Image source={item.image} style={{backgroundColor: 'rgba(0,0,0,0.5)',flexDirection:"row"}}>
+                <Card.Image  style={{backgroundColor: 'rgba(0,0,0,0.5)',flexDirection:"row"}}>
                     <View style={{flex:0.5}}>
                         <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.companyName}</Card.Title>
-                        <Card.Image source={item.companyLogo} style={{height:80,width:80,marginHorizontal:5}}>
+                        <Card.Image source={{uri:item.companyLogo[0]}} style={{height:80,width:80,marginHorizontal:5}}>
                          </Card.Image>    
                     </View>
                     <View style={{flex:0.5}}>
