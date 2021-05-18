@@ -2,17 +2,17 @@ import React, { Component }       	from 'react';
 import {Route, withRouter} 			from 'react-router-dom';
 import swal                     	from 'sweetalert';
 import axios 						from 'axios';
+import jQuery 						from 'jquery';
+import $ 							from "jquery";
+import _                      		from 'underscore';
+import S3FileUpload           		from 'react-s3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 import 'bootstrap/js/tab.js';
 import 'font-awesome/css/font-awesome.min.css';
-import $ from "jquery";
-import jQuery 						from 'jquery';
 import './IAssureTable.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/js/modal.js';
-import _                      from 'underscore';
-import S3FileUpload           from 'react-s3';
 
 var sum = 0;
 class IAssureTable extends Component {
@@ -37,11 +37,11 @@ class IAssureTable extends Component {
 		    "callPage" 					: true,
 		    "pageCount" 				: 0,
 		    "valI" 						: 1,
-		    allid :null,
-		    productImage          : [],
-            productImageArray     : [],
-			productTitle          : '',
-			productNameRlang      : ''
+		    allid 						: null,
+		    productImage          		: [],
+            productImageArray     		: [],
+			productTitle          		: '',
+			productNameRlang      		: ''
 		}
 		this.delete = this.delete.bind(this);
 	}

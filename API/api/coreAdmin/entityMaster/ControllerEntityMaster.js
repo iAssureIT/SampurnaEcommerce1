@@ -2,6 +2,7 @@ const mongoose  = require("mongoose");
 
 const EntityMaster = require('./ModelEntityMaster');
 const PersonMaster = require('../personMaster/ModelPersonMaster.js');
+var ObjectId 					= require('mongodb').ObjectID;
 // var request = require('request-promise');
 // const gloabalVariable = require('../../nodemon.js');
 var   ObjectID          = require('mongodb').ObjectID;
@@ -1074,3 +1075,49 @@ exports.appCompanyDetails = (req,res,next)=>{
     });
 };
 
+exports.getVendorList = (req,res,next)=>{
+    console.log("req.body => ", req.body);
+
+    var selector        = {}; 
+    selector['$and']    = [];
+
+    selector["$and"].push({ entityType : "vendor" });
+    if (!req.body.latitude || !req.body.longitude) {
+        var sortVar = {"companyName" : 1}
+    }
+    if (req.body.section_ID) {
+        selector["$and"].push({"productdetails.section_ID" : ObjectId(req.body.section_ID)})
+    }
+
+    EntityMaster.aggregate([
+        { $lookup :            
+            {
+                from            : 'products',
+                localField      : '_id',
+                foreignField    : 'vendor_ID',
+                as              : 'productdetails'
+            }
+        },
+        {$match     : selector},
+        {$project   : {
+                    _id         : 1,
+                    companyName : 1,
+                    companyLogo : 1, 
+                    companyID   : 1              
+                }
+        }
+    ])
+    .sort(sortVar)
+    .skip(req.body.startRange)
+    .limit(req.body.limitRange)
+    .exec()
+    .then(data=>{
+        console.log("data => ",data)
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
+        });
+    });
+};

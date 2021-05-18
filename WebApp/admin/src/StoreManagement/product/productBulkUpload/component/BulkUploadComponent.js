@@ -1,5 +1,5 @@
 import React, { Component } 	from 'react'; import XLSX from "xlsx";
-import axios 						from 'axios';
+import axios 					from 'axios';
 import swal 						from 'sweetalert';
 import $ 							from 'jquery';
 import Loader 						from '../../../../coreadmin/common/Loader/Loader.js';

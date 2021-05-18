@@ -71,6 +71,8 @@ router.post('/post/singleContact', 								checkAuth, entityMaster.singleContact
 
 router.patch('/patch/updateSingleContact', 					checkAuth, entityMaster.updateSingleContact);
 
+router.post('/post/vendor/list', 								entityMaster.getVendorList);
+
 // router.get('/get/checkBAExists/:emailID', baController.check_ba_exists);
 
 router.delete('/delete/:entityID', 								checkAuth, entityMaster.deleteEntity);
