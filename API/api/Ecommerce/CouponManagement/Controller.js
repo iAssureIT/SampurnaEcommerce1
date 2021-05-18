@@ -96,7 +96,7 @@ exports.get_single_coupon = (req, res, next) => {
 
 /**=========== update_coupon ===========*/
 exports.update_coupon = (req, res, next) => {
-    // console.log("Update Body = ", req.body);
+    console.log("Update Body = ", req.body);
     Coupen.updateOne(
         { _id: req.body.couponID },
         {
@@ -120,6 +120,7 @@ exports.update_coupon = (req, res, next) => {
     )
     .exec()
     .then(data => {
+        console.log("data => ",data);
         res.status(200).json({
             "message": "Coupon Updated Successfully."
         });
@@ -192,7 +193,7 @@ exports.couponBulkAction = (req, res, next) => {
 
 /**=========== delete_coupon ===========*/
 exports.delete_coupon = (req, res, next) => {
-    // console.log("params => ",req.params.couponID);
+    console.log("params => ",req.params.couponID);
     Coupen.deleteOne({ _id: req.params.couponID })
     .exec()
     .then(data => {

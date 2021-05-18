@@ -31,6 +31,7 @@ class CouponManagement extends Component {
 	      categoryArray         : [],
 	      productArray          : [],
 	      brandArray            : [],
+		  unCheckedCoupons 		: false,
 	      options             : [
                                 {name: ''}
                             ],
@@ -50,23 +51,24 @@ class CouponManagement extends Component {
 	      config: "",
 
 	      "tableHeading": { 
-            section             : "Section",
-            category            : "Category",
-            subCategory         : "SubCategory",
-            status              : "status",
-	      	coupontitle         : "Coupon Title",
+            // section             : "Section",
+            // category            : "Category",
+            // subCategory         : "SubCategory",
+			coupontitle         : "Coupon Title",
 	        couponcode          : "Coupon Code",
 	        coupenin            : "Coupon In",
 	        coupenvalue         : "Coupon Value",
 	        minPurchaseAmount   : "Min Purchase Order",
 	        maxDiscountAmount   : "Max Discount Amount",
+			couponLimit 		: "Coupon Limit",
 	        startdate           : "Start Date",
 	        enddate             : "End Date",
+            status              : "status",
 	        actions             : 'Action',
 	      },
 	      "tableObjects": {
 	        deleteMethod    : 'delete',
-	        apiLink         : '/api/coupen/',
+	        apiLink         : '/api/coupon/',
 	        paginationApply : true,
 	        searchApply     : false,
 	        editUrl         : '/coupon-management'
@@ -96,9 +98,9 @@ class CouponManagement extends Component {
 	    }
 	}
 	selectedProducts(checkedProductsList) {
-        // console.log('checkedUsersList', checkedUsersList);
+        console.log('checkedUsersList', checkedProductsList);
         this.setState({
-            checkedProducts: checkedProductsList,
+            checkedProducts : checkedProductsList,
             messageData: {}
         })
 
@@ -213,18 +215,18 @@ class CouponManagement extends Component {
 	          required  : true,
 	          min       : this.state.coupenin  === 'Percent' ? 100 : 1
 	        },
-	        section : {
-                required            : true,
-                regxcoupenstatus    : ""
-            },
-	        category : {
-                required            : true,
-                regxcoupenstatus    : ""
-            },
-	        subCategory : {
-                required            : true,
-                regxcoupenstatus    : ""
-            },
+	        // section : {
+            //     required            : true,
+            //     regxcoupenstatus    : ""
+            // },
+	        // category : {
+            //     required            : true,
+            //     regxcoupenstatus    : ""
+            // },
+	        // subCategory : {
+            //     required            : true,
+            //     regxcoupenstatus    : ""
+            // },
 	        couponcodeusage : {
 	          required  : true
 	        },
@@ -252,15 +254,15 @@ class CouponManagement extends Component {
 	        // if (element.attr("name") === "coupentype") {
 	        //   error.insertAfter("#coupentype");
 	        // }
-            if (element.attr("name") === "section") {
-	          error.insertAfter("#section");
-	        }
-            if (element.attr("name") === "category") {
-                error.insertAfter("#category");
-            }
-            if (element.attr("name") === "subCategory") {
-                error.insertAfter("#subCategory");
-            }
+            // if (element.attr("name") === "section") {
+	        //   error.insertAfter("#section");
+	        // }
+            // if (element.attr("name") === "category") {
+            //     error.insertAfter("#category");
+            // }
+            // if (element.attr("name") === "subCategory") {
+            //     error.insertAfter("#subCategory");
+            // }
 	        if (element.attr("name") === "couponcode") {
 	          error.insertAfter("#couponcode");
 	        }
@@ -399,32 +401,34 @@ class CouponManagement extends Component {
 	        var tableData = response.data.map((a, i) => {
                 console.log("a => ",a);
                 return {
-                    coupontitle         : a.coupontitle,
-                    couponcode          : a.couponcode,
-                    section             : a.section,
-                    category            : a.category,
-                    subCategory         : a.subCategory,
-                    maxDiscountAmount   : a.maxDiscountAmount,
-                    minPurchaseAmount   : a.minPurchaseAmount,
+                    coupontitle         : a.coupontitle ? a.coupontitle : "-",
+                    couponcode          : a.couponcode ? a.couponcode : "-",
+                    coupenin            : a.coupenin ? a.coupenin : "-",
+                    coupenvalue         : a.coupenvalue ? a.coupenvalue : "-",
+                    minPurchaseAmount   : a.minPurchaseAmount ? a.minPurchaseAmount : "-",
+                    maxDiscountAmount   : a.maxDiscountAmount ? a.maxDiscountAmount : "-",
+					couponLimit 		: a.couponLimit ? a.couponLimit : 0,
+                    status              : a.status ? a.status : "-",
+                    startdate        	: moment(a.startdate).format("DD/MM/YYYY") ? moment(a.startdate).format("DD/MM/YYYY") : "-",
+                    enddate           	: moment(a.enddate).format("DD/MM/YYYY") ? moment(a.enddate).format("DD/MM/YYYY") : "-",
+                    _id 				: a._id,
+                    // section             : a.section,
+                    // category            : a.category,
+                    // subCategory         : a.subCategory,
                     // coupentype          : a.coupentype,
-                    coupenin            : a.coupenin,
-                    coupenvalue         : a.coupenvalue,
-                    couponcodeusage     : a.couponcodeusage,
-                    status              : a.status,
+                    // couponcodeusage     : a.couponcodeusage,
                     /*selectedCategory      : a.selectedCategory,
                     selectedBrand     : a.selectedBrand,
                     selectedProducts  : a.selectedProducts,	*/
                     // selectedCategory    : a.selectedCategory.length > 0 ? a.selectedCategory.map((data,index)=>{return data.label}) : "" ,
                     // selectedBrand       : a.selectedBrand.length > 0 ? a.selectedBrand.map((data,index)=>{return data.label}) : "",
                     // selectedProducts    : a.selectedProducts.length > 0 ? a.selectedProducts.map((data,index)=>{return data.label}) : "",
-                    "startdate"         : moment(a.startdate).format("DD/MM/YYYY"),
-                    "enddate"           : moment(a.enddate).format("DD/MM/YYYY"),
-                    _id: a._id,
                     
                 }
             })
 	        this.setState({
-	          tableData: tableData
+	          tableData 		: tableData,
+			  unCheckedCoupons 	: false
 	        })
 	      })
 	      .catch((error) => {
@@ -586,30 +590,30 @@ class CouponManagement extends Component {
 	    	}else{
 
 			    var formValues = {
-                    "section_ID"        : this.state.section,
-                    "category_ID"       : this.state.category,
-                    "subCategory_ID"    : this.state.subCategory,
-			        "coupontitle"       : this.state.coupontitle,
+					"coupontitle"       : this.state.coupontitle,
 			        "couponcode"        : this.state.couponcode,
-			        // "coupentype"        : this.state.coupentype,
-			        // "couponcodeusage"   : this.state.couponcodeusage,
 			        "coupenin"          : this.state.coupenin,
 			        "coupenvalue"       : this.state.coupenvalue,
-			        // "maxdiscountvalue"  : this.state.maxdiscountvalue,
-			        "status"            : this.state.status,
-			        // "availablefor"      : this.state.availablefor,
+                    "minPurchaseAmount" : this.state.minPurchaseAmount,
+                    "maxDiscountAmount" : this.state.maxDiscountAmount,
+                    "numOfOrders"       : this.state.numOfOrders,
 			        "startdate"         : this.state.startdate,
 			        "enddate"           : this.state.enddate,
-                    "minPurchaseAmount" : this.state.minPurchaseAmount,
-                    "maxDiscountAmount" : this.maxDiscountAmount,
-                    "numOfOrders"       : this.state.numOfOrders,
+			        "coupenImage"       : this.state.coupenImage,
+			        "status"            : this.state.status,
+			        "createdBy"         : localStorage.getItem("admin_ID")
+			        // "coupentype"        : this.state.coupentype,
+			        // "couponcodeusage"   : this.state.couponcodeusage,
+			        // "maxdiscountvalue"  : this.state.maxdiscountvalue,
+			        // "availablefor"      : this.state.availablefor,
+                    // "section_ID"        : this.state.section,
+                    // "category_ID"       : this.state.category,
+                    // "subCategory_ID"    : this.state.subCategory,
 			        // "selectedCategory"  : this.state.selectedCategory,
 			        // "selectedBrand"     : this.state.selectedBrand,
 			        // "selectedProducts"  : this.state.selectedProducts,
 			        // "description"       : this.state.description,
 			        // "termscondition"    : this.state.termscondition,
-			        "coupenImage"       : this.state.coupenImage,
-			        "createdBy"         : localStorage.getItem("admin_ID")
 			    }
 				console.log('formValues===>', formValues);
 				axios.post('/api/coupon/post', formValues)
@@ -618,24 +622,17 @@ class CouponManagement extends Component {
 				    text: response.data.message,
 				  });
 				   this.setState({
-				    "couponID": "",
-				    "coupontitle": "",
-				    "couponcode": "",
-				    "coupentype": "",
-				    // "couponcodeusage": "",
-				    "coupenin": "",
-				    "coupenvalue": "",
-				    "maxdiscountvalue": "",
-				    "status": "",
-				    "availablefor": "",
-				    "startdate"     : "",
-				    "enddate"       : "",
-				    "selectedCategory"       : "",
-				    "selectedBrand"       : "",
-				    "selectedProducts"       : "",
-				    "description"       : "",
-				    "termscondition"       : "",
-				    "coupenImage"       : "",
+				    "coupontitle" 		: "",
+					"couponcode" 		: "",
+					"coupenin" 			: "",
+					"coupenvalue"		: "",
+					"minPurchaseAmount" : "",
+					"maxDiscountAmount" : "",
+					"numOfOrders"       : "",
+					"status"			: "",
+					"startdate"     	: "",
+					"enddate"       	: "",
+					"coupenImage"       : "",
 				  });
 				  // this.props.history.push('/coupon-management');
 				   this.gettableData();
@@ -669,24 +666,27 @@ class CouponManagement extends Component {
 	    event.preventDefault();
 	    if ($('#CouponForm').valid()) {
 	      var formValues = {
-	        "couponID": this.state.couponID,
-	        "coupontitle": this.state.coupontitle,
-	        "couponcode": this.state.couponcode,
-	        "coupentype": this.state.coupentype,
-	        "couponcodeusage": this.state.couponcodeusage,
-	        "coupenin": this.state.coupenin,
-	        "coupenvalue": this.state.coupenvalue,
-	        "maxdiscountvalue": this.state.maxdiscountvalue,
-	        "status": this.state.status,
-	        "availablefor": this.state.availablefor,
-	        "startdate"     : this.state.startdate,
-	        "enddate"       : this.state.enddate,
-	        "selectedCategory"       : this.state.selectedCategory,
-	        "selectedBrand"       : this.state.selectedBrand,
-	        "selectedProducts"       : this.state.selectedProducts,
-	        "description"       : this.state.description,
-	        "termscondition"       : this.state.termscondition,
+	        "couponID" 			: this.state.couponID,
+	        "coupontitle" 		: this.state.coupontitle,
+	        "couponcode" 		: this.state.couponcode,
+	        "coupenin" 			: this.state.coupenin,
+	        "coupenvalue"		: this.state.coupenvalue,
+			"minPurchaseAmount" : this.state.minPurchaseAmount,
+            "maxDiscountAmount" : this.state.maxDiscountAmount,
+			"numOfOrders"       : this.state.numOfOrders,
+	        "status"			: this.state.status,
+	        "startdate"     	: this.state.startdate,
+	        "enddate"       	: this.state.enddate,
 	        "coupenImage"       : this.state.coupenImage,
+	        // "availablefor"		: this.state.availablefor,
+	        // "coupentype" 		: this.state.coupentype,
+	        // "couponcodeusage" 	: this.state.couponcodeusage,
+	        // "maxdiscountvalue"	: this.state.maxdiscountvalue,
+	        // "selectedCategory"  : this.state.selectedCategory,
+	        // "selectedBrand"     : this.state.selectedBrand,
+	        // "selectedProducts"  : this.state.selectedProducts,
+	        // "description"       : this.state.description,
+	        // "termscondition"    : this.state.termscondition,
 	      }
 	      console.log("formValues",formValues);
 	      axios.patch('/api/coupon/patch', formValues)
@@ -696,27 +696,21 @@ class CouponManagement extends Component {
 	          });
 	          this.getData(this.state.startRange, this.state.limitRange);
 	          this.setState({
-	            "couponID": "",
-		        "coupontitle": "",
-		        "couponcode": "",
-		        "coupentype": "",
-		        "couponcodeusage": "",
-		        "coupenin": "",
-		        "coupenvalue": "",
-		        "maxdiscountvalue": "",
-		        "status": "",
-		        "availablefor": "",
-		        "startdate"     : "",
-		        "enddate"       : "",
-		        "selectedCategory"       : "",
-		        "selectedBrand"       : "",
-		        "selectedProducts"       : "",
-		        "description"       : "",
-		        "termscondition"       : "",
-		        "coupenImage"       : "",
+	            "couponID" 			: "",
+				"coupontitle" 		: "",
+				"couponcode" 		: "",
+				"coupenin" 			: "",
+				"coupenvalue"		: "",
+				"minPurchaseAmount" : "",
+				"maxDiscountAmount" : "",
+				"numOfOrders"       : "",
+				"status"			: "",
+				"startdate"     	: "",
+				"enddate"       	: "",
+				"coupenImage"       : "",
 	          });
 	          this.props.history.push('/coupon-management');
-	           // this.gettableData();
+	           this.gettableData();
 	        })
 	        .catch((error) => {
 	          console.log('error', error);
@@ -735,7 +729,6 @@ class CouponManagement extends Component {
 	        	}
 	        });
 	    }
-
 	}
 
 	edit(id) {
@@ -748,23 +741,26 @@ class CouponManagement extends Component {
 	            "couponID"		    : response.data._id,
 	            "coupontitle"		: response.data.coupontitle,
 		        "couponcode"		: response.data.couponcode,
-		        "coupentype"		: response.data.coupentype,
-		        "couponcodeusage"	: response.data.couponcodeusage,
 		        "coupenin"			: response.data.coupenin,
 		        "coupenvalue"		: response.data.coupenvalue,
-		        "maxdiscountvalue"	: response.data.maxdiscountvalue,
-		        "status" 			: response.data.status,
-		        "availablefor" 		: response.data.availablefor,
-
-		        "selectedCategory"  : response.data.selectedCategory,
-		        "selectedBrand"     : response.data.selectedBrand,
-		        "selectedProducts"  : response.data.selectedProducts,
-		        "description"       : response.data.description,
-		        "termscondition"    : response.data.termscondition,
+				"minPurchaseAmount" : response.data.minPurchaseAmount,
+				"maxDiscountAmount" : response.data.maxDiscountAmount,
+				"numOfOrders" 		: response.data.couponLimit,
 		        "coupenImage"       : response.data.coupenImage,
+		        "status" 			: response.data.status,				
 	            "startdate"     	: moment(response.data.startdate).format("YYYY-MM-DD"),
 				"enddate"       	: moment(response.data.enddate).format("YYYY-MM-DD"),
-				"categoryArrayfields"     : [response.data.selectedCategory]
+
+		        // "maxdiscountvalue"	: response.data.maxdiscountvalue,
+		        // "couponcodeusage"	: response.data.couponcodeusage,
+		        // "availablefor" 		: response.data.availablefor,
+		        // "selectedCategory"  : response.data.selectedCategory,
+		        // "selectedBrand"     : response.data.selectedBrand,
+		        // "selectedProducts"  : response.data.selectedProducts,
+		        // "description"       : response.data.description,
+		        // "termscondition"    : response.data.termscondition,
+				// "categoryArrayfields"     : [response.data.selectedCategory],
+		        // "coupentype"		: response.data.coupentype,
 			  });
 			  
 
@@ -871,8 +867,8 @@ class CouponManagement extends Component {
     CouponBulkAction(event) {
         var selectedAction = this.state.selectedAction
         var formValues = {
-            selectedProducts: this.state.checkedProducts,
-            selectedAction: this.state.selectedAction
+            selectedProducts 	: this.state.checkedProducts,
+            selectedAction 		: this.state.selectedAction
         }
         console.log("formValues",formValues);
         axios.patch('/api/coupon/patch/couponBulkAction', formValues)
@@ -882,11 +878,14 @@ class CouponManagement extends Component {
 	          
 	          this.gettableData();
 	          this.setState({
-	            "coupentype"  : '',
-	            "coupenin"    : '',
-	            "coupenvalue" : '',
-	            "startdate"     : '',
-	            "enddate"       : ''
+				checkedProducts : [],
+	            "coupentype"  		: '',
+	            "coupenin"    		: '',
+	            "coupenvalue" 		: '',
+	            "startdate"     	: '',
+	            "enddate"       	: '',
+				"selectedAction" 	: '',
+				"unCheckedCoupons" 	: true,
 	          });
 	          // this.props.history.push('/coupon-management');
 	        })
@@ -910,10 +909,15 @@ class CouponManagement extends Component {
     bulkActionChange(event) {
         // console.log(event.target.value);
         if (event.target.value) {
-            this.setState({ unCheckedProducts: false, selectedAction: event.target.value, messageData: {} })
+            this.setState({ 
+				unCheckedCoupons 	: false,
+				unCheckedProducts 	: false, 
+				selectedAction 		: event.target.value, 
+				messageData 		: {} 
+			})
             $('#bulkActionModal').show();
             $('.confirmmsg label').html('');
-            $('.confirmmsg label').append("Do you want to " + event.target.value.toLowerCase() + " selected products ?")
+            $('.confirmmsg label').append("Do you want to " + event.target.value.toLowerCase() + " selected Coupons ?")
             if (this.state.checkedProducts && this.state.checkedProducts.length > 0) {
                 $('.confirmmsg, #bulkActionModalbtn').show();
                 $('.selectmsg').hide();
@@ -1035,7 +1039,7 @@ render() {
                   <h4 className="weighttitle NOpadding-right">Coupon Management</h4>
                 </div>
                 <form id="CouponForm" className="">
-                    <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
+                    {/* <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
                     	<div className="col-lg-12">
                       		<label>Section<i className="redFont">*</i></label>
                       		<select onChange={this.handleSelect.bind(this)} value={this.state.section}  name="section" className="form-control allProductCategories" aria-describedby="basic-addon1" id="section" ref="section" required>
@@ -1054,8 +1058,8 @@ render() {
                                 }
                             </select>
                     	</div>
-                  	</div>
-                  	<div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
+                  	</div> */}
+                  	{/* <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
                     	<div className="col-lg-12">
                       		<label>Category<i className="redFont">*</i></label>
                       		<select onChange={this.handleSelect.bind(this)} name="category" className="form-control allProductCategories" aria-describedby="basic-addon1" value={this.state.category} id="category" ref="category" required>
@@ -1074,8 +1078,8 @@ render() {
                                 }
                             </select>
                     	</div>
-                  	</div>
-                  	<div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
+                  	</div> */}
+                  	{/* <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
                     	<div className="col-lg-12">
                       		<label>SubCategory<i className="redFont">*</i></label>
                       		<select onChange={this.handleSelect.bind(this)} value={this.state.subCategory}  name="subCategory" className="form-control allProductCategories" aria-describedby="basic-addon1" id="subCategory" ref="subCategory" required>
@@ -1094,7 +1098,7 @@ render() {
                                 }
                             </select>
                     	</div>
-                  	</div>
+                  	</div> */}
                 	<div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
                     	<div className="col-lg-12">
                       		<label>Coupon Code Title<i className="redFont">*</i></label>
@@ -1400,8 +1404,9 @@ render() {
 				                  dataCount={this.state.dataCount}
 				                  tableData={this.state.tableData}
                                   getData={this.gettableData.bind(this)}
+								  unCheckedCoupons ={this.state.unCheckedCoupons}
 				                //   getData={this.getData.bind(this)}
-				                //   selectedProducts={this.selectedProducts.bind(this)}
+				                  selectedProducts={this.selectedProducts.bind(this)}
 				                  tableObjects={this.state.tableObjects}
 				                />
 			                </div>

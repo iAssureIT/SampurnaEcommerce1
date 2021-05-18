@@ -52,7 +52,20 @@ class IAssureTable extends Component {
       	tableHeading	: this.props.tableHeading,
       	tableData 		: this.props.tableData,
       	dataCount 		: this.props.dataCount,
-      });
+      },()=>{
+		  if (this.state.tableData && this.state.tableData.length > 0) {
+			  
+		  
+			this.state.tableData.map((a,i)=>{
+				this.setState({
+					[a._id] : false,
+					allid 	: []
+				},()=>{
+					// this.props.setunCheckedUser(false)
+				})
+			});
+		  }
+	  });
 	  this.paginationFunction();
 	}
 	componentWillReceiveProps(nextProps) {
@@ -69,17 +82,26 @@ class IAssureTable extends Component {
 	            completeDataCount : nextProps.completeDataCount,
 	        },()=>{
 		        this.paginationFunction();
-		        if(nextProps.unCheckedUser&&this.state.tableData){
+				console.log("nextProps.unCheckedUser => ",nextProps.unCheckedCoupons)
+		        if(nextProps.unCheckedCoupons && this.state.tableData){
+				// if (this.state.tableData && this.state.tableData.length > 0) {
 			        $('.allSelector').prop('checked',false);
 			        this.state.tableData.map((a,i)=>{
-			        this.setState({
-			        [a._id] : false,
-			        allid : []
-			        },()=>{
-			        this.props.setunCheckedUser(false)
-			        })
+						this.setState({
+							[a._id] : false,
+							allid 	: []
+						},()=>{
+							// this.props.setunCheckedUser(false)
+						})
 			        });
 		        }
+				// this.state.tableData.map((a, i) => {
+				// 	this.setState({
+				// 		[a._id] : false
+				// 	},()=> {
+				// 		console.log("_id state => ",this.state[a._id]);
+				// 	})
+				// })
         	})
 		}
         
@@ -93,16 +115,18 @@ class IAssureTable extends Component {
 	}
     delete(e){
 	  	e.preventDefault();
+		console.log("e => ",e);
 	  	var tableObjects =  this.props.tableObjects;
 		let id = e.target.id;
-		axios.get('/api/products/get/one/'+id)
-			.then((response)=>{
-			//	console.log('response.data product==>>>',response.data);
-				if(response.data._id && response.data.status === "Publish"){
-					swal({
-						text : "This product is in Order and Publish!",
-					});
-				}else{
+		console.log("id => ",id);
+		// axios.get('/api/products/get/one/'+id)
+		// 	.then((response)=>{
+		// 	//	console.log('response.data product==>>>',response.data);
+		// 		if(response.data._id && response.data.status === "Publish"){
+		// 			swal({
+		// 				text : "This product is in Order and Publish!",
+		// 			});
+		// 		}else{
 					axios({
 						method: tableObjects.deleteMethod,
 						url: tableObjects.apiLink+'/delete/'+id
@@ -115,11 +139,11 @@ class IAssureTable extends Component {
 					}).catch(function (error) {
 						console.log('error', error);
 					});	
-				}
-			})
-			.catch((error)=>{
-			  console.log('error', error);
-			})
+			// 	}
+			// })
+			// .catch((error)=>{
+			//   console.log('error', error);
+			// })
 		
     } 
     sortNumber(key, tableData){
@@ -485,35 +509,35 @@ class IAssureTable extends Component {
         
 	}
 	selectedId(event){
-		var selectedProducts = this.state.allid?this.state.allid:[];
-		var data = event.target.id;
-		var value = event.target.checked;
-		// console.log("data", data,value,selectedProducts);
+		var selectedProducts 	= this.state.allid?this.state.allid:[];
+		var data 				= event.target.id;
+		var value 				= event.target.checked;
+		console.log("data", data,value,selectedProducts);
 		this.setState({
-		[data] : value,
+			[data] : value,
 		},()=>{
-		if(this.state[data] === true ){
-		selectedProducts.push(data);
-		this.setState({
-		allid : selectedProducts
-		},()=>{
-		// console.log('length',this.state.tableData.length,this.state.allid.length)
-		if(this.state.tableData.length===this.state.allid.length){
-		        $('.allSelector').prop('checked',true);
-		}
-		this.props.selectedProducts(this.state.allid);
-		})
-		}else{
-		$('.allSelector').prop('checked',false);
-		var indexVal = selectedProducts.findIndex(x=>x === data)
-		// console.log('indexVal',indexVal)
-		selectedProducts.splice(indexVal,1)
-		this.setState({
-		allid : selectedProducts
-		},()=>{
-		this.props.selectedProducts(this.state.allid);
-		})
-		}
+			if(this.state[data] === true ){
+				selectedProducts.push(data);
+				this.setState({
+					allid : selectedProducts
+				},()=>{
+					console.log('length',this.state.tableData.length,this.state.allid.length)
+					if(this.state.tableData.length===this.state.allid.length){
+						$('.allSelector').prop('checked',true);
+					}
+					this.props.selectedProducts(this.state.allid);
+				})
+			}else{
+				$('.allSelector').prop('checked',false);
+				var indexVal = selectedProducts.findIndex(x=>x === data)
+				// console.log('indexVal',indexVal)
+				selectedProducts.splice(indexVal,1)
+				this.setState({
+					allid : selectedProducts
+				},()=>{
+					this.props.selectedProducts(this.state.allid);
+				})
+			}
 		})
 	}
 	checkAll(event) {
@@ -752,7 +776,7 @@ class IAssureTable extends Component {
 	                            <th className="umDynamicHeader srpadd textAlignLeft">
 									<div className="uMDetailContainer">
 										<input type="checkbox" className="allSelector col-lg-1 col-md-1 col-sm-3 col-xs-1" name="allSelector" onChange={this.checkAll.bind(this)}/>
-								    	<span className="uMDetailCheck"></span>
+								    	{/* <span className="uMDetailCheck"></span> */}
 								    </div>
 								</th>
 		                            { this.state.tableHeading ?
