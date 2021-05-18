@@ -759,6 +759,12 @@ class ProductCarousel extends Component {
 				console.log('error', error);
 			})
 	}
+  lowestPrice(event){
+
+  }
+  fastestDelevery(){
+
+  }
   render() {
     const { effect } = this.state;
     const { displayProducts } = this.state;
@@ -1102,28 +1108,39 @@ class ProductCarousel extends Component {
                   <div className={"col-9 col-sm-12 col-xs-12 NoPadding ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className="row">
                       <div className={"col-12 " +Style.rightSidefilter}>
-                        <div className="col-3 col-xs-12 pull-left">     
-                          <div className="form-group ">
-                              <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
-                              <Select
-                                  value={effect}
-                                  onChange={this.sortProducts}
-                                  options={sortOptions}
-                                  autoFocus = {false}
-                              />
-                          </div> 
-                        </div>
-                        <div className="col-3 col-xs-12 pull-right">
+                        <div className ="row">
+                        <div className={"col-12 "}>
+                          <div className="col-3 col-xs-6 pull-left">     
                             <div className="form-group ">
                                 <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
                                 <Select
-                                    value={displayProducts}
-                                    onChange={this.limitProducts}
-                                    options={displayProductOptions}
+                                    value={effect}
+                                    onChange={this.sortProducts}
+                                    options={sortOptions}
                                     autoFocus = {false}
                                 />
+                            </div> 
+                          </div>
+                          <div className="col-3 col-xs-8 pull-right">
+                              <div className="form-group ">
+                                  <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
+                                  <Select
+                                      value={displayProducts}
+                                      onChange={this.limitProducts}
+                                      options={displayProductOptions}
+                                      autoFocus = {false}
+                                  />
+                            </div>
                           </div>
                         </div>
+                        {/* <div className={"col-4 "}>
+                          <div className="tab">
+                              <button className="tablinks" onClick="lowestPrice(event, 'Lowest Price')">Lowest Price</button>
+                              <button className="tablinks" onClick="fastestDelevery(event, 'Fastest Product')">Fastest Product</button>                           
+                          </div>
+                        </div> */}
+                        </div>
+
                       </div>
                     </div> 
                     {this.state.newProducts.length>=1?

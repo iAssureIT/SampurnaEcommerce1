@@ -184,8 +184,8 @@ class ShoppingVerticals extends Component {
                    }
                   }                     
                   return (
-                    <div className={"col-"+XLcol} key={index}>
-                      <a href={url} className ="secCateblock"> 
+                    <div className={"col-"+XLcol +" " +"NoPadding"} key={index}>
+                      <a href={url} className ="secCateblock sectionCategoryBlock"> 
                           <div className="productImg col-12 ">
                             <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
                               <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />
