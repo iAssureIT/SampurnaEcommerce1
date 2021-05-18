@@ -57,7 +57,7 @@ exports.get_coupon = (req, res, next) => {
 /**=========== get_coupon ===========*/
 exports.get_coupon_by_couponcode = (req, res, next) => {
     // console.log("params => ",req.params.couponCode);
-    Coupen.findOne({"couponcode" : req.params.couponCode})
+    Coupen.findOne({"couponcode" : req.params.couponCode, 'startdate': { $lte : new Date()},'enddate': {$gte : new Date()}})
     .exec()
     .then(coupen => {
         if(coupen){

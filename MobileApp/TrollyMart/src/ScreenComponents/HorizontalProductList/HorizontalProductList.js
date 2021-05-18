@@ -13,21 +13,22 @@ import {
 import { Header, 
         Button, 
         Icon, 
-        SearchBar }   from "react-native-elements";
-import styles         from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
-import {HeaderBar3}     from '../HeaderBar3/HeaderBar3.js';
-import {Footer}       from '../Footer/Footer1.js';
-import { colors }     from '../../AppDesigns/currentApp/styles/styles.js';
-import axios          from 'axios';
-import AsyncStorage   from '@react-native-async-storage/async-storage';
-import Counter        from "react-native-counters";
-import Modal          from "react-native-modal";
-import Carousel       from 'react-native-banner-carousel-updated';
-import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import { useNavigation }                from '@react-navigation/native';
-export const SimilarProducts =(props)=>{
+        SearchBar }         from "react-native-elements";
+import styles               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
+import {HeaderBar3}         from '../HeaderBar3/HeaderBar3.js';
+import {Footer}             from '../Footer/Footer1.js';
+import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
+import axios                from 'axios';
+import AsyncStorage         from '@react-native-async-storage/async-storage';
+import Counter              from "react-native-counters";
+import Modal                from "react-native-modal";
+import Carousel             from 'react-native-banner-carousel-updated';
+import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { useNavigation }    from '@react-navigation/native';
+
+export const HorizontalProductList =(props)=>{
   const navigation = useNavigation();
-  console.log("navigation",navigation);
+  console.log("props",props);
   const {category_id,user_id,title} =props;
   // const BannerWidth = Dimensions.get('window').width-100;
   const [productList,setProductList]=useState([]);
@@ -38,7 +39,21 @@ export const SimilarProducts =(props)=>{
   },[props]);
 
   const getData=()=>{
-    axios.get("/api/Products/get/listby/category/" + category_id+"/"+user_id)
+    var formValues={
+        "section"                 : props.sectio_id,
+        "category"                : 'all',
+        'subCategory'             : 'all',
+        "showOnlyBrand"           : false,
+        "showOnlySection"         : false,
+        "showOnlyCategory"        : true,
+        "showOnlySubCategory"     : false,
+        "numOfRows"               : 1,
+        "numOfItemPerRow"         : 6,
+        "showCarousel"            : true,
+        "displayItemInCarousel"   : 6
+    }
+    console.log("HorizontalProductList formValues",formValues);
+    axios.post("/api/sections/get/list",formValues)
       .then((response) => {
         console.log("similarproducst",response);
         setProductList(response.data);
@@ -73,7 +88,7 @@ export const SimilarProducts =(props)=>{
                     null
                 }
                 <View style={[styles.flx1, styles.protxt]}>
-                  <Text numberOfLines={2} style={styles.nameprod}>{item.productName}</Text>
+                  <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>
                 </View>
                 <View style={[styles.flx1, styles.prdet]}>
                 <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>

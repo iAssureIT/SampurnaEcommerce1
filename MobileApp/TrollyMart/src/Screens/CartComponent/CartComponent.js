@@ -5,7 +5,9 @@ import {
   View,
   TouchableOpacity,
   Image,ActivityIndicator,
-  Dimensions
+  Dimensions,
+  Platform,
+    
 } from 'react-native';
 import { Button, Icon,Input } from "react-native-elements";
 import Modal                  from "react-native-modal";
@@ -24,6 +26,7 @@ import { getList } 		        from '../../redux/productList/actions';
 import { connect,
   useDispatch,
   useSelector }               from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 
@@ -57,6 +60,7 @@ import { connect,
     const [cartitemid,setCartItemId] = useState('');
     const [incresecartnum,setIncreaseCartNum] = useState('');
     const [coupenCode,setCoupenCode] = useState('');
+    const [coupenPrice,setCoupenPrice] = useState(0);
 
     
 
@@ -251,18 +255,42 @@ const getCartItems=(userId)=>{
   }
 
   const applyCoupen=()=>{
+    if(coupenPrice === 0){
       axios.get('/api/coupon/get/one_by_couponcode/'+coupenCode+"/"+userId)
       .then(res=>{
         console.log("res",res);
         if(res.data.message){
           setToast({text: res.data.message, color:'red'});
         }else{
-            // if(totalPrice > res.data.)
+            if(totalPrice > res.data.minPurchaseAmount){
+              if(res.data.coupenin === 'Percent'){
+                var discount = (res.data.coupenvalue/100 * totalPrice).toFixed(2);
+                setCoupenPrice(discount);
+                setTotalPrice(totalPrice-discount);
+                setToast({text: "Coupen Applied", color:'green'});
+                setCoupenCode('');
+                console.log("discount",discount);
+              }else{
+                var discount = totalPrice - res.data.coupenvalue;
+                setCoupenPrice(discount);
+                setTotalPrice(totalPrice-discount);
+                setCoupenCode('');
+                console.log("discount",discount);
+              }
+              // setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:colors.warning});
+            }else{
+              setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:'red'});
+            }
         }
       })
       .catch(err=>{
+        setCoupenCode('');
         console.log("err",err);
       })
+    }else{
+      setCoupenCode('');
+      setToast({text: "Coupen already applied", color:colors.warning});
+    }  
   }
 
     return (
@@ -274,7 +302,7 @@ const getCartItems=(userId)=>{
           openControlPanel={() => openControlPanel}
         />
         <View style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
-          <ScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" >
+          <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
             <View style={{flex:1}}>
             { !loading ?
               <View style={styles.cartdetails}>
@@ -454,6 +482,7 @@ const getCartItems=(userId)=>{
                         </View> 
                         <View style={{ flex: 0.3 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}> - </Text>
                           { 
                           // discountin === "Amount" ? 
                             <Icon
@@ -498,6 +527,28 @@ const getCartItems=(userId)=>{
                           // : null 
                         }
                         <Text style={styles.totalpriceincart}>0</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.7 }}>
+                          <Text style={styles.totaldata}>Coupon</Text>
+                        </View> 
+                        <View style={{ flex: 0.3 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincart}> - </Text>
+                          { 
+                          // discountin === "Amount" ? 
+                            <Icon
+                              name={currency}
+                              type="font-awesome"
+                              size={15}
+                              color="#666"
+                              iconStyle={styles.iconstyle}
+                            />
+                          // : null 
+                        }
+                        <Text style={styles.totalpriceincart}>{coupenPrice}</Text>
                           </View>
                         </View>
                       </View>
@@ -559,6 +610,7 @@ const getCartItems=(userId)=>{
                             inputStyle            = {{fontSize: 16}}
                             inputStyle            = {{textAlignVertical: "top"}}
                             autoCapitalize        = 'characters'
+                            value                 = {coupenCode}
                           />
                         </View>  
                         <View style={{flex:.3}}>
@@ -601,7 +653,7 @@ const getCartItems=(userId)=>{
                 <ActivityIndicator size="large" color={colors.theme} />
               </View>}
             </View>
-          </ScrollView>
+          </KeyboardAwareScrollView>
           <Footer />
           <Modal isVisible={removefromcart}
             onBackdropPress={() => setRemoveFromCart(false)}

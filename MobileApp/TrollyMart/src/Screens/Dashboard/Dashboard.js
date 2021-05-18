@@ -21,6 +21,7 @@ import axios                        from "axios";
 import {withCustomerToaster}        from '../../redux/AppState.js';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 import { getList } 		              from '../../redux/productList/actions';
+import { getSectionList } 		      from '../../redux/section/actions';
 import { getWishList } 		          from '../../redux/wishDetails/actions';
 import { useIsFocused }             from "@react-navigation/native";
 import { SET_SEARCH_CALL,
@@ -29,6 +30,7 @@ import { SET_SEARCH_CALL,
         SET_SERACH_LIST} 	          from '../../redux/globalSearch/types';
 import { getSearchResult } 	        from '../../redux/globalSearch/actions';
 import Highlighter                  from 'react-native-highlight-words';
+import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
 
 export const Dashboard = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();
@@ -48,18 +50,20 @@ export const Dashboard = withCustomerToaster((props)=>{
     productList     : store.productList,
     wishList        : store.wishDetails.wishList,
     globalSearch    : store.globalSearch,
-    location        : store.location
+    location        : store.location,
+    section         : store.section.sections
   }));
   console.log("store",store);
 
-  const {productList,wishList,globalSearch} = store;
+  const {productList,wishList,globalSearch,section} = store;
   useEffect(() => {
     dispatch({type : SET_SUGGETION_LIST, payload  : []});
     dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
     dispatch({type : SET_SERACH_LIST,    payload  : []});
-    dispatch({type:SET_SEARCH_CALL,payload:false});
+    dispatch({type : SET_SEARCH_CALL,    payload  : false});
+    dispatch(getSectionList());
     getData();
-  },[]);
+  },[props]);
 
   const getData=async()=>{
       var data = await AsyncStorage.multiGet(['user_id', 'token']);
@@ -161,7 +165,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                     <BannerComponent />
                   }
               </View>
-              <View style={[styles.tabWrap]}>
+              {/* <View style={[styles.tabWrap]}>
                   <TouchableOpacity
                     onPress = {()=>setValue('lowestprice')}
                     style={[(value === "lowestprice" ? styles.activeTabView:styles.tabView),styles.tabBorder,styles.borderRadiusLeft]}
@@ -174,7 +178,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                   >
                     <Text style={value === "lowestlocation" ? styles.tabText : styles.tabText1}>Lowest Location</Text>
                   </TouchableOpacity>
-                </View> 
+                </View>  */}
              <View  style={[styles.formWrapper,{paddingHorizontal:15,paddingVertical:5, marginBottom:'18%'}]}> 
                 {globalSearch.searchText ?
                   null
@@ -182,17 +186,26 @@ export const Dashboard = withCustomerToaster((props)=>{
                   <MenuCarouselSection
                     navigation  = {navigation} 
                     type        = {value}
+                    showImage   = {true}
                   />
                 }
                 {globalSearch.searchText ?
                   null
                 :
-                  <MarketingBlock  
-                    navigation  = {navigation}
-                    section     = 'Men'
-                    category    = 'All'
-                    subCategory = 'All'
-                  />
+                  <View>
+                    <MarketingBlock  
+                      navigation  = {navigation}
+                      section     = 'Men'
+                      category    = 'All'
+                      subCategory = 'All'
+                    />
+                   {section && section.length > 0 &&
+                      <HorizontalProductList 
+                        sectio_id={section[0]._id}
+                      />
+                    }
+                  
+                  </View>
                 }
                 {globalSearch.searchText ?
                   // <SearchProducts navigate = {navigation.navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
@@ -228,12 +241,19 @@ export const Dashboard = withCustomerToaster((props)=>{
                     {globalSearch.searchText ?
                       null
                     :
-                    <MarketingBlock  
+                    <View>
+                      <MarketingBlock  
                       navigation  = {navigation}
                       section     = 'Home'
                       category    = 'All'
                       subCategory = 'All'
                     />
+                    {section && section.length > 0 &&
+                        <HorizontalProductList 
+                          sectio_id={section[1]._id}
+                        />
+                      }
+                    </View>  
                     }
                   {productList.exclusiveList.length > 0  ? 
                     <ProductList 
@@ -252,12 +272,19 @@ export const Dashboard = withCustomerToaster((props)=>{
                     {globalSearch.searchText ?
                       null
                     :
-                    <MarketingBlock  
+                    <View>
+                      <MarketingBlock  
                       navigation  = {navigation}
                       section     = 'Women'
                       category    = 'All'
                       subCategory = 'All'
                     />
+                      {section && section.length > 0 &&
+                        <HorizontalProductList 
+                          sectio_id={section[2]._id}
+                        />
+                      }
+                     </View> 
                     }
                   {productList.discountedList.length > 0  ? 
                     <ProductList 

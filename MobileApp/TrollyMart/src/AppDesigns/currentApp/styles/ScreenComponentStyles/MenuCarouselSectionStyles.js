@@ -64,7 +64,8 @@ export default StyleSheet.create({
 		borderRadius: 8 ,
 		overflow: "hidden",
 		borderWidth: 1,
-		borderColor: '#999'
+		borderColor: '#999',
+		backgroundColor: 'rgb(0,0,0)'
 	},
 	proddets: {
 		flexDirection: 'row',

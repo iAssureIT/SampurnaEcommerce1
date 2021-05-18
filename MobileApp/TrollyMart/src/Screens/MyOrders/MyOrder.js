@@ -21,7 +21,7 @@ import commonStyles     from '../../AppDesigns/currentApp/styles/CommonStyles.js
 import axios            from 'axios';
 import moment           from 'moment';
 import AsyncStorage     from '@react-native-async-storage/async-storage';
-
+import { useIsFocused }         from "@react-navigation/native";
 const labels = ["Order Placed", "Packed", "Out for delivery", "Delivered"];
 const customStyles = {
   stepIndicatorSize                 : 25,
@@ -57,10 +57,11 @@ export const MyOrder =(props)=>{
   const [myorders,setMyOrders]=useState([]);
   const [cancelOrderModal,setCancelOrderModal]=useState(false);
   const [cancelOrderId,setCancelOrderId]=useState('');
+  const isFocused = useIsFocused();
   const {navigation}=props;
   useEffect(() => {
     getorderlist();
-}, [props]);
+}, [props,isFocused]);
 
  const getorderlist=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
@@ -178,7 +179,7 @@ export const MyOrder =(props)=>{
                             position = 0;
                           } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
                             position = 1;
-                          } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch") {
+                          } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch" || item.deliveryStatus[item.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
                             position = 2;
                            } 
                            else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid") {

@@ -12,7 +12,7 @@ import {
 import { Header, 
         Button, 
         Icon, 
-        SearchBar }   from "react-native-elements";
+        SearchBar,Rating }   from "react-native-elements";
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
 import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
@@ -308,9 +308,16 @@ export const SubCatCompView =(props)=>{
                     }
                   /> 
                 </View>
+
+<Rating
+  showRating
+  // onFinishRating={this.ratingCompleted}
+  style={{ paddingVertical: 10 }}
+/>
+
               </View>
             </View>
-            <SimilarProducts category_id={productdata.category_ID} user_id={user_id}/>
+            <SimilarProducts category_id={productdata.category_ID} user_id={user_id} title={"You May Also Like"}/>
           </ScrollView>
           :
           <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>

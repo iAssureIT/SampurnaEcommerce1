@@ -12,14 +12,14 @@ import {Menu}                     from '../ScreenComponents/Menu/Menu.js';
 /*----SystemSecurity -----*/
 import {RootLogIn }               from '../Screens/SystemSecurity/RootLogIn/RootLogIn.js';
 import {ForgotPassword}           from '../Screens/SystemSecurity/ForgotPassword/ForgotPassword.js';
-import {ResetPassword}              from '../Screens/SystemSecurity/ResetPassword/ResetPassword.js';
+import {ResetPassword}            from '../Screens/SystemSecurity/ResetPassword/ResetPassword.js';
 import {RootSignUp}               from '../Screens/SystemSecurity/Signup/RootSignUp.js';
-import {OTPVerification}            from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
+import {OTPVerification}          from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
 import {ForgotPasswordOTP}        from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
 import {Dashboard}                from '../Screens/Dashboard/Dashboard.js';
-import {CategoriesComponent}       from'../Screens/CategoriesComponent/CategoriesComponent.js';
-import {SubCategoriesComp}          from'../Screens/CategoriesComponent/SubCategoriesComp.js';
-import {SubCatCompView}             from'../Screens/CategoriesComponent/SubCatCompView.js';
+import {CategoriesComponent}      from'../Screens/CategoriesComponent/CategoriesComponent.js';
+import {SubCategoriesComp}        from'../Screens/CategoriesComponent/SubCategoriesComp.js';
+import {SubCatCompView}           from'../Screens/CategoriesComponent/SubCatCompView.js';
 import {CartComponent}            from '../Screens/CartComponent/CartComponent.js';
 import ConfirmOrderComponent      from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';
 import {AddressDefaultComp}       from '../Screens/AddressComponent/AddressDefaultComp.js';
@@ -34,12 +34,13 @@ import StoreDetails               from '../Screens/Stores/StoreDetails.js';
 import {AllProductList}           from '../Screens/AllProductList/AllProductList.js';
 import {OrderDetails}             from '../Screens/MyOrders/OrderDetails.js';
 import {AccountDashboard}         from '../Screens/AccountDashboard/AccountDashboard.js';
-import {AccountInformation}         from'../Screens/AccountDashboard/AccountInformation.js';
+import {AccountInformation}       from'../Screens/AccountDashboard/AccountInformation.js';
 import ResetPwd                   from'../Screens/AccountDashboard/ResetPwd.js';
 import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
 import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
 import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';
 import {Location}                 from '../Screens/Location/Location.js';
+import {VendorList}               from '../Screens/VendorList/VendorList.js';
 
 const Home = createDrawerNavigator();
 console.log("TransitionPresets",TransitionPresets);
@@ -49,10 +50,12 @@ const TransitionScreenOptions = {
 };
 
 
+
 export const HomeStack = () => (
   <Home.Navigator 
     headerMode            = "none"
     mode="modal"
+    initialRouteName ="Dashboard"
     screenOptions={{
       gestureEnabled:true,
       gestureDirection:'horizontal',
@@ -67,7 +70,7 @@ export const HomeStack = () => (
     <Home.Screen name="Dashboard"                   component={Dashboard} />
     <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} />
     <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp} />
-    <Home.Screen name="AllProductList"          component={AllProductList} />
+    <Home.Screen name="AllProductList"              component={AllProductList} />
     <Home.Screen name="SubCatCompView"              component={SubCatCompView} />
     <Home.Screen name="CartComponent"               component={CartComponent} />
     <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} />
@@ -88,6 +91,7 @@ export const HomeStack = () => (
     <Home.Screen name="Stores"                      component={Stores} />
     <Home.Screen name="StoreDetails"                component={StoreDetails} />
     <Home.Screen name="InAppNotification"           component={InAppNotification} /> 
+    <Home.Screen name="VendorList"                  component={VendorList} />
   </Home.Navigator>
 );
 
