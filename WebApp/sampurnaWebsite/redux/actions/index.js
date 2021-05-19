@@ -4,6 +4,11 @@ export const setBlockData = (data) => ({
     type: 'SET_BLOCKS_DATA',
     payload : data
 })
+export const setCurrency = (data) => ({
+  type: 'SET_CURRENCY_DATA',
+  payload : data
+})
+
 
 export const getBlockData = (data) => ({
     type: 'GET_BLOCKS_DATA',

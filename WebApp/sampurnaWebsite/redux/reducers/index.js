@@ -24,14 +24,16 @@ const initialState = {
 
 }
 const reducer = (state = initialState,action) =>{
-
     switch (action.type) {
         case  'INCREMENT_COUNTER':
             return {...state, value: state.value + 1};
         case  'DECREMENT_COUNTER':
             return {...state, value: state.value - 1};
         case  'SET_BLOCKS_DATA':
-            console.log(" set block data===",action.payload);
+            // console.log(" set block data===",action.payload);
+            return {...state, pageData: action.payload};
+        case  'SET_CURRENCY_DATA':
+            console.log(" set CURRENCY data===",action.payload);
             return {...state, pageData: action.payload};
         case  'CART_COUNT_INITIALLY' :
             return {...state, cartCount: action.cartCount};

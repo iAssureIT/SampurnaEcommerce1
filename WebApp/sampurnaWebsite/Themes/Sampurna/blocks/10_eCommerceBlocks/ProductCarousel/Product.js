@@ -16,7 +16,6 @@ class Product extends Component{
             newProducts : [],
             wishList    : [],
             blockSettings : [],
-
         }
         // console.log("1. Inside constructor");
     }
@@ -405,7 +404,8 @@ class Product extends Component{
                                 data.discountPercent ?    
                                 <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
                                   {/* <span className={Style.price}><span className={Style.oldprice}><i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice} { data.size? "/ " +data.size +" "+data.unit:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span>                                  */}
-                                  <span className={Style.price}><span className={Style.oldprice}><i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice}</span>    
+                                  <span className={Style.price}><span className={Style.oldprice}>
+                                    <i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice}</span>    
                                 </div>   
                                 :
                                   <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>
@@ -416,12 +416,15 @@ class Product extends Component{
                                 data.discountPercent ?
                                 <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
                                   <span className={Style.price}><span className={Style.oldprice }>&nbsp;<i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice}&nbsp;</span>&nbsp;
-                                  <i className="fa fa-inr"></i>&nbsp;{data.discountedPrice+".00"} 
+                                  {/* <i className="fa fa-inr"></i> */}
+                                  AED &nbsp;{(data.discountedPrice).toFixed(2)} 
                                   </span>
                                 </div>
                                 :  
                                 <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                  <span className={Style.price}><i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice} </span> &nbsp;                                      
+                                  <span className={Style.price}>
+                                    {/* <i className="fas fa-rupee-sign"></i> */}
+                                    AED &nbsp;{data.originalPrice} </span> &nbsp;                                      
                                 </div> 
                             }
                           </div>

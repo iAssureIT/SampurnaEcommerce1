@@ -211,7 +211,7 @@ class ProductCarousel extends Component {
           axios.get(productApiUrl)      
           .then((response)=>{
             if(response.data){     
-            console.log("response.data in product carousel===",response.data);       
+            // console.log("response.data in product carousel===",response.data);       
             if(localStorage.getItem('websiteModel')=== "FranchiseModel"){
               for(var i=0;i<response.data.length;i++){       
                   var availableSizes = [];         
@@ -233,7 +233,7 @@ class ProductCarousel extends Component {
                   loading         : false
                 });  
               }
-                console.log("Products list===",this.state.newProducts);
+                // console.log("Products list===",this.state.newProducts);
                 // this.getFilteredProducts(this.state.selector);
             });
           }

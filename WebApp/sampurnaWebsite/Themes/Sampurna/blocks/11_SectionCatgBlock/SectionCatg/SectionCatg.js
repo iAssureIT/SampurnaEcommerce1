@@ -118,7 +118,7 @@ class ShoppingVerticals extends Component {
           {this.state.groupSettings.showTitle?
           <div className="col-12">
             <div className="col-12 productcomponentheading text-center">
-              <div className="producttextclass  col-12">
+              <div className="producttextclass  col-12 NoPadding">
                 <h4 className="row">
                   <b>{this.state.blockTitle}</b> 
                 </h4> 
@@ -162,7 +162,7 @@ class ShoppingVerticals extends Component {
                             <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" />
                           </a>
                         </div>
-                        <div className="col-12 item_Name text-center" title={data.item}>{data.itemUrl}</div>
+                        <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>
                       </a>
                   </div>                            
                   );

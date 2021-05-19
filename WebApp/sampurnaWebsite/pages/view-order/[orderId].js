@@ -36,7 +36,7 @@ class ViewOrder extends Component {
 		    },()=>{
           axios.get("/api/orders/get/one/"+this.state.orderID)
           .then((response)=>{
-            console.log("orders data:",response);
+            // console.log("orders data:",response);
             this.setState({ 
                 orderData : response.data
             })

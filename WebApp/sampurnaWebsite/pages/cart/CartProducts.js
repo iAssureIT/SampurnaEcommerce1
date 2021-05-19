@@ -823,7 +823,7 @@ class CartProducts extends Component{
                         </div>
                         : 
                         <div className="col-12  textAlignCenter">
-                          <img className="col-12 col-md-4 offset-md-4 col-sm-6 offset-sm-3 " src={"/images/eCommerce/emptycart.png"} alt="" />                          
+                          <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" />                          
                         </div>  
                         
                     }

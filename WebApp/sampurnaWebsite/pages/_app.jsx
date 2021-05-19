@@ -7,6 +7,8 @@ import Link                 from 'next/link';
 import dynamic              from 'next/dynamic';
 import $                    from 'jquery';
 import axios                from 'axios';
+import {connect}            from 'react-redux';
+import {setCurrency}        from '../redux/actions/index.js';
 import { Provider }         from 'react-redux'
 import store                from '../redux/store.js'
 import Router               from 'next/router';
@@ -33,18 +35,35 @@ if (typeof window !== "undefined") {
 Router.events.on('routeChangeStart', () => NProgress.start()); 
 Router.events.on('routeChangeComplete', () => NProgress.done()); 
 Router.events.on('routeChangeError', () => NProgress.done());
-
 export default function App({ Component, pageProps }) {
 	const [googleAPIKey,setGoogleAPIKey]=useState()
 	useEffect(() => {
 	 	axios.get("/api/projectSettings/get/GOOGLE",)
 	    .then((response) => {
         // console.log("googleAPIKey response",response);
-	      	setGoogleAPIKey(response.data.googleapikey)
+	      	// setGoogleAPIKey(response.data.googleapikey)
 	    })
 	    .catch((error) =>{
 	        console.log(error)
 	    })
+        //Get all preferences and store them in localstorage
+        axios.get("/api/adminpreference/get")
+          .then(preferences =>{
+            // console.log("preferences",preferences);
+            var currency = preferences.data[0].currency;
+            // store.dispatch(setCurrency(currency));
+
+            // var askpincodeToUser = preferences.data[0].askPincodeToUser;
+
+            // localStorage.setItem('preferences',askpincodeToUser);
+            // localStorage.setItem("websiteModel",preferences.data[0].websiteModel);      
+            // localStorage.setItem("showLoginAs",preferences.data[0].showLoginAs); 
+            // localStorage.setItem('preferences', JSON.stringify(preferences));		
+          })
+          .catch(error=>{
+            console.log("Error in preferences = ", error);
+          })  
+        
 	}, []);
   // console.log("googleAPIKey",googleAPIKey);
   return (
@@ -62,3 +81,4 @@ export default function App({ Component, pageProps }) {
 	 
     );  
 }
+

@@ -1,15 +1,6 @@
 
-import React from 'react';
-import axios from 'axios';
-
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap/dist/css/bootstrap-theme.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-// import {setBlockData} from '../redux/actions/index.js';
-// import {connect} from 'react-redux';
-// import store from '../redux/store.js'
-
+import React      from 'react';
+import axios      from 'axios';
 import MasterPage from '../MasterPage/MasterPage.js'
 
 export const config = {

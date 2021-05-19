@@ -4,7 +4,7 @@ featured  - /api/products/get/listbytype/featured
 
 exclusive - /api/products/get/listbytype/exclusive
 
-particular section  - /api/products/get/listbysection/women
+particular section  - /api/products/get/listbysection/pet-supplies
 
 Shop By Section - /api/sections/get/list
  

@@ -25,12 +25,15 @@ class Header extends React.Component {
          }
     }    
 	 async componentDidMount(){
-       await this.props.getCartData();
-       await this.props.getWishlistData();
+        // await this.props.getCartData();
+        // await this.props.getWishlistData();
        this.getCategoriesData();
        var userId = localStorage.getItem('user_ID');
        this.setState({
            "userID": userId
+       },()=>{
+            this.props.getCartData();
+            this.props.getWishlistData();
        })
         // console.log("***this.props.recentCartData()===",this.props.recentCartData);
         // document.getElementById("tableSearch").focus();        
