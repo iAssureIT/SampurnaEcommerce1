@@ -778,7 +778,7 @@ class ListOfEntities extends Component {
 									</div>
 								}
 								{ this.state.view === 'Grid' && this.state.showDetails && this.state.entityList && this.state.entityList.length > 0?
-									<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 pdcls suppliersOneProfile commonSup noPadding" id={this.state.id}>
+									<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12 pdcls suppliersOneProfile commonSup noPadding" id={this.state.id}>
 										<div id={this.state.id} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
 											<EntityDetails name={this.state.index} id={this.state.id} 
 											entityType={this.state.entityType} getEntities={this.getEntities.bind(this)}

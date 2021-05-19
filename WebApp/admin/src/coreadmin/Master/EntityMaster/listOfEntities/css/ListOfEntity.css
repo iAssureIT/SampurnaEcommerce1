@@ -52,7 +52,7 @@
     overflow-y: scroll;
     margin-left: 22px;
     padding: 0;
-    width: 38%;
+    /* width: 38%; */
 }
 .borderlist12{
 	min-height: 100px !important;
