@@ -26,7 +26,7 @@ import Carousel             from 'react-native-banner-carousel-updated';
 import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { useNavigation }    from '@react-navigation/native';
 
-export const HorizontalProductList =(props)=>{
+export const HorizontalSecCatList =(props)=>{
   const navigation = useNavigation();
   console.log("props",props);
   const {category_id,user_id,title} =props;
@@ -39,9 +39,23 @@ export const HorizontalProductList =(props)=>{
   },[props]);
 
   const getData=()=>{
-    axios.get(props.blockApi)
+    var formValues={
+        "section"                 : props.section,
+        "category"                : props.category,
+        'subCategory'             : props.subCategory,
+        "showOnlyBrand"           : props.showOnlyBrand,
+        "showOnlySection"         : props.showOnlySection,
+        "showOnlyCategory"        : props.showOnlyCategory,
+        "showOnlySubCategory"     : props.showOnlySubCategory,
+        "numOfRows"               : 1,
+        "numOfItemPerRow"         : 6,
+        "showCarousel"            : true,
+        "displayItemInCarousel"   : 6
+    }
+    console.log("HorizontalProductList formValues",formValues);
+    axios.post("/api/sections/get/list",formValues)
       .then((response) => {
-        console.log("HorizontalProductList",response);
+        console.log("similarproducst",response);
         setProductList(response.data);
       })
       .catch((error) => {
@@ -55,9 +69,9 @@ export const HorizontalProductList =(props)=>{
           <TouchableOpacity style={{width:160,marginRight:10,backgroundColor:"#fff"}} onPress={() => navigation.push('SubCatCompView',{productID: item._id })}>
                <View style={styles.flx1}>
                 {
-                  item.productImage && item.productImage.length >0?
+                  item.itemImg?
                     <Image
-                      source={{ uri: item.productImage[0] }}
+                      source={{ uri: item.itemImg }}
                       style={styles.subcatimg}
                       resizeMode="stretch"
                     />

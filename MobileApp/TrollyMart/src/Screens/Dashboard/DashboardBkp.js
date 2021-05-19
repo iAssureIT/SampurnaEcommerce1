@@ -30,9 +30,7 @@ import { SET_SEARCH_CALL,
         SET_SERACH_LIST} 	          from '../../redux/globalSearch/types';
 import { getSearchResult } 	        from '../../redux/globalSearch/actions';
 import Highlighter                  from 'react-native-highlight-words';
-import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCatList/HorizontalSecCatList.js';
 import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
-import { Alert } from 'react-native';
 
 export const Dashboard = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();
@@ -47,7 +45,6 @@ export const Dashboard = withCustomerToaster((props)=>{
   const [user_id,setUserId]= useState('');
   const [limit,setLimit]= useState(6);
   const [token,setToken]= useState('');
-  const [blocks,setBlocks]= useState([]);
 
   const store = useSelector(store => ({
     productList     : store.productList,
@@ -66,7 +63,7 @@ export const Dashboard = withCustomerToaster((props)=>{
     dispatch({type : SET_SEARCH_CALL,    payload  : false});
     dispatch(getSectionList());
     getData();
-  },[]);
+  },[props]);
 
   const getData=async()=>{
       var data = await AsyncStorage.multiGet(['user_id', 'token']);
@@ -80,18 +77,6 @@ export const Dashboard = withCustomerToaster((props)=>{
         dispatch(getWishList(data[0][1]));
       }
       searchProducts();
-      getBlocks();
-  }
-
-  const getBlocks=()=>{
-    axios.get('/api/pages/get/page_block/homepage')
-    .then(res=>{
-      setBlocks(res.data.pageBlocks)
-    })
-    .catch(err=>{
-      console.log("err",err)
-    })
-
   }
 
   const countfun=(user_id)=>{
@@ -207,43 +192,21 @@ export const Dashboard = withCustomerToaster((props)=>{
                 {globalSearch.searchText ?
                   null
                 :
-                blocks && blocks.length > 0 ?
-                  blocks.map((item,index)=>{
-                      return(
-                        item.blockComponentName === "DealsBlock" ?
-                        <MarketingBlock  
-                          navigation  = {navigation}
-                          section     = {item.block_id.dealSettings.section}
-                          category    = {item.block_id.dealSettings.category}
-                          subCategory = {item.block_id.dealSettings.subCategory}
+                  <View>
+                    <MarketingBlock  
+                      navigation  = {navigation}
+                      section     = 'Men'
+                      category    = 'All'
+                      subCategory = 'All'
+                    />
+                   {section && section.length > 0 &&
+                      <HorizontalProductList 
+                        sectio_id={section[0]._id}
                       />
-                      :
-                      item.blockComponentName === "SectionCatg" ?
-                        <HorizontalSecCatList 
-                          blockTitle   = {item.block_id.blockTitle}
-                          section      = {item.block_id.groupSettings.section}
-                          category    = {item.block_id.groupSettings.category}
-                          subCategory = {item.block_id.groupSettings.subCategory}
-                          subCategory         = {item.block_id.groupSettings.subCategory}
-                          showOnlySection     = {item.block_id.groupSettings.showOnlySection}
-                          showOnlyCategory    = {item.block_id.groupSettings.showOnlyCategory}
-                          showOnlyBrand       = {item.block_id.groupSettings.showOnlyBrand}
-                          showOnlySubCategory = {item.block_id.groupSettings.showOnlySubCategory}
-                        />
-                        :
-                        item.blockComponentName === "ProductCarousel" ?
-                        <HorizontalProductList 
-                          blockTitle   = {item.block_id.blockTitle}
-                          blockApi      = {item.block_id.blockSettings.blockApi}
-                        />
-                      :
-                      null  
-                    )
-                   
-                  })
-                  :
-                  null
-                } 
+                    }
+                  
+                  </View>
+                }
                 {globalSearch.searchText ?
                   // <SearchProducts navigate = {navigation.navigate} title={'Search Products'} searchProds={searchProductsDetails}  />
                   <ProductList 
@@ -275,7 +238,23 @@ export const Dashboard = withCustomerToaster((props)=>{
                       loading     = {productList.loading}
                       />
                     : null}
-                    
+                    {globalSearch.searchText ?
+                      null
+                    :
+                    <View>
+                      <MarketingBlock  
+                      navigation  = {navigation}
+                      section     = 'Home'
+                      category    = 'All'
+                      subCategory = 'All'
+                    />
+                    {section && section.length > 0 &&
+                        <HorizontalProductList 
+                          sectio_id={section[4]._id}
+                        />
+                      }
+                    </View>  
+                    }
                   {productList.exclusiveList.length > 0  ? 
                     <ProductList 
                       navigate    = {navigation.navigate} 
@@ -290,6 +269,23 @@ export const Dashboard = withCustomerToaster((props)=>{
                       loading     = {productList.loading}
                     />
                     : null}
+                    {globalSearch.searchText ?
+                      null
+                    :
+                    <View>
+                      <MarketingBlock  
+                      navigation  = {navigation}
+                      section     = 'Women'
+                      category    = 'All'
+                      subCategory = 'All'
+                    />
+                      {section && section.length > 0 &&
+                        <HorizontalProductList 
+                          sectio_id={section[3]._id}
+                        />
+                      }
+                     </View> 
+                    }
                   {productList.discountedList.length > 0  ? 
                     <ProductList 
                       navigate    = {navigation.navigate} 

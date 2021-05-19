@@ -104,7 +104,7 @@ class CategoryManagement extends Component{
       }, "Please select the section");
 
       $.validator.addMethod("letterswithspace", function(value, element) {
-        return this.optional(element) || /^[a-z][a-z\s]*$/i.test(value);
+        return this.optional(element) || /^[a-z][a-z\s][&]*$/i.test(value);
       }, "Please enter letters only");
 
       $.validator.addMethod("charactersLength", function(value, element) {
@@ -135,7 +135,7 @@ class CategoryManagement extends Component{
             valueNotEquals: "Select Section"
           },
           category: {
-            required: true,
+            // required: true,
             letterswithspace : true,
             charactersLength:true
           },

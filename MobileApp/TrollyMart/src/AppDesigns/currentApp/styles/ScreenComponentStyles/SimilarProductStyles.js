@@ -18,8 +18,9 @@ export default StyleSheet.create({
 		borderColor: '#999'
 	},
 	proddets: {
-        marginTop:15,
-		marginBottom: '1%',
+        // marginTop:15,
+		// marginBottom: '1%',
+		// backgroundColor:"#ff0",
         flex:1,
 	},
 	imageMenuWraper:{	
@@ -33,11 +34,7 @@ export default StyleSheet.create({
 	title:{
 		fontFamily:"Montserrat-SemiBold",
 		fontSize:16,
-	},
-	title:{
-		fontFamily:"Montserrat-SemiBold",
-		fontSize:16,
-		marginTop:15
+		paddingVertical:5
 	},
 	menuborderstyle:{
 		borderWidth:1,
