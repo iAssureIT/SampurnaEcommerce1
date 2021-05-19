@@ -99,8 +99,8 @@ class IAssureTable extends Component {
 		let id = e.target.id;
 		axios.get('/api/products/get/one/'+id)
 			.then((response)=>{
-			//	console.log('response.data product==>>>',response.data);
-				if(response.data._id && response.data.status === "Publish"){
+				console.log('response.data product==>>>',response.data);
+				if(response.data && response.data._id && response.data.status === "Publish"){
 					swal({
 						text : "This product is in Order and Publish!",
 					});
