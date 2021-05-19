@@ -812,7 +812,7 @@ class IAssureTable extends Component {
 	                            <th className="umDynamicHeader srpadd paddingLeft0">
 									<div className="uMDetailContainer checkAll">
 										<input type="checkbox" className="allSelector" name="allSelector" onChange={this.checkAll.bind(this)}/>
-								    	<span className="uMDetailCheck"></span>
+								    	{/* <span className="uMDetailCheck"></span> */}
 								    </div>
 								</th>
 		                            { this.state.tableHeading ?
@@ -829,7 +829,13 @@ class IAssureTable extends Component {
 									<th className="umDynamicHeader srpadd textAlignLeft">Publish/UnPublish</th>
 									{/* <th className="umDynamicHeader srpadd textAlignLeft">Exclusive</th> */}
 									<th className="umDynamicHeader srpadd textAlignLeft">Status</th>
-									<th className="umDynamicHeader srpadd textAlignLeft">Action</th>
+									{this.state.tableObjects.showAction === false
+									?
+										null
+									:
+										<th className="umDynamicHeader srpadd textAlignLeft">Action</th>
+									}
+									
 	                            </tr>
 	                        </thead>
 	                        <tbody>
@@ -893,16 +899,23 @@ class IAssureTable extends Component {
                                                             {(value.status === ("Unpublish") ? ("Unpublished") : (value.status === ("Draft") ? ("Draft") : ("Published")))}
                                                         </div> */}
                                                     </td>
+													{this.state.tableObjects.showAction === false
+													?
+														null
+													:
 													<td className="textAlignCenter">
+													
 														<span class="displayInline">
 															{/* <a href={"/product-details/"+value._id} className="" title="View" data-ID={value._id}>
-	                                                            <i className="fa fa-eye" aria-hidden="true"></i>
-	                                                        </a>&nbsp; &nbsp; */}
+																<i className="fa fa-eye" aria-hidden="true"></i>
+															</a>&nbsp; &nbsp; */}
 															<i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
 															{/* <i className={"fa fa-image "} id={value._id} name={value.productNameBasic} nameRlang={value.productNameRlang} data-toggle="modal" title="Upload Product Image" data-target={"#productImageModal"} onClick={this.showImageModal.bind(this)}></i>&nbsp; &nbsp; */}
 														
 															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}
-															</span>
+														</span>
+													
+
 														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
 	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	                                                          <div className="modal-content adminModal-content col-lg-6 col-lg-offset-4 col-md-6 col-md-offset-4 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
@@ -928,6 +941,7 @@ class IAssureTable extends Component {
 	                                                        </div>
 	                                                    </div>
 													</td>
+										}
 												</tr>
 											);										
 										}

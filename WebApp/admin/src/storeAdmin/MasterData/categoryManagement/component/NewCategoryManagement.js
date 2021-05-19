@@ -33,7 +33,8 @@ class CategoryManagement extends Component{
 														editUrl              : '/project-master-data',
 														deleteUrl            : '/project-master-data',
 														patchStatusUrl       : '/api/category/patch/subcategory/status',
-														type                 : 'SubCategories'
+														type                 : 'SubCategories',
+														showAction 			 : false
 			},
 			/**=============== Category Details ===============*/
 			"tableHeading"             : {
@@ -49,10 +50,11 @@ class CategoryManagement extends Component{
 														apiLink              : '/api/category',
 														paginationApply      : true,
 														searchApply          : true,
-														editUrl              : '/project-master-data',
+														editUrl              : '/project-master-data/',
 														deleteUrl            : '/project-master-data',
 														patchStatusUrl      	: '/api/category/patch/status',
-														type                 : 'Categories'
+														type                 : 'Categories',
+														showAction 			 : true
 			},
 			"sectionsList"          	: [],
 			"startRange"            	: 0,
@@ -81,6 +83,7 @@ class CategoryManagement extends Component{
 		// const name   = target.name;
 
 		this.setState({
+			// section     : event.target.value.split('|')[0],
 			section     : event.target.value.split('|')[0],
 			section_ID  : event.target.value.split('|')[1],
 		},()=>{
@@ -749,7 +752,10 @@ class CategoryManagement extends Component{
 					"categoryDescription"       : response.data.categoryDescription,
 					"categoryImage"             : response.data.categoryImage,
 				},()=>{
-					console.log("this.state.subcatgArr----",this.state.subcatgArr);
+					console.log("this.state.section----",this.state.section);
+					console.log("this.state.section_ID----",this.state.section_ID);
+					console.log("this.state.category----",this.state.category);
+					console.log("this.state.categoryImage----",this.state.categoryImage);
 					var addRowLength = this.state.subcatgArr ? this.state.subcatgArr.length : null;
 					if(addRowLength){
 						for(var i=0;i<addRowLength;i++){
@@ -787,12 +793,14 @@ class CategoryManagement extends Component{
 		if (event.currentTarget.files && event.currentTarget.files[0]) {
 			// for(var i=0; i<event.currentTarget.files.length; i++){
 			var file = event.currentTarget.files[0];
+			console.log("file => ",file);
 			if (file) {
 				var fileName  	= file.name; 
-				var ext 			= fileName.split('.').pop();  
+				var ext 		= fileName.split('.').pop();  
 				if(ext === "jpg" || ext === "png" || ext === "jpeg" || ext === "JPG" || ext === "PNG" || ext === "JPEG"){
 					if (file) {
-						var objTitle = { fileInfo :file }
+						var objTitle = { fileInfo : file }
+						console.log("object => ",objTitle)
 						categoryImage = objTitle ;
 						
 					}else{          
@@ -803,14 +811,19 @@ class CategoryManagement extends Component{
 				}//file types
 			}//file
 			// }//for 
-  
+  			console.log("event.currentTarget.files => ",(event.currentTarget.files))
 			if(event.currentTarget.files){
-				this.setState({
-					categoryImage : categoryImage
-				});  
+				// this.setState({
+				// 	categoryImage : categoryImage
+				// },()=>{
+				// 	// console.log("categoryImage => ",this.state.categoryImage)
+				// });  
 				main().then(formValues=>{
+					console.log("formValues => ",formValues);
 					this.setState({
 						categoryImage : formValues.categoryImage
+					}, ()=>{
+						console.log("categoryImage => ",this.state.categoryImage)
 					})
 				});
 				async function main(){
@@ -821,6 +834,7 @@ class CategoryManagement extends Component{
 						"categoryImage"    : s3url,
 						"status"           : "New"
 					};	
+					console.log("formValues => ",formValues)
 					return Promise.resolve(formValues);
 				}
 				function s3upload(image,configuration){	

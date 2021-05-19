@@ -31,7 +31,8 @@ class SectionManagement extends Component {
                 searchApply     : false,
                 editUrl         : '/project-master-data/',
                 patchStatusUrl  : '/api/sections/patch/status',
-                type            : 'Sections'
+                type            : 'Sections',
+                showAction 		: true
             },
             "startRange"    : 0,
             "limitRange"    : 10,

@@ -259,10 +259,13 @@ exports.fetch_category = (req,res,next)=>{
     Category.findOne({_id : req.params.categoryID})
     .exec()
     .then(data=>{
+        console.log("data =>" ,data)
         res.status(200).json({
             "_id"                   : data._id,
+            "section_ID"            : data.section_ID,
             "section"               : data.section,
             "category"              : data.category,
+            "categoryUrl"           : data.categoryUrl,
             "categoryNameRlang"     : data.categoryNameRlang ? "<span class='RegionalFont'>"+data.categoryNameRlang+"</span>" : '-',
             "categoryRank"          : data.categoryRank ? data.categoryRank : '',
             "subCategory"           : data.subCategory 

@@ -60,7 +60,7 @@
 	  margin-top: 2px;
   }
   .uMDetailContainer {
-	  position: absolute;
+	  position: relative;
 	  align-content: center;
 	  cursor: pointer;
 	  font-size: 10px;
