@@ -1,19 +1,16 @@
 
 import React, { Component } from 'react';
-import axios from 'axios';
-import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer      from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
-import { components } from 'react-select';
+import axios                from 'axios';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import { components }       from 'react-select';
+import Style                from "./vendor-list.module.css";
 
 class VendorList extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            VendorList : [
-                {
-                    "vendor_Name": "abc" 
-                }
-            ],
+            vendorList : [],
         }
     }
 
@@ -47,15 +44,18 @@ class VendorList extends Component {
                 <div className="col-12">
                     <div className="row">
                         <div className="col-12"> Vendor List</div>
-                        <div className="col-12 vendorListWrapper">
+                        <div className={"col-12  "+Style.vendorListWrapper}>
 
                            { Array.isArray(this.state.vendorList) && this.state.vendorList.length >0?
-                                this.state.sections.map((data, index)=>{
+                                this.state.vendorList.map((vendordata, index)=>{
+                                    {console.log("vendordata===",vendordata);}
                                     return(
-                                        <div class="card">
-                                            <div class="card-header">Header</div>
-                                            <div class="card-body">  Content</div>
-                                            <div class="card-footer">Footer</div>
+                                        <div className={"card col-4  " +Style.vendorCard}>
+                                            <div className="card-body"><span style={{color:"#fff"}}>{vendordata.companyName}</span>
+                                                <div style={{height:50,width:50}}>
+                                                    <img src={vendordata.companyLogo[0]} className="img-thumbnail"/>
+                                                </div>   
+                                            </div> 
                                         </div>
                                     )
                                 })

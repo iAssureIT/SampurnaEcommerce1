@@ -1,0 +1,6 @@
+.vendorCard{
+    height: 150px;
+    background-image: url("/images/eCommerce/vendorCard.jpg");
+    /* opacity:0.5; */
+    background-color: rgba(0,0,0,0.5); 
+}

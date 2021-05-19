@@ -32,8 +32,8 @@ render(){
                  Array.isArray(this.state.categoryData) && this.state.categoryData.map((sectionDetails,sectionindex)=>{                 
                     return( 
                     <li key={sectionindex.toString()} className="dropdown dropDownLevel1">
-                        {/* <Link href={"/vendor-list/sectionDetails._id" +sectionDetails.sectionUrl}> */}
-                        <Link href={`/section/${encodeURIComponent(sectionDetails.sectionUrl)}`}>
+                        <Link href={"/vendor-list/" +sectionDetails._id}>
+                        {/* <Link href={`/section/${encodeURIComponent(sectionDetails.sectionUrl)}`}> */}
                             <a className="">{sectionDetails.section}&nbsp;{sectionDetails.categorylist.length > 0?<i className="fa fa-angle-down"></i>:null}</a>
                         </Link>   
 
