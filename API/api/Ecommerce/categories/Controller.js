@@ -5,6 +5,7 @@ const Category = require('./Model');
 const { json } = require("body-parser");
 
 exports.insert_category = (req,res,next)=>{
+    console.log("req.body => ",req.body);
 	Category.find({"category":req.body.category, "section":req.body.section})
 		.exec()
 		.then(data =>{
@@ -29,9 +30,10 @@ exports.insert_category = (req,res,next)=>{
                     status                    : "Published",
                     createdAt                 : new Date()
                 });
-                // console.log("Category:",category);
+                console.log("Category:",category);
                 category.save()
                 .then(data=>{
+                    console.log("data => ",data);
                     res.status(200).json({
                         "message": "Category Submitted Successfully!"
                     });
@@ -156,6 +158,9 @@ exports.list_category_with_limits = (req,res,next)=>{
                                                         return {
                                                             _id                 : a._id+"-"+x._id,
                                                             subCategoryTitle    : a.subCategoryTitle,
+                                                            subCategoryCode     : a.subCategoryCode,
+                                                            subCategoryImage    : a.subCategoryImage,
+                                                            subCategoryUrl      : a.subCategoryUrl,
                                                             status              : a.status,
                                                         }
                                                     }  
@@ -276,6 +281,9 @@ exports.fetch_category = (req,res,next)=>{
                                                     return {
                                                         _id                 : a._id+"-"+data._id,
                                                         subCategoryTitle    : a.subCategoryTitle,
+                                                        subCategoryCode     : a.subCategoryCode,
+                                                        subCategoryImage    : a.subCategoryImage,
+                                                        subCategoryUrl      : a.subCategoryUrl,
                                                         status              : a.status,
                                                     }
                                                 }  
@@ -283,7 +291,7 @@ exports.fetch_category = (req,res,next)=>{
                                             }))
                                         :
                                             [],
-            "categoryDescription"   : data.categoryDescription ? x.categoryDescription : '',
+            "categoryDescription"   : data.categoryDescription ? data.categoryDescription : '',
             "categoryImage"         : data.categoryImage,
             "categoryIcon"          : data.categoryIcon,
             "status"                : data.status

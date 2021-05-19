@@ -391,6 +391,7 @@ class CategoryManagement extends Component{
 		arrLength.push({
 			subCategoryCode 	: "a"+arrLength.length,
 			subCategoryTitle 	: "",
+			subCategoryImage 	: "",
 		});
 		this.setState({
 			subcatgArr : arrLength,
@@ -399,17 +400,17 @@ class CategoryManagement extends Component{
 		}); 
 	}
 
-	addNewRow(index){
-		return(
-			<div className="col-lg-12 col-md-12 NOpadding newSubCatgArr">   
-				<div className="col-lg-11 col-md-11 NOpadding">             
-					<input type="text" id={index} value={this.state['subCategoryTitle'+index]} name={"subCategoryTitle"+index} onChange={this.handleChange.bind(this)} className={"form-control newSubCatg"+index} placeholder="Category Title" aria-label="Brand" aria-describedby="basic-addon1" ref={"newSubCatg"+index} />
-				</div>
-				<div className="col-lg-1 col-md-1 deleteSubCategory fa fa-trash" id={index} onClick={this.deleteSubCategory.bind(this)}>		
-				</div>
-			</div>
-		);
-	}
+	// addNewRow(index){
+	// 	return(
+	// 		<div className="col-lg-12 col-md-12 NOpadding newSubCatgArr">   
+	// 			<div className="col-lg-11 col-md-11 NOpadding">             
+	// 				<input type="text" id={index} value={this.state['subCategoryTitle'+index]} name={"subCategoryTitle"+index} onChange={this.handleChange.bind(this)} className={"form-control newSubCatg"+index} placeholder="Category Title" aria-label="Brand" aria-describedby="basic-addon1" ref={"newSubCatg"+index} />
+	// 			</div>
+	// 			<div className="col-lg-1 col-md-1 deleteSubCategory fa fa-trash" id={index} onClick={this.deleteSubCategory.bind(this)}>		
+	// 			</div>
+	// 		</div>
+	// 	);
+	// }
 	getSectionData(){
 		axios.get('/api/sections/get/list')
 		.then((res)=>{
@@ -466,13 +467,14 @@ class CategoryManagement extends Component{
 				if(addRowLength){
 					for(var i=0;i<addRowLength;i++){
 						console.log("1 => ",($(".attributeName" + i).val()));
-						console.log("2 => ",($(".attributeValue" + i).val()));
+						console.log("2 => ",($(".subCategoryImage"+i).attr("src")));
 						if(($(".attributeName" + i).val()) !== "" && ($(".attributeValue" + i).val()) !== ""){
 							var obj = {
 								"index"             : i,
 								"subCategoryCode"   : catCodeLength+'|'+i,
 								"subCategoryTitle"  : $(".newSubCatg"+i).val(),
 								"subCategoryUrl"    : $(".subcategoryUrl"+i).val(),
+								"subCategoryImage"  : $(".subCategoryImage"+i).attr("src"),
 							}
 							if($(".newSubCatg"+i).val()){
 								console.log("subcategory obj===",obj);
@@ -504,6 +506,7 @@ class CategoryManagement extends Component{
 												subCategoryTitle  : item.subCategoryTitle,
 												subCategoryCode   : item.subCategoryCode,
 												subCategoryUrl    : item.subCategoryUrl,
+												subCategoryImage  : item.subCategoryImage,
 												status            : "Published",
 											});
 										}
@@ -631,6 +634,7 @@ class CategoryManagement extends Component{
 								"subCategoryCode"   : catCodeLength+'|'+i,
 								"subCategoryTitle"  : $(".newSubCatg"+i).val(),
 								"subCategoryUrl"    : $(".subcategoryUrl"+i).val(),
+								"subCategoryImage"    : $(".subCategoryImage"+i).attr("src"),
 						}
 						if($(".newSubCatg"+i).val()){
 							categoryDimentionArray.push(obj);							
@@ -658,6 +662,7 @@ class CategoryManagement extends Component{
 										subCategoryTitle  : item1.subCategoryTitle,
 										subCategoryCode   : item1.subCategoryCode,
 										subCategoryUrl    : item1.subCategoryUrl,
+										subCategoryImage  : item1.subCategoryImage
 									});
 								}
 							}
@@ -756,12 +761,14 @@ class CategoryManagement extends Component{
 					console.log("this.state.section_ID----",this.state.section_ID);
 					console.log("this.state.category----",this.state.category);
 					console.log("this.state.categoryImage----",this.state.categoryImage);
-					var addRowLength = this.state.subcatgArr ? this.state.subcatgArr.length : null;
+					var addRowLength = this.state.subcatgArr ? this.state.subcatgArr.length : 0;
 					if(addRowLength){
 						for(var i=0;i<addRowLength;i++){
+							console.log("subCategory => ",this.state.subcatgArr[i])
 							this.setState ({
-								['subCategoryTitle'+response.data.subCategory[i].subCategoryCode] : response.data.subCategory[i].subCategoryTitle,
-								['subcategoryUrl'+response.data.subCategory[i].subCategoryCode] 	: response.data.subCategory[i].subCategoryUrl
+								['subCategoryTitle'+this.state.subcatgArr[i].subCategoryCode]  : this.state.subcatgArr[i].subCategoryTitle,
+								['subcategoryUrl'+this.state.subcatgArr[i].subCategoryCode] 	: this.state.subcatgArr[i].subCategoryUrl,
+								['subCategoryImage'+this.state.subcatgArr[i].subCategoryCode] 	: this.state.subcatgArr[i].subCategoryImage
 							},()=>{});
 						}
 					}
@@ -788,8 +795,10 @@ class CategoryManagement extends Component{
 	
 	uploadImage(event){
 		event.preventDefault();
-		var categoryImage = "";
+		var name 	= event.currentTarget.name;
+		var image 	= "";
 
+		// console.log("name => ", event.currentTarget.name);
 		if (event.currentTarget.files && event.currentTarget.files[0]) {
 			// for(var i=0; i<event.currentTarget.files.length; i++){
 			var file = event.currentTarget.files[0];
@@ -801,7 +810,7 @@ class CategoryManagement extends Component{
 					if (file) {
 						var objTitle = { fileInfo : file }
 						console.log("object => ",objTitle)
-						categoryImage = objTitle ;
+						image = objTitle ;
 						
 					}else{          
 						swal("Images not uploaded");  
@@ -819,20 +828,28 @@ class CategoryManagement extends Component{
 				// 	// console.log("categoryImage => ",this.state.categoryImage)
 				// });  
 				main().then(formValues=>{
-					console.log("formValues => ",formValues);
-					this.setState({
-						categoryImage : formValues.categoryImage
-					}, ()=>{
-						console.log("categoryImage => ",this.state.categoryImage)
-					})
+					if(name === "file"){
+						this.setState({
+							categoryImage : formValues.image
+						}, ()=>{
+							console.log("categoryImage => ",this.state.categoryImage)
+						})
+					}else{
+						console.log("Image else => ",this.state.categoryImage);
+						this.setState({
+							[name] : formValues.image
+						}, ()=>{
+							console.log("subcategoryImage => ",name, this.state[name])
+						})
+					}
 				});
 				async function main(){
 					var config 	= await getConfig();
-					var s3url 	= await s3upload(categoryImage.fileInfo, config, this);
+					var s3url 	= await s3upload(image.fileInfo, config, this);
 
 					const formValues = {
-						"categoryImage"    : s3url,
-						"status"           : "New"
+						"image"    : s3url,
+						"status"   : "New"
 					};	
 					console.log("formValues => ",formValues)
 					return Promise.resolve(formValues);
@@ -927,10 +944,23 @@ class CategoryManagement extends Component{
 	}
 
 	deleteImage(event){
-		event.preventDefault();
-		this.setState({
-		  categoryImage : ""
-		})
+		// event.preventDefault();
+		var name = event.currentTarget.id.split("-")[1];
+		console.log("name => ",name)
+		if(name === "file"){
+			this.setState({
+				categoryImage : ""
+			}, ()=>{
+				console.log("categoryImage => ",this.state.categoryImage)
+			})
+		}else{
+			console.log("Image else => ",this.state.categoryImage);
+			this.setState({
+				[name] : ""
+			}, ()=>{
+				console.log("subcategoryImage => ",name, this.state[name])
+			})
+		}
 	}
 	
 	getSearchText(searchText, startRange, limitRange){
@@ -1079,9 +1109,9 @@ class CategoryManagement extends Component{
 																}
 															</select>
 														</div>
-														<div className="col-lg-12 fieldWrapper">
-															<label>Category Title <i className="redFont">*</i></label>
-															<input value={this.state.category} name="category" id="category" onChange={this.createCategoryUrl.bind(this)} type="text" className="form-control edit-catg-new" placeholder="Category Title" ref="category" />
+														<div className="col-lg-12 fieldWrapper ">
+															<label>Category Short Description </label>                                                                    
+															<input type="text" value={this.state.categoryDescription} onChange={this.handleChange.bind(this)} name="categoryDescription" id="categoryDescription" className="form-control categoryShortDesc" placeholder="Category Short Description" ref="categoryDescription" />
 														</div>
 														<div className="col-lg-6 fieldWrapper">
 															<label>Category URL <i className="redFont">*</i></label>                                                                    
@@ -1093,9 +1123,9 @@ class CategoryManagement extends Component{
 														</div>
 													</div>
 													<div className="col-lg-6">
-														<div className="divideCatgRows fieldWrapper ">
-															<label>Category Short Description </label>                                                                    
-															<input type="text" value={this.state.categoryDescription} onChange={this.handleChange.bind(this)} name="categoryDescription" id="categoryDescription" className="form-control categoryShortDesc" placeholder="Category Short Description" ref="categoryDescription" />
+														<div className="divideCatgRows fieldWrapper">
+															<label>Category Title <i className="redFont">*</i></label>
+															<input value={this.state.category} name="category" id="category" onChange={this.createCategoryUrl.bind(this)} type="text" className="form-control edit-catg-new" placeholder="Category Title" ref="category" />
 														</div>
 														{/* <div className="divideCatgRows">
 															<label>Category Image</label>
@@ -1107,11 +1137,11 @@ class CategoryManagement extends Component{
 															</div>
 															</div>
 														</div> */}
-														<div className="row">
-															<div className="col-lg-12 col-md-12">
+														<div className="divideCatgRows fieldWrapper">
+															{/* <div className="col-lg-12 col-md-12"> */}
 																<label>Category Name in RL <i className="redFont"></i></label>
 																<input value={this.state.categoryNameRlang} name="categoryNameRlang" id="categoryNameRlang" onChange={this.handleChange.bind(this)} type="text" className="form-control categoryNameRlang RegionalFont" placeholder="कॅटेगरी नेम इन रिजनल लँग्वेज" aria-label="categoryNameRlang" aria-describedby="basic-addon1" ref="categoryNameRlang" />
-															</div>
+															{/* </div> */}
 														</div>
 
 														{this.state.categoryImage 
@@ -1129,7 +1159,7 @@ class CategoryManagement extends Component{
 																<div className="col-lg-4 productImgCol">
 																	<div className="prodImage">
 																		<div className="prodImageInner">
-																			<span className="prodImageCross" title="Delete" data-imageUrl={this.state.categoryImage} onClick={this.deleteImage.bind(this)} >x</span>
+																			<span className="prodImageCross" title="Delete" id="delete-categoryImage" data-imageUrl={this.state.categoryImage} onClick={this.deleteImage.bind(this)} >x</span>
 																		</div>
 																		<img title="view Image" alt="Please wait..." src={this.state.categoryImage ? this.state.categoryImage : "/images/notavailable.jpg"} className="img-responsive" />
 																	</div>    
@@ -1144,6 +1174,7 @@ class CategoryManagement extends Component{
 														{this.state.subcatgArr 
 														?
 															this.state.subcatgArr.map((dataRowArray, index)=>{
+																console.log("dataRowArray => ",dataRowArray);
 																return(
 																	<div className="col-lg-12 col-md-12 NOpadding" key={index}>                                                                                  
 																		<div className="col-lg-12 col-md-12 NOpadding newSubCatgArr">   
@@ -1152,6 +1183,36 @@ class CategoryManagement extends Component{
 																			</div>
 																			<div className="col-lg-4 col-md-6 col-sm-6 col-xs-6">
 																				<input disabled value={this.state['subcategoryUrl'+dataRowArray.subCategoryCode]} onChange={this.createSubCategoryUrl.bind(this)} id="subcategoryUrl" name={"subcategoryUrl"+dataRowArray.subCategoryCode} type="text" className={"form-control subcategoryUrl"+index} placeholder="Sub Category URL" ref="subcategoryUrl"  />
+																			</div>
+																			<div className="col-lg-1 col-md-1 col-sm-6 col-xs-6 NOpadding">
+																			{this.state['subCategoryImage'+dataRowArray.subCategoryCode] 
+																			?
+																				null
+																			:
+																				<div className="">
+																					<label class="custom-file-upload">
+																						<input type="file" name={'subCategoryImage'+dataRowArray.subCategoryCode} onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" />
+																						<i class="fa fa-cloud-upload"></i> Image
+																					</label>
+																					{/* <label>SubCategory Image</label>                                                                    
+																					<input type="file" name={'subCategoryImage'+dataRowArray.subCategoryCode} onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" /> */}
+																				</div>
+																			}
+																			{this.state['subCategoryImage'+dataRowArray.subCategoryCode] 
+																			? 
+																				<div className="row">
+																					<div className="col-lg-4 subCategoryImgCol">
+																						<div className="subCategoryImg">
+																							<div className="subCategoryImageInner">
+																								<span className="prodImageCross" title="Delete" id={'delete-subCategoryImage'+dataRowArray.subCategoryCode} data-imageUrl={this.state['subCategoryImage'+dataRowArray.subCategoryCode]} onClick={this.deleteImage.bind(this)} >x</span>
+																							</div>
+																							<img title="view Image" alt="Please wait..." src={this.state['subCategoryImage'+dataRowArray.subCategoryCode] ? this.state['subCategoryImage'+dataRowArray.subCategoryCode] : "/images/notavailable.jpg"} className={"img-responsive " + "subCategoryImage"+index} />
+																						</div>    
+																					</div>
+																				</div>
+																			:
+																				null
+																			}
 																			</div>
 																			<div className="deleteSubCategory fa fa-trash" id={dataRowArray.subCategoryCode} onClick={this.deleteSubCategory.bind(this)}>
 																			</div>

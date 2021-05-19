@@ -197,7 +197,7 @@ class SectionManagement extends Component {
             var formValues = {
                 "section"       : this.state.section,
                 "sectionRank"   : this.state.sectionRank,
-                "createdBy"     : localStorage.getItem("admin_ID"),
+                "createdBy"     : this.state.user_ID,
                 "sectionImage"  : this.state.sectionImage
             }
             // console.log("section----",formValues);

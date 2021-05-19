@@ -12,6 +12,7 @@ const categorySchema = mongoose.Schema({
             subCategoryCode   : String,
             subCategoryTitle  : String,
             subCategoryUrl    : String,
+            subCategoryImage  : String,
             status            : String
 	    }
     ],
