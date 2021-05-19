@@ -443,21 +443,28 @@ class SectionManagement extends Component {
         }
     }
 
-    deleteImage(event){     
-        var id                  = event.target.id;
-        var productImageArray   = this.state.productImageArray;
-        // console.log('productImage', productImageArray, id);
+    deleteImage(event){
+		event.preventDefault();
+		this.setState({
+		  sectionImage : ""
+		})
+	}
 
-        if(productImageArray && productImageArray > 0) {
-            productImageArray.splice(productImageArray.findIndex(v => v == id), 1);
-            this.setState({
-                sectionImage        : "",
-                productImageArray   : productImageArray
-            },()=>{
-                // console.log('subcatgArr', this.state.subcatgArr);
-            });
-        }
-    }
+    // deleteImage(event){     
+    //     var id                  = event.target.id;
+    //     var productImageArray   = this.state.productImageArray;
+    //     // console.log('productImage', productImageArray, id);
+
+    //     if(productImageArray && productImageArray > 0) {
+    //         productImageArray.splice(productImageArray.findIndex(v => v == id), 1);
+    //         this.setState({
+    //             sectionImage        : "",
+    //             productImageArray   : productImageArray
+    //         },()=>{
+    //             // console.log('subcatgArr', this.state.subcatgArr);
+    //         });
+    //     }
+    // }
 
     selectedProducts(checkedProductsList) {
         // console.log('checkedUsersList', checkedUsersList);
@@ -532,7 +539,7 @@ class SectionManagement extends Component {
                                                                             <div className="prodImageInner">
                                                                                 <span className="prodImageCross" title="Delete" data-imageUrl={this.state.sectionImage} onClick={this.deleteImage.bind(this)} >x</span>
                                                                             </div>
-                                                                            <img title="view Image" alt="Please wait..." data-imageurl={this.state.sectionImage ? this.state.sectionImage : "/images/notavailable.jpg"} className="img-responsive" />
+                                                                            <img title="view Image" alt="Please wait..." src={this.state.sectionImage ? this.state.sectionImage : "/images/notavailable.jpg"} className="img-responsive" />
                                                                         </div>    
                                                                     </div>
                                                                 </div>

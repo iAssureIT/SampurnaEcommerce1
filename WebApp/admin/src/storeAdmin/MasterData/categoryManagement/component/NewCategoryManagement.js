@@ -898,17 +898,18 @@ class CategoryManagement extends Component{
 		}
 	}
 	
-	deleteImage(event){		
-		var id 						= event.target.id;
-		var productImageArray 	= this.state.productImageArray;
-		// console.log('productImage', productImageArray, id);
+	// deleteImage(event){		
+	// 	var id 					= event.target.id;
+	// 	var productImageArray 	= this.state.productImageArray;
+	// 	console.log('id', id);
+	// 	console.log('productImageArray', productImageArray);
 
-		productImageArray.splice(productImageArray.findIndex(v => v === id), 1);
-		this.setState({
-			categoryImage 		: "",
-			productImageArray : productImageArray
-		},()=>{});
-	}
+	// 	productImageArray.splice(productImageArray.findIndex(v => v === id), 1);
+	// 	this.setState({
+	// 		categoryImage 		: "",
+	// 		productImageArray : productImageArray
+	// 	},()=>{});
+	// }
 	
 	createCategoryUrl(event){
 		const target = event.target;
@@ -925,12 +926,12 @@ class CategoryManagement extends Component{
 		}
 	}
 
-	// deleteImage(event){
-	// 	event.preventDefault();
-	// 	this.setState({
-	// 	  categoryImage : ""
-	// 	})
-	// }
+	deleteImage(event){
+		event.preventDefault();
+		this.setState({
+		  categoryImage : ""
+		})
+	}
 	
 	getSearchText(searchText, startRange, limitRange){
 		this.getSearchCount(searchText);
