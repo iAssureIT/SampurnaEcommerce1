@@ -11,6 +11,7 @@ import wishDetails            from './wishDetails';
 import globalSearch           from './globalSearch';
 import location               from './location';
 import section                from './section';
+import storeSettings                from './storeSettings';
 const appReducer = combineReducers({
   userDetails,
   productList,
@@ -18,6 +19,7 @@ const appReducer = combineReducers({
   globalSearch,
   location,
   section,
+  storeSettings,
   appStateReducer: AppStateReducer,
 });
 

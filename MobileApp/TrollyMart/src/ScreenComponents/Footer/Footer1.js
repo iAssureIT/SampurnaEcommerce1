@@ -44,7 +44,7 @@ export const Footer =(props)=>{
         <View style={styles.footer}>
           <View style={{ flexDirection: 'row', flex: 1 }}>
             <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => navigation.push('Dashboard')} >
+              <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} >
                 <Icon name="home" type="feather" size={15} color="#666" />
                 <Text style={styles.footerTitle}>Home</Text>
               </TouchableOpacity>

@@ -9,6 +9,7 @@ import styles                 from '../../AppDesigns/currentApp/styles/ScreenCom
 import axios                  from 'axios';
 import Animated               from "react-native-reanimated";
 import { connect,useDispatch,useSelector }      from 'react-redux';
+import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 
 export const MenuCarouselSection = (props)=>{
   const {navigation,showImage}=props;
@@ -26,7 +27,7 @@ export const MenuCarouselSection = (props)=>{
   const _renderlist = ({ item, i })=>{
     return (
       <View key={i} style={styles.mainrightside}>
-        <TouchableOpacity onPress={()=>{navigation.navigate("VendorList",{section_id:item._id,section:item.section,type:props.type});}}>
+        <TouchableOpacity style={{borderWidth:selected===item.section ? 2:0,borderRadius:10,borderColor:colors.theme }} onPress={()=>{navigation.navigate("VendorList",{section_id:item._id,section:item.section,type:props.type});}}>
           {showImage ?
               <ImageBackground onPress={()=>navigation.navigate('VendorList',{section_id:item._id})} source={item.sectionImage ? {uri : item.sectionImage}:noImage} style={styles.sectionImages} imageStyle={{opacity:0.6}}>
               <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.section}</Text>
@@ -43,7 +44,6 @@ export const MenuCarouselSection = (props)=>{
 
 
   const onViewableItemsChanged = (e) => {
-    console.log("viewableItems",e);
     // // Get the first viewable item
     // const firstViewableItem = viewableItems[0].key;
   

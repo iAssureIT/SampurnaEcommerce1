@@ -185,18 +185,22 @@ const FormBody = (props) => {
             />
            <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
             <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+              <View style={{width:"45%"}}>
                 <FormButton
                     title       = {'Verify'}
                     onPress     = {handleSubmit}
                     background  = {btnLoading}
                     loading     = {btnLoading}
                 />
+              </View>
+              <View style={{width:"45%"}}>
                 <FormButton
                     title       = {'Resend OTP'}
                     onPress     = {handleResend}
                     background  = {resendLoading}
                     loading     = {resendLoading}
                 />
+             </View>   
             </View>    
           <View
             style={[

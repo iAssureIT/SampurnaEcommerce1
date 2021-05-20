@@ -47,6 +47,12 @@ export const ProductList = withCustomerToaster((props)=>{
     getData();
   },[props]);
 
+  const store = useSelector(store => ({
+    preferences     : store.storeSettings.preferences
+  }));
+
+  const {currency}=store.preferences;
+
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
       var availableSizes = [];
@@ -155,7 +161,7 @@ export const ProductList = withCustomerToaster((props)=>{
       const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
       return (
         <View key={index}  style={[styles.mainrightside,index%2===1&&{marginLeft:'5%'}]} >
-          <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id })}>
+          <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency})}>
             <View style={styles.flx5}>
               <View style={styles.flx1}>
                 {
@@ -196,28 +202,29 @@ export const ProductList = withCustomerToaster((props)=>{
               <View style={[styles.flx1, styles.prdet]}>
                 <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
                   <View style={[styles.flxdir]}>
-                    <Icon
+                    {/* <Icon
                       name={item.currency}
                       type="font-awesome"
                       size={13}
                       color="#333"
                       iconStyle={{ marginTop: 5, marginRight: 3 }}
-                    />
+                    /> */}
+                    <Text style={styles.ogprice}>{currency} </Text>
                     <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
                   </View>
-                  <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
-                    <Icon
+                  <View style={[styles.flxdir,{alignItems:"center"}]}>
+                    {/* <Icon
                       name={item.currency}
                       type="font-awesome"
                       size={13}
                       color="#333"
                       iconStyle={{ marginTop: 5}}
-                    />
+                    /> */}
                     {item.discountPercent > 0 ?
-                          <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          <Text style={styles.ogprice}> - {item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                           </Text>
                         :
-                        <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                        <Text style={styles.ogprice}> - {item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
                       }
                   </View>
                 </View>
@@ -302,6 +309,9 @@ export const ProductList = withCustomerToaster((props)=>{
                      //Call pagination function
                 }
               }}
+              getItemLayout={(data, index) => (
+                {length: 200, offset: 200 * index, index}
+              )}
               // onEndReached                  = {()=>{limit > 6 && onEnd()}}
               // onScroll                      = {()=>{limit > 6 && onEnd()}}       
               // refreshControl={

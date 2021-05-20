@@ -31,30 +31,30 @@ export const VendorList = withCustomerToaster((props)=>{
     const section = props.route.params?.section;
     const section_id = props.route.params?.section_id;
     const [vendorList,setVendorList] =useState([
-        {
-            companyName : "Choitaram",
-            companyLogo : require("../../AppDesigns/currentApp/images/vendorlogo1.jpeg"),
-            image       : require( "../../AppDesigns/currentApp/images/sm2.jpeg"),
-            kmRange     : "1 Km"
-        },
-        {
-            companyName : "Almaya",
-            companyLogo : require("../../AppDesigns/currentApp/images/vendorlogo2.png"),
-            image       : require( "../../AppDesigns/currentApp/images/sm3.jpeg"),
-            kmRange     : "1.2 Km"
-        },
-        {
-            companyName : "Al Madina",
-            companyLogo : require("../../AppDesigns/currentApp/images/vendorlogo3.png"),
-            image       : require( "../../AppDesigns/currentApp/images/sm2.jpeg"),
-            kmRange     : "2 Km"
-        },
-        {
-            companyName : "Lulu",
-            companyLogo : require("../../AppDesigns/currentApp/images/vendorlogo4.png"),
-            image       : require( "../../AppDesigns/currentApp/images/sm3.jpeg"),
-            kmRange     : "3.3 Km"
-        }
+        // {
+        //     companyName : "Choitaram",
+        //     companyLogo : require("../../AppDesigns/currentApp/images/vendorlogo1.jpeg"),
+        //     image       : require( "../../AppDesigns/currentApp/images/sm2.jpeg"),
+        //     kmRange     : "1 Km"
+        // },
+        // {
+        //     companyName : "Almaya",
+        //     companyLogo : require("../../AppDesigns/currentApp/images/vendorlogo2.png"),
+        //     image       : require( "../../AppDesigns/currentApp/images/sm3.jpeg"),
+        //     kmRange     : "1.2 Km"
+        // },
+        // {
+        //     companyName : "Al Madina",
+        //     companyLogo : require("../../AppDesigns/currentApp/images/vendorlogo3.png"),
+        //     image       : require( "../../AppDesigns/currentApp/images/sm2.jpeg"),
+        //     kmRange     : "2 Km"
+        // },
+        // {
+        //     companyName : "Lulu",
+        //     companyLogo : require("../../AppDesigns/currentApp/images/vendorlogo4.png"),
+        //     image       : require( "../../AppDesigns/currentApp/images/sm3.jpeg"),
+        //     kmRange     : "3.3 Km"
+        // }
     ]);
     const {navigation} =props;
     useEffect(() => {
@@ -62,16 +62,18 @@ export const VendorList = withCustomerToaster((props)=>{
     },[props]);
 
     const getData = ()=>{
+        setLoading(true);
        var formValues =  {
-            "startRange" : 0,
-            "limitRange" : 10,
-            "section_ID" : section_id,
-            "latitude"   : "",
-            "longitude"  : ""
-        }
+        "startRange" : 0,
+        "limitRange" : 10,
+        "section_ID" : section_id,
+        "latitude"   : "",
+        "longitude"  : ""
+    }
         axios.post('/api/entitymaster/post/vendor/list',formValues)
         .then(res=>{
             console.log("getData res",res);
+            setLoading(false);
             setVendorList(res.data)
         })
         .catch(err=>{
@@ -82,7 +84,7 @@ export const VendorList = withCustomerToaster((props)=>{
     const _renderlist = ({ item, index })=>{
         return (
             <Card containerStyle={{flex:1,padding:0,marginHorizontal:0}}>
-                <Card.Image  style={{backgroundColor: 'rgba(0,0,0,0.5)',flexDirection:"row"}}>
+                <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',flexDirection:"row"}}>
                     <View style={{flex:0.5}}>
                         <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.companyName}</Card.Title>
                         <Card.Image source={{uri:item.companyLogo[0]}} style={{height:80,width:80,marginHorizontal:5}}>
@@ -111,12 +113,17 @@ export const VendorList = withCustomerToaster((props)=>{
                     <MenuCarouselSection
                         navigation  = {navigation} 
                         type        = {value}
-                        showImage   = {false}
+                        showImage   = {true}
                         selected    = {section}
                         // section     = {section}
                     />
                     <View style={styles.proddets}>
-                    {vendorList &&
+                    {loading ?
+                        <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+                            <ActivityIndicator/>
+                        </View>
+                        :
+                        vendorList &&
                         <FlatList
                             data                          = {vendorList}
                             showsVerticalScrollIndicator  = {false}

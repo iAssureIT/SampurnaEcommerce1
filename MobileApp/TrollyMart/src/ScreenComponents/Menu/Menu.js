@@ -13,14 +13,12 @@ import styles                   from '../../AppDesigns/currentApp/styles/ScreenC
 import {withCustomerToaster}     from '../../redux/AppState.js';
 
 export const Menu = (props)=>{
-  console.log("PROPS",props);
   const {navigation}=props;
   const [firstName,setFirstName] = useState('');
   const [lastName,setLastName]   = useState('');
   const [user_id,setUserId]      = useState('');
   ;
   useEffect(() => {
-    console.log("useEffect");
     getData()
   },[props]);
 

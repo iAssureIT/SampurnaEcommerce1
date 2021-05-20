@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
+  Alert
 } from 'react-native';
 import { Icon }             from "react-native-elements";
 import axios                from "axios";
@@ -21,13 +22,17 @@ import {Formik}             from 'formik';
 import {withCustomerToaster} from '../../../redux/AppState.js';
 import {setUserDetails}     from '../../../redux/user/actions';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
-// import {
-//   GoogleSignin,
-//   GoogleSigninButton,
-//   statusCodes,
-// } from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
-// GoogleSignin.configure();
+GoogleSignin.configure({
+  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  webClientId: "1023694532217-4b1v4vf0oukma7c8c1bnogpr40b28kii.apps.googleusercontent.com",
+  offlineAccess: false,
+});
 
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
@@ -41,7 +46,6 @@ const window = Dimensions.get('window');
     const [btnLoading, setLoading] = useState(false);
     const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
-    // 
       return (
         <React.Fragment>
           <Formik
@@ -152,6 +156,33 @@ const window = Dimensions.get('window');
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
     
+
+  const _signIn = async () => {
+      try {
+        await GoogleSignin.hasPlayServices();
+        const userInfo = await GoogleSignin.signIn();
+        await GoogleSignin.revokeAccess();
+        console.log("userInfo",userInfo);
+        }catch(error){
+          if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+            console.log("sign in was cancelled");
+            // sign in was cancelled
+            // Alert.alert('cancelled');
+          } else if (error.code === statusCodes.IN_PROGRESS) {
+            console.log("in progress");
+            // operation in progress already
+            // Alert.alert('in progress');
+          } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+            console.log('play services not available or outdated');
+            // Alert.alert('play services not available or outdated');
+          } else {
+            console.log('Something went wrong', error);
+            // Alert.alert('Something went wrong', error);
+          }
+        }
+    }; 
+
+
   return (
       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
       <View style={{paddingHorizontal:20}}>
@@ -209,13 +240,13 @@ const window = Dimensions.get('window');
             />
             <View style={{alignItems:"center",justifyContent:"center"}}>
               {/* <Text style={{paddingVertical:15}}>OR</Text> */}
-             {/* <GoogleSigninButton
-              style={{ width: 192, height: 48 }}
+             <GoogleSigninButton
+              style={{ width: 300, height: 48 }}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
-              // onPress={this._signIn}
+              onPress={()=>_signIn()}
               // disabled={this.state.isSigninInProgress} 
-              /> */}
+              />
               </View>
             <View
               style={[

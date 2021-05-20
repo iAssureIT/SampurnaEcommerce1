@@ -10,7 +10,7 @@ import {MarketingBlock}             from '../../ScreenComponents/MarketingBlock/
 import {MenuCarouselSection}        from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
 // import SearchProducts               from'../Search/SearchProducts.js';
-import {Footer}                       from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                     from '../../ScreenComponents/Footer/Footer1.js';
 import Notification                 from '../../ScreenComponents/Notification/Notification.js'
 import { connect,useDispatch,useSelector }      from 'react-redux';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
@@ -23,7 +23,8 @@ import AsyncStorage                 from '@react-native-async-storage/async-stor
 import { getList } 		              from '../../redux/productList/actions';
 import { getSectionList } 		      from '../../redux/section/actions';
 import { getWishList } 		          from '../../redux/wishDetails/actions';
-import { useIsFocused }             from "@react-navigation/native";
+import { getPreferences } 		      from '../../redux/storeSettings/actions';
+import { useIsFocused, useTheme }   from "@react-navigation/native";
 import { SET_SEARCH_CALL,
         SET_SEARCH_TEXT,
         SET_SUGGETION_LIST,
@@ -32,13 +33,11 @@ import { getSearchResult } 	        from '../../redux/globalSearch/actions';
 import Highlighter                  from 'react-native-highlight-words';
 import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCatList/HorizontalSecCatList.js';
 import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
-import { Alert } from 'react-native';
 
 export const Dashboard = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const {setToast,navigation} = props; 
-  // 
   const [isOpen,setOpen]= useState(false);
   const [categories,setCategories]= useState([]);
   const [value,setValue]= useState('lowestprice');
@@ -48,26 +47,28 @@ export const Dashboard = withCustomerToaster((props)=>{
   const [limit,setLimit]= useState(6);
   const [token,setToken]= useState('');
   const [blocks,setBlocks]= useState([]);
+  const [loading,setLoading] = useState(true);
 
-  const store = useSelector(store => ({
-    productList     : store.productList,
-    wishList        : store.wishDetails.wishList,
-    globalSearch    : store.globalSearch,
-    location        : store.location,
-    section         : store.section.sections
-  }));
-  console.log("store",store);
-
-  const {productList,wishList,globalSearch,section} = store;
   useEffect(() => {
     dispatch({type : SET_SUGGETION_LIST, payload  : []});
     dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
     dispatch({type : SET_SERACH_LIST,    payload  : []});
     dispatch({type : SET_SEARCH_CALL,    payload  : false});
     dispatch(getSectionList());
+    dispatch(getPreferences());
     getData();
-  },[]);
+  },[isFocused]);
 
+  const store = useSelector(store => ({
+    productList     : store.productList,
+    wishList        : store.wishDetails.wishList,
+    globalSearch    : store.globalSearch,
+    location        : store.location,
+    section         : store.section.sections,
+    preferences     : store.storeSettings.preferences
+  }));
+
+  const {productList,wishList,globalSearch,section,preferences} = store;
   const getData=async()=>{
       var data = await AsyncStorage.multiGet(['user_id', 'token']);
       setUserId(data[0][1]);
@@ -86,12 +87,12 @@ export const Dashboard = withCustomerToaster((props)=>{
   const getBlocks=()=>{
     axios.get('/api/pages/get/page_block/homepage')
     .then(res=>{
-      setBlocks(res.data.pageBlocks)
+      setBlocks(res.data.pageBlocks);
+      setLoading(false)
     })
     .catch(err=>{
       console.log("err",err)
     })
-
   }
 
   const countfun=(user_id)=>{
@@ -124,11 +125,7 @@ export const Dashboard = withCustomerToaster((props)=>{
       })
   }
 
-  
-
-
   const menu = <Menu navigate={navigation.navigate} isOpen={isOpen}/>;
-
     return (
       <React.Fragment>
        
@@ -138,7 +135,11 @@ export const Dashboard = withCustomerToaster((props)=>{
             openControlPanel={()=>_drawer.open()}
           /> 
           <View style={styles.superparent}>
-          {
+          {loading ?
+             <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+             <Loading/>
+           </View>
+           :
             globalSearch.search ?
               globalSearch.loading ?
               <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
@@ -218,23 +219,26 @@ export const Dashboard = withCustomerToaster((props)=>{
                           subCategory = {item.block_id.dealSettings.subCategory}
                       />
                       :
-                      item.blockComponentName === "SectionCatg" ?
+                      item.blockComponentName === "SectionCatg" && !item.block_id.groupSettings.showOnlySection?
                         <HorizontalSecCatList 
-                          blockTitle   = {item.block_id.blockTitle}
-                          section      = {item.block_id.groupSettings.section}
-                          category    = {item.block_id.groupSettings.category}
-                          subCategory = {item.block_id.groupSettings.subCategory}
+                          blockTitle          = {item.block_id.blockTitle}
+                          section             = {item.block_id.groupSettings.section}
+                          category            = {item.block_id.groupSettings.category}
+                          subCategory         = {item.block_id.groupSettings.subCategory}
                           subCategory         = {item.block_id.groupSettings.subCategory}
                           showOnlySection     = {item.block_id.groupSettings.showOnlySection}
                           showOnlyCategory    = {item.block_id.groupSettings.showOnlyCategory}
                           showOnlyBrand       = {item.block_id.groupSettings.showOnlyBrand}
                           showOnlySubCategory = {item.block_id.groupSettings.showOnlySubCategory}
+                          navigation          = {navigation}
+                          user_id             = {user_id}
                         />
                         :
                         item.blockComponentName === "ProductCarousel" ?
                         <HorizontalProductList 
                           blockTitle   = {item.block_id.blockTitle}
-                          blockApi      = {item.block_id.blockSettings.blockApi}
+                          blockApi     = {item.block_id.blockSettings.blockApi}
+                          currency     = {preferences.currency}
                         />
                       :
                       null  

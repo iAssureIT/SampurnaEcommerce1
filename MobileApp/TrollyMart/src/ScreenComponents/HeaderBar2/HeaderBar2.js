@@ -31,7 +31,6 @@ import { DrawerActions } from '@react-navigation/native';
 // import {Autocomplete}       from  'react-native-autocomplete-input';
   const HeaderBars2=(props)=>{
     const {navigation} = props;;
-    console.log("navigation",navigation);
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
     const [user_id,setUserId] = useState('');

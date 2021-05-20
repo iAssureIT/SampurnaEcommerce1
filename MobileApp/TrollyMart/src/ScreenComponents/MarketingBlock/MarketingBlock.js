@@ -18,7 +18,6 @@ export const MarketingBlock=(props)=>{
   const [images,setImages]=useState([]);
   const navigation = useNavigation();
   useEffect(() => {
-    console.log("useEffect");
     getData()
   },[]);
 

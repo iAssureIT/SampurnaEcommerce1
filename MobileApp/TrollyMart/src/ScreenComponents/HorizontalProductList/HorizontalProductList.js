@@ -25,23 +25,21 @@ import Modal                from "react-native-modal";
 import Carousel             from 'react-native-banner-carousel-updated';
 import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { useNavigation }    from '@react-navigation/native';
+import Loading              from '../Loading/Loading.js';
 
 export const HorizontalProductList =(props)=>{
   const navigation = useNavigation();
-  console.log("props",props);
-  const {category_id,user_id,title} =props;
+  const {category_id,user_id,title,currency} =props;
   // const BannerWidth = Dimensions.get('window').width-100;
   const [productList,setProductList]=useState([]);
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   useEffect(() => {
-    console.log("useEffect");
     getData();
-  },[props]);
+  },[]);
 
   const getData=()=>{
     axios.get(props.blockApi)
       .then((response) => {
-        console.log("HorizontalProductList",response);
         setProductList(response.data);
       })
       .catch((error) => {
@@ -52,7 +50,7 @@ export const HorizontalProductList =(props)=>{
 
   const _renderlist = ({ item, index })=>{
       return (
-          <TouchableOpacity style={{width:160,marginRight:10,backgroundColor:"#fff"}} onPress={() => navigation.push('SubCatCompView',{productID: item._id })}>
+          <TouchableOpacity style={{width:160,minHeight:150,marginRight:10,backgroundColor:"#fff"}} onPress={() => navigation.push('SubCatCompView',{productID: item._id,currency:currency })}>
                <View style={styles.flx1}>
                 {
                   item.productImage && item.productImage.length >0?
@@ -74,33 +72,34 @@ export const HorizontalProductList =(props)=>{
                     null
                 }
                 <View style={[styles.flx1, styles.protxt]}>
-                  <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>
+                  <Text numberOfLines={2} style={styles.nameprod}>{item.productName}</Text>
                 </View>
                 <View style={[styles.flx1, styles.prdet]}>
                 <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
                   <View style={[styles.flxdir]}>
-                    <Icon
-                      name={item.currency}
+                    {/* <Icon
+                      name={currency}
                       type="font-awesome"
                       size={13}
                       color="#333"
                       iconStyle={{ marginTop: 5, marginRight: 3 }}
-                    />
+                    /> */}
+                    <Text style={styles.ogprice}>{currency} </Text>
                     <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
                   </View>
-                  <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
-                    <Icon
+                  <View style={[styles.flxdir,{alignItems:"center"}]}>
+                    {/* <Icon
                       name={item.currency}
                       type="font-awesome"
                       size={13}
                       color="#333"
                       iconStyle={{ marginTop: 5}}
-                    />
+                    /> */}
                     {item.discountPercent > 0 ?
-                          <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          <Text style={styles.ogprice}> - {item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                           </Text>
                         :
-                        <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                        <Text style={styles.ogprice}> - {item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
                       }
                   </View>
                 </View>
@@ -111,17 +110,24 @@ export const HorizontalProductList =(props)=>{
   }
 
     return (
-      <View style={{paddingHorizontal:0}}>
+      <View style={{paddingHorizontal:0,paddingVertical:15}}>
       <Text style={styles.title}>{props.blockTitle}</Text>
         <View style={styles.proddets}>
           {productList && productList.length > 0 ?
             <FlatList
-              horizontal = {true}
-              data={productList}
-              renderItem={item => _renderlist(item)}
-              keyExtractor={item => item._id}
+              horizontal          = {true}
+              data                = {productList}
+              renderItem          = {item => _renderlist(item)}
+              initialNumToRender  = {6}
+              keyExtractor        = {item => item._id}
               // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
-          />:[]} 
+          />
+          :
+            <Loading 
+              type={'HList'}
+              loader={6}
+            />
+          } 
         </View>
     </View>
     );

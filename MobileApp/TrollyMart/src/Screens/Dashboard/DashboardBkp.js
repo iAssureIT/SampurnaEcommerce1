@@ -30,7 +30,7 @@ import { SET_SEARCH_CALL,
         SET_SERACH_LIST} 	          from '../../redux/globalSearch/types';
 import { getSearchResult } 	        from '../../redux/globalSearch/actions';
 import Highlighter                  from 'react-native-highlight-words';
-import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
+import {HorizontalProductList}      from '../../ScreenComponents/HorizontalSecCatList/HorizontalProductList.js';
 
 export const Dashboard = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();

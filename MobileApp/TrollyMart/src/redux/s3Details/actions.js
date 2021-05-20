@@ -4,8 +4,6 @@ import {
 	} from './types';
 import {Dispatch} from 'redux';
 import Axios from 'axios';
-import {getClientDetails} from '../clientDetails/actions';
-
 
 
 export const getS3Details = () => {
@@ -16,7 +14,7 @@ export const getS3Details = () => {
     });
     const store = getState();
 
-    Axios.get('api/projectsettings/get/S3') 
+    Axios.get('/api/projectsettings/get/S3') 
     .then(response => {
       dispatch({
         type: SET_S3_DETAILS,

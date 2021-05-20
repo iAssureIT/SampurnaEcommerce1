@@ -34,7 +34,6 @@ import { ActivityIndicator } from 'react-native-paper';
       const userToken = await AsyncStorage.getItem('token');
       const user_id   = await AsyncStorage.getItem('user_id');
       var new_loc     = JSON.parse(await AsyncStorage.getItem('location'));
-      console.log("new_loc",new_loc);
       if(new_loc){
         setLocation(new_loc);
         dispatch({
@@ -47,7 +46,6 @@ import { ActivityIndicator } from 'react-native-paper';
       setLoading(false)
       if(user_id&& userToken){
         var axios1= axios.defaults.headers.common['Authorization'] = 'Bearer '+ userToken;
-        console.log("axios",axios1);
           dispatch(getUserDetails(user_id));
       }
     };

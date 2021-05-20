@@ -13,7 +13,6 @@ import { useNavigation }                from '@react-navigation/native';
 export const HeaderBar3 = (props)=>{ 
   const [headerTitle,setHeaderTitle]=useState('');
   const navigation=useNavigation();
-  console.log("navigation",navigation);
   useEffect(() => {
     setHeaderTitle(props.headerTitle)
   },[props]);

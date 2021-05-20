@@ -14,7 +14,6 @@ const BannerWidth = Dimensions.get('window').width;
 export const BannerComponent=()=>{
   const [bannerImages,setBannerImages]=useState([])
   useEffect(() => {
-    console.log("useEffect");
     getData()
   },[]);
 
@@ -24,7 +23,7 @@ export const BannerComponent=()=>{
       setBannerImages(res.data)
     })
     .catch((error)=>{
-      console.log('error1111', error);
+      console.log('error', error);
     })
 }
 

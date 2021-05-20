@@ -146,6 +146,7 @@ const getCartItems=(userId)=>{
 
       })
       .catch((error) => {
+        console.log("error",error);
         setLoading(false);
         if (error.response.status == 401) {
           AsyncStorage.removeItem('user_id');
@@ -328,7 +329,7 @@ const getCartItems=(userId)=>{
                                   </TouchableOpacity>
                                 </View>
                                 <View style={styles.flxmg}>
-                                  <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
+                                  <TouchableOpacity onPress={() => navigation.navigate('', { productID: item.product_ID })}>
                                     {item.productDetail.productNameRlang ?
                                     <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.productDetail.productNameRlang}</Text>
                                     : 

@@ -30,10 +30,8 @@ export const FormPhoneInput = props => {
             errorStyle={{ color: 'red' ,margin:0}}
             inputStyle={{textAlignVertical: "top"}}
             onChangeFormattedText={(text) => {
-                console.log("text",text);
                 setValue(text)
                 const checkValid = phoneInput.current?.isValidNumber(text);
-                console.log("checkValid",checkValid);
                 setValid(checkValid)
               }}
               {...props}

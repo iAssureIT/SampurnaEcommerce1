@@ -63,6 +63,7 @@ export default StyleSheet.create({
     subcatimg: {
 		height:150,
 		width:"100%",
+		backgroundColor:"#eee"
 	},
     nameprod: {
 		fontSize: 12, 
@@ -97,7 +98,7 @@ export default StyleSheet.create({
 		textDecorationLine: 'line-through',
 	},
     ogprice: {
-		fontSize: 14, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
+		fontSize: 14, fontFamily: "Montserrat-SemiBold", color: '#333', alignItems: 'center',
 	},
     packofnos: {
 		fontSize: 12, 

@@ -35,7 +35,7 @@ export const SubCatCompView =(props)=>{
   const [number,setNumber]                = useState('');
   const [addToCart,setAddToCart]          = useState(false);
   const {navigation,route} =props;
-  const {productID}=route.params;
+  const {productID,currency}=route.params;
   const BannerWidth = Dimensions.get('window').width-100;
   useEffect(() => {
     console.log("useEffect");
@@ -246,13 +246,14 @@ export const SubCatCompView =(props)=>{
                   <Text numberOfLines={1} style={styles.shortDescription}>{shortDescription}</Text> */}
                 </View>
                 <View style={styles.flxdirview}>
-                  <Icon
+                  {/* <Icon
                     name={productdata.currency}
                     type="font-awesome"
                     size={18}
                     color="#333"
                     iconStyle={styles.rupeeicn}
-                  />
+                  /> */}
+                  <Text style={styles.proddetprice}>{currency} </Text>
                   {/* <Text style={styles.rupeetxt}> {discountedPrice}</Text> */}
                   <Text style={styles.proddetprice}>{productdata.discountedPrice}  {productdata.size ? <Text style={styles.packofnos}> - {productdata.size}  {productdata.unit}</Text> : null}</Text>
                 </View>
@@ -308,16 +309,19 @@ export const SubCatCompView =(props)=>{
                     }
                   /> 
                 </View>
-
-<Rating
-  showRating
-  // onFinishRating={this.ratingCompleted}
-  style={{ paddingVertical: 10 }}
-/>
-
+                <Rating
+                  showRating
+                  // onFinishRating={this.ratingCompleted}
+                  style={{ paddingVertical: 10 }}
+                />
               </View>
             </View>
-            <SimilarProducts category_id={productdata.category_ID} user_id={user_id} title={"You May Also Like"}/>
+            <SimilarProducts 
+              category_id = {productdata.category_ID} 
+              user_id     = {user_id} 
+              title       = {"You May Also Like"}
+              currency    = {currency}
+            />
           </ScrollView>
           :
           <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
