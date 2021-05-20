@@ -1,0 +1,88 @@
+.std5Wrapper{
+    height: auto;
+    background-color: #fff;
+}
+
+.std5TextWrapper{
+    height: auto;
+    text-align: center;
+}
+.Std5TextNImageWrapper{
+    height: auto;
+}
+.Std5LeftRepeatedBlockWrapper{
+    height: auto;
+    float: left;
+}
+.Std5LeftRepeatedBlock{
+    height: auto;
+    margin-top: 15px;
+}
+.Std5LeftRepeatedBlockTextWrapper{
+    height: auto;
+}
+.Std5LeftIconWrapper{
+    height: auto;
+}
+.Std5LeftIconCircleWrapper{
+    height: 55px;
+    width: 55px;
+    background-color: #fff;
+    border-radius: 100%;
+    padding-top: 0.1px;
+    box-shadow: 5px 5px 20px #ccc;
+    text-align: center;
+    float: left;
+}
+.Std5LeftIcon{
+    height: 32px;
+    margin-top: 11.5px;
+}
+.std5ImageWrapper{
+   height: auto;
+   text-align: center;
+   float: left;
+}
+.std5Image{
+    margin-top: 10px;
+    height: 600px;
+}
+.std5RightRepeatedBlockWrapper{
+    height: auto;
+    float: left;
+}
+.std5RightRepeatedBlock{
+    height: auto;
+    margin-top: 15px;
+}
+.std5RightRepeatedBlockTextWrapper{
+    height: auto;
+}
+.std5RightIconWrapper{
+    height: auto;
+}
+.std5RightIconCircleWrapper{
+    height: 55px;
+    width: 55px;
+    background-color: #fff;
+    border-radius: 100%;
+    padding-top: 0.1px;
+    /*margin-left: -22px;*/
+    box-shadow: 5px 5px 20px #ccc;
+    text-align: center;
+    float: left;
+}
+.std5RightIcon{
+    height: 32px;
+    margin-top: 11.5px;
+}
+
+
+@media (max-width: 1200px) and (min-width: 992px){
+    .std5Image{
+        height: 868px;
+        margin-top: 0px;
+    }
+}
+
+

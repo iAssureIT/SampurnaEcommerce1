@@ -1,0 +1,439 @@
+
+.cssload-fond{
+	position:relative;
+	margin: auto;
+}
+.cssload-container-general
+{
+	animation:cssload-animball_two 1.15s infinite;
+		-o-animation:cssload-animball_two 1.15s infinite;
+		-ms-animation:cssload-animball_two 1.15s infinite;
+		-webkit-animation:cssload-animball_two 1.15s infinite;
+		-moz-animation:cssload-animball_two 1.15s infinite;
+	width:43px; height:43px;
+}
+.cssload-internal
+{
+	width:43px; height:43px; position:absolute;
+}
+.forgotPassBtn{
+  margin-top: 25px !important;
+}
+.cssload-ballcolor
+{
+	width: 19px;
+	height: 19px;
+	border-radius: 50%;
+}
+.cssload-ball_1, .cssload-ball_2, .cssload-ball_3, .cssload-ball_4
+{
+	position: absolute;
+	animation:cssload-animball_one 1.15s infinite ease;
+		-o-animation:cssload-animball_one 1.15s infinite ease;
+		-ms-animation:cssload-animball_one 1.15s infinite ease;
+		-webkit-animation:cssload-animball_one 1.15s infinite ease;
+		-moz-animation:cssload-animball_one 1.15s infinite ease;
+}
+.cssload-ball_1
+{
+	background-color:rgb(203,32,37);
+	top:0; left:0;
+}
+.cssload-ball_2
+{
+	background-color:rgb(248,179,52);
+	top:0; left:23px;
+}
+.cssload-ball_3
+{
+	background-color:rgb(0,160,150);
+	top:23px; left:0;
+}
+.cssload-ball_4
+{
+	background-color:rgb(151,191,13);
+	top:23px; left:23px;
+}
+
+/* remove arrow from input type number Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@keyframes cssload-animball_one
+{
+	0%{ position: absolute;}
+	50%{top:12px; left:12px; position: absolute;opacity:0.5;}
+	100%{ position: absolute;}
+}
+
+@-o-keyframes cssload-animball_one
+{
+	0%{ position: absolute;}
+	50%{top:12px; left:12px; position: absolute;opacity:0.5;}
+	100%{ position: absolute;}
+}
+
+@-ms-keyframes cssload-animball_one
+{
+	0%{ position: absolute;}
+	50%{top:12px; left:12px; position: absolute;opacity:0.5;}
+	100%{ position: absolute;}
+}
+
+@-webkit-keyframes cssload-animball_one
+{
+	0%{ position: absolute;}
+	50%{top:12px; left:12px; position: absolute;opacity:0.5;}
+	100%{ position: absolute;}
+}
+
+@-moz-keyframes cssload-animball_one
+{
+	0%{ position: absolute;}
+	50%{top:12px; left:12px; position: absolute;opacity:0.5;}
+	100%{ position: absolute;}
+}
+
+@keyframes cssload-animball_two
+{
+	0%{transform:rotate(0deg) scale(1);}
+	50%{transform:rotate(360deg) scale(1.3);}
+	100%{transform:rotate(720deg) scale(1);}
+}
+
+@-o-keyframes cssload-animball_two
+{
+	0%{-o-transform:rotate(0deg) scale(1);}
+	50%{-o-transform:rotate(360deg) scale(1.3);}
+	100%{-o-transform:rotate(720deg) scale(1);}
+}
+
+@-ms-keyframes cssload-animball_two
+{
+	0%{-ms-transform:rotate(0deg) scale(1);}
+	50%{-ms-transform:rotate(360deg) scale(1.3);}
+	100%{-ms-transform:rotate(720deg) scale(1);}
+}
+
+@-webkit-keyframes cssload-animball_two
+{
+	0%{-webkit-transform:rotate(0deg) scale(1);}
+	50%{-webkit-transform:rotate(360deg) scale(1.3);}
+	100%{-webkit-transform:rotate(720deg) scale(1);}
+}
+
+@-moz-keyframes cssload-animball_two
+{
+	0%{-moz-transform:rotate(0deg) scale(1);}
+	50%{-moz-transform:rotate(360deg) scale(1.3);}
+	100%{-moz-transform:rotate(720deg) scale(1);}
+}
+
+
+
+/******************Login css***********************/
+.bw{
+  background-color: #f0f;
+}
+.bw1{
+  background-color: #ff0;
+}
+.mt50{
+  margin-top: 50px;
+}
+.mt25{
+  margin-top: 25px;
+}
+.mt30{
+  margin-top: 30px;
+}
+.mt10{
+  margin-top: 10px;
+}
+.mb25{
+  margin-bottom: 25px;
+}
+.mb100{
+  margin-bottom: 100px;
+}
+
+.astricsign{
+  color: red;
+  position: relative;
+  left: 3px;
+}
+.LoginWrapper{
+  border-radius: 5px;
+  background-size: 100% 100% !important;
+  /* display: table-cell; */
+  border-radius: 5px;
+  /* vertical-align: middle !important; */
+  /* float: unset; */
+}
+#signUpUser label{
+  /* margin-top: 10px; */
+  margin-bottom: 0px;
+}
+.signupForm{
+  margin-top: 15px;
+}
+.innloginwrap{
+  text-align: center;
+}
+.labelCss{
+  font-weight: normal !important;
+}
+.borderrightlogin{
+    border-right: 1px solid #aaa;
+}
+.labelCss{
+  font-weight: normal;
+}
+
+.logininput input{
+  height: 35px;
+}
+
+#logInBtn{
+  padding: 10px 30px;
+  border-radius: 20px;
+
+}
+
+.loginforgotpass a{
+  text-decoration: underline;
+  color: #555;
+  cursor: pointer;
+  font-size: 16px;
+}
+.btnfrgt {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 1;
+  transition: 0.3s;
+}
+.loginforgotpass a:hover{
+  text-decoration: underline;
+  color: var(--blue-color);
+  cursor: pointer;
+}
+
+.loginlistpadd{
+  padding-inline-start: 20px!important;
+}
+.showConfirmPwd{
+  display: block;
+}
+.hideConfirmPwd{
+  display: none;
+}
+.showPwd{
+  display: block;
+}
+.hidePwd{
+  display: none;
+}
+.showPwd1{
+  display: none;
+}
+.hidePwd1{
+  display: block !important;
+}
+.showConfirmPwd1{
+  display: none;
+}
+.hideConfirmPwd1{
+  display: block;
+}
+.showHideSignDiv,
+.showHideSignDiv1 {
+  top: -25px;
+  float: right;
+  margin-right: 9px;
+  z-index: 999;
+  position: relative;
+}
+/******************signup css***********************/
+
+#signUpBtn{
+  padding: 10px 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+
+}
+.systemsecBtn{
+  border-radius: 25px;
+  padding: 10px 15px;
+  background-color: var(--waikawagrey-color);  
+  color: #fff !important;
+}
+.resendotbtn{
+      padding: 10px 30px;
+    border-radius: 20px;
+    border-color:var(--blue-color);
+    background: #fff;
+    color: #333;
+}
+.loginBtn{
+  border-radius: 25px;
+  padding: 10px 15px;
+  background-color: #A2632C;  
+  color: #fff !important;
+}
+.loginBtn_uni{
+  border-radius: 0px !important;
+  padding: 10px 15px;
+  background-color: #80b435;  
+  color: #fff !important;
+
+}
+.resetBtn{
+  border-radius: 25px;
+  padding: 10px 15px;
+  background-color: var(--blue-color);  
+  color: #fff;
+}
+.resetBtn:hover{
+  color: #fff;
+}
+.checkUserExistsError{
+  font-weight: 100;
+    color:red;
+    margin-top: 5px;
+  }
+  .passwordError{
+    font-weight: 100;
+      color:red;
+      margin-top: 5px;
+    }
+  .logInBtn:hover{
+    color: #fff !important;
+  }
+  .signupbtn:hover{
+    color: #fff ! important;
+
+  }
+  .formShadow{
+    background: #fff;
+    padding: 15px;
+    display: inline-block !important;
+    min-height: 300px !important  ;
+    box-shadow: 2px 1px 7px 6px #33333326;
+    float: unset;
+  }
+  .logininput label{
+    font-weight: 500;
+  }
+  .fa-spinner{
+    font-size: 15px;
+  }
+  #logInBtn:focus{
+    outline: none;
+  }
+  #signUpUser .form-group{
+    margin-bottom: 5px !important;
+  }
+  #login .errorLable{
+    height: 10px !important;
+  }
+  .formShadow{
+    margin-top: -50px;
+  }
+  .frmhgt{
+    height:80px;
+  }
+  .frmhgt1{
+    height:68px;
+    font-size: 15px;
+  }
+  .innloginwrap h4{
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+  .loginLeafimg{
+    height: 245px;
+    width: 220px;
+    background-image: url("/images/Leaf_1.png");
+    z-index: 100;
+    background-position: center;
+    position: relative;
+
+  }
+  .loginSignUpModalContent{
+    height: auto;
+  }
+.loginSignupBtn{
+  text-align: right;
+}
+.siteLogo{
+  margin-bottom: 30px;
+  margin-top: 30px;
+  height: 50px;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+
+}
+#loginFormModal .form-control{
+  height: 42px !important;
+  border-radius: 0px !important;
+}
+/* login modal css */
+.loginModalContent{
+  position: absolute;
+  z-index: 1050 !important;
+  padding-bottom: 40px;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: 50% !important;
+  border:0px !important;
+  height: auto;
+  box-shadow: none !important
+}
+.loginModalContent .close{
+  font-size: 24px !important;
+  opacity: 1 !important;
+  color: #fff;
+  border-radius: 3px;
+  font-weight: 100;
+  padding: 0px 5px;
+  background-color: var(--color) !important;
+  margin-right: 20px;
+}
+.subNavBlock{
+  margin-top: -90px;
+}
+.innloginwrap{
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-device-width: 480px) {
+    
+    .loginforgotpass label,
+    .loginforgotpass a{
+      font-size: 11px;
+    }
+    .loginModalContent{
+      height: 920px;
+    }
+    .loginModalContent .close{
+      margin-right: -23px;
+    }
+    .loginSignupBtn{
+      text-align: center;
+    }
+    .signuplink a{
+      font-size:10px;
+    }
+}

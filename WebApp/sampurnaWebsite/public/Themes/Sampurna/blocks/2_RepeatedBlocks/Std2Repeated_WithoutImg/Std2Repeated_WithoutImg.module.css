@@ -1,0 +1,36 @@
+
+.std2Wrapper{
+    height: auto;
+    background-color: #fff;
+}
+.std2TextWrapper{
+    height: auto;
+}
+
+.std2FieldWrapper{
+    height: auto;
+}
+.std2SubFieldWrapper{
+    height: auto;
+  
+}
+.std2IconWrapper{
+    border-right: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8;
+    margin-top: 20px;
+}
+.std2Icon{
+    height: auto;
+}
+.std2TextWrapper2{
+    height: 150px;
+    border-right: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8;
+}
+
+.std2Icon img{
+    height: auto;
+    
+}
+
+

@@ -1,0 +1,14 @@
+.addTitle{
+    color: #666;
+    font-weight: 500;
+}
+.deleteAdd{
+    padding: 9px 15px;
+    line-height: 1.4 !important;
+}
+.deleteAdd:hover{
+    color: red !important;
+}
+.addressHeight{
+    min-height: 180px;
+}
