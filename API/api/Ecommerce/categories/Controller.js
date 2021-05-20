@@ -77,7 +77,7 @@ exports.update_category = (req,res,next)=>{
         )
         .exec()
         .then(data=>{
-            if(data.nModified == 1){
+            if(data.nModified === 1){
                 res.status(200).json({
                     "message": "Category Updated Successfully!"
                 });
@@ -109,7 +109,7 @@ exports.list_section = (req,res,next)=>{
         });
 };
 exports.list_category = (req,res,next)=>{
-    Category.find({"section_ID":req.params.section_ID})
+    Category.find({"section_ID" : req.params.section_ID})
         .exec()
         .then(data=>{
             res.status(200).json(data);

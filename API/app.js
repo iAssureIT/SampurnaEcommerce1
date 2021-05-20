@@ -70,6 +70,7 @@ const designationMasterRoutes				= require("./api/coreAdmin/designationMaster/Ro
 const taxmaster                 			= require("./api/coreAdmin/taxNameMaster/RoutesTaxNameMaster");
 /*=========== Entity master ===============*/
 const entityRoutes			    			= require("./api/coreAdmin/entityMaster/RoutesEntityMaster.js");
+const vendorListRoutes			    		= require("./api/coreAdmin/entityMaster/RoutesVendorList.js");
 // const preferenceurl 		   				= require("./api/coreAdmin/routes/preference");
 // const notificationRoutes	   				= require("./api/coreAdmin/notificationManagement/RoutesMasterNotification.js");
 // const EventTokenRoutes					= require("./coreAdmin/EventTokenMaster/RoutesEventTokenMaster.js");
@@ -180,6 +181,7 @@ app.use("/api/departmentmaster", 			departmentMasterRoutes);
 app.use("api/globalmaster",					taxmaster);
 //=========== Entitymaster ==============
 app.use("/api/entitymaster", 				entityRoutes);	
+app.use("/api/vendorlist", 					vendorListRoutes);	
 // ========== Allowable pincodes ==========
 app.use("/api/allowablepincode", 			pincodesRoute);
 //================ CMS ==================

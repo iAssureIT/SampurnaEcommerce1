@@ -1078,11 +1078,23 @@ exports.appCompanyDetails = (req,res,next)=>{
 exports.getVendorList = (req,res,next)=>{
     console.log("req.body => ", req.body);
 
+    Products.distinct("vendor_ID", {section_ID : req.body.sectionID} )
+            .then( uniqueVendors =>{
+                res.status(200).json(uniqueVendors);
+            } )
+            .catch(error =>{
+                console.log ("error = ",error);
+            });
+
+
+/*
     var selector        = {}; 
     selector['$and']    = [];
 
     selector["$and"].push({ entityType : "vendor" });
     if (!req.body.latitude || !req.body.longitude) {
+        var sortVar = {"companyName" : 1}
+    }else{
         var sortVar = {"companyName" : 1}
     }
     if (req.body.section_ID) {
@@ -1120,4 +1132,7 @@ exports.getVendorList = (req,res,next)=>{
             error: err
         });
     });
+
+ */
+
 };
