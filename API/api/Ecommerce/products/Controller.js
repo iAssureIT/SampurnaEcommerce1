@@ -13,6 +13,7 @@ var ObjectId               = require('mongodb').ObjectID;
 var UnitOfMeasurmentMaster = require('../departmentMaster/ModelUnitofmeasurment');
 const franchisegoods       = require('../distributionManagement/Model');
 const EntityMaster         = require('../../coreAdmin/entityMaster/ModelEntityMaster');
+const haversine             = require('haversine-distance')
 var subcategoryArray=[];
 
 
@@ -1921,6 +1922,7 @@ exports.list_productby_subcategoryUrl = (req,res,next)=>{
     }
 
 };
+
 exports.list_productby_sectionUrl = (req,res,next)=>{
     // console.log("sectionurl==============",req.params.sectionUrl);
     Sections.find({sectionUrl : req.params.sectionUrl})
@@ -1949,6 +1951,7 @@ exports.list_productby_sectionUrl = (req,res,next)=>{
         });
     }); 
 };
+
 exports.list_productby_subcategory = (req,res,next)=>{
     // console.log(req.params.categoryID);
     // console.log(req.params.subcategoryID);
@@ -3766,11 +3769,16 @@ function getAll(searchText) {
 /**=========== products_by_lowest_price() =========== */
 exports.products_by_lowest_price = (req,res,next)=>{
     console.log("req.body => ",req.body);
-
+    var userLat         = req.body.userLatitude;
+    var userLong        = req.body.userLongitude;
     var selector        = {};
     selector['$and']    = [];
 
-    selector["$and"].push({"status": "Publish"})
+
+    selector["$and"].push({"status": "Publish"});
+    if(req.body.vendorID && req.body.vendorID !== '' && req.body.vendorID !== undefined){
+        selector["$and"].push({"vendor_ID": ObjectId(req.body.vendorID) })
+    }
     if(req.body.sectionID && req.body.sectionID !== '' && req.body.sectionID !== undefined){
         selector["$and"].push({"section_ID": ObjectId(req.body.sectionID) })
     }
@@ -3781,6 +3789,10 @@ exports.products_by_lowest_price = (req,res,next)=>{
         selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
     }
     console.log("selector => ",selector)
+    console.log("userLat => ",userLat)
+    console.log("condition => ",(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined))
+    console.log("userLong => ",userLong)
+
     Products.aggregate([ 
         {$match : selector},
         {$sort  : { 
@@ -3788,48 +3800,120 @@ exports.products_by_lowest_price = (req,res,next)=>{
                         "discountedPrice"       : 1 
                 } 
         }, 
-        { $group: {
-                    _id   : '$universalProductCode',
-                    "doc" : {"$first" : "$$ROOT"}
+        {$group : {
+                    _id : '$universalProductCode',
+                    doc : {"$first" : "$$ROOT"}
             
                 }
         },
-        { "$replaceRoot" : {"newRoot" : "$doc"}}  
+        {$replaceRoot : {"newRoot" : "$doc"}}  
     ])
     .exec()
     .then(products=>{
-        console.log("products",products);
-        if(products){
+        // console.log("products",products);
+        if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
+            const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
+            var FinalVendorSequence = [];
+            console.log("uniqueVendors=> ",uniqueVendors);
+            EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1})              
+            .exec()
+            .then(vendorDetails=>{
+                if(vendorDetails && vendorDetails.length > 0){
+                    var vendorLocations = [];
+
+                    getVendorDistArray();
+                    async function getVendorDistArray() {
+                        for(var i=0; i<vendorDetails.length; i++){
+                            // console.log("vendorDetails => ",vendorDetails[i])
+                            if(vendorDetails[i].locations && vendorDetails[i].locations.length > 0){
+                                for(let j=0; j<vendorDetails[i].locations.length; j++){
+                                    var vendor_ID   = vendorDetails[i]._id;
+                                    var vendorLat   = vendorDetails[i].locations[j].latitude;
+                                    var vendorLong  = vendorDetails[i].locations[j].longitude;
+                                    
+                                    var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, userLat, userLong);
+                                    
+                                    
+                                    vendorDetails[i].locationsj =   {
+                                                                        "vendor_ID"         : vendor_ID, 
+                                                                        "vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : ''
+                                                                    };
+                                    vendorLocations.push(vendorDetails[i].locationsj);
+                                }
+                            }
+                        }
+                        if(i >= vendorDetails.length){
+                            const key = 'vendor_ID';
+                            if(vendorLocations && vendorLocations.length > 0){
+                                // console.log("vendorLocations => ",vendorLocations);
+                                FinalVendorSequence           = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))] 
+                                
+                                console.log("FinalVendorSequence => ",FinalVendorSequence);
+                            }                            
+                        }
+                    }
+                }else{                    
+                    console.log("200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName)
+                    // res.status(200).json({
+                    //     message : "200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName, 
+                    // });    
+                }
+            })
+            .catch(err =>{
+                console.log("Error => ",err);
+                // res.status(500).json({
+                //     message : "500 Vendors Locations not found.",
+                //     error   : err,
+                // });
+            });
+        }
+        if(products){    
+
+            // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
+            // console.log("ordered_array => ",ordered_array)      
             for (let k = 0; k < products.length; k++) {
-                products[k] = {...products[k], isWish:false};
+                products[k] = {...products[k], isWish : false};
             }
-            if(req.body.user_id && req.body.user_id!=='null'){
-                Wishlists.find({user_ID:req.body.user_id})
+            if(req.body.user_id && req.body.user_id !== 'null'){
+                Wishlists.find({user_ID : req.body.user_id})
                 .then(wish=>{
                     if(wish.length > 0){
-                        for(var i=0; i<wish.length; i++){
-                            for(var j=0; j<products.length; j++){
+                        for(var i = 0; i < wish.length; i++){
+                            for(var j = 0; j < products.length; j++){
                                 if(String(wish[i].product_ID) === String(products[j]._id)){
-                                    products[j]= {...products[j], isWish:true};
+                                    products[j] = {...products[j], isWish : true};
                                     break;
                                 }
                             }
                         }   
                         if(i >= wish.length){
-                            res.status(200).json(products);
+                            if(FinalVendorSequence && FinalVendorSequence.length > 0){
+                                res.status(200).json(mapOrder(products, FinalVendorLocations, 'vendor_ID'));
+                            }else{
+                                res.status(200).json(products);
+                            }                            
                         }       
                     }else{
-                        res.status(200).json(products);
+                        if(FinalVendorSequence && FinalVendorSequence.length > 0){
+                            res.status(200).json(mapOrder(products, FinalVendorLocations, 'vendor_ID'));
+                        }else{
+                            res.status(200).json(products);
+                        } 
                     }
                  })
                  .catch(err =>{
                     console.log(err);
                     res.status(500).json({
-                        error: err
+                        message : "Wish List Data Not Found",
+                        error   : err
                     });
                 });
             }else{
-                res.status(200).json(products);
+                if(FinalVendorSequence && FinalVendorSequence.length > 0){
+                    res.status(200).json(mapOrder(products, FinalVendorLocations, 'vendor_ID'));
+                }else{
+                    res.status(200).json(products);
+                } 
             }    
         }else{
             res.status(404).json('Product Details not found');
@@ -3842,3 +3926,72 @@ exports.products_by_lowest_price = (req,res,next)=>{
         });
     });
 };
+
+
+function mapOrder (array, order, key) {
+  
+    array.sort( function (a, b) {
+      var A = a[key], B = b[key];
+      console.log("A => ",A)
+      console.log("B => ",B)
+      if (order(A) === order(B)) {
+        return 1;
+      } else {
+        return -1;
+      }
+      
+    });
+    
+    return array;
+  };
+  
+
+/**========== product_list_by_section ===========*/
+exports.product_list_by_section = (req,res,next)=>{
+    console.log("product_list_by_section => ",req.body);
+    // Sections.find({_id : ObjectId(req.body.section_ID)})
+    // .exec()
+    // .then(data=>{
+    //     console.log("section data ===:", data);
+        // res.status(200).json(data);
+        Products.find({section_ID : req.body.section_ID, "status": "Publish"})
+        .exec()
+        .then(productData=>{
+            console.log("product section data ===:", productData);
+            res.status(200).json(productData);
+        })
+        .catch(err =>{
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+
+    // })
+    // .catch(err =>{
+    //     console.log(err);
+    //     res.status(500).json({
+    //         error: err
+    //     });
+    // }); 
+};
+
+
+/**=========== calcUserVendorDist() ===========*/
+function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
+    return new Promise(function(resolve,reject){
+        //First point User Location
+        var userLocation = { lat: userLat, lng: userLong }
+
+        //Second point Vendor Location
+        var vendorLocation = { lat: vendorLat, lng: vendorLong }        
+        
+        //Distance in meters (default)
+        var distance_m = haversine(userLocation, vendorLocation);
+
+        //Distance in kilometers
+        var distance_km = distance_m /1000; 
+        
+        resolve(distance_km);
+    });
+}

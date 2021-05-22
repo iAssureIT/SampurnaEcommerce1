@@ -80,7 +80,7 @@ class StorePreferences extends Component {
 		.catch(error=>{
 			console.log("error => ",error);
 			if(error.message === "Request failed with status code 401"){
-			    var userDetails =  localStorage.removeItem("userDetails");
+			    localStorage.removeItem("userDetails");
 			    localStorage.clear();
 			    swal({  
 			        title : "Your Session is Expired.",                
@@ -220,7 +220,7 @@ class StorePreferences extends Component {
 			.catch((error)=>{
 				console.log("error => ",error);
 				if(error.message === "Request failed with status code 401"){
-				    var userDetails =  localStorage.removeItem("userDetails");
+				    localStorage.removeItem("userDetails");
 				    localStorage.clear();
 				    swal({  
 				        title : "Your Session is Expired.",                

@@ -167,6 +167,8 @@ router.get('/get/franchisestock/:franchise_id', 						productStock.getFranchiseC
 router.get('/check-item-code-exits/:itemcode',							productController.checkItemCodeExists)
 // router.get('/get/warehousestock', productStock.getwarehousestock);
 
+/*===================== New API's By Jyoti =====================*/
+router.post('/get/product_list_by_section', 					productController.product_list_by_section);
 
 
 module.exports = router;

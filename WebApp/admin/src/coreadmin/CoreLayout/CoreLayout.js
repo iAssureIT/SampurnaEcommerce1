@@ -200,10 +200,10 @@ class CoreLayout extends Component {
                 <Route path="/city-type/:fieldID" exact strict component={CityType} />
 
 
-                <Route path="/package-master" exact strict component={PackageMaster} />
+                {/* <Route path="/package-master" exact strict component={PackageMaster} />
                 <Route path="/package-master/:packageID" exact strict component={PackageMaster} />
                 // <Route path="/package-master/package-type" exact strict component={PackageMaster} />
-                <Route path="/package-master/package-type/:fieldID" exact strict component={PackageMaster} />
+                <Route path="/package-master/package-type/:fieldID" exact strict component={PackageMaster} /> */}
 
 {/*                <Route path="/package-type" exact strict component={PackageType} />
 */}

@@ -245,7 +245,7 @@ exports.singleEntity = (req,res,next)=>{
                     
             }
             returnData.push({
-                        "_id"                           : data._id,
+                        _id                     : data._id,
                         supplierOf              : data.supplierOf,
                         companyID               : data.companyID,
                         companyName             : data.companyName,
@@ -281,7 +281,7 @@ exports.singleEntity = (req,res,next)=>{
 
 function getManagerDetails(ID,companyID){
    return new Promise(function(resolve,reject){
-        PersonMaster.findOne({"employeeId" : ID,"companyID":companyID},{"firstName":1,middleName:1,lastName:1,contactNo:1,designation:1,department:1,employeeId:1})
+        PersonMaster.findOne({"employeeId" : ID,"companyID":companyID},{firstName:1,middleName:1,lastName:1,contactNo:1,designation:1,department:1,employeeId:1})
              .populate('designationId')
              .populate('departmentId')
              .exec()
@@ -1059,8 +1059,6 @@ exports.countContacts = (req,res,next)=>{
         });
     });
 };
-
-
 
 exports.appCompanyDetails = (req,res,next)=>{
     EntityMaster.findOne({companyID :1})
