@@ -24,8 +24,8 @@ exports.getVendorList = (req,res,next)=>{
                 .then(vendorDetails=>{
                     if(vendorDetails && vendorDetails.length > 0){
                         var vendorLocations = [];
-                        const userLat       = req.body.userLatitude; 
-                        const userLong      = req.body.userLongitude; 
+                        const userLat       = req.body.latitude; 
+                        const userLong      = req.body.longitude; 
 
                         getVendorDistArray();
                         async function getVendorDistArray() {

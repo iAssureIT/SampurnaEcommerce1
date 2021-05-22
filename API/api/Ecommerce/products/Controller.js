@@ -3811,112 +3811,69 @@ exports.products_by_lowest_price = (req,res,next)=>{
     .exec()
     .then(products=>{
         // console.log("products",products);
-        if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
-            const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
+        processData();
+        async function processData(){
             var FinalVendorSequence = [];
-            console.log("uniqueVendors=> ",uniqueVendors);
-            EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1})              
-            .exec()
-            .then(vendorDetails=>{
-                if(vendorDetails && vendorDetails.length > 0){
-                    var vendorLocations = [];
-
-                    getVendorDistArray();
-                    async function getVendorDistArray() {
-                        for(var i=0; i<vendorDetails.length; i++){
-                            // console.log("vendorDetails => ",vendorDetails[i])
-                            if(vendorDetails[i].locations && vendorDetails[i].locations.length > 0){
-                                for(let j=0; j<vendorDetails[i].locations.length; j++){
-                                    var vendor_ID   = vendorDetails[i]._id;
-                                    var vendorLat   = vendorDetails[i].locations[j].latitude;
-                                    var vendorLong  = vendorDetails[i].locations[j].longitude;
-                                    
-                                    var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, userLat, userLong);
-                                    
-                                    
-                                    vendorDetails[i].locationsj =   {
-                                                                        "vendor_ID"         : vendor_ID, 
-                                                                        "vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : ''
-                                                                    };
-                                    vendorLocations.push(vendorDetails[i].locationsj);
-                                }
-                            }
-                        }
-                        if(i >= vendorDetails.length){
-                            const key = 'vendor_ID';
-                            if(vendorLocations && vendorLocations.length > 0){
-                                // console.log("vendorLocations => ",vendorLocations);
-                                FinalVendorSequence           = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))] 
-                                
-                                console.log("FinalVendorSequence => ",FinalVendorSequence);
-                            }                            
-                        }
-                    }
-                }else{                    
-                    console.log("200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName)
-                    // res.status(200).json({
-                    //     message : "200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName, 
-                    // });    
-                }
-            })
-            .catch(err =>{
-                console.log("Error => ",err);
-                // res.status(500).json({
-                //     message : "500 Vendors Locations not found.",
-                //     error   : err,
-                // });
-            });
-        }
-        if(products){    
-
-            // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
-            // console.log("ordered_array => ",ordered_array)      
-            for (let k = 0; k < products.length; k++) {
-                products[k] = {...products[k], isWish : false};
+            if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
+                const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
+                
+                console.log("uniqueVendors=> ",uniqueVendors);     
+                FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
             }
-            if(req.body.user_id && req.body.user_id !== 'null'){
-                Wishlists.find({user_ID : req.body.user_id})
-                .then(wish=>{
-                    if(wish.length > 0){
-                        for(var i = 0; i < wish.length; i++){
-                            for(var j = 0; j < products.length; j++){
-                                if(String(wish[i].product_ID) === String(products[j]._id)){
-                                    products[j] = {...products[j], isWish : true};
-                                    break;
+
+            if(products){    
+                console.log("FinalVendorSequence======= ",FinalVendorSequence)
+                // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
+                // console.log("ordered_array => ",ordered_array)      
+                for (let k = 0; k < products.length; k++) {
+                    products[k] = {...products[k], isWish : false};
+                }
+                if(req.body.user_id && req.body.user_id !== 'null'){
+                    Wishlists.find({user_ID : req.body.user_id})
+                    .then(wish=>{
+                        if(wish.length > 0){
+                            for(var i = 0; i < wish.length; i++){
+                                for(var j = 0; j < products.length; j++){
+                                    if(String(wish[i].product_ID) === String(products[j]._id)){
+                                        products[j] = {...products[j], isWish : true};
+                                        break;
+                                    }
                                 }
-                            }
-                        }   
-                        if(i >= wish.length){
+                            }   
+                            if(i >= wish.length){
+                                // console.log("FinalVendorSequence======= ",FinalVendorSequence)
+                                if(FinalVendorSequence && FinalVendorSequence.length > 0){
+                                    res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID'));
+                                }else{
+                                    res.status(200).json(products);
+                                }                            
+                            }       
+                        }else{
                             if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                                res.status(200).json(mapOrder(products, FinalVendorLocations, 'vendor_ID'));
+                                res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID'));
                             }else{
                                 res.status(200).json(products);
-                            }                            
-                        }       
-                    }else{
-                        if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                            res.status(200).json(mapOrder(products, FinalVendorLocations, 'vendor_ID'));
-                        }else{
-                            res.status(200).json(products);
-                        } 
-                    }
-                 })
-                 .catch(err =>{
-                    console.log(err);
-                    res.status(500).json({
-                        message : "Wish List Data Not Found",
-                        error   : err
+                            } 
+                        }
+                    })
+                    .catch(err =>{
+                        console.log(err);
+                        res.status(500).json({
+                            message : "Wish List Data Not Found",
+                            error   : err
+                        });
                     });
-                });
-            }else{
-                if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                    res.status(200).json(mapOrder(products, FinalVendorLocations, 'vendor_ID'));
                 }else{
-                    res.status(200).json(products);
-                } 
-            }    
-        }else{
-            res.status(404).json('Product Details not found');
+                    if(FinalVendorSequence && FinalVendorSequence.length > 0){
+                        console.log(" ==== ",mapOrder(products, FinalVendorSequence, 'vendor_ID'))
+                        res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID'));
+                    }else{
+                        res.status(200).json(products);
+                    } 
+                }    
+            }else{
+                res.status(404).json('Product Details not found');
+            }
         }
     })
     .catch(err =>{
@@ -3929,7 +3886,9 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
 
 function mapOrder (array, order, key) {
-  
+    console.log("Innnnn 1 => ",array)
+    console.log("Innnnn 2 => ",order)
+    console.log("Innnnn 3 => ",key)
     array.sort( function (a, b) {
       var A = a[key], B = b[key];
       console.log("A => ",A)
@@ -3994,4 +3953,62 @@ function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
         
         resolve(distance_km);
     });
+}
+
+function getVendorSequence(uniqueVendors, userLat, userLong) {
+    return new Promise(function(resolve,reject){  
+        EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1})              
+        .exec()
+        .then(vendorDetails=>{
+            if(vendorDetails && vendorDetails.length > 0){
+                var vendorLocations = [];
+
+                getVendorDistArray();
+                async function getVendorDistArray() {
+                    for(var i=0; i<vendorDetails.length; i++){
+                        // console.log("vendorDetails => ",vendorDetails[i])
+                        if(vendorDetails[i].locations && vendorDetails[i].locations.length > 0){
+                            for(let j=0; j<vendorDetails[i].locations.length; j++){
+                                var vendor_ID   = vendorDetails[i]._id;
+                                var vendorLat   = vendorDetails[i].locations[j].latitude;
+                                var vendorLong  = vendorDetails[i].locations[j].longitude;
+                                
+                                var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, userLat, userLong);
+                                
+                                
+                                vendorDetails[i].locationsj =   {
+                                                                    "vendor_ID"         : vendor_ID, 
+                                                                    "vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : ''
+                                                                };
+                                vendorLocations.push(vendorDetails[i].locationsj);
+                            }
+                        }
+                    }
+                    if(i >= vendorDetails.length){
+                        const key = 'vendor_ID';
+                        if(vendorLocations && vendorLocations.length > 0){
+                            // console.log("vendorLocations => ",vendorLocations);
+                            FinalVendorSequence           = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))] 
+                            resolve(FinalVendorSequence)
+                            // console.log("FinalVendorSequence => ",FinalVendorSequence);
+                        }                            
+                    }
+                }
+            }else{                    
+                console.log("200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName)
+                resolve([])
+                // res.status(200).json({
+                //     message : "200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName, 
+                // });    
+            }
+        })
+        .catch(err =>{
+            console.log("Error => ",err);
+            reject(err)
+            // res.status(500).json({
+            //     message : "500 Vendors Locations not found.",
+            //     error   : err,
+            // });
+        });
+    })
 }

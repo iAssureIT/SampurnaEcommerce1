@@ -2,6 +2,7 @@ const mongoose	= require("mongoose");
 
 var ObjectId    = require('mongodb').ObjectID;
 const Category = require('./Model');
+const Section = require('../sections/Model');
 const { json } = require("body-parser");
 
 exports.insert_category = (req,res,next)=>{
@@ -311,6 +312,39 @@ exports.fetch_categories_by_section = (req,res,next)=>{
     .exec()
     .then(data=>{
         res.status(200).json(data);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
+
+exports.fetch_categories_by_sectionUrl = (req,res,next)=>{
+    console.log("params => ",req.params.sectionUrl)
+    Section.findOne({sectionUrl: req.params.sectionUrl})
+    .then(sectiondata=>{
+        console.log("sectiondata => ",sectiondata)
+        if(sectiondata && sectiondata !== null && sectiondata !== undefined){
+            Category.find({section_ID: sectiondata._id})
+            .exec()
+            .then(data=>{
+                console.log("data => ",data)
+                res.status(200).json(data);
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+        }else{
+            res.status(200).json({
+                message : "No Section found"
+            });
+        }
     })
     .catch(err =>{
         console.log(err);
