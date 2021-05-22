@@ -3766,6 +3766,7 @@ function getAll(searchText) {
 }
 
 
+
 /**=========== products_by_lowest_price() =========== */
 exports.products_by_lowest_price = (req,res,next)=>{
     console.log("req.body => ",req.body);
@@ -3824,7 +3825,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
             if(products){    
                 // console.log("FinalVendorSequence======= ",FinalVendorSequence)
                 // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
-                // console.log("ordered_array => ",ordered_array)      
+                // console.log("ordered_array => ",ordered_array)    
                 for (let k = 0; k < products.length; k++) {
                     products[k] = {...products[k], isWish : false};
                 }
@@ -4005,3 +4006,33 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
         });
     })
 }
+
+/**========== product_list_by_section ===========*/
+exports.fetch_categories_by_vendor = (req,res,next)=>{
+    console.log("fetch_categories_by_vendor => ",req.params.sectionUrl);
+    Sections.findOne({sectionUrl : req.params.sectionUrl})
+    .exec()
+    .then(sectiondata=>{
+        if(sectiondata && sectiondata !== null && sectiondata !== undefined){    
+            console.log("section data ===:", sectiondata);
+            Products.find({vendorID : ObjectId(req.params.vendorID), status : "Publish"})
+            .exec()
+            .then(productData=>{
+                console.log("product section data ===:", productData);
+                res.status(200).json(productData);
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+        }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    }); 
+};
