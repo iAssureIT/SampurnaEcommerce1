@@ -1,8 +1,8 @@
 
 import React from 'react';
 import axios from 'axios';
+import MasterPage from '../../MasterPage/MasterPage.js'
 
-import MasterPage from '../../MasterPage/MasterPage.js';
 export const config = {
     unstable_runtimeJS : false
 }
@@ -11,6 +11,7 @@ export default function App({pageData}) {
       <MasterPage pageData = {pageData}/>
   )
 }
+
 export async function getStaticProps(store,context){
 	const urlParam = 'homepage';
     try {

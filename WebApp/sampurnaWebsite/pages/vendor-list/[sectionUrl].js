@@ -9,11 +9,11 @@ import { useRouter } from 'next/router'
 
 const VendorList = ()=> {
     const [vendorList,setVendorList] = useState([]);
+    const [categoryList,setCategoryList] = useState([]);
     const router = useRouter();
     const {sectionUrl} = router.query
     console.log("router",router);
     useEffect(()=>{
-        // console.log("sectionId===",sectionId);
         var formValues =  {
             "startRange" : 0,
             "limitRange" : 10,
@@ -24,7 +24,6 @@ const VendorList = ()=> {
         axios.post("/api/vendorlist/post/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){
-                    console.log('VendorList', vendorResponse.data);
                     setVendorList(vendorResponse.data)
                 }
 			})
@@ -32,8 +31,6 @@ const VendorList = ()=> {
 				console.log('error', error);
 			})
     },[sectionUrl])
-
-
         return(
             <section>
                 <Header />    
@@ -41,13 +38,12 @@ const VendorList = ()=> {
                     <div className="row">
                         <div className={"col-12 text-center mt2 mb2 " +Style.vendorlistTitle}> Select Shop</div>
                         <div className={"col-12  "+Style.vendorListWrapper}>
-
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
-                                    {console.log("vendordata===",vendordata);}
+                                    // {console.log("vendordata===",vendordata);}
                                     return(
                                         <div className={"card col-4  " +Style.vendorCard} key={index}>
-                                            <a href={"/productlist/"+sectionUrl} className="">
+                                            <a href={"/products/"+sectionUrl}>
                                                 <div className={"card-body " +Style.cardBody}>
                                                     <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                         <img src={vendordata.vendorLogo} className="vendor img-thumbnail"/>
@@ -60,7 +56,6 @@ const VendorList = ()=> {
                                 })
                             :null
                             }
-
                         </div>
                     </div>
                 </div>

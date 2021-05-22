@@ -2,9 +2,9 @@ import Head from 'next/head';
 import 'bootstrap/dist/css/bootstrap.css';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import {setBlockData ,setProductApiUrl} from '../../redux/actions/index.js';
-import MasterPage from '../../MasterPage/MasterPage.js';
-import store from '../../redux/store.js'
+import {setBlockData ,setProductApiUrl} from '../../../../redux/actions/index.js';
+import MasterPage from '../../../../MasterPage/MasterPage.js'
+import store from '../../../../redux/store.js'
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 
@@ -13,25 +13,20 @@ import { useRouter } from "next/router";
 
 function Home({pageData,productApi}) {
   //set data in store
-  // store.dispatch(setBlockData(pageData))
+  store.dispatch(setBlockData(pageData))
   store.dispatch(setProductApiUrl(productApi))
-  return ( 
-    pageData.pageBlocks.length>0?
+  return (
       <MasterPage pageData = {pageData} />
-      :
-      <div className={"col-12 " }>
-          <img src="/images/bookscart.gif" className={"col-4 offset-3 img-responsive"}/>
-      </div>
   )
 }
 
-
 export async function getServerSideProps({query}){
   // console.log("query",query)
-  var productApi = "/api/products/get/listbysection/"+query.sectionUrl;
-  const urlParam = query.sectionUrl ? query.sectionUrl : 'product-list'
+  var productApi = "/api/products/get/listbycategory/"+query.categoryUrl;
+  const urlParam = query.categoryUrl ? query.categoryUrl : 'product-list'
   const res = await axios.get("api/pages/get/page_block/product-list")
   const pageData = await res.data;
+  // console.log("Pagedata--------",pageData);
   return {
     props:{
       pageData,

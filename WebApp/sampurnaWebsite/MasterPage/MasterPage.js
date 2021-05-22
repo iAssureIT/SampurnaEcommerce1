@@ -39,7 +39,7 @@ class MasterPage extends React.Component {
 		};
 	}
 	componentDidMount(){
-		// console.log('inside componentDidMount => ',this.props);
+		console.log('inside masterpage componentDidMount => ',this.props);
 		// console.log("pageLoaded===",this.state.pageLoaded);
 		this.getPreferences();
 		// console.log("1 timestamp = ", new Date() );
