@@ -3817,12 +3817,12 @@ exports.products_by_lowest_price = (req,res,next)=>{
             if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
                 const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
                 
-                console.log("uniqueVendors=> ",uniqueVendors);     
+                // console.log("uniqueVendors=> ",uniqueVendors);     
                 FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
             }
 
             if(products){    
-                console.log("FinalVendorSequence======= ",FinalVendorSequence)
+                // console.log("FinalVendorSequence======= ",FinalVendorSequence)
                 // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
                 // console.log("ordered_array => ",ordered_array)      
                 for (let k = 0; k < products.length; k++) {
@@ -3843,16 +3843,16 @@ exports.products_by_lowest_price = (req,res,next)=>{
                             if(i >= wish.length){
                                 // console.log("FinalVendorSequence======= ",FinalVendorSequence)
                                 if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                                    res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID'));
+                                    res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
                                 }else{
-                                    res.status(200).json(products);
+                                    res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
                                 }                            
                             }       
                         }else{
                             if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                                res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID'));
+                                res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
                             }else{
-                                res.status(200).json(products);
+                                res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
                             } 
                         }
                     })
@@ -3865,10 +3865,10 @@ exports.products_by_lowest_price = (req,res,next)=>{
                     });
                 }else{
                     if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                        console.log(" ==== ",mapOrder(products, FinalVendorSequence, 'vendor_ID'))
-                        res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID'));
+                        // console.log(" ==== ",mapOrder(products, FinalVendorSequence, 'vendor_ID'))
+                        res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
                     }else{
-                        res.status(200).json(products);
+                        res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
                     } 
                 }    
             }else{
@@ -3886,21 +3886,14 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
 
 function mapOrder (array, order, key) {
-    console.log("Innnnn 1 => ",array)
-    console.log("Innnnn 2 => ",order)
-    console.log("Innnnn 3 => ",key)
     array.sort( function (a, b) {
-      var A = a[key], B = b[key];
-      console.log("A => ",A)
-      console.log("B => ",B)
-      if (order(A) === order(B)) {
-        return 1;
-      } else {
-        return -1;
-      }
-      
-    });
-    
+        var A = a[key], B = b[key];
+        if (String(A) === String(B)) {
+            return 1;
+        } else {
+            return -1;
+        }      
+    });    
     return array;
   };
   
