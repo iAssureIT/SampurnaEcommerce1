@@ -24,36 +24,33 @@ class Header extends React.Component {
             userID             : "", 
             userLocation       : true,  
             address            : "",
-            homeFirstVisit     : false
+            homeFirstVisit     : false,
+            loading            : true
          }
     }    
 	 async componentDidMount(){        
        this.getCategoriesData();
        var SEuserData =  JSON.parse(localStorage.getItem('SEuserData'));
-    //    console.log("SEuserData===",SEuserData);
+       console.log("SEuserData===",SEuserData);
        var userId =localStorage.getItem('user_ID');
-       if(!SEuserData){
+       if(SEuserData===null){
             this.setState({
                 "homeFirstVisit" : true,
-                "address"        : ""
-            });
+                "address"        : "",
+                loading           : false
+            },()=>{console.log("homeFirstVisit",this.state.homeFirstVisit)});
         }
        this.setState({
            "userID": userId,
-        //    "homeFirstVisit" : SEuserData.homeFirstVisit===null?true:SEuserData.homeFirstVisit,
-        //    "address"        : SEuserData.address
 
        },()=>{
             this.props.getCartData();
             this.props.getWishlistData();
-       })
-        // console.log("***this.props.recentCartData()===",this.props.recentCartData);
-        // document.getElementById("tableSearch").focus();        
+       })      
     }
     getCategoriesData(){
         axios.get('/api/category/get/list')
         .then((response)=>{
-            // console.log("categorydata == ",response.data);
             this.setState({
                 categorydata:response.data
                 });
@@ -167,11 +164,9 @@ class Header extends React.Component {
                                 <span className="navbar-toggler-icon"></span>
                             </button>                             
                         </div>
-                        
                         <div id="collapsibleNavbar" className="collapse navbar-collapse navHeaderCollapse mt-2">
                             <Megamenu />
                         </div>
-                        
                     </div>                    
                     </div>
                 </nav>
@@ -179,7 +174,7 @@ class Header extends React.Component {
                     <DisplayLocation />
                     :null
                 }
-                <DeliveryLocationPopup  homeFirstVisit={this.state.homeFirstVisit}/>
+                {!this.state.loading&&<DeliveryLocationPopup  homeFirstVisit={this.state.homeFirstVisit}/>}
             </header>
             </div>
         </div>         

@@ -22,14 +22,11 @@ exports.create_block = (req,res,next)=>{
             animationSettings   : req.body.animationSettings,
             blockGroup          : req.body.blockGroup,
             blockAppearOnPage   : req.body.blockAppearOnPage,
-
             blockSettings   : req.body.blockSettings,
             productSettings : req.body.productSettings,
             filterSettings  : [],
             groupSettings   : req.body.groupSettings,
             dealSettings   : req.body.dealSettings,
-            
-            // createdBy           : req.body.user_ID,
             createdAt           : new Date(),
 
         });

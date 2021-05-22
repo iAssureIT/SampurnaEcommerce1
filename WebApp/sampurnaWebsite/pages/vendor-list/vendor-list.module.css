@@ -9,11 +9,13 @@
     color: #fff;
 }
 .vendorLogo{
-    height: 100px;
-    width: 50px;
+    /* height: 100px; */
+    /* width: 50px; */
     margin-bottom: 20px;
 }
 .vendorlistTitle{
     font-size: 30px;
-
+}
+.vendorCard a{
+    text-decoration: none !important;
 }

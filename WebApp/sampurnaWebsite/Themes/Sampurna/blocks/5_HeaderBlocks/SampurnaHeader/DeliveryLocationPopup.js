@@ -18,16 +18,20 @@ class DeliveryLocationPopup extends React.Component {
 		}; 
     }
     componentDidMount(){   
+        console.log("homeFirstVist",this.props.homeFirstVisit)
         if(this.props.homeFirstVisit){
             $('#locationModal').modal('show');   
         }
         var locationData = JSON.parse(localStorage.getItem('SEuserData',locationData));  
-        this.setState({
-            "address" : locationData.address,
-        });
+        if(locationData){
+            this.setState({
+                "address" : locationData.address,
+            });
+        }
     }
 
     takeCurrentLocation(){
+        var that =this;
         Geocode.setApiKey("AIzaSyC2Ubr7BFRt1rjOU9XajVBNRUV5w8VLe0k");
         navigator.geolocation.getCurrentPosition(function(position) {
             console.log("Latitude is :", position.coords.latitude);
@@ -36,7 +40,7 @@ class DeliveryLocationPopup extends React.Component {
                 (response) => {
                     const address = response.results[0].formatted_address;
                     console.log(address);
-                    // this.setAddress(address);
+                    that.setAddress(address);
                 },
                 (error) => {
                   console.error(error);
@@ -68,6 +72,12 @@ class DeliveryLocationPopup extends React.Component {
         }
         // console.log("SEuserData===",SEuserData);
         localStorage.setItem("SEuserData", JSON.stringify(SEuserData));
+
+        var locationData = JSON.parse(localStorage.getItem('SEuserData',locationData));  
+        this.setState({
+            "address" : locationData.address,
+        });
+        $('#locationModal').modal('hide').fadeOut(3000); 
 
     }
     handleChangePlaces = address => {
@@ -198,7 +208,7 @@ class DeliveryLocationPopup extends React.Component {
                                             </div>
                                             )}
                                     </PlacesAutocomplete>
-                                    <button type="button" class="btn btn-outline-primary pull-right cangelocationBtn" onClick={this.saveLocation.bind(this)}>save location</button>
+                                    <button type="button" className="btn btn-outline-primary pull-right cangelocationBtn" onClick={this.saveLocation.bind(this)}>save location</button>
                                 </div>
                             </form>
                             <div className="col-12 currentLocationBlock">

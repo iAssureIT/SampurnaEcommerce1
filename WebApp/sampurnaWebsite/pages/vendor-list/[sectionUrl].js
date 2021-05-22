@@ -1,48 +1,39 @@
 
-import React, { Component } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios                from 'axios';
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import { components }       from 'react-select';
 import Style                from "./vendor-list.module.css";
+import { useRouter } from 'next/router'
 
-class VendorList extends Component {
-    constructor(props) {
-        super(props);
-        this.state ={
-            vendorList : [],
-        }
-    }
-
-    componentDidMount(){
-        var url = window.location.href;
-        console.log("url===",url.split('/'));
-        var sectionId = url.split('/')[4];
-        // var sectionId = 
+const VendorList = ()=> {
+    const [vendorList,setVendorList] = useState([]);
+    const router = useRouter();
+    const {sectionUrl} = router.query
+    console.log("router",router);
+    useEffect(()=>{
+        // console.log("sectionId===",sectionId);
         var formValues =  {
             "startRange" : 0,
             "limitRange" : 10,
-            "section_ID" : sectionId,
+            "sectionUrl" : sectionUrl,
             "latitude"   : "",
             "longitude"  : ""
         }
-        axios.post("/api/entitymaster/post/vendor/list",formValues)
+        axios.post("/api/vendorlist/post/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){
-                    console.log('VendorList', vendorResponse.data)
-                    this.setState({
-                        vendorList: vendorResponse.data
-                    })
+                    console.log('VendorList', vendorResponse.data);
+                    setVendorList(vendorResponse.data)
                 }
 			})
 			.catch((error) => {
 				console.log('error', error);
 			})
+    },[sectionUrl])
 
-    }
 
-
-    render(){
         return(
             <section>
                 <Header />    
@@ -51,17 +42,19 @@ class VendorList extends Component {
                         <div className={"col-12 text-center mt2 mb2 " +Style.vendorlistTitle}> Select Shop</div>
                         <div className={"col-12  "+Style.vendorListWrapper}>
 
-                           { Array.isArray(this.state.vendorList) && this.state.vendorList.length >0?
-                                this.state.vendorList.map((vendordata, index)=>{
-                                    // {console.log("vendordata===",vendordata);}
+                           { Array.isArray(vendorList) && vendorList.length >0?
+                                vendorList.map((vendordata, index)=>{
+                                    {console.log("vendordata===",vendordata);}
                                     return(
                                         <div className={"card col-4  " +Style.vendorCard} key={index}>
-                                            <div className={"card-body " +Style.cardBody}>
-                                                <div className={Style.vendorLogo}>
-                                                    <img src={vendordata.companyLogo[0]} className="img-thumbnail"/>
-                                                </div>   
-                                                <div>{vendordata.companyName}</div>
-                                            </div> 
+                                            <a href={"/productlist/"+sectionUrl} className="">
+                                                <div className={"card-body " +Style.cardBody}>
+                                                    <div className={ "col-3 NoPadding "+Style.vendorLogo}>
+                                                        <img src={vendordata.vendorLogo} className="vendor img-thumbnail"/>
+                                                    </div>   
+                                                    <div>{vendordata.vendorName}</div>
+                                                </div> 
+                                            </a>
                                         </div>
                                     )
                                 })
@@ -74,7 +67,6 @@ class VendorList extends Component {
                 < Footer />
             </section>
         )
-    }
 }
 
 export default VendorList;

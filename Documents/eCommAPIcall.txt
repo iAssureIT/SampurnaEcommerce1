@@ -5,6 +5,7 @@ featured  - /api/products/get/listbytype/featured
 exclusive - /api/products/get/listbytype/exclusive
 
 particular section  - /api/products/get/listbysection/pet-supplies
+lowestPrice product - /api/products/get/list/lowestprice
 
 Shop By Section - /api/sections/get/list
  
@@ -31,8 +32,6 @@ https://devwebsite.knock-knockeshop.com/
 
 Dev CMS
 https://devcms.knock-knockeshop.com/login
-
-
 
 Following are our URL for Sampurna MarketPlace 
 API

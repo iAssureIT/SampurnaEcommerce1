@@ -21,12 +21,12 @@ class DisplayLocation extends React.Component {
         // geolocation.getCurrentPosition();
        var SEuserData = JSON.parse(localStorage.getItem('SEuserData','SEuserData'));
     //    console.log("display SEuserData===",SEuserData);
-       if(SEuserData){
+      if(SEuserData){
         this.setState({
             "address"        : SEuserData.address,
             "country"        : SEuserData.country, 
         });
-    } 
+      } 
     }
     
    render() {

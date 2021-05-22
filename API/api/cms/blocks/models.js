@@ -43,7 +43,16 @@ const blocksSchema = mongoose.Schema({
 								}
 						  ],
     blockSettings       : {
-		// blockTitle 			: String,
+		section             : String,
+		category            : String, 
+		subCategory         : String,
+		sectionId           : String,
+		categoryId          : String,
+		subCategoryId       : String,
+		latitude            : Number,
+        longitude           : Number,
+        startRange          : Number,
+        limitRange          : Number,
 		blockApi 		    : String,
 		totalProducts 	    : Number,
 		showCarousel        : Boolean,	
