@@ -193,7 +193,6 @@ exports.couponBulkAction = (req, res, next) => {
 
 /**=========== delete_coupon ===========*/
 exports.delete_coupon = (req, res, next) => {
-    console.log("params => ",req.params.couponID);
     Coupen.deleteOne({ _id: req.params.couponID })
     .exec()
     .then(data => {
