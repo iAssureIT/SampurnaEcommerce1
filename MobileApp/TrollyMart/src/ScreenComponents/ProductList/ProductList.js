@@ -107,6 +107,7 @@ export const ProductList = withCustomerToaster((props)=>{
         })
     }else{
       navigation.navigate('Auth');
+      setToast({text: "You need to login first", color: colors.warning});
     }  
   }
 
@@ -133,25 +134,31 @@ export const ProductList = withCustomerToaster((props)=>{
 
 
   const addToWishList = (productid) => {
-    const wishValues = {
-      "user_ID": user_id,
-      "product_ID": productid,
+    if(user_id){
+      const wishValues = {
+        "user_ID": user_id,
+        "product_ID": productid,
+      }
+      axios.post('/api/wishlist/post', wishValues)
+        .then((response) => {
+          dispatch(getList(type,user_id,limit));
+          dispatch(getWishList(user_id));
+          if(category_ID){
+            dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
+          } 
+          if(props.searchText){
+            dispatch(getSearchResult(props.searchText,user_id,limit));
+          } 
+          setToast({text: response.data.message, color: 'green'});
+        })
+        .catch((error) => {
+          console.log('error', error);
+        })
+    }else{
+      navigation.navigate('Auth');
+      setToast({text: "You need to login first", color: colors.warning});
     }
-    axios.post('/api/wishlist/post', wishValues)
-      .then((response) => {
-        dispatch(getList(type,user_id,limit));
-        dispatch(getWishList(user_id));
-        if(category_ID){
-          dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
-        } 
-        if(props.searchText){
-          dispatch(getSearchResult(props.searchText,user_id,limit));
-        } 
-        setToast({text: response.data.message, color: 'green'});
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
+    
   }
 
 

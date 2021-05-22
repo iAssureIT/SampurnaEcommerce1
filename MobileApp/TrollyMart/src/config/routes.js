@@ -41,6 +41,7 @@ import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
 import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';
 import {Location}                 from '../Screens/Location/Location.js';
 import {VendorList}               from '../Screens/VendorList/VendorList.js';
+import {VendorProducts}           from '../Screens/VendorProducts/VendorProducts.js';
 
 const Home = createDrawerNavigator();
 console.log("TransitionPresets",TransitionPresets);
@@ -54,7 +55,7 @@ const TransitionScreenOptions = {
 export const HomeStack = () => (
   <Home.Navigator 
     headerMode            = "none"
-    mode="modal"
+    // mode="modal"
     initialRouteName ="Dashboard"
     screenOptions={{
       gestureEnabled:true,
@@ -92,6 +93,7 @@ export const HomeStack = () => (
     <Home.Screen name="StoreDetails"                component={StoreDetails} />
     <Home.Screen name="InAppNotification"           component={InAppNotification} /> 
     <Home.Screen name="VendorList"                  component={VendorList} />
+    <Home.Screen name="VendorProducts"              component={VendorProducts} />
   </Home.Navigator>
 );
 

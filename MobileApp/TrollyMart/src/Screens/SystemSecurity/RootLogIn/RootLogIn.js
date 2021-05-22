@@ -90,7 +90,7 @@ const window = Dimensions.get('window');
                           role        : res.data.roles
                         }),
                       );
-                      navigation.navigate('Dashboard')
+                      navigation.push('App')
                     }
                   }else if(res.data.message === 'INVALID_PASSWORD'){
                     setToast({text: "Please enter correct password", color: colors.warning});
@@ -238,10 +238,19 @@ const window = Dimensions.get('window');
               background  = {true}
               loading     = {btnLoading}
             />
+             <View style={{alignItems:"center",justifyContent:"center"}}>
+              <Text style={{paddingVertical:15}}>OR</Text>
+              <FormButton
+              title       = {'Login As a Guest'}
+              onPress     = {()=>navigation.push('App')}
+              background  = {true}
+              loading     = {btnLoading}
+            />
+              </View>
             <View style={{alignItems:"center",justifyContent:"center"}}>
-              {/* <Text style={{paddingVertical:15}}>OR</Text> */}
+              <Text style={{paddingVertical:15}}>OR</Text>
              <GoogleSigninButton
-              style={{ width: 300, height: 48 }}
+              style={{ width: window.width-60, height: 50 }}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Dark}
               onPress={()=>_signIn()}

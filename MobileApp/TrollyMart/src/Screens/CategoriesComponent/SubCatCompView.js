@@ -23,7 +23,8 @@ import Counter        from "react-native-counters";
 import Modal          from "react-native-modal";
 import Carousel       from 'react-native-banner-carousel-updated';
 import {SimilarProducts} from '../../ScreenComponents/SimilarProducts/SimilarProducts.js';
-export const SubCatCompView =(props)=>{
+import {withCustomerToaster}  from '../../redux/AppState.js'
+export const SubCatCompView = withCustomerToaster((props)=>{
   const [isOpen,setOpen]                    = useState(false);
   const [countofprod,setCounterProd]        = useState(1);
   const [wishlisted,setWishListed]          = useState('');
@@ -34,7 +35,7 @@ export const SubCatCompView =(props)=>{
   const [productdata,setProductData]        = useState([]);
   const [number,setNumber]                = useState('');
   const [addToCart,setAddToCart]          = useState(false);
-  const {navigation,route} =props;
+  const {navigation,route,setToast} =props;
   const {productID,currency}=route.params;
   const BannerWidth = Dimensions.get('window').width-100;
   useEffect(() => {
@@ -47,7 +48,9 @@ export const SubCatCompView =(props)=>{
     AsyncStorage.multiGet(['user_id', 'token'])
     .then((data) => {
         setUserId(data[0][1]);
-        wishlisteddata(data[0][1]);
+        if(data[0][1]){
+          wishlisteddata(data[0][1]);
+        }
     })
   }
  
@@ -66,6 +69,7 @@ export const SubCatCompView =(props)=>{
         }
     })
     .catch((error) => {
+      console.log("error",error);
       if (error.response.status == 401) {
         AsyncStorage.removeItem('user_id');
         AsyncStorage.removeItem('token');
@@ -78,33 +82,39 @@ export const SubCatCompView =(props)=>{
   }
 
   const addtowishlist = (productid) => {
-    const wishValues = {
-      "user_ID": user_id,
-      "product_ID": productid,
-    }
-    console.log("wishValuess==>", wishValues);
-    axios.post('/api/wishlist/post', wishValues)
-      .then((response) => {
-        wishlisteddata(user_id);        
-        console.log(" response wishValuess==>", response.data);
-        if(response.data.message === "Product removed from wishlist successfully."){
-          setAlreadyInCarts(true);
-          setWishListedProduct(true);
-        }else{
-          setWishListed(true);
-          setWishListedProduct(true);
-        }
-      })
-      .catch((error) => {
-        if (error.response.status == 401) {
-          AsyncStorage.removeItem('user_id');
-          AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-          navigation.navigate('Auth')
-        }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
-        }  
-      })
+    if(user_id){
+      const wishValues = {
+        "user_ID": user_id,
+        "product_ID": productid,
+      }
+      console.log("wishValuess==>", wishValues);
+      axios.post('/api/wishlist/post', wishValues)
+        .then((response) => {
+          wishlisteddata(user_id);        
+          console.log(" response wishValuess==>", response.data);
+          if(response.data.message === "Product removed from wishlist successfully."){
+            setAlreadyInCarts(true);
+            setWishListedProduct(true);
+          }else{
+            setWishListed(true);
+            setWishListedProduct(true);
+          }
+        })
+        .catch((error) => {
+          console.log("error",error);
+          if (error.response.status == 401) {
+            AsyncStorage.removeItem('user_id');
+            AsyncStorage.removeItem('token');
+            setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+            navigation.navigate('Auth')
+          }else{
+            setToast({text: 'Something went wrong.', color: 'red'});
+          }  
+        })
+    }else{
+      navigation.navigate('Auth');
+      setToast({text: "You need to login first", color: colors.warning});
+    }   
   }
 
   const getProductsView=(productID)=>{
@@ -114,6 +124,7 @@ export const SubCatCompView =(props)=>{
         setProductData(response.data);
       })
       .catch((error) => {
+        console.log("error",error);
         if (error.response.status == 401) {
           AsyncStorage.removeItem('user_id');
           AsyncStorage.removeItem('token');
@@ -430,7 +441,7 @@ export const SubCatCompView =(props)=>{
         <Footer />
       </React.Fragment>
     );
-  }
+  })
 
 
 

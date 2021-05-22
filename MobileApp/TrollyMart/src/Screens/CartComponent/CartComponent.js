@@ -303,9 +303,9 @@ const getCartItems=(userId)=>{
           openControlPanel={() => openControlPanel}
         />
         <View style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
-          <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
-            <View style={{flex:1}}>
-            { !loading ?
+        { !loading ?
+            <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
+            < View style={{flex:1}}>
               <View style={styles.cartdetails}>
                     {cartData && cartData.length > 0 ?
                       cartData.map((item, i) => {
@@ -495,7 +495,7 @@ const getCartItems=(userId)=>{
                             />
                           // : null 
                         }
-                        <Text style={styles.totalpriceincart}>{discountvalue > 1 ? discountvalue : 0.00}</Text>
+                        <Text style={styles.totalpriceincart}>{discountvalue > 1 ? discountvalue.toFixed(2) : 0.00}</Text>
                          {
                            discountin === "Percent" ? 
                               <Icon
@@ -649,12 +649,12 @@ const getCartItems=(userId)=>{
                     null
                 }
               </View>
-              :
-              <View style={{ height: window.height, alignItems: 'center',justifyContent:"center" }}>
-                <ActivityIndicator size="large" color={colors.theme} />
-              </View>}
             </View>
           </KeyboardAwareScrollView>
+          :
+          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+            <ActivityIndicator size="large" color={colors.theme} />
+          </View>}
           <Footer />
           <Modal isVisible={removefromcart}
             onBackdropPress={() => setRemoveFromCart(false)}

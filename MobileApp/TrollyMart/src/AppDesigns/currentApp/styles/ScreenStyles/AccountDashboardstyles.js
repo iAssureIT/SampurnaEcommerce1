@@ -239,7 +239,7 @@ export default StyleSheet.create({
     color: colors.buttonText,
     fontFamily:"Montserrat-Regular",
     textTransform: 'uppercase',
-    fontSize:14
+    fontSize:12,
   },
   yesmodalbtn:{
     marginTop:15,
