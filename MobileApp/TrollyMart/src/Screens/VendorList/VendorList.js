@@ -23,6 +23,7 @@ import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBa
 import {MenuCarouselSection}    from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import { ScrollView }           from 'react-native';
 import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
+import { getCategoryWiseList } from '../../redux/productList/actions.js';
 
 export const VendorList = withCustomerToaster((props)=>{
     console.log("props",props);
@@ -33,6 +34,7 @@ export const VendorList = withCustomerToaster((props)=>{
     const [vendorList,setVendorList] =useState([]);
     const store = useSelector(store => ({
         location        : store.location,
+        userDetails     : store.userDetails
       }));
     // const {location} =store.location ;
     console.log("sectionUrl",sectionUrl); 
@@ -63,9 +65,26 @@ export const VendorList = withCustomerToaster((props)=>{
         })
     }
 
+    const goToProductList=(vendor)=>{
+        console.log("venodor",vendor);
+        var payload ={
+            "vendorID"          : vendor.vendor_ID,
+            "sectionID"         : sectionUrl,
+            "categoryID"        : "",
+            "subcategoryID"     : "",
+            "user_id"           : store.userDetails.user_id ? store.userDetails.user_id : null,
+            "userLatitude"      : store.location?.coords?.latitude,
+            "userLongitude"     : store.location?.coords?.longitude,
+            "limit"             : 10,
+          } 
+          console.log("payload",payload);
+        getCategoryWiseList(payload)
+        navigation.navigate('SubCategoriesComp',{vendor:vendor});
+    }
+
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity onPress={()=>navigation.navigate('VendorProducts',{vendor_id:item.vendor_ID})}>
+            <TouchableOpacity onPress={()=>goToProductList(item)}>
                 <Card containerStyle={{flex:1,padding:0,marginHorizontal:0}} >
                     <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',flexDirection:"row"}}>
                         <View style={{flex:1}}>

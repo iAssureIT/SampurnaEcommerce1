@@ -55,20 +55,16 @@ export const getList = (productType,user_id,limit) => {
 
 
 
-export const getCategoryWiseList = (category_ID,user_id,type,section_id) => {
+export const getCategoryWiseList = (payload) => {
+    console.log("paylaod",payload);
     return async (dispatch, getState) => {
     dispatch({
         type: SET_LOADING,
         payload: true,
     });
-    var payload = {
-        "sectionID"     : section_id,
-        "categoryID"    : category_ID,
-        "subcategoryID" : "",
-        "user_id"       : user_id
-    }
-        axios.post("/api/products/get/list/"+type,payload)
+    axios.post("/api/products/get/list/lowestprice/"+payload)
         .then((response)=>{
+            console.log("getCategoryWiseList response",response);
             dispatch({
                 type: SET_CATEGORY_WISE_LIST,
                 payload: response.data,

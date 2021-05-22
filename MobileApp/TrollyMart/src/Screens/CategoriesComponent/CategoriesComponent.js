@@ -30,6 +30,7 @@ export const CategoriesComponent=(props)=>{
   const {section_id,type}=route.params;
   const store = useSelector(store => ({
     userDetails : store.userDetails,
+    location        : store.location,
   }));
   const {userDetails} = store;
 
@@ -63,8 +64,17 @@ export const CategoriesComponent=(props)=>{
         setCategoryName(res.data.category);
         setSubCategory(res.data.subCategory);
         if(res.data.subCategory.length>0){
-          dispatch(getCategoryWiseList(id,userDetails.user_id ? userDetails.user_id : null,type,section_id));
-          props.navigation.navigate('SubCategoriesComp',{category_ID:category_ID, categoryName:categoryName,section_id:section_id,type:type})
+          var payload ={
+            "sectionID"         : section_id,
+            "categoryID"        : id,
+            "subcategoryID"     : "",
+            "user_id"           : userDetails.user_id ? userDetails.user_id : null,
+            "userLatitude"      : store.location?.coords?.latitude,
+            "userLongitude"     : store.location?.coords?.userLongitude,
+            "limit"             : "",
+          } 
+          dispatch(getCategoryWiseList(payload));
+          props.navigation.navigate('SubCategoriesComp')
           let subcatid = [];
           let subcategorys = res.data.subCategory ? res.data.subCategory : [];
             for(var i=0;i<subcategorys.length;i++){
@@ -73,9 +83,18 @@ export const CategoriesComponent=(props)=>{
             })
           }
        }else{
-            dispatch(getCategoryWiseList(id,userDetails.user_id ? userDetails.user_id : null,type,section_id));
-            props.navigation.navigate('SubCategoriesComp',{category_ID:category_ID, categoryName:categoryName,section_id:section_id,type:type})
-        }
+            var payload ={
+              "sectionID"         : section_id,
+              "categoryID"        : id,
+              "subcategoryID"     : "",
+              "user_id"           : userDetails.user_id ? userDetails.user_id : null,
+              "userLatitude"      : store.location?.coords?.latitude,
+              "userLongitude"     : store.location?.coords?.userLongitude,
+              "limit"             : "",
+            } 
+            dispatch(getCategoryWiseList(payload));
+            props.navigation.navigate('SubCategoriesComp')
+          }
        })
     .catch((error)=>{
       if (error.response.status == 401) {

@@ -35,7 +35,7 @@ export const SubCategoriesComp = (props)=>{
   const [wished,setWished]=useState('');
   const [packSize,setPackSize]=useState('');
   const {navigation,route}=props;
-  const {categoryName,category_ID,section_id,type}=route.params;
+  // const {categoryName}=route.params;
   console.log("route",route);
   const store = useSelector(store => ({
     productList : store.productList,
@@ -167,14 +167,14 @@ export const SubCategoriesComp = (props)=>{
         <React.Fragment>
           <HeaderBar3
             goBack={navigation.goBack}
-            headerTitle={categoryName}
+            headerTitle={"Product List"}
             navigate={navigation.navigate}
             // openControlPanel={() => this.openControlPanel.bind(this)}
           />
           <View style={styles.addsuperparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <ProductList navigate = {navigation.navigate} newProducts={productList.categoryWiseList}  userId={userId} category_ID={category_ID} section_id={section_id} list_type={type} loading={productList.loading}/>
+                <ProductList navigate = {navigation.navigate} newProducts={productList.categoryWiseList}  userId={userId}  loading={productList.loading}/>
               </View>
             </ScrollView>
             <Modal isVisible={addtocart}
