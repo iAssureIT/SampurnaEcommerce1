@@ -38,4 +38,6 @@ router.delete('/delete/:categoryID', 		checkAuth, categoryController.delete_cate
 
 router.delete('/get/deleteAllCategories', 	checkAuth, categoryController.deleteAllCategories);
 
+router.get('/get/list/:sectionUrl/:vendorID',  categoryController.fetch_categories_by_vendor);
+
 module.exports = router;

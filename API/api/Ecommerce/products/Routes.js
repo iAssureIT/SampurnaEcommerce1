@@ -170,6 +170,5 @@ router.get('/check-item-code-exits/:itemcode',							productController.checkItem
 /*===================== New API's By Jyoti =====================*/
 router.post('/get/product_list_by_section', 					productController.product_list_by_section);
 
-router.get('/get/categorylist/:sectionUrl/:vendorID',  productController.fetch_categories_by_vendor);
 
 module.exports = router;

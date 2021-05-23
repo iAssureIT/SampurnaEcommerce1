@@ -3,6 +3,7 @@ const mongoose	= require("mongoose");
 var ObjectId    = require('mongodb').ObjectID;
 const Category = require('./Model');
 const Section = require('../sections/Model');
+const Product = require('../products/Model');
 const { json } = require("body-parser");
 
 exports.insert_category = (req,res,next)=>{
@@ -261,8 +262,8 @@ exports.count_category = (req,res,next)=>{
     });
 };
 exports.fetch_category = (req,res,next)=>{
-    // console.log("insode fetch category");
-    Category.findOne({_id : req.params.categoryID})
+    console.log("insode fetch category => ", req.params.categoryID);
+    Category.findOne({_id : ObjectId(req.params.categoryID)})
     .exec()
     .then(data=>{
         console.log("data =>" ,data)
@@ -442,9 +443,9 @@ exports.update_category_status = (req,res,next)=>{
 };
 
 exports.update_subcategory_status = (req,res,next)=>{
-    console.log("update_subcategory_status Body = ", req.body);
-    console.log(" req.body.item_id ====" ,req.body.item_id);
-    console.log(" req.body.status ====" ,req.body.status);
+    // console.log("update_subcategory_status Body = ", req.body);
+    // console.log(" req.body.item_id ====" ,req.body.item_id);
+    // console.log(" req.body.status ====" ,req.body.status);
 
     Category.updateOne(
         { _id : ObjectId(req.body.item_id.split("-")[1]), 'subCategory._id' : ObjectId(req.body.item_id.split("-")[0])},  
@@ -477,3 +478,124 @@ exports.update_subcategory_status = (req,res,next)=>{
     });
 };
 
+/**========== fetch_categories_by_vendor ===========*/
+exports.fetch_categories_by_vendor = (req,res,next)=>{
+    Section.findOne({sectionUrl : req.params.sectionUrl})
+    .exec()
+    .then(sectiondata=>{
+        if(sectiondata && sectiondata !== null && sectiondata !== undefined){  
+
+            // console.log("section data ===:", sectiondata._id);
+            Product.find({section_ID : ObjectId(sectiondata._id), vendor_ID : ObjectId(req.params.vendorID), status : "Publish"}, {section_ID : 1, section : 1, category_ID : 1, category : 1,  subCategory_ID : 1})
+            .exec()
+            .then(productData=>{
+
+                // console.log("product section data ===:", productData);
+                if(productData && productData.length > 0){
+                    processData();
+                    async function processData(){                    
+                        var categories           = [...new Set(productData.map(item => String(item.category_ID)))];
+                        var subCategories        = [...new Set(productData.map(item => String(item.subCategory_ID)))];
+                         
+                        // console.log("categories => ",categories);
+                        // console.log("subCategories => ",subCategories);
+                        // var categoryList = await getCategoryList(categories);
+                        var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
+                        
+                        res.status(200).json(categoryAndSubcategoryList);
+                    }
+                }
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error : err
+                });
+            });
+        }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error : err
+        });
+    }); 
+};
+
+/**=========== getCategoryList() ===========*/
+function getCategoryList(categories){
+    return new Promise(function(resolve,reject){
+        Category.find({"_id" : {$in : categories}, "status" : "Published" }, {category : 1, _id : 1, categoryUrl : 1, "status" : "Published"})              
+        .exec()
+        .then(categoryDetails=>{
+            // console.log("categoryDetails => ",categoryDetails);
+            resolve(categoryDetails);
+        })
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        }); 
+    });
+}
+
+/**=========== getSubCategoryList() ===========*/
+function getSubCategoryList(categories, subcategories){
+    return new Promise(function(resolve,reject){
+        Category.find(
+            {
+                "_id"                   : {$in : categories}, 
+                "status"                : "Published",
+                // "subCategory._id"       : {$in : subcategories}, 
+                // "subCategory.status"    : "Published"
+            }, 
+            {                
+                category                        : 1, 
+                _id                             : 1, 
+                categoryUrl                     : 1, 
+                categoryRank                    : 1,
+                'subCategory._id'               : 1,
+                'subCategory.subCategoryTitle'  : 1,
+                'subCategory.subCategoryUrl'    : 1,
+                'subCategory.status'            : 1,
+            }
+        )              
+        .exec()
+        .then(categoryDetails=>{
+            // console.log("categoryDetails * => ",categoryDetails);
+            if(categoryDetails && categoryDetails.length > 0){
+                var returnData = categoryDetails.map((a, i)=>{
+                    // console.log("a = > " , a)
+                    return {
+                        "_id"                   : a._id,
+                        "category"              : a.category,
+                        "categoryUrl"           : a.categoryUrl,
+                        // "categoryNameRlang"     : categoryDetails.categoryNameRlang ? "<span class='RegionalFont'>"+categoryDetails.categoryNameRlang+"</span>" : '-',
+                        "categoryRank"          : a.categoryRank ? a.categoryRank : '',
+                        "subCategory"           : a.subCategory && a.subCategory.length > 0
+                                                    ? 
+                                                        filterByKey(subcategories, a.subCategory).filter(subcategory => subcategory.status === 'Published')
+                                                    :
+                                                        []
+                    }
+                })
+                resolve(returnData.sort((a, b) => a.categoryRank - b.categoryRank));
+            }else{
+                resolve([]);
+            }
+        })
+        .catch(err =>{
+            console.log(err);
+            reject(err);
+        }); 
+    });
+}
+
+/** =============== filterByKey() =============== */
+const filterByKey = (arr1 = [], arr2 = []) => {
+    let res = [];
+    res = arr2.filter(el => {
+        const index = arr1.indexOf(String(el._id));
+        return index !== -1;
+    });
+    return res;
+}; 

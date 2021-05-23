@@ -9,6 +9,7 @@ const categorySchema = mongoose.Schema({
     subCategory               : [
 	    {
 	    	index 			  : Number,
+            subCategoryRank   : Number,
             subCategoryCode   : String,
             subCategoryTitle  : String,
             subCategoryUrl    : String,

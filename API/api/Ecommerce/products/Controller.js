@@ -134,7 +134,7 @@ exports.bulkUploadProduct = (req,res,next)=>{
                         return vendorData;
                     }
                 })                
-                console.log("EntityData = ", EntityData );
+                // console.log("EntityData = ", EntityData );
             }else{
                 var EntityData = allEntityData.filter((vendorData)=>{
                     if (vendorData.companyID === allEntityData[0].companyID) {
@@ -169,6 +169,8 @@ exports.bulkUploadProduct = (req,res,next)=>{
                         var categoryObject  = await categoryInsert(inputCategory, inputSubcategory, inputSection, section[0]._id, productData[k].categoryNameRlang);                        
                         var taxObject       = []
                         
+                        console.log("categoryObject 1 => ",categoryObject);
+
                         if(productData[k].taxName){
                             taxObject = await taxInsert(productData[k].taxName,productData[k].taxRate);
                         }
@@ -420,11 +422,10 @@ function sectionInsert(sectionName) {
 
 /**=============== categoryInsert() ===============*/
 function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRlang) {
-    console.log("subcatgName => ",subcatgName);
     var addRowLength        = 0;
     var subcategoryArray    = [];
     var obj                 = []; 
-    console.log("condition => ",(subcatgName !== undefined))
+
     if(subcatgName !== undefined){        
         var subcat      = subcatgName;
         var subcarUrl   = subcat.replace(/\s+/g, '-').toLowerCase();
@@ -432,13 +433,18 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
     }
 
     addRowLength = subcategoryArray.length;
-    console.log("subcatgName => ",subcatgName);
-    console.log("addRowLength => ",addRowLength);
+    // console.log("subcatgName => ",subcatgName);
+    // console.log("addRowLength => ",addRowLength);
+    var subCategoryRank = 1;
+    // if(data.length > 0){
+    //     categoryRank = data[0].categoryRank + 1;
+    // } 
     if(addRowLength && addRowLength > 0){
         for(var i = 0; i < addRowLength; i++){
             obj = {
                 "index"             : i,
                 "subCategoryCode"   : 1+'|'+i,
+                "subCategoryRank"   : subCategoryRank,
                 "subCategoryTitle"  : subcat,
                 "subCategoryUrl"    : subcarUrl,
                 "status"            : "Published",
@@ -450,7 +456,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
         categoryDuplicateControl();
         async function categoryDuplicateControl(){
             var categoryPresent = await findCategory(catgName, section);
-            
+            // console.log("----------- categoryPresent ----------",categoryPresent)
             if(categoryPresent === 0){
                 Category.find().sort({categoryRank:-1}).limit(1)
                  .exec()
@@ -479,7 +485,6 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                     categoryObj
                     .save()
                     .then(data=>{
-                        // console.log("category added => ", data);
                         resolve({
                             _id                 : data._id, 
                             category            : catgName, 
@@ -495,17 +500,15 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
             }else{                
                 if (categoryPresent.subCategory) {
                     var subcatg = categoryPresent.subCategory.find(subcatgObj => subcatgObj.subCategoryTitle === subcatgName);
-                    // console.log("*****subcatg => ", subcatg);
-
+                    
                     if(subcatg !== undefined){
                         resolve({
-                            _id                 : subcatg._id, 
+                            _id                 : categoryPresent._id, 
                             category            : catgName, 
                             categoryNameRlang   : categoryNameRlang,
-                            subCategory_ID      : (subcatg.subCategory && subcatg.subCategory.length > 0 ? subcatg.subCategory[0]._id : null) 
+                            subCategory_ID      : subcatg._id 
                         });
-                    }else if(subcatgName !== undefined){                        
-                        console.log("*****ele => ", subcatgName);
+                    }else if(subcatgName !== undefined){  
                         Category.updateOne(
                             { _id:categoryPresent._id},  
                             {
@@ -526,7 +529,8 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                                 Category.findOne({ category : catgName})
                                 .exec()
                                 .then(categoryObject=>{
-                                    if(categoryObject){                                        
+                                    if(categoryObject){  
+
                                         resolve({
                                             _id                 : categoryPresent._id, 
                                             category            : categoryPresent.category,
@@ -542,18 +546,16 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                             console.log(err);
                             reject(err);
                         });                    
-                    }else {                        
-                        console.log("*****elessss => ", subcatgName);
-                        
+                    }else {                          
                         Category.findOne({ category : catgName})
                         .exec()
                         .then(categoryObject=>{
-                            if(categoryObject){                                        
+                            if(categoryObject){                                   
                                 resolve({
                                     _id                 : categoryPresent._id, 
                                     category            : categoryPresent.category,
                                     categoryNameRlang   : categoryPresent.categoryNameRlang, 
-                                    // subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
+                                    subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
                                 });
                             }else{
                                 resolve(0);
@@ -736,7 +738,8 @@ function taxInsert(taxName,taxRate) {
 
 var insertProduct = async (section_ID, section, categoryObject, data,taxObject,EntityData = []) => {
     console.log('insertProduct data>>>>>>',data);
-    console.log("EntityData in product insert => ",EntityData)
+    // console.log("EntityData in product insert => ",EntityData)
+    console.log("categoryObject in product => ",categoryObject)
     return new Promise(function(resolve,reject){ 
         productDuplicateControl();
         async function productDuplicateControl(){
@@ -759,7 +762,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
             }else{
                 vendor =  null;
             }
-            if (productPresent==0) {
+            if (productPresent === 0) {
                 var finalAttrArr = [];
                 if(data.attributes){
                 var attributeArr = data.attributes.map((arr, i)=>{
@@ -781,7 +784,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                         categoryNameRlang         : categoryObject.categoryNameRlang,
                         category_ID               : categoryObject._id,
                         subCategory               : data.subCategory,
-                        subCategory_ID            : categoryObject.subCategory_ID ? categoryObject.subCategory_ID : null,
+                        subCategory_ID            : categoryObject.subCategory_ID,
                         brand                     : data.brand ? data.brand : "",
                         brandNameRlang            : data.brandNameRlang ? data.brandNameRlang : "",
                         productCode               : data.productCode ? data.productCode : "",
@@ -822,7 +825,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                 products
                 .save()
                 .then(data=>{
-                    // console.log("product added => ",data);
+                    console.log("product added => ",data);
                     const productInventory = new ProductInventory({
                         _id                       : new mongoose.Types.ObjectId(), 
                         vendor_ID                 : ObjectId(data.vendor_ID), 
@@ -3780,6 +3783,19 @@ exports.products_by_lowest_price = (req,res,next)=>{
     if(req.body.vendorID && req.body.vendorID !== '' && req.body.vendorID !== undefined){
         selector["$and"].push({"vendor_ID": ObjectId(req.body.vendorID) })
     }
+    // if(req.body.sectionUrl && req.body.sectionUrl !== '' && req.body.sectionUrl !== undefined){
+    //     Sections.findOne({"sectionUrl" : req.body.sectionUrl})
+    //     .exec()
+    //     .then(sectiondata=>{
+    //         if(sectiondata && sectiondata !== undefined){
+    //             selector["$and"].push({"section_ID": ObjectId(sectiondata._id) })
+    //         }            
+    //     })
+    //     .catch(err =>{
+    //         console.log("Section not found => ",err)
+    //     }); 
+    // }
+
     if(req.body.sectionID && req.body.sectionID !== '' && req.body.sectionID !== undefined){
         selector["$and"].push({"section_ID": ObjectId(req.body.sectionID) })
     }
@@ -3895,9 +3911,10 @@ function mapOrder (array, order, key) {
             return -1;
         }      
     });    
+    console.log("array => ",array)
     return array;
   };
-  
+   
 
 /**========== product_list_by_section ===========*/
 exports.product_list_by_section = (req,res,next)=>{
@@ -3989,7 +4006,7 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
                     }
                 }
             }else{                    
-                console.log("200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName)
+                console.log("200 Vendors Locations not found for Vendors of section")
                 resolve([])
                 // res.status(200).json({
                 //     message : "200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName, 
@@ -4006,33 +4023,3 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
         });
     })
 }
-
-/**========== product_list_by_section ===========*/
-exports.fetch_categories_by_vendor = (req,res,next)=>{
-    console.log("fetch_categories_by_vendor => ",req.params.sectionUrl);
-    Sections.findOne({sectionUrl : req.params.sectionUrl})
-    .exec()
-    .then(sectiondata=>{
-        if(sectiondata && sectiondata !== null && sectiondata !== undefined){    
-            console.log("section data ===:", sectiondata);
-            Products.find({vendorID : ObjectId(req.params.vendorID), status : "Publish"})
-            .exec()
-            .then(productData=>{
-                console.log("product section data ===:", productData);
-                res.status(200).json(productData);
-            })
-            .catch(err =>{
-                console.log(err);
-                res.status(500).json({
-                    error: err
-                });
-            });
-        }
-    })
-    .catch(err =>{
-        console.log(err);
-        res.status(500).json({
-            error: err
-        });
-    }); 
-};
