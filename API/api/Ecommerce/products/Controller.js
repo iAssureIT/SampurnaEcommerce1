@@ -3772,135 +3772,207 @@ function getAll(searchText) {
 
 /**=========== products_by_lowest_price() =========== */
 exports.products_by_lowest_price = (req,res,next)=>{
-    console.log("req.body => ",req.body);
-    var userLat         = req.body.userLatitude;
-    var userLong        = req.body.userLongitude;
-    var selector        = {};
-    selector['$and']    = [];
+    main();
+    async function main(){
+        console.log("req.body => ",req.body);
+        var userLat         = req.body.userLatitude;
+        var userLong        = req.body.userLongitude;
+        var selector        = {};
+        selector['$and']    = [];
 
 
-    selector["$and"].push({"status": "Publish"});
-    if(req.body.vendorID && req.body.vendorID !== '' && req.body.vendorID !== undefined){
-        selector["$and"].push({"vendor_ID": ObjectId(req.body.vendorID) })
-    }
-    // if(req.body.sectionUrl && req.body.sectionUrl !== '' && req.body.sectionUrl !== undefined){
-    //     Sections.findOne({"sectionUrl" : req.body.sectionUrl})
-    //     .exec()
-    //     .then(sectiondata=>{
-    //         if(sectiondata && sectiondata !== undefined){
-    //             selector["$and"].push({"section_ID": ObjectId(sectiondata._id) })
-    //         }            
-    //     })
-    //     .catch(err =>{
-    //         console.log("Section not found => ",err)
-    //     }); 
-    // }
+        selector["$and"].push({"status": "Publish"});
+        if(req.body.vendorID && req.body.vendorID !== '' && req.body.vendorID !== undefined){
+            selector["$and"].push({"vendor_ID": ObjectId(req.body.vendorID) })
+        }
+        console.log("condition => ",(req.body.sectionUrl && req.body.sectionUrl !== '' && req.body.sectionUrl !== undefined))
+        if(req.body.sectionUrl && req.body.sectionUrl !== '' && req.body.sectionUrl !== undefined){
+            var section_ID = await getSectionData(req.body.sectionUrl); 
+            console.log("section_ID => ",section_ID)
+            if(section_ID && section_ID !== '' && section_ID !== undefined){
+                selector["$and"].push({"section_ID": ObjectId(section_ID) })
+            }           
+        }
+        if(req.body.categoryUrl && req.body.categoryUrl !== '' && req.body.categoryUrl !== undefined){
+            // Category.findOne({"categoryUrl" : req.body.categoryUrl})
+            // .exec()
+            // .then(categorydata=>{
+            //     if(categorydata && categorydata !== undefined){
+            //         selector["$and"].push({"category_ID": ObjectId(categorydata._id) })
 
-    if(req.body.sectionID && req.body.sectionID !== '' && req.body.sectionID !== undefined){
-        selector["$and"].push({"section_ID": ObjectId(req.body.sectionID) })
-    }
-    if(req.body.categoryID && req.body.categoryID !== '' && req.body.categoryID !== undefined){
-        selector["$and"].push({"category_ID": ObjectId(req.body.categoryID) })
-    }
-    if(req.body.subcategoryID && req.body.subcategoryID !== '' && req.body.subcategoryID !== undefined){
-        selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
-    }
-    console.log("selector => ",selector)
-    console.log("userLat => ",userLat)
-    console.log("condition => ",(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined))
-    console.log("userLong => ",userLong)
+            //         if(req.body.subcategoryUrl && req.body.subcategoryUrl !== '' && req.body.subcategoryUrl !== undefined){
+            //             if(categorydata.subCategory && categorydata.subCategory.length > 0){
+            //                 var subCategory = subCategory.filter(subCategoryData => subCategoryData.subCategoryUrl === req.body.subcategoryUrl);
+            //                 console.log("subCategory => ",subCategory);
+            //                 if(subCategory){
 
-    Products.aggregate([ 
-        {$match : selector},
-        {$sort  : { 
-                        "universalProductCode"  : 1, 
-                        "discountedPrice"       : 1 
-                } 
-        }, 
-        {$group : {
-                    _id : '$universalProductCode',
-                    doc : {"$first" : "$$ROOT"}
-            
+            //                 }
+            //                 selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
+            //             }
+            //         }
+            //     }            
+            // })
+            // .catch(err =>{
+            //     console.log("Section not found => ",err)
+            // }); 
+            var categoryData = await getCategoryData(req.body.categoryUrl); 
+            console.log("categoryData => ", categoryData);
+            if(categoryData && categoryData !== '' && categoryData !== undefined){
+                selector["$and"].push({"category_ID": ObjectId(categoryData._id) })
+                if(req.body.subcategoryUrl && req.body.subcategoryUrl !== '' && req.body.subcategoryUrl !== undefined){
+                    if(categoryData.subCategory && categoryData.subCategory.length > 0){
+                        var subCategory = categoryData.subCategory.filter(subCategoryData => subCategoryData.subCategoryUrl === req.body.subcategoryUrl);
+                        console.log("subCategory => ",subCategory);
+                        if(subCategory && subCategory !== '' && subCategory !== undefined ){
+                            selector["$and"].push({"subCategory_ID": ObjectId(subCategory._id) })
+                        }
+                        
+                    }
                 }
-        },
-        {$replaceRoot : {"newRoot" : "$doc"}}  
-    ])
-    .exec()
-    .then(products=>{
-        // console.log("products",products);
-        processData();
-        async function processData(){
-            var FinalVendorSequence = [];
-            if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
-                const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
-                
-                // console.log("uniqueVendors=> ",uniqueVendors);     
-                FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
             }
+        }
 
-            if(products){    
-                // console.log("FinalVendorSequence======= ",FinalVendorSequence)
-                // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
-                // console.log("ordered_array => ",ordered_array)    
-                for (let k = 0; k < products.length; k++) {
-                    products[k] = {...products[k], isWish : false};
+        // if(req.body.sectionID && req.body.sectionID !== '' && req.body.sectionID !== undefined){
+        //     selector["$and"].push({"section_ID": ObjectId(req.body.sectionID) })
+        // }
+        // if(req.body.categoryID && req.body.categoryID !== '' && req.body.categoryID !== undefined){
+        //     selector["$and"].push({"category_ID": ObjectId(req.body.categoryID) })
+        // }
+        if(req.body.subcategoryID && req.body.subcategoryID !== '' && req.body.subcategoryID !== undefined){
+            selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
+        }
+        console.log("selector => ",selector)
+        console.log("userLat => ",userLat)
+        console.log("condition => ",(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined))
+        console.log("userLong => ",userLong)
+
+        Products.aggregate([ 
+            {$match : selector},
+            {$sort  : { 
+                            "universalProductCode"  : 1, 
+                            "discountedPrice"       : 1 
+                    } 
+            }, 
+            {$group : {
+                        _id : '$universalProductCode',
+                        doc : {"$first" : "$$ROOT"}
+                
+                    }
+            },
+            {$replaceRoot : {"newRoot" : "$doc"}}  
+        ])
+        .exec()
+        .then(products=>{
+            // console.log("products",products);
+            processData();
+            async function processData(){
+                var FinalVendorSequence = [];
+                if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
+                    const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
+                    
+                    // console.log("uniqueVendors=> ",uniqueVendors);     
+                    FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
                 }
-                if(req.body.user_id && req.body.user_id !== 'null'){
-                    Wishlists.find({user_ID : req.body.user_id})
-                    .then(wish=>{
-                        if(wish.length > 0){
-                            for(var i = 0; i < wish.length; i++){
-                                for(var j = 0; j < products.length; j++){
-                                    if(String(wish[i].product_ID) === String(products[j]._id)){
-                                        products[j] = {...products[j], isWish : true};
-                                        break;
+
+                if(products){    
+                    console.log("products length ======= ",products.length)
+                    // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
+                    // console.log("ordered_array => ",ordered_array)    
+                    for (let k = 0; k < products.length; k++) {
+                        products[k] = {...products[k], isWish : false};
+                    }
+                    if(req.body.user_id && req.body.user_id !== 'null'){
+                        Wishlists.find({user_ID : req.body.user_id})
+                        .then(wish=>{
+                            if(wish.length > 0){
+                                for(var i = 0; i < wish.length; i++){
+                                    for(var j = 0; j < products.length; j++){
+                                        if(String(wish[i].product_ID) === String(products[j]._id)){
+                                            products[j] = {...products[j], isWish : true};
+                                            break;
+                                        }
                                     }
-                                }
-                            }   
-                            if(i >= wish.length){
-                                // console.log("FinalVendorSequence======= ",FinalVendorSequence)
+                                }   
+                                if(i >= wish.length){
+                                    // console.log("FinalVendorSequence======= ",FinalVendorSequence)
+                                    if(FinalVendorSequence && FinalVendorSequence.length > 0){
+                                        res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
+                                    }else{
+                                        res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
+                                    }                            
+                                }       
+                            }else{
                                 if(FinalVendorSequence && FinalVendorSequence.length > 0){
                                     res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
                                 }else{
                                     res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
-                                }                            
-                            }       
-                        }else{
-                            if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                                res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
-                            }else{
-                                res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
-                            } 
-                        }
-                    })
-                    .catch(err =>{
-                        console.log(err);
-                        res.status(500).json({
-                            message : "Wish List Data Not Found",
-                            error   : err
+                                } 
+                            }
+                        })
+                        .catch(err =>{
+                            console.log(err);
+                            res.status(500).json({
+                                message : "Wish List Data Not Found",
+                                error   : err
+                            });
                         });
-                    });
-                }else{
-                    if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                        // console.log(" ==== ",mapOrder(products, FinalVendorSequence, 'vendor_ID'))
-                        res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
                     }else{
-                        res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
-                    } 
-                }    
-            }else{
-                res.status(404).json('Product Details not found');
+                        if(FinalVendorSequence && FinalVendorSequence.length > 0){
+                            // console.log(" ==== ",mapOrder(products, FinalVendorSequence, 'vendor_ID'))
+                            res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
+                        }else{
+                            res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
+                        } 
+                    }    
+                }else{
+                    res.status(404).json('Product Details not found');
+                }
             }
-        }
-    })
-    .catch(err =>{
-        console.log(err);
-        res.status(500).json({
-            error: err
+        })
+        .catch(err =>{
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
         });
-    });
+    }
 };
 
+/**=========== getSectionData() ===========*/
+function getSectionData(sectionUrl){
+    console.log(" => ", sectionUrl);
+    return new Promise(function(resolve,reject){
+        Sections.findOne({"sectionUrl" : sectionUrl})
+        .exec()
+        .then(sectiondata=>{
+            console.log("sectiondata => ", sectiondata);
+            if(sectiondata && sectiondata !== undefined){
+                resolve(sectiondata._id)
+            }            
+        })
+        .catch(err =>{
+            console.log("Section not found => ",err);
+            reject(err)
+        });
+    });
+}
+
+/**=========== getCategoryData() ===========*/
+function getCategoryData(categoryUrl){
+    return new Promise(function(resolve,reject){
+        Category.findOne({"categoryUrl" : categoryUrl}, {subCategory : 1})
+        .exec()
+        .then(categorydata=>{
+            if(categorydata && categorydata !== undefined){
+                resolve(categorydata)
+            }            
+        })
+        .catch(err =>{
+            console.log("Category not found => ",err);
+            reject(err)
+        });
+    });
+}
 
 function mapOrder (array, order, key) {
     array.sort( function (a, b) {
@@ -3911,7 +3983,7 @@ function mapOrder (array, order, key) {
             return -1;
         }      
     });    
-    console.log("array => ",array)
+    // console.log("array => ",array)
     return array;
   };
    
