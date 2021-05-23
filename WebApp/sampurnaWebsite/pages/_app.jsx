@@ -7,19 +7,15 @@ import Link                 from 'next/link';
 import dynamic              from 'next/dynamic';
 import $                    from 'jquery';
 import axios                from 'axios';
-import {connect}            from 'react-redux';
-import {setCurrency}        from '../redux/actions/index.js';
-import { Provider }         from 'react-redux'
+import {connect, Provider}  from 'react-redux';
 import store                from '../redux/store.js'
 import Router               from 'next/router';
 import NProgress            from 'nprogress'; //nprogress module
 import ReactDependentScript from "react-dependent-script";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'nprogress/nprogress.css'; //styles of nprogress
-// import '../Themes/Sampurna/style/global.css';
 import '../Themes/Sampurna/style/multivendor_global.css';
 import '../Themes/Sampurna/style/stdBlockStyle.css';
-// import '../Themes/Sampurna/style/font.css';
 
 const { publicRuntimeConfig } = getConfig();
 axios.defaults.baseURL = publicRuntimeConfig.API_BASE_URL;
@@ -35,8 +31,19 @@ if (typeof window !== "undefined") {
 Router.events.on('routeChangeStart', () => NProgress.start()); 
 Router.events.on('routeChangeComplete', () => NProgress.done()); 
 Router.events.on('routeChangeError', () => NProgress.done());
-export default function App({ Component, pageProps }) {
-	const [googleAPIKey,setGoogleAPIKey]=useState()
+
+
+//================================================================
+//  ******   IMPORTANT  ****
+// Redux can't be implemented as it is with Functional components. 
+// Refer : https://thoughtbot.com/blog/using-redux-with-react-hooks
+// Use the new technique as explain in this article. 
+//================================================================
+
+
+ export default function App({ Component, pageProps }){
+	const [googleAPIKey,setGoogleAPIKey]=useState();
+
 	useEffect(() => {
 	 	axios.get("/api/projectSettings/get/GOOGLE",)
 	    .then((response) => {
@@ -48,17 +55,22 @@ export default function App({ Component, pageProps }) {
 	    })
         //Get all preferences and store them in localstorage
         axios.get("/api/adminpreference/get")
-          .then(preferences =>{
-            // console.log("preferences",preferences);
-            var currency = preferences.data[0].currency;
-            // store.dispatch(setCurrency(currency));
-
-            // var askpincodeToUser = preferences.data[0].askPincodeToUser;
-
-            // localStorage.setItem('preferences',askpincodeToUser);
-            // localStorage.setItem("websiteModel",preferences.data[0].websiteModel);      
-            // localStorage.setItem("showLoginAs",preferences.data[0].showLoginAs); 
-            // localStorage.setItem('preferences', JSON.stringify(preferences));		
+        .then(async (preferences) =>{
+            var sampurnaWebsiteDetails = {
+              preferences   : preferences.data[0],
+            };
+            
+            //======  Check if you already have delivery location stored in localstorage  ======
+            var LSsampurnaWebsiteDetails = await Promise.resolve(JSON.parse(localStorage.getItem("sampurnaWebsiteDetails")));
+            
+            if(LSsampurnaWebsiteDetails){
+              if(LSsampurnaWebsiteDetails.deliveryLocation){
+                sampurnaWebsiteDetails.deliveryLocation = LSsampurnaWebsiteDetails.deliveryLocation;
+              }            
+            }
+            
+            console.log("before setItem = ", sampurnaWebsiteDetails);
+            localStorage.setItem('sampurnaWebsiteDetails', JSON.stringify(sampurnaWebsiteDetails));		
           })
           .catch(error=>{
             console.log("Error in preferences = ", error);
@@ -81,4 +93,3 @@ export default function App({ Component, pageProps }) {
 	 
     );  
 }
-

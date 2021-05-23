@@ -39,38 +39,13 @@ class MasterPage extends React.Component {
 		};
 	}
 	componentDidMount(){
-		console.log('inside masterpage componentDidMount => ',this.props);
-		// console.log("pageLoaded===",this.state.pageLoaded);
-		this.getPreferences();
-		// console.log("1 timestamp = ", new Date() );
 		window.onload = (event) => {	
-			// console.log('inside onload');
 			this.setState({
 				"pageLoaded" : true
-			},()=>{
-				// console.log("2 timestamp = ", new Date() );
-				// console.log('Page loaded');
 			})
 		};		
 	}
-	getInitialProps(){
-		// console.log("inside getInitial props");
-	}
 
-	getPreferences(){
-		//Get all preferences and store them in localstorage
-		axios.get("/api/adminpreference/get")
-			.then(preferences =>{
-				var askpincodeToUser = preferences.data[0].askPincodeToUser;
-				localStorage.setItem('preferences',askpincodeToUser);
-				localStorage.setItem("websiteModel",preferences.data[0].websiteModel);      
-				localStorage.setItem("showLoginAs",preferences.data[0].showLoginAs); 
-				// localStorage.setItem('preferences', JSON.stringify(preferences));		
-			})
-			.catch(error=>{
-				console.log("Error in preferences = ", error);
-			})
-	}
 
 	pageHead(){
 		return (
@@ -83,7 +58,6 @@ class MasterPage extends React.Component {
 				<link rel="canonical" href="https://www.sampurna.com/"/>
 				<meta name="author" content={this.props.pageData.pageHead.pageWords[0]} />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				{/* <title>{this.props.pageData.pageHead.pageWords[0]}</title> */}
 			</Head>
 			: 
 			<Head>
@@ -96,9 +70,6 @@ class MasterPage extends React.Component {
 	}
 
    render() {	 
-	// console.log("2. render");
-	
-	// console.log("masterpage render this.props.pagedata===",this.props.pageData);
     return (		
 		<div className="col-12 NoPadding masterPageWrapper">
 			{this.pageHead()}
@@ -112,7 +83,7 @@ class MasterPage extends React.Component {
 						var component = result._id ? result.blockComponentName : "TitleDesc";
 						var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
 						var block_id=result.block_id?result.block_id._id:"";
-						console.log("component==",component);
+						// console.log("component==",component);
 						const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
 						{
 							loading: () =>
@@ -131,23 +102,10 @@ class MasterPage extends React.Component {
 					<div className=" col-12 NoPadding">								
 						<a href="/"><img className=" col-12 NoPadding img-responsive" src="/images/eCommerce/404-Page.gif" /></a>
 					</div>
-	
 				
-				
-			// :
-				
-			// 	<div className="col-12 NoPadding">
-			// 		{/* <Banner />	 */}
-			// 		<div> Page loading...</div>					
-			// 	</div>
-				
-			//  }
-			
 			}
 			</div>
 			
-			{/* {this.props.pageData.pageURL === 'homepage' ? <BlogCarousel/> : null} */}
-			{/* <ScrollTop /> */}
 			<Footer/>
 		</div>
     );

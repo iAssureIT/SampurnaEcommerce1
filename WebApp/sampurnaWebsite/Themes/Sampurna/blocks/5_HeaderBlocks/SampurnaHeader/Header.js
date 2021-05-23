@@ -6,7 +6,7 @@ import Image                  from 'next/image';
 import Router                 from 'next/router'; 
 
 import { connect }            from 'react-redux';
-import { getCartData,getWishlistData,setProductApiUrl }     from '../../../../../redux/actions/index.js'; 
+import { getCartData,getWishlistData,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import  store                 from '../../../../../redux/store.js';
 import parse, { domToReact }  from 'html-react-parser';
 import Megamenu               from './Megamenu.js';
@@ -25,40 +25,63 @@ class Header extends React.Component {
             userLocation       : true,  
             address            : "",
             homeFirstVisit     : false,
-            loading            : true
+            loading            : true,
+            deliveryLocation   : "-"
          }
     }    
-	 async componentDidMount(){        
-       this.getCategoriesData();
-       var SEuserData =  JSON.parse(localStorage.getItem('SEuserData'));
-       console.log("SEuserData===",SEuserData);
-       var userId =localStorage.getItem('user_ID');
-       if(SEuserData===null){
+	 async componentDidMount(){      
+
+        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        var deliveryLocation = false; 
+
+        if(sampurnaWebsiteDetails){
+            if(sampurnaWebsiteDetails.deliveryLocation){
+                var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
+                console.log("deliveryLocation = ",deliveryLocation);
+            }
+            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)) ;
+
+
+            //======= Get User Data ===========
+            var user_id = sampurnaWebsiteDetails.user_id;       
+            if(user_id === null){
+                this.setState({
+                    "userID": user_id,
+                },()=>{
+                    this.props.getCartData();
+                    this.props.getWishlistData();
+                })     
+            }
+        }
+
+        if(!deliveryLocation){
             this.setState({
                 "homeFirstVisit" : true,
                 "address"        : "",
-                loading           : false
-            },()=>{console.log("homeFirstVisit",this.state.homeFirstVisit)});
-        }
-       this.setState({
-           "userID": userId,
-
-       },()=>{
-            this.props.getCartData();
-            this.props.getWishlistData();
-       })      
-    }
-    getCategoriesData(){
-        axios.get('/api/category/get/list')
-        .then((response)=>{
+                loading          : false
+            });
+        }else{
             this.setState({
-                categorydata:response.data
-                });
-        })
-        .catch(function(error){
-          console.log(error);            
-        })
+                deliveryLocation : deliveryLocation,
+            });
+        }
+
+
     }
+
+    // getCategoriesData(){
+    //     axios.get('/api/category/get/list')
+    //     .then((response)=>{
+    //         this.setState({
+    //             categorydata:response.data
+    //         });
+    //     })
+    //     .catch(function(error){
+    //       console.log(error);            
+    //     })
+    // }
+
+    
     searchProducts() {        
           var searchstr = this.refs.tableSearch.value.trim();
           if(searchstr){          
@@ -72,15 +95,7 @@ class Header extends React.Component {
         return(   
             <div className="col-12 headerWrapper NoPadding">
             <div className="col-12 NoPadding multilevelType2MenuWrapper"> 
-            {/* <Geolocation 
-                lazy 
-                render={({getCurrentPosition, fetchingPosition}) => (
-                    <div>
-                    <button onClick={getCurrentPosition}>Get Current Position</button>
-                    <div>Fetching Position: {fetchingPosition}</div>
-                    </div>
-                )}
-            />  */}
+            
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark megamenu">
                     <div className="col-12">
@@ -170,10 +185,9 @@ class Header extends React.Component {
                     </div>                    
                     </div>
                 </nav>
-                {!this.state.homeFirstVisit?
-                    <DisplayLocation />
-                    :null
-                }
+                
+                <DisplayLocation />
+                
                 {!this.state.loading&&<DeliveryLocationPopup  homeFirstVisit={this.state.homeFirstVisit}/>}
             </header>
             </div>
@@ -185,14 +199,15 @@ class Header extends React.Component {
 const mapStateToProps = state => (
     // console.log("1. state in header====",state.data),
     {
-        recentCartData :state.data.recentCartData,
-        recentWishlistData: state.data.recentWishlistData  
+        recentCartData      :  state.data.recentCartData,
+        recentWishlistData  :  state.data.recentWishlistData  
     });
   
   const mapDispatchToProps = {
-    getCartData: getCartData,
-    getWishlistData:getWishlistData,
-    setProductApiUrl : setProductApiUrl
+    getCartData                 : getCartData,
+    getWishlistData             : getWishlistData,
+    setProductApiUrl            : setProductApiUrl,
+    setSampurnaWebsiteDetails   : setSampurnaWebsiteDetails
   };
   
   

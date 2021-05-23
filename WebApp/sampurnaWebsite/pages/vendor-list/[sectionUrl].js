@@ -1,11 +1,13 @@
 
 import React, { useState,useEffect } from 'react';
 import axios                from 'axios';
+import Link                 from 'next/link'
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import { components }       from 'react-select';
 import Style                from "./vendor-list.module.css";
-import { useRouter } from 'next/router'
+import { useRouter }        from 'next/router'
+
 
 const VendorList = ()=> {
     const [vendorList,setVendorList] = useState([]);
@@ -43,14 +45,14 @@ const VendorList = ()=> {
                                     // {console.log("vendordata===",vendordata);}
                                     return(
                                         <div className={"card col-4  " +Style.vendorCard} key={index}>
-                                            <a href={"/products/"+sectionUrl}>
+                                            <Link href={"/products/"+sectionUrl}>
                                                 <div className={"card-body " +Style.cardBody}>
                                                     <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                         <img src={vendordata.vendorLogo} className="vendor img-thumbnail"/>
                                                     </div>   
                                                     <div>{vendordata.vendorName}</div>
                                                 </div> 
-                                            </a>
+                                            </ Link >
                                         </div>
                                     )
                                 })

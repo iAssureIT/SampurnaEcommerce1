@@ -42,6 +42,7 @@
     "react-dependent-script": "^1.1.2",
     "react-dom": "^17.0.1",
     "react-geocode": "^0.2.3",
+    "react-geocode-multi-language": "^0.1.6",
     "react-geolocated": "^3.2.0",
     "react-icons": "^4.2.0",
     "react-id-swiper": "^4.0.0",

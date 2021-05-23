@@ -8,8 +8,12 @@ import Router    from 'next/router';
 import Link      from 'next/link';
 import swal      from 'sweetalert';
 import $         from 'jquery'
+import  store    from '../../../../../redux/store.js';
+import {setDeliveryLocation,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Geocode   from "react-geocode"; 
+
+
 class DeliveryLocationPopup extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,47 +21,81 @@ class DeliveryLocationPopup extends React.Component {
             address : "",
 		}; 
     }
+
     componentDidMount(){   
-        console.log("homeFirstVist",this.props.homeFirstVisit)
+        // console.log("homeFirstVist",this.props.homeFirstVisit)
         if(this.props.homeFirstVisit){
             $('#locationModal').modal('show');   
-        }
-        var locationData = JSON.parse(localStorage.getItem('SEuserData',locationData));  
-        if(locationData){
-            this.setState({
-                "address" : locationData.address,
-            });
         }
     }
 
     takeCurrentLocation(){
-        var that =this;
+        var that=this;
         Geocode.setApiKey("AIzaSyC2Ubr7BFRt1rjOU9XajVBNRUV5w8VLe0k");
+        
+        // set response language. Defaults to english.
+        Geocode.setLanguage('en');
+
+        // set response region. Its optional.
+        // A Geocoding request with region=es (Spain) will return the Spanish city.
+        // Geocode.setRegion("es");
+
+        // set location_type filter . Its optional.
+        // google geocoder returns more that one address for given lat/lng.
+        // In some case we need one address as response for which google itself provides a location_type filter.
+        // So we can easily parse the result for fetching address components
+        // ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
+        // And according to the below google docs in description, ROOFTOP param returns the most accurate result.
+        Geocode.setLocationType("ROOFTOP");
+
+
+        // Enable or disable logs. Its optional.
+        Geocode.enableDebug();        
+
         navigator.geolocation.getCurrentPosition(function(position) {
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude);
-            Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(
-                (response) => {
-                    const address = response.results[0].formatted_address;
-                    console.log(address);
-                    that.setAddress(address);
-                },
-                (error) => {
-                  console.error(error);
-                }
-            );
+            Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
+                   .then((response) => {
+                        const address = response.results[0].formatted_address;
+                        var deliveryLocation = {
+                            "address"        : response.results[0].formatted_address,
+                            "city"           : response.results[0].city,
+                            "area"           : response.results[0].area,
+                            "district"       : response.results[0].district,
+                            "pincode"        : response.results[0].pincode,
+                            "country"        : response.results[0].country,
+                            "stateCode"      : response.results[0].stateCode,
+                            "countryCode"    : response.results[0].countryCode,
+                            "latitude"       : position.coords.latitude,
+                            "longitude"      : position.coords.longitude,
+                            "homeFirstVisit" : false,
+                        }
+                        if(that.props.sampurnaWebsiteDetails){
+                            var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
+                            sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                            console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+                        }else{
+                            var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                        }
+
+                        localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));           
+                        store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                        that.setState({ address: deliveryLocation.address });                              
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
         });
     }
 
-    setAddress(address){
-        this.setState({
-            address : address
-        });
+    closeModal(event){        
+        $('#locationModal').modal('hide'); 
     }
 
     saveLocation(event) {
         event.preventDefault();
-       var SEuserData = {
+
+        var deliveryLocation = {
             "address"        : this.state.address,
             "city"           : this.state.city,
             "area"           : this.state.area,
@@ -70,15 +108,19 @@ class DeliveryLocationPopup extends React.Component {
             "longitude"      : this.state.longitude,
             "homeFirstVisit" : false,
         }
-        // console.log("SEuserData===",SEuserData);
-        localStorage.setItem("SEuserData", JSON.stringify(SEuserData));
-
-        var locationData = JSON.parse(localStorage.getItem('SEuserData',locationData));  
-        this.setState({
-            "address" : locationData.address,
-        });
-        $('#locationModal').modal('hide').fadeOut(3000); 
-
+        if(this.props.sampurnaWebsiteDetails){
+            var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
+            sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+        }else{
+            var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+        }
+        
+        localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
+        store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
+        
+        $('#locationModal').modal('hide'); 
+        
+        console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
     }
     handleChangePlaces = address => {
         this.setState({ address: address });
@@ -134,7 +176,7 @@ class DeliveryLocationPopup extends React.Component {
                         stateCode: stateCode,
                         countryCode: countryCode
                     })
-                    // console.log("setstate:", this.state.latLng);
+                    console.log("setstate on select:", this.state.address);
                 }
 
             })
@@ -159,8 +201,8 @@ class DeliveryLocationPopup extends React.Component {
 					<div className="modal-content " style={{'background': '#fff'}}>                            
                         <div className="modal-body">  
                         <div className="modal-header">
-                            <h6 className="modal-title">Search your current location</h6>
-                            <button type="button" className="close pull-right" data-dismiss="modal">&times;</button>
+                            <h6 className="modal-title">Your Delivery Location</h6>
+                            {/* <button type="button" className="close pull-right" data-dismiss="modal" onClick={this.closeModal.bind(this)}>&times;</button> */}
                         </div>                            
                         <div className="col-12 NoPadding loginForm mobileViewNoPadding">
                             <form className="deliveryForm">
@@ -172,9 +214,10 @@ class DeliveryLocationPopup extends React.Component {
                                         highlightFirstSuggestion={true}>
                                             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                             <div>
+                                                <label className=" mt-2 "> Search Location </label>
                                                 <input
                                                     {...getInputProps({
-                                                        placeholder: 'Start typing ...',
+                                                        placeholder: 'Start typing & select location from dropdown suggestions...',
                                                         className: 'location-search-input form-control col-12 locationSearch',
                                                         id: "address",
                                                         name: "address",
@@ -208,15 +251,19 @@ class DeliveryLocationPopup extends React.Component {
                                             </div>
                                             )}
                                     </PlacesAutocomplete>
-                                    <button type="button" className="btn btn-outline-primary pull-right cangelocationBtn" onClick={this.saveLocation.bind(this)}>save location</button>
                                 </div>
+                                {/* <div className="errorMsg">{this.state.errors.address}</div> */}
+                                <div className="col-12 currentLocationBlock">
+                                    <div className="text-center orText">OR</div>
+                                    <div className="col-6 offset-3 detectLocationBtn">
+                                        <button type="button" className="btn btn-outline-primary pull-center cangelocationBtn" onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
+                                    </div>
+                                </div>
+
+                                <button type="button" className="btn btn-outline-primary pull-right cangelocationBtn" onClick={this.saveLocation.bind(this)}>Save & Close</button>
+
                             </form>
-                            <div className="col-12 currentLocationBlock">
-                                <div className="text-center orText">OR</div>
-                                <div className="col-6 offset-3 detectLocationBtn">
-                                    <button type="button" className="btn btn-outline-primary pull-center cangelocationBtn" onClick={this.takeCurrentLocation.bind(this)}>Take My Current Location</button>
-                                </div>
-                            </div>
+
                         </div>                                                     
                         </div>
 					</div>
@@ -227,5 +274,16 @@ class DeliveryLocationPopup extends React.Component {
   }
 }
 
+const mapStateToProps = state => (
+    // console.log("1. state in location====",state.data),
+    {
+        sampurnaWebsiteDetails : state.data.sampurnaWebsiteDetails
+    });
+  
+  const mapDispatchToProps = {    
+    setSampurnaWebsiteDetails : setSampurnaWebsiteDetails,    
+  };
+  
+  
+export default connect(mapStateToProps, mapDispatchToProps)(DeliveryLocationPopup);
 
-export default DeliveryLocationPopup;
