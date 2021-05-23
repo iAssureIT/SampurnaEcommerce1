@@ -23,21 +23,19 @@ import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBa
 import {MenuCarouselSection}    from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import { ScrollView }           from 'react-native';
 import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
-import { getCategoryWiseList } from '../../redux/productList/actions.js';
-
+import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 export const VendorList = withCustomerToaster((props)=>{
-    console.log("props",props);
     const [loading,setLoading] =useState(false);
     const [value,setValue] =useState('lowestprice');
     const section = props.route.params?.section;
     const sectionUrl = props.route.params?.sectionUrl;
     const [vendorList,setVendorList] =useState([]);
+    const dispatch 		= useDispatch();
     const store = useSelector(store => ({
         location        : store.location,
         userDetails     : store.userDetails
       }));
     // const {location} =store.location ;
-    console.log("sectionUrl",sectionUrl); 
     const {navigation} =props;
     useEffect(() => {
         getData();
@@ -66,20 +64,20 @@ export const VendorList = withCustomerToaster((props)=>{
     }
 
     const goToProductList=(vendor)=>{
-        console.log("venodor",vendor);
         var payload ={
             "vendorID"          : vendor.vendor_ID,
-            "sectionID"         : sectionUrl,
+            "sectionID"         : "60a37ca7275b3382bec884dd",
+            "sectionUrl"        : sectionUrl,
             "categoryID"        : "",
             "subcategoryID"     : "",
             "user_id"           : store.userDetails.user_id ? store.userDetails.user_id : null,
             "userLatitude"      : store.location?.coords?.latitude,
             "userLongitude"     : store.location?.coords?.longitude,
-            "limit"             : 10,
+            "startRange"        : 0,
+            "limitRange"        : 20
           } 
-          console.log("payload",payload);
-        getCategoryWiseList(payload)
-        navigation.navigate('SubCategoriesComp',{vendor:vendor});
+        dispatch(getCategoryWiseList(payload));
+        navigation.navigate('VendorProducts',{vendor:vendor});
     }
 
     const _renderlist = ({ item, index })=>{
@@ -119,7 +117,7 @@ export const VendorList = withCustomerToaster((props)=>{
                         type        = {value}
                         showImage   = {true}
                         selected    = {section}
-                        // section     = {section}
+                        boxHeight   = {60}
                     />
                     <View style={styles.proddets}>
                     {loading ?

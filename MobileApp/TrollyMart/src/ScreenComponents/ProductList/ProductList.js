@@ -1,11 +1,8 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList, Alert,SafeAreaView,RefreshControl
+  TouchableOpacity, Image, FlatList
 } from 'react-native';
-import Modal                  from "react-native-modal";
-import { Dropdown } from 'react-native-material-dropdown-v2';
-// import DropDownPicker from 'react-native-dropdown-picker';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/ProductListStyles.js';
 import { Icon, Button }       from "react-native-elements";
 import axios                  from 'axios';
@@ -13,43 +10,37 @@ import { colors }             from '../../AppDesigns/currentApp/styles/styles.js
 import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {withCustomerToaster}  from '../../redux/AppState.js';
 import AsyncStorage           from '@react-native-async-storage/async-storage';
-
-import { connect,
-        useDispatch,
+import {useDispatch,
         useSelector }         from 'react-redux';
-import { getList,getCategoryWiseList } 		        from '../../redux/productList/actions';
+import { getList,
+        getCategoryWiseList } from '../../redux/productList/actions';
 import { getWishList } 		    from '../../redux/wishDetails/actions';
-import { useNavigation }                from '@react-navigation/native';
-import { ActivityIndicator } from 'react-native-paper';
-import { getSearchResult } 	from '../../redux/globalSearch/actions';
-import { useIsFocused }             from "@react-navigation/native";
+import { useNavigation }      from '@react-navigation/native';
+import { ActivityIndicator }  from 'react-native-paper';
+import { getSearchResult } 	  from '../../redux/globalSearch/actions';
+import { useIsFocused }       from "@react-navigation/native";
+
+
+TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
+
 export const ProductList = withCustomerToaster((props)=>{
   const {setToast,category_ID,loading,section_id,list_type} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
-  const [productImg,setProductImg]= useState([]);
-  const [newProducts,setNewProducts]= useState([]);
   const [productsDetails,setProductDetails]= useState([]);
-  const [wished,setWished]= useState([]);
   const [type,setType]= useState('');
-  const [addtocart,setAddtocart]= useState(false);
-  const [wishlisted,setWishlisted]= useState(false);
-  const [wishlistedproduct,setWishlistedproduct]= useState(false);
-  const [wishlistedalready,setWishlistedalready]= useState(false);
-  const [wishlistremove,setWishlistremove]= useState(false);
   const [packsizes,setPacksizes]= useState('');
   const [user_id,setUserId]= useState('');
-  const [token,setToken]= useState('');
-  const [refresh,setRefresh] =useState(false);
   const [limit,setLimit]= useState(props.limit);
   useEffect(() => {
     getData();
   },[props]);
 
   const store = useSelector(store => ({
-    preferences     : store.storeSettings.preferences
+    preferences     : store.storeSettings.preferences,
   }));
+  console.log("store",store);
 
   const {currency}=store.preferences;
 
@@ -78,7 +69,6 @@ export const ProductList = withCustomerToaster((props)=>{
     setType(props.type);
     var data =  await AsyncStorage.multiGet(['user_id', 'token']);
     setUserId(data[0][1]);
-    setToken(data[1][1]);
   }
 
  
@@ -98,7 +88,6 @@ export const ProductList = withCustomerToaster((props)=>{
       axios
         .post('/api/Carts/post', formValues)
         .then((response) => {
-          setAddtocart(true);
           setToast({text: 'Product is added to cart.', color: 'green'});
         })
         .catch((error) => {
@@ -133,7 +122,7 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
 
-  const addToWishList = (productid) => {
+  const addToWishList = (productid,index) => {
     if(user_id){
       const wishValues = {
         "user_ID": user_id,
@@ -141,14 +130,24 @@ export const ProductList = withCustomerToaster((props)=>{
       }
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
-          dispatch(getList(type,user_id,limit));
-          dispatch(getWishList(user_id));
-          if(category_ID){
-            dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
-          } 
-          if(props.searchText){
-            dispatch(getSearchResult(props.searchText,user_id,limit));
-          } 
+          if(type){
+            productsDetails[index].isWish =true;
+          }else{
+            dispatch(getWishList(user_id));
+            if(category_ID){
+              var payload ={
+                "sectionID"         : section_id,
+                "categoryID"        : "",
+                "subcategoryID"     : "",
+                "limit"             : "",
+              } 
+              dispatch(getCategoryWiseList(payload));
+              // dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
+            } 
+            if(props.searchText){
+              dispatch(getSearchResult(props.searchText,user_id,limit));
+            } 
+          }
           setToast({text: response.data.message, color: 'green'});
         })
         .catch((error) => {
@@ -184,7 +183,7 @@ export const ProductList = withCustomerToaster((props)=>{
                       style={styles.subcatimg}
                     />
                 }
-                  <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id)} >
+                  <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,index)} >
                     <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
                   </TouchableOpacity>
                 {
@@ -297,8 +296,15 @@ export const ProductList = withCustomerToaster((props)=>{
             </View>
           </View>}
         </View>
-        <View style={styles.proddets}>
-          {productsDetails &&
+        {/* <MenuCarouselSection
+           navigation  = {navigation} 
+          //  type        = {value}
+           showImage   = {true}
+          //  selected    = {section}
+         />
+        <CategoryList /> */}
+        <View style={[styles.proddets,{marginBottom:60}]}>
+           
             <FlatList
               data                          = {productsDetails}
               showsVerticalScrollIndicator  = {false}
@@ -310,6 +316,13 @@ export const ProductList = withCustomerToaster((props)=>{
               initialNumToRender            = {6}
               ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
               onEndReachedThreshold         = {0.5}
+              ListEmptyComponent            = {
+                <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+                <Image
+                  source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+                />
+              </View>
+            }
               onEndReached={({ distanceFromEnd }) => {
                 if(distanceFromEnd >= 0 && limit > 6) {
                   onEnd();
@@ -319,18 +332,7 @@ export const ProductList = withCustomerToaster((props)=>{
               getItemLayout={(data, index) => (
                 {length: 200, offset: 200 * index, index}
               )}
-              // onEndReached                  = {()=>{limit > 6 && onEnd()}}
-              // onScroll                      = {()=>{limit > 6 && onEnd()}}       
-              // refreshControl={
-              //     <RefreshControl
-              //       refreshing={refresh}
-              //       onRefresh={() => refreshControl()}
-              //     />
-              // } 
               /> 
-          }
-          {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>
-            </View>*/}
         </View> 
       </React.Fragment>
     );

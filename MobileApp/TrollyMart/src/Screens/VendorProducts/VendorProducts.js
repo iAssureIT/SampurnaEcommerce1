@@ -1,94 +1,203 @@
-import React ,{useState,useEffect} from 'react';
+import React,{useState,useEffect} from 'react';
 import {
-  Text, View, 
-  TouchableOpacity, Image, FlatList, Alert,SafeAreaView,RefreshControl
+  ScrollView,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
 } from 'react-native';
-import Modal                  from "react-native-modal";
-import { Dropdown } from 'react-native-material-dropdown-v2';
-// import DropDownPicker from 'react-native-dropdown-picker';
-import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
-import { Icon, Button, Card }   from "react-native-elements";
-import axios                    from 'axios';
-import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
-import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import {withCustomerToaster}    from '../../redux/AppState.js';
-import AsyncStorage             from '@react-native-async-storage/async-storage';
-import { connect,
-        useDispatch,
-        useSelector }           from 'react-redux';
-import { useNavigation }        from '@react-navigation/native';
-import { ActivityIndicator }    from 'react-native-paper';
-import { useIsFocused }         from "@react-navigation/native";
-import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {MenuCarouselSection}    from '../../ScreenComponents/Section/MenuCarouselSection.js';
-import { ScrollView }           from 'react-native';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
+// import { Dropdown }     from 'react-native-material-dropdown-v2';
+import { Icon, Button } from "react-native-elements";
+import Modal            from "react-native-modal";
+import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {Footer}         from '../../ScreenComponents/Footer/Footer1.js';
+import Notification     from '../../ScreenComponents/Notification/Notification.js'
+import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
+import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
+import axios            from 'axios';
+import AsyncStorage     from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
+import {ProductList}    from'../../ScreenComponents/ProductList/ProductList.js';
+import { connect,useDispatch,useSelector }      from 'react-redux';
+import { getCategoryWiseList } 		  from '../../redux/productList/actions';
+import {CategoryList}         from '../../ScreenComponents/CategoryList/CategoryList.js';        
+import {MenuCarouselSection} from '../../ScreenComponents/Section/MenuCarouselSection.js';  
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+// import {AppEventsLogger} from 'react-native-fbsdk';    
 
-export const VendorProducts = withCustomerToaster((props)=>{
-    console.log("props",props);
-    const [loading,setLoading] =useState(false);
-    const [value,setValue] =useState('lowestprice');
-    const section = props.route.params?.section;
-    const section_id = props.route.params?.section_id;
-    const [vendorList,setVendorList] =useState([]);
-    const {route,navigation}=props;
-    const store = useSelector(store => ({
-        location        : store.location,
-      }));
-      const {vendor_id}=route.params;
-      console.log("vendor_id",vendor_id);
-    // const {location} =store.location ;
-    console.log("store",store.location); 
-    useEffect(() => {
-        getData();
-    },[props]);
-
-    const getData = ()=>{
-        setLoading(true);
-       var formValues =  {
-        "startRange" : 0,
-        "limitRange" : 10,
-        "section_ID" : section_id,
-        "userLatitude"   : store.location?.coords?.latitude,
-        "userLongitude"  : store.location?.coords?.longitude
-    }
-    console.log("formValues",formValues);
-        // axios.post('/api/vendorlist/post/vendor/list',formValues)
-        // .then(res=>{
-        //     console.log("getData res",res);
-        //     setLoading(false);
-        //     setVendorList(res.data)
-        // })
-        // .catch(err=>{
-        //     setLoading(false);
-        //     console.log("err",err)
-        // })
-    }
+export const VendorProducts = (props)=>{
+  const isFocused = useIsFocused();
+  const [productImage,setProductImage]=useState([]);
+  const [productsDetails,setProductDetails] = useState([]);
+  const [addtocart,setAddToCart] = useState(false);
+  const [wishlisted,setWishListed] = useState(false);
+  const [alreadyincarts,setAlreadyInCarts] = useState(false);
+  const [alreadyinwishlist,setAlreadyInWishList] = useState(false);
+  const [userId,setUserId]=useState('');
+  const [wished,setWished]=useState('');
+  const [packSize,setPackSize]=useState('');
+  const {navigation,route}=props;
+  const {vendor}=route.params
+  // const {categoryName}=route.params;
+  const store = useSelector(store => ({
+    productList : store.productList,
+    userDetails : store.userDetails,
+  }));
+  const {productList,userDetails} = store;
 
 
-    return (
+  useEffect(() => {
+    getData();
+ },[props,isFocused]);
+ 
+
+ const getData=()=>{
+    AsyncStorage.multiGet(['user_id', 'token'])
+    .then((data) => {
+      setUserId(data[0][1]);
+        for (var i = 0; i < productList.categoryWiseList.length; i++) {
+          var availableSizes = [];
+          if (productList.categoryWiseList[i].size) {
+            availableSizes.push(
+              {
+                "productSize": productList.categoryWiseList[i].size * 1,
+                "packSize": 1,
+              },
+              {
+                "productSize": productList.categoryWiseList[i].size * 2,
+                "packSize": 2,
+              },
+              {
+                "productSize": productList.categoryWiseList[i].size * 4,
+                "packSize": 4,
+              },
+            )
+            productList.categoryWiseList[i].availableSizes = availableSizes;
+          }
+        }
+        setProductDetails(productList.categoryWiseList);
+    })
+  }
+
+      return (
         <React.Fragment>
-            <HeaderBar3
-                goBack={navigation.goBack}
-                navigate={navigation.navigate}
-                headerTitle={"Vendor Products"}
-                toggle={() => toggle()}
-                openControlPanel={() => openControlPanel()}
-            />
-            <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
-                <View  style={[styles.formWrapper,{paddingHorizontal:15,paddingVertical:5, marginBottom:'18%'}]}> 
-                    <MenuCarouselSection
-                        navigation  = {navigation} 
-                        type        = {value}
-                        showImage   = {true}
-                        selected    = {section}
-                        // section     = {section}
-                    />
-                    <View style={styles.proddets}>
-                    </View>
-                </View>     
+          <HeaderBar3
+            goBack={navigation.goBack}
+            headerTitle={"Product List"}
+            navigate={navigation.navigate}
+            // openControlPanel={() => this.openControlPanel.bind(this)}
+          />
+          <View style={styles.addsuperparent}>
+            <MenuCarouselSection  navigation  = {navigation}   showImage   = {true} boxHeight   = {60} />
+            <Text style={CommonStyles.headerText}>{vendor.vendorName}</Text>
+            <CategoryList  navigation  = {navigation}  showImage   = {true} boxHeight   = {40}/>
+            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+              <View style={styles.formWrapper}>
+                <ProductList navigate = {navigation.navigate} newProducts={productList.categoryWiseList}  userId={userId}  loading={productList.loading}/>
+              </View>
             </ScrollView>
-            <Footer/>
+            <Modal isVisible={addtocart}
+              onBackdropPress={() =>setAddToCart(false)}
+              coverScreen={true}
+              hideModalContentWhileAnimating={true}
+              style={{ paddingHorizontal: '5%', zIndex: 999 }}
+              animationOutTiming={500}>
+              <View style={styles.modalmainvw}>
+                <View style={{ justifyContent: 'center', }}>
+                  <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+                </View>
+                <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
+                  Product is added to cart.
+                </Text>
+                <View style={styles.yesmodalbtn}>
+                  <Button
+                    onPress={() => setAddToCart(false)}
+                    titleStyle={styles.modalText}
+                    title="OK"
+                    buttonStyle={styles.button1}
+                    containerStyle={styles.buttonContainer1}
+                  />
+                </View>
+              </View>
+            </Modal>
+            <Modal isVisible={wishlisted}
+              onBackdropPress={() =>setWishListed(false)}
+              coverScreen={true}
+              hideModalContentWhileAnimating={true}
+              style={{ paddingHorizontal: '5%', zIndex: 999 }}
+              animationOutTiming={500}>
+              <View style={styles.modalmainvw}>
+                <View style={{ justifyContent: 'center', }}>
+                  <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+                </View>
+                <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20, }}>
+                  Product is added to wishlist.
+                </Text>
+                <View style={styles.yesmodalbtn}>
+                  <Button
+                    onPress={() => setWishListed(false)}
+                    titleStyle={styles.modalText}
+                    title="OK"
+                    buttonStyle={styles.button1}
+                    containerStyle={styles.buttonContainer1}
+                  />
+                </View>
+              </View>
+            </Modal>
+            <Modal isVisible={alreadyinwishlist}
+            onBackdropPress={() => setAlreadyInWishList(false)}
+            coverScreen={true}
+            hideModalContentWhileAnimating={true}
+            style={{ zIndex: 999 }}
+            animationOutTiming={500}>
+            <View style={styles.modalmainvw}>
+              <View style={{ justifyContent: 'center', }}>
+                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+              </View>
+              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20, }}>
+                Product remove from wishlist.
+              </Text>
+              <View style={styles.yesmodalbtn}>
+                <Button
+                  onPress={() => setAlreadyInWishList(false)}
+                  titleStyle={styles.modalText}
+                  title="OK"
+                  buttonStyle={styles.button1}
+                  containerStyle={styles.buttonContainer1}
+                />
+              </View>
+            </View>
+          </Modal>
+          <Modal isVisible={alreadyincarts}
+            onBackdropPress={() => setAlreadyInCarts(false)}
+            coverScreen={true}
+            hideModalContentWhileAnimating={true}
+            style={{ zIndex: 999 }}
+            animationOutTiming={500}>
+            <View  style={styles.modalmainvw}>
+              <View style={{ justifyContent: 'center', }}>
+                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+              </View>
+              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20, }}>
+                Product is already to Cart.
+              </Text>
+              <View style={styles.yesmodalbtn}>
+                <Button
+                  onPress={() => setAlreadyInCarts(false)}
+                  titleStyle={styles.modalText}
+                  title="OK"
+                  buttonStyle={styles.button1}
+                  containerStyle={styles.buttonContainer1}
+                />
+              </View>
+            </View>
+          </Modal>
+            <Footer />
+          </View>
         </React.Fragment>
-    );
-})
+      );
+  }
+
+
+

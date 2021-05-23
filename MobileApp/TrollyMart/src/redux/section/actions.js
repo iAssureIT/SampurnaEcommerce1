@@ -13,7 +13,6 @@ export const getSectionList = () => {
         });
         Axios.get("/api/sections/get/get_megamenu_list")
         .then(res => {
-            console.log("res",res);''
              dispatch({
                 type: SET_SECTIONS,
                 payload: res.data

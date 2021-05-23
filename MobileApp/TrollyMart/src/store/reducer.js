@@ -22,7 +22,6 @@ const reducer = (state = initialState,action) => {
 		newState.route 				= action.route ? action.route : '';
 	}	
 	if(action.type === "SET_USER_ID"){
-		console.log("action.user_id==>",action.user_id)
 		newState.user_id 		= action.user_id;
 	}
 
@@ -31,7 +30,6 @@ const reducer = (state = initialState,action) => {
 	}
 	
 	if(action.type === "SET_GLOBAL_Search"){
-		console.log("action.searchText===>",action.searchText)
 		newState.searchText 		= action.searchText;
 	}
 	

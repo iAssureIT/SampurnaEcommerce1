@@ -3,9 +3,9 @@ import {
     SET_EXCLUSIVE_LIST,
     SET_DISCOUNTED_LIST,
     SET_LOADING,
-    SET_CATEGORY_WISE_LIST
+    SET_CATEGORY_WISE_LIST,
+    SET_CATEGORY_LIST
 } from './types';
-import {Dispatch} from 'redux';
 import axios from 'axios';
 
 export const getList = (productType,user_id,limit) => {
@@ -56,23 +56,36 @@ export const getList = (productType,user_id,limit) => {
 
 
 export const getCategoryWiseList = (payload) => {
-    console.log("paylaod",payload);
     return async (dispatch, getState) => {
-    dispatch({
-        type: SET_LOADING,
-        payload: true,
-    });
-    axios.post("/api/products/get/list/lowestprice/"+payload)
-        .then((response)=>{
-            console.log("getCategoryWiseList response",response);
+        dispatch({
+            type: SET_LOADING,
+            payload: true,
+        });
+        const store = getState();
+        payload.user_id = store.userDetails.user_id;
+        payload.userLatitude    = store.location?.coords?.latitude,
+        payload.userLongitude   = store.location?.coords?.userLongitude,
+        console.log("payload",payload);
+        axios.get("/api/category/get/list/"+payload.sectionUrl+"/"+payload.vendorID)
+        .then((category)=>{
             dispatch({
-                type: SET_CATEGORY_WISE_LIST,
-                payload: response.data,
+                type: SET_CATEGORY_LIST,
+                payload: category.data,
             });
-            dispatch({
-                type: SET_LOADING,
-                payload: false,
-            });
+            axios.post("/api/products/get/list/lowestprice",payload)
+            .then((response)=>{
+                dispatch({
+                    type: SET_CATEGORY_WISE_LIST,
+                    payload: response.data,
+                });
+                dispatch({
+                    type: SET_LOADING,
+                    payload: false,
+                });
+            })
+            .catch((error)=>{
+                console.log("error getList",error);
+            })
         })
         .catch((error)=>{
             console.log("error getList",error);

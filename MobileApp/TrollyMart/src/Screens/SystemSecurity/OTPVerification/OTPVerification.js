@@ -135,7 +135,6 @@ const FormBody = (props) => {
     user_id,
     setToast
   } = props;
-  console.log("props",props);
   const [resendLoading, setResendLoading] = useState(false);
   const handleResend = () => {
     setResendLoading(true);

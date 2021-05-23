@@ -67,7 +67,6 @@ const window = Dimensions.get('window');
         <React.Fragment>
           <Formik
             onSubmit={(data) => {
-              console.log("data",data);
               if(password_matched){
                 setLoading(true);
                 let {firstName, lastName,mobileNumber,email_id,password,countryCode} = data;
@@ -86,7 +85,6 @@ const window = Dimensions.get('window');
                 .then((response) => {
                   setLoading(false)
                   if(response.data.message == 'USER_CREATED'){            
-                    console.log('response.data Result==>', response.data.result)
                     var sendData = {
                       "event": "5",
                       "toUser_id": response.data.ID,
@@ -96,10 +94,8 @@ const window = Dimensions.get('window');
                           "OTP" : response.data.result.profile.otpEmail,
                         }
                       }
-                      console.log('sendDataToUser==>', sendData)
                       axios.post('/api/masternotifications/post/sendNotification', sendData)
                       .then((res) => {
-                      console.log('sendDataToUser in result==>>>', res.data)
                       })
                       .catch((error) => { console.log('notification error: ',error)})
                       setToast({text: "Great, Information submitted successfully", color: 'green'});
@@ -256,7 +252,6 @@ const window = Dimensions.get('window');
                         defaultCode="AE"
                         layout="first"
                         onChangeText={(text) => {
-                          console.log("text",text);
                           const checkValid = phoneInput.current?.isValidNumber(text);
                           const callingCode = phoneInput.current?.getCallingCode(text);
                           const countryCode = phoneInput.current?.getCountryCode(text);

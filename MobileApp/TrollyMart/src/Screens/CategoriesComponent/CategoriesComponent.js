@@ -30,7 +30,7 @@ export const CategoriesComponent=(props)=>{
   const {section_id,type}=route.params;
   const store = useSelector(store => ({
     userDetails : store.userDetails,
-    location        : store.location,
+    location    : store.location,
   }));
   const {userDetails} = store;
 

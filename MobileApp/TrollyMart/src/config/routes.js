@@ -16,7 +16,7 @@ import {ResetPassword}            from '../Screens/SystemSecurity/ResetPassword/
 import {RootSignUp}               from '../Screens/SystemSecurity/Signup/RootSignUp.js';
 import {OTPVerification}          from '../Screens/SystemSecurity/OTPVerification/OTPVerification.js';
 import {ForgotPasswordOTP}        from '../Screens/SystemSecurity/ForgotPasswordOTP/ForgotPasswordOTP.js';
-import {Dashboard}                from '../Screens/Dashboard/Dashboard.js';
+import Dashboard                  from '../Screens/Dashboard/Dashboard.js';
 import {CategoriesComponent}      from'../Screens/CategoriesComponent/CategoriesComponent.js';
 import {SubCategoriesComp}        from'../Screens/CategoriesComponent/SubCategoriesComp.js';
 import {SubCatCompView}           from'../Screens/CategoriesComponent/SubCatCompView.js';
@@ -44,8 +44,6 @@ import {VendorList}               from '../Screens/VendorList/VendorList.js';
 import {VendorProducts}           from '../Screens/VendorProducts/VendorProducts.js';
 
 const Home = createDrawerNavigator();
-console.log("TransitionPresets",TransitionPresets);
-
 const TransitionScreenOptions = {
   ...TransitionPresets.ModalTransition, // This is where the transition happens
 };

@@ -46,7 +46,6 @@
 
 
 // ========================= InLIne scroll ====================
-
 import { StyleSheet} from 'react-native';
 export default StyleSheet.create({
 	menuWrapper:{
@@ -59,8 +58,10 @@ export default StyleSheet.create({
 		padding: 4,
 	},
 	sectionImages:{
-		width: 100,
-		height: 80,
+		// width: 100,
+		paddingHorizontal:15,
+		justifyContent:"center",
+		alignItems:"center",
 		borderRadius: 8 ,
 		overflow: "hidden",
 		borderWidth: 1,
@@ -111,6 +112,6 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		fontWeight: 'bold',
 		fontSize: 15,
-		marginTop: 30,	
+		// marginTop: 30,	
 	}
 }); 

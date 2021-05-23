@@ -33,7 +33,6 @@ export default class AddressMenu extends React.Component{
   }
 componentDidMount(){
   this.focusListener = this.props.navigation.addListener('didFocus', () => {
-    console.log('hit getWishlistData 1');
     this.getaddresslist();
   })
 }

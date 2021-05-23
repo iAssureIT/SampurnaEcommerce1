@@ -2,17 +2,21 @@ import React,{useState,useEffect} from "react";
 import {
   Text, View, TouchableOpacity,
 } from "react-native";
-import { Icon, SearchBar }              from 'react-native-elements';
-import styles                           from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FooterStyles1.js';
-import AsyncStorage                     from '@react-native-async-storage/async-storage';
-import axios                            from 'axios';
+import { Icon, SearchBar }                from 'react-native-elements';
+import styles                             from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/FooterStyles1.js';
+import AsyncStorage                       from '@react-native-async-storage/async-storage';
+import axios                              from 'axios';
 import { connect,
         useDispatch,
-        useSelector }                   from 'react-redux';
-import { getWishList } 		              from '../../redux/wishDetails/actions';
-import {withCustomerToaster}            from '../../redux/AppState.js';
-import { useNavigation }                from '@react-navigation/native';
+        useSelector }                     from 'react-redux';
+import { getWishList } 		                from '../../redux/wishDetails/actions';
+import {withCustomerToaster}              from '../../redux/AppState.js';
+import { useNavigation }                  from '@react-navigation/native';
 import { getSearchResult,getSuggestion } 	from '../../redux/globalSearch/actions';
+import { SET_SEARCH_CALL,
+  SET_SEARCH_TEXT,
+  SET_SUGGETION_LIST,
+  SET_SERACH_LIST} 	          from '../../redux/globalSearch/types';
 
 export const Footer =(props)=>{
   const navigation = useNavigation();
@@ -22,6 +26,7 @@ export const Footer =(props)=>{
     userDetails  : store.userDetails,
   }));
   const {userDetails} = store;
+  TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
   useEffect(() => {
     getData()
@@ -44,7 +49,13 @@ export const Footer =(props)=>{
         <View style={styles.footer}>
           <View style={{ flexDirection: 'row', flex: 1 }}>
             <View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} >
+              <TouchableOpacity onPress={() => {
+                dispatch({type : SET_SUGGETION_LIST, payload  : []});
+                dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+                dispatch({type : SET_SERACH_LIST,    payload  : []});
+                dispatch({type : SET_SEARCH_CALL,    payload  : false});
+                navigation.navigate('Dashboard')}
+               } >
                 <Icon name="home" type="feather" size={15} color="#666" />
                 <Text style={styles.footerTitle}>Home</Text>
               </TouchableOpacity>

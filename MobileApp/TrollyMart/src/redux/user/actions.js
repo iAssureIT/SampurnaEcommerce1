@@ -44,7 +44,6 @@ export const getUserDetails = (user_id) => {
       });
       })
       .catch(err => {
-        console.log('err', err);
         dispatch({
           type: SET_LOADING,
           payload: false,

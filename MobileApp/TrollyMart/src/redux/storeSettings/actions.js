@@ -23,7 +23,6 @@ Axios.get('/api/adminpreference/get')
   });
   })
   .catch(err => {
-    console.log('err1', err);
     dispatch({
       type: SET_LOADING,
       payload: false,

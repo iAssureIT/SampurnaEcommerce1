@@ -40,7 +40,6 @@ export const AccountDashboard =(props)=>{
       setUserId(data[1][1]);
       axios.get('/api/ecommusers/'+data[1][1])
       .then((res) => {
-        console.log("res",res);
         var dAddress = res.data.deliveryAddress.length>0 ? res.data.deliveryAddress[0].addressLine1 : null;
         // setDetails(res.data);
         setFullName(res.data.profile.fullName);

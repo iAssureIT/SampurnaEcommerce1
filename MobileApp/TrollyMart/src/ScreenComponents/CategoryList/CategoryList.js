@@ -8,33 +8,33 @@ import {Text,View,
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
 import axios                  from 'axios';
 import Animated               from "react-native-reanimated";
-import { connect,
-        useDispatch,
-        useSelector }         from 'react-redux';
-import { colors, sizes }      from '../../AppDesigns/currentApp/styles/styles.js';
+import { connect,useDispatch,useSelector }      from 'react-redux';
+import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 
-export const MenuCarouselSection = (props)=>{
+export const CategoryList = (props)=>{
   const {navigation,showImage,boxHeight}=props;
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const SCREEN_WIDTH = Dimensions.get("window").width;
-  const [selected,setSelected]=useState();
-  TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
-  const section = useSelector(store => store.section.sections)
+  const [selected,setSelected]=useState('');
+  const store = useSelector(store => ({
+    categoryList  : store.productList.categoryList,
+  }));
+  const {categoryList}=store;
   useEffect(() => {
    setSelected(props.selected)
-  },[]);
+  },[props]);
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, i })=>{
     return (
       <View key={i} style={styles.mainrightside}>
-        <TouchableOpacity style={{borderWidth:selected===item.section ? 2:0,borderRadius:10,borderColor:colors.theme }} onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.sectionUrl,section:item.section,type:props.type});}}>
+        <TouchableOpacity style={{borderWidth:selected===item.category ? 2:0,borderRadius:10,borderColor:colors.theme }} onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.sectionUrl,section:item.section,type:props.type});}}>
           {showImage ?
-              <ImageBackground onPress={()=>navigation.navigate('VendorList',{section_id:item._id})} source={item.sectionImage ? {uri : item.sectionImage}:noImage} style={[styles.sectionImages,{height:boxHeight}]} imageStyle={{opacity:0.6}}>
-              <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.section}</Text>
+              <ImageBackground onPress={()=>navigation.navigate('VendorList',{section_id:item._id})} source={item.sectionImage ? {uri : item.sectionImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{opacity:0.6}}>
+              <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
             </ImageBackground>
             :
             <View style={{borderBottomWidth:selected===item.section? 1:0}}>
-              <Text style={[styles.sectionTitle,selected===item.section ? {color:"#333"}: {color:"#666"}]}>{item.section}</Text>
+              <Text style={[styles.sectionTitle,selected===item.category ? {color:"#333"}: {color:"#666"}]}>{item.category}</Text>
             </View>  
           }
         </TouchableOpacity>
@@ -67,10 +67,10 @@ export const MenuCarouselSection = (props)=>{
     <View>
       {/* <Text style={styles.title}>List of Sections</Text> */}
         <View style={styles.proddets}>
-          {section && section.length > 0 ?
+          {categoryList && categoryList.length > 0 ?
             <FlatList
               horizontal                      = {true}
-              data={section}
+              data={categoryList}
               renderItem={item => _renderlist(item)}
               keyExtractor={item => item._id}
               showsHorizontalScrollIndicator={false}

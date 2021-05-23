@@ -15,7 +15,8 @@ export const HeaderBar3 = (props)=>{
   const navigation=useNavigation();
   useEffect(() => {
     setHeaderTitle(props.headerTitle)
-  },[props]);
+  },[props.headerTitle]);
+  TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
   return (
     <View style={{ "borderBottomWidth": 1,

@@ -20,17 +20,12 @@ import styles from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/Not
 export default class Notification extends ValidationComponent {
   constructor(props) {
     super(props);
-    // console.log(this.props);
-
     this.state = {
       country             : 0,
       notification        : []
 
     };
   }
-  
-
-  
 
   renderRow = () =>{
       return (

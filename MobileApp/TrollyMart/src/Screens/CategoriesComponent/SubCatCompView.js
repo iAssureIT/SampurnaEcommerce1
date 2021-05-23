@@ -5,25 +5,25 @@ import {
   Text,
   View,
   TouchableOpacity,
-  ImageBackground,
   Image,ActivityIndicator,
   Dimensions
 } from 'react-native';
-import { Header, 
+import { 
         Button, 
         Icon, 
-        SearchBar,Rating }   from "react-native-elements";
-import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
-import { colors }     from '../../AppDesigns/currentApp/styles/styles.js';
-import axios          from 'axios';
-import AsyncStorage   from '@react-native-async-storage/async-storage';
-import Counter        from "react-native-counters";
-import Modal          from "react-native-modal";
-import Carousel       from 'react-native-banner-carousel-updated';
-import {SimilarProducts} from '../../ScreenComponents/SimilarProducts/SimilarProducts.js';
-import {withCustomerToaster}  from '../../redux/AppState.js'
+        Rating }              from "react-native-elements";
+import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
+import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
+import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
+import axios                  from 'axios';
+import AsyncStorage           from '@react-native-async-storage/async-storage';
+import Counter                from "react-native-counters";
+import Modal                  from "react-native-modal";
+import Carousel               from 'react-native-banner-carousel-updated';
+import {SimilarProducts}      from '../../ScreenComponents/SimilarProducts/SimilarProducts.js';
+import {withCustomerToaster}  from '../../redux/AppState.js';
+
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [isOpen,setOpen]                    = useState(false);
   const [countofprod,setCounterProd]        = useState(1);
@@ -37,7 +37,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const [addToCart,setAddToCart]          = useState(false);
   const {navigation,route,setToast} =props;
   const {productID,currency}=route.params;
-  const BannerWidth = Dimensions.get('window').width-100;
+
   useEffect(() => {
     console.log("useEffect");
     getData();
@@ -205,7 +205,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     autoplayTimeout={10000}
                     loop={false}
                     index={0}
-                  //  pageSize={BannerWidth}
                     pageSize={370}
                     >
                     {productdata.productImage.map((image, index) => {

@@ -70,9 +70,6 @@ export const AddressComponent = withCustomerToaster((props)=>{
 
     const {userDetails}= store;
     const {delivery}=route.params;  
-    console.log("store",store);
-
-
   
     useEffect(() => {
       var type = 'GOOGLE';

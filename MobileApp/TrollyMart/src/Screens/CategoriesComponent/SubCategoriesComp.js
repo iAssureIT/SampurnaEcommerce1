@@ -36,18 +36,14 @@ export const SubCategoriesComp = (props)=>{
   const [packSize,setPackSize]=useState('');
   const {navigation,route}=props;
   // const {categoryName}=route.params;
-  console.log("route",route);
   const store = useSelector(store => ({
     productList : store.productList,
     userDetails : store.userDetails,
   }));
-  console.log("store",store);
   const {productList,userDetails} = store;
 
 
-  console.log("productList",productList);
   useEffect(() => {
-    console.log("Called");
     getData();
  },[props,isFocused]);
  
@@ -55,7 +51,6 @@ export const SubCategoriesComp = (props)=>{
  const getData=()=>{
     AsyncStorage.multiGet(['user_id', 'token'])
     .then((data) => {
-      console.log("data",data);
       setUserId(data[0][1]);
         for (var i = 0; i < productList.categoryWiseList.length; i++) {
           var availableSizes = [];
@@ -81,88 +76,6 @@ export const SubCategoriesComp = (props)=>{
     })
   }
 
-  
-  const wishlisteddata=()=>{
-    axios.get('/api/wishlist/get/userwishlist/' + userId)
-      .then((response) => {
-        var wishprod = response.data;
-        let wished = [];
-        for (var i = 0; i < wishprod.length; i++) {
-          wished.push({
-            'product_ID': wishprod[i].product_ID,
-          })
-          if (wished[i].product_ID) {
-            setWished(wished)
-          }
-        }
-      })
-      .catch((error) => {
-        if (error.response.status == 401) {
-          AsyncStorage.removeItem('user_id');
-          AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-          navigation.navigate('Auth')
-        }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
-        }  
-      })
-  }
-
-  const handleTypeChange = (value,availablessiz) => {
-    const result = availablessiz.filter(product => product.value == value);
-    setPackSize(result[0].size);
-  }
-
-  const addToCart=(productid)=>{
-    const formValues = {
-      "user_ID"     : userId,
-      "product_ID"  : productid,
-      "quantity"    : packsizes === undefined || "" ? 1 :packsizes,
-    }
-    axios
-      .post('/api/Carts/post', formValues)
-      .then((response) => {
-        setAddToCart(true);
-      })
-      .catch((error) => {
-        setAlreadyInCarts(true);
-        if (error.response.status == 401) {
-          AsyncStorage.removeItem('user_id');
-          AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-          navigation.navigate('Auth')
-        }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
-        }  
-      })
-  }
-
-  const addtowishlist = (productid) => {
-    const wishValues = {
-      "user_ID"     : userId,
-      "product_ID"  : productid,
-    }
-    axios.post('/api/wishlist/post', wishValues)
-      .then((response) => {
-        // AppEventsLogger.logEvent('Add To Wishlist');
-        if(response.data.message === "Product removed from wishlist successfully."){
-          setAlreadyInWishList(true);
-        }else{
-          setWishListed(true);
-        }
-      })
-      .catch((error) => {
-        setAlreadyInCarts(true);
-        if (error.response.status == 401) {
-          AsyncStorage.removeItem('user_id');
-          AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-          navigation.navigate('Auth')
-        }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
-        }  
-      })
-  }
       return (
         <React.Fragment>
           <HeaderBar3

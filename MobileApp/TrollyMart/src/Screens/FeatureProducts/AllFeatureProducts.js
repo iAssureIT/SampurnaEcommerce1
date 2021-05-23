@@ -18,7 +18,6 @@ import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
 
 import { connect,useDispatch,useSelector }from 'react-redux';
 import { getList } 		              from '../../redux/productList/actions';
-import { getWishList } 		          from '../../redux/wishDetails/actions';
 import axios            from 'axios';
 import {withCustomerToaster}  from '../../redux/AppState.js';
 import AsyncStorage           from '@react-native-async-storage/async-storage';

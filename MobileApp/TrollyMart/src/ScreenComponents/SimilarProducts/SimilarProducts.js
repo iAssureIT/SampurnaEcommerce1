@@ -1,30 +1,15 @@
-
 import React, { useState,useEffect } from 'react';
 import {
-  ScrollView,
   Text,
   View,
   TouchableOpacity,
-  ImageBackground,
-  Image,ActivityIndicator,
-  Dimensions,
+  Image,
   FlatList
 } from 'react-native';
-import { Header, 
-        Button, 
-        Icon, 
-        SearchBar }   from "react-native-elements";
-import styles         from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
-import {HeaderBar3}     from '../HeaderBar3/HeaderBar3.js';
-import {Footer}       from '../Footer/Footer1.js';
-import { colors }     from '../../AppDesigns/currentApp/styles/styles.js';
-import axios          from 'axios';
-import AsyncStorage   from '@react-native-async-storage/async-storage';
-import Counter        from "react-native-counters";
-import Modal          from "react-native-modal";
-import Carousel       from 'react-native-banner-carousel-updated';
-import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import { useNavigation }                from '@react-navigation/native';
+import styles             from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
+import axios              from 'axios';
+import { useNavigation }  from '@react-navigation/native';
+
 export const SimilarProducts =(props)=>{
   const navigation = useNavigation();
   const {category_id,user_id,title,currency} =props;

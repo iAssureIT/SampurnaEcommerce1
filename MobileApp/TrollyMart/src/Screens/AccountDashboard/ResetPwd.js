@@ -138,7 +138,6 @@ handleReset = ()=>{
       };
       axios.patch('/api/auth//patch/change_password_withoutotp/id/'+this.state.user_id,formValues)
       .then((response)=>{  
-        console.log("response",response);
         if(response.data === "PASSWORD_RESET"){
           var messageHead = "Password changed!";
           var messagesSubHead = "";

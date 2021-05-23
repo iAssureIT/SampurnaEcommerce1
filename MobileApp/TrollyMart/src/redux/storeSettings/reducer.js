@@ -7,7 +7,6 @@ import {
     preferences : '',
   };
   export default (state = initialUserState, {type, payload}) => {
-      console.log("type",type,"payload",payload)
     switch (type) {
       case SET_PREFERENCES:
         return {

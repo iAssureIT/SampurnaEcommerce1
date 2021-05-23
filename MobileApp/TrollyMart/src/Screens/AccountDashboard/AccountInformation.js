@@ -68,7 +68,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
   const getData=async()=>{
     axios.get('/api/ecommusers/' + await AsyncStorage.getItem('user_id'))
     .then((response) => {
-      console.log("response",response)
       setUserDetails(response.data.profile);
       setUserId(response.data._id);
       setLoading(false);
@@ -86,13 +85,11 @@ export const AccountInformation=withCustomerToaster((props)=>{
     })
   }
 
-  console.log("userDetails",userDetails);
   if(userDetails){
     return (
       <React.Fragment>
         <Formik
           onSubmit={(data) => {
-            console.log("data",data);
               setBtnLoading(true);
               let {firstName, lastName,mobileNumber,email_id} = data;
               var formValues = {
@@ -159,7 +156,6 @@ export const AccountInformation=withCustomerToaster((props)=>{
     const [countryCode, setCountryCode] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const phoneInput = useRef(null);
-    console.log("values",values);
     if (loading) {
       return (
         <Loading />

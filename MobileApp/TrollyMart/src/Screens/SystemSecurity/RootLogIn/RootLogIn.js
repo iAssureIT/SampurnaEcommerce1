@@ -162,7 +162,6 @@ const window = Dimensions.get('window');
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
         await GoogleSignin.revokeAccess();
-        console.log("userInfo",userInfo);
         }catch(error){
           if (error.code === statusCodes.SIGN_IN_CANCELLED) {
             console.log("sign in was cancelled");
@@ -187,14 +186,32 @@ const window = Dimensions.get('window');
       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
       <View style={{paddingHorizontal:20}}>
           <View style={styles.boxOpacity}>
-                <View style={styles.syslogo}>
-                    <Image
-                    resizeMode="contain"
-                    source={require("../../../AppDesigns/currentApp/images/Logo.png")}
-                    style={styles.syslogoimg}
-                    />
-                </View>
-                <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
+              <View style={styles.syslogo}>
+                  <Image
+                  resizeMode="contain"
+                  source={require("../../../AppDesigns/currentApp/images/Logo.png")}
+                  style={styles.syslogoimg}
+                  />
+              </View>
+              <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
+              <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
+                <FormButton
+                  title       = {'Login As a Guest'}
+                  onPress     = {()=>navigation.push('App')}
+                  background  = {true}
+                  loading     = {btnLoading}
+              />
+            </View>
+            <View style={{alignItems:"center",justifyContent:"center"}}>
+              <GoogleSigninButton
+                style={{ width: window.width-50, height: 50 }}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Dark}
+                onPress={()=>_signIn()}
+                // disabled={this.state.isSigninInProgress} 
+                />
+            </View>
+            <Text style={{paddingVertical:15,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={commonStyles.formWrapper}>
             <FormInput
               labelName       = "Email Id/Mobile No"
@@ -238,25 +255,7 @@ const window = Dimensions.get('window');
               background  = {true}
               loading     = {btnLoading}
             />
-             <View style={{alignItems:"center",justifyContent:"center"}}>
-              <Text style={{paddingVertical:15}}>OR</Text>
-              <FormButton
-              title       = {'Login As a Guest'}
-              onPress     = {()=>navigation.push('App')}
-              background  = {true}
-              loading     = {btnLoading}
-            />
-              </View>
-            <View style={{alignItems:"center",justifyContent:"center"}}>
-              <Text style={{paddingVertical:15}}>OR</Text>
-             <GoogleSigninButton
-              style={{ width: window.width-60, height: 50 }}
-              size={GoogleSigninButton.Size.Wide}
-              color={GoogleSigninButton.Color.Dark}
-              onPress={()=>_signIn()}
-              // disabled={this.state.isSigninInProgress} 
-              />
-              </View>
+       
             <View
               style={[
                 {

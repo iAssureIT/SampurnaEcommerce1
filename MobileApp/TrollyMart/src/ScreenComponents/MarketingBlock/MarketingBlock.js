@@ -29,7 +29,6 @@ export const MarketingBlock=(props)=>{
     }
     axios.post('/api/deals/get/list',payload)
     .then((res)=>{
-        console.log("res",res);
         setImages(res.data)
     })
     .catch((error)=>{
