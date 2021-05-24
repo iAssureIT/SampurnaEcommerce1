@@ -781,7 +781,7 @@ class IAssureTable extends Component {
 	                            <th className="umDynamicHeader srpadd textAlignLeft">
 									<div className="uMDetailContainer">
 										<input type="checkbox" className="allSelector col-lg-1 col-md-1 col-sm-3 col-xs-1" name="allSelector" onChange={this.checkAll.bind(this)}/>
-								    	<span className="uMDetailCheck"></span>
+								    	{/* <span className="uMDetailCheck"></span> */}
 								    </div>
 								</th>
 		                            { this.state.tableHeading ?

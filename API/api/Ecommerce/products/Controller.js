@@ -491,7 +491,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                                             categoryNameRlang   : categoryNameRlang,
                                             subCategory_ID      : (data.subCategory && data.subCategory.length > 0 ? data.subCategory[0]._id : null) 
                                         }
-                        console.log("1. returnData => ",returnData)
+                        // console.log("1. returnData => ",returnData)
                         resolve(returnData);
                     })
                     .catch(err =>{
@@ -510,7 +510,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                                             categoryNameRlang   : categoryNameRlang,
                                             subCategory_ID      : subcatg._id 
                                         }
-                        console.log("2. returnData => ",returnData)
+                        // console.log("2. returnData => ",returnData)
                         resolve(returnData);
                     }else if(subcatgName !== undefined){  
                         Category.updateOne(
@@ -540,7 +540,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                                                             categoryNameRlang   : categoryPresent.categoryNameRlang, 
                                                             subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
                                                         }
-                                        console.log("3. returnData => ",returnData)
+                                        // console.log("3. returnData => ",returnData)
                                         resolve(returnData);
                                     }else{
                                         resolve(0);
@@ -564,7 +564,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                                                     subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
                                                 }                                 
                                 resolve(returnData);
-                                console.log("4. returnData => ",returnData)
+                                // console.log("4. returnData => ",returnData)
                             }else{
                                 resolve(0);
                             }
@@ -577,7 +577,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                                         categoryNameRlang   : categoryPresent.categoryNameRlang,
                                         subCategory_ID      : (data.subCategory && data.subCategory.length > 0 ? data.subCategory[0]._id : null) 
                                     }
-                    console.log("5. returnData => ",returnData)
+                    // console.log("5. returnData => ",returnData)
                     resolve(returnData);
                 }                
             }
@@ -3651,7 +3651,7 @@ exports.checkItemCodeExists = (req,res,next)=>{
 
 
 exports.search_suggestion = async(req,res,next)=>{
-    console.log("req.body=>",req.body);
+    // console.log("req.body=>",req.body);
     // Products.find({"section" : { "$regex": req.body.searchText, $options: "i"}},{category:1})
     var section     = await getSection(req.body.searchText);
     var category    = await getCategory(req.body.searchText);
@@ -3784,7 +3784,7 @@ function getAll(searchText) {
 exports.products_by_lowest_price = (req,res,next)=>{
     main();
     async function main(){
-        console.log("req.body => ",req.body);
+        // console.log("req.body => ",req.body);
         var userLat         = req.body.userLatitude;
         var userLong        = req.body.userLongitude;
         var selector        = {};
@@ -3792,71 +3792,46 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
 
         selector["$and"].push({"status": "Publish"});
+        
         if(req.body.vendorID && req.body.vendorID !== '' && req.body.vendorID !== undefined){
             selector["$and"].push({"vendor_ID": ObjectId(req.body.vendorID) })
         }
-        console.log("condition => ",(req.body.sectionUrl && req.body.sectionUrl !== '' && req.body.sectionUrl !== undefined))
+        
         if(req.body.sectionUrl && req.body.sectionUrl !== '' && req.body.sectionUrl !== undefined){
             var section_ID = await getSectionData(req.body.sectionUrl); 
-            console.log("section_ID => ",section_ID)
+            
             if(section_ID && section_ID !== '' && section_ID !== undefined){
                 selector["$and"].push({"section_ID": ObjectId(section_ID) })
             }           
         }
+
         if(req.body.categoryUrl && req.body.categoryUrl !== '' && req.body.categoryUrl !== undefined){
-            // Category.findOne({"categoryUrl" : req.body.categoryUrl})
-            // .exec()
-            // .then(categorydata=>{
-            //     if(categorydata && categorydata !== undefined){
-            //         selector["$and"].push({"category_ID": ObjectId(categorydata._id) })
-
-            //         if(req.body.subcategoryUrl && req.body.subcategoryUrl !== '' && req.body.subcategoryUrl !== undefined){
-            //             if(categorydata.subCategory && categorydata.subCategory.length > 0){
-            //                 var subCategory = subCategory.filter(subCategoryData => subCategoryData.subCategoryUrl === req.body.subcategoryUrl);
-            //                 console.log("subCategory => ",subCategory);
-            //                 if(subCategory){
-
-            //                 }
-            //                 selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
-            //             }
-            //         }
-            //     }            
-            // })
-            // .catch(err =>{
-            //     console.log("Section not found => ",err)
-            // }); 
             var categoryData = await getCategoryData(req.body.categoryUrl); 
-            console.log("categoryData => ", categoryData);
+            
             if(categoryData && categoryData !== '' && categoryData !== undefined){
                 selector["$and"].push({"category_ID": ObjectId(categoryData._id) })
-                if(req.body.subcategoryUrl && req.body.subcategoryUrl !== '' && req.body.subcategoryUrl !== undefined){
+                // var subCategory = await getSubCategoryData(categoryData._id, req.body.subCategoryUrl); 
+                // console.log("subCategory",subCategory)
+                // if(subCategory && subCategory.length > 0){
+                //     selector["$and"].push({"subCategory_ID": { $in : subCategory}})
+                // }  
+                if(req.body.subCategoryUrl && req.body.subCategoryUrl.length > 0){
                     if(categoryData.subCategory && categoryData.subCategory.length > 0){
-                        var subCategory = categoryData.subCategory.filter(subCategoryData => subCategoryData.subCategoryUrl === req.body.subcategoryUrl);
-                        console.log("subCategory => ",subCategory);
-                        console.log("subCategory condition => ",(subCategory && subCategory !== '' && subCategory !== undefined ));
+                        // var subCategory    = categoryData.subCategory.filter(subCategoryData => subCategoryData.subCategoryUrl === req.body.subcategoryUrl);
+                        var subCategory    = filterByKey(req.body.subCategoryUrl, categoryData.subCategory).map((subCatg, i)=>{
+                                                return subCatg._id;
+                                            });
                         if(subCategory && subCategory.length > 0){
-                            console.log("subCategory _id => ",subCategory[0]._id);
-                            selector["$and"].push({"subCategory_ID": ObjectId(subCategory[0]._id) })
-                        }
-                        
+                            selector["$and"].push({"subCategory_ID": { $in : subCategory}})
+                        }                        
                     }
                 }
             }
         }
 
-        // if(req.body.sectionID && req.body.sectionID !== '' && req.body.sectionID !== undefined){
-        //     selector["$and"].push({"section_ID": ObjectId(req.body.sectionID) })
-        // }
-        // if(req.body.categoryID && req.body.categoryID !== '' && req.body.categoryID !== undefined){
-        //     selector["$and"].push({"category_ID": ObjectId(req.body.categoryID) })
-        // }
         if(req.body.subcategoryID && req.body.subcategoryID !== '' && req.body.subcategoryID !== undefined){
             selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
         }
-        console.log("selector => ",selector)
-        console.log("userLat => ",userLat)
-        console.log("condition => ",(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined))
-        console.log("userLong => ",userLong)
 
         Products.aggregate([ 
             {$match : selector},
@@ -3886,10 +3861,9 @@ exports.products_by_lowest_price = (req,res,next)=>{
                     FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
                 }
 
-                if(products){    
-                    console.log("products length ======= ",products.length)
+                if(products){ 
                     // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
-                    // console.log("ordered_array => ",ordered_array)    
+                    // console.log("products => ",products.length)    
                     for (let k = 0; k < products.length; k++) {
                         products[k] = {...products[k], isWish : false};
                     }
@@ -3952,12 +3926,10 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
 /**=========== getSectionData() ===========*/
 function getSectionData(sectionUrl){
-    console.log(" => ", sectionUrl);
     return new Promise(function(resolve,reject){
         Sections.findOne({"sectionUrl" : sectionUrl})
         .exec()
-        .then(sectiondata=>{
-            console.log("sectiondata => ", sectiondata);
+        .then(sectiondata=>{            
             if(sectiondata && sectiondata !== undefined){
                 resolve(sectiondata._id)
             }            
@@ -3985,7 +3957,27 @@ function getCategoryData(categoryUrl){
         });
     });
 }
+/**=========== getSubCategoryData() ===========*/
+// function getSubCategoryData(categoryID, subCategoryUrl){
+//     console.log("In getSubCategoryData ", categoryID, subCategoryUrl)
+//     return new Promise(function(resolve,reject){
+//         Category.find({"_id": ObjectId(categoryID), subCategory: { $elemMatch: {subCategoryUrl : { $in : subCategoryUrl }}  } })
+//         .exec()
+//         .then(categorydata=>{
+//             console.log("categorydata => ",categorydata)
+//             if(categorydata && categorydata !== undefined){
+//                 resolve(categorydata)
+//             }            
+//         })
+//         .catch(err =>{
+//             console.log("Category not found => ",err);
+//             reject(err)
+//         });
+//     });
+// }
 
+
+/**========== mapOrder ===========*/
 function mapOrder (array, order, key) {
     array.sort( function (a, b) {
         var A = a[key], B = b[key];
@@ -3994,42 +3986,36 @@ function mapOrder (array, order, key) {
         } else {
             return -1;
         }      
-    });    
-    // console.log("array => ",array)
+    }); 
     return array;
-  };
-   
+}; 
+
+/** =============== filterByKey() =============== */
+const filterByKey = (arr1 = [], arr2 = []) => {
+    let res = [];
+    res = arr2.filter(el => {
+        const index = arr1.indexOf(String(el.subCategoryUrl));
+        return index !== -1;
+    });
+    return res;
+}; 
 
 /**========== product_list_by_section ===========*/
-exports.product_list_by_section = (req,res,next)=>{
-    console.log("product_list_by_section => ",req.body);
-    // Sections.find({_id : ObjectId(req.body.section_ID)})
-    // .exec()
-    // .then(data=>{
-    //     console.log("section data ===:", data);
-        // res.status(200).json(data);
-        Products.find({section_ID : req.body.section_ID, "status": "Publish"})
-        .exec()
-        .then(productData=>{
-            console.log("product section data ===:", productData);
-            res.status(200).json(productData);
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+exports.product_list_by_section = (req,res,next)=>{    
+    Products.find({section_ID : req.body.section_ID, "status": "Publish"})
+    .exec()
+    .then(productData=>{
+        // console.log("productData => ", productData);
+        res.status(200).json(productData);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error   : err,
+            message : "Products not found for the Section"
         });
-
-    // })
-    // .catch(err =>{
-    //     console.log(err);
-    //     res.status(500).json({
-    //         error: err
-    //     });
-    // }); 
+    });
 };
-
 
 /**=========== calcUserVendorDist() ===========*/
 function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
@@ -4050,26 +4036,28 @@ function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
     });
 }
 
+/**=========== getVendorSequence() ===========*/
 function getVendorSequence(uniqueVendors, userLat, userLong) {
     return new Promise(function(resolve,reject){  
         EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1})              
         .exec()
         .then(vendorDetails=>{
+
             if(vendorDetails && vendorDetails.length > 0){
                 var vendorLocations = [];
 
                 getVendorDistArray();
                 async function getVendorDistArray() {
-                    for(var i=0; i<vendorDetails.length; i++){
+                    for(var i = 0; i < vendorDetails.length; i++){
                         // console.log("vendorDetails => ",vendorDetails[i])
                         if(vendorDetails[i].locations && vendorDetails[i].locations.length > 0){
-                            for(let j=0; j<vendorDetails[i].locations.length; j++){
+                            
+                            for(let j = 0; j < vendorDetails[i].locations.length; j++){
                                 var vendor_ID   = vendorDetails[i]._id;
                                 var vendorLat   = vendorDetails[i].locations[j].latitude;
                                 var vendorLong  = vendorDetails[i].locations[j].longitude;
                                 
                                 var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, userLat, userLong);
-                                
                                 
                                 vendorDetails[i].locationsj =   {
                                                                     "vendor_ID"         : vendor_ID, 
@@ -4090,20 +4078,13 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
                     }
                 }
             }else{                    
-                console.log("200 Vendors Locations not found for Vendors of section")
-                resolve([])
-                // res.status(200).json({
-                //     message : "200 Vendors Locations not found for Vendors of section  : "+req.body.sectionName, 
-                // });    
+                console.log("Success Code - 200 : Vendors Locations not found for Vendors of section")
+                resolve([]);
             }
         })
         .catch(err =>{
-            console.log("Error => ",err);
+            console.log("Error Code - 500  => ",err);
             reject(err)
-            // res.status(500).json({
-            //     message : "500 Vendors Locations not found.",
-            //     error   : err,
-            // });
         });
     })
 }

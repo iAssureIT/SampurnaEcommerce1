@@ -8,7 +8,7 @@ function VendorListOfEntities(){
     return (
     	
         <div className="">
-            <ListOfEntities entity="vendor" />
+            <ListOfEntities entity="vendor" bulkRequired = {true} />
         </div>
     );
 }

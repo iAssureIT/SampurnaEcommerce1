@@ -628,166 +628,185 @@ class ListOfEntities extends Component {
 					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
 						<section className="content">
 							<div className="pageContent col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
+								{/* <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
 									<h4 className="col-lg-5 col-md-11 col-xs-11 col-sm-11 textTransformUppercase weighttitle">{this.state.pathname ? this.state.pathname : "Entity"} List</h4>
 									<div className="col-lg-5 col-md-12 col-sm-12 col-xs-12 pull-right">
 										<span className="col-lg-6 col-lg-offset-6 sentanceCase addButtonList" onClick={this.redirectTo.bind(this)}><i  className="fa fa-plus-circle"></i>&nbsp;&nbsp;{"Add "+this.state.pathname} 
 										</span>
 									</div>
-								</div>
-								<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 ">									
-									<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
-										<button type="button" className=" selectFilterBtnEL reset" onClick={this.selectFilter.bind(this)}>
-											<i class="fa fa-filter"></i>&nbsp;&nbsp;<b> SELECT FILTER</b>
-										</button>
-									</div>
-									
-									<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Total Records :&nbsp;&nbsp;<b>{this.state.entityCount}</b></h5>
-									<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Filtered :&nbsp;&nbsp;<b>{this.state.entityList.length}</b></h5>
-									<div className="col-lg-3 col-md-12 col-sm-12 col-xs-12 pull-right inLOE noPadding" >
-										<span className="blocking-span" >
-											<input type="text" name="search" className="col-lg-8 col-md-8 col-sm-8 col-xs-12 Searchusers searchEntity inputTextSearch outlinebox pull-right texttrans"
-												placeholder="Search..." onInput={this.searchEntity.bind(this)} />
-										</span>
-									</div>
-								</div>
+								</div> */}
+								<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
+									<h4 className="col-lg-5 col-md-5 col-xs-12 col-sm-12 textTransformUppercase weighttitle">{this.state.pathname ? this.state.pathname : "Entity"} List</h4>
+                                    {this.props.bulkRequired 
+										?
+                                            <ul className="nav tabNav nav-pills col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                <li className="text-center pull-right toggle-selection"><a className="fieldTab" data-toggle="pill" href="#bulk">{this.state.pathname + " Bulk Upload"}</a></li>
+                                                <li className="active text-center pull-right toggle-selection"><a className="fieldTab" data-toggle="pill" href="#manual">{"Add "+this.state.pathname + " Manually"}</a></li>
+                                            </ul>
+                                        : null 
+                                    }
+                                </div>
 
-								<div className="contenta col-lg-12 col-md-12 col-sm-12 col-xs-12 pdcls nopadding">
-									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderBottomSO">
-	                                </div>
-									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstElement filterWrapper">
-										<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
-											<button type="button" className="reset selheight" onClick={this.resetFilter.bind(this)}>RESET FILTERS</button>
+
+								
+								<section className="Content tab-content">
+            						<div id="manual" className="tab-pane fade in active col-lg-12 col-md-12 col-sm-12 col-xs-12 mt">
+										<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 ">									
+											<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
+												<button type="button" className=" selectFilterBtnEL reset" onClick={this.selectFilter.bind(this)}>
+													<i class="fa fa-filter"></i>&nbsp;&nbsp;<b> SELECT FILTER</b>
+												</button>
+											</div>
+											
+											<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Total Records :&nbsp;&nbsp;<b>{this.state.entityCount}</b></h5>
+											<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Filtered :&nbsp;&nbsp;<b>{this.state.entityList.length}</b></h5>
+											<div className="col-lg-3 col-md-12 col-sm-12 col-xs-12 pull-right inLOE noPadding" >
+												<span className="blocking-span" >
+													<input type="text" name="search" className="col-lg-8 col-md-8 col-sm-8 col-xs-12 Searchusers searchEntity inputTextSearch outlinebox pull-right texttrans"
+														placeholder="Search..." onInput={this.searchEntity.bind(this)} />
+												</span>
+											</div>
 										</div>
-										
-										<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
-											<select className="form-control resetinp selheight Statesdata" ref="states" name="stateCode" defaultValue={this.state.stateCode} 
-											onChange={this.onSelectedItemsChange.bind(this,'state')}>
-												<option disabled value="Select State">Select State</option>
-												{this.state.statesArray &&
-													this.state.statesArray.map((Statedata, index) => {
-														return (
-															<option key={index} value={Statedata.stateCode}>{this.camelCase(Statedata.stateName)}</option>
-														);
-													}
-													)
-												}
-											</select>
+
+										<div className="contenta col-lg-12 col-md-12 col-sm-12 col-xs-12 pdcls nopadding">
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderBottomSO">
+											</div>
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstElement filterWrapper">
+												<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
+													<button type="button" className="reset selheight" onClick={this.resetFilter.bind(this)}>RESET FILTERS</button>
+												</div>
+												
+												<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
+													<select className="form-control resetinp selheight Statesdata" ref="states" name="stateCode" defaultValue={this.state.stateCode} 
+													onChange={this.onSelectedItemsChange.bind(this,'state')}>
+														<option disabled value="Select State">Select State</option>
+														{this.state.statesArray &&
+															this.state.statesArray.map((Statedata, index) => {
+																return (
+																	<option key={index} value={Statedata.stateCode}>{this.camelCase(Statedata.stateName)}</option>
+																);
+															}
+															)
+														}
+													</select>
+												</div>
+												<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
+													<select className="form-control resetinp selheight districtsdata" ref="district" name="district" value={this.state.district}
+													onChange={this.onSelectedItemsChange.bind(this,'district')}>
+														<option value="Select District" disabled>Select District</option>
+														{this.state.districtArray && this.state.districtArray.length > 0 &&
+															this.state.districtArray.map((districtdata, index) => {
+																return (
+																	<option key={index} value={districtdata.districtName}>{this.camelCase(districtdata.districtName)}</option>
+																);
+															}
+															)
+														}
+													</select>
+												</div>
+											
+											</div>
+
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+													<button type="button" className="btn alphab atozbtn allBtn"  id="filterallalphab" onClick={this.shortByAlpha.bind(this)} name="initial" value={this.state.initial} onChange={this.handleChange}>All</button>
+													<button type="button" className="btn alphab atozbtn" value="A" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>A</button>
+													<button type="button" className="btn alphab atozbtn" value="B" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>B</button>
+													<button type="button" className="btn alphab atozbtn" value="C" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>C</button>
+													<button type="button" className="btn alphab atozbtn" value="D" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>D</button>
+													<button type="button" className="btn alphab atozbtn" value="E" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>E</button>
+													<button type="button" className="btn alphab atozbtn" value="F" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>F</button>
+													<button type="button" className="btn alphab atozbtn" value="G" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>G</button>
+													<button type="button" className="btn alphab atozbtn" value="H" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>H</button>
+													<button type="button" className="btn alphab atozbtn" value="I" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>I</button>
+													<button type="button" className="btn alphab atozbtn" value="J" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>J</button>
+													<button type="button" className="btn alphab atozbtn" value="K" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>K</button>
+													<button type="button" className="btn alphab atozbtn" value="L" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>L</button>
+													<button type="button" className="btn alphab atozbtn" value="M" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>M</button>
+													<button type="button" className="btn alphab atozbtn" value="N" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>N</button>
+													<button type="button" className="btn alphab atozbtn" value="O" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>O</button>
+													<button type="button" className="btn alphab atozbtn" value="P" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>P</button>
+													<button type="button" className="btn alphab atozbtn" value="Q" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Q</button>
+													<button type="button" className="btn alphab atozbtn" value="R" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>R</button>
+													<button type="button" className="btn alphab atozbtn" value="S" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>S</button>
+													<button type="button" className="btn alphab atozbtn" value="T" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>T</button>
+													<button type="button" className="btn alphab atozbtn" value="U" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>U</button>
+													<button type="button" className="btn alphab atozbtn" value="V" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>V</button>
+													<button type="button" className="btn alphab atozbtn" value="W" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>W</button>
+													<button type="button" className="btn alphab atozbtn" value="X" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>X</button>
+													<button type="button" className="btn alphab atozbtn" value="Y" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Y</button>
+													<button type="button" className="btn alphab atozbtn" value="Z" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Z</button>
+											</div>
 										</div>
-										<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
-											<select className="form-control resetinp selheight districtsdata" ref="district" name="district" value={this.state.district}
-											onChange={this.onSelectedItemsChange.bind(this,'district')}>
-												<option value="Select District" disabled>Select District</option>
-												{this.state.districtArray && this.state.districtArray.length > 0 &&
-													this.state.districtArray.map((districtdata, index) => {
-														return (
-															<option key={index} value={districtdata.districtName}>{this.camelCase(districtdata.districtName)}</option>
-														);
-													}
-													)
-												}
-											</select>
+
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 customTab">
+											<div className="col-lg-2 col-md-2 col-sm-6 col-xs-12 pull-right">
+												<i className="fa fa-th-list fa-lg btn pull-right viewBtn  "  title="List view" name="view" ref="view" value={this.state.view} onClick={this.showView.bind(this,'List')} onChange={this.handleChange} aria-hidden="true"></i>
+												<i className="fa fa-th fa-lg btn viewBtn pull-right btnactive " title="Grid view" name="view" ref="view" value={this.state.view} onClick={this.showView.bind(this,'Grid')} onChange={this.handleChange} aria-hidden="true"></i>&nbsp;&nbsp;
+											</div>
 										</div>
-									
-									</div>
 
-									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-											<button type="button" className="btn alphab atozbtn allBtn"  id="filterallalphab" onClick={this.shortByAlpha.bind(this)} name="initial" value={this.state.initial} onChange={this.handleChange}>All</button>
-											<button type="button" className="btn alphab atozbtn" value="A" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>A</button>
-											<button type="button" className="btn alphab atozbtn" value="B" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>B</button>
-											<button type="button" className="btn alphab atozbtn" value="C" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>C</button>
-											<button type="button" className="btn alphab atozbtn" value="D" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>D</button>
-											<button type="button" className="btn alphab atozbtn" value="E" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>E</button>
-											<button type="button" className="btn alphab atozbtn" value="F" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>F</button>
-											<button type="button" className="btn alphab atozbtn" value="G" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>G</button>
-											<button type="button" className="btn alphab atozbtn" value="H" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>H</button>
-											<button type="button" className="btn alphab atozbtn" value="I" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>I</button>
-											<button type="button" className="btn alphab atozbtn" value="J" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>J</button>
-											<button type="button" className="btn alphab atozbtn" value="K" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>K</button>
-											<button type="button" className="btn alphab atozbtn" value="L" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>L</button>
-											<button type="button" className="btn alphab atozbtn" value="M" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>M</button>
-											<button type="button" className="btn alphab atozbtn" value="N" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>N</button>
-											<button type="button" className="btn alphab atozbtn" value="O" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>O</button>
-											<button type="button" className="btn alphab atozbtn" value="P" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>P</button>
-											<button type="button" className="btn alphab atozbtn" value="Q" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Q</button>
-											<button type="button" className="btn alphab atozbtn" value="R" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>R</button>
-											<button type="button" className="btn alphab atozbtn" value="S" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>S</button>
-											<button type="button" className="btn alphab atozbtn" value="T" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>T</button>
-											<button type="button" className="btn alphab atozbtn" value="U" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>U</button>
-											<button type="button" className="btn alphab atozbtn" value="V" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>V</button>
-											<button type="button" className="btn alphab atozbtn" value="W" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>W</button>
-											<button type="button" className="btn alphab atozbtn" value="X" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>X</button>
-											<button type="button" className="btn alphab atozbtn" value="Y" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Y</button>
-											<button type="button" className="btn alphab atozbtn" value="Z" onClick={this.shortByAlpha.bind(this)} onChange={this.handleChange}>Z</button>
-									</div>
-								</div>
-
-								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 customTab">
-									<div className="col-lg-2 col-md-2 col-sm-6 col-xs-12 pull-right">
-										<i className="fa fa-th-list fa-lg btn pull-right viewBtn  "  title="List view" name="view" ref="view" value={this.state.view} onClick={this.showView.bind(this,'List')} onChange={this.handleChange} aria-hidden="true"></i>
-										<i className="fa fa-th fa-lg btn viewBtn pull-right btnactive " title="Grid view" name="view" ref="view" value={this.state.view} onClick={this.showView.bind(this,'Grid')} onChange={this.handleChange} aria-hidden="true"></i>&nbsp;&nbsp;
-									</div>
-								</div>
-
-								{this.state.view === 'List' ?
-								<div className="col-lg-12"> <IAssureTable 
-			                      tableHeading={this.state.tableHeading}
-			                      dataCount={this.state.entityCount}
-			                      tableData={this.state.RecordsTable}
-			                      tableObjects={this.state.tableObjects}
-			                      getData={this.getData.bind(this)}
-			                      id={"id"}
-			                      tableName={this.state.entityType}
-			                      showCompanyId={true}
-			                      />
-			                      </div>
-								 :
-								 this.state.entityList && this.state.entityList.length > 0 ?
-									<div className="col-lg-4 col-md-6 col-sm-6 col-xs-6 scrollbar" id="style-2">
-										<div className="borderlist12">
-											{
-												this.state.entityList.map((data, index) => {
-													return (
-														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderlist selected lists" key={index} onClick={this.ShowForm.bind(this)} name={index} data-child={data._id + '-' + index} id={data._id}>
-															<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 supplierLogoDiv">
-																<img alt="companyLogo" src={data.companyLogo.length > 0 ? data.companyLogo[0]:"/images/noImagePreview.png"} className="supplierLogoImage"></img>															
-															</div>
-															<div className="col-lg-8 col-md-10 col-sm-10 col-xs-10 listprofile">
-																<h5 className="titleprofile">{data.companyName}</h5>
-																<ul className="col-lg-9 col-md-9 col-sm-9 col-xs-9 listfont">
-																	<li><i className="fa fa-user-o " aria-hidden="true"></i>&nbsp;{data.groupName}</li>
-																	<li><i className="fa fa-globe " aria-hidden="true"></i>&nbsp;{data.website? data.website: " - "}</li>
-																	<li><i className="fa fa-envelope " aria-hidden="true"></i>&nbsp;{data.companyEmail}</li>
-																	<li><i className="fa fa-phone " aria-hidden="true"></i>&nbsp;{data.companyPhone}</li>
-																</ul>
-															</div>
-															<div className="col-lg-2 noRightPadding">
-																<div className="addedDiv col-lg-10 col-lg-offset-2">
-																	<img  alt="leftArrow" src="/images/leftArrow.png"/>
+										{this.state.view === 'List' ?
+										<div className="col-lg-12"> <IAssureTable 
+										tableHeading={this.state.tableHeading}
+										dataCount={this.state.entityCount}
+										tableData={this.state.RecordsTable}
+										tableObjects={this.state.tableObjects}
+										getData={this.getData.bind(this)}
+										id={"id"}
+										tableName={this.state.entityType}
+										showCompanyId={true}
+										/>
+										</div>
+										:
+										this.state.entityList && this.state.entityList.length > 0 ?
+											<div className="col-lg-4 col-md-6 col-sm-6 col-xs-6 scrollbar" id="style-2">
+												<div className="borderlist12">
+													{
+														this.state.entityList.map((data, index) => {
+															return (
+																<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 borderlist selected lists" key={index} onClick={this.ShowForm.bind(this)} name={index} data-child={data._id + '-' + index} id={data._id}>
+																	<div className="col-lg-2 col-md-2 col-sm-2 col-xs-2 supplierLogoDiv">
+																		<img alt="companyLogo" src={data.companyLogo.length > 0 ? data.companyLogo[0]:"/images/noImagePreview.png"} className="supplierLogoImage"></img>															
+																	</div>
+																	<div className="col-lg-8 col-md-10 col-sm-10 col-xs-10 listprofile">
+																		<h5 className="titleprofile">{data.companyName}</h5>
+																		<ul className="col-lg-9 col-md-9 col-sm-9 col-xs-9 listfont">
+																			<li><i className="fa fa-user-o " aria-hidden="true"></i>&nbsp;{data.groupName}</li>
+																			<li><i className="fa fa-globe " aria-hidden="true"></i>&nbsp;{data.website? data.website: " - "}</li>
+																			<li><i className="fa fa-envelope " aria-hidden="true"></i>&nbsp;{data.companyEmail}</li>
+																			<li><i className="fa fa-phone " aria-hidden="true"></i>&nbsp;{data.companyPhone}</li>
+																		</ul>
+																	</div>
+																	<div className="col-lg-2 noRightPadding">
+																		<div className="addedDiv col-lg-10 col-lg-offset-2">
+																			<img  alt="leftArrow" src="/images/leftArrow.png"/>
+																		</div>
+																	</div>
 																</div>
-															</div>
-														</div>
-													);
-												})
-											}
-										</div>
+															);
+														})
+													}
+												</div>
+											</div>
+											:
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-align-center">
+												<h5>No Data Found</h5>
+											</div>
+										}
+										{ this.state.view === 'Grid' && this.state.showDetails && this.state.entityList && this.state.entityList.length > 0?
+											<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12 pdcls suppliersOneProfile commonSup noPadding" id={this.state.id}>
+												<div id={this.state.id} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
+													<EntityDetails name={this.state.index} id={this.state.id} 
+													entityType={this.state.entityType} getEntities={this.getEntities.bind(this)}
+													hideForm={this.hideForm.bind(this)}/>
+												</div>
+											</div>
+											:
+											null
+										}
 									</div>
-									:
-									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-align-center">
-										<h5>No Data Found</h5>
-									</div>
-								}
-								{ this.state.view === 'Grid' && this.state.showDetails && this.state.entityList && this.state.entityList.length > 0?
-									<div className="col-lg-7 col-md-7 col-sm-7 col-xs-12 pdcls suppliersOneProfile commonSup noPadding" id={this.state.id}>
-										<div id={this.state.id} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
-											<EntityDetails name={this.state.index} id={this.state.id} 
-											entityType={this.state.entityType} getEntities={this.getEntities.bind(this)}
-											hideForm={this.hideForm.bind(this)}/>
-										</div>
-									</div>
-									:
-									null
-								}
+									<div id="bulk" className="tab-pane fade in col-lg-12 col-md-12 col-sm-12 col-xs-12 mt"></div>
+								</section>
 							</div>
 						</section>
 					</div>

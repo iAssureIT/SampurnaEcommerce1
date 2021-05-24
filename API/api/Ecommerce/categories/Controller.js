@@ -553,6 +553,7 @@ function getSubCategoryList(categories, subcategories){
                 _id                             : 1, 
                 categoryUrl                     : 1, 
                 categoryRank                    : 1,
+                categoryImage                   : 1,
                 'subCategory._id'               : 1,
                 'subCategory.subCategoryTitle'  : 1,
                 'subCategory.subCategoryUrl'    : 1,
@@ -569,6 +570,7 @@ function getSubCategoryList(categories, subcategories){
                         "_id"                   : a._id,
                         "category"              : a.category,
                         "categoryUrl"           : a.categoryUrl,
+                        "categoryImage"         : a.categoryImage,
                         // "categoryNameRlang"     : categoryDetails.categoryNameRlang ? "<span class='RegionalFont'>"+categoryDetails.categoryNameRlang+"</span>" : '-',
                         "categoryRank"          : a.categoryRank ? a.categoryRank : '',
                         "subCategory"           : a.subCategory && a.subCategory.length > 0

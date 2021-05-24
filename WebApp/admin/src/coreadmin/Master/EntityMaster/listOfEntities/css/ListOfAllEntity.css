@@ -207,3 +207,6 @@
 .wrapContent{
     overflow-wrap: break-word;
 }
+.toggle-selection{
+    background-color: #eee;
+}
