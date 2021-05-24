@@ -37,7 +37,7 @@ class Header extends React.Component {
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
-                console.log("deliveryLocation = ",deliveryLocation);
+                // console.log("deliveryLocation = ",deliveryLocation);
             }
             store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)) ;
 

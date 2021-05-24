@@ -2,7 +2,7 @@ import React 	   from 'react';
 import Image 	   from 'next/image';
 import Style 	   from './photo-gallery.module.css';
 import axios 	   from 'axios';
-import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer      from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import BreadCrumbs from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 // import Header from '../../component/blockTemplate/Header/Header.js';

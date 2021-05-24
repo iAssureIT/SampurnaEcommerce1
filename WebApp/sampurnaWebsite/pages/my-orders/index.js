@@ -4,7 +4,7 @@ import $                    from 'jquery';
 import moment       from "moment";
 import { FaStar } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';

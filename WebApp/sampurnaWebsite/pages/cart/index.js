@@ -4,7 +4,7 @@ import $                    from 'jquery';
 import dynamic              from 'next/dynamic';
 import getConfig            from 'next/config';
 import {connect}            from 'react-redux';
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import CartProducts         from './CartProducts.js';

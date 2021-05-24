@@ -6,7 +6,7 @@ import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Sa
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import { components }       from 'react-select';
 import Style                from "./vendor-list.module.css";
-import { useRouter }        from 'next/router'
+import { useRouter }        from 'next/router';
 
 
 const VendorList = ()=> {
@@ -14,7 +14,7 @@ const VendorList = ()=> {
     const [categoryList,setCategoryList] = useState([]);
     const router = useRouter();
     const {sectionUrl} = router.query
-    console.log("router",router);
+    // console.log("router",router);
     useEffect(()=>{
         var formValues =  {
             "startRange" : 0,
@@ -45,7 +45,7 @@ const VendorList = ()=> {
                                     // {console.log("vendordata===",vendordata);}
                                     return(
                                         <div className={"card col-4  " +Style.vendorCard} key={index}>
-                                            <Link href={"/products/"+sectionUrl}>
+                                            <Link href={"/products/"+sectionUrl} className={+Style.vedorLink}>
                                                 <div className={"card-body " +Style.cardBody}>
                                                     <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                         <img src={vendordata.vendorLogo} className="vendor img-thumbnail"/>

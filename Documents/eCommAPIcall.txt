@@ -5,7 +5,10 @@ featured  - /api/products/get/listbytype/featured
 exclusive - /api/products/get/listbytype/exclusive
 
 particular section  - /api/products/get/listbysection/pet-supplies
+
 lowestPrice product - /api/products/get/list/lowestprice
+
+get categories on section page - /api/category/get/list/:sectionurl/:vendorID
 
 Shop By Section - /api/sections/get/list
  

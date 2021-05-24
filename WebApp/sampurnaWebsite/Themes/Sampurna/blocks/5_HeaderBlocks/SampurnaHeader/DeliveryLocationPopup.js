@@ -31,61 +31,70 @@ class DeliveryLocationPopup extends React.Component {
 
     takeCurrentLocation(){
         var that=this;
-        Geocode.setApiKey("AIzaSyC2Ubr7BFRt1rjOU9XajVBNRUV5w8VLe0k");
-        
-        // set response language. Defaults to english.
-        Geocode.setLanguage('en');
+        axios.get("/api/projectSettings/get/GOOGLE",)
+         .then((response) => {
+              if(response.data){         
+                         
+                Geocode.setApiKey(response.data.googleapikey);
 
-        // set response region. Its optional.
-        // A Geocoding request with region=es (Spain) will return the Spanish city.
-        // Geocode.setRegion("es");
+                 // set response language. Defaults to english.
+                Geocode.setLanguage('en');
 
-        // set location_type filter . Its optional.
-        // google geocoder returns more that one address for given lat/lng.
-        // In some case we need one address as response for which google itself provides a location_type filter.
-        // So we can easily parse the result for fetching address components
-        // ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
-        // And according to the below google docs in description, ROOFTOP param returns the most accurate result.
-        Geocode.setLocationType("ROOFTOP");
+                // set response region. Its optional.
+                // A Geocoding request with region=es (Spain) will return the Spanish city.
+                // Geocode.setRegion("es");
 
+                // set location_type filter . Its optional.
+                // google geocoder returns more that one address for given lat/lng.
+                // In some case we need one address as response for which google itself provides a location_type filter.
+                // So we can easily parse the result for fetching address components
+                // ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE are the accepted values.
+                // And according to the below google docs in description, ROOFTOP param returns the most accurate result.
+                Geocode.setLocationType("ROOFTOP");
 
-        // Enable or disable logs. Its optional.
-        Geocode.enableDebug();        
+                // Enable or disable logs. Its optional.
+                Geocode.enableDebug();        
 
-        navigator.geolocation.getCurrentPosition(function(position) {
-            Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
-                   .then((response) => {
-                        const address = response.results[0].formatted_address;
-                        var deliveryLocation = {
-                            "address"        : response.results[0].formatted_address,
-                            "city"           : response.results[0].city,
-                            "area"           : response.results[0].area,
-                            "district"       : response.results[0].district,
-                            "pincode"        : response.results[0].pincode,
-                            "country"        : response.results[0].country,
-                            "stateCode"      : response.results[0].stateCode,
-                            "countryCode"    : response.results[0].countryCode,
-                            "latitude"       : position.coords.latitude,
-                            "longitude"      : position.coords.longitude,
-                            "homeFirstVisit" : false,
-                        }
-                        if(that.props.sampurnaWebsiteDetails){
-                            var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
-                            sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                            console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
-                        }else{
-                            var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-                        }
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
+                        .then((response) => {
+                                const address = response.results[0].formatted_address;
+                                var deliveryLocation = {
+                                    "address"        : response.results[0].formatted_address,
+                                    "city"           : response.results[0].city,
+                                    "area"           : response.results[0].area,
+                                    "district"       : response.results[0].district,
+                                    "pincode"        : response.results[0].pincode,
+                                    "country"        : response.results[0].country,
+                                    "stateCode"      : response.results[0].stateCode,
+                                    "countryCode"    : response.results[0].countryCode,
+                                    "latitude"       : position.coords.latitude,
+                                    "longitude"      : position.coords.longitude,
+                                    "homeFirstVisit" : false,
+                                }
+                                if(that.props.sampurnaWebsiteDetails){
+                                    var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
+                                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                                    // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+                                }else{
+                                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                                }
 
-                        localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));           
-                        store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
-                        that.setState({ address: deliveryLocation.address });                              
-                    },
-                    (error) => {
-                        console.error(error);
-                    }
-                );
-        });
+                                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));           
+                                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                                that.setState({ address: deliveryLocation.address });                              
+                            },
+                            (error) => {
+                                console.error(error);
+                            }
+                        );
+                });
+
+              }
+          })
+         .catch((error) =>{
+              console.log(error)
+         })       
     }
 
     closeModal(event){        

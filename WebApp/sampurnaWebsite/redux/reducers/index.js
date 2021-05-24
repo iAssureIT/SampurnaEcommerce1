@@ -66,7 +66,7 @@ const reducer = (state = initialState,action) =>{
             return {...state, productApiUrl: action.pageUrl} 
 
         case "SET_SAMPURNA-WEBSITE-DETAILS" : 
-            console.log("action.sampurnaWebsiteDetails====",action.sampurnaWebsiteDetails);
+            // console.log("action.sampurnaWebsiteDetails====",action.sampurnaWebsiteDetails);
             return {...state, sampurnaWebsiteDetails: action.sampurnaWebsiteDetails} 
            
             

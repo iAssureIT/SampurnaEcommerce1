@@ -14,6 +14,7 @@ export default function App({pageData}) {
 
 export async function getStaticProps(store,context){
 	const urlParam = 'homepage';
+  console.log("urlparams===",urlParam);
     try {
         const res = await axios.get("api/pages/get/page_block/"+urlParam);
         const pageData = await res.data;

@@ -7,7 +7,7 @@ import Loaderspinner from 'react-loader-spinner';
 
 // const jsdom = require("jsdom");
 // import _ from 'underscore';
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';

@@ -3,7 +3,7 @@ import $                    from 'jquery';
 import Router               from 'next/router';
 import axios                from 'axios';
 
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';

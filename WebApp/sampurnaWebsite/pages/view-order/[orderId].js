@@ -3,7 +3,7 @@ import axios                  from 'axios';
 import moment from 'moment';
 // import {withRouter} from 'react-router-dom';
 import { ntc }     from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
-import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer      from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import BreadCrumbs from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 class ViewOrder extends Component {

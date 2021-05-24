@@ -19,3 +19,9 @@
 .vendorCard a{
     text-decoration: none !important;
 }
+.vendorListWrapper{
+    cursor: pointer;
+}
+.vedorLink{
+    cursor: pointer;
+}

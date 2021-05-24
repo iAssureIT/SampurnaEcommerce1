@@ -29,7 +29,7 @@ class DisplayLocation extends React.Component {
       }else{
         sampurnaWebsiteDetails = await Promise.resolve(JSON.parse(localStorage.getItem("sampurnaWebsiteDetails")));
       }
-      console.log("1. DisplayLoc - LSsampurnaWebsiteDetails = ", this.props.sampurnaWebsiteDetails.deliveryLocation);  
+      // console.log("1. DisplayLoc - LSsampurnaWebsiteDetails = ", this.props.sampurnaWebsiteDetails.deliveryLocation);  
     }
 
     // if(sampurnaWebsiteDetails.deliveryLocation){

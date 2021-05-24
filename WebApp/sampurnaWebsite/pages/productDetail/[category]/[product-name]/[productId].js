@@ -8,7 +8,7 @@ import getConfig   from 'next/config';
 import {connect}   from 'react-redux';
 import {setBlockData ,setProductApiUrl} from '../../../../redux/actions/index.js';
 import store       from '../../../../redux/store.js'
-import Header               from '../../../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Header               from '../../../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import MasterPage  from '../../../../MasterPage/MasterPage.js'
 import BreadCrumbs from '../../../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';

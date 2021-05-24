@@ -7,7 +7,7 @@ import { connect }          from 'react-redux';
 import {getCartData}        from '../../redux/actions/index.js'; 
 import  store               from '../../redux/store.js'; 
 
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';

@@ -43,23 +43,21 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
  export default function App({ Component, pageProps }){
 	const [googleAPIKey,setGoogleAPIKey]=useState();
-
 	useEffect(() => {
 	 	axios.get("/api/projectSettings/get/GOOGLE",)
-	    .then((response) => {
-        // console.log("googleAPIKey response",response);
-	      	// setGoogleAPIKey(response.data.googleapikey)
-	    })
-	    .catch((error) =>{
-	        console.log(error)
-	    })
+         .then((response) => {
+            // console.log("googleAPIKey response",response);
+              setGoogleAPIKey(response.data.googleapikey)
+          })
+         .catch((error) =>{
+              console.log(error)
+         })
         //Get all preferences and store them in localstorage
         axios.get("/api/adminpreference/get")
         .then(async (preferences) =>{
             var sampurnaWebsiteDetails = {
               preferences   : preferences.data[0],
             };
-            
             //======  Check if you already have delivery location stored in localstorage  ======
             var LSsampurnaWebsiteDetails = await Promise.resolve(JSON.parse(localStorage.getItem("sampurnaWebsiteDetails")));
             
@@ -68,8 +66,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
                 sampurnaWebsiteDetails.deliveryLocation = LSsampurnaWebsiteDetails.deliveryLocation;
               }            
             }
-            
-            console.log("before setItem = ", sampurnaWebsiteDetails);
+            // console.log("before setItem = ", sampurnaWebsiteDetails);
             localStorage.setItem('sampurnaWebsiteDetails', JSON.stringify(sampurnaWebsiteDetails));		
           })
           .catch(error=>{
@@ -77,19 +74,16 @@ Router.events.on('routeChangeError', () => NProgress.done());
           })  
         
 	}, []);
-  // console.log("googleAPIKey",googleAPIKey);
   return (
     <Provider store={store}> 
-    <Head>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <link rel="shortcut icon" href="/favicon.png" />
-      <link rel="preconnect" href="https://fonts.gstatic.com"/>
-      <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
-      {/* <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=geometry,drawing,places"}></script> */}
-      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2Ubr7BFRt1rjOU9XajVBNRUV5w8VLe0k&libraries=geometry,drawing,places"></script>                      
-    </Head>
-    <Component {...pageProps} />  
-  </Provider>
-	 
-    );  
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=geometry,drawing,places"}></script>                   
+      </Head>
+      <Component {...pageProps} />  
+    </Provider>
+  );  
 }
