@@ -45,7 +45,7 @@ const VendorList = ()=> {
                                     // {console.log("vendordata===",vendordata);}
                                     return(
                                         <div className={"card col-4  " +Style.vendorCard} key={index}>
-                                            <Link href={"/products/"+sectionUrl} className={+Style.vedorLink}>
+                                            <Link href={"/products/"+vendordata.vendor_ID+"/"+sectionUrl} className={+Style.vedorLink}>
                                                 <div className={"card-body " +Style.cardBody}>
                                                     <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                         <img src={vendordata.vendorLogo} className="vendor img-thumbnail"/>

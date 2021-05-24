@@ -9,22 +9,18 @@ import Loader                 from "../../StaticBlocks/loader/Loader.js";
 import Message                from '../../StaticBlocks/Message/Message.js';
 import Select                 from 'react-select';
 import getConfig              from 'next/config';
-import $, { post }            from 'jquery';
-import jQuery                 from 'jquery';
-// import { useRouter }          from 'next/router';
-
-import Style                  from './ProductCarousel.module.css';
-import Product                from './Product.js';
+import $, { post } from 'jquery';
+import jQuery from 'jquery';
 import 'react-multi-carousel/lib/styles.css';
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import Style                  from './ProductCarousel.module.css';
 import {getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
-
+import Product from './Product.js';
 
 const { publicRuntimeConfig } = getConfig();
 var projectName = publicRuntimeConfig.CURRENT_SITE;
 const productImgHeight = publicRuntimeConfig.IMGHeight;
-
-  
+// console.log("IgmHeight====",productImgHeight);
 
 const sortOptions = [
   { value: 'alphabeticallyAsc', label: 'Name A -> Z' },
@@ -39,7 +35,6 @@ const displayProductOptions = [
   { value: '40', label: '40 Products / page' },
   { value: '1000', label: 'All Products / page'}
 ];
-
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -101,14 +96,10 @@ class ProductCarousel extends Component {
           limit:20
       },
       user_ID : '',
-      userLatitude : "",
-      userLatitude : "",
-      startRange   : 0,
-      limitRange   : 10,
-      vendor_ID    : "",
     };
   }
   componentDidUpdate(){
+    // console.log("3 inside componentdidupdate");
     if(this.state.categoryData.length < 1){
       // console.log("inside rendor length > 1",$('.ProductViewWrapper').hasClass("col-lg-9"));
 			$('.filterWrapper').hide();
@@ -125,34 +116,7 @@ class ProductCarousel extends Component {
 		}
   }
   async componentDidMount(){
-    var formValues = {};
-    var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-    if(sampurnaWebsiteDetails){
-        // console.log("sampurnaWebsiteDetails=>",sampurnaWebsiteDetails);
-      if(sampurnaWebsiteDetails.deliveryLocation){
-        this.setState({
-            "userLatitude"  : sampurnaWebsiteDetails.deliveryLocation.latitude,
-            "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude, 
-        });
-      }
-    }
-
-    var url = window.location.href.split('/');
-    console.log("url =>",url);
-
-    if(url[4] !== undefined){
-      var vendor_ID      = url[4];
-      var sectionUrl     = url[5];
-      var categoryUrl    = url[6];
-      var subCategoryUrl = url[7];
-      this.setState({
-        "vendor_ID"      : vendor_ID,
-        "sectionUrl"     : sectionUrl,
-        "categoryUrl"    : categoryUrl?categoryUrl:"",
-        "subCategoryUrl" : subCategoryUrl?subCategoryUrl:""
-      })
-    }
-
+    this.getCategoryData();
     var user_ID = localStorage.getItem("user_ID"); 
     const websiteModel = localStorage.getItem("websiteModel");      
     const showLoginAs = localStorage.getItem("showLoginAs"); 
@@ -165,75 +129,86 @@ class ProductCarousel extends Component {
         this.getWishlistData();
     }); 
   }
+    
+    //category carousel
+    $(".expand").on( "click", function() {      
+      $expand = $(this).find(">:first-child");
+      if($expand.text() == "+") {
+        $expand.text("-");
+      } else {
+        $expand.text("+");
+      }
+    });
 
+    //text expand start
+    var showChar = 100;
+    var ellipsestext = "...";
+    var moretext = "more";
+    var lesstext = "less";
+    $('.more').each(function() {
+      var content = $(this).html();
+      if(content.length > showChar) {
+        var c = content.substr(0, showChar);
+        var h = content.substr(showChar-1, content.length - showChar);
+        var html = c + '<span className="moreellipses">' + ellipsestext+ '&nbsp;</span><span className="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" className="morelink">' + moretext + '</a></span>';
+        $(this).html(html);
+      }
+    });
+  
+    $(".morelink").click(function(){
+      if($(this).hasClass("less")) {
+        $(this).removeClass("less");
+        $(this).html(moretext);
+      } else {
+        $(this).addClass("less");
+        $(this).html(lesstext);
+      }
+      $(this).parent().prev().toggle();
+      $(this).prev().toggle();
+      return false;
+    });
+    //text expand end
+
+    var subcatArray = [];
+      // subcatArray.push(this.props.match.params.subcategoryID);
+      var filterUrl = window.location.href;
+      var url       = filterUrl.split('/');
+      filterUrl     = url[4];
+      var filterUrlType = url[3];
+      var filterUrlArray = [];
+			filterUrlArray.push(filterUrl);   
+      // console.log("filterUrl===",filterUrl);
+      // console.log("filterUrlType===",filterUrlType);
+      if(filterUrlType === 'section'){
+        this.getBrandsBySection(filterUrl);
+      }else if(filterUrlType === 'category'){
+        this.getBrandsByCategories(filterUrlArray);
+      }else if(filterUrlType === 'subcategory'){
+        this.getBrandsBySubcategories(filterUrl);
+      }    
       if(this.props.block_id){
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((response)=>{
         if(response.data){
-        console.log("1.blocks response data=>",response.data);                
+        // console.log("response data====",response.data);                
         this.setState({
            blockSettings   : response.data.blockSettings,  
            productSetting  : response.data.productSettings,   
            blockTitle      : response.data.blockTitle, 
+          //  loading         : false,  
           
-        },async ()=>{
-          if(this.state.blockSettings.showCarousel === false){
-            console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
-           
-            await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
-            .then((categoryResponse)=>{
-              if(categoryResponse.data){     
-                console.log("3.response.data category list=",categoryResponse.data[0].categoryUrl); 
-                this.setState({
-                  categoryData     : categoryResponse.data,  
-                  // "categoryUrl"    : categoryResponse.data[0].categoryUrl,
-                  // "subCategoryUrl" : categoryResponse.data[0].subCategory[0].subCategoryUrl                       
-                },()=>{
-                  formValues = {
-                    "vendor_ID"      : vendor_ID,
-                    "sectionUrl"     : this.state.sectionUrl,
-                    "categoryurl"    : this.state.categoryUrl,
-                    "subCategoryUrl" : this.state.subCategoryUrl,
-                    "userLatitude"   : this.state.userLatitude,
-                    "userLongitude"  : this.state.userLongitude,
-                    "startRange"     : this.state.startRange,
-                    "limitRange"     : this.state.limitRange,
-                  }
-                });
-              }
-            })
-            .catch((error)=>{
-                console.log('error', error);
-            })
-            
-          }else{
-            formValues = {
-              "vendor_ID"      : "",
-              "sectionUrl"     : this.state.blockSettings.sectionUrl,
-              "categoryurl"    : this.state.blockSettings.categoryUrl,
-              "subCategoryUrl" : this.state.blockSettings.subCategoryUrl,
-              "userLatitude"   : this.state.userLatitude,
-              "userLongitude"  : this.state.userLongitude,
-              "startRange"     : this.state.startRange,
-              "limitRange"     : this.state.limitRange,
-             }
+        },()=>{
+          if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
+            var productApiUrl = this.props.productApiUrl;
+            console.log("productApiUrl===",productApiUrl);
+          }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
+            var productApiUrl = this.props.productApiUrl;
+            console.log("productApiUrl===",productApiUrl);
+          }else{ 
+              var productApiUrl = this.state.blockSettings.blockApi;
+              console.log("productApiUrl===",this.props.productApiUrl);
           }
-
-          // if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
-          //   var productApiUrl = this.props.productApiUrl;
-          //   console.log("productApiUrl===",productApiUrl);
-          // }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
-          //   var productApiUrl = this.props.productApiUrl;
-          //   console.log("productApiUrl===",productApiUrl);
-          // }else{ 
-          //     var productApiUrl = this.state.blockSettings.blockApi;
-          //     console.log("productApiUrl===",this.props.productApiUrl);
-          // }
-
-          var productApiUrl = this.props.productApiUrl;
-          console.log("4.productApiUrl===",productApiUrl);
-          console.log("5. formvalues =>",formValues);
-          axios.post(this.state.blockSettings.blockApi,formValues)     
+          axios.post(productApiUrl,this.state.blockSettings.showCarousel)      
           .then((response)=>{
             if(response.data){     
             // console.log("response.data in product carousel===",response.data);       
@@ -251,12 +226,15 @@ class ProductCarousel extends Component {
             this.setState({
               newProducts     : response.data,                          
             },()=>{
+              // console.log("newProducts===",this.state.newProducts);
               if(this.state.newProducts.length>0){
                 this.setState({
                   ProductsLoading : true,
                   loading         : false
                 });  
               }
+                // console.log("Products list===",this.state.newProducts);
+                // this.getFilteredProducts(this.state.selector);
             });
           }
           })
@@ -283,7 +261,9 @@ class ProductCarousel extends Component {
           // console.log("wislist response====",response.data);
           this.setState({
             wishList: response.data
-          });
+          },()=>{
+                // console.log("2.My Wislist products ====",this.state.wishList);
+          })
         }        
       })
       .catch((error) => {
@@ -293,16 +273,15 @@ class ProductCarousel extends Component {
   getBrandsBySection(sectionUrl) {
     // console.log("sectionUrl===",sectionUrl);
 		axios.get("/api/products/get/listBrand/" + sectionUrl)
-    .then((response) => {
-      this.setState({
-        brands: response.data
-      })
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
+			.then((response) => {
+				this.setState({
+					brands: response.data
+				})
+			})
+			.catch((error) => {
+				console.log('error', error);
+			})
 	}
-
 	getBrandsByCategories(filterUrlArray) {
     console.log("inside getBrandsByCategories",filterUrlArray);
 		var formValues = {
@@ -310,21 +289,23 @@ class ProductCarousel extends Component {
 		}
 
 		axios.post("/api/products/get/listBrandByCategories", formValues)
-    .then((response) => {
-      console.log("brand response.data===",response.data);
-      this.setState({
-        brands: response.data
-      })
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
+			.then((response) => {
+        console.log("brand response.data===",response.data);
+				this.setState({
+					brands: response.data
+				})
+			})
+			.catch((error) => {
+				console.log('error', error);
+			})
 	}
   getBrandsBySubcategories(categoryUrl) {
 		var formValues = {
       subcategories: categoryUrl
+      // categoryUrl     : categoryUrl      
 		}
 		axios.post("/api/products/get/listBrandBySubcategories", formValues)
+
 			.then((response) => {
 				this.setState({
 
@@ -336,6 +317,8 @@ class ProductCarousel extends Component {
 			})
   }
   onSelectedItemsChange(filterType, selecteditems){
+    // console.log("filterType===",filterType);
+    // console.log("selecteditems===",selecteditems);
 		var checkboxes = document.getElementsByName('brands[]');
 		var brands = [];
 		for (var i = 0, n = checkboxes.length; i < n; i++) {
@@ -345,6 +328,7 @@ class ProductCarousel extends Component {
 		}
 		if(filterType === 'category') {
 			var selector = this.state.selector;
+      // console.log("selector===",selector);
 			delete selector.subCategory_ID;
 			selector.section_ID = this.props.match.params.sectionID;
 			selector.price = this.state.price;
@@ -371,8 +355,17 @@ class ProductCarousel extends Component {
 		}
 		if (filterType === 'brands') {
 			selector = this.state.selector;
+      // console.log("selector==",selector);
+			// selector.section_ID = this.props.match.params.sectionID;
 			selector.price = this.state.price;
 			selector.brands = brands;
+
+			// if (this.props.match.params.categoryID && !selector.category_ID) {
+			// 	selector.category_ID = this.props.match.params.categoryID;
+			// }
+			// if (this.props.match.params.subcategoryID && !selector.subCategory_ID) {
+			// 	selector.subCategory_ID = this.props.match.params.subcategoryID;
+			// }
 			this.setState({ selector: selector }, () => {
 				this.getFilteredProducts(this.state.selector);
 			})
@@ -380,6 +373,7 @@ class ProductCarousel extends Component {
   }
   
   filterCategoriesData(filterBy,filterKey){
+    // console.log("filterKey===",filterKey +" "+filterBy);
     if(filterBy === "listbycategory"){
       var categoryData = this.state.categoryData.filter((val,key)=>{ 
         // console.log("val ===",val.categoryUrl.toLowerCase());         
@@ -396,17 +390,24 @@ class ProductCarousel extends Component {
       var categoryData = this.state.categoryData.filter((val,key)=>{        
           // console.log("category  val===",val); 
           if(val.subCategory && val.subCategory.length>0){
-            var categoryData = val.subCategory.filter((subval,key)=>{
+            var categoryData = val.subCategory.filter((subval,key)=>{  
+              // if(val.subCategoryUrl)
+                // console.log("listbysubcategory val===",subval); 
                 return val.subCategoryUrl?val.subCategoryUrl.toLowerCase():null;
-            })
+                // return val.subCategoryUrl?val.subCategoryUrl.toLowerCase():null === filterKey.toLowerCase();
+              
+              })
           }
       })
       this.setState({
         categoryData:categoryData
+      },()=>{
+          // console.log("after Subcategory filter categoryData===",categoryData);
       })
     }
     if(filterBy === "listbysection"){
       var categoryData = this.state.categoryData.filter((val,key)=>{
+        // console.log("section val ===",val.section +" 1"+filterKey);
         return val.section.toLowerCase() === filterKey.toLowerCase()
       })
       this.setState({
@@ -415,6 +416,29 @@ class ProductCarousel extends Component {
           // console.log("after section filter categoryData===",categoryData);
       })
     }
+  }
+
+  getCategoryData(){
+    return axios.get("/api/category/get/list/")
+        .then((response)=>{
+            // console.log(" category response.data===",response.data);
+            if(response){
+              // response.data.filter()
+              this.setState({
+                categoryData: response.data,
+              },()=>{
+                  //show filters by category
+                  var productApiUrl = this.props.productApiUrl;
+                  var fields = productApiUrl.split('/');
+                  var filterBy = fields[4];
+                  var filterKey = fields[5];
+                  this.filterCategoriesData(filterBy,filterKey);
+              })
+            }
+        })
+        .catch((error)=>{ 
+              console.log('error', error);
+        })
   }
   addCart(formValues, quantityAdded, availableQuantity) {
     if(localStorage.getItem('webSiteModel')==='FranchiseModel'){
@@ -490,6 +514,7 @@ class ProductCarousel extends Component {
     const user_ID = localStorage.getItem('user_ID');
     // console.log("userId===",user_ID);
     if(user_ID){
+      // console.log("recentCartData===",this.props.recentCartData);
       if(this.props.recentCartData.length>0 && this.props.recentCartData[0].cartItems.length>0){
           var cartLength = this.props.recentCartData[0].cartItems.length;
           var productId = event.target.id;
@@ -510,6 +535,8 @@ class ProductCarousel extends Component {
                   })
                 }, 3000);
                 break;
+                // console.log("submitCart userId===",this.state);
+
               }//end if
           }//end for loop
       }
@@ -567,6 +594,7 @@ class ProductCarousel extends Component {
     })
   }else{
 
+    // console.log("user loged out====",localStorage.getItem('showLoginAs'));
     if(localStorage.getItem('showLoginAs')==="modal"){
       $('#loginFormModal').show();       
       }else{
@@ -683,7 +711,9 @@ class ProductCarousel extends Component {
 			let field = 'discountedPrice';
 			this.setState({
 				newProducts: this.state.newProducts.sort((a, b) => b[field] - a[field])
-			});
+			},()=>{
+        // console.log("newProducts===",this.state.newProducts);
+      });
 		}    
   };
   limitProducts = displayProduct => {
@@ -694,13 +724,17 @@ class ProductCarousel extends Component {
 		var selector = this.state.selector;
     selector.limit = displayProduct.value;
 		this.setState({ selector: selector }, () => {		
+    // console.log("selector after setState===",this.state.selector);	
 			this.getFilteredProducts(this.state.selector);			
     })
   }
   getFilteredProducts(selector){
+    // console.log("selector===",selector);
+    // console.log("$('.limitProducts').val()===",$('.limitProducts').val());
 		if (selector.limit) {
       selector.limit = selector.limit;
       var pageUrl = window.location.pathname;
+      // console.log("selector.pageUrl===",pageUrl);
       let a = pageUrl ? pageUrl.split('/') : "";
       const urlParam =a[2];
       if(a[1] === 'category'){
@@ -725,7 +759,12 @@ class ProductCarousel extends Component {
 				console.log('error', error);
 			})
 	}
+  lowestPrice(event){
 
+  }
+  fastestDelevery(){
+
+  }
   render() {
     const { effect } = this.state;
     const { displayProducts } = this.state;
@@ -753,6 +792,26 @@ class ProductCarousel extends Component {
           : null
           } 
 
+          {/* show breadCrumbsLink */}
+          { !this.state.blockSettings.showCarousel && this.state.blockSettings.filterSettings ?
+          <div className={ "col-12 " +Style.breadCrumbs +" " +Style.NoPadding}>            
+            <ul className={Style.links}>
+								<li><Link href="/"><a>Home / </a></Link></li>&nbsp;
+                {/* {console.log("breadcrum category===",this.state.categoryData)} */}
+								{this.state.categoryData[0] ?
+									// <li><Link href={"/section/"+this.state.categoryData[0].section.replace(/\s+/g, '-').toLowerCase()}>
+                  <li><Link href={`/section/${encodeURIComponent(this.state.categoryData[0].section.replace(/\s+/g, '-').toLowerCase())}`}><a>
+										{" " +this.state.categoryData[0].section}</a></Link>&nbsp;
+                    {this.state.categoryData.length<=1?<a href="">/ {this.state.categoryData[0].category}</a>:null}
+                    {this.state.categoryData[0].subCategory[0]?<a href="">/ {this.state.categoryData[0].subCategory[0].subCategoryUrl}</a>:null}
+                  </li>
+									: ""
+								}
+								<li><Link href="/"><a>{this.state.productscategoryName}</a></Link></li>
+							</ul>
+          </div>
+          :null
+          }
         <div className={"col-12 "}>
           {this.state.newProducts && this.state.newProducts.length > 0 ?
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
@@ -778,24 +837,31 @@ class ProductCarousel extends Component {
                     customTransition="all .20"
                     transitionDuration={500}
                     // containerclassName="carousel-container"
-                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    // removeArrowOnDeviceType={["tablet", "mobile"]}
                     deviceType={this.props.deviceType}
+                    //dotListclassName="custom-dot-list-style"
                     itemclassName="carousel-item-padding-10-px">
-
-                    { 
+                    {
+                      
                       Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
                         Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
                             var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
+                            // var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
+                          //  console.log("data===",data._id);
                             var wishClass = 'r';
                             var tooltipMsg = '';
+                            // console.log("this.state.wishList===",this.state.wishList);
                             if (x && x.length > 0) {
                               wishClass = '';
                               tooltipMsg = 'Remove from wishlist';
+                              // console.log("wishclassName=",wishClass);
                             } else {
                               wishClass = 'r';
+                              // console.log("wishclassName=",wishClass);
                               tooltipMsg = 'Add To Wishlist';
                             }   
-                            var categoryUrl = (data.category).replace(/\s+/g, '-').toLowerCase();                  
+                            var categoryUrl = (data.category).replace(/\s+/g, '-').toLowerCase();
+                            // console.log("data product=====",(data.category).replace(/\s+/g, '-').toLowerCase());                    
                           return (
                             // <div className={"col-lg-"+LGCol+" col-md-"+MDCol+" col-sm-"+SMCol+" col-xs-"+XSCol +" " +Style.productWrap +" " +Style.customePadding}   key={index}> 
                               <div key={index} className={"col-12 " +Style.singleProduct}>                          
@@ -976,16 +1042,14 @@ class ProductCarousel extends Component {
                             {category.subCategory && category.subCategory.length?
                               <h4 data-toggle="collapse" data-parent="#accordion" href={"#collapse"+i} className="panel-title expand">
                                 <div className="right-arrow pull-right">+</div>                                  
-                                {/* <Link href={`/category/${encodeURIComponent(category.categoryUrl)}`}> */}
-                                <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl}>
+                                <Link href={`/category/${encodeURIComponent(category.categoryUrl)}`}>
                                   <a >{category.category}</a>
                                 </Link>
                               </h4>
                               :
                               <h4  className="panel-title expand">  
-                                {/* <Link href={`/category/${encodeURIComponent(category.categoryUrl)}`}>                               */}
-                                <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl}> 
-                                    <a >{category.category}</a>
+                                <Link href={`/category/${encodeURIComponent(category.categoryUrl)}`}>                              
+                                  <a >{category.category}</a>
                                 </Link>
                               </h4>
                               }
@@ -997,8 +1061,7 @@ class ProductCarousel extends Component {
                                     {category.subCategory && category.subCategory.map((subcategory,index)=>{   
                                     return(
                                       <li key={index} className={Style.subcategoryLi}>                                          
-                                        {/* <Link href={`/subcategory/${encodeURIComponent(subcategory.subCategoryUrl)}`}> */}
-                                        <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl+"/"+subcategory.subCategoryUrl}>
+                                        <Link href={`/subcategory/${encodeURIComponent(subcategory.subCategoryUrl)}`}>
                                           <a className={"subCategorylia "+Style.subCategorylia}>{subcategory.subCategoryTitle}</a>
                                         </Link> 
                                       </li>
@@ -1017,17 +1080,19 @@ class ProductCarousel extends Component {
                     </div> 
 
                     {/* filter product by brand */}
-                    {/* <div className="panel-group" id="accordion">                      
+                    <div className="panel-group" id="accordion">                      
                       <div className={Style.categoryFilterTitle}> Brand </div>  
                       {
                       this.state.brands && this.state.brands.length > 0?
                       this.state.brands.map((brand,index)=>{
+                        // console.log("Brand   ===",brand);
                         var i = index+1;
                         return(
                           <div className="col-12 noPadding panelCategory paneldefault" key={index}>
                             <div className={"row panel-heading "+Style.panelHeading}>
                               <div className=" col-1 NoPadding centreDetailContainerEcommerce">
                                 <input className=" " type="checkbox" name="brands[]" onChange={this.onSelectedItemsChange.bind(this, "brands")} value={brand} />
+                                {/* <span className="col-1 centreDetailCheckEcommerce"></span> */}
                               </div>
                               <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
                             </div>                              
@@ -1036,7 +1101,7 @@ class ProductCarousel extends Component {
                         })   
                         :''
                       }
-                    </div>  */}
+                    </div> 
                   </div> 
                   :' '
                   }
@@ -1067,8 +1132,15 @@ class ProductCarousel extends Component {
                                   />
                             </div>
                           </div>
-                        </div>                        
                         </div>
+                        {/* <div className={"col-4 "}>
+                          <div className="tab">
+                              <button className="tablinks" onClick="lowestPrice(event, 'Lowest Price')">Lowest Price</button>
+                              <button className="tablinks" onClick="fastestDelevery(event, 'Fastest Product')">Fastest Product</button>                           
+                          </div>
+                        </div> */}
+                        </div>
+
                       </div>
                     </div> 
                     {this.state.newProducts.length>=1?

@@ -45,10 +45,6 @@ class DisplayLocation extends React.Component {
 
   }
     
-    componentDidUpdate(){
-      // console.log("New props = " , this.props);
-    }
-
    render() {
     return (
 		<div className="container-fluid DisplayLocation ">
