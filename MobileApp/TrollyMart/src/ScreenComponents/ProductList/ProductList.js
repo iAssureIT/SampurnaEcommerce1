@@ -85,6 +85,7 @@ export const ProductList = withCustomerToaster((props)=>{
         "product_ID"  : productid,
         "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
       }
+      console.log("formValues",formValues);
       axios
         .post('/api/Carts/post', formValues)
         .then((response) => {

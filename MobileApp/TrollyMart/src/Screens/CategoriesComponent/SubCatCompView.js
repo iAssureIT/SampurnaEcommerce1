@@ -136,8 +136,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
       })
   }
 
-  const onChange=(number, type)=>{
+  const onChange=(number)=>{
     var carqty = {};
+    console.log("number",number)
     setCounterProd(parseInt(number));
     setNumber(parseInt(number));
   }
@@ -289,7 +290,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     }}
                     size={5}
                     value={countofprod}
-                    onChange={()=>onChange()} />
+                    onChange={(num)=>onChange(num)} />
                 </View>
               </View>
               <View style={styles.detailclr}>

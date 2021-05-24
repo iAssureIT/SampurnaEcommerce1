@@ -62,18 +62,24 @@ export const getCategoryWiseList = (payload) => {
             payload: true,
         });
         const store = getState();
-        payload.user_id = store.userDetails.user_id;
+        payload.user_id         = store.userDetails.user_id;
         payload.userLatitude    = store.location?.coords?.latitude,
-        payload.userLongitude   = store.location?.coords?.userLongitude,
-        console.log("payload",payload);
+        payload.userLongitude   = store.location?.coords?.longitude,
         axios.get("/api/category/get/list/"+payload.sectionUrl+"/"+payload.vendorID)
         .then((category)=>{
+            console.log("category",category);
             dispatch({
                 type: SET_CATEGORY_LIST,
                 payload: category.data,
             });
+            if(!payload.categoryUrl){
+                payload.categoryUrl = category?.data[0]?.categoryUrl;
+                payload.subCategoryUrl = category?.data[0]?.subCategory[0]?.subCategoryUrl;
+            }
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{
+                console.log("payload",payload);
+                console.log("response",response);
                 dispatch({
                     type: SET_CATEGORY_WISE_LIST,
                     payload: response.data,
@@ -84,11 +90,11 @@ export const getCategoryWiseList = (payload) => {
                 });
             })
             .catch((error)=>{
-                console.log("error getList",error);
+                console.log("error getList1",error);
             })
         })
         .catch((error)=>{
-            console.log("error getList",error);
+            console.log("error getList2",error);
         })
     };
 };

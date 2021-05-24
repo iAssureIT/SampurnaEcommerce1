@@ -56,12 +56,15 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
     const [minvalueshipping,setMinValueShipping] = useState('');
     const [subtotalitems,setSubTotalItems] = useState('');
     const [subtotal,setSubTotal] = useState('');
-    const [currency,setCurrency] = useState('');
     const [cartitemid,setCartItemId] = useState('');
     const [incresecartnum,setIncreaseCartNum] = useState('');
     const [coupenCode,setCoupenCode] = useState('');
     const [coupenPrice,setCoupenPrice] = useState(0);
-
+    const store = useSelector(store => ({
+      preferences     : store.storeSettings.preferences,
+    }));
+  
+    const {currency}=store.preferences;
     
 
   useEffect(() => {
@@ -75,7 +78,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
       getshippingamount(startRange,limitRange);
       setUserId(userId);
       setProductId(product_ID)
-      getCartItems(userId);
+      console.log("userId ===>",userId)
+      if(userId){
+        getCartItems(userId);
+      }
       // getdiscounteddata(startRange,limitRange);
     } 
   }
@@ -130,13 +136,12 @@ const getshippingamount=(startRange, limitRange)=>{
 const getCartItems=(userId)=>{
     axios.get('/api/Carts/get/cartproductlist/' + userId)
       .then((response) => {
-        console.log("getCartItems ===>",response)
         setLoading(false);
         if(response.data.length > 0) {
           setSubTotalItems(response.data[0].cartItems.length);
           setCartData(response.data[0].cartItems);
           setSubTotal(response.data[0].cartTotal);
-          setCurrency(response.data[0].cartItems[0].productDetail.currency);
+          // setCurrency(response.data[0].cartItems[0].productDetail.currency);
           gettotalcount(response.data[0].cartItems);
           setDiscountValue(response.data[0].discount);
           setTotalPrice(response.data[0].total)
@@ -168,7 +173,10 @@ const getCartItems=(userId)=>{
     console.log("formValues",formValues);
     axios.patch("/api/carts/remove", formValues)
       .then((response) => {
-        getCartItems(userId);
+        console.log("userId",userId);
+        if(userId){
+          getCartItems(userId);
+        }
         setRemoveFromCart(false)
       })
       .catch((error) => {
@@ -197,7 +205,9 @@ const getCartItems=(userId)=>{
     axios.post('/api/wishlist/post', wishValues)
       .then((response) => {
         console.log("response check",response);
-        getCartItems(userId);
+        if(userId){
+          getCartItems(userId);
+        }
         dispatch(getList('featured',userId,6));
         dispatch(getList('exclusive',userId,6));
         dispatch(getList('discounted',userId,10));
@@ -241,7 +251,10 @@ const getCartItems=(userId)=>{
       .then((response) => {
         console.log("response",response);
         setIncreaseCartNum(formValues.quantityAdded);
-        getCartItems(userId);
+        if(userId){
+          getCartItems(userId);
+        }
+        
       })
       .catch((error) => {
         if (error.response.status == 401) {
@@ -346,41 +359,39 @@ const getCartItems=(userId)=>{
                                     />
                                     <Text style={styles.proddetprice}>{item.productDetail.discountedPrice} Per {item.productDetail.size}  {item.productDetail.unit.toUpperCase()}</Text>
                                   </View> */}
-                                  <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-
-
+                              <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
                                 {item.productDetail.availableQuantity > 0 ?
-                                <View style={[styles.flxdir]}>
                                   <View style={[styles.flxdir]}>
-                                    <Icon
-                                      name={item.productDetail.currency}
-                                      type="font-awesome"
-                                      size={13}
-                                      color="#333"
-                                      iconStyle={{ marginTop: 5, marginRight: 3 }}
-                                    />
-                                    <Text style={styles.discountpricecut}>{item.productDetail.originalPrice * item.quantity}</Text>
+                                    <View style={[styles.flxdir]}>
+                                      {/* <Icon
+                                        name={item.productDetail.currency}
+                                        type="font-awesome"
+                                        size={13}
+                                        color="#333"
+                                        iconStyle={{ marginTop: 5, marginRight: 3 }}
+                                      /> */}
+                                      <Text style={styles.ogprice}>{currency} </Text>
+                                      <Text style={styles.discountpricecut}>{item.productDetail.originalPrice * item.quantity}</Text>
+                                    </View>
+                                    <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                      {/* <Icon
+                                        name={item.productDetail.currency}
+                                        type="font-awesome"
+                                        size={13}
+                                        color="#333"
+                                        iconStyle={{ marginTop: 5}}
+                                      /> */}
+                                        <Text style={styles.ogprice}> - {item.productDetail.discountedPrice * item.quantity} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                        </Text>
+                                    </View>
+                                    <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                        <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                        </Text>
+                                    </View>
                                   </View>
-                                  <View style={[styles.flxdir,{marginLeft:8,alignItems:"center"}]}>
-                                    <Icon
-                                      name={item.productDetail.currency}
-                                      type="font-awesome"
-                                      size={13}
-                                      color="#333"
-                                      iconStyle={{ marginTop: 5}}
-                                    />
-                                      <Text style={styles.ogprice}>{item.productDetail.discountedPrice * item.quantity} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                      </Text>
-                                  </View>
-                                  <View style={[styles.flxdir,{marginLeft:8,alignItems:"center"}]}>
-                                      <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                      </Text>
-                                  </View>
-                                </View>
-                                :
-                                 <Text style={styles.totaldata}>SOLD OUT</Text>
-                               }
-
+                                  :
+                                  <Text style={styles.totaldata}>SOLD OUT</Text>
+                                }
                               </View>
 
                               <Counter start={item.quantity} min={1} max={100}
@@ -461,41 +472,41 @@ const getCartItems=(userId)=>{
                   cartData && cartData.length > 0 && subtotalitems ?
                     <View style={styles.totaldetails}>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.7 }}>
+                        <View style={{ flex: 0.5 }}>
                           <Text style={styles.totaldata}>Subtotal ({subtotalitems} Item(s)) </Text>
                         </View>
-                        <View style={{ flex: 0.3 }}>
+                        <View style={{ flex: 0.5 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Icon
+                            {/* <Icon
                                name={currency}
                               type="font-awesome"
                               size={16}
                               color="#666"
                               iconStyle={styles.iconstyle}
-                            />
-                            <Text style={styles.totalpriceincart}>{subtotal}</Text>
+                            /> */}
+                            <Text style={styles.totalpriceincart}>{currency} {subtotal}</Text>
                           </View>
                         </View>
                       </View>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.7 }}>
+                        <View style={{ flex: 0.5 }}>
                           <Text style={styles.totaldata}>You Saved </Text>
                         </View> 
-                        <View style={{ flex: 0.3 }}>
+                        <View style={{ flex: 0.5 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.totalpriceincart}> - </Text>
                           { 
                           // discountin === "Amount" ? 
-                            <Icon
-                              name={currency}
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.iconstyle}
-                            />
+                            // <Icon
+                            //   name={currency}
+                            //   type="font-awesome"
+                            //   size={15}
+                            //   color="#666"
+                            //   iconStyle={styles.iconstyle}
+                            // />
                           // : null 
                         }
-                        <Text style={styles.totalpriceincart}>{discountvalue > 1 ? discountvalue.toFixed(2) : 0.00}</Text>
+                        <Text style={styles.totalpriceincart}>{currency} {discountvalue > 1 ? discountvalue.toFixed(2) : 0.00}</Text>
                          {
                            discountin === "Percent" ? 
                               <Icon
@@ -511,84 +522,84 @@ const getCartItems=(userId)=>{
                         </View>
                       </View>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.7 }}>
+                        <View style={{ flex: 0.5 }}>
                           <Text style={styles.totaldata}>TAX </Text>
                         </View> 
-                        <View style={{ flex: 0.3 }}>
+                        <View style={{ flex: 0.5 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           { 
                           // discountin === "Amount" ? 
-                            <Icon
-                              name={currency}
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.iconstyle}
-                            />
+                            // <Icon
+                            //   name={currency}
+                            //   type="font-awesome"
+                            //   size={15}
+                            //   color="#666"
+                            //   iconStyle={styles.iconstyle}
+                            // />
                           // : null 
                         }
-                        <Text style={styles.totalpriceincart}>0</Text>
+                        <Text style={styles.totalpriceincart}>{currency} 0</Text>
                           </View>
                         </View>
                       </View>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.7 }}>
+                        <View style={{ flex: 0.5 }}>
                           <Text style={styles.totaldata}>Coupon</Text>
                         </View> 
-                        <View style={{ flex: 0.3 }}>
+                        <View style={{ flex: 0.5 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}> - </Text>
                           { 
                           // discountin === "Amount" ? 
-                            <Icon
-                              name={currency}
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.iconstyle}
-                            />
+                            // <Icon
+                            //   name={currency}
+                            //   type="font-awesome"
+                            //   size={15}
+                            //   color="#666"
+                            //   iconStyle={styles.iconstyle}
+                            // />
                           // : null 
                         }
-                        <Text style={styles.totalpriceincart}>{coupenPrice}</Text>
+                        <Text style={styles.totalpriceincart}>{currency} {coupenPrice}</Text>
                           </View>
                         </View>
                       </View>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.7 }}>
+                        <View style={{ flex: 0.5 }}>
                           <Text style={styles.totaldata}>Delivery Charges </Text>
                         </View> 
-                        <View style={{ flex: 0.3 }}>
+                        <View style={{ flex: 0.5 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           { 
                           // discountin === "Amount" ? 
-                            <Icon
-                              name={currency}
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.iconstyle}
-                            />
+                            // <Icon
+                            //   name={currency}
+                            //   type="font-awesome"
+                            //   size={15}
+                            //   color="#666"
+                            //   iconStyle={styles.iconstyle}
+                            // />
                           // : null 
                         }
-                        <Text style={styles.totalpriceincart}>0</Text>
+                        <Text style={styles.totalpriceincart}>{currency} 0</Text>
                           </View>
                         </View>
                       </View>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.7 }}>
+                        <View style={{ flex: 0.5 }}>
                           <Text style={styles.totaldata}>Grand Total </Text>
                         </View>
-                        <View style={{ flex: 0.3 }}>
+                        <View style={{ flex: 0.5 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Icon
+                            {/* <Icon
                               name={currency}
                               type="font-awesome"
                               size={15}
                               color="#666"
                               iconStyle={styles.iconstyle}
-                            />
+                            /> */}
                             {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{amountofgrandtotal}</Text> */}
-                            <Text style={styles.totalpriceincart}>{totalPrice}</Text>
+                            <Text style={styles.totalpriceincart}>{currency} {totalPrice}</Text>
                           </View>
                         </View>
                       </View>

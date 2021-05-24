@@ -175,7 +175,7 @@ exports.list_cart_product = (req,res,next)=>{
     ])
     .exec()
     .then(data=>{
-        if(data && data[0].cartItems){
+        if(data && data.length> 0 && data[0].cartItems){
             for (let k = 0; k < data[0].cartItems.length; k++) {
                 data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
             }
@@ -209,7 +209,7 @@ exports.list_cart_product = (req,res,next)=>{
                 res.status(200).json(data);
             }    
         }else{
-            res.status(404).json('Product Details not found');
+            res.status(404).json([]);
         }
     })
     .catch(err =>{

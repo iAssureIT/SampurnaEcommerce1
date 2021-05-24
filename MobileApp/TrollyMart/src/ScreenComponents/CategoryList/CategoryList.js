@@ -20,16 +20,22 @@ export const CategoryList = (props)=>{
     categoryList  : store.productList.categoryList,
   }));
   const {categoryList}=store;
+
+
   useEffect(() => {
-   setSelected(props.selected)
-  },[props]);
+    if(categoryList && categoryList.length >0){
+      props.setCategory(categoryList[0])
+      setSelected(categoryList[0]?.category);
+    }
+   },[]);
+
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, i })=>{
     return (
       <View key={i} style={styles.mainrightside}>
-        <TouchableOpacity style={{borderWidth:selected===item.category ? 2:0,borderRadius:10,borderColor:colors.theme }} onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.sectionUrl,section:item.section,type:props.type});}}>
+        <TouchableOpacity style={{borderWidth:selected===item.category ? 2:0,borderRadius:10,borderColor:colors.theme }} onPress={()=>{props.setCategory(item);setSelected(item.category)}}>
           {showImage ?
-              <ImageBackground onPress={()=>navigation.navigate('VendorList',{section_id:item._id})} source={item.sectionImage ? {uri : item.sectionImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{opacity:0.6}}>
+              <ImageBackground  source={item.sectionImage ? {uri : item.sectionImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{opacity:0.6}}>
               <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
             </ImageBackground>
             :

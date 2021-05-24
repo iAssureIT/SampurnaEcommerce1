@@ -4,16 +4,14 @@ import {Text,View,
       Dimensions,
       ImageBackground,
       FlatList
-    }                         from 'react-native';
-import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
-import axios                  from 'axios';
-import Animated               from "react-native-reanimated";
-import { connect,
-        useDispatch,
-        useSelector }         from 'react-redux';
-import { colors, sizes }      from '../../AppDesigns/currentApp/styles/styles.js';
+    }                   from 'react-native';
+import styles           from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
+import Animated         from "react-native-reanimated";
+import {  useSelector } from 'react-redux';
+import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
 
 export const MenuCarouselSection = (props)=>{
+  console.log("props",props);
   const {navigation,showImage,boxHeight}=props;
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -22,12 +20,13 @@ export const MenuCarouselSection = (props)=>{
   const section = useSelector(store => store.section.sections)
   useEffect(() => {
    setSelected(props.selected)
-  },[]);
+  },[props.selected]);
+
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, i })=>{
     return (
       <View key={i} style={styles.mainrightside}>
-        <TouchableOpacity style={{borderWidth:selected===item.section ? 2:0,borderRadius:10,borderColor:colors.theme }} onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.sectionUrl,section:item.section,type:props.type});}}>
+        <TouchableOpacity style={{borderWidth:selected===item.section ? 2:0,borderRadius:10,borderColor:colors.theme }} onPress={()=>{setSelected(item.section);navigation.navigate("VendorList",{sectionUrl:item.sectionUrl,section:item.section,type:props.type});}}>
           {showImage ?
               <ImageBackground onPress={()=>navigation.navigate('VendorList',{section_id:item._id})} source={item.sectionImage ? {uri : item.sectionImage}:noImage} style={[styles.sectionImages,{height:boxHeight}]} imageStyle={{opacity:0.6}}>
               <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.section}</Text>

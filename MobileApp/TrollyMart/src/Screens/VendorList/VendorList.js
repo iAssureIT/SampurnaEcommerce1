@@ -66,18 +66,12 @@ export const VendorList = withCustomerToaster((props)=>{
     const goToProductList=(vendor)=>{
         var payload ={
             "vendorID"          : vendor.vendor_ID,
-            "sectionID"         : "60a37ca7275b3382bec884dd",
             "sectionUrl"        : sectionUrl,
-            "categoryID"        : "",
-            "subcategoryID"     : "",
-            "user_id"           : store.userDetails.user_id ? store.userDetails.user_id : null,
-            "userLatitude"      : store.location?.coords?.latitude,
-            "userLongitude"     : store.location?.coords?.longitude,
             "startRange"        : 0,
             "limitRange"        : 20
           } 
         dispatch(getCategoryWiseList(payload));
-        navigation.navigate('VendorProducts',{vendor:vendor});
+        navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section});
     }
 
     const _renderlist = ({ item, index })=>{
