@@ -209,7 +209,7 @@ exports.list_cart_product = (req,res,next)=>{
                 res.status(200).json(data);
             }    
         }else{
-            res.status(200).json([]);
+            res.status(200).json(data);
         }
     })
     .catch(err =>{
