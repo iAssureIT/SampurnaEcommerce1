@@ -485,12 +485,14 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                     categoryObj
                     .save()
                     .then(data=>{
-                        resolve({
-                            _id                 : data._id, 
-                            category            : catgName, 
-                            categoryNameRlang   : categoryNameRlang,
-                            subCategory_ID      : (data.subCategory && data.subCategory.length > 0 ? data.subCategory[0]._id : null) 
-                        });
+                        let returnData = {
+                                            _id                 : data._id, 
+                                            category            : catgName, 
+                                            categoryNameRlang   : categoryNameRlang,
+                                            subCategory_ID      : (data.subCategory && data.subCategory.length > 0 ? data.subCategory[0]._id : null) 
+                                        }
+                        console.log("1. returnData => ",returnData)
+                        resolve(returnData);
                     })
                     .catch(err =>{
                         console.log(err);
@@ -502,12 +504,14 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                     var subcatg = categoryPresent.subCategory.find(subcatgObj => subcatgObj.subCategoryTitle === subcatgName);
                     
                     if(subcatg !== undefined){
-                        resolve({
-                            _id                 : categoryPresent._id, 
-                            category            : catgName, 
-                            categoryNameRlang   : categoryNameRlang,
-                            subCategory_ID      : subcatg._id 
-                        });
+                        let returnData = {
+                                            _id                 : categoryPresent._id, 
+                                            category            : catgName, 
+                                            categoryNameRlang   : categoryNameRlang,
+                                            subCategory_ID      : subcatg._id 
+                                        }
+                        console.log("2. returnData => ",returnData)
+                        resolve(returnData);
                     }else if(subcatgName !== undefined){  
                         Category.updateOne(
                             { _id:categoryPresent._id},  
@@ -530,12 +534,14 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                                 .exec()
                                 .then(categoryObject=>{
                                     if(categoryObject){  
-
-                                        resolve({
-                                            _id                 : categoryPresent._id, 
-                                            category            : categoryPresent.category,
-                                            categoryNameRlang   : categoryPresent.categoryNameRlang, 
-                                            subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id});
+                                        let returnData = {
+                                                            _id                 : categoryPresent._id, 
+                                                            category            : categoryPresent.category,
+                                                            categoryNameRlang   : categoryPresent.categoryNameRlang, 
+                                                            subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
+                                                        }
+                                        console.log("3. returnData => ",returnData)
+                                        resolve(returnData);
                                     }else{
                                         resolve(0);
                                     }
@@ -550,25 +556,29 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                         Category.findOne({ category : catgName})
                         .exec()
                         .then(categoryObject=>{
-                            if(categoryObject){                                   
-                                resolve({
-                                    _id                 : categoryPresent._id, 
-                                    category            : categoryPresent.category,
-                                    categoryNameRlang   : categoryPresent.categoryNameRlang, 
-                                    subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
-                                });
+                            if(categoryObject){  
+                                let returnData = {
+                                                    _id                 : categoryPresent._id, 
+                                                    category            : categoryPresent.category,
+                                                    categoryNameRlang   : categoryPresent.categoryNameRlang, 
+                                                    subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
+                                                }                                 
+                                resolve(returnData);
+                                console.log("4. returnData => ",returnData)
                             }else{
                                 resolve(0);
                             }
                         })                            
                     }
                 }else{
-                    resolve({
-                        _id                 : categoryPresent._id, 
-                        category            : categoryPresent.category,
-                        categoryNameRlang   : categoryPresent.categoryNameRlang,
-                        subCategory_ID      : (data.subCategory && data.subCategory.length > 0 ? data.subCategory[0]._id : null) 
-                    });
+                    let returnData = {
+                                        _id                 : categoryPresent._id, 
+                                        category            : categoryPresent.category,
+                                        categoryNameRlang   : categoryPresent.categoryNameRlang,
+                                        subCategory_ID      : (data.subCategory && data.subCategory.length > 0 ? data.subCategory[0]._id : null) 
+                                    }
+                    console.log("5. returnData => ",returnData)
+                    resolve(returnData);
                 }                
             }
         }        
@@ -3823,8 +3833,10 @@ exports.products_by_lowest_price = (req,res,next)=>{
                     if(categoryData.subCategory && categoryData.subCategory.length > 0){
                         var subCategory = categoryData.subCategory.filter(subCategoryData => subCategoryData.subCategoryUrl === req.body.subcategoryUrl);
                         console.log("subCategory => ",subCategory);
-                        if(subCategory && subCategory !== '' && subCategory !== undefined ){
-                            selector["$and"].push({"subCategory_ID": ObjectId(subCategory._id) })
+                        console.log("subCategory condition => ",(subCategory && subCategory !== '' && subCategory !== undefined ));
+                        if(subCategory && subCategory.length > 0){
+                            console.log("subCategory _id => ",subCategory[0]._id);
+                            selector["$and"].push({"subCategory_ID": ObjectId(subCategory[0]._id) })
                         }
                         
                     }
