@@ -175,6 +175,7 @@ exports.list_cart_product = (req,res,next)=>{
     ])
     .exec()
     .then(data=>{
+        console.log("data",data);
         if(data && data.length> 0 && data[0].cartItems){
             for (let k = 0; k < data[0].cartItems.length; k++) {
                 data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
