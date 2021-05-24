@@ -106,6 +106,7 @@ class ProductCarousel extends Component {
       startRange   : 0,
       limitRange   : 10,
       vendor_ID    : "",
+      categoryUrl  : ""
     };
   }
   componentDidUpdate(){
@@ -185,15 +186,14 @@ class ProductCarousel extends Component {
               if(categoryResponse.data){     
                 console.log("3.response.data category list=",categoryResponse.data[0].categoryUrl); 
                 this.setState({
-                  categoryData     : categoryResponse.data,  
-                  // "categoryUrl"    : categoryResponse.data[0].categoryUrl,
-                  // "subCategoryUrl" : categoryResponse.data[0].subCategory[0].subCategoryUrl                       
+                  categoryData     : categoryResponse.data,                     
                 },()=>{
+
                   formValues = {
                     "vendor_ID"      : vendor_ID,
                     "sectionUrl"     : this.state.sectionUrl,
-                    "categoryurl"    : this.state.categoryUrl,
-                    "subCategoryUrl" : this.state.subCategoryUrl,
+                    "categoryUrl"    : this.state.categoryUrl===""?categoryResponse.data[0].categoryUrl:this.state.categoryUrl,
+                    "subCategoryUrl" : [this.state.subCategoryUrl],
                     "userLatitude"   : this.state.userLatitude,
                     "userLongitude"  : this.state.userLongitude,
                     "startRange"     : this.state.startRange,
@@ -207,11 +207,12 @@ class ProductCarousel extends Component {
             })
             
           }else{
+            console.log("blockSettings=>",this.state.blockSettings);
             formValues = {
               "vendor_ID"      : "",
-              "sectionUrl"     : this.state.blockSettings.sectionUrl,
-              "categoryurl"    : this.state.blockSettings.categoryUrl,
-              "subCategoryUrl" : this.state.blockSettings.subCategoryUrl,
+              "sectionUrl"     : this.state.blockSettings.section.replace(/\s/g, '-'),
+              "categoryUrl"    : this.state.blockSettings.category.replace(/\s/g, '-'),
+              "subCategoryUrl" : [this.state.blockSettings.subCategory.replace(/\s/g, '-')],
               "userLatitude"   : this.state.userLatitude,
               "userLongitude"  : this.state.userLongitude,
               "startRange"     : this.state.startRange,

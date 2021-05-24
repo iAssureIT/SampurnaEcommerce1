@@ -19,11 +19,23 @@ class DeliveryLocationPopup extends React.Component {
 		super(props);
 		this.state = { 
             address : "",
+            googleapiKey : "",
 		}; 
     }
-
     componentDidMount(){   
-        // console.log("homeFirstVist",this.props.homeFirstVisit)
+        axios.get("/api/projectSettings/get/GOOGLE",)
+         .then((response) => {
+              if(response.data){         
+                this.setState({
+                    "googleapiKey" : response.data.googleapikey,
+                })
+                
+              }
+         })
+         .catch((error) =>{
+            console.log(error)
+         })  
+
         if(this.props.homeFirstVisit){
             $('#locationModal').modal('show');   
         }
@@ -31,11 +43,8 @@ class DeliveryLocationPopup extends React.Component {
 
     takeCurrentLocation(){
         var that=this;
-        axios.get("/api/projectSettings/get/GOOGLE",)
-         .then((response) => {
-              if(response.data){         
-                         
-                Geocode.setApiKey(response.data.googleapikey);
+                console.log("google api key ===",that.state.googleapiKey);
+                Geocode.setApiKey(that.state.googleapiKey);
 
                  // set response language. Defaults to english.
                 Geocode.setLanguage('en');
@@ -57,49 +66,44 @@ class DeliveryLocationPopup extends React.Component {
 
                 navigator.geolocation.getCurrentPosition(function(position) {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
-                        .then((response) => {
-                                const address = response.results[0].formatted_address;
-                                var deliveryLocation = {
-                                    "address"        : response.results[0].formatted_address,
-                                    "city"           : response.results[0].city,
-                                    "area"           : response.results[0].area,
-                                    "district"       : response.results[0].district,
-                                    "pincode"        : response.results[0].pincode,
-                                    "country"        : response.results[0].country,
-                                    "stateCode"      : response.results[0].stateCode,
-                                    "countryCode"    : response.results[0].countryCode,
-                                    "latitude"       : position.coords.latitude,
-                                    "longitude"      : position.coords.longitude,
-                                    "homeFirstVisit" : false,
-                                }
-                                if(that.props.sampurnaWebsiteDetails){
-                                    var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
-                                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                                    // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
-                                }else{
-                                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-                                }
-
-                                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));           
-                                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
-                                that.setState({ address: deliveryLocation.address });                              
-                            },
-                            (error) => {
-                                console.error(error);
+                    .then((response) => {
+                            const address = response.results[0].formatted_address;
+                            var deliveryLocation = {
+                                "address"        : response.results[0].formatted_address,
+                                "city"           : response.results[0].city,
+                                "area"           : response.results[0].area,
+                                "district"       : response.results[0].district,
+                                "pincode"        : response.results[0].pincode,
+                                "country"        : response.results[0].country,
+                                "stateCode"      : response.results[0].stateCode,
+                                "countryCode"    : response.results[0].countryCode,
+                                "latitude"       : position.coords.latitude,
+                                "longitude"      : position.coords.longitude,
+                                "homeFirstVisit" : false,
                             }
-                        );
+                            if(that.props.sampurnaWebsiteDetails){
+                                var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
+                                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                                // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+                            }else{
+                                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                            }
+
+                            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));           
+                            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                            that.setState({ address: deliveryLocation.address });                              
+                        },
+                        (error) => {
+                            console.error(error);
+                        }
+                    );
                 });
-
-              }
-          })
-         .catch((error) =>{
-              console.log(error)
-         })       
+ 
     }
 
-    closeModal(event){        
-        $('#locationModal').modal('hide'); 
-    }
+    // closeModal(event){        
+    //     $('#locationModal').modal('hide'); 
+    // }
 
     saveLocation(event) {
         event.preventDefault();
@@ -131,6 +135,7 @@ class DeliveryLocationPopup extends React.Component {
         
         console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
     }
+
     handleChangePlaces = address => {
         this.setState({ address: address });
     };

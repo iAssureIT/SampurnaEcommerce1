@@ -16,7 +16,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'nprogress/nprogress.css'; //styles of nprogress
 import '../Themes/Sampurna/style/multivendor_global.css';
 import '../Themes/Sampurna/style/stdBlockStyle.css';
-
 const { publicRuntimeConfig } = getConfig();
 axios.defaults.baseURL = publicRuntimeConfig.API_BASE_URL;
 const current_site = publicRuntimeConfig.CURRENT_SITE;
@@ -43,11 +42,13 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
  export default function App({ Component, pageProps }){
 	const [googleAPIKey,setGoogleAPIKey]=useState();
+  const [initMap,setInitMap] = useState(false);
 	useEffect(() => {
 	 	axios.get("/api/projectSettings/get/GOOGLE",)
          .then((response) => {
-            // console.log("googleAPIKey response",response);
-              setGoogleAPIKey(response.data.googleapikey)
+            console.log("app.js googleAPIKey response",response.data.googleapikey);
+              setGoogleAPIKey(response.data.googleapikey);
+              window.initMap=setInitMap(true);
           })
          .catch((error) =>{
               console.log(error)
@@ -81,9 +82,18 @@ Router.events.on('routeChangeError', () => NProgress.done());
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
-        <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=geometry,drawing,places"}></script>                   
+        {/* <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=geometry,drawing,places"}></script>                  */}
       </Head>
-      <Component {...pageProps} />  
+      {
+        initMap ?
+        <ReactDependentScript
+          scripts={["https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=geometry,drawing,places"]}>
+             <Component {...pageProps} />
+          </ReactDependentScript>
+          :
+          null
+        }
+       
     </Provider>
   );  
 }
