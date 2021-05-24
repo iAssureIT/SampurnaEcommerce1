@@ -611,6 +611,18 @@ class ListOfEntities extends Component {
     			this.props.history.push("/"+this.state.entityType+"/basic-details")
         	}
     }
+	redirectToBulkUpload(event)
+    {
+        // if(this.state.resLength >= 1 && this.state.websiteModel == "SingleOwner"){
+        // 	 $(".addButtonList").addClass("btndisable");
+        // 	 swal({
+        //             title: "only one vendor can be added", 
+        //           });
+        // 	}else{
+
+    			this.props.history.push("/vendor-bulk-upload")
+        	// }
+    }
 
     showView(value,event){
 		$('.viewBtn').removeClass('btnactive');
@@ -640,17 +652,21 @@ class ListOfEntities extends Component {
                                     {this.props.bulkRequired 
 										?
                                             <ul className="nav tabNav nav-pills col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                                <li className="text-center pull-right toggle-selection"><a className="fieldTab" data-toggle="pill" href="#bulk">{this.state.pathname + " Bulk Upload"}</a></li>
-                                                <li className="active text-center pull-right toggle-selection"><a className="fieldTab" data-toggle="pill" href="#manual">{"Add "+this.state.pathname + " Manually"}</a></li>
+                                                <li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#bulk" onClick={this.redirectToBulkUpload.bind(this)}>{this.state.pathname + " Bulk Upload"}</a></li>
+                                                <li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#manual" onClick={this.redirectTo.bind(this)}>{"Add "+this.state.pathname + " Manually"}</a></li>
                                             </ul>
-                                        : null 
+                                        : 
+										<ul className="nav tabNav nav-pills col-lg-7 col-md-7 col-sm-12 col-xs-12">
+											{/* <li className="text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#bulk">{this.state.pathname + " Bulk Upload"}</a></li> */}
+											<li className="active text-center pull-right toggle-selection sentanceCase"><a className="fieldTab" data-toggle="pill" href="#manual" onClick={this.redirectTo.bind(this)} >{"Add "+this.state.pathname}</a></li>
+										</ul>
                                     }
                                 </div>
 
 
 								
-								<section className="Content tab-content">
-            						<div id="manual" className="tab-pane fade in active col-lg-12 col-md-12 col-sm-12 col-xs-12 mt">
+								{/* <section className="Content tab-content">
+            						<div id="manual" className="tab-pane fade in active col-lg-12 col-md-12 col-sm-12 col-xs-12 mt"> */}
 										<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 ">									
 											<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
 												<button type="button" className=" selectFilterBtnEL reset" onClick={this.selectFilter.bind(this)}>
@@ -804,9 +820,9 @@ class ListOfEntities extends Component {
 											:
 											null
 										}
-									</div>
+									{/* </div>
 									<div id="bulk" className="tab-pane fade in col-lg-12 col-md-12 col-sm-12 col-xs-12 mt"></div>
-								</section>
+								</section> */}
 							</div>
 						</section>
 					</div>

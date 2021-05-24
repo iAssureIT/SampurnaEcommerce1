@@ -208,5 +208,7 @@
     overflow-wrap: break-word;
 }
 .toggle-selection{
-    background-color: #eee;
+    /* background-color: #337ab7; */
+    color: #fff;
+    margin: 3px;
 }

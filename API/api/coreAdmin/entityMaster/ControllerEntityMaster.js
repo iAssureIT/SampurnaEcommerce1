@@ -1134,3 +1134,276 @@ exports.getVendorList = (req,res,next)=>{
  */
 
 };
+
+
+/*Bulk upload*/
+
+exports.bulkUploadEntity = (req, res, next) => {
+    var entity = req.body.data;
+    console.log("entity...",entity);
+    var validData       = [];
+    var validObjects    = [];
+    var invalidData     = [];
+    var invalidObjects  = [];
+    var remark          = '';
+    var failedRecords   = [];
+    var Count           = 0;
+    var DuplicateCount  = 0;
+
+    processData();
+    async function processData() {
+        for (var k = 0; k < entity.length; k++) {
+            if (entity[k].EntityType == '-') {
+                remark += "entityType not found, ";
+            }
+            if (entity[k].CompanyName == '-') {
+                remark += "companyName not found, ";
+            }
+            if (entity[k].GroupName == '-') {
+                remark += "groupName not found, ";
+            }
+            if (entity[k].CompanyEmail == '-') {
+                remark += "companyEmail not found, ";
+            }
+            if (entity[k].CompanyPhone == '-') {
+                remark += "companyPhone not found, ";
+            }
+
+            if (remark == '') {
+                var getnext = await getNextSequence(entity[k].EntityType)
+                if(entity[k].EntityType == 'corporate'){
+                    var str = "C"+parseInt(getnext)
+                }else if(entity[k].EntityType == 'vendor'){
+                   var str = "V"+parseInt(getnext)
+                }else if(entity[k].EntityType == 'supplier'){ 
+                    var str = "S"+parseInt(getnext)
+                }else{var str = 1}
+
+               validData.companyNo  = getnext ? getnext : 1;
+               validData.companyID  = str ? str : 1;
+
+                var departmentId, designationId;
+                if(entity[k].Department != '-'){
+                    // departmentId1 = departmentExists1[0]._id;
+                     var deptData = {
+                        companyID           : validData.companyID,
+                        department          : entity[k].Department,
+                        createdBy           : req.body.reqdata.createdBy
+                    }
+                   departmentId = await insertCompanywiseDepartment(deptData)
+                }
+
+                if(entity[k].Designation != '-'){
+                    var desigData= {
+                        companyID           : validData.companyID,
+                        designation          : entity[k].Designation,
+                        createdBy           : req.body.reqdata.createdBy
+                    
+                    }
+                    designationId = await insertCompanywiseDesignation(desigData)
+                }                
+
+                var allEntities = await fetchAllEntities(req.body.reqdata.entityType);
+                var employeeExists = allEntities.filter((data) => {
+                    if (data.entityType == entity[k].EntityType
+                        && data.companyName == entity[k].CompanyName
+                        && data.companyEmail == entity[k].CompanyEmail) {
+                        return data;
+                    }
+                })
+                validObjects.fileName       = req.body.fileName;
+                if (employeeExists.length == 0) {   
+                  
+                   
+                     var latlong = await getLatLong(entity[k].AddressLine2); 
+                     var lat=latlong[0].latitude;
+                     var lng=latlong[0].longitude;
+
+                     var  locations =[
+
+                                   {
+                                        locationType        : entity[k].Location1Type,
+                                        addressLine1        : entity[k].Address1flatNo,
+                                        addressLine2        : entity[k].Address1Line2,
+                                        country             : entity[k].Country1,
+                                        state               : entity[k].State1,
+                                        district            : entity[k].District1,
+                                        city                : entity[k].City1,
+                                        area                : entity[k].Area1,
+                                        pincode             : entity[k].Pincode1,
+                                        latitude            : lat,
+                                        longitude           : lng,
+                                        
+                                     }
+                                 ]
+                             let locationdetails = [];
+                                for( var a=0; a<locations.length; a++){
+                                    if((locations[a].locationType != 'null' || locations[a].addressLine1 != 'null' || locations[a].addressLine2 != 'null' ))
+                                      {
+                                       
+                                        locationdetails.push(locations[a]);
+                                            
+                                        }
+                                    }  
+                           var contactPersons      =[
+
+                                                    {
+
+                                                        branchName                : entity[k].BranchName,
+                                                        firstName                 : entity[k].FirstName,
+                                                        lastName                  : entity[k].LastName,
+                                                        phone                     : entity[k].Phone1,
+                                                        altPhone                  : entity[k].AltPhone,
+                                                        email                     : entity[k].Email,
+                                                        department                : entity[k].Department,
+                                                        designation               : entity[k].Designation,
+                                                        employeeID                : entity[k].EmployeeID,
+                                                        role                      : entity[k].Role,
+                                                        createUser                : entity[k].LoginCredential != '-' && (entity[k].LoginCredential).toLowerCase() === 'yes' ? true : false,
+                       
+                                                      }
+                                                   ]
+                                        // console.log("contactPersons",contactPersons);           
+                                        let contactdetails = [];
+                                            for( var a=0; a<contactPersons.length; a++){
+                                                if((contactPersons[a].branchName != null || contactPersons[a].firstName != null || 
+                                                    contactPersons[a].lastName != null || contactPersons[a].empCategory != null || contactPersons[a].empPriority != null || contactPersons[a].phone != null || contactPersons[a].altPhone != null || contactPersons[a].email != null ||
+                                                     contactPersons[a].department != null || contactPersons[a].designation != null || contactPersons[a].employeeID != null ))
+                                                    
+                                                    {
+
+                                                    if(contactPersons[a].branchName !== 'null'){
+                                                            contactPersons[a].branchName=0;    
+
+                                                    contactdetails.push(contactPersons[a]);
+                                                     }
+                                                        
+                                                    }
+                                                } 
+                                             
+                                                  
+                                     var users = await fetchAllUsers((entity[k].Email).toLowerCase());
+                                     // console.log("users1----",users1);
+                                     
+                                      if(users){
+                                        var userID = users._id
+                                      }else{
+                                         var userDetails = {
+
+                                            firstname               : entity[k].FirstName != '-'  ? entity[k].FirstName : null,
+                                            lastname                : entity[k].LastName != '-'  ? entity[k].LastName : null,
+                                            mobNumber               : entity[k].Phone != '-'  ? entity[k].Phone : null,
+                                            email                   : entity[k].Email != '-'  ? entity[k].Email : null,
+                                            companyID               : validData.companyID,
+                                            companyName             : entity[k].CompanyName != '-'  ? entity[k].CompanyName : null,
+                                            designation             : entity[k].Designation != '-'  ? entity[k].Designation : null,
+                                            department              : entity[k].Department != '-'  ? entity[k].Department : null,
+                                            pwd                     : "welcome123",
+                                            role                    : [  entity[k].Role != '-'  ? entity[k].Role : null],
+                                            status                    : 'blocked',
+                                            entityType              : entity[k].EntityType,
+                                            // "status"                :  entity[k].role1 ==="corporateadmin" || entity[k].role1 ==="vendoradmin" || entity[k].role1 === "admin" ? "active" :"blocked",
+                                            "emailSubject"  : "Email Verification",
+                                            "emailContent"  : "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
+                                        }
+                                         if( (userDetails.Email != '-') && ((entity[k].LoginCredential1).toLowerCase() === 'yes')){
+                                              var userID = await createUser(userDetails);
+                                             }
+                                              // var userID1=await createUser(userDetails);;
+                                              // console.log("userID----",userID);
+                                               let Personcontactdetails = [];
+                                                var person = await fetchAllPersons((entity[k].Email).toLowerCase());
+                                               if (person){}else{
+                                               var personDetails= {
+                                                        profileStatus             :"New",
+                                                        company_Id                : null,
+                                                        supplierOf                : null,
+                                                        companyID                 : validData.companyID,
+                                                        companyName               : entity[k].GroupName,
+                                                        type                      : "employee",
+                                                        entityType                : entity[k].EntityType,
+                                                        branchName                : entity[k].BranchName,
+                                                        firstName                 : entity[k].FirstNam,
+                                                        lastName                  : entity[k].LastName1,
+                                                        // empCategory               : entity[k].empCategory1,
+                                                        empPriority               : entity[k].EmpPriority,
+                                                        contactNo                 : entity[k].Phone,
+                                                        altContactNo              : entity[k].AltPhone,
+                                                        email                     : entity[k].Email,
+                                                        departmentId              : departmentId,
+                                                        designationId             : designationId,
+                                                        employeeId                : entity[k].EmployeeID,
+                                                        loginCredential           : entity[k].LoginCredential,
+                                                        userId                    : userID
+                                                      }
+                                                    // console.log("personDetails---",personDetails);
+                                                    } 
+                                                      // var entityTypeP=entity[k].EntityType;
+                                                      var personData=await savePerson(personDetails);
+                                        }
+                                        
+                                           
+                                     
+                                  
+                                               
+                                                        validObjects = {
+                                                        fileName                  : req.body.fileName,   
+                                                        entityType                : entity[k].EntityType,
+                                                        companyName               : entity[k].CompanyName,
+                                                        groupName                 : entity[k].GroupName,
+                                                        CIN                       : entity[k].CIN,   
+                                                        COI                       : [],
+                                                        TAN                       : entity[k].TAN,
+                                                        website                   : entity[k].Website,
+                                                        companyPhone              : entity[k].CompanyPhone,
+                                                        companyEmail              : entity[k].CompanyEmail,
+                                                        country                   : entity[k].Country,
+                                                        statutoryDetails          : finalstatutorydetails,
+                                                        locations                 : locationdetails,
+                                                        contactPersons            : contactdetails,
+                                                        contactPersons            : contactdetails,
+                                                        contactPersons            : contactdetails,
+                             
+                                }
+
+                                validData.push(validObjects);
+
+                            } else {
+
+                    remark += "data already exists.";
+
+                    invalidObjects = entity[k];
+                    invalidObjects.failedRemark = remark;
+                    invalidData.push(invalidObjects);
+                }
+
+            } else {
+
+              
+                invalidObjects = entity[k];
+                invalidObjects.failedRemark = remark;
+                invalidData.push(invalidObjects);
+            }
+            remark = '';
+        }
+        //console.log("validData",validData);
+        EntityMaster.insertMany(validData)
+            .then(data => {
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        failedRecords.FailedRecords = invalidData;
+        failedRecords.fileName = req.body.fileName;
+        failedRecords.totalRecords = req.body.totalRecords;
+
+        await insertFailedRecords(failedRecords, req.body.updateBadData);
+
+        res.status(200).json({
+            "message": "Bulk upload process is completed successfully!",
+            "completed": true
+        });
+    }
+};

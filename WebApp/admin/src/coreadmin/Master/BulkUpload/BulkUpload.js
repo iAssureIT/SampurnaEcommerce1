@@ -26,7 +26,17 @@ class BulkUpload extends Component{
     this.handleChange = this.handleChange.bind(this);
     this.handleFile   = this.handleFile.bind(this);
   } 
-  componentWillReceiveProps(){
+  componentDidMount(){
+    var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+    var token         = userDetails.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
+    var user_ID       = userDetails.user_id;
+    this.setState({
+      user_ID : user_ID
+    },()=>{
+      console.log("user_ID => ",this.state.user_ID);
+    })
     
   }            
   handleChange(e) {
@@ -101,14 +111,14 @@ class BulkUpload extends Component{
   }
   bulkUpload() {
     $('.fullpageloader').show();
-    var initialLmt = 0;
-    var factor = 200;
-    var endLmt = initialLmt+factor;
-    var totalrows = this.state.inputFileData.length;
-    var chunkData = [];
+    var initialLmt  = 0;
+    var factor      = 200;
+    var endLmt      = initialLmt+factor;
+    var totalrows   = this.state.inputFileData.length;
+    var chunkData   = [];
     var excelChunkData = [];
 
-    
+   
     const startProcess = async (data)=>{
       for (var i = initialLmt; i < endLmt; i++) {
         if (this.state.inputFileData[i]) {
@@ -120,13 +130,13 @@ class BulkUpload extends Component{
         if (i === endLmt-1 && i !== totalrows && chunkData.length>0) {
           var formValues = {
             data      : chunkData,
-            reqdata   : this.props.data,
+            // reqdata   : this.props.data,
+            reqdata   : {createdBy : this.state.user_ID},
             fileName  : this.state.fileName,
             totalRecords : totalrows,
-            companyID     :this.props.companyID,
             updateBadData : i > factor ? false : true
           }; 
-           console.log('formValue',formValues)
+          console.log('formValue',formValues)
           // var formValues ={
           // "finaldata"     : chunkData,
           // "invalidData"   : invalidData,
@@ -137,7 +147,7 @@ class BulkUpload extends Component{
           // console.log('this.props.url',this.props.url);
           await axios({
             method : 'post',
-            url    : this.props.url,
+            url    : "/api/entitymaster/bulkUploadEntity",
             data   : formValues
           })
           .then((response)=> {
@@ -152,15 +162,19 @@ class BulkUpload extends Component{
                 $('.fullpageloader').hide();
                 $('.filedetailsDiv').show();
                 this.props.getFileDetails(this.state.fileName); 
-                //this.props.getData(this.state.startRange, this.state.limitRange) 
+                // this.props.getData(this.state.startRange, this.state.limitRange) 
               }
               this.setState({percentage:percentage},()=>{})
               chunkData = [];
               initialLmt += factor;  
               endLmt = initialLmt+factor; 
             }
+          this.setState({
+            filename:"",
+          })
           })
         }
+         // window.location.reload();
       }
     }
     startProcess(this.props.data);
@@ -193,12 +207,25 @@ class BulkUpload extends Component{
       "csv"
     ]
     return (
-       <div className=" container-fluid">
+      //  <div className=" container-fluid">
+         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding NOpadding-right">
+                <section className="content">
+                    {/* <Message messageData={this.state.messageData} /> */}
+                    <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent">
+                        <div className="row">
+                            <div className="addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">
+                                <div className="">
+                                    <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                        <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-left" >
+                                            <h4 className="weighttitle NOpadding-right">Vendor Bulk Upload</h4>
+                                        </div>
+                                        
+                                    </div> 
        <Loader type="fullpageloader" percentage={this.state.percentage}/>
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bulkEmployeeContent">
             <h4 className="weighttitle col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">Bulk Upload</h4>
             <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 bulkEmployeeImg">
-              <a href={this.props.fileurl} download>
+              <a title="click here to download sample file"href={this.props.fileurl} download>
                 <img src="/images/Excel-download-icon.png" />
               </a>
             </div>
@@ -221,13 +248,13 @@ class BulkUpload extends Component{
           </div>
           {
             this.state.inputFileData.length > 0 ?
-            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-4 marginTop21">
-              <button className="button3 submitBtn btn"
+            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-4" style={{marginTop:'1.6%'}}>
+              <button className="submitBtnGo btn addBtn vendorBulkUploadBtn bulksubmitbtn"
               onClick={this.bulkUpload.bind(this)} >Submit</button>
             </div>           
             :
-            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-4 marginTop21">
-              <button className="button3 btn submitBtn "
+            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-4" style={{marginTop:'1.6%'}}>
+              <button className="submitBtn btn addBtn bulksubmitbtn"
                     disabled>Submit</button>
             </div>        
           }
@@ -238,16 +265,16 @@ class BulkUpload extends Component{
             this.props.fileDetails ?
             <div className="">
               <ul className="nav nav-tabs">
-                <li className="active"><a data-toggle="tab" href={"#failure"+this.props.failedRecordsCount}>Failure</a></li>
-                <li ><a data-toggle="tab" href={"#success"+this.props.goodDataCount}>Success</a></li>
+                <li className={this.props.fileDetails.failedRecords && this.props.fileDetails.failedRecords.length == 0 ? "active" : ""}><a data-toggle="tab" href={"#success"+this.props.goodDataCount}>Success</a></li>
+                 <li className={this.props.fileDetails.failedRecords && this.props.fileDetails.failedRecords.length > 0 ? "active" : ""}><a data-toggle="tab" href={"#failure"+this.props.failedRecordsCount}>Failure</a></li>
               </ul>
               <div className="tab-content">
-              <h5>Filename: <span>{this.state.fileName}</span></h5>
-                <div id={"failure"+this.props.failedRecordsCount} className="tab-pane fade in active">
+              <h5>File Name: <span>{this.state.fileName}</span></h5>
+                <div id={"failure"+this.props.failedRecordsCount} className={this.props.fileDetails.failedRecords && this.props.fileDetails.failedRecords.length> 0 ? "tab-pane fade in active" : "tab-pane fade"}>
                 <h5>
-                Out of {this.props.fileDetails.totalRecords } {this.props.fileDetails.totalRecords > 1 ? "records" : "record"},  &nbsp;
+                Out of {this.props.fileDetails ? this.props.fileDetails.totalRecords : null } {this.props.fileDetails && this.props.fileDetails.totalRecords > 1 ? "records" : "record"},  &nbsp;
 
-                {this.props.fileDetails.failedRecords.length} bad {this.props.fileDetails.failedRecords.length > 1 ? "records were " : "record was " }found.
+                {this.props.fileDetails.failedRecords ? this.props.fileDetails.failedRecords.length : null} bad {this.props.fileDetails.failedRecords && this.props.fileDetails.failedRecords.length > 1 ? "records were " : "record was " }found.
                 </h5>
                   <div className="text-right">
                   <br/>
@@ -274,7 +301,7 @@ class BulkUpload extends Component{
                       <thead>
                         <tr>
                         {
-                          this.props.fileDetails.failedRecords[0] ? 
+                          this.props.fileDetails.failedRecords && this.props.fileDetails.failedRecords.length > 0 && this.props.fileDetails.failedRecords[0] ? 
                           Object.entries(this.props.fileDetails.failedRecords[0]).map( ([key, value], i)=> {
                            return(<th>{key}</th>);
                           }) : null
@@ -302,15 +329,26 @@ class BulkUpload extends Component{
                     </div>
 
                   </div>
-                <div id={"success"+this.props.goodDataCount} className="tab-pane fade">
+                <div id={"success"+this.props.goodDataCount} className={this.props.fileDetails.failedRecords && this.props.fileDetails.failedRecords.length == 0 ? "tab-pane fade in active" : "tab-pane fade"}>
                   <h5>
                   {
                     /*Out of {this.props.fileDetails.totalRecords} {this.props.fileDetails.totalRecords > 1 ? "records" : "record"},  {this.props.fileDetails.goodrecords.length} {this.props.fileDetails.goodrecords.length > 1 ? "records are" : "record is" } added successfully. &nbsp;
                   */}
-                  Total {this.props.fileDetails.goodrecords.length} { this.props.fileDetails.totalRecords > 1 ? "records" : "record"} found from this file.
+                  Total {this.props.fileDetails.goodrecords ? this.props.fileDetails.goodrecords.length : 0} { this.props.fileDetails.totalRecords > 1 ? "records" : "record"} found from this file.
                   </h5>
-                      {/* {console.log('this.props.goodRecordsHeading',this.props.goodRecordsHeading)}
-                      {console.log('this.props.goodRecordsTable',this.props.goodRecordsTable)} */}
+                       <div className="text-right">
+                  <br/>
+                  {console.log(this.props.goodRecordsHeading)}
+                   <ReactHTMLTableToExcel
+                    id="test-table-xls-button1"
+                    className="download-table-xls-button"
+                    table={"gooddata"+this.props.goodDataCount}
+                    filename="tablexls"
+                    sheet="tablexls"
+                    buttonText="Download as XLS"/>
+                      <br/>
+                    </div>  
+                    <div style={{overflowX: "auto"}}>  
                       <IAssureTable 
                       tableHeading={this.props.goodRecordsHeading}
                       twoLevelHeader={this.state.twoLevelHeader} 
@@ -319,9 +357,39 @@ class BulkUpload extends Component{
                       //getData={this.getData.bind(this)}
                       tableObjects={this.state.tableObjects}
                       />
-                  {
+
+                   <table className="table" width="50%" id={"gooddata"+this.props.goodDataCount} style={{display:"none"}}>
+                      <thead>
+                        <tr>
+                        {
+                          this.props.fileDetails.failedRecords && this.props.fileDetails.failedRecords.length > 0 && this.props.fileDetails.failedRecords[0] ? 
+                          Object.entries(this.props.fileDetails.failedRecords[0]).map( ([key, value], i)=> {
+                           return(<th>{key}</th>);
+                          }) : null
+                        }
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {
+                        this.props.fileDetails.goodrecords ? 
+                        this.props.fileDetails.goodrecords.map((data,index)=>{
+                            {console.log("data",data)}
+                         
+                          return(
+                            <tr key={index}>
+                            {/*{ Object.entries(data).map( ([key, value], i)=> {
+                                return(<td>{data[key]}</td>);
+                              })
+                            }*/}
+                          </tr>
+                          );
+                        }) 
+                        : null
+                      }
+                      </tbody>
+                    </table>
                   
-                }
+                </div>
                 </div>
                 
               </div>
@@ -330,6 +398,11 @@ class BulkUpload extends Component{
           }
         </div>
       </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      </section>
       </div>
     )
   }

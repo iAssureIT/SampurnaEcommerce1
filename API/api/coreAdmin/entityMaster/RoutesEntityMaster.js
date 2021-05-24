@@ -73,6 +73,8 @@ router.patch('/patch/updateSingleContact', 					checkAuth, entityMaster.updateSi
 
 router.post('/post/vendor/list', 								entityMaster.getVendorList);
 
+router.post('/bulkUploadEntity',                                entityMaster.bulkUploadEntity);
+
 // router.get('/get/checkBAExists/:emailID', baController.check_ba_exists);
 
 router.delete('/delete/:entityID', 								checkAuth, entityMaster.deleteEntity);
