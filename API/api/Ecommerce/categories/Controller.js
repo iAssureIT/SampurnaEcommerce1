@@ -494,8 +494,8 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
                 if(productData && productData.length > 0){
                     processData();
                     async function processData(){                    
-                        var categories           = [...new Set(productData.map(item => String(item.category_ID)))];
-                        var subCategories        = [...new Set(productData.map(item => String(item.subCategory_ID)))];
+                        var categories           = [...new Set(productData.map(item => String(item.category_ID)).filter(x => x !== undefined))];
+                        var subCategories        = [...new Set(productData.map(item => String(item.subCategory_ID)).filter(x => x !== undefined))];
                          
                         // console.log("categories => ",categories);
                         // console.log("subCategories => ",subCategories);
