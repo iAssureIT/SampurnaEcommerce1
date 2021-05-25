@@ -19,6 +19,7 @@ import {MenuCarouselSection}  from '../../ScreenComponents/Section/MenuCarouselS
 import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import FilterModal            from '../../ScreenComponents/FilterModal/FilterModal.js';  
 import { getCategoryWiseList }from '../../redux/productList/actions.js';
+import { ActivityIndicator } from 'react-native-paper';
 
 export const VendorProducts = (props)=>{
   const isFocused = useIsFocused();
@@ -30,6 +31,7 @@ export const VendorProducts = (props)=>{
   const [showFilters,setShowFilters]= useState(false);
   const [subCategory,setSubCategory]= useState([]);
   const {navigation,route}=props;
+  const [payload_obj,setPayload] = useState();
   const {vendor,sectionUrl,section}=route.params;
   const dispatch 		= useDispatch();
   console.log("route.params",route.params);
@@ -90,10 +92,12 @@ export const VendorProducts = (props)=>{
       "vendorID"          : vendor.vendor_ID,
       "sectionUrl"        : sectionUrl,
       "categoryUrl"       : e.categoryUrl,
-      "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
+      "subCategoryUrl"    : [],
+      // "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
       "startRange"        : 0,
       "limitRange"        : 20
     } 
+    setPayload(payload);
     dispatch(getCategoryWiseList(payload));
   }
 
@@ -132,7 +136,19 @@ export const VendorProducts = (props)=>{
 
        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
           <View style={styles.formWrapper}>
-            <ProductList navigate = {navigation.navigate} newProducts={productList.categoryWiseList}  userId={userId}  loading={productList.loading}/>
+          {productList.loading ?
+            <ActivityIndicator />
+            :
+            <ProductList 
+              navigate      = {navigation.navigate} 
+              newProducts   = {productList.categoryWiseList}  
+              userId        = {userId}  
+              loading       = {productList.loading}
+              limit         = {20}
+              payload       = {payload_obj}
+              type          = "vendor_sub_cat"
+            />
+          }  
           </View>
       </ScrollView>
 
@@ -144,8 +160,7 @@ export const VendorProducts = (props)=>{
           visible         = {showFilters}
           subCategory     = {subCategory}
           brandsArray     = {[]}
-          modelsArray     = {[]}
-          fuelTypesArray  = {[]}
+          sizeArray       = {[]}
           vendor_id       = {vendor.vendor_ID}
           sectionUrl      = {sectionUrl}
       />

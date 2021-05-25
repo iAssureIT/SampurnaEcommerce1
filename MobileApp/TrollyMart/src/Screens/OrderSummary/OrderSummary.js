@@ -17,6 +17,9 @@ import Notification       from '../../ScreenComponents/Notification/Notification
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
 import {withCustomerToaster}  from '../../redux/AppState.js';
+import { connect,
+  useDispatch,
+  useSelector }               from 'react-redux';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -45,12 +48,19 @@ import {withCustomerToaster}  from '../../redux/AppState.js';
     const [cartData, setCartData] = useState('');
     const [subtotalitems,setSubTotalItems] = useState('');
     const [subtotal,setSubTotal] = useState('');
-    const [currency,setCurrency] = useState('');
+    // const [currency,setCurrency] = useState('');
     const [totaloriginalprice, setOrignalPrice] = useState(0);
     const [saving,setTotalSaving] =useState(0);
     useEffect(() => {
       getData();
   }, [props]);
+
+
+  const store = useSelector(store => ({
+    preferences     : store.storeSettings.preferences,
+  }));
+  console.log("store",store);
+  const {currency}=store.preferences;
 
   const getData=()=>{
     setAddDataAddType(addData.addType);
@@ -133,7 +143,7 @@ const getCartData=(userId)=>{
         setCartData(response.data[0].cartItems);
         setSubTotal(response.data[0].subTotal);
         setTotalSaving(response.data.saving);''
-        setCurrency(response.data[0].cartItems[0].productDetail.currency);
+        // setCurrency(response.data[0].cartItems[0].productDetail.currency);
         gettotalcount(response.data[0].cartItems);
       } else {
         setCartData([]);
@@ -279,14 +289,14 @@ const getCartData=(userId)=>{
                               <View style={styles.flxmg}>
                                 <Text style={styles.productname}>{item.productDetail.productName}</Text>
                                 <View style={styles.productdets}>
-                                  <Icon
+                                  {/* <Icon
                                     name={item.productDetail.currency}
                                     type="font-awesome"
                                     size={11}
                                     color="#666"
                                     iconStyle={styles.iconstyle}
-                                  />
-                                  <Text style={styles.proddetprice}>{item.productDetail.discountedPrice * item.quantity}</Text>
+                                  /> */}
+                                  <Text style={styles.proddetprice}>{currency} {item.productDetail.discountedPrice * item.quantity}</Text>
                                 </View>
                                 {/* <Text style={styles.prodqtyunit}>Size: {item.productDetail.size + " " + item.productDetail.unit}</Text> */}
                                 <Text style={styles.prodqtyunit}>Qty: {item.quantity + " Pack(s)"}</Text>
@@ -314,14 +324,7 @@ const getCartData=(userId)=>{
                       </View>
                       <View style={styles.flx3}>
                         <View style={styles.endrow}>
-                          <Icon
-                            name={currency}
-                            type="font-awesome"
-                            size={15}
-                            color="#666"
-                            iconStyle={styles.iconstyle}
-                          />
-                          <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{totaloriginalprice}</Text>
+                          <Text style={styles.totalpriceincart}>{currency}&nbsp;&nbsp;{totaloriginalprice}</Text>
                         </View>
                       </View>
                     </View>
@@ -337,13 +340,7 @@ const getCartData=(userId)=>{
                         
                         { 
                           discountin === "Amount" ? 
-                            <Icon
-                              name={currency}
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.iconstyle}
-                            />
+                          <Text style={styles.totalpriceincart}>{currency}</Text>
                           : null 
                         }
                         <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{discountvalue > 1 ? discountvalue : 0.00}</Text>
@@ -384,14 +381,14 @@ const getCartData=(userId)=>{
                       </View>
                       <View style={styles.flx3}>
                         <View style={styles.endrow}>
-                          <Icon
+                          {/* <Icon
                             name={currency}
                             type="font-awesome"
                             size={15}
                             color="#666"
                             iconStyle={styles.iconstyle}
-                          />
-                          <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{  discountdata !== undefined ?
+                          /> */}
+                          <Text style={styles.totalpriceincart}>{currency}&nbsp;&nbsp;{  discountdata !== undefined ?
                                             totaloriginalprice && discountin === "Percent" ?
                                                     totaloriginalprice - (totaloriginalprice * discountvalue)/ 100
                                                     : totaloriginalprice - discountvalue

@@ -142,6 +142,86 @@ exports.list_cart = (req,res,next)=>{
         });
     });
 };
+// exports.list_cart_product = (req,res,next)=>{
+//     // console.log(req.params.user_ID);
+//     Carts.aggregate([
+//         { "$match" : { "user_ID" : ObjectId(req.params.user_ID) } },
+//         { "$unwind": "$cartItems" },
+//         { "$lookup": {
+//             "from": "products",
+//             "as": "cartItems.productDetail",
+//             "localField": "cartItems.product_ID",
+//             "foreignField": "_id"
+//         }},
+//         { "$unwind": "$cartItems.productDetail" },
+//         {
+//             "$addFields": {
+//                 "cartItems.subTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
+//                 "cartItems.saving":  { "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] } ,
+//             }
+//         },
+//         { "$group": {
+//             "_id": "$_id",
+//             "paymentMethod":{ "$first": "$paymentMethod" },
+//             "deliveryAddress":{ "$first": "$deliveryAddress" },
+//             "cartItems": { "$push": "$cartItems" },
+//             "cartTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] } },
+//             "discount": { "$sum":{ "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] }},
+//             "total": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
+//             "cartQuantity":{ "$sum": "$cartItems.quantity" },
+//             }
+//         },
+            
+//     ])
+//     .exec()
+//     .then(data=>{
+//         console.log("data",data);
+//         if(data && data.length> 0 && data[0].cartItems){
+//             for (let k = 0; k < data[0].cartItems.length; k++) {
+//                 data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
+//             }
+//             console.log("data[0].cartItems[k]",data[0]);
+//             if(req.params.user_ID!=='null'){
+//                 Wishlists.find({user_ID:req.params.user_ID})
+//                 .then(wish=>{
+//                     if(wish.length > 0){
+//                         for(var i=0; i<wish.length; i++){
+//                             for(var j=0; j<data[0].cartItems.length; j++){
+//                                 if(String(wish[i].product_ID) === String(data[0].cartItems[j].product_ID)){
+//                                     data[0].cartItems[j]= {...data[0].cartItems[j], isWish:true};
+//                                     break;
+//                                 }
+//                             }
+//                         }   
+//                         if(i >= wish.length){
+//                             res.status(200).json(data);
+//                         }       
+//                     }else{
+//                         res.status(200).json(data);
+//                     }
+//                  })
+//                  .catch(err =>{
+//                     console.log(err);
+//                     res.status(500).json({
+//                         error: err
+//                     });
+//                 });
+//             }else{
+//                 res.status(200).json(data);
+//             }    
+//         }else{
+//             res.status(200).json(data);
+//         }
+//     })
+//     .catch(err =>{
+//         console.log("err",err);
+//         res.status(500).json({
+//             error: err
+//         });
+//     });
+// };
+
+
 exports.list_cart_product = (req,res,next)=>{
     // console.log(req.params.user_ID);
     Carts.aggregate([
@@ -161,7 +241,8 @@ exports.list_cart_product = (req,res,next)=>{
             }
         },
         { "$group": {
-            "_id": "$_id",
+            "_id":"$cartItems.productDetail.vendor_ID",
+            "vendorName": { "$first": "$cartItems.productDetail.vendorName" },
             "paymentMethod":{ "$first": "$paymentMethod" },
             "deliveryAddress":{ "$first": "$deliveryAddress" },
             "cartItems": { "$push": "$cartItems" },
@@ -171,11 +252,11 @@ exports.list_cart_product = (req,res,next)=>{
             "cartQuantity":{ "$sum": "$cartItems.quantity" },
             }
         },
-            
     ])
     .exec()
     .then(data=>{
         console.log("data",data);
+
         if(data && data.length> 0 && data[0].cartItems){
             for (let k = 0; k < data[0].cartItems.length; k++) {
                 data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
@@ -220,6 +301,9 @@ exports.list_cart_product = (req,res,next)=>{
         });
     });
 };
+
+
+
 exports.all_list_cart = (req,res,next)=>{
     Carts.find()       
         .exec()

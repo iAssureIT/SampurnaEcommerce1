@@ -74,7 +74,7 @@ export const getCategoryWiseList = (payload) => {
             });
             if(!payload.categoryUrl){
                 payload.categoryUrl = category?.data[0]?.categoryUrl;
-                payload.subCategoryUrl = category?.data[0]?.subCategory[0]?.subCategoryUrl;
+                // payload.subCategoryUrl = category?.data[0]?.subCategory[0]?.subCategoryUrl;
             }
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{

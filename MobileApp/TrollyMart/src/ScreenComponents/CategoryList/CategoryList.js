@@ -10,12 +10,13 @@ import axios                  from 'axios';
 import Animated               from "react-native-reanimated";
 import { connect,useDispatch,useSelector }      from 'react-redux';
 import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
-
+import { useIsFocused }       from "@react-navigation/native";
 export const CategoryList = (props)=>{
   const {navigation,showImage,boxHeight}=props;
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [selected,setSelected]=useState('');
+  const isFocused = useIsFocused();
   const store = useSelector(store => ({
     categoryList  : store.productList.categoryList,
   }));
@@ -27,7 +28,7 @@ export const CategoryList = (props)=>{
       props.setCategory(categoryList[0])
       setSelected(categoryList[0]?.category);
     }
-   },[]);
+   },[isFocused,categoryList[0]?.category]);
 
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, i })=>{

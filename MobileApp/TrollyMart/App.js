@@ -12,7 +12,7 @@ import {AuthLoadingScreen}    from "./src/ScreenComponents/AuthLoadingScreen/Aut
 import SplashScreen           from 'react-native-splash-screen';
 
 axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com/';
-// axios.defaults.baseURL = 'http://10.39.1.103:3366';
+// axios.defaults.baseURL = 'http://10.39.1.188:3366';
 console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
 
  const App = () => {

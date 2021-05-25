@@ -24,7 +24,7 @@ import { useIsFocused }       from "@react-navigation/native";
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
-  const {setToast,category_ID,loading,section_id,list_type} = props; 
+  const {setToast,category_ID,loading,section_id,list_type,payload} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
@@ -111,6 +111,10 @@ export const ProductList = withCustomerToaster((props)=>{
     setLimit(limitRange);
     if(type === "Search"){
       dispatch(getSearchResult(props.searchText,user_id,limitRange));
+    }if(type === "vendor_sub_cat"){
+      console.log("payload",payload);
+        payload.limitRange =limitRange;
+        dispatch(getCategoryWiseList(payload));
     }else{
       dispatch(getList(type,user_id,limitRange));
     }
@@ -325,7 +329,7 @@ export const ProductList = withCustomerToaster((props)=>{
               </View>
             }
               onEndReached={({ distanceFromEnd }) => {
-                if(distanceFromEnd >= 0 && limit > 6) {
+                if(distanceFromEnd >= 0 && limit > 10) {
                   onEnd();
                      //Call pagination function
                 }

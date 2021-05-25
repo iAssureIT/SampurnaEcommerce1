@@ -33,7 +33,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const [alreadyinwishlist,setAlreadyInWishlist] = useState(false);
   const [user_id,setUserId]                = useState('');
   const [productdata,setProductData]        = useState([]);
-  const [number,setNumber]                = useState('');
+  const [number,setNumber]                = useState(1);
   const [addToCart,setAddToCart]          = useState(false);
   const {navigation,route,setToast} =props;
   const {productID,currency}=route.params;

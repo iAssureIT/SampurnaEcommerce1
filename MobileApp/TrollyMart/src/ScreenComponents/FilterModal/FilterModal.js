@@ -57,6 +57,11 @@ const FilterModal = (props) => {
 //     setFilterListLocal(filterList);
 //   }, [filterList]);
   useEffect(() => {
+    setFilters({
+      subCategory: [],
+      brandsArray:[],
+      sizeArray:[],
+    })
     // axios
     //   .post('/call_run_time_master', {
     //     lang_id: '1',
@@ -90,7 +95,7 @@ const FilterModal = (props) => {
     //   .catch((err) => {
     //     console.log('filter error', err);
     //   });
-  }, [localFilters]);
+  }, [props]);
 //   console.log('filterLIST', filterListLocal);
   return (
     <SafeAreaView forceInset={{vertical: 'always'}} >
@@ -226,14 +231,15 @@ const FilterModal = (props) => {
                 var payload ={
                     "vendorID"          : vendor_id,
                     "sectionUrl"        : sectionUrl,
-                    "categoryUrl"       : localFilters.subCategory[0].value.split("^")[0],
-                    "subCategoryUrl"    : localFilters.subCategory[0].value.split("^")[1],
+                    "categoryUrl"       : localFilters.subCategory[0]?.value.split("^")[0],
+                    "subCategoryUrl"    : localFilters.subCategory.map(e=>e.value?.split("^")[1]),
                     "startRange"        : 0,
                     "limitRange"        : 20
                   } 
                 dispatch(getCategoryWiseList(payload));
                 closeModal();
               }}
+              disabled={localFilters.subCategory.length>0?false:true}
               titleStyle={{color: colors.theme}}
               buttonStyle={{borderRadius: 0, backgroundColor: colors.layoutColor}}
             />

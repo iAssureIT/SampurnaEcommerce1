@@ -540,6 +540,9 @@ function getCategoryList(categories){
 
 /**=========== getSubCategoryList() ===========*/
 function getSubCategoryList(categories, subcategories){
+    console.log("categories===>",categories);
+    console.log("subcategories===>",subcategories);
+
     return new Promise(function(resolve,reject){
         Category.find(
             {
@@ -562,10 +565,10 @@ function getSubCategoryList(categories, subcategories){
         )              
         .exec()
         .then(categoryDetails=>{
-            // console.log("categoryDetails * => ",categoryDetails);
+            console.log("categoryDetails * => ",categoryDetails);
             if(categoryDetails && categoryDetails.length > 0){
                 var returnData = categoryDetails.map((a, i)=>{
-                    // console.log("a = > " , a)
+                    console.log("a = > " , a)
                     return {
                         "_id"                   : a._id,
                         "category"              : a.category,
