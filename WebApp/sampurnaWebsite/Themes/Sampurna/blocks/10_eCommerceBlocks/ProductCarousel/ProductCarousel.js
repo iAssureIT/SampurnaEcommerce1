@@ -11,8 +11,6 @@ import Select                 from 'react-select';
 import getConfig              from 'next/config';
 import $, { post }            from 'jquery';
 import jQuery                 from 'jquery';
-// import { useRouter }          from 'next/router';
-
 import Style                  from './ProductCarousel.module.css';
 import Product                from './Product.js';
 import 'react-multi-carousel/lib/styles.css';
@@ -104,7 +102,7 @@ class ProductCarousel extends Component {
       userLatitude : "",
       userLatitude : "",
       startRange   : 0,
-      limitRange   : 10,
+      limitRange   : 25,
       vendor_ID    : "",
       categoryUrl  : ""
     };
@@ -179,12 +177,12 @@ class ProductCarousel extends Component {
           
         },async ()=>{
           if(this.state.blockSettings.showCarousel === false){
-            console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
+            // console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
            
             await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
             .then((categoryResponse)=>{
               if(categoryResponse.data){     
-                console.log("3.response.data category list=",categoryResponse.data[0].categoryUrl); 
+                // console.log("3.response.data category list=",categoryResponse.data[0].categoryUrl); 
                 this.setState({
                   categoryData     : categoryResponse.data,                     
                 },()=>{
@@ -207,12 +205,12 @@ class ProductCarousel extends Component {
             })
             
           }else{
-            console.log("blockSettings=>",this.state.blockSettings);
+            // console.log("blockSettings=>",this.state.blockSettings);
             formValues = {
               "vendor_ID"      : "",
-              "sectionUrl"     : this.state.blockSettings.section.replace(/\s/g, '-'),
-              "categoryUrl"    : this.state.blockSettings.category.replace(/\s/g, '-'),
-              "subCategoryUrl" : [this.state.blockSettings.subCategory.replace(/\s/g, '-')],
+              "sectionUrl"     : this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase(),
+              "categoryUrl"    : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
+              "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
               "userLatitude"   : this.state.userLatitude,
               "userLongitude"  : this.state.userLongitude,
               "startRange"     : this.state.startRange,
@@ -220,50 +218,50 @@ class ProductCarousel extends Component {
              }
           }
 
-          // if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
-          //   var productApiUrl = this.props.productApiUrl;
-          //   console.log("productApiUrl===",productApiUrl);
-          // }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
-          //   var productApiUrl = this.props.productApiUrl;
-          //   console.log("productApiUrl===",productApiUrl);
-          // }else{ 
-          //     var productApiUrl = this.state.blockSettings.blockApi;
-          //     console.log("productApiUrl===",this.props.productApiUrl);
-          // }
-
-          var productApiUrl = this.props.productApiUrl;
-          console.log("4.productApiUrl===",productApiUrl);
-          console.log("5. formvalues =>",formValues);
-          axios.post(this.state.blockSettings.blockApi,formValues)     
-          .then((response)=>{
-            if(response.data){     
-            // console.log("response.data in product carousel===",response.data);       
-            if(localStorage.getItem('websiteModel')=== "FranchiseModel"){
-              for(var i=0;i<response.data.length;i++){       
-                  var availableSizes = [];         
-                  if(response.data[i].size){              
-                    availableSizes.push(response.data[i].size*1);
-                    availableSizes.push(response.data[i].size*2);
-                    availableSizes.push(response.data[i].size*4); 
-                    response.data[i].availableSizes = availableSizes;           
-                  }
-              }
-            } 
-            this.setState({
-              newProducts     : response.data,                          
-            },()=>{
-              if(this.state.newProducts.length>0){
-                this.setState({
-                  ProductsLoading : true,
-                  loading         : false
-                });  
-              }
-            });
+          if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
+            var productApiUrl = this.props.productApiUrl;
+            // console.log("productlist productApiUrl===",productApiUrl);
+          }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
+            var productApiUrl = this.props.productApiUrl;
+            // console.log("productApiUrl===",productApiUrl);
+          }else{ 
+              var productApiUrl = this.state.blockSettings.blockApi;
+              // console.log("productApiUrl===",productApiUrl);
           }
-          })
-          .catch((error)=>{
-              console.log('error', error);
-          })
+          console.log("productApiUrl===",productApiUrl);
+          console.log("5. formvalues =>",formValues);
+          if(productApiUrl){
+            axios.post(productApiUrl,formValues)     
+            .then((response)=>{
+              if(response.data){     
+              // console.log("response.data in product carousel===",response.data);       
+              if(localStorage.getItem('websiteModel')=== "FranchiseModel"){
+                for(var i=0;i<response.data.length;i++){       
+                    var availableSizes = [];         
+                    if(response.data[i].size){              
+                      availableSizes.push(response.data[i].size*1);
+                      availableSizes.push(response.data[i].size*2);
+                      availableSizes.push(response.data[i].size*4); 
+                      response.data[i].availableSizes = availableSizes;           
+                    }
+                }
+              } 
+              this.setState({
+                newProducts     : response.data,                          
+              },()=>{
+                if(this.state.newProducts.length>0){
+                  this.setState({
+                    ProductsLoading : true,
+                    loading         : false
+                  });  
+                }
+              });
+            }
+            })
+            .catch((error)=>{
+                console.log('error', error);
+            })
+        }//end productApiUrl
         });
       }else{
         this.setState({          
@@ -292,7 +290,6 @@ class ProductCarousel extends Component {
       })
   }
   getBrandsBySection(sectionUrl) {
-    // console.log("sectionUrl===",sectionUrl);
 		axios.get("/api/products/get/listBrand/" + sectionUrl)
     .then((response) => {
       this.setState({
@@ -713,10 +710,8 @@ class ProductCarousel extends Component {
 			selector.limit = "50";
 		}
 
-    // axios.post("/api/products/post/list/filterProducts/", selector)
     axios.post("/api/products/post/list/filterProductsByCategory/", selector)
 			.then((response) => {
-        // console.log("selector response=======",response.data);
 				this.setState({ 
           newProducts: response.data ,
           ProductsLoading : true
@@ -730,8 +725,7 @@ class ProductCarousel extends Component {
   render() {
     const { effect } = this.state;
     const { displayProducts } = this.state;
-    // console.log("1. inside render");    
-    
+
     var LGCol = 12/this.state.blockSettings.noOfProductPerLGRow;
     var MDCol = 12/this.state.blockSettings.noOfProductPerMDRow;
     var SMCol = 12/this.state.blockSettings.noOfProductPerSMRow;
@@ -754,7 +748,7 @@ class ProductCarousel extends Component {
           : null
           } 
 
-        <div className={"col-12 "}>
+        <div className={"col-12 NoPadding "}>
           {this.state.newProducts && this.state.newProducts.length > 0 ?
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
               <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
@@ -762,7 +756,7 @@ class ProductCarousel extends Component {
                   {this.state.ProductsLoading === false ?                     
                     <Loader type="carouselloader" productLoaderNo = {4}/>                    
                   :
-                  <div className={"col-12 " +Style.NoPadding}>               
+                  <div className={"col-12 " }>               
                   { this.state.blockSettings.showCarousel === true?
                   <Carousel  
                     className={Style.customnNavButton +" " +Style.carouselNewWrapper}
@@ -783,6 +777,14 @@ class ProductCarousel extends Component {
                     deviceType={this.props.deviceType}
                     itemclassName="carousel-item-padding-10-px">
 
+                        {/* {this.state.newProducts.length>=1?
+                          <Product newProducts={this.state.newProducts}
+                                productSettings = {this.state.productSettings}
+                                blockSettings   = {this.state.blockSettings}
+
+                          />
+                        :
+                        null} */}
                     { 
                       Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
                         Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
@@ -798,7 +800,6 @@ class ProductCarousel extends Component {
                             }   
                             var categoryUrl = (data.category).replace(/\s+/g, '-').toLowerCase();                  
                           return (
-                            // <div className={"col-lg-"+LGCol+" col-md-"+MDCol+" col-sm-"+SMCol+" col-xs-"+XSCol +" " +Style.productWrap +" " +Style.customePadding}   key={index}> 
                               <div key={index} className={"col-12 " +Style.singleProduct}>                          
                               <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                                 <div className={"col-12 NoPadding"}>
@@ -860,7 +861,6 @@ class ProductCarousel extends Component {
                                           localStorage.getItem("websiteModel")=== "FranchiseModel"?                                  
                                             data.discountPercent ?    
                                             <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
-                                              {/* <span className={Style.price}><span className={Style.oldprice}><i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice} { data.size? "/ " +data.size +" "+data.unit:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span>                                  */}
                                               <span className={Style.price}><span className={Style.oldprice}><i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice}</span>    
                                             </div>   
                                             :
@@ -885,10 +885,7 @@ class ProductCarousel extends Component {
                                         <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
                                             <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding " +Style.NoPadding} onMouseOver={this.showRatingBlock.bind(this)} >
                                                 <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.showRating}> 4 <i className="fas fa-star"></i></div>                                        
-                                            </span>  
-                                            {/* <div className="col-12 NoPadding ratingBlock">
-                                                <RatingBlock />
-                                            </div>                                   */}
+                                            </span>                                  
                                             <span className={"col-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
                                             {this.state.productSettings.displayAssuranceIcon === true ?
                                               <span className={"col-4 NoPadding " +Style.NoPadding +" " +Style.assurenceIcon}>
@@ -907,8 +904,6 @@ class ProductCarousel extends Component {
                                                 <select className={"col-12 " +Style.selectdropdown +" " +Style.valid +" " +Style.availablesize +" " +Style.NoPadding} currpro={data._id} id={data._id +"-size"} mainsize={data.size} unit={data.unit} name="size" aria-invalid="false">
                                                   { Array.isArray(data.availableSizes) && data.availableSizes.map((size, index) => {
                                                       return( 
-                                                        // <option className="selectedSize" value={availablesize.productSize}>{availablesize.packSize} Pack</option>
-                                                        
                                                           size === 1000?                                                  
                                                           <option className="" value={size} key={index}> 1 KG</option>
                                                           :
@@ -928,7 +923,6 @@ class ProductCarousel extends Component {
                                             </div>
                                             :
                                             data.availableQuantity > 0 ?
-                                              // <button type="submit" id={data._id} className={"fa fa-shopping-cart pull-right" } color={data.color} productcode={data.productCode} availableQuantity={data.availablequantity} onClick={this.addtocart.bind(this)} title="Add to Cart" >
                                               <div>
                                               {this.state.user_ID?
                                               <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
@@ -956,16 +950,17 @@ class ProductCarousel extends Component {
                         :''
                         // <Loader type="carouselloader" productLoaderNo = {4}/>
                     }
+
                   </Carousel>
                   : 
-                  <div className={"col-12 " +Style.ProductListWrapper}>              
+                  <div className={"col-12 NoPadding " +Style.ProductListWrapper }>              
                   <div className={"container-fluid " }>
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
                   <div className={"row NoPadding " +Style.BlockWrapper +" " +Style.NoPadding}>     
                     
                     {this.state.categoryData && this.state.categoryData.length>0?    
-                    <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-12  filterWrapper " +Style.filterBlockWrapper}> 
+                    <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-12 NoPadding  filterWrapper " +Style.filterBlockWrapper}> 
                     <div className="panel-group" id="accordion">                      
                       <div className={Style.categoryFilterTitle}> Categories </div>  
                       {
@@ -1041,12 +1036,12 @@ class ProductCarousel extends Component {
                   </div> 
                   :' '
                   }
-                  <div className={"col-9 col-sm-12 col-xs-12 NoPadding ProductViewWrapper "+Style.ProductViewWrapper}> 
+                  <div className={"col-9 col-sm-12 col-xs-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className="row">
                       <div className={"col-12 " +Style.rightSidefilter}>
                         <div className ="row">
                         <div className={"col-12 "}>
-                          <div className="col-3 col-xs-6 pull-left">     
+                          <div className="col-3 col-xs-6 NoPadding pull-left">     
                             <div className="form-group ">
                                 <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
                                 <Select
@@ -1057,7 +1052,7 @@ class ProductCarousel extends Component {
                                 />
                             </div> 
                           </div>
-                          <div className="col-3 col-xs-8 pull-right">
+                          <div className="col-3 col-xs-8 NoPadding pull-right">
                               <div className="form-group ">
                                   <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
                                   <Select
@@ -1072,17 +1067,23 @@ class ProductCarousel extends Component {
                         </div>
                       </div>
                     </div> 
-                    {this.state.newProducts.length>=1?
-                      <Product newProducts={this.state.newProducts}
-                            productSettings = {this.state.productSettings}
-                            blockSettings   = {this.state.blockSettings}
 
-                      />
-                    :
-                    <div className="col-2 offset-5 ">          
-                        <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
+                    <div className="col-12">
+                      <div className="row">
+                        {this.state.newProducts.length>=1?
+                          <Product newProducts={this.state.newProducts}
+                                productSettings = {this.state.productSettings}
+                                blockSettings   = {this.state.blockSettings}
+
+                          />
+                        :
+                        <div className="col-2 offset-5 ">          
+                            <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
+                        </div>
+                        }
+                      </div>
                     </div>
-                    }
+
                   </div>                    
                   </div>                    
                   :
@@ -1105,9 +1106,8 @@ class ProductCarousel extends Component {
                   </div>
                 }
                             
-                  </div>
-                }
-                  
+                </div>
+                } 
                 </div>
               </div>
             </div>

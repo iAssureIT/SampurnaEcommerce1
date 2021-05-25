@@ -46,7 +46,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
 	useEffect(() => {
 	 	axios.get("/api/projectSettings/get/GOOGLE",)
          .then((response) => {
-            console.log("app.js googleAPIKey response",response.data.googleapikey);
+            // console.log("app.js googleAPIKey response",response.data.googleapikey);
               setGoogleAPIKey(response.data.googleapikey);
               window.initMap=setInitMap(true);
           })

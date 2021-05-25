@@ -316,31 +316,24 @@ class Product extends Component{
       var XSCol = 12/this.state.blockSettings.noOfProductPerXSRow;
       // console.log("XSCol==",XSCol);
       return (
-        <div className="col-12">
-          <div className="row">
-          <Message messageData={this.state.messageData} /> 
-          {      
-            Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
+        <div className="row">
+         <Message messageData={this.state.messageData} /> 
+           { Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
             Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
                 var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
                 // var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';
                 var tooltipMsg = '';
-                // console.log("this.state.wishList===",this.state.wishList);
                 if (x && x.length > 0) {
                   wishClass = '';
                   tooltipMsg = 'Remove from wishlist';
-                  // console.log("wishclassName=",wishClass);
                 } else {
                   wishClass = 'r';
-                  // console.log("wishclassName=",wishClass);
                   tooltipMsg = 'Add To Wishlist';
                 }   
-                var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();
-                // console.log("data product=====",(data.category).replace(/\s+/g, '-').toLowerCase());                    
+                var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
               return (
                 <div className={" col-sm-"+LGCol+" col-"+XSCol +" " +Style.mobileViewPadding }   key={index}> 
-                  {/* <div key={index} className={"col-lg-3 " +Style.singleProduct}>                           */}
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
@@ -356,9 +349,7 @@ class Product extends Component{
                         </div>
                         <div className={styleMedia.ImgWrapper}>
                         <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
-                        {/* <Link href={"/productDetail/"+categoryUrl+"/"+data.productUrl+"/"+data._id}> */}
                         <a className={Style.product_item_photo } tabIndex="-1" >
-                          {/* <img loading="lazy" src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" className={Style.noAvailableImg +" " +Style.productImg +"lazyload img-responsive col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"}/> */}
                           <Image                                           
                             src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                             alt="ProductImg" 
@@ -375,7 +366,7 @@ class Product extends Component{
                         <div className={"col-12 " +Style.innerDiv}>
                           {this.state.productSettings.displayBrand === true ?
                             data.brandNameRlang?
-                            <div className={"col-12 globalProduct_brand RegionalFont"} title={data.brandNameRlang}>{data.brandNameRlang}</div>
+                            <div className={"col-12 globalProduct_brand RegionalFont1"} title={data.brandNameRlang}>{data.brandNameRlang}</div>
                             :
                               <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={data.brand}>{data.brand}</div>
 
@@ -403,7 +394,6 @@ class Product extends Component{
                               localStorage.getItem("websiteModel")=== "FranchiseModel"?                                  
                                 data.discountPercent ?    
                                 <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
-                                  {/* <span className={Style.price}><span className={Style.oldprice}><i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice} { data.size? "/ " +data.size +" "+data.unit:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span>                                  */}
                                   <span className={Style.price}><span className={Style.oldprice}>
                                     <i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice}</span>    
                                 </div>   
@@ -454,8 +444,6 @@ class Product extends Component{
                                     <select className={"col-12 " +Style.selectdropdown +" " +Style.valid +" " +Style.availablesize +" " +Style.NoPadding} currpro={data._id} id={data._id +"-size"} mainsize={data.size} unit={data.unit} name="size" aria-invalid="false">
                                       { Array.isArray(data.availableSizes) && data.availableSizes.map((size, index) => {
                                           return( 
-                                            // <option className="selectedSize" value={availablesize.productSize}>{availablesize.packSize} Pack</option>
-                                            
                                               size === 1000?                                                  
                                               <option className="" value={size} key={index}> 1 KG</option>
                                               :
@@ -475,7 +463,6 @@ class Product extends Component{
                                 </div>
                                 :
                                 data.availableQuantity > 0 ?
-                                  // <button type="submit" id={data._id} className={"fa fa-shopping-cart pull-right" } color={data.color} productcode={data.productCode} availableQuantity={data.availablequantity} onClick={this.addtocart.bind(this)} title="Add to Cart" >
                                   <div>
                                   {this.state.user_ID?
                                   <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
@@ -500,18 +487,17 @@ class Product extends Component{
               );
             
             })
-            :<div>No products available</div>
+            :<div className ="text-center">Opps... Sorry... No Products Available</div>
             // <Loader type="carouselloader" productLoaderNo = {4}/>
-        }
+          }
         </div>
-       </div>
+      //  </div>
      
      ) 
     }
 }
 
 const mapStateToProps = state => (
-  // console.log("state in productCarousel====",state.data),
   {
     recentCartData     : state.data.recentCartData,
     recentWishlistData : state.data.recentWishlistData,

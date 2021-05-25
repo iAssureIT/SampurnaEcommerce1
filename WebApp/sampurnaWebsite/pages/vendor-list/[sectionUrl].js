@@ -37,22 +37,26 @@ const VendorList = ()=> {
             <section>
                 <Header />    
                 <div className="col-12">
+                    <div className="col-12">
                     <div className="row">
-                        <div className={"col-12 text-center mt2 mb2 " +Style.vendorlistTitle}> Select Shop</div>
-                        <div className={"col-12  "+Style.vendorListWrapper}>
+                        <div className="col-12">
+                            <div className={"col-12 text-center  mt2 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
+                        </div>
+                        
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
-                                    // {console.log("vendordata===",vendordata);}
                                     return(
-                                        <div className={"card col-4  " +Style.vendorCard} key={index}>
-                                            <Link href={"/products/"+vendordata.vendor_ID+"/"+sectionUrl} className={+Style.vedorLink}>
-                                                <div className={"card-body " +Style.cardBody}>
-                                                    <div className={ "col-3 NoPadding "+Style.vendorLogo}>
-                                                        <img src={vendordata.vendorLogo} className="vendor img-thumbnail"/>
-                                                    </div>   
-                                                    <div>{vendordata.vendorName}</div>
-                                                </div> 
-                                            </ Link >
+                                        <div className="col-4">
+                                            <div className={"card mt-4 " +Style.vendorCard} key={index}>
+                                                <Link href={"/products/"+vendordata.vendor_ID+"/"+sectionUrl} className={+Style.vedorLink}>
+                                                    <div className={"card-body " +Style.cardBody}>
+                                                        <div className={ "col-3 NoPadding "+Style.vendorLogo}>
+                                                            <img src={vendordata.vendorLogo} className="vendor img-thumbnail"/>
+                                                        </div>   
+                                                        <div>{vendordata.vendorName}</div>
+                                                    </div> 
+                                                </ Link >
+                                            </div>
                                         </div>
                                     )
                                 })

@@ -429,7 +429,7 @@ font-weight: bold;
 }
 .categoryFilterTitle{
   font-size: 20px;
-  padding: 20px 0px;
+  padding: 20px 10px;
   border-bottom:solid 1px #ddd;
 }
 .filterBlockWrapper{
