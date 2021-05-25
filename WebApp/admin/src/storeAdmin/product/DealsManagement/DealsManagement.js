@@ -235,6 +235,8 @@ class DealsManagement extends React.Component {
            .then((response) => {
              this.setState({
                 subcategoryArray: response.data.subCategory,
+             },()=>{
+               console.log("subcategory Array--",this.state.subcategoryArray);
              })
            })
            .catch((error) => {
@@ -280,8 +282,10 @@ class DealsManagement extends React.Component {
         const target 	= event.target;
         const name 		= target.name;
         var value = event.target.value.split("_")[1];
+        console.log("value==",value);
+        console.log("value==",name);
         this.setState({
-           [name]: value,
+           [name]: event.target.value,
         });
      }
 
@@ -731,25 +735,6 @@ class DealsManagement extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-
-                                    {/* <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 toggleWrapper">                                        
-                                        <div className="form-group ">
-                                            <label className="label-category labelform col-lg-9 col-md-5 col-sm-5 col-xs-5 NoPadding">show only brand<span className="astrick"></span></label>
-                                            <Switch                                                
-                                                checked={this.state.showOnlyBrand}                                   
-                                                onChange={(event) => { this.setState({"showOnlyBrand": this.state.showOnlyBrand===true?false:true}
-                                                ,() => {
-                                                   
-                                                    })
-                                                }}
-                                                onColor={'#5CB85C'}
-                                                offColor={'#D9534F'}
-                                                height={25}
-                                                width={60}
-                                            />
-                                        </div>                                      
-                                    </div> */}
-
 
                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitBtnWrapper">
                                         {

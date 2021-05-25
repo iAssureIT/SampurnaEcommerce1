@@ -213,7 +213,7 @@ color: #FBBD65!important;
   z-index: 0 !important;
 } 
 .productImg a{
-  display: block;
+  display: grid;
   text-align: center;
   /*padding-top: 20px;*/
   outline: 0px;

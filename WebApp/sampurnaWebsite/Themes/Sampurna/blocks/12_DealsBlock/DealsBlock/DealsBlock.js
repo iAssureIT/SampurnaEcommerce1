@@ -17,21 +17,7 @@ class ShoppingVerticals extends Component {
     super(props);
     this.state = {      
       productType : props.type,
-      itemList: [
-        { 
-          "_id": "5f523c318429470d0da77a3e",          
-          itemImage: '',
-          item: "Item1",
-          itemUrl: "item1",
-        },
-        { 
-          "_id": "5f523c318429470d0da77a3a",          
-          itemImage: '',
-          item: "Item2",
-          itemUrl: "item2"
-        },
-        
-      ],
+      itemList: [],
       Productsloading    : true,
       blockTitle         : "Deals Of the day",      
       dealSettings : {
@@ -108,6 +94,7 @@ class ShoppingVerticals extends Component {
 
     var XLcol = 12/this.state.itemList.length;
     return (
+      this.state.itemList.length>0?
       <div className="col-12 mt20">
         <div className="row">          
           <div className="col-12 tab-content customTabContent ">
@@ -177,6 +164,7 @@ class ShoppingVerticals extends Component {
           </div>
         </div>
       </div>
+      :null
     );
   }
 }

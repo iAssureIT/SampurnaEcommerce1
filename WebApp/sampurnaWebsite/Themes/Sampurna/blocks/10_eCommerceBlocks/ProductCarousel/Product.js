@@ -414,7 +414,7 @@ class Product extends Component{
                                 <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
                                   <span className={Style.price}>
                                     {/* <i className="fas fa-rupee-sign"></i> */}
-                                    AED &nbsp;{data.originalPrice} </span> &nbsp;                                      
+                                    AED &nbsp;{(data.originalPrice).toFixed(2)} </span> &nbsp;                                      
                                 </div> 
                             }
                           </div>

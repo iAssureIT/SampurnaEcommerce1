@@ -137,6 +137,9 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
+    var abc = "https://devwebsite.knock-knockeshop.com/products/60927c4d55d8a79218dec71d/supermarket";
+    var abc = "https://devwebsite.knock-knockeshop.com/products/60927c4d55d8a79218dec71d/supermarket"
+    console.log("abc ===",abc.split('/') );
     console.log("url =>",url);
 
     if(url[4] !== "undefined"){
@@ -871,8 +874,11 @@ class ProductCarousel extends Component {
                                           :                                    
                                             data.discountPercent ?
                                             <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                              <span className={Style.price}><span className={Style.oldprice }>&nbsp;<i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice}&nbsp;</span>&nbsp;
-                                              <i className="fa fa-inr"></i>&nbsp;{data.discountedPrice+".00"} 
+                                              <span className={Style.price}><span className={Style.oldprice }>&nbsp;
+                                              {/* <i className="fas fa-rupee-sign"></i> */}
+                                              AED&nbsp;{(data.originalPrice).toFixed(2)}&nbsp;</span>&nbsp;
+                                              {/* <i className="fa fa-inr"></i> */}
+                                              AED&nbsp;{(data.discountedPrice).toFixed(2)} 
                                               </span>
                                             </div>
                                             :  
