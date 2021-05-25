@@ -496,10 +496,10 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
                     async function processData(){                    
                         var categories           = [...new Set(productData.map(item => String(item.category_ID)))];
                         var subCategories        = [...new Set(productData.map(item => String(item.subCategory_ID)))];
-                        categories= categories.filter(x => x !== undefined);
-                        subCategories = subCategories.filter(x => x !== undefined);
-                        // console.log("categories => ",categories);
-                        // console.log("subCategories => ",subCategories);
+                        categories= categories.filter(item => item !== undefined);
+                        subCategories = subCategories.filter(item => item !== undefined);
+                        console.log("categories => ",categories);
+                        console.log("subCategories => ",subCategories);
                         // var categoryList = await getCategoryList(categories);
                         var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
                         
