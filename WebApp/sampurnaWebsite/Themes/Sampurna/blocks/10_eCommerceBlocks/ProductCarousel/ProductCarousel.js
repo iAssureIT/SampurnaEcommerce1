@@ -139,7 +139,7 @@ class ProductCarousel extends Component {
     var url = window.location.href.split('/');
     console.log("url =>",url);
 
-    if(url[4] !== undefined){
+    if(url[4] !== "undefined"){
       var vendor_ID      = url[4];
       var sectionUrl     = url[5];
       var categoryUrl    = url[6];

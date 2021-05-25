@@ -25,7 +25,7 @@ export default class MyOrders extends Component {
         "orderID": "",
         "userID" : "",
         customerReview: "",
-        loading: true
+        loading: false
         // "notificationData" :Meteor.subscribe("notificationTemplate"),
       };
     } else {
@@ -114,7 +114,7 @@ export default class MyOrders extends Component {
     $('.fullpageloader').show();
     event.preventDefault();
     var rating = $('input[name="ratingReview"]:checked', '.feedbackForm').val();
-    console.log("rating===",rating);
+    // console.log("rating===",rating);
     // if(rating < 0 || rating === undefined){
     //   this.setState({
     //     reviewStarError: "Please give star rating."
@@ -450,13 +450,14 @@ export default class MyOrders extends Component {
     return (
       <div>
         <Header />
-        <BreadCrumbs />
+        {/* <BreadCrumbs /> */}
         <div className="container">
           <Message messageData={this.state.messageData} />
           
           {
             this.state.loading ?
-              <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> :
+              <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> 
+              :
 
               <div className="col-12 NOpadding">
                 <br />

@@ -4,6 +4,7 @@
     background-image: url("/images/eCommerce/vendorCard.jpg");
     background-position: 100%;
     background-color: rgba(0,0,0,0.5); 
+    cursor: pointer;
 }
 .cardBody{
     color: #fff;

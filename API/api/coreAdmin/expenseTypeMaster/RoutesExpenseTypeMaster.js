@@ -8,7 +8,7 @@ router.post('/insertExpenseType', 		checkAuth, ExpenseTypeMasterContoller.insert
 
 router.get('/showAllData', 				checkAuth, ExpenseTypeMasterContoller.showAllData);
 
-router.post('/get/list', 					checkAuth, ExpenseTypeMasterContoller.fetchExpenseTypeList);
+router.post('/get/list', 				ExpenseTypeMasterContoller.fetchExpenseTypeList);
 
 router.get('/get/one/:fieldID', 			checkAuth, ExpenseTypeMasterContoller.fetchSingleExpenseType);
 

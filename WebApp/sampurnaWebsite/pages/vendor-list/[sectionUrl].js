@@ -46,8 +46,8 @@ const VendorList = ()=> {
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
                                     return(
-                                        <div className="col-4">
-                                            <div className={"card mt-4 " +Style.vendorCard} key={index}>
+                                        <div className="col-4" key={index}>
+                                            <div className={"card mt-4 " +Style.vendorCard}>
                                                 <Link href={"/products/"+vendordata.vendor_ID+"/"+sectionUrl} className={+Style.vedorLink}>
                                                     <div className={"card-body " +Style.cardBody}>
                                                         <div className={ "col-3 NoPadding "+Style.vendorLogo}>
