@@ -496,11 +496,11 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
                     async function processData(){                    
                         var categories           = [...new Set(productData.map(item => String(item.category_ID)).filter(item => item !== 'undefined'))];
                         var subCategories        = [...new Set(productData.map(item => String(item.subCategory_ID)).filter(item => item !== 'undefined'))];
-                        console.log("categories => ",categories);
-                        console.log("subCategories => ",subCategories);
+                        // console.log("categories => ",categories);
+                        // console.log("subCategories => ",subCategories);
                         // var categoryList = await getCategoryList(categories);
                         var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
-                        
+                        console.log("categoryAndSubcategoryList",categoryAndSubcategoryList);
                         res.status(200).json(categoryAndSubcategoryList);
                     }
                 }
@@ -539,8 +539,8 @@ function getCategoryList(categories){
 
 /**=========== getSubCategoryList() ===========*/
 function getSubCategoryList(categories, subcategories){
-    console.log("categories===>",categories);
-    console.log("subcategories===>",subcategories);
+    // console.log("categories===>",categories);
+    // console.log("subcategories===>",subcategories);
 
     return new Promise(function(resolve,reject){
         Category.find(
