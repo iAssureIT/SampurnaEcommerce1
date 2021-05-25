@@ -1,12 +1,16 @@
-const mongoose  = require("mongoose");
-
-const EntityMaster = require('./ModelEntityMaster');
-const PersonMaster = require('../personMaster/ModelPersonMaster.js');
-var ObjectId 					= require('mongodb').ObjectID;
+const mongoose          = require("mongoose");
+const NodeGeocoder      = require('node-geocoder');
+const EntityMaster      = require('./ModelEntityMaster');
+const PersonMaster      = require('../personMaster/ModelPersonMaster.js');
+const DepartmentMaster  = require('../departmentMaster/ModelDepartmentMaster.js');
+const DesignationMaster = require('../designationMaster/ModelDesignationMaster.js');
+const User              = require('../userManagement/ModelUsers.js');
+const FailedRecords     = require('../failedRecords/ModelFailedRecords');
+var ObjectId 		    = require('mongodb').ObjectID;
+const globalVariable    = require("../../../nodemon.js");
+const axios             = require('axios');
 // var request = require('request-promise');
 // const gloabalVariable = require('../../nodemon.js');
-var   ObjectID          = require('mongodb').ObjectID;
-
 exports.insertEntity = (req,res,next)=>{
     insertEntityFun();
     async function insertEntityFun(){
@@ -14,12 +18,12 @@ exports.insertEntity = (req,res,next)=>{
         // if(req.body.entityType == 'corporate'){var str = "C"+parseInt(getnext)}else if(req.body.entityType == 'vendor'){var str = "V"+parseInt(getnext)}else{var str = 1}
 
         EntityMaster.findOne({  
-                            companyName               : req.body.companyName,
-                            groupName                 : req.body.groupName,
-                            companyEmail              : req.body.companyEmail, 
-                            companyPhone              : req.body.companyPhone,
-                            website                   : req.body.website   
-                            })
+            companyName               : req.body.companyName,
+            groupName                 : req.body.groupName,
+            companyEmail              : req.body.companyEmail, 
+            companyPhone              : req.body.companyPhone,
+            website                   : req.body.website   
+        })
         .exec()
         .then(data=>{
             if (data) {
@@ -1135,12 +1139,9 @@ exports.getVendorList = (req,res,next)=>{
 
 };
 
-
-/*Bulk upload*/
-
+/*=========== Bulk upload Entity ===========*/
 exports.bulkUploadEntity = (req, res, next) => {
-    var entity = req.body.data;
-    console.log("entity...",entity);
+    var entity          = req.body.data;
     var validData       = [];
     var validObjects    = [];
     var invalidData     = [];
@@ -1149,261 +1150,538 @@ exports.bulkUploadEntity = (req, res, next) => {
     var failedRecords   = [];
     var Count           = 0;
     var DuplicateCount  = 0;
+    console.log("entity...",entity);
 
     processData();
     async function processData() {
         for (var k = 0; k < entity.length; k++) {
-            if (entity[k].EntityType == '-') {
-                remark += "entityType not found, ";
-            }
-            if (entity[k].CompanyName == '-') {
-                remark += "companyName not found, ";
-            }
-            if (entity[k].GroupName == '-') {
-                remark += "groupName not found, ";
-            }
-            if (entity[k].CompanyEmail == '-') {
-                remark += "companyEmail not found, ";
-            }
-            if (entity[k].CompanyPhone == '-') {
-                remark += "companyPhone not found, ";
-            }
-
-            if (remark == '') {
-                var getnext = await getNextSequence(entity[k].EntityType)
-                if(entity[k].EntityType == 'corporate'){
-                    var str = "C"+parseInt(getnext)
-                }else if(entity[k].EntityType == 'vendor'){
-                   var str = "V"+parseInt(getnext)
-                }else if(entity[k].EntityType == 'supplier'){ 
-                    var str = "S"+parseInt(getnext)
-                }else{var str = 1}
-
-               validData.companyNo  = getnext ? getnext : 1;
-               validData.companyID  = str ? str : 1;
-
-                var departmentId, designationId;
-                if(entity[k].Department != '-'){
-                    // departmentId1 = departmentExists1[0]._id;
-                     var deptData = {
-                        companyID           : validData.companyID,
-                        department          : entity[k].Department,
-                        createdBy           : req.body.reqdata.createdBy
-                    }
-                   departmentId = await insertCompanywiseDepartment(deptData)
+            console.log("entityType = > ",k, entity[k].EntityType)
+            console.log("Condition => ", (entity[k].EntityType !== '-'))
+            if (entity[k].EntityType !== '-') {
+                // remark += "entityType not found, ";
+            
+                if (entity[k].CompanyName === '-') {
+                    remark += "companyName not found, ";
+                }
+                if (entity[k].GroupName === '-') {
+                    remark += "groupName not found, ";
+                }
+                if (entity[k].CompanyEmail === '-') {
+                    remark += "companyEmail not found, ";
+                }
+                if (entity[k].CompanyPhone === '-') {
+                    remark += "companyPhone not found, ";
                 }
 
-                if(entity[k].Designation != '-'){
-                    var desigData= {
-                        companyID           : validData.companyID,
-                        designation          : entity[k].Designation,
-                        createdBy           : req.body.reqdata.createdBy
+                if (remark === '') {
+                    var getnext = await getNextSequence(entity[k].EntityType)
+                    // console.log("entity[k].EntityType => ",entity[k].EntityType)
+                    if(entity[k].EntityType == 'corporate'){
+                        var str = "C"+parseInt(getnext)
+                    }else if(entity[k].EntityType == 'vendor'){
+                    //    var str = "V"+parseInt(getnext)
+                    var str = parseInt(getnext)
+                    }else if(entity[k].EntityType == 'supplier'){ 
+                        var str = "S"+parseInt(getnext)
+                    }else{var str = 1}
+
+                    var companyNo  = getnext ? getnext : 1;
+                    var companyID  = str ? str : 1;
+
+
+                    // var departmentId, designationId;
+                    // if(entity[k].Department != '-'){
+                    //     // departmentId1 = departmentExists1[0]._id;
+                    //      var deptData = {
+                    //         companyID           : validData.companyID,
+                    //         department          : entity[k].Department,
+                    //         createdBy           : req.body.reqdata.createdBy
+                    //     }
+                    //    departmentId = await insertCompanywiseDepartment(deptData)
+                    // }
+
+                    // if(entity[k].Designation != '-'){
+                    //     var desigData= {
+                    //         companyID           : validData.companyID,
+                    //         designation         : entity[k].Designation,
+                    //         createdBy           : req.body.reqdata.createdBy
+                        
+                    //     }
+                    //     designationId = await insertCompanywiseDesignation(desigData)
+                    // }                
+                    console.log("req.body.EntityType => ", entity[k].EntityType);
+                    var allEntities     = await fetchAllEntities(entity[k].EntityType);
+                    // console.log("allEntities => ", allEntities);
+                    var vendorExists  = allEntities.filter((data) => {
+
+                        // console.log("data.companyName => ", data.companyName);
+                        // console.log("entity[k].companyName => ", entity[k].CompanyName);
+                        if ((data.companyName).toLowerCase() === (entity[k].CompanyName).toLowerCase()) {
+                            return data;
+                        }
+                    })
+                    // console.log("vendorExists=> ",vendorExists);
+                    if(vendorExists && vendorExists.length === 0){
                     
-                    }
-                    designationId = await insertCompanywiseDesignation(desigData)
-                }                
+                        var employeeExists  = allEntities.filter((data) => {
+                            if (data.entityType == entity[k].EntityType
+                                && data.companyName == entity[k].CompanyName
+                                && data.companyEmail == entity[k].CompanyEmail) {
+                                return data;
+                            }
+                        })
 
-                var allEntities = await fetchAllEntities(req.body.reqdata.entityType);
-                var employeeExists = allEntities.filter((data) => {
-                    if (data.entityType == entity[k].EntityType
-                        && data.companyName == entity[k].CompanyName
-                        && data.companyEmail == entity[k].CompanyEmail) {
-                        return data;
-                    }
-                })
-                validObjects.fileName       = req.body.fileName;
-                if (employeeExists.length == 0) {   
-                  
-                   
-                     var latlong = await getLatLong(entity[k].AddressLine2); 
-                     var lat=latlong[0].latitude;
-                     var lng=latlong[0].longitude;
+                        // console.log("allEntities => ",allEntities)
+                        // console.log("employeeExists => ",employeeExists)
+                        // console.log("employeeExists => ",employeeExists.length)
+                        validObjects.fileName       = req.body.fileName;
 
-                     var  locations =[
+                        if (employeeExists && employeeExists.length === 0) {               
+                        
+                            var latlong    = await getLatLong(entity[k].AddressLine2); 
+                            var lat        = latlong[0].latitude;
+                            var lng        = latlong[0].longitude;
 
-                                   {
-                                        locationType        : entity[k].Location1Type,
-                                        addressLine1        : entity[k].Address1flatNo,
-                                        addressLine2        : entity[k].Address1Line2,
-                                        country             : entity[k].Country1,
-                                        state               : entity[k].State1,
-                                        district            : entity[k].District1,
-                                        city                : entity[k].City1,
-                                        area                : entity[k].Area1,
-                                        pincode             : entity[k].Pincode1,
-                                        latitude            : lat,
-                                        longitude           : lng,
-                                        
-                                     }
-                                 ]
-                             let locationdetails = [];
-                                for( var a=0; a<locations.length; a++){
-                                    if((locations[a].locationType != 'null' || locations[a].addressLine1 != 'null' || locations[a].addressLine2 != 'null' ))
-                                      {
-                                       
-                                        locationdetails.push(locations[a]);
-                                            
-                                        }
-                                    }  
-                           var contactPersons      =[
+                            var locations  = [{
+                                locationType        : entity[k].LocationType,
+                                addressLine1        : entity[k].AddressflatNo,
+                                addressLine2        : entity[k].AddressLine2,
+                                country             : entity[k].Country,
+                                state               : entity[k].State,
+                                district            : entity[k].District,
+                                city                : entity[k].City,
+                                area                : entity[k].Area,
+                                pincode             : entity[k].Pincode && entity[k].Pincode !== "-" ? entity[k].Pincode : 0,
+                                latitude            : lat,
+                                longitude           : lng,                                            
+                            }]
 
-                                                    {
+                            // console.log("locations => ",locations);
+                            let locationdetails = [];
 
-                                                        branchName                : entity[k].BranchName,
-                                                        firstName                 : entity[k].FirstName,
-                                                        lastName                  : entity[k].LastName,
-                                                        phone                     : entity[k].Phone1,
-                                                        altPhone                  : entity[k].AltPhone,
-                                                        email                     : entity[k].Email,
-                                                        department                : entity[k].Department,
-                                                        designation               : entity[k].Designation,
-                                                        employeeID                : entity[k].EmployeeID,
-                                                        role                      : entity[k].Role,
-                                                        createUser                : entity[k].LoginCredential != '-' && (entity[k].LoginCredential).toLowerCase() === 'yes' ? true : false,
-                       
-                                                      }
-                                                   ]
-                                        // console.log("contactPersons",contactPersons);           
-                                        let contactdetails = [];
-                                            for( var a=0; a<contactPersons.length; a++){
-                                                if((contactPersons[a].branchName != null || contactPersons[a].firstName != null || 
-                                                    contactPersons[a].lastName != null || contactPersons[a].empCategory != null || contactPersons[a].empPriority != null || contactPersons[a].phone != null || contactPersons[a].altPhone != null || contactPersons[a].email != null ||
-                                                     contactPersons[a].department != null || contactPersons[a].designation != null || contactPersons[a].employeeID != null ))
-                                                    
-                                                    {
-
-                                                    if(contactPersons[a].branchName !== 'null'){
-                                                            contactPersons[a].branchName=0;    
-
-                                                    contactdetails.push(contactPersons[a]);
-                                                     }
-                                                        
-                                                    }
-                                                } 
-                                             
-                                                  
-                                     var users = await fetchAllUsers((entity[k].Email).toLowerCase());
-                                     // console.log("users1----",users1);
-                                     
-                                      if(users){
-                                        var userID = users._id
-                                      }else{
-                                         var userDetails = {
-
-                                            firstname               : entity[k].FirstName != '-'  ? entity[k].FirstName : null,
-                                            lastname                : entity[k].LastName != '-'  ? entity[k].LastName : null,
-                                            mobNumber               : entity[k].Phone != '-'  ? entity[k].Phone : null,
-                                            email                   : entity[k].Email != '-'  ? entity[k].Email : null,
-                                            companyID               : validData.companyID,
-                                            companyName             : entity[k].CompanyName != '-'  ? entity[k].CompanyName : null,
-                                            designation             : entity[k].Designation != '-'  ? entity[k].Designation : null,
-                                            department              : entity[k].Department != '-'  ? entity[k].Department : null,
-                                            pwd                     : "welcome123",
-                                            role                    : [  entity[k].Role != '-'  ? entity[k].Role : null],
-                                            status                    : 'blocked',
-                                            entityType              : entity[k].EntityType,
-                                            // "status"                :  entity[k].role1 ==="corporateadmin" || entity[k].role1 ==="vendoradmin" || entity[k].role1 === "admin" ? "active" :"blocked",
-                                            "emailSubject"  : "Email Verification",
-                                            "emailContent"  : "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
-                                        }
-                                         if( (userDetails.Email != '-') && ((entity[k].LoginCredential1).toLowerCase() === 'yes')){
-                                              var userID = await createUser(userDetails);
-                                             }
-                                              // var userID1=await createUser(userDetails);;
-                                              // console.log("userID----",userID);
-                                               let Personcontactdetails = [];
-                                                var person = await fetchAllPersons((entity[k].Email).toLowerCase());
-                                               if (person){}else{
-                                               var personDetails= {
-                                                        profileStatus             :"New",
-                                                        company_Id                : null,
-                                                        supplierOf                : null,
-                                                        companyID                 : validData.companyID,
-                                                        companyName               : entity[k].GroupName,
-                                                        type                      : "employee",
-                                                        entityType                : entity[k].EntityType,
-                                                        branchName                : entity[k].BranchName,
-                                                        firstName                 : entity[k].FirstNam,
-                                                        lastName                  : entity[k].LastName1,
-                                                        // empCategory               : entity[k].empCategory1,
-                                                        empPriority               : entity[k].EmpPriority,
-                                                        contactNo                 : entity[k].Phone,
-                                                        altContactNo              : entity[k].AltPhone,
-                                                        email                     : entity[k].Email,
-                                                        departmentId              : departmentId,
-                                                        designationId             : designationId,
-                                                        employeeId                : entity[k].EmployeeID,
-                                                        loginCredential           : entity[k].LoginCredential,
-                                                        userId                    : userID
-                                                      }
-                                                    // console.log("personDetails---",personDetails);
-                                                    } 
-                                                      // var entityTypeP=entity[k].EntityType;
-                                                      var personData=await savePerson(personDetails);
-                                        }
-                                        
-                                           
-                                     
-                                  
-                                               
-                                                        validObjects = {
-                                                        fileName                  : req.body.fileName,   
-                                                        entityType                : entity[k].EntityType,
-                                                        companyName               : entity[k].CompanyName,
-                                                        groupName                 : entity[k].GroupName,
-                                                        CIN                       : entity[k].CIN,   
-                                                        COI                       : [],
-                                                        TAN                       : entity[k].TAN,
-                                                        website                   : entity[k].Website,
-                                                        companyPhone              : entity[k].CompanyPhone,
-                                                        companyEmail              : entity[k].CompanyEmail,
-                                                        country                   : entity[k].Country,
-                                                        statutoryDetails          : finalstatutorydetails,
-                                                        locations                 : locationdetails,
-                                                        contactPersons            : contactdetails,
-                                                        contactPersons            : contactdetails,
-                                                        contactPersons            : contactdetails,
-                             
+                            for( var a = 0; a < locations.length; a++){
+                                if((locations[a].locationType != 'null' || locations[a].addressLine1 != 'null' || locations[a].addressLine2 != 'null' )){                            
+                                    locationdetails.push(locations[a]);                                
                                 }
+                            }  
 
-                                validData.push(validObjects);
+                            var contactPersons   = [{
+                                branchName                : entity[k].BranchName,
+                                firstName                 : entity[k].FirstName,
+                                lastName                  : entity[k].LastName,
+                                phone                     : entity[k].Phone,
+                                altPhone                  : entity[k].AltPhone,
+                                email                     : entity[k].Email,
+                                // department                : entity[k].Department,
+                                // designation               : entity[k].Designation,
+                                employeeID                : entity[k].EmployeeID,
+                                role                      : entity[k].Role,
+                                createUser                : entity[k].LoginCredential && entity[k].LoginCredential != '-' && (entity[k].LoginCredential).toLowerCase() === 'yes' ? true : false,
+                            }]
 
-                            } else {
+                            // console.log("contactPersons",contactPersons);           
+                            let contactdetails = [];
 
-                    remark += "data already exists.";
+                            for( var a=0; a<contactPersons.length; a++){
+                                if((contactPersons[a].BranchName !== null || contactPersons[a].firstName !== null || 
+                                    contactPersons[a].lastName !== null || contactPersons[a].empCategory !== null || 
+                                    contactPersons[a].phone !== null || contactPersons[a].altPhone !== null || contactPersons[a].email !== null ||
+                                    contactPersons[a].department !== null || contactPersons[a].designation !== null || contactPersons[a].employeeID !== null )){
 
-                    invalidObjects = entity[k];
+                                    if(contactPersons[a].BranchName !== 'null'){
+                                        contactPersons[a].BranchName = 0; 
+                                        contactdetails.push(contactPersons[a]);
+                                    }                                    
+                                }
+                            } 
+                                                    
+                                                        
+                            var users = await fetchAllUsers(entity[k].Email ? (entity[k].Email).toLowerCase() : null);
+                            // console.log("users1----",users1);
+                            
+                            if(users){
+                            var userID = users._id
+                            }else{
+                                var userDetails = {
+
+                                    firstname               : entity[k].FirstName != '-'  ? entity[k].FirstName : null,
+                                    lastname                : entity[k].LastName != '-'  ? entity[k].LastName : null,
+                                    mobNumber               : entity[k].Phone != '-'  ? entity[k].Phone : null,
+                                    email                   : entity[k].Email != '-'  ? entity[k].Email : null,
+                                    companyID               : validData.companyID,
+                                    companyName             : entity[k].CompanyName != '-'  ? entity[k].CompanyName : null,
+                                    designation             : entity[k].Designation != '-'  ? entity[k].Designation : null,
+                                    department              : entity[k].Department != '-'  ? entity[k].Department : null,
+                                    pwd                     : "welcome123",
+                                    role                    : [  entity[k].Role != '-'  ? entity[k].Role : null],
+                                    status                    : 'blocked',
+                                    entityType              : entity[k].EntityType,
+                                    // "status"                :  entity[k].role1 ==="corporateadmin" || entity[k].role1 ==="vendoradmin" || entity[k].role1 === "admin" ? "active" :"blocked",
+                                    "emailSubject"  : "Email Verification",
+                                    "emailContent"  : "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
+                                }
+                                console.log("userDetails => ",userDetails)
+                                console.log("entity[k].LoginCredential => ",entity[k].LoginCredential)
+                                if( (userDetails.Email != '-') && entity[k].LoginCredential && ((entity[k].LoginCredential).toLowerCase() === 'yes')){
+                                    var userID = await createUser(userDetails);
+                                }                                               
+                            }
+
+                            validObjects = {
+                                fileName                  : req.body.fileName,   
+                                entityType                : entity[k].EntityType,
+                                companyName               : entity[k].CompanyName,
+                                companyNo                 : companyNo,
+                                companyID                 : companyID,
+                                groupName                 : entity[k].GroupName,
+                                CIN                       : entity[k].CIN,   
+                                COI                       : [],
+                                TAN                       : entity[k].TAN,
+                                website                   : entity[k].Website,
+                                companyPhone              : entity[k].CompanyPhone,
+                                companyEmail              : entity[k].CompanyEmail,
+                                country                   : entity[k].Country,
+                                locations                 : locationdetails,
+                                contactPersons            : contactdetails,                           
+                            }
+                            console.log("validObjects=> ",validObjects)
+
+                            validData.push(validObjects);
+
+                        } else {
+
+                            remark                      += "data already exists.";
+                            invalidObjects              = entity[k];
+                            invalidObjects.failedRemark = remark;
+
+                            invalidData.push(invalidObjects);
+                        }
+                    } else {
+
+                        remark                      += "This Vendor Already Exists in the System.";
+                        invalidObjects              = entity[k];
+                        invalidObjects.failedRemark = remark;
+
+                        invalidData.push(invalidObjects);
+                    }
+
+                } else {    
+
+                    invalidObjects              = entity[k];
                     invalidObjects.failedRemark = remark;
                     invalidData.push(invalidObjects);
                 }
+                remark = '';
+            }else{
+                console.log("validData => ",validData);
+                if(validData && validData.length > 0){                
+                    var vendorRecord = validData[validData.length -1];
+                    console.log("vendorRecord => ",vendorRecord);
+                    if (entity[k].Country === '-') {
+                        remark += "Country not found, ";
+                    }
+                    if (entity[k].City === '-') {
+                        remark += "City not found, ";
+                    }
 
-            } else {
+                    console.log("1 Condition => ",(entity[k].LocationType !== '-'))
 
-              
-                invalidObjects = entity[k];
-                invalidObjects.failedRemark = remark;
-                invalidData.push(invalidObjects);
+                    if (entity[k].LocationType !== '-') {                      
+                        
+                        var latlong    = await getLatLong(entity[k].AddressLine2); 
+                        var lat        = latlong[0].latitude;
+                        var lng        = latlong[0].longitude;
+
+                        var vendorLocation  = {
+                            locationType        : entity[k].LocationType,
+                            addressLine1        : entity[k].AddressflatNo,
+                            addressLine2        : entity[k].AddressLine2,
+                            country             : entity[k].Country,
+                            state               : entity[k].State,
+                            district            : entity[k].District,
+                            city                : entity[k].City,
+                            area                : entity[k].Area,
+                            pincode             : entity[k].Pincode && entity[k].Pincode !== "-" ? entity[k].Pincode : 0,
+                            latitude            : lat,
+                            longitude           : lng,                                            
+                        }
+
+                        console.log("validData.locations" ,validData[0].locations)
+                        vendorRecord[0].locations.push(vendorLocation);
+                    }
+                    var contactPerson   = {
+                        branchName                : entity[k].BranchName,
+                        firstName                 : entity[k].FirstName,
+                        lastName                  : entity[k].LastName,
+                        phone                     : entity[k].Phone,
+                        altPhone                  : entity[k].AltPhone,
+                        email                     : entity[k].Email,
+                        // department                : entity[k].Department,
+                        // designation               : entity[k].Designation,
+                        employeeID                : entity[k].EmployeeID,
+                        role                      : entity[k].Role,
+                        createUser                : entity[k].LoginCredential && entity[k].LoginCredential != '-' && (entity[k].LoginCredential).toLowerCase() === 'yes' ? true : false,
+                    }
+
+                    // console.log("contactPersons",contactPersons);           
+                    
+                    if(entity[k].BranchName !== '-' && entity[k].FirstName !== '-' && entity[k].LastName !== "-"){
+                        vendorRecord.contactdetails.push(contactPerson);
+                    } 
+                }else{
+
+                }
             }
-            remark = '';
         }
-        //console.log("validData",validData);
+        console.log("validData",validData);
         EntityMaster.insertMany(validData)
-            .then(data => {
-
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        .then(data => {
+            console.log("Data *=> ",data)
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
         failedRecords.FailedRecords = invalidData;
-        failedRecords.fileName = req.body.fileName;
-        failedRecords.totalRecords = req.body.totalRecords;
+        failedRecords.fileName      = req.body.fileName;
+        failedRecords.totalRecords  = req.body.totalRecords;
 
         await insertFailedRecords(failedRecords, req.body.updateBadData);
 
         res.status(200).json({
-            "message": "Bulk upload process is completed successfully!",
-            "completed": true
+            "message"   : "Bulk upload process is completed successfully!",
+            "completed" : true
         });
     }
+};
+
+/*=========== Insert Companywise Department ===========*/
+function insertCompanywiseDepartment(deptData) {
+    return new Promise(function (resolve, reject) {
+        const departmentMaster = new DepartmentMaster({
+            _id         : new mongoose.Types.ObjectId(),
+            department  : deptData.department,
+            companyID   : deptData.companyID,
+            createdBy   : deptData.createdBy,
+            createdAt   : new Date()
+        })
+        departmentMaster.save()
+        .then(data => {
+            console.log("department data => ",data);
+            resolve(data._id);
+        })
+        .catch(err => {
+            reject(err);
+        }); 
+    });
+}
+
+/*=========== Insert Companywise Designation ===========*/
+function insertCompanywiseDesignation(desigData) {
+    return new Promise(function (resolve, reject) {
+        const designationMaster = new DesignationMaster({
+            _id: new mongoose.Types.ObjectId(),
+            designation     : desigData.designation,
+            companyID       : desigData.companyID,
+            createdBy       : desigData.createdBy,
+            createdAt       : new Date()
+        })
+        designationMaster.save()
+        .then(data => {
+            console.log("designation => ",data);
+            resolve(data._id);
+        })
+        .catch(err => {
+            reject(err);
+        });
+    });
+}
+
+/*=========== Fetch All Entities ===========*/
+var fetchAllEntities = async (type) => {
+    // console.log("entityType => ",type);
+    return new Promise(function (resolve, reject) {
+        EntityMaster.find({entityType : type})
+            .sort({ createdAt: -1 })
+            .then(data => {
+                // console.log("data ======> ",data);
+                resolve(data);
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+};
+
+/*=========== Get Latitude Longitude ===========*/
+function getLatLong(address){
+    console.log("address => ",address)
+    return new Promise(function(resolve, reject){
+        var type = 'GOOGLE';         
+        axios.get('http://localhost:'+globalVariable.port+'/api/projectsettings/get/'+type)
+        .then((response)=>{ 
+            console.log("response => ",response.data);       
+            const options = {
+                provider       : 'google',
+                httpAdapter    : 'https', // Default
+                apiKey         : response.data.googleapikey, // for Mapquest, OpenCage, Google Premier
+                formatter      : null          
+            };
+            console.log("options => ",options); 
+            const geocoder = NodeGeocoder(options);
+            console.log("geocoder",geocoder);
+
+            geocoder.geocode('address', function(err, res) {
+            console.log("res => ",res); 
+            resolve(res)
+            }); 
+        })
+        .catch((error)=>{})
+    })             // const res = await geocoder.geocode('29 champs elysée paris');     
+}
+
+/*=========== Fetch All Users ===========*/
+var fetchAllUsers = async (email) => {
+    return new Promise(function (resolve, reject) {
+        User.findOne({username:email})
+        .exec()
+        .then(data => {
+            resolve(data);
+        })
+        .catch(err => {
+            reject(err);
+        });
+    });
+};
+
+/*=========== Create User ===========*/
+function createUser(userDetails){       
+    return new Promise(function(resolve, reject){
+        console.log("userDetails---",userDetails);
+        axios.post('http://localhost:'+globalVariable.port+'/api/auth/post/signup/user', userDetails)
+        .then((response)=>{    
+            console.log("user response",response.data);         
+            resolve(response.data.ID);
+            if(response.data.message === 'USER_CREATED'){
+                //swal(response.data.message);
+            }else{
+                swal(response.data.message);
+            }            
+        })
+        .catch((error)=>{})
+    })
+}
+
+/*=========== Insert Companywise Designation ===========*/
+var insertFailedRecords = async (invalidData, updateBadData) => {
+    //console.log('invalidData',invalidData);
+    return new Promise(function (resolve, reject) {
+        FailedRecords.find({ fileName: invalidData.fileName })
+            .exec()
+            .then(data => {
+                if (data.length > 0) {
+                    //console.log('data',data[0].failedRecords.length)   
+                    if (data[0].failedRecords.length > 0) {
+                        if (updateBadData) {
+                            FailedRecords.updateOne({ fileName: invalidData.fileName },
+                                { $set: { 'failedRecords': [] } })
+                                .then(data => {
+                                    if (data.nModified == 1) {
+                                        FailedRecords.updateOne({ fileName: invalidData.fileName },
+                                            {
+                                                $set: { 'totalRecords': invalidData.totalRecords },
+                                                $push: { 'failedRecords': invalidData.FailedRecords }
+                                            })
+                                            .then(data => {
+                                                if (data.nModified == 1) {
+                                                    resolve(data);
+                                                } else {
+                                                    resolve(data);
+                                                }
+                                            })
+                                            .catch(err => { reject(err); });
+                                    } else {
+                                        resolve(0);
+                                    }
+                                })
+                                .catch(err => { reject(err); });
+                        } else {
+                            FailedRecords.updateOne({ fileName: invalidData.fileName },
+                                {
+                                    $set: { 'totalRecords': invalidData.totalRecords },
+                                    $push: { 'failedRecords': invalidData.FailedRecords }
+                                })
+                                .then(data => {
+                                    if (data.nModified == 1) {
+                                        resolve(data);
+                                    } else {
+                                        resolve(data);
+                                    }
+                                })
+                                .catch(err => { reject(err); });
+                        }
+
+                    } else {
+                        FailedRecords.updateOne({ fileName: invalidData.fileName },
+                            {
+                                $set: { 'totalRecords': invalidData.totalRecords },
+                                $push: { 'failedRecords': invalidData.FailedRecords }
+                            })
+                            .then(data => {
+                                if (data.nModified == 1) {
+                                    resolve(data);
+                                } else {
+                                    resolve(data);
+                                }
+                            })
+                            .catch(err => { reject(err); });
+                    }
+                } else {
+                    const failedRecords = new FailedRecords({
+                        _id: new mongoose.Types.ObjectId(),
+                        failedRecords: invalidData.FailedRecords,
+                        fileName: invalidData.fileName,
+                        totalRecords: invalidData.totalRecords,
+                        createdAt: new Date()
+                    });
+
+                    failedRecords
+                    .save()
+                    .then(data => {
+                        resolve(data._id);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        reject(err);
+                    });
+                }
+            })
+
+    })
+}
+
+/*=========== Get File Details ===========*/
+exports.filedetails = (req,res,next)=>{
+    // console.log('req------',req,'res',res);
+    var finaldata = {};
+    console.log(req.params.fileName)
+    EntityMaster.find( { fileName : req.params.fileName  })
+    .exec()
+    .then(data=>{
+        // finaldata.push({goodrecords: data})
+        finaldata.goodrecords = data;
+        FailedRecords.find({fileName:req.params.fileName})  
+        .exec()
+        .then(badData=>{
+            finaldata.failedRecords = badData[0].failedRecords;
+            finaldata.totalRecords = badData[0].totalRecords;
+            res.status(200).json(finaldata);
+        })        
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
 };

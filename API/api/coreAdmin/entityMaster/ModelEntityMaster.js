@@ -91,7 +91,7 @@ const entitySchema = mongoose.Schema({
    
                                 }
                                 ],
-    
+    fileName                    : String,
     createdBy                 : { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     createdAt                 : Date,
     updateLog                 : [

@@ -8,5 +8,5 @@ const FailedRecordSchema = mongoose.Schema({
    	createdAt 			: Date
 });
 
-module.exports = mongoose.model('failedrecords',FailedRecordSchema);
+module.exports = mongoose.model('failedrecord',FailedRecordSchema);
 
