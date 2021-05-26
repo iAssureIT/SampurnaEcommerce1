@@ -46,8 +46,6 @@ const reducer = (state = initialState,action) =>{
         case "FETCH_WISHLIST_DATA" :
             // console.log("reducer.wishlistData===",action.wishlistData);
             return {...state, recentWishlistData: action.wishlistData};
-        case "CART_COUNT" : 
-            return {...state, cartCount: action.cartCount}
         case "WISHLIST_COUNT_INITIALLY" :
             return {...state, wishlistCount: action.wishlistCount}
         case "WISHLIST_COUNT" : 
@@ -64,6 +62,9 @@ const reducer = (state = initialState,action) =>{
             return {...state, deliveryPincode: action.deliveryPincode,pincodeStatus:action.pincodeStatus}     
         case "SET_PRODUCT-APIURL" : 
             return {...state, productApiUrl: action.pageUrl} 
+
+        case "CART_COUNT" : 
+            return {...state, cartCount: action.cartCount}
 
         case "SET_SAMPURNA-WEBSITE-DETAILS" : 
             // console.log("action.sampurnaWebsiteDetails====",action.sampurnaWebsiteDetails);

@@ -30,11 +30,6 @@ export const fetchcartdata = cartdata => ({
   cartData: cartdata
 });
 
-export const cartCount = cartCount => ({
-  type: 'CART_COUNT',
-  cartCount: cartCount
-});
-
 export const fetchcategorydata = categorydata => ({
   type: 'FETCH_CATEGORY_DATA',
   categoryData: categorydata
@@ -50,8 +45,11 @@ export const setProductApiUrl = pageUrl => ({
   pageUrl: pageUrl
 });
 
-
-
+export const updateCartCount = cartCount => ({
+  type: 'CART_COUNT',
+  cartCount: cartCount
+});
+ 
 export const setSampurnaWebsiteDetails = sampurnaWebsiteDetails => ({
   type: 'SET_SAMPURNA-WEBSITE-DETAILS',
   sampurnaWebsiteDetails: sampurnaWebsiteDetails
@@ -65,16 +63,17 @@ export function updateForm(formValue) {
     formToShow: formValue
   }
 }
-export function getCartCount() {
-  const userid = localStorage.getItem('user_ID');
-  axios.get("/api/Carts/get/count/" + userid)
-    .then((response) => {
-      dispatch(fetchcartdata(response.data));
-    })
-    .catch((error) => {
-      console.log("error",error);
-    })
-}
+// export function getCartCount() {
+//   console.log("inside cart count");
+//   const userid = localStorage.getItem('user_ID');
+//   axios.get("/api/carts/get/count/" + userid)
+//     .then((response) => {
+//       dispatch(cartCount(response.data));
+//     })
+//     .catch((error) => {
+//       console.log("error",error);
+//     })
+// }
 
 export function getCartData() {
 	return dispatch =>{
@@ -83,7 +82,7 @@ export function getCartData() {
       return axios.get("/api/carts/get/cartproductlist/"+userid)
         .then((response)=>{ 
           if(response){   
-            console.log("inside acion  fetchCartData:",response.data);  
+            // console.log("inside acion  fetchCartData:",response.data);  
             dispatch(fetchcartdata(response.data));
           }
         })

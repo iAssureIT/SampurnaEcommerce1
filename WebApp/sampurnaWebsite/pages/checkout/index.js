@@ -64,6 +64,8 @@ class Checkout extends Component {
             isCheckedError: [],
             pinValid      :false,
             user_ID       :'',
+            email         : '',
+            fullName      : '',
             fields: {},
             errors: {},
             websiteModel:'',
@@ -78,8 +80,12 @@ class Checkout extends Component {
     }
     async componentDidMount() {
         var userid = localStorage.getItem('user_ID');
+        var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
+        console.log("userDetails=",userDetails);
         this.setState({
             user_ID : userid,
+            email   : userDetails.email,
+            fullName: userDetails.firstName +" "+userDetails.lastName ,
             websiteModel : localStorage.getItem('websiteModel')
         },()=>{
             this.getUserAddress();
@@ -709,9 +715,11 @@ class Checkout extends Component {
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
         var formValues = {
             "payMethod": payMethod,
-            "user_ID": this.state.user_ID
+            "user_ID"  : this.state.user_ID,
+            "email"    : this.state.email,
+            "fullName" : this.state.fullName
         }
-        // console.log("Formvalues===",formValues);
+        console.log("Formvalues===",formValues);
         var soldProducts = this.props.recentCartData[0].cartItems.filter((a, i) => {
             return a.productDetail.availableQuantity <= 0;
         })
@@ -969,7 +977,7 @@ class Checkout extends Component {
                                         // console.log('paymentdetails in result==>>>', paymentdetails)
                                         axios.post('/api/orders/pgcall/post', paymentdetails)
                                             .then((payurl) => {
-                                                console.log('sendDataToUser in payurl==>>>', payurl.data)
+                                                // console.log('sendDataToUser in payurl==>>>', payurl.data)
                                                 if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
                                                     window.location.replace(payurl.data.result.PAYMENT_URL);
                                                 }

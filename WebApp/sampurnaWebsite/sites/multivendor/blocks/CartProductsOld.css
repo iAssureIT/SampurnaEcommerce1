@@ -92,11 +92,6 @@
     font-weight: 600;
     font-size: 12px;
 }
-
-.CouponCode{
-    border: solid 1px #eee;
-    padding: 20px 20px;
-}
 .cartDelete{
     margin-top: 6px;
     border-radius: 4px;
@@ -113,11 +108,11 @@
     margin-bottom: 10px;
 }
 .cartSummary{
-    margin-top: 0px;
+    margin-top: 40px;
     background: #eee;
     border: 1px solid #dedede;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     padding: 12px;
 }
 .summaryTable{

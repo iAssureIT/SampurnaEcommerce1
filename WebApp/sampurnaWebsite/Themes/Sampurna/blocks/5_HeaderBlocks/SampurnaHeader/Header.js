@@ -6,7 +6,7 @@ import Image                  from 'next/image';
 import Router                 from 'next/router'; 
 
 import { connect }            from 'react-redux';
-import { getCartData,getCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
+import { getCartData,updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import  store                 from '../../../../../redux/store.js';
 import parse, { domToReact }  from 'html-react-parser';
 import Megamenu               from './Megamenu.js';
@@ -32,8 +32,8 @@ class Header extends React.Component {
 	 async componentDidMount(){      
 
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-        var deliveryLocation = false; 
-
+        var deliveryLocation = false;
+        this.getCartCount();
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
@@ -65,22 +65,19 @@ class Header extends React.Component {
                 deliveryLocation : deliveryLocation,
             });
         }
-
-
     }
-
-    // getCategoriesData(){
-    //     axios.get('/api/category/get/list')
-    //     .then((response)=>{
-    //         this.setState({
-    //             categorydata:response.data
-    //         });
-    //     })
-    //     .catch(function(error){
-    //       console.log(error);            
-    //     })
-    // }
-
+    getCartCount() {
+        console.log("inside cart count");
+        const userid = localStorage.getItem('user_ID');
+        axios.get("/api/carts/get/count/" + userid)
+          .then((response) => {
+              console.log("cartcount--",response.data);
+            store.dispatch(updateCartCount(response.data));
+          })
+          .catch((error) => {
+            console.log("error",error);
+          })
+      }
     
     searchProducts() {        
           var searchstr = this.refs.tableSearch.value.trim();
@@ -113,6 +110,15 @@ class Header extends React.Component {
                                         />
                                     </a>
                                 </Link>
+                                {/* <a href="/" title="navbar-brand Sitelogo ">
+                                    <Image
+                                        src="/images/eCommerce/multistoreLogo.png"
+                                        className={"img-responsive logoImg hidden-x"}
+                                        height ={30}
+                                        width={120}
+                                        layout="responsive"
+                                    />
+                                </a> */}
                                 </div>
 
                                 <div className="rightNavbar ml-4 mr-4 col-12 col-sm-6 NoPadding">                                
@@ -146,19 +152,23 @@ class Header extends React.Component {
                                             <div className="row">
                                                 <div className="col-3 p-2 cartImg">  
                                                 {this.state.userID?
-                                                    <Link href="/cart">
-                                                        <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                                    <Link >
+                                                        <a href="/cart">
+                                                           <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                                        </a>
                                                     </Link>
                                                 :
                                                     <Link href="/cart" className="cartIcon">
-                                                        <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img> 
+                                                        <a href="/cart">
+                                                            <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img> 
+                                                        </a>
                                                     </Link>
                                                 }
                                                 </div>
                                                 <div className="col-8 text-center NoPadding">
                                                     <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
                                                     <div className="col-12 cartCount NoPadding">
-                                                        {this.props.recentCartData.length>0? this.props.recentCartData[0].cartItems.length : 0 }
+                                                        {this.props.cartCount>0? this.props.cartCount : 0 }
                                                         &nbsp;item(s)                                
                                                     </div>
                                                 </div>  
@@ -193,16 +203,14 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => (
-    console.log("1. state in header====",state.data.recentCartData),
+    // console.log("1. state in header====",state.data),
     {
-        recentCartData      :  state.data.recentCartData,
-        getCartCount        :  state.data.getCartCount,
-        // recentWishlistData  :  state.data.recentWishlistData  
+        recentCartData   :  state.data.recentCartData,
+        cartCount        :  state.data.cartCount,
     });
   
   const mapDispatchToProps = {
-    getCartCount                : getCartCount,
-    // getWishlistData             : getWishlistData,
+    updateCartCount                : updateCartCount,
     setProductApiUrl            : setProductApiUrl,
     setSampurnaWebsiteDetails   : setSampurnaWebsiteDetails
   };
