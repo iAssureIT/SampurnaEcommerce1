@@ -137,10 +137,7 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
-    var abc = "https://devwebsite.knock-knockeshop.com/products/60927c4d55d8a79218dec71d/supermarket";
-    var abc = "https://devwebsite.knock-knockeshop.com/products/60927c4d55d8a79218dec71d/supermarket"
-    console.log("abc ===",abc.split('/') );
-    console.log("url =>",url);
+    // console.log("url =>",url);
 
     if(url[4] !== "undefined"){
       var vendor_ID      = url[4];

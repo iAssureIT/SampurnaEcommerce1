@@ -11,7 +11,7 @@ import store       from '../../../../redux/store.js'
 import Header               from '../../../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import MasterPage  from '../../../../MasterPage/MasterPage.js'
-import BreadCrumbs from '../../../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
+// import BreadCrumbs from '../../../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 const { publicRuntimeConfig } = getConfig();
 var SITE_NAME =  publicRuntimeConfig.SITE_NAME;
 // console.log("SITE_NAME===",SITE_NAME);
@@ -66,7 +66,7 @@ class ProductDetailsEcommerce extends Component {
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
 		       {this.pageHead()}
 				<Header/>
-				<BreadCrumbs />
+				{/* <BreadCrumbs /> */}
 				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop180  backColorGray">
 				{/* <ProductViewEcommerce productID = { this.props.match.params.productID } /> */}
 				<ProductViewEcommerce productID = { this.state.productID } />

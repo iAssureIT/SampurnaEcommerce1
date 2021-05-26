@@ -6,7 +6,7 @@ import Image                  from 'next/image';
 import Router                 from 'next/router'; 
 
 import { connect }            from 'react-redux';
-import { getCartData,getWishlistData,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
+import { getCartData,getCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import  store                 from '../../../../../redux/store.js';
 import parse, { domToReact }  from 'html-react-parser';
 import Megamenu               from './Megamenu.js';
@@ -147,16 +147,12 @@ class Header extends React.Component {
                                                 <div className="col-3 p-2 cartImg">  
                                                 {this.state.userID?
                                                     <Link href="/cart">
-                                                        <a className=" " title="Go to cart page" >
-                                                            <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
-                                                        </a>
+                                                        <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
                                                     </Link>
                                                 :
-                                                <Link href="/cart">
-                                                    <a className=" " title="Go to cart page" >
-                                                        <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
-                                                    </a>
-                                                </Link>
+                                                    <Link href="/cart" className="cartIcon">
+                                                        <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img> 
+                                                    </Link>
                                                 }
                                                 </div>
                                                 <div className="col-8 text-center NoPadding">
@@ -197,15 +193,16 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => (
-    // console.log("1. state in header====",state.data),
+    console.log("1. state in header====",state.data.recentCartData),
     {
         recentCartData      :  state.data.recentCartData,
-        recentWishlistData  :  state.data.recentWishlistData  
+        getCartCount        :  state.data.getCartCount,
+        // recentWishlistData  :  state.data.recentWishlistData  
     });
   
   const mapDispatchToProps = {
-    getCartData                 : getCartData,
-    getWishlistData             : getWishlistData,
+    getCartCount                : getCartCount,
+    // getWishlistData             : getWishlistData,
     setProductApiUrl            : setProductApiUrl,
     setSampurnaWebsiteDetails   : setSampurnaWebsiteDetails
   };

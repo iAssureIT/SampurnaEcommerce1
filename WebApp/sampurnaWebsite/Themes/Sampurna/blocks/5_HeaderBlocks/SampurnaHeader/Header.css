@@ -622,3 +622,6 @@ li a{
 .addressLabel{
     margin-top: 10px;
 }
+.cartImg Link{
+    cursor: pointer;
+}

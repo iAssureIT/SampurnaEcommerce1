@@ -24,9 +24,15 @@ export function updatePin(pincode,status) {
     pincodeStatus  : status
   }
 }
+
 export const fetchcartdata = cartdata => ({
   type: 'FETCH_CART_DATA',
   cartData: cartdata
+});
+
+export const cartCount = cartCount => ({
+  type: 'CART_COUNT',
+  cartCount: cartCount
 });
 
 export const fetchcategorydata = categorydata => ({
@@ -58,6 +64,16 @@ export function updateForm(formValue) {
     type: "MODAL_DATA",
     formToShow: formValue
   }
+}
+export function getCartCount() {
+  const userid = localStorage.getItem('user_ID');
+  axios.get("/api/Carts/get/count/" + userid)
+    .then((response) => {
+      dispatch(fetchcartdata(response.data));
+    })
+    .catch((error) => {
+      console.log("error",error);
+    })
 }
 
 export function getCartData() {
