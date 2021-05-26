@@ -18,7 +18,7 @@ const cartSchema = mongoose.Schema({
         }
     ],
     cartTotal             : Number,
-    deliveryAddress           : {
+    deliveryAddress       : {
         "name"            : String,
         "email"           : String,
         "addressLine1"    : String,

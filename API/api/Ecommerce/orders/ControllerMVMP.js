@@ -1,8 +1,11 @@
+//MVMP = Multivendor Market Place
+
 const mongoose 				= require("mongoose");
-const Orders 					= require('./Model');
-const Carts 					= require('../cart/Model');
+const Orders 			    = require('./ModelMVMP');
+
+const Carts 				= require('../cart/Model');
 const Masternotifications 	= require('../../coreAdmin/notificationManagement/ModelMasterNotification.js');
-const User 						= require('../../coreAdmin/userManagementnew/ModelUsers.js');
+const User 					= require('../../coreAdmin/userManagementnew/ModelUsers.js');
 const BusinessAssociate 	= require('../businessAssociate/Model');
 const ReturnedProducts 		= require('../returnedProducts/Model');
 const Products 				= require('../products/Model');
@@ -16,542 +19,365 @@ const axios             	= require('axios');
 var ObjectId 					= require('mongodb').ObjectID;
 var request 					= require('request-promise');
 
+
+	/* ==========  Cart Input Format ==========
+	{
+		user_ID 		: '60913a18e67d4241cd8669a2',
+		userFullName    : xxx,    //==> Add this field
+		userEmail       : xxx,    //==> Add this field
+		cartItems		: [
+			{
+			product_ID			: '60ade85a6004b915a2cb19b4',
+			productName			: 'Areca Palm',
+			productNameRlang	: '',
+			originalPrice		: 200,
+			discountPercent		: 0,
+			discountedPrice		: 200,
+			saving				: 0, xxx,    //==> change field name as savedAmount
+			color				: 'Green',
+			size				: '100 cm',
+			currency			: 'aed',
+			quantity			: 2,
+			subTotal			: 400,     //==> change field name as itemAmountTotal
+			productImage		: [Array], //==> Send Only one Image
+			section_ID			: '60ab9b71d863c253cf7c1d5a',
+			section				: 'Supermarket',
+			category_ID			: '60aca244e2425f114d74bfd0',
+			category			: 'Plants',
+			subCategory_ID		: '60aca244e2425f114d74bfd1',
+			subCategory			: 'Real Plants',
+			vendor_ID			: '60910f816c37da1e8b0b69fb'
+			},
+			{
+			product_ID			: '60ade85a6004b915a2cb19c0',
+			productName			: 'Artificial Plant With Vase',
+			productNameRlang	: '',
+			discountPercent		: 0,
+			discountedPrice		: 72,
+			originalPrice		: 72,
+			color				: 'Green / WhiteYellow/Orange/Green',
+			size				: '25 cm ',
+			currency			: 'aed',
+			quantity			: 1,
+			subTotal			: 72,
+			saving				: 0,
+			productImage		: [Array],
+			section_ID			: '60ab9b71d863c253cf7c1d5a',
+			section				: 'Supermarket',
+			category_ID			: '60aca244e2425f114d74bfd0',
+			category			: 'Plants',
+			subCategory_ID		: '60aca244e2425f114d74bfd2',
+			subCategory			: 'Artifical Plants',
+			vendor_ID			: '60910f816c37da1e8b0b69fb'
+			}
+		],
+		total				: 425  //==> change field name as afterDiscountTotal,
+		cartTotal			: 472, //==> change field name as beforeDiscountTotal
+		discount			: 47,  //==> change field name as savedAmount discountAmount
+		cartQuantity		: 3,   //==> change field name as order_quantityOfProducts
+		deliveryAddress		: {
+			name				: 'Priya Chavan',
+			email				: 'priya.chavan@iassureit.com',
+			addressLine1		: 'Silicon Oasis, Dubai,UAE - Dubai - United Arab Emirates',
+			addressLine2		: '1414, ',
+			pincode				: '25454',
+			city				: 'Dubai',
+			stateCode			: 'Dubai',
+			state				: 'Dubai',
+			district			: null,
+			mobileNumber		: '9075649963',
+			countryCode			: 'AE',
+			country				: 'United Arab Emirates',
+			addType				: 'Office/Commercial (10 AM - 5 PM Delivery)',
+			latitude			: 25.1279484,
+			longitude			: 55.3862638
+		},
+		paymentMethod			: 'Cash On Delivery',
+		total1					: 462, //==> change field name as netPayableAmount
+		gstTax					: 0  //==> change field name as taxAmount
+
+		shippingtime            : //==> change field name as customerShippingTime
+	}
+
+
+
+	*/
+
+
+  	
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
-  	console.log("Inside order post",req.body); 
-  	if (req.body.cartItems.length > 0) {
-	 	for (k = 0; k < req.body.cartItems.length; k++) {
-			Products.updateOne(
-			  	{ "_id": req.body.cartItems[k].product_ID },
-			  	{$inc : {
-						"availableQuantity": -(req.body.cartItems[k].quantity),
+	console.log("Inside order post",req.body); 
+
+	const order = new Orders({
+		_id 				: new mongoose.Types.ObjectId(),
+		orderID 			: Math.round(new Date().getTime() / 1000),
+		user_ID 			: req.body.user_ID,
+		userName 			: req.body.userEmail,
+		userFullName 		: req.body.userFullName,
+
+		paymentDetails            : {
+			beforeDiscountTotal       : req.body.beforeDiscountTotal,
+			discountAmount            : req.body.discountAmount,
+			afterDiscountTotal        : req.body.afterDiscountTotal,			
+			// disocuntCoupon_id         : { type: mongoose.Schema.Types.ObjectId, ref: 'coupon' }, 
+			// discountCouponPercent     : Number,
+			// discountCouponAmount      : Number,
+			// afterDiscountCouponAmount : Number,
+			taxAmount                 : req.body.taxAmount,
+			shippingCharges           : req.body.shippingCharges,
+			netPayableAmount          : req.body.netPayableAmount,  //NetPayableAmount = afterDiscountCouponAmount + taxAmount + shippingCharges			
+			currency                  : req.body.currency,			
+			// payment_TransactionID     : Number,
+			// payment_response_code     : String,
+			// payment_response_message  : String,
+			// payment_reference_no      : String,
+			payment_status            : req.body.payment_status === 'Paid' ? "Paid" : "UnPaid",  // paid, unpaid
+			paymentMethod             : req.body.paymentMethod,
+		},
+		customerShippingTime      : req.body.customerShippingTime,
+		order_numberOfProducts    : req.body.cartItems.length, //Sum of all number of products in all vendors
+		order_quantityOfProducts  : req.body.order_quantityOfProducts, //Sum of total quantity of items in each vendor
+
+		vendorOrders :req.body.vendorOrders,
+		// "total" 			: req.body.total,
+		// "currency" 			: 'inr',
+		// "cartTotal" 		: req.body.cartTotal,
+		// "discount" 			: req.body.discount,
+		// gstTax  			: req.body.gstTax,
+		// status 			: status,
+		// products 			: req.body.cartItems,
+		// "paymentMethod" 	: req.body.paymentMethod,
+		// shippingtime 		: req.body.shippingtime,
+		// productLength 	: req.body.cartItems.length,
+		// cartQuantity		: req.body.cartQuantity,
+		deliveryAddress	: {
+			name			: req.body.deliveryAddress.name,
+			email			: req.body.deliveryAddress.email,
+			addressLine1	: req.body.deliveryAddress.addressLine1,
+			addressLine2	: req.body.deliveryAddress.addressLine2,
+			pincode			: req.body.deliveryAddress.pincode,
+			city			: req.body.deliveryAddress.city,
+			state			: req.body.deliveryAddress.state,
+			stateCode		: req.body.deliveryAddress.stateCode,
+			mobileNumber	: req.body.deliveryAddress.mobileNumber,
+			district		: req.body.deliveryAddress.district,
+			country			: req.body.deliveryAddress.country,
+			countryCode		: req.body.deliveryAddress.countryCode,
+			addType			: req.body.deliveryAddress.addType
+		},
+		deliveryStatus: [
+			{
+				status			: "New Order",
+				timestamp		: new Date(),
+				userid			: req.body.user_ID,
+				expDeliveryDate : new Date()
+			}
+		],
+		createdAt 		: new Date(),
+		createdBy 		: req.body.user_ID
+	});
+
+	order.save()
+	.then(orderdata => {
+		console.log("orderdata =====> ",orderdata);
+		processData();
+		async function processData(){
+			// if (preferenceData.websiteModel === "MarketPlace") {
+			// 	var splitVendorOrders = await addSplitVendorOrders(orderdata._id);
+			// 	// console.log("splitVendorOrders => ",splitVendorOrders)
+			// }
+			var header 	= "<table><tbody><tr><td align='center' width='100%'><a><img src='http://http://anashandicrafts.iassureit.com/images/anasLogo.png' style='width:25%'></a></td></tr></table>";
+			var body  	= "";
+			var footer 	= "<table width='100%' bgcolor='#232f3e' height='50'><tbody><tr><td>"
+			footer 		+= "<span style='color:#fff'>AnasHandicraft Copyright <i class='fa fa-copyright'></i> 2019 - 2020. All Rights Reserved.</span>";
+			footer 		+= "<span style='float:right;color:#fff'>anashandicraft@gmail.com</span></td></tr></tbody></table>"
+
+			var mailSubject, mailText, smsText;
+			Masternotifications.findOne({ "templateType": "Email", "templateName": "Order Placed Successfully" })
+			.exec()
+			.then((maildata) => {
+				if (maildata) {
+					mailSubject 	= maildata.subject != '' ? maildata.subject : "Your order is placed successfully.";
+					var variables 	= {
+						"username"	: req.body.userFullName
 					}
-		  		}
-		  	)
-		  	.then()
-		  	.catch();
-	 	}
-  	}
 
-  	User.findOne({ "_id": req.body.user_ID })
-	.exec()
-	.then(data => {
-		Adminpreference.findOne()
-		.then(preferenceData => {
-			if (preferenceData.websiteModel === "FranchiseModel") {
-				// console.log("inside adminpreferences, Address===",autogenerateOrderId);
-				var pincode = req.body.deliveryAddress.pincode;
-				
-				if (pincode) {
-				  	Allowablepincode.find()
-					.exec()
-					.then(franchiseObjects => {
-						main();
-						async function main() {
-						  	// console.log("Allowaable Pincode data ============",franchiseObjects);                 
-						  	if (franchiseObjects) {
-							 	var franchiseID;
-							 	var matchedFranchise = [];
-							 	// console.log("Pincode Length : ",franchiseObjects.length);
-							 	
-							 	for (var franchiseObj of franchiseObjects) {
-									// console.log("Pincodes:",franchiseObj.allowablePincodes.includes(pincode));
-									if (franchiseObj.allowablePincodes.includes(pincode)) {
-									  	franchiseID = req.body.franchise_id ? req.body.franchise_id : franchiseObj.franchiseID; //code by madhuri
-									  
-									  	if (franchiseID !== undefined) {
-										 	matchedFranchise.push({ franchiseID: franchiseID });
-										 	// console.log("matchedFranchise ===", matchedFranchise);
-									  	}
-									}
-							 	}//end for loop 
+					var content = maildata.content;
+					if (content.indexOf('[') > -1) {
+						var wordsplit = content.split('[');
+					}
 
-							 	if (matchedFranchise) {
-									if (matchedFranchise.length > 1) {
-									  	var franchiseDistance 		= 9999999999;
-									  	var allocatedToFranchise 	= 0;
-									  	var distance 					= 0 ;
-
-									  	for(var i = 0 ; i < matchedFranchise.length; i++){
-										 	distance = await allocatefranchisebeforesave(matchedFranchise[i].franchiseID);
-										 	if(distance < franchiseDistance){
-											  	franchiseDistance = distance;
-											  	allocatedToFranchise = matchedFranchise[i].franchiseID;
-											  	// console.log("franchiseDistance ==========>", franchiseDistance);
-										 	}
-									  	}
-									  	// console.log("allocatedToFranchise available==========>", allocatedToFranchise);
-								  		saveOrderdata(allocatedToFranchise);
-									} else {
-								  		// console.log("single franchise available==========");
-								  		var allocatedToFranchise = franchiseID;
-								  		saveOrderdata(allocatedToFranchise);
-									}
-
-									//insert into franchise goods
-									for (var i = 0; i <= req.body.cartItems.length; i++) {
-									  	//console.log("inside for cartitems",req.body.cartItems[i]);
-									  	var productId 				= req.body.cartItems[i].product_ID;
-									  	var status 					= req.body.status == 'Paid' ? "Paid" : "UnPaid";
-									  	var obj 						= { 
-										  									"orderNum" 				: Math.round(new Date().getTime() / 1000), 
-										  									"orderDate" 			: new Date(), 
-										  									"orderQty" 				: req.body.cartItems[i].quantity, 
-										  									"Unit" 					: req.body.cartItems[i].unit, 
-										  									"orderDeliveryStatus": status 
-										  								}
-									  	var franchise_id 			= req.body.franchise_id ?  req.body.franchise_id  : allocatedToFranchise;
-									  	var franchiseGoodsOrder = await addOrderToFranchiseGoods(productId, obj, req.body.franchise_id);
-									}
-
-
-									// insert orders details and allocate franchise ID to orders
-									function saveOrderdata(allocatedToFranchise) {
-									  	// console.log("allocatedToFranchise==========",allocatedToFranchise);
-									  	// console.log("inside saveOrderData allocate franchise Id - saveOrderData function");  
-									  	var status 			= req.body.status == 'Paid' ? "Paid" : "UnPaid";
-									  	//for franchise instore bill
-									  	var billFranchise = req.body.franchise_id ? req.body.franchise_id : '';
-									 	var BillNumber 	= req.body.billNumber ? req.body.billNumber : 0;
-									  	
-									  	const order 		= new Orders({
-										 	_id 							: new mongoose.Types.ObjectId(),
-										 	"orderID" 					: Math.round(new Date().getTime() / 1000),
-										 	"billNumber" 				: BillNumber,
-										 	"user_ID" 					: req.body.user_ID,
-										 	"franchiseCustId" 			: req.body.franchiseCustId ? req.body.franchiseCustId : null,
-										 	"allocatedToFranchise" 		: allocatedToFranchise ? allocatedToFranchise : billFranchise,
-										 	"userName" 					: data.profile.email,
-										 	"userFullName" 				: data.profile.fullName,
-										 	"total" 					: req.body.total,
-										 	"currency" 					: 'inr',
-										 	"cartTotal" 				: req.body.cartTotal,
-										 	"discount" 					: req.body.discount,
-										 	"subTotal" 					: req.body.subTotal ? req.body.subTotal : 0,
-										 	"gstTax" 					: req.body.gstTax ? req.body.gstTax : 0,
-										 	"amountPayable" 			: req.body.amountPayable ? req.body.amountPayable : 0,
-										 	"status" 					: status,
-										 	"createdAt" 				: new Date(),
-										 	"products" 					: req.body.cartItems,
-										 	"paymentMethod" 			: req.body.paymentMethod,
-										 	"shippingtime" 				: req.body.shippingtime,
-										 	"productLength" 			: req.body.cartItems.length,
-										 	"cartQuantity" 				: req.body.cartQuantity,
-										 	'deliveryAddress' 		: {
-																				"name" 			: req.body.deliveryAddress.name,
-																				"email" 			: req.body.deliveryAddress.email,
-																				"addressLine1" : req.body.deliveryAddress.addressLine1,
-																				"addressLine2" : req.body.deliveryAddress.addressLine2,
-																				"pincode" 		: req.body.deliveryAddress.pincode,
-																				"city" 			: req.body.deliveryAddress.city,
-																				"state" 			: req.body.deliveryAddress.state,
-																				"stateCode" 	: req.body.deliveryAddress.stateCode,
-																				"mobileNumber" : req.body.deliveryAddress.mobileNumber,
-																				"district" 		: req.body.deliveryAddress.district,
-																				"country" 		: req.body.deliveryAddress.country,
-																				"countryCode" 	: req.body.deliveryAddress.countryCode,
-																				"addType" 		: req.body.deliveryAddress.addType,
-																				"latitude" 		: req.body.deliveryAddress.latitude,
-																				"longitude" 	: req.body.deliveryAddress.longitude,
-											},
-											"deliveryStatus" 			: [
-																				{
-																					"status": req.body.deliveryStatus ? req.body.deliveryStatus : "New Order",
-																					"Date": new Date(),
-																					"Userid": req.body.user_ID,
-																				}
-											],
-									  	});
-									  	//save order and send notifications to customer 
-									  	order.save()
-										.then(orderdata => {                              
-											// console.log("1.Inside order response",orderdata);
-											var header  = "<table><tbody><tr><td align='center' width='100%'><a><img src='http://http://anashandicrafts.iassureit.com/images/anasLogo.png' style='width:25%'></a></td></tr></table>";
-											var body 	= "";
-											var footer 	= "<table width='100%' bgcolor='#232f3e' height='50'><tbody><tr><td>"
-											footer 		+= "<span style='color:#fff'>AnasHandicraft Copyright <i class='fa fa-copyright'></i> 2019 - 2020. All Rights Reserved.</span>";
-											footer 		+= "<span style='float:right;color:#fff'>anashandicraft@gmail.com</span></td></tr></tbody></table>"
-
-											var mailSubject, mailText, smsText;
-											Masternotifications.findOne({ "templateType": "Email", "templateName": "Order Placed Successfully" })
-											.exec()
-											.then((maildata) => {
-												if (maildata) {
-													mailSubject 	= maildata.subject != '' ? maildata.subject : "Your order is placed successfully.";
-													var variables 	= {
-													  	"username" 	: data.profile.fullName
-													}
-
-													var content = maildata.content;
-													if (content.indexOf('[') > -1) {
-													  	var wordsplit = content.split('[');
-													}
-
-													var tokens 	= [];
-													var n  		= 0;
-													for (i = 0; i < wordsplit.length; i++) {
-													  	if (wordsplit[i].indexOf(']') > -1) {
-														 	tokensArr = wordsplit[i].split(']');
-														 	tokens[n] = tokensArr[0];
-														 	n++;
-													  	}
-													}
-													var numOfVar = Object.keys(variables).length;
-
-													for (i = 0; i < numOfVar; i++) {
-													  	var tokVar 	= tokens[i].substr(1, tokens[i].length - 2);
-													  	content 		= content.replace(tokens[i], variables[tokens[i]]);
-													}
-													content 	= content.split("[").join(" ");
-													content 	= content.split("]").join(" ");
-													body 		+= "<table><tr><td>" + content + "</td></tr></table>";
-													body 		+= "<tr><b><p>Your order will be sent to:</p></b>";
-													body 		+= "<p style='margin:0'>" + orderdata.deliveryAddress.name + "</p>";
-													body 		+= "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine1 + "</p>";
-													
-													if (orderdata.deliveryAddress.addressLine2) {
-													  body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine2 + "</p>";
-													}
-
-													body += "<p style='margin:0'>" + orderdata.deliveryAddress.city + " " + orderdata.deliveryAddress.district + " " + orderdata.deliveryAddress.state + " " + orderdata.deliveryAddress.pincode + "</p>";
-													body += "<p style='margin:0'>" + orderdata.deliveryAddress.country + "</p></tr>";
-													body += "</tbody></table>";
-													body += "<h3>Order Details</h3>";
-													body += "<table width='100%' style='border-top:1px solid #333'><thead align='left'><tr><th>Product Name</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr></thead><tbody>";
-
-													cartArray.map((productdata, index) => {
-													  	body += "<tr><td>" + productdata.productName + "</td><td>" + productdata.discountedPrice + "</td><td>" + productdata.quantity + "</td><td>" + productdata.total + "</td></tr>";
-													})
-
-													body += "</tbody></table><br>";
-
-												} else {
-													mailSubject = "Your order is placed successfully.";
-													body 			+= "<table><tr><td><h3>Dear " + data.profile.fullName + ", </h3>\n";
-													body 			+= "<p>Thank you for your order. We’ll send a confirmation when your order ships.</p></tr>";
-													body 			+= "<tr><b><p>Your order will be sent to:</p></b>";
-													body 			+= "<p style='margin:0'>" + orderdata.deliveryAddress.name + "</p>";
-													body 			+= "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine1 + "</p>";
-													
-													if (orderdata.deliveryAddress.addressLine2) {
-													  	body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine2 + "</p>";
-													}
-
-													body += "<p style='margin:0'>" + orderdata.deliveryAddress.city + " " + orderdata.deliveryAddress.district + " " + orderdata.deliveryAddress.state + " " + orderdata.deliveryAddress.pincode + "</p>";
-													body += "<p style='margin:0'>" + orderdata.deliveryAddress.country + "</p></tr>";
-													body += "</tbody></table>";
-													body += "<h3>Order Details</h3>";
-													body += "<table width='100%' style='border-top:1px solid #333'><thead align='left'><tr><th>Product Name</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr></thead><tbody>";
-
-													req.body.cartItems.map((productdata, index) => {
-													  	body += "<tr><td>" + productdata.productName + "</td><td>" + productdata.discountedPrice + "</td><td>" + productdata.quantity + "</td><td>" + productdata.subTotal + "</td></tr>";
-													})
-
-													body += "</tbody></table><br>";
-												}
-											})
-											.catch({})
-
-											Carts.findOne({ "user_ID": req.body.user_ID })
-											.exec()
-											.then(userCart => {
-												if (userCart) {
-													Carts.updateOne(
-														{ "_id": userCart._id },
-													  	{$set: {
-															"cartItems": [],
-															"cartTotal": 0
-														}
-													})
-													.exec()
-													.catch(error => {
-														res.status(500).json({
-															error1: error
-														});
-													})
-												}
-											})
-										  	.catch(error => {
-											 	console.log('error', error);
-											 	res.status(500).json({
-													error2: error
-											 	});
-										  	})
-											res.status(200).json({
-											  	"message" 	: "Order Placed Successfully.",
-											  	"order_ID" 	: orderdata._id
-											});
-										})
-									}//end saveOrderData
-								}//end if franchiseID
-							}
+					var tokens 	= [];
+					var n 		= 0;
+					for (i = 0; i < wordsplit.length; i++) {
+						if (wordsplit[i].indexOf(']') > -1) {
+							tokensArr = wordsplit[i].split(']');
+							tokens[n] = tokensArr[0];
+							n++;
 						}
-						function allocatefranchisebeforesave(franchiseid) {
-						  	// console.log("franchiseID=====>", franchiseid);
-						  	return new Promise(function (resolve, reject) {
-								Entitymaster.findOne({ _id: franchiseid })
-								.then(franchiseData => {
-									if (franchiseData) {
-										var distance 	= 0
-										var Flatitude 	= franchiseData.locations[0].latitude;
-										var Flongitude = franchiseData.locations[0].longitude;
-										
-										if (Flatitude && Flongitude) {
-										  	distance = findDistance(Flatitude, Flongitude, req.body.deliveryAddress.latitude, req.body.deliveryAddress.longitude, 'K');
-										  	// console.log("franchiseid = ", franchiseid,  " | distance = ",distance);
-										  	resolve(distance);
-										}
-									}
-								})
-							})
+					}
+					var numOfVar = Object.keys(variables).length;
+
+					for (i = 0; i < numOfVar; i++) {
+						var tokVar 	= tokens[i].substr(1, tokens[i].length - 2);
+						content 		= content.replace(tokens[i], variables[tokens[i]]);
+					}
+
+					content = content.split("[").join(" ");
+					content = content.split("]").join(" ");
+					body += "<table><tr><td>" + content + "</td></tr></table>";
+					body += "<tr><b><p>Your order will be sent to:</p></b>";
+					body += "<p style='margin:0'>" + orderdata.deliveryAddress.name + "</p>";
+					body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine1 + "</p>";
+					
+					if (orderdata.deliveryAddress.addressLine2) {
+						body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine2 + "</p>";
+					}
+
+					body += "<p style='margin:0'>" + orderdata.deliveryAddress.city + " " + orderdata.deliveryAddress.district + " " + orderdata.deliveryAddress.state + " " + orderdata.deliveryAddress.pincode + "</p>";
+					body += "<p style='margin:0'>" + orderdata.deliveryAddress.country + "</p></tr>";
+					body += "</tbody></table>";
+					body += "<h3>Order Details</h3>";
+					body += "<table width='100%' style='border-top:1px solid #333'><thead align='left'><tr><th>Product Name</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr></thead><tbody>";
+
+					cartArray.map((productdata, index) => {
+						body += "<tr><td>" + productdata.productName + "</td><td>" + productdata.discountedPrice + "</td><td>" + productdata.quantity + "</td><td>" + productdata.total + "</td></tr>";
+					})
+
+					body += "</tbody></table><br>";
+
+				} else {
+					mailSubject = "Your order is placed successfully.";
+					body += "<table><tr><td><h3>Dear " + req.body.userFullName + ", </h3>\n";
+					body += "<p>Thank you for your order. We’ll send a confirmation when your order ships.</p></tr>";
+
+					body += "<tr><b><p>Your order will be sent to:</p></b>";
+					body += "<p style='margin:0'>" + orderdata.deliveryAddress.name + "</p>";
+					body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine1 + "</p>";
+					
+					if (orderdata.deliveryAddress.addressLine2) {
+						body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine2 + "</p>";
+					}
+
+					body += "<p style='margin:0'>" + orderdata.deliveryAddress.city + " " + orderdata.deliveryAddress.district + " " + orderdata.deliveryAddress.state + " " + orderdata.deliveryAddress.pincode + "</p>";
+					body += "<p style='margin:0'>" + orderdata.deliveryAddress.country + "</p></tr>";
+					body += "</tbody></table>";
+					body += "<h3>Order Details</h3>";
+					body += "<table width='100%' style='border-top:1px solid #333'><thead align='left'><tr><th>Product Name</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr></thead><tbody>";
+
+					req.body.cartItems.map((productdata, index) => {
+						body += "<tr><td>" + productdata.productName + "</td><td>" + productdata.discountedPrice + "</td><td>" + productdata.quantity + "</td><td>" + productdata.subTotal + "</td></tr>";
+					})
+
+					body += "</tbody></table><br>";
+				}
+				body += footer;
+				console.log('body',body)
+				request({
+				    "method"    : "POST",
+				    "url"       : "http://localhost:" + globalVariable.PORT + "/send-email",
+				    "body"      :   {
+				                        "email"     : data.profile.emailId,
+				                        "subject"   : mailSubject,
+				                        "text"      : mailSubject,
+				                        "mail"      : body 
+				                        //"mail"      : 'Hello '+data.profile.fullName+','+'\n'+mailText,
+				                        // "mail"      : 'Hello '+data.profile.fullName+','+'\n'+"\n <br><br>Your Order has been placed successfully and will be dispached soon."+"<b></b>"+'\n'+'\n'+' </b><br><br>\nRegards,<br>Team GangaExpress',
+				                    },
+				    "json"      : true,
+				    "headers"   : { "User-Agent": "Test App" }
+				  })
+				  .then((sentemail)=>{
+				      res.header("Access-Control-Allow-Origin","*");
+				      res.status(200).json({ "message": 'Order placed successfully' });
+				  })
+				  .catch((err) =>{
+				    console.log('e', error);
+				      res.status(500).json({
+				          error: err
+				      });
+				  }); 
+			})
+			.catch()
+
+			// request({
+			//   "method"    : "POST",
+			//   "url"       : "http://localhost:"+globalVariable.PORT+"/send-email",
+			//   "body"      :  {
+			//                       "email"     : "iassureitmail@gmail.com",
+			//                       "subject"   : 'Order Placed Successfully',
+			//                       "text"      : "WOW Its done",
+			//                       "mail"      : 'Hello '+'Admin'+','+'\n'+"\n <br><br>You have an order placed by "+data.profile.fullName+"."+"<b></b>"+'\n'+'\n'+' </b><br><br>\nRegards,<br>Team AnasHandicraft',
+			//                 },
+			//   "json"      : true,
+			//   "headers"   : {
+			//                   "User-Agent": "Test App"
+			//               }
+			// })
+			// .then((sentemail)=>{
+			//     res.header("Access-Control-Allow-Origin","*");
+			//     res.status(200).json({message:"Mail Sent successfully"});
+			// })
+			// .catch((err) =>{
+			//     res.status(500).json({
+			//         error: err
+			//     });
+			// });
+			Carts.findOne({ "user_ID": req.body.user_ID })
+			.exec()
+			.then(userCart => {
+				if (userCart) {
+					Carts.updateOne(
+					{"_id" : userCart._id },
+					{$set : {
+							"cartItems" : [],
+							"cartTotal"	: 0
 						}
 					})
-				}// end if pincode
-			} else {
-				// console.log("discount===",req.body.discount);
-				var status 	= req.body.status == 'Paid' ? "Paid" : "UnPaid";
-				const order = new Orders({
-				  	_id 					: new mongoose.Types.ObjectId(),
-				  	"orderID" 			: Math.round(new Date().getTime() / 1000),
-				  	"user_ID" 			: req.body.user_ID,
-				  	"userName" 			: data.profile.emailId,
-				  	"userFullName" 		: data.profile.fullName,
-				  	"total" 			: req.body.total,
-				  	"currency" 			: 'inr',
-				  	"cartTotal" 		: req.body.cartTotal,
-				  	"discount" 			: req.body.discount,
-				  	"gstTax"  			: req.body.gstTax,
-				  	"status" 			: status,
-				  	"createdAt" 		: new Date(),
-				  	"products" 			: req.body.cartItems,
-				  	"paymentMethod" 	: req.body.paymentMethod,
-				  	"shippingtime" 	: req.body.shippingtime,
-				  	"productLength" 	: req.body.cartItems.length,
-				  	"cartQuantity" 	: req.body.cartQuantity,
-				  	'deliveryAddress'	: {
-											 	"name"			: req.body.deliveryAddress.name,
-											 	"email"			: req.body.deliveryAddress.email,
-											 	"addressLine1"	: req.body.deliveryAddress.addressLine1,
-											 	"addressLine2"	: req.body.deliveryAddress.addressLine2,
-											 	"pincode"		: req.body.deliveryAddress.pincode,
-											 	"city"			: req.body.deliveryAddress.city,
-											 	"state"			: req.body.deliveryAddress.state,
-											 	"stateCode"		: req.body.deliveryAddress.stateCode,
-											 	"mobileNumber"	: req.body.deliveryAddress.mobileNumber,
-											 	"district"		: req.body.deliveryAddress.district,
-											 	"country"		: req.body.deliveryAddress.country,
-											 	"countryCode"	: req.body.deliveryAddress.countryCode,
-											 	"addType"		: req.body.deliveryAddress.addType
-				  	},
-				  	"deliveryStatus": [
-					 	{
-							"status": "New Order",
-							"Date": new Date(),
-							"Userid": req.body.user_ID,
-					 	}
-				  	],
+					.exec()
+					.catch(error => {
+						res.status(500).json({
+							error1: error
+						});
+					})
+				}
+			})
+			.catch(error => {
+				console.log('error', error);
+				res.status(500).json({
+					error2: error
 				});
-
-				order.save()
-				.then(orderdata => {
-					// console.log("orderdata =====> ",orderdata);
-					processData();
-					async function processData(){
-						if (preferenceData.websiteModel === "MarketPlace") {
-							var splitVendorOrders = await addSplitVendorOrders(orderdata._id);
-							// console.log("splitVendorOrders => ",splitVendorOrders)
-						}
-						var header 	= "<table><tbody><tr><td align='center' width='100%'><a><img src='http://http://anashandicrafts.iassureit.com/images/anasLogo.png' style='width:25%'></a></td></tr></table>";
-						var body  	= "";
-						var footer 	= "<table width='100%' bgcolor='#232f3e' height='50'><tbody><tr><td>"
-						footer 		+= "<span style='color:#fff'>AnasHandicraft Copyright <i class='fa fa-copyright'></i> 2019 - 2020. All Rights Reserved.</span>";
-						footer 		+= "<span style='float:right;color:#fff'>anashandicraft@gmail.com</span></td></tr></tbody></table>"
-
-						var mailSubject, mailText, smsText;
-						Masternotifications.findOne({ "templateType": "Email", "templateName": "Order Placed Successfully" })
-						.exec()
-						.then((maildata) => {
-
-						  	if (maildata) {
-							 	mailSubject 	= maildata.subject != '' ? maildata.subject : "Your order is placed successfully.";
-							 	var variables 	= {
-									"username"	: data.profile.fullName
-							 	}
-
-							 	var content = maildata.content;
-							 	if (content.indexOf('[') > -1) {
-									var wordsplit = content.split('[');
-							 	}
-
-							 	var tokens 	= [];
-							 	var n 		= 0;
-							 	for (i = 0; i < wordsplit.length; i++) {
-									if (wordsplit[i].indexOf(']') > -1) {
-								  		tokensArr = wordsplit[i].split(']');
-								  		tokens[n] = tokensArr[0];
-								  		n++;
-									}
-							 	}
-							 	var numOfVar = Object.keys(variables).length;
-
-								for (i = 0; i < numOfVar; i++) {
-									var tokVar 	= tokens[i].substr(1, tokens[i].length - 2);
-									content 		= content.replace(tokens[i], variables[tokens[i]]);
-								}
-
-							 	content = content.split("[").join(" ");
-							 	content = content.split("]").join(" ");
-							 	body += "<table><tr><td>" + content + "</td></tr></table>";
-							 	body += "<tr><b><p>Your order will be sent to:</p></b>";
-							 	body += "<p style='margin:0'>" + orderdata.deliveryAddress.name + "</p>";
-							 	body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine1 + "</p>";
-							 	
-							 	if (orderdata.deliveryAddress.addressLine2) {
-									body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine2 + "</p>";
-							 	}
-
-							 	body += "<p style='margin:0'>" + orderdata.deliveryAddress.city + " " + orderdata.deliveryAddress.district + " " + orderdata.deliveryAddress.state + " " + orderdata.deliveryAddress.pincode + "</p>";
-							 	body += "<p style='margin:0'>" + orderdata.deliveryAddress.country + "</p></tr>";
-							 	body += "</tbody></table>";
-							 	body += "<h3>Order Details</h3>";
-							 	body += "<table width='100%' style='border-top:1px solid #333'><thead align='left'><tr><th>Product Name</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr></thead><tbody>";
-
-							 	cartArray.map((productdata, index) => {
-									body += "<tr><td>" + productdata.productName + "</td><td>" + productdata.discountedPrice + "</td><td>" + productdata.quantity + "</td><td>" + productdata.total + "</td></tr>";
-							 	})
-
-							 	body += "</tbody></table><br>";
-
-						  	} else {
-							 	mailSubject = "Your order is placed successfully.";
-							 	body += "<table><tr><td><h3>Dear " + data.profile.fullName + ", </h3>\n";
-							 	body += "<p>Thank you for your order. We’ll send a confirmation when your order ships.</p></tr>";
-
-							 	body += "<tr><b><p>Your order will be sent to:</p></b>";
-							 	body += "<p style='margin:0'>" + orderdata.deliveryAddress.name + "</p>";
-							 	body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine1 + "</p>";
-							 	
-							 	if (orderdata.deliveryAddress.addressLine2) {
-									body += "<p style='margin:0'>" + orderdata.deliveryAddress.addressLine2 + "</p>";
-							 	}
-
-							 	body += "<p style='margin:0'>" + orderdata.deliveryAddress.city + " " + orderdata.deliveryAddress.district + " " + orderdata.deliveryAddress.state + " " + orderdata.deliveryAddress.pincode + "</p>";
-							 	body += "<p style='margin:0'>" + orderdata.deliveryAddress.country + "</p></tr>";
-							 	body += "</tbody></table>";
-							 	body += "<h3>Order Details</h3>";
-							 	body += "<table width='100%' style='border-top:1px solid #333'><thead align='left'><tr><th>Product Name</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr></thead><tbody>";
-
-							 	req.body.cartItems.map((productdata, index) => {
-									body += "<tr><td>" + productdata.productName + "</td><td>" + productdata.discountedPrice + "</td><td>" + productdata.quantity + "</td><td>" + productdata.subTotal + "</td></tr>";
-							 	})
-
-							 	body += "</tbody></table><br>";
-						  	}
-						  	//body += footer;
-						  	// console.log('body',body)
-						  	// request({
-						  	//     "method"    : "POST",
-						  	//     "url"       : "http://localhost:" + globalVariable.PORT + "/send-email",
-						  	//     "body"      :   {
-						  	//                         "email"     : data.profile.emailId,
-						  	//                         "subject"   : mailSubject,
-						  	//                         "text"      : mailSubject,
-						  	//                         "mail"      : body 
-						  	//                         //"mail"      : 'Hello '+data.profile.fullName+','+'\n'+mailText,
-						  	//                         // "mail"      : 'Hello '+data.profile.fullName+','+'\n'+"\n <br><br>Your Order has been placed successfully and will be dispached soon."+"<b></b>"+'\n'+'\n'+' </b><br><br>\nRegards,<br>Team GangaExpress',
-						  	//                     },
-						  	//     "json"      : true,
-						  	//     "headers"   : { "User-Agent": "Test App" }
-						  	//   })
-						  	//   .then((sentemail)=>{
-						  	//       res.header("Access-Control-Allow-Origin","*");
-						  	//       res.status(200).json({ "message": 'Order placed successfully' });
-						  	//   })
-						  	//   .catch((err) =>{
-						  	//     console.log('e', error);
-						  	//       res.status(500).json({
-						  	//           error: err
-						  	//       });
-						  	//   }); 
-						})
-						.catch()
-
-					 	// request({
-					 	//   "method"    : "POST",
-					 	//   "url"       : "http://localhost:"+globalVariable.PORT+"/send-email",
-					 	//   "body"      :  {
-					 	//                       "email"     : "iassureitmail@gmail.com",
-					 	//                       "subject"   : 'Order Placed Successfully',
-					 	//                       "text"      : "WOW Its done",
-					 	//                       "mail"      : 'Hello '+'Admin'+','+'\n'+"\n <br><br>You have an order placed by "+data.profile.fullName+"."+"<b></b>"+'\n'+'\n'+' </b><br><br>\nRegards,<br>Team AnasHandicraft',
-					 	//                 },
-					 	//   "json"      : true,
-					 	//   "headers"   : {
-					 	//                   "User-Agent": "Test App"
-					 	//               }
-					 	// })
-					 	// .then((sentemail)=>{
-					 	//     res.header("Access-Control-Allow-Origin","*");
-					 	//     res.status(200).json({message:"Mail Sent successfully"});
-					 	// })
-					 	// .catch((err) =>{
-					 	//     res.status(500).json({
-					 	//         error: err
-					 	//     });
-					 	// });
-					 	Carts.findOne({ "user_ID": req.body.user_ID })
-						.exec()
-						.then(userCart => {
-						  	if (userCart) {
-							 	Carts.updateOne(
-								{"_id" : userCart._id },
-								{$set : {
-										"cartItems" : [],
-										"cartTotal"	: 0
-								  	}
-								})
-								.exec()
-								.catch(error => {
-								  	res.status(500).json({
-									 	error1: error
-								  	});
-								})
-						  	}
-						})
-						.catch(error => {
-						  	console.log('error', error);
-						  	res.status(500).json({
-							 	error2: error
-						  	});
-						})
-					 	res.status(200).json({
-							"message" 	: "Order Placed Successfully.",
-							"order_ID" 	: orderdata._id
-					 	});
-					}
-			  	})
-			  	.catch(error => {
-				 	console.log('e1', error);
-				 	res.status(500).json({
-						error1 : error
-				 	});
-			  	})
-			}//end else preference
-		})//end preference .then()
-
-	  	.catch(error => {
-		 	console.log('error while getting preferences:', error);
-		 	res.status(500).json({
-				error: error
+			})
+			res.status(200).json({
+				"message" 	: "Order Placed Successfully.",
+				"order_ID" 	: orderdata._id
 			});
-		})
- 	})
- 	.catch(err => {
-		console.log('e3', error);
+		}
+	})
+	.catch(error => {
+		console.log('e1', error);
 		res.status(500).json({
-	  		error3: err
+			error1 : error
 		});
- 	});
+	})
+}
+/*========*/
+if (req.body.cartItems.length > 0) {
+	for (k = 0; k < req.body.cartItems.length; k++) {
+	   Products.updateOne(
+			 { "_id": req.body.cartItems[k].product_ID },
+			 {$inc : {
+				   "availableQuantity": -(req.body.cartItems[k].quantity),
+			   }
+			 }
+		 )
+		 .then()
+		 .catch();
+	}
+ }
+/*========*/
+
 
  	/*========== Split VendorWise Orders ==========*/
  	function addSplitVendorOrders(orderID) {
@@ -657,7 +483,7 @@ exports.insert_orders = (req, res, next) => {
 			return dist;
 	 	}
   	}
-};
+
 
 exports.update_order = (req, res, next) => {
   Orders.updateOne(

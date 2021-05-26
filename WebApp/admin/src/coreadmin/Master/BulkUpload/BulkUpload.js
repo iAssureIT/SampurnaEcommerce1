@@ -142,7 +142,10 @@ class BulkUpload extends Component{
 					count++;
 				}
 			}
-			this.setState({inputFileData:documentObj},()=>{
+			this.setState({
+				inputFileData : documentObj 
+			},()=>{
+				console.log("input file => ",this.state.inputFileData);
 				$('.fullpageloader').hide()
 			});
 		};
@@ -198,8 +201,8 @@ class BulkUpload extends Component{
 					goodRecordsTable    : tableData,
 					failedRecordsTable  : failedRecordsTable
 				},()=>{
-					console.log("goodRecordsTable => ", this.state.goodRecordsTable);
-					console.log("failedRecordsTable => ", this.state.failedRecordsTable);
+					// console.log("goodRecordsTable => ", this.state.goodRecordsTable);
+					// console.log("failedRecordsTable => ", this.state.failedRecordsTable);
 				})
 		 	}
 		})
@@ -263,13 +266,13 @@ class BulkUpload extends Component{
 								this.getFileDetails(this.state.fileName); 
 								// this.state.getData(this.state.startRange, this.state.limitRange) 
 							}
-							this.setState({percentage:percentage},()=>{})
+							this.setState({percentage : percentage},()=>{})
 							chunkData   = [];
 							initialLmt  += factor;  
 							endLmt      = initialLmt+factor; 
 						}
 						this.setState({
-							filename : "",
+							fileName : "",
 						})
 					})
 				}
@@ -375,7 +378,7 @@ class BulkUpload extends Component{
 															: 
 																null
 															} bad 
-															{this.state.fileDetails.failedRecords && this.state.fileDetails.failedRecords.length > 1 ? "records were " : "record was " }found.
+															{this.state.fileDetails.failedRecords && this.state.fileDetails.failedRecords.length > 1 ? " records were " : " record was " }found.
 														</h5>
 														<div className="text-right">
 															<br/>
@@ -435,7 +438,13 @@ class BulkUpload extends Component{
 															{
 																/*Out of {this.state.fileDetails.totalRecords} {this.state.fileDetails.totalRecords > 1 ? "records" : "record"},  {this.state.fileDetails.goodrecords.length} {this.state.fileDetails.goodrecords.length > 1 ? "records are" : "record is" } added successfully. &nbsp;
 															*/}
-															Total {this.state.fileDetails.goodrecords ? this.state.fileDetails.goodrecords.length : 0} { this.state.fileDetails.totalRecords > 1 ? "records" : "record"} found from this file.
+															Out of {this.state.fileDetails ? this.state.fileDetails.totalRecords : null } {this.state.fileDetails && this.state.fileDetails.totalRecords > 1 ? "records" : "record"},  &nbsp;
+															{this.state.fileDetails.goodrecords 
+															? 
+																this.state.fileDetails.goodrecords.length 
+															: 
+																0
+															} { this.state.fileDetails && this.state.fileDetails.totalRecords > 1 ? " records" : " record"} Added Successfully.
 														</h5>
 														<div className="text-right">
 															<br/>

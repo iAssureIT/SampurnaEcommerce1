@@ -1,22 +1,27 @@
-const mongoose	= require("mongoose");
-var ObjectId    = require('mongodb').ObjectID;
-const Carts     = require('../cart/Model');
-const Orders    = require('../orders/Model');
-const Wishlists = require('../wishlist/Model');
-const _         = require('underscore');    
+const mongoose	    = require("mongoose");
+var ObjectId        = require('mongodb').ObjectID;
+const Carts         = require('./ModelNew');
+const Products      = require('../products/Model');
+const Orders        = require('../orders/Model');
+const Wishlists     = require('../wishlist/Model');
+const _             = require('underscore');    
 // import axios from 'axios';
 
 
 exports.insert_cartid = (req,res,next)=>{
-    // console.log("req.body===",req.body);
+
+    console.log("req.body===",req.body);
+
 	Carts.findOne({"user_ID": req.body.user_ID})
 		.exec()
 		.then(cartData =>{
-            if(cartData){
+            console.log("cartData => ",cartData)
+            if(cartData && cartData !== null){
                 Carts.findOne({"user_ID": req.body.user_ID, 'cartItems.product_ID':req.body.product_ID})
                 .exec()
                 .then(productData =>{
-                    if(productData){
+                    console.log("productData => ",productData)
+                    if(productData && productData !== null){
                         // req.body.quantity
                         Carts.updateOne(
                             {'_id':cartData._id,'cartItems.product_ID':req.body.product_ID},
@@ -29,6 +34,7 @@ exports.insert_cartid = (req,res,next)=>{
                         )
                         .exec()
                         .then(data=>{
+                            console.log("updated data => ", productData)
                             if(data.nModified == 1){
                                 res.status(200).json({
                                     "message": "Product added to cart successfully.",
@@ -46,28 +52,35 @@ exports.insert_cartid = (req,res,next)=>{
                             });
                         });
                     }else{
-                        var cartArr = {
-                            'product_ID' : req.body.product_ID,
-                            'quantity'   : req.body.quantity,
-                            'totalWeight': req.body.totalWeight,
-                            'rate'       : req.body.rate ? req.body.rate : 0,
-                            'discountPercent'  : req.body.discount ? req.body.discount : 0,
-                            'discountedPrice'  : req.body.discountedPrice ? req.body.discountedPrice : 0,
-                            'CGST'             : req.body.CGST,
-                            'SGST'             : req.body.SGST,
-                            'CGSTAmt'          : req.body.CGSTAmt,
-                            'SGSTAmt'          : req.body.SGSTAmt
-                        }
+                        
+                                var vendorCartItem = {
+                                    vendor_id   : req.body.vendor_ID,
+                                    vendorName  : req.body.vendorName,
+                                    cartItems   : [
+                                        {
+                                            product_ID          : product._id,
+                                            quantity            : req.body.quantity,
+                                            totalWeight         : req.body.totalWeight,
+                                            productRate         : req.body.productRate,
+                                            discountPercent     : req.body.discountPercent,
+                                            discountedPrice     : req.body.discountedPrice,
+                                        }
+                                    ]
+                                }   
+                                
+                            
+                        
                         Carts.updateOne(
                             {'_id':cartData._id},
                             {
                                 $push:{
-                                    'cartItems' : cartArr,
+                                    'vendorOrders' : vendorCartItem,
                                 },
                             }
                         )
                         .exec()
                         .then(data=>{
+                            console.log("else updated => ",data)
                             if(data.nModified == 1){
                                 res.status(200).json({
                                     "message": "Product added to cart successfully.",
@@ -93,18 +106,33 @@ exports.insert_cartid = (req,res,next)=>{
                     });
                 });
             }else{
+                var vendorCartItem = {
+                    vendor_id   : req.body.vendor_ID,
+                    vendorName  : req.body.vendorName,
+                    cartItems   : [
+                        {
+                            product_ID          : product._id,
+                            quantity            : req.body.quantity,
+                            totalWeight         : req.body.totalWeight,
+                            productRate         : req.body.productRate,
+                            discountPercent     : req.body.discountPercent,
+                            discountedPrice     : req.body.discountedPrice,
+                        }
+                    ]
+                }  
                 var cartItems = [{
-                    "product_ID"    : req.body.product_ID,
-                    "quantity"      : req.body.quantity,
-                    "totalWeight"   : req.body.totalWeight,
-                    'rate'          : req.body.rate ? req.body.rate : 0,
-                    'discountPercent'      : req.body.discount ? req.body.discount : 0,
-                    'discountedPrice'       : req.body.discountedPrice ? req.body.discountedPrice : 0
+                    "product_ID"        : req.body.product_ID,
+                    "quantity"          : req.body.quantity,
+                    "totalWeight"       : req.body.totalWeight,
+                    'rate'              : req.body.rate ? req.body.rate : 0,
+                    'discountPercent'   : req.body.discount ? req.body.discount : 0,
+                    'discountedPrice'   : req.body.discountedPrice ? req.body.discountedPrice : 0
                 }];
                 const cartDetails = new Carts({
                     _id             : new mongoose.Types.ObjectId(),  
                     "user_ID"       :   req.body.user_ID,
                     "cartItems"     :   cartItems,
+
                 });
                 cartDetails.save()
                 .then(data=>{
@@ -227,8 +255,8 @@ exports.list_cart = (req,res,next)=>{
 exports.list_cart_product = (req,res,next)=>{
     // console.log(req.params.user_ID);
     Carts.aggregate([
-        { "$match"  : { "user_ID" : ObjectId(req.params.user_ID) } },
-        { "$unwind" : "$cartItems" },
+        { "$match" : { "user_ID" : ObjectId(req.params.user_ID) } },
+        { "$unwind": "$cartItems" },
         { "$lookup": {
             "from": "products",
             "as": "cartItems.productDetail",

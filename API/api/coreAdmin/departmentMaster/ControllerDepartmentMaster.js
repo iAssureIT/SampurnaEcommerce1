@@ -22,20 +22,20 @@ exports.insertDepartment = (req,res,next)=>{
             res.status(200).json({ duplicated : true });
         }else{
             const departmentMaster = new DepartmentMaster({
-                                _id                         : new mongoose.Types.ObjectId(),
-                                companyID                   : req.body.companyID,
-                                department                  : req.body.fieldValue,
-                                createdBy                   : req.body.createdBy,
-                                type                        : req.body.type,
-                                createdAt                   : new Date()
-                            })
-                            departmentMaster.save()
-                            .then(data=>{
-                                res.status(200).json({ created : true, fieldID : data._id });
-                            })
-                            .catch(err =>{
-                                res.status(500).json({ error: err }); 
-                            });
+                _id                         : new mongoose.Types.ObjectId(),
+                companyID                   : req.body.companyID,
+                department                  : req.body.fieldValue,
+                createdBy                   : req.body.createdBy,
+                type                        : req.body.type,
+                createdAt                   : new Date()
+            })
+            departmentMaster.save()
+            .then(data=>{
+                res.status(200).json({ created : true, fieldID : data._id });
+            })
+            .catch(err =>{
+                res.status(500).json({ error: err }); 
+            });
         }
     }             
 };
@@ -52,6 +52,7 @@ var fetchAllDepartments = async ()=>{
         }); 
     });
 };
+
 var fetchDepartments = async ()=>{
     return new Promise(function(resolve,reject){ 
     DepartmentMaster.find({})
@@ -64,6 +65,7 @@ var fetchDepartments = async ()=>{
         }); 
     });
 };
+
 exports.countDepartments = (req, res, next)=>{
     DepartmentMaster.find({}).count()
         .exec()

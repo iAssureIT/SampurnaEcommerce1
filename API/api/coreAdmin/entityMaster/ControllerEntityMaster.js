@@ -1139,6 +1139,353 @@ exports.getVendorList = (req,res,next)=>{
 
 };
 
+// /*=========== Bulk upload Entity ===========*/
+// exports.bulkUploadEntity = (req, res, next) => {
+//     var entity          = req.body.data;
+//     var validData       = [];
+//     var validObjects    = [];
+//     var invalidData     = [];
+//     var invalidObjects  = [];
+//     var remark          = '';
+//     var failedRecords   = [];
+//     var count           = 0;
+//     var duplicateCount  = 0;
+//     console.log("entity...",entity);
+
+//     processData();
+//     async function processData() {
+//         for (var k = 0; k < entity.length; k++) {
+//             console.log("entityType = > ",k, entity[k].entityType)
+//             console.log("Condition => ", (entity[k].entityType !== '-'))
+//             if (entity[k].entityType !== '-') {
+//                 // remark += "entityType not found, ";
+            
+//                 if (entity[k].companyName === '-') {
+//                     remark += "companyName not found, ";
+//                 }
+//                 if (entity[k].groupName === '-') {
+//                     remark += "groupName not found, ";
+//                 }
+//                 if (entity[k].companyEmail === '-') {
+//                     remark += "companyEmail not found, ";
+//                 }
+//                 if (entity[k].companyPhone === '-') {
+//                     remark += "companyPhone not found, ";
+//                 }
+
+//                 if (remark === '') {
+//                     var getnext = await getNextSequence(entity[k].entityType)
+//                     // console.log("entity[k].EntityType => ",entity[k].EntityType)
+//                     if(entity[k].entityType == 'corporate'){
+//                         var str = "C"+parseInt(getnext)
+//                     }else if(entity[k].entityType == 'vendor'){
+//                     //    var str = "V"+parseInt(getnext)
+//                     var str = parseInt(getnext)
+//                     }else if(entity[k].entityType == 'supplier'){ 
+//                         var str = "S"+parseInt(getnext)
+//                     }else{var str = 1}
+
+//                     var companyNo  = getnext ? getnext : 1;
+//                     var companyID  = str ? str : 1;
+
+
+//                     // var departmentId, designationId;
+//                     // if(entity[k].Department != '-'){
+//                     //     // departmentId1 = departmentExists1[0]._id;
+//                     //      var deptData = {
+//                     //         companyID           : validData.companyID,
+//                     //         department          : entity[k].Department,
+//                     //         createdBy           : req.body.reqdata.createdBy
+//                     //     }
+//                     //    departmentId = await insertCompanywiseDepartment(deptData)
+//                     // }
+
+//                     // if(entity[k].Designation != '-'){
+//                     //     var desigData= {
+//                     //         companyID           : validData.companyID,
+//                     //         designation         : entity[k].Designation,
+//                     //         createdBy           : req.body.reqdata.createdBy
+                        
+//                     //     }
+//                     //     designationId = await insertCompanywiseDesignation(desigData)
+//                     // }                
+//                     console.log("req.body.EntityType => ", entity[k].entityType);
+//                     var allEntities     = await fetchAllEntities(entity[k].entityType);
+//                     // console.log("allEntities => ", allEntities);
+//                     if(validData && validData.length > 0){
+//                         var vendorExists  = validData.filter((data) => {
+//                             console.log("data.companyName => ", data.companyName);
+//                             console.log("entity[k].companyName => ", entity[k].CompanyName);
+//                             if ((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()) {
+//                                 return data;
+//                             }
+//                             // else if(validData && validData.length > 0){
+//                             //     console.log("validData ==> ",validData);
+//                             //     return validData.filter((data) => {
+//                             //         console.log("------------ ",data)
+//                             //         if((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()){
+//                             //             return data
+//                             //         }
+//                             //     })
+
+//                             // }
+//                         })
+//                     }else{                    
+//                         var vendorExists  = allEntities.filter((data) => {
+//                             console.log("data.companyName => ", data.companyName);
+//                             console.log("entity[k].companyName => ", entity[k].CompanyName);
+//                             if ((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()) {
+//                                 return data;
+//                             }
+//                             // else if(validData && validData.length > 0){
+//                             //     console.log("validData ==> ",validData);
+//                             //     return validData.filter((data) => {
+//                             //         console.log("------------ ",data)
+//                             //         if((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()){
+//                             //             return data
+//                             //         }
+//                             //     })
+
+//                             // }
+//                         })
+//                     }
+//                     console.log("vendorExists=> ",k + " ", vendorExists);
+//                     if(vendorExists && vendorExists.length === 0){
+                    
+//                         var employeeExists  = allEntities.filter((data) => {
+//                             if (data.entityType == entity[k].entityType
+//                                 && data.companyName == entity[k].companyName
+//                                 && data.companyEmail == entity[k].companyEmail) {
+//                                 return data;
+//                             }
+//                         })
+
+//                         // console.log("allEntities => ",allEntities)
+//                         // console.log("employeeExists => ",employeeExists)
+//                         // console.log("employeeExists => ",employeeExists.length)
+//                         validObjects.fileName       = req.body.fileName;
+
+//                         if (employeeExists && employeeExists.length === 0) {               
+                        
+//                             var latlong    = await getLatLong(entity[k].addressLine2); 
+//                             var lat        = latlong[0].latitude;
+//                             var lng        = latlong[0].longitude;
+
+//                             var locations  = [{
+//                                 locationType        : entity[k].locationType,
+//                                 addressLine1        : entity[k].addressflatNo,
+//                                 addressLine2        : entity[k].addressLine2,
+//                                 country             : entity[k].country,
+//                                 state               : entity[k].state,
+//                                 district            : entity[k].district,
+//                                 city                : entity[k].city,
+//                                 area                : entity[k].area,
+//                                 pincode             : entity[k].pincode && entity[k].pincode !== "-" ? entity[k].pincode : 0,
+//                                 latitude            : lat,
+//                                 longitude           : lng,                                            
+//                             }]
+
+//                             // console.log("locations => ",locations);
+//                             let locationdetails = [];
+
+//                             for( var a = 0; a < locations.length; a++){
+//                                 if((locations[a].locationType != 'null' || locations[a].addressLine1 != 'null' || locations[a].addressLine2 != 'null' )){                            
+//                                     locationdetails.push(locations[a]);                                
+//                                 }
+//                             }  
+
+//                             var contactPersons   = [{
+//                                 branchName                : entity[k].branchName,
+//                                 firstName                 : entity[k].firstName,
+//                                 lastName                  : entity[k].lastName,
+//                                 phone                     : entity[k].phone,
+//                                 altPhone                  : entity[k].altPhone,
+//                                 email                     : entity[k].email,
+//                                 // department                : entity[k].Department,
+//                                 // designation               : entity[k].Designation,
+//                                 employeeID                : entity[k].employeeID,
+//                                 role                      : entity[k].role,
+//                                 createUser                : entity[k].loginCredential && entity[k].loginCredential != '-' && (entity[k].loginCredential).toLowerCase() === 'yes' ? true : false,
+//                             }]
+
+//                             // console.log("contactPersons",contactPersons);           
+//                             let contactdetails = [];
+
+//                             for( var a=0; a<contactPersons.length; a++){
+//                                 if((contactPersons[a].branchName !== null || contactPersons[a].firstName !== null || 
+//                                     contactPersons[a].lastName !== null || contactPersons[a].empCategory !== null || 
+//                                     contactPersons[a].phone !== null || contactPersons[a].altPhone !== null || contactPersons[a].email !== null ||
+//                                     contactPersons[a].department !== null || contactPersons[a].designation !== null || contactPersons[a].employeeID !== null )){
+
+//                                     if(contactPersons[a].branchName !== 'null'){
+//                                         contactPersons[a].branchName = 0; 
+//                                         contactdetails.push(contactPersons[a]);
+//                                     }                                    
+//                                 }
+//                             } 
+                                                    
+                                                        
+//                             var users = await fetchAllUsers(entity[k].email ? (entity[k].email).toLowerCase() : null);
+//                             // console.log("users1----",users1);
+                            
+//                             if(users){
+//                             var userID = users._id
+//                             }else{
+//                                 var userDetails = {
+
+//                                     firstname               : entity[k].firstName != '-'  ? entity[k].firstName : null,
+//                                     lastname                : entity[k].lastName != '-'  ? entity[k].lastName : null,
+//                                     mobNumber               : entity[k].phone != '-'  ? entity[k].phone : null,
+//                                     email                   : entity[k].email != '-'  ? entity[k].email : null,
+//                                     companyID               : validData.companyID,
+//                                     companyName             : entity[k].companyName != '-'  ? entity[k].companyName : null,
+//                                     designation             : entity[k].designation != '-'  ? entity[k].designation : null,
+//                                     department              : entity[k].department != '-'  ? entity[k].department : null,
+//                                     pwd                     : "welcome123",
+//                                     role                    : [  entity[k].role != '-'  ? entity[k].role : null],
+//                                     status                    : 'blocked',
+//                                     entityType              : entity[k].entityType,
+//                                     // "status"                :  entity[k].role1 ==="corporateadmin" || entity[k].role1 ==="vendoradmin" || entity[k].role1 === "admin" ? "active" :"blocked",
+//                                     "emailSubject"  : "Email Verification",
+//                                     "emailContent"  : "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
+//                                 }
+//                                 console.log("userDetails => ",userDetails)
+//                                 console.log("entity[k].LoginCredential => ",entity[k].loginCredential)
+//                                 if( (userDetails.email != '-') && entity[k].loginCredential && ((entity[k].loginCredential).toLowerCase() === 'yes')){
+//                                     var userID = await createUser(userDetails);
+//                                 }                                               
+//                             }
+
+//                             validObjects = {
+//                                 fileName                  : req.body.fileName,   
+//                                 entityType                : entity[k].entityType,
+//                                 companyName               : entity[k].companyName,
+//                                 companyNo                 : companyNo,
+//                                 companyID                 : companyID,
+//                                 groupName                 : entity[k].groupName,
+//                                 CIN                       : entity[k].CIN,   
+//                                 COI                       : [],
+//                                 TAN                       : entity[k].TAN,
+//                                 website                   : entity[k].website,
+//                                 companyPhone              : entity[k].companyPhone,
+//                                 companyEmail              : entity[k].companyEmail,
+//                                 country                   : entity[k].country,
+//                                 locations                 : locationdetails,
+//                                 contactPersons            : contactdetails,                           
+//                             }
+//                             console.log("validObjects=> ",validObjects)
+
+//                             validData.push(validObjects);
+
+//                         } else {
+
+//                             remark                      += "data already exists.";
+//                             invalidObjects              = entity[k];
+//                             invalidObjects.failedRemark = remark;
+
+//                             invalidData.push(invalidObjects);
+//                         }
+//                     } else {
+
+//                         remark                      += "This Vendor Already Exists in the System.";
+//                         invalidObjects              = entity[k];
+//                         invalidObjects.failedRemark = remark;
+
+//                         invalidData.push(invalidObjects);
+//                     }
+
+//                 } else {    
+
+//                     invalidObjects              = entity[k];
+//                     invalidObjects.failedRemark = remark;
+//                     invalidData.push(invalidObjects);
+//                 }
+//                 remark = '';
+//             }else{
+//                 console.log("validData => ",validData);
+//                 if(validData && validData.length > 0){                
+//                     var vendorRecord = validData[validData.length -1];
+//                     console.log("vendorRecord => ",vendorRecord);
+//                     if (entity[k].Country === '-') {
+//                         remark += "Country not found, ";
+//                     }
+//                     if (entity[k].City === '-') {
+//                         remark += "City not found, ";
+//                     }
+
+//                     console.log("1 Condition => ",(entity[k].LocationType !== '-'))
+
+//                     if (entity[k].LocationType !== '-') {                      
+                        
+//                         var latlong    = await getLatLong(entity[k].addressLine2); 
+//                         var lat        = latlong[0].latitude;
+//                         var lng        = latlong[0].longitude;
+
+//                         var vendorLocation  = {
+//                             locationType        : entity[k].locationType,
+//                             addressLine1        : entity[k].addressflatNo,
+//                             addressLine2        : entity[k].addressLine2,
+//                             country             : entity[k].country,
+//                             state               : entity[k].state,
+//                             district            : entity[k].district,
+//                             city                : entity[k].city,
+//                             area                : entity[k].area,
+//                             pincode             : entity[k].pincode && entity[k].pincode !== "-" ? entity[k].pincode : 0,
+//                             latitude            : lat,
+//                             longitude           : lng,                                            
+//                         }
+
+//                         console.log("validData.locations" ,validData[0].locations)
+//                         vendorRecord.locations.push(vendorLocation);
+//                     }
+//                     var contactPerson   = {
+//                         branchName                : entity[k].branchName,
+//                         firstName                 : entity[k].firstName,
+//                         lastName                  : entity[k].lastName,
+//                         phone                     : entity[k].phone,
+//                         altPhone                  : entity[k].altPhone,
+//                         email                     : entity[k].email,
+//                         // department                : entity[k].Department,
+//                         // designation               : entity[k].Designation,
+//                         employeeID                : entity[k].employeeID,
+//                         role                      : entity[k].role,
+//                         createUser                : entity[k].loginCredential && entity[k].loginCredential != '-' && (entity[k].loginCredential).toLowerCase() === 'yes' ? true : false,
+//                     }
+
+//                     // console.log("contactPersons",contactPersons);           
+                    
+//                     if(entity[k].branchName !== '-' && entity[k].firstName !== '-' && entity[k].lastName !== "-"){
+//                         vendorRecord.contactPersons.push(contactPerson);
+//                     } 
+//                 }else{
+
+//                 }
+//             }
+//         }
+//         console.log("validData",validData);
+//         EntityMaster.insertMany(validData)
+//         .then(data => {
+//             console.log("Data *=> ",data)
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         });
+
+//         failedRecords.FailedRecords = invalidData;
+//         failedRecords.fileName      = req.body.fileName;
+//         failedRecords.totalRecords  = req.body.totalRecords;
+
+//         await insertFailedRecords(failedRecords, req.body.updateBadData);
+
+//         res.status(200).json({
+//             "message"   : "Bulk upload process is completed successfully!",
+//             "completed" : true
+//         });
+//     }
+// };
+
+
+
 /*=========== Bulk upload Entity ===========*/
 exports.bulkUploadEntity = (req, res, next) => {
     var entity          = req.body.data;
@@ -1148,40 +1495,40 @@ exports.bulkUploadEntity = (req, res, next) => {
     var invalidObjects  = [];
     var remark          = '';
     var failedRecords   = [];
-    var Count           = 0;
-    var DuplicateCount  = 0;
+    var count           = 0;
+    var duplicateCount  = 0;
     console.log("entity...",entity);
 
     processData();
     async function processData() {
         for (var k = 0; k < entity.length; k++) {
-            console.log("entityType = > ",k, entity[k].EntityType)
-            console.log("Condition => ", (entity[k].EntityType !== '-'))
-            if (entity[k].EntityType !== '-') {
+            console.log("entityType = > ",k, entity[k].entityType)
+            console.log("Condition => ", (entity[k].entityType !== '-'))
+            if (entity[k].entityType !== '-') {
                 // remark += "entityType not found, ";
             
-                if (entity[k].CompanyName === '-') {
+                if (entity[k].companyName === '-') {
                     remark += "companyName not found, ";
                 }
-                if (entity[k].GroupName === '-') {
+                if (entity[k].groupName === '-') {
                     remark += "groupName not found, ";
                 }
-                if (entity[k].CompanyEmail === '-') {
+                if (entity[k].companyEmail === '-') {
                     remark += "companyEmail not found, ";
                 }
-                if (entity[k].CompanyPhone === '-') {
+                if (entity[k].companyPhone === '-') {
                     remark += "companyPhone not found, ";
                 }
 
                 if (remark === '') {
-                    var getnext = await getNextSequence(entity[k].EntityType)
+                    var getnext = await getNextSequence(entity[k].entityType)
                     // console.log("entity[k].EntityType => ",entity[k].EntityType)
-                    if(entity[k].EntityType == 'corporate'){
+                    if(entity[k].entityType == 'corporate'){
                         var str = "C"+parseInt(getnext)
-                    }else if(entity[k].EntityType == 'vendor'){
+                    }else if(entity[k].entityType == 'vendor'){
                     //    var str = "V"+parseInt(getnext)
                     var str = parseInt(getnext)
-                    }else if(entity[k].EntityType == 'supplier'){ 
+                    }else if(entity[k].entityType == 'supplier'){ 
                         var str = "S"+parseInt(getnext)
                     }else{var str = 1}
 
@@ -1209,24 +1556,53 @@ exports.bulkUploadEntity = (req, res, next) => {
                     //     }
                     //     designationId = await insertCompanywiseDesignation(desigData)
                     // }                
-                    console.log("req.body.EntityType => ", entity[k].EntityType);
-                    var allEntities     = await fetchAllEntities(entity[k].EntityType);
+                    console.log("req.body.EntityType => ", entity[k].entityType);
+                    var allEntities     = await fetchAllEntities(entity[k].entityType);
                     // console.log("allEntities => ", allEntities);
-                    var vendorExists  = allEntities.filter((data) => {
+                    if(validData && validData.length > 0){
+                        var vendorExists  = validData.filter((data) => {
+                            console.log("data.companyName => ", data.companyName);
+                            console.log("entity[k].companyName => ", entity[k].CompanyName);
+                            if ((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()) {
+                                return data;
+                            }
+                            // else if(validData && validData.length > 0){
+                            //     console.log("validData ==> ",validData);
+                            //     return validData.filter((data) => {
+                            //         console.log("------------ ",data)
+                            //         if((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()){
+                            //             return data
+                            //         }
+                            //     })
 
-                        // console.log("data.companyName => ", data.companyName);
-                        // console.log("entity[k].companyName => ", entity[k].CompanyName);
-                        if ((data.companyName).toLowerCase() === (entity[k].CompanyName).toLowerCase()) {
-                            return data;
-                        }
-                    })
-                    // console.log("vendorExists=> ",vendorExists);
+                            // }
+                        })
+                    }else{                    
+                        var vendorExists  = allEntities.filter((data) => {
+                            console.log("data.companyName => ", data.companyName);
+                            console.log("entity[k].companyName => ", entity[k].CompanyName);
+                            if ((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()) {
+                                return data;
+                            }
+                            // else if(validData && validData.length > 0){
+                            //     console.log("validData ==> ",validData);
+                            //     return validData.filter((data) => {
+                            //         console.log("------------ ",data)
+                            //         if((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()){
+                            //             return data
+                            //         }
+                            //     })
+
+                            // }
+                        })
+                    }
+                    console.log("vendorExists=> ",k + " ", vendorExists);
                     if(vendorExists && vendorExists.length === 0){
                     
                         var employeeExists  = allEntities.filter((data) => {
-                            if (data.entityType == entity[k].EntityType
-                                && data.companyName == entity[k].CompanyName
-                                && data.companyEmail == entity[k].CompanyEmail) {
+                            if (data.entityType == entity[k].entityType
+                                && data.companyName == entity[k].companyName
+                                && data.companyEmail == entity[k].companyEmail) {
                                 return data;
                             }
                         })
@@ -1238,20 +1614,20 @@ exports.bulkUploadEntity = (req, res, next) => {
 
                         if (employeeExists && employeeExists.length === 0) {               
                         
-                            var latlong    = await getLatLong(entity[k].AddressLine2); 
+                            var latlong    = await getLatLong(entity[k].addressLine2); 
                             var lat        = latlong[0].latitude;
                             var lng        = latlong[0].longitude;
 
                             var locations  = [{
-                                locationType        : entity[k].LocationType,
-                                addressLine1        : entity[k].AddressflatNo,
-                                addressLine2        : entity[k].AddressLine2,
-                                country             : entity[k].Country,
-                                state               : entity[k].State,
-                                district            : entity[k].District,
-                                city                : entity[k].City,
-                                area                : entity[k].Area,
-                                pincode             : entity[k].Pincode && entity[k].Pincode !== "-" ? entity[k].Pincode : 0,
+                                locationType        : entity[k].locationType,
+                                addressLine1        : entity[k].addressflatNo,
+                                addressLine2        : entity[k].addressLine2,
+                                country             : entity[k].country,
+                                state               : entity[k].state,
+                                district            : entity[k].district,
+                                city                : entity[k].city,
+                                area                : entity[k].area,
+                                pincode             : entity[k].pincode && entity[k].pincode !== "-" ? entity[k].pincode : 0,
                                 latitude            : lat,
                                 longitude           : lng,                                            
                             }]
@@ -1266,37 +1642,37 @@ exports.bulkUploadEntity = (req, res, next) => {
                             }  
 
                             var contactPersons   = [{
-                                branchName                : entity[k].BranchName,
-                                firstName                 : entity[k].FirstName,
-                                lastName                  : entity[k].LastName,
-                                phone                     : entity[k].Phone,
-                                altPhone                  : entity[k].AltPhone,
-                                email                     : entity[k].Email,
+                                branchName                : entity[k].branchName,
+                                firstName                 : entity[k].firstName,
+                                lastName                  : entity[k].lastName,
+                                phone                     : entity[k].phone,
+                                altPhone                  : entity[k].altPhone,
+                                email                     : entity[k].email,
                                 // department                : entity[k].Department,
                                 // designation               : entity[k].Designation,
-                                employeeID                : entity[k].EmployeeID,
-                                role                      : entity[k].Role,
-                                createUser                : entity[k].LoginCredential && entity[k].LoginCredential != '-' && (entity[k].LoginCredential).toLowerCase() === 'yes' ? true : false,
+                                employeeID                : entity[k].employeeID,
+                                role                      : entity[k].role,
+                                createUser                : entity[k].loginCredential && entity[k].loginCredential != '-' && (entity[k].loginCredential).toLowerCase() === 'yes' ? true : false,
                             }]
 
                             // console.log("contactPersons",contactPersons);           
                             let contactdetails = [];
 
                             for( var a=0; a<contactPersons.length; a++){
-                                if((contactPersons[a].BranchName !== null || contactPersons[a].firstName !== null || 
+                                if((contactPersons[a].branchName !== null || contactPersons[a].firstName !== null || 
                                     contactPersons[a].lastName !== null || contactPersons[a].empCategory !== null || 
                                     contactPersons[a].phone !== null || contactPersons[a].altPhone !== null || contactPersons[a].email !== null ||
                                     contactPersons[a].department !== null || contactPersons[a].designation !== null || contactPersons[a].employeeID !== null )){
 
-                                    if(contactPersons[a].BranchName !== 'null'){
-                                        contactPersons[a].BranchName = 0; 
+                                    if(contactPersons[a].branchName !== 'null'){
+                                        contactPersons[a].branchName = 0; 
                                         contactdetails.push(contactPersons[a]);
                                     }                                    
                                 }
                             } 
                                                     
                                                         
-                            var users = await fetchAllUsers(entity[k].Email ? (entity[k].Email).toLowerCase() : null);
+                            var users = await fetchAllUsers(entity[k].email ? (entity[k].email).toLowerCase() : null);
                             // console.log("users1----",users1);
                             
                             if(users){
@@ -1304,43 +1680,43 @@ exports.bulkUploadEntity = (req, res, next) => {
                             }else{
                                 var userDetails = {
 
-                                    firstname               : entity[k].FirstName != '-'  ? entity[k].FirstName : null,
-                                    lastname                : entity[k].LastName != '-'  ? entity[k].LastName : null,
-                                    mobNumber               : entity[k].Phone != '-'  ? entity[k].Phone : null,
-                                    email                   : entity[k].Email != '-'  ? entity[k].Email : null,
+                                    firstname               : entity[k].firstName != '-'  ? entity[k].firstName : null,
+                                    lastname                : entity[k].lastName != '-'  ? entity[k].lastName : null,
+                                    mobNumber               : entity[k].phone != '-'  ? entity[k].phone : null,
+                                    email                   : entity[k].email != '-'  ? entity[k].email : null,
                                     companyID               : validData.companyID,
-                                    companyName             : entity[k].CompanyName != '-'  ? entity[k].CompanyName : null,
-                                    designation             : entity[k].Designation != '-'  ? entity[k].Designation : null,
-                                    department              : entity[k].Department != '-'  ? entity[k].Department : null,
+                                    companyName             : entity[k].companyName != '-'  ? entity[k].companyName : null,
+                                    designation             : entity[k].designation != '-'  ? entity[k].designation : null,
+                                    department              : entity[k].department != '-'  ? entity[k].department : null,
                                     pwd                     : "welcome123",
-                                    role                    : [  entity[k].Role != '-'  ? entity[k].Role : null],
+                                    role                    : [  entity[k].role != '-'  ? entity[k].role : null],
                                     status                    : 'blocked',
-                                    entityType              : entity[k].EntityType,
+                                    entityType              : entity[k].entityType,
                                     // "status"                :  entity[k].role1 ==="corporateadmin" || entity[k].role1 ==="vendoradmin" || entity[k].role1 === "admin" ? "active" :"blocked",
                                     "emailSubject"  : "Email Verification",
                                     "emailContent"  : "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
                                 }
                                 console.log("userDetails => ",userDetails)
-                                console.log("entity[k].LoginCredential => ",entity[k].LoginCredential)
-                                if( (userDetails.Email != '-') && entity[k].LoginCredential && ((entity[k].LoginCredential).toLowerCase() === 'yes')){
+                                console.log("entity[k].LoginCredential => ",entity[k].loginCredential)
+                                if( (userDetails.email != '-') && entity[k].loginCredential && ((entity[k].loginCredential).toLowerCase() === 'yes')){
                                     var userID = await createUser(userDetails);
                                 }                                               
                             }
 
                             validObjects = {
                                 fileName                  : req.body.fileName,   
-                                entityType                : entity[k].EntityType,
-                                companyName               : entity[k].CompanyName,
+                                entityType                : entity[k].entityType,
+                                companyName               : entity[k].companyName,
                                 companyNo                 : companyNo,
                                 companyID                 : companyID,
-                                groupName                 : entity[k].GroupName,
+                                groupName                 : entity[k].groupName,
                                 CIN                       : entity[k].CIN,   
                                 COI                       : [],
                                 TAN                       : entity[k].TAN,
-                                website                   : entity[k].Website,
-                                companyPhone              : entity[k].CompanyPhone,
-                                companyEmail              : entity[k].CompanyEmail,
-                                country                   : entity[k].Country,
+                                website                   : entity[k].website,
+                                companyPhone              : entity[k].companyPhone,
+                                companyEmail              : entity[k].companyEmail,
+                                country                   : entity[k].country,
                                 locations                 : locationdetails,
                                 contactPersons            : contactdetails,                           
                             }
@@ -1388,45 +1764,45 @@ exports.bulkUploadEntity = (req, res, next) => {
 
                     if (entity[k].LocationType !== '-') {                      
                         
-                        var latlong    = await getLatLong(entity[k].AddressLine2); 
+                        var latlong    = await getLatLong(entity[k].addressLine2); 
                         var lat        = latlong[0].latitude;
                         var lng        = latlong[0].longitude;
 
                         var vendorLocation  = {
-                            locationType        : entity[k].LocationType,
-                            addressLine1        : entity[k].AddressflatNo,
-                            addressLine2        : entity[k].AddressLine2,
-                            country             : entity[k].Country,
-                            state               : entity[k].State,
-                            district            : entity[k].District,
-                            city                : entity[k].City,
-                            area                : entity[k].Area,
-                            pincode             : entity[k].Pincode && entity[k].Pincode !== "-" ? entity[k].Pincode : 0,
+                            locationType        : entity[k].locationType,
+                            addressLine1        : entity[k].addressflatNo,
+                            addressLine2        : entity[k].addressLine2,
+                            country             : entity[k].country,
+                            state               : entity[k].state,
+                            district            : entity[k].district,
+                            city                : entity[k].city,
+                            area                : entity[k].area,
+                            pincode             : entity[k].pincode && entity[k].pincode !== "-" ? entity[k].pincode : 0,
                             latitude            : lat,
                             longitude           : lng,                                            
                         }
 
                         console.log("validData.locations" ,validData[0].locations)
-                        vendorRecord[0].locations.push(vendorLocation);
+                        vendorRecord.locations.push(vendorLocation);
                     }
                     var contactPerson   = {
-                        branchName                : entity[k].BranchName,
-                        firstName                 : entity[k].FirstName,
-                        lastName                  : entity[k].LastName,
-                        phone                     : entity[k].Phone,
-                        altPhone                  : entity[k].AltPhone,
-                        email                     : entity[k].Email,
+                        branchName                : entity[k].branchName,
+                        firstName                 : entity[k].firstName,
+                        lastName                  : entity[k].lastName,
+                        phone                     : entity[k].phone,
+                        altPhone                  : entity[k].altPhone,
+                        email                     : entity[k].email,
                         // department                : entity[k].Department,
                         // designation               : entity[k].Designation,
-                        employeeID                : entity[k].EmployeeID,
-                        role                      : entity[k].Role,
-                        createUser                : entity[k].LoginCredential && entity[k].LoginCredential != '-' && (entity[k].LoginCredential).toLowerCase() === 'yes' ? true : false,
+                        employeeID                : entity[k].employeeID,
+                        role                      : entity[k].role,
+                        createUser                : entity[k].loginCredential && entity[k].loginCredential != '-' && (entity[k].loginCredential).toLowerCase() === 'yes' ? true : false,
                     }
 
                     // console.log("contactPersons",contactPersons);           
                     
-                    if(entity[k].BranchName !== '-' && entity[k].FirstName !== '-' && entity[k].LastName !== "-"){
-                        vendorRecord.contactdetails.push(contactPerson);
+                    if(entity[k].branchName !== '-' && entity[k].firstName !== '-' && entity[k].lastName !== "-"){
+                        vendorRecord.contactPersons.push(contactPerson);
                     } 
                 }else{
 
