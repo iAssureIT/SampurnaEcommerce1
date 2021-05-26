@@ -12,7 +12,13 @@ import {setBlockData ,setProductApiUrl,getCartData} from '../../redux/actions/in
 import store                from '../../redux/store.js';
 
 const { publicRuntimeConfig } = getConfig();
+//get site name from next.config.js
 const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
+
+// import GiftOption           from '../../blocks/GiftOption/GiftOption.js';
+// import Discount             from '../../blocks/Discount/Discount.js';
+// import EstimateShipping     from '../../blocks/EstimateShipping/EstimateShipping.js';
+
 class Cart extends Component{
     constructor(props) {
         super(props);
@@ -28,14 +34,20 @@ class Cart extends Component{
     } 
     componentDidMount(){
         this.getWishlistData();
+
     }
     getWishlistData() {
         // $('.fullpageloader').show();
         var user_ID = localStorage.getItem('user_ID');  
         var productApi = "/api/wishlist/get/userwishlist/"+user_ID;
+        // var productApi = "/api/wishlist/get/wishlistdata/"+user_ID;
+        // console.log("productApi on cart page",productApi);
         store.dispatch(setProductApiUrl(productApi));
-    }
+       }
+
     render(){
+      // console.log("cart pageData",this.props.pageDatapop.pageBlocks.length);
+        // console.log("this.state.wishlistedProducts---",this.state.wishlistedProducts);
         return(
           <div>
             <Header/>
@@ -43,23 +55,28 @@ class Cart extends Component{
                 <div className="row">                    
                     <SmallBanner bannerData={this.state.bannerData}/>
                     <CartProducts />
+                    {/* { console.log("this.props.pageData.pageBlocks length===",this.props.pageData)} */}
                     { this.props.pageDatapop.pageBlocks && this.props.pageDatapop.pageBlocks.length > 0 ?
 						          this.props.pageDatapop.pageBlocks.map((result, index)=>{                      
 						          var component = result._id ? result.blockComponentName : "TitleDesc";
                       var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
                       var block_id=result.block_id._id; 
+                      // const OtherComponent = dynamic(() => import('../../Sampurna/blocks/'+component+'/'+component+'.js'),	
                       const OtherComponent = dynamic(() => import('../../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),				
                       {
                         loading: () =>
                           <div className="col-2 offset-5 loading">
                             <img src="/images/eCommerce/loader.gif" className=""></img>
+                            {/* loading.... */}
                           </div> 
                       }
                       ); 
+                      
                       // console.log("component",component);
 						          return(
                         <div className="col-12 NoPadding" key={index}>
                           <OtherComponent block_id={block_id} key={index}/>
+                          {/* <h1>Wishlist</h1> */}
                         </div>
 						            )
 				              })
@@ -76,6 +93,7 @@ class Cart extends Component{
 }
 
 export async function getServerSideProps({query}){
+  // console.log("query===",query);
 	const urlParam = 'wishlist-carousel'
 	const res = await axios.get("api/pages/get/page_block/"+urlParam)
 	const pageDatapop = await res.data;
@@ -99,4 +117,3 @@ export async function getServerSideProps({query}){
   
   
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
-
