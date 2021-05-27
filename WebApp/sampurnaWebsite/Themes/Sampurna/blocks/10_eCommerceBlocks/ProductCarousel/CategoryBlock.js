@@ -39,7 +39,7 @@ class CategoryBlock extends Component{
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-      console.log("props--",nextProps);
+      // console.log("props--",nextProps);
       if (nextProps.newProducts) {
         // return ({ 
         //   categoryData: nextProps.categoryData,
@@ -73,8 +73,8 @@ class CategoryBlock extends Component{
                       var url = "/products/"+this.props.vendor_ID+"/"+this.props.sectionUrl+"/"+categorydata.categoryUrl;
                       return (
                       <div className="col-12 productsCategoryBlock "  key={index}> 
-                          <Link href={url} className ={"col-12 " +style.categoryBlock}> 
-                            <a>
+                          <Link href={url} className ={"col-12 "}> 
+                            <a className ={"col-12 " +style.categoryBlock}>
                               <div className={"itemImg col-12 NoPadding " +style.categoryPhoto }>
                                   <Image                                           
                                     src={categorydata.categoryImg ? categorydata.categoryImg : "/images/eCommerce/notavailable.jpg"}
@@ -85,7 +85,7 @@ class CategoryBlock extends Component{
                                     layout={'intrinsic'}
                                   />
                               </div>
-                              <div className="col-12 categoryName text-center" title={categorydata.category}>{categorydata.category}</div>
+                              <div className={"col-12 text-center mt-2 " +style.categoryName} title={categorydata.category}>{categorydata.category}</div>
                             </a>
                           </Link>
                       </div>                            

@@ -30,6 +30,9 @@
     padding: 0px 10px;
     margin-bottom: 10px !important;
 }
+.cartProductDetail .price{
+    font-size: 14px !important;
+}
 .cartProductDetail a{
     color: #333;
 }
@@ -52,19 +55,22 @@
 .cartProductPrize{
     color: #5f5f5f;
     text-align: center;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 30px;
-    margin-top: 10px;
-    font-size: 18px !important;
+    margin-top: 15px;
+    font-size: 16px !important;
+}
+.totalAmounts{
+    font-size: 14px;
 }
 .minusQuantity,
 .plusQuantity{
     cursor: pointer;
     border-radius: 2px;
-    padding: 5px;
+    padding: 7px 8px;
 }
 .inputQuantity{
-    padding: 4px 5px;
+    padding: 6px 10px;
     background: #fff;
     border: 1px solid #dbd5d5;
     color: #5c5c5c;
@@ -88,6 +94,7 @@
     text-align: left;
 }
 .quantityWrapper{
+    margin-top: 10px;
     text-align: center;
     font-weight: 600;
     font-size: 12px;
@@ -239,7 +246,19 @@
 }
 .wishlistBtn{
     margin-bottom: 10px !important;
+    padding: 0px !important;
+    font-size: 14px;
+}
+.wishlistBtn :hover{
+    color: var(--globalColor) !important;
 }
 .proWeight span{
     text-align: center;
+}
+.table td{
+    border-top: 0px !important;
+}
+.vendorName{
+    border-bottom: solid 1px #eee;
+    padding-bottom: 10px;
 }

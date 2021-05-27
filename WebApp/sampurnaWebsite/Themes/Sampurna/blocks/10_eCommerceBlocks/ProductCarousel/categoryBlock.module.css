@@ -3,14 +3,17 @@
     text-decoration: none !important;
 }
 .categoryCarousel{
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 .categoryName{
-    font-size: 15px;
-    text-decoration: none !important;
-    color: #333;
+    font-size: 14px;
+    color: #000;
 }
-.categoryBlock{
+.categoryName:hover{
+    color: lightcoral;
+    text-decoration: none !important;
+}
+.categoryBlock:hover {
     text-decoration: none !important;
 }
 .categoryPhoto{

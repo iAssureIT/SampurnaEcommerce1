@@ -37,18 +37,19 @@ class Product extends Component{
 
     }
     componentDidUpdate(prevState, nextState){
+
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
       // console.log("1.Inside product getDerivedStateFromProps nextProps",nextProps);
       // console.log("2.Inside product getDerivedStateFromProps prevState",prevState);
-      if (nextProps.newProducts) {
-        return ({ 
-          newProducts: nextProps.newProducts,
-          blockSettings   : nextProps.blockSettings,
-          productSettings : nextProps.productSettings
-        }) // <- this is setState equivalent
-      }
+      //if (nextProps.newProducts) {
+        // return ({ 
+        //   newProducts: nextProps.newProducts,
+        //   blockSettings   : nextProps.blockSettings,
+        //   productSettings : nextProps.productSettings
+        // }) // <- this is setState equivalent
+      //}
       return null
     }
 
@@ -96,8 +97,8 @@ class Product extends Component{
       } else {
         axios.post('/api/carts/post', formValues)
           .then((response) => {
-            console.log("this.props.fetchCartData();",this.props.fetchCartData());
-            console.log("cart response;",response.data);
+            // console.log("this.props.fetchCartData();",this.props.fetchCartData());
+            // console.log("cart response;",response.data);
             this.setState({
               messageData: {
                 "type": "outpage",
@@ -310,17 +311,17 @@ class Product extends Component{
     render(){
       // console.log("1. newProducts----",this.state.newProducts);
 
-      var LGCol = 12/this.state.blockSettings.noOfProductPerLGRow;
-      var MDCol = 12/this.state.blockSettings.noOfProductPerMDRow;
-      var SMCol = 12/this.state.blockSettings.noOfProductPerSMRow;
-      var XSCol = 12/this.state.blockSettings.noOfProductPerXSRow;
+      var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
+      var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
+      var SMCol = 12/this.props.blockSettings.noOfProductPerSMRow;
+      var XSCol = 12/this.props.blockSettings.noOfProductPerXSRow;
       // console.log("XSCol==",XSCol);
       return (
         <div className="row">
          <Message messageData={this.state.messageData} /> 
-           { Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
-            Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
-                var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
+           { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
+            Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => {  
+                var x = this.props.wishList && this.props.wishList.length > 0 ? this.props.wishList.filter((abc) => abc.product_ID === data._id) : [];
                 // var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';
                 var tooltipMsg = '';
@@ -338,7 +339,7 @@ class Product extends Component{
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                       <div className={"col-12 NoPadding " +Style.wishlistBtn}>
-                          {this.state.productSettings.displayWishlist === true?
+                          {this.props.productSettings.displayWishlist === true?
                               this.state.user_ID?
                               <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                               :
@@ -364,7 +365,7 @@ class Product extends Component{
                       </div>
                       <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
                         <div className={"col-12 " +Style.innerDiv}>
-                          {this.state.productSettings.displayBrand === true ?
+                          {this.props.productSettings.displayBrand === true ?
                             data.brandNameRlang?
                             <div className={"col-12 globalProduct_brand RegionalFont1"} title={data.brandNameRlang}>{data.brandNameRlang}</div>
                             :
@@ -373,11 +374,11 @@ class Product extends Component{
                           :null
                           }                                        
                           
-                          {this.state.productSettings.displaySection === true ?
+                          {this.props.productSettings.displaySection === true ?
                             <div className={"col-12 globalProductItemName"} title={data.section}>{data.section}</div>
                           :null
                           }
-                          {this.state.productSettings.displayCategory === true ?
+                          {this.props.productSettings.displayCategory === true ?
                             <div className={"col-12 globalProduct_brand"} title={data.category}>{data.category}</div>
                           :null
                           }
@@ -418,7 +419,7 @@ class Product extends Component{
                                 </div> 
                             }
                           </div>
-                          {this.state.productSettings.displayRating === true ?
+                          {this.props.productSettings.displayRating === true ?
                             <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
                                 <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding " +Style.NoPadding} onMouseOver={this.showRatingBlock.bind(this)} >
                                     <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.showRating}> 4 <i className="fas fa-star"></i></div>                                        
@@ -427,7 +428,7 @@ class Product extends Component{
                                     <RatingBlock />
                                 </div>                                   */}
                                 <span className={"col-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
-                                {this.state.productSettings.displayAssuranceIcon === true ?
+                                {this.props.productSettings.displayAssuranceIcon === true ?
                                   <span className={"col-4 NoPadding " +Style.NoPadding +" " +Style.assurenceIcon}>
                                     <img loading="lazy" className={"col-12 NoPadding " +Style.NoPadding} src="/images/assured.png" alt="Assured Img" />                                      </span>
                                 :null

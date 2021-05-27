@@ -171,7 +171,7 @@ class ProductCarousel extends Component {
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((response)=>{
         if(response.data){
-        console.log("1.blocks response data=>",response.data);                
+        // console.log("1.blocks response data=>",response.data);                
         this.setState({
            blockSettings   : response.data.blockSettings,  
            productSetting  : response.data.productSettings,   
@@ -230,8 +230,8 @@ class ProductCarousel extends Component {
               var productApiUrl = this.state.blockSettings.blockApi;
               // console.log("productApiUrl===",productApiUrl);
           }
-          console.log("productApiUrl===",productApiUrl);
-          console.log("5. formvalues =>",formValues);
+          // console.log("productApiUrl===",productApiUrl);
+          // console.log("5. formvalues =>",formValues);
           if(productApiUrl){
             axios.post(productApiUrl,formValues)     
             .then((response)=>{
@@ -311,7 +311,7 @@ class ProductCarousel extends Component {
 
 		axios.post("/api/products/get/listBrandByCategories", formValues)
     .then((response) => {
-      console.log("brand response.data===",response.data);
+      // console.log("brand response.data===",response.data);
       this.setState({
         brands: response.data
       })
@@ -966,9 +966,20 @@ class ProductCarousel extends Component {
                   }   
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
+
+                    // this.state.blockSettings.showCarousel === false?
+                    //   < CategoryFilters 
+                    //     categoryData = {this.state.categoryData}
+                    //     vendor_ID ={this.state.vendor_ID}
+                    //     sectionUrl = {this.state.sectionUrl}
+                    //   />
+                    // :null
+                    
+
                   <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
                     {this.state.categoryData && this.state.categoryData.length>0?    
                     <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-12 NoPadding  filterWrapper " +Style.filterBlockWrapper}> 
+                    
                     <div className="panel-group" id="accordion">                      
                       <div className={Style.categoryFilterTitle}> Categories </div>  
                       {
@@ -1085,7 +1096,8 @@ class ProductCarousel extends Component {
 
                           />
                         :
-                        <div className="col-2 offset-5 ">          
+                        <div className="col-2 offset-5 ">   
+                            loading....       
                             <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
                         </div>
                         }
