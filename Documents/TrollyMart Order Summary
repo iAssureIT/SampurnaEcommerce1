@@ -1,0 +1,63 @@
+
+		Order Summary
+
+
+Product Name			Price 		Qty		Subtotal
+-------------------------------------------------------
+
+LuLu Hypermart
+
+ xxxx					nnn			 n 			nnn
+ xxxx					nnn			 n 			nnn
+ xxxx					nnn			 n 			nnn
+----------------------------------------------------------
+					LuLu Hypermart Total  	-	nnn
+							   You Saved 	-   nnn
+						Delivery Charges    -	nnn
+
+Choithrams
+
+ xxxx					nnn			 n 			nnn
+ xxxx					nnn			 n 			nnn
+ xxxx					nnn			 n 			nnn
+----------------------------------------------------------
+					    Choithrams Total  	-	nnn
+							   You Saved 	-   nnn
+						Delivery Charges    -	nnn
+
+Al Maya
+
+ xxxx					nnn			 n 			nnn
+ xxxx					nnn			 n 			nnn
+ xxxx					nnn			 n 			nnn
+----------------------------------------------------------
+					       Al Maya Total  	-	nnn
+							   You Saved 	-   nnn
+						Delivery Charges    -	nnn
+
+
+
+
+						Final Total Amount	-	nnnn
+							 Total Savings  -   nnnn
+							     Total Tax 	-   nnnn
+					
+						[__Discount Coupon__]	APPLY
+
+					Total Delivery Charges  -   nnnn
+				--------------------------------------------
+							Grand Total		- 	nnnn
+
+
+
+
+						Final Total Amount	-	nnnn
+							 Total Savings  -   nnnn
+							     Total Tax 	-   nnnn
+					
+					Discount Coupon Amount  -   nnnn [x]  (-> red)
+					Final Discounted Price  -   nnnn
+
+					Total Delivery Charges  -   nnnn
+				--------------------------------------------
+							Grand Total		- 	nnnn

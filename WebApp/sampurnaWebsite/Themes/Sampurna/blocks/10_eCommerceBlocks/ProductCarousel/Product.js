@@ -178,7 +178,9 @@ class Product extends Component{
             "quantity": 1,  
             "selectedSize" : selectedSize,
             "size"         : size,
-            "totalWeight"  : totalWeight,      
+            "totalWeight"  : totalWeight,  
+            "vendorName" : event.target.getAttribute('vendorName'),
+            "vendor_ID"  : event.target.getAttribute('vendor_ID'),      
           }
         }else{
           quantity    = selectedSize/size;
@@ -197,7 +199,9 @@ class Product extends Component{
         formValues = {
           "user_ID": userid,
           "product_ID": event.target.id,
-          "quantity": 1,        
+          "quantity": 1,   
+          "vendorName" : event.target.getAttribute('vendorName'),
+          "vendor_ID"  : event.target.getAttribute('vendor_ID'),     
         }      
       }
   
@@ -457,7 +461,7 @@ class Product extends Component{
                                       }
                                     </select>                                     
                                   </div>    
-                                  <button type="submit" color={data.color} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
+                                  <button type="submit" color={data.color} id={data._id} vendorName={data.vendorName} vendor_ID={data.vendor_ID} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
                                     title="Add to Cart" className={"col-6 fa fa-shopping-cart "  }>                                                                         
                                     &nbsp;Add
                                   </button>                          
@@ -466,11 +470,11 @@ class Product extends Component{
                                 data.availableQuantity > 0 ?
                                   <div>
                                   {this.state.user_ID?
-                                  <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                  <button type="submit" vendorName={data.vendorName} vendor_ID={data.vendor_ID} id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                       &nbsp;Add To Cart
                                   </button>
                                   :
-                                  <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                  <button type="submit" id={data._id} vendorName={data.vendorName} vendor_ID={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
                                       &nbsp;Add To Cart
                                   </button>
                                   }     

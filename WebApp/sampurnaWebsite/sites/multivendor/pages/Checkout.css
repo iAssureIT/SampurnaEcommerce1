@@ -134,10 +134,18 @@
     margin-bottom: 10px;
 }
 .orderReviews span{
-    font-weight: 700;
+    /* font-weight: 700; */
     margin-top: 10px;
-    color: #666;
+    color: #333;
     font-size: 15px;
+}
+.tableRowWrapper{
+    display: contents;
+}
+.cuponBtn{
+    padding: 5px;
+    font-size: 12px;
+    height: 37px;
 }
 .textAlignRight{
     text-align: right !important;
@@ -210,7 +218,7 @@
     list-style: disc;
 }
 .orderReviewsWrapper tr td{
-    padding: 0px;
+    /* padding: 0px; */
 }
 .termsNconditionsmodal:hover{
     color: #80b435;   
@@ -255,6 +263,10 @@
 }
 .checkoutADDCss{
     font-size: 14px ! important;
+}
+.tableRow{
+    padding-top: 20px;
+    border-top: solid 1px #333;
 }
 
 @media only screen and (max-device-width: 480px) {   

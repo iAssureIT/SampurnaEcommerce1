@@ -304,7 +304,7 @@ class ProductCarousel extends Component {
 	}
 
 	getBrandsByCategories(filterUrlArray) {
-    console.log("inside getBrandsByCategories",filterUrlArray);
+    // console.log("inside getBrandsByCategories",filterUrlArray);
 		var formValues = {
 			filterUrlArray: filterUrlArray
 		}
@@ -459,7 +459,7 @@ class ProductCarousel extends Component {
         })
       }, 3000);
     } else {
-      // console.log("formValues==",formValues);
+      console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)
         .then((response) => {
           // console.log("this.props.fetchCartData();",this.props.fetchCartData());
@@ -479,8 +479,6 @@ class ProductCarousel extends Component {
           }, 3000);
           this.props.fetchCartData();
           this.props.cartCount();
-
-
         })
         .catch((error) => {
           console.log('cart post error', error);
@@ -491,7 +489,6 @@ class ProductCarousel extends Component {
 
   submitCart(event) { 
     const user_ID = localStorage.getItem('user_ID');
-    // console.log("userId===",user_ID);
     if(user_ID){
       if(this.props.recentCartData.length>0 && this.props.recentCartData[0].cartItems.length>0){
           var cartLength = this.props.recentCartData[0].cartItems.length;
@@ -525,7 +522,6 @@ class ProductCarousel extends Component {
     }    
     const userid = localStorage.getItem('user_ID');
     var availableQuantity = event.target.getAttribute('availablequantity');
-    // console.log("AvailableQuantity=======",$('.xyz'));
     var currProId = event.target.getAttribute('currpro');
     var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
     var productCartData = recentCartData.filter((a) => a.product_ID === id);
@@ -553,14 +549,18 @@ class ProductCarousel extends Component {
           "selectedSize" : selectedSize,
           "size"         : size,
           "totalWeight"  : totalWeight,
+          "vendorName"   : event.target.getAttribute('vendorName'),
+          "vendor_ID"    : event.target.getAttribute('vendor_ID'),  
         }
       }
 
     }else{      
       formValues = {
-        "user_ID": userid,
-        "product_ID": event.target.id,
-        "quantity": 1,        
+        "user_ID"    : userid,
+        "product_ID" : event.target.id,
+        "quantity"   : 1,   
+        "vendorName" : event.target.getAttribute('vendorName'),
+        "vendor_ID"  : event.target.getAttribute('vendor_ID'),       
       }      
     }
 
@@ -916,7 +916,7 @@ class ProductCarousel extends Component {
                                                   }
                                                 </select>                                     
                                               </div>    
-                                              <button type="submit" color={data.color} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
+                                              <button type="submit" color={data.color} vendorName={data.vendorName} vendor_ID={data.vendor_ID} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
                                                 title="Add to Cart" className={"col-6 fa fa-shopping-cart "  }>                                                                         
                                                 &nbsp;Add
                                               </button>                          
@@ -925,11 +925,11 @@ class ProductCarousel extends Component {
                                             data.availableQuantity > 0 ?
                                               <div>
                                               {this.state.user_ID?
-                                              <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                              <button type="submit" id={data._id} vendorName={data.vendorName} vendor_ID={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                                   &nbsp;Add To Cart
                                               </button>
                                               :
-                                              <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                              <button type="submit" id={data._id} vendorName={data.vendorName} vendor_ID={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
                                                   &nbsp;Add To Cart
                                               </button>
                                               }     
@@ -1093,6 +1093,7 @@ class ProductCarousel extends Component {
                           <Product newProducts={this.state.newProducts}
                                 productSettings = {this.state.productSettings}
                                 blockSettings   = {this.state.blockSettings}
+                                
 
                           />
                         :
