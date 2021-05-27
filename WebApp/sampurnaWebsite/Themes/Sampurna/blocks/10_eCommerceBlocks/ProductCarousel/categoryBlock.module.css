@@ -1,9 +1,18 @@
 
+.productsCategoryBlock a{
+    text-decoration: none !important;
+}
 .categoryCarousel{
-    /* border-bottom: solid 
-    1px #666; */
     margin-bottom: 20px;
 }
 .categoryName{
     font-size: 15px;
+    text-decoration: none !important;
+    color: #333;
+}
+.categoryBlock{
+    text-decoration: none !important;
+}
+.categoryPhoto{
+    display: grid !important;
 }

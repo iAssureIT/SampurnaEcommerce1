@@ -20,6 +20,7 @@
 /* ---------- rightside flter -----------  */
 .rightSidefilter{
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 .sortProducts,
 .limitProducts{
@@ -346,11 +347,26 @@ font-weight: bold;
 .productInnerWrap {
   transition: .4s ease;
 }
+.productWrapper{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.productListWrapper{
+  margin-top: 20px;
+  border-top: solid 5px #C78D31;
+  padding-bottom: 20px;
+}
+.filterWrapper{
+  margin-top: 20px;
+}
+.ProductViewWrapper{
+  padding-bottom: 20px;
+}
 .productBlock {
   border: 1px solid #f1f2f2;
   margin-top: 5px;
   margin-bottom: 5px;
-  height: 350px;
+  height: 420px;
   /* height: 350px; */
   /* height: auto; */
 }

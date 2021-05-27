@@ -13,6 +13,7 @@ import $, { post }            from 'jquery';
 import jQuery                 from 'jquery';
 import Style                  from './ProductCarousel.module.css';
 import style                  from './categoryBlock.module.css';
+import CategoryBlock          from './CategoryBlock.js';
 import Product                from './Product.js';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -209,7 +210,7 @@ class ProductCarousel extends Component {
             // console.log("blockSettings=>",this.state.blockSettings);
             formValues = {
               "vendor_ID"      : "",
-              "sectionUrl"     : this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase(),
+              "sectionUrl"     : this.state.blockSettings.section? (this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
               "categoryUrl"    : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
               "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
               "userLatitude"   : this.state.userLatitude,
@@ -780,15 +781,7 @@ class ProductCarousel extends Component {
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     deviceType={this.props.deviceType}
                     itemclassName="carousel-item-padding-10-px">
-
-                        {/* {this.state.newProducts.length>=1?
-                          <Product newProducts={this.state.newProducts}
-                                productSettings = {this.state.productSettings}
-                                blockSettings   = {this.state.blockSettings}
-
-                          />
-                        :
-                        null} */}
+                        
                     { 
                       Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
                         Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
@@ -802,7 +795,7 @@ class ProductCarousel extends Component {
                               wishClass = 'r';
                               tooltipMsg = 'Add To Wishlist';
                             }   
-                            var categoryUrl = (data.category).replace(/\s+/g, '-').toLowerCase();                  
+                            var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
                           return (
                               <div key={index} className={"col-12 " +Style.singleProduct}>                          
                               <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
@@ -955,62 +948,25 @@ class ProductCarousel extends Component {
                         
                         })
                         :''
-                        // <Loader type="carouselloader" productLoaderNo = {4}/>
                     }
 
                   </Carousel>
                   : 
                   <div className={"col-12 NoPadding " +Style.ProductListWrapper }>              
                   <div className={"container-fluid " }>
+
                   {this.state.blockSettings.showCarousel === false?
-                      <div className={"col-12 NoPadding " +style.categoryCarousel}>
-                        <Carousel 
-                          className=""
-                              swipeable={false}
-                              draggable={true}
-                              showDots={false}
-                              responsive={responsive}
-                              ssr={true} // means to render carousel on server-side.
-                              infinite={true}
-                              autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                              autoPlaySpeed={3000}
-                              keyBoardControl={true}
-                              customTransition="all .20"
-                              transitionDuration={500}                      
-                              removeArrowOnDeviceType={["mobile"]}
-                              deviceType={this.props.deviceType}  
-                              containerClass="carousel-container">
-                                {this.state.categoryData.map((categorydata, index) => {
-                                  var url = "/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+categorydata.categoryUrl;
-                                  return (
-                                  <div className="col-12 productsCategoryBlock"  key={index}> 
-                                      <a href={url} className ="secCateblock"> 
-                                        <div className="itemImg col-12 NoPadding">
-                                          <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
-                                            {/* <img src={categorydata.categoryImg ? categorydata.categoryImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" /> */}
-                                            <Image                                           
-                                              src={categorydata.categoryImg ? categorydata.categoryImg : "/images/eCommerce/notavailable.jpg"}
-                                              alt="ProductImg" 
-                                              className={"img-responsive " +Style.NoAvailableImg }
-                                              height={150}
-                                              width={200} 
-                                              layout={'intrinsic'}
-                                            />
-                                          </a>
-                                        </div>
-                                        <div className="col-12 categoryName text-center" title={categorydata.category}>{categorydata.category}</div>
-                                      </a>
-                                  </div>                            
-                                  );
-                                })
-                              }
-                          </Carousel>
-                      </div>
-                      :null
+                      < CategoryBlock 
+                        categoryData = {this.state.categoryData}
+                        vendor_ID ={this.state.vendor_ID}
+                        sectionUrl = {this.state.sectionUrl}
+                      />
+                  :null
+
                   }   
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
-                  <div className={"row NoPadding " +Style.BlockWrapper +" " +Style.NoPadding}>  
+                  <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
                     {this.state.categoryData && this.state.categoryData.length>0?    
                     <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-12 NoPadding  filterWrapper " +Style.filterBlockWrapper}> 
                     <div className="panel-group" id="accordion">                      

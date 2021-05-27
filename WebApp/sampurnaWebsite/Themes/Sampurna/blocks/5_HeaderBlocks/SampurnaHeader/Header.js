@@ -9,6 +9,7 @@ import { connect }            from 'react-redux';
 import { getCartData,updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import  store                 from '../../../../../redux/store.js';
 import parse, { domToReact }  from 'html-react-parser';
+import Searchbar              from './Searchbar.js';
 import Megamenu               from './Megamenu.js';
 import DeliveryLocationPopup  from './DeliveryLocationPopup.js';
 import DisplayLocation        from './DisplayLocation.js';
@@ -92,7 +93,6 @@ class Header extends React.Component {
         return(   
             <div className="col-12 headerWrapper NoPadding">
             <div className="col-12 NoPadding multilevelType2MenuWrapper"> 
-            
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark megamenu">
                     <div className="col-12">
@@ -110,37 +110,9 @@ class Header extends React.Component {
                                         />
                                     </a>
                                 </Link>
-                                {/* <a href="/" title="navbar-brand Sitelogo ">
-                                    <Image
-                                        src="/images/eCommerce/multistoreLogo.png"
-                                        className={"img-responsive logoImg hidden-x"}
-                                        height ={30}
-                                        width={120}
-                                        layout="responsive"
-                                    />
-                                </a> */}
                                 </div>
 
-                                <div className="rightNavbar ml-4 mr-4 col-12 col-sm-6 NoPadding">                                
-                                    <div className="col-12 NoPadding">  
-                                        <div className="row"> 
-                                            <select name="category_product" className=" col-3 category-selection">
-                                                <option value="">All Category</option>
-                                                {Array.isArray(this.state.categorydata) && this.state.categorydata.map((category,index)=>{
-                                                        return(
-                                                            <option value="uncategorized" key={index}>{category.category}</option>                                         
-                                                        )
-                                                    }) 
-                                                }
-                                                
-                                            </select>
-                                            <input type="text" placeholder="What are you looking for?" 
-                                            onChange={this.searchProducts.bind(this)} 
-                                            className="form-control tableSearch col-8" ref="tableSearch" id="tableSearch" name="tableSearch" />
-                                        </div>
-                                        <div className="searchIcon"><i className="fa fa-search"></i></div>                                    
-                                    </div>                                
-                                </div>
+                                <Searchbar />
 
                                 <div className="col-8 col-sm-3 ml-4 systemSecurity"> 
                                     <div className="row">

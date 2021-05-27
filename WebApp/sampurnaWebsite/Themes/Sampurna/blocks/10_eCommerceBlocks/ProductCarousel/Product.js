@@ -333,7 +333,7 @@ class Product extends Component{
                 }   
                 var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
               return (
-                <div className={" col-sm-"+LGCol+" col-"+XSCol +" " +Style.mobileViewPadding }   key={index}> 
+                <div className={" col-sm-"+LGCol+" col-"+XSCol +" " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
@@ -354,8 +354,8 @@ class Product extends Component{
                             src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                             alt="ProductImg" 
                             className={"img-responsive " +Style.NoAvailableImg }
-                            height={260}
-                            width={265} 
+                            height={230}
+                            width={200} 
                             layout={'intrinsic'}
                           />
                         </a>

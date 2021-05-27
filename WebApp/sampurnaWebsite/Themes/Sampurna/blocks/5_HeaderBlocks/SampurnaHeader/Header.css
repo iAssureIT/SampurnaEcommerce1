@@ -296,11 +296,11 @@ ul:hover > .dropDownLevel3 {
 .category-selection{
     font-size: 12px !important;
     font-weight: 300 !important;
-    font-family: ;
+    
 }
 .tableSearch{
     height: 40px !important;
-    border-radius: 0px !important;
+    border-radius: 5px !important;
     border: solid 1px #ddd !important;
 }
 .searchIcon {
