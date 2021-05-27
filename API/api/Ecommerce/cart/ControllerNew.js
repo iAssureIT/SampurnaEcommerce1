@@ -402,6 +402,7 @@ exports.list_cart_product = (req,res,next)=>{
             productName         : 1,
             productNameRlang    : 1,
             productUrl          : 1,
+            availableQuantity   : 1,
             currency            : 1,
             originalPrice       : 1,
             discountPercent     : 1,
@@ -440,10 +441,10 @@ exports.list_cart_product = (req,res,next)=>{
             }
             if(j>=vendorOrders[i].cartItems.length){
                 data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
-                data.vendorOrders[i].vendor_afterDiscountTotal = vendor_afterDiscountTotal;
-                data.vendorOrders[i].vendor_discountAmount = vendor_discountAmount;
-                data.vendorOrders[i].vendor_taxAmount = vendor_taxAmount;
-                data.vendorOrders[i].vendor_shippingCharges = vendor_shippingCharges;
+                data.vendorOrders[i].vendor_afterDiscountTotal  = vendor_afterDiscountTotal;
+                data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
+                data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
+                data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
 
                 order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
                 order_afterDiscountTotal    += vendor_afterDiscountTotal;
