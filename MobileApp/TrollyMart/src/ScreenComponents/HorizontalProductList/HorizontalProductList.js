@@ -48,9 +48,9 @@ export const HorizontalProductList =(props)=>{
     console.log("props.blockApi",props);
     var payload ={
       "vendorID"          : '',
-      "sectionUrl"        : props.section!=="all" ? props.section.replace(/\s/g, '-').toLowerCase() : 'all',
-      "categoryUrl"       : props.category!=="all" ? props.category.replace(/\s/g, '-').toLowerCase() : 'all',
-      "subCategoryUrl"    : props.subCategory!=="all" ? props.subCategory.replace(/\s/g, '-').toLowerCase() : 'all',
+      "sectionUrl"        : props.section!=="all" ? props.section?.replace(/\s/g, '-').toLowerCase() : 'all',
+      "categoryUrl"       : props.category!=="all" ? props.category?.replace(/\s/g, '-').toLowerCase() : 'all',
+      "subCategoryUrl"    : props.subCategory!=="all" ? props.subCategory?.replace(/\s/g, '-').toLowerCase() : 'all',
       // "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
       "startRange"        : 0,
       "limitRange"        : 20,

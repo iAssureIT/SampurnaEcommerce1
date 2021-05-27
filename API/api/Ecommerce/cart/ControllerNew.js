@@ -472,17 +472,16 @@ exports.all_list_cart = (req,res,next)=>{
 
 exports.count_cart = (req,res,next)=>{
     Carts.aggregate([
-        {$match:{"user_ID": req.params.user_ID}},
+        {"$match":{"user_ID": ObjectId(req.params.user_ID)}},
         { 
             "$project": { 
-                "size": { "$sum": { "$map": { "input": "$vendorOrders", "as": "l", "in": { "$size": "$$l.cartItems" } } } } 
+                "count": { "$sum": { "$map": { "input": "$vendorOrders", "as": "l", "in": { "$size": "$$l.cartItems" } } } } 
             } 
         }
     ])
     .exec()
     .then(data=>{
-        console.log("data",data);
-        res.status(200).json(data);
+        res.status(200).json(data[0].count);
     })
     .catch(err =>{
         console.log("err",err);
