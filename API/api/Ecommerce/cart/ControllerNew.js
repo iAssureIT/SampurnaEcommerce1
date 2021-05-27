@@ -607,17 +607,29 @@ exports.remove_product_from_cart = (req, res, next)=>{
 }
 
 exports.change_cart_item_quantity = (req, res, next)=>{
+    console.log("req.body => ",req.body);
     Carts.updateOne(
-        {"user_ID":req.body.user_ID,'cartItems.product_ID':req.body.product_ID},
+        {"user_ID" : ObjectId(req.body.user_ID)},
         {
-            $set:{
-                'cartItems.$.quantity'   : parseInt(req.body.quantityAdded),
-                'cartItems.$.totalWeight': req.body.totalWeight,
+            $set:
+                {
+                    'vendorOrders.$[outer].cartItems.$[inner].quantity'         : parseInt(req.body.quantityAdded),
+                    // 'vendorOrders.$[outer].cartItems.$[inner].totalWeight'    : req.body.totalWeight,
+                } 
             },
-        }
+            {arrayFilters: [
+                { 'outer.vendor_id': req.body.vendor_ID}, 
+                { 'inner.product_ID': req.body.product_ID }
+            ]},
+            // $set:{
+            //     'vendorOrders.cartItems.quantity'       : parseInt(req.body.quantityAdded),
+            //     'vendorOrders..cartItems.$.totalWeight'    : req.body.totalWeight,
+            // },
+        
     )
     .exec()
     .then(data=>{
+        console.log("data => ",data);
         if(data.nModified == 1){
             res.status(200).json({
                 "message": "Product quantity changed successfully."
