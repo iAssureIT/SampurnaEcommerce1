@@ -12,7 +12,6 @@ import {
 import { Button, Icon,Input } from "react-native-elements";
 import Modal                  from "react-native-modal";
 import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-// import Footer from '../../ScreenComponents/Footer/Footer.js';
 import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
 import Notification           from '../../ScreenComponents/Notification/Notification.js'
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
@@ -20,8 +19,6 @@ import { colors }             from '../../AppDesigns/currentApp/styles/styles.js
 import axios                  from 'axios';
 import Counter                from "react-native-counters";
 import {withCustomerToaster}  from '../../redux/AppState.js';
-// import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
-import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { getList } 		        from '../../redux/productList/actions';
 import { connect,
   useDispatch,
@@ -37,19 +34,12 @@ import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyle
     const dispatch = useDispatch();
     const {setToast,navigation,route} = props; 
     const [cartData, setCartData] = useState('');
-    const [totaloriginalprice, setOrignalPrice] = useState(0);
     const [startRange, setStartRange] = useState(0);
     const [limitRange, setLimitRange] = useState(10);
     const [removefromcart,setRemoveFromCart] =useState(false);
-    const [wishlisted,setWishListed] =useState(false);
     const [loading,setLoading] =useState(false);
-    const [shippingCharges,setShippingCharges] =useState(0);
-    const [quantityAdded,setQuantityAdded] =useState(0);
     const [totalPrice,setTotalPrice] =useState(0);
     const [userId,setUserId] =useState(''); 
-    const [product_ID,setProductId] =useState(''); 
-    const [discountdata,setDiscountData] = useState('');
-    const [discounttype,setDiscountType] = useState('');
     const [discountin,setDiscountIn] = useState('');
     const [discountvalue,setDiscountValue] = useState('');
     const [amountofgrandtotal,setAmountofgrandtotal] = useState('');
@@ -58,8 +48,6 @@ import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyle
     const [subtotal,setSubTotal] = useState('');
     const [cartitemid,setCartItemId] = useState('');
     const [incresecartnum,setIncreaseCartNum] = useState('');
-    const [coupenCode,setCoupenCode] = useState('');
-    const [coupenPrice,setCoupenPrice] = useState(0);
     const store = useSelector(store => ({
       preferences     : store.storeSettings.preferences,
     }));
@@ -72,12 +60,11 @@ import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyle
   },[props]); 
 
   const getData=()=>{
-    const { product_ID, userId } = route.params;
+    const {userId } = route.params;
     if(userId){
       setLoading(true);
       getshippingamount(startRange,limitRange);
       setUserId(userId);
-      setProductId(product_ID)
       console.log("userId ===>",userId)
       if(userId){
         getCartItems(userId);
@@ -86,54 +73,24 @@ import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyle
     } 
   }
 
-  const getdiscounteddata=(startRange, limitRange)=>{
-    axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
-        .then((response) => {
-            console.log('tableData = ', response.data);
-            if(response.data && response.data.length > 0) {
-              setDiscountData(response.data[0]);
-              setDiscountType(response.data[0].discounttype);
-              setDiscountIn(response.data[0].discountin);
-              setDiscountValue(response.data[0].discountvalue);
-                  var amountofgrandtotal =  response.data[0] !== undefined ?
-                                              totaloriginalprice && response.data[0].discountin === "Percent" ?
-                                                      totaloriginalprice - (totaloriginalprice * response.data[0].discountvalue)/ 100
-                                                      : totaloriginalprice - response.data[0].discountvalue
-                                                  : totaloriginalprice
-              console.log('amountofgrandtotal = ', amountofgrandtotal);
-              setAmountofgrandtotal(amountofgrandtotal);
-            }  
-        })
-        .catch((error) => {
-          if (error.response.status == 401) {
-            AsyncStorage.removeItem('user_id');
-            AsyncStorage.removeItem('token');
-            setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-            navigation.navigate('Auth')
-          }else{
-            setToast({text: 'Something went wrong.', color: 'red'});
-          }  
-        });
-}
-
 const getshippingamount=(startRange, limitRange)=>{
     axios.get('/api/shipping/get/list-with-limits/' + startRange + '/' + limitRange)
-      .then((response) => {
-        setMinValueShipping(response.data[0].shippingcosting);
-      })
-      .catch((error) => {
-        if (error.response.status == 401) {
-          AsyncStorage.removeItem('user_id');
-          AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-          navigation.navigate('Auth')
-        }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
-        }  
-      });
-  }
+    .then((response) => {
+      setMinValueShipping(response.data[0].shippingcosting);
+    })
+    .catch((error) => {
+      if (error.response.status == 401) {
+        AsyncStorage.removeItem('user_id');
+        AsyncStorage.removeItem('token');
+        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+        navigation.navigate('Auth')
+      }else{
+        setToast({text: 'Something went wrong.', color: 'red'});
+      }  
+    });
+ }
  
-const getCartItems=(userId)=>{
+  const getCartItems=(userId)=>{
     axios.get('/api/carts/get/cartproductlist/' + userId)
       .then((response) => {
         console.log("response",response);
@@ -235,7 +192,6 @@ const getCartItems=(userId)=>{
       })
   }
 
-
   const gettotalcount=(resdata)=>{
     let UserArray = [];
     for (let i = 0; i < resdata.length; i++) {
@@ -245,7 +201,6 @@ const getCartItems=(userId)=>{
     let totalAmount = UserArray.reduce(function (prev, current) {
       return prev + +current
     }, 0);
-    setOrignalPrice(totalAmount);
   }
 
   const onChange=(number,product_ID)=>{
@@ -277,48 +232,7 @@ const getCartItems=(userId)=>{
       })
   }
 
-  const applyCoupen=()=>{
-    if(coupenPrice === 0){
-      axios.get('/api/coupon/get/one_by_couponcode/'+coupenCode+"/"+userId)
-      .then(res=>{
-        console.log("res",res);
-        if(res.data.message){
-          setToast({text: res.data.message, color:'red'});
-        }else{
-            if(totalPrice > res.data.minPurchaseAmount){
-              if(res.data.coupenin === 'Percent'){
-                console.log("res.data.coupenvaluE",res.data.coupenvalue);
-                console.log("totalPrice",totalPrice);
-                var discount = ((res.data.coupenvalue/100) * totalPrice).toFixed(2);
-                console.log("discount",discount);
-                setCoupenPrice(discount);
-                setTotalPrice(totalPrice-discount);
-                setToast({text: "Coupen Applied", color:'green'});
-                setCoupenCode('');
-                console.log("discount",discount);
-              }else{
-                var discount = totalPrice - res.data.coupenvalue;
-                setCoupenPrice(res.data.coupenvalue);
-                setTotalPrice(discount);
-                setCoupenCode('');
-                setToast({text: "Coupen Applied", color:'green'});
-                console.log("discount",discount);
-              }
-              // setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:colors.warning});
-            }else{
-              setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:'red'});
-            }
-        }
-      })
-      .catch(err=>{
-        setCoupenCode('');
-        console.log("err",err);
-      })
-    }else{
-      setCoupenCode('');
-      setToast({text: "Coupen already applied", color:colors.warning});
-    }  
-  }
+  
 
   var alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     return (
@@ -369,111 +283,81 @@ const getCartItems=(userId)=>{
                                         <Text style={styles.productname}>{item.productDetail.productName}</Text>
                                         }
                                         </TouchableOpacity>
-                                  <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-                                    {item.productDetail.availableQuantity > 0 ?
-                                      <View style={[styles.flxdir]}>
-                                        <View style={[styles.flxdir]}>
-                                          <Text style={styles.ogprice}>{currency} </Text>
-                                          {item.productDetail.discountPercent > 0 &&<Text style={styles.discountpricecut}>{item.productDetail.originalPrice * item.quantity}</Text>}
-                                        </View>
-                                        <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}> {item.productDetail.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                        </View>
-                                        {item.productDetail.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                        </View>}
+                                      <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
+                                        {item.productDetail.availableQuantity > 0 ?
+                                          <View style={[styles.flxdir]}>
+                                            <View style={[styles.flxdir]}>
+                                              <Text style={styles.ogprice}>{currency} </Text>
+                                              {item.productDetail.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.productDetail.originalPrice * item.quantity).toFixed(2)}</Text>}
+                                            </View>
+                                            <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                                <Text style={styles.ogprice}> {item.productDetail.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                                </Text>
+                                            </View>
+                                            {item.productDetail.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
+                                                <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                                </Text>
+                                            </View>}
+                                          </View>
+                                          :
+                                          <Text style={styles.totaldata}>SOLD OUT</Text>
+                                        }
                                       </View>
-                                      :
-                                      <Text style={styles.totaldata}>SOLD OUT</Text>
-                                    }
-                                  </View>
-
-                                  <Counter start={item.quantity} min={1} max={100}
-                                    buttonStyle={{
-                                      borderColor: colors.theme,
-                                      borderWidth: 1,
-                                      borderRadius: 25,
-                                      width: 20,
-                                      height: 10
-                                    }}
-                                    buttonTextStyle={{
-                                      color: colors.theme,
-                                    }}
-                                    countTextStyle={{
-                                      color: colors.theme,
-                                    }}
-                                    size={5}
-                                    onChange={(e)=>onChange(e,item.productDetail._id)} 
-                                    />
-                                </View>
-                                    <View style={styles.flxmg2}>
-                                      <View style={styles.proddeletes}>
-                                        <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.productDetail._id)} >
-                                          <Icon size={20} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
-                                        </TouchableOpacity>
-                                        <Icon
-                                          onPress={() => deleteItemFromCart(item._id)}
-                                          name="delete"
-                                          type="AntDesign"
-                                          size={20}
-                                          color="#ff4444"
-                                          iconStyle={styles.iconstyle}
+                                      <Counter start={item.quantity} min={1} max={100}
+                                        buttonStyle={{
+                                          borderColor: colors.theme,
+                                          borderWidth: 1,
+                                          borderRadius: 25,
+                                          width: 15,
+                                          height: 7
+                                        }}
+                                        buttonTextStyle={{
+                                          color: colors.theme,
+                                        }}
+                                        countTextStyle={{
+                                          color: colors.theme,
+                                        }}
+                                        size={5}
+                                        onChange={(e)=>onChange(e,item.productDetail._id)} 
                                         />
-                                      </View>
-                                      {
-                                        // item.productDetail.availableQuantity > 0 ?
-                                        //   <View style={styles.productdetsprice}>
-                                        //     <Icon
-                                        //        name={item.productDetail.currency}
-                                        //       type="font-awesome"
-                                        //       size={17}
-                                        //       color="#666"
-                                        //       iconStyle={styles.iconstyle}
-                                        //     />
-                                        //     {/* <Text id={item._id} value={this.state['quantityAdded|' + item._id]} style={styles.proprice}> */}
-                                        //    <Text id={item._id}  style={styles.proprice}>
-                                        //       {item.quantity > 0 ?
-                                        //         item.productDetail.discountedPrice * item.quantity
-                                        //         :
-                                        //         item.productDetail.discountedPrice
-                                        //       }
-                                        //     </Text>
-                                        //   </View>
-                                        //   :
-                                        //   <Text style={styles.totaldata}>SOLD OUT</Text>
-                                      }
+                                  </View>
+                                  <View style={styles.flxmg2}>
+                                    <View style={styles.proddeletes}>
+                                      <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.productDetail._id)} >
+                                        <Icon size={20} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
+                                      </TouchableOpacity>
+                                      <Icon
+                                        onPress={() => deleteItemFromCart(item._id)}
+                                        name="delete"
+                                        type="AntDesign"
+                                        size={20}
+                                        color="#ff4444"
+                                        iconStyle={styles.iconstyle}
+                                      />
                                     </View>
                                   </View>
                                 </View>
-                                
                               </View>
+                            </View>
                             )
                           })}
                           <View style={styles.totaldetails}>
                             <View style={styles.flxdata}>
-                              <View style={{ flex: 0.5 }}>
-                                <Text style={styles.totaldata}>Subtotal ({vendor.cartQuantity} Item(s)) </Text>
+                              <View style={{ flex: 0.6,flexDirection:"row" }}>
+                                <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
+                                <Text style={styles.totaldata}> Total</Text>
                               </View>
-                              <View style={{ flex: 0.5 }}>
+                              <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                  {/* <Icon
-                                    name={currency}
-                                    type="font-awesome"
-                                    size={16}
-                                    color="#666"
-                                    iconStyle={styles.iconstyle}
-                                  /> */}
-                                  <Text style={styles.totalpriceincart}>{currency} {vendor.cartTotal}</Text>
+                                  <Text style={styles.totalpriceincart}>{currency} {vendor.cartTotal && vendor.cartTotal.toFixed(2)}</Text>
                                 </View>
                               </View>
                             </View>
                             <View style={styles.flxdata}>
-                              <View style={{ flex: 0.5 }}>
+                              <View style={{ flex: 0.6 }}>
                                 <Text style={styles.totaldata}>You Saved </Text>
                               </View> 
-                              <View style={{ flex: 0.5 }}>
+                              <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                                   <Text style={styles.totalpriceincart}> - </Text>
                               <Text style={styles.totalpriceincart}>{currency} {vendor.discount > 1 ? vendor.discount.toFixed(2) : 0.00}</Text>
@@ -492,16 +376,16 @@ const getCartItems=(userId)=>{
                               </View>
                             </View>
                             <View style={styles.flxdata}>
-                              <View style={{ flex: 0.5 }}>
+                              <View style={{ flex: 0.6 }}>
                                 <Text style={styles.totaldata}>Delivery Charges </Text>
                               </View> 
-                              <View style={{ flex: 0.5 }}>
+                              <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                               <Text style={styles.totalpriceincart}>{currency} 0</Text>
                                 </View>
                               </View>
                             </View>
-                            <View style={styles.flxdata}>
+                            {/* <View style={styles.flxdata}>
                               <View style={{ flex: 0.5 }}>
                                 <Text style={styles.totaldata}>Sub Total {alphabet[i]}</Text>
                               </View>
@@ -510,17 +394,17 @@ const getCartItems=(userId)=>{
                                   <Text style={styles.totalpriceincart}>{currency} {vendor.total}</Text>
                                 </View>
                               </View>
-                            </View>
+                            </View> */}
                             <View style={{ flex: 1, marginTop: 10 }}>
                               <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                             </View>
                             <View>
-                              {minvalueshipping <= totaloriginalprice ?
+                              {minvalueshipping <= vendor.total ?
                                 null
                                 :
                                 <View>
-                                  <Text style={styles.minpurchase}>Minimum order should be ₹{minvalueshipping} to Checkout & Place Order.
-                                      {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth ₹{minvalueshipping - totaloriginalprice} to proceed further.</Text> </Text>
+                                  <Text style={styles.minpurchase}>Minimum order should be {currency} {minvalueshipping} to Checkout & Place Order.
+                                      {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth {currency} {(minvalueshipping - (vendor.total)).toFixed(2)} to proceed further.</Text> </Text>
                                 </View>
                               }
                             </View>
@@ -545,147 +429,75 @@ const getCartItems=(userId)=>{
                   cartData && cartData.length > 0 && subtotalitems ?
                     <View style={styles.totaldetails}>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.5 }}>
-                          <Text style={styles.totaldata}>Subtotal ({subtotalitems} Item(s)) </Text>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Final Total Amount </Text>
                         </View>
-                        <View style={{ flex: 0.5 }}>
+                        <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            {/* <Icon
-                               name={currency}
-                              type="font-awesome"
-                              size={16}
-                              color="#666"
-                              iconStyle={styles.iconstyle}
-                            /> */}
-                            <Text style={styles.totalpriceincart}>{currency} {subtotal}</Text>
+                            <Text style={styles.totalpriceincart}>{currency} {subtotal && subtotal.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.5 }}>
-                          <Text style={styles.totaldata}>You Saved </Text>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Savings </Text>
                         </View> 
-                        <View style={{ flex: 0.5 }}>
+                        <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.totalpriceincart}> - </Text>
-                          { 
-                          // discountin === "Amount" ? 
-                            // <Icon
-                            //   name={currency}
-                            //   type="font-awesome"
-                            //   size={15}
-                            //   color="#666"
-                            //   iconStyle={styles.iconstyle}
-                            // />
-                          // : null 
-                        }
-                        <Text style={styles.totalpriceincart}>{currency} {discountvalue > 1 ? discountvalue.toFixed(2) : 0.00}</Text>
-                         {
-                           discountin === "Percent" ? 
-                              <Icon
-                                name="percent"
-                                type="font-awesome"
-                                size={15}
-                                color="#666"
-                                iconStyle={styles.iconstyle}
-                              /> 
-                            : null
-                          } 
+                            <Text style={styles.totalpriceincart}>{currency} {discountvalue > 1 ? discountvalue.toFixed(2) : 0.00}</Text>
+                          {
+                            discountin === "Percent" ? 
+                                <Icon
+                                  name="percent"
+                                  type="font-awesome"
+                                  size={15}
+                                  color="#666"
+                                  iconStyle={styles.iconstyle}
+                                /> 
+                              : null
+                            } 
                           </View>
                         </View>
                       </View>
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.5 }}>
-                          <Text style={styles.totaldata}>TAX </Text>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Tax  </Text>
                         </View> 
-                        <View style={{ flex: 0.5 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          { 
-                          // discountin === "Amount" ? 
-                            // <Icon
-                            //   name={currency}
-                            //   type="font-awesome"
-                            //   size={15}
-                            //   color="#666"
-                            //   iconStyle={styles.iconstyle}
-                            // />
-                          // : null 
-                        }
-                        <Text style={styles.totalpriceincart}>{currency} 0</Text>
-                          </View>
-                        </View>
-                      </View>
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.5 }}>
-                          <Text style={styles.totaldata}>Coupon</Text>
-                        </View> 
-                        <View style={{ flex: 0.5 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}> - </Text>
-                          { 
-                          // discountin === "Amount" ? 
-                            // <Icon
-                            //   name={currency}
-                            //   type="font-awesome"
-                            //   size={15}
-                            //   color="#666"
-                            //   iconStyle={styles.iconstyle}
-                            // />
-                          // : null 
-                        }
-                        <Text style={styles.totalpriceincart}>{currency} {coupenPrice}</Text>
-                          </View>
-                        </View>
-                      </View>
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.5 }}>
-                          <Text style={styles.totaldata}>Delivery Charges </Text>
-                        </View> 
-                        <View style={{ flex: 0.5 }}>
+                        <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                         <Text style={styles.totalpriceincart}>{currency} 0</Text>
                           </View>
                         </View>
                       </View>
+                      
                       <View style={styles.flxdata}>
-                        <View style={{ flex: 0.5 }}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Delivery Charges </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                        <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
                           <Text style={styles.totaldata}>Grand Total</Text>
                         </View>
-                        <View style={{ flex: 0.5 }}>
+                        <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}>{currency} {totalPrice}</Text>
+                            <Text style={styles.totalpriceincart}>{currency} {totalPrice.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
                       <View style={{ flex: 1, marginTop: 10 }}>
                         <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                       </View>
-                      {coupenPrice === 0 &&<View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
-                        <View style={{flex:.7}}>
-                          <Input
-                            placeholder           = "Enter promotional code"
-                            onChangeText          = {(text)=>setCoupenCode(text)}
-                            autoCapitalize        = "none"
-                            keyboardType          = "email-address"
-                            inputContainerStyle   = {styles.containerStyle}
-                            containerStyle        = {{paddingHorizontal:0}}
-                            placeholderTextColor  = {'#bbb'}
-                            inputStyle            = {{fontSize: 16}}
-                            inputStyle            = {{textAlignVertical: "top"}}
-                            autoCapitalize        = 'characters'
-                            value                 = {coupenCode}
-                          />
-                        </View>  
-                        <View style={{flex:.3}}>
-                          <FormButton 
-                            onPress    = {()=>applyCoupen()}
-                            title       = {'Apply'}
-                            background  = {true}
-                          /> 
-                        </View>  
-                      </View>}
+                     
                       <View>
-                        {minvalueshipping <= totaloriginalprice ?
+                        {minvalueshipping <= totalPrice ?
                           <View>
                             <Button
                               onPress        = {() => navigation.navigate('AddressDefaultComp', { userID: userId,"delivery":true})}
@@ -701,8 +513,8 @@ const getCartItems=(userId)=>{
                           </View>
                           :
                           <View>
-                            <Text style={styles.minpurchase}>Minimum order should be ₹{minvalueshipping} to Checkout & Place Order.
-                                 {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth ₹{minvalueshipping - totaloriginalprice} to proceed further.</Text> </Text>
+                            <Text style={styles.minpurchase}>Minimum order should be {currency} {minvalueshipping} to Checkout & Place Order.
+                                 {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth {currency} {(minvalueshipping - totalPrice).toFixed(2)} to proceed further.</Text> </Text>
                           </View>
                         }
                       </View>

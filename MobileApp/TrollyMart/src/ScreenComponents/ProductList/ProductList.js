@@ -78,11 +78,13 @@ export const ProductList = withCustomerToaster((props)=>{
     setPacksizes(result[0].size)
   }
 
-  const addToCart=(productid)=>{
+  const addToCart=(productid,vendor_ID,vendorName)=>{
     if(props.userId){
       const formValues = {
         "user_ID"     : props.userId,
         "product_ID"  : productid,
+        "vendor_ID"   : vendor_ID,
+        "vendorName"  : vendorName,
         "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
       }
       console.log("formValues",formValues);
@@ -268,7 +270,7 @@ export const ProductList = withCustomerToaster((props)=>{
                 : null */}
               <View style={styles.sizedrpbtn}>
                 <Button
-                    onPress={() => addToCart(item._id, packsizes)}
+                    onPress={() => addToCart(item._id,item.vendor_ID,item.vendorName)}
                     titleStyle={CommonStyles.addBtnText}
                     title="Add"
                     buttonStyle={CommonStyles.addBtnStyle}

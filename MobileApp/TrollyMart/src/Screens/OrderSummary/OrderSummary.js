@@ -7,19 +7,22 @@ import {
   Image,
   Alert,ActivityIndicator,
 } from 'react-native';
-import { Dropdown }       from 'react-native-material-dropdown-v2';
-import { Button, Icon, }  from "react-native-elements";
-import Modal              from "react-native-modal";
-import axios              from "axios";
-import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}           from '../../ScreenComponents/Footer/Footer1.js';
-import Notification       from '../../ScreenComponents/Notification/Notification.js'
-import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
-import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
-import {withCustomerToaster}  from '../../redux/AppState.js';
+import { Dropdown }             from 'react-native-material-dropdown-v2';
+import { Button, Icon,Input }   from "react-native-elements";
+import Modal                    from "react-native-modal";
+import axios                    from "axios";
+import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
+import Notification             from '../../ScreenComponents/Notification/Notification.js'
+import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
+import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
+import {withCustomerToaster}    from '../../redux/AppState.js';
 import { connect,
   useDispatch,
-  useSelector }               from 'react-redux';
+  useSelector }                 from 'react-redux';
+  import commonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+  import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
+import { SafeAreaView }         from 'react-native';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -48,6 +51,9 @@ import { connect,
     const [cartData, setCartData] = useState('');
     const [subtotalitems,setSubTotalItems] = useState('');
     const [subtotal,setSubTotal] = useState('');
+    const [coupenCode,setCoupenCode] = useState('');
+    const [coupenPrice,setCoupenPrice] = useState(0);
+    const [totalPrice,setTotalPrice] =useState(0);
     // const [currency,setCurrency] = useState('');
     const [totaloriginalprice, setOrignalPrice] = useState(0);
     const [saving,setTotalSaving] =useState(0);
@@ -75,7 +81,6 @@ import { connect,
     
     getCartData(user_id, product_ID);
     getTimes_func(startRange, limitRange);
-    getDiscounteData(startRange, limitRange);
   }
 
   const handleTypeChange = (value) => {
@@ -101,26 +106,35 @@ import { connect,
       });
   }
 
-  const getDiscounteData=(startRange, limitRange)=>{
-    axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
+    const getCartData=(userId)=>{
+      axios.get('/api/carts/get/cartproductlist/' + userId)
         .then((response) => {
-            console.log('tableData = ', response.data[0]);
-            if(response.data && response.data.length > 0) {
-              setDiscountData(response.data[0]);
-              setDiscountType(response.data[0].discounttype);
-              setDiscountIn(response.data[0].discountin);
-              setDiscountValue(response.data[0].discountvalue);
-
-                  var amountofgrandtotal =  response.data[0] !== undefined ?
-                                              totaloriginalprice && response.data[0].discountin === "Percent" ?
-                                                      totaloriginalprice - (totaloriginalprice * response.data[0].discountvalue)/ 100
-                                                      : totaloriginalprice - response.data[0].discountvalue
-                                                  : totaloriginalprice
-              console.log('amountofgrandtotal = ', amountofgrandtotal);
-              setAmountofgrandtotal(amountofgrandtotal);
-            }  
+          console.log("response",response);
+          setLoading(false);
+          if(response.data.length > 0){
+            var quantity  = 0;
+            var cartTotal = 0;
+            var discount  = 0;
+            var total     = 0;
+            for (var i = 0;  i < response.data.length; i++) {
+              quantity  +=response.data[i].cartQuantity;
+              cartTotal +=response.data[i].cartTotal;
+              discount  +=response.data[i].discount;
+              total     +=response.data[i].total;
+            }
+            setSubTotalItems(quantity);
+            setCartData(response.data);
+            setSubTotal(cartTotal);
+            setDiscountValue(discount);
+            gettotalcount(response.data[0].cartItems);
+            setTotalPrice(total)
+          }else{
+            setCartData([]);
+          }
         })
         .catch((error) => {
+          console.log("error",error);
+          setLoading(false);
           if (error.response.status == 401) {
             AsyncStorage.removeItem('user_id');
             AsyncStorage.removeItem('token');
@@ -129,39 +143,8 @@ import { connect,
           }else{
             setToast({text: 'Something went wrong.', color: 'red'});
           }  
-        });
-}
-
-
-   
-const getCartData=(userId)=>{
-  axios.get('/api/carts/get/cartproductlist/' + userId)
-    .then((response) => {
-      setLoading(false);
-      if(response.data.length > 0) {
-        setSubTotalItems(response.data[0].cartItems.length);
-        setCartData(response.data[0].cartItems);
-        setSubTotal(response.data[0].subTotal);
-        setTotalSaving(response.data.saving);''
-        // setCurrency(response.data[0].cartItems[0].productDetail.currency);
-        gettotalcount(response.data[0].cartItems);
-      } else {
-        setCartData([]);
-      }
-
-    })
-    .catch((error) => {
-      setLoading(false);
-      if (error.response.status == 401) {
-        AsyncStorage.removeItem('user_id');
-        AsyncStorage.removeItem('token');
-        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-        navigation.navigate('Auth')
-      }else{
-        setToast({text: 'Something went wrong.', color: 'red'});
-      }  
-    })
-}
+        })
+    }
 
   const gettotalcount=(resdata)=>{
     let UserArray = [];
@@ -173,6 +156,47 @@ const getCartData=(userId)=>{
       return prev + +current
     }, 0);
     setOrignalPrice(totalAmount);
+  }
+
+  const applyCoupen=()=>{
+    if(coupenPrice === 0){
+      axios.get('/api/coupon/get/one_by_couponcode/'+coupenCode+"/"+user_id)
+      .then(res=>{
+        console.log("res",res);
+        if(res.data.message){
+          setToast({text: res.data.message, color:'red'});
+        }else{
+            if(totalPrice > res.data.minPurchaseAmount){
+              if(res.data.coupenin === 'Percent'){
+                console.log("res.data.coupenvaluE",res.data.coupenvalue);
+                console.log("totalPrice",totalPrice);
+                var discount = ((res.data.coupenvalue/100) * totalPrice).toFixed(2);
+                console.log("discount",discount);
+                setCoupenPrice(discount);
+                setTotalPrice(totalPrice-discount);
+                setToast({text: "Coupen Applied", color:'green'});
+                console.log("discount",discount);
+              }else{
+                var discount = totalPrice - res.data.coupenvalue;
+                setCoupenPrice(res.data.coupenvalue);
+                setTotalPrice(discount);
+                setToast({text: "Coupen Applied", color:'green'});
+                console.log("discount",discount);
+              }
+              // setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:colors.warning});
+            }else{
+              setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:'red'});
+            }
+        }
+      })
+      .catch(err=>{
+        setCoupenCode('');
+        console.log("err",err);
+      })
+    }else{
+      setCoupenCode('');
+      setToast({text: "Coupen already applied", color:colors.warning});
+    }  
   }
   
  
@@ -188,17 +212,7 @@ const getCartData=(userId)=>{
     navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, totalamountpay: amt, discount: discountvalue, shippingtime: shippingTiming, })
   }
 
-  // const handleDelete = (id) => {
-  //   Alert.alert("", "Are you sure you want to delete ?", [
-  //     { text: "Cancel" },
-  //     {
-  //       text: "Delete",
-  //       onPress: () => {
-  //         this.deleteCompetitor(id);
-  //       }
-  //     },
-  //   ]);
-  // };
+  var alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
     return (
       <React.Fragment>
@@ -208,7 +222,7 @@ const getCartData=(userId)=>{
           navigate={navigation.navigate}
         />
         <View style={styles.addsuperparent}>
-          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={styles.container} style={{marginBottom:"15%"}} keyboardShouldPersistTaps="handled" >
             <View style={styles.padhr15}>
               <View style={styles.addcmporder}>
                 <View style={styles.orderaddchkbx}>
@@ -235,27 +249,26 @@ const getCartData=(userId)=>{
 
                 <View style={[styles.confirmbtn, styles.marginBottom20]}>
                   <View style={[styles.inputWrapper]}>
-                    <View style={styles.inputImgWrapper}></View>
                     <View style={styles.inputTextWrapper}>
-                      {/* {console.log("Times in data=>",getTimes)} */}
                       <Dropdown
-                        placeholder={"-- Select Time --"}
-                        onChangeText={(value) => handleTypeChange(value)}
-                        data={getTimes}
-                        value={shippingTiming}
-                        containerStyle={styles.ddContainer}
-                        dropdownOffset={{ top: 0, left: 0 }}
-                        itemTextStyle={styles.ddItemText}
-                        inputContainerStyle={styles.ddInputContainer}
-                        labelHeight={10}
-                        tintColor={'#FF8800'}
-                        labelFontSize={15}
-                        fontSize={15}
-                        baseColor={'#666'}
-                        textColor={'#333'}
-                        labelTextStyle={{ left: 5 }}
-                        style={styles.ddStyle}
-                        disabledLineType='none'
+                      underlineColorAndroid ='transparent'
+                        placeholder         = {"-- Select Time --"}
+                        onChangeText        = {(value) => handleTypeChange(value)}
+                        data                = {getTimes}
+                        value               = {shippingTiming}
+                        containerStyle      = {styles.ddContainer}
+                        dropdownOffset      = {{ top: 0, left: 0 }}
+                        itemTextStyle       = {styles.ddItemText}
+                        inputContainerStyle = {styles.ddInputContainer}
+                        labelHeight         = {10}
+                        tintColor           = {'#FF8800'}
+                        labelFontSize       = {15}
+                        fontSize            = {15}
+                        baseColor           = {'#666'}
+                        textColor           = {'#333'}
+                        labelTextStyle      = {{ left: 5 }}
+                        style               = {styles.ddStyle}
+                        disabledLineType    = 'none'
                       />
                     </View>
                   </View>
@@ -263,90 +276,156 @@ const getCartData=(userId)=>{
                 </View>
               </View>
               <View style={styles.formWrapper}>
-                <Text style={styles.totaldata}>You're Buying</Text>
+                <Text style={[styles.totaldata,{paddingVertical:2}]}>You're Buying</Text>
                 <View style={styles.cartdetails}>
-                  {!loading ?
-                    cartData && cartData.length > 0 ?
-                      cartData.map((item, index) => {
-                        return (
-                          <View key={index} style={styles.proddetails}>
-                            <View style={styles.flxdir}>
-                              <View style={styles.flxpd}>
-                                {
-                                  item.productDetail.productImage.length > 0 ?
-                                    <Image
-                                      source={{ uri: item.productDetail.productImage[0] }}
-                                      style={styles.imgwdht}
-                                    />
-                                    :
-                                    <Image
-                                      source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                                      style={styles.imgwdht}
-                                      resizeMode="contain"
-                                    />
-                                }
-                              </View>
-                              <View style={styles.flxmg}>
-                                <Text style={styles.productname}>{item.productDetail.productName}</Text>
-                                <View style={styles.productdets}>
-                                  {/* <Icon
-                                    name={item.productDetail.currency}
-                                    type="font-awesome"
-                                    size={11}
-                                    color="#666"
-                                    iconStyle={styles.iconstyle}
-                                  /> */}
-                                  <Text style={styles.proddetprice}>{currency} {item.productDetail.discountedPrice * item.quantity}</Text>
+                  {cartData.length >0 &&
+                  cartData.map((vendor, i) => {
+                    return (
+                      <View style={{backgroundColor:"#fff",marginBottom:15}}>
+                        <View style={{backgroundColor:colors.theme}}>
+                          <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendorName}</Text>
+                        </View>  
+                      {vendor.cartItems.map((item,index)=>{
+                        return(
+                          <View key={index}>
+                            <View key={index} style={styles.proddetails}>
+                              <View style={styles.flxdir}>
+                                <View style={styles.flxpd}>
+                                  <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
+                                    {item.productDetail.productImage.length > 0 ?
+                                      <Image
+                                        style={styles.imgwdht}
+                                        source={{ uri: item.productDetail.productImage[0] }}
+                                      />
+                                      :
+                                      <Image
+                                        style={styles.imgwdht}
+                                        source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                      />
+                                    }
+                                  </TouchableOpacity>
                                 </View>
-                                {/* <Text style={styles.prodqtyunit}>Size: {item.productDetail.size + " " + item.productDetail.unit}</Text> */}
-                                <Text style={styles.prodqtyunit}>Qty: {item.quantity + " Pack(s)"}</Text>
+                                <View style={styles.flxmg}>
+                                  <TouchableOpacity onPress={() => navigation.navigate('', { productID: item.product_ID })}>
+                                    {item.productDetail.productNameRlang ?
+                                    <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.productDetail.productNameRlang}</Text>
+                                    : 
+                                    <Text style={styles.productname}>{item.productDetail.productName}</Text>
+                                    }
+                                    </TouchableOpacity>
+                                  <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
+                                    {item.productDetail.availableQuantity > 0 ?
+                                      <View style={[styles.flxdir]}>
+                                        <View style={[styles.flxdir]}>
+                                          <Text style={styles.ogprice}>{currency} </Text>
+                                          {item.productDetail.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.productDetail.originalPrice * item.quantity).toFixed(2)}</Text>}
+                                        </View>
+                                        <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                            <Text style={styles.ogprice}> {item.productDetail.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            </Text>
+                                        </View>
+                                        {item.productDetail.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
+                                            <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            </Text>
+                                        </View>}
+                                      </View>
+                                      :
+                                      <Text style={styles.totaldata}>SOLD OUT</Text>
+                                    }
+                                  </View>
                               </View>
                             </View>
                           </View>
+                        </View>
                         )
-                      })
-                    :
-                        <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-                          <Image
-                            source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-                          />
-                        </View>
-                    :
-                        <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                          <ActivityIndicator size="large" color={colors.theme} />
-                        </View>
+                      })}
+                       <View style={styles.totaldetails}>
+                            <View style={styles.flxdata}>
+                              <View style={{ flex: 0.6,flexDirection:"row" }}>
+                                <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
+                                <Text style={styles.totaldata}> Total</Text>
+                              </View>
+                              <View style={{ flex: 0.4 }}>
+                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                  <Text style={styles.totalpriceincart}>{currency} {vendor.cartTotal && vendor.cartTotal.toFixed(2)}</Text>
+                                </View>
+                              </View>
+                            </View>
+                            <View style={styles.flxdata}>
+                              <View style={{ flex: 0.6 }}>
+                                <Text style={styles.totaldata}>You Saved </Text>
+                              </View> 
+                              <View style={{ flex: 0.4 }}>
+                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                  <Text style={styles.totalpriceincart}> - </Text>
+                              <Text style={styles.totalpriceincart}>{currency} {vendor.discount > 1 ? vendor.discount.toFixed(2) : 0.00}</Text>
+                              {
+                                discountin === "Percent" ? 
+                                    <Icon
+                                      name="percent"
+                                      type="font-awesome"
+                                      size={15}
+                                      color="#666"
+                                      iconStyle={styles.iconstyle}
+                                    /> 
+                                  : null
+                                } 
+                                </View>
+                              </View>
+                            </View>
+                            <View style={styles.flxdata}>
+                              <View style={{ flex: 0.6 }}>
+                                <Text style={styles.totaldata}>Delivery Charges </Text>
+                              </View> 
+                              <View style={{ flex: 0.4 }}>
+                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                              <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                                </View>
+                              </View>
+                            </View>
+                            {/* <View style={styles.flxdata}>
+                              <View style={{ flex: 0.5 }}>
+                                <Text style={styles.totaldata}>Sub Total {alphabet[i]}</Text>
+                              </View>
+                              <View style={{ flex: 0.5 }}>
+                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                  <Text style={styles.totalpriceincart}>{currency} {vendor.total}</Text>
+                                </View>
+                              </View>
+                            </View> */}
+                            <View style={{ flex: 1, marginTop: 10 }}>
+                              <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
+                            </View>
+                            <View>
+                            </View>
+                          </View>
+                    </View>
+                    )
+                  })
                   }
-                  <Text style={styles.totaldata}>Pricing Details </Text>
+                  {
+                  cartData && cartData.length > 0 && subtotalitems ?
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdata}>
-                      <View style={styles.flx7}>
-                        <Text style={styles.totaldata}>Total ({subtotalitems} Item(s)) </Text>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Final Total Amount </Text>
                       </View>
-                      <View style={styles.flx3}>
-                        <View style={styles.endrow}>
-                          <Text style={styles.totalpriceincart}>{currency}&nbsp;&nbsp;{totaloriginalprice}</Text>
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincart}>{currency} {subtotal && subtotal.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
-
-
-
                     <View style={styles.flxdata}>
-                      <View style={styles.flx7}>
-                        <Text style={styles.totaldata}>Discount </Text>
-                      </View>
-                      <View style={styles.flx3}>
-                        <View style={styles.endrow}>
-                        
-                        { 
-                          discountin === "Amount" ? 
-                          <Text style={styles.totalpriceincart}>{currency}</Text>
-                          : null 
-                        }
-                        <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{discountvalue > 1 ? discountvalue : 0.00}</Text>
-                         
-                         {
-                           discountin === "Percent" ? 
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Total Savings </Text>
+                      </View> 
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincart}> - </Text>
+                          <Text style={styles.totalpriceincart}>{currency} {discountvalue > 1 ? discountvalue.toFixed(2) : 0.00}</Text>
+                        {
+                          discountin === "Percent" ? 
                               <Icon
                                 name="percent"
                                 type="font-awesome"
@@ -356,95 +435,94 @@ const getCartData=(userId)=>{
                               /> 
                             : null
                           } 
-                         
-                         
-                          {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{discountvalue}</Text> */}
                         </View>
                       </View>
                     </View>
-
-
-
-                    <View style={styles.orderbrdr}>
-                      <View style={styles.flx7}>
-                        <Text style={styles.totaldata}>Delivery </Text>
-                      </View>
-                      <View style={styles.flx3}>
-                        <View style={styles.endrow}>
-                          <Text style={styles.free}>&nbsp;&nbsp;Free</Text>
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Total Tax  </Text>
+                      </View> 
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{currency} 0</Text>
                         </View>
                       </View>
                     </View>
-                    <View style={styles.amountpay}>
-                      <View style={styles.flx7}>
-                        <Text style={styles.totaldata}>Amount Payable </Text>
+                    {coupenPrice === 0 ? 
+                      <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
+                        <View style={{flex:.7}}>
+                          <Input
+                            placeholder           = "Enter promotional code"
+                            onChangeText          = {(text)=>setCoupenCode(text)}
+                            autoCapitalize        = "none"
+                            keyboardType          = "email-address"
+                            inputContainerStyle   = {styles.containerStyle}
+                            containerStyle        = {{paddingHorizontal:0}}
+                            placeholderTextColor  = {'#bbb'}
+                            inputStyle            = {{fontSize: 16}}
+                            inputStyle            = {{textAlignVertical: "top"}}
+                            autoCapitalize        = 'characters'
+                            value                 = {coupenCode}
+                          />
+                        </View>  
+                        <View style={{flex:.3}}>
+                          <FormButton 
+                            onPress    = {()=>applyCoupen()}
+                            title       = {'Apply'}
+                            background  = {true}
+                          /> 
+                        </View>  
                       </View>
-                      <View style={styles.flx3}>
-                        <View style={styles.endrow}>
-                          {/* <Icon
-                            name={currency}
-                            type="font-awesome"
-                            size={15}
-                            color="#666"
-                            iconStyle={styles.iconstyle}
-                          /> */}
-                          <Text style={styles.totalpriceincart}>{currency}&nbsp;&nbsp;{  discountdata !== undefined ?
-                                            totaloriginalprice && discountin === "Percent" ?
-                                                    totaloriginalprice - (totaloriginalprice * discountvalue)/ 100
-                                                    : totaloriginalprice - discountvalue
-                                                : totaloriginalprice}</Text>
+                      :
+                      <SafeAreaView>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Discount Coupon Amount   </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                        <Text style={styles.totalpriceincart}>{coupenPrice}</Text>
+                          </View>
+                        </View>
+                      </View>
+                      </SafeAreaView>
+                      }
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Total Delivery Charges </Text>
+                      </View> 
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{currency} 0</Text>
                         </View>
                       </View>
                     </View>
-                    <View style={styles.margTp20}>
-                      <TouchableOpacity >
-                        <Button
-                          onPress={() => paymentmethodspage()}
-                          title={"PROCEED TO BUY"}
-                          buttonStyle={styles.button1}
-                          containerStyle={styles.buttonContainer1}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                    <View style={{ flex: 1, marginBottom: 30 }}>
-                      <Text style={styles.securetxt}>Safe & Secure Payments | 100% Authentic Products</Text>
-                    </View>
+                    <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Grand Total</Text>
+                        </View>
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}>{currency} {totalPrice.toFixed(2)}</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={{ flex: 1, marginTop: 10,justifyContent:"center" }}>
+                        <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
+                      </View>
+                    <View>
                   </View>
                 </View>
-              </View>
+                :
+                null
+              }
             </View>
-          </ScrollView>
-          <Footer />
-        </View>
-
-        {/* <Modal isVisible={removewishlistmodal}
-          onBackdropPress={() => this.setState({ removewishlistmodal: false })}
-          coverScreen={true}
-          hideModalContentWhileAnimating={true}
-          style={{ paddingHorizontal: '5%', zIndex: 999 }}
-          animationOutTiming={500}>
-          <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: "#c10000" }}>
-            <View style={{ justifyContent: 'center', }}>
-              <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-            </View>
-            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
-              Product is removed from wishlist.
-            </Text>
-            <View style={styles.yesmodalbtn}>
-              <View style={styles.ordervwbtn}>
-                <TouchableOpacity>
-                  <Button
-                    onPress={() => this.setState({ removewishlistmodal: false })}
-                    titleStyle={styles.buttonText1}
-                    title="OK"
-                    buttonStyle={styles.button1}
-                    containerStyle={styles.buttonContainer2}
-                  />
-                </TouchableOpacity>
-              </View>
             </View>
           </View>
-        </Modal> */}
-      </React.Fragment>
-    );
+        </ScrollView>
+        <Footer />
+      </View>
+    </React.Fragment>
+  );
 })

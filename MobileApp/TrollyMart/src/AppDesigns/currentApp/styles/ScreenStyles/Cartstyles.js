@@ -82,7 +82,7 @@ superparent:{
     flex:0.4,padding:20
   },
   imgwdht:{
-    height:100,width:100
+    height:80,width:80
   },
   cartlogoimg:{
      width:'70%',height:40,
@@ -100,7 +100,7 @@ superparent:{
     flex:1
   },
   productname:{
-    fontSize:16,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
+    fontSize:14,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
   },
   purchasep:{
     fontSize:8,fontFamily:"Montserrat-SemiBold",marginTop:2,
@@ -184,10 +184,10 @@ superparent:{
     elevation: 1,
   },
   productsoldby:{
-    fontSize:12,fontFamily:"Montserrat-Regular", color:'#666'
+    fontSize:14,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata:{
-    fontSize:15,fontFamily:"Montserrat-SemiBold", color:'#333'
+    fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333'
   },
   totalsubtxt:{
     fontSize:13,fontFamily:"Montserrat-Regular", color:'#999',
@@ -200,14 +200,12 @@ superparent:{
     flex:1,flexDirection:"row",
   },
   totaldetails:{
-    backgroundColor:'#fff',borderWidth:1,
+    backgroundColor:'#fff',
     borderColor:"#f1f1f1",
-    // height:180,
-    marginTop:15,
     paddingHorizontal:15,paddingVertical:15
   },
   productsoldurl:{
-    fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#3090C7'
+    fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#3090C7'
   },
   iconstyle:{
     marginTop:3,marginRight:3
@@ -222,16 +220,13 @@ superparent:{
   //   marginTop:10
   // },
   savings:{
-    fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#333',
+    fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333',
   },
   totalpriceincart:{
     marginTop:-2,
-    fontSize:17,
+    fontSize:14,
     fontFamily:"Montserrat-SemiBold", 
     color:'#333',
-  },
-  ogprice:{
-    fontSize:13,fontFamily:"Montserrat-Regular",
   },
   discountpr:{
     fontSize:13,fontFamily:"Montserrat-Regular",color:'#c10000',fontStyle:"italic",marginLeft:10
@@ -257,10 +252,10 @@ superparent:{
   },
 
   proddetails:{
-    borderWidth:1,borderColor:'#f1f1f1',
+    borderBottomWidth:1,borderColor:'#eee',
     backgroundColor:"#fff",
-    minHeight:130,
-    borderRadius:5,
+    minHeight:80,
+    // borderRadius:5,
     paddingVertical:10,
   },
   buttonContainer1:{
@@ -300,10 +295,10 @@ superparent:{
 		textDecorationLine: 'line-through', fontSize: 12, fontFamily: "Montserrat-Regular",
 	},
 	ogprice: {
-		fontSize: 14, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
+		fontSize: 12, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
 	},
 	discountpricecut: {
-		fontSize: 14, fontFamily: "Montserrat-SemiBold",
+		fontSize: 12, fontFamily: "Montserrat-SemiBold",
 		textDecorationLine: 'line-through',
 
 	},

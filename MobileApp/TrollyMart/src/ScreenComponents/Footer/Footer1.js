@@ -36,6 +36,7 @@ export const Footer =(props)=>{
     if(userDetails.user_id){
       axios.get("/api/carts/get/count/" + userDetails.user_id)
       .then((response) => {
+        console.log("response",response);
         setCartCount(response.data);
       })
       .catch((error) => {

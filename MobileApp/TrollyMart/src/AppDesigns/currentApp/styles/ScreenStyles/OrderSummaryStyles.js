@@ -61,7 +61,7 @@ superparent:{
     flex:0.4,paddingHorizontal:10
   },
   imgwdht:{
-    width: "100%", height:150,
+    width: 80, height:80,
   },
   cartlogoimg:{
      width:'70%',height:40,
@@ -79,7 +79,7 @@ superparent:{
     flex:1
   },
   productname:{
-    fontSize:16,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
+    fontSize:14,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
   },
   tomorroworder:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap',marginTop:10,
@@ -161,10 +161,11 @@ superparent:{
     fontSize:12,fontFamily:"Montserrat-Regular", color:'#666'
   },
   totaldata:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333',marginTop: 10,
+    fontSize:13,fontFamily:"Montserrat-SemiBold", color:'#333'
   },
   totalsubtxt:{
-    fontSize:12,fontFamily:"Montserrat-Regular", color:'#999'
+    fontSize:13,fontFamily:"Montserrat-Regular", color:'#999',
+    // textAlign:'center'
   },
   flxdata:{
     flex:1,flexDirection:"row"
@@ -182,14 +183,8 @@ superparent:{
   },
   totaldetails:{
     backgroundColor:'#fff',
-    borderWidth:1,
     borderColor:"#f1f1f1",
-    padding:0,
-    flex:1,
-    marginTop:15,
-    marginBottom:40,
-    paddingHorizontal:10,
-    // paddingVertical:40
+    paddingHorizontal:15,paddingVertical:15
   },
   productsoldurl:{
     fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#3090C7'
@@ -226,14 +221,17 @@ superparent:{
   },
 
   totalpriceincart:{
-    fontSize:16,fontFamily:"Montserrat-SemiBold", color:'#333',
+    marginTop:-2,
+    fontSize:13,
+    fontFamily:"Montserrat-SemiBold", 
+    color:'#333',
   },
   freshnsecuretxt:{
     fontSize:15,fontFamily:"Montserrat-SemiBold", color:'#333',
   },
-  ogprice:{
-    fontSize:13,fontFamily:"Montserrat-Regular",
-  },
+  ogprice: {
+		fontSize: 12, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
+	},
   discountpr:{
     fontSize:13,fontFamily:"Montserrat-Regular",color:'#c10000',fontStyle:"italic",marginLeft:10
   },
@@ -247,10 +245,10 @@ superparent:{
   },
 
   proddetails:{
-    borderWidth:1,borderColor:'#f1f1f1',
+    borderBottomWidth:1,borderColor:'#eee',
     backgroundColor:"#fff",
-    minHeight:120,
-    borderRadius:5,
+    minHeight:80,
+    // borderRadius:5,
     marginTop:10,
   },
   buttonContainer1:{
@@ -483,14 +481,7 @@ superparent:{
     marginBottom20:{
       marginBottom: 20
     },
-      inputImgWrapper : {
-      width:'5%',
-      justifyContent:'center',
-      alignItems:'center',
-      // borderRightWidth:1,
-      // borderColor: colors.textLight,
-      marginVertical:15
-    },
+   
      inputText2Wrapper:{
       width:'74%',
       justifyContent:'center'
@@ -552,7 +543,6 @@ superparent:{
   
     ddContainer:{
       backgroundColor:'transparent',
-      height: "auto",
       paddingLeft:4
       // fontFamily:"Montserrat-Regular"
     },
@@ -561,7 +551,7 @@ superparent:{
     },
     ddInputContainer:{
       borderBottomColor: 'transparent',
-      // paddingLeft:5
+      borderWidth: 0,
     },
     ddLabelText:{
       backgroundColor:'#fff',
@@ -569,11 +559,12 @@ superparent:{
       // left:5,
       fontFamily:"Montserrat-Regular",
       fontSize:15,
-      paddingHorizontal:2
+      paddingHorizontal:2,
     },
     ddStyle:{
       fontFamily:"Montserrat-Regular",
-      backgroundColor:"#fff"
+      backgroundColor:"#fff",
+      height:50,
     },
     addsuperparent:{
       flex:1,backgroundColor:'#f1f1f1'
@@ -607,6 +598,19 @@ superparent:{
     },
     mobileno:{
       flex:0.2,fontSize:13,fontFamily:"Montserrat-Regular",color:'#666'
+    },
+    discountpricecut: {
+      fontSize: 12, fontFamily: "Montserrat-SemiBold",
+      textDecorationLine: 'line-through',
+  
+    },
+    containerStyle:{
+      borderWidth:1,
+      borderRadius:3,
+      // marginVertical:5,
+      borderColor:"#ccc",
+      paddingHorizontal: 0,
+      height:43,
     },
   
 })
