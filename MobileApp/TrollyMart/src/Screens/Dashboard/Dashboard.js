@@ -63,6 +63,7 @@ export const Dashboard = withCustomerToaster((props)=>{
   const getBlocks=()=>{
     axios.get('/api/pages/get/page_block/homepage')
     .then(res=>{
+      console.log("getBlocks res=>",res);
       setBlocks(res.data.pageBlocks);
       setLoading(false)
     })
@@ -188,6 +189,9 @@ export const Dashboard = withCustomerToaster((props)=>{
                     <HorizontalProductList 
                       blockTitle   = {item.block_id?.blockTitle}
                       blockApi     = {item.block_id?.blockSettings.blockApi}
+                      section      = {item.block_id?.blockSettings.section}
+                      category     = {item.block_id?.blockSettings.category}
+                      subCategory  = {item.block_id?.blockSettings.subCategory}
                       currency     = {preferences.currency}
                     />
                   :

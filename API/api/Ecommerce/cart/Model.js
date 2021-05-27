@@ -37,7 +37,8 @@ const cartSchema = mongoose.Schema({
     },
     paymentMethod         : String,
     createdBy             : String,
-    createdAt             : Date
+    createdAt             : Date,
+    coupen                : { type: mongoose.Schema.Types.ObjectId, ref: 'coupen' },
 });
 
 module.exports = mongoose.model('carts',cartSchema);

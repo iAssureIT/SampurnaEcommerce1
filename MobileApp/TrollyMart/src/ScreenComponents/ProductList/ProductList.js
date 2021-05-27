@@ -232,10 +232,10 @@ export const ProductList = withCustomerToaster((props)=>{
                       iconStyle={{ marginTop: 5}}
                     /> */}
                     {item.discountPercent > 0 ?
-                          <Text style={styles.ogprice}> - {item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          <Text style={styles.ogprice}> - {item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                           </Text>
                         :
-                        <Text style={styles.ogprice}> - {item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                        <Text style={styles.ogprice}> - {item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
                       }
                   </View>
                 </View>

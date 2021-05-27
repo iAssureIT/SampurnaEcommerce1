@@ -13,19 +13,19 @@ import {
 import { Header, 
         Button, 
         Icon, 
-        SearchBar }         from "react-native-elements";
-import styles               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
-import {HeaderBar3}         from '../HeaderBar3/HeaderBar3.js';
-import {Footer}             from '../Footer/Footer1.js';
-import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
-import axios                from 'axios';
-import AsyncStorage         from '@react-native-async-storage/async-storage';
-import Counter              from "react-native-counters";
-import Modal                from "react-native-modal";
-import Carousel             from 'react-native-banner-carousel-updated';
-import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import { useNavigation }    from '@react-navigation/native';
-import { getCategoryWiseList } from '../../redux/productList/actions.js';
+        SearchBar }             from "react-native-elements";
+import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
+import {HeaderBar3}             from '../HeaderBar3/HeaderBar3.js';
+import {Footer}                 from '../Footer/Footer1.js';
+import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
+import axios                    from 'axios';
+import AsyncStorage             from '@react-native-async-storage/async-storage';
+import Counter                  from "react-native-counters";
+import Modal                    from "react-native-modal";
+import Carousel                 from 'react-native-banner-carousel-updated';
+import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { useNavigation }        from '@react-navigation/native';
+import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { connect,useDispatch,useSelector }      from 'react-redux';
 
 export const HorizontalSecCatList =(props)=>{
@@ -66,9 +66,9 @@ export const HorizontalSecCatList =(props)=>{
     return (
       <TouchableOpacity style={{width:160,marginRight:10,backgroundColor:"#fff"}} 
           onPress={() =>{
-                          navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
-                          dispatch(getCategoryWiseList(item._id,user_id ? user_id : null,"lowestprice",props.section));
-                        }  
+              navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
+              dispatch(getCategoryWiseList(item._id,user_id ? user_id : null,"lowestprice",props.section));
+            }  
           }>
             <View style={styles.flx1}>
             {

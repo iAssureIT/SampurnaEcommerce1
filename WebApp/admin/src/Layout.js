@@ -89,7 +89,7 @@ import FranchiseLocationDetails     from './storeAdmin/FranchiseMaster/Franchise
 import FranchiseContactDetails      from './storeAdmin/FranchiseMaster/FranchiseContactDetails.js';
 import ListOfEntitiesPage           from './storeAdmin/FranchiseMaster/ListOfEntities.js';
 
-//=============== Preferences =================
+//=============== nces =================
 import WebsiteModel from './storeAdmin/preferences/WebsiteModel.js';
 
 //=============== Allowable pincodes ===========

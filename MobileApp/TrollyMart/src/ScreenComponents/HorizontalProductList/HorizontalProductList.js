@@ -26,6 +26,8 @@ import Carousel             from 'react-native-banner-carousel-updated';
 import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { useNavigation }    from '@react-navigation/native';
 import Loading              from '../Loading/Loading.js';
+import {useSelector,
+  useDispatch }         from 'react-redux';
 
 export const HorizontalProductList =(props)=>{
   const navigation = useNavigation();
@@ -37,9 +39,28 @@ export const HorizontalProductList =(props)=>{
     getData();
   },[]);
 
+  const store = useSelector(store => ({
+    userDetails : store.userDetails,
+    location : store.location,
+  }));
+
   const getData=()=>{
-    axios.get(props.blockApi)
+    console.log("props.blockApi",props);
+    var payload ={
+      "vendorID"          : '',
+      "sectionUrl"        : props.section!=="all" ? props.section.replace(/\s/g, '-').toLowerCase() : 'all',
+      "categoryUrl"       : props.category!=="all" ? props.category.replace(/\s/g, '-').toLowerCase() : 'all',
+      "subCategoryUrl"    : props.subCategory!=="all" ? props.subCategory.replace(/\s/g, '-').toLowerCase() : 'all',
+      // "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
+      "startRange"        : 0,
+      "limitRange"        : 20,
+      "user_id"           : store.userDetails.user_id,
+      "userLatitude"      : store.location?.coords?.latitude,
+      "userLongitude"     : store.location?.coords?.longitude,
+    } 
+    axios.post(props.blockApi,payload)
       .then((response) => {
+        console.log("response",response);
         setProductList(response.data);
       })
       .catch((error) => {
@@ -96,10 +117,10 @@ export const HorizontalProductList =(props)=>{
                       iconStyle={{ marginTop: 5}}
                     /> */}
                     {item.discountPercent > 0 ?
-                          <Text style={styles.ogprice}> - {item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          <Text style={styles.ogprice}> - {item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                           </Text>
                         :
-                        <Text style={styles.ogprice}> - {item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                        <Text style={styles.ogprice}> - {item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
                       }
                   </View>
                 </View>

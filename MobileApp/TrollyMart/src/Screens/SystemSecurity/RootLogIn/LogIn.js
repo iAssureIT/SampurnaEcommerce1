@@ -41,7 +41,7 @@ const window = Dimensions.get('window');
   });
 
 
-  export const RootLogIn = withCustomerToaster((props)=>{
+  export const LogIn = withCustomerToaster((props)=>{
     console.log("RootLogIn props",props)
     const [btnLoading, setLoading] = useState(false);
     const {setToast,navigation} = props; //setToast function bhetta
@@ -275,7 +275,7 @@ const window = Dimensions.get('window');
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
                   title       = {'Login As a Guest'}
-                  onPress     = {()=>navigation.push('App')}
+                  onPress     = {()=>navigation.navigate('Location')}
                   background  = {true}
                   loading     = {btnLoading}
               />

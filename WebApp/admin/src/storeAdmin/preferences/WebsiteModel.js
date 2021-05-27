@@ -22,6 +22,7 @@ class WebsiteModel extends Component {
             "showDiscount"     : "",
             "showCoupenCode"   : "",
             "showOrderStatus"  : "",
+            "currency"         : "",
         };
     }
 
@@ -50,6 +51,7 @@ class WebsiteModel extends Component {
                     'showDiscount'     : preferences.data[0].showDiscount,
                     'showCoupenCode'   : preferences.data[0].showCoupenCode,
                     'showOrderStatus'  : preferences.data[0].showOrderStatus,
+                    "currency"         : preferences.data[0].currency,
                 })        
             }
         })
@@ -73,6 +75,7 @@ class WebsiteModel extends Component {
     
     handleChange(event) {
         //event.preventDefault();
+        console.log("event",event.target);
         const target = event.target;
         const name = target.name;
         this.setState({
@@ -95,7 +98,8 @@ class WebsiteModel extends Component {
             "showInventory"    : this.state.showInventory,  
             "showDiscount"     : this.state.showDiscount,    
             "showCoupenCode"   : this.state.showCoupenCode,  
-            "showOrderStatus"  : this.state.showOrderStatus,    
+            "showOrderStatus"  : this.state.showOrderStatus, 
+            "currency"         : this.state.currency   
         }
             console.log('formValues', formValues);
         if($("#websiteModelId").valid()){        
@@ -106,7 +110,7 @@ class WebsiteModel extends Component {
                     text : response.data.message
                 }) 
                                 
-            window.location.reload();
+            // window.location.reload();
             })
             .catch((error)=>{
                 console.log("error => ",error);
@@ -245,7 +249,18 @@ class WebsiteModel extends Component {
                                                         <span className="col-lg-11 col-md-11 col-sm-10 col-xs-10 modelLabel">No</span>
                                                     </div>
                                                 </div>
-                                                
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 websiteModel NOpadding askPincodeToUser form-group">
+                                                    <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 websiteTitle" for="sel1">Currency <span><i className="astrick">*</i></span></label>
+                                                    <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 webmodelInputWrapper ">  
+                                                        <select className="col-lg-12 form-control" id="currency" name="currency" value={this.state.currency} onChange={this.handleChange.bind(this)}>
+                                                            <option value="₹">₹</option>
+                                                            <option value="$">$</option>
+                                                            <option value="AED">AED</option>
+                                                            <option value="AED">SAR</option>
+                                                            <option value="AED">QAR</option>
+                                                        </select>
+                                                    </div>    
+                                                </div>   
                                                 <br/> 
                                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     {this.state.editId
@@ -255,6 +270,7 @@ class WebsiteModel extends Component {
                                                         <button onClick={this.submit.bind(this)} className="btn button3 btn-primary pull-right">Submit</button>
                                                     }
                                                 </div> 
+                                                                                         
                                             </form>                                            
                                         </div>                                        
                                     </div>

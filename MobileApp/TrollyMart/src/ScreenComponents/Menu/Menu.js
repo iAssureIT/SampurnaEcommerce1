@@ -63,6 +63,7 @@ export const Menu = (props)=>{
         </View>	
         </View>
       <View style={styles.menuWrapper}>
+        {user_id!==""&&<View>
         <TouchableOpacity onPress={()=> navigation.navigate('AccountDashboard')}>
           <View style={styles.menu}>
             <Icon 
@@ -72,9 +73,7 @@ export const Menu = (props)=>{
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>
-              My Account
-            </Text>
+            <Text style={styles.menuText}>My Account</Text>
           </View>
         </TouchableOpacity>
           <TouchableOpacity onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
@@ -86,9 +85,7 @@ export const Menu = (props)=>{
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>
-              My Addresses 
-            </Text>
+            <Text style={styles.menuText}>My Addresses</Text>
           </View>
         </TouchableOpacity>
           <TouchableOpacity onPress={()=> navigation.navigate('MyOrder')}>
@@ -100,9 +97,7 @@ export const Menu = (props)=>{
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>
-              My Orders
-            </Text>
+            <Text style={styles.menuText}>My Orders</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=> navigation.navigate('WishlistComponent')}>
@@ -114,11 +109,10 @@ export const Menu = (props)=>{
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>
-              My Wishlist
-            </Text>
+            <Text style={styles.menuText}>My Wishlist</Text>
           </View>
         </TouchableOpacity>
+        </View>}
         <TouchableOpacity onPress={()=> navigation.navigate('SupportSystem')}>
           <View style={styles.menu} >
             <Icon 
@@ -128,39 +122,33 @@ export const Menu = (props)=>{
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>
-              Help & Support
-            </Text>
+            <Text style={styles.menuText}>Help & Support</Text>
           </View>
         </TouchableOpacity> 
         {user_id ?
         <TouchableOpacity onPress={()=>logout()}>
           <View style={styles.menu}>
             <Icon 
-              size={23} 
-              name='power' 
-              type='material-community' 
+              size={20} 
+              name='sign-out' 
+              type='font-awesome' 
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>
-              Logout
-            </Text>
+            <Text style={styles.menuText}>Logout</Text>
           </View>
         </TouchableOpacity>
         :
         <TouchableOpacity onPress={()=>logout()}>
           <View style={styles.menu}>
             <Icon 
-              size={23} 
-              name='login' 
-              type='material-community' 
+              size={20} 
+              name='sign-in' 
+              type='font-awesome' 
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>
-              Login
-            </Text>
+            <Text style={styles.menuText}>Login</Text>
           </View>
         </TouchableOpacity>}
       </View>

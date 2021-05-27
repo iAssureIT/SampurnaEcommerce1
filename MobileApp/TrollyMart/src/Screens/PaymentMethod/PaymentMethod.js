@@ -16,6 +16,9 @@ import { colors }             from '../../AppDesigns/currentApp/styles/styles.js
 import { RadioButton }        from 'react-native-paper';
 import AsyncStorage           from '@react-native-async-storage/async-storage';
 import {withCustomerToaster}  from '../../redux/AppState.js';
+import { connect,
+  useDispatch,
+  useSelector }               from 'react-redux';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export const PaymentMethod = withCustomerToaster((props)=>{
@@ -37,7 +40,8 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const {cartdata,userID,addData,totalamountpay,shippingtime,discount} = route.params;
   console.log("cartdata",cartdata);
   console.log("route",route);
-
+  const userDetails = useSelector(store => store.userDetails)
+  console.log("userDetails",userDetails);
   useEffect(() => {
     getData();
   }, []);
@@ -137,15 +141,19 @@ export const PaymentMethod = withCustomerToaster((props)=>{
     }
 
     var orderData = {
-      user_ID         : userID,
-      cartItems       : cartItems,
-      total           : totalamountpay,
-      shippingtime    : shippingtime,
-      cartTotal       : cartdata[0].cartTotal,
-      discount        : discount,
-      cartQuantity    : cartdata[0].cartQuantity,
-      deliveryAddress : deliveryAddress,
-      paymentMethod   : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
+      user_ID                     : userID,
+      userFullName                : userDetails.fullName,
+      userEmail                   : userDetails.email,
+      cartItems                   : cartItems,
+      afterDiscountTotal          : totalamountpay,
+      beforeDiscountTotal         : cartdata[0].cartTotal,
+      discountAmount              : discount,
+      order_quantityOfProducts    : cartdata[0].cartQuantity,
+      deliveryAddress             : deliveryAddress,
+      paymentMethod               : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
+      netPayableAmount            : cartdata[0].total,
+      taxAmount                   : 0
+      // shippingtime    : shippingtime,
     }
 
     console.log("orderData==>", orderData);

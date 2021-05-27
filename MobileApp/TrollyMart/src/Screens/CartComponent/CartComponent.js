@@ -136,19 +136,28 @@ const getshippingamount=(startRange, limitRange)=>{
 const getCartItems=(userId)=>{
     axios.get('/api/carts/get/cartproductlist/' + userId)
       .then((response) => {
+        console.log("response",response);
         setLoading(false);
-        if(response.data.length > 0) {
-          setSubTotalItems(response.data[0].cartItems.length);
+        if(response.data.length > 0){
+          var quantity  = 0;
+          var cartTotal = 0;
+          var discount  = 0;
+          var total     = 0;
+          for (var i = 0;  i < response.data.length; i++) {
+            quantity  +=response.data[i].cartQuantity;
+            cartTotal +=response.data[i].cartTotal;
+            discount  +=response.data[i].discount;
+            total     +=response.data[i].total;
+          }
+          setSubTotalItems(quantity);
           setCartData(response.data);
-          setSubTotal(response.data[0].cartTotal);
-          // setCurrency(response.data[0].cartItems[0].productDetail.currency);
+          setSubTotal(cartTotal);
+          setDiscountValue(discount);
           gettotalcount(response.data[0].cartItems);
-          setDiscountValue(response.data[0].discount);
-          setTotalPrice(response.data[0].total)
-        } else {
+          setTotalPrice(total)
+        }else{
           setCartData([]);
         }
-
       })
       .catch((error) => {
         console.log("error",error);
@@ -278,7 +287,10 @@ const getCartItems=(userId)=>{
         }else{
             if(totalPrice > res.data.minPurchaseAmount){
               if(res.data.coupenin === 'Percent'){
-                var discount = (res.data.coupenvalue/100 * totalPrice).toFixed(2);
+                console.log("res.data.coupenvaluE",res.data.coupenvalue);
+                console.log("totalPrice",totalPrice);
+                var discount = ((res.data.coupenvalue/100) * totalPrice).toFixed(2);
+                console.log("discount",discount);
                 setCoupenPrice(discount);
                 setTotalPrice(totalPrice-discount);
                 setToast({text: "Coupen Applied", color:'green'});
@@ -286,9 +298,10 @@ const getCartItems=(userId)=>{
                 console.log("discount",discount);
               }else{
                 var discount = totalPrice - res.data.coupenvalue;
-                setCoupenPrice(discount);
-                setTotalPrice(totalPrice-discount);
+                setCoupenPrice(res.data.coupenvalue);
+                setTotalPrice(discount);
                 setCoupenCode('');
+                setToast({text: "Coupen Applied", color:'green'});
                 console.log("discount",discount);
               }
               // setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:colors.warning});
@@ -307,6 +320,7 @@ const getCartItems=(userId)=>{
     }  
   }
 
+  var alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     return (
       <React.Fragment>
         <HeaderBar3
@@ -324,11 +338,13 @@ const getCartItems=(userId)=>{
                       cartData.map((vendor, i) => {
                         return (
                           <View style={{backgroundColor:"#fff",marginBottom:15}}>
-                          <Text style={commonStyles.subHeaderText}>{vendor.vendorName}</Text>
+                            <View style={{backgroundColor:colors.theme}}>
+                              <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendorName}</Text>
+                            </View>  
                           {vendor.cartItems.map((item,index)=>{
                             return(
-                              <View key={i}>
-                                <View key={i} style={styles.proddetails}>
+                              <View key={index}>
+                                <View key={index} style={styles.proddetails}>
                                   <View style={styles.flxdir}>
                                     <View style={styles.flxpd}>
                                       <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
@@ -353,45 +369,21 @@ const getCartItems=(userId)=>{
                                         <Text style={styles.productname}>{item.productDetail.productName}</Text>
                                         }
                                         </TouchableOpacity>
-                                      {/* <View style={styles.productdets}>
-                                        <Icon
-                                          name={item.productDetail.currency}
-                                          type="font-awesome"
-                                          size={12}
-                                          color="#666"
-                                          iconStyle={styles.iconstyle}
-                                        />
-                                        <Text style={styles.proddetprice}>{item.productDetail.discountedPrice} Per {item.productDetail.size}  {item.productDetail.unit.toUpperCase()}</Text>
-                                      </View> */}
                                   <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
                                     {item.productDetail.availableQuantity > 0 ?
                                       <View style={[styles.flxdir]}>
                                         <View style={[styles.flxdir]}>
-                                          {/* <Icon
-                                            name={item.productDetail.currency}
-                                            type="font-awesome"
-                                            size={13}
-                                            color="#333"
-                                            iconStyle={{ marginTop: 5, marginRight: 3 }}
-                                          /> */}
                                           <Text style={styles.ogprice}>{currency} </Text>
-                                          <Text style={styles.discountpricecut}>{item.productDetail.originalPrice * item.quantity}</Text>
+                                          {item.productDetail.discountPercent > 0 &&<Text style={styles.discountpricecut}>{item.productDetail.originalPrice * item.quantity}</Text>}
                                         </View>
                                         <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                          {/* <Icon
-                                            name={item.productDetail.currency}
-                                            type="font-awesome"
-                                            size={13}
-                                            color="#333"
-                                            iconStyle={{ marginTop: 5}}
-                                          /> */}
-                                            <Text style={styles.ogprice}> - {item.productDetail.discountedPrice * item.quantity} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            <Text style={styles.ogprice}> {item.productDetail.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
                                         </View>
-                                        <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                        {item.productDetail.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
                                             <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
-                                        </View>
+                                        </View>}
                                       </View>
                                       :
                                       <Text style={styles.totaldata}>SOLD OUT</Text>
@@ -418,7 +410,7 @@ const getCartItems=(userId)=>{
                                 </View>
                                     <View style={styles.flxmg2}>
                                       <View style={styles.proddeletes}>
-                                        <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID)} >
+                                        <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.productDetail._id)} >
                                           <Icon size={20} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
                                         </TouchableOpacity>
                                         <Icon
@@ -484,17 +476,6 @@ const getCartItems=(userId)=>{
                               <View style={{ flex: 0.5 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                                   <Text style={styles.totalpriceincart}> - </Text>
-                                { 
-                                // discountin === "Amount" ? 
-                                  // <Icon
-                                  //   name={currency}
-                                  //   type="font-awesome"
-                                  //   size={15}
-                                  //   color="#666"
-                                  //   iconStyle={styles.iconstyle}
-                                  // />
-                                // : null 
-                              }
                               <Text style={styles.totalpriceincart}>{currency} {vendor.discount > 1 ? vendor.discount.toFixed(2) : 0.00}</Text>
                               {
                                 discountin === "Percent" ? 
@@ -516,35 +497,16 @@ const getCartItems=(userId)=>{
                               </View> 
                               <View style={{ flex: 0.5 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                { 
-                                // discountin === "Amount" ? 
-                                  // <Icon
-                                  //   name={currency}
-                                  //   type="font-awesome"
-                                  //   size={15}
-                                  //   color="#666"
-                                  //   iconStyle={styles.iconstyle}
-                                  // />
-                                // : null 
-                              }
                               <Text style={styles.totalpriceincart}>{currency} 0</Text>
                                 </View>
                               </View>
                             </View>
                             <View style={styles.flxdata}>
                               <View style={{ flex: 0.5 }}>
-                                <Text style={styles.totaldata}>Grand Total </Text>
+                                <Text style={styles.totaldata}>Sub Total {alphabet[i]}</Text>
                               </View>
                               <View style={{ flex: 0.5 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                  {/* <Icon
-                                    name={currency}
-                                    type="font-awesome"
-                                    size={15}
-                                    color="#666"
-                                    iconStyle={styles.iconstyle}
-                                  /> */}
-                                  {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{amountofgrandtotal}</Text> */}
                                   <Text style={styles.totalpriceincart}>{currency} {vendor.total}</Text>
                                 </View>
                               </View>
@@ -681,35 +643,16 @@ const getCartItems=(userId)=>{
                         </View> 
                         <View style={{ flex: 0.5 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          { 
-                          // discountin === "Amount" ? 
-                            // <Icon
-                            //   name={currency}
-                            //   type="font-awesome"
-                            //   size={15}
-                            //   color="#666"
-                            //   iconStyle={styles.iconstyle}
-                            // />
-                          // : null 
-                        }
                         <Text style={styles.totalpriceincart}>{currency} 0</Text>
                           </View>
                         </View>
                       </View>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.5 }}>
-                          <Text style={styles.totaldata}>Grand Total </Text>
+                          <Text style={styles.totaldata}>Grand Total</Text>
                         </View>
                         <View style={{ flex: 0.5 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            {/* <Icon
-                              name={currency}
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.iconstyle}
-                            /> */}
-                            {/* <Text style={styles.totalpriceincart}>&nbsp;&nbsp;{amountofgrandtotal}</Text> */}
                             <Text style={styles.totalpriceincart}>{currency} {totalPrice}</Text>
                           </View>
                         </View>
@@ -717,12 +660,9 @@ const getCartItems=(userId)=>{
                       <View style={{ flex: 1, marginTop: 10 }}>
                         <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                       </View>
-                      <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
+                      {coupenPrice === 0 &&<View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
                         <View style={{flex:.7}}>
                           <Input
-                            // label                 =  {<Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,}}>
-                            //                             <Text>Promotional Code</Text>{' '}
-                            //                           </Text>}
                             placeholder           = "Enter promotional code"
                             onChangeText          = {(text)=>setCoupenCode(text)}
                             autoCapitalize        = "none"
@@ -743,12 +683,12 @@ const getCartItems=(userId)=>{
                             background  = {true}
                           /> 
                         </View>  
-                      </View>  
+                      </View>}
                       <View>
                         {minvalueshipping <= totaloriginalprice ?
                           <View>
                             <Button
-                              onPress        = {() => navigation.navigate('AddressDefaultComp', { userID: userId,"delivery":true })}
+                              onPress        = {() => navigation.navigate('AddressDefaultComp', { userID: userId,"delivery":true})}
                               title          = {"PROCEED TO CHECKOUT"}
                               buttonStyle    = {styles.button1}
                               containerStyle = {styles.buttonContainer1}

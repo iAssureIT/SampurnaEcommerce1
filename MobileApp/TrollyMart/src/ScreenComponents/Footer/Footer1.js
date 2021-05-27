@@ -34,7 +34,7 @@ export const Footer =(props)=>{
 
   const getData=()=>{
     if(userDetails.user_id){
-      axios.get("/api/Carts/get/count/" + userDetails.user_id)
+      axios.get("/api/carts/get/count/" + userDetails.user_id)
       .then((response) => {
         setCartCount(response.data);
       })

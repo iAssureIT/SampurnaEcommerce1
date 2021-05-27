@@ -23,13 +23,9 @@ const window = Dimensions.get('window');
 navigator.geolocation = require('react-native-geolocation-service');
 
 export const Location = withCustomerToaster((props)=>{
-    const {navigation}=props;
-    const [region,setRegion]=useState({
-        latitude: 23.4241,
-        longitude: 53.8478,
-        latitudeDelta: 23.4241 * 0.0001,
-        longitudeDelta: 53.8478 * 0.0001 
-    })
+    const {navigation,route}=props;
+    const {type}=route.params;
+    const [region,setRegion]=useState()
     const [googleapikey,setGoogleAPIKey] = useState('');
     const [address,setAddress] = useState('');
     const [coords,setCoords] = useState('');
@@ -38,14 +34,30 @@ export const Location = withCustomerToaster((props)=>{
     const dispatch = useDispatch();
     const mapStyle = [];
     const ref = useRef();
+    const store = useSelector(store => ({
+        location      : store.location
+      }));
+      const {location} = store;
+        console.log("location",location);
 
     useEffect(() => {
-        var type = 'GOOGLE';
-        axios.get('/api/projectsettings/get/'+type)
-        .then((response) => {
-            setGoogleAPIKey(response.data.googleapikey);
-            Geocoder.init(response.data.googleapikey);
-            getCurrentPosition();
+        axios.get('/api/projectsettings/get/GOOGLE')
+        .then(async(response) => {
+            console.log("response",response);
+            await setGoogleAPIKey(response.data.googleapikey);
+            await Geocoder.init(response.data.googleapikey);
+            if(type==="Auto"){
+                await getCurrentPosition();
+            }    
+            if(location && location.address!="" && location.coords!==""){
+                setRegion({
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: location.coords.latitude * 0.0001,
+                    longitudeDelta: location.coords.longitude * 0.0001 
+                })
+                setAddress(location.address)
+            }
         })
         .catch((error) => {
             if (error.response.status == 401) {
@@ -62,7 +74,6 @@ export const Location = withCustomerToaster((props)=>{
     const getCurrentPosition = ()=>{
         request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
         .then(result => {
-            console.log("result",result);
           switch (result) {
             case RESULTS.UNAVAILABLE:
               console.log('This feature is not available (on this device / in this context)');
@@ -84,9 +95,7 @@ export const Location = withCustomerToaster((props)=>{
                         })
                         Geocoder.from(latitude, longitude)
                         .then(json => {
-                            conso
                             var address = json.results[0].formatted_address;
-                            console.log(address);
                             setAddress(address);
                             // ref.current?.setAddressText(address);
                         })
@@ -118,7 +127,6 @@ export const Location = withCustomerToaster((props)=>{
 
     const addMarker=(coordinate)=>{
         setBtnLoading(true);
-        console.log("coordinate",coordinate);
         if(coordinate){
             setRegion({
                 latitude: coordinate.latitude,
@@ -128,9 +136,7 @@ export const Location = withCustomerToaster((props)=>{
             })
             Geocoder.from(coordinate.latitude,coordinate.longitude).then(
                 json => {
-                    console.log("json",json);
                 var address = json.results[0].formatted_address;
-                console.log(address);
                 setAddress(address);
                 setBtnLoading(false);
                 // ref.current?.setAddressText(address);
@@ -148,15 +154,8 @@ export const Location = withCustomerToaster((props)=>{
             type: SET_USER_ADDRESS,
             payload:payload
         })
-        navigation.navigate('Dashboard');
+        navigation.navigate('App');
     }  
-
-    console.log("region",region)
-
-    const regionChnage = (e)=>{
-        // addMarker(e);
-        console.log("e",e);
-    }
 
     return (
         <View style={{flex:1}}>
@@ -169,12 +168,11 @@ export const Location = withCustomerToaster((props)=>{
           />
           <GooglePlacesAutocomplete
             ref={ref}
-            placeholder='Search or the move app...'
+            placeholder='Search for area street name...'
             onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
                 var address = details.formatted_address;
                 const latlong = details.geometry.location;
-                console.log(address);
                 setAddress(address);
                 setCoords({"latitude": latlong.lat,"longitude":latlong.lng});
                 ref.current?.setAddressText(address);
@@ -186,7 +184,7 @@ export const Location = withCustomerToaster((props)=>{
                 })
             }}
             GoogleReverseGeocodingQuery
-            query={{key: googleapikey,language: 'en'}}
+            query={{key: googleapikey,language: 'en',components: 'country:ae',}}
             listViewDisplayed={true}
             currentLocation={true}
             renderDescription={row => row.description || row.formatted_address || row.name}
@@ -249,11 +247,11 @@ export const Location = withCustomerToaster((props)=>{
             fetchDetails={true}
             isRowScrollable={true}
         />
-        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-180,backgroundColor:"#fff",height:200,borderTopRightRadius:30,borderTopLeftRadius:30,padding:15}}>
+        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-140,backgroundColor:"#fff",minHeight:160,padding:15}}>
             <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5}}>Delivery Location</Text>
-            <View style={{flexDirection:"row",justifyContent:"space-between",height:60}}>
+            <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>
                 <Icon name="crosshairs-gps" type='material-community' size={20} color="black" />
-                <Text style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>{address}</Text>
+                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>{region? address : "-"}</Text>
             </View>   
             <View style={{justifyContent:"flex-end"}}>
                 <FormButton
@@ -261,22 +259,22 @@ export const Location = withCustomerToaster((props)=>{
                     onPress     = {()=>confirmLocation()}
                     background  = {true}
                     icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
+                    disabled    = {region?false:true}
                     // loading     = {btnLoading}
                     />
             </View>        
         </View>
-        <View pointerEvents="none" style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0,zIndex:30, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
+        {region&&<View pointerEvents="none" style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0,zIndex:30, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
             <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/marker.png")} style={{height:50,width:35}}/>
-        </View>    
-         <MapView
+        </View>}    
+         {region&&<MapView
                 provider={PROVIDER_GOOGLE}
                 ref={map => map = map}
                 region = {region}
                 style={[{width:window.width,height:window.height}]}
                 onRegionChangeComplete={addMarker}
                 customMapStyle={mapStyle}
-            > 
-        </MapView>
+           />}
        </View> 
     );  
 })

@@ -110,10 +110,10 @@ export default StyleSheet.create({
 
     // Common Text Styles
     headerText:{
-        fontSize: 17, fontFamily: 'Montserrat-SemiBold',alignSelf:'center',paddingVertical:5 
+        fontSize: 17, fontFamily: 'Montserrat-SemiBold',alignSelf:'center',paddingVertical:5,color:"#333"
     },
     subHeaderText :{
-        fontSize: 17, fontFamily: 'Montserrat-Regular',paddingVertical:5 ,alignSelf:"center"
+        fontSize: 15, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
     },
     linkText:{
         color: colors.textLight,

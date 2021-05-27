@@ -15,7 +15,7 @@ import { connect,
         useDispatch,
         useSelector }             from 'react-redux';
 import {AppContainer,
-        LocationContainer}        from "../../config/routes.js";
+  AuthContainer}        from "../../config/routes.js";
 import { SET_USER_ADDRESS}        from '../../redux/location/types';
 import { ActivityIndicator } from 'react-native-paper';
 
@@ -58,6 +58,6 @@ import { ActivityIndicator } from 'react-native-paper';
       location ?
       <AppContainer/>
       :
-      <LocationContainer />
+      <AuthContainer />
     );
 }

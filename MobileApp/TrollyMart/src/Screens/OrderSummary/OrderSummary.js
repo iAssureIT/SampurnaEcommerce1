@@ -135,7 +135,7 @@ import { connect,
 
    
 const getCartData=(userId)=>{
-  axios.get('/api/Carts/get/cartproductlist/' + userId)
+  axios.get('/api/carts/get/cartproductlist/' + userId)
     .then((response) => {
       setLoading(false);
       if(response.data.length > 0) {

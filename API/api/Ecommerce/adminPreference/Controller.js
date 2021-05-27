@@ -19,6 +19,7 @@ exports.insert_preferences = (req, res, next) => {
                             "showDiscount"      : req.body.showDiscount,
                             "showCoupenCode"    : req.body.showCoupenCode,
                             "showOrderStatus"   : req.body.showOrderStatus,
+                            "currency"          : req.body.currency
                         }
                     }
                 )
@@ -44,6 +45,7 @@ exports.insert_preferences = (req, res, next) => {
                 "showDiscount"      : req.body.showDiscount,
                 "showCoupenCode"    : req.body.showCoupenCode,
                 "showOrderStatus"   : req.body.showOrderStatus,
+                "currency"          : req.body.currency,
                  createdAt           : new Date()
             });            
             adminpreference.save(

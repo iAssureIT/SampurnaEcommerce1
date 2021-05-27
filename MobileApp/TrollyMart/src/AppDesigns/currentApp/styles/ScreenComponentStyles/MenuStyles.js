@@ -61,7 +61,7 @@ export default StyleSheet.create({
   },
   iconContainer:{
     // flex:0.2,
-    width:'12%',
+    width:25,
     alignItems:'flex-start'
   },
    ddContainer:{

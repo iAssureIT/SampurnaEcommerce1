@@ -9,6 +9,7 @@ const adminPreferenceSchema = mongoose.Schema({
     "showDiscount"     : String,
     "showCoupenCode"   : String,
     "showOrderStatus"  : String,
+    "currency"         : String,
     createdAt          : Date
 });
 

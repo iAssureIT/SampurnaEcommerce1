@@ -11,6 +11,7 @@ import {Menu}                     from '../ScreenComponents/Menu/Menu.js';
 
 /*----SystemSecurity -----*/
 import {RootLogIn }               from '../Screens/SystemSecurity/RootLogIn/RootLogIn.js';
+import {LogIn}                    from '../Screens/SystemSecurity/RootLogIn/LogIn.js';
 import {ForgotPassword}           from '../Screens/SystemSecurity/ForgotPassword/ForgotPassword.js';
 import {ResetPassword}            from '../Screens/SystemSecurity/ResetPassword/ResetPassword.js';
 import {RootSignUp}               from '../Screens/SystemSecurity/Signup/RootSignUp.js';
@@ -40,6 +41,7 @@ import MyProductReview            from'../Screens/MyProductReview/MyProductRevie
 import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
 import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';
 import {Location}                 from '../Screens/Location/Location.js';
+import {Confirmation}             from '../Screens/Location/Confirmation.js';
 import {VendorList}               from '../Screens/VendorList/VendorList.js';
 import {VendorProducts}           from '../Screens/VendorProducts/VendorProducts.js';
 
@@ -101,6 +103,7 @@ export const RegisterStack = () => (
   <RegisterRoutes.Navigator
     headerMode="none"
     >
+    <RegisterRoutes.Screen name={"LogIn"}         component={LogIn} />
     <RegisterRoutes.Screen name={"RootLogIn"}         component={RootLogIn} />
     <RegisterRoutes.Screen name={"ResetPassword"}     component={ResetPassword} />
     <RegisterRoutes.Screen name={"OTPVerification"}   component={OTPVerification} />
@@ -112,25 +115,45 @@ export const RegisterStack = () => (
   </RegisterRoutes.Navigator>
 );
 
+const LocationRoutes = createStackNavigator();
+export const LocationScreen = () => (
+  <RegisterRoutes.Navigator
+    headerMode="none"
+    >
+      <LocationRoutes.Screen name="Confirmation" component={Confirmation} />
+      <LocationRoutes.Screen name="Location" component={Location} />
+      <LocationRoutes.Screen name="App" component={HomeStack} />
+      <LocationRoutes.Screen name="Auth" component={RegisterStack} />
+      <LocationRoutes.Screen name="SubCatCompView" component={SubCatCompView} />
+      <LocationRoutes.Screen name="Dashboard" component={Dashboard} />
+  </RegisterRoutes.Navigator>     
+);
+
 const App = createStackNavigator();
 const AppStack = () => (
   <App.Navigator headerMode="none">
       <App.Screen name="App" component={HomeStack} />
       <App.Screen name="Auth" component={RegisterStack} />
-      <App.Screen name="SubCatCompView" component={SubCatCompView} />
-      <App.Screen name="Dashboard" component={Dashboard} />
-      <App.Screen name="Location" component={Location} />
+      <App.Screen name="Location" component={LocationScreen} />
   </App.Navigator>
 );
 
+const Auth = createStackNavigator();
+const AuthStack = () => (
+  <Auth.Navigator headerMode="none">
+      <Auth.Screen name="Auth" component={RegisterStack} />
+      <Auth.Screen name="App" component={HomeStack} />
+      <Auth.Screen name="Location" component={LocationScreen} />
+  </Auth.Navigator>
+);
+
+
 const LocationMain = createStackNavigator();
 const LocationStack = () => (
-  <LocationMain.Navigator headerMode="none">
-      <LocationMain.Screen name="Location" component={Location} />
+      <LocationMain.Navigator headerMode="none">
+      <LocationMain.Screen name="Location" component={LocationScreen} />
       <LocationMain.Screen name="App" component={HomeStack} />
       <LocationMain.Screen name="Auth" component={RegisterStack} />
-      <LocationMain.Screen name="SubCatCompView" component={SubCatCompView} />
-      <LocationMain.Screen name="Dashboard" component={Dashboard} />
   </LocationMain.Navigator>
 );
 
@@ -166,6 +189,14 @@ export const LocationContainer = () => {
   return (
     <NavigationContainer >
         <LocationStack/>
+    </NavigationContainer>
+  );
+}; 
+
+export const AuthContainer = () => {
+  return (
+    <NavigationContainer >
+        <AuthStack/>
     </NavigationContainer>
   );
 };  
