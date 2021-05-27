@@ -9,7 +9,6 @@ const _             = require('underscore');
 
 
 exports.insert_cartid = (req,res,next)=>{
-
     console.log("req.body===",req.body);
 
 	Carts.findOne({"user_ID": req.body.user_ID})
@@ -231,23 +230,7 @@ exports.insert_cartid = (req,res,next)=>{
                 });
             });
         }else{
-            console.log("When some No cart data available")  
-            // var vendorCartItem = {
-            //     vendor_id   : req.body.vendor_ID,
-            //     vendorName  : req.body.vendorName,
-            //     cartItems   : [
-            //         {
-            //             product_ID          : req.body.product_ID,
-            //             quantity            : req.body.quantity,
-            //             totalWeight         : req.body.totalWeight,
-            //             productRate         : req.body.productRate,
-            //             discountPercent     : req.body.discountPercent,
-            //             discountedPrice     : req.body.discountedPrice,
-            //         }
-            //     ],
-            //     vendor_numberOfProducts   : 1, 
-            //     vendor_quantityOfProducts : req.body.quantity
-            // }  
+            console.log("When some No cart data available") 
             console.log("vendorCartItem => ",vendorCartItem);        
             
             const cartDetails = new Carts({
@@ -377,75 +360,146 @@ exports.list_cart = (req,res,next)=>{
 
 exports.list_cart_product = (req,res,next)=>{
     // console.log(req.params.user_ID);
-    Carts.aggregate([
-        { "$match" : { "user_ID" : ObjectId(req.params.user_ID) } },
-        { "$unwind": "$cartItems" },
-        { "$lookup": {
-            "from": "products",
-            "as": "cartItems.productDetail",
-            "localField": "cartItems.product_ID",
-            "foreignField": "_id"
-        }},
-        { "$unwind": "$cartItems.productDetail" },
+    // Carts.aggregate([
+    //     { "$match" : { "user_ID" : ObjectId(req.params.user_ID) } },
+    //     { "$unwind": "$vendorOrders" },
+    //     { "$unwind": "$vendorOrders.cartItems" },
+    //     { "$lookup" : {
+    //         "from"          : "products",
+    //         "as"            : "vendorOrders.cartItems.product_ID",
+    //         "localField"    : "vendorOrders.cartItems.product_ID",
+    //         "foreignField"  : "_id"
+    //     }},
+        // { "$unwind": "$vendorOrders.cartItems.productDetail" },
+        // {
+        //     "$addFields": {
+        //         "cartItems.subTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
+        //         "cartItems.saving":  { "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] } ,
+        //     }
+        // },
+        // { "$group": {
+        //     "_id":"$cartItems.productDetail.vendor_ID",
+        //     "vendorName": { "$first": "$cartItems.productDetail.vendorName" },
+        //     "paymentMethod":{ "$first": "$paymentMethod" },
+        //     "deliveryAddress":{ "$first": "$deliveryAddress" },
+        //     "cartItems": { "$push": "$cartItems" },
+        //     "cartTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] } },
+        //     "discount": { "$sum":{ "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] }},
+        //     "total": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
+        //     "cartQuantity":{ "$sum": "$cartItems.quantity" },
+        //     }
+        // },
+    // ])
+    Carts.findOne({user_ID:ObjectId(req.params.user_ID)})
+    .populate('vendorOrders.cartItems.product_ID',
         {
-            "$addFields": {
-                "cartItems.subTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
-                "cartItems.saving":  { "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] } ,
-            }
-        },
-        { "$group": {
-            "_id":"$cartItems.productDetail.vendor_ID",
-            "vendorName": { "$first": "$cartItems.productDetail.vendorName" },
-            "paymentMethod":{ "$first": "$paymentMethod" },
-            "deliveryAddress":{ "$first": "$deliveryAddress" },
-            "cartItems": { "$push": "$cartItems" },
-            "cartTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] } },
-            "discount": { "$sum":{ "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] }},
-            "total": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
-            "cartQuantity":{ "$sum": "$cartItems.quantity" },
-            }
-        },
-    ])
+            _id                 : 1,
+            productImage        : 1,
+            brand               : 1,
+            brandNameRlang      : 1,
+            productCode         : 1,
+            itemCode            : 1,
+            productName         : 1,
+            productNameRlang    : 1,
+            productUrl          : 1,
+            currency            : 1,
+            originalPrice       : 1,
+            discountPercent     : 1,
+            discountedPrice     : 1,
+            unit                : 1,
+            size                : 1,
+            color               : 1,
+            taxRate             : 1
+        }
+    )
     .exec()
     .then(data=>{
-        console.log("data",data);
+        var vendor_beforeDiscountTotal  = 0;
+        var vendor_afterDiscountTotal   = 0;
+        var vendor_discountAmount       = 0;
+        var vendor_taxAmount            = 0;
+        var vendor_shippingCharges      = 0;
+        var vendorOrders                = data.vendorOrders;
+        var order_beforeDiscountTotal   = 0;
+        var order_afterDiscountTotal    = 0;
+        var order_discountAmount        = 0;
+        var order_taxAmount             = 0;
+        var order_shippingCharges       = 0;
 
-        if(data && data.length> 0 && data[0].cartItems){
-            for (let k = 0; k < data[0].cartItems.length; k++) {
-                data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
+        for(var i = 0; i<vendorOrders.length;i++){
+            for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
+                console.log("vendorOrders[i].cartItems",vendorOrders[i].cartItems);
+                vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+                if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
+                    vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
+                }
+                vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
+                if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                    vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
+                }    
             }
-            console.log("data[0].cartItems[k]",data[0]);
-            if(req.params.user_ID!=='null'){
-                Wishlists.find({user_ID:req.params.user_ID})
-                .then(wish=>{
-                    if(wish.length > 0){
-                        for(var i=0; i<wish.length; i++){
-                            for(var j=0; j<data[0].cartItems.length; j++){
-                                if(String(wish[i].product_ID) === String(data[0].cartItems[j].product_ID)){
-                                    data[0].cartItems[j]= {...data[0].cartItems[j], isWish:true};
-                                    break;
-                                }
-                            }
-                        }   
-                        if(i >= wish.length){
-                            res.status(200).json(data);
-                        }       
-                    }else{
-                        res.status(200).json(data);
-                    }
-                 })
-                 .catch(err =>{
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-            }else{
-                res.status(200).json(data);
-            }    
-        }else{
-            res.status(200).json(data);
+            if(j>=vendorOrders[i].cartItems.length){
+                data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
+                data.vendorOrders[i].vendor_afterDiscountTotal = vendor_afterDiscountTotal;
+                data.vendorOrders[i].vendor_discountAmount = vendor_discountAmount;
+                data.vendorOrders[i].vendor_taxAmount = vendor_taxAmount;
+                data.vendorOrders[i].vendor_shippingCharges = vendor_shippingCharges;
+
+                order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
+                order_afterDiscountTotal    += vendor_afterDiscountTotal;
+                order_discountAmount        += vendor_discountAmount;
+                order_taxAmount             += vendor_taxAmount;
+                order_shippingCharges       += vendor_shippingCharges;
+            }
+
         }
+        if(i>=vendorOrders.length){
+            data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
+            data.paymentDetails.afterDiscountTotal  = order_afterDiscountTotal;
+            data.paymentDetails.discountAmount      = order_discountAmount;
+            data.paymentDetails.taxAmount           = order_taxAmount;
+            data.paymentDetails.shippingCharges     = order_shippingCharges;
+            data.paymentDetails.netPayableAmount    = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+        }
+        console.log("data",data);
+        res.status(200).json(data);
+
+        // if(data && data.length> 0 && data[0].cartItems){
+        //     for (let k = 0; k < data[0].cartItems.length; k++) {
+        //         data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
+        //     }
+        //     console.log("data[0].cartItems[k]",data[0]);
+        //     if(req.params.user_ID!=='null'){
+        //         Wishlists.find({user_ID:req.params.user_ID})
+        //         .then(wish=>{
+        //             if(wish.length > 0){
+        //                 for(var i=0; i<wish.length; i++){
+        //                     for(var j=0; j<data[0].cartItems.length; j++){
+        //                         if(String(wish[i].product_ID) === String(data[0].cartItems[j].product_ID)){
+        //                             data[0].cartItems[j]= {...data[0].cartItems[j], isWish:true};
+        //                             break;
+        //                         }
+        //                     }
+        //                 }   
+        //                 if(i >= wish.length){
+        //                     res.status(200).json(data);
+        //                 }       
+        //             }else{
+        //                 res.status(200).json(data);
+        //             }
+        //          })
+        //          .catch(err =>{
+        //             console.log(err);
+        //             res.status(500).json({
+        //                 error: err
+        //             });
+        //         });
+        //     }else{
+        //         res.status(200).json(data);
+        //     }    
+        // }else{
+        //     res.status(200).json(data);
+        // }
     })
     .catch(err =>{
         console.log("err",err);

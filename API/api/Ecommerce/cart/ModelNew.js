@@ -26,6 +26,8 @@ const cartSchema = mongoose.Schema({
             vendor_beforeDiscountTotal: Number,
             vendor_discountAmount     : Number,
             vendor_afterDiscountTotal : Number,
+            vendor_taxAmount          : Number,
+            vendor_shippingCharges    : Number,
         }                         
     ],
     paymentDetails            :{
@@ -62,7 +64,7 @@ const cartSchema = mongoose.Schema({
         "longitude"       : Number,
     },
     createdBy             : String,
-    createdAt             : Date
+    createdAt             : Date,
 });
 
 module.exports = mongoose.model('cart',cartSchema);
