@@ -13,105 +13,19 @@ exports.insert_cartid = (req,res,next)=>{
     console.log("req.body===",req.body);
 
 	Carts.findOne({"user_ID": req.body.user_ID})
-		.exec()
-		.then(cartData =>{
-            console.log("cartData => ",cartData)
-            if(cartData && cartData !== null){
-                Carts.findOne({"user_ID": req.body.user_ID, 'cartItems.product_ID':req.body.product_ID})
-                .exec()
-                .then(productData =>{
-                    console.log("productData => ",productData)
-                    if(productData && productData !== null){
-                        // req.body.quantity
-                        Carts.updateOne(
-                            {'_id':cartData._id,'cartItems.product_ID':req.body.product_ID},
-                            {
-                                $inc:{
-                                    'cartItems.$.quantity':req.body.quantity,
-                                    'cartItems.$.totalWeight':req.body.totalWeight,
-                                },
-                            }
-                        )
-                        .exec()
-                        .then(data=>{
-                            console.log("updated data => ", productData)
-                            if(data.nModified == 1){
-                                res.status(200).json({
-                                    "message": "Product added to cart successfully.",
-                                });
-                            }else{
-                                res.status(401).json({
-                                    "message": "Cart Not Found 1"
-                                });
-                            }
-                        })
-                        .catch(err =>{
-                            // console.log('1',err);
-                            res.status(500).json({
-                                error: err
-                            });
-                        });
-                    }else{
-                        
-                                var vendorCartItem = {
-                                    vendor_id   : req.body.vendor_ID,
-                                    vendorName  : req.body.vendorName,
-                                    cartItems   : [
-                                        {
-                                            product_ID          : product._id,
-                                            quantity            : req.body.quantity,
-                                            totalWeight         : req.body.totalWeight,
-                                            productRate         : req.body.productRate,
-                                            discountPercent     : req.body.discountPercent,
-                                            discountedPrice     : req.body.discountedPrice,
-                                        }
-                                    ]
-                                }   
-                                
-                            
-                        
-                        Carts.updateOne(
-                            {'_id':cartData._id},
-                            {
-                                $push:{
-                                    'vendorOrders' : vendorCartItem,
-                                },
-                            }
-                        )
-                        .exec()
-                        .then(data=>{
-                            console.log("else updated => ",data)
-                            if(data.nModified == 1){
-                                res.status(200).json({
-                                    "message": "Product added to cart successfully.",
-                                });
-                            }else{
-                                res.status(401).json({
-                                    "message": "Cart Not Found 1"
-                                });
-                            }
-                        })
-                        .catch(err =>{
-                            // console.log('2',err);
-                            res.status(500).json({
-                                error: err
-                            });
-                        });
-                    }
-                })
-                .catch(err =>{
-                    // console.log('3',err);
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-            }else{
+    .exec()
+    .then(cartData =>{
+        if(cartData !== null){
+            console.log("When Cart data is available")  
+            Carts.findOne({"user_ID": req.body.user_ID, 'vendorOrders.vendor_id' : req.body.vendor_ID})
+            .exec()
+            .then(productDataForVendor =>{
                 var vendorCartItem = {
                     vendor_id   : req.body.vendor_ID,
                     vendorName  : req.body.vendorName,
                     cartItems   : [
                         {
-                            product_ID          : product._id,
+                            product_ID          : req.body.product_ID,
                             quantity            : req.body.quantity,
                             totalWeight         : req.body.totalWeight,
                             productRate         : req.body.productRate,
@@ -120,39 +34,236 @@ exports.insert_cartid = (req,res,next)=>{
                         }
                     ]
                 }  
-                var cartItems = [{
-                    "product_ID"        : req.body.product_ID,
-                    "quantity"          : req.body.quantity,
-                    "totalWeight"       : req.body.totalWeight,
-                    'rate'              : req.body.rate ? req.body.rate : 0,
-                    'discountPercent'   : req.body.discount ? req.body.discount : 0,
-                    'discountedPrice'   : req.body.discountedPrice ? req.body.discountedPrice : 0
-                }];
-                const cartDetails = new Carts({
-                    _id             : new mongoose.Types.ObjectId(),  
-                    "user_ID"       :   req.body.user_ID,
-                    "cartItems"     :   cartItems,
+                if(productDataForVendor !== null){ 
+                    console.log("When some Products are already added for same vendor")  
+                    // var filteredVendorProducts = productDataForVendor.vendorOrders.filter(function(vendor){
+                    //     return String(vendor.vendor_id) === String(req.body.vendor_ID);
+                    // });
+                    Carts.findOne({"user_ID": req.body.user_ID, 'vendorOrders.vendor_id' : req.body.vendor_ID, 'vendorOrders.cartItems.product_ID' : req.body.product_ID})
+                    .exec()
+                    .then(productData =>{                        
+                        var filteredVendorProducts = productDataForVendor.vendorOrders.filter(function(vendor){
+                            return String(vendor.vendor_id) === String(req.body.vendor_ID);
+                        });
+                        // console.log(" filteredProduct => ",filteredProduct)
 
-                });
-                cartDetails.save()
-                .then(data=>{
-                    res.status(200).json({
-                        "message"   : "Product added to cart successfully.",
-                        "cartCount" : 1
+                        if(productData !== null){
+                            console.log("When same Product is already Available")  
+                            console.log("condition => ",(filteredVendorProducts && filteredVendorProducts.length > 0))
+                            if (filteredVendorProducts && filteredVendorProducts.length > 0) {
+                                console.log("filteredVendorProducts=> ",filteredVendorProducts)
+                                console.log("filteredVendorProducts[0].vendor_quantityOfProducts =>",filteredVendorProducts[0].vendor_quantityOfProducts)
+                                var vendor_quantityOfProducts  = parseInt(filteredVendorProducts[0].vendor_quantityOfProducts) + parseInt(req.body.quantity);
+                            }else{
+                                var vendor_quantityOfProducts = 0;
+                            }
+                            var order_quantityOfProducts = productData.order_quantityOfProducts ? parseInt(productData.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
+                            console.log("vars => ",vendor_quantityOfProducts)
+                            Carts.updateOne(
+                                {'_id' : cartData._id, 'vendorOrders.vendor_id' : req.body.vendor_ID},
+                                // {$set : {
+                                //     'order_quantityOfProducts'                  : 3,
+                                //     'vendorOrders.$.vendor_quantityOfProducts'  : 5
+                                // }},
+                                {$inc:
+                                    {
+                                        'vendorOrders.$[outer].cartItems.$[inner].quantity'         : req.body.quantity,
+                                        // 'vendorOrders.$[outer].cartItems.$[inner].totalWeight'    : req.body.totalWeight,
+                                    } 
+                                },
+                                {arrayFilters: [
+                                    { 'outer.vendor_id': req.body.vendor_ID}, 
+                                    { 'inner.product_ID': req.body.product_ID }
+                                ]},
+                            )
+                            .exec()
+                            .then(data=>{
+                                console.log("updated data => ", productData)
+                                if(data.nModified == 1){
+                                    Carts.updateOne(
+                                        {'_id' : cartData._id, 'vendorOrders.vendor_id' : req.body.vendor_ID},
+                                        {$set : {
+                                            'order_quantityOfProducts'                  : order_quantityOfProducts,
+                                            'vendorOrders.$.vendor_quantityOfProducts'  : vendor_quantityOfProducts
+                                        }},
+                                    )
+                                    .exec()
+                                    .then(updateone=>{
+                                        console.log("updateone => ",updateone)
+                                    })
+                                    .catch(err =>{
+                                        console.log('1',err);
+                                        res.status(500).json({
+                                            error: err
+                                        });
+                                    });
+                                    res.status(200).json({
+                                        "message": "Product added to cart successfully.",
+                                    });
+                                }else{
+                                    res.status(401).json({
+                                        "message": "Cart Not Found 1"
+                                    });
+                                }
+                            })
+                            .catch(err =>{
+                                console.log('1',err);
+                                res.status(500).json({
+                                    error: err
+                                });
+                            });
+                        }else{       
+                            console.log("When same Product Not Available")
+                            if (filteredVendorProducts && filteredVendorProducts.length > 0) {
+                                // console.log("filteredVendorProducts=> ",filteredVendorProducts)
+                                console.log("filteredVendorProducts[0].vendor_quantityOfProducts =>",filteredVendorProducts[0].vendor_quantityOfProducts)
+                                console.log("req.body.quantity =>",req.body.quantity)
+                                var vendor_quantityOfProducts  = parseInt(filteredVendorProducts[0].vendor_quantityOfProducts) + parseInt(req.body.quantity);
+                                console.log("vendor_quantityOfProducts =>",vendor_quantityOfProducts)
+                                var vendor_numberOfProducts    = parseInt(filteredVendorProducts[0].vendor_numberOfProducts + 1);
+                                console.log("vendor_numberOfProducts =>",vendor_numberOfProducts)
+                                console.log("productData =>",productData)
+                            }else{
+                                var vendor_quantityOfProducts = 0;
+                                var vendor_numberOfProducts = 0;
+                            }
+                            var order_quantityOfProducts = productDataForVendor.order_quantityOfProducts ? parseInt(productDataForVendor.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
+                            var order_numberOfProducts   = productDataForVendor.order_numberOfProducts ? parseInt(productDataForVendor.order_numberOfProducts) + 1 : 0;
+                            console.log("d =>>>>>>>> ",vendor_quantityOfProducts, vendor_numberOfProducts, order_quantityOfProducts, order_numberOfProducts)
+                            var product = {
+                                
+                                    product_ID          : req.body.product_ID,
+                                    quantity            : req.body.quantity,
+                                    totalWeight         : req.body.totalWeight,
+                                    productRate         : req.body.productRate,
+                                    discountPercent     : req.body.discountPercent,
+                                    discountedPrice     : req.body.discountedPrice,
+                                
+                            }                                 
+                            Carts.updateOne(
+                                {'_id' : cartData._id, 'vendorOrders.vendor_id' :  req.body.vendor_ID},
+                                {
+                                    $push:{
+                                        'vendorOrders.$.cartItems' : product                                   
+                                    },
+                                    $set: { 
+                                        'vendorOrders.$.vendor_numberOfProducts'    : vendor_numberOfProducts, 
+                                        'vendorOrders.$.vendor_quantityOfProducts'  : vendor_quantityOfProducts,
+                                        'order_numberOfProducts'                    : order_numberOfProducts,
+                                        'order_quantityOfProducts'                  : order_quantityOfProducts
+                                    }
+                                },
+                            )
+                            .exec()
+                            .then(updatedvendordata=>{
+                                console.log("updatedvendordata => ", updatedvendordata)
+                                if(updatedvendordata.nModified == 1){
+                                    res.status(200).json({
+                                        "message": "Product added to cart successfully.",
+                                    });
+                                }else{
+                                    res.status(401).json({
+                                        "message": "Cart Not Found 1"
+                                    });
+                                }
+                            })
+                            .catch(err =>{
+                                console.log('1',err);
+                                res.status(500).json({
+                                    error: err
+                                });
+                            }); 
+                        }
+                    })
+                    .catch(err =>{
+                        // console.log('3',err);
+                        res.status(500).json({
+                            error: err
+                        });
+                    });                      
+                }else{   
+                    console.log("When no Products availabe for same vendor")  
+                    Carts.updateOne(
+                        {'_id' : cartData._id},
+                        {
+                            $push:{
+                                'vendorOrders' : vendorCartItem,
+                            },
+                        }
+                    )
+                    .exec()
+                    .then(data=>{
+                        console.log("else updated => ",data)
+                        if(data.nModified == 1){
+                            res.status(200).json({
+                                "message": "Product added to cart successfully.",
+                            });
+                        }else{
+                            res.status(401).json({
+                                "message": "Cart Not Found 1"
+                            });
+                        }
+                    })
+                    .catch(err =>{
+                        console.log('2',err);
+                        res.status(500).json({
+                            error: err
+                        });
                     });
-                })
-                .catch(err =>{
-                    // console.log('4',err);
-                    res.status(500).json({
-                        error: err
-                    });
+                } 
+            })
+            .catch(err =>{
+                console.log('3',err);
+                res.status(500).json({
+                    error: err
                 });
-                return true;
-            }
-		
+            });
+        }else{
+            console.log("When some No cart data available")  
+            var vendorCartItem = {
+                vendor_id   : req.body.vendor_ID,
+                vendorName  : req.body.vendorName,
+                cartItems   : [
+                    {
+                        product_ID          : req.body.product_ID,
+                        quantity            : req.body.quantity,
+                        totalWeight         : req.body.totalWeight,
+                        productRate         : req.body.productRate,
+                        discountPercent     : req.body.discountPercent,
+                        discountedPrice     : req.body.discountedPrice,
+                    }
+                ],
+                vendor_numberOfProducts   : 1, 
+                vendor_quantityOfProducts : req.body.quantity
+            }  
+            console.log("vendorCartItem => ",vendorCartItem);        
+            
+            const cartDetails = new Carts({
+                _id                         : new mongoose.Types.ObjectId(),
+                "user_ID"                   : req.body.user_ID,
+                "vendorOrders"              : vendorCartItem,
+                "order_numberOfProducts"    : 1, 
+                "order_quantityOfProducts"  : req.body.quantity
+            });
+            cartDetails.save()
+            .then(saveddata=>{
+                console.log("saveddata => ",saveddata);
+                res.status(200).json({
+                    "message"   : "Product added to cart successfully.",
+                    "cartCount" : 1
+                });
+            })
+            .catch(err =>{
+                console.log('4',err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+            return true;
+        }		
 	})
 	.catch(err =>{
-        // console.log('5',err);
+        console.log('5',err);
 		res.status(500).json({
 			error: err
 		});

@@ -225,33 +225,44 @@ exports.list_cart = (req,res,next)=>{
 
 
 exports.list_cart_product = (req,res,next)=>{
-    // console.log(req.params.user_ID);
+    console.log("req.params.user_ID => ", req.params.user_ID);
     Carts.aggregate([
-        { "$match"  : { "user_ID" : ObjectId(req.params.user_ID) } },
-        { "$unwind" : "$cartItems" },
-        { "$lookup": {
-            "from": "products",
-            "as": "cartItems.productDetail",
-            "localField": "cartItems.product_ID",
-            "foreignField": "_id"
-        }},
-        { "$unwind": "$cartItems.productDetail" },
-        {
-            "$addFields": {
-                "cartItems.subTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
-                "cartItems.saving":  { "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] } ,
+        { "$match"      : { "user_ID" : ObjectId(req.params.user_ID) } },
+        { "$unwind"     : "$cartItems" },
+        { "$lookup"     : {
+                "from"          : "products",
+                "as"            : "cartItems.productDetail",
+                "localField"    : "cartItems.product_ID",
+                "foreignField"  : "_id"
             }
         },
-        { "$group": {
-            "_id":"$cartItems.productDetail.vendor_ID",
-            "vendorName": { "$first": "$cartItems.productDetail.vendorName" },
-            "paymentMethod":{ "$first": "$paymentMethod" },
-            "deliveryAddress":{ "$first": "$deliveryAddress" },
-            "cartItems": { "$push": "$cartItems" },
-            "cartTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] } },
-            "discount": { "$sum":{ "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] }},
-            "total": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
-            "cartQuantity":{ "$sum": "$cartItems.quantity" },
+        { "$unwind" : "$cartItems.productDetail" },
+        {
+            "$addFields"    : {
+                "cartItems.subTotal"    : { 
+                    "$sum": { 
+                        "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] 
+                    } 
+                },
+                "cartItems.saving" : { 
+                    "$divide": [{ 
+                        "$multiply": [ { 
+                            "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] 
+                        }, "$cartItems.productDetail.discountPercent" ]
+                    }, 100] 
+                } ,
+            }
+        },
+        { "$group" : {
+            "_id"               : "$cartItems.productDetail.vendor_ID",
+            "vendorName"        : { "$first" : "$cartItems.productDetail.vendorName" },
+            "paymentMethod"     : { "$first" : "$paymentMethod" },
+            "deliveryAddress"   : { "$first" : "$deliveryAddress" },
+            "cartItems"         : { "$push"  : "$cartItems" },
+            "cartTotal"         : { "$sum"   : { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] } },
+            "discount"          : { "$sum"   : { "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] }},
+            "total"             : { "$sum"   : { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
+            "cartQuantity"      : { "$sum"   : "$cartItems.quantity" },
             }
         },
     ])
