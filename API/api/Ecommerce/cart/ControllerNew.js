@@ -459,21 +459,24 @@ exports.all_list_cart = (req,res,next)=>{
 };
 
 exports.count_cart = (req,res,next)=>{
-    Carts.findOne({"user_ID": req.params.user_ID})     
-        .exec()
-        .then(data=>{
-            if(data && data.cartItems){
-                res.status(200).json(data.cartItems.length);
-            }else{
-                res.status(200).json(0);
-            }
-        })
-        .catch(err =>{
-            console.log("err",err);
-            res.status(500).json({
-                error: err
-            });
+    Carts.aggregate([
+        {$match:{"user_ID": req.params.user_ID}},
+        { 
+            "$project": { 
+                "size": { "$sum": { "$map": { "input": "$vendorOrders", "as": "l", "in": { "$size": "$$l.cartItems" } } } } 
+            } 
+        }
+    ])
+    .exec()
+    .then(data=>{
+        res.status(200).json(data.cartItems.length);
+    })
+    .catch(err =>{
+        console.log("err",err);
+        res.status(500).json({
+            error: err
         });
+    });
 };
 
 exports.remove_cart_items = (req, res, next)=>{
