@@ -91,13 +91,8 @@
     /* height: 100px; */
     width: 100px;
 }
-.orderTable .table th,
-.orderTable .table td{
-    border-top: 0px !important;
-    border-bottom: 0px !important;
-}
-.orderTable .table tr{
-    margin-bottom: 20px;
+.orderTable{
+
 }
 .orderTable>tbody>tr>td {
     padding: 12px 8px;

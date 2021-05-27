@@ -8,7 +8,7 @@ router.post('/post', 													checkAuth, TimeController.insert_Time);
 
 router.get('/get/list', 												checkAuth, TimeController.get_Time);
 
-router.get('/get/list-with-limits/:startRange/:limitRange', checkAuth, TimeController.get_Time_with_limits);
+router.get('/get/list-with-limits/:startRange/:limitRange', TimeController.get_Time_with_limits);
 
 router.get('/get/count', 												checkAuth, TimeController.count_section);
 

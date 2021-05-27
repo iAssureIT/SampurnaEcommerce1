@@ -1441,6 +1441,7 @@ class Checkout extends Component {
                                         <table className="table orderTable">
                                             <thead>
                                                 <tr>
+                                                    <th></th>
                                                     <th>Products Name</th>
                                                     <th className="">Price</th>
                                                     <th className="textAlignCenter">Quantity</th>
@@ -1450,83 +1451,62 @@ class Checkout extends Component {
                                             <tbody>
                                                 {
                                                     this.props.recentCartData && this.props.recentCartData.length > 0 ?
-                                                        this.props.recentCartData.map((vendorWiseData, index) => {
+                                                        this.props.recentCartData[0].cartItems.map((data, index) => {
+
                                                             return (
                                                                 <tr key={'cartData' + index}>
-                                                                    <td colspan="4">
-
-                                                                        <table className="table ">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>{vendorWiseData.vendorName}</th>
-                                                                            </tr>
-                                                                        </thead>
-
-                                                                        {vendorWiseData.cartItems.map((cartdata, index) => {
-                                                                            return(
-                                                                                <tr>
-                                                                                    <td><img className="img orderImg" src={cartdata.productDetail.productImage[0] ? cartdata.productDetail.productImage[0] : "images/eCommerce/notavailable.jpg"} /></td>
-                                                                                    <td>
-                                                                                        <a href={"/productdetails/" + cartdata.product_ID}>
-                                                                                        {cartdata.productDetail.productNameRlang?
-                                                                                            <h5 className="RegionalFont">{cartdata.productDetail.productNameRlang}</h5>
-                                                                                        :
-                                                                                            <h5 className="productName">{cartdata.productDetail.productName}</h5>
-                                                                                        }
-                                                                                        </a>
-
-                                                                                        {cartdata.productDetail.discountPercent ?
-                                                                                            <div className="col-12 NoPadding">
-                                                                                                <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{cartdata.productDetail.originalPrice}</span>&nbsp;
-                                                                                            <span className="cartPrice"><i className="fa fa-inr"></i>{cartdata.productDetail.discountedPrice}</span> &nbsp; &nbsp;
-                                                                                            <span className="cartDiscountPercent">( {Math.floor(cartdata.productDetail.discountPercent)}% Off ) </span>
-                                                                                            </div>
-                                                                                            :
-                                                                                            <span className="price"><i className="fa fa-inr"></i>{cartdata.productDetail.originalPrice}</span>
-                                                                                        }
-                                                                                        <div>
-                                                                                            {cartdata.productDetail.color ? <span className="cartColor">Color : <span style={{ backgroundColor: cartdata.productDetail.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(cartdata.productDetail.color)[1]}, </span> : null}
-                                                                                            {cartdata.productDetail.size ? <span className="cartColor">Size : {cartdata.productDetail.size} &nbsp; {cartdata.productDetail.unit}</span> : null}
-                                                                                        </div>
-                                                                                    </td>
-                                                                                    <td className="textAlignLeft">
-                                                                                        {
-                                                                                            cartdata.productDetail.availableQuantity > 0 ?
-                                                                                                // <span className="productPrize textAlignRight"><i className={"fa fa-" + cartdata.productDetail.currency}></i> &nbsp;{parseInt(cartdata.productDetail.discountedPrice).toFixed(2)}</span>
-                                                                                                <span className="productPrize textAlignRight"><i className="fa fa-inr"></i>&nbsp;{parseInt(cartdata.productDetail.discountedPrice).toFixed(2)}</span>
-                                                                                                :
-                                                                                                <span>-</span>
-                                                                                        }
-                                                                                    </td>
-                                                                                    <td className="textAlignCenter">
-                                                                                        {
-                                                                                            cartdata.productDetail.availableQuantity > 0 ?
-                                                                                                <span className=" textAlignRight">{cartdata.quantity}</span>
-                                                                                                :
-                                                                                                <span className="textAlignCenter sold">SOLD OUT</span>
-                                                                                        }
-                                                                                    </td>
-                                                                                    <td className="textAlignRight">
-                                                                                        {
-                                                                                            cartdata.productDetail.availableQuantity > 0 ?
-                                                                                                <span className="productPrize textAlignRight">
-                                                                                                    <i className="fa fa-inr"></i>
-                                                                                                    {/* {cartdata.productDetail.currency} */}
-                                                                                                    &nbsp;{parseInt(cartdata.subTotal).toFixed(2)}</span>
-                                                                                                :
-                                                                                                <span>-</span>
-                                                                                        }
-                                                                                    </td>
-                                                                                </tr>
-                                                                            )
-                                                                        })
+                                                                    {/* <td><span className="fa fa-times-circle-o crossOrder" id={data._id} onClick={this.Removefromcart.bind(this)}></span></td> */}
+                                                                    <td><img className="img orderImg" src={data.productDetail.productImage[0] ? data.productDetail.productImage[0] : "images/eCommerce/notavailable.jpg"} /></td>
+                                                                    <td>
+                                                                        <a href={"/productdetails/" + data.product_ID}>
+                                                                        {data.productDetail.productNameRlang?
+                                                                            <h5 className="RegionalFont">{data.productDetail.productNameRlang}</h5>
+                                                                        :
+                                                                            <h5 className="productName">{data.productDetail.productName}</h5>
                                                                         }
+                                                                        </a>
 
-                                                                       
-
-
-
-                                                                    </table>
+                                                                        {data.productDetail.discountPercent ?
+                                                                            <div className="col-12 NoPadding">
+                                                                                <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{data.productDetail.originalPrice}</span>&nbsp;
+                                                                            <span className="cartPrice"><i className="fa fa-inr"></i>{data.productDetail.discountedPrice}</span> &nbsp; &nbsp;
+                                                                            <span className="cartDiscountPercent">( {Math.floor(data.productDetail.discountPercent)}% Off ) </span>
+                                                                            </div>
+                                                                            :
+                                                                            <span className="price"><i className="fa fa-inr"></i>{data.productDetail.originalPrice}</span>
+                                                                        }
+                                                                        <div>
+                                                                            {data.productDetail.color ? <span className="cartColor">Color : <span style={{ backgroundColor: data.productDetail.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(data.productDetail.color)[1]}, </span> : null}
+                                                                            {data.productDetail.size ? <span className="cartColor">Size : {data.productDetail.size} &nbsp; {data.productDetail.unit}</span> : null}
+                                                                        </div>
+                                                                    </td>
+                                                                    <td className="textAlignLeft">
+                                                                        {
+                                                                            data.productDetail.availableQuantity > 0 ?
+                                                                                // <span className="productPrize textAlignRight"><i className={"fa fa-" + data.productDetail.currency}></i> &nbsp;{parseInt(data.productDetail.discountedPrice).toFixed(2)}</span>
+                                                                                <span className="productPrize textAlignRight"><i className="fa fa-inr"></i>&nbsp;{parseInt(data.productDetail.discountedPrice).toFixed(2)}</span>
+                                                                                :
+                                                                                <span>-</span>
+                                                                        }
+                                                                    </td>
+                                                                    <td className="textAlignCenter">
+                                                                        {
+                                                                            data.productDetail.availableQuantity > 0 ?
+                                                                                <span className=" textAlignRight">{data.quantity}</span>
+                                                                                :
+                                                                                <span className="textAlignCenter sold">SOLD OUT</span>
+                                                                        }
+                                                                    </td>
+                                                                    <td className="textAlignRight">
+                                                                        {
+                                                                            data.productDetail.availableQuantity > 0 ?
+                                                                                <span className="productPrize textAlignRight">
+                                                                                    <i className="fa fa-inr"></i>
+                                                                                    {/* {data.productDetail.currency} */}
+                                                                                    &nbsp;{parseInt(data.subTotal).toFixed(2)}</span>
+                                                                                :
+                                                                                <span>-</span>
+                                                                        }
                                                                     </td>
                                                                 </tr>
                                                             );

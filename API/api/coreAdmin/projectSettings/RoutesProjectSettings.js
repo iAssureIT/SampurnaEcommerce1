@@ -8,7 +8,7 @@ router.post('/post', 					checkAuth, projectsettingController.create_projectSett
 
 router.get('/get/:type', 				 projectsettingController.fetch_projectsettings);
 
-router.post('/getS3Details/:type', 	checkAuth, projectsettingController.fetch_projectsettings);
+router.post('/getS3Details/:type', 	 projectsettingController.fetch_projectsettings);
 
 router.get('/get/all', 					 projectsettingController.fetch_projectsettings_all);
 

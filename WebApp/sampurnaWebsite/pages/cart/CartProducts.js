@@ -46,12 +46,15 @@ class CartProducts extends Component{
     }
 
     async componentDidMount(){
+        var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
         var token         = userDetails.token;
         axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
         var websiteModel = localStorage.getItem('websiteModel');
         this.setState({
             websiteModel : websiteModel,
+            currency     : currency
         })
         await this.props.fetchCartData();
         this.getdiscounteddata(this.state.startRange, this.state.limitRange);
@@ -625,8 +628,7 @@ class CartProducts extends Component{
                                                                             :
                                                                             <div className="col-12 NoPadding">
                                                                                 <span className="price">
-                                                                                {/* <i className="fa fa-inr"></i> */}
-                                                                                AED&nbsp;{vendorData.productDetail.originalPrice}</span>
+                                                                                {this.state.currency}&nbsp;{vendorData.productDetail.originalPrice}</span>
                                                                             </div>
                                                                     }
 
@@ -655,7 +657,7 @@ class CartProducts extends Component{
                                                                     <div className="nowrap col-3">
                                                                     {
                                                                         vendorData.productDetail.availableQuantity > 0 ?
-                                                                            <span className={"cartProductPrize "}> AED&nbsp;{vendorData.subTotal}</span>
+                                                                            <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.subTotal}</span>
                                                                         :
                                                                         <span>-</span>
                                                                     }    
@@ -663,34 +665,8 @@ class CartProducts extends Component{
                                                                     <div className="col-1">
                                                                         <span className="fa fa-trash trashIcon" id={vendorData._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
                                                                     </div>
-
-
                                                                 </div> 
-                                                                
                                                             </div>
-                                                            {/* <td className="nowrap ">
-                                                            {
-                                                                vendorData.productDetail.availableQuantity > 0 ?
-                                                                    <div >
-                                                                        <span id="productPrize" className={"cartProductPrize fa fa-inr"}>&nbsp;{vendorData.productDetail.discountedPrice}</span><br />
-                                                                    </div>
-                                                                :
-                                                                <span>-</span>
-                                                            }
-                                                            </td> */}
-                                                            
-
-                                                            {/* <td className="proWeight">  
-                                                                { this.state.websiteModel === 'FranchiseModel'? 
-                                                                
-                                                                    <span className="col-12 NoPadding productSize totalWeight">&nbsp;{vendorData.totalWeight} &nbsp;</span> 
-                                                                :
-                                                                    <span style={{"textAlign":"center"}} className="col-xl-12 NoPadding productSize">{vendorData.productDetail.size} &nbsp; 
-                                                                        {vendorData.productDetail.size ?<span style={{"textAlign":"center"}} className="col-xl-12 NoPadding CapsUnit">{vendorData.productDetail.unit}</span>:'-'}
-                                                                    </span>
-                                                                }
-                                                            </td> */}
-                                                            
                                                         </div>    
                                                     );
                                                     })
@@ -704,14 +680,12 @@ class CartProducts extends Component{
                                                         <tr>
                                                             <td>Sub Total</td>
                                                             <td className="textAlignRight">&nbsp; 
-                                                            {/* <i className={"fa fa-inr"}></i>  */}
-                                                            AED &nbsp;{vendorWiseCartData.total > 0 ? parseInt(vendorWiseCartData.total) : 0.00} </td>
+                                                            {this.state.currency} &nbsp;{vendorWiseCartData.total > 0 ? parseInt(vendorWiseCartData.total) : 0.00} </td>
                                                         </tr>
                                                         <tr>
                                                             <td>You Saved</td>
                                                             <td className="textAlignRight">&nbsp; 
-                                                            {/* <i className={"fa fa-inr"}></i>  */}
-                                                            AED &nbsp;{vendorWiseCartData.total > 0 ? parseInt(vendorWiseCartData.discount) : 0.00} </td>
+                                                            {this.state.currency} &nbsp;{vendorWiseCartData.total > 0 ? parseInt(vendorWiseCartData.discount) : 0.00} </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Delivery Charges</td>
@@ -749,37 +723,7 @@ class CartProducts extends Component{
                                                         <tr>
                                                             <td className="cartTotal"> Totals </td>
                                                             <td className="textAlignRight cartTotal">&nbsp; 
-                                                            {/* <i className={"fa fa-inr"}></i> */}
-                                                            AED &nbsp;{vendorWiseCartData.total}
-                                                            {/* {
-                                                                Math.round(
-                                                                    Number( this.props.recentCartData.length > 0 ?
-                                                                        this.state.discountdata !== undefined ?
-                                                                            this.state.discountin === "Percent" ?                                                                        
-                                                                                parseInt(vendorWiseCartData.total) - (parseInt(vendorWiseCartData.total) * this.state.discountvalue / 100)
-                                                                                : parseInt(vendorWiseCartData.total) - this.state.discountvalue
-                                                                        : parseInt(vendorWiseCartData.total)
-                                                                    : "0.00"
-                                                                    )                                                                
-                                                                    +
-                                                                    Number( this.state.taxrate>0?  
-                                                                        this.props.recentCartData.length > 0 ?
-                                                                            this.state.discountdata !== undefined ?
-                                                                                this.state.discountin === "Percent" ?
-                                                                                    
-                                                                                    Math.round((parseInt(vendorWiseCartData.total) - (parseInt(vendorWiseCartData.total) * this.state.discountvalue / 100)) * this.state.taxrate/100)
-                                                                                :
-                                                                                    this.state.discountvalue>0?
-                                                                                        Math.round((parseInt(vendorWiseCartData.total) - this.state.discountvalue)*this.state.taxrate/100) 
-                                                                                    :"0.00"
-                                                                            : 
-                                                                                Math.round(parseInt(vendorWiseCartData.total)*this.state.taxrate/100) 
-                                                                        : 
-                                                                            "0.00"
-                                                                    :0.00
-                                                                    )
-                                                                )
-                                                                }                                  */}
+                                                            {this.state.currency} &nbsp;{vendorWiseCartData.total}
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -794,28 +738,51 @@ class CartProducts extends Component{
                                     </div>
                                     <div className="col-12 CouponCode">
                                         <div className="row ">
-                                        <div className="col-6  ">
+                                        <div className="col-9">
+                                            <div className="col-4 offset-4 checkoutBtn">
+                                            {
+                                            this.state.minvalueshipping?
+                                                <div className="col-12 NoPadding">
+                                                { this.state.minvalueshipping <= this.props.recentCartData[0].total  ?
+                                                    <button onClick={this.proceedToCheckout.bind(this)} className="col-12 globaleCommBtn btn cartCheckout NoPadding">
+                                                        PROCEED TO CHECKOUT
+                                                    </button>
+                                                    :
+                                                    <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout" disable>
+                                                        PROCEED TO CHECKOUT
+                                                    </button> 
+                                                    }
+                                                </div>
+                                            :
+                                                <button  className="col-12 btn globaleCommBtn blockcartCheckout" 
+                                                onClick={this.proceedToCheckout.bind(this)}>
+                                                    PROCEED TO CHECKOUT
+                                                </button> 
+
+                                            }
+                                            </div>
+                                        </div>
+                                        <div className="col-3  cartSummary ">
                                             <div className="col-12 totalAmounts mb-2 pull-right">
                                                 <div className="row">
-                                                    <div className="col-8">Total Amount</div>
-                                                    <div className="col-4 textAlignRight">&nbsp; 
-                                                    {/* <i className={"fa fa-inr"}></i>  */}
-                                                    AED &nbsp;{this.props.recentCartData[0].cartTotal > 0 ? parseInt(this.props.recentCartData[0].cartTotal) : 0.00} </div>
+                                                    <div className="col-8">Final Total Amount</div>
+                                                    <div className="col-4 textAlignRight">&nbsp;
+                                                    {this.state.currency} &nbsp;{this.props.recentCartData[0].cartTotal > 0 ? parseInt(this.props.recentCartData[0].cartTotal) : 0.00} </div>
                                                 </div>
                                             </div>
-                                            <div className="col-12 mb-2">
-                                                <input type="text" placeholder="Enter Discount Coupon Here..."
-                                                     
-                                                    className="couponCode col-8" ref="couponCode" id="couponCode" name="couponCode" />
-                                                <button className="btn-primary" onClick={this.applyCoupon.bind(this)}>Apply</button>
+                                            <div className="col-12 totalAmounts mb-2 pull-right">
+                                                <div className="row">
+                                                    <div className="col-8">Total Savings</div>
+                                                    <div className="col-4 textAlignRight">&nbsp; 
+                                                        {this.state.currency} &nbsp;{ 0.00} 
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="col-12 totalAmounts mb-2 pull-right">
                                                 <div className="row">
                                                     <div className="col-8">Total Tax</div>
                                                     <div className="col-4 textAlignRight">&nbsp; 
-                                                        {/* <i className={"fa fa-inr"}></i>  */}
-                                                        {/* AED &nbsp;{this.props.recentCartData[0].cartTotal > 0 ? parseInt(this.props.recentCartData[0].cartTotal) : 0.00}  */}
-                                                        AED &nbsp;{ 0.00} 
+                                                        {this.state.currency} &nbsp;{ 0.00} 
                                                     </div>
                                                 </div>
                                             </div>
@@ -823,8 +790,7 @@ class CartProducts extends Component{
                                                 <div className="row">
                                                     <div className="col-8">Total Delivery Charges</div>
                                                     <div className="col-4 textAlignRight">&nbsp; 
-                                                        {/* <i className={"fa fa-inr"}></i>  */}
-                                                        AED &nbsp;{ 0.00} 
+                                                        {this.state.currency} &nbsp;{ 0.00} 
                                                     </div>
                                                 </div>
                                             </div>
@@ -832,33 +798,12 @@ class CartProducts extends Component{
                                                 <div className="row">
                                                     <div className="col-8">Grand Total</div>
                                                     <div className="col-4 textAlignRight">&nbsp;
-                                                        {/* <i className={"fa fa-inr"}></i> */}
-                                                        AED {this.props.recentCartData[0].cartTotal > 0 ? parseInt(this.props.recentCartData[0].cartTotal) : 0.00} 
+                                                        {this.state.currency} {this.props.recentCartData[0].cartTotal > 0 ? parseInt(this.props.recentCartData[0].cartTotal) : 0.00} 
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-3 offset-3">
-                                        {
-                                        this.state.minvalueshipping?
-                                            <div className="col-12 NoPadding">
-                                            { this.state.minvalueshipping <= this.props.recentCartData[0].total  ?
-                                                <button onClick={this.proceedToCheckout.bind(this)} className="col-12 globaleCommBtn btn cartCheckout NoPadding">
-                                                    PROCEED TO CHECKOUT
-                                                </button>
-                                                :
-                                                <button  className="col-12 btn globaleCommBtn blockcartCheckout" disabled>
-                                                    PROCEED TO CHECKOUT
-                                                </button> 
-                                                }
-                                            </div>
-                                        :
-                                            <button  className="col-12 btn globaleCommBtn blockcartCheckout">
-                                                PROCEED TO CHECKOUT
-                                            </button> 
-
-                                        }
-                                        </div>
+                                        
                                     </div>                              
                                     </div>
                                 </div>                           
