@@ -170,9 +170,8 @@ class ConfirmOtp extends Component {
           <div className="col-12 mobileViewNoPadding">
             <div className="col-12 mobileViewNoPadding">
               <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
-                  {/* <img src="/images/eCommerce/kokilaLogo.png" className="responsive logoImg"></img> */}
                   <Image 
-                      src={"/images/eCommerce/kokilaLogo.png"}
+                      src={"/images/eCommerce/multistoreLogo.png"}
                       className={"logoImg"}
                       height ={60}
                       width={200}

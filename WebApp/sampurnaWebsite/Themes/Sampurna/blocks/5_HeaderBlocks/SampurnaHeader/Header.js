@@ -70,14 +70,16 @@ class Header extends React.Component {
     getCartCount() {
         // console.log("inside cart count");
         const userid = localStorage.getItem('user_ID');
-        axios.get("/api/carts/get/count/" + userid)
-          .then((response) => {
+        if(userid){
+            axios.get("/api/carts/get/count/" + userid)
+            .then((response) => {
             //   console.log("cartcount--",response.data);
             store.dispatch(updateCartCount(response.data));
-          })
-          .catch((error) => {
+            })
+            .catch((error) => {
             console.log("error",error);
-          })
+            })
+        }
       }
     
     searchProducts() {        

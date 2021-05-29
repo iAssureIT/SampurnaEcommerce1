@@ -226,7 +226,8 @@ class CartProducts extends Component{
     cartquantityincrease(event){
         event.preventDefault();
         const userid     = localStorage.getItem('user_ID');
-        const product_ID = event.target.getAttribute('productid');        
+        const product_ID = event.target.getAttribute('productid');   
+        const vendor_id = event.target.getAttribute('vendor_id');     
         const quantity   = parseInt(event.target.getAttribute('dataquntity'));
         
         var availableQuantity = parseInt(event.target.getAttribute('availablequantity'));
@@ -255,7 +256,10 @@ class CartProducts extends Component{
                 "product_ID" 	: product_ID,
                 "quantityAdded" : quantityAdded,
                 "totalWeight"   : totalWeight,
-            }            
+                "vendor_ID"     : vendor_id ,
+                "quantityAdded" : quantityAdded,
+            }  
+                    
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                     this.props.fetchCartData();
@@ -283,6 +287,9 @@ class CartProducts extends Component{
                 "product_ID" 	: product_ID,
                 "quantityAdded" : quantityAdded,
                 "totalWeight"   : totalWeight,
+                "vendor_ID"     : vendor_id ,
+                "quantityAdded" : quantityAdded,
+                
             }
             if(quantityAdded > availableQuantity){
                 this.setState({
@@ -341,6 +348,7 @@ class CartProducts extends Component{
     	event.preventDefault();
         const userid     = localStorage.getItem('user_ID');
         const cartitemid = event.target.getAttribute('id'); 
+        const vendor_id  = event.target.getAttribute('vendor_id');
         // const size       = event.target.getAttribute('size');
         const quantity   = parseInt(event.target.getAttribute('dataquntity'));
 
@@ -369,6 +377,7 @@ class CartProducts extends Component{
                 "product_ID" 	: cartitemid,
                 "quantityAdded" : quantityAdded,
                 "totalWeight"   : totalWeight,
+                "vendor_id"     : vendor_id, 
             }            
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
@@ -395,7 +404,8 @@ class CartProducts extends Component{
             const formValues    = { 
                 "user_ID"     	: userid,
                 "product_ID" 	: cartitemid,
-                "quantityAdded" : quantityAdded,            
+                "quantityAdded" : quantityAdded,     
+                "vendor_id"     : vendor_id,       
             }
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
@@ -423,10 +433,12 @@ class CartProducts extends Component{
 
     proceedToCheckout(event){
         event.preventDefault();
-        
-        var soldProducts = this.props.recentCartData[0].cartItems.filter((a, i)=>{
-            return a.product_ID.availableQuantity <= 0;
-        })
+        for(let i =0 ; i< this.props.recentCartData.vendorOrders.length; i++){
+            // console.log("this.props.recentCartData.vendorOrders[i].cartItems===",this.props.recentCartData.vendorOrders[i].cartItems);
+            var soldProducts = this.props.recentCartData.vendorOrders[i].cartItems.filter((a, i)=>{
+                return a.product_ID.availableQuantity <= 0;
+            })
+        }
         if(soldProducts.length > 0){
             this.setState({
                 messageData : {
@@ -543,7 +555,7 @@ class CartProducts extends Component{
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
                                         // console.log("vendorWiseCartData==",vendorWiseCartData);
                                         return(  
-                                            <div className="row">
+                                            <div className="row" key={index}>
                                                 <div className="col-9">
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendorName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
@@ -587,9 +599,10 @@ class CartProducts extends Component{
                                                                     {
                                                                         vendorData.product_ID.availableQuantity > 0 ?
                                                                         <div className="quantityWrapper">
-                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
+                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorData.vendor_id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
+                                                                                onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
                                                                             <span className="inputQuantity">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
-                                                                            <span className="plusQuantity fa fa-plus" size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
+                                                                            <span className="plusQuantity fa fa-plus" vendor_id={vendorData.vendor_id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
                                                                                 onClick={this.cartquantityincrease.bind(this)}></span><br/>   
                                                                             { this.state.websiteModel === 'FranchiseModel'?                                                                 
                                                                                 <span className ="productUnit" id={vendorData.product_ID._id}> Of {vendorData.product_ID.size}&nbsp;<span className="CapsUnit">{vendorData.product_ID.unit}</span></span>
@@ -626,50 +639,27 @@ class CartProducts extends Component{
                                                         <tr>
                                                             <td>Sub Total</td>
                                                             <td className="textAlignRight">&nbsp; 
-                                                            {this.state.currency} &nbsp;{vendorWiseCartData.total > 0 ? parseInt(vendorWiseCartData.total) : 0.00} </td>
+                                                            {this.state.currency} &nbsp;{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00} </td>
                                                         </tr>
                                                         <tr>
                                                             <td>You Saved</td>
                                                             <td className="textAlignRight">&nbsp; 
-                                                            {this.state.currency} &nbsp;{vendorWiseCartData.total > 0 ? parseInt(vendorWiseCartData.discount) : 0.00} </td>
+                                                            {this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00} </td>
                                                         </tr>
-                                                        <tr>
+                                                        {/* <tr>
                                                             <td>Delivery Charges</td>
-                                                            <td className="textAlignRight saving">&nbsp;{ 
-                                                                this.state.minvalueshipping > vendorWiseCartData.total ?
-                                                                    // "This store requires minimum order of Rs."+this.state.minvalueshipping
-                                                                    // "Make minimum purchase of Rs."+this.state.minvalueshipping+" to checkout your order."
-                                                                    "No Delivery"
-                                                                :  
-                                                                    "0.00"
-                                                                }
-                                                            </td>
-                                                        </tr>
-                                                        
+                                                            <td className="textAlignRight saving">&nbsp; { vendorWiseCartData.vendor_shippingCharges } </td>
+                                                        </tr>                                                         */}
                                                         <tr>
                                                             <td>Tax</td>  
                                                             <td className="textAlignRight saving">&nbsp; 
-                                                                <span>
-                                                                    {this.state.taxrate>0? 
-                                                                        <span>+&nbsp;<i className="fa fa-inr" />
-                                                                        {this.props.recentCartData.length > 0 ?
-                                                                        this.state.discountdata !== undefined ?
-                                                                            this.props.recentCartData.length > 0 && this.state.discountin === "Percent" ?
-                                                                                Math.round((parseInt(vendorWiseCartData.total) - (parseInt(vendorWiseCartData.total) * this.state.discountvalue / 100)) * this.state.taxrate/100)
-                                                                                :Math.round((parseInt(vendorWiseCartData.total) - this.state.discountvalue)*this.state.taxrate/100)
-                                                                            : Math.round(parseInt(vendorWiseCartData.total)*this.state.taxrate/100)
-                                                                        : "0.00"
-                                                                        }
-                                                                        </span>
-                                                                        :"0.00"
-                                                                    }
-                                                                </span>
+                                                                <span> {this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td className="cartTotal"> Totals </td>
                                                             <td className="textAlignRight cartTotal">&nbsp; 
-                                                            {this.state.currency} &nbsp;{vendorWiseCartData.total}
+                                                            {this.state.currency} &nbsp;{vendorWiseCartData.netPayableAmount}
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -707,6 +697,7 @@ class CartProducts extends Component{
 
                                             }
                                             </div>
+                                            <div className="col-12 text-center couponMsg"> Proceed to checkout to apply discount coupon code </div>
                                         </div>
                                         <div className="col-3  cartSummary ">
                                             <div className="col-12 totalAmounts mb-2 pull-right">

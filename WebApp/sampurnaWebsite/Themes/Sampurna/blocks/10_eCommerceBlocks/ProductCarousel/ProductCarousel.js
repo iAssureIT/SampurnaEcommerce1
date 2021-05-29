@@ -549,8 +549,8 @@ class ProductCarousel extends Component {
           "selectedSize" : selectedSize,
           "size"         : size,
           "totalWeight"  : totalWeight,
-          "vendorName"   : event.target.getAttribute('vendorName'),
-          "vendor_ID"    : event.target.getAttribute('vendor_ID'),  
+          "vendorName"   : event.target.getAttribute('vendor_name'),
+          "vendor_ID"    : event.target.getAttribute('vendor_id'),  
         }
       }
 
@@ -559,8 +559,8 @@ class ProductCarousel extends Component {
         "user_ID"    : userid,
         "product_ID" : event.target.id,
         "quantity"   : 1,   
-        "vendorName" : event.target.getAttribute('vendorName'),
-        "vendor_ID"  : event.target.getAttribute('vendor_ID'),       
+        "vendorName" : event.target.getAttribute('vendor_name'),
+        "vendor_ID"  : event.target.getAttribute('vendor_id'),       
       }      
     }
 
@@ -916,7 +916,7 @@ class ProductCarousel extends Component {
                                                   }
                                                 </select>                                     
                                               </div>    
-                                              <button type="submit" color={data.color} vendorName={data.vendorName} vendor_ID={data.vendor_ID} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
+                                              <button type="submit" color={data.color} vendor_name={data.vendor_name} vendor_id={data.vendor_id} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
                                                 title="Add to Cart" className={"col-6 fa fa-shopping-cart "  }>                                                                         
                                                 &nbsp;Add
                                               </button>                          
@@ -925,11 +925,11 @@ class ProductCarousel extends Component {
                                             data.availableQuantity > 0 ?
                                               <div>
                                               {this.state.user_ID?
-                                              <button type="submit" id={data._id} vendorName={data.vendorName} vendor_ID={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                              <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                                   &nbsp;Add To Cart
                                               </button>
                                               :
-                                              <button type="submit" id={data._id} vendorName={data.vendorName} vendor_ID={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                              <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
                                                   &nbsp;Add To Cart
                                               </button>
                                               }     

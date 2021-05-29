@@ -40,12 +40,12 @@ class CategoryBlock extends Component{
 
     static getDerivedStateFromProps(nextProps, prevState) {
       // console.log("props--",nextProps);
-      if (nextProps.newProducts) {
+      //if (nextProps.newProducts) {
         // return ({ 
         //   categoryData: nextProps.categoryData,
         //   vendor_ID   : nextProps.vendor_ID,
         // }) // <- this is setState equivalent
-      }
+      //}
       return null
     }
 
