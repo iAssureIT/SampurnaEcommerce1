@@ -839,15 +839,15 @@ class Checkout extends Component {
                         for(i=0;i<this.props.recentCartData.vendorOrders.length;i++){
                         var cartItems = this.props.recentCartData.vendorOrders[i].products.map((a, i) => {
                             return {
-                                "product_ID": a.product_ID._id,
-                                "productName": a.product_ID.productName,
-                                "productNameRlang": a.product_ID.productNameRlang,
-                                "discountPercent": a.product_ID.discountPercent,
-                                "discountedPrice": a.product_ID.discountedPrice,
-                                "originalPrice": a.product_ID.originalPrice,
-                                "color": a.product_ID.color,
-                                "size": a.product_ID.size,
-                                "currency": a.product_ID.currency,
+                                "product_ID": a._id,
+                                "productName": a.productName,
+                                "productNameRlang": a.productNameRlang,
+                                "discountPercent": a.discountPercent,
+                                "discountedPrice": a.discountedPrice,
+                                "originalPrice": a.originalPrice,
+                                "color": a.color,
+                                "size": a.size,
+                                "currency": a.currency,
                                 "quantity": a.quantity,
                                 "itemAmountTotal": a.subTotal,
                                 "savedAmount": a.saving,
@@ -909,8 +909,8 @@ class Checkout extends Component {
                                 .then((result) => {
                                     if (this.state.paymentmethods === 'cod') {
                                         this.setState({paymethods : true})
-                                        $('.fullpageloader').show();
-                                        this.props.fetchCartData();
+                                        // $('.fullpageloader').show();
+                                        // this.props.fetchCartData();
                                         this.setState({
                                             messageData: {
                                                 "type": "outpage",
