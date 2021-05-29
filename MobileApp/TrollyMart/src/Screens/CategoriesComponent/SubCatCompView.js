@@ -44,10 +44,10 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   },[props]);
 
   const getData=()=>{
-    getProductsView(productID);
     AsyncStorage.multiGet(['user_id', 'token'])
     .then((data) => {
         setUserId(data[0][1]);
+        getProductsView(productID,data[0][1]);
     })
   }
  
@@ -61,7 +61,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
       }
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
-          getProductsView(productID);
+          getProductsView(productID,user_id);
           setToast({text: response.data.message, color: 'green'});
         })
         .catch((error) => {
@@ -83,7 +83,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   }
 
 
-  const getProductsView=(productID)=>{
+  const getProductsView=(productID,user_id)=>{
     axios.get("/api/Products/get/one/"+ productID+"/"+user_id)
       .then((response) => {
         setProductData(response.data);

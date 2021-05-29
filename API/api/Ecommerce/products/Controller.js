@@ -1506,6 +1506,7 @@ exports.count_vendor_product = (req,res,next)=>{
     });
 };
 exports.fetch_product = (req,res,next)=>{
+    const {user_ID}=req.params;
     Products.findOne({_id : req.params.productID})
     .exec()
     .then(product=>{
