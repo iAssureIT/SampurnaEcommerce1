@@ -68,6 +68,7 @@ export const Dashboard = withCustomerToaster((props)=>{
       setLoading(false)
     })
     .catch(error=>{
+      console.log("error",error);
       if (error.response.status == 401) {
         setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
         navigation.navigate('App')

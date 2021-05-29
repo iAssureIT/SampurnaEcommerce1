@@ -88,7 +88,7 @@ router.patch('/patch/bulkimages/', 											checkAuth, productController.uploa
 
 router.patch('/remove/image', 												checkAuth, productController.remove_photo);
 
-router.get('/get/one/:productID/:userID', 									productController.fetch_product);
+router.get('/get/one/:productID/:user_ID', 									productController.fetch_product);
 
 router.get('/get/hotproduct', 												 productController.fetch_hot_product);
 
