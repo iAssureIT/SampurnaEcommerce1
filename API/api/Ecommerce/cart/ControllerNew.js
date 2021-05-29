@@ -445,6 +445,7 @@ exports.list_cart_product = (req,res,next)=>{
                 data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
                 data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
                 data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
+                data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
 
                 order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
                 order_afterDiscountTotal    += vendor_afterDiscountTotal;
@@ -608,43 +609,88 @@ exports.remove_product_from_cart = (req, res, next)=>{
 
 exports.change_cart_item_quantity = (req, res, next)=>{
     console.log("req.body => ",req.body);
-    Carts.updateOne(
-        {"user_ID" : ObjectId(req.body.user_ID)},
-        {
-            $set:
+
+    Carts.findOne({"user_ID": req.body.user_ID})
+    .exec()
+    .then(cartdata =>{
+        console.log("cartdata= > ",cartdata)
+        var previous_order_quantityOfProducts = cartdata.order_quantityOfProducts;
+        var vendor = cartdata.vendorOrders.filter(vendors => String(vendors.vendor_id) === String(req.body.vendor_ID));
+        if(vendor && vendor.length > 0 && vendor[0].cartItems && vendor[0].cartItems.length > 0){
+            var previous_vendor_quantityOfProducts = vendor[0].vendor_quantityOfProducts;
+            console.log("vendor => ", vendor);
+            var vendorProduct = vendor[0].cartItems.filter(products => String(products.product_ID) === String(req.body.product_ID));
+            if(vendorProduct && vendorProduct.length > 0){
+                var previousProductQuantity = vendorProduct[0].quantity;
+            }else{
+                var previousProductQuantity = 0;
+            }
+        }
+        console.log("previous_order_quantityOfProducts => ", previous_order_quantityOfProducts);
+        console.log("previous_vendor_quantityOfProducts => ", previous_vendor_quantityOfProducts);
+        console.log("previousProductQuantity => ", previousProductQuantity);
+        console.log(" => ", );
+
+
+        // res.status(200).json(data);       
+    
+        Carts.updateOne(
+            {"user_ID" : ObjectId(req.body.user_ID), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_ID)},
+            {$set:
                 {
-                    'vendorOrders.$[outer].cartItems.$[inner].quantity'         : parseInt(req.body.quantityAdded),
+                    'vendorOrders.$[outer].cartItems.$[inner].quantity'         : req.body.quantityAdded,
                     // 'vendorOrders.$[outer].cartItems.$[inner].totalWeight'    : req.body.totalWeight,
                 } 
             },
             {arrayFilters: [
-                { 'outer.vendor_id': req.body.vendor_ID}, 
-                { 'inner.product_ID': req.body.product_ID }
-            ]},
-            // $set:{
-            //     'vendorOrders.cartItems.quantity'       : parseInt(req.body.quantityAdded),
-            //     'vendorOrders..cartItems.$.totalWeight'    : req.body.totalWeight,
-            // },
-        
-    )
-    .exec()
-    .then(data=>{
-        console.log("data => ",data);
-        if(data.nModified == 1){
-            res.status(200).json({
-                "message": "Product quantity changed successfully."
+                { 'outer.vendor_id' : ObjectId(req.body.vendor_ID) }, 
+                { 'inner.product_ID': ObjectId(req.body.product_ID) }
+            ]}       
+        )
+        .exec()
+        .then(data=>{
+            console.log("data => ",data);
+            if(data.nModified === 1){    
+                var order_quantityOfProducts    = (previous_order_quantityOfProducts - previousProductQuantity) + req.body.quantityAdded;
+                var vendor_quantityOfProducts   = (previous_vendor_quantityOfProducts - previousProductQuantity) + req.body.quantityAdded;
+                Carts.updateOne(
+                    {"user_ID" : ObjectId(req.body.user_ID), 'vendorOrders.vendor_id' : req.body.vendor_ID},
+                    {$set : {
+                        'order_quantityOfProducts'                  : order_quantityOfProducts,
+                        'vendorOrders.$.vendor_quantityOfProducts'  : vendor_quantityOfProducts
+                    }},
+                )
+                .exec()
+                .then(updateone=>{
+                    console.log("updateone => ",updateone)
+                })
+                .catch(err =>{
+                    console.log('1',err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+                res.status(200).json({
+                    "message": "Product quantity changed successfully."
+                });
+            }else{
+                res.status(401).json({
+                    "message": "Cart Not Found 1"
+                });
+            }
+        })
+        .catch(err =>{
+            res.status(500).json({
+                error: err
             });
-        }else{
-            res.status(401).json({
-                "message": "Cart Not Found 1"
-            });
-        }
-    })
-    .catch(err =>{
-        res.status(500).json({
-            error: err
         });
-    });
+    })
+    .catch(error =>{
+        res.status(500).json({
+            error:error
+        })
+
+    })
 };
 exports.add_address_to_cart = (req, res, next)=>{
     Carts.findOne({"user_ID": req.body.user_ID})       

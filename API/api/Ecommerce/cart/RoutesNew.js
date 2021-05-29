@@ -6,17 +6,18 @@ const cartController = require('./ControllerNew');
 
 router.post('/post', 								 cartController.insert_cartid);
 
+router.get('/get/cartproductlist/:user_ID', 	   cartController.list_cart_product);
+
+router.get('/get/count/:user_ID', 				    cartController.count_cart);
+
 // router.post('/paymentgatewaypinepg/post', cartController.paymentgatewaypinepg);
 
 router.get('/get/list/:user_ID', 				   cartController.list_cart);
-
-router.get('/get/cartproductlist/:user_ID', 	   cartController.list_cart_product);
 
 router.get('/get/list', 						    cartController.all_list_cart);
 
 router.get('/get/one/:user_ID', 					cartController.user_cart);
 
-router.get('/get/count/:user_ID', 				    cartController.count_cart);
 
 router.patch('/remove', 							cartController.remove_cart_items);
 

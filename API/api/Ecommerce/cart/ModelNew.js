@@ -26,6 +26,7 @@ const cartSchema = mongoose.Schema({
             vendor_beforeDiscountTotal: Number,
             vendor_discountAmount     : Number,
             vendor_afterDiscountTotal : Number,
+            vendor_netPayableAmount   : Number,  //vendor_netPayableAmount = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges
             vendor_taxAmount          : Number,
             vendor_shippingCharges    : Number,
         }                         
