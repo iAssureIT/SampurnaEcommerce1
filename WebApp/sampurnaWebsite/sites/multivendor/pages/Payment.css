@@ -220,7 +220,7 @@ text-align:right ! important;
     font-size: 14px ! important;
   }  
 .orderReviews span{
-    font-size: 14px ! important;
+    font-size: 14px;
   }
 
 @media only screen and (max-device-width: 480px) {

@@ -708,10 +708,22 @@ class Checkout extends Component {
             giftOption: this.state.giftOption === true ? false : true
         })
     }
+
     placeOrder(event) {
         event.preventDefault();        
         var addressValues = {};
-        // var payMethod = $("input[name='payMethod']:checked").val();
+
+        var vendorOrders = this.props.recentCartData.vendorOrders;
+        console.log("this.props.recentCartData.vendorOrders==",this.props.recentCartData.vendorOrders);
+        for(var i = 0; i<vendorOrders.length;i++){ 
+            vendorOrders[i].products =[];
+            for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
+              vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
+            } 
+            delete vendorOrders[i].cartItems;
+          }
+          console.log("vendorOrders====",vendorOrders);
+
         var payMethod = $("input[name='paymentmethods']:checked").val();
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
         var formValues = {
@@ -722,8 +734,8 @@ class Checkout extends Component {
         }
         console.log("Formvalues===",formValues);
         for(var i=0;i<this.props.recentCartData.vendorOrders.length;i++){
-            var soldProducts = this.props.recentCartData[i].cartItems.filter((a, i) => {
-                return a.product_ID.availableQuantity <= 0;
+            var soldProducts = this.props.recentCartData.vendorOrders[i].products.filter((a, i) => {
+                return a.availableQuantity <= 0;
             })
         }
         if (soldProducts.length > 0) {
@@ -744,7 +756,7 @@ class Checkout extends Component {
         } else {
             // console.log("this.validateForm()===",this.validateForm(),this.state.fields,this.state.errors);
             if(this.validateForm()){
-                // console.log("validation true");
+                console.log("validation true");
             if (this.state.deliveryAddress && this.state.deliveryAddress.length > 0) {
                 // console.log("Inside delivery address available");
                 var deliveryAddress = this.state.deliveryAddress.filter((a, i) => {
@@ -770,7 +782,7 @@ class Checkout extends Component {
                     "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
                     "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
                 }
-                // console.log("inside if address values====",addressValues);               
+                console.log("inside if address values====",addressValues);               
             } else {
                 // console.log("inside else new address");
                 addressValues = {
@@ -794,7 +806,7 @@ class Checkout extends Component {
                 }
                 // if ($('#checkout').valid() && this.state.pincodeExists) {
                     $('.fullpageloader').show();
-                    // console.log("addressValues:===",addressValues);
+                    console.log("addressValues:===",addressValues);
                     axios.patch('/api/ecommusers/patch/address', addressValues)
                         .then((response) => {
                             $('.fullpageloader').hide();
@@ -819,13 +831,13 @@ class Checkout extends Component {
                         });
                // }
             }
-            //if ($('#checkout').valid() && this.state.pincodeExists) {
+
                 axios.patch('/api/carts/address', addressValues)
                     .then(async (response) => {
                         // console.log("Response After inserting address to cart===",response);
                         await this.props.fetchCartData();
                         for(i=0;i<this.props.recentCartData.vendorOrders.length;i++){
-                        var cartItems = this.props.recentCartData.vendorOrders[i].cartItems.map((a, i) => {
+                        var cartItems = this.props.recentCartData.vendorOrders[i].products.map((a, i) => {
                             return {
                                 "product_ID": a.product_ID._id,
                                 "productName": a.product_ID.productName,
@@ -837,8 +849,8 @@ class Checkout extends Component {
                                 "size": a.product_ID.size,
                                 "currency": a.product_ID.currency,
                                 "quantity": a.quantity,
-                                "subTotal": a.subTotal,
-                                "saving": a.saving,
+                                "itemAmountTotal": a.subTotal,
+                                "savedAmount": a.saving,
                                 "productImage": a.product_ID.productImage,
                                 "section_ID": a.product_ID.section_ID,
                                 "section": a.product_ID.section,
@@ -851,16 +863,47 @@ class Checkout extends Component {
                             })
                         }
                         console.log("cartItems",cartItems);
+                        console.log("cartData==",this.props.recentCartData);
 
                         var orderData = {
-                            user_ID: this.state.user_ID,
-                            cartItems: cartItems,
-                            shippingtime: this.state.shippingtiming,
-                            total:0.00,
-                            total1: 0.00,
-                            gstTax : 0.00,                           
-                            
+                            user_ID                   : this.state.user_ID,
+                            email                     : this.state.email,
+                            userName 			      : req.body.userEmail,
+                            userFullName 		      : this.state.fullName,
+                            beforeDiscountTotal       : this.props.recentCartData.paymentDetails.beforeDiscountTotal,
+                            discountAmount            : this.props.recentCartData.paymentDetails.discountAmount,
+                            afterDiscountTotal        : this.props.recentCartData.paymentDetails.afterDiscountTotal,
+                            taxAmount                 : this.props.recentCartData.paymentDetails.taxAmount,
+                            shippingCharges           : this.props.recentCartData.paymentDetails.shippingCharges,
+                            netPayableAmount          : this.props.recentCartData.paymentDetails.netPayableAmount,
+                            currency                  : this.state.currency,	
+                            payment_status            : this.state.payMethod === 'online' ? "Paid" : "UnPaid",  // paid, unpaid
+                            paymentMethod             : this.state.payMethod,
+                            customerShippingTime      : this.state.shippingtime,
+                            order_numberOfProducts    : this.props.recentCartData.paymentDetails.order_numberOfProducts,
+                            order_quantityOfProducts  : req.body.order_quantityOfProducts, //Sum of total quantity of items in each vendor
+
+                            vendorOrders              : vendorOrders,
+                            deliveryAddress           : addressValues,
+
+                            // deliveryAddress	: {
+                            //     name			: req.body.deliveryAddress.name,
+                            //     email			: req.body.deliveryAddress.email,
+                            //     addressLine1	: req.body.deliveryAddress.addressLine1,
+                            //     addressLine2	: req.body.deliveryAddress.addressLine2,
+                            //     pincode			: req.body.deliveryAddress.pincode,
+                            //     city			: req.body.deliveryAddress.city,
+                            //     state			: req.body.deliveryAddress.state,
+                            //     stateCode		: req.body.deliveryAddress.stateCode,
+                            //     mobileNumber	: req.body.deliveryAddress.mobileNumber,
+                            //     district		: req.body.deliveryAddress.district,
+                            //     country			: req.body.deliveryAddress.country,
+                            //     countryCode		: req.body.deliveryAddress.countryCode,
+                            //     addType			: req.body.deliveryAddress.addType
+                            // },
                         }
+                        console.log("OrdersData===",orderData);
+
                         if (this.state.isChecked) {
                             axios.post('/api/orders/post', orderData)
                                 .then((result) => {
@@ -1416,9 +1459,10 @@ class Checkout extends Component {
                                         <table className="table table-borderless orderTable">
                                             <thead>
                                                 <tr>
+                                                    <th>Products Image</th>
                                                     <th>Products Name</th>
-                                                    <th className="">Price</th>
-                                                    <th className="textAlignCenter">Quantity</th>
+                                                    <th className="textAlignRight">Price</th>
+                                                    <th className="textAlignRight">Quantity</th>
                                                     <th className="textAlignRight">SubTotal</th>
                                                 </tr>
                                             </thead>
@@ -1429,7 +1473,7 @@ class Checkout extends Component {
                                                             return (
                                                                 <div className="col-12 tableRowWrapper" key={'cartData' + index}>
                                                                 <tr  className="col-12">
-                                                                    <td colspan="4">
+                                                                    <td colspan="5">
                                                                         <table className="table ">
                                                                         <thead>
                                                                             <tr>
@@ -1487,7 +1531,7 @@ class Checkout extends Component {
                                                                                                 <span className="productPrize textAlignRight">
                                                                                                     {this.state.currency}
                                                                                                     {/* {cartdata.product_ID.currency} */}
-                                                                                                    &nbsp;{parseInt(cartdata.subTotal).toFixed(2)}</span>
+                                                                                                    &nbsp;{cartdata.product_ID.discountedPrice}</span>
                                                                                                 :
                                                                                                 <span>-</span>
                                                                                         }
@@ -1502,23 +1546,23 @@ class Checkout extends Component {
                                                                 <tr className=" col-12 tableRow">
                                                                     <td colspan="4"> 
                                                                         <div className="col-8 offset-2">
-                                                                            <span className="col-9 title">{vendorWiseData.vendorName}&nbsp; Total</span>
-                                                                            <span className="col-3 textAlignRight title">&nbsp; 
+                                                                            <span className="col-8 title">{vendorWiseData.vendorName}&nbsp; Total</span>
+                                                                            <span className="col-4 textAlignRight title">&nbsp; 
                                                                                 {this.state.currency} &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? vendorWiseData.vendor_beforeDiscountTotal : 0.00} 
                                                                             </span>
                                                                         </div>
                                                                         <div className="col-8 offset-2">
-                                                                            <span className="col-9 title">You Saved&nbsp;</span>
-                                                                            <span className="col-3 textAlignRight title">&nbsp; 
+                                                                            <span className="col-8 title">You Saved&nbsp;</span>
+                                                                            <span className="col-4 textAlignRight title">&nbsp; 
                                                                                 {this.state.currency} &nbsp;{vendorWiseData.total > 0 ? vendorWiseData.vendor_discountAmount : 0.00} 
                                                                             </span>
                                                                         </div>
                                                                         <div className="col-8 offset-2">
-                                                                            <span className="col-9 title">Tax &nbsp;</span>
-                                                                            <span className="col-3 textAlignRight title">&nbsp; 
+                                                                            <span className="col-8 title">Tax &nbsp;</span>
+                                                                            <span className="col-4 textAlignRight title">&nbsp; 
                                                                                 {this.state.currency} &nbsp;{vendorWiseData.vendor_taxAmount > 0 ? vendorWiseData.vendor_taxAmount : 0.00} 
                                                                             </span>
-                                                                        </div>
+                                                                        </div>                                                                        
                                                                     </td>
                                                                 </tr>
                                                                 

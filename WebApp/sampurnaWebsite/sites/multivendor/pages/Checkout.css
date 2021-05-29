@@ -167,7 +167,7 @@
     cursor: pointer;
 }
 .orderTotalText{
-    font-size: 18px;
+    font-size: 17px !important;
     font-weight: bold;
     text-align: left;
     color: #4b4a4a;

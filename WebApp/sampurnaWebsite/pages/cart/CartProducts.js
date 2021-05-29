@@ -208,19 +208,19 @@ class CartProducts extends Component{
         })
         .catch((error)=>{
             console.log("error => ",error);
-            if(error.message === "Request failed with status code 401"){
-                var userDetails =  localStorage.removeItem("userDetails");
-                localStorage.clear();
-                swal({  
-                    title : "Your Session is expired.",                
-                    text  : "You need to login again. Click OK to go to Login Page"
-                })
-                .then(okay => {
-                    if (okay) {
-                        window.location.href = "/login";
-                    }
-                });
-            }
+            // if(error.message === "Request failed with status code 401"){
+            //     var userDetails =  localStorage.removeItem("userDetails");
+            //     localStorage.clear();
+            //     swal({  
+            //         title : "Your Session is expired.",                
+            //         text  : "You need to login again. Click OK to go to Login Page"
+            //     })
+            //     .then(okay => {
+            //         if (okay) {
+            //             window.location.href = "/login";
+            //         }
+            //     });
+            // }
         })
     }
     cartquantityincrease(event){
@@ -229,7 +229,6 @@ class CartProducts extends Component{
         const product_ID = event.target.getAttribute('productid');   
         const vendor_id = event.target.getAttribute('vendor_id');     
         const quantity   = parseInt(event.target.getAttribute('dataquntity'));
-        
         var availableQuantity = parseInt(event.target.getAttribute('availablequantity'));
         const quantityAdded   = parseInt(quantity+1);
 
@@ -239,12 +238,8 @@ class CartProducts extends Component{
             var totalWeight  = quantityAdded * size;             
             if(unit === "gm"){
                 if(totalWeight >= 1000){
-                    // console.log("set unit kg");
-                    //if weight is greater than 1000 gram then convert it to kg
                     totalWeight = totalWeight/1000;
-                    totalWeight = totalWeight+" KG";
-                    // console.log("document.getElementById(product_ID)===",document.getElementById("totalWeight-"+product_ID));
-                    // document.getElementById("totalWeight-"+product_ID).innerHTML= totalWeight+"KG";                
+                    totalWeight = totalWeight+" KG";               
                 }else{
                     totalWeight      = totalWeight+" GM";
                 }
@@ -254,31 +249,30 @@ class CartProducts extends Component{
             const formValues = { 
                 "user_ID"     	: userid,
                 "product_ID" 	: product_ID,
-                "quantityAdded" : quantityAdded,
                 "totalWeight"   : totalWeight,
                 "vendor_ID"     : vendor_id ,
                 "quantityAdded" : quantityAdded,
             }  
-                    
+            console.log("formValues====",formValues);  
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                     this.props.fetchCartData();
             })
             .catch((error)=>{
                 console.log("error => ",error);
-                if(error.message === "Request failed with status code 401"){
-                    var userDetails =  localStorage.removeItem("userDetails");
-                    localStorage.clear();
-                    swal({  
-                        title : "Your Session is expired.",                
-                        text  : "You need to login again. Click OK to go to Login Page"
-                    })
-                    .then(okay => {
-                        if (okay) {
-                            window.location.href = "/login";
-                        }
-                    });
-                }
+                // if(error.message === "Request failed with status code 401"){
+                //     var userDetails =  localStorage.removeItem("userDetails");
+                //     localStorage.clear();
+                //     swal({  
+                //         title : "Your Session is expired.",                
+                //         text  : "You need to login again. Click OK to go to Login Page"
+                //     })
+                //     .then(okay => {
+                //         if (okay) {
+                //             window.location.href = "/login";
+                //         }
+                //     });
+                // }
             })
             
         }else{
@@ -289,7 +283,6 @@ class CartProducts extends Component{
                 "totalWeight"   : totalWeight,
                 "vendor_ID"     : vendor_id ,
                 "quantityAdded" : quantityAdded,
-                
             }
             if(quantityAdded > availableQuantity){
                 this.setState({
@@ -308,25 +301,26 @@ class CartProducts extends Component{
                 }, 3000);
             }
             else{
+                console.log("formValues===",formValues);
                 axios.patch("/api/carts/quantity" ,formValues)
                 .then((response)=>{
                         this.props.fetchCartData();
                 })
                 .catch((error)=>{
                     console.log("error => ",error);
-                    if(error.message === "Request failed with status code 401"){
-                        var userDetails =  localStorage.removeItem("userDetails");
-                        localStorage.clear();
-                        swal({  
-                            title : "Your Session is expired.",                
-                            text  : "You need to login again. Click OK to go to Login Page"
-                        })
-                        .then(okay => {
-                            if (okay) {
-                                window.location.href = "/login";
-                            }
-                        });
-                    }
+                    // if(error.message === "Request failed with status code 401"){
+                    //     var userDetails =  localStorage.removeItem("userDetails");
+                    //     localStorage.clear();
+                    //     swal({  
+                    //         title : "Your Session is expired.",                
+                    //         text  : "You need to login again. Click OK to go to Login Page"
+                    //     })
+                    //     .then(okay => {
+                    //         if (okay) {
+                    //             window.location.href = "/login";
+                    //         }
+                    //     });
+                    //}
                 })
             }
         }        
@@ -349,9 +343,7 @@ class CartProducts extends Component{
         const userid     = localStorage.getItem('user_ID');
         const cartitemid = event.target.getAttribute('id'); 
         const vendor_id  = event.target.getAttribute('vendor_id');
-        // const size       = event.target.getAttribute('size');
         const quantity   = parseInt(event.target.getAttribute('dataquntity'));
-
         const quantityAdded = parseInt(quantity-1) <= 0 ? 1 : parseInt(quantity-1);
        
         if(localStorage.getItem('websiteModel')==="FranchiseModel"){
@@ -362,9 +354,7 @@ class CartProducts extends Component{
             if(unit === "gm"){
                 if(totalWeight >= 1000){
                     totalWeight = totalWeight/1000;
-                    totalWeight = totalWeight+" KG";
-                    
-                    // document.getElementById("totalWeight-"+cartitemid).innerHTML= totalWeight+"KG";                
+                    totalWeight = totalWeight+" KG";              
                 }
                 else{
                     totalWeight      = totalWeight+" GM";
@@ -377,27 +367,28 @@ class CartProducts extends Component{
                 "product_ID" 	: cartitemid,
                 "quantityAdded" : quantityAdded,
                 "totalWeight"   : totalWeight,
-                "vendor_id"     : vendor_id, 
-            }            
+                "vendor_ID"     : vendor_id, 
+            }   
+            console.log("formValues===",formValues);         
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                     this.props.fetchCartData();
             })
             .catch((error)=>{
                 console.log("error => ",error);
-                if(error.message === "Request failed with status code 401"){
-                    var userDetails =  localStorage.removeItem("userDetails");
-                    localStorage.clear();
-                    swal({  
-                        title : "Your Session is expired.",                
-                        text  : "You need to login again. Click OK to go to Login Page"
-                    })
-                    .then(okay => {
-                        if (okay) {
-                            window.location.href = "/login";
-                        }
-                    });
-                }
+                // if(error.message === "Request failed with status code 401"){
+                //     var userDetails =  localStorage.removeItem("userDetails");
+                //     localStorage.clear();
+                //     swal({  
+                //         title : "Your Session is expired.",                
+                //         text  : "You need to login again. Click OK to go to Login Page"
+                //     })
+                //     .then(okay => {
+                //         if (okay) {
+                //             window.location.href = "/login";
+                //         }
+                //     });
+                // }
             })
             
         }else{
@@ -405,27 +396,28 @@ class CartProducts extends Component{
                 "user_ID"     	: userid,
                 "product_ID" 	: cartitemid,
                 "quantityAdded" : quantityAdded,     
-                "vendor_id"     : vendor_id,       
+                "vendor_ID"     : vendor_id,       
             }
+            console.log("formValues===",formValues);
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                 this.props.fetchCartData();
             })
             .catch((error)=>{
                 console.log("error => ",error);
-                if(error.message === "Request failed with status code 401"){
-                    var userDetails =  localStorage.removeItem("userDetails");
-                    localStorage.clear();
-                    swal({  
-                        title : "Your Session is expired.",                
-                        text  : "You need to login again. Click OK to go to Login Page"
-                    })
-                    .then(okay => {
-                        if (okay) {
-                            window.location.href = "/login";
-                        }
-                    });
-                }
+                // if(error.message === "Request failed with status code 401"){
+                //     var userDetails =  localStorage.removeItem("userDetails");
+                //     localStorage.clear();
+                //     swal({  
+                //         title : "Your Session is expired.",                
+                //         text  : "You need to login again. Click OK to go to Login Page"
+                //     })
+                //     .then(okay => {
+                //         if (okay) {
+                //             window.location.href = "/login";
+                //         }
+                //     });
+                // }
             })
         }
         
@@ -599,10 +591,10 @@ class CartProducts extends Component{
                                                                     {
                                                                         vendorData.product_ID.availableQuantity > 0 ?
                                                                         <div className="quantityWrapper">
-                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorData.vendor_id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
+                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
                                                                                 onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
                                                                             <span className="inputQuantity">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
-                                                                            <span className="plusQuantity fa fa-plus" vendor_id={vendorData.vendor_id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
+                                                                            <span className="plusQuantity fa fa-plus" vendor_id={vendorWiseCartData.vendor_id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
                                                                                 onClick={this.cartquantityincrease.bind(this)}></span><br/>   
                                                                             { this.state.websiteModel === 'FranchiseModel'?                                                                 
                                                                                 <span className ="productUnit" id={vendorData.product_ID._id}> Of {vendorData.product_ID.size}&nbsp;<span className="CapsUnit">{vendorData.product_ID.unit}</span></span>
@@ -659,7 +651,7 @@ class CartProducts extends Component{
                                                         <tr>
                                                             <td className="cartTotal"> Totals </td>
                                                             <td className="textAlignRight cartTotal">&nbsp; 
-                                                            {this.state.currency} &nbsp;{vendorWiseCartData.netPayableAmount}
+                                                            {this.state.currency} &nbsp;{vendorWiseCartData.vendor_netPayableAmount}
                                                             </td>
                                                         </tr>
                                                     </tbody>
