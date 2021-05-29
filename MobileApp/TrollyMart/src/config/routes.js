@@ -100,50 +100,44 @@ export const HomeStack = () => (
 
 const RegisterRoutes = createStackNavigator();
 export const RegisterStack = () => (
-  <RegisterRoutes.Navigator
-    headerMode="none"
-    >
-    <RegisterRoutes.Screen name={"LogIn"}         component={LogIn} />
+  <RegisterRoutes.Navigator headerMode="none" >
+    <RegisterRoutes.Screen name={"LogIn"}             component={LogIn} />
     <RegisterRoutes.Screen name={"RootLogIn"}         component={RootLogIn} />
     <RegisterRoutes.Screen name={"ResetPassword"}     component={ResetPassword} />
     <RegisterRoutes.Screen name={"OTPVerification"}   component={OTPVerification} />
     <RegisterRoutes.Screen name={"ForgotPassword"}    component={ForgotPassword} />
     <RegisterRoutes.Screen name={"ForgotPasswordOTP"} component={ForgotPasswordOTP} />
-    <RegisterRoutes.Screen name={"Signup"}        component={RootSignUp} />
-    <RegisterRoutes.Screen name="Location"  component={Location} />
+    <RegisterRoutes.Screen name={"Signup"}            component={RootSignUp} />
+    <RegisterRoutes.Screen name="Location"            component={Location} />
     {/* <RegisterRoutes.Screen name={"OTPVerification"} component={OTPVerification} /> */}
   </RegisterRoutes.Navigator>
 );
 
 const LocationRoutes = createStackNavigator();
 export const LocationScreen = () => (
-  <RegisterRoutes.Navigator
-    headerMode="none"
-    >
-      <LocationRoutes.Screen name="Confirmation" component={Confirmation} />
-      <LocationRoutes.Screen name="Location" component={Location} />
-      <LocationRoutes.Screen name="App" component={HomeStack} />
-      <LocationRoutes.Screen name="Auth" component={RegisterStack} />
-      <LocationRoutes.Screen name="SubCatCompView" component={SubCatCompView} />
-      <LocationRoutes.Screen name="Dashboard" component={Dashboard} />
+  <RegisterRoutes.Navigator headerMode="none">
+      <LocationRoutes.Screen name="Confirmation"  component={Confirmation} />
+      <LocationRoutes.Screen name="Location"      component={Location} />
   </RegisterRoutes.Navigator>     
 );
 
 const App = createStackNavigator();
 const AppStack = () => (
   <App.Navigator headerMode="none">
-      <App.Screen name="App" component={HomeStack} />
-      <App.Screen name="Auth" component={RegisterStack} />
-      <App.Screen name="Location" component={LocationScreen} />
+      <App.Screen name="App"              component={HomeStack} />
+      <App.Screen name="Auth"             component={RegisterStack} />
+      <App.Screen name="LocationMain"     component={LocationScreen} />
+      <Home.Screen name="SubCatCompView"  component={SubCatCompView} />
   </App.Navigator>
 );
 
 const Auth = createStackNavigator();
 const AuthStack = () => (
   <Auth.Navigator headerMode="none">
-      <Auth.Screen name="Auth" component={RegisterStack} />
-      <Auth.Screen name="App" component={HomeStack} />
-      <Auth.Screen name="Location" component={LocationScreen} />
+      <Auth.Screen name="Auth"          component={RegisterStack} />
+      <Auth.Screen name="App"           component={HomeStack} />
+      <Auth.Screen name="LocationMain"  component={LocationScreen} />
+      <Home.Screen name="SubCatCompView"  component={SubCatCompView} />
   </Auth.Navigator>
 );
 
@@ -151,9 +145,10 @@ const AuthStack = () => (
 const LocationMain = createStackNavigator();
 const LocationStack = () => (
       <LocationMain.Navigator headerMode="none">
-      <LocationMain.Screen name="Location" component={LocationScreen} />
-      <LocationMain.Screen name="App" component={HomeStack} />
-      <LocationMain.Screen name="Auth" component={RegisterStack} />
+      <LocationMain.Screen name="LocationMain"  component={LocationScreen} />
+      <LocationMain.Screen name="App"           component={HomeStack} />
+      <LocationMain.Screen name="Auth"          component={RegisterStack} />
+      <Home.Screen name="SubCatCompView"  component={SubCatCompView} />
   </LocationMain.Navigator>
 );
 

@@ -95,23 +95,8 @@ const getshippingamount=(startRange, limitRange)=>{
       .then((response) => {
         console.log("response",response);
         setLoading(false);
-        if(response.data.length > 0){
-          var quantity  = 0;
-          var cartTotal = 0;
-          var discount  = 0;
-          var total     = 0;
-          for (var i = 0;  i < response.data.length; i++) {
-            quantity  +=response.data[i].cartQuantity;
-            cartTotal +=response.data[i].cartTotal;
-            discount  +=response.data[i].discount;
-            total     +=response.data[i].total;
-          }
-          setSubTotalItems(quantity);
+        if(response.data){
           setCartData(response.data);
-          setSubTotal(cartTotal);
-          setDiscountValue(discount);
-          gettotalcount(response.data[0].cartItems);
-          setTotalPrice(total)
         }else{
           setCartData([]);
         }
@@ -232,7 +217,7 @@ const getshippingamount=(startRange, limitRange)=>{
       })
   }
 
-
+  console.log("cartData",cartData);
   var alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     return (
       <React.Fragment>
@@ -247,8 +232,8 @@ const getshippingamount=(startRange, limitRange)=>{
             <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
             <View style={{flex:1}}>
               <View style={styles.cartdetails}>
-                    {cartData && cartData.length > 0 ?
-                      cartData.map((vendor, i) => {
+                    {cartData  && cartData.vendorOrders && cartData.vendorOrders.length>0?
+                      cartData.vendorOrders.map((vendor, i) => {
                         return (
                           <View style={{backgroundColor:"#fff",marginBottom:15}}>
                             <View style={{backgroundColor:colors.theme}}>
@@ -260,11 +245,11 @@ const getshippingamount=(startRange, limitRange)=>{
                                 <View key={index} style={styles.proddetails}>
                                   <View style={styles.flxdir}>
                                     <View style={styles.flxpd}>
-                                      <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
-                                        {item.productDetail.productImage.length > 0 ?
+                                      <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id})}>
+                                        {item.product_ID.productImage.length > 0 ?
                                           <Image
                                             style={styles.imgwdht}
-                                            source={{ uri: item.productDetail.productImage[0] }}
+                                            source={{ uri: item.product_ID.productImage[0] }}
                                           />
                                           :
                                           <Image
@@ -275,26 +260,26 @@ const getshippingamount=(startRange, limitRange)=>{
                                       </TouchableOpacity>
                                     </View>
                                     <View style={styles.flxmg}>
-                                      <TouchableOpacity onPress={() => navigation.navigate('', { productID: item.product_ID })}>
-                                        {item.productDetail.productNameRlang ?
-                                        <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.productDetail.productNameRlang}</Text>
+                                      <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id })}>
+                                        {item.product_ID.productNameRlang ?
+                                        <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
                                         : 
-                                        <Text style={styles.productname}>{item.productDetail.productName}</Text>
+                                        <Text style={styles.productname}>{item.product_ID.productName}</Text>
                                         }
                                         </TouchableOpacity>
                                       <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-                                        {item.productDetail.availableQuantity > 0 ?
+                                        {item.product_ID.availableQuantity > 0 ?
                                           <View style={[styles.flxdir]}>
                                             <View style={[styles.flxdir]}>
                                               <Text style={styles.ogprice}>{currency} </Text>
-                                              {item.productDetail.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.productDetail.originalPrice * item.quantity).toFixed(2)}</Text>}
+                                              {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
                                             </View>
                                             <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                                <Text style={styles.ogprice}> {item.productDetail.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                                <Text style={styles.ogprice}> {item.product_ID.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                                 </Text>
                                             </View>
-                                            {item.productDetail.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                                                <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            {item.product_ID.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
+                                                <Text style={styles.ogprice}>( {item.product_ID.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                                 </Text>
                                             </View>}
                                           </View>
@@ -317,12 +302,12 @@ const getshippingamount=(startRange, limitRange)=>{
                                           color: colors.theme,
                                         }}
                                         size={5}
-                                        onChange={(e)=>onChange(e,item.productDetail._id)} 
+                                        onChange={(e)=>onChange(e,item.product_ID._id)} 
                                         />
                                   </View>
                                   <View style={styles.flxmg2}>
                                     <View style={styles.proddeletes}>
-                                      <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.productDetail._id)} >
+                                      <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id)} >
                                         <Icon size={20} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
                                       </TouchableOpacity>
                                       <Icon
@@ -348,7 +333,7 @@ const getshippingamount=(startRange, limitRange)=>{
                               </View>
                               <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                  <Text style={styles.totalpriceincart}>{currency} {vendor.cartTotal && vendor.cartTotal.toFixed(2)}</Text>
+                                  <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                                 </View>
                               </View>
                             </View>
@@ -359,7 +344,7 @@ const getshippingamount=(startRange, limitRange)=>{
                               <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                                   <Text style={styles.totalpriceincart}> - </Text>
-                              <Text style={styles.totalpriceincart}>{currency} {vendor.discount > 1 ? vendor.discount.toFixed(2) : 0.00}</Text>
+                              <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
                               {
                                 discountin === "Percent" ? 
                                     <Icon
@@ -398,7 +383,7 @@ const getshippingamount=(startRange, limitRange)=>{
                               <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                             </View>
                             <View>
-                              {minvalueshipping <= vendor.total ?
+                              {minvalueshipping <= vendor.vendor_afterDiscountTotal ?
                                 null
                                 :
                                 <View>
@@ -425,7 +410,7 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>   
                 }
                 {
-                  cartData && cartData.length > 0 && subtotalitems ?
+                  cartData && cartData.paymentDetails ?
                     <View style={styles.totaldetails}>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.6 }}>
@@ -433,7 +418,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         </View>
                         <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}>{currency} {subtotal && subtotal.toFixed(2)}</Text>
+                            <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
@@ -444,7 +429,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.totalpriceincart}> - </Text>
-                            <Text style={styles.totalpriceincart}>{currency} {discountvalue > 1 ? discountvalue.toFixed(2) : 0.00}</Text>
+                            <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.discountAmount && cartData.paymentDetails.discountAmount.toFixed(2)}</Text>
                           {
                             discountin === "Percent" ? 
                                 <Icon
@@ -465,7 +450,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         </View> 
                         <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.taxAmount && cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
@@ -476,7 +461,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         </View> 
                         <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
@@ -487,7 +472,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         </View>
                         <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}>{currency} {totalPrice.toFixed(2)}</Text>
+                            <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
@@ -496,7 +481,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
 
                       <View>
-                        {minvalueshipping <= totalPrice ?
+                        {minvalueshipping <= cartData.paymentDetails.afterDiscountTotal ?
                           <View>
                             <Button
                               onPress        = {() => navigation.navigate('AddressDefaultComp', { userID: userId,"delivery":true})}

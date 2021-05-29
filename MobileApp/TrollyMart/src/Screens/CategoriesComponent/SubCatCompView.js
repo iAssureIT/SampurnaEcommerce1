@@ -48,57 +48,21 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     AsyncStorage.multiGet(['user_id', 'token'])
     .then((data) => {
         setUserId(data[0][1]);
-        if(data[0][1]){
-          wishlisteddata(data[0][1]);
-        }
     })
   }
  
-  const wishlisteddata=(user_id)=>{
-    axios.get('/api/wishlist/get/userwishlist/'+ user_id)
-    .then((response) => {
-      var wishprod = response.data;
-      let wished = [];
-          for(var i=0;i<wishprod.length;i++){
-          wished.push({
-            'product_ID':  wishprod[i].product_ID,
-          })
-          if(wished[i].product_ID === productID){
-            setWishListedProduct(true);
-          } 
-        }
-    })
-    .catch((error) => {
-      console.log("error",error);
-      if (error.response.status == 401) {
-        AsyncStorage.removeItem('user_id');
-        AsyncStorage.removeItem('token');
-        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-        navigation.navigate('Auth')
-      }else{
-        setToast({text: 'Something went wrong.', color: 'red'});
-      }  
-    })
-  }
+ 
 
-  const addtowishlist = (productid) => {
+  const addToWishList = (productid) => {
     if(user_id){
       const wishValues = {
         "user_ID": user_id,
         "product_ID": productid,
       }
-      console.log("wishValuess==>", wishValues);
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
-          wishlisteddata(user_id);        
-          console.log(" response wishValuess==>", response.data);
-          if(response.data.message === "Product removed from wishlist successfully."){
-            setAlreadyInCarts(true);
-            setWishListedProduct(true);
-          }else{
-            setWishListed(true);
-            setWishListedProduct(true);
-          }
+          getProductsView(productID);
+          setToast({text: response.data.message, color: 'green'});
         })
         .catch((error) => {
           console.log("error",error);
@@ -114,13 +78,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     }else{
       navigation.navigate('Auth');
       setToast({text: "You need to login first", color: colors.warning});
-    }   
+    }
+    
   }
+
 
   const getProductsView=(productID)=>{
     axios.get("/api/Products/get/one/" + productID)
       .then((response) => {
-        console.log("response.data ProductsView =========>", response.data);
         setProductData(response.data);
       })
       .catch((error) => {
@@ -131,7 +96,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
+          setToast({text: 'Something went wrong2.', color: 'red'});
         }  
       })
   }
@@ -144,29 +109,54 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   }
 
   
+  // const handlePressAddCart=()=>{
+  //   const formValues = {
+  //     "user_ID": user_id,
+  //     "product_ID": productID,
+  //     "quantity": number === undefined || "" ? 1 : number,
+  //   }
+  //   console.log("formValues addCart =========>", formValues);
+  //   axios
+  //     .post('/api/Carts/post', formValues)
+  //     .then((response) => {
+  //       setAddToCart(true);
+  //     })
+  //     .catch((error) => {
+  //       setAlreadyInCarts(true);
+  //       if (error.response.status == 401) {
+  //         AsyncStorage.removeItem('user_id');
+  //         AsyncStorage.removeItem('token');
+  //         setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+  //         navigation.navigate('Auth')
+  //       }else{
+  //         setToast({text: 'Something went wrong.', color: 'red'});
+  //       }  
+  //     })
+  // }
+
+
   const handlePressAddCart=()=>{
-    const formValues = {
-      "user_ID": user_id,
-      "product_ID": productID,
-      "quantity": number === undefined || "" ? 1 : number,
-    }
-    console.log("formValues addCart =========>", formValues);
-    axios
-      .post('/api/Carts/post', formValues)
-      .then((response) => {
-        setAddToCart(true);
-      })
-      .catch((error) => {
-        setAlreadyInCarts(true);
-        if (error.response.status == 401) {
-          AsyncStorage.removeItem('user_id');
-          AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-          navigation.navigate('Auth')
-        }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
-        }  
-      })
+    if(user_id){
+      const formValues = {
+        "user_ID"     : user_id,
+        "product_ID"  : productID,
+        "vendor_ID"   : productdata.vendor_ID,
+        "quantity"    : number === undefined || "" ? 1 : number,
+      }
+      console.log("formValues",formValues);
+      axios
+        .post('/api/carts/post', formValues)
+        .then((response) => {
+          setToast({text: 'Product is added to cart.', color: 'green'});
+        })
+        .catch((error) => {
+          console.log("error",error);
+          setToast({text: 'Product is already in cart.', color: colors.warning});
+        })
+    }else{
+      navigation.navigate('Auth');
+      setToast({text: "You need to login first", color: colors.warning});
+    }  
   }
 
   const toggle=()=>{
@@ -226,20 +216,10 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     resizeMode="contain"
                   />
                 }
-                {
-                  wishlistedproduct ?
-                    <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
-                          onPress={() =>addtowishlist(productID)} >
-                      <Icon size={25} name='heart' type='font-awesome' color={colors.theme} />
-                    </TouchableOpacity>
-                  :
-                  
-                    <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
-                          onPress={() =>addtowishlist(productID)} >
-                      <Icon size={25} name='heart-o' type='font-awesome' color={colors.theme} />
-                    </TouchableOpacity>
-                }
-   
+                  <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
+                        onPress={() =>addToWishList(productID)} >
+                    <Icon size={25} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
+                  </TouchableOpacity>
                 <View style={styles.prodnameview}>
                   {/* (i % 2 == 0 ? {} : { marginLeft: 12 } */}
                   {productdata.brandNameRlang && productdata.brandNameRlang!=="" ?
@@ -332,6 +312,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               user_id     = {user_id} 
               title       = {"You May Also Like"}
               currency    = {currency}
+              navigation  = {navigation}
             />
           </ScrollView>
           :

@@ -11,9 +11,10 @@ import { LogBox,StatusBar }   from 'react-native';
 import {AuthLoadingScreen}    from "./src/ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js";
 import SplashScreen           from 'react-native-splash-screen';
 
-// axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com/';
-axios.defaults.baseURL = 'http://10.39.1.16:3366';
+axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com';
+// axios.defaults.baseURL = 'http://10.39.1.16:3366';
 console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
+StatusBar.setHidden(true);
 
  const App = () => {
   const [token, setToken] = useState('');
@@ -24,7 +25,6 @@ console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
       SplashScreen.hide();
     }, 2000);
     const unSubscribe = store.subscribe(() => {
-      StatusBar.setHidden(true);
       setAppToast(store.getState()?.appStateReducer?.toastState);
       setToken(store.getState()?.userReducer?.token || '');
     });
@@ -65,3 +65,4 @@ const codePushOptions = {
  checkFrequency: codePush.CheckFrequency.ON_APP_START 
 };
 export default codePush(codePushOptions)(App);
+// export default App;

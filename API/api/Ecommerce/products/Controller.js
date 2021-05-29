@@ -1508,8 +1508,38 @@ exports.count_vendor_product = (req,res,next)=>{
 exports.fetch_product = (req,res,next)=>{
     Products.findOne({_id : req.params.productID})
     .exec()
-    .then(data=>{
-        res.status(200).json(data);
+    .then(product=>{
+        if(product){
+            product = {...product._doc, isWish:false};
+            if(user_ID && user_ID!=='null'){
+                Wishlists.find({user_ID:user_ID})
+                .then(wish=>{
+                    if(wish.length > 0){
+                        for(var i=0; i<wish.length; i++){
+                            if(String(wish[i].product_ID) === String(product._id)){
+                                product= {...product, isWish:true};
+                                break;
+                            }
+                        }   
+                        if(i >= wish.length){
+                            res.status(200).json(product);
+                        }       
+                    }else{
+                        res.status(200).json(product);
+                    }
+                 })
+                 .catch(err =>{
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            }else{
+                res.status(200).json(product);
+            }    
+        }else{
+            res.status(200).json(product);
+        }
     })
     .catch(err =>{
         console.log(err);

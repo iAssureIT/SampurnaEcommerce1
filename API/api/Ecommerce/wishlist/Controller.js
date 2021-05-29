@@ -103,7 +103,6 @@ exports.get_user_wishlist = (req,res,next)=>{
         .then(data=>{
                 console.log("wishlist res.data",data);
                 var allData = data.map((x, i)=>{
-                console.log("x===",x.productName);
                 return {
                     "_id"              : x.product_ID._id,
                     "productName"      : x.product_ID.productName,

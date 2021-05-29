@@ -11,8 +11,8 @@ import axios              from 'axios';
 import { useNavigation }  from '@react-navigation/native';
 
 export const SimilarProducts =(props)=>{
-  const navigation = useNavigation();
-  const {category_id,user_id,title,currency} =props;
+  // const navigation = useNavigation();
+  const {category_id,user_id,title,currency,navigation} =props;
   // const BannerWidth = Dimensions.get('window').width-100;
   const [productList,setProductList]=useState([]);
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');

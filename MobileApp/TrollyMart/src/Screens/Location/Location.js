@@ -126,13 +126,14 @@ export const Location = withCustomerToaster((props)=>{
     }
 
     const addMarker=(coordinate)=>{
+        console.log("coordinate",coordinate);
         setBtnLoading(true);
         if(coordinate){
             setRegion({
                 latitude: coordinate.latitude,
                 longitude: coordinate.longitude,
-                latitudeDelta: coordinate.latitude * 0.0001,
-                longitudeDelta: coordinate.longitude * 0.0001 
+                latitudeDelta: coordinate.latitudeDelta,
+                longitudeDelta: coordinate.longitudeDelta 
             })
             Geocoder.from(coordinate.latitude,coordinate.longitude).then(
                 json => {
@@ -247,7 +248,7 @@ export const Location = withCustomerToaster((props)=>{
             fetchDetails={true}
             isRowScrollable={true}
         />
-        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-140,backgroundColor:"#fff",minHeight:160,padding:15}}>
+        <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-160,backgroundColor:"#fff",minHeight:160,padding:15}}>
             <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5}}>Delivery Location</Text>
             <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>
                 <Icon name="crosshairs-gps" type='material-community' size={20} color="black" />
@@ -265,7 +266,7 @@ export const Location = withCustomerToaster((props)=>{
             </View>        
         </View>
         {region&&<View pointerEvents="none" style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0,zIndex:30, alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent'}}>
-            <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/marker.png")} style={{height:50,width:35}}/>
+            <Image pointerEvents="none" source={require("../../AppDesigns/currentApp/images/marker.png")} style={{height:55,width:35}}/>
         </View>}    
          {region&&<MapView
                 provider={PROVIDER_GOOGLE}

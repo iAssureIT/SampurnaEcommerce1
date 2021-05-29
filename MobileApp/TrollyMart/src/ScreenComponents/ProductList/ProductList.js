@@ -84,7 +84,6 @@ export const ProductList = withCustomerToaster((props)=>{
         "user_ID"     : props.userId,
         "product_ID"  : productid,
         "vendor_ID"   : vendor_ID,
-        "vendorName"  : vendorName,
         "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
       }
       console.log("formValues",formValues);

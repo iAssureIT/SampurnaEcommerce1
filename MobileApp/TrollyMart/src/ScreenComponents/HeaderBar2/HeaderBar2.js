@@ -159,7 +159,7 @@ import { DrawerActions } from '@react-navigation/native';
           />
           
         </View>
-          <TouchableOpacity style={{height:30,backgroundColor:colors.theme,alignItems:"center",paddingHorizontal:5,flexDirection:"row",justifyContent:"space-between"}} onPress={()=>navigation.navigate('Location')}>
+          <TouchableOpacity style={{height:30,backgroundColor:colors.theme,alignItems:"center",paddingHorizontal:5,flexDirection:"row",justifyContent:"space-between"}} onPress={()=>navigation.navigate('LocationMain')}>
               <Icon name="crosshairs-gps" type="material-community" size={20} color={colors.white} iconStyle={{}}/>
               <Text numberOfLines={1} style={{flex:.98,color:colors.white}}>{location.address}</Text>
           </TouchableOpacity>
