@@ -97,7 +97,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong2.', color: 'red'});
+          setToast({text: 'Something went wrong.', color: 'red'});
         }  
       })
   }

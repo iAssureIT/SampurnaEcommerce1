@@ -37,7 +37,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const [fullName,setFullName]              = useState('');
   const [mobNumber,setMobileNumber]         = useState('');
 
-  const {cartdata,userID,addData,totalamountpay,shippingtime,discount} = route.params;
+  const {cartdata,userID,addData,shippingtime} = route.params;
   console.log("cartdata",cartdata);
   console.log("route",route);
   const userDetails = useSelector(store => store.userDetails)
@@ -90,140 +90,127 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   }
 
   const continuepage=(id)=>{
-    // setToast({text: 'Your order is confirmed. Thank you for shopping with us.', color: 'green'});
-    // navigation.navigate('Dashboard');
     setBtnLoading(true);
-    var cartItems = cartdata.map((a, i) => {
-      return {
-        "product_ID"      : a.productDetail._id,
-        "productName"     : a.productDetail.productName,
-        "discountPercent" : a.productDetail.discountPercent,
-        "discountedPrice" : a.productDetail.discountedPrice,
-        "originalPrice"   : a.productDetail.originalPrice,
-        "color"           : a.productDetail.color,
-        "size"            : a.productDetail.size,
-        "currency"        : a.productDetail.currency,
-        "quantity"        : a.quantity,
-        "subTotal"        : a.subTotal,
-        "saving"          : a.saving,
-        "productImage"    : a.productDetail.productImage,
-        "section_ID"      : a.productDetail.section_ID,
-        "section"         : a.productDetail.section,
-        "category_ID"     : a.productDetail.category_ID,
-        "category"        : a.productDetail.category,
-        "subCategory_ID"  : a.productDetail.subCategory_ID,
-        "subCategory"     : a.productDetail.subCategory,
-        "vendor_ID"       : a.productDetail.vendor_ID,
+    var cartItems=[];
+    var vendorOrders = cartdata.vendorOrders;
+    for(var i = 0; i<vendorOrders.length;i++){ 
+      vendorOrders[i].products =[];
+      for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
+        vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID,quantity} ;
+      } 
+      delete vendorOrders[i].cartItems;
+    }
+    if(i>=vendorOrders.length){
+      console.log("vendorOrders",vendorOrders);
+      var value = addData.mobileNumber;
+      var mobile = "";
+      value = value.replace(/\s/g, '');
+      if(value.startsWith("+")){
+        var temp = value.substring(3, value.length);
+        mobile = temp;
+        console.log(mobile);
       }
-    })
-    var value = addData.mobileNumber;
-    var mobile = "";
-    value = value.replace(/\s/g, '');
-    if(value.startsWith("+")){
-      var temp = value.substring(3, value.length);
-      mobile = temp;
-      console.log(mobile);
-    }
 
-    var deliveryAddress = {
-      "name"          : addData.name,
-      "addressLine1"  : addData.addressLine1,
-      "addressLine2"  : addData.addressLine2,
-      "pincode"       : addData.pincode,
-      "city"          : addData.city,
-      "state"         : addData.state,
-      "mobileNumber"  : mobile,
-      "district"      : addData.district,
-      "country"       : addData.country,
-      "addType"       : addData.addType,
-      "latitude"      : addData.latitude,
-      "longitude"     : addData.longitude,
-    }
+      var deliveryAddress = {
+        "name"          : addData.name,
+        "addressLine1"  : addData.addressLine1,
+        "addressLine2"  : addData.addressLine2,
+        "pincode"       : addData.pincode,
+        "city"          : addData.city,
+        "state"         : addData.state,
+        "mobileNumber"  : mobile,
+        "district"      : addData.district,
+        "country"       : addData.country,
+        "addType"       : addData.addType,
+        "latitude"      : addData.latitude,
+        "longitude"     : addData.longitude,
+      }
 
-    var orderData = {
-      user_ID                     : userID,
-      userFullName                : userDetails.fullName,
-      userEmail                   : userDetails.email,
-      cartItems                   : cartItems,
-      afterDiscountTotal          : totalamountpay,
-      beforeDiscountTotal         : cartdata[0].cartTotal,
-      discountAmount              : discount,
-      order_quantityOfProducts    : cartdata[0].cartQuantity,
-      deliveryAddress             : deliveryAddress,
-      paymentMethod               : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
-      netPayableAmount            : cartdata[0].total,
-      taxAmount                   : 0
-      // shippingtime    : shippingtime,
-    }
+      var orderData = { 
+        user_ID 		              : userID,
+        userFullName              : userDetails.fullName,
+        userEmail                 : userDetails.email,
+        cartItems		              : vendorOrders,
+        afterDiscountTotal        : cartdata.paymentDetails.afterDiscountTotal,
+        beforeDiscountTotal	      : cartdata.paymentDetails.beforeDiscountTotal,
+        discountAmount			      : cartdata.paymentDetails.discountAmount,
+        order_quantityOfProducts	: cartdata.order_quantityOfProducts,
+        deliveryAddress		        : deliveryAddress,
+        paymentMethod             : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
+        netPayableAmount					: cartdata.paymentDetails.netPayableAmount,
+        taxAmount					        : cartdata.paymentDetails.taxAmount,
+        customerShippingTime      : shippingtime,
+      }
 
-    console.log("orderData==>", orderData);
-    // axios.post('/api/orders/post', orderData)
-    //   .then((result) => {
-    //     console.log("orderData==>", result.data);
-    //     axios.get('/api/orders/get/one/' + result.data.order_ID)
-    //       .then((res) => {
-    //         console.log("res",res);
-    //         if (paymentmethods === 'cod') {
-    //           navigation.navigate('Dashboard');
-    //           // setPaymentMethods("cod");
-    //           setBtnLoading(false);
-    //           setPaymentMode(true);
-    //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-    //       } else {
-    //           //  navigation.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
-    //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-    //            navigation.navigate('Dashboard');
-    //           // var paymentdetails = {
-    //           //     MERCHANT_ID           : partnerid,
-    //           //     MERCHANT_ACCESS_CODE  : secretkey,
-    //           //     REFERENCE_NO          : result.data.order_ID,
-    //           //     AMOUNT                : totalamountpay,
-    //           //     CUSTOMER_MOBILE_NO    : mobile,
-    //           //     CUSTOMER_EMAIL_ID     : email,
-    //           //     PRODUCT_CODE          : "testing",
-    //           // }
-    //           // // console.log('paymentdetails in result==>>>', paymentdetails)
-    //           // axios.post('/api/orders/pgcall/post', paymentdetails)
-    //           //     .then((payurl) => {
-    //           //         if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
-    //           //           // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
-    //           //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-    //           //         }
-    //           //         setBtnLoading(false);
-    //           //     })
-    //           //     .catch((error) => {
-    //           //         console.log("return to checkout");
-    //           //         console.log(error);
-    //           //         setBtnLoading(false);
-    //           //     })
-    //       }
-    //         console.log("orderdetails=====>", res.data);
-    //         // =================== Notification OTP ==================
-    //         var sendData = {
-    //           "event": "3",
-    //           "toUser_id": user_ID,
-    //           "toUserRole": "user",
-    //           "variables": {
-    //             "Username": res.data.userFullName,
-    //             "amount": res.data.total,
-    //             "orderid": res.data.orderID,
-    //             "shippingtime": res.data.shippingtime,
-    //           }
-    //         }
-    //         console.log('sendDataToUser==>', sendData)
-    //         axios.post('/api/masternotifications/post/sendNotification', sendData)
-    //           .then((res) => {
-    //             // console.log('sendDataToUser in result==>>>', res.data)
-    //           })
-    //           .catch((error) => { console.log('notification error: ', error) })
-    //         // =================== Notification ==================
-    //       })
-    //   })
-    //   .catch((error) => {
-    //     console.log("error",error);
-    //     setBtnLoading(false);
-    //     console.log(error);
-    //   })
+      console.log("orderData==>", orderData);
+      axios.post('/api/orders/post', orderData)
+        .then((result) => {
+          console.log("orderData==>", result.data);
+          axios.get('/api/orders/get/one/' + result.data.order_ID)
+            .then((res) => {
+              console.log("res",res);
+              if (paymentmethods === 'cod') {
+                navigation.navigate('Dashboard');
+                // setPaymentMethods("cod");
+                setBtnLoading(false);
+                setPaymentMode(true);
+                setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+            } else {
+                //  navigation.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
+                setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+                navigation.navigate('Dashboard');
+                // var paymentdetails = {
+                //     MERCHANT_ID           : partnerid,
+                //     MERCHANT_ACCESS_CODE  : secretkey,
+                //     REFERENCE_NO          : result.data.order_ID,
+                //     AMOUNT                : totalamountpay,
+                //     CUSTOMER_MOBILE_NO    : mobile,
+                //     CUSTOMER_EMAIL_ID     : email,
+                //     PRODUCT_CODE          : "testing",
+                // }
+                // // console.log('paymentdetails in result==>>>', paymentdetails)
+                // axios.post('/api/orders/pgcall/post', paymentdetails)
+                //     .then((payurl) => {
+                //         if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
+                //           // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
+                //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+                //         }
+                //         setBtnLoading(false);
+                //     })
+                //     .catch((error) => {
+                //         console.log("return to checkout");
+                //         console.log(error);
+                //         setBtnLoading(false);
+                //     })
+            }
+              console.log("orderdetails=====>", res.data);
+              // =================== Notification OTP ==================
+              var sendData = {
+                "event": "3",
+                "toUser_id": user_ID,
+                "toUserRole": "user",
+                "variables": {
+                  "Username": res.data.userFullName,
+                  "amount": res.data.total,
+                  "orderid": res.data.orderID,
+                  "shippingtime": res.data.shippingtime,
+                }
+              }
+              console.log('sendDataToUser==>', sendData)
+              axios.post('/api/masternotifications/post/sendNotification', sendData)
+                .then((res) => {
+                  // console.log('sendDataToUser in result==>>>', res.data)
+                })
+                .catch((error) => { console.log('notification error: ', error) })
+              // =================== Notification ==================
+            })
+        })
+        .catch((error) => {
+          console.log("error",error);
+          setBtnLoading(false);
+          console.log(error);
+        })
+      }   
   }
 
       return (

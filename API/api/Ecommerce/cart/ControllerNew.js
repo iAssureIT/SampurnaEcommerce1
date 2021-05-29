@@ -281,28 +281,7 @@ exports.list_cart = (req,res,next)=>{
 /**=========== Vendorwise List of Cart Items for Particular User ===========*/
 exports.list_cart_product = (req,res,next)=>{    
     Carts.findOne({user_ID:ObjectId(req.params.user_ID)})
-    .populate('vendorOrders.cartItems.product_ID',
-        {
-            _id                 : 1,
-            productImage        : 1,
-            brand               : 1,
-            brandNameRlang      : 1,
-            productCode         : 1,
-            itemCode            : 1,
-            productName         : 1,
-            productNameRlang    : 1,
-            productUrl          : 1,
-            availableQuantity   : 1,
-            currency            : 1,
-            originalPrice       : 1,
-            discountPercent     : 1,
-            discountedPrice     : 1,
-            unit                : 1,
-            size                : 1,
-            color               : 1,
-            taxRate             : 1
-        }
-    )
+    .populate('vendorOrders.cartItems.product_ID')
     .exec()
     .then(data=>{
         var vendor_beforeDiscountTotal  = 0;

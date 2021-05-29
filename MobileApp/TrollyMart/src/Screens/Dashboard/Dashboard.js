@@ -186,7 +186,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                       user_id             = {user_id}
                     />
                     :
-                    item.blockComponentName === "ProductCarousel" ?
+                    item.blockComponentName === "ProductCarousel" && item.block_id ?
                     <HorizontalProductList 
                       blockTitle   = {item.block_id?.blockTitle}
                       blockApi     = {item.block_id?.blockSettings.blockApi}

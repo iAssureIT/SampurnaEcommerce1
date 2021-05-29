@@ -25,6 +25,7 @@ import { connect,
   useSelector }               from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import AsyncStorage           from '@react-native-async-storage/async-storage';
 
 
   const window = Dimensions.get('window');
@@ -82,7 +83,7 @@ const getshippingamount=(startRange, limitRange)=>{
       if (error.response.status == 401) {
         AsyncStorage.removeItem('user_id');
         AsyncStorage.removeItem('token');
-        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+        setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
         navigation.navigate('Auth')
       }else{
         setToast({text: 'Something went wrong.', color: 'red'});
@@ -107,7 +108,7 @@ const getshippingamount=(startRange, limitRange)=>{
         if (error.response.status == 401) {
           AsyncStorage.removeItem('user_id');
           AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
           setToast({text: 'Something went wrong.', color: 'red'});
@@ -134,7 +135,7 @@ const getshippingamount=(startRange, limitRange)=>{
         if (error.response.status == 401) {
           AsyncStorage.removeItem('user_id');
           AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
           setToast({text: 'Something went wrong.', color: 'red'});
@@ -169,7 +170,7 @@ const getshippingamount=(startRange, limitRange)=>{
         if (error.response.status == 401) {
           AsyncStorage.removeItem('user_id');
           AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
           setToast({text: 'Something went wrong.', color: 'red'});
@@ -188,11 +189,12 @@ const getshippingamount=(startRange, limitRange)=>{
     }, 0);
   }
 
-  const onChange=(number,product_ID)=>{
+  const onChange=(number,product_ID,venndor_id)=>{
     const quantity = parseInt(number);
     const formValues = {
       "user_ID": userId,
       "product_ID": product_ID,
+      "vendor_ID" : venndor_id,
       "quantityAdded": quantity,
     }
     console.log("formValues",formValues);
@@ -209,14 +211,13 @@ const getshippingamount=(startRange, limitRange)=>{
         if (error.response.status == 401) {
           AsyncStorage.removeItem('user_id');
           AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
           setToast({text: 'Something went wrong.', color: 'red'});
         }  
       })
   }
-
   console.log("cartData",cartData);
   var alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     return (
@@ -302,7 +303,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                           color: colors.theme,
                                         }}
                                         size={5}
-                                        onChange={(e)=>onChange(e,item.product_ID._id)} 
+                                        onChange={(e)=>onChange(e,item.product_ID._id,vendor.vendor_id)} 
                                         />
                                   </View>
                                   <View style={styles.flxmg2}>

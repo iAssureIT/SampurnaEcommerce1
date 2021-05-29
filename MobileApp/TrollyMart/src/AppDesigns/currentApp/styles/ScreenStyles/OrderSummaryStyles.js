@@ -79,7 +79,7 @@ superparent:{
     flex:1
   },
   productname:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
+    fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap'
   },
   tomorroworder:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",flexWrap:'wrap',marginTop:10,

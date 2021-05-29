@@ -109,28 +109,9 @@ import { SafeAreaView }         from 'react-native';
     const getCartData=(userId)=>{
       axios.get('/api/carts/get/cartproductlist/' + userId)
         .then((response) => {
-          console.log("response",response);
+          console.log("response getCartData",response);
+          setCartData(response.data);
           setLoading(false);
-          if(response.data.length > 0){
-            var quantity  = 0;
-            var cartTotal = 0;
-            var discount  = 0;
-            var total     = 0;
-            for (var i = 0;  i < response.data.length; i++) {
-              quantity  +=response.data[i].cartQuantity;
-              cartTotal +=response.data[i].cartTotal;
-              discount  +=response.data[i].discount;
-              total     +=response.data[i].total;
-            }
-            setSubTotalItems(quantity);
-            setCartData(response.data);
-            setSubTotal(cartTotal);
-            setDiscountValue(discount);
-            gettotalcount(response.data[0].cartItems);
-            setTotalPrice(total)
-          }else{
-            setCartData([]);
-          }
         })
         .catch((error) => {
           console.log("error",error);
@@ -200,16 +181,8 @@ import { SafeAreaView }         from 'react-native';
   }
   
  
-  const paymentmethodspage=()=>{
-    // AppEventsLogger.logEvent('Initiate Checkout');
-    // this.props.navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, totalamountpay: totaloriginalprice, shippingtime: shippingTiming, })
-    var amt =   discountdata !== undefined ?
-        totaloriginalprice && discountin === "Percent" ?
-            totaloriginalprice - (totaloriginalprice * discountvalue)/ 100
-            : totaloriginalprice - discountvalue
-        : totaloriginalprice;
-    console.log("cartData",cartData);
-    navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, totalamountpay: amt, discount: discountvalue, shippingtime: shippingTiming, })
+  const paymentMethodsPage=()=>{
+    navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, shippingtime: shippingTiming})
   }
 
   var alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -278,8 +251,10 @@ import { SafeAreaView }         from 'react-native';
               <View style={styles.formWrapper}>
                 <Text style={[styles.totaldata,{paddingVertical:2}]}>You're Buying</Text>
                 <View style={styles.cartdetails}>
-                  {cartData.length >0 &&
-                  cartData.map((vendor, i) => {
+                {
+                cartData  && cartData.vendorOrders && cartData.vendorOrders.length>0?
+                  cartData.vendorOrders.map((vendor, i) => {
+                    console.log("vendor",vendor);
                     return (
                       <View style={{backgroundColor:"#fff",marginBottom:15}}>
                         <View style={{backgroundColor:colors.theme}}>
@@ -292,10 +267,10 @@ import { SafeAreaView }         from 'react-native';
                               <View style={styles.flxdir}>
                                 <View style={styles.flxpd}>
                                   <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
-                                    {item.productDetail.productImage.length > 0 ?
+                                    {item.product_ID.productImage.length > 0 ?
                                       <Image
                                         style={styles.imgwdht}
-                                        source={{ uri: item.productDetail.productImage[0] }}
+                                        source={{ uri: item.product_ID.productImage[0] }}
                                       />
                                       :
                                       <Image
@@ -307,25 +282,25 @@ import { SafeAreaView }         from 'react-native';
                                 </View>
                                 <View style={styles.flxmg}>
                                   <TouchableOpacity onPress={() => navigation.navigate('', { productID: item.product_ID })}>
-                                    {item.productDetail.productNameRlang ?
-                                    <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.productDetail.productNameRlang}</Text>
+                                    {item.product_ID.productNameRlang ?
+                                    <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
                                     : 
-                                    <Text style={styles.productname}>{item.productDetail.productName}</Text>
+                                    <Text style={styles.productname}>{item.product_ID.productName}</Text>
                                     }
                                     </TouchableOpacity>
                                   <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-                                    {item.productDetail.availableQuantity > 0 ?
+                                    {item.product_ID.availableQuantity > 0 ?
                                       <View style={[styles.flxdir]}>
                                         <View style={[styles.flxdir]}>
                                           <Text style={styles.ogprice}>{currency} </Text>
-                                          {item.productDetail.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.productDetail.originalPrice * item.quantity).toFixed(2)}</Text>}
+                                          {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
                                         </View>
                                         <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}> {item.productDetail.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            <Text style={styles.ogprice}> {item.product_ID.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
                                         </View>
-                                        {item.productDetail.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}>( {item.productDetail.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                        {item.product_ID.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
+                                            <Text style={styles.ogprice}>( {item.product_ID.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
                                         </View>}
                                       </View>
@@ -339,7 +314,7 @@ import { SafeAreaView }         from 'react-native';
                         </View>
                         )
                       })}
-                       <View style={styles.totaldetails}>
+                        <View style={styles.totaldetails}>
                             <View style={styles.flxdata}>
                               <View style={{ flex: 0.6,flexDirection:"row" }}>
                                 <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
@@ -347,7 +322,7 @@ import { SafeAreaView }         from 'react-native';
                               </View>
                               <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                  <Text style={styles.totalpriceincart}>{currency} {vendor.cartTotal && vendor.cartTotal.toFixed(2)}</Text>
+                                  <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                                 </View>
                               </View>
                             </View>
@@ -358,7 +333,7 @@ import { SafeAreaView }         from 'react-native';
                               <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                                   <Text style={styles.totalpriceincart}> - </Text>
-                              <Text style={styles.totalpriceincart}>{currency} {vendor.discount > 1 ? vendor.discount.toFixed(2) : 0.00}</Text>
+                              <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
                               {
                                 discountin === "Percent" ? 
                                     <Icon
@@ -396,58 +371,68 @@ import { SafeAreaView }         from 'react-native';
                             <View style={{ flex: 1, marginTop: 10 }}>
                               <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                             </View>
-                            <View>
-                            </View>
                           </View>
                     </View>
                     )
                   })
+                  :
+                  <Text>Not found</Text>
                   }
                   {
-                  cartData && cartData.length > 0 && subtotalitems ?
+                   cartData && cartData.paymentDetails ?
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Final Total Amount </Text>
-                      </View>
-                      <View style={{ flex: 0.4 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}>{currency} {subtotal && subtotal.toFixed(2)}</Text>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Final Total Amount </Text>
+                        </View>
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.afterDiscountTotal && cartData.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Total Savings </Text>
-                      </View> 
-                      <View style={{ flex: 0.4 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                          <Text style={styles.totalpriceincart}> - </Text>
-                          <Text style={styles.totalpriceincart}>{currency} {discountvalue > 1 ? discountvalue.toFixed(2) : 0.00}</Text>
-                        {
-                          discountin === "Percent" ? 
-                              <Icon
-                                name="percent"
-                                type="font-awesome"
-                                size={15}
-                                color="#666"
-                                iconStyle={styles.iconstyle}
-                              /> 
-                            : null
-                          } 
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Savings </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}> - </Text>
+                            <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.discountAmount && cartData.paymentDetails.discountAmount.toFixed(2)}</Text>
+                          {
+                            discountin === "Percent" ? 
+                                <Icon
+                                  name="percent"
+                                  type="font-awesome"
+                                  size={15}
+                                  color="#666"
+                                  iconStyle={styles.iconstyle}
+                                /> 
+                              : null
+                            } 
+                          </View>
                         </View>
                       </View>
-                    </View>
-                    <View style={styles.flxdata}>
-                      <View style={{ flex: 0.6 }}>
-                        <Text style={styles.totaldata}>Total Tax  </Text>
-                      </View> 
-                      <View style={{ flex: 0.4 }}>
-                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Tax  </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.taxAmount && cartData.paymentDetails.taxAmount.toFixed(2)}</Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Delivery Charges </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
+                          </View>
+                        </View>
+                      </View>
                     {coupenPrice === 0 ? 
                       <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
                         <View style={{flex:.7}}>
@@ -477,7 +462,7 @@ import { SafeAreaView }         from 'react-native';
                       <SafeAreaView>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Discount Coupon Amount   </Text>
+                          <Text style={styles.totaldata}>Discount Coupon Amount  </Text>
                         </View> 
                         <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
@@ -508,9 +493,22 @@ import { SafeAreaView }         from 'react-native';
                           </View>
                         </View>
                       </View>
-                      <View style={{ flex: 1, marginTop: 10,justifyContent:"center" }}>
+                      <View style={styles.margTp20}>
+                      <TouchableOpacity >
+                        <Button
+                          onPress={() => paymentMethodsPage()}
+                          title={"PROCEED TO BUY"}
+                          buttonStyle={styles.button1}
+                          containerStyle={styles.buttonContainer1}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={{ flex: 1, marginBottom: 30 }}>
+                      <Text style={styles.securetxt}>Safe & Secure Payments | 100% Authentic Products</Text>
+                    </View>
+                      {/* <View style={{ flex: 1, marginTop: 10,justifyContent:"center" }}>
                         <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                      </View>
+                      </View> */}
                     <View>
                   </View>
                 </View>
