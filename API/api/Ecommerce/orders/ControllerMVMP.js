@@ -108,65 +108,22 @@ var request 					= require('request-promise');
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
 	console.log("Inside order post",req.body); 
+	console.log("req.body.vendorOrders => ",req.body.vendorOrders);
 
 	const order = new Orders({
-		_id 				: new mongoose.Types.ObjectId(),
-		orderID 			: Math.round(new Date().getTime() / 1000),
-		user_ID 			: req.body.user_ID,
-		userName 			: req.body.userEmail,
-		userFullName 		: req.body.userFullName,
+		_id 						: new mongoose.Types.ObjectId(),
+		orderID 					: Math.round(new Date().getTime() / 1000),
+		user_ID 					: req.body.user_ID,
+		userName 					: req.body.userEmail,
+		userFullName 				: req.body.userFullName,
+		paymentDetails            	: req.body.paymentDetails,
+		customerShippingTime      	: req.body.customerShippingTime,
+		order_numberOfProducts    	: req.body.order_numberOfProducts, 
+		order_quantityOfProducts  	: req.body.order_quantityOfProducts, 
 
-		paymentDetails            : {
-			beforeDiscountTotal       : req.body.beforeDiscountTotal,
-			discountAmount            : req.body.discountAmount,
-			afterDiscountTotal        : req.body.afterDiscountTotal,			
-			// disocuntCoupon_id         : { type: mongoose.Schema.Types.ObjectId, ref: 'coupon' }, 
-			// discountCouponPercent     : Number,
-			// discountCouponAmount      : Number,
-			// afterDiscountCouponAmount : Number,
-			taxAmount                 : req.body.taxAmount,
-			shippingCharges           : req.body.shippingCharges,
-			netPayableAmount          : req.body.netPayableAmount,  //NetPayableAmount = afterDiscountCouponAmount + taxAmount + shippingCharges			
-			currency                  : req.body.currency,			
-			// payment_TransactionID     : Number,
-			// payment_response_code     : String,
-			// payment_response_message  : String,
-			// payment_reference_no      : String,
-			payment_status            : req.body.payment_status === 'Paid' ? "Paid" : "UnPaid",  // paid, unpaid
-			paymentMethod             : req.body.paymentMethod,
-		},
-		customerShippingTime      : req.body.customerShippingTime,
-		order_numberOfProducts    : req.body.cartItems.length, //Sum of all number of products in all vendors
-		order_quantityOfProducts  : req.body.order_quantityOfProducts, //Sum of total quantity of items in each vendor
-
-		vendorOrders :req.body.vendorOrders,
-		// "total" 			: req.body.total,
-		// "currency" 			: 'inr',
-		// "cartTotal" 		: req.body.cartTotal,
-		// "discount" 			: req.body.discount,
-		// gstTax  			: req.body.gstTax,
-		// status 			: status,
-		// products 			: req.body.cartItems,
-		// "paymentMethod" 	: req.body.paymentMethod,
-		// shippingtime 		: req.body.shippingtime,
-		// productLength 	: req.body.cartItems.length,
-		// cartQuantity		: req.body.cartQuantity,
-		deliveryAddress	: {
-			name			: req.body.deliveryAddress.name,
-			email			: req.body.deliveryAddress.email,
-			addressLine1	: req.body.deliveryAddress.addressLine1,
-			addressLine2	: req.body.deliveryAddress.addressLine2,
-			pincode			: req.body.deliveryAddress.pincode,
-			city			: req.body.deliveryAddress.city,
-			state			: req.body.deliveryAddress.state,
-			stateCode		: req.body.deliveryAddress.stateCode,
-			mobileNumber	: req.body.deliveryAddress.mobileNumber,
-			district		: req.body.deliveryAddress.district,
-			country			: req.body.deliveryAddress.country,
-			countryCode		: req.body.deliveryAddress.countryCode,
-			addType			: req.body.deliveryAddress.addType
-		},
-		deliveryStatus: [
+		vendorOrders 				: req.body.vendorOrders,
+		deliveryAddress				: req.body.deliveryAddress,
+		deliveryStatus				: [
 			{
 				status			: "New Order",
 				timestamp		: new Date(),
@@ -174,10 +131,9 @@ exports.insert_orders = (req, res, next) => {
 				expDeliveryDate : new Date()
 			}
 		],
-		createdAt 		: new Date(),
-		createdBy 		: req.body.user_ID
+		createdAt 					: new Date(),
+		createdBy 					: req.body.user_ID
 	});
-
 	order.save()
 	.then(orderdata => {
 		console.log("orderdata =====> ",orderdata);
@@ -266,9 +222,9 @@ exports.insert_orders = (req, res, next) => {
 					body += "<h3>Order Details</h3>";
 					body += "<table width='100%' style='border-top:1px solid #333'><thead align='left'><tr><th>Product Name</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr></thead><tbody>";
 
-					req.body.cartItems.map((productdata, index) => {
-						body += "<tr><td>" + productdata.productName + "</td><td>" + productdata.discountedPrice + "</td><td>" + productdata.quantity + "</td><td>" + productdata.subTotal + "</td></tr>";
-					})
+					// req.body.cartItems.map((productdata, index) => {
+					// 	body += "<tr><td>" + productdata.productName + "</td><td>" + productdata.discountedPrice + "</td><td>" + productdata.quantity + "</td><td>" + productdata.subTotal + "</td></tr>";
+					// })
 
 					body += "</tbody></table><br>";
 				}
@@ -362,20 +318,33 @@ exports.insert_orders = (req, res, next) => {
 		});
 	})
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*========*/
-if (req.body.cartItems.length > 0) {
-	for (k = 0; k < req.body.cartItems.length; k++) {
-	   Products.updateOne(
-			 { "_id": req.body.cartItems[k].product_ID },
-			 {$inc : {
-				   "availableQuantity": -(req.body.cartItems[k].quantity),
-			   }
-			 }
-		 )
-		 .then()
-		 .catch();
-	}
- }
+// if (req.body.cartItems.length > 0) {
+// 	for (k = 0; k < req.body.cartItems.length; k++) {
+// 	   Products.updateOne(
+// 			 { "_id": req.body.cartItems[k].product_ID },
+// 			 {$inc : {
+// 				   "availableQuantity": -(req.body.cartItems[k].quantity),
+// 			   }
+// 			 }
+// 		 )
+// 		 .then()
+// 		 .catch();
+// 	}
+//  }
 /*========*/
 
 

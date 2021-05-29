@@ -7,7 +7,7 @@ const Wishlists     = require('../wishlist/Model');
 const _             = require('underscore');    
 // import axios from 'axios';
 
-
+/**=========== Add Cart Products ===========*/
 exports.insert_cartid = (req,res,next)=>{
     console.log("req.body===",req.body);
 
@@ -265,7 +265,6 @@ exports.insert_cartid = (req,res,next)=>{
 	});
 };
 
-
 exports.list_cart = (req,res,next)=>{
     Carts.find({"user_ID": req.params.user_ID})       
     .exec()
@@ -278,118 +277,9 @@ exports.list_cart = (req,res,next)=>{
         });
     });
 };
-// exports.list_cart_product = (req,res,next)=>{
-//     // console.log(req.params.user_ID);
-//     Carts.aggregate([
-//         { "$match" : { "user_ID" : ObjectId(req.params.user_ID) } },
-//         { "$unwind": "$cartItems" },
-//         { "$lookup": {
-//             "from": "products",
-//             "as": "cartItems.productDetail",
-//             "localField": "cartItems.product_ID",
-//             "foreignField": "_id"
-//         }},
-//         { "$unwind": "$cartItems.productDetail" },
-//         {
-//             "$addFields": {
-//                 "cartItems.subTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
-//                 "cartItems.saving":  { "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] } ,
-//             }
-//         },
-//         { "$group": {
-//             "_id": "$_id",
-//             "paymentMethod":{ "$first": "$paymentMethod" },
-//             "deliveryAddress":{ "$first": "$deliveryAddress" },
-//             "cartItems": { "$push": "$cartItems" },
-//             "cartTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] } },
-//             "discount": { "$sum":{ "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] }},
-//             "total": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
-//             "cartQuantity":{ "$sum": "$cartItems.quantity" },
-//             }
-//         },
-            
-//     ])
-//     .exec()
-//     .then(data=>{
-//         console.log("data",data);
-//         if(data && data.length> 0 && data[0].cartItems){
-//             for (let k = 0; k < data[0].cartItems.length; k++) {
-//                 data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
-//             }
-//             console.log("data[0].cartItems[k]",data[0]);
-//             if(req.params.user_ID!=='null'){
-//                 Wishlists.find({user_ID:req.params.user_ID})
-//                 .then(wish=>{
-//                     if(wish.length > 0){
-//                         for(var i=0; i<wish.length; i++){
-//                             for(var j=0; j<data[0].cartItems.length; j++){
-//                                 if(String(wish[i].product_ID) === String(data[0].cartItems[j].product_ID)){
-//                                     data[0].cartItems[j]= {...data[0].cartItems[j], isWish:true};
-//                                     break;
-//                                 }
-//                             }
-//                         }   
-//                         if(i >= wish.length){
-//                             res.status(200).json(data);
-//                         }       
-//                     }else{
-//                         res.status(200).json(data);
-//                     }
-//                  })
-//                  .catch(err =>{
-//                     console.log(err);
-//                     res.status(500).json({
-//                         error: err
-//                     });
-//                 });
-//             }else{
-//                 res.status(200).json(data);
-//             }    
-//         }else{
-//             res.status(200).json(data);
-//         }
-//     })
-//     .catch(err =>{
-//         console.log("err",err);
-//         res.status(500).json({
-//             error: err
-//         });
-//     });
-// };
 
-
-exports.list_cart_product = (req,res,next)=>{
-    // console.log(req.params.user_ID);
-    // Carts.aggregate([
-    //     { "$match" : { "user_ID" : ObjectId(req.params.user_ID) } },
-    //     { "$unwind": "$vendorOrders" },
-    //     { "$unwind": "$vendorOrders.cartItems" },
-    //     { "$lookup" : {
-    //         "from"          : "products",
-    //         "as"            : "vendorOrders.cartItems.product_ID",
-    //         "localField"    : "vendorOrders.cartItems.product_ID",
-    //         "foreignField"  : "_id"
-    //     }},
-        // { "$unwind": "$vendorOrders.cartItems.productDetail" },
-        // {
-        //     "$addFields": {
-        //         "cartItems.subTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
-        //         "cartItems.saving":  { "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] } ,
-        //     }
-        // },
-        // { "$group": {
-        //     "_id":"$cartItems.productDetail.vendor_ID",
-        //     "vendorName": { "$first": "$cartItems.productDetail.vendorName" },
-        //     "paymentMethod":{ "$first": "$paymentMethod" },
-        //     "deliveryAddress":{ "$first": "$deliveryAddress" },
-        //     "cartItems": { "$push": "$cartItems" },
-        //     "cartTotal": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] } },
-        //     "discount": { "$sum":{ "$divide": [{ "$multiply": [ { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.originalPrice" ] }, "$cartItems.productDetail.discountPercent" ]}, 100] }},
-        //     "total": { "$sum": { "$multiply": [ "$cartItems.quantity", "$cartItems.productDetail.discountedPrice" ] } },
-        //     "cartQuantity":{ "$sum": "$cartItems.quantity" },
-        //     }
-        // },
-    // ])
+/**=========== Vendorwise List of Cart Items for Particular User ===========*/
+exports.list_cart_product = (req,res,next)=>{    
     Carts.findOne({user_ID:ObjectId(req.params.user_ID)})
     .populate('vendorOrders.cartItems.product_ID',
         {
@@ -427,9 +317,9 @@ exports.list_cart_product = (req,res,next)=>{
         var order_taxAmount             = 0;
         var order_shippingCharges       = 0;
 
-        for(var i = 0; i<vendorOrders.length;i++){
+        for(var i = 0; i<vendorOrders.length;i++){            
+            console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
             for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
-                console.log("vendorOrders[i].cartItems",vendorOrders[i].cartItems);
                 vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
                 if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
                     vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
@@ -453,7 +343,6 @@ exports.list_cart_product = (req,res,next)=>{
                 order_taxAmount             += vendor_taxAmount;
                 order_shippingCharges       += vendor_shippingCharges;
             }
-
         }
         if(i>=vendorOrders.length){
             data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
@@ -465,43 +354,6 @@ exports.list_cart_product = (req,res,next)=>{
         }
         console.log("data",data);
         res.status(200).json(data);
-
-        // if(data && data.length> 0 && data[0].cartItems){
-        //     for (let k = 0; k < data[0].cartItems.length; k++) {
-        //         data[0].cartItems[k] = {...data[0].cartItems[k], isWish:false};
-        //     }
-        //     console.log("data[0].cartItems[k]",data[0]);
-        //     if(req.params.user_ID!=='null'){
-        //         Wishlists.find({user_ID:req.params.user_ID})
-        //         .then(wish=>{
-        //             if(wish.length > 0){
-        //                 for(var i=0; i<wish.length; i++){
-        //                     for(var j=0; j<data[0].cartItems.length; j++){
-        //                         if(String(wish[i].product_ID) === String(data[0].cartItems[j].product_ID)){
-        //                             data[0].cartItems[j]= {...data[0].cartItems[j], isWish:true};
-        //                             break;
-        //                         }
-        //                     }
-        //                 }   
-        //                 if(i >= wish.length){
-        //                     res.status(200).json(data);
-        //                 }       
-        //             }else{
-        //                 res.status(200).json(data);
-        //             }
-        //          })
-        //          .catch(err =>{
-        //             console.log(err);
-        //             res.status(500).json({
-        //                 error: err
-        //             });
-        //         });
-        //     }else{
-        //         res.status(200).json(data);
-        //     }    
-        // }else{
-        //     res.status(200).json(data);
-        // }
     })
     .catch(err =>{
         console.log("err",err);
@@ -547,32 +399,181 @@ exports.count_cart = (req,res,next)=>{
     });
 };
 
+/*============ Remove Cart Items ===========*/
 exports.remove_cart_items = (req, res, next)=>{
-    // console.log('r', req.body);
-    Carts.updateOne(
-        {"user_ID": req.body.user_ID},
-        {
-			$pull: { "cartItems": { "_id": req.body.cartItem_ID } }
-		}
-    )
+    console.log('remove_cart_items =>', req.body);
+
+    Carts.findOne({"user_ID": req.body.user_ID})
     .exec()
-    .then(data=>{
-        if(data.nModified == 1){
-            res.status(200).json({
-                "message": "Product removed from cart successfully.",
-            });
-        }else{
-            res.status(401).json({
-                "message": "Cart Not Found 1"
-            });
+    .then(cartdata =>{
+        var order_numberOfProducts           = cartdata.order_numberOfProducts;
+        var order_quantityOfProducts         = cartdata.order_quantityOfProducts;
+
+        var vendor                           = cartdata.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) === String(req.body.vendor_ID));
+        
+        if(vendor && vendor.length > 0 && vendor[0].cartItems && vendor[0].cartItems.length > 0){
+            console.log("vendor[0].vendor_quantityOfProducts => ",vendor[0].vendor_quantityOfProducts);
+            console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);
+            if(vendor[0].cartItems > 1){
+                var productToBeRemoved  = vendor[0].cartItems.filter(cartProduct => String(cartProduct._id) === String(req.body.cartItem_ID));
+            }else{
+                var productToBeRemoved  = vendor[0].cartItems;
+            }
+            console.log("productToBeRemoved => ",productToBeRemoved)
+            var vendor_numberOfProducts      = vendor[0].vendor_numberOfProducts - 1;
+            var vendor_quantityOfProducts    = vendor[0].vendor_quantityOfProducts - productToBeRemoved[0].quantity;
+            var newVendorCartItems           = vendor[0].cartItems.filter(cartProduct => String(cartProduct._id) !== String(req.body.cartItem_ID));
+            console.log("vendor_numberOfProducts => ",vendor_numberOfProducts)
+            console.log("vendor_quantityOfProducts => ",vendor_quantityOfProducts)
+            console.log("newVendorCartItems => ",newVendorCartItems)
+            if(newVendorCartItems.length === 0){
+                console.log("if ===============> ")
+                //If the removed product was the only product in cartItems array, then remove the whole vendor object.
+                var newVendorArr             = cartdata.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) !== String(req.body.vendor_ID));
+
+                Carts.updateOne(
+                    { "user_ID" : req.body.user_ID},
+                    {
+                        $set : {
+                            "vendorOrders"               : newVendorArr,
+                            "order_numberOfProducts"     : order_numberOfProducts - 1,
+                            "order_quantityOfProducts"   : order_quantityOfProducts - productToBeRemoved[0].quantity,
+                        }
+                    }
+                )
+                .exec()
+                .then(cartUpdateData=>{
+                    console.log("cartUpdateData remove => ",cartUpdateData);
+
+                    if(cartUpdateData.nModified == 1){                          
+                        res.status(200).json({
+                            "message": "Product removed from cart successfully.",
+                        });
+                    }else{
+                        res.status(200).json({
+                            "message": "Product still their in the Cart."
+                        });
+                    }
+                })
+                .catch(err =>{
+                    res.status(500).json({
+                        error: err
+                    });
+                });   
+            }else{
+                console.log("else ===============> ","newVendorCartItems => ", newVendorCartItems,"vendor_numberOfProducts => ", vendor_numberOfProducts,"vendor_quantityOfProducts => ", vendor_quantityOfProducts,"order_numberOfProducts => ", order_numberOfProducts,"order_quantityOfProducts => ", order_quantityOfProducts )
+                console.log("form values => ",)
+                Carts.updateOne(
+                    { "user_ID" : req.body.user_ID, 'vendorOrders.vendor_id' :  req.body.vendor_ID },
+                    {
+                        $set : {
+                            "vendorOrders.$.cartItems"                   : newVendorCartItems,
+                            "vendorOrders.$.vendor_numberOfProducts"     : vendor_numberOfProducts,
+                            "vendorOrders.$.vendor_quantityOfProducts"   : vendor_quantityOfProducts,
+                            "order_numberOfProducts"                     : order_numberOfProducts,
+                            "order_quantityOfProducts"                   : order_quantityOfProducts,
+                        }
+                    }
+                ) 
+                .exec()
+                .then(cartUpdateData=>{
+                    console.log("cartUpdateData remove => ",cartUpdateData);
+
+                    if(cartUpdateData.nModified == 1){                          
+                        res.status(200).json({
+                            "message": "Product removed from cart successfully.",
+                        });
+                    }else{
+                        res.status(200).json({
+                            "message": "Product still their in the Cart."
+                        });
+                    }
+                })
+                .catch(err =>{
+                    res.status(500).json({
+                        error: err
+                    });
+                });     
+            }
         }
-    })
-    .catch(err =>{
-        res.status(500).json({
-            error: err
+
+
+
+
+/*
+        // var previous_order_quantityOfProducts   = cartdata.order_quantityOfProducts;
+
+
+        // var previous_vendor_quantityOfProducts  = vendor[0].vendor_quantityOfProducts;
+            // var vendorProduct                       = vendor[0].cartItems.filter(cartProduct => String(cartProduct._id) === String(req.body.cartItem_ID));
+
+            if(vendorProduct && vendorProduct.length > 0){
+                var previousProductQuantity = vendorProduct[0].quantity;
+            }else{
+                var previousProductQuantity = 0;
+            }
+
+Carts.updateOne(
+            { "user_ID" : req.body.user_ID, 'vendorOrders.vendor_id' :  req.body.vendor_ID },
+            { "$pull" : { 
+                            "vendorOrders.$.cartItems" : { 
+                                "_id" : ObjectId(req.body.cartItem_ID) 
+                            } 
+                        } 
+            }
+        )
+        .exec()
+        .then(cartUpdateData=>{
+            console.log("cartUpdateData remove => ",cartUpdateData);
+
+            if(cartUpdateData.nModified == 1){   
+                var order_quantityOfProducts    = (previous_order_quantityOfProducts - previousProductQuantity);
+                var vendor_quantityOfProducts   = (previous_vendor_quantityOfProducts - previousProductQuantity);
+                
+                Carts.updateOne(
+                    {"user_ID" : ObjectId(req.body.user_ID), 'vendorOrders.vendor_id' : req.body.vendor_ID},
+                    {$set : {
+                        'order_quantityOfProducts'                  : order_quantityOfProducts,
+                        'vendorOrders.$.vendor_quantityOfProducts'  : vendor_quantityOfProducts
+                    }},
+                )
+                .exec()
+                .then(updateone=>{
+                    console.log("updateone => ",updateone)
+                })
+                .catch(err =>{
+                    console.log('1',err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+                res.status(200).json({
+                    "message": "Product removed from cart successfully.",
+                });
+            }else{
+                res.status(200).json({
+                    "message": "Cart Not Found 1"
+                });
+            }
+        })
+        .catch(err =>{
+            res.status(500).json({
+                error: err
+            });
         });
-    });
+
+        */
+
+
+    })
+    .catch(error =>{
+        res.status(500).json({
+            error:error
+        })
+
+    })
 };
+
 
 exports.remove_product_from_cart = (req, res, next)=>{
     // console.log("selected products=",req.body.selectedProducts.length);

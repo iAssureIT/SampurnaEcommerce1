@@ -37,7 +37,7 @@ const orderSchema = mongoose.Schema({
     order_quantityOfProducts  : Number, //Sum of total quantity of items in each vendor
 
 
-    venderOrders : [
+    vendorOrders : [
         {
             vendor_id : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymaster' },
             vendorName : String,
@@ -118,4 +118,4 @@ const orderSchema = mongoose.Schema({
     createdAt                 : Date
 });
 
-module.exports = mongoose.model('orders',orderSchema);
+module.exports = mongoose.model('order',orderSchema);
