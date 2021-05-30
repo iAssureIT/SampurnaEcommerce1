@@ -214,7 +214,7 @@ app.use("api/expenseItemMaster",			expenseItemMaster);
 app.use("/api/expensetypemaster", 		expenseTypeRoutes);
 
 app.post('/send-email', (req, res)=> {
-	// console.log("inside app.js req:");
+	console.log("inside app.js req:", req.body);
 	let transporter = nodeMailer.createTransport({
 		host: globalVariable.emailHost,
 		port: globalVariable.emailPort,
@@ -241,7 +241,7 @@ app.post('/send-email', (req, res)=> {
 				message: "Success",
 			});
 		}else{
-			res.status(401).json({ 
+			res.status(200).json({ 
 				message: "Failed",
 			});
 		}

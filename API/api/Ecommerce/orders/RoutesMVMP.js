@@ -36,7 +36,7 @@ router.get('/get/list/:userID', 																	checkAuth, orderController.list
 
 router.post('/get/list', 																			checkAuth, orderController.list_order_with_limits);
 
-router.get('/get/one/:orderID', 																	checkAuth, orderController.fetch_order);
+router.get('/get/one/:orderID', 																	orderController.fetch_order);
 
 router.delete('/delete/:orderID', 																checkAuth, orderController.delete_order);
 

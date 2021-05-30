@@ -185,8 +185,10 @@ exports.insert_cartid = (req,res,next)=>{
                     }else{   
                         
                         console.log("When no Products availabe for same vendor")  
-                        var order_quantityOfProducts = cartData.order_quantityOfProducts ? parseInt(cartData.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
-                        var order_numberOfProducts   = cartData.order_numberOfProducts ? parseInt(cartData.order_numberOfProducts) + 1 : 0;                           
+                        // var order_quantityOfProducts = cartData.order_quantityOfProducts ? parseInt(cartData.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
+                        // var order_numberOfProducts   = cartData.order_numberOfProducts  ? parseInt(cartData.order_numberOfProducts) + 1 : 0;                 
+                        var order_quantityOfProducts = cartData.order_quantityOfProducts ? parseInt(cartData.order_quantityOfProducts) + parseInt(req.body.quantity) : parseInt(req.body.quantity);
+                        var order_numberOfProducts   = cartData.order_numberOfProducts  ? parseInt(cartData.order_numberOfProducts) + 1 : 1;                                     
                         Carts.updateOne(
                         {'_id' : cartData._id},
                         {
@@ -673,6 +675,7 @@ exports.change_cart_item_quantity = (req, res, next)=>{
     })
 };
 exports.add_address_to_cart = (req, res, next)=>{
+    console.log("req.body => ",req.body)
     Carts.findOne({"user_ID": req.body.user_ID})       
         .exec()
         .then(cartData=>{
