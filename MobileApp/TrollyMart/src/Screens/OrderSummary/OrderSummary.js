@@ -260,7 +260,7 @@ import { SafeAreaView }         from 'react-native';
                         <View style={{backgroundColor:colors.theme}}>
                           <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendorName}</Text>
                         </View>  
-                      {vendor.cartItems.map((item,index)=>{
+                      {vendor.cartItem && vendor.cartItem.length>0 && vendor.cartItems.map((item,index)=>{
                         return(
                           <View key={index}>
                             <View key={index} style={styles.proddetails}>
@@ -489,7 +489,7 @@ import { SafeAreaView }         from 'react-native';
                         </View>
                         <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}>{currency} {totalPrice.toFixed(2)}</Text>
+                            <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>

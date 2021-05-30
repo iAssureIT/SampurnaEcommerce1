@@ -44,7 +44,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   console.log("userDetails",userDetails);
   useEffect(() => {
     getData();
-  }, []);
+  }, [props]);
 
   const getData=()=>{
     var type = "PG"
@@ -95,10 +95,20 @@ export const PaymentMethod = withCustomerToaster((props)=>{
     var vendorOrders = cartdata.vendorOrders;
     for(var i = 0; i<vendorOrders.length;i++){ 
       vendorOrders[i].products =[];
-      for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
-        vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID,quantity} ;
-      } 
-      delete vendorOrders[i].cartItems;
+      if(vendorOrders[i].cartItems){
+        for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
+          vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
+          console.log("vendorOrders",vendorOrders);
+          vendorOrders[i].deliveryStatus =[];
+            vendorOrders[i].deliveryStatus.push({
+              "status"          : "New Order",
+              "timestamp"       : new Date(),
+              "statusUpdatedBy" : userID,
+              "expDeliveryDate" : new Date(),
+          }) 
+        } 
+       delete vendorOrders[i].cartItems;
+      }
     }
     if(i>=vendorOrders.length){
       console.log("vendorOrders",vendorOrders);
@@ -130,16 +140,13 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         user_ID 		              : userID,
         userFullName              : userDetails.fullName,
         userEmail                 : userDetails.email,
-        cartItems		              : vendorOrders,
-        afterDiscountTotal        : cartdata.paymentDetails.afterDiscountTotal,
-        beforeDiscountTotal	      : cartdata.paymentDetails.beforeDiscountTotal,
-        discountAmount			      : cartdata.paymentDetails.discountAmount,
+        vendorOrders		         : vendorOrders,
         order_quantityOfProducts	: cartdata.order_quantityOfProducts,
         deliveryAddress		        : deliveryAddress,
         paymentMethod             : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
-        netPayableAmount					: cartdata.paymentDetails.netPayableAmount,
-        taxAmount					        : cartdata.paymentDetails.taxAmount,
+        paymentDetails					  : cartdata.paymentDetails,
         customerShippingTime      : shippingtime,
+        orderStatus               : "New Order"
       }
 
       console.log("orderData==>", orderData);
@@ -148,40 +155,40 @@ export const PaymentMethod = withCustomerToaster((props)=>{
           console.log("orderData==>", result.data);
           axios.get('/api/orders/get/one/' + result.data.order_ID)
             .then((res) => {
+              
               console.log("res",res);
               if (paymentmethods === 'cod') {
                 navigation.navigate('Dashboard');
-                // setPaymentMethods("cod");
+                setPaymentMethods("cod");
                 setBtnLoading(false);
-                setPaymentMode(true);
+                // setPaymentMode(true);
                 setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
             } else {
-                //  navigation.navigate('PGWebView', { pinepgurl: payurl.data.result.PAYMENT_URL })
                 setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-                navigation.navigate('Dashboard');
-                // var paymentdetails = {
-                //     MERCHANT_ID           : partnerid,
-                //     MERCHANT_ACCESS_CODE  : secretkey,
-                //     REFERENCE_NO          : result.data.order_ID,
-                //     AMOUNT                : totalamountpay,
-                //     CUSTOMER_MOBILE_NO    : mobile,
-                //     CUSTOMER_EMAIL_ID     : email,
-                //     PRODUCT_CODE          : "testing",
-                // }
-                // // console.log('paymentdetails in result==>>>', paymentdetails)
-                // axios.post('/api/orders/pgcall/post', paymentdetails)
-                //     .then((payurl) => {
-                //         if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
-                //           // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
-                //           setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-                //         }
-                //         setBtnLoading(false);
-                //     })
-                //     .catch((error) => {
-                //         console.log("return to checkout");
-                //         console.log(error);
-                //         setBtnLoading(false);
-                //     })
+                navigation.navigate('App');
+                var paymentdetails = {
+                    MERCHANT_ID           : partnerid,
+                    MERCHANT_ACCESS_CODE  : secretkey,
+                    REFERENCE_NO          : result.data.order_ID,
+                    AMOUNT                : totalamountpay,
+                    CUSTOMER_MOBILE_NO    : mobile,
+                    CUSTOMER_EMAIL_ID     : email,
+                    PRODUCT_CODE          : "testing",
+                }
+                // console.log('paymentdetails in result==>>>', paymentdetails)
+                axios.post('/api/orders/pgcall/post', paymentdetails)
+                    .then((payurl) => {
+                        if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
+                          // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
+                          setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+                        }
+                        setBtnLoading(false);
+                    })
+                    .catch((error) => {
+                        console.log("return to checkout");
+                        console.log(error);
+                        setBtnLoading(false);
+                    })
             }
               console.log("orderdetails=====>", res.data);
               // =================== Notification OTP ==================
@@ -204,7 +211,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                 .catch((error) => { console.log('notification error: ', error) })
               // =================== Notification ==================
             })
-        })
+      })
         .catch((error) => {
           console.log("error",error);
           setBtnLoading(false);

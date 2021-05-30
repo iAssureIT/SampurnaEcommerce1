@@ -7,21 +7,21 @@ import {
   TouchableOpacity,
   Image,
   Alert,
-  ActivityIndicator}    from 'react-native';
-import Modal            from "react-native-modal";
+  ActivityIndicator}        from 'react-native';
+import Modal                from "react-native-modal";
 import { Button, Icon,Card} from "react-native-elements";
-import StepIndicator    from 'react-native-step-indicator';
-import {Menu}           from '../../ScreenComponents/Menu/Menu.js';
-import {HeaderBar3}       from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}         from '../../ScreenComponents/Footer/Footer1.js';
-import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
-import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
-import Loading          from '../../ScreenComponents/Loading/Loading.js';
-import commonStyles     from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import axios            from 'axios';
-import moment           from 'moment';
-import AsyncStorage     from '@react-native-async-storage/async-storage';
-import { useIsFocused }         from "@react-navigation/native";
+import StepIndicator        from 'react-native-step-indicator';
+import {Menu}               from '../../ScreenComponents/Menu/Menu.js';
+import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {Footer}             from '../../ScreenComponents/Footer/Footer1.js';
+import styles               from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
+import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
+import Loading              from '../../ScreenComponents/Loading/Loading.js';
+import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import axios                from 'axios';
+import moment               from 'moment';
+import AsyncStorage         from '@react-native-async-storage/async-storage';
+import { useIsFocused }     from "@react-navigation/native";
 const labels = ["Order Placed", "Packed", "Out for delivery", "Delivered"];
 const customStyles = {
   stepIndicatorSize                 : 25,
@@ -49,11 +49,7 @@ const customStyles = {
 // stepStrokeFinishedColor: 'colors.theme',
 
 export const MyOrder =(props)=>{
-  const [isOpen,setOpen]=useState(false);
   const [user_id,setUserId]=useState('');
-  const [fullName,setFullName]=useState('');
-  const [email,setEmail]=useState('');
-  const [mobNumber,setMobNumber]=useState('');
   const [myorders,setMyOrders]=useState([]);
   const [cancelOrderModal,setCancelOrderModal]=useState(false);
   const [cancelOrderId,setCancelOrderId]=useState('');
@@ -67,18 +63,9 @@ export const MyOrder =(props)=>{
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
         setUserId(data[1][1]);
-        axios.get('/api/ecommusers/' + data[1][1])
-          .then((res) => {
-            setFullName(res.data.profile.fullName);
-            setEmail(res.data.profile.email);
-            setMobNumber(res.data.profile.mobile);
-          })
-          .catch((error) => {
-            console.log('error', error)
-          });
-
           axios.get('/api/orders/get/list/' + data[1][1])
           .then((response) => {
+            console.log("getorderlist",response.data);
             setMyOrders(response.data)
           })
           .catch((error) => {
@@ -168,127 +155,138 @@ export const MyOrder =(props)=>{
           <View style={styles.superparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                  {
-                    myorders ?
-                      myorders.length > 0 ?
-                        myorders.map((item, i) => {
-                          // activitysteps(item.deliveryStatus)
-                          var position = 0;
-                          console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",item.deliveryStatus[item.deliveryStatus.length - 1].status);
-                          if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New Order" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Verified") {
-                            position = 0;
-                          } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
-                            position = 1;
-                          } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch" || item.deliveryStatus[item.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
-                            position = 2;
-                           } 
-                           else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid") {
-                            position = 4;
-                          }  
-                          return (
-                            <View style={styles.prodinfoparent}>
-                              <View style={styles.orderid}><Text style={styles.orderidinfo}>Order ID : {item.orderID}</Text></View>
-                              <View style={styles.myorderdets}>
-                                {
-                                  item.products && item.products.length > 0 ?
-                                    item.products.map((pitem, index) => {
-                                      return (
-                                          <Card key={index} containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
-                                            <View style={{flex:.25}}>
-                                            {pitem.productImage.length > 0 ? <Image
-                                                style={styles.img15}
-                                                source={{ uri: pitem.productImage[0] }}
-                                                resizeMode="contain"
-                                              />
-                                              :
-                                              <Image
-                                                source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                                                style={styles.img15}
-                                                resizeMode="contain"
-                                              />
-                                              }
-                                            </View>
-                                            <View style={{flex:.75}}>
-                                              <Text style={styles.myorderprodinfo}>{pitem.productName}</Text> 
-                                           </View> 
-                                          </Card>
-                                      );
-                                    })
-                                    : null
-                                }
-                              </View>
-                              <View style={styles.orderstatusmgtop}>
-                                {
-                                  item && item.deliveryStatus
-                                    && item.deliveryStatus[item.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                                    <View style={styles.orderstatus}>
-                                      <Text style={styles.orderstatustxt}>Order Status</Text>
-                                      <StepIndicator
-                                        customStyles={customStyles}
-                                        currentPosition={position}
-                                        labels={labels}
-                                        stepCount={4}
-                                      />
-                                    </View>
-                                    :
-                                    <View style={styles.orderstatus}>
-                                      <Text style={styles.ordercancelled}>Order Cancelled</Text>
-                                    </View>
-                                }
-                              </View>
-                              <View style={styles.ordereddates}>
-                                <Text style={styles.myordereddate}>Ordered Date : {moment(item.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
-                              </View>
-
-                              <View style={styles.orderdetsandcancelbtn}>
-                              {item && item.deliveryStatus
-                                && item.deliveryStatus[item.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                                <View style={styles.ordercancelstatus}>
-                                  <View style={styles.ordercancelsstatus}>
-                                    <Button
-                                      onPress={() => navigation.navigate('OrderDetails', { orderid: item._id })}
-                                      titleStyle={commonStyles.buttonText1}
-                                      title="ORDER DETAILS"
-                                      buttonStyle={commonStyles.button}
-                                      containerStyle={commonStyles.buttonContainer}
-                                    />
-                                  </View>
-                                   {item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid" ?
-                                    null
-                                    :
-                                    <View style={styles.orderdetailsstatus}>
-                                      <Button
-                                        onPress={() => cancelorderbtn(item._id)}
-                                        titleStyle={styles.buttonText}
-                                        title="CANCEL ORDER"
-                                        buttonStyle={styles.buttonRED}
-                                        containerStyle={styles.buttonContainer2}
-                                      />
-                                    </View>}
+                {
+                  myorders ?
+                    myorders.length > 0 ?
+                      myorders.map((order, i) => {
+                        return(
+                          <View style={styles.prodinfoparent}>
+                          <View style={styles.orderid}><Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text></View>
+                          {order.vendorOrders.map((item,i)=>{
+                            var position = 0;
+                            console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",item.deliveryStatus[item.deliveryStatus.length - 1].status);
+                            if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New Order" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Verified") {
+                              position = 0;
+                            } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
+                              position = 1;
+                            } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch" || item.deliveryStatus[item.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
+                              position = 2;
+                            } 
+                            else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid") {
+                              position = 4;
+                            }  
+                            console.log("position",position);
+                            return (
+                              <View>
+                                <View style={{backgroundColor:colors.theme,marginTop:15}}>
+                                  <Text style={[commonStyles.headerText,{color:"#fff"}]}>{item.vendorName}</Text>
+                                </View>  
+                                <View style={styles.myorderdets}>
+                                  {
+                                    item.products && item.products.length > 0 ?
+                                      item.products.map((pitem, index) => {
+                                        return (
+                                            <Card key={index} containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+                                              <View style={{flex:.25}}>
+                                              {pitem.productImage.length > 0 ? <Image
+                                                  style={styles.img15}
+                                                  source={{ uri: pitem.productImage[0] }}
+                                                  resizeMode="contain"
+                                                />
+                                                :
+                                                <Image
+                                                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                                  style={styles.img15}
+                                                  resizeMode="contain"
+                                                />
+                                                }
+                                              </View>
+                                              <View style={{flex:.75}}>
+                                                <Text style={styles.myorderprodinfo}>{pitem.productName}</Text> 
+                                            </View> 
+                                            </Card>
+                                        );
+                                      })
+                                      : null
+                                  }
                                 </View>
-                                :
-                                <View style={styles.orderstatustxtcancel}></View>
-                              }
+                                <View style={styles.orderstatusmgtop}>
+                                  {
+                                    item && item.deliveryStatus
+                                      && item.deliveryStatus[item.deliveryStatus.length - 1].status !== 'Cancelled' ?
+                                      <View style={styles.orderstatus}>
+                                        <Text style={styles.orderstatustxt}>Order Status</Text>
+                                        <StepIndicator
+                                          customStyles={customStyles}
+                                          currentPosition={position}
+                                          labels={labels}
+                                          stepCount={4}
+                                        />
+                                      </View>
+                                      :
+                                      <View style={styles.orderstatus}>
+                                        <Text style={styles.ordercancelled}>Order Cancelled</Text>
+                                      </View>
+                                  }
+                                </View>
+                               
+
+                              
+                               </View>
+                            )
+                            })
+                          }
+                            <View style={styles.orderdetsandcancelbtn}>
+                                {order && order.orderStatus
+                                  && order.orderStatus !== 'Cancelled' ?
+                                  <View style={styles.ordercancelstatus}>
+                                    <View style={styles.ordercancelsstatus}>
+                                      <Button
+                                        onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
+                                        titleStyle      = {commonStyles.buttonText1}
+                                        title           = "ORDER DETAILS"
+                                        buttonStyle     = {commonStyles.button}
+                                        containerStyle  = {commonStyles.buttonContainer}
+                                      />
+                                    </View>
+                                    {order.deliveryStatus === "Delivered & Paid" ?
+                                      null
+                                      :
+                                      <View style={styles.orderdetailsstatus}>
+                                        <Button
+                                          onPress         = {() => cancelorderbtn(order._id)}
+                                          titleStyle      = {styles.buttonText}
+                                          title           = "CANCEL ORDER"
+                                          buttonStyle     = {styles.buttonRED}
+                                          containerStyle  = {styles.buttonContainer2}
+                                        />
+                                      </View>}
+                                  </View>
+                                  :
+                                  <View style={styles.orderstatustxtcancel}></View>
+                                }
                               </View>
-                            </View>
-                          )
-                        })
-
-                        :
-                        <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-                          <Image
-                            source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-                          />
+                           <View style={styles.ordereddates}>
+                            <Text style={styles.myordereddate}>Ordered Date : {moment(order.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
+                          </View>
                         </View>
+                        ) 
+                      })
+                      
                       :
-
-                      <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                        <ActivityIndicator size="large" color={colors.theme} />
+                      <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+                        <Image
+                          source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+                        />
                       </View>
-                  }
+                    :
+
+                    <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
+                      <ActivityIndicator size="large" color={colors.theme} />
+                    </View>
+                }
               </View>
             </ScrollView>
-
           </View>
           <Footer />
           <Modal isVisible={cancelOrderModal}
