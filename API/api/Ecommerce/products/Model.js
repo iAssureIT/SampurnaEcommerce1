@@ -61,7 +61,8 @@ const productsSchema = mongoose.Schema({
     createdBy                : String,
     createdAt                : Date,
     updatedBy                : String,
-    updatedAt                : Date
+    updatedAt                : Date,
+    isWish                   : Boolean
 });
 
 module.exports = mongoose.model('products',productsSchema);

@@ -3,23 +3,19 @@ import {
   ScrollView,
   Text,
   View,
-  TouchableOpacity,
   Image,
-  Alert
 }                     from 'react-native';
-import { Header, 
-        Button, 
-        Icon, 
-        SearchBar,
-      Card }   from "react-native-elements";
-import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import { Icon, Card } from "react-native-elements";
+import {HeaderBar3}   from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
-import Notification   from '../../ScreenComponents/Notification/Notification.js';
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import { colors }     from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading        from '../../ScreenComponents/Loading/Loading.js';
 import axios          from 'axios';
 import AsyncStorage   from '@react-native-async-storage/async-storage';
+import moment         from 'moment';
+import commonStyles    from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {withCustomerToaster}    from '../../redux/AppState.js';
 
 const labels = ["Order Placed", "Out for delivery", "In transition", "Delivered"];
 const dateTime = ['13/12/2019 12:48 pm'];
@@ -47,8 +43,8 @@ const thirdIndicatorStyles = {
   labelFontFamily: 'OpenSans-Italic',
   currentStepLabelColor: 'colors.theme'
 }
-export const OrderDetails=(props)=>{
-  const {navigation,route}=props;
+export const OrderDetails = withCustomerToaster((props)=>{
+  const {navigation,route,setToast}=props;
   const [isOpen,setOpen]=useState(false);
   const [cancelOrderModal,setCancelOrderModal] =useState(false);
   const [ordernumber,setOrderNumber] =useState("");
@@ -60,6 +56,7 @@ export const OrderDetails=(props)=>{
   const [mobileNumber,setMobNum]=useState('');
   const [deliveryAddress,setDeliveryAdd]=useState('');
   const [currency,setCurrency]=useState('');
+  const [order,setOrder]=useState('');
   const {orderid}=route.params;
   useEffect(() => {
     getorderlist(orderid);
@@ -70,19 +67,11 @@ export const OrderDetails=(props)=>{
   const getorderlist=(orderid)=>{
     axios.get('/api/orders/get/one/' + orderid)
       .then((response) => {
-        var myorders = response.data.products;
-        var originalPrice = response.data.total;
-        console.log("originalPrice.orderID:==>>>", response.data);
-        setMyOrders(myorders);
-        setOrderNumber(response.data.orderID);
-        setTotalAmount(originalPrice);
-        setUserName(response.data.userName);
-        setUserFullName(response.data.userFullName);
-        setMobNum(response.data.deliveryAddress.mobileNumber);
-        setDeliveryAdd(response.data.deliveryAddress.addressLine1);
-        setCurrency(response.data.currency);
+        console.log("getorderlist",response.data);
+          setOrder(response.data);
       })
       .catch((error) => {
+        console.log("error",error);
         if (error.response.status == 401) {
           AsyncStorage.removeItem('user_id');
           AsyncStorage.removeItem('token');
@@ -120,94 +109,163 @@ export const OrderDetails=(props)=>{
                 <View style={styles.parent}>
 
                   <View style={styles.prodinfoparent}>
-                    <View style={styles.orderid}><Text style={styles.orderidinfo}>Order ID : {ordernumber}</Text></View>
+                    <View style={styles.orderid}>
+                      <Text style={styles.orderidinfo}>Order ID   : {order.orderID}</Text>
+                      <Text style={styles.orderidinfo}>Ordered Date : {moment(order.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
+                    </View>
+                    <View style={styles.addressdetais}>
+                      <Text style={styles.addtitle}>Shipping Address <Text style={styles.addressdets}>: {order.deliveryAddress ? order.deliveryAddress.addressLine2+" "+order.deliveryAddress.addressLine1 : "NA"}</Text></Text>
+                      <Text style={styles.addtitle}>Mobile Number <Text style={styles.addressdets}>: {order.deliveryAddress ?  order.deliveryAddress.mobileNumber : "NA"}</Text></Text>
+                      {/* <Text style={styles.addtitle}>Email ID  <Text style={styles.addressdets}>: {order.deliveryAddress.name  ? order.deliveryAddress.name  : "NA"}</Text></Text> */}
+                    </View>
                     {
-                      myorders && myorders.length > 0 ?
-                        myorders.map((pitem, index) => {
-                          // console.log("pitem===>", pitem);
-                          return (
-                              <Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
-                                <View style={{flex:0.3}}>
-                                  {pitem.productImage[0] ?<Image
-                                    style={styles.img15}
-                                    source={{ uri: pitem.productImage[0] }}
-                                    resizeMode="contain"
-                                  />:
-                                  <Image
-                                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                                    style={styles.img15}
-                                  />
-                                }
-                                </View>
-                                <View style={{flex:0.7,paddingHorizontal:5}}>
-                                  <View style={{flexDirection:"row",flex:1}}>
-                                      <Text style={styles.proddets}>Product :</Text>
-                                      <Text style={styles.prodinfo}>{pitem.productName}</Text>
-                                  </View>  
-                                  <View style={{flexDirection:"row",flex:1}}>
-                                      <Text style={styles.proddets}>Qty :</Text>
-                                      <Text style={styles.prodinfo}> {pitem.quantity} Pack </Text>
-                                  </View>  
-                                  <View style={{flexDirection:"row",flex:1}}>
-                                      <Text style={styles.proddets}>Price :</Text>
-                                    <View style={styles.flx4}>
-                                    <View style={{ flexDirection: 'row',alignItems:"center"}}>
-                                        <Icon
-                                          name={pitem.currency}
-                                          type="font-awesome"
-                                          size={14}
-                                          color="#388e3c"
-                                          iconStyle={styles.iconrps}
-                                        />
-                                        <Text style={styles.pricenum}> {pitem.originalPrice}</Text>
+                      order && order.vendorOrders.length > 0 ?
+                      order.vendorOrders.map((vendor,i)=>{
+                        return(
+                        <View>
+                          <View style={{backgroundColor:colors.theme,marginTop:15}}>
+                            <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
+                          </View>  
+                          {vendor.products.map((pitem, index) => {
+                            // console.log("pitem===>", pitem);
+                            return (
+                                <Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+                                  <View style={{flex:0.3}}>
+                                    {pitem.productImage[0] ?<Image
+                                      style={styles.img15}
+                                      source={{ uri: pitem.productImage[0] }}
+                                      resizeMode="contain"
+                                    />:
+                                    <Image
+                                      source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                      style={styles.img15}
+                                    />
+                                  }
+                                  </View>
+                                  <View style={{flex:0.7,paddingHorizontal:5}}>
+                                    <View style={{flexDirection:"row",flex:1}}>
+                                        <Text style={styles.proddets}>Product :</Text>
+                                        <Text style={styles.prodinfo}>{pitem.productName}</Text>
+                                    </View>  
+                                    <View style={{flexDirection:"row",flex:1}}>
+                                        <Text style={styles.proddets}>Qty :</Text>
+                                        <Text style={styles.prodinfo}> {pitem.quantity} Pack </Text>
+                                    </View>  
+                                    <View style={{flexDirection:"row",flex:1}}>
+                                        <Text style={styles.proddets}>Price :</Text>
+                                      <View style={styles.flx4}>
+                                      <View style={{ flexDirection: 'row',alignItems:"center"}}>
+                                          <Icon
+                                            name={pitem.currency}
+                                            type="font-awesome"
+                                            size={14}
+                                            color="#388e3c"
+                                            iconStyle={styles.iconrps}
+                                          />
+                                          <Text style={styles.pricenum}> {pitem.discountedPrice}</Text>
+                                        </View>
                                       </View>
                                     </View>
-                                  </View>
-                                </View>  
-                              </Card>
-                          );
-                        })
-                        :
-                        null
-                    }
-                    
-                    <View style={styles.totalpayment}>
-                      <View style={styles.prodorderdets}>
-                        <View style={styles.flx7}>
-                          <Text style={styles.addtitle}>Amount :</Text>
-                          <Text style={styles.addtitle}>Shipping Charges :</Text>
-                          <Text style={styles.addtitle}>Total Amount:</Text>
-                        </View>
-                        <View style={styles.flx3}>
-                          <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 3,alignItems:"center" }}>
-                            <Icon
-                              name={currency}
-                              type="font-awesome"
-                              size={15}
-                              color="#388e3c"
-                              iconStyle={styles.iconrps}
-                            />
-                            <Text style={styles.pricenum}> {totalamount}</Text>
+                                  </View>  
+                                </Card>
+                            );
+                          })}
+                          <View style={styles.totaldetails}>
+                            <View style={styles.flxdata}>
+                              <View style={{ flex: 0.6,flexDirection:"row" }}>
+                                <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
+                                <Text style={styles.totaldata}>Total</Text>
+                              </View>
+                              <View style={{ flex: 0.4 }}>
+                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                  <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                                </View>
+                              </View>
+                            </View>
+                            <View style={styles.flxdata}>
+                              <View style={{ flex: 0.6 }}>
+                                <Text style={styles.totaldata}>You Saved </Text>
+                              </View> 
+                              <View style={{ flex: 0.4 }}>
+                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                  <Text style={styles.totalpriceincart}> - </Text>
+                              <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                                </View>
+                              </View>
+                            </View>
+                            <View style={styles.flxdata}>
+                              <View style={{ flex: 0.6 }}>
+                                <Text style={styles.totaldata}>Delivery Charges </Text>
+                              </View> 
+                              <View style={{ flex: 0.4 }}>
+                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                              <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                                </View>
+                              </View>
+                            </View>
+                            <View>
+                            </View>
                           </View>
-                          <Text style={styles.addtitle}>FREE</Text>
-                          <View style={{ flexDirection: 'row', marginRight: 10, marginTop: 3,alignItems:"center" }}>
-                            <Icon
-                              name={currency}
-                              type="font-awesome"
-                              size={15}
-                              color="#388e3c"
-                              iconStyle={styles.iconrps}
-                            />
-                            <Text style={styles.pricenum}> {totalamount}</Text>
+                        </View>
+                        )
+                      })
+                      :
+                      null
+                    }
+                    <View style={styles.totaldetails}>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Final Total Amount </Text>
+                        </View>
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
-                    </View>
-
-                    <View style={styles.addressdetais}>
-                      <Text style={styles.addtitle}>Address <Text style={styles.addressdets}>: {deliveryAddress ? deliveryAddress : "NA"}</Text></Text>
-                      <Text style={styles.addtitle}>Mobile Number <Text style={styles.addressdets}>: {mobileNumber ? mobileNumber : "NA"}</Text></Text>
-                      <Text style={styles.addtitle}>Email ID  <Text style={styles.addressdets}>: {userName ? userName : "NA"}</Text></Text>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Savings </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}> - </Text>
+                            <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.discountAmount.toFixed(2)}</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Tax  </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                        <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
+                          </View>
+                        </View>
+                      </View>
+                      
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Total Delivery Charges </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                        <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.shippingCharges.toFixed(2)}</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Grand Total</Text>
+                        </View>
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                          </View>
+                        </View>
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -218,4 +276,4 @@ export const OrderDetails=(props)=>{
         </React.Fragment>
       );
     }
-  }
+  })

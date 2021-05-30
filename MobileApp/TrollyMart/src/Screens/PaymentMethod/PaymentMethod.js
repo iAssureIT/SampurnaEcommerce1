@@ -159,14 +159,14 @@ export const PaymentMethod = withCustomerToaster((props)=>{
               
               console.log("res",res);
               if (paymentmethods === 'cod') {
-                navigation.navigate('Dashboard');
+                navigation.navigate('OrderDetails', { orderid: res.data._id })
                 setPaymentMethods("cod");
                 setBtnLoading(false);
                 // setPaymentMode(true);
                 setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
             } else {
                 setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-                navigation.navigate('App');
+                navigation.navigate('OrderDetails', { orderid: result.data._id })
                 var paymentdetails = {
                     MERCHANT_ID           : partnerid,
                     MERCHANT_ACCESS_CODE  : secretkey,

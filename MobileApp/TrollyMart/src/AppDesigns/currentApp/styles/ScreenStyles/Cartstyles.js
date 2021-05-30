@@ -201,8 +201,10 @@ superparent:{
   },
   totaldetails:{
     backgroundColor:'#fff',
-    borderColor:"#f1f1f1",
-    paddingHorizontal:15,paddingVertical:15
+    borderColor:"#ddd",
+    paddingHorizontal:15,
+    paddingVertical:15,
+    borderTopWidth:1
   },
   productsoldurl:{
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#3090C7'

@@ -27,7 +27,6 @@ export const Footer =(props)=>{
   }));
   const {userDetails} = store;
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
-
   useEffect(() => {
     getData()
   },[props]);
@@ -36,7 +35,6 @@ export const Footer =(props)=>{
     if(userDetails.user_id){
       axios.get("/api/carts/get/count/" + userDetails.user_id)
       .then((response) => {
-        console.log("response",response);
         setCartCount(response.data);
       })
       .catch((error) => {

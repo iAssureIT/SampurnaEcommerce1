@@ -39,7 +39,7 @@ const orderSchema = mongoose.Schema({
 
     vendorOrders : [
         {
-            vendor_id : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymaster' },
+            vendor_id : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
             vendorName : String,
             products                  : [
                 {

@@ -50,7 +50,7 @@ export const VendorProducts = (props)=>{
 
   useEffect(() => {
     getData();
- },[props,isFocused]);
+ },[]);
  
  const getData=()=>{
     AsyncStorage.multiGet(['user_id', 'token'])

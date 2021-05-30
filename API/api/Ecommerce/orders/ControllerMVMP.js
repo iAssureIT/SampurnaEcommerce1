@@ -557,9 +557,9 @@ exports.count_order = (req, res, next) => {
 exports.fetch_order = (req, res, next) => {
   	Orders.findOne({ _id: req.params.orderID }).sort({ createdAt: -1 })
 	.populate('franchiseCustId')
+	.populate('vendorOrders.vendor_id')
 	.exec()
 	.then(data => {
-		console.log("data => ",data)
 		res.status(200).json(data);
 	})
 	.catch(err => {

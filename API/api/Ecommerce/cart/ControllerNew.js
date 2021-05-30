@@ -273,56 +273,69 @@ exports.list_cart_product = (req,res,next)=>{
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
     .exec()
-    .then(data=>{
-        var vendor_beforeDiscountTotal  = 0;
-        var vendor_afterDiscountTotal   = 0;
-        var vendor_discountAmount       = 0;
-        var vendor_taxAmount            = 0;
-        var vendor_shippingCharges      = 0;
-        var vendorOrders                = data.vendorOrders;
-        var order_beforeDiscountTotal   = 0;
-        var order_afterDiscountTotal    = 0;
-        var order_discountAmount        = 0;
-        var order_taxAmount             = 0;
-        var order_shippingCharges       = 0;
-        
-        for(var i = 0; i<vendorOrders.length;i++){            
-            console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
-            for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
-                vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
-                if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
-                    vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
+    .then(async(data)=>{
+        if(data){
+            var vendor_beforeDiscountTotal  = 0;
+            var vendor_afterDiscountTotal   = 0;
+            var vendor_discountAmount       = 0;
+            var vendor_taxAmount            = 0;
+            var vendor_shippingCharges      = 0;
+            var vendorOrders                = data.vendorOrders;
+            var order_beforeDiscountTotal   = 0;
+            var order_afterDiscountTotal    = 0;
+            var order_discountAmount        = 0;
+            var order_taxAmount             = 0;
+            var order_shippingCharges       = 0;
+            
+            var wish = await Wishlists.find({user_ID:req.params.user_ID});
+            for(var i = 0; i<vendorOrders.length;i++){            
+                for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
+                    vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+                    if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
+                        vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
+                    }
+                    vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
+                    if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                        vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
+                    }    
+                    data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
+                    if(wish.length > 0){
+                        for(var k=0; k<wish.length; i++){
+                            if(String(wish[k].product_ID) === String(data.vendorOrders[i].cartItems[j].product_ID._id)){
+                                data.vendorOrders[i].cartItems[j].product_ID.isWish = true;
+                                break;
+                            }
+                        } 
+                    }     
                 }
-                vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
-                if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
-                    vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
-                }    
+                if(j>=vendorOrders[i].cartItems.length){
+                    data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
+                    data.vendorOrders[i].vendor_afterDiscountTotal  = vendor_afterDiscountTotal;
+                    data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
+                    data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
+                    data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
+                    data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
+
+                    order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
+                    order_afterDiscountTotal    += vendor_afterDiscountTotal;
+                    order_discountAmount        += vendor_discountAmount;
+                    order_taxAmount             += vendor_taxAmount;
+                    order_shippingCharges       += vendor_shippingCharges;
+                }
             }
-            if(j>=vendorOrders[i].cartItems.length){
-                data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
-                data.vendorOrders[i].vendor_afterDiscountTotal  = vendor_afterDiscountTotal;
-                data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
-                data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
-                data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
-                data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
-                
-                order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
-                order_afterDiscountTotal    += vendor_afterDiscountTotal;
-                order_discountAmount        += vendor_discountAmount;
-                order_taxAmount             += vendor_taxAmount;
-                order_shippingCharges       += vendor_shippingCharges;
+            if(i>=vendorOrders.length){
+                data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
+                data.paymentDetails.afterDiscountTotal  = order_afterDiscountTotal;
+                data.paymentDetails.discountAmount      = order_discountAmount;
+                data.paymentDetails.taxAmount           = order_taxAmount;
+                data.paymentDetails.shippingCharges     = order_shippingCharges;
+                data.paymentDetails.netPayableAmount    = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
             }
-        }
-        if(i>=vendorOrders.length){
-            data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
-            data.paymentDetails.afterDiscountTotal  = order_afterDiscountTotal;
-            data.paymentDetails.discountAmount      = order_discountAmount;
-            data.paymentDetails.taxAmount           = order_taxAmount;
-            data.paymentDetails.shippingCharges     = order_shippingCharges;
-            data.paymentDetails.netPayableAmount    = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
-        }
-        console.log("data",data);
-        res.status(200).json(data);
+            console.log("data",data);
+            res.status(200).json(data);
+        }else{
+            res.status(200).json(data);
+        }    
     })
     .catch(err =>{
         console.log("err",err);
@@ -333,6 +346,42 @@ exports.list_cart_product = (req,res,next)=>{
 };
 
 
+
+exports.all_list_cart = (req,res,next)=>{
+    Carts.find()       
+        .exec()
+        .then(data=>{
+            res.status(200).json(data);
+        })
+        .catch(err =>{
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+exports.count_cart = (req,res,next)=>{
+    Carts.aggregate([
+        {"$match":{"user_ID": ObjectId(req.params.user_ID)}},
+        { 
+            "$project": { 
+                "count": { "$sum": { "$map": { "input": "$vendorOrders", "as": "l", "in": { "$size": "$$l.cartItems" } } } } 
+            } 
+        }
+    ])
+    .exec()
+    .then(data=>{
+        console.log("data",data);
+        res.status(200).json(data && data.length>0 ? data[0].count : 0);
+    })
+    .catch(err =>{
+        console.log("err",err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
 /*============ Remove Cart Items ===========*/
 exports.remove_cart_items = (req, res, next)=>{
     console.log('remove_cart_items =>', req.body);
@@ -342,9 +391,9 @@ exports.remove_cart_items = (req, res, next)=>{
     .then(cartdata =>{
         var order_numberOfProducts           = cartdata.order_numberOfProducts;
         var order_quantityOfProducts         = cartdata.order_quantityOfProducts;
-
+        console.log("cartdata",cartdata);
         var vendor                           = cartdata.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) === String(req.body.vendor_ID));
-        
+        console.log("vendor",vendor);
         if(vendor && vendor.length > 0 && vendor[0].cartItems && vendor[0].cartItems.length > 0){
             console.log("vendor[0].vendor_quantityOfProducts => ",vendor[0].vendor_quantityOfProducts);
             console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);

@@ -26,7 +26,7 @@ import { SafeAreaView }         from 'react-native';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
-    const {navigation,route}=props;
+    const {navigation,route,setToast}=props;
     console.log("props",props);
     const [shippingTiming,setShippingTiming]=useState("");
     const [startRange,setStartRange]=useState(0);
@@ -318,7 +318,7 @@ import { SafeAreaView }         from 'react-native';
                             <View style={styles.flxdata}>
                               <View style={{ flex: 0.6,flexDirection:"row" }}>
                                 <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
-                                <Text style={styles.totaldata}> Total</Text>
+                                <Text style={styles.totaldata}>Total</Text>
                               </View>
                               <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>

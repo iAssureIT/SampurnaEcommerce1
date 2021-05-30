@@ -36,9 +36,8 @@ export default StyleSheet.create({
     flex:0.3
   },
   addtitle:{
-    fontSize:14,fontFamily:"Montserrat-SemiBold",
+    fontSize:13,fontFamily:"Montserrat-SemiBold",
      color:'#666',paddingVertical:5,
-     flex:0.4,
   },
   totalamounttitle:{
     fontSize:16,fontFamily:"Montserrat-SemiBold",
@@ -60,7 +59,6 @@ export default StyleSheet.create({
     fontSize:13,
     // flex:0.6,
     // backgroundColor:'red',
-    fontFamily:"Montserrat-SemiBold",
      color:'#333',paddingVertical:5
   },
   myorderprodinfo:{
@@ -121,7 +119,8 @@ export default StyleSheet.create({
   orderid:{
     flex:0.1,backgroundColor:'#F1F1F1',
     borderWidth:1,borderColor:'#F1F1F1',
-    paddingHorizontal:10,paddingVertical:5
+    justifyContent:"center",
+    padding:5
   },
   orderidinfo:{
     fontSize:13,
@@ -146,7 +145,7 @@ export default StyleSheet.create({
     borderTopColor:'#ccc',
   },
   addressdetais:{
-    marginTop:25,
+    marginTop:15,
     borderTopWidth:1,
     borderTopColor:'#ccc',
   },
@@ -297,7 +296,7 @@ export default StyleSheet.create({
     flex:1,
   },
   ordereddates:{
-    marginBottom:15,
+    marginTop:15,
     flex:1,
   },
   orderstatus:{
@@ -399,5 +398,23 @@ export default StyleSheet.create({
       }
     })
   },
-  
+  totaldetails:{
+    backgroundColor:'#fff',
+    borderColor:"#ddd",
+    paddingHorizontal:15,
+    paddingVertical:15,
+    borderTopWidth:1
+  },
+  flxdata:{
+    flex:1,flexDirection:"row"
+  },
+  totaldata:{
+    fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333'
+  },
+  totalpriceincart:{
+    marginTop:-2,
+    fontSize:14,
+    fontFamily:"Montserrat-SemiBold", 
+    color:'#333',
+  },
 })

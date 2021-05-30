@@ -35,15 +35,12 @@ export const ProductList = withCustomerToaster((props)=>{
   const [limit,setLimit]= useState(props.limit);
   useEffect(() => {
     getData();
-  },[props]);
+  },[]);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
   }));
-  console.log("store",store);
-
   const {currency}=store.preferences;
-
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
       var availableSizes = [];
@@ -86,14 +83,12 @@ export const ProductList = withCustomerToaster((props)=>{
         "vendor_ID"   : vendor_ID,
         "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
       }
-      console.log("formValues",formValues);
       axios
         .post('/api/Carts/post', formValues)
         .then((response) => {
           setToast({text: 'Product is added to cart.', color: 'green'});
         })
         .catch((error) => {
-          console.log("error",error);
           setToast({text: 'Product is already in cart.', color: colors.warning});
         })
     }else{
@@ -113,7 +108,6 @@ export const ProductList = withCustomerToaster((props)=>{
     if(type === "Search"){
       dispatch(getSearchResult(props.searchText,user_id,limitRange));
     }if(type === "vendor_sub_cat"){
-      console.log("payload",payload);
         payload.limitRange =limitRange;
         dispatch(getCategoryWiseList(payload));
     }else{

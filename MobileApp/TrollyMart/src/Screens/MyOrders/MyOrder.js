@@ -22,6 +22,7 @@ import axios                from 'axios';
 import moment               from 'moment';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import { useIsFocused }     from "@react-navigation/native";
+import {withCustomerToaster}    from '../../redux/AppState.js';
 const labels = ["Order Placed", "Packed", "Out for delivery", "Delivered"];
 const customStyles = {
   stepIndicatorSize                 : 25,
@@ -48,7 +49,7 @@ const customStyles = {
 }
 // stepStrokeFinishedColor: 'colors.theme',
 
-export const MyOrder =(props)=>{
+export const MyOrder = withCustomerToaster((props)=>{
   const [user_id,setUserId]=useState('');
   const [myorders,setMyOrders]=useState([]);
   const [cancelOrderModal,setCancelOrderModal]=useState(false);
@@ -237,8 +238,7 @@ export const MyOrder =(props)=>{
                             })
                           }
                             <View style={styles.orderdetsandcancelbtn}>
-                                {order && order.orderStatus
-                                  && order.orderStatus !== 'Cancelled' ?
+                                {order ?
                                   <View style={styles.ordercancelstatus}>
                                     <View style={styles.ordercancelsstatus}>
                                       <Button
@@ -249,7 +249,7 @@ export const MyOrder =(props)=>{
                                         containerStyle  = {commonStyles.buttonContainer}
                                       />
                                     </View>
-                                    {order.deliveryStatus === "Delivered & Paid" ?
+                                    {order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
                                       null
                                       :
                                       <View style={styles.orderdetailsstatus}>
@@ -331,4 +331,4 @@ export const MyOrder =(props)=>{
         </React.Fragment>
       );
     }
-}
+})

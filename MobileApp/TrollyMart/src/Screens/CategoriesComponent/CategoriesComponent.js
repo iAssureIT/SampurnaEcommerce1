@@ -36,7 +36,7 @@ export const CategoriesComponent=(props)=>{
 
   useEffect(() => {
      getCategories(section_id);
-  },[props]);
+  },[]);
 
   const getCategories=(section_id)=>{
     axios.get("/api/category/get/list/"+section_id)

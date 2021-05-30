@@ -11,7 +11,6 @@ import {  useSelector } from 'react-redux';
 import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
 
 export const MenuCarouselSection = (props)=>{
-  console.log("props",props);
   const {navigation,showImage,boxHeight}=props;
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const SCREEN_WIDTH = Dimensions.get("window").width;
