@@ -1,6 +1,7 @@
 const mongoose	    = require("mongoose");
 var ObjectId        = require('mongodb').ObjectID;
 const Carts         = require('./ModelNew');
+const Coupon        = require('../CouponManagement/Model');
 const Products      = require('../products/Model');
 const Orders        = require('../orders/Model');
 const Wishlists     = require('../wishlist/Model');
@@ -670,6 +671,106 @@ exports.count_cart = (req,res,next)=>{
         });
     });
 };
+
+
+/**=========== Apply Coupon On Cart ===========*/
+exports.apply_coupon = (req,res,next)=>{    
+    console.log("req.body => ",req.body);
+    Carts.findOne({user_ID : ObjectId(req.body.user_ID)})
+    .populate('vendorOrders.cartItems.product_ID')
+    .populate('vendorOrders.vendor_id')
+    .then(data=>{   
+        processCouponData();
+        async function processCouponData(){
+            var isCouponValid = await checkCouponValidity(req.body.couponCode);
+            console.log("isCouponValid",isCouponValid);
+            if(isCouponValid && isCouponValid !== null && isCouponValid.status.toLowerCase() === "active"){
+                var couponInType                = isCouponValid.coupenin.toLowerCase();                
+                var vendor_beforeDiscountTotal  = 0;
+                var vendor_afterDiscountTotal   = 0;
+                var vendor_discountAmount       = 0;
+                var vendor_taxAmount            = 0;
+                var vendor_shippingCharges      = 0;
+                var vendorOrders                = data.vendorOrders;
+                var order_beforeDiscountTotal   = 0;
+                var order_afterDiscountTotal    = 0;
+                var order_discountAmount        = 0;
+                var order_taxAmount             = 0;
+                var order_shippingCharges       = 0;
+                
+                for(var i = 0; i<vendorOrders.length;i++){            
+                    // console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
+                    for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
+                        vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+                        if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
+                            vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
+                        }
+                        vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
+                        if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                            vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
+                        }    
+                    }
+                    if(j>=vendorOrders[i].cartItems.length){
+                        data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
+                        data.vendorOrders[i].vendor_afterDiscountTotal  = vendor_afterDiscountTotal;
+                        data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
+                        data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
+                        data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
+                        data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
+                        
+                        order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
+                        order_afterDiscountTotal    += vendor_afterDiscountTotal;
+                        order_discountAmount        += vendor_discountAmount;
+                        order_taxAmount             += vendor_taxAmount;
+                        order_shippingCharges       += vendor_shippingCharges;
+                    }
+                }
+                if(i>=vendorOrders.length){
+                    data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
+                    data.paymentDetails.afterDiscountTotal  = order_afterDiscountTotal;
+                    data.paymentDetails.discountAmount      = order_discountAmount;
+                    data.paymentDetails.taxAmount           = order_taxAmount;
+                    data.paymentDetails.shippingCharges     = order_shippingCharges;
+                    if (couponInType === "percent") {
+                        var discountInPercent       = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
+                        var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
+                        console.log("discoutAfterCouponApply = > ",discoutAfterCouponApply);
+                        data.paymentDetails.netPayableAmount    = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                    }else if(couponInType === "amount"){
+                        var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue : isCouponValid.maxDiscountAmount : isCouponValid.coupenvalue;
+                        data.paymentDetails.netPayableAmount    = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                    }else{
+                        data.paymentDetails.netPayableAmount    = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+                    }                    
+                }
+                console.log("data => ",data);
+                res.status(200).json(data);
+            }else{
+                res.status(200).json({
+                    message : "You are trying to apply Invalid Coupon"
+                });
+            }            
+        }
+    })
+    .catch(err =>{
+        console.log("err",err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
+/*========== Fetch Coupon Data ==========*/
+function checkCouponValidity(couponCode) {
+    return new Promise(function (resolve, reject) {
+        Coupon.findOne({"couponcode" : couponCode})
+        .exec()
+        .then(coupondata => {
+            // console.log("vendor Id data => ", data);				
+              resolve(coupondata);
+        })
+    })
+}
 
 exports.list_cart = (req,res,next)=>{
     Carts.find({"user_ID": req.params.user_ID})       
