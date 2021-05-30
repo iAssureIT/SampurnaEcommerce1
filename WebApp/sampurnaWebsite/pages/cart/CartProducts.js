@@ -525,7 +525,7 @@ class CartProducts extends Component{
                                                 <div className="col-9">
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendorName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
-                                                        console.log("vendorData=>",vendorData);
+                                                        // console.log("vendorData=>",vendorData);
                                                     return(
                                                         <div key={index}>
                                                             <div className="col-12">

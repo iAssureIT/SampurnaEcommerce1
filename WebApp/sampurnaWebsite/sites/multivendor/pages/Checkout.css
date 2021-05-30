@@ -166,6 +166,9 @@
 .discountCode{
     cursor: pointer;
 }
+.grandTotal{
+    
+}
 .orderTotalText{
     font-size: 17px !important;
     font-weight: bold;

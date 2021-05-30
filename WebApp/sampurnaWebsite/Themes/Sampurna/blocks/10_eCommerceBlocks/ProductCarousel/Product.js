@@ -16,7 +16,9 @@ class Product extends Component{
             newProducts : [],
             wishList    : [],
             blockSettings : [],
+            
         }
+        
         // console.log("1. Inside constructor");
     }
 
@@ -109,7 +111,7 @@ class Product extends Component{
               }
             })
             setTimeout(() => {
-              this.setState({
+              this.setState({ 
                 messageData: {},
               })
             }, 3000);

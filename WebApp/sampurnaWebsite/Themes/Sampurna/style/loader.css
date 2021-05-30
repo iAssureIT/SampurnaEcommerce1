@@ -28,7 +28,7 @@
   
   .fullpageloader:not(:required):after {
     content: '';
-    display: block;
+    display: none;
     font-size: 10px;
     width: 1em;
     height: 1em;

@@ -12,11 +12,11 @@ class Message extends Component{
             class       : "",
             icon        : "",
             message     : "",
+
         }
-        // window.scrollTo(0, 0);
     } 
     componentDidMount(){
-        // console.log("inside message");
+        console.log("inside message");
     }
     static getDerivedStateFromProps(nextProps, state) {
         // console.log("messagedata nextProps============",nextProps,state);

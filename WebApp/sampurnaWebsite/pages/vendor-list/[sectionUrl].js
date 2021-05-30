@@ -45,13 +45,14 @@ const VendorList = ()=> {
                         
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
+                                    console.log("vendorList===",vendorList);
                                     return(
                                         <div className="col-4" key={index}>
                                             <div className={"card mt-4 " +Style.vendorCard}>
                                                 <Link href={"/products/"+vendordata.vendor_ID+"/"+sectionUrl} className={+Style.vedorLink}>
                                                     <div className={"card-body " +Style.cardBody}>
                                                         <div className={ "col-3 NoPadding "+Style.vendorLogo}>
-                                                            <img src={vendordata.vendorLogo} className="vendor img-thumbnail"/>
+                                                            <img src={vendordata.vendorLogo} className={"vendor img-thumbnail "+Style.vendorLogo }/>
                                                         </div>   
                                                         <div>{vendordata.vendorName}</div>
                                                     </div> 

@@ -105,7 +105,7 @@
   --globalborderRadious : 0px;
   --globalErrColor: #cc0000;
 
-  --globalMainTitleFontSize : 20px;
+  --globalMainTitleFontSize : 18px;
   --globalMainTitleTextStyle : capitalize;
   /* --baground-color : #154799; */
   --Discountcolor : #f83a3a;
@@ -177,6 +177,7 @@ body{
 }
 .globalTotalPrice{
   color: var(--gobalTotalPriceColor) !important;
+  font-size: var(--globalMainTitleFontSize) !important;
 }
 .minusQuantity{
   color: var(--gobalPlusQuantityColor) !important;
