@@ -233,12 +233,13 @@ const getshippingamount=(startRange, limitRange)=>{
             <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
             <View style={{flex:1}}>
               <View style={styles.cartdetails}>
-                    {cartData  && cartData.vendorOrders && cartData.vendorOrders.length>0?
+              {cartData  && cartData.vendorOrders && cartData.vendorOrders.length>0?
+
                       cartData.vendorOrders.map((vendor, i) => {
                         return (
                           <View style={{backgroundColor:"#fff",marginBottom:15}}>
                             <View style={{backgroundColor:colors.theme}}>
-                              <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendorName}</Text>
+                              <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
                             </View>  
                           {vendor.cartItems.map((item,index)=>{
                             return(
@@ -394,23 +395,7 @@ const getshippingamount=(startRange, limitRange)=>{
                               }
                             </View>
                           </View>
-                        </View>
-                        )
-                      })
-                      :
-                    <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-                      <Image
-                        source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-                      />
-                      <Button
-                            onPress={() => navigation.navigate('Dashboard')}
-                            title={"Add Products"}
-                            buttonStyle={styles.buttonshopping}
-                            containerStyle={styles.continueshopping}
-                      />
-                    </View>   
-                }
-                {
+                          {
                   cartData && cartData.paymentDetails ?
                     <View style={styles.totaldetails}>
                       <View style={styles.flxdata}>
@@ -507,6 +492,23 @@ const getshippingamount=(startRange, limitRange)=>{
                     :
                     null
                 }
+                        </View>
+                        )
+                      })
+                      :
+                    <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+                      <Image
+                        source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+                      />
+                      <Button
+                            onPress={() => navigation.navigate('Dashboard')}
+                            title={"Add Products"}
+                            buttonStyle={styles.buttonshopping}
+                            containerStyle={styles.continueshopping}
+                      />
+                    </View>   
+                }
+              
               </View>
             </View>
           </KeyboardAwareScrollView>

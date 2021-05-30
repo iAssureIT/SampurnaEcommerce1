@@ -258,9 +258,9 @@ import { SafeAreaView }         from 'react-native';
                     return (
                       <View style={{backgroundColor:"#fff",marginBottom:15}}>
                         <View style={{backgroundColor:colors.theme}}>
-                          <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendorName}</Text>
+                          <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
                         </View>  
-                      {vendor.cartItem && vendor.cartItem.length>0 && vendor.cartItems.map((item,index)=>{
+                      {vendor.cartItems && vendor.cartItems.length>0 && vendor.cartItems.map((item,index)=>{
                         return(
                           <View key={index}>
                             <View key={index} style={styles.proddetails}>

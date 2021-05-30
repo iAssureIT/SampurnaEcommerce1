@@ -284,6 +284,7 @@ exports.list_cart = (req,res,next)=>{
 exports.list_cart_product = (req,res,next)=>{    
     Carts.findOne({user_ID:ObjectId(req.params.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
+    .populate('vendorOrders.vendor_id')
     .exec()
     .then(data=>{
         var vendor_beforeDiscountTotal  = 0;

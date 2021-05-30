@@ -106,6 +106,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
               "statusUpdatedBy" : userID,
               "expDeliveryDate" : new Date(),
           }) 
+          vendorOrders[i].orderStatus =  "New Order";
         } 
        delete vendorOrders[i].cartItems;
       }

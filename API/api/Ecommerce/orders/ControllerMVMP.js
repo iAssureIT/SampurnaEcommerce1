@@ -1235,9 +1235,18 @@ exports.list_order_by_user = (req, res, next) => {
   }
   ])
 	 .exec()
-	 .then(data => {
-		//console.log('data', data);
-		res.status(200).json(data);
+	 .then(async(data) => {
+		console.log('data', data);
+		for(var i=0;i<data.length;i++){
+			for(var j=0;j<data[i].vendorOrders.length;j++){
+				console.log("data[i].vendorOrders",data[i].vendorOrders);
+				var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
+				data[i].vendorOrders[j].vendorName = vendor.companyName;
+			}
+		}
+		if(i>=data.length){
+			res.status(200).json(data);
+		}
 	 })
 	 .catch(err => {
 		console.log(err);
