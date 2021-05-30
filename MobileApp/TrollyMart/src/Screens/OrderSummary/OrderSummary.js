@@ -51,7 +51,7 @@ import { SafeAreaView }         from 'react-native';
     const [cartData, setCartData] = useState('');
     const [subtotalitems,setSubTotalItems] = useState('');
     const [subtotal,setSubTotal] = useState('');
-    const [coupenCode,setCoupenCode] = useState('');
+    const [couponCode,setCouponCode] = useState('');
     const [coupenPrice,setCoupenPrice] = useState(0);
     const [totalPrice,setTotalPrice] =useState(0);
     // const [currency,setCurrency] = useState('');
@@ -141,41 +141,25 @@ import { SafeAreaView }         from 'react-native';
 
   const applyCoupen=()=>{
     if(coupenPrice === 0){
-      axios.get('/api/coupon/get/one_by_couponcode/'+coupenCode+"/"+user_id)
+      var payload={
+          "user_ID"     : user_id,
+          "couponCode"  : couponCode
+      }
+      axios.patch('/api/carts/put/coupon',payload)
       .then(res=>{
-        console.log("res",res);
+        console.log("applyCoupen res",res);
         if(res.data.message){
           setToast({text: res.data.message, color:'red'});
         }else{
-            if(totalPrice > res.data.minPurchaseAmount){
-              if(res.data.coupenin === 'Percent'){
-                console.log("res.data.coupenvaluE",res.data.coupenvalue);
-                console.log("totalPrice",totalPrice);
-                var discount = ((res.data.coupenvalue/100) * totalPrice).toFixed(2);
-                console.log("discount",discount);
-                setCoupenPrice(discount);
-                setTotalPrice(totalPrice-discount);
-                setToast({text: "Coupen Applied", color:'green'});
-                console.log("discount",discount);
-              }else{
-                var discount = totalPrice - res.data.coupenvalue;
-                setCoupenPrice(res.data.coupenvalue);
-                setTotalPrice(discount);
-                setToast({text: "Coupen Applied", color:'green'});
-                console.log("discount",discount);
-              }
-              // setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:colors.warning});
-            }else{
-              setToast({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:'red'});
-            }
+          setCartData(res.data);
         }
       })
       .catch(err=>{
-        setCoupenCode('');
+        setCouponCode('');
         console.log("err",err);
       })
     }else{
-      setCoupenCode('');
+      setCouponCode('');
       setToast({text: "Coupen already applied", color:colors.warning});
     }  
   }
@@ -185,8 +169,7 @@ import { SafeAreaView }         from 'react-native';
     navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, shippingtime: shippingTiming})
   }
 
-  var alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-
+  console.log("couponCode",couponCode);
     return (
       <React.Fragment>
         <HeaderBar3
@@ -433,12 +416,12 @@ import { SafeAreaView }         from 'react-native';
                           </View>
                         </View>
                       </View>
-                    {coupenPrice === 0 ? 
+                    {couponCode ?
                       <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
                         <View style={{flex:.7}}>
                           <Input
                             placeholder           = "Enter promotional code"
-                            onChangeText          = {(text)=>setCoupenCode(text)}
+                            onChangeText          = {(text)=>setCouponCode(text)}
                             autoCapitalize        = "none"
                             keyboardType          = "email-address"
                             inputContainerStyle   = {styles.containerStyle}
@@ -447,7 +430,7 @@ import { SafeAreaView }         from 'react-native';
                             inputStyle            = {{fontSize: 16}}
                             inputStyle            = {{textAlignVertical: "top"}}
                             autoCapitalize        = 'characters'
-                            value                 = {coupenCode}
+                            value                 = {couponCode}
                           />
                         </View>  
                         <View style={{flex:.3}}>

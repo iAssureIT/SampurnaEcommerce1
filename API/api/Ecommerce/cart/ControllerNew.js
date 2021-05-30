@@ -301,6 +301,8 @@ exports.list_cart_product = (req,res,next)=>{
                     data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
                     if(wish.length > 0){
                         for(var k=0; k<wish.length; i++){
+                            console.log("String(wish[k].product_ID)",String(wish[k].product_ID));
+                            console.log("String(data.vendorOrders[i].cartItems[j].product_ID._id)",String(data.vendorOrders[i].cartItems[j].product_ID._id));
                             if(String(wish[k].product_ID) === String(data.vendorOrders[i].cartItems[j].product_ID._id)){
                                 data.vendorOrders[i].cartItems[j].product_ID.isWish = true;
                                 break;
@@ -711,7 +713,7 @@ exports.count_cart = (req,res,next)=>{
     ])
     .exec()
     .then(data=>{
-        res.status(200).json(data[0].count);
+        res.status(200).json(data.length > 0 ? data[0].count : 0);
     })
     .catch(err =>{
         console.log("err",err);

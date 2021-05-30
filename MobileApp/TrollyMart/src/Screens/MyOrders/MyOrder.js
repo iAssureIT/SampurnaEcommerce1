@@ -187,7 +187,8 @@ export const MyOrder = withCustomerToaster((props)=>{
                                     item.products && item.products.length > 0 ?
                                       item.products.map((pitem, index) => {
                                         return (
-                                            <Card key={index} containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+                                          <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: pitem._id})}>
+                                            <Card key={index} containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}} >
                                               <View style={{flex:.25}}>
                                               {pitem.productImage.length > 0 ? <Image
                                                   style={styles.img15}
@@ -206,6 +207,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                                                 <Text style={styles.myorderprodinfo}>{pitem.productName}</Text> 
                                             </View> 
                                             </Card>
+                                          </TouchableOpacity>      
                                         );
                                       })
                                       : null

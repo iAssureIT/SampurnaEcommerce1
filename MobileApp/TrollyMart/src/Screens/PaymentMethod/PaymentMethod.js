@@ -154,9 +154,8 @@ export const PaymentMethod = withCustomerToaster((props)=>{
       axios.post('/api/orders/post', orderData)
         .then((result) => {
           console.log("orderData==>", result.data);
-          axios.get('/api/orders/get/one/' + result.data.order_ID)
+          axios.get('/api/orders/get/one/' + result.data.order_id)
             .then((res) => {
-              
               console.log("res",res);
               if (paymentmethods === 'cod') {
                 navigation.navigate('OrderDetails', { orderid: res.data._id })
