@@ -82,7 +82,7 @@ export function getCartData() {
       return axios.get("/api/carts/get/cartproductlist/"+userid)
         .then((response)=>{ 
           if(response){   
-            // console.log("inside acion  fetchCartData:",response.data);  
+            console.log("inside acion  fetchCartData:",response.data);  
             dispatch(fetchcartdata(response.data));
           }
         })

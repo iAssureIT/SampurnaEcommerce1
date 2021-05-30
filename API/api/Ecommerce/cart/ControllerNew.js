@@ -676,7 +676,6 @@ exports.change_cart_item_quantity = (req, res, next)=>{
     })
 };
 exports.add_address_to_cart = (req, res, next)=>{
-    console.log("req.body => ",req.body)
     Carts.findOne({"user_ID": req.body.user_ID})       
         .exec()
         .then(cartData=>{
@@ -706,6 +705,7 @@ exports.add_address_to_cart = (req, res, next)=>{
                 .exec()
                 .then(data=>{
                     // if(data.nModified == 1){
+                        console.log("cartdata===",data);
                         res.status(200).json({
                             "message": "Address added to cart successfully."
                         });

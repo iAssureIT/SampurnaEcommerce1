@@ -492,7 +492,7 @@ class CartProducts extends Component{
                         })
                     }, 3000);
                     this.props.fetchCartData();
-                    window.location.reload();
+                    // window.location.reload();
                 })
                 .catch((error)=>{
                     console.log("error => ",error);

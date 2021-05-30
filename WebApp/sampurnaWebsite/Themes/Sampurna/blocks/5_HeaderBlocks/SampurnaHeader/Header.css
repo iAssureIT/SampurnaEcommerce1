@@ -536,6 +536,9 @@ li a{
     font-weight: 600;
     color: #fff;
 }
+.cartHeader:hover{
+    text-decoration: none;
+}
 .cartText{
     /* float: left; */
     color: #fff !important;

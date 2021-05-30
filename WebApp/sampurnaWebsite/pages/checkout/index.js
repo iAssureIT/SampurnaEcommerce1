@@ -91,14 +91,11 @@ class Checkout extends Component {
             this.getUserAddress();
             // console.log("currency=",this.state.currency);
         })
-      await this.props.fetchCartData();
-        this.getCartData();
+    //   await this.props.fetchCartData();
+        // this.getCartData();
         this.gettimes(this.state.startRange, this.state.limitRange);
         
         // this.validation();
-
-        this.getdiscounteddata(this.state.startRange, this.state.limitRange);
-        this.getTaxmasterData();
         axios.get('/api/users/get/' + localStorage.getItem("user_ID"))
             .then(result => {
                 this.setState({
@@ -126,52 +123,7 @@ class Checkout extends Component {
                 console.log('Errr', err);
             })
     }
-    getTaxmasterData(){
-        axios.post('/api/expensetypemaster/get/list')
-        .then((response) => {
-            // console.log('TaxData tableData ==== ', response.data[0]);
-            this.setState({
-                taxrate: response.data[0].GSTRate, 
-                taxName: response.data[0].type             
-            },()=>{
-                // console.log("taxrate =====",this.state.taxrate);
-               
-            })
-        })
-        .catch((error) => {
-            console.log('error', error);
-        });
-    }
-    getdiscounteddata(startRange, limitRange) {
-        axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
-            .then((response) => {
-                // console.log('tableData = ', response.data[0]);
-                this.setState({
-                    discountdata: response.data[0],
-                    discounttype: response.data[0].discounttype?response.data[0].discounttype:"",
-                    discountin: response.data[0].discountin?response.data[0].discountin:"",
-                    discountvalue: response.data[0].discountvalue?response.data[0].discountvalue:"",
-                    startdate: moment(response.data[0].startdate).format("YYYY-MM-DD"),
-                    enddate: moment(response.data[0].enddate).format("YYYY-MM-DD"),
-                },()=>{
-                    var amountofgrandtotal = this.props.recentCartData.length > 0 ?
-                                                this.state.discountdata !== undefined ?
-                                                    this.props.recentCartData.length > 0 && this.state.discountin === "Precent" ?
-                                                        parseInt(this.props.recentCartData[0].total) - (this.props.recentCartData[0].total * this.state.discountvalue)/ 100
-                                                        : parseInt(this.props.recentCartData[0].total) - this.state.discountvalue
-                                                    : parseInt(this.props.recentCartData[0].total)
-                                                : "0.00";
-                    // var amt =(100/1)*amountofgrandtotal;
-                    // var rsamt = amt/100;
-                    // console.log('amountofgrandtotal = ', amt);
-                    // console.log('amountofgrandtotal = ',rsamt);
-                    this.setState({amountofgrandtotal : amountofgrandtotal})
-                 })
-            })
-            .catch((error) => {
-                console.log('error', error);
-            });
-    }
+    
     validateForm() {
 		let fields = this.state.fields;
 		let errors = {};
@@ -276,22 +228,22 @@ class Checkout extends Component {
           });
           return formIsValid;
         }
-    getCartData() {
-        $('.fullpageloader').show();
-        // document.getElementsByClassName('fullpageloader')[0].style.display = 'block';
-        // const userid = localStorage.get('user_ID');
-        axios.get("/api/carts/get/list/" + this.state.user_ID)
-            .then((response) => {
-                $('.fullpageloader').hide();
-                this.setState({
-                    cartProduct: response.data[0]
-                });
-                // console.log("inside getCartData:",this.state.cartProduct);
-            })
-            .catch((error) => {
-                console.log('error', error);
-            })
-    }
+    // getCartData() {
+    //     $('.fullpageloader').show();
+    //     // document.getElementsByClassName('fullpageloader')[0].style.display = 'block';
+    //     // const userid = localStorage.get('user_ID');
+    //     axios.get("/api/carts/get/list/" + this.state.user_ID)
+    //         .then((response) => {
+    //             $('.fullpageloader').hide();
+    //             this.setState({
+    //                 cartProduct: response.data[0]
+    //             });
+    //             console.log("inside getCartData:",this.state.cartProduct);
+    //         })
+    //         .catch((error) => {
+    //             console.log('error', error);
+    //         })
+    // }
     getCompanyDetails() {
         axios.get("/api/companysettings/list")
             .then((response) => {
@@ -487,8 +439,9 @@ class Checkout extends Component {
                         messageData: {},
                     })
                 }, 3000);
+                this.props.fetchCartData();
                 // swal(response.data.message);
-                this.getCartData();
+                // this.getCartData();
                 this.getCompanyDetails();
                 this.getCartTotal();
             })
@@ -714,13 +667,23 @@ class Checkout extends Component {
         var addressValues = {};
 
         var vendorOrders = this.props.recentCartData.vendorOrders;
-        console.log("this.props.recentCartData.vendorOrders==",this.props.recentCartData.vendorOrders);
+        // console.log("this.props.recentCartData.vendorOrders==",this.props.recentCartData.vendorOrders);
         for(var i = 0; i<vendorOrders.length;i++){ 
             vendorOrders[i].products =[];
-            for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
-              vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
-            } 
-            delete vendorOrders[i].cartItems;
+            if(vendorOrders[i].cartItems){
+              for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
+                vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
+                // console.log("vendorOrders",vendorOrders);
+                vendorOrders[i].deliveryStatus =[];
+                  vendorOrders[i].deliveryStatus.push({
+                    "status"          : "New Order",
+                    "timestamp"       : new Date(),
+                    "statusUpdatedBy" : this.state.user_ID,
+                    "expDeliveryDate" : new Date(),
+                }) 
+              } 
+             delete vendorOrders[i].cartItems;
+            }
           }
           console.log("vendorOrders====",vendorOrders);
 
@@ -754,15 +717,12 @@ class Checkout extends Component {
                 })
             }, 6000);
         } else {
-            // console.log("this.validateForm()===",this.validateForm(),this.state.fields,this.state.errors);
             if(this.validateForm()){
                 console.log("validation true");
             if (this.state.deliveryAddress && this.state.deliveryAddress.length > 0) {
-                // console.log("Inside delivery address available");
                 var deliveryAddress = this.state.deliveryAddress.filter((a, i) => {
                     return a._id === checkoutAddess
                 })
-                // console.log("Delivery address:",deliveryAddress);
                 addressValues = {
                     "user_ID": this.state.user_ID,
                     "name": deliveryAddress.length > 0 ? deliveryAddress[0].name : "",
@@ -782,7 +742,7 @@ class Checkout extends Component {
                     "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
                     "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
                 }
-                console.log("inside if address values====",addressValues);               
+                // console.log("inside if address values====",addressValues);               
             } else {
                 // console.log("inside else new address");
                 addressValues = {
@@ -804,7 +764,6 @@ class Checkout extends Component {
                     "latitude": this.state.latitude,
                     "longitude": this.state.longitude,
                 }
-                // if ($('#checkout').valid() && this.state.pincodeExists) {
                     $('.fullpageloader').show();
                     console.log("addressValues:===",addressValues);
                     axios.patch('/api/ecommusers/patch/address', addressValues)
@@ -834,8 +793,8 @@ class Checkout extends Component {
 
                 axios.patch('/api/carts/address', addressValues)
                     .then(async (response) => {
-                        // console.log("Response After inserting address to cart===",response);
-                        await this.props.fetchCartData();
+                        console.log("Response After inserting address to cart===",response);
+                        // await this.props.fetchCartData();
                         for(i=0;i<this.props.recentCartData.vendorOrders.length;i++){
                         var cartItems = this.props.recentCartData.vendorOrders[i].products.map((a, i) => {
                             return {
@@ -851,60 +810,38 @@ class Checkout extends Component {
                                 "quantity": a.quantity,
                                 "itemAmountTotal": a.subTotal,
                                 "savedAmount": a.saving,
-                                "productImage": a.product_ID.productImage,
-                                "section_ID": a.product_ID.section_ID,
-                                "section": a.product_ID.section,
-                                "category_ID": a.product_ID.category_ID,
-                                "category": a.product_ID.category,
-                                "subCategory_ID": a.product_ID.subCategory_ID,
-                                "subCategory": a.product_ID.subCategory,
-                                "vendor_ID": a.product_ID.vendor_ID
+                                "productImage": a.productImage,
+                                "section_ID": a.section_ID,
+                                "section": a.section,
+                                "category_ID": a.category_ID,
+                                "category": a.category,
+                                "subCategory_ID": a.subCategory_ID,
+                                "subCategory": a.subCategory,
+                                "vendor_ID": a.vendor_ID
                             }
                             })
                         }
-                        console.log("cartItems",cartItems);
+                        // console.log("cartItems",cartItems);
                         console.log("cartData==",this.props.recentCartData);
 
                         var orderData = {
                             user_ID                   : this.state.user_ID,
                             email                     : this.state.email,
-                            userName 			      : req.body.userEmail,
-                            userFullName 		      : this.state.fullName,
-                            beforeDiscountTotal       : this.props.recentCartData.paymentDetails.beforeDiscountTotal,
-                            discountAmount            : this.props.recentCartData.paymentDetails.discountAmount,
-                            afterDiscountTotal        : this.props.recentCartData.paymentDetails.afterDiscountTotal,
-                            taxAmount                 : this.props.recentCartData.paymentDetails.taxAmount,
-                            shippingCharges           : this.props.recentCartData.paymentDetails.shippingCharges,
-                            netPayableAmount          : this.props.recentCartData.paymentDetails.netPayableAmount,
+                            userFullName 		      : this.state.fullName,                            
                             currency                  : this.state.currency,	
                             payment_status            : this.state.payMethod === 'online' ? "Paid" : "UnPaid",  // paid, unpaid
                             paymentMethod             : this.state.payMethod,
                             customerShippingTime      : this.state.shippingtime,
                             order_numberOfProducts    : this.props.recentCartData.paymentDetails.order_numberOfProducts,
-                            order_quantityOfProducts  : req.body.order_quantityOfProducts, //Sum of total quantity of items in each vendor
-
+                            order_quantityOfProducts  : this.state.order_quantityOfProducts, //Sum of total quantity of items in each vendor
                             vendorOrders              : vendorOrders,
+                            paymentDetails            : this.props.recentCartData.paymentDetails,
                             deliveryAddress           : addressValues,
-
-                            // deliveryAddress	: {
-                            //     name			: req.body.deliveryAddress.name,
-                            //     email			: req.body.deliveryAddress.email,
-                            //     addressLine1	: req.body.deliveryAddress.addressLine1,
-                            //     addressLine2	: req.body.deliveryAddress.addressLine2,
-                            //     pincode			: req.body.deliveryAddress.pincode,
-                            //     city			: req.body.deliveryAddress.city,
-                            //     state			: req.body.deliveryAddress.state,
-                            //     stateCode		: req.body.deliveryAddress.stateCode,
-                            //     mobileNumber	: req.body.deliveryAddress.mobileNumber,
-                            //     district		: req.body.deliveryAddress.district,
-                            //     country			: req.body.deliveryAddress.country,
-                            //     countryCode		: req.body.deliveryAddress.countryCode,
-                            //     addType			: req.body.deliveryAddress.addType
-                            // },
+                           
                         }
                         console.log("OrdersData===",orderData);
 
-                        if (this.state.isChecked) {
+                        if (this.state.isChecked) {                            
                             axios.post('/api/orders/post', orderData)
                                 .then((result) => {
                                     if (this.state.paymentmethods === 'cod') {
@@ -997,7 +934,7 @@ class Checkout extends Component {
                         }//end isChecked                      
                     })
                     .catch((error) => {
-                        console.log('error', error);
+                        console.log('cart address update error', error);
                     })
             //}
         }
@@ -1048,7 +985,6 @@ class Checkout extends Component {
                     this.getUserAddress();
                     // $(".checkoutAddressModal").hide();
                     // $(".modal-backdrop").hide();
-
                 })
                 .catch((error) => {
                     console.log('error', error);
@@ -1073,7 +1009,7 @@ class Checkout extends Component {
     selectedTimings(event) {
         var selectedValue = event.target.value;
         var keywordSelectedValue = selectedValue.split('$')[0];
-        // console.log("keywordSelectedValue==>",keywordSelectedValue);
+        console.log("keywordSelectedValue==>",keywordSelectedValue);
         axios.get('/api/time/get/one/' + keywordSelectedValue)
             .then((response) => {
                 var shippingtime = response.data.fromtime + "-" + response.data.totime;
@@ -1191,6 +1127,7 @@ class Checkout extends Component {
                 }
             });
     }
+
     applyCoupon(event){
         event.preventDefault();
         var totalPrice = 50;
@@ -1246,13 +1183,14 @@ class Checkout extends Component {
         }  
     }
     render() {
+        // this.props.fetchCartData();
         return (
-            <div>
+            <div className="col-12">
             < Header/>
             <div className="col-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
                 <Message messageData={this.state.messageData} />
                 <div className="row">
-                    {/* <Loader type="fullpageloader" /> */}
+                    <Loader type="fullpageloader" />
                     {/* <div className ="fullpageloader">
                         <div className="col-lg-6 col-lg-offset-3 col-md-4 col-md-offset-4  col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
                             <img src="/images/loader.gif" className=""></img>
@@ -1260,6 +1198,7 @@ class Checkout extends Component {
                     </div>                     */}
                     <Address opDone={this.opDones.bind(this)} />
                     <SmallBanner bannerData={this.state.bannerData} />
+                    {this.props.recentCartData.vendorOrders.length>0?
                     <div className="container-fluid">
                         <form className="col-12 " id="checkout">
                            <div className="row">
@@ -1576,104 +1515,100 @@ class Checkout extends Component {
                                                 }
                                             </tbody>
                                         </table>
-
-                                        {/*   <div className="col-12 mb25">
-                                            <div className="col-12 checkoutBorder"></div>
-                                        </div>
-                                      
-                                        <div className="col-12 col-xl-12 mt15 mb15">
-                                            <div className="col-12 col-xl-12 checkoutBorder"></div>
-                                        </div> */}
                                     </div>
-                                        <div className="col-12  checkOutTerms">
-                                          <div className="row">
-                                          <div className="col-12">
-                                                <div className="col-12">
-                                                    <div className="row">
-                                                        <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails? this.props.recentCartData.paymentDetails.afterDiscountTotal : 0.00 }</span>
-                                                        <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.discountAmount>0 ? this.props.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
-                                                        <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
-                                                        
-                                                        <div className="col-12 mb-2 mt-2">
-                                                            <div className="row">
-                                                                <div className="form-group col-7">
-                                                                    <input type="text" className="form-control couponCode" ref="couponCode" id="couponCode" name="couponCode" placeholder="Enter Discount Coupon Here..." />
-                                                                </div>
-                                                                <div className="col-5">
-                                                                    <button type="button" className="col-5 offset-2 btn btn-primary pull-right cuponBtn" onClick={this.applyCoupon.bind(this)}>Apply</button>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="col-12 mt15">
-                                                            <div className="col-12 checkoutBorder"></div>
-                                                        </div>
-                                                        <span className="col-6 orderTotalText">Grand Total</span>
-                                                        <span className="col-6 textAlignRight orderTotalPrize globalTotalPrice">{this.state.currency} &nbsp;
-                                                            {this.props.recentCartData.paymentDetails.netPayableAmount }
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>  
+                                    <div className="col-12  checkOutTerms">
+                                        <div className="row">
+                                        {this.props.recentCartData?
+                                        <div className="col-12">
                                             <div className="col-12">
-                                                <div className="col-12">
-                                                    <div className="row">
-                                                        <div className="col-md-7 col-xl-7 col-12 shippingtimes">
-                                                            <div className="row">
-                                                                <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" required />  &nbsp;
-                                                                <div className="col-12 col-xl-10 col-md-10 termsWrapper">
-                                                                    <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree, to the Terms & Conditions</span> <span className="required">*</span>
-                                                                </div>
-                                                                <div className="col-12 col-xl-11 col-md-11">
-                                                                    <div className="errorMsg termConditionErrorMsg col-12 NoPadding">{this.state.errors.termsNconditions}</div>
-                                                                </div>
-                                                            </div> 
-                                                        </div>
-                                                        <div className="col-12 col-xl-5 col-md-5">
-                                                            <span className="col-12 col-xl-12 nopadding">Select Shipping Time<span className="required"></span></span>
-                                                            <select onChange={this.selectedTimings.bind(this)} className="col-12  noPadding  form-control" ref="shippingtime" name="shippingtime" >
-                                                                <option name="shippingtime" disabled="disabled" selected="true">-- Select --</option>
-                                                                {
-                                                                    this.state.gettimes && this.state.gettimes.length > 0 ?
-                                                                        this.state.gettimes.map((data, index) => {
-                                                                            return (
-                                                                                <option key={index} value={data._id}>{data.fromtime}-{data.totime}</option>
-                                                                            );
-                                                                        })
-                                                                        :
-                                                                        <option value='user'>No Timings available</option>
-                                                                }
-                                                            </select>
+                                                <div className="row">
+                                                    <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails? this.props.recentCartData.paymentDetails.afterDiscountTotal : 0.00 }</span>
+                                                    <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.discountAmount>0 ? this.props.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
+                                                    <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
+                                                    
+                                                    <div className="col-12 mb-2 mt-2">
+                                                        <div className="row">
+                                                            <div className="form-group col-7">
+                                                                <input type="text" className="form-control couponCode" ref="couponCode" id="couponCode" name="couponCode" placeholder="Enter Discount Coupon Here..." />
+                                                            </div>
+                                                            <div className="col-5">
+                                                                <button type="button" className="col-5 offset-2 btn btn-primary pull-right cuponBtn" onClick={this.applyCoupon.bind(this)}>Apply</button>
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div className="modal col-12 col-sm-6 offset-3 checkoutAddressModal" id="termsNconditionsmodal" role="dialog">
-                                                <div className="col-12">
-                                                    <div className="modal-content  col-12 NoPadding">
-                                                        <div className="modal-header globalBgColor checkoutAddressModal col-12">
-                                                            <img src="/images/eCommerce/multistoreLogo.png" className="col-3" />
-                                                            <h6 className="modal-title col-8 modalheadingcont text-center">TERMS AND CONDITIONS</h6>
-                                                            <button type="button" className="col-1 close modalclosebut " data-dismiss="modal">&times;</button>
-                                                        </div>
-                                                        <div className="modal-body col-12 checkoutAddressModal">
-                                                            <ul className="listStyle">
-                                                                <li>The price of products is as quoted on the site from time to time.</li>
-                                                                <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
-                                                                <li>Products marked as 'non-returnable' on the product detail page cannot be returned.</li>
-                                                                <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
-                                                            </ul>
-                                                        </div>
-                                                        <div className="modal-footer checkoutAddressModal col-12">
-                                                            <button type="button" className="btn globaleCommBtn" data-dismiss="modal">Cancel</button>
 
-                                                        </div>
+                                                    <div className="col-12 mt15">
+                                                        <div className="col-12 checkoutBorder"></div>
+                                                    </div>
+                                                    <span className="col-6 orderTotalText">Grand Total</span>
+                                                    <span className="col-6 textAlignRight orderTotalPrize globalTotalPrice">{this.state.currency} &nbsp;
+                                                        {this.props.recentCartData.paymentDetails.netPayableAmount }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        :null
+                                        } 
+
+                                        <div className="col-12">
+                                            <div className="col-12">
+                                                <div className="row">
+                                                    <div className="col-md-7 col-xl-7 col-12 shippingtimes">
+                                                        <div className="row">
+                                                            <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" required />  &nbsp;
+                                                            <div className="col-12 col-xl-10 col-md-10 termsWrapper">
+                                                                <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree, to the Terms & Conditions</span> <span className="required">*</span>
+                                                            </div>
+                                                            <div className="col-12 col-xl-11 col-md-11">
+                                                                <div className="errorMsg termConditionErrorMsg col-12 NoPadding">{this.state.errors.termsNconditions}</div>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                    <div className="col-12 col-xl-5 col-md-5">
+                                                        <span className="col-12 col-xl-12 nopadding">Select Shipping Time<span className="required"></span></span>
+                                                        <select onChange={this.selectedTimings.bind(this)} className="col-12  noPadding  form-control" ref="shippingtime" name="shippingtime" >
+                                                            <option name="shippingtime" disabled="disabled" selected="true">-- Select --</option>
+                                                            {
+                                                                this.state.gettimes && this.state.gettimes.length > 0 ?
+                                                                    this.state.gettimes.map((data, index) => {
+                                                                        return (
+                                                                            <option key={index} value={data._id}>{data.fromtime}-{data.totime}</option>
+                                                                        );
+                                                                    })
+                                                                    :
+                                                                    <option value='user'>No Timings available</option>
+                                                            }
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                          </div>  
                                         </div>
+                                        <div className="modal col-12 col-sm-6 offset-3 checkoutAddressModal" id="termsNconditionsmodal" role="dialog">
+                                            <div className="col-12">
+                                                <div className="modal-content  col-12 NoPadding">
+                                                    <div className="modal-header globalBgColor checkoutAddressModal col-12">
+                                                        <img src="/images/eCommerce/multistoreLogo.png" className="col-3" />
+                                                        <h6 className="modal-title col-8 modalheadingcont text-center">TERMS AND CONDITIONS</h6>
+                                                        <button type="button" className="col-1 close modalclosebut " data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div className="modal-body col-12 checkoutAddressModal">
+                                                        <ul className="listStyle">
+                                                            <li>The price of products is as quoted on the site from time to time.</li>
+                                                            <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
+                                                            <li>Products marked as 'non-returnable' on the product detail page cannot be returned.</li>
+                                                            <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div className="modal-footer checkoutAddressModal col-12">
+                                                        <button type="button" className="btn globaleCommBtn" data-dismiss="modal">Cancel</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>  
+                                    </div>
 
                                     <div className="col-12">
                                     {
@@ -1697,6 +1632,8 @@ class Checkout extends Component {
                           </div>  
                         </form>
                     </div>
+                    :null
+                    }
                 </div>
             </div>
             <Footer />

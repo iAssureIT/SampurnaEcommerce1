@@ -4,9 +4,7 @@ import Link                   from 'next/link';
 import swal 		          from 'sweetalert';
 import Image                  from 'next/image';
 import Router                 from 'next/router'; 
-
 import { connect }            from 'react-redux';
-import { getCartData,updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import  store                 from '../../../../../redux/store.js';
 import parse, { domToReact }  from 'html-react-parser';
 import Searchbar              from './Searchbar.js';
@@ -14,7 +12,7 @@ import Megamenu               from './Megamenu.js';
 import DeliveryLocationPopup  from './DeliveryLocationPopup.js';
 import DisplayLocation        from './DisplayLocation.js';
 import SystemSecurityModal    from './SystemSecurityModal.js';
-
+import { getCartData,updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 
 class Header extends React.Component {
 	constructor(props) {
@@ -81,15 +79,6 @@ class Header extends React.Component {
             })
         }
       }
-    
-    searchProducts() {        
-          var searchstr = this.refs.tableSearch.value.trim();
-          if(searchstr){          
-            var productApi = "/api/products/get/search/" + searchstr;
-            store.dispatch(setProductApiUrl(productApi));
-            Router.push('/search-product');          
-          }    
-      }
 
    render(){
         return(   
@@ -118,51 +107,43 @@ class Header extends React.Component {
 
                                 <div className="col-8 col-sm-3 ml-4 systemSecurity"> 
                                     <div className="row">
+
                                     <div className="col-8 col-sm-6  NoPadding">                                    
                                         < SystemSecurityModal />
                                     </div>
-                                    <div className="col-4 col-sm-6 cartHeader NoPadding">                                      
-                                        <div className="col-12" >
-                                            <div className="row">
-                                                <div className="col-3 p-2 cartImg">  
-                                                {this.state.userID?
-                                                    <Link >
-                                                        <a href="/cart">
-                                                           <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
-                                                        </a>
-                                                    </Link>
-                                                :
-                                                    <Link href="/cart" className="cartIcon">
-                                                        <a href="/cart">
-                                                            <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img> 
-                                                        </a>
-                                                    </Link>
-                                                }
-                                                </div>
-                                                <div className="col-8 text-center NoPadding">
-                                                    <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
-                                                    <div className="col-12 cartCount NoPadding">
-                                                        {this.props.cartCount>0? this.props.cartCount : 0 }
-                                                        &nbsp;item(s)                                
-                                                    </div>
-                                                </div>  
+
+                                    <a href="/cart" className="col-4 col-sm-6 cartHeader NoPadding">        
+                                        <div className="row">
+                                            <div className="col-3 p-2 cartImg">  
+                                            {this.state.userID?
+                                                <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                            :
+                                                <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                            }
                                             </div>
-                                        </div> 
-                                    </div>
+                                            <div className="col-8 text-center NoPadding">
+                                                <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
+                                                <div className="col-12 cartCount NoPadding">
+                                                    {this.props.cartCount>0? this.props.cartCount : 0 }
+                                                    &nbsp;item(s)                                
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
                         </div> 
                         <div className="col-12 NoPadding">
-                        <div className="navbar-header">
-                            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                                <span className="navbar-toggler-icon"></span>
-                            </button>                             
-                        </div>
-                        <div id="collapsibleNavbar" className="collapse navbar-collapse navHeaderCollapse mt-2">
-                            <Megamenu />
-                        </div>
-                    </div>                    
+                            <div className="navbar-header">
+                                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>                             
+                            </div>
+                            <div id="collapsibleNavbar" className="collapse navbar-collapse navHeaderCollapse mt-2">
+                                <Megamenu />
+                            </div>
+                        </div>                    
                     </div>
                 </nav>
                 
