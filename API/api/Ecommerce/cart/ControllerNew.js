@@ -73,7 +73,7 @@ exports.insert_cartid = (req,res,next)=>{
                                     } 
                                 },
                                 {arrayFilters: [
-                                    { 'outer.vendor_id': req.body.vendor_ID}, 
+                                    { 'outer.vendor_id' : req.body.vendor_ID}, 
                                     { 'inner.product_ID': req.body.product_ID }
                                 ]},
                             )
@@ -117,20 +117,20 @@ exports.insert_cartid = (req,res,next)=>{
                             console.log("When same Product Not Available")
                             if (filteredVendorProducts && filteredVendorProducts.length > 0) {
                                 // console.log("filteredVendorProducts=> ",filteredVendorProducts)
-                                console.log("filteredVendorProducts[0].vendor_quantityOfProducts =>",filteredVendorProducts[0].vendor_quantityOfProducts)
-                                console.log("req.body.quantity =>",req.body.quantity)
+                                // console.log("filteredVendorProducts[0].vendor_quantityOfProducts =>",filteredVendorProducts[0].vendor_quantityOfProducts)
+                                // console.log("req.body.quantity =>",req.body.quantity)
                                 var vendor_quantityOfProducts  = parseInt(filteredVendorProducts[0].vendor_quantityOfProducts) + parseInt(req.body.quantity);
-                                console.log("vendor_quantityOfProducts =>",vendor_quantityOfProducts)
+                                // console.log("vendor_quantityOfProducts =>",vendor_quantityOfProducts)
                                 var vendor_numberOfProducts    = parseInt(filteredVendorProducts[0].vendor_numberOfProducts + 1);
-                                console.log("vendor_numberOfProducts =>",vendor_numberOfProducts)
-                                console.log("productData =>",productData)
+                                // console.log("vendor_numberOfProducts =>",vendor_numberOfProducts)
+                                // console.log("productData =>",productData)
                             }else{
                                 var vendor_quantityOfProducts = 0;
                                 var vendor_numberOfProducts = 0;
                             }
                             var order_quantityOfProducts = productDataForVendor.order_quantityOfProducts ? parseInt(productDataForVendor.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
                             var order_numberOfProducts   = productDataForVendor.order_numberOfProducts ? parseInt(productDataForVendor.order_numberOfProducts) + 1 : 0;
-                            console.log("d =>>>>>>>> ",vendor_quantityOfProducts, vendor_numberOfProducts, order_quantityOfProducts, order_numberOfProducts)
+                            // console.log("d =>>>>>>>> ",vendor_quantityOfProducts, vendor_numberOfProducts, order_quantityOfProducts, order_numberOfProducts)
                             var product = {
                                 
                                     product_ID          : req.body.product_ID,
@@ -157,7 +157,7 @@ exports.insert_cartid = (req,res,next)=>{
                                 )
                                 .exec()
                                 .then(updatedvendordata=>{
-                                    console.log("updatedvendordata => ", updatedvendordata)
+                                    // console.log("updatedvendordata => ", updatedvendordata)
                                     if(updatedvendordata.nModified == 1){
                                         res.status(200).json({
                                             "message": "Product added to cart successfully.",
@@ -182,8 +182,7 @@ exports.insert_cartid = (req,res,next)=>{
                                 error: err
                             });
                         });                      
-                    }else{   
-                        
+                    }else{                        
                         console.log("When no Products availabe for same vendor")  
                         // var order_quantityOfProducts = cartData.order_quantityOfProducts ? parseInt(cartData.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
                         // var order_numberOfProducts   = cartData.order_numberOfProducts  ? parseInt(cartData.order_numberOfProducts) + 1 : 0;                 
@@ -267,19 +266,6 @@ exports.insert_cartid = (req,res,next)=>{
 	});
 };
 
-exports.list_cart = (req,res,next)=>{
-    Carts.find({"user_ID": req.params.user_ID})       
-    .exec()
-    .then(data=>{
-        res.status(200).json(data);
-    })
-    .catch(err =>{
-        res.status(500).json({
-            error: err
-        });
-    });
-};
-
 /**=========== Vendorwise List of Cart Items for Particular User ===========*/
 exports.list_cart_product = (req,res,next)=>{    
     Carts.findOne({user_ID:ObjectId(req.params.user_ID)})
@@ -298,7 +284,7 @@ exports.list_cart_product = (req,res,next)=>{
         var order_discountAmount        = 0;
         var order_taxAmount             = 0;
         var order_shippingCharges       = 0;
-
+        
         for(var i = 0; i<vendorOrders.length;i++){            
             console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
             for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
@@ -318,7 +304,7 @@ exports.list_cart_product = (req,res,next)=>{
                 data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
                 data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
                 data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
-
+                
                 order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
                 order_afterDiscountTotal    += vendor_afterDiscountTotal;
                 order_discountAmount        += vendor_discountAmount;
@@ -346,41 +332,6 @@ exports.list_cart_product = (req,res,next)=>{
 };
 
 
-
-exports.all_list_cart = (req,res,next)=>{
-    Carts.find()       
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            res.status(500).json({
-                error: err
-            });
-        });
-};
-
-exports.count_cart = (req,res,next)=>{
-    Carts.aggregate([
-        {"$match":{"user_ID": ObjectId(req.params.user_ID)}},
-        { 
-            "$project": { 
-                "count": { "$sum": { "$map": { "input": "$vendorOrders", "as": "l", "in": { "$size": "$$l.cartItems" } } } } 
-            } 
-        }
-    ])
-    .exec()
-    .then(data=>{
-        res.status(200).json(data[0].count);
-    })
-    .catch(err =>{
-        console.log("err",err);
-        res.status(500).json({
-            error: err
-        });
-    });
-};
-
 /*============ Remove Cart Items ===========*/
 exports.remove_cart_items = (req, res, next)=>{
     console.log('remove_cart_items =>', req.body);
@@ -396,7 +347,7 @@ exports.remove_cart_items = (req, res, next)=>{
         if(vendor && vendor.length > 0 && vendor[0].cartItems && vendor[0].cartItems.length > 0){
             console.log("vendor[0].vendor_quantityOfProducts => ",vendor[0].vendor_quantityOfProducts);
             console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);
-            if(vendor[0].cartItems > 1){
+            if(vendor[0].cartItems.length > 1){
                 var productToBeRemoved  = vendor[0].cartItems.filter(cartProduct => String(cartProduct._id) === String(req.body.cartItem_ID));
             }else{
                 var productToBeRemoved  = vendor[0].cartItems;
@@ -443,7 +394,7 @@ exports.remove_cart_items = (req, res, next)=>{
                     });
                 });   
             }else{
-                console.log("else ===============> ","newVendorCartItems => ", newVendorCartItems,"vendor_numberOfProducts => ", vendor_numberOfProducts,"vendor_quantityOfProducts => ", vendor_quantityOfProducts,"order_numberOfProducts => ", order_numberOfProducts,"order_quantityOfProducts => ", order_quantityOfProducts )
+                console.log("else ===============> ","newVendorCartItems => ", newVendorCartItems,"vendor_numberOfProducts => ", vendor_numberOfProducts,"vendor_quantityOfProducts => ", vendor_quantityOfProducts,"order_numberOfProducts => ", (order_numberOfProducts - 1),"order_quantityOfProducts => ", (order_quantityOfProducts - productToBeRemoved[0].quantity) )
                 console.log("form values => ",)
                 Carts.updateOne(
                     { "user_ID" : req.body.user_ID, 'vendorOrders.vendor_id' :  req.body.vendor_ID },
@@ -452,8 +403,8 @@ exports.remove_cart_items = (req, res, next)=>{
                             "vendorOrders.$.cartItems"                   : newVendorCartItems,
                             "vendorOrders.$.vendor_numberOfProducts"     : vendor_numberOfProducts,
                             "vendorOrders.$.vendor_quantityOfProducts"   : vendor_quantityOfProducts,
-                            "order_numberOfProducts"                     : order_numberOfProducts,
-                            "order_quantityOfProducts"                   : order_quantityOfProducts,
+                            "order_numberOfProducts"                     : order_numberOfProducts - 1,
+                            "order_quantityOfProducts"                   : order_quantityOfProducts - productToBeRemoved[0].quantity,
                         }
                     }
                 ) 
@@ -556,40 +507,7 @@ Carts.updateOne(
     })
 };
 
-
-exports.remove_product_from_cart = (req, res, next)=>{
-    // console.log("selected products=",req.body.selectedProducts.length);
-    for(let i=0;i<=req.body.selectedProducts;i++){
-    Carts.update(
-        // {"cartItems.$.product_ID": req.body.selectedProducts[0]},
-        {},
-        {
-            '$pull':{ 'cartItems':{'product_ID': req.body.selectedProducts[0] }},
-            
-			// $pull: { "cartItems": { "product_ID": req.body.selectedProducts[0] } }
-        },
-        {new:true,multi:true},
-    )
-    .exec()
-    .then(data=>{
-        if(data.nModified == 1){
-            res.status(200).json({
-                "message": "Product removed from cart successfully.",
-            });
-        }else{
-            res.status(401).json({
-                "message": "Cart Not Found"
-            });
-        }
-    })
-    .catch(err =>{
-        res.status(500).json({
-            error: err
-        });
-    });
-}
-}
-
+/**=========== Change Cart Products Quantity ===========*/
 exports.change_cart_item_quantity = (req, res, next)=>{
     console.log("req.body => ",req.body);
 
@@ -675,6 +593,8 @@ exports.change_cart_item_quantity = (req, res, next)=>{
 
     })
 };
+
+/**=========== Update Delivery Address ===========*/
 exports.add_address_to_cart = (req, res, next)=>{
     Carts.findOne({"user_ID": req.body.user_ID})       
         .exec()
@@ -728,6 +648,93 @@ exports.add_address_to_cart = (req, res, next)=>{
             });
         });
 };
+
+/**=========== Return Cart Count ===========*/
+exports.count_cart = (req,res,next)=>{
+    Carts.aggregate([
+        {"$match":{"user_ID": ObjectId(req.params.user_ID)}},
+        { 
+            "$project": { 
+                "count": { "$sum": { "$map": { "input": "$vendorOrders", "as": "l", "in": { "$size": "$$l.cartItems" } } } } 
+            } 
+        }
+    ])
+    .exec()
+    .then(data=>{
+        res.status(200).json(data[0].count);
+    })
+    .catch(err =>{
+        console.log("err",err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
+exports.list_cart = (req,res,next)=>{
+    Carts.find({"user_ID": req.params.user_ID})       
+    .exec()
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
+
+
+exports.all_list_cart = (req,res,next)=>{
+    Carts.find()       
+        .exec()
+        .then(data=>{
+            res.status(200).json(data);
+        })
+        .catch(err =>{
+            res.status(500).json({
+                error: err
+            });
+        });
+};
+
+
+
+exports.remove_product_from_cart = (req, res, next)=>{
+    // console.log("selected products=",req.body.selectedProducts.length);
+    for(let i=0;i<=req.body.selectedProducts;i++){
+    Carts.update(
+        // {"cartItems.$.product_ID": req.body.selectedProducts[0]},
+        {},
+        {
+            '$pull':{ 'cartItems':{'product_ID': req.body.selectedProducts[0] }},
+            
+			// $pull: { "cartItems": { "product_ID": req.body.selectedProducts[0] } }
+        },
+        {new:true,multi:true},
+    )
+    .exec()
+    .then(data=>{
+        if(data.nModified == 1){
+            res.status(200).json({
+                "message": "Product removed from cart successfully.",
+            });
+        }else{
+            res.status(401).json({
+                "message": "Cart Not Found"
+            });
+        }
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
+        });
+    });
+}
+}
+
+
 
 exports.list_cart=(req , res , next)=>{
 

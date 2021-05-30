@@ -214,7 +214,7 @@ app.use("api/expenseItemMaster",			expenseItemMaster);
 app.use("/api/expensetypemaster", 		expenseTypeRoutes);
 
 app.post('/send-email', (req, res)=> {
-	console.log("inside app.js req:", req.body);
+	// console.log("inside app.js req:", req.body);
 	let transporter = nodeMailer.createTransport({
 		host: globalVariable.emailHost,
 		port: globalVariable.emailPort,
@@ -223,8 +223,7 @@ app.post('/send-email', (req, res)=> {
 			pass: globalVariable.pass
 		}
 	});
-	// console.log("transporter",transporter);
-	// console.log("globalVariable.user:",globalVariable.user);
+	
 	let mailOptions = {
 		from   : globalVariable.project+'<'+globalVariable.user+'>', // sender address
 		to     : req.body.email, // list of receivers
@@ -232,6 +231,7 @@ app.post('/send-email', (req, res)=> {
 		text   : req.body.text, // plain text body
 		html   : req.body.mail // html body
 	};	
+
 	transporter.sendMail(mailOptions, (error, info) => {
 		if (error) {			
 			return "Failed";

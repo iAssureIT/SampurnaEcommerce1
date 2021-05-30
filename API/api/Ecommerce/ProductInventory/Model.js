@@ -9,9 +9,11 @@ const productInventorySchema = mongoose.Schema({
     productName               : String,
     shortDescription          : String,
     currentQuantity           : Number, 
-    originalPrice             : Number,
-    discountPercent           : Number,
-    discountedPrice           : Number,   
+
+    originalPrice             : Number,  //Can be removed
+    discountPercent           : Number,  //Can be removed
+    discountedPrice           : Number,  //Can be removed
+
     inwardDetails             : [ 
                                     {
                                         date            : Date,

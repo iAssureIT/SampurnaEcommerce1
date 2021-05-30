@@ -67,7 +67,9 @@ class Report extends Component{
             return index <= 6
           });
 
-          this.setState({data:result})
+          this.setState({data:result},()=>{
+            console.log("data =>",this.state.data)
+          })
         })
         .catch((error)=>{
           console.log("error => ",error);
@@ -122,11 +124,15 @@ class Report extends Component{
                   {this.state.data && this.state.data.length > 0 ?
                     this.state.data.map((data,index)=>{
                       var franchiseName = data.allocatedToFranchise ? data.allocatedToFranchise.companyName : '';
-                      console.log("data reports",data.total);
+                      console.log("data reports",data);
                       let products = [];
-                      data.products.map((product,index)=>{
-                        products.push(product.productName);
-                      })
+                      if (data.products && data.products.length > 0) {
+                        console.log("Yes");                      
+                        data.products.map((product,index)=>{
+                          console.log("product => ",product)
+                          products.push(product.productName);
+                        })
+                      
                       let currentStatus  = data.deliveryStatus.length - 1;
                       let deliveryStatus = data.deliveryStatus[currentStatus].status;
                       let statusClass = '';
@@ -153,6 +159,7 @@ class Report extends Component{
                           </td>
                         </tr>
                       )
+                      }
                     })
                     :
                     <tr><td colSpan="5" className="textAlignCenter">No Data Found</td></tr>
