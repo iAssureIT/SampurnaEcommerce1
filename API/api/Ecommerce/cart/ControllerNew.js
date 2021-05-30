@@ -731,8 +731,14 @@ exports.apply_coupon = (req,res,next)=>{
     .then(data=>{   
         processCouponData();
         async function processCouponData(){
+            var errMessage = "";            
             var isCouponValid = await checkCouponValidity(req.body.couponCode);
             console.log("isCouponValid",isCouponValid);
+            // if ((isCouponValid && isCouponValid === null) || isCouponValid.status.toLowerCase() !== "active") {
+            //     errMessage = "You are trying to apply Invalid Coupon";
+            // }
+            console.log("errormessage => ",errMessage);
+            
             if(isCouponValid && isCouponValid !== null && isCouponValid.status.toLowerCase() === "active"){
                 var couponInType                = isCouponValid.coupenin.toLowerCase();                
                 var vendor_beforeDiscountTotal  = 0;
@@ -747,14 +753,14 @@ exports.apply_coupon = (req,res,next)=>{
                 var order_taxAmount             = 0;
                 var order_shippingCharges       = 0;
                 
-                for(var i = 0; i<vendorOrders.length;i++){            
+                for(var i = 0; i < vendorOrders.length; i++){            
                     // console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
-                    for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
-                        vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
-                        if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
-                            vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
+                    for(var j = 0; j < vendorOrders[i].cartItems.length; j++){
+                        vendor_beforeDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+                        if(vendorOrders[i].cartItems[j].product_ID.discountPercent !== 0){
+                            vendor_discountAmount += ((data.vendorOrders[i].cartItems[j].product_ID.originalPrice - data.vendorOrders[i].cartItems[j].product_ID.discountedPrice) * vendorOrders[i].cartItems[j].quantity);
                         }
-                        vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
+                        vendor_afterDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
                         if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
                             vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
                         }    
@@ -784,10 +790,12 @@ exports.apply_coupon = (req,res,next)=>{
                         var discountInPercent       = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
                         var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
                         console.log("discoutAfterCouponApply = > ",discoutAfterCouponApply);
-                        data.paymentDetails.netPayableAmount    = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                        data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
+                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
                     }else if(couponInType === "amount"){
-                        var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue : isCouponValid.maxDiscountAmount : isCouponValid.coupenvalue;
-                        data.paymentDetails.netPayableAmount    = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                        var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue : isCouponValid.maxDiscountAmount : isCouponValid.coupenvalue;
+                        data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
+                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
                     }else{
                         data.paymentDetails.netPayableAmount    = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
                     }                    
@@ -802,9 +810,10 @@ exports.apply_coupon = (req,res,next)=>{
         }
     })
     .catch(err =>{
-        console.log("err",err);
+        console.log("err => ",err);
         res.status(500).json({
-            error: err
+            error   : err,
+            message : "Error While finding Cart Details"
         });
     });
 };

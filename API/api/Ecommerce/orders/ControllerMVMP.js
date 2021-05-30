@@ -62,57 +62,62 @@ exports.insert_orders = (req, res, next) => {
 					for (var l = 0; l < req.body.vendorOrders.length; l++) {		
 
 						for (let m = 0; m < req.body.vendorOrders[l].products.length; m++) {
-							console.log("products => ", req.body.vendorOrders[l].products[m]);
+							var productQuantity = req.body.vendorOrders[l].products[m].quantity;
+							console.log("req.body.vendorOrders[l].products[m].quantity = ",req.body.vendorOrders[l].products[m].quantity);
 
 							ProductInventory
 								.findOne(
 									{ 
-										vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id),
+										vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
 										productCode 		 : req.body.vendorOrders[l].products[m].productCode,
 										itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
 									},
 								)
 								.then(productInventoryData=>{
-									console.log("Product Inventory data = "+productInventoryData);
-									res.status(200);
-									
+									console.log("Product Inventory data = ",productInventoryData);
+									// res.status(200);
+									console.log("productInventoryData._id = ",productInventoryData._id);
+									console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
+									var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
+									console.log("newQuantity = ",newQuantity);
 									ProductInventory.updateOne(
 										{ 
-											vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id),
-											productCode 		 : req.body.vendorOrders[l].products[m].productCode,
-											itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
+											_id 				: ObjectId(productInventoryData._id)
+											// vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id),
+											// productCode 		 : req.body.vendorOrders[l].products[m].productCode,
+											// itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
 										},
 										{
 											$set:{
-												currentQuantity   : productInventoryData.currentQuantity - req.body.vendorOrders[l].products[m].quantity
+												currentQuantity   : newQuantity
 											},
 											$push : {								
 												updateLog       : {
 													date        : new Date(),
-													updatedBy   : ObjectId(req.body.user_ID),
-													order_id    : ObjectId(orderdata._id),
+													// updatedBy   : ObjectId(req.body.user_ID),
+													// order_id    : ObjectId(orderdata._id),
 												}
 											}
 										}
 									)		 
 									.then(inventoryupdateData=>{
-										console.log("inventoryupdateData = ",+inventoryupdateData);
+										console.log("inventoryupdateData = ",inventoryupdateData);
 										console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
 									})
 									.catch(err =>{
 										res.status(500).json({
-											error : error,
-											message: 'Error While Updating Inventory'
+											error 	: err,
+											message : 'Error While Updating Inventory'
 										});
 									}); 
 									
 
 								})
-
 								.catch(err =>{
+									console.log()
 									res.status(500).json({
 										error : error,
-										message: 'Error While Updating Inventory'
+										message: 'Error Finding Inventory Data'
 									});
 								}); 
 
@@ -120,14 +125,17 @@ exports.insert_orders = (req, res, next) => {
 						} //for m
 					}//for l
 					if(l >= req.body.vendorOrders.length){
-						res.status(200).json({ "message": 'Order placed successfully' });
+						res.status(200).json({ 
+							order_id : orderdata._id,
+							"message": 'Order placed successfully' 
+						});
 					}
 				}
 			})
 			.catch(error => {							
 				res.status(500).json({
-					error : error,
-					message: 'Error While Clearing CartItems '
+					error 	: error,
+					message : 'Error While Clearing CartItems '
 				});
 			})							
 		})
