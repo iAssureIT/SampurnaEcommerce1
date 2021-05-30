@@ -326,12 +326,13 @@ exports.list_cart_product = (req,res,next)=>{
                 }
             }
             if(i>=vendorOrders.length){
-                data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
-                data.paymentDetails.afterDiscountTotal  = order_afterDiscountTotal;
-                data.paymentDetails.discountAmount      = order_discountAmount;
-                data.paymentDetails.taxAmount           = order_taxAmount;
-                data.paymentDetails.shippingCharges     = order_shippingCharges;
-                data.paymentDetails.netPayableAmount    = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+                data.paymentDetails.beforeDiscountTotal         = order_beforeDiscountTotal;
+                data.paymentDetails.afterDiscountTotal          = order_afterDiscountTotal;
+                data.paymentDetails.discountAmount              = order_discountAmount;
+                data.paymentDetails.taxAmount                   = order_taxAmount;
+                data.paymentDetails.shippingCharges             = order_shippingCharges;
+                data.paymentDetails.afterDiscountCouponAmount   = 0;
+                data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
             }
             console.log("data",data);
             res.status(200).json(data);
@@ -736,12 +737,15 @@ exports.apply_coupon = (req,res,next)=>{
             var errMessage = "";            
             var isCouponValid = await checkCouponValidity(req.body.couponCode);
             console.log("isCouponValid",isCouponValid);
-            // if ((isCouponValid && isCouponValid === null) || isCouponValid.status.toLowerCase() !== "active") {
-            //     errMessage = "You are trying to apply Invalid Coupon";
-            // }
+            if (isCouponValid === null) {
+                errMessage = "No Coupon Found..";
+            }
+            if ((isCouponValid && isCouponValid !== null) && isCouponValid.status.toLowerCase() !== "active") {                
+                errMessage = "You are trying to apply Invalid Coupon";
+            }
             console.log("errormessage => ",errMessage);
             
-            if(isCouponValid && isCouponValid !== null && isCouponValid.status.toLowerCase() === "active"){
+            
                 var couponInType                = isCouponValid.coupenin.toLowerCase();                
                 var vendor_beforeDiscountTotal  = 0;
                 var vendor_afterDiscountTotal   = 0;
@@ -788,27 +792,35 @@ exports.apply_coupon = (req,res,next)=>{
                     data.paymentDetails.discountAmount      = order_discountAmount;
                     data.paymentDetails.taxAmount           = order_taxAmount;
                     data.paymentDetails.shippingCharges     = order_shippingCharges;
-                    if (couponInType === "percent") {
-                        var discountInPercent       = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
-                        var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
-                        console.log("discoutAfterCouponApply = > ",discoutAfterCouponApply);
-                        data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
-                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
-                    }else if(couponInType === "amount"){
-                        var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue : isCouponValid.maxDiscountAmount : isCouponValid.coupenvalue;
-                        data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
-                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                    console.log("errMessage",errMessage);
+                    if(errMessage === ""){
+                        console.log("couponInType",couponInType);
+                        if (couponInType === "percent") {
+                            var discountInPercent       = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
+                            var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
+                            console.log("discoutAfterCouponApply = > ",discoutAfterCouponApply);
+                            data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
+                            data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                        }else if(couponInType === "amount"){
+                            var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue : isCouponValid.maxDiscountAmount : isCouponValid.coupenvalue;
+                            data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
+                            data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                        }else{
+                            data.paymentDetails.afterDiscountCouponAmount   = 0;
+                            data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+                        }
                     }else{
-                        data.paymentDetails.netPayableAmount    = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+                        data.paymentDetails.afterDiscountCouponAmount   = 0;
+                        data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
                     }                    
                 }
                 console.log("data => ",data);
-                res.status(200).json(data);
-            }else{
+                // res.status(200).json(data);
+            
                 res.status(200).json({
-                    message : "You are trying to apply Invalid Coupon"
-                });
-            }            
+                    data    : data,
+                    message : errMessage
+                });                        
         }
     })
     .catch(err =>{
