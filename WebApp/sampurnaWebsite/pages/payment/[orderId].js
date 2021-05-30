@@ -19,42 +19,35 @@ class Payment extends Component {
   }
 
   componentDidMount() {
-	//this.getMyOrders();
-  console.log("inside orderdata");
-	var pageUrl = window.location.pathname;
-		let a = pageUrl ? pageUrl.split('/') : "";
-		const urlParam =a[2];
-		this.setState({
-			orderID : urlParam
-		},()=>{
-			axios.get("/api/orders/get/one/" + this.state.orderID)
-			.then((response) => {
-				console.log('orderData response', response.data)
-				this.setState({
-				  orderData: response.data
-				})
-			})
-			.catch((error) => {
-				console.log('error', error);
-			})
-		})
+      var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+      var currency = sampurnaWebsiteDetails.preferences.currency;
+      var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
+      // console.log("userDetails===",userDetails);
+      this.setState({
+          user_ID : userDetails.user_id,
+          email   : userDetails.email,
+          fullName: userDetails.firstName +" "+userDetails.lastName ,         
+          currency     : currency,
+      })
+      
+      var pageUrl = window.location.pathname;
+        let a = pageUrl ? pageUrl.split('/') : "";
+        const urlParam =a[2];
+        this.setState({
+          orderID : urlParam
+        },()=>{
+          axios.get("/api/orders/get/one/" + this.state.orderID)
+          .then((response) => {
+            console.log('orderData response', response.data)
+            this.setState({
+              orderData: response.data
+            })
+          })
+          .catch((error) => {
+            console.log('error', error);
+          })
+        })
   }
-
-  // componentDidMount() {
-  //   this._asyncRequest = loadMyAsyncData().then(
-
-  //     externalData => {
-  //       this._asyncRequest = null;
-  //       this.setState({externalData});
-  //     }
-  //   );
-  // }
-
-  // componentWillUnmount() {
-  //   if (this._asyncRequest) {
-  //     this._asyncRequest.cancel();
-  //   }
-  // }
 
   render() {
     // console.log("this.state.orderData.vendorOrders===",this.state.orderData);
@@ -102,47 +95,43 @@ class Payment extends Component {
                         }
                       </div>
                     </div>
-                    <div className="col-xl-3 col-md-3 col-12 col-sm-12 col-xs-12  mb50">
+                    <div className="col-xl-4 col-md-4 col-12 col-sm-12 col-xs-12  mb50">
                       <strong className="box-title">
                         <span>Order Summary</span>
                       </strong>
                       <div className="box-content">
                         <div>
                         <div className="row">
-                          <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Cart Total:</span>  </div>
-                          <div className="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right"><span>{this.state.currency}&nbsp; {this.state.orderData.paymentDetails.afterDiscountTotal}</span> </div>
+                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Cart Total:</span>  </div>
+                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right"><span>{this.state.currency}&nbsp; {this.state.orderData.paymentDetails.beforeDiscountTotal}</span> </div>
                         </div>  
                         </div>
                         <div>
                         <div className="row">
-                          <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Shipping:  </span></div>
-                          <div className="col-xl-4 col-md-6 col-12 NOpadding text-right"><span>{this.state.orderData.paymentDetails.shippingCharges}</span> </div>
+                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Shipping:  </span></div>
+                          <div className="col-xl-6 col-md-6 col-12 NOpadding text-right"><span>{this.state.orderData.paymentDetails.shippingCharges>0?this.state.orderData.paymentDetails.shippingCharges:0.00}</span> </div>
                         </div> 
                         </div>
-                        {/* <div>
-                          <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span>Time:  </span></div>
-                          <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><span>{this.state.orderData.shippingtime}</span><br/> </div>
-                        </div> */}
                         <div>
                         <div className="row">
-                            <div className="col-xl-8 col-md-6 col-12 "><span>Discount: </span></div>
-                            <div className="col-xl-4 col-md-6 col-12 NOpadding text-right">
-                              <span><i className={"fa fa-" + this.state.orderData.currency}></i> {this.state.orderData.paymentDetails.discountAmount}</span>
+                            <div className="col-xl-6 col-md-6 col-12 "><span>Discount: </span></div>
+                            <div className="col-xl-6 col-md-6 col-12 NOpadding text-right">
+                              <span><i className={"fa fa-" + this.state.orderData.currency}></i> {this.state.orderData.paymentDetails.discountAmount>0?this.state.orderData.paymentDetails.discountAmount:0.00}</span>
                           </div>  
                           </div>
                         </div>
                         <div>
                         <div className="row">
-                          <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Tax: </span></div>
-                          <div className="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12 NOpadding text-right">
-                            <span><i className={"fa fa-" + this.state.orderData.currency}></i> {this.state.orderData.paymentDetails.taxAmount}</span>
+                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Tax: </span></div>
+                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 NOpadding text-right">
+                            <span><i className={"fa fa-" + this.state.orderData.currency}></i> {this.state.orderData.paymentDetails.taxAmount>0?this.state.orderData.paymentDetails.taxAmount:0.00}</span>
                           </div>  
                           </div>
                         </div>
                         <div>
                         <div className="row">
-                            <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12" ><span>Order Total: </span></div>
-                            <div className="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12 NOpadding text-right">
+                            <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12" ><span>Order Total: </span></div>
+                            <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 NOpadding text-right">
                               <span>{this.state.orderData.currency} &nbsp; {this.state.orderData.paymentDetails.netPayableAmount}</span>
                         </div>   
                           </div>
@@ -150,8 +139,8 @@ class Payment extends Component {
                         <div className="brdrbtmpayment col-xl-12 col-md-12 col-sm-12 col-xs-12"></div>
                         <div>
                         <div className="row">
-                            <div className="col-xl-8 col-md-6 col-12 col-sm-12 col-xs-12 invoiceOrderTotal "><span>Total: </span></div>
-                            <div className="col-xl-4 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right">
+                            <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 invoiceOrderTotal "><span>Total: </span></div>
+                            <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right">
                             <div className="row">
                               <span className="invoiceOrderTotal"><i className={"fa fa-" + this.state.orderData.currency}></i> {this.state.orderData.paymentDetails.netPayableAmount}</span>
                             </div> 
@@ -163,75 +152,129 @@ class Payment extends Component {
                   </div> 
                   </div>
                   <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12 outerbox table-responsive">
-                    <table className="table orderTable">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Products Name</th>
-                          <th className="textAlignRight">Price</th>
-                          <th className="textAlignRight">Quantity</th>
-                          <th className="textAlignRight">SubTotal</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                            this.state.orderData.products && this.state.orderData.products.length > 0 ?
-                              this.state.orderData.products.map((data, index) => {
-                                // console.log("order data====",data);
-                                return (
-                                  <tr key={'cartData' + index}>
-                                    <td><img alt="Product_Image" className="img orderImg" src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
-                                    <td>
-                                      {/* <a href={"/productdetails/"+dara.productDetail.productUrl+" " + data.product_ID}> */}
-                                      <a href={"/product-detail/"+"producturl/" +data.product_ID}>
-                                        {data.productNameRlang?
-                                          <h5 className="productNameRlang RegionalFont">{data.productNameRlang}</h5>
-                                        :
-                                          <h5 className="productName">{data.productName}</h5>
-                                        }
-                                      </a>
+                  <div className="col-12 orderReviewsWrapper">
+                    <table className="table table-borderless orderTable">
+                        <thead>
+                            <tr>
+                                <th>Products Image</th>
+                                <th>Products Name</th>
+                                <th className="textAlignRight">Price</th>
+                                <th className="textAlignRight">Quantity</th>
+                                <th className="textAlignRight">SubTotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                            this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?
+                            this.state.orderData.vendorOrders.map((vendorWiseData, index) => {
+                                console.log("vendorWiseData=>",vendorWiseData);
+                                    return (
+                                        <tr className="col-12 tableRowWrapper" key={'cartData' + index}>
+                                          <tr  className="col-12">
+                                              <td colSpan="5">
+                                                  <table className="table ">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>{vendorWiseData.vendor_id.companyName}</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                  {   vendorWiseData && vendorWiseData.products && vendorWiseData.products.map((productdata, index) => {
+                                                        console.log("invoice productdata=>",productdata);
+                                                        return(
+                                                            <tr key={index}>
+                                                                <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
+                                                                <td>
+                                                                    <a href={"/productdetails/" + productdata}>
+                                                                    {productdata.productNameRlang?
+                                                                        <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
+                                                                    :
+                                                                        <h5 className="productName">{productdata.productName}</h5>
+                                                                    }
+                                                                    </a>
 
-                                      {data.discountPercent ?
-                                        <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12  NOpadding">
-                                          <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{Math.floor(data.originalPrice)}</span> &nbsp; &nbsp;
-                                          <span className="cartPrice"><i className="fa fa-inr"></i>{Math.floor(data.discountedPrice)}</span> &nbsp; &nbsp;
-                                          <span className="cartDiscountPercent">( {Math.floor(data.discountPercent)}% Off )</span>
-                                        </div>
-                                        :
-                                        <span className="price"><i className="fa fa-inr"></i>{data.originalPrice}</span>
-                                      }
-                                      <div>
-                                        {data.color ? <span className="cartColor">Color : <span style={{ backgroundColor: data.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(data.color)[1]}, </span> : null}
-                                        {data.size ? <span className="cartColor">Size : {data.size}</span> : null} &nbsp;
-                                        {data.size && data.unit ? <span className="cartColor">{data.unit}</span> : null}
-                                      </div>
-                                    </td>
-                                    <td className="textAlignRight">
-                                      {/* <span className="productPrize textAlignRight"><i className={"fa fa-" + data.currency}></i> &nbsp;{parseInt(data.discountedPrice).toFixed(2)}</span> */}
-                                      <span className="productPrize textAlignRight"><i className="fa fa-inr"></i> &nbsp;{Math.floor(parseInt(data.discountedPrice).toFixed(2))}</span>
-                                    </td>
-                                    <td className="textAlignRight">
-                                      <span className=" textAlignRight">{data.quantity}</span>
-                                    </td>
-                                    <td className="textAlignRight">
-                                      {/* <span className="productPrize textAlignRight"><i className={"fa fa-" + data.currency}></i> &nbsp;{parseInt(data.subTotal).toFixed(2)}</span> */}
-                                      <span className="productPrize textAlignRight"><i className="fa fa-inr"></i> &nbsp;{Math.floor(parseInt(data.subTotal).toFixed(2))}</span>
-                                    </td>
-                                  </tr>
-                                );
-                              })
-                            :
-                            null
-                        }
-                      </tbody>
+                                                                    {productdata.discountPercent ?
+                                                                        <div className="col-12 NoPadding">
+                                                                            <span className="cartOldprice">{this.state.currency} &nbsp;{productdata.originalPrice}</span>&nbsp;
+                                                                        <span className="cartPrice">{this.state.currency}&nbsp;{productdata.discountedPrice}</span> &nbsp; &nbsp;
+                                                                        <span className="cartDiscountPercent">( {Math.floor(productdata.discountPercent)}% Off ) </span>
+                                                                        </div>
+                                                                        :
+                                                                        <span className="price">{this.state.currency}&nbsp;{productdata.originalPrice}</span>
+                                                                    }
+                                                                    <div>
+                                                                        {productdata.color ? <span className="cartColor">Color : <span style={{ backgroundColor: productdata.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(productdata.color)[1]}, </span> : null}
+                                                                        {productdata.size ? <span className="cartColor">Size : {productdata.size} &nbsp; {productdata.unit}</span> : null}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="textAlignLeft">
+                                                                    {
+                                                                        productdata.availableQuantity > 0 ?
+                                                                            // <span className="productPrize textAlignRight"><i className={"fa fa-" + productdata.currency}></i> &nbsp;{parseInt(productdata.discountedPrice).toFixed(2)}</span>
+                                                                            <span className="productPrize textAlignRight">{this.state.currency}&nbsp;{parseInt(productdata.discountedPrice).toFixed(2)}</span>
+                                                                            :
+                                                                            <span>-</span>
+                                                                    }
+                                                                </td>
+                                                                <td className="textAlignCenter">
+                                                                    {
+                                                                            <span className=" textAlignRight">{productdata.quantity}</span>
+                                                                            
+                                                                    }
+                                                                </td>
+                                                                <td className="textAlignRight">
+                                                                    {
+                                                                      <span className="productPrize textAlignRight">
+                                                                          {this.state.currency}
+                                                                          &nbsp;{productdata.discountedPrice}
+                                                                      </span>
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                  }
+                                                  </tbody>
+                                              </table>
+                                              </td>
+                                          </tr>
+                                          <tr className=" col-12 tableRow">
+                                              <td colSpan="4"> 
+                                                  <div className="col-8 offset-2">
+                                                      <span className="col-8 title">{vendorWiseData.vendorName}&nbsp; Total</span>
+                                                      <span className="col-4 textAlignRight title">&nbsp; 
+                                                          {this.state.currency} &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? vendorWiseData.vendor_beforeDiscountTotal : 0.00} 
+                                                      </span>
+                                                  </div>
+                                                  <div className="col-8 offset-2">
+                                                      <span className="col-8 title">You Saved&nbsp;</span>
+                                                      <span className="col-4 textAlignRight title">&nbsp; 
+                                                          {this.state.currency} &nbsp;{vendorWiseData.total > 0 ? vendorWiseData.vendor_discountAmount : 0.00} 
+                                                      </span>
+                                                  </div>
+                                                  <div className="col-8 offset-2">
+                                                      <span className="col-8 title">Tax &nbsp;</span>
+                                                      <span className="col-4 textAlignRight title">&nbsp; 
+                                                          {this.state.currency} &nbsp;{vendorWiseData.vendor_taxAmount > 0 ? vendorWiseData.vendor_taxAmount : 0.00} 
+                                                      </span>
+                                                  </div>                                                                        
+                                              </td>
+                                          </tr>
+                                    </tr>
+                                    );
+                                })
+                                :
+                                  null
+                            }
+                        </tbody>
                     </table>
+                </div>
+              </div>
 
-                  </div>
-
-                  <div className="backtoMyOrdersDiv">
-                    <a href="/my-orders" className="backtoMyOrders"> Back to My Orders</a>
-                  </div>
-                  <hr />
+                <div className="backtoMyOrdersDiv">
+                  <a href="/my-orders" className="backtoMyOrders"> Back to My Orders</a>
+                </div>
+                <hr />
               </div>
               :null}
             </div>

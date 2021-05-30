@@ -39,9 +39,6 @@ class CartProducts extends Component{
             discountvalue: 0,
             discounttype : '',
             coupenPrice  : 0,
-            // taxValue: 0,
-            // cartTotal : 0,
-            // totalIncludingTax : 0
         }
     }
 
@@ -57,89 +54,88 @@ class CartProducts extends Component{
             currency     : currency
         })
         await this.props.fetchCartData();
-        this.getdiscounteddata(this.state.startRange, this.state.limitRange);
-        this.getshippingamount(this.state.startRange, this.state.limitRange);
-        this.getTaxmasterData();
-        this.getCartTotal();
+        // this.getdiscounteddata(this.state.startRange, this.state.limitRange);
+        // this.getshippingamount(this.state.startRange, this.state.limitRange);
+        // this.getTaxmasterData();
+        // this.getCartTotal();
     }
-    getCartTotal(){
-        this.props.recentCartData.length
-        for(let i =0;i<this.props.recentCartData.length;i++){
-            var tax = this.props.recentCartData[i].cartTotal;
-        }
-    }
+    // getCartTotal(){
+    //     this.props.recentCartData.length
+    //     for(let i =0;i<this.props.recentCartData.length;i++){
+    //         var tax = this.props.recentCartData[i].cartTotal;
+    //     }
+    // }
 
-    getTaxmasterData(){
-        axios.post('/api/expensetypemaster/get/list')
-        .then((response) => {
-            // console.log('TaxData tableData ==== ', response.data[0]);
-            if(response.data[0]){
-            this.setState({
-                taxrate: response.data[0].GSTRate, 
-                taxName: response.data[0].type             
-            },()=>{
-               
-            })
-        }
-        })
-        .catch((error) => {
-            console.log("error => ",error);
-            if(error.message === "Request failed with status code 401"){
-                var userDetails =  localStorage.removeItem("userDetails");
-                // localStorage.clear();
-                swal({  
-                    title : "Your Session is expired.",                
-                    text  : "You need to login again. Click OK to go to Login Page"
-                })
-                .then(okay => {
-                    if (okay) {
-                        window.location.href = "/login";
-                    }
-                });
-            }
-        });
-    }
-    getdiscounteddata(startRange, limitRange) {
-        axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
-            .then((response) => {
-                // console.log('Disscount tableData ==== ', response.data[0]);
-                if(response.data[0]){
-                this.setState({
-                    discountdata: response.data[0],
-                    discounttype: response.data[0].discounttype,
-                    discountin: response.data[0].discountin,
-                    discountvalue: response.data[0].discountvalue,
-                })
-                }
-            })
-            .catch((error) => {
-                console.log("error => ",error);
-                if(error.message === "Request failed with status code 401"){
-                    var userDetails =  localStorage.removeItem("userDetails");
-                    localStorage.clear();
-                    swal({  
-                        title : "Your Session is expired.",                
-                        text  : "You need to login again. Click OK to go to Login Page"
-                    })
-                    .then(okay => {
-                        if (okay) {
-                            window.location.href = "/login";
-                        }
-                    });
-                }
-            });
-    }
-    // getCartData(){
-    //     const userid = localStorage.getItem('user_ID');
-    //     axios.get("/api/carts/get/cartproductlist/"+userid)
-    //       .then((response)=>{ 
-    //         //   console.log('cartData', response.data);
+    // getTaxmasterData(){
+    //     axios.post('/api/expensetypemaster/get/list')
+    //     .then((response) => {
+    //         // console.log('TaxData tableData ==== ', response.data[0]);
+    //         if(response.data[0]){
     //         this.setState({
-    //             cartData : response.data
+    //             taxrate: response.data[0].GSTRate, 
+    //             taxName: response.data[0].type             
+    //         },()=>{
+               
     //         })
-    //       })
-    //       .catch((error)=>{
+    //     }
+    //     })
+    //     .catch((error) => {
     //         console.log("error => ",error);
+    //         if(error.message === "Request failed with status code 401"){
+    //             var userDetails =  localStorage.removeItem("userDetails");
+    //             // localStorage.clear();
+    //             swal({  
+    //                 title : "Your Session is expired.",                
+    //                 text  : "You need to login again. Click OK to go to Login Page"
+    //             })
+    //             .then(okay => {
+    //                 if (okay) {
+    //                     window.location.href = "/login";
+    //                 }
+    //             });
+    //         }
+    //     });
+    // }
+    // getdiscounteddata(startRange, limitRange) {
+    //     axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
+    //         .then((response) => {
+    //             // console.log('Disscount tableData ==== ', response.data[0]);
+    //             if(response.data[0]){
+    //             this.setState({
+    //                 discountdata: response.data[0],
+    //                 discounttype: response.data[0].discounttype,
+    //                 discountin: response.data[0].discountin,
+    //                 discountvalue: response.data[0].discountvalue,
+    //             })
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.log("error => ",error);
+    //             if(error.message === "Request failed with status code 401"){
+    //                 var userDetails =  localStorage.removeItem("userDetails");
+    //                 localStorage.clear();
+    //                 swal({  
+    //                     title : "Your Session is expired.",                
+    //                     text  : "You need to login again. Click OK to go to Login Page"
+    //                 })
+    //                 .then(okay => {
+    //                     if (okay) {
+    //                         window.location.href = "/login";
+    //                     }
+    //                 });
+    //             }
+    //         });
+    // }
+    // getshippingamount(startRange, limitRange){
+    //     axios.get('/api/shipping/get/list-with-limits/' + startRange + '/' + limitRange)
+    //     .then((response) => {
+        //   console.log('shippingamount = ', response.data[0].shippingcosting);
+        //   this.setState({
+    //         minvalueshipping: response.data[0].shippingcosting,
+    //       })
+    //     })
+    //     .catch((error) => {
+    //       console.log("error => ",error);
     //         if(error.message === "Request failed with status code 401"){
     //             var userDetails =  localStorage.removeItem("userDetails");
     //             localStorage.clear();
@@ -153,41 +149,19 @@ class CartProducts extends Component{
     //                 }
     //             });
     //         }
-    //       })
+    //     });
     // }
-    getshippingamount(startRange, limitRange){
-        axios.get('/api/shipping/get/list-with-limits/' + startRange + '/' + limitRange)
-        .then((response) => {
-        //   console.log('shippingamount = ', response.data[0].shippingcosting);
-          this.setState({
-            minvalueshipping: response.data[0].shippingcosting,
-          })
-        })
-        .catch((error) => {
-          console.log("error => ",error);
-            if(error.message === "Request failed with status code 401"){
-                var userDetails =  localStorage.removeItem("userDetails");
-                localStorage.clear();
-                swal({  
-                    title : "Your Session is expired.",                
-                    text  : "You need to login again. Click OK to go to Login Page"
-                })
-                .then(okay => {
-                    if (okay) {
-                        window.location.href = "/login";
-                    }
-                });
-            }
-        });
-    }
     Removefromcart(event){
         event.preventDefault();
         const userid = localStorage.getItem('user_ID');
         const cartitemid = event.target.getAttribute('id');
+        const vendorid = event.target.getAttribute('vendorid');
         const formValues = { 
-            "user_ID"    : userid,
+            "user_ID"     : userid,
             "cartItem_ID" : cartitemid,
+            vendor_ID     : vendorid,
         }
+        console.log("Removefromcart===",formValues);
         axios.patch("/api/carts/remove" ,formValues)
         .then((response)=>{
             this.setState({
@@ -253,7 +227,7 @@ class CartProducts extends Component{
                 "vendor_ID"     : vendor_id ,
                 "quantityAdded" : quantityAdded,
             }  
-            console.log("formValues====",formValues);  
+            // console.log("formValues====",formValues);  
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                     this.props.fetchCartData();
@@ -551,6 +525,7 @@ class CartProducts extends Component{
                                                 <div className="col-9">
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendorName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
+                                                        console.log("vendorData=>",vendorData);
                                                     return(
                                                         <div key={index}>
                                                             <div className="col-12">
@@ -591,10 +566,10 @@ class CartProducts extends Component{
                                                                     {
                                                                         vendorData.product_ID.availableQuantity > 0 ?
                                                                         <div className="quantityWrapper">
-                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
+                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorData.product_ID.vendor_ID} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
                                                                                 onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
                                                                             <span className="inputQuantity">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
-                                                                            <span className="plusQuantity fa fa-plus" vendor_id={vendorWiseCartData.vendor_id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
+                                                                            <span className="plusQuantity fa fa-plus" vendor_id={vendorData.product_ID.vendor_ID} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
                                                                                 onClick={this.cartquantityincrease.bind(this)}></span><br/>   
                                                                             { this.state.websiteModel === 'FranchiseModel'?                                                                 
                                                                                 <span className ="productUnit" id={vendorData.product_ID._id}> Of {vendorData.product_ID.size}&nbsp;<span className="CapsUnit">{vendorData.product_ID.unit}</span></span>
@@ -608,13 +583,13 @@ class CartProducts extends Component{
                                                                     <div className="nowrap col-3">
                                                                     {
                                                                         vendorData.product_ID.availableQuantity > 0 ?
-                                                                            <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.subTotal}</span>
+                                                                            <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice:vendorData.product_ID.originalPrice}</span>
                                                                         :
                                                                         <span>-</span>
                                                                     }    
                                                                     </div>
                                                                     <div className="col-1">
-                                                                        <span className="fa fa-trash trashIcon" id={vendorData._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
+                                                                        <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorData.product_ID.vendor_ID} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
                                                                     </div>
                                                                 </div> 
                                                             </div>
@@ -624,7 +599,7 @@ class CartProducts extends Component{
                                                 }
                                                 </div>
                                                 <div className="col-3 vendorWiseSummury cartSummary ">
-                                                <strong className="cartSummaryTitle ">{vendorWiseCartData.vendorName}&nbsp;Order Summary</strong>
+                                                <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
                                                     {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
                                                 <table className="table table-responsive summaryTable">
                                                     <tbody>

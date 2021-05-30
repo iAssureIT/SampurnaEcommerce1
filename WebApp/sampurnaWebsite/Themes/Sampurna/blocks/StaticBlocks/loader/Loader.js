@@ -16,7 +16,7 @@ export default class Loader extends Component {
     }
     if (this.props.type === "fullpageloader") {
       return (
-        <div>
+        <div className="col-12">
           <div className="fullpageloader">Loading&#8230;</div>
         </div>
       );

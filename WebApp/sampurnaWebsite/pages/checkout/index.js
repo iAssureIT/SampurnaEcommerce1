@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import $, { post } from 'jquery';
-import jQuery from 'jquery';
-import axios from 'axios';
-import Router from 'next/router';
-import Loaderspinner from 'react-loader-spinner';
-
+import $, { post }          from 'jquery';
+import jQuery               from 'jquery';
+import axios                from 'axios';
+import Router               from 'next/router';
+import Loaderspinner        from 'react-loader-spinner';
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
@@ -12,19 +11,13 @@ import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Mess
 import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
 import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
-
-import { connect }            from 'react-redux';
-import {getCartData}          from '../../redux/actions/index.js'; 
-import  store                 from '../../redux/store.js'; 
+import { connect }          from 'react-redux';
+import {getCartData}        from '../../redux/actions/index.js'; 
+import  store               from '../../redux/store.js'; 
 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import moment from 'moment';
 import swal from 'sweetalert';
-
-// import 'bootstrap/js/modal.js';
-// import 'bootstrap/js/tab.js';
-// import { ntc } from '../../ntc/ntc.js';
-
 
 class Checkout extends Component {
     constructor(props) {
@@ -46,18 +39,15 @@ class Checkout extends Component {
                 breadcrumb: 'Checkout',
                 backgroungImage: 'images/eCommerce/checkout.png',
             },
-            discountCode: false,
-            comment: false,
-            giftOption: false,
             deliveryAddress: [],
             pincodeExists: true,
             paymentmethods: "cod",
             paymethods: false,
             addressLine1: "",
-            addType : '',
-            "startRange": 0,
-            "limitRange": 10,
-            isChecked: false,
+            addType     : '',
+            startRange  : 0,
+            limitRange  : 10,
+            isChecked   : false,
             isCheckedError: [],
             pinValid      :false,
             user_ID       :'',
@@ -70,17 +60,14 @@ class Checkout extends Component {
             taxName : '',
 
         }
-        // this.getCartData();
-        // this.getCompanyDetails();
-        // this.getUserAddress();
         this.camelCase = this.camelCase.bind(this)
     }
     async componentDidMount() {
+        await this.props.fetchCartData();
         var userid = localStorage.getItem('user_ID');
         var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
-        // console.log("userDetails=",userDetails);
         this.setState({
             user_ID : userid,
             email   : userDetails.email,
@@ -91,11 +78,9 @@ class Checkout extends Component {
             this.getUserAddress();
             // console.log("currency=",this.state.currency);
         })
-    //   await this.props.fetchCartData();
-        // this.getCartData();
-        this.gettimes(this.state.startRange, this.state.limitRange);
         
-        // this.validation();
+        // this.getCartData();
+        this.gettimes(this.state.startRange, this.state.limitRange);        
         axios.get('/api/users/get/' + localStorage.getItem("user_ID"))
             .then(result => {
                 this.setState({
@@ -107,21 +92,21 @@ class Checkout extends Component {
                 console.log('Errr', err);
             })
 
-        var type = "PG"
-        axios.post('/api/projectsettings/getS3Details/' + type)
-            .then(result => {
-                //    console.log('projectsettings Response===> ', result.data);
-                this.setState({
-                    environment: result.data.environment,
-                    namepayg: result.data.namepayg,
-                    partnerid: result.data.partnerid,
-                    secretkey: result.data.secretkey,
-                    status: result.data.status,
-                })
-            })
-            .catch(err => {
-                console.log('Errr', err);
-            })
+        // var type = "PG"
+        // axios.post('/api/projectsettings/getS3Details/' + type)
+        //     .then(result => {
+        //         //    console.log('projectsettings Response===> ', result.data);
+        //         this.setState({
+        //             environment: result.data.environment,
+        //             namepayg: result.data.namepayg,
+        //             partnerid: result.data.partnerid,
+        //             secretkey: result.data.secretkey,
+        //             status: result.data.status,
+        //         })
+        //     })
+        //     .catch(err => {
+        //         console.log('Errr', err);
+        //     })
     }
     
     validateForm() {
@@ -228,62 +213,7 @@ class Checkout extends Component {
           });
           return formIsValid;
         }
-    // getCartData() {
-    //     $('.fullpageloader').show();
-    //     // document.getElementsByClassName('fullpageloader')[0].style.display = 'block';
-    //     // const userid = localStorage.get('user_ID');
-    //     axios.get("/api/carts/get/list/" + this.state.user_ID)
-    //         .then((response) => {
-    //             $('.fullpageloader').hide();
-    //             this.setState({
-    //                 cartProduct: response.data[0]
-    //             });
-    //             console.log("inside getCartData:",this.state.cartProduct);
-    //         })
-    //         .catch((error) => {
-    //             console.log('error', error);
-    //         })
-    // }
-    getCompanyDetails() {
-        axios.get("/api/companysettings/list")
-            .then((response) => {
-                this.setState({
-                    companyInfo: response.data[0]
-                }, () => {
-                    this.getCartTotal();
-                })
-            })
-            .catch((error) => {
-                console.log('error', error);
-            })
-    }
-    getCartTotal() {
-        var cartData = this.state.cartProduct;
-        var companyData = this.state.companyInfo;
-
-        if (cartData && companyData) {
-
-            if (cartData.cartItems.length > 0) {
-                this.setState({
-                    "shippingCharges": 0,
-                });
-            } else {
-                this.setState({
-                    "shippingCharges": 0.00,
-                });
-            }
-
-            this.setState({
-                "productCartData": cartData.cartItems,
-                "productData": cartData,
-                "vatPercent": companyData.taxSettings ? companyData.taxSettings[0].taxRating : 0,
-            });
-        } else {
-            this.setState({
-                "shippingCharges": 0.00,
-            });
-        }
-    }
+        
     getUserAddress() {
         var user_ID = localStorage.getItem('user_ID');
         if(user_ID){
@@ -384,15 +314,7 @@ class Checkout extends Component {
 		  fields
 		});
     }
-    addressChange(event){
-        let fields = this.state.fields;
-		fields[event.target.name] = event.target.value;
-		this.setState({
-		  fields
-		});
-    }
     handlePincode(pincode) {
-
         if (pincode !== '') {
             axios.get("https://api.postalpincode.in/pincode/" + pincode)
                 .then((response) => {
@@ -414,247 +336,7 @@ class Checkout extends Component {
             this.setState({ pincodeExists: true })
         }
     }
-    Removefromcart(event) {
-        event.preventDefault();
-        const userid = this.state.user_ID;
-        const cartitemid = event.target.id;
 
-        const formValues = {
-            "user_ID": userid,
-            "cartItem_ID": cartitemid,
-        }
-        axios.patch("/api/carts/remove", formValues)
-            .then((response) => {
-                this.setState({
-                    messageData: {
-                        "type": "outpage",
-                        "icon": "fa fa-check-circle",
-                        "message": "&nbsp; " + response.data.message,
-                        "class": "success",
-                        "autoDismiss": true
-                    }
-                })
-                setTimeout(() => {
-                    this.setState({
-                        messageData: {},
-                    })
-                }, 3000);
-                this.props.fetchCartData();
-                // swal(response.data.message);
-                // this.getCartData();
-                this.getCompanyDetails();
-                this.getCartTotal();
-            })
-            .catch((error) => {
-                console.log('error', error);
-            })
-    }
-
-    grandtotalFunction(cartItemsMoveMain) {
-        // console.log('cart', cartItemsMoveMain);
-        var taxes = [];
-        var calTax = [];
-        var calculateTax = [];
-        var temp = [];
-        var grandTotal = 0;
-        var taxTotal = 0;
-        var totalTaxApplied = 0;
-        var cartElem = cartItemsMoveMain;
-        if (cartElem) {
-
-            var noOfProducts = cartElem.cartItems.length;
-            var totalAmount = 0;
-            for (var i = 0; i < noOfProducts; i++) {
-                var productId = cartElem.cartItems[i].productId;
-                var qty = cartElem.cartItems[i].quantity;
-                var discountedPrice = cartElem.cartItems[i].discountedPrice;
-                var finalPrice = discountedPrice * qty;
-                totalAmount += finalPrice;
-
-            } // end of i loop
-            // console.log('totalAmount', discountedPrice, totalAmount);
-            if (totalAmount > 0) {
-                var themeSettings = this.state.companyInfo;
-                // console.log('themeSettings', themeSettings);
-                if (themeSettings) {
-                    var taxCount = themeSettings.taxSettings.length;
-                    if (taxCount > 0) {
-                        for (var j = 0; j < taxCount; j++) {
-                            var taxName = themeSettings.taxSettings[j].taxType;
-                            var createdAt = themeSettings.taxSettings[j].createdAt;
-                            var taxValue = themeSettings.taxSettings[j].taxRating;
-                            var taxeffectiveFrom = themeSettings.taxSettings[j].effectiveFrom;
-                            var taxeffectiveTo = themeSettings.taxSettings[j].effectiveTo ? themeSettings.taxSettings[j].effectiveTo : new Date();
-
-
-
-                            var from = taxeffectiveFrom;
-                            var effectiveDateFrom = new Date(from[0], from[1] - 1, from[2]);
-                            taxes.push({
-                                'taxName': taxName,
-                                'taxValue': parseFloat(taxValue),
-                                'effectiveDateFrom': effectiveDateFrom,
-                                // 'effectiveDateTo'   : effectiveDateTo,
-                                'timeStamp': createdAt,
-                            });
-                        } // for loop j 
-                        var taxesAllowed = _.pluck(taxes, "taxName");
-                        var uniqueTaxes = _.uniq(taxesAllowed);
-                        if (uniqueTaxes) {
-                            if (uniqueTaxes.length > 0) {
-                                for (var k = 0; k < uniqueTaxes.length; k++) {
-                                    for (var l = 0; l < taxes.length; l++) {
-                                        if (uniqueTaxes[k] === taxes[l].taxName) {
-                                            var currentDate = new Date();
-
-
-
-                                            var taxTotal = 0;
-                                            var taxApplied = parseFloat(totalAmount) * (parseFloat(taxes[l].taxValue) / 100);
-
-                                            taxTotal = parseFloat(taxTotal) + parseFloat(taxApplied);
-                                            calTax.push({
-                                                'taxName': taxes[l].taxName,
-                                                'taxValue': parseFloat(taxes[l].taxValue),
-                                                'taxTotal': parseFloat(taxTotal),
-                                                'timeStamp': taxes[l].timeStamp,
-                                            });
-                                        } // end of uniqueTaxes[k] === taxes[l].taxName
-                                    } // end of l loop
-
-                                } // end of k loop
-                            } //uniqueTaxes.length
-                        }    // if uniqueTaxes
-
-                        var multipleTaxes = _.pluck(calTax, "taxName");
-                        var uniqueTaxesNames = _.uniq(multipleTaxes);
-
-                        for (var c = 0; c < uniqueTaxesNames.length; c++) {
-
-                            var taxNameCountVar = 0
-                            for (var d = 0; d < calTax.length; d++) {
-                                if (calTax[d].taxName === uniqueTaxesNames[c]) {
-                                    taxNameCountVar++;
-                                }
-                            } // Check for count
-
-                            if (taxNameCountVar > 1) {
-                                for (var d = 0; d < calTax.length; d++) {
-                                    if (calTax[d].taxName === uniqueTaxesNames[c]) {
-                                        temp.push({
-                                            'taxName': calTax[d].taxName,
-                                            'taxValue': parseFloat(calTax[d].taxValue),
-                                            'taxTotal': parseFloat(calTax[d].taxTotal),
-                                            'timeStamp': new Date(calTax[d].timeStamp).getTime(),
-                                        }); // end array
-                                    } // end if
-                                } // end d loop
-                                for (var e = 0; e < temp.length; e++) {
-                                    if (temp[0].timeStamp < temp[e].timeStamp) {
-                                        temp[0].timeStamp = temp[e].timeStamp;
-                                        temp[0].taxName = temp[e].taxName;
-                                        temp[0].taxValue = temp[e].taxValue;
-                                        temp[0].taxTotal = temp[e].taxTotal;
-
-                                    } // end if
-                                } // end e loop
-
-                                calculateTax.push({
-                                    'taxName': temp[0].taxName,
-                                    'taxValue': parseInt(temp[0].taxValue),
-                                    'taxTotal': parseInt(temp[0].taxTotal),
-                                    'timeStamp': temp[0].timeStamp,
-                                }); // end array
-                                temp = [];
-                            } else {
-                                for (var d = 0; d < calTax.length; d++) {
-                                    if (calTax[d].taxName === uniqueTaxesNames[c]) {
-                                        calculateTax.push({
-                                            'taxName': calTax[d].taxName,
-                                            'taxValue': parseFloat(calTax[d].taxValue),
-                                            'taxTotal': (parseFloat(calTax[d].taxTotal)),
-                                            // 'taxTotalDisplay'  : formatRupees(parseFloat(calTax[d].taxTotal)) ,
-                                            'taxTotalDisplay': (parseFloat(calTax[d].taxTotal)),
-                                            'timeStamp': calTax[d].timeStamp,
-                                        }); // end array
-                                    } // end if 
-                                }  // end of d loop   
-                            } // end else
-                        }
-
-                        if (calculateTax.length > 0) {
-                            for (var m = 0; m < calculateTax.length; m++) {
-                                totalTaxApplied += calculateTax[m].taxTotal;
-                            } // end of m loop
-                            var finalsubTotal = parseFloat(totalAmount) + parseFloat(totalTaxApplied);
-
-                            if ((totalAmount > 0) && (totalAmount <= 500)) {
-                                var shippingCharges = 0;
-
-                            } else if ((totalAmount > 500) && (totalAmount <= 1000)) {
-                                var shippingCharges = 0;
-                            } else {
-                                var shippingCharges = 0;
-                            }
-
-                            var finalTotal = parseFloat(totalAmount) + parseFloat(totalTaxApplied) + this.state.shippingCharges;
-                            if (cartElem.couponUsed) {
-                                if (cartElem.couponUsed.moneySaved) {
-                                    var taxCalc = {
-                                        'finalTotal': (parseFloat(finalTotal) - parseFloat(cartElem.couponUsed.moneySaved)),
-                                        'taxes': calculateTax,
-                                    } // end of taxCalc
-
-                                } else {
-                                    var taxCalc = {
-                                        'finalTotal': (parseFloat(finalTotal)),
-                                        'taxes': calculateTax,
-                                    } // end of taxCalc         
-                                }
-                            } else {
-
-                                var taxCalc = {
-                                    'finalTotal': (parseFloat(finalTotal)),
-                                    'taxes': calculateTax,
-                                } // end of taxCalc                           
-                                // {this.state.pinValid === false?
-                                //     <label className="error">Please enter valid pincode</label>
-                                // :
-                                //     null 
-                                // }                       
-
-
-
-                            }
-
-                        } // end of calTax.length > 0
-
-                    } // if taxCount > 0
-
-                } // end if themesettings
-
-
-            } // end of totalAmount > 0
-
-
-        } //end of if cartElem
-
-
-        return taxCalc;
-    }
-
-    discountCode(event) {
-        event.preventDefault();
-        this.setState({
-            discountCode: this.state.discountCode === true ? false : true
-        })
-    }
-    comment(event) {
-        event.preventDefault();
-        this.setState({
-            comment: this.state.comment === true ? false : true
-        })
-    }
     giftOption(event) {
         event.preventDefault();
         this.setState({
@@ -687,10 +369,10 @@ class Checkout extends Component {
           }
           console.log("vendorOrders====",vendorOrders);
 
-        var payMethod = $("input[name='paymentmethods']:checked").val();
+        var paymentMethod = $("input[name='paymentmethods']:checked").val();
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
         var formValues = {
-            "payMethod": payMethod,
+            "paymentMethod": paymentMethod,
             "user_ID"  : this.state.user_ID,
             "email"    : this.state.email,
             "fullName" : this.state.fullName
@@ -718,7 +400,7 @@ class Checkout extends Component {
             }, 6000);
         } else {
             if(this.validateForm()){
-                console.log("validation true");
+                // console.log("validation true");
             if (this.state.deliveryAddress && this.state.deliveryAddress.length > 0) {
                 var deliveryAddress = this.state.deliveryAddress.filter((a, i) => {
                     return a._id === checkoutAddess
@@ -830,7 +512,7 @@ class Checkout extends Component {
                             userFullName 		      : this.state.fullName,                            
                             currency                  : this.state.currency,	
                             payment_status            : this.state.payMethod === 'online' ? "Paid" : "UnPaid",  // paid, unpaid
-                            paymentMethod             : this.state.payMethod,
+                            paymentMethod             : this.state.paymentMethod,
                             customerShippingTime      : this.state.shippingtime,
                             order_numberOfProducts    : this.props.recentCartData.paymentDetails.order_numberOfProducts,
                             order_quantityOfProducts  : this.state.order_quantityOfProducts, //Sum of total quantity of items in each vendor
@@ -1025,8 +707,6 @@ class Checkout extends Component {
         geocodeByAddress(address)
             .then((results) => {
                 if (results) {
-                    // console.log("result ===",results);
-                    // console.log("result ===",results);
                     for (var i = 0; i < results[0].address_components.length; i++) {
                         for (var b = 0; b < results[0].address_components[i].types.length; b++) {
                             switch (results[0].address_components[i].types[b]) {
@@ -1087,6 +767,7 @@ class Checkout extends Component {
             });
         this.setState({ addressLine1: address });
     }; //end google api   
+
     camelCase(str) {
         return str
             .toLowerCase()
@@ -1094,14 +775,11 @@ class Checkout extends Component {
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
     }
+
     opDones() {
         this.getUserAddress();
     }
 
-    handleCheckbox(event) {
-        event.preventDefault();
-        //   console.log("terms value ....",$('.acceptTerms:checkbox:checked').length);
-    }
     checkDelivery(event) {
         // event.preventDefault();
         var target = event.target.pincode;
@@ -1134,8 +812,6 @@ class Checkout extends Component {
         var couponCode = this.refs.couponCode.value;
         // console.log("couponCode===",couponCode);
         var userDetails = JSON.parse(localStorage.getItem('userDetails'));
-        // console.log("userDetails====",userDetails);
-        // console.log("user_ID===",this.state.coupenPrice);
         var userId = userDetails.user_id;
         if(this.state.coupenPrice === 0){
             axios.get('/api/coupon/get/one_by_couponcode/'+couponCode+"/"+userId)
@@ -1185,12 +861,12 @@ class Checkout extends Component {
     render() {
         // this.props.fetchCartData();
         return (
-            <div className="col-12">
+            <div className="col-12 NoPadding">
             < Header/>
             <div className="col-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
                 <Message messageData={this.state.messageData} />
                 <div className="row">
-                    <Loader type="fullpageloader" />
+                    {/* <Loader type="fullpageloader" /> */}
                     {/* <div className ="fullpageloader">
                         <div className="col-lg-6 col-lg-offset-3 col-md-4 col-md-offset-4  col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
                             <img src="/images/loader.gif" className=""></img>
@@ -1198,7 +874,7 @@ class Checkout extends Component {
                     </div>                     */}
                     <Address opDone={this.opDones.bind(this)} />
                     <SmallBanner bannerData={this.state.bannerData} />
-                    {this.props.recentCartData.vendorOrders.length>0?
+                    {this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length>0?
                     <div className="container-fluid">
                         <form className="col-12 " id="checkout">
                            <div className="row">
@@ -1407,7 +1083,7 @@ class Checkout extends Component {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length > 0 ?
+                                                   this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length > 0 ?
                                                         this.props.recentCartData.vendorOrders.map((vendorWiseData, index) => {
                                                             return (
                                                                 <div className="col-12 tableRowWrapper" key={'cartData' + index}>
@@ -1416,7 +1092,7 @@ class Checkout extends Component {
                                                                         <table className="table ">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>{vendorWiseData.vendorName}</th>
+                                                                                <th>{vendorWiseData.vendor_id.companyName}</th>
                                                                             </tr>
                                                                         </thead>
 
@@ -1642,7 +1318,7 @@ class Checkout extends Component {
     }
 }
 const mapStateToProps = state => (
-    console.log("state in checkout====",state.data.recentCartData),
+    // console.log("state in checkout====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

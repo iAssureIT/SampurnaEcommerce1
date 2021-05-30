@@ -65,8 +65,6 @@ class Cart extends Component{
 				              })
 					          : null
 					          }
-                    
-                    
                 </div>
               </div>
             <Footer/>
