@@ -58,6 +58,7 @@ class Checkout extends Component {
             websiteModel:'',
             taxrate : 0,
             taxName : '',
+            couponAmount : 0.00,
 
         }
         this.camelCase = this.camelCase.bind(this)
@@ -354,7 +355,7 @@ class Checkout extends Component {
             if(vendorOrders[i].cartItems){
               for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
                 vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
-                // console.log("vendorOrders",vendorOrders);
+                vendorOrders[i].products[j].quantity =vendorOrders[i].cartItems[j].quantity ;
                 vendorOrders[i].deliveryStatus =[];
                   vendorOrders[i].deliveryStatus.push({
                     "status"          : "New Order",
@@ -362,11 +363,12 @@ class Checkout extends Component {
                     "statusUpdatedBy" : this.state.user_ID,
                     "expDeliveryDate" : new Date(),
                 }) 
+                vendorOrders[i].orderStatus =  "New Order";
               } 
              delete vendorOrders[i].cartItems;
             }
           }
-          console.log("vendorOrders====",vendorOrders);
+        //   console.log("vendorOrders====",vendorOrders);
 
         var paymentMethod = $("input[name='paymentmethods']:checked").val();
         console.log("paymentMethod====",paymentMethod);
@@ -811,56 +813,31 @@ class Checkout extends Component {
 
     applyCoupon(event){
         event.preventDefault();
-        var totalPrice = 50;
         var couponCode = this.refs.couponCode.value;
-        // console.log("couponCode===",couponCode);
+        console.log("couponCode===",couponCode);
         var userDetails = JSON.parse(localStorage.getItem('userDetails'));
         var userId = userDetails.user_id;
-        if(this.state.coupenPrice === 0){
-            axios.get('/api/coupon/get/one_by_couponcode/'+couponCode+"/"+userId)
-            .then(res=>{
-            // console.log("res=>",res);
-            if(res.data.message){
-                swal({text: res.data.message});
-            }else{
-                if(totalPrice > res.data.minPurchaseAmount){
-                    if(res.data.coupenin === 'Percent'){
-                    // console.log("res.data.coupenvaluE",res.data.coupenvalue);
-                    // console.log("totalPrice",totalPrice);
-                    var discount = ((res.data.coupenvalue/100) * totalPrice).toFixed(2);
-                    // console.log("discount",discount);
-                    this.setState({
-                        coupenPrice : res.data.coupenvalue,
-                        totalPrice  : discount,
-                        coupenCode  : '',
-
-                    })
-                    swal({text: "Coupen Applied"});
-                    }else{
-                    var discount = totalPrice - res.data.coupenvalue;
-                    this.setState({
-                        coupenPrice : res.data.coupenvalue,
-                        totalPrice  : discount,
-                        coupenCode  : '',
-
-                    })
-                    swal({text: "Coupen Applied"});
-                    console.log("discount",this.state.discount);
-                    }
-                }else{
-                    swal({text: "Your order total should be greater than AED " + res.data.minPurchaseAmount, color:'red'});
-                }
+            var payload={
+                "user_ID"     : userId,
+                "couponCode"  : couponCode
             }
+            axios.patch('/api/carts/put/coupon',payload)
+            .then(couponResponse=>{
+                if(couponResponse.data){
+                    console.log("couponResponse=>",couponResponse.data);
+                    this.props.fetchCartData();
+                    this.setState({
+                        couponAmount : this.props.recentCartData.paymentDetails.afterDiscountCouponAmount,
+                    })
+                    swal({text: couponResponse.data.message, color:res.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
+                }
             })
             .catch(err=>{
                 this.setState({coupenCode  : ''})
                 console.log("err",err);
-            })
-        }else{
-            this.setState({coupenCode  : ''})
-            swal({text: "Coupen already applied"});
-        }  
+            }) 
     }
+
     render() {
         // this.props.fetchCartData();
         return (
@@ -1166,7 +1143,7 @@ class Checkout extends Component {
                                                                         <div className="col-6 offset-3">
                                                                             <span className="col-8 title">{vendorWiseData.vendorName}&nbsp; Total</span>
                                                                             <span className="col-4 textAlignRight title NoPadding">&nbsp; 
-                                                                                {this.state.currency} &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? vendorWiseData.vendor_beforeDiscountTotal : 0.00} 
+                                                                                {this.state.currency} &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? (vendorWiseData.vendor_netPayableAmount).toFixed(2) : 0.00} 
                                                                             </span>
                                                                         </div>
                                                                         <div className="col-6 offset-3">
@@ -1201,7 +1178,7 @@ class Checkout extends Component {
                                         <div className="col-12">
                                             <div className="col-12">
                                                 <div className="row">
-                                                    <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails? this.props.recentCartData.paymentDetails.afterDiscountTotal : 0.00 }</span>
+                                                    <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
                                                     <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.discountAmount>0 ? this.props.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
                                                     <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
                                                     
@@ -1210,10 +1187,10 @@ class Checkout extends Component {
                                                             <div className="form-group col-7">
                                                                 <input type="text" className="form-control couponCode" ref="couponCode" id="couponCode" name="couponCode" placeholder="Enter Discount Coupon Here..." />
                                                             </div>
-                                                            <div className="col-5">
-                                                                <button type="button" className="col-5 offset-2 btn btn-primary pull-right cuponBtn" onClick={this.applyCoupon.bind(this)}>Apply</button>
+                                                            <div className="col-2">
+                                                                <button type="button" className="col-12 btn btn-primary pull-right cuponBtn" onClick={this.applyCoupon.bind(this)}>Apply</button>
                                                             </div>
-                                                            
+                                                            <div className="col-3 text-right"> {this.state.currency}&nbsp; {this.state.couponAmount>0? this.state.couponAmount : 0.00}</div>
                                                         </div>
                                                     </div>
 
@@ -1224,14 +1201,10 @@ class Checkout extends Component {
                                                         <div className="row">
                                                             <span className="col-6 orderTotalText">Grand Total</span>
                                                             <span className="col-6 textAlignRight orderTotalPrize globalTotalPrice">{this.state.currency} &nbsp;
-                                                                {this.props.recentCartData.paymentDetails.netPayableAmount }
+                                                                {(this.props.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <span className="col-6 orderTotalText">Grand Total</span>
-                                                    <span className="col-6 textAlignRight orderTotalPrize globalTotalPrice">{this.state.currency} &nbsp;
-                                                        {this.props.recentCartData.paymentDetails.netPayableAmount }
-                                                    </span>
                                                 </div>
                                             </div>
                                         </div> 

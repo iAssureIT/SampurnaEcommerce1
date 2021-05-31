@@ -32,7 +32,7 @@ router.get('/get/count', 																		checkAuth, orderController.count_orde
 
 router.get('/get/vendorwisecount/:vendorID', 												    checkAuth, orderController.vendor_order_count);
 
-router.get('/get/list/:userID', 																checkAuth, orderController.list_order_by_user);
+router.get('/get/list/:userID', 															    orderController.list_order_by_user);
 
 router.post('/get/list', 																		checkAuth, orderController.list_order_with_limits);
 

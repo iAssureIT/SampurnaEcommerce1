@@ -14,15 +14,13 @@ table > tfoot > tr > th{
 	text-align: right;
 }
 table > tfoot > tr > td{
-	
 	border-top: 0px solid #ddd !important;
 }
-
+.vendorOrderHistory{
+	margin-top: 20px;
+}
 table > tfoot > tr > td:last-of-type {
    text-align: right;
-}
-.box-content{
-	/* height: 150px; */
 }
 .subtotal{
 	border-top: 1px solid #ddd !important;
@@ -33,7 +31,17 @@ table > tfoot > tr > td:last-of-type {
 .backtoMyOrders{
 	color: #999;
 }
+.orderBtns{
+	background-color: #154799;
+	padding: 10px;
+	color: #fff;
+	cursor: pointer;
+	font-weight: 900;
+}
 
+.orderBtns:hover{
+	
+}
 .backtoMyOrders:hover{
 	color:#80b435 !important;
 	text-decoration: none;
@@ -128,11 +136,10 @@ table > tfoot > tr > td:last-of-type {
 	height: 70px;
 }
 .orderIdborder{
-	border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+	border: 1px solid #ccc;
     padding: 10px;
     background : #eeeeee6b;
+	padding: 20px 5px !important;
 }
 .orderbodyborder{
 	padding: 10px;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios                from 'axios';
-import $, { event }                    from 'jquery';
+import $                    from 'jquery';
 import moment               from "moment";
 import { FaStar }           from 'react-icons/fa';
 import                      'bootstrap/dist/css/bootstrap.min.css';
@@ -405,6 +405,8 @@ export default class MyOrders extends Component {
     })
       // =================== Notification ==================
 
+
+        
         this.setState({
           messageData: {
             "type": "outpage",
@@ -435,18 +437,17 @@ export default class MyOrders extends Component {
       reviewTextError : event.target.value ? "" : "Please Enter your feedback."
     })
   }
-
   ratingReview(event){
-    // console.log("event.target.value---",event.target.value);
+    
+    console.log("event.target.value---",event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
       reviewStarError : event.target.value ? "" : "Please give star rating."
     },()=>{
-      // console.log('ratingReview---', this.state.ratingReview);
-      // console.log("reviewStarError===",this.state.reviewStarError);
+      console.log('ratingReview---', this.state.ratingReview);
+      console.log("reviewStarError===",this.state.reviewStarError);
     })
   }
-
   closeModal(event){
     this.setState({
       rating : "",
@@ -454,10 +455,6 @@ export default class MyOrders extends Component {
       customerReview : ""
     })
   }
-  showOrdersDetails(event){
-      event.preventDefault();
-  }
-
   render() {
     return (
       <div>
@@ -488,87 +485,80 @@ export default class MyOrders extends Component {
                         </div>                       
                         <div className="col-6 NOpadding">
                             <div className="col-12 text-right">Date - {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}</div>
-                        </div>                        
+                        </div>
+                        {/* <div className="col-6 NOpadding">
+                          <div className="actionbtn col-12   NOpadding">
+                            { this.state.orderData.deliveryStatus[this.state.orderData.deliveryStatus.length - 1].status !== 'Cancelled' ? 
+                              <a className="btn filterallalphab" target="_blank" rel="noopener noreferrer" href={"/view-order/" + this.state.orderData._id} title="View Order">
+                              <span> Invoice</span></a> : <div className="pull-right"><span className="cancelledtext"> Cancelled</span></div>
+                            }
+                            {
+                              data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Cancelled' || data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Returned' ? '' :
+                                data.deliveryStatus[data.deliveryStatus.length - 1].status === "New Order" || data.deliveryStatus[data.deliveryStatus.length - 1].status === "Verified"
+                                  || data.deliveryStatus[data.deliveryStatus.length - 1].status === "Packed" ? <button type="button" data-toggle="modal" data-target="#cancelProductModal" className="btn filterallalphab" name="returnbtn" title="Cancel" onClick={this.cancelProduct.bind(this)}
+                                    data-status={data.deliveryStatus[data.deliveryStatus.length - 1].status} data-id={data._id}>Cancel</button> : ''
+                            }
+                          </div>
+                        </div> */}
                       </div> 
                     </div> 
                   
                     
-                  {
-                    this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?                    
-                      this.state.orderData.vendorOrders.map((vendordata, index) => {
-                        console.log("orderData:",vendordata);
-                        return (
-                          <div key={index} style={{marginBottom:"40px"}} className={"vendorOrderHistory"}>   
+                    {
+                      this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?                    
+                        this.state.orderData.vendorOrders.map((vendordata, index) => {
+                          console.log("orderData:",vendordata);
+                          return (
+                            <div key={index} style={{marginBottom:"40px"}} className={"vendorOrderHistory"}>   
 
-                            <div className="col-12 NOpadding">
-                                <span className="vendorName">{vendordata.vendorName}</span> &nbsp;
-                            </div>           
+                              <div className="col-12 NOpadding">
+                                  <span className="vendorName">{vendordata.vendorName}</span> &nbsp;
+                              </div>           
 
-                            { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                              <div className="col-12 orderIdborder">
-                                  <StepWizard data={vendordata} />
-                              </div> :null
-                            }
-                            <div className="col-12 orderbodyborder">
-                              <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
-                                <div className="row ">                                      
-                                    <div className="col-12 NOpadding">
-                                      <div className="col-8 offset-2">
-                                          <span className="col-8 title">&nbsp; Amount</span>
-                                          <span className="col-4 textAlignRight title">&nbsp; 
-                                              {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
-                                          </span>
+                              { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
+                                <div className="col-12 orderIdborder">
+                                    <StepWizard data={vendordata} />
+                                </div> :null
+                              }
+                              <div className="col-12 orderbodyborder">
+                                <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
+                                  <div className="row ">                                      
+                                      <div className="col-12 NOpadding">
+                                        <div className="col-8 offset-2">
+                                            <span className="col-8 title">&nbsp; Amount</span>
+                                            <span className="col-4 textAlignRight title">&nbsp; 
+                                                {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
+                                            </span>
+                                        </div>
+                                        <div className="col-8 offset-2">
+                                            <span className="col-8 title">&nbsp; Number Of Items</span>
+                                            <span className="col-4 textAlignRight title">&nbsp; 
+                                                {vendordata.order_numberOfProducts} 
+                                            </span>
+                                        </div>
                                       </div>
-                                      <div className="col-8 offset-2">
-                                          <span className="col-8 title">&nbsp; Number Of Items</span>
-                                          <span className="col-4 textAlignRight title">&nbsp; 
-                                              {vendordata.order_numberOfProducts} 
-                                          </span>
-                                      </div>
-                                    </div>
+                                  </div>
                                 </div>
                               </div>
+                              <div className="col-12 orderfooterborder">
+                                <div className="row">
+                                  <div className="col-6">
+                                    <p className="orderfootertag"><span>Ordered On: </span>{moment(vendordata.createdAt).format("DD MMMM YYYY")} </p>
+                                  </div>
+                                  <div className="col-6">
+                                    <p className="orderfootertag2"><span>Ordered Total: </span> <i className="fa fa-inr"></i>&nbsp;{vendordata.vendor_afterDiscountTotal} </p>
+                                  </div>
+                                </div> 
+                              </div>
                             </div>
-                            <div className="col-12 orderfooterborder">
-                              <div className="row">
-                                <div className="col-6">
-                                  <p className="orderfootertag"><span>Ordered On: </span>{moment(vendordata.createdAt).format("DD MMMM YYYY")} </p>
-                                </div>
-                                <div className="col-6">
-                                  <p className="orderfootertag2"><span>Ordered Total: </span> <i className="fa fa-inr"></i>&nbsp;{vendordata.vendor_afterDiscountTotal} </p>
-                                </div>
-                              </div> 
-                            </div>
-                          </div>
-                        );
-                      })
-                      :
-                      <div className="col-12 textAlignCenter">
-                        <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
-                        <img src="/images/eCommerce/emptyorder.png" alt=""/>
-                      </div>
-                  }
-
-                  <div className="col-6 NOpadding">
-                      {/* <div className="actionbtn col-12   NOpadding">
-                        { this.state.orderData.deliveryStatus[this.state.orderData.deliveryStatus.length - 1].status !== 'Cancelled' ? 
-                          <a className="btn filterallalphab" target="_blank" rel="noopener noreferrer" href={"/view-order/" + this.state.orderData._id} title="View Order">
-                          <span> Invoice</span></a> : <div className="pull-right"><span className="cancelledtext"> Cancelled</span></div>
-                        }
-                        {
-                          data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Cancelled' || data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Returned' ? '' :
-                            data.deliveryStatus[data.deliveryStatus.length - 1].status === "New Order" || data.deliveryStatus[data.deliveryStatus.length - 1].status === "Verified"
-                              || data.deliveryStatus[data.deliveryStatus.length - 1].status === "Packed" ? <button type="button" data-toggle="modal" data-target="#cancelProductModal" className="btn filterallalphab" name="returnbtn" title="Cancel" onClick={this.cancelProduct.bind(this)}
-                                data-status={data.deliveryStatus[data.deliveryStatus.length - 1].status} data-id={data._id}>Cancel</button> : ''
-                        }
-                      </div> */}
-                      <div className=" col-12">
-                        <div className="row">
-                          <div className=" col-6 pull-left"><span className="orderBtns" onClick={this.showOrdersDetails.bind(this)}> View Details</span></div>
-                           <div className=" col-6 pull-right"><span className="orderBtns"> Cancel Order</span></div>
+                          );
+                        })
+                        :
+                        <div className="col-12 textAlignCenter">
+                          <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
+                          <img src="/images/eCommerce/emptyorder.png" alt=""/>
                         </div>
-                      </div>
-                  </div>
+                    }
 
 
                     {/* returnProductModal */}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import moment      from 'moment';
-
+import axios                from 'axios';
+import moment               from 'moment';
+import Link                 from 'next/link';
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
@@ -33,38 +33,23 @@ class Payment extends Component {
       var pageUrl = window.location.pathname;
         let a = pageUrl ? pageUrl.split('/') : "";
         const urlParam =a[2];
-        this.setState({
-          orderID : urlParam
-        },()=>{
-          axios.get("/api/orders/get/one/" + this.state.orderID)
-          .then((response) => {
-            console.log('orderData response', response.data)
-            this.setState({
-              orderData: response.data
+        if(urlParam){
+          this.setState({
+            orderID : urlParam
+          },()=>{
+            axios.get("/api/orders/get/one/" + this.state.orderID)
+            .then((response) => {
+              // console.log('orderData response', response.data)
+              this.setState({
+                orderData: response.data
+              })
+            })
+            .catch((error) => {
+              console.log('error', error);
             })
           })
-          .catch((error) => {
-            console.log('error', error);
-          })
-        })
+        }
   }
-
-  // componentDidMount() {
-  //   this._asyncRequest = loadMyAsyncData().then(
-
-  //     externalData => {
-  //       this._asyncRequest = null;
-  //       this.setState({externalData});
-  //     }
-  //   );
-  // }
-
-  // componentWillUnmount() {
-  //   if (this._asyncRequest) {
-  //     this._asyncRequest.cancel();
-  //   }
-  // }
-
   render() {
     // console.log("this.state.orderData.vendorOrders===",this.state.orderData);
     return (
@@ -119,7 +104,7 @@ class Payment extends Component {
                         <div>
                         <div className="row">
                           <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 "><span>Cart Total:</span>  </div>
-                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right"><span>{this.state.currency}&nbsp; {this.state.orderData.paymentDetails.beforeDiscountTotal}</span> </div>
+                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right"><span>{this.state.currency}&nbsp; {(this.state.orderData.paymentDetails.beforeDiscountTotal).toFixed(2)}</span> </div>
                         </div>  
                         </div>
                         <div>
@@ -148,20 +133,18 @@ class Payment extends Component {
                         <div className="row">
                             <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12" ><span>Order Total: </span></div>
                             <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 NOpadding text-right">
-                              <span>{this.state.orderData.currency} &nbsp; {this.state.orderData.paymentDetails.netPayableAmount}</span>
+                              <span>{this.state.orderData.currency} &nbsp; {(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)}</span>
                         </div>   
                           </div>
                         </div>
                         <div className="brdrbtmpayment col-xl-12 col-md-12 col-sm-12 col-xs-12"></div>
                         <div>
                         <div className="row">
-                            <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 invoiceOrderTotal "><span>Total: </span></div>
-                            <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right">
-                            <div className="row">
-                              <span className="invoiceOrderTotal"><i className={"fa fa-" + this.state.orderData.currency}></i> {this.state.orderData.paymentDetails.netPayableAmount}</span>
-                            </div> 
-                            </div>
-                          </div>  
+                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12 invoiceOrderTotal "><span>Total: </span></div>
+                          <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right">
+                            <span className="invoiceOrderTotal"><i className={"fa fa-" + this.state.orderData.currency}></i> {(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)}</span>
+                          </div>
+                        </div>  
                         </div>
                       </div>
                     </div>
@@ -174,7 +157,7 @@ class Payment extends Component {
                             <tr>
                                 <th>Products Image</th>
                                 <th>Products Name</th>
-                                <th className="textAlignRight">Price</th>
+                                {/* <th className="textAlignRight">Price</th> */}
                                 <th className="textAlignRight">Quantity</th>
                                 <th className="textAlignRight">SubTotal</th>
                             </tr>
@@ -183,7 +166,7 @@ class Payment extends Component {
                             {
                             this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?
                             this.state.orderData.vendorOrders.map((vendorWiseData, index) => {
-                                console.log("vendorWiseData=>",vendorWiseData);
+                                // console.log("vendorWiseData=>",vendorWiseData);
                                     return (
                                         <tr className="col-12 tableRowWrapper" key={'cartData' + index}>
                                           <tr  className="col-12">
@@ -191,12 +174,12 @@ class Payment extends Component {
                                                   <table className="table ">
                                                   <thead>
                                                       <tr>
-                                                          <th>{vendorWiseData.vendor_id.companyName}</th>
+                                                          <th colSpan="5">{vendorWiseData.vendor_id.companyName}</th>
                                                       </tr>
                                                   </thead>
                                                   <tbody>
                                                   {   vendorWiseData && vendorWiseData.products && vendorWiseData.products.map((productdata, index) => {
-                                                        console.log("invoice productdata=>",productdata);
+                                                        // console.log("invoice productdata=>",productdata);
                                                         return(
                                                             <tr key={index}>
                                                                 <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
@@ -225,16 +208,15 @@ class Payment extends Component {
                                                                 </td>
                                                                 <td className="textAlignLeft">
                                                                     {
-                                                                        productdata.availableQuantity > 0 ?
-                                                                            // <span className="productPrize textAlignRight"><i className={"fa fa-" + productdata.currency}></i> &nbsp;{parseInt(productdata.discountedPrice).toFixed(2)}</span>
-                                                                            <span className="productPrize textAlignRight">{this.state.currency}&nbsp;{parseInt(productdata.discountedPrice).toFixed(2)}</span>
-                                                                            :
-                                                                            <span>-</span>
+                                                                       
+                                                                      // <span className="productPrize textAlignRight"><i className={"fa fa-" + productdata.currency}></i> &nbsp;{parseInt(productdata.discountedPrice).toFixed(2)}</span>
+                                                                      <span className="productPrize textAlignRight">{this.state.currency}&nbsp;{productdata.discountedPrice}</span>
+                                                                            
                                                                     }
                                                                 </td>
                                                                 <td className="textAlignCenter">
                                                                     {
-                                                                            <span className=" textAlignRight">{productdata.quantity}</span>
+                                                                      <span className=" textAlignRight">{productdata.quantity}</span>
                                                                             
                                                                     }
                                                                 </td>
@@ -255,11 +237,11 @@ class Payment extends Component {
                                               </td>
                                           </tr>
                                           <tr className=" col-12 tableRow">
-                                              <td colSpan="4"> 
+                                              <td colSpan="5"> 
                                                   <div className="col-8 offset-2">
                                                       <span className="col-8 title">{vendorWiseData.vendorName}&nbsp; Total</span>
                                                       <span className="col-4 textAlignRight title">&nbsp; 
-                                                          {this.state.currency} &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? vendorWiseData.vendor_beforeDiscountTotal : 0.00} 
+                                                          {this.state.currency} &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? (vendorWiseData.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
                                                       </span>
                                                   </div>
                                                   <div className="col-8 offset-2">
@@ -288,7 +270,9 @@ class Payment extends Component {
               </div>
 
                 <div className="backtoMyOrdersDiv">
-                  <a href="/my-orders" className="backtoMyOrders"> Back to My Orders</a>
+                  <Link href="/my-orders">
+                      <a  className="backtoMyOrders"> Back to My Orders</a>
+                  </Link>
                 </div>
                 <hr />
               </div>

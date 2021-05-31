@@ -490,29 +490,6 @@ class ProductCarousel extends Component {
   submitCart(event) { 
     const user_ID = localStorage.getItem('user_ID');
     if(user_ID){
-      if(this.props.recentCartData.length>0 && this.props.recentCartData[0].cartItems.length>0){
-          var cartLength = this.props.recentCartData[0].cartItems.length;
-          var productId = event.target.id;
-          for(let i=0;i<cartLength;i++){
-              if(this.props.recentCartData[0].cartItems[i].product_ID === productId){
-                this.setState({
-                  messageData: {
-                    "type": "outpage",
-                    "icon": "fa fa-exclamation-circle",
-                    "message": "This product is already in your cart",       
-                    "class": "success",
-                    "autoDismiss": false
-                  }
-                })
-                setTimeout(() => {
-                  this.setState({
-                    messageData: {},
-                  })
-                }, 3000);
-                break;
-              }//end if
-          }//end for loop
-      }
       // console.log("this.props.recentCartData[0].cartItems:",this.props.recentCartData[0].cartItems);
     var id = event.target.id;
     if(localStorage.getItem("websiteModel")=== "FranchiseModel"){
@@ -594,18 +571,14 @@ class ProductCarousel extends Component {
   }
   addtowishlist(event) {
     event.preventDefault();
-    // console.log("recentWishlistData===",this.props.recentWishlistData);
     if (this.state.user_ID) {
       var id = event.target.id;
-      // const userid = localStorage.getItem('user_ID');
       const formValues = {
         "user_ID": this.state.user_ID,
         "product_ID": id,
       }
-      // console.log("inside wishlist==",formValues);
       axios.post('/api/wishlist/post', formValues)
         .then((response) => {
-          // console.log("wishlist ressponse===",response.data);
           var previousUrl = window.location.href;
           localStorage.setItem("previousUrl", previousUrl);
           this.setState({
@@ -623,7 +596,6 @@ class ProductCarousel extends Component {
             })
           }, 3000);
           this.getWishlistData();
-          // this.props.getWishlistData();
         })
         .catch((error) => {
           console.log('error', error);
@@ -673,7 +645,6 @@ class ProductCarousel extends Component {
 			this.setState({
 				newProducts: this.state.newProducts.sort((a, b) => -(a[field] || "").toString().localeCompare((b[field] || "").toString()))
 			},()=>{
-          // console.log("newProducts===",this.state.newProducts);
       });
 		}
 		if (sortBy === "priceAsc") {

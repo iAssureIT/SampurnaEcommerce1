@@ -30,13 +30,18 @@ table > tfoot > tr > td:last-of-type {
 }
 .backtoMyOrdersDiv{
 	text-align: right;
+    
+}
+.backtoMyOrdersDiv Link{
+    cursor: pointer;
 }
 .backtoMyOrders{
 	color: #999;
+    transition: .6s ease;
 }
 
 .backtoMyOrders:hover{
-	color:#80b435 !important;
+	color:#f00 !important;
 	text-decoration: none;
 }
 .actions{
@@ -81,7 +86,7 @@ table > tfoot > tr > td:last-of-type {
 	float: right;
 }
 .brdrbtmpayment{
-    border-bottom: 1px solid #80b435;
+    border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
     padding-top: 10px;
 }

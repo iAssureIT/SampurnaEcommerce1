@@ -159,6 +159,7 @@
     white-space: nowrap;
     color: #333 !important;
     font-weight: 900;
+    font-size: 15px;
 }
 .couponCode{
     color: #999;
@@ -166,8 +167,8 @@
 .discountCode{
     cursor: pointer;
 }
-.grandTotal{
-    
+.price{
+    font-size: 15px;   
 }
 .orderTotalText{
     font-size: 17px !important;

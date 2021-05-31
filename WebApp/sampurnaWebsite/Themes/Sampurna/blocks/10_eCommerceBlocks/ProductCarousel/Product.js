@@ -38,22 +38,6 @@ class Product extends Component{
         }
 
     }
-    componentDidUpdate(prevState, nextState){
-
-    }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-      // console.log("1.Inside product getDerivedStateFromProps nextProps",nextProps);
-      // console.log("2.Inside product getDerivedStateFromProps prevState",prevState);
-      //if (nextProps.newProducts) {
-        // return ({ 
-        //   newProducts: nextProps.newProducts,
-        //   blockSettings   : nextProps.blockSettings,
-        //   productSettings : nextProps.productSettings
-        // }) // <- this is setState equivalent
-      //}
-      return null
-    }
 
     addCart(formValues, quantityAdded, availableQuantity) {
       if(localStorage.getItem('webSiteModel')==='FranchiseModel'){
@@ -99,8 +83,6 @@ class Product extends Component{
       } else {
         axios.post('/api/carts/post', formValues)
           .then((response) => {
-            // console.log("this.props.fetchCartData();",this.props.fetchCartData());
-            // console.log("cart response;",response.data);
             this.setState({
               messageData: {
                 "type": "outpage",
@@ -127,35 +109,7 @@ class Product extends Component{
   
     submitCart(event) { 
       const user_ID = localStorage.getItem('user_ID');
-      console.log("userId===",user_ID);
       if(user_ID){
-        // console.log("recentCartData===",this.props.recentCartData);
-        if(this.props.recentCartData.length>0 && this.props.recentCartData[0].cartItems.length>0){
-            var cartLength = this.props.recentCartData[0].cartItems.length;
-            var productId = event.target.id;
-            for(let i=0;i<cartLength;i++){
-                if(this.props.recentCartData[0].cartItems[i].product_ID === productId){
-                  this.setState({
-                    messageData: {
-                      "type": "outpage",
-                      "icon": "fa fa-exclamation-circle",
-                      "message": "This product is already in your cart",       
-                      "class": "success",
-                      "autoDismiss": false
-                    }
-                  })
-                  setTimeout(() => {
-                    this.setState({
-                      messageData: {},
-                    })
-                  }, 3000);
-                  break;
-                  // console.log("submitCart userId===",this.state);
-  
-                }//end if
-            }//end for loop
-        }
-        // console.log("this.props.recentCartData[0].cartItems:",this.props.recentCartData[0].cartItems);
       var id = event.target.id;
       if(localStorage.getItem("websiteModel")=== "FranchiseModel"){
         var selectedSize = $('#'+id+"-size").val();      
@@ -164,11 +118,15 @@ class Product extends Component{
       }    
       const userid = localStorage.getItem('user_ID');
       var availableQuantity = event.target.getAttribute('availablequantity');
-      // console.log("AvailableQuantity=======",$('.xyz'));
       var currProId = event.target.getAttribute('currpro');
-      var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
-      var productCartData = recentCartData.filter((a) => a.product_ID === id);
-      var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
+      // if(this.props.recentCartData && this.props.recentCartData.vendorOrders){
+      //   for(let i=0;i<this.props.recentCartData.vendorOrders.length;i++){
+      //     var recentCartData = this.props.recentCartData.vendorOrders.length > 0 ? this.props.recentCartData.vendorOrders[i].cartItems : [];
+      //     var productCartData = recentCartData.filter((a) => a.product_ID === id);
+      //     var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
+      //   }
+      // }
+      var quantityAdded=0;
       var formValues ={};
       if(localStorage.getItem("websiteModel")=== "FranchiseModel"){
         if(selectedSize === size){
@@ -212,7 +170,6 @@ class Product extends Component{
         ['sizeCollage' + currProId]: false
       })
     }else{
-      // console.log("showLogin as====",localStorage.getItem('showLoginAs'));
       if(localStorage.getItem('showLoginAs')==="modal"){
         $('#loginFormModal').show();       
         }else{
@@ -220,9 +177,8 @@ class Product extends Component{
           messageData: {
             "type": "outpage",
             "icon": "fa fa-exclamation-circle",
-            "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
-            // "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",          
-            
+            // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
+            "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
             "class": "danger",
             "autoDismiss": true
           }
