@@ -1,0 +1,23 @@
+Coupon
+
+1. Check validity
+2. If valid coupon
+    - Get all Master data of Coupon
+    - If coupon to be used only for first order, then check if user has already any order in Orders collection
+    - If Coupon is to be used ONLY oneTime, then check in Orders collection whether this coupon was used earlier
+
+    - discount can be in percent or amount
+        - Calculate discount amount & discounted amount
+        - Update in Cart collection (including the coupon code) & Resend Cart data in same structure as sent earlier
+   Else (not valid)
+        - send error message
+
+
+
+
+function (){
+
+    const couponValidity = await checkCouponValidity(couponNumber);
+    
+
+}

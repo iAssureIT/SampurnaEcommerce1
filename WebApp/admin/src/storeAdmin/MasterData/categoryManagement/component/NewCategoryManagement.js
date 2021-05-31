@@ -806,7 +806,7 @@ class CategoryManagement extends Component{
 			if (file) {
 				var fileName  	= file.name; 
 				var ext 		= fileName.split('.').pop();  
-				if(ext === "jpg" || ext === "png" || ext === "jpeg" || ext === "JPG" || ext === "PNG" || ext === "JPEG"){
+				if(ext === "jpg" || ext === "png" || ext === "jpeg" || ext==="webp" || ext==="WEBP" || ext === "JPG" || ext === "PNG" || ext === "JPEG"){
 					if (file) {
 						var objTitle = { fileInfo : file }
 						console.log("object => ",objTitle)

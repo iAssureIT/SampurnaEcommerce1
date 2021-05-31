@@ -66,68 +66,58 @@ exports.insert_orders = (req, res, next) => {
 							console.log("req.body.vendorOrders[l].products[m].quantity = ",req.body.vendorOrders[l].products[m].quantity);
 
 							ProductInventory
-								.findOne(
-									{ 
-										vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
-										productCode 		 : req.body.vendorOrders[l].products[m].productCode,
-										itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
-									},
-								)
-								.then(productInventoryData=>{
-									console.log("Product Inventory data = ",productInventoryData);
-									// res.status(200);
-									console.log("productInventoryData._id = ",productInventoryData._id);
-									console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
-									var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
-									console.log("newQuantity = ",newQuantity);
-									ProductInventory.updateOne(
-										{ 
-											_id 				: ObjectId(productInventoryData._id)
-											// vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id),
-											// productCode 		 : req.body.vendorOrders[l].products[m].productCode,
-											// itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
-										},
-										{
-											$set:{
+							.findOne(
+								{ 
+									vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
+									productCode 		 : req.body.vendorOrders[l].products[m].productCode,
+									itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
+								},
+							)
+							.then(productInventoryData=>{
+								console.log("Product Inventory data = ",productInventoryData);
+								// res.status(200);
+								console.log("productInventoryData._id = ",productInventoryData._id);
+								console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
+								var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
+								console.log("newQuantity = ",newQuantity);
+								ProductInventory.updateOne(
+									{ _id : ObjectId(productInventoryData._id) },
+									{ $set :{
 												currentQuantity   : newQuantity
 											},
-											$push : {								
-												updateLog       : {
-													date        : new Date(),
-													// updatedBy   : ObjectId(req.body.user_ID),
-													// order_id    : ObjectId(orderdata._id),
-												}
+										$push : {								
+											updateLog       : {
+												date        : new Date(),
+												updatedBy   : ObjectId(req.body.user_ID),
+												order_id    : ObjectId(orderdata._id),
 											}
 										}
-									)		 
-									.then(inventoryupdateData=>{
-										console.log("inventoryupdateData = ",inventoryupdateData);
-										console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
-									})
-									.catch(err =>{
-										res.status(500).json({
-											error 	: err,
-											message : 'Error While Updating Inventory'
-										});
-									}); 
-									
-
+									}
+								)		 
+								.then(inventoryupdateData=>{
+									console.log("inventoryupdateData = ",inventoryupdateData);
+									console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
 								})
 								.catch(err =>{
-									console.log()
 									res.status(500).json({
-										error : error,
-										message: 'Error Finding Inventory Data'
+										error 	: err,
+										message : 'Error While Updating Inventory'
 									});
-								}); 
-
-
+								}); 							
+							})
+							.catch(err =>{
+								console.log()
+								res.status(500).json({
+									error : error,
+									message : 'Error Finding Inventory Data'
+								});
+							}); 
 						} //for m
 					}//for l
 					if(l >= req.body.vendorOrders.length){
 						res.status(200).json({ 
 							order_id : orderdata._id,
-							"message": 'Order placed successfully' 
+							message  : 'Order placed successfully' 
 						});
 					}
 				}
@@ -142,8 +132,8 @@ exports.insert_orders = (req, res, next) => {
 		.catch(error => {
 			console.log('Error 500 While Placing Order => ', error);
 			res.status(500).json({
-				error : error,
-				message: 'Error While Placing Order'
+				error   : error,
+				message : 'Error While Placing Order'
 			});
 		})
 	} //if vendorOrders

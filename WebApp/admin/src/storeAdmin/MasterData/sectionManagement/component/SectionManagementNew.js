@@ -344,7 +344,7 @@ class SectionManagement extends Component {
                     var fileName    = file.name; 
                     var ext         = fileName.split('.').pop(); 
 
-                    if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
+                    if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="webp" || ext==="WEBP" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
                         if (file) {
                             var objTitle = { fileInfo :file }
                             sectionImage = objTitle ;
@@ -528,7 +528,7 @@ class SectionManagement extends Component {
                                                             :                                                    
                                                                 <div className="divideCatgRows categoryImgWrapper">
                                                                     {/* <label>Category Image</label>                                                                     */}
-                                                                    <input type="file" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" />
+                                                                    <input type="file" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png,.webp" />
                                                                 </div>
                                                             }
                                                             {this.state.sectionImage 

@@ -746,81 +746,81 @@ exports.apply_coupon = (req,res,next)=>{
             console.log("errormessage => ",errMessage);
             
             
-                var couponInType                = isCouponValid.coupenin.toLowerCase();                
-                var vendor_beforeDiscountTotal  = 0;
-                var vendor_afterDiscountTotal   = 0;
-                var vendor_discountAmount       = 0;
-                var vendor_taxAmount            = 0;
-                var vendor_shippingCharges      = 0;
-                var vendorOrders                = data.vendorOrders;
-                var order_beforeDiscountTotal   = 0;
-                var order_afterDiscountTotal    = 0;
-                var order_discountAmount        = 0;
-                var order_taxAmount             = 0;
-                var order_shippingCharges       = 0;
-                
-                for(var i = 0; i < vendorOrders.length; i++){            
-                    // console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
-                    for(var j = 0; j < vendorOrders[i].cartItems.length; j++){
-                        vendor_beforeDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
-                        if(vendorOrders[i].cartItems[j].product_ID.discountPercent !== 0){
-                            vendor_discountAmount += ((data.vendorOrders[i].cartItems[j].product_ID.originalPrice - data.vendorOrders[i].cartItems[j].product_ID.discountedPrice) * vendorOrders[i].cartItems[j].quantity);
-                        }
-                        vendor_afterDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
-                        if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
-                            vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
-                        }    
+            var couponInType                = isCouponValid.coupenin.toLowerCase();                
+            var vendor_beforeDiscountTotal  = 0;
+            var vendor_afterDiscountTotal   = 0;
+            var vendor_discountAmount       = 0;
+            var vendor_taxAmount            = 0;
+            var vendor_shippingCharges      = 0;
+            var vendorOrders                = data.vendorOrders;
+            var order_beforeDiscountTotal   = 0;
+            var order_afterDiscountTotal    = 0;
+            var order_discountAmount        = 0;
+            var order_taxAmount             = 0;
+            var order_shippingCharges       = 0;
+            
+            for(var i = 0; i < vendorOrders.length; i++){            
+                // console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
+                for(var j = 0; j < vendorOrders[i].cartItems.length; j++){
+                    vendor_beforeDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+                    if(vendorOrders[i].cartItems[j].product_ID.discountPercent !== 0){
+                        vendor_discountAmount += ((data.vendorOrders[i].cartItems[j].product_ID.originalPrice - data.vendorOrders[i].cartItems[j].product_ID.discountedPrice) * vendorOrders[i].cartItems[j].quantity);
                     }
-                    if(j>=vendorOrders[i].cartItems.length){
-                        data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
-                        data.vendorOrders[i].vendor_afterDiscountTotal  = vendor_afterDiscountTotal;
-                        data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
-                        data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
-                        data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
-                        data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
-                        
-                        order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
-                        order_afterDiscountTotal    += vendor_afterDiscountTotal;
-                        order_discountAmount        += vendor_discountAmount;
-                        order_taxAmount             += vendor_taxAmount;
-                        order_shippingCharges       += vendor_shippingCharges;
-                    }
+                    vendor_afterDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
+                    if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                        vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
+                    }    
                 }
-                if(i>=vendorOrders.length){
-                    data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
-                    data.paymentDetails.afterDiscountTotal  = order_afterDiscountTotal;
-                    data.paymentDetails.discountAmount      = order_discountAmount;
-                    data.paymentDetails.taxAmount           = order_taxAmount;
-                    data.paymentDetails.shippingCharges     = order_shippingCharges;
-                    console.log("errMessage",errMessage);
-                    if(errMessage === ""){
-                        console.log("couponInType",couponInType);
-                        if (couponInType === "percent") {
-                            var discountInPercent       = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
-                            var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
-                            console.log("discoutAfterCouponApply = > ",discoutAfterCouponApply);
-                            data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
-                            data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
-                        }else if(couponInType === "amount"){
-                            var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue : isCouponValid.maxDiscountAmount : isCouponValid.coupenvalue;
-                            data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
-                            data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
-                        }else{
-                            data.paymentDetails.afterDiscountCouponAmount   = 0;
-                            data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
-                        }
+                if(j>=vendorOrders[i].cartItems.length){
+                    data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
+                    data.vendorOrders[i].vendor_afterDiscountTotal  = vendor_afterDiscountTotal;
+                    data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
+                    data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
+                    data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
+                    data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
+                    
+                    order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
+                    order_afterDiscountTotal    += vendor_afterDiscountTotal;
+                    order_discountAmount        += vendor_discountAmount;
+                    order_taxAmount             += vendor_taxAmount;
+                    order_shippingCharges       += vendor_shippingCharges;
+                }
+            }
+            if(i>=vendorOrders.length){
+                data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
+                data.paymentDetails.afterDiscountTotal  = order_afterDiscountTotal;
+                data.paymentDetails.discountAmount      = order_discountAmount;
+                data.paymentDetails.taxAmount           = order_taxAmount;
+                data.paymentDetails.shippingCharges     = order_shippingCharges;
+                console.log("errMessage",errMessage);
+                if(errMessage === ""){
+                    console.log("couponInType",couponInType);
+                    if (couponInType === "percent") {
+                        var discountInPercent       = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
+                        var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
+                        console.log("discoutAfterCouponApply = > ",discoutAfterCouponApply);
+                        data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
+                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                    }else if(couponInType === "amount"){
+                        var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue : isCouponValid.maxDiscountAmount : isCouponValid.coupenvalue;
+                        data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
+                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
                     }else{
                         data.paymentDetails.afterDiscountCouponAmount   = 0;
                         data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
-                    }                    
-                }
-                console.log("data => ",data);
-                // res.status(200).json(data);
-            
-                res.status(200).json({
-                    data    : data,
-                    message : errMessage
-                });                        
+                    }
+                }else{
+                    data.paymentDetails.afterDiscountCouponAmount   = 0;
+                    data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+                }                    
+            }
+            console.log("data => ",data);
+            // res.status(200).json(data);
+        
+            res.status(200).json({
+                data    : data,
+                message : errMessage ? errMessage : "Coupon Applied Successfully...!"
+            });                        
         }
     })
     .catch(err =>{

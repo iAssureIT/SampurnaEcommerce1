@@ -70,7 +70,7 @@ class BulkProductImageUpload extends Component{
                     var fileName  = file.name; 
                     var itemCode = file.name.split('-')[0];
                     var ext = fileName.split('.').pop();  
-                    if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
+                    if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="webp" || ext==="JPG" || ext==="PNG" || ext==="JPEG" || ext==="WEBP"){
                         if (file) {
                             var objTitle = { 
                               fileInfo :file,
