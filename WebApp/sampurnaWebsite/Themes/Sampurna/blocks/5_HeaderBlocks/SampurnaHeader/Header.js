@@ -111,15 +111,12 @@ class Header extends React.Component {
                                     <div className="col-8 col-sm-6  NoPadding">                                    
                                         < SystemSecurityModal />
                                     </div>
-
+                                      
+                                    {this.state.userID?
                                     <a href="/cart" className="col-4 col-sm-6 cartHeader NoPadding">        
                                         <div className="row">
-                                            <div className="col-3 p-2 cartImg">  
-                                            {this.state.userID?
+                                            <div className="col-3 p-2 cartImg">
                                                 <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
-                                            :
-                                                <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
-                                            }
                                             </div>
                                             <div className="col-8 text-center NoPadding">
                                                 <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
@@ -130,6 +127,22 @@ class Header extends React.Component {
                                             </div>  
                                         </div>
                                     </a>
+                                    :
+                                    <a href="/cart" className="col-4 col-sm-6 cartHeader NoPadding" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">        
+                                        <div className="row">
+                                            <div className="col-3 p-2 cartImg">
+                                                <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                            </div>
+                                            <div className="col-8 text-center NoPadding">
+                                                <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
+                                                <div className="col-12 cartCount NoPadding">
+                                                    {this.props.cartCount>0? this.props.cartCount : 0 }
+                                                    &nbsp;item(s)                                
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </a>
+                                    }
                                     </div>
                                 </div>
                             </div>
