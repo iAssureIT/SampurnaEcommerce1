@@ -416,7 +416,7 @@ import { SafeAreaView }         from 'react-native';
                           </View>
                         </View>
                       </View>
-                    {couponCode ?
+                    {/* {couponCode ? */}
                       <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
                         <View style={{flex:.7}}>
                           <Input
@@ -441,7 +441,7 @@ import { SafeAreaView }         from 'react-native';
                           /> 
                         </View>  
                       </View>
-                      :
+                      {/* :
                       <SafeAreaView>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.6 }}>
@@ -454,7 +454,7 @@ import { SafeAreaView }         from 'react-native';
                         </View>
                       </View>
                       </SafeAreaView>
-                      }
+                      } */}
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Total Delivery Charges </Text>
