@@ -300,7 +300,7 @@ exports.list_cart_product = (req,res,next)=>{
                     }    
                     data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
                     if(wish.length > 0){
-                        for(var k=0; k<wish.length; i++){
+                        for(var k=0; k<wish.length; k++){
                             console.log("String(wish[k].product_ID)",String(wish[k].product_ID));
                             console.log("String(data.vendorOrders[i].cartItems[j].product_ID._id)",String(data.vendorOrders[i].cartItems[j].product_ID._id));
                             if(String(wish[k].product_ID) === String(data.vendorOrders[i].cartItems[j].product_ID._id)){
@@ -649,6 +649,7 @@ exports.change_cart_item_quantity = (req, res, next)=>{
 
 /**=========== Update Delivery Address ===========*/
 exports.add_address_to_cart = (req, res, next)=>{
+    console.log("cart req.body===",req.body)
     Carts.findOne({"user_ID": req.body.user_ID})       
         .exec()
         .then(cartData=>{

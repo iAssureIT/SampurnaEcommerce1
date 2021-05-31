@@ -61,7 +61,13 @@ const VendorList = ()=> {
                                         </div>
                                     )
                                 })
-                            :null
+                            :
+                                <div className={"col-8 offset-2 text-center mt-4 " +Style.noVendor}>
+                                    <div className="alert alert-warning">
+                                        <i className="fa fa-warning"></i> &nbsp;
+                                        Vendors are not availabe for this section.
+                                    </div>
+                                </div>
                             }
                         </div>
                     </div>

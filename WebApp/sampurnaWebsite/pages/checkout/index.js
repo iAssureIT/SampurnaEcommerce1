@@ -1228,6 +1228,10 @@ class Checkout extends Component {
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    <span className="col-6 orderTotalText">Grand Total</span>
+                                                    <span className="col-6 textAlignRight orderTotalPrize globalTotalPrice">{this.state.currency} &nbsp;
+                                                        {this.props.recentCartData.paymentDetails.netPayableAmount }
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div> 

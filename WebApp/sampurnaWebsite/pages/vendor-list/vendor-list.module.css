@@ -19,7 +19,9 @@
     margin-top: 10px;
     margin-bottom: 10px;
     border-bottom: solid 1px #eee;
-
+}
+.noVendor{
+    margin-top: 100px;
 }
 .vendorLogo{
     background-image: url("/images/eCommerce/productloader.gif");

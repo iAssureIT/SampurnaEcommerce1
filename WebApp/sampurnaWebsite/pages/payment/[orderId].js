@@ -49,6 +49,22 @@ class Payment extends Component {
         })
   }
 
+  // componentDidMount() {
+  //   this._asyncRequest = loadMyAsyncData().then(
+
+  //     externalData => {
+  //       this._asyncRequest = null;
+  //       this.setState({externalData});
+  //     }
+  //   );
+  // }
+
+  // componentWillUnmount() {
+  //   if (this._asyncRequest) {
+  //     this._asyncRequest.cancel();
+  //   }
+  // }
+
   render() {
     // console.log("this.state.orderData.vendorOrders===",this.state.orderData);
     return (
@@ -63,7 +79,7 @@ class Payment extends Component {
                 <div className="alert alert-success">
                   <i className="fa fa-check-circle"></i> &nbsp;
                   Your order is placed successfully.
-              </div>
+                </div>
                 <br />
                 <br />
                 {this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length>0?
