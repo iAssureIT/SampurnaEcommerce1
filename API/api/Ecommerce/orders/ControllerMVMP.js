@@ -35,6 +35,7 @@ exports.insert_orders = (req, res, next) => {
 			customerShippingTime      	: req.body.customerShippingTime,
 			order_numberOfProducts    	: req.body.order_numberOfProducts, 
 			order_quantityOfProducts  	: req.body.order_quantityOfProducts, 
+			orderStatus 				: req.body.orderStatus,
 			vendorOrders 				: req.body.vendorOrders,
 			deliveryAddress				: req.body.deliveryAddress,			
 			createdAt 					: new Date(),
@@ -45,9 +46,8 @@ exports.insert_orders = (req, res, next) => {
 		.then(orderdata => {
 			// console.log("orderdata =====> ",orderdata);
 			// console.log("req.body.user_ID =====> ",req.body.user_ID);
-			//=============================================================
-			//         		Remove Cart Items
-			//=============================================================
+			         		
+			/*======================== Remove Cart Items =============================*/
 
 			Carts.deleteOne({ "user_ID" : ObjectId(req.body.user_ID) })
 			.exec()

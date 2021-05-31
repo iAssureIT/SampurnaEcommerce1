@@ -1,35 +1,70 @@
 const mongoose  = require("mongoose");
-const Coupen    = require('./Model');
+const Coupon    = require('./Model');
 const Order     = require('../orders/Model');
-
+var momentTz = require('moment-timezone');
 /**=========== insert_coupon ===========*/
 exports.insert_coupon = (req, res, next) => {
-    // console.log("req.body => ",req.body);
+    var startDate = new Date(req.body.startdate);
+    // var endDt = new Date(req.body.enddate);
+    // startDate.toLocalString('en-US',{timezone: 'Asia/Dubai'} );
+    
+    // var stDtArr = req.body.startdate.split("-");
+    // Var startDate = new Date(stDtArr[0], stDtArr[1], stDtArr[2], 23, 59, 59); 
+    // console.log("endDt => ",endDate);
+    // var n = .endOf('day')
+    startDate.setHours(23,59,59,999);
+    var utcDate = momentTz.tz(startDate, "YYYY-MM-DD HH:mm:ss", 'Asia/Dubai').toISOString();
+    console.log("utcDate => ",utcDate);
 
-    const CoupenObj = new Coupen({
+    // console.log("=== ",moment(req.body.startdate).format()); 
+    var end = new Date();
+    
+
+    console.log( "----", startDate );
+    
+    var endDtArr = req.body.enddate.split("-");
+    console.log("endDtArr => ",endDtArr);
+    console.log("endDtArr[0] => ",parseInt(endDtArr[0]) );
+    console.log("endDtArr[1] => ",parseInt(endDtArr[1]) );
+    console.log("endDtArr[2] => ",parseInt(endDtArr[2]) );
+
+    
+    // var endDate = new Date(parseInt(endDtArr[0]), parseInt(endDtArr[1])-1, parseInt(endDtArr[2]), 23, 59, 59); 
+    var endDate = new Date(2021, 4, 31, 23, 59, 59); 
+    // endDate.toLocalDateString();
+    
+    var currentDateTimeCentralTimeZone = new Date(endDate.toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
+    console.log("-->",moment(new Date(req.body.enddate)).format('YYYY-MM-DD 23:59:59'));
+    console.log("startDate => ",startDate);
+    console.log("endDt => ",endDate);
+    
+    
+    const CouponObj = new Coupon({
         _id                 : new mongoose.Types.ObjectId(),
         section 			: req.body.section_ID,
         category 			: req.body.category_ID,
         subCategory 		: req.body.subCategory_ID,
         coupontitle         : req.body.coupontitle,
         couponcode          : req.body.couponcode,
-        coupenin            : req.body.coupenin,
-        coupenvalue         : req.body.coupenvalue,
+        couponin            : req.body.couponin,
+        couponvalue         : req.body.couponvalue,
         minPurchaseAmount   : req.body.minPurchaseAmount,
         maxDiscountAmount   : req.body.maxDiscountAmount,
         couponLimit         : req.body.numOfOrders,
         status              : req.body.status,
-        startdate           : req.body.startdate, 
-        enddate             : req.body.enddate,
-        coupenImage         : req.body.coupenImage,
+        startdate           : startDate,
+        enddate             : endDate,
+        couponImage         : req.body.couponImage,
         createdBy           : req.body.createdBy,
         createdAt           : new Date()
     });
-    CoupenObj
+    console.log("CouponObj => ",CouponObj)
+    CouponObj
     .save()
     .then(data => {
+        console.log("data => ",data);
         res.status(200).json({
-            "message": "Coupen is submitted successfully."
+            "message": "Coupon is submitted successfully."
         });
     })
     .catch(err => {
@@ -41,7 +76,7 @@ exports.insert_coupon = (req, res, next) => {
 
 /**=========== get_coupon ===========*/
 exports.get_coupon = (req, res, next) => {
-    Coupen.find({})
+    Coupon.find({})
     .sort({createdAt : -1})
     .exec()
     .then(data => {
@@ -57,13 +92,13 @@ exports.get_coupon = (req, res, next) => {
 /**=========== get_coupon ===========*/
 exports.get_coupon_by_couponcode = (req, res, next) => {
     // console.log("params => ",req.params.couponCode);
-    Coupen.findOne({"couponcode" : req.params.couponCode, 'startdate': { $lte : new Date()},'enddate': {$gte : new Date()}})
+    Coupon.findOne({"couponcode" : req.params.couponCode, 'startdate': { $lte : new Date()},'enddate': {$gte : new Date()}})
     .exec()
-    .then(coupen => {
-        if(coupen){
-            Order.find({coupen_id:coupen._id}).count()
+    .then(coupon => {
+        if(coupon){
+            Order.find({coupon_id:coupon._id}).count()
             .then(count=>{
-                res.status(200).json(coupen);
+                res.status(200).json(coupon);
             })
             .catch(err=>{
                 console.log("err",err)
@@ -82,7 +117,7 @@ exports.get_coupon_by_couponcode = (req, res, next) => {
 /**=========== get_single_coupon ===========*/
 exports.get_single_coupon = (req, res, next) => {
     // console.log("params => ",req.params.couponID);
-    Coupen.findOne({ _id: req.params.couponID })
+    Coupon.findOne({ _id: req.params.couponID })
     .exec()
     .then(data => {
         res.status(200).json(data);
@@ -97,7 +132,7 @@ exports.get_single_coupon = (req, res, next) => {
 /**=========== update_coupon ===========*/
 exports.update_coupon = (req, res, next) => {
     console.log("Update Body = ", req.body);
-    Coupen.updateOne(
+    Coupon.updateOne(
         { _id: req.body.couponID },
         {
             $set: {
@@ -106,15 +141,15 @@ exports.update_coupon = (req, res, next) => {
                 subCategory 		: req.body.subCategory_ID,
                 coupontitle         : req.body.coupontitle,
                 couponcode          : req.body.couponcode,
-                coupenin            : req.body.coupenin,
-                coupenvalue         : req.body.coupenvalue,
+                couponin            : req.body.couponin,
+                couponvalue         : req.body.couponvalue,
                 minPurchaseAmount   : req.body.minPurchaseAmount,
                 maxDiscountAmount   : req.body.maxDiscountAmount,
                 couponLimit         : req.body.numOfOrders,
                 status              : req.body.status,
                 startdate           : req.body.startdate, 
                 enddate             : req.body.enddate,
-                coupenImage         : req.body.coupenImage
+                couponImage         : req.body.couponImage
             }
         }
     )
@@ -139,14 +174,14 @@ exports.couponBulkAction = (req, res, next) => {
     // console.log('action =>', action);
     switch (action) {
         case 'Active':
-            Coupen.updateMany(
+            Coupon.updateMany(
                 {"_id": { "$in": req.body.selectedProducts}},
                 {$set:{"status":"Active"}}
             )
             .exec()
             .then(data => {
                 return res.status(200).json({
-                    "msg": 'Selected Coupen are Active.',
+                    "msg": 'Selected Coupon are Active.',
                 });
             })
             .catch(err => {
@@ -156,14 +191,14 @@ exports.couponBulkAction = (req, res, next) => {
             });
         break;
         case 'Inactive':
-            Coupen.updateMany(
+            Coupon.updateMany(
                 {"_id": { "$in": req.body.selectedProducts}},
                 {$set:{"status":"Inactive"}}
             )
             .exec()
             .then(data => {
                 return res.status(200).json({
-                    "msg": 'Selected Coupen are Inactive.',
+                    "msg": 'Selected Coupon are Inactive.',
                 });
             })
             .catch(err => {
@@ -174,13 +209,13 @@ exports.couponBulkAction = (req, res, next) => {
         break ;
         
         case 'delete':
-            Coupen.deleteMany(
+            Coupon.deleteMany(
                 {"_id": { "$in": req.body.selectedProducts}}
                 )
             .exec()
             .then(data => {
                 return res.status(200).json({
-                    "msg": 'Selected Coupen are deleted.',
+                    "msg": 'Selected Coupon are deleted.',
                 });
             })
             .catch(err => {
@@ -193,11 +228,11 @@ exports.couponBulkAction = (req, res, next) => {
 
 /**=========== delete_coupon ===========*/
 exports.delete_coupon = (req, res, next) => {
-    Coupen.deleteOne({ _id: req.params.couponID })
+    Coupon.deleteOne({ _id: req.params.couponID })
     .exec()
     .then(data => {
         res.status(200).json({
-            "message": "Coupen Deleted Successfully."
+            "message": "Coupon Deleted Successfully."
         });
     })
     .catch(err => {
@@ -210,7 +245,7 @@ exports.delete_coupon = (req, res, next) => {
 
 /**=========== count_discount ===========*/
 exports.count_discount = (req, res, next) => {
-    Coupen.find({})
+    Coupon.find({})
     .exec()
     .then(data => {
         res.status(200).json({ "dataCount": data.length });
@@ -226,7 +261,7 @@ exports.count_discount = (req, res, next) => {
 /**=========== get_discounts_with_limits ===========*/
 exports.get_discounts_with_limits = (req, res, next) => {
     // console.log("params => ",req.params);
-    Coupen.find()
+    Coupon.find()
     .skip(parseInt(req.params.startRange))
     .limit(parseInt(req.params.limitRange))
     .exec()

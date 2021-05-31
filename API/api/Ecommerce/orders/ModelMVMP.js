@@ -35,6 +35,7 @@ const orderSchema = mongoose.Schema({
     customerShippingTime      : String,
     order_numberOfProducts    : Number, //Sum of all number of products in all vendors
     order_quantityOfProducts  : Number, //Sum of total quantity of items in each vendor
+    orderStatus               : String, //New, Processing, Delivered
 
 
     vendorOrders : [

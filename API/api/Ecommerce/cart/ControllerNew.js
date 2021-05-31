@@ -5,7 +5,8 @@ const Coupon        = require('../CouponManagement/Model');
 const Products      = require('../products/Model');
 const Orders        = require('../orders/Model');
 const Wishlists     = require('../wishlist/Model');
-const _             = require('underscore');    
+const _             = require('underscore');  
+const moment 	    = require('moment-timezone');  
 // import axios from 'axios';
 
 /**=========== Add Cart Products ===========*/
@@ -311,12 +312,12 @@ exports.list_cart_product = (req,res,next)=>{
                     }     
                 }
                 if(j>=vendorOrders[i].cartItems.length){
-                    data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
-                    data.vendorOrders[i].vendor_afterDiscountTotal  = vendor_afterDiscountTotal;
-                    data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
-                    data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
-                    data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
-                    data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
+                    data.vendorOrders[i].vendor_beforeDiscountTotal = (vendor_beforeDiscountTotal).toFixed(2);
+                    data.vendorOrders[i].vendor_afterDiscountTotal  = (vendor_afterDiscountTotal).toFixed(2);
+                    data.vendorOrders[i].vendor_discountAmount      = (vendor_discountAmount).toFixed(2);
+                    data.vendorOrders[i].vendor_taxAmount           = (vendor_taxAmount).toFixed(2);
+                    data.vendorOrders[i].vendor_shippingCharges     = (vendor_shippingCharges).toFixed(2);
+                    data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges).toFixed(2);
 
                     order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
                     order_afterDiscountTotal    += vendor_afterDiscountTotal;
@@ -326,13 +327,13 @@ exports.list_cart_product = (req,res,next)=>{
                 }
             }
             if(i>=vendorOrders.length){
-                data.paymentDetails.beforeDiscountTotal         = order_beforeDiscountTotal;
-                data.paymentDetails.afterDiscountTotal          = order_afterDiscountTotal;
-                data.paymentDetails.discountAmount              = order_discountAmount;
-                data.paymentDetails.taxAmount                   = order_taxAmount;
-                data.paymentDetails.shippingCharges             = order_shippingCharges;
+                data.paymentDetails.beforeDiscountTotal         = (order_beforeDiscountTotal).toFixed(2);
+                data.paymentDetails.afterDiscountTotal          = (order_afterDiscountTotal).toFixed(2);
+                data.paymentDetails.discountAmount              = (order_discountAmount).toFixed(2);
+                data.paymentDetails.taxAmount                   = (order_taxAmount).toFixed(2);
+                data.paymentDetails.shippingCharges             = (order_shippingCharges).toFixed(2);
                 data.paymentDetails.afterDiscountCouponAmount   = 0;
-                data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+                data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
             }
             console.log("data",data);
             res.status(200).json(data);
@@ -728,26 +729,39 @@ exports.count_cart = (req,res,next)=>{
 
 /**=========== Apply Coupon On Cart ===========*/
 exports.apply_coupon = (req,res,next)=>{    
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
     Carts.findOne({user_ID : ObjectId(req.body.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
     .then(data=>{   
-        processCouponData();
-        async function processCouponData(){
-            var errMessage = "";            
-            var isCouponValid = await checkCouponValidity(req.body.couponCode);
-            console.log("isCouponValid",isCouponValid);
+        processCouponData(data);
+        async function processCouponData(data){
+            console.log("data => ",data)
+            var errMessage      = "";            
+            console.log("req.body.couponCode = ",req.body.couponCode);
+            var isCouponValid   = await checkCouponValidity(req.body.couponCode);            
+            console.log("isCouponValid = ",isCouponValid );
+
             if (isCouponValid === null) {
                 errMessage = "No Coupon Found..";
             }
             if ((isCouponValid && isCouponValid !== null) && isCouponValid.status.toLowerCase() !== "active") {                
-                errMessage = "You are trying to apply Invalid Coupon";
+                errMessage = "You are trying to apply Invalid Coupon";                
             }
-            console.log("errormessage => ",errMessage);
+            if(isCouponValid && isCouponValid !== null){
+                var couponInType                  = isCouponValid.coupenin.toLowerCase();  
+                var startDateIsBeforeToday        = moment(isCouponValid.startdate,"DD-MM-YYYY").isBefore(moment(new Date(),"DD-MM-YYYY"));
+                var todaysDateIsSametoStartDate   = moment(isCouponValid.startdate).diff(moment(new Date()), 'days') === 0 ? true : false;
+                var todaysDateIsSametoEndDate     = moment(isCouponValid.enddate).diff(moment(new Date()), 'days') === 0 ? true : false;
+                var endDateIsAfterToday           = moment(isCouponValid.enddate,"DD-MM-YYYY").isAfter(moment(new Date(),"DD-MM-YYYY"));
+                
+                if ((isCouponValid && isCouponValid !== null) && !((startDateIsBeforeToday || todaysDateIsSametoStartDate) && (endDateIsAfterToday || todaysDateIsSametoEndDate))) {
+                    errMessage = "You are trying to apply Invalid Coupon";
+                } 
+            }
+                      
             
-            
-            var couponInType                = isCouponValid.coupenin.toLowerCase();                
+                          
             var vendor_beforeDiscountTotal  = 0;
             var vendor_afterDiscountTotal   = 0;
             var vendor_discountAmount       = 0;
@@ -763,22 +777,24 @@ exports.apply_coupon = (req,res,next)=>{
             for(var i = 0; i < vendorOrders.length; i++){            
                 // console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
                 for(var j = 0; j < vendorOrders[i].cartItems.length; j++){
-                    vendor_beforeDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+
+                    vendor_beforeDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);                    
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !== 0){
                         vendor_discountAmount += ((data.vendorOrders[i].cartItems[j].product_ID.originalPrice - data.vendorOrders[i].cartItems[j].product_ID.discountedPrice) * vendorOrders[i].cartItems[j].quantity);
                     }
+                    
                     vendor_afterDiscountTotal += (vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
                     if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
                         vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
                     }    
                 }
                 if(j>=vendorOrders[i].cartItems.length){
-                    data.vendorOrders[i].vendor_beforeDiscountTotal = vendor_beforeDiscountTotal;
-                    data.vendorOrders[i].vendor_afterDiscountTotal  = vendor_afterDiscountTotal;
-                    data.vendorOrders[i].vendor_discountAmount      = vendor_discountAmount;
-                    data.vendorOrders[i].vendor_taxAmount           = vendor_taxAmount;
-                    data.vendorOrders[i].vendor_shippingCharges     = vendor_shippingCharges;
-                    data.vendorOrders[i].vendor_netPayableAmount    = vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges;
+                    data.vendorOrders[i].vendor_beforeDiscountTotal = (vendor_beforeDiscountTotal).toFixed(2);
+                    data.vendorOrders[i].vendor_afterDiscountTotal  = (vendor_afterDiscountTotal).toFixed(2);
+                    data.vendorOrders[i].vendor_discountAmount      = (vendor_discountAmount).toFixed(2);
+                    data.vendorOrders[i].vendor_taxAmount           = (vendor_taxAmount).toFixed(2);
+                    data.vendorOrders[i].vendor_shippingCharges     = (vendor_shippingCharges).toFixed(2);
+                    data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges).toFixed(2);
                     
                     order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
                     order_afterDiscountTotal    += vendor_afterDiscountTotal;
@@ -788,35 +804,38 @@ exports.apply_coupon = (req,res,next)=>{
                 }
             }
             if(i>=vendorOrders.length){
-                data.paymentDetails.beforeDiscountTotal = order_beforeDiscountTotal;
-                data.paymentDetails.afterDiscountTotal  = order_afterDiscountTotal;
-                data.paymentDetails.discountAmount      = order_discountAmount;
-                data.paymentDetails.taxAmount           = order_taxAmount;
-                data.paymentDetails.shippingCharges     = order_shippingCharges;
-                console.log("errMessage",errMessage);
+                data.paymentDetails.beforeDiscountTotal = (order_beforeDiscountTotal).toFixed(2);
+                data.paymentDetails.afterDiscountTotal  = (order_afterDiscountTotal).toFixed(2);
+                data.paymentDetails.discountAmount      = (order_discountAmount).toFixed(2);
+                data.paymentDetails.taxAmount           = (order_taxAmount).toFixed(2);
+                data.paymentDetails.shippingCharges     = (order_shippingCharges).toFixed(2);
+                
                 if(errMessage === ""){
-                    console.log("couponInType",couponInType);
                     if (couponInType === "percent") {
-                        var discountInPercent       = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
-                        var discoutAfterCouponApply = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
-                        console.log("discoutAfterCouponApply = > ",discoutAfterCouponApply);
-                        data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
-                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                        var discountInPercent                           = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
+                        var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
+                        
+                        data.paymentDetails.disocuntCoupon_id           = isCouponValid._id;
+                        data.paymentDetails.discountCouponPercent       = isCouponValid.coupenvalue;
+                        data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
+                        data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
                     }else if(couponInType === "amount"){
-                        var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue : isCouponValid.maxDiscountAmount : isCouponValid.coupenvalue;
-                        data.paymentDetails.afterDiscountCouponAmount   = discoutAfterCouponApply;
-                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges;
+                        var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? (isCouponValid.coupenvalue).toFixed(2) : isCouponValid.maxDiscountAmount : (isCouponValid.coupenvalue).toFixed(2);
+                        
+                        data.paymentDetails.disocuntCoupon_id           = isCouponValid._id;
+                        data.paymentDetails.discountCouponAmount        = isCouponValid.coupenvalue;
+                        data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
+                        data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
                     }else{
                         data.paymentDetails.afterDiscountCouponAmount   = 0;
-                        data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+                        data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
                     }
                 }else{
                     data.paymentDetails.afterDiscountCouponAmount   = 0;
-                    data.paymentDetails.netPayableAmount            = order_afterDiscountTotal + order_taxAmount + order_shippingCharges;
+                    data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
                 }                    
             }
-            console.log("data => ",data);
-            // res.status(200).json(data);
+            // console.log("data => ",data);
         
             res.status(200).json({
                 data    : data,
@@ -835,14 +854,26 @@ exports.apply_coupon = (req,res,next)=>{
 
 /*========== Fetch Coupon Data ==========*/
 function checkCouponValidity(couponCode) {
+    var currDate = new Date();
+    var selector = {
+        "couponcode" : couponCode,
+        "startdate"  : {$lte : currDate},
+        "enddate"    : {$gte : currDate},
+        "status"     : "active"
+    };
+    console.log("selector = ", selector);
+
     return new Promise(function (resolve, reject) {
-        Coupon.findOne({"couponcode" : couponCode})
-        .exec()
+        Coupon.findOne(selector)
         .then(coupondata => {
             // console.log("vendor Id data => ", data);				
               resolve(coupondata);
         })
+        .catch(error=>{
+            reject({message: "Some error in finding Coupon"});
+        })
     })
+
 }
 
 exports.list_cart = (req,res,next)=>{

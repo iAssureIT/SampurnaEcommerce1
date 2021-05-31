@@ -38,10 +38,10 @@ class CouponManagement extends Component {
 			checkedProducts: "",
 			couponcodeusage: "",
 			couponcode: "",
-			coupentype: "",
-			coupenin: "",
-			coupenvalue: "",
-			coupenImage: "",
+			coupontype: "",
+			couponin: "",
+			couponvalue: "",
+			couponImage: "",
 			description: "",
 			termscondition: "",
 			discountvalue: "",
@@ -56,8 +56,8 @@ class CouponManagement extends Component {
 				// subCategory         : "SubCategory",
 			coupontitle         : "Coupon Title",
 			  couponcode          : "Coupon Code",
-			  coupenin            : "Coupon In",
-			  coupenvalue         : "Coupon Value",
+			  couponin            : "Coupon In",
+			  couponvalue         : "Coupon Value",
 			  minPurchaseAmount   : "Min Purchase Order",
 			  maxDiscountAmount   : "Max Discount Amount",
 			couponLimit 		: "Coupon Limit",
@@ -89,6 +89,8 @@ class CouponManagement extends Component {
 		 const name = target.name;
 		 this.setState({
 			[name]: event.target.value,
+		 },()=>{
+			 console.log("setState => ",this.state[name])
 		 });
 
 		 if(name === 'startdate'){
@@ -177,55 +179,55 @@ class CouponManagement extends Component {
 		 }
 
 		 
-		 $.validator.addMethod("regxcoupentype", function (value, element, arg) {
+		 $.validator.addMethod("regxcoupontype", function (value, element, arg) {
 			return arg !== value;
-		 }, "Please select coupen Type.");
-		 $.validator.addMethod("regxcoupenstatus", function (value, element, arg) {
+		 }, "Please select coupon Type.");
+		 $.validator.addMethod("regxcouponstatus", function (value, element, arg) {
 			return arg !== value;
 		 }, "Please select Status .");
-		 $.validator.addMethod("regxcoupenavailablefor", function (value, element, arg) {
+		 $.validator.addMethod("regxcouponavailablefor", function (value, element, arg) {
 			return arg !== value;
 		 }, "Please select Coupon Available for .");
-		 $.validator.addMethod("regxcoupenin", function (value, element, arg) {
+		 $.validator.addMethod("regxcouponin", function (value, element, arg) {
 			return arg !== value;
-		 }, "Please select coupen In.");
+		 }, "Please select coupon In.");
 
 			$("#CouponForm").validate({
 			rules: {
-			  // coupentype:{
+			  // coupontype:{
 			  //   required          : true,
-			  //   regxcoupentype    : "-- Select Coupon Type --"
+			  //   regxcoupontype    : "-- Select Coupon Type --"
 			  // },
 				// availablefor : {
 				//   required                  : true,
-				//   regxcoupenavailablefor    : "-- Select Coupon Code Available for --"
+				//   regxcouponavailablefor    : "-- Select Coupon Code Available for --"
 				// },
 				// maxdiscountvalue:{
 				//   required:true
 				// },
-				coupenin : {
+				couponin : {
 				 required      : true,
-				 regxcoupenin  : "-- Select Coupon In --"
+				 regxcouponin  : "-- Select Coupon In --"
 			  },
 			  status : {
 				 required          : true,
-				 regxcoupenstatus  : "-- Select Status --"
+				 regxcouponstatus  : "-- Select Status --"
 			  },
-			  coupenvalue :{
+			  couponvalue :{
 				 required  : true,
-				 min       : this.state.coupenin  === 'Percent' ? 100 : 1
+				 min       : this.state.couponin  === 'Percent' ? 100 : 1
 			  },
 			  // section : {
 				//     required            : true,
-				//     regxcoupenstatus    : ""
+				//     regxcouponstatus    : ""
 				// },
 			  // category : {
 				//     required            : true,
-				//     regxcoupenstatus    : ""
+				//     regxcouponstatus    : ""
 				// },
 			  // subCategory : {
 				//     required            : true,
-				//     regxcoupenstatus    : ""
+				//     regxcouponstatus    : ""
 				// },
 			  couponcodeusage : {
 				 required  : true
@@ -251,8 +253,8 @@ class CouponManagement extends Component {
 			},
 
 			errorPlacement: function (error, element) {
-			  // if (element.attr("name") === "coupentype") {
-			  //   error.insertAfter("#coupentype");
+			  // if (element.attr("name") === "coupontype") {
+			  //   error.insertAfter("#coupontype");
 			  // }
 				// if (element.attr("name") === "section") {
 			  //   error.insertAfter("#section");
@@ -267,12 +269,12 @@ class CouponManagement extends Component {
 				 error.insertAfter("#couponcode");
 			  }
 
-			  if (element.attr("name") === "coupenin") {
-				 error.insertAfter("#coupenin");
+			  if (element.attr("name") === "couponin") {
+				 error.insertAfter("#couponin");
 			  }
 
-			  if (element.attr("name") === "coupenvalue") {
-				 error.insertAfter("#coupenvalue");
+			  if (element.attr("name") === "couponvalue") {
+				 error.insertAfter("#couponvalue");
 			  }
 
 			  if (element.attr("name") === "status") {
@@ -403,8 +405,8 @@ class CouponManagement extends Component {
 					 return {
 						  coupontitle         : a.coupontitle ? a.coupontitle : "-",
 						  couponcode          : a.couponcode ? a.couponcode : "-",
-						  coupenin            : a.coupenin ? a.coupenin : "-",
-						  coupenvalue         : a.coupenvalue ? a.coupenvalue : "-",
+						  couponin            : a.couponin ? a.couponin : "-",
+						  couponvalue         : a.couponvalue ? a.couponvalue : "-",
 						  minPurchaseAmount   : a.minPurchaseAmount ? a.minPurchaseAmount : "-",
 						  maxDiscountAmount   : a.maxDiscountAmount ? a.maxDiscountAmount : "-",
 					couponLimit 		: a.couponLimit ? a.couponLimit : 0,
@@ -415,7 +417,7 @@ class CouponManagement extends Component {
 						  // section             : a.section,
 						  // category            : a.category,
 						  // subCategory         : a.subCategory,
-						  // coupentype          : a.coupentype,
+						  // coupontype          : a.coupontype,
 						  // couponcodeusage     : a.couponcodeusage,
 						  /*selectedCategory      : a.selectedCategory,
 						  selectedBrand     : a.selectedBrand,
@@ -552,15 +554,15 @@ class CouponManagement extends Component {
 					})
 	}
 	/*getData(startRange, limitRange) {
-		 axios.get('/api/coupen/get/list-with-limits/' + startRange + '/' + limitRange)
+		 axios.get('/api/coupon/get/list-with-limits/' + startRange + '/' + limitRange)
 			.then((response) => {
 			  console.log('tableData = ', response.data);
 			  var tableData = response.data.map((a, i) => {
 						return {
 							_id: a._id,
-							"coupentype"  : a.coupentype,
-					"coupenin"    : a.coupenin,
-					"coupenvalue" : a.coupenvalue,
+							"coupontype"  : a.coupontype,
+					"couponin"    : a.couponin,
+					"couponvalue" : a.couponvalue,
 					"startdate"     : moment(a.startdate).format("DD/MM/YYYY"),
 					"enddate"       : moment(a.enddate).format("DD/MM/YYYY"),
 							
@@ -578,7 +580,7 @@ class CouponManagement extends Component {
 			
 	}
 
-	submitcoupen(event) {
+	submitcoupon(event) {
 		 event.preventDefault();
 		 if ($('#CouponForm').valid()) {
 		  	var couponcodeCheck = this.state.tableData.find(x=>x.couponcode===this.state.couponcode)
@@ -592,17 +594,17 @@ class CouponManagement extends Component {
 				 var formValues = {
 					"coupontitle"       : this.state.coupontitle,
 					  "couponcode"        : this.state.couponcode,
-					  "coupenin"          : this.state.coupenin,
-					  "coupenvalue"       : this.state.coupenvalue,
+					  "couponin"          : this.state.couponin,
+					  "couponvalue"       : this.state.couponvalue,
 						  "minPurchaseAmount" : this.state.minPurchaseAmount,
 						  "maxDiscountAmount" : this.state.maxDiscountAmount,
 						  "numOfOrders"       : this.state.numOfOrders,
 					  "startdate"         : this.state.startdate,
 					  "enddate"           : this.state.enddate,
-					  "coupenImage"       : this.state.coupenImage,
+					  "couponImage"       : this.state.couponImage,
 					  "status"            : this.state.status,
 					  "createdBy"         : localStorage.getItem("admin_ID")
-					  // "coupentype"        : this.state.coupentype,
+					  // "coupontype"        : this.state.coupontype,
 					  // "couponcodeusage"   : this.state.couponcodeusage,
 					  // "maxdiscountvalue"  : this.state.maxdiscountvalue,
 					  // "availablefor"      : this.state.availablefor,
@@ -621,19 +623,20 @@ class CouponManagement extends Component {
 				  swal({
 					 text: response.data.message,
 				  });
-					this.setState({
-					 "coupontitle" 		: "",
-					"couponcode" 		: "",
-					"coupenin" 			: "",
-					"coupenvalue"		: "",
-					"minPurchaseAmount" : "",
-					"maxDiscountAmount" : "",
-					"numOfOrders"       : "",
-					"status"			: "",
-					"startdate"     	: "",
-					"enddate"       	: "",
-					"coupenImage"       : "",
-				  });
+
+				// 	this.setState({
+				// 	 "coupontitle" 		: "",
+				// 	"couponcode" 		: "",
+				// 	"couponin" 			: "",
+				// 	"couponvalue"		: "",
+				// 	"minPurchaseAmount" : "",
+				// 	"maxDiscountAmount" : "",
+				// 	"numOfOrders"       : "",
+				// 	"status"			: "",
+				// 	"startdate"     	: "",
+				// 	"enddate"       	: "",
+				// 	"couponImage"       : "",
+				//   });
 				  // this.props.history.push('/coupon-management');
 					this.gettableData();
 				})
@@ -662,24 +665,24 @@ class CouponManagement extends Component {
 		 }
 	}
 
-	updatecoupen(event) {
+	updatecoupon(event) {
 		 event.preventDefault();
 		 if ($('#CouponForm').valid()) {
 			var formValues = {
 			  "couponID" 			: this.state.couponID,
 			  "coupontitle" 		: this.state.coupontitle,
 			  "couponcode" 		: this.state.couponcode,
-			  "coupenin" 			: this.state.coupenin,
-			  "coupenvalue"		: this.state.coupenvalue,
+			  "couponin" 			: this.state.couponin,
+			  "couponvalue"		: this.state.couponvalue,
 			"minPurchaseAmount" : this.state.minPurchaseAmount,
 				"maxDiscountAmount" : this.state.maxDiscountAmount,
 			"numOfOrders"       : this.state.numOfOrders,
 			  "status"			: this.state.status,
 			  "startdate"     	: this.state.startdate,
 			  "enddate"       	: this.state.enddate,
-			  "coupenImage"       : this.state.coupenImage,
+			  "couponImage"       : this.state.couponImage,
 			  // "availablefor"		: this.state.availablefor,
-			  // "coupentype" 		: this.state.coupentype,
+			  // "coupontype" 		: this.state.coupontype,
 			  // "couponcodeusage" 	: this.state.couponcodeusage,
 			  // "maxdiscountvalue"	: this.state.maxdiscountvalue,
 			  // "selectedCategory"  : this.state.selectedCategory,
@@ -699,15 +702,15 @@ class CouponManagement extends Component {
 					"couponID" 			: "",
 				"coupontitle" 		: "",
 				"couponcode" 		: "",
-				"coupenin" 			: "",
-				"coupenvalue"		: "",
+				"couponin" 			: "",
+				"couponvalue"		: "",
 				"minPurchaseAmount" : "",
 				"maxDiscountAmount" : "",
 				"numOfOrders"       : "",
 				"status"			: "",
 				"startdate"     	: "",
 				"enddate"       	: "",
-				"coupenImage"       : "",
+				"couponImage"       : "",
 				 });
 				 this.props.history.push('/coupon-management');
 				  this.gettableData();
@@ -741,12 +744,12 @@ class CouponManagement extends Component {
 					"couponID"		    : response.data._id,
 					"coupontitle"		: response.data.coupontitle,
 				  "couponcode"		: response.data.couponcode,
-				  "coupenin"			: response.data.coupenin,
-				  "coupenvalue"		: response.data.coupenvalue,
+				  "couponin"			: response.data.couponin,
+				  "couponvalue"		: response.data.couponvalue,
 				"minPurchaseAmount" : response.data.minPurchaseAmount,
 				"maxDiscountAmount" : response.data.maxDiscountAmount,
 				"numOfOrders" 		: response.data.couponLimit,
-				  "coupenImage"       : response.data.coupenImage,
+				  "couponImage"       : response.data.couponImage,
 				  "status" 			: response.data.status,				
 					"startdate"     	: moment(response.data.startdate).format("YYYY-MM-DD"),
 				"enddate"       	: moment(response.data.enddate).format("YYYY-MM-DD"),
@@ -760,7 +763,7 @@ class CouponManagement extends Component {
 				  // "description"       : response.data.description,
 				  // "termscondition"    : response.data.termscondition,
 				// "categoryArrayfields"     : [response.data.selectedCategory],
-				  // "coupentype"		: response.data.coupentype,
+				  // "coupontype"		: response.data.coupontype,
 			  });
 			  
 
@@ -821,7 +824,7 @@ class CouponManagement extends Component {
 							// imgArrayWSaws.push(obj1);
 							this.setState({
 							  // workspaceImages : imgArrayWSaws
-							  coupenImage : Data.location
+							  couponImage : Data.location
 							})
 					  })
 					  .catch((error)=>{
@@ -858,7 +861,7 @@ class CouponManagement extends Component {
 
 		  // productImageArray.splice(productImageArray.findIndex(v => v === id), 1);
 		  this.setState({
-				coupenImage : "",
+				couponImage : "",
 				// productImageArray: productImageArray
 		  },()=>{
 				// console.log('subcatgArr', this.state.subcatgArr);
@@ -879,9 +882,9 @@ class CouponManagement extends Component {
 				 this.gettableData();
 				 this.setState({
 				checkedProducts : [],
-					"coupentype"  		: '',
-					"coupenin"    		: '',
-					"coupenvalue" 		: '',
+					"coupontype"  		: '',
+					"couponin"    		: '',
+					"couponvalue" 		: '',
 					"startdate"     	: '',
 					"enddate"       	: '',
 				"selectedAction" 	: '',
@@ -1102,24 +1105,24 @@ render() {
 					 	<div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 						  	<div className="col-lg-12">
 							 		<label>Coupon Code Title<i className="redFont">*</i></label>
-							 		<input value={this.state.coupontitle} name="coupontitle" id="coupontitle"  onChange={this.handleChange.bind(this)} type="text" className="form-control edit-catg-new" placeholder="Enter coupen Title" ref="coupontitle" required/>
+							 		<input value={this.state.coupontitle} name="coupontitle" id="coupontitle"  onChange={this.handleChange.bind(this)} type="text" className="form-control edit-catg-new" placeholder="Enter coupon Title" ref="coupontitle" required/>
 						  	</div>
 							</div>
 							<div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 						  	<div className="col-lg-12">
 							 		<label>Coupon Code<i className="redFont">*</i></label>
-							 		<input value={this.state.couponcode} name="couponcode" id="couponcode" maxLength="10" onChange={this.handleChange.bind(this)} type="text" className="form-control edit-catg-new" placeholder="Enter coupen code" ref="couponcode" required/>
+							 		<input value={this.state.couponcode} name="couponcode" id="couponcode" maxLength="10" onChange={this.handleChange.bind(this)} type="text" className="form-control edit-catg-new" placeholder="Enter coupon code" ref="couponcode" required/>
 						  	</div>
 							</div>
 							{/* <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 						  	<div className="col-lg-12">
 							 		<label>Coupon Code Usage<i className="redFont">*</i></label>
-							 		<input value={this.state.couponcodeusage} name="couponcodeusage" id="couponcodeusage" maxLength="10" onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Enter coupen code usage" ref="couponcodeusage" required/>
+							 		<input value={this.state.couponcodeusage} name="couponcodeusage" id="couponcodeusage" maxLength="10" onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Enter coupon code usage" ref="couponcodeusage" required/>
 						  	</div>
 							</div> */}
 						 {/* <div className="col-lg-4 fieldWrapper inputHeight60">
 							  <label>Coupon Type<i className="redFont">*</i></label>
-							  <select onChange={this.handleChange.bind(this)} value={this.state.coupentype} id="coupentype" ref="coupentype" name="coupentype" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
+							  <select onChange={this.handleChange.bind(this)} value={this.state.coupontype} id="coupontype" ref="coupontype" name="coupontype" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
 								 <option  name="No Select" >-- Select Coupon Type --</option>
 								 <option value="Order Base">Order Base</option>
 								 <option value="Product Base">Product Base</option> 
@@ -1127,7 +1130,7 @@ render() {
 						 </div> */}
 						 <div className="col-lg-4 fieldWrapper inputHeight60">
 							  <label>Coupon In<i className="redFont">*</i></label>
-							  <select onChange={this.handleChange.bind(this)} value={this.state.coupenin} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  noPadding  form-control" ref="coupenin" name="coupenin" id="coupenin" >
+							  <select onChange={this.handleChange.bind(this)} value={this.state.couponin} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  noPadding  form-control" ref="couponin" name="couponin" id="couponin" >
 								 <option  name="No Select"  >-- Select Coupon In --</option>
 								 <option name="percent" value ="Percent" >Percent</option>
 								 <option name="amount"  value ="Amount"  >Amount</option>
@@ -1136,7 +1139,7 @@ render() {
 						 <div className="col-lg-4 fieldWrapper inputHeight60 noPadding">
 							  <div className="col-lg-12">
 								 <label>Discount value<i className="redFont">*</i></label>
-								 <input value={this.state.coupenvalue} name="coupenvalue" id="coupenvalue" maxLength="6" onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Discount Value" ref="coupenvalue" required/>
+								 <input value={this.state.couponvalue} name="couponvalue" id="couponvalue" maxLength="6" onChange={this.handleChange.bind(this)} type="number" className="form-control edit-catg-new" placeholder="Discount Value" ref="couponvalue" required/>
 							  </div>
 						 </div>
 							<div className="col-lg-4 fieldWrapper inputHeight60">
@@ -1345,23 +1348,23 @@ render() {
 						  <div className="col-lg-6 col-md-12 col-xs-12 col-sm-12 ">                                      
 												  
 								  {
-									 this.state.coupenImage ?
+									 this.state.couponImage ?
 									 null
 									 :                                        
 									 <div className="divideCatgRows categoryImgWrapper">
 										  <label>Coupon Image</label>                                                                    
-										  <input type="file" name="coupenImage" id="coupenImage" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo"  className="" accept=".jpg,.jpeg,.png" />
+										  <input type="file" name="couponImage" id="couponImage" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo"  className="" accept=".jpg,.jpeg,.png" />
 									 </div>
 								  }
 								  {
-									 this.state.coupenImage ? 
+									 this.state.couponImage ? 
 									 <div className="row">
 										<div className="col-lg-4 productImgCol">
 										  <div className="prodImage">
 											 <div className="prodImageInner">
 												  <span className="prodImageCross" title="Delete" onClick={this.deleteImage.bind(this)} >x</span>
 											 </div>
-											 <img title="view Image" alt="Please wait..." src={this.state.coupenImage ? this.state.coupenImage : "/images/notavailable.jpg"} className="img-responsive" />
+											 <img title="view Image" alt="Please wait..." src={this.state.couponImage ? this.state.couponImage : "/images/notavailable.jpg"} className="img-responsive" />
 										  </div>    
 										</div>
 									 </div>
@@ -1375,9 +1378,9 @@ render() {
 								 <label>&nbsp;</label>
 								 {
 									this.props.match.params.editId ?
-									  <button onClick={this.updatecoupen.bind(this)} className="col-lg-12 btn-primary btn ">Update</button>
+									  <button onClick={this.updatecoupon.bind(this)} className="col-lg-12 btn-primary btn ">Update</button>
 									  :
-									  <button onClick={this.submitcoupen.bind(this)} className=" col-lg-12 btn-primary btn ">Submit</button>
+									  <button onClick={this.submitcoupon.bind(this)} className=" col-lg-12 btn-primary btn ">Submit</button>
 								 }
 							  </div>
 						 </div>
@@ -1397,7 +1400,7 @@ render() {
 									 
 														 
 													 
-							  	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 coupenManagementTable">
+							  	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 couponManagementTable">
 									 <IAssureTable
 										tableHeading={this.state.tableHeading}
 										twoLevelHeader={this.state.twoLevelHeader}
