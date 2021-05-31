@@ -113,11 +113,17 @@ export default StyleSheet.create({
     marginTop:15,
     paddingHorizontal:15,
     paddingVertical:15,borderWidth:1,
-    borderColor:'#f1f1f1',paddingBottom:'10%',
-    
+    borderColor:'#f1f1f1'
+  },
+  prodinfoparent1:{
+    flex:1,backgroundColor:'#fff',
+    marginBottom:15,
+    paddingHorizontal:15,
+    paddingVertical:15,
+    borderColor:'#f1f1f1'
   },
   orderid:{
-    flex:0.1,backgroundColor:'#F1F1F1',
+    flex:0.5,backgroundColor:'#F1F1F1',
     borderWidth:1,borderColor:'#F1F1F1',
     justifyContent:"center",
     padding:5
@@ -288,9 +294,9 @@ export default StyleSheet.create({
     elevation: 5,
   },
   orderstatusmgtop:{
-    marginTop:25,
-    marginBottom:25,
     flex:1,
+    margin:0,
+    marginBottom:15,
   },
   orderdetsandcancelbtn:{
     flex:1,
@@ -302,14 +308,14 @@ export default StyleSheet.create({
   orderstatus:{
     backgroundColor:'#fff',
     // marginTop:15,
-    paddingHorizontal:15,
+    // paddingHorizontal:15,
     paddingVertical:15,
-    borderWidth:1,borderColor:'#f1f1f1',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
+    // borderWidth:1,borderColor:'#f1f1f1',
+    // shadowColor: '#000',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // elevation: 1,
   },
   parent:{
     flex:1,
@@ -401,9 +407,9 @@ export default StyleSheet.create({
   totaldetails:{
     backgroundColor:'#fff',
     borderColor:"#ddd",
-    paddingHorizontal:15,
+    // paddingHorizontal:15,
     paddingVertical:15,
-    borderTopWidth:1
+    // borderTopWidth:1
   },
   flxdata:{
     flex:1,flexDirection:"row"
@@ -417,4 +423,12 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-SemiBold", 
     color:'#333',
   },
+  ogprice: {
+		fontSize: 12, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
+	},
+  	discountpricecut: {
+		fontSize: 12, fontFamily: "Montserrat-SemiBold",
+		textDecorationLine: 'line-through',
+
+	},
 })

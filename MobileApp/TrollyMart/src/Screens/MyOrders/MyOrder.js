@@ -23,29 +23,32 @@ import moment               from 'moment';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import { useIsFocused }     from "@react-navigation/native";
 import {withCustomerToaster}    from '../../redux/AppState.js';
-const labels = ["Order Placed", "Packed", "Out for delivery", "Delivered"];
+import { connect,
+  useDispatch,
+  useSelector }                 from 'react-redux';
+const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
 const customStyles = {
   stepIndicatorSize                 : 25,
   currentStepIndicatorSize          : 30,
   separatorStrokeWidth              : 2,
   currentStepStrokeWidth            : 3,
-  stepStrokeCurrentColor            : colors.theme,
+  stepStrokeCurrentColor            : colors.success,
   stepStrokeWidth                   : 3,
-  stepStrokeFinishedColor           : colors.theme,
+  stepStrokeFinishedColor           : colors.success,
   stepStrokeUnFinishedColor         : '#aaaaaa',
-  separatorFinishedColor            : colors.theme,
+  separatorFinishedColor            : colors.success,
   separatorUnFinishedColor          : '#aaaaaa',
-  stepIndicatorFinishedColor        : colors.theme,
+  stepIndicatorFinishedColor        : colors.success,
   stepIndicatorUnFinishedColor      : '#ffffff',
   stepIndicatorCurrentColor         : '#ffffff',
   stepIndicatorLabelFontSize        : 13,
   currentStepIndicatorLabelFontSize : 13,
-  stepIndicatorLabelCurrentColor    : colors.theme,
+  stepIndicatorLabelCurrentColor    : colors.success,
   stepIndicatorLabelFinishedColor   : '#ffffff',
   stepIndicatorLabelUnFinishedColor : '#aaaaaa',
   labelColor                        : '#999999',
   labelSize                         : 13,
-  currentStepLabelColor             : colors.theme,
+  currentStepLabelColor             : colors.success,
 }
 // stepStrokeFinishedColor: 'colors.theme',
 
@@ -54,8 +57,15 @@ export const MyOrder = withCustomerToaster((props)=>{
   const [myorders,setMyOrders]=useState([]);
   const [cancelOrderModal,setCancelOrderModal]=useState(false);
   const [cancelOrderId,setCancelOrderId]=useState('');
+  const [loading,setLoading]=useState(true);
   const isFocused = useIsFocused();
   const {navigation}=props;
+
+  const store = useSelector(store => ({
+    preferences     : store.storeSettings.preferences,
+  }));
+  console.log("store",store);
+  const {currency}=store.preferences;
   useEffect(() => {
     getorderlist();
 }, [props,isFocused]);
@@ -67,9 +77,11 @@ export const MyOrder = withCustomerToaster((props)=>{
           axios.get('/api/orders/get/list/' + data[1][1])
           .then((response) => {
             console.log("getorderlist",response.data);
-            setMyOrders(response.data)
+            setMyOrders(response.data);
+            setLoading(false);
           })
           .catch((error) => {
+            setLoading(false);
             if (error.response.status == 401) {
               AsyncStorage.removeItem('user_id');
               AsyncStorage.removeItem('token');
@@ -156,13 +168,33 @@ export const MyOrder = withCustomerToaster((props)=>{
           <View style={styles.superparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                {
+                {loading?
+                <Loading/>
+                :
                   myorders ?
                     myorders.length > 0 ?
                       myorders.map((order, i) => {
                         return(
                           <View style={styles.prodinfoparent}>
-                          <View style={styles.orderid}><Text style={styles.orderidinfo}>Order ID : {order.orderID}</Text></View>
+                            <View style={{flexDirection:'row'}}>
+                              <View style={styles.orderid}>
+                                <Text style={styles.orderidinfo}>Order No :</Text>
+                                <Text style={styles.orderidinfo}>{order.orderID}</Text>
+                              </View>
+                              <View style={styles.orderid}>
+                                <Text style={styles.orderidinfo}>Date : </Text>
+                                <Text style={styles.orderidinfo}>{moment(order.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
+                              </View>
+                           </View> 
+                           <View style={{flexDirection:"row",paddingVertical:15}}>
+                              <View style={[{flex:0.7},]}>
+                                <Text style={styles.totaldata}>Total Amount</Text>
+                                <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                              </View>
+                              <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
+                                <Text style={[styles.totaldata,{padding:5,backgroundColor:"#fff"}]}>New Order</Text>
+                              </View>
+                          </View>   
                           {order.vendorOrders.map((item,i)=>{
                             var position = 0;
                             console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",item.deliveryStatus[item.deliveryStatus.length - 1].status);
@@ -178,47 +210,14 @@ export const MyOrder = withCustomerToaster((props)=>{
                             }  
                             console.log("position",position);
                             return (
-                              <View>
-                                <View style={{backgroundColor:colors.theme,marginTop:15}}>
-                                  <Text style={[commonStyles.headerText,{color:"#fff"}]}>{item.vendorName}</Text>
+                              <Card containerStyle={styles.orderstatusmgtop}>
+                                <View style={{marginBottom:5}}>
+                                  <Text style={[styles.totaldata]}>{item.vendorName}</Text>
                                 </View>  
-                                <View style={styles.myorderdets}>
-                                  {
-                                    item.products && item.products.length > 0 ?
-                                      item.products.map((pitem, index) => {
-                                        return (
-                                          <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: pitem._id})}>
-                                            <Card key={index} containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}} >
-                                              <View style={{flex:.25}}>
-                                              {pitem.productImage.length > 0 ? <Image
-                                                  style={styles.img15}
-                                                  source={{ uri: pitem.productImage[0] }}
-                                                  resizeMode="contain"
-                                                />
-                                                :
-                                                <Image
-                                                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                                                  style={styles.img15}
-                                                  resizeMode="contain"
-                                                />
-                                                }
-                                              </View>
-                                              <View style={{flex:.75}}>
-                                                <Text style={styles.myorderprodinfo}>{pitem.productName}</Text> 
-                                            </View> 
-                                            </Card>
-                                          </TouchableOpacity>      
-                                        );
-                                      })
-                                      : null
-                                  }
-                                </View>
-                                <View style={styles.orderstatusmgtop}>
                                   {
                                     item && item.deliveryStatus
                                       && item.deliveryStatus[item.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                       <View style={styles.orderstatus}>
-                                        <Text style={styles.orderstatustxt}>Order Status</Text>
                                         <StepIndicator
                                           customStyles={customStyles}
                                           currentPosition={position}
@@ -231,45 +230,58 @@ export const MyOrder = withCustomerToaster((props)=>{
                                         <Text style={styles.ordercancelled}>Order Cancelled</Text>
                                       </View>
                                   }
+                                  <View style={styles.flxdata}>
+                                  <View style={{ flex: 0.5 }}>
+                                    <Text style={styles.totaldata}>Amount </Text>
+                                  </View>
+                                  <View style={{ flex: 0.5 }}>
+                                    <View style={{ flexDirection: "row",}}>
+                                      <Text style={styles.totalpriceincart}>: {currency} {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                                    </View>
+                                  </View>
                                 </View>
-                               
-
-                              
-                               </View>
+                                <View style={styles.flxdata}>
+                                  <View style={{ flex: 0.5 }}>
+                                    <Text style={styles.totaldata}>No Of Products </Text>
+                                  </View>
+                                  <View style={{ flex: 0.5 }}>
+                                    <View style={{ flexDirection: "row",}}>
+                                      <Text style={styles.totalpriceincart}>: {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
+                                    </View>
+                                  </View>
+                                </View>
+                              </Card>
                             )
                             })
                           }
-                            <View style={styles.orderdetsandcancelbtn}>
-                                {order ?
-                                  <View style={styles.ordercancelstatus}>
-                                    <View style={styles.ordercancelsstatus}>
-                                      <Button
-                                        onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
-                                        titleStyle      = {commonStyles.buttonText1}
-                                        title           = "ORDER DETAILS"
-                                        buttonStyle     = {commonStyles.button}
-                                        containerStyle  = {commonStyles.buttonContainer}
-                                      />
-                                    </View>
-                                    {order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
-                                      null
-                                      :
-                                      <View style={styles.orderdetailsstatus}>
-                                        <Button
-                                          onPress         = {() => cancelorderbtn(order._id)}
-                                          titleStyle      = {styles.buttonText}
-                                          title           = "CANCEL ORDER"
-                                          buttonStyle     = {styles.buttonRED}
-                                          containerStyle  = {styles.buttonContainer2}
-                                        />
-                                      </View>}
-                                  </View>
+                          <View style={styles.orderdetsandcancelbtn}>
+                            {order ?
+                              <View style={styles.ordercancelstatus}>
+                                <View style={styles.ordercancelsstatus}>
+                                  <Button
+                                    onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
+                                    titleStyle      = {commonStyles.buttonText1}
+                                    title           = "ORDER DETAILS"
+                                    buttonStyle     = {commonStyles.button}
+                                    containerStyle  = {commonStyles.buttonContainer}
+                                  />
+                                </View>
+                                {order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
+                                  null
                                   :
-                                  <View style={styles.orderstatustxtcancel}></View>
-                                }
+                                  <View style={styles.orderdetailsstatus}>
+                                    <Button
+                                      onPress         = {() => cancelorderbtn(order._id)}
+                                      titleStyle      = {styles.buttonText}
+                                      title           = "CANCEL ORDER"
+                                      buttonStyle     = {styles.buttonRED}
+                                      containerStyle  = {styles.buttonContainer2}
+                                    />
+                                  </View>}
                               </View>
-                           <View style={styles.ordereddates}>
-                            <Text style={styles.myordereddate}>Ordered Date : {moment(order.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
+                              :
+                              <View style={styles.orderstatustxtcancel}></View>
+                            }
                           </View>
                         </View>
                         ) 

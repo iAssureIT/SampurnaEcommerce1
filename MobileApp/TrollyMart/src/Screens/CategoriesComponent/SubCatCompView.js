@@ -148,7 +148,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
       axios
         .post('/api/carts/post', formValues)
         .then((response) => {
-          setToast({text: 'Product is added to cart.', color: 'green'});
+          setToast({text: 'Added to cart.', color: 'green'});
         })
         .catch((error) => {
           console.log("error",error);
@@ -381,7 +381,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
               </View>
               <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
-                Product is added to cart.
+                Added to cart.
               </Text>
 
               <View style={styles.yesmodalbtn}>

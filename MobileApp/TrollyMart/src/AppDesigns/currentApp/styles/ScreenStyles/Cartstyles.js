@@ -204,7 +204,7 @@ superparent:{
     borderColor:"#ddd",
     paddingHorizontal:15,
     paddingVertical:15,
-    borderTopWidth:1
+    // borderTopWidth:1
   },
   productsoldurl:{
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#3090C7'

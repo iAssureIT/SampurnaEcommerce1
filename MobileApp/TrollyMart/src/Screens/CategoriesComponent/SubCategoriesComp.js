@@ -101,7 +101,7 @@ export const SubCategoriesComp = (props)=>{
                   <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
                 </View>
                 <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
-                  Product is added to cart.
+                  Added to cart.
                 </Text>
                 <View style={styles.yesmodalbtn}>
                   <Button

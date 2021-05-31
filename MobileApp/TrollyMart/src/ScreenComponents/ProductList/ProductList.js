@@ -76,9 +76,10 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
   const addToCart=(productid,vendor_ID,vendorName)=>{
-    if(props.userId){
+    console.log("props",props);
+    if(user_id){
       const formValues = {
-        "user_ID"     : props.userId,
+        "user_ID"     : user_id,
         "product_ID"  : productid,
         "vendor_ID"   : vendor_ID,
         "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
@@ -86,7 +87,7 @@ export const ProductList = withCustomerToaster((props)=>{
       axios
         .post('/api/Carts/post', formValues)
         .then((response) => {
-          setToast({text: 'Product is added to cart.', color: 'green'});
+          setToast({text: response.data.message, color: 'green'});
         })
         .catch((error) => {
           setToast({text: 'Product is already in cart.', color: colors.warning});

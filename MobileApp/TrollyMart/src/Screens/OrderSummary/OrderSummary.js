@@ -79,7 +79,7 @@ import { SafeAreaView }         from 'react-native';
     setAddDataMobileNumber(addData.mobileNumber);
     setAddDataState(addData.state);
     
-    getCartData(user_id, product_ID);
+    getCartData(user_id);
     getTimes_func(startRange, limitRange);
   }
 
@@ -148,11 +148,9 @@ import { SafeAreaView }         from 'react-native';
       axios.patch('/api/carts/put/coupon',payload)
       .then(res=>{
         console.log("applyCoupen res",res);
-        if(res.data.message){
-          setToast({text: res.data.message, color:'red'});
-        }else{
-          setCartData(res.data);
-        }
+          setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
+          setCartData(res.data.data);
+          setCouponCode('');
       })
       .catch(err=>{
         setCouponCode('');
@@ -240,9 +238,10 @@ import { SafeAreaView }         from 'react-native';
                     console.log("vendor",vendor);
                     return (
                       <View style={{backgroundColor:"#fff",marginBottom:15}}>
-                        <View style={{backgroundColor:colors.theme}}>
-                          <Text style={[commonStyles.headerText,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
-                        </View>  
+                        <View style={{ flex: 0.6,flexDirection:"row",padding:10 }}>
+                          <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName}</Text>
+                        <Text style={styles.totaldata}>Total</Text>
+                      </View> 
                       {vendor.cartItems && vendor.cartItems.length>0 && vendor.cartItems.map((item,index)=>{
                         return(
                           <View key={index}>
@@ -406,17 +405,7 @@ import { SafeAreaView }         from 'react-native';
                           </View>
                         </View>
                       </View>
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Total Delivery Charges </Text>
-                        </View> 
-                        <View style={{ flex: 0.4 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.shippingCharges && cartData.paymentDetails.shippingCharges.toFixed(2)}</Text>
-                          </View>
-                        </View>
-                      </View>
-                    {/* {couponCode ? */}
+                    {cartData.paymentDetails.afterDiscountCouponAmount === 0 ?
                       <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
                         <View style={{flex:.7}}>
                           <Input
@@ -441,7 +430,7 @@ import { SafeAreaView }         from 'react-native';
                           /> 
                         </View>  
                       </View>
-                      {/* :
+                      :
                       <SafeAreaView>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.6 }}>
@@ -449,12 +438,13 @@ import { SafeAreaView }         from 'react-native';
                         </View> 
                         <View style={{ flex: 0.4 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{coupenPrice}</Text>
+                             <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
+                      <Text style={[styles.totaldata,{color:"red",alignSelf:"flex-end",paddingBottom:5}]} onPress={()=>getCartData(user_id)}>Remove Coupon</Text>
                       </SafeAreaView>
-                      } */}
+                    }
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Total Delivery Charges </Text>

@@ -98,7 +98,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
       if(vendorOrders[i].cartItems){
         for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
           vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
-          console.log("vendorOrders",vendorOrders);
+          vendorOrders[i].products[j].quantity =vendorOrders[i].cartItems[j].quantity ;
           vendorOrders[i].deliveryStatus =[];
             vendorOrders[i].deliveryStatus.push({
               "status"          : "New Order",
@@ -276,7 +276,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       title={"CONFIRM ORDER"}
                       buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer1}
-                      loading={btnLoading}
+                      // loading={btnLoading}
                     />
                   </View>
                 </View>
