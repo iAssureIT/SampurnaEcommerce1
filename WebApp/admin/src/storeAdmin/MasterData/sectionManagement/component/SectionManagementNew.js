@@ -106,7 +106,7 @@ class SectionManagement extends Component {
 
 
         $.validator.setDefaults({
-            debug: true,
+            debug  : true,
             success: "valid"
         });
 
@@ -114,7 +114,7 @@ class SectionManagement extends Component {
             rules: {
                 section: {
                     required            : true,
-                    letterswithspace    : true,
+                    // letterswithspace    : true,
                     charactersLength    : true
                 },
                 sectionRank: {

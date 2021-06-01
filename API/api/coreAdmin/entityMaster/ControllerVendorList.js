@@ -12,6 +12,7 @@ exports.getVendorList = (req,res,next)=>{
     Sections.find({"sectionUrl" : req.body.sectionUrl})
     .exec()
     .then(sectiondata=>{
+        console.log("sectiondata => ",sectiondata)
         var section_ID  = sectiondata[0]._id;
         var sectionName = sectiondata[0].section;
         console.log("sectiondata => ",sectiondata[0]._id);
