@@ -34,7 +34,7 @@ render(){
                     <li key={sectionindex.toString()} className="dropdown dropDownLevel1">
                         
                         <Link href={"/vendor-list/" +sectionDetails.sectionUrl} >
-                            <a className="">{sectionDetails.section}&nbsp;{sectionDetails.categorylist.length > 0?<i className="fa fa-angle-down"></i>:null}</a>
+                            <a className="">{sectionDetails.section}&nbsp;</a>
                         </Link>   
 
                         {/* { sectionDetails.categorylist.length>8?

@@ -10,7 +10,7 @@ router.get('/get/:entityType', 									checkAuth, entityMaster.listEntity);
 
 router.get('/countContacts/:entityType', 						checkAuth, entityMaster.countContacts);
 
-router.get('/getCompany/:companyID', 							checkAuth, entityMaster.getCompany);
+router.get('/getCompany/:companyID', 							entityMaster.getCompany);
 
 router.get('/get/count/:entityType', 							checkAuth, entityMaster.countEntity);
 

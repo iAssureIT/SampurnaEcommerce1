@@ -36,7 +36,7 @@ const VendorList = ()=> {
         return(
             <section>
                 <Header />    
-                <div className="col-12">
+                <div className="container">
                     <div className="col-12">
                     <div className="row">
                         <div className="col-12">
@@ -47,14 +47,17 @@ const VendorList = ()=> {
                                 vendorList.map((vendordata, index)=>{
                                     // console.log("vendorList===",vendorList);
                                     return(
-                                        <div className="col-4" key={index}>
-                                            <div className={"card mt-4 " +Style.vendorCard}>
+                                        <div className="col-6" key={index}>
+                                            <div className={"col-12 card mt-4 " +Style.vendorCard}>
                                                 <Link href={"/products/"+vendordata.vendor_ID+"/"+sectionUrl} className={+Style.vedorLink}>
-                                                    <div className={"card-body " +Style.cardBody}>
+                                                    <div className={"row card-body " +Style.cardBody}>
                                                         <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                             <img src={vendordata.vendorLogo} className={"vendor img-thumbnail "+Style.vendorLogo }/>
                                                         </div>   
-                                                        <div>{vendordata.vendorName}</div>
+                                                        <div className={"col-9 text-center " +Style.vendorName}>{vendordata.vendorName}</div>
+                                                        <div className="col-9 deliveryTime">
+                                                            Delivery Time - 4km
+                                                        </div>
                                                     </div> 
                                                 </ Link >
                                             </div>

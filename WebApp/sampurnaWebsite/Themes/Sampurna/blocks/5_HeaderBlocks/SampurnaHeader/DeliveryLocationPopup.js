@@ -43,7 +43,7 @@ class DeliveryLocationPopup extends React.Component {
 
     takeCurrentLocation(){
         var that=this;
-                console.log("google api key ===",that.state.googleapiKey);
+                // console.log("google api key ===",that.state.googleapiKey);
                 Geocode.setApiKey(that.state.googleapiKey);
 
                  // set response language. Defaults to english.

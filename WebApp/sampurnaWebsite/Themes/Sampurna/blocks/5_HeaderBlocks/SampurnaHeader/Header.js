@@ -12,6 +12,7 @@ import Megamenu               from './Megamenu.js';
 import DeliveryLocationPopup  from './DeliveryLocationPopup.js';
 import DisplayLocation        from './DisplayLocation.js';
 import SystemSecurityModal    from './SystemSecurityModal.js';
+import Websitelogo            from './Websitelogo.js';
 import { updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -93,20 +94,9 @@ class Header extends React.Component {
                 <nav className="navbar navbar-expand-md navbar-dark megamenu">
                     <div className="col-12">
                         <div className="col-12 top-header">
-                            <div className="row logoWrap">
-                                <div className="col-4 col-sm-2 mr-4 logoBlock NoPadding">
-                                <Link href="/">
-                                    <a title="navbar-brand Sitelogo ">
-                                        <Image
-                                            src="/images/eCommerce/multistoreLogo.png"
-                                            className={"img-responsive logoImg hidden-x"}
-                                            height ={30}
-                                            width={120}
-                                            layout="responsive"
-                                        />
-                                    </a>
-                                </Link>
-                                </div>
+                            <div className="row logoWrap"> 
+                                                           
+                                <Websitelogo />
 
                                 <Searchbar />
 

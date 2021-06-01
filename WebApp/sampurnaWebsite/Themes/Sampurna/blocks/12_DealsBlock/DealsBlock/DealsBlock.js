@@ -72,7 +72,6 @@ class ShoppingVerticals extends Component {
       })
     }//end if blockid
   }
-
   render() {
     const responsive = {
       desktop: {
@@ -133,7 +132,7 @@ class ShoppingVerticals extends Component {
                   }
                 </Carousel>                    
                 :
-                <div className="row sectionCategoryBlock">                      
+                <div className="row sectionCategoryBlock mt-4">                      
                   {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       this.state.itemList.map((data, index) => {                      

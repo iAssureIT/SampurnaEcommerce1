@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import Style from './Banner.module.css';
 import getConfig from 'next/config';
-import HelpAndSupport from '../../StaticBlocks/HelpAndSupport/HelpAndSupport.js';
+// import HelpAndSupport from '../../StaticBlocks/HelpAndSupport/HelpAndSupport.js';
 import CategoriesBlock from '../../StaticBlocks/CategoriesBlock/CategoriesBlock1.js';
 const { publicRuntimeConfig } = getConfig();
 var projectName = publicRuntimeConfig.CURRENT_SITE;
@@ -324,6 +324,10 @@ export default class Banner extends React.Component {
                                   </div>  */}
                                   <div className={"col-12 pull-left"}>                         
                                     <div className="middle">
+                                        {/* <a href={data.Link} className="btn annimatedBtn btn1">Shop Now</a> */}
+                                        {/* <Link href={data.Link}>
+                                          <a className="btn annimatedBtn btn1">Shop Now</a>
+                                        </Link> */}
                                     </div>   
                                   </div>                              
                                 </div>
@@ -334,9 +338,15 @@ export default class Banner extends React.Component {
                                                          
                           );
                         })
+                        
                         :
                           <div className="col-2 offset-5 loading">
                               <img src="/images/eCommerce/loader.gif" className="col-12 lazyload" loading="lazy"></img>
+                              {/* <Image
+                                src={"/images/loader.gif"}                                
+                                height ={400}
+                                width={400}
+                              />	 */}
                           </div> 
                       }                      
                     </div>
@@ -359,7 +369,7 @@ export default class Banner extends React.Component {
                     
                 </div>
             </div>
-            < HelpAndSupport />
+            {/* < HelpAndSupport /> */}
             {/* <CategoriesBlock /> */}
           </div>
                       					

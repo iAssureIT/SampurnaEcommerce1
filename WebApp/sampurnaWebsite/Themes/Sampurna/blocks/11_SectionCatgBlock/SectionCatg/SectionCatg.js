@@ -44,15 +44,15 @@ class ShoppingVerticals extends Component {
       axios.get('/api/blocks/get/'+this.props.block_id)    
       .then((blockresponse)=>{
         if(blockresponse.data){
-        // console.log("groupsettings response data====",blockresponse.data);                
+        console.log("groupsettings response data====",blockresponse.data);                
         this.setState({
            groupSettings    : blockresponse.data.groupSettings,   
            blockTitle       : blockresponse.data.blockTitle,
         },()=>{
-          // console.log("after setstate groupSettings===",this.state.groupSettings.blockApi);
+          console.log("after setstate groupSettings===",this.state.groupSettings.blockApi);
           axios.post(this.state.groupSettings.blockApi, this.state.groupSettings)      
           .then((blockApiResponse)=>{
-            // console.log("blockApiResponse = > ",blockApiResponse)
+            console.log("blockApiResponse = > ",blockApiResponse)
             if(blockApiResponse.data){   
               // console.log("blockApiResponse.data===",blockApiResponse.data); 
             for(var i=0;i<blockApiResponse.data.length;i++){ 
@@ -66,7 +66,7 @@ class ShoppingVerticals extends Component {
               itemList     : itemList,
               Productsloading : false,              
             },()=>{
-                // console.log("itemList after set state===",this.state.itemList);
+                console.log("itemList after set state===",this.state.itemList);
             });
           }
           })
@@ -110,96 +110,97 @@ class ShoppingVerticals extends Component {
     };
 
     // console.log("inside rendor this.state.itemList===",this.state.itemList);
-    // console.log("this.state.groupSettings.noOfItem",this.state.groupSettings.showCarousel);
+    console.log("this.state.groupSettings.noOfItem",this.state.groupSettings);
     
 
     return (
       <div className="col-12 mt20">
           {this.state.groupSettings.showTitle?
-          <div className="col-12">
-            <div className="col-12 productcomponentheading text-center">
-              <div className="producttextclass  col-12 NoPadding">
-                <h4 className="row">
-                  <b>{this.state.blockTitle}</b> 
-                </h4> 
-              </div>            
+            <div className="col-12">
+              <div className="col-12 productcomponentheading text-center">
+                <div className="producttextclass  col-12 NoPadding">
+                  <h4 className="row">
+                    <b>{this.state.blockTitle}</b> 
+                  </h4> 
+                </div>            
+              </div>
             </div>
-          </div>
           :null}   
-          <div className="col-12 tab-content customTabContent ">
-          { this.state.groupSettings.showCarousel === true?
-           this.state.itemList && this.state.itemList.length > 0 ?
-           <Carousel 
-           className="customnNavButton"
-              swipeable={false}
-              draggable={true}
-              showDots={false}
-              responsive={responsive}
-              ssr={true} // means to render carousel on server-side.
-              infinite={true}
-              autoPlay={this.props.deviceType !== "mobile" ? true : false}
-              autoPlaySpeed={3000}
-              keyBoardControl={true}
-              customTransition="all .20"
-              transitionDuration={500}                      
-              removeArrowOnDeviceType={["mobile"]}
-              deviceType={this.props.deviceType}  
-              containerClass="carousel-container">
-                {this.state.itemList.map((data, index) => {  
-                  { if(this.state.groupSettings.showOnlySection){
-                    url = "/section/"+data.itemUrl;
-                   }else if(this.state.groupSettings.showOnlyCategory){
-                    url = "/category/"+data.itemUrl;
-                   }else{
-                    url = "/subcategory/"+data.itemUrl;
-                   }
-                  }
-                  return (
-                  <div className="col-12 sectionCategoryBlock"  key={index}> 
-                      <a href={url} className ="secCateblock"> 
-                        <div className="itemImg col-12 NoPadding">
-                          <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
-                            <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" />
+            <div className="col-12 tab-content customTabContent ">
+            { this.state.groupSettings.showCarousel === true?
+              this.state.itemList && this.state.itemList.length > 0 ?
+              <Carousel 
+                  className="customnNavButton"
+                  swipeable={false}
+                  draggable={true}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={3000}
+                  keyBoardControl={true}
+                  customTransition="all .20"
+                  transitionDuration={500}                      
+                  removeArrowOnDeviceType={["mobile"]}
+                  deviceType={this.props.deviceType}  
+                  containerClass="carousel-container">
+                    {this.state.itemList.map((data, index) => {  
+                      console.log(" itemList data=>",data);
+                      { if(this.state.groupSettings.showOnlySection){
+                          url = "/vendor-list/"+data.itemUrl;
+                        }else if(this.state.groupSettings.showOnlyCategory){
+                          url = "/vendor-list/"+data.itemUrl;
+                        }else{
+                          url = "/vendor-list/"+data.itemUrl;
+                        }
+                      }
+                      return (
+                      <div className="col-12 sectionCategoryBlock"  key={index}> 
+                          <a href={url} className ="secCateblock"> 
+                            <div className="itemImg col-12 NoPadding">
+                              <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
+                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" />
+                              </a>
+                            </div>
+                            <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>
                           </a>
-                        </div>
-                        <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>
-                      </a>
-                  </div>                            
-                  );
-                })
-              }
-          </Carousel>
-          : ''
-        :
-          <div className="row sectionCategoryBlock">                      
-            {
-              Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
-                Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => { 
-                  { if(this.state.groupSettings.showOnlySection){
-                    url = "/section/"+data.itemUrl;
-                   }else if(this.state.groupSettings.showOnlyCategory){
-                    url = "/category/"+data.itemUrl;
-                   }else{
-                    url = "/subcategory/"+data.itemUrl;
-                   }
-                  }                     
-                  return (
-                    <div className={"col-"+XLcol +" " +"NoPadding"} key={index}>
-                      <a href={url} className ="secCateblock sectionCategoryBlock"> 
-                          <div className="productImg col-12 ">
-                            <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
-                              <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />
-                            </a>
-                          </div>
-                          <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>  
-                      </a>                             
-                    </div>                    
-                  );
-                })
-                : ''
-            }	
-          </div>    
-        } 
+                      </div>                            
+                      );
+                    })
+                  }
+              </Carousel>
+            : <div>no item</div>
+          :
+            <div className="row sectionCategoryBlock">                      
+              {
+                Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
+                  Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => { 
+                    { if(this.state.groupSettings.showOnlySection){
+                      url = "/section/"+data.itemUrl;
+                    }else if(this.state.groupSettings.showOnlyCategory){
+                      url = "/category/"+data.itemUrl;
+                    }else{
+                      url = "/subcategory/"+data.itemUrl;
+                    }
+                    }                     
+                    return (
+                      <div className={"col-"+XLcol +" " +"NoPadding"} key={index}>
+                        <a href={url} className ="secCateblock sectionCategoryBlock"> 
+                            <div className="productImg col-12 ">
+                              <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
+                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />
+                              </a>
+                            </div>
+                            <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>  
+                        </a>                             
+                      </div>                    
+                    );
+                  })
+                  : ''
+              }	
+            </div>    
+          } 
           </div>
       </div>
     );

@@ -155,7 +155,7 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
 }
 
 exports.get_deals = (req, res, next) => {
-    // console.log("Inside get deals req.body===",req.body);
+    console.log("Inside get deals req.body===",req.body);
     var selector        = {}; 
     selector['$and']    = [];
     
@@ -171,7 +171,7 @@ exports.get_deals = (req, res, next) => {
     if(req.body.subCategory && (req.body.subCategory).toLowerCase() != "all"){
         selector["$and"].push({"subCategory": req.body.subCategory })
     }
-    // console.log("selector===",selector);
+    console.log("selector===",selector);
     Deals.find(selector)
         .exec()
         .then(data => {

@@ -16,7 +16,6 @@ class Message extends Component{
         }
     } 
     componentDidMount(){
-        console.log("inside message");
     }
     static getDerivedStateFromProps(nextProps, state) {
         // console.log("messagedata nextProps============",nextProps,state);
