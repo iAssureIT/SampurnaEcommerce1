@@ -84,23 +84,23 @@ class Login extends Component {
             }
             // console.log("response.data.data, ===> ",response.data);
             document.getElementById("logInBtn").value = 'Sign In';
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("user_ID", response.data.ID);
-            localStorage.setItem("roles", response.data.roles);            
+            // localStorage.setItem("token", response.data.token);
+            // localStorage.setItem("user_ID", response.data.ID);
+            // localStorage.setItem("roles", response.data.roles);            
             localStorage.setItem('userDetails', JSON.stringify(userDetails));
-              axios.get("/api/adminPreference/get")
-                  .then(preference =>{
-                    var websiteModel = preference.data[0].websiteModel;
-                    var showLoginAs = preference.data[0].showLoginAs;
-                    var preferencedata = preference.data[0];
-                    // console.log("preference.data, ===> ",preferencedata);
-                    localStorage.setItem("websiteModel",websiteModel);
-                    localStorage.setItem("showLoginAs",showLoginAs);
-                    localStorage.setItem("preferencedata",preferencedata);
-                  })
-                  .catch(error=>{
-                      console.log("Error in getting adminPreference ===> ", error);
-                    }) 
+              // axios.get("/api/adminPreference/get")
+              //     .then(preference =>{
+              //       var websiteModel = preference.data[0].websiteModel;
+              //       var showLoginAs = preference.data[0].showLoginAs;
+              //       var preferencedata = preference.data[0];
+              //       // console.log("preference.data, ===> ",preferencedata);
+              //       localStorage.setItem("websiteModel",websiteModel);
+              //       localStorage.setItem("showLoginAs",showLoginAs);
+              //       localStorage.setItem("preferencedata",preferencedata);
+              //     })
+              //     .catch(error=>{
+              //         console.log("Error in getting adminPreference ===> ", error);
+              //     }) 
 
             this.setState({
               loggedIn: true

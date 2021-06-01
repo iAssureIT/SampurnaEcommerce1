@@ -7,8 +7,6 @@ import { connect } 			from 'react-redux';
 import { bindActionCreators }     from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
-// import jQuery from 'jquery';
-// import 'jquery-validation';
 import {getForm,updateForm} from '../redux/actions';
 import getConfig from 'next/config';
 import Login 	 from './Login.js';
@@ -153,8 +151,6 @@ class SignUp extends Component {
 				errors["signupConfirmPassword"] =""
 			  }
 		  }
-  
-	
 		this.setState({
 		  errors: errors
 		});
@@ -249,9 +245,9 @@ class SignUp extends Component {
 													}
 													// console.log('pincode:',response.data.userDetails.pincode);												
 													// localStorage.setItem("pincode", response.data.userDetails.pincode);
-													localStorage.setItem("token", response.data.token);
-													localStorage.setItem("user_ID", response.data.ID);
-													localStorage.setItem("roles", response.data.roles);													
+													// localStorage.setItem("token", response.data.token);
+													// localStorage.setItem("user_ID", response.data.ID);
+													// localStorage.setItem("roles", response.data.roles);													
 													localStorage.setItem('userDetails', JSON.stringify(userDetails));
 													swal('Congratulations! You have been successfully Login, Now you can place your order.');
 													window.location.reload();
@@ -259,9 +255,9 @@ class SignUp extends Component {
 												} else {	
 													// console.log('pincode:',response.data.userDetails.pincode);												
 													// localStorage.setItem("pincode", response.data.userDetails.pincode);
-													localStorage.setItem("token", response.data.token);
-													localStorage.setItem("user_ID", response.data.ID);													
-													localStorage.setItem("roles", response.data.roles);
+													// localStorage.setItem("token", response.data.token);
+													// localStorage.setItem("user_ID", response.data.ID);													
+													// localStorage.setItem("roles", response.data.roles);
 													localStorage.setItem('userDetails', JSON.stringify(userDetails));
 													// this.props.history.push("/");
 													swal('Congratulations! You have been successfully Login, Now you can place your order.')
@@ -294,7 +290,6 @@ class SignUp extends Component {
 						swal("Password should be at least 6 Characters Long, Please try again or create an Account.")
 
 					)
-
 
 			} else {
 				// document.getElementById("signUpBtn").innerHTML = 'Sign Up';

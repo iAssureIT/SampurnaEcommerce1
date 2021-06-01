@@ -12,7 +12,9 @@ import Megamenu               from './Megamenu.js';
 import DeliveryLocationPopup  from './DeliveryLocationPopup.js';
 import DisplayLocation        from './DisplayLocation.js';
 import SystemSecurityModal    from './SystemSecurityModal.js';
-import { getCartData,updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
+import { updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 class Header extends React.Component {
 	constructor(props) {
@@ -31,6 +33,7 @@ class Header extends React.Component {
 	 async componentDidMount(){      
 
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         var deliveryLocation = false;
         this.getCartCount();
         if(sampurnaWebsiteDetails){
@@ -42,14 +45,16 @@ class Header extends React.Component {
 
 
             //======= Get User Data ===========
-            var user_id = sampurnaWebsiteDetails.user_id;       
-            if(user_id === null){
-                this.setState({
-                    "userID": user_id,
-                },()=>{
-                    this.props.getCartData();
-                    this.props.getWishlistData();
-                })     
+            if(userDetails){
+                var user_id = userDetails.user_id;       
+                if(user_id !== null){
+                    this.setState({
+                        "userID": user_id,
+                    },()=>{
+                        this.props.updateCartCount();
+                        // this.props.getWishlistData();
+                    })     
+                }
             }
         }
 
@@ -128,7 +133,7 @@ class Header extends React.Component {
                                         </div>
                                     </a>
                                     :
-                                    <a href="/cart" className="col-4 col-sm-6 cartHeader NoPadding" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">        
+                                    <a href="" className="abc col-4 col-sm-6 cartHeader NoPadding" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">        
                                         <div className="row">
                                             <div className="col-3 p-2 cartImg">
                                                 <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
@@ -178,7 +183,7 @@ const mapStateToProps = state => (
     });
   
   const mapDispatchToProps = {
-    updateCartCount                : updateCartCount,
+    updateCartCount             : updateCartCount,
     setProductApiUrl            : setProductApiUrl,
     setSampurnaWebsiteDetails   : setSampurnaWebsiteDetails
   };

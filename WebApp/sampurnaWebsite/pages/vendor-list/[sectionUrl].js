@@ -45,7 +45,7 @@ const VendorList = ()=> {
                         
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
-                                    console.log("vendorList===",vendorList);
+                                    // console.log("vendorList===",vendorList);
                                     return(
                                         <div className="col-4" key={index}>
                                             <div className={"card mt-4 " +Style.vendorCard}>

@@ -13,7 +13,7 @@ import SignUp    from '../../../../../systemSecurity/SignUp.js';
 import ForgotPassword from '../../../../../systemSecurity/ForgotPassword';
 import ConfirmOtp     from '../../../../../systemSecurity/ConfirmOtp.js';
 import ResetPassword  from '../../../../../systemSecurity/ResetPassword.js'
-import {getBlockData} from '../../../../../redux/actions/counterActions';
+// import {getBlockData} from '../../../../../redux/actions/counterActions';
 import {getForm,updateForm} from '../../../../../redux/actions';
 
 const { publicRuntimeConfig } = getConfig();
@@ -38,18 +38,13 @@ class header extends React.Component {
 		}; 
     }
     componentDidMount(){        
-        const userDetails = localStorage.getItem('userDetails');
-        const userDetailsParse = JSON.parse(userDetails);
-        const websiteModel = localStorage.getItem("websiteModel");
-        const showLoginAs  = localStorage.getItem("showLoginAs");
-        const preferencedata = localStorage.getItem("preferencedata");
-        if(localStorage.getItem('user_ID')){
-            
+        const userDetails  =  JSON.parse(localStorage.getItem('userDetails'));
+        
+        if(userDetails && userDetails.user_id){
             this.setState({
                 loggedIn    : true,
-                userDetails : userDetailsParse,
-                userId      : localStorage.getItem('user_ID'),
-                preferencedata : {'websiteModel':websiteModel,'showLoginAs':showLoginAs,'preferencedata':preferencedata}
+                userDetails : userDetails,
+                userId      : userDetails.user_id
             },()=>{
                 this.getUserData();
             })
@@ -57,9 +52,7 @@ class header extends React.Component {
         
     }
     getUserData() {
-        const userid = localStorage.getItem('user_ID');
-        // console.log("getUserData  userId===",userid);
-        if(this.state.userId){
+        if(this.state.userId){ 
         axios.get('/api/users/' +this.state.userId)
           .then((res) => {
             if(res.data){
@@ -94,10 +87,7 @@ class header extends React.Component {
     }
     async signOut(event) {
         event.preventDefault();
-        // localStorage.setItem("user_ID", "");
-        // localStorage.setItem("userDetails", "");
-        // this.props.fetchCartData(); 
-        var token = localStorage.removeItem("user_ID");
+        var token = localStorage.removeItem("userDetails");
         swal("Thank You.","You have been logged out Successfully!");
         if (token !== null) {
           this.setState({
@@ -201,7 +191,7 @@ const mapStateToProps = state => (
 );
 
 const mapDispatchToProps = {
-    getBlockData: getBlockData,
+    // getBlockData: getBlockData,
     updateFormValue: updateForm,
 };
 
