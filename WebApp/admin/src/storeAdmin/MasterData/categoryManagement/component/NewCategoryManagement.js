@@ -480,13 +480,13 @@ class CategoryManagement extends Component{
 								console.log("subcategory obj===",obj);
 								axios.post('/api/category/get/list')
 								.then((response)=>{
-									console.log("response in submitCategory",response);
+									console.log("response in get Category list => ",response);
 
 								})
 								.catch((error)=>{
 									console.log('error', error);
 								});
-								categoryDimentionArray.push(obj);
+								// categoryDimentionArray.push(obj);
 								// var finalCategoryArray = Array.from(new Set(categoryDimentionArray.map(c => c.subCategoryTitle.toLowerCase()))).map(subCategoryTitle => {
 								//   console.log("c => ",c);
 								//   console.log("id => ",subCategoryTitle);
@@ -496,7 +496,8 @@ class CategoryManagement extends Component{
 								// })
 								categoryDimentionArray.push(obj);
 								var result = [];
-								if(categoryDimentionArray.length > 0){                    
+								if(categoryDimentionArray.length > 0){ 
+									console.log("categoryDimentionArray=> ",categoryDimentionArray)                   
 									const map    = new Map();
 									for (const item of categoryDimentionArray) {
 										if(!map.has(item.subCategoryTitle)){
@@ -519,7 +520,7 @@ class CategoryManagement extends Component{
 								// console.log("subCategoryTitleErrora"+i, " subCategoryTitlea0Error");
 								this.setState({
 									["subCategoryTitleErrora"+i] 	: "This field is required.",
-									allowToSubmit 						:  false
+									allowToSubmit 					:  false
 								})
 							}
 						}

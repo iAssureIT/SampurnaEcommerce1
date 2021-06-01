@@ -19,7 +19,8 @@ exports.insert_preferences = (req, res, next) => {
                             "showDiscount"      : req.body.showDiscount,
                             "showCoupenCode"    : req.body.showCoupenCode,
                             "showOrderStatus"   : req.body.showOrderStatus,
-                            "currency"          : req.body.currency
+                            "currency"          : req.body.currency,
+                            "unitOfDistance"    : req.body.unitOfDistance
                         }
                     }
                 )
@@ -46,6 +47,7 @@ exports.insert_preferences = (req, res, next) => {
                 "showCoupenCode"    : req.body.showCoupenCode,
                 "showOrderStatus"   : req.body.showOrderStatus,
                 "currency"          : req.body.currency,
+                "unitOfDistance"    : req.body.unitOfDistance,
                  createdAt           : new Date()
             });            
             adminpreference.save(

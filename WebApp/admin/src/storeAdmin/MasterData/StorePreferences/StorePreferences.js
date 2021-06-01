@@ -13,7 +13,10 @@ class StorePreferences extends Component {
 			"maxRadius" 				: "",
 			"minOrderValue"      		: "",
 			"defaultServiceCharges" 	: "", 		
-			"serviseChargesByDistance" 	: [],
+			"serviseChargesByDistance" 	: [{
+				minDistance 	: 0,
+				maxDistance 	: 0,
+			}],
 		};
 	}
 
@@ -122,39 +125,8 @@ class StorePreferences extends Component {
 		}); 
 	}
 
-	/**=========== addNewRow() ===========*/
-	// addNewRow(index){
-	// 	return(
-	// 		<div className="col-lg-12 col-md-12 NOpadding" key={index}>                                                                                  
-	// 			<div className="col-lg-12 col-md-12 NOpadding distanceRangeArray">   
-	// 				<div className="col-lg-5 col-md-5 col-sm-5 col-xs-12 NOpadding">             
-	// 					<input type="number" id={"minDistance"+index} value={this.state['minDistance'+index]} name={"minDistance"+index} onChange={this.handleChangeDistanceRange.bind(this)} className={"form-control minDistance"+index} placeholder="Enter Minimum Distance" aria-label="Minimum Distance" aria-describedby="basic-addon1" ref={"minDistance"+index} />
-	// 				</div>
-	// 				<div className="col-lg-5 col-md-5 col-sm-5 col-xs-12 NOpadding">             
-	// 					<input type="number" id={"minDistance"+index} value={this.state['maxDistance'+index]} name={"maxDistance"+index} onChange={this.handleChangeDistanceRange.bind(this)} className={"form-control maxDistance"+index} placeholder="Enter Maximum Distance" aria-label="Maximum Distance" aria-describedby="basic-addon1" ref={"maxDistance"+index} />
-	// 				</div>
-	// 				<div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteDistanceRange fa fa-trash" id={"distance"+index} onClick={this.deleteDistanceRange.bind(this)}>
-	// 				</div>
-	// 			</div>
-	// 			<div className="error" name={"distanceError"+index} id={"distanceError"+index}>{this.state["distanceError"+index]}</div>
-	// 		</div>
-	// 	);
-	// }
-
 	/**=========== handleChangeDistanceRange() ===========*/
 	handleChangeDistanceRange(event){
-		// const target = event.target;
-		// const name   = target.name;
-		// console.log("target => ", target);
-		// console.log("name => ", name);
-		// console.log("event.target.value => ", event.target.value);
-
-		// this.setState({
-		// 	 [name] 							: event.target.value,
-		// 	 [name+"Error"+event.target.id] 	: event.target.value ? "" : "This field is required."
-		// });
-	
-	/*======= handleChange() =======*/
         event.preventDefault();
         var index = 0;
         var name  = event.target.name;
@@ -220,7 +192,8 @@ class StorePreferences extends Component {
 			.catch((error)=>{
 				console.log("error => ",error);
 				if(error.message === "Request failed with status code 401"){
-				    localStorage.removeItem("userDetails");
+				    
+					localStorage.removeItem("userDetails");
 				    localStorage.clear();
 				    swal({  
 				        title : "Your Session is Expired.",                
@@ -253,9 +226,9 @@ class StorePreferences extends Component {
 								
 											<div className="col-lg-12 col-md-12 marginTopp NOpadding">
 												<form id="StorePreferencesForm" className="">
-													<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 fieldWrapper">
-														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-															<label>Maximum Radius to Show Vendors <i className="redFont">*</i></label>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+															<label>Maximum Distance Radius to Show Vendors <i className="redFont">*</i></label>
 															<input className="form-control" placeholder="Maximum Radius in Kms" ref="maxRadius"
 															 	type 		= "number"
 																name 		= "maxRadius" 
@@ -265,9 +238,9 @@ class StorePreferences extends Component {
 															/>
 														</div>
 													</div>
-													<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 fieldWrapper">
-														<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-															<label>Minimum Order Value Per Vendor <i className="redFont">*</i></label>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+															<label>Minimum order amount per vendor to place order<i className="redFont">*</i></label>
 															<input className = "form-control" placeholder = "Minimum Order Value" ref = "minOrderValue"
 																type 		= "text" 
 																id 			= "minOrderValue" 
@@ -277,9 +250,9 @@ class StorePreferences extends Component {
 															/>
 														</div>                            
 													</div>
-													<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 fieldWrapper">
-														<div className="col-lg-12">
-															<label>Default Service Charges <i className="redFont">*</i></label>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+															<label>Maximum service charges applicable<i className="redFont">*</i></label>
 															<input className = "form-control" placeholder = "Default Service Charges" ref = "defaultServiceCharges"
 																type 		= "text" 
 																id 			= "defaultServiceCharges" 
@@ -289,15 +262,32 @@ class StorePreferences extends Component {
 															/>
 														</div>                            
 													</div>
-													<div className="col-lg-12 col-md-12 com-sm-12 col-xs-12 fieldWrapper">
-														<label className="col-lg-12 col-md-12 com-sm-12 col-xs-12">Add Service Charges For Particular Distance </label>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
+														<label className="col-lg-12 col-md-12 com-sm-12 col-xs-12 headLabel">Distance wise service charges</label>
 														{this.state.serviseChargesByDistance 
 														?
 															this.state.serviseChargesByDistance.map((dataRowArray, index)=>{
 																return(
-																	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding" key={index}>                                                                                  
+																	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding" key={index}>    
+																	{console.log("index => ",index)} 
+																		{index === 0
+																			?
+																				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding distanceRangeArray">   
+																					<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">   
+																						<label>Minimum Distance<i className="redFont">*</i></label>
+																					</div>
+																					<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">  
+																						<label>Maximum Distance<i className="redFont">*</i></label> 
+																					</div>
+																					<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12"> 
+																						<label>Service Charges<i className="redFont">*</i></label>  
+																					</div>
+																				</div>  
+																			:
+																				null 
+																		}                                                                          
 																		<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding distanceRangeArray">   
-																			<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">             
+																			<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">   
 																				<input type="number" className={"form-control minDistance"+index} placeholder="Enter Minimum Distance" aria-label="Minimum Distance" aria-describedby="basic-addon1" ref={"minDistance-"+index}
 																					id 			= {"minDistance-"+index} 
 																					value 		= {dataRowArray.minDistance} 
@@ -305,12 +295,22 @@ class StorePreferences extends Component {
 																					onChange 	= {this.handleChangeDistanceRange.bind(this)} 
 																					required
 																				/>
+																				{/* <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>       */}
 																			</div>
-																			<div className="col-lg-5 col-md-5 col-sm-5 col-xs-12">             
+																			<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">            
 																				<input type="number" className={"form-control maxDistance"+index} placeholder="Enter Maximum Distance" aria-label="Maximum Distance" aria-describedby="basic-addon1" ref={"maxDistance-"+index}
 																					id 			= {"minDistance-"+index} 
 																					value 		= {dataRowArray.maxDistance} 
 																					name 		= {"maxDistance-"+index} 
+																					onChange 	= {this.handleChangeDistanceRange.bind(this)} 
+																					required
+																				/>
+																			</div>
+																			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">            
+																				<input type="number" className={"form-control serviceCharges"+index} placeholder="Enter Service Charges" aria-label="Service Charges" aria-describedby="basic-addon1" ref={"serviceCharges-"+index}
+																					id 			= {"serviceCharges-"+index} 
+																					value 		= {dataRowArray.serviceCharges} 
+																					name 		= {"serviceCharges-"+index} 
 																					onChange 	= {this.handleChangeDistanceRange.bind(this)} 
 																					required
 																				/>

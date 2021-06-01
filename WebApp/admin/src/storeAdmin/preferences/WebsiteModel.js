@@ -22,7 +22,8 @@ class WebsiteModel extends Component {
             "showDiscount"     : "",
             "showCoupenCode"   : "",
             "showOrderStatus"  : "",
-            "currency"         : "",
+            "currency"         : "₹",
+            "unitOfDistance"   : "Km"
         };
     }
 
@@ -51,7 +52,8 @@ class WebsiteModel extends Component {
                     'showDiscount'     : preferences.data[0].showDiscount,
                     'showCoupenCode'   : preferences.data[0].showCoupenCode,
                     'showOrderStatus'  : preferences.data[0].showOrderStatus,
-                    "currency"         : preferences.data[0].currency,
+                    'currency'         : preferences.data[0].currency,
+                    'unitOfDistance'   : preferences.data[0].unitOfDistance
                 })        
             }
         })
@@ -99,7 +101,8 @@ class WebsiteModel extends Component {
             "showDiscount"     : this.state.showDiscount,    
             "showCoupenCode"   : this.state.showCoupenCode,  
             "showOrderStatus"  : this.state.showOrderStatus, 
-            "currency"         : this.state.currency   
+            "currency"         : this.state.currency,
+            "unitOfDistance"   : this.state.unitOfDistance   
         }
             console.log('formValues', formValues);
         if($("#websiteModelId").valid()){        
@@ -258,6 +261,15 @@ class WebsiteModel extends Component {
                                                             <option value="AED">AED</option>
                                                             <option value="AED">SAR</option>
                                                             <option value="AED">QAR</option>
+                                                        </select>
+                                                    </div>    
+                                                </div>   
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 websiteModel NOpadding askPincodeToUser form-group">
+                                                    <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 websiteTitle" for="sel1">Unit of Distance <span><i className="astrick">*</i></span></label>
+                                                    <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 webmodelInputWrapper ">  
+                                                        <select className="col-lg-12 form-control" id="unitOfDistance" name="unitOfDistance" value={this.state.unitOfDistance} onChange={this.handleChange.bind(this)}>
+                                                            <option value="Km">Km</option>
+                                                            <option value="Mile">Mile</option>
                                                         </select>
                                                     </div>    
                                                 </div>   
