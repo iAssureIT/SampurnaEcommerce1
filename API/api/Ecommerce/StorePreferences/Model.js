@@ -8,7 +8,8 @@ const storePreferenceSchema = mongoose.Schema({
     serviseChargesByDistance  : [
                                     {
                                         minDistance     : Number,
-                                        maxDistance     : Number
+                                        maxDistance     : Number,
+                                        serviceCharges  : Number
                                     }
     ],
     createdAt                 : Date

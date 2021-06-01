@@ -23,11 +23,52 @@ class StorePreferences extends Component {
 	/**=========== componentDidMount() ===========*/
 	componentDidMount(){        
 		// console.log("2.inside component didmount");
-		var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
-		var token         = userDetails.token;
+		// console.log("adminPreferences => ",adminPreferences);
+		var userDetails   		= JSON.parse(localStorage.getItem("userDetails"));
+		var token         		= userDetails.token;
 		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
-
+		
 		this.validation();
+		this.getAdminPreferences();
+	}
+
+	//======= Admin Preferences ==========
+	getAdminPreferences(){
+		axios.get("/api/adminpreference/get")
+		.then(preferences =>{
+			if(preferences.data){
+				console.log("preferences.data[0] => ",preferences.data[0])
+				// var askpincodeToUser = preferences.data[0].askPincodeToUser;
+
+				this.setState({
+					'websiteModel'     	: preferences.data[0].websiteModel,
+					'askPincodeToUser' 	: preferences.data[0].askPincodeToUser,
+					'showLoginAs'      	: preferences.data[0].showLoginAs,
+					'showInventory'    	: preferences.data[0].showInventory,
+					'showDiscount'    	: preferences.data[0].showDiscount,
+					'showCoupenCode'    : preferences.data[0].showCoupenCode,
+					'showOrderStatus'   : preferences.data[0].showOrderStatus,
+					'currency' 			: preferences.data[0].currency,
+					'unitOfDistance' 	: preferences.data[0].unitOfDistance
+				})									
+			}
+		})
+		.catch(error=>{
+				console.log("Error in preferences = ", error);
+				if(error.message === "Request failed with status code 401"){
+					var userDetails =  localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+							title : "Your Session is expired.",                
+							text  : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+					if (okay) {
+							window.location.href = "/login";
+					}
+					});
+				}
+		})
 	}
 
 	/**=========== validation() ===========*/
@@ -117,6 +158,7 @@ class StorePreferences extends Component {
 		arrLength.push({
 			minDistance 	: 0,
 			maxDistance 	: 0,
+			serviceCharges 	: 0,
 		});
 		this.setState({
 			serviseChargesByDistance : arrLength,
@@ -228,7 +270,7 @@ class StorePreferences extends Component {
 												<form id="StorePreferencesForm" className="">
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Maximum Distance Radius to Show Vendors <i className="redFont">*</i></label>
+															<label>Maximum Distance Radius to Show Vendors ( in {this.state.unitOfDistance} ) <i className="redFont">*</i></label>
 															<input className="form-control" placeholder="Maximum Radius in Kms" ref="maxRadius"
 															 	type 		= "number"
 																name 		= "maxRadius" 
@@ -240,7 +282,7 @@ class StorePreferences extends Component {
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Minimum order amount per vendor to place order<i className="redFont">*</i></label>
+															<label>Minimum order amount per vendor to place order (in {this.state.currency} ) <i className="redFont">*</i></label>
 															<input className = "form-control" placeholder = "Minimum Order Value" ref = "minOrderValue"
 																type 		= "text" 
 																id 			= "minOrderValue" 
@@ -252,7 +294,7 @@ class StorePreferences extends Component {
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Maximum service charges applicable<i className="redFont">*</i></label>
+															<label>Maximum service charges applicable (in {this.state.currency} ) <i className="redFont">*</i></label>
 															<input className = "form-control" placeholder = "Default Service Charges" ref = "defaultServiceCharges"
 																type 		= "text" 
 																id 			= "defaultServiceCharges" 
@@ -288,32 +330,40 @@ class StorePreferences extends Component {
 																		}                                                                          
 																		<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding distanceRangeArray">   
 																			<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">   
-																				<input type="number" className={"form-control minDistance"+index} placeholder="Enter Minimum Distance" aria-label="Minimum Distance" aria-describedby="basic-addon1" ref={"minDistance-"+index}
-																					id 			= {"minDistance-"+index} 
-																					value 		= {dataRowArray.minDistance} 
-																					name 		= {'minDistance-'+index} 
-																					onChange 	= {this.handleChangeDistanceRange.bind(this)} 
-																					required
-																				/>
-																				{/* <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>       */}
+																				<div className="input-group"> 
+																					<input type="number" className={"form-control minDistance"+index} placeholder="Enter Minimum Distance" aria-label="Minimum Distance" aria-describedby="basic-addon1" ref={"minDistance-"+index}
+																						id 			= {"minDistance-"+index} 
+																						value 		= {dataRowArray.minDistance} 
+																						name 		= {'minDistance-'+index} 
+																						onChange 	= {this.handleChangeDistanceRange.bind(this)} 
+																						required
+																					/>
+																					<span class="input-group-addon addontext">{this.state.unitOfDistance + (dataRowArray.minDistance > 1 ? "s" : "")}</span>   
+																				</div>   
 																			</div>
 																			<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">            
-																				<input type="number" className={"form-control maxDistance"+index} placeholder="Enter Maximum Distance" aria-label="Maximum Distance" aria-describedby="basic-addon1" ref={"maxDistance-"+index}
-																					id 			= {"minDistance-"+index} 
-																					value 		= {dataRowArray.maxDistance} 
-																					name 		= {"maxDistance-"+index} 
-																					onChange 	= {this.handleChangeDistanceRange.bind(this)} 
-																					required
-																				/>
+																				<div className="input-group"> 
+																					<input type="number" className={"form-control maxDistance"+index} placeholder="Enter Maximum Distance" aria-label="Maximum Distance" aria-describedby="basic-addon1" ref={"maxDistance-"+index}
+																						id 			= {"minDistance-"+index} 
+																						value 		= {dataRowArray.maxDistance} 
+																						name 		= {"maxDistance-"+index} 
+																						onChange 	= {this.handleChangeDistanceRange.bind(this)} 
+																						required
+																					/>
+																					<span class="input-group-addon addontext">{this.state.unitOfDistance + (dataRowArray.maxDistance > 1 ? "s" : "")}</span>   
+																				</div> 
 																			</div>
-																			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">            
-																				<input type="number" className={"form-control serviceCharges"+index} placeholder="Enter Service Charges" aria-label="Service Charges" aria-describedby="basic-addon1" ref={"serviceCharges-"+index}
-																					id 			= {"serviceCharges-"+index} 
-																					value 		= {dataRowArray.serviceCharges} 
-																					name 		= {"serviceCharges-"+index} 
-																					onChange 	= {this.handleChangeDistanceRange.bind(this)} 
-																					required
-																				/>
+																			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12"> 
+																				<div className="input-group">            
+																					<input type="number" className={"form-control serviceCharges"+index} placeholder="Enter Service Charges" aria-label="Service Charges" aria-describedby="basic-addon1" ref={"serviceCharges-"+index}
+																						id 			= {"serviceCharges-"+index} 
+																						value 		= {dataRowArray.serviceCharges} 
+																						name 		= {"serviceCharges-"+index} 
+																						onChange 	= {this.handleChangeDistanceRange.bind(this)} 
+																						required
+																					/>
+																					<span class="input-group-addon addontext">{this.state.currency}</span>   
+																				</div> 
 																			</div>
 																			<div className="col-lg-1 col-md-1 col-sm-1 col-xs-1 deleteDistanceRange fa fa-trash" id={"distance-"+index} onClick={this.deleteDistanceRange.bind(this)}>
 																			</div>

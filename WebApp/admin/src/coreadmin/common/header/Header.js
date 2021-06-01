@@ -92,6 +92,7 @@ class Header2 extends Component {
 		var userDetails 	= JSON.parse(localStorage.getItem("userDetails"));
 		var token  			= userDetails.token;
 		axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+		
 
 		axios.get('/api/users/get/' + userDetails.user_id)
 		.then((res) => {
@@ -139,24 +140,23 @@ class Header2 extends Component {
 		//======= Notification Unread Count ==========
 		console.log('notifications/get /list userdetail id ==>', userDetails)
 		axios.get('/api/notifications/get/list/Unread/' + userDetails.user_id)
-			.then(notifications => {
-				console.log('notifications', notifications)
-				this.setState({
-					inAppNotifications: notifications.data,
-					notifCount: notifications.data.length
-				});
-
-			})
-			.catch(error => {
-				console.locationog("Error in /api/notifications/get/list/Unread/ = ", error);
-			})
-			.catch(error => {
-				console.log("Error in /api/notifications/get/list/Unread/ = ", error);
+		.then(notifications => {
+			console.log('notifications', notifications)
+			this.setState({
+				inAppNotifications: notifications.data,
+				notifCount: notifications.data.length
 			});
 
-
-
+		})
+		.catch(error => {
+			console.locationog("Error in /api/notifications/get/list/Unread/ = ", error);
+		})
+		.catch(error => {
+			console.log("Error in /api/notifications/get/list/Unread/ = ", error);
+		});
+		
 	}
+
 	getCompanyData(entityID) {
 		axios.get("/api/entitymaster/get/one/" + entityID)
 			.then((response) => {
@@ -201,12 +201,12 @@ class Header2 extends Component {
 				.then(companyDetails => {
 					console.log("companyDetails = ", companyDetails.data);
 					this.setState({
-						user_ID: userDetails.user_id,
-						email: userDetails.email,
-						profileImage: userDetails.image,
-						fullname: userDetails.firstName + ' ' + userDetails.lastName,
-						companyID: userDetails.companyID,
-						companyName: companyDetails.data.companyName,
+						user_ID 		: userDetails.user_id,
+						email 			: userDetails.email,
+						profileImage 	: userDetails.image,
+						fullname 		: userDetails.firstName + ' ' + userDetails.lastName,
+						companyID 		: userDetails.companyID,
+						companyName 	: companyDetails.data.companyName,
 					}, () => {
 						console.log("this.state.fullname = ", this.state.fullname);
 					});

@@ -127,8 +127,13 @@ function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
         //Distance in meters (default)
         var distance_m = haversine(userLocation, vendorLocation);
 
+        //Distance in miles
+        var distance_miles = distance_m * 0.00062137119;
+        console.log("distance_miles => ",distance_miles);
+
         //Distance in kilometers
         var distance_km = distance_m /1000; 
+        console.log("distance_km => ",distance_km);
         
         resolve(distance_km);
     });
@@ -144,6 +149,27 @@ function getDistanceLimit(){
                 resolve(parseInt(storePreferences.maxRadius));
             }else{
                 resolve(0);
+            }            
+        })
+        .catch(err =>{
+            console.log("Error => ",err);
+            reject(err)
+        });
+    });
+ }
+
+
+/**=========== getAdminPreferences() ===========*/
+function getAdminPreferences(){
+    return new Promise(function(resolve,reject){
+        StorePreferences.findOne()
+        .exec()
+        .then(adminPreferences=>{
+            console.log("")
+            if(adminPreferences !== null){
+                resolve(adminPreferences.unitOfDistance);
+            }else{
+                resolve(adminPreferences);
             }            
         })
         .catch(err =>{

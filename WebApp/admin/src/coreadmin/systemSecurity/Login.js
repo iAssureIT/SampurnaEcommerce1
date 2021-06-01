@@ -27,9 +27,9 @@ class Login extends Component {
     }
   }
   componentDidMount() {
-    var windowHeight = window.innerHeight;
-    var height = windowHeight - 460;
-    var marginHeight = height/2;
+    var windowHeight  = window.innerHeight;
+    var height        = windowHeight - 460;
+    var marginHeight  = height/2;
     // console.log("marginHeight===",marginHeight);
     $('.formShadow').css({
       'margin-top': (marginHeight),
@@ -75,7 +75,7 @@ class Login extends Component {
       document.getElementById("logInBtn").value = this.setState({ btnLoading: true });
       axios.post('/api/auth/post/login', auth)
       .then((response) => {
-        // console.log("in login response----",response.data)
+        console.log("in login response----",response.data)
           // this.props.setGlobalUser(response.data.userDetails);
           if (response.data.ID) {
             this.setState({ btnLoading: false });
@@ -103,12 +103,13 @@ class Login extends Component {
             
             // var token         = userDetails.token;
             axios.defaults.headers.common['Authorization'] = 'Bearer '+ response.data.userDetails.token;
-            axios.get("/api/adminPreference/get")
+            axios.get("/api/adminpreference/get")
             .then(preference =>{
+              console.log("preferencedata => ",preference)
               var websiteModel = preference.data[0].websiteModel;
               var showLoginAs = preference.data[0].showLoginAs;
               var preferencedata = preference.data[0];
-              // console.log("preference.data, ===> ",preferencedata);
+              console.log("preference.data, ===> ",preferencedata);
               localStorage.setItem("websiteModel",websiteModel);
               localStorage.setItem("showLoginAs",showLoginAs);
               localStorage.setItem("preferencedata",preferencedata);

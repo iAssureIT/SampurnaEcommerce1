@@ -1,9 +1,9 @@
-import React,{Component}                              from 'react';
-import { render }                                     from 'react-dom';
-import $                                              from "jquery";
-import { BrowserRouter, Route, Switch,Link  } from 'react-router-dom';
-import axios                  from 'axios';
-import swal from 'sweetalert';
+import React,{Component}                            from 'react';
+import { render }                                   from 'react-dom';
+import $                                            from "jquery";
+import { BrowserRouter, Route, Switch,Link  } 		from 'react-router-dom';
+import axios                  						from 'axios';
+import swal 										from 'sweetalert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css'; 
 import './Leftsidebar.css';
@@ -22,7 +22,7 @@ export default class AdminDashboard extends Component{
 				contractmanagement     : false,
 				masterData             : false,
 				baData                 : false,
-				bussinessData                 : false
+				bussinessData          : false
 			}
 		};
 		this.closeIcon   = 'fa-angle-left';
@@ -38,40 +38,34 @@ export default class AdminDashboard extends Component{
 		this.getAllorderStatus();
 		axios.get("/api/adminpreference/get")
 		.then(preferences =>{
-		if(preferences.data){
-						var askpincodeToUser = preferences.data[0].askPincodeToUser;
-						this.setState({
-								'websiteModel'     : preferences.data[0].websiteModel,
-								'askPincodeToUser' : preferences.data[0].askPincodeToUser,
-								'showLoginAs'      : preferences.data[0].showLoginAs,
-								'showInventory'    : preferences.data[0].showInventory,
-								'showDiscount'    : preferences.data[0].showDiscount,
-								'showCoupenCode'    : preferences.data[0].showCoupenCode,
-								'showOrderStatus'    : preferences.data[0].showOrderStatus,
-						},()=>{
-							// console.log("websiteModel",this.state.websiteModel);
-							// console.log("showInventory",this.state.showInventory);
-							// console.log("showDiscount",this.state.showDiscount);
-							// console.log("showCoupenCode",this.state.showCoupenCode);
-						})   
-						
-				}
+			if(preferences.data){
+				var askpincodeToUser = preferences.data[0].askPincodeToUser;
+				this.setState({
+					'websiteModel'     : preferences.data[0].websiteModel,
+					'askPincodeToUser' : preferences.data[0].askPincodeToUser,
+					'showLoginAs'      : preferences.data[0].showLoginAs,
+					'showInventory'    : preferences.data[0].showInventory,
+					'showDiscount'    : preferences.data[0].showDiscount,
+					'showCoupenCode'    : preferences.data[0].showCoupenCode,
+					'showOrderStatus'    : preferences.data[0].showOrderStatus
+				},()=>{})
+			}
 		})
 		.catch(error=>{
-				console.log("Error in preferences = ", error);
-				if(error.message === "Request failed with status code 401"){
-					var userDetails =  localStorage.removeItem("userDetails");
-					localStorage.clear();
-					swal({  
-							title : "Your Session is expired.",                
-							text  : "You need to login again. Click OK to go to Login Page"
-					})
-					.then(okay => {
+			console.log("Error in preferences = ", error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
 					if (okay) {
-							window.location.href = "/login";
+						window.location.href = "/login";
 					}
-					});
-				}
+				});
+			}
 		})
 
 		// var preferencedata = (localStorage.getItem('preferencedata'));
@@ -114,46 +108,46 @@ export default class AdminDashboard extends Component{
 	}
 	getAllorderStatus(){
 		axios.get('/api/orderstatus/get/list')
-				.then((response) => {
-					// console.log("getAllorderStatus 402 response ==>",response)
-					this.setState({
-						"orderStatusData": response.data,
-					},()=>{
-							console.log("getAllorderStatus response ==>",response)
-					})
+		.then((response) => {
+			// console.log("getAllorderStatus 402 response ==>",response)
+			this.setState({
+				"orderStatusData": response.data,
+			},()=>{
+					console.log("getAllorderStatus response ==>",response)
+			})
+		})
+		.catch((error) => {
+			console.log("Error in orderstatus = ", error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
 				})
-				.catch((error) => {
-					console.log("Error in orderstatus = ", error);
-					if(error.message === "Request failed with status code 401"){
-							var userDetails =  localStorage.removeItem("userDetails");
-							localStorage.clear();
-							swal({  
-									title : "Your Session is expired.",                
-									text  : "You need to login again. Click OK to go to Login Page"
-							})
-							.then(okay => {
-							if (okay) {
-									window.location.href = "/login";
-							}
-							});
-						}
-				})
+				.then(okay => {
+					if (okay) {
+							window.location.href = "/login";
+					}
+				});
+			}
+		})
 	}
-	componentWillUnmount(){
-		
-			$("script[src='/js/adminLte.js']").remove();
-			$("link[href='/css/dashboard.css']").remove();
+	componentWillUnmount(){		
+		$("script[src='/js/adminLte.js']").remove();
+		$("link[href='/css/dashboard.css']").remove();
 	}
 
 	activeMenu(event){
 		// console.log('event.currentTarget',event.currentTarget);
 		event.preventDefault();
-		var a =event.currentTarget
-		var pathname = event.currentTarget.getAttribute("data-id"); 
-		console.log('pathname',pathname);
+		var a 			= event.currentTarget
+		var pathname 	= event.currentTarget.getAttribute("data-id"); 
 		window.location = pathname
 		$(".sidebar-menu .treeview-menu li a").removeClass("active-submenu");
 		$(event.currentTarget).addClass("active-submenu");
+		console.log('pathname',pathname);
+
 		// event.currentTarget.href = pathname;
 		// var currentEvent =  event.currentTarget
 		// var getCurrentUrl = window.location.pathname;
@@ -174,8 +168,8 @@ export default class AdminDashboard extends Component{
 
 	eventclk1(event){
 		$(event.currentTarget).children(".menuContent").children(".rotate").toggleClass("down");
-		var currentEvent =  event.currentTarget
-		var getCurrentUrl = window.location.pathname;
+		var currentEvent 	=  event.currentTarget
+		var getCurrentUrl 	= window.location.pathname;
 		// console.log("getCurrentUrl",getCurrentUrl);
 		localStorage.setItem("currentURL",getCurrentUrl)
 		localStorage.setItem("currentEvent",currentEvent)
