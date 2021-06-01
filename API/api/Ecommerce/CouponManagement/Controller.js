@@ -1,10 +1,31 @@
 const mongoose  = require("mongoose");
 const Coupon    = require('./Model');
 const Order     = require('../orders/Model');
-var momentTz = require('moment-timezone');
+
+var momentTz    = require('moment-timezone');
 /**=========== insert_coupon ===========*/
 exports.insert_coupon = (req, res, next) => {
-    var startDate = new Date(req.body.startdate);
+    var startDate   = new Date(new Date(new Date(req.body.startdate).toLocaleDateString()).getTime());
+    var endDate     = new Date(new Date(new Date(req.body.enddate).toLocaleDateString()).getTime()+24*60*60*1000-1);
+    
+    console.log("startDate => ",startDate)
+    console.log("endDate => ",endDate)
+    //Format time 2018-06-06 00:00:00
+    //If only the simple formatting becomes 2018-6-6 0:0:0, you need to use the trinocular operation to judge and add 0 to the appropriate place to complete the required format.
+    var newStartDate = startDate.getFullYear() + "-" + ((startDate.getMonth() + 1) < 10 ? "0" + (startDate.getMonth() + 1):(startDate.getMonth() + 1))+ "-" + (startDate.getDate() < 10 ? "0" + startDate.getDate():startDate.getDate()) + " " + (startDate.getHours()<10?"0"+startDate.getHours():startDate.getHours()) + ":" + (startDate.getMinutes()<10?"0"+startDate.getMinutes():startDate.getMinutes()) + ":" + (startDate.getSeconds()<10?"0"+startDate.getSeconds():startDate.getSeconds());
+    
+    
+    //Format time 2018-06-06 23:59:59
+     var newEndDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate() + ' ' + endDate.getHours() + ':' + endDate.getMinutes() + ':' + endDate.getSeconds()
+     console.log("startTime => ",newStartDate)
+     console.log("endTime => ",newEndDate)
+
+
+
+
+
+
+    // var startDate = new Date(req.body.startdate);
     // var endDt = new Date(req.body.enddate);
     // startDate.toLocalString('en-US',{timezone: 'Asia/Dubai'} );
     
@@ -12,31 +33,31 @@ exports.insert_coupon = (req, res, next) => {
     // Var startDate = new Date(stDtArr[0], stDtArr[1], stDtArr[2], 23, 59, 59); 
     // console.log("endDt => ",endDate);
     // var n = .endOf('day')
-    startDate.setHours(23,59,59,999);
-    var utcDate = momentTz.tz(startDate, "YYYY-MM-DD HH:mm:ss", 'Asia/Dubai').toISOString();
-    console.log("utcDate => ",utcDate);
+    // startDate.setHours(23,59,59,999);
+    // var utcDate = momentTz.tz(startDate, "YYYY-MM-DD HH:mm:ss", 'Asia/Dubai').toISOString();
+    // console.log("utcDate => ",utcDate);
 
     // console.log("=== ",moment(req.body.startdate).format()); 
-    var end = new Date();
+    // var end = new Date();
     
 
-    console.log( "----", startDate );
+    // console.log( "----", startDate );
     
-    var endDtArr = req.body.enddate.split("-");
-    console.log("endDtArr => ",endDtArr);
-    console.log("endDtArr[0] => ",parseInt(endDtArr[0]) );
-    console.log("endDtArr[1] => ",parseInt(endDtArr[1]) );
-    console.log("endDtArr[2] => ",parseInt(endDtArr[2]) );
+    // var endDtArr = req.body.enddate.split("-");
+    // console.log("endDtArr => ",endDtArr);
+    // console.log("endDtArr[0] => ",parseInt(endDtArr[0]) );
+    // console.log("endDtArr[1] => ",parseInt(endDtArr[1]) );
+    // console.log("endDtArr[2] => ",parseInt(endDtArr[2]) );
 
     
     // var endDate = new Date(parseInt(endDtArr[0]), parseInt(endDtArr[1])-1, parseInt(endDtArr[2]), 23, 59, 59); 
-    var endDate = new Date(2021, 4, 31, 23, 59, 59); 
+    // var endDate = new Date(2021, 4, 31, 23, 59, 59); 
     // endDate.toLocalDateString();
     
-    var currentDateTimeCentralTimeZone = new Date(endDate.toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
-    console.log("-->",moment(new Date(req.body.enddate)).format('YYYY-MM-DD 23:59:59'));
-    console.log("startDate => ",startDate);
-    console.log("endDt => ",endDate);
+    // var currentDateTimeCentralTimeZone = new Date(endDate.toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
+    // console.log("-->",moment(new Date(req.body.enddate)).format('YYYY-MM-DD 23:59:59'));
+    // console.log("startDate => ",startDate);
+    // console.log("endDt => ",endDate);
     
     
     const CouponObj = new Coupon({
@@ -52,8 +73,8 @@ exports.insert_coupon = (req, res, next) => {
         maxDiscountAmount   : req.body.maxDiscountAmount,
         couponLimit         : req.body.numOfOrders,
         status              : req.body.status,
-        startdate           : startDate,
-        enddate             : endDate,
+        startdate           : req.body.startdate,
+        enddate             : newEndDate,
         couponImage         : req.body.couponImage,
         createdBy           : req.body.createdBy,
         createdAt           : new Date()

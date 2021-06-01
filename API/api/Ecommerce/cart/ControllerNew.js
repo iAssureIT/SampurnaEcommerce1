@@ -736,32 +736,9 @@ exports.apply_coupon = (req,res,next)=>{
     .then(data=>{   
         processCouponData(data);
         async function processCouponData(data){
-            console.log("data => ",data)
-            var errMessage      = "";            
-            console.log("req.body.couponCode = ",req.body.couponCode);
-            var isCouponValid   = await checkCouponValidity(req.body.couponCode);            
-            console.log("isCouponValid = ",isCouponValid );
-
-            if (isCouponValid === null) {
-                errMessage = "No Coupon Found..";
-            }
-            if ((isCouponValid && isCouponValid !== null) && isCouponValid.status.toLowerCase() !== "active") {                
-                errMessage = "You are trying to apply Invalid Coupon";                
-            }
-            if(isCouponValid && isCouponValid !== null){
-                var couponInType                  = isCouponValid.coupenin.toLowerCase();  
-                var startDateIsBeforeToday        = moment(isCouponValid.startdate,"DD-MM-YYYY").isBefore(moment(new Date(),"DD-MM-YYYY"));
-                var todaysDateIsSametoStartDate   = moment(isCouponValid.startdate).diff(moment(new Date()), 'days') === 0 ? true : false;
-                var todaysDateIsSametoEndDate     = moment(isCouponValid.enddate).diff(moment(new Date()), 'days') === 0 ? true : false;
-                var endDateIsAfterToday           = moment(isCouponValid.enddate,"DD-MM-YYYY").isAfter(moment(new Date(),"DD-MM-YYYY"));
-                
-                if ((isCouponValid && isCouponValid !== null) && !((startDateIsBeforeToday || todaysDateIsSametoStartDate) && (endDateIsAfterToday || todaysDateIsSametoEndDate))) {
-                    errMessage = "You are trying to apply Invalid Coupon";
-                } 
-            }
-                      
-            
-                          
+            var errMessage      = "";  
+            var isCouponValid   = await checkCouponValidity(req.body.couponCode, req.body.user_ID);                    
+                                     
             var vendor_beforeDiscountTotal  = 0;
             var vendor_afterDiscountTotal   = 0;
             var vendor_discountAmount       = 0;
@@ -810,41 +787,82 @@ exports.apply_coupon = (req,res,next)=>{
                 data.paymentDetails.taxAmount           = (order_taxAmount).toFixed(2);
                 data.paymentDetails.shippingCharges     = (order_shippingCharges).toFixed(2);
                 
-                if(errMessage === ""){
-                    if (couponInType === "percent") {
-                        var discountInPercent                           = (order_afterDiscountTotal * isCouponValid.coupenvalue) / 100;
-                        var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? discountInPercent < isCouponValid.maxDiscountAmount ? discountInPercent : isCouponValid.maxDiscountAmount : discountInPercent;
-                        
-                        data.paymentDetails.disocuntCoupon_id           = isCouponValid._id;
-                        data.paymentDetails.discountCouponPercent       = isCouponValid.coupenvalue;
-                        data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
-                        data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
-                    }else if(couponInType === "amount"){
-                        var discoutAfterCouponApply                     = isCouponValid.maxDiscountAmount ? isCouponValid.coupenvalue < isCouponValid.maxDiscountAmount ? (isCouponValid.coupenvalue).toFixed(2) : isCouponValid.maxDiscountAmount : (isCouponValid.coupenvalue).toFixed(2);
-                        
-                        data.paymentDetails.disocuntCoupon_id           = isCouponValid._id;
-                        data.paymentDetails.discountCouponAmount        = isCouponValid.coupenvalue;
-                        data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
-                        data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
+                if (isCouponValid.code === "FAILED") {
+                    errMessage                                      = isCouponValid.message;
+                    data.paymentDetails.afterDiscountCouponAmount   = 0;
+                    data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
+                    
+                    res.status(200).json({
+                        data    : data,
+                        message : errMessage
+                    });   
+        
+                }else{ 
+                    /*---- Check for Min Puchase amount for Coupon to be applied ----*/
+                    if(order_afterDiscountTotal > isCouponValid.dataObj.minPurchaseAmount){
+
+                        if ((isCouponValid.dataObj.couponin).toLowerCase() === "percent") {
+                            var discountInPercent                           = (order_afterDiscountTotal * isCouponValid.dataObj.couponvalue) / 100;
+                            
+                            /*------  Check for Applicable Maximum Discount Amount -------*/
+                            var discoutAfterCouponApply                     =   isCouponValid.dataObj.maxDiscountAmount 
+                                                                                ? 
+                                                                                    discountInPercent < isCouponValid.dataObj.maxDiscountAmount 
+                                                                                    ? 
+                                                                                        discountInPercent 
+                                                                                    :   
+                                                                                        isCouponValid.dataObj.maxDiscountAmount 
+                                                                                : 
+                                                                                    discountInPercent;
+    
+                            
+                            data.paymentDetails.disocuntCoupon_id           = isCouponValid.dataObj._id;
+                            data.paymentDetails.discountCouponPercent       = isCouponValid.dataObj.couponvalue;
+                            data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
+                            data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
+                            
+                            res.status(200).json({
+                                data    : data,
+                                message : "Coupon Applied Successfully!"
+                            });                       
+
+                        }else if((isCouponValid.dataObj.couponin).toLowerCase() === "amount"){
+                            
+                            /*------  Check for Applicable Maximum Discount Amount -------*/
+                            var discoutAfterCouponApply                     =   isCouponValid.dataObj.maxDiscountAmount 
+                                                                                ? 
+                                                                                    isCouponValid.dataObj.couponvalue < isCouponValid.dataObj.maxDiscountAmount 
+                                                                                    ? 
+                                                                                        (isCouponValid.dataObj.couponvalue).toFixed(2) 
+                                                                                    : 
+                                                                                        isCouponValid.dataObj.maxDiscountAmount 
+                                                                                : 
+                                                                                    (isCouponValid.dataObj.couponvalue).toFixed(2);
+                            
+                            data.paymentDetails.disocuntCoupon_id           = isCouponValid.dataObj._id;
+                            data.paymentDetails.discountCouponAmount        = isCouponValid.dataObj.couponvalue;
+                            data.paymentDetails.afterDiscountCouponAmount   = (discoutAfterCouponApply).toFixed(2);
+                            data.paymentDetails.netPayableAmount            = ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);
+                            
+                            res.status(200).json({
+                                data    : data,
+                                message : "Coupon Applied Successfully!"
+                            }); 
+                        }    
                     }else{
                         data.paymentDetails.afterDiscountCouponAmount   = 0;
                         data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
-                    }
-                }else{
-                    data.paymentDetails.afterDiscountCouponAmount   = 0;
-                    data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
-                }                    
+                        res.status(200).json({
+                            data    : data,
+                            message : "This Coupon Code is Only Applicable if Minimum Cart Amount is "+ isCouponValid.dataObj.minPurchaseAmount
+                        });
+                    }  
+                }
             }
-            // console.log("data => ",data);
-        
-            res.status(200).json({
-                data    : data,
-                message : errMessage ? errMessage : "Coupon Applied Successfully...!"
-            });                        
         }
     })
     .catch(err =>{
-        console.log("err => ",err);
+        console.log("Error while finding Cart Data => ",err);
         res.status(500).json({
             error   : err,
             message : "Error While finding Cart Details"
@@ -853,27 +871,38 @@ exports.apply_coupon = (req,res,next)=>{
 };
 
 /*========== Fetch Coupon Data ==========*/
-function checkCouponValidity(couponCode) {
+function checkCouponValidity(couponCode, user_ID) { 
     var currDate = new Date();
     var selector = {
         "couponcode" : couponCode,
         "startdate"  : {$lte : currDate},
         "enddate"    : {$gte : currDate},
-        "status"     : "active"
+        "status"     : "Active"
     };
-    console.log("selector = ", selector);
-
+    
     return new Promise(function (resolve, reject) {
         Coupon.findOne(selector)
         .then(coupondata => {
-            // console.log("vendor Id data => ", data);				
-              resolve(coupondata);
+            if(coupondata !== null){
+                Orders.find({user_ID : user_ID, 'paymentDetails.disocuntCoupon_id' : coupondata._id})
+                .then(orderData => {  
+                    if(orderData.length < coupondata.couponLimit){
+                        resolve({code: "SUCCESS", dataObj: coupondata});
+                    }else{
+                        resolve({code: "FAILED", message: "This Coupon Code used for "+orderData.length+" times and the max number of times the coupn can be used is "+coupondata.couponLimit});
+                    }
+                })
+                .catch(error=>{
+                    reject({code: "FAILED", message: "Some error in finding Order Data"});
+                })
+            }else{
+                resolve({code: "FAILED", message: "Such Coupon Code Doesn't exist!"});
+            }
         })
         .catch(error=>{
-            reject({message: "Some error in finding Coupon"});
+            reject({code: "FAILED", message: "Some error in finding Coupon"});
         })
     })
-
 }
 
 exports.list_cart = (req,res,next)=>{
