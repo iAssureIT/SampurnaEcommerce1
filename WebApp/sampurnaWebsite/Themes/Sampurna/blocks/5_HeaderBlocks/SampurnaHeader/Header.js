@@ -13,6 +13,7 @@ import DeliveryLocationPopup  from './DeliveryLocationPopup.js';
 import DisplayLocation        from './DisplayLocation.js';
 import SystemSecurityModal    from './SystemSecurityModal.js';
 import Websitelogo            from './Websitelogo.js';
+import MyCart                 from './MyCart.js';
 import { updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -36,7 +37,7 @@ class Header extends React.Component {
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         var deliveryLocation = false;
-        this.getCartCount();
+        // this.getCartCount();
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
@@ -52,7 +53,7 @@ class Header extends React.Component {
                     this.setState({
                         "userID": user_id,
                     },()=>{
-                        this.props.updateCartCount();
+                        // this.props.updateCartCount();
                         // this.props.getWishlistData();
                     })     
                 }
@@ -71,19 +72,6 @@ class Header extends React.Component {
             });
         }
     }
-    getCartCount() {
-        if(this.state.userID){
-            axios.get("/api/carts/get/count/" + this.state.userID)
-            .then((response) => {
-            //   console.log("cartcount--",response.data);
-            store.dispatch(updateCartCount(response.data));
-            })
-            .catch((error) => {
-            console.log("error",error);
-            })
-        }
-      }
-
    render(){
         return(   
             <div className="col-12 headerWrapper NoPadding">
@@ -99,43 +87,9 @@ class Header extends React.Component {
                                 <Searchbar />
 
                                 <div className="col-8 col-sm-3 ml-4 systemSecurity"> 
-                                    <div className="row">
-
-                                    <div className="col-8 col-sm-6  NoPadding">                                    
+                                    <div className="row">                                  
                                         < SystemSecurityModal />
-                                    </div>
-                                      
-                                    {this.state.userID?
-                                    <a href="/cart" className="col-4 col-sm-6 cartHeader NoPadding">        
-                                        <div className="row">
-                                            <div className="col-3 p-2 cartImg">
-                                                <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
-                                            </div>
-                                            <div className="col-8 text-center NoPadding">
-                                                <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
-                                                <div className="col-12 cartCount NoPadding">
-                                                    {this.props.cartCount>0? this.props.cartCount : 0 }
-                                                    &nbsp;item(s)                                
-                                                </div>
-                                            </div>  
-                                        </div>
-                                    </a>
-                                    :
-                                    <a href="" className="abc col-4 col-sm-6 cartHeader NoPadding" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">        
-                                        <div className="row">
-                                            <div className="col-3 p-2 cartImg">
-                                                <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
-                                            </div>
-                                            <div className="col-8 text-center NoPadding">
-                                                <div className="col-12 cartText pt-1 text-uppercase NoPadding">Shopping Cart</div>
-                                                <div className="col-12 cartCount NoPadding">
-                                                    {this.props.cartCount>0? this.props.cartCount : 0 }
-                                                    &nbsp;item(s)                                
-                                                </div>
-                                            </div>  
-                                        </div>
-                                    </a>
-                                    }
+                                        < MyCart />
                                     </div>
                                 </div>
                             </div>
@@ -167,11 +121,9 @@ const mapStateToProps = state => (
     // console.log("1. state in header====",state.data),
     {
         recentCartData   :  state.data.recentCartData,
-        cartCount        :  state.data.cartCount,
     });
   
   const mapDispatchToProps = {
-    updateCartCount             : updateCartCount,
     setProductApiUrl            : setProductApiUrl,
     setSampurnaWebsiteDetails   : setSampurnaWebsiteDetails
   };

@@ -68,54 +68,54 @@
   
   --globaldotteddashcolor1inallbg: #376bff ; 
   --globalfontweight600: 600 ; 
-  --globaleCommBtnBg: #154799; 
+  --globaleCommBtnBg: #222222; 
   --globaleCommBtnColor: #fff;
   --globaleCommBtnBorderRadius: 5px !important;
-  --globaleCommBtnBorder: solid 2px #154799;
+  --globaleCommBtnBorder: solid 2px #222222;
   --globaleCommBtnPadding: 14px 20px;
   --globaleCommBtnfontSize: 15px;
   --globaleCommBtnMarginTop: 10px;
   --globaleCommBtnBgHover: #fff;
-  --globaleCommBtnHoverColor: #154799;
+  --globaleCommBtnHoverColor: #222222;
   --globalBrandNameColor: #0000006b;
-  --globalBrandNameHoverColor: #154799;
+  --globalBrandNameHoverColor: #222222;
   --globalProductFontSize: 15px;
   --globalPaddingLeft: 0px;
   --globalProductViewHeight: 350px;
-  --globaleCommOverlayBg: #154799;
+  --globaleCommOverlayBg: #222222;
   
-  --globalBorderColor : #154799;
-  --gobalMinusQuantityColor : #154799;
-  --gobalMinusQuaBorderColor : solid 1px #154799;
-  --gobalPlusQuantityColor : #154799;
-  --gobalPlusQuaBorderColor : solid 1px #154799;
+  --globalBorderColor : #222222;
+  --gobalMinusQuantityColor : #222222;
+  --gobalMinusQuaBorderColor : solid 1px #222222;
+  --gobalPlusQuantityColor : #222222;
+  --gobalPlusQuaBorderColor : solid 1px #222222;
   --gobalTotalPriceColor : #03a685;
-  --globalSignOutBtnBackColor : #154799;
+  --globalSignOutBtnBackColor : #222222;
   --globalSignOutColor : #fff;
-  --globalWishlistColor : #154799; 
-  --globalWishlistColorhover : #154799; 
-  --globalWishlistBorderColor : #154799; 
-  --gobalCurrentBgColor : #154799;
+  --globalWishlistColor : #222222; 
+  --globalWishlistColorhover : #222222; 
+  --globalWishlistBorderColor : #222222; 
+  --gobalCurrentBgColor : #222222;
   --gobalCurrentColor : #fff;
 
-  --globalHoverColor : #154799;
-  --globalBgColor : #154799;
+  --globalHoverColor : #222222;
+  --globalBgColor : #222222;
   --globalTransition : 0.6s ease !important;
-  --globalColor : #154799;
+  --globalColor : #222222;
   --globalborderRadious : 0px;
   --globalErrColor: #cc0000;
 
   --globalMainTitleFontSize : 18px;
   --globalMainTitleTextStyle : capitalize;
-  /* --baground-color : #154799; */
+  /* --baground-color : #222222; */
   --Discountcolor : #f83a3a;
   --whiteColor : #fff;
-  --yellowBgColor : #d8ab46;
+  --yellowBgColor : #DC1919;
   --modalBackcolor: #000;
-  --color: #154799 !important;
-  --border : 1px solid #154799;
-  --border2px : 2px solid #154799;
-  --hrLine : 3px solid #154799;
+  --color: #222222 !important;
+  --border : 1px solid #222222;
+  --border2px : 2px solid #222222;
+  --hrLine : 3px solid #222222;
 
 }
 
@@ -214,8 +214,8 @@ body{
   padding-right: var(--globalPaddingRight) !important;
 }
 #atag:hover{
-  /* background-color:#154799 !important; */
-  color: #154799 !important;
+  /* background-color:#222222 !important; */
+  color: #222222 !important;
 }
 .globalProduct_brand{
   color: var(--globalBrandNameColor);
@@ -362,7 +362,7 @@ body{
   text-decoration: none !important;
   background-color: #666 !important;
   color: #fff !important;
-  /* border: solid 1px #154799 !important; */
+  /* border: solid 1px #222222 !important; */
 }
 .myaccDropdown{
   transition: 0.6s ease;
@@ -379,10 +379,10 @@ body{
 /* new */
 /* BTN FIVE */
 .globalCommonBtn{
-  background-color: #154799 !important;
+  background-color: #222222 !important;
   font-size: 12px !important;
   color: #fff !important;
-  border:2px solid #154799 !important;
+  border:2px solid #222222 !important;
   border-radius: 0px !important;
   text-align:center;
   padding: 10px 20px !important;
@@ -393,12 +393,12 @@ body{
 .globalCommonBtn:hover{
   background-color: transparent !important;
   color: var(--globalColor) !important;
-  border:2px solid #154799;
+  border:2px solid #222222;
 }
 .globalAddToCartBtn{
   /* background-color: var(--globalBgColor) !important; */
   /* color: #fff !important; */
-  /* border:2px solid #154799; */
+  /* border:2px solid #222222; */
   background-color: transparent;
   color: #666 !important;
   border:1px solid #ccc;
@@ -414,14 +414,14 @@ body{
 
 .globalAddToCartBtn:hover{
   background-color: transparent !important;
-  color: #154799 !important;
+  color: #222222 !important;
 }
 .globalAddToCartBtn a{
   color: #fff;
 }
 .globalAddToCartBtn a:hover{
   text-decoration: none !important;
-  color: #154799;
+  color: #222222;
   background-color: transparent !important;
 }
 .globaleCommBtn a{
@@ -435,7 +435,7 @@ body{
   text-decoration:none;
 }
 .globaleCommBtn:hover .effect{
-  /* border:1px solid #154799 !important; */
+  /* border:1px solid #222222 !important; */
   background: white !important;
 
 }
@@ -444,7 +444,7 @@ body{
   text-decoration:none;
 }
 .globaleCatCommBtn{
-  border: solid 2px #154799;
+  border: solid 2px #222222;
   /* border-radius: 5px; */
   padding: 5px 20px !important;
 }
@@ -454,7 +454,7 @@ body{
 }
 
 .globaleCatCommBtn:hover{
-  color: #154799 !important;
+  color: #222222 !important;
   background-color: #fff !important;
 }
 
@@ -556,7 +556,7 @@ body{
   .annimatedBtn{
     position: relative;
     display: block;
-    color: #154799;
+    color: #222222;
     /* font-size: 15px;     */
     text-decoration: none;
     margin: 60px 0;
@@ -565,7 +565,7 @@ body{
     font-size: 17px;    
     border-radius: 0px !important;
     border: 0px !important;
-    border: 2px solid #154799 !important;
+    border: 2px solid #222222 !important;
     padding: 12px 30px !important;
     text-transform: uppercase;
     overflow: hidden;
@@ -575,7 +575,7 @@ body{
     color: #fff !important;
   }
   .annimatedBtn::before{
-    background: #154799;
+    background: #222222;
     content: "";
     position: absolute;
     top: 50%;
