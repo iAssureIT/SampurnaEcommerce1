@@ -247,7 +247,7 @@ export default class Banner extends React.Component {
     }
 
 		return ( 
-						<div className={"col-12 bannerContainerEcomm " +Style.bannerContainerEcomm}>
+						<div className={"col-12 " +Style.bannerContainerEcomm}>
 							<div className="row">                 
                   <div className={"swiper-container col-12 " +Style.swiperContainer}>    
                     <div className="swiper-wrapper col-12 NoPadding">                   
@@ -342,7 +342,7 @@ export default class Banner extends React.Component {
                     </div>
                     { this.state.blocks.animationSettings ?
                         this.state.blocks.animationSettings.showDots===true?
-                          <div className="swiper-pagination"></div>
+                          <div className={"swiper-pagination " +Style.showDots}></div>
                         :null
                     : null
                     }
@@ -359,7 +359,7 @@ export default class Banner extends React.Component {
                     
                 </div>
             </div>
-            < HelpAndSupport />
+            {/* < HelpAndSupport /> */}
             {/* <CategoriesBlock /> */}
           </div>
                       					

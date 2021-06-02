@@ -15,6 +15,9 @@
 .blockZindex{
     z-index: 1000;
 }
+.navHeaderCollapse{
+    background-color: #E8E8E8;
+}
 #pageOpacity {
     height: 700px;
     width: 100%;
@@ -36,11 +39,12 @@
     padding: 0px !important;
 }
 .logoWrap{
-    margin-top: 25px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 .dropDownLevel1 a,
 .dropDownLevel1 .sectionForMobile{
-    color: #fff !important;
+    color: #222222 !important;
     text-align: left !important;
     padding: 10px 10px !important;
     text-decoration: none;
@@ -52,7 +56,7 @@
   }
   .dropDownLevel1 a:hover,
   .dropDownLevel1 .sectionForMobile:hover{
-      background-color: var(--color) !important;
+      /* background-color: var(--color) !important; */
       color: var(--yellowBgColor) !important;
   }
  
@@ -311,7 +315,7 @@ ul:hover > .dropDownLevel3 {
     cursor: pointer;
     /* border: solid 1px !important; */
     background-color: var(--yellowBgColor) !important;
-    color: #000 !important;
+    color: #fff !important;
     text-align: center;
     margin: 2px;
     transition: 0.6s ease;
@@ -507,9 +511,17 @@ li a{
     border-bottom: 100px solid red;
 } */
 .cartImg{
-    /* background-color: #1D5EC6; */
+    height: 25px;
 }
-
+.cartCountCircle{
+    background-color: #DC1919;
+    height: 21px;
+    width: 21px;
+    padding: 3px;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 11px;
+}
 .cartHeader{
     background-color: #3174E3;
     height: 40px;

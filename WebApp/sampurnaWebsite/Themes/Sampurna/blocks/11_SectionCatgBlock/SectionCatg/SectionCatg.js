@@ -1,6 +1,7 @@
 import React, { Component }   from 'react';
 import $                      from 'jquery';
 import axios                  from 'axios';
+import Link                   from 'next/link';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -110,9 +111,7 @@ class ShoppingVerticals extends Component {
     };
 
     // console.log("inside rendor this.state.itemList===",this.state.itemList);
-    console.log("this.state.groupSettings.noOfItem",this.state.groupSettings);
-    
-
+    // console.log("this.state.groupSettings.noOfItem",this.state.groupSettings);
     return (
       <div className="col-12 mt20">
           {this.state.groupSettings.showTitle?
@@ -126,11 +125,11 @@ class ShoppingVerticals extends Component {
               </div>
             </div>
           :null}   
-            <div className="col-12 tab-content customTabContent ">
+            <div className="col-12">
             { this.state.groupSettings.showCarousel === true?
               this.state.itemList && this.state.itemList.length > 0 ?
               <Carousel 
-                  className="customnNavButton"
+                  className=""
                   swipeable={false}
                   draggable={true}
                   showDots={false}
@@ -162,6 +161,20 @@ class ShoppingVerticals extends Component {
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
                                 <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" />
                               </a>
+                              
+                                {/* <Link href={url}>
+                                  <a className="product photo product-item-photo collage" >
+                                    <Image                                           
+                                      src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"}
+                                      alt="ItemImg" 
+                                      className={"img-responsive NoAvailableImg" }
+                                      height={230}
+                                      width={200} 
+                                      layout={'intrinsic'}
+                                    />
+                                  </a>
+                                </Link> */}
+                        
                             </div>
                             <div className="col-12 item_Name text-center" title={data.item}>{data.item}</div>
                           </a>

@@ -92,10 +92,8 @@ class MasterPage extends React.Component {
 								</div> 
 						});
 						
-						return(						
-							<div className="col-12 NoPadding" key={index}>
-								<OtherComponent block_id={block_id} key={index}/>							
-							</div>						
+						return(		
+							<OtherComponent block_id={block_id} key={index}/>
 						)
 					})
 				:

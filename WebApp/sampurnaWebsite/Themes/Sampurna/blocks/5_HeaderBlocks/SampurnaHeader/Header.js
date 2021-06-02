@@ -45,7 +45,6 @@ class Header extends React.Component {
             }
             store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)) ;
 
-
             //======= Get User Data ===========
             if(userDetails){
                 var user_id = userDetails.user_id;       
@@ -78,7 +77,7 @@ class Header extends React.Component {
             <div className="col-12 NoPadding multilevelType2MenuWrapper"> 
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark megamenu">
-                    <div className="col-12">
+                    <div className="col-12 NoPadding ">
                         <div className="col-12 top-header">
                             <div className="row logoWrap"> 
                                                            
@@ -86,7 +85,7 @@ class Header extends React.Component {
 
                                 <Searchbar />
 
-                                <div className="col-8 col-sm-3 ml-4 systemSecurity"> 
+                                <div className="col-8 col-sm-2 ml-4 systemSecurity"> 
                                     <div className="row">                                  
                                         < SystemSecurityModal />
                                         < MyCart />
@@ -100,7 +99,7 @@ class Header extends React.Component {
                                     <span className="navbar-toggler-icon"></span>
                                 </button>                             
                             </div>
-                            <div id="collapsibleNavbar" className="collapse navbar-collapse navHeaderCollapse mt-2">
+                            <div id="collapsibleNavbar" className="col-12 collapse navbar-collapse navHeaderCollapse ">
                                 <Megamenu />
                             </div>
                         </div>                    

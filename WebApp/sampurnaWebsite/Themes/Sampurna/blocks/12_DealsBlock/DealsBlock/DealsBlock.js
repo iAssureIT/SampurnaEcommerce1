@@ -96,10 +96,10 @@ class ShoppingVerticals extends Component {
       this.state.itemList.length>0?
       <div className="col-12 mt20">
         <div className="row">          
-          <div className="col-12 tab-content customTabContent ">
+          <div className="col-12 ">
             { Array.isArray(this.state.itemList) && this.state.itemList.length>4?
                 <Carousel  
-                  className="customnNavButton"
+                  className=""
                   swipeable={false}
                   draggable={true}
                   showDots={false}
@@ -118,7 +118,7 @@ class ShoppingVerticals extends Component {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => {  
                         return (
-                        <div className="col-12 sectionCategoryBlock"  key={index}> 
+                        <div className="col-12 dealsBlock"  key={index}> 
                             <div className="productImg col-12 NoPadding">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={data.itemUrl}>
                                 <img src={data.dealImg ? data.dealImg : "/images/CMSImages/notavailable.jpg"} alt="dealImg" />
@@ -132,7 +132,7 @@ class ShoppingVerticals extends Component {
                   }
                 </Carousel>                    
                 :
-                <div className="row sectionCategoryBlock mt-4">                      
+                <div className="row dealsBlock mt-4">                      
                   {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       this.state.itemList.map((data, index) => {                      

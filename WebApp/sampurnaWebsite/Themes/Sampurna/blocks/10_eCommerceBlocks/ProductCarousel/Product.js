@@ -270,7 +270,7 @@ class Product extends Component{
   
 
     render(){
-      console.log("1. newProducts----",this.props.newProducts);
+      // console.log("1. newProducts----",this.props.newProducts);
 
       var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;

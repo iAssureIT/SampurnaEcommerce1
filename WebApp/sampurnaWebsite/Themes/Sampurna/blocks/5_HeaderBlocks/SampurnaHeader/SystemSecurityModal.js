@@ -99,14 +99,14 @@ class header extends React.Component {
     }
    render() {
     return (
-        <div className="col-8 col-sm-6  NoPadding">  
-            <div className="col-12 NoPadding loginViewWrapper ">
-                <div className="row NoPadding ">
+        <div className="col-8 col-sm-8">  
+            <div className="col-12 loginViewWrapper ">
+                <div className="row ">
                 {this.state.loggedIn ? 
                     <li className="dropdown myaccDropdown">
                         <span className="col-12 NoPadding ">
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding">     
-                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="loginView col-12">My Account</span></span> 
+                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="loginView ">My Account</span></span> 
                             </div>
                         </span>
                         <ul className="col-3 dropdown-menu list-DropDownMenu">                                        

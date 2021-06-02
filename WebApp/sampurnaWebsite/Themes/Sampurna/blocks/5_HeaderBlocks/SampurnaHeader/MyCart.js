@@ -58,11 +58,11 @@ class MyCart extends React.Component {
             {this.state.userID?
                 <a href="/cart" className="col-12 col-sm-6 cartHeader NoPadding">        
                     <div className="row">
-                        <div className="col-3 p-2 cartImg">
-                            <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                        <div className="col-5 p-2 ml-4">
+                            <img className=" cartImg rotateImg" src="/images/eCommerce/cart.png"></img>
                         </div>
                         <div className="col-2 cartCount NoPadding">
-                            {this.props.cartCount>0? this.props.cartCount : 0 }
+                            <div className="cartCountCircle">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
                             &nbsp;                                
                         </div>
                     </div>
@@ -70,11 +70,11 @@ class MyCart extends React.Component {
                 :
                 <a href="" className="abc col-12 col-sm-6 cartHeader NoPadding" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">   
                     <div className="row">
-                        <div className="col-3 p-2 cartImg">
-                            <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                        <div className="col-5 p-2 ml-4">
+                            <img className="cartImg rotateImg" src="/images/eCommerce/cart.png"></img>
                         </div>
                         <div className="col-2 cartCount NoPadding">
-                            {this.props.cartCount>0? this.props.cartCount : 0 }
+                            <div className="cartCountCircle ">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
                             &nbsp;                                
                         </div>
                     </div>

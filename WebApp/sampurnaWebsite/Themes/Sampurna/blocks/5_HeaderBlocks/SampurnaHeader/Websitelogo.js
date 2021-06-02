@@ -15,11 +15,11 @@ class WebsiteLogo extends React.Component {
         axios.get("/api/entitymaster/getCompany/1")
             .then((response) => {
                 if(response.data){
-                    console.log("CompanySettings--",response.data);
+                    // console.log("CompanySettings--",response.data);
                     this.setState({
                         CompanyLogo : response.data.companyLogo[0]
                     },()=>{
-                        console.log("CompanyLogo==",this.state.CompanyLogo);
+                        // console.log("CompanyLogo==",this.state.CompanyLogo);
                     });
                 }
             })
@@ -31,15 +31,15 @@ class WebsiteLogo extends React.Component {
 
    render(){
         return(  
-            <div className="col-4 col-sm-2 mr-4 logoBlock NoPadding">
+            <div className="col-4 col-sm-2 mr-6 mt-2 logoBlock ">
                 <Link href="/">
                     <a title="navbar-brand Sitelogo ">
                         <Image
                             src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/multistoreLogo.png"}
-                            className={"img-responsive logoImg hidden-x"}
-                            height ={30}
-                            width={120}
-                            layout="responsive"
+                            className={"logoImg hidden-x"}
+                            height ={40}
+                            width={170}
+                            layout={'intrinsic'}
                         />
                     </a>
                 </Link>

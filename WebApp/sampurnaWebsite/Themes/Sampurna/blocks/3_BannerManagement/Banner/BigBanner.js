@@ -350,12 +350,7 @@ export default class Banner extends React.Component {
                           </div> 
                       }                      
                     </div>
-                    { this.state.blocks.animationSettings ?
-                        this.state.blocks.animationSettings.showDots===true?
-                          <div className="swiper-pagination"></div>
-                        :null
-                    : null
-                    }
+                    
                     {
                       this.state.blocks.animationSettings ?
                         this.state.blocks.animationSettings.showNextPrevArrow==="true"?
@@ -365,6 +360,13 @@ export default class Banner extends React.Component {
                         </div>
                         :null
                       :null
+                    }
+
+                    { this.state.blocks.animationSettings ?
+                        this.state.blocks.animationSettings.showDots===true?
+                          <div className="swiper-pagination"></div>
+                        :null
+                    : null
                     }
                     
                 </div>

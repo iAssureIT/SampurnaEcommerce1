@@ -5,7 +5,8 @@
 }
 
 .sectionCategoryBlock img{
-    height: 200px;
+    height: 130px;
+    border-radius: 10px;
     width: 100%;
 }
 .producttextclass{

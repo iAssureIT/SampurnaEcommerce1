@@ -82,7 +82,7 @@ class ProductCarousel extends Component {
       },
       blockSettings      : {
         blockTitle         : "Fruits",
-        blockApi           : "/api/products/get/listbysection/Fruits",
+        blockApi           : "/api/products/get/list/lowestprice",
         noOfProductPerLGRow: 4,
         noOfProductPerMDRow: 4,
         noOfProductPerSMRow: 4,
@@ -104,14 +104,13 @@ class ProductCarousel extends Component {
       userLatitude : "",
       userLatitude : "",
       startRange   : 0,
-      limitRange   : 25,
+      limitRange   : 50,
       vendor_ID    : "",
       categoryUrl  : ""
     };
   }
   componentDidUpdate(){
     if(this.state.categoryData.length < 1){
-      // console.log("inside rendor length > 1",$('.ProductViewWrapper').hasClass("col-lg-9"));
 			$('.filterWrapper').hide();
 			$('.ProductViewWrapper').removeClass('col-lg-9');
 			$('.ProductViewWrapper').removeClass('col-md-9');			
@@ -133,7 +132,13 @@ class ProductCarousel extends Component {
       if(sampurnaWebsiteDetails.deliveryLocation){
         this.setState({
             "userLatitude"  : sampurnaWebsiteDetails.deliveryLocation.latitude,
-            "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude, 
+            "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude,
+        });
+      }
+      if(sampurnaWebsiteDetails.preferences){
+        this.setState({
+            "showLoginAs"   :  sampurnaWebsiteDetails.preferences.showLoginAs,
+            "websiteModel"  :sampurnaWebsiteDetails.preferences.websiteModel
         });
       }
     }
@@ -153,18 +158,15 @@ class ProductCarousel extends Component {
         "subCategoryUrl" : subCategoryUrl?subCategoryUrl:""
       })
     }
-
-    var user_ID = localStorage.getItem("user_ID"); 
-    const websiteModel = localStorage.getItem("websiteModel");      
-    const showLoginAs = localStorage.getItem("showLoginAs"); 
-    if(user_ID!==null){     
-    this.setState({
-      user_ID:user_ID,
-      showLoginAs: showLoginAs,
-      websiteModel:websiteModel
-    },()=>{
-        this.getWishlistData();
-    }); 
+    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    if(userDetails){
+      if(userDetails.userid!==null){     
+      this.setState({
+        user_ID:userDetails.userid
+      },()=>{
+          this.getWishlistData();sampurnaWebsiteDetails.preferences
+      });
+    } 
   }
 
       if(this.props.block_id){
@@ -184,9 +186,9 @@ class ProductCarousel extends Component {
             await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
             .then((categoryResponse)=>{
               if(categoryResponse.data){     
-                // console.log("3.response.data category list=",categoryResponse.data[0].categoryUrl); 
+                console.log("3.response.data category list=",categoryResponse.data[0].categoryUrl); 
                 this.setState({
-                  categoryData     : categoryResponse.data,                     
+                  categoryData     : categoryResponse.data.categoryList,                     
                 },()=>{
 
                   formValues = {
@@ -230,39 +232,8 @@ class ProductCarousel extends Component {
               var productApiUrl = this.state.blockSettings.blockApi;
               // console.log("productApiUrl===",productApiUrl);
           }
-          // console.log("productApiUrl===",productApiUrl);
-          // console.log("5. formvalues =>",formValues);
           if(productApiUrl){
-            axios.post(productApiUrl,formValues)     
-            .then((response)=>{
-              if(response.data){     
-              // console.log("response.data in product carousel===",response.data);       
-              if(localStorage.getItem('websiteModel')=== "FranchiseModel"){
-                for(var i=0;i<response.data.length;i++){       
-                    var availableSizes = [];         
-                    if(response.data[i].size){              
-                      availableSizes.push(response.data[i].size*1);
-                      availableSizes.push(response.data[i].size*2);
-                      availableSizes.push(response.data[i].size*4); 
-                      response.data[i].availableSizes = availableSizes;           
-                    }
-                }
-              } 
-              this.setState({
-                newProducts     : response.data,                          
-              },()=>{
-                if(this.state.newProducts.length>0){
-                  this.setState({
-                    ProductsLoading : true,
-                    loading         : false
-                  });  
-                }
-              });
-            }
-            })
-            .catch((error)=>{
-                console.log('error', error);
-            })
+            this.getProductList(productApiUrl,formValues);
         }//end productApiUrl
         });
       }else{
@@ -275,6 +246,41 @@ class ProductCarousel extends Component {
           console.log('error', error);
       })
     }//end if blockid
+  }
+
+  getProductList(productApiUrl,formValues){
+    console.log("productApiUrl=>",productApiUrl);
+    axios.post(productApiUrl,formValues)     
+    .then((response)=>{
+      if(response.data){     
+      // console.log("response.data in product carousel===",response.data);       
+      if(this.state.websiteModel === "FranchiseModel"){
+        for(var i=0;i<response.data.length;i++){       
+            var availableSizes = [];         
+            if(response.data[i].size){              
+              availableSizes.push(response.data[i].size*1);
+              availableSizes.push(response.data[i].size*2);
+              availableSizes.push(response.data[i].size*4); 
+              response.data[i].availableSizes = availableSizes;           
+            }
+        }
+      } 
+      this.setState({
+        newProducts     : response.data,                          
+      },()=>{
+        console.log("newProducts=>",this.state.newProducts);
+        if(this.state.newProducts.length>0){
+          this.setState({
+            ProductsLoading : true,
+            loading         : false
+          });  
+        }
+      });
+    }
+    })
+    .catch((error)=>{
+        console.log('error', error);
+    })
   }
 
   getWishlistData() {
@@ -630,36 +636,49 @@ class ProductCarousel extends Component {
     event.preventDefault();
   }
   
-    sortProducts = effect => {
+  sortProducts = effect => {
     this.setState({ effect });
-    var sortBy = effect.value;
-    // console.log("sortBy==",sortBy);    
+    var sortBy = effect.value;   
     if (sortBy === "alphabeticallyAsc") {
 			let field = 'productName';
-			this.setState({
-				newProducts: this.state.newProducts.sort((a, b) => (a[field] || "").toString().localeCompare((b[field] || "").toString()))
-			});
-		}
-		if (sortBy === "alphabeticallyDsc") {
+      sortBy = 'AZ';	
+		}else if (sortBy === "alphabeticallyDsc") {
 			let field = 'productName';
-			this.setState({
-				newProducts: this.state.newProducts.sort((a, b) => -(a[field] || "").toString().localeCompare((b[field] || "").toString()))
-			},()=>{
-      });
-		}
-		if (sortBy === "priceAsc") {
+      sortBy = 'ZA';
+		}else if (sortBy === "priceAsc") {
 			let field = 'discountedPrice';
-			this.setState({
-				newProducts: this.state.newProducts.sort((a, b) => a[field] - b[field])
-			});
-		}
-		if (sortBy === "priceDsc") {
+      sortBy = 'PL';
+		}else if (sortBy === "priceDsc") {
 			let field = 'discountedPrice';
-			this.setState({
-				newProducts: this.state.newProducts.sort((a, b) => b[field] - a[field])
-			});
-		}    
+      sortBy = 'PH';
+		} 
+    var formValues = {
+      "vendor_ID"      : "",
+      "sectionUrl"     : this.state.blockSettings.section? (this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
+      "categoryUrl"    : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
+      "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+      "userLatitude"   : this.state.userLatitude,
+      "userLongitude"  : this.state.userLongitude,
+      "startRange"     : this.state.startRange,
+      "limitRange"     : this.state.limitRange,
+      "sortProductBy"  : sortBy,
+      "brand"          : '' 
+    }
+    if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
+      var productApiUrl = this.props.productApiUrl;
+      // console.log("productlist productApiUrl===",productApiUrl);
+    }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
+      var productApiUrl = this.props.productApiUrl;
+      // console.log("productApiUrl===",productApiUrl);
+    }else{ 
+        var productApiUrl = this.state.blockSettings.blockApi;
+        // console.log("productApiUrl===",productApiUrl);
+    }
+    if(formValues){
+      this.getProductList(productApiUrl,formValues);
+    }
   };
+
   limitProducts = displayProduct => {
     event.preventDefault();
     this.setState({ displayProduct });
@@ -685,7 +704,6 @@ class ProductCarousel extends Component {
 		} else {
 			selector.limit = "50";
 		}
-
     axios.post("/api/products/post/list/filterProductsByCategory/", selector)
 			.then((response) => {
 				this.setState({ 
@@ -1031,7 +1049,7 @@ class ProductCarousel extends Component {
                       <div className={"col-12 " +Style.rightSidefilter}>
                         <div className ="row">
                         <div className={"col-12 "}>
-                          <div className="col-3 col-xs-6 NoPadding pull-left">     
+                          <div className="col-3 col-xs-6 NoPadding pull-right">     
                             <div className="form-group ">
                                 <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
                                 <Select
@@ -1042,7 +1060,7 @@ class ProductCarousel extends Component {
                                 />
                             </div> 
                           </div>
-                          <div className="col-3 col-xs-8 NoPadding pull-right">
+                          {/* <div className="col-3 col-xs-8 NoPadding pull-right">
                               <div className="form-group ">
                                   <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
                                   <Select
@@ -1052,7 +1070,7 @@ class ProductCarousel extends Component {
                                       autoFocus = {false}
                                   />
                             </div>
-                          </div>
+                          </div> */}
                         </div>                        
                         </div>
                       </div>
