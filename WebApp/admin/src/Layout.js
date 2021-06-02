@@ -202,6 +202,7 @@ class Layout extends Component  {
                                                         <Route path="/franchise-allowable-pincode"                      exact strict component={AllowablePincodes} />
                                                         {/* Inventory Management */}
                                                         <Route path="/product-bulk-update"                              exact strict component={ProductBulkUpdate} />
+                                                        <Route path="/product-inventory-update"                         exact strict component={ProductBulkUpdate} />
 
                                                         {/* Product Management */}
                                                         <Route path="/product-details/:productID"                       exact strict component={ProductDetails} />

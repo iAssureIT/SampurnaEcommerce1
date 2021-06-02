@@ -37,7 +37,7 @@ class StorePreferences extends Component {
 		axios.get("/api/adminpreference/get")
 		.then(preferences =>{
 			if(preferences.data){
-				console.log("preferences.data[0] => ",preferences.data[0])
+				// console.log("preferences.data[0] => ",preferences.data[0])
 				// var askpincodeToUser = preferences.data[0].askPincodeToUser;
 
 				this.setState({

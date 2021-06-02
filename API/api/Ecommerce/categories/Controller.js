@@ -7,7 +7,7 @@ const Product = require('../products/Model');
 const { json } = require("body-parser");
 
 exports.insert_category = (req,res,next)=>{
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
 	Category.find({"category":req.body.category, "section":req.body.section})
 		.exec()
 		.then(data =>{
@@ -32,10 +32,10 @@ exports.insert_category = (req,res,next)=>{
                     status                    : "Published",
                     createdAt                 : new Date()
                 });
-                console.log("Category:",category);
+                // console.log("Category:",category);
                 category.save()
                 .then(data=>{
-                    console.log("data => ",data);
+                    // console.log("data => ",data);
                     res.status(200).json({
                         "message": "Category Submitted Successfully!"
                     });
@@ -262,11 +262,11 @@ exports.count_category = (req,res,next)=>{
     });
 };
 exports.fetch_category = (req,res,next)=>{
-    console.log("insode fetch category => ", req.params.categoryID);
+    // console.log("insode fetch category => ", req.params.categoryID);
     Category.findOne({_id : ObjectId(req.params.categoryID)})
     .exec()
     .then(data=>{
-        console.log("data =>" ,data)
+        // console.log("data =>" ,data)
         res.status(200).json({
             "_id"                   : data._id,
             "section_ID"            : data.section_ID,
@@ -324,15 +324,15 @@ exports.fetch_categories_by_section = (req,res,next)=>{
 
 
 exports.fetch_categories_by_sectionUrl = (req,res,next)=>{
-    console.log("params => ",req.params.sectionUrl)
+    // console.log("params => ",req.params.sectionUrl)
     Section.findOne({sectionUrl: req.params.sectionUrl})
     .then(sectiondata=>{
-        console.log("sectiondata => ",sectiondata)
+        // console.log("sectiondata => ",sectiondata)
         if(sectiondata && sectiondata !== null && sectiondata !== undefined){
             Category.find({section_ID: sectiondata._id})
             .exec()
             .then(data=>{
-                console.log("data => ",data)
+                // console.log("data => ",data)
                 res.status(200).json(data);
             })
             .catch(err =>{
@@ -407,9 +407,9 @@ exports.deleteAllCategories = (req, res, next) => {
 };
 
 exports.update_category_status = (req,res,next)=>{
-    console.log("update_category_status Body = ", req.body);
-    console.log(" req.body.item_id ====" ,req.body.item_id);
-    console.log(" req.body.status ====" ,req.body.status);
+    // console.log("update_category_status Body = ", req.body);
+    // console.log(" req.body.item_id ====" ,req.body.item_id);
+    // console.log(" req.body.status ====" ,req.body.status);
     Category.updateOne(
         { _id : ObjectId(req.body.item_id)},  
         { $set : 
@@ -421,7 +421,7 @@ exports.update_category_status = (req,res,next)=>{
     )
     .exec()
     .then(data=>{
-        console.log("data => ", data);
+        // console.log("data => ", data);
         
     
         // if(data.nModified == 1){
@@ -458,7 +458,7 @@ exports.update_subcategory_status = (req,res,next)=>{
     )
     .exec()
     .then(data=>{
-        console.log("SubCategory Updated data => ", data);       
+        // console.log("SubCategory Updated data => ", data);       
     
         // if(data.nModified == 1){
             res.status(200).json({
@@ -486,22 +486,26 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
         if(sectiondata && sectiondata !== null && sectiondata !== undefined){  
 
             // console.log("section data ===:", sectiondata._id);
-            Product.find({section_ID : ObjectId(sectiondata._id), vendor_ID : ObjectId(req.params.vendorID), status : "Publish"}, {section_ID : 1, section : 1, category_ID : 1, category : 1,  subCategory_ID : 1})
-            .exec()
+            Product.find({section_ID : ObjectId(sectiondata._id), vendor_ID : ObjectId(req.params.vendorID), status : "Publish"}, {section_ID : 1, section : 1, category_ID : 1, category : 1,  subCategory_ID : 1, brand : 1})
             .then(productData=>{
 
-                // console.log("product section data ===:", productData);
+                console.log("product section data ===:", productData);
                 if(productData && productData.length > 0){
                     processData();
-                    async function processData(){                    
-                        var categories           = [...new Set(productData.map(item => String(item.category_ID)).filter(item => item !== 'undefined'))];
-                        var subCategories        = [...new Set(productData.map(item => String(item.subCategory_ID)).filter(item => item !== 'undefined'))];
+                    async function processData(){   
+                        var brandList            = [...new Set(productData.map(product => product.brand))];               
+                        var categories           = [...new Set(productData.map(product => String(product.category_ID)).filter(product => product !== 'undefined'))];
+                        var subCategories        = [...new Set(productData.map(product => String(product.subCategory_ID)).filter(product => product !== 'undefined'))];
+                        console.log("brandList => ",brandList);
                         // console.log("categories => ",categories);
                         // console.log("subCategories => ",subCategories);
                         // var categoryList = await getCategoryList(categories);
                         var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
                         console.log("categoryAndSubcategoryList",categoryAndSubcategoryList);
-                        res.status(200).json(categoryAndSubcategoryList);
+                        res.status(200).json({
+                            categoryList    : categoryAndSubcategoryList,
+                            brandList       : brandList    
+                        });
                     }
                 }
             })
@@ -564,10 +568,10 @@ function getSubCategoryList(categories, subcategories){
         )              
         .exec()
         .then(categoryDetails=>{
-            console.log("categoryDetails * => ",categoryDetails);
+            // console.log("categoryDetails * => ",categoryDetails);
             if(categoryDetails && categoryDetails.length > 0){
                 var returnData = categoryDetails.map((a, i)=>{
-                    console.log("a = > " , a)
+                    // console.log("a = > " , a)
                     return {
                         "_id"                   : a._id,
                         "category"              : a.category,

@@ -227,11 +227,11 @@ export default class AdminDashboard extends Component{
 										<i className="fa fa-circle-o dashr" />Bulk Insert
 									</a> 
 								</li>  
-								<li className="noPadLR"> 
+								{/* <li className="noPadLR"> 
 									<a href="/product-bulk-update" data-id="/product-bulk-update" title="Product Bulk Update" onClick={this.activeMenu.bind(this)}>
 										<i className="fa fa-circle-o dashr" />Bulk Update
 									</a> 
-								</li>  
+								</li>   */}
 								<li className="noPadLR"> 
 									<a href="/product-image-bulk-upload" data-id="/product-image-bulk-upload" title="Product Bulk Upload" onClick={this.activeMenu.bind(this)}>
 										<i className="fa fa-circle-o dashr" />Image Bulk Insert
@@ -330,66 +330,72 @@ export default class AdminDashboard extends Component{
 						{this.state.websiteModel !== 'SingleOwner' 
 						?
 							this.state.showInventory === 'Yes' 							
-							?							
-								<li className="treeview" >
-									<a href="JavaScript:void(0);" onClick={()=>this.openMenu("corporateData")} title="Corporate Master">
-										<i className="fa fa-users" aria-hidden="true"></i>
-										<span className="smsidenames sidebarMenuTitle">Inventory Management </span>
-										<span className="pull-right-container">
-											<i className={"fa pull-right menu-icon-toggle "+(corporateData?this.openIcon:this.closeIcon)} />
-										</span>
-									</a>
-									{this.state.websiteModel === 'MarketPlace' 
-									?
-										null
-										// <ul className="treeview-menu" >                    
-										// 	<li className="noPadLR"> 
-										// 		<a href="/product-bulk-update" data-id="/product-bulk-update" title="Product Bulk Update" onClick={this.activeMenu.bind(this)}>
-										// 			<i className="fa fa-circle-o dashr" />Product Bulk Update
-										// 		</a> 
-										// 	</li>
-										// </ul>
-									:
-										<ul className="treeview-menu" >                    
-											<li className="noPadLR"> 
-												<a href="/purchase-management" data-id="/purchase-management" title="Raw Material Inward" onClick={this.activeMenu.bind(this)}>
-													<i className="fa fa-circle-o dashr" />Raw Material
-												</a> 
-											</li>  
-											<li className="noPadLR"> 
-												<a href="/finished-goods" data-id="/finished-goods" title="Finished Goods Inward" onClick={this.activeMenu.bind(this)}>
-													<i className="fa fa-circle-o dashr" />Finished Goods
-												</a> 
-											</li>  
-											<li className="noPadLR"> 
-												<a href="/franchise-shopping-list" data-id="/franchise-shopping-list" title="Franchise Purchase Order" onClick={this.activeMenu.bind(this)}>
-													<i className="fa fa-circle-o dashr" />Franchise Purchase Order
-												</a> 
-											</li>  
-											<li className="noPadLR"> 
-												<a href="/admin-shopping-list" data-id="/admin-shopping-list" title="Consolidate Purchase Orders" onClick={this.activeMenu.bind(this)}>
-													<i className="fa fa-circle-o dashr" />Consolidate Purchase Orders
-												</a> 
-											</li>  
-											<li className="noPadLR"> 
-												<a href="/franchise-order-summary" data-id="/franchise-order-summary" title="Franchise Order Summary" onClick={this.activeMenu.bind(this)}>
-													<i className="fa fa-circle-o dashr" />Franchise Order Summary
-												</a> 
-											</li>  
-											<li className="noPadLR">
-												<a href="/franchise-product-stock" data-id="/franchise-product-stock" title="Franchise Order Summary" onClick={this.activeMenu.bind(this)}>
-													<i className="fa fa-circle-o dashr" aria-hidden="true"></i>
-													<span className="sidebarMenuTitle">Franchise Product Stock</span>
-												</a>
-											</li>
-											<li className="noPadLR"> 
-												<a href="/franchise-allowable-pincode" data-id="/franchise-allowable-pincode" title="Finished Goods Inward" onClick={this.activeMenu.bind(this)}>
-													<i className="fa fa-circle-o dashr" />Allowable Pincode
-												</a> 
-											</li>  
-										</ul>							
-									}
-								</li>	
+							?	
+							<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
+								<a href="/product-inventory-update" title="Inventory Management" onClick={()=>this.openMenu("dashboard")}>
+									<i className="fa fa-th-large" aria-hidden="true"></i>
+									<span className="sidebarMenuTitle">Inventory Management</span>
+								</a>
+							</li>						
+								// <li className="treeview" >
+								// 	<a href="JavaScript:void(0);" onClick={()=>this.openMenu("corporateData")} title="Corporate Master">
+								// 		<i className="fa fa-users" aria-hidden="true"></i>
+								// 		<span className="smsidenames sidebarMenuTitle">Inventory Management </span>
+								// 		<span className="pull-right-container">
+								// 			<i className={"fa pull-right menu-icon-toggle "+(corporateData?this.openIcon:this.closeIcon)} />
+								// 		</span>
+								// 	</a>
+								// 	{this.state.websiteModel === 'MarketPlace' 
+								// 	?
+								// 		null
+								// 		// <ul className="treeview-menu" >                    
+								// 		// 	<li className="noPadLR"> 
+								// 		// 		<a href="/product-bulk-update" data-id="/product-bulk-update" title="Product Bulk Update" onClick={this.activeMenu.bind(this)}>
+								// 		// 			<i className="fa fa-circle-o dashr" />Product Bulk Update
+								// 		// 		</a> 
+								// 		// 	</li>
+								// 		// </ul>
+								// 	:
+								// 		<ul className="treeview-menu" >                    
+								// 			<li className="noPadLR"> 
+								// 				<a href="/purchase-management" data-id="/purchase-management" title="Raw Material Inward" onClick={this.activeMenu.bind(this)}>
+								// 					<i className="fa fa-circle-o dashr" />Raw Material
+								// 				</a> 
+								// 			</li>  
+								// 			<li className="noPadLR"> 
+								// 				<a href="/finished-goods" data-id="/finished-goods" title="Finished Goods Inward" onClick={this.activeMenu.bind(this)}>
+								// 					<i className="fa fa-circle-o dashr" />Finished Goods
+								// 				</a> 
+								// 			</li>  
+								// 			<li className="noPadLR"> 
+								// 				<a href="/franchise-shopping-list" data-id="/franchise-shopping-list" title="Franchise Purchase Order" onClick={this.activeMenu.bind(this)}>
+								// 					<i className="fa fa-circle-o dashr" />Franchise Purchase Order
+								// 				</a> 
+								// 			</li>  
+								// 			<li className="noPadLR"> 
+								// 				<a href="/admin-shopping-list" data-id="/admin-shopping-list" title="Consolidate Purchase Orders" onClick={this.activeMenu.bind(this)}>
+								// 					<i className="fa fa-circle-o dashr" />Consolidate Purchase Orders
+								// 				</a> 
+								// 			</li>  
+								// 			<li className="noPadLR"> 
+								// 				<a href="/franchise-order-summary" data-id="/franchise-order-summary" title="Franchise Order Summary" onClick={this.activeMenu.bind(this)}>
+								// 					<i className="fa fa-circle-o dashr" />Franchise Order Summary
+								// 				</a> 
+								// 			</li>  
+								// 			<li className="noPadLR">
+								// 				<a href="/franchise-product-stock" data-id="/franchise-product-stock" title="Franchise Order Summary" onClick={this.activeMenu.bind(this)}>
+								// 					<i className="fa fa-circle-o dashr" aria-hidden="true"></i>
+								// 					<span className="sidebarMenuTitle">Franchise Product Stock</span>
+								// 				</a>
+								// 			</li>
+								// 			<li className="noPadLR"> 
+								// 				<a href="/franchise-allowable-pincode" data-id="/franchise-allowable-pincode" title="Finished Goods Inward" onClick={this.activeMenu.bind(this)}>
+								// 					<i className="fa fa-circle-o dashr" />Allowable Pincode
+								// 				</a> 
+								// 			</li>  
+								// 		</ul>							
+								// 	}
+								// </li>	
 							:
 								null									
 						:
