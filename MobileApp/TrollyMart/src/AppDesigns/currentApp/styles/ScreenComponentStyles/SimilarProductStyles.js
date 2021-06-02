@@ -1,5 +1,14 @@
 import { StyleSheet} from 'react-native';
 export default StyleSheet.create({
+	container:{
+		width:160,
+		minHeight:150,
+		marginRight:10,
+		backgroundColor:"#fff",
+		borderWidth:0.5,
+		borderColor:"#707070",
+		elevation:5
+	},
 	menuWrapper:{
 		marginTop:20,
 		flexDirection:'row',

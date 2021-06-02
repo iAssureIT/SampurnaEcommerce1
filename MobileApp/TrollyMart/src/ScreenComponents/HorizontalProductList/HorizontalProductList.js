@@ -45,7 +45,6 @@ export const HorizontalProductList =(props)=>{
   }));
 
   const getData=()=>{
-    console.log("props.blockApi",props);
     var payload ={
       "vendorID"          : '',
       "sectionUrl"        : props.section!=="all" ? props.section?.replace(/\s/g, '-').toLowerCase() : 'all',
@@ -60,7 +59,6 @@ export const HorizontalProductList =(props)=>{
     } 
     axios.post(props.blockApi,payload)
       .then((response) => {
-        console.log("response",response);
         setProductList(response.data);
       })
       .catch((error) => {
@@ -71,7 +69,9 @@ export const HorizontalProductList =(props)=>{
 
   const _renderlist = ({ item, index })=>{
       return (
-          <TouchableOpacity style={{width:160,minHeight:150,marginRight:10,backgroundColor:"#fff"}} onPress={() => navigation.navigate('SubCatCompView',{productID: item._id,currency:currency })}>
+          <TouchableOpacity style={styles.container} 
+          onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})}}>
+          {/* onPress={()=>navigation.navigate('VendorList',{section_id:item.section_ID})}> */}
                <View style={styles.flx1}>
                 {
                   item.productImage && item.productImage.length >0?

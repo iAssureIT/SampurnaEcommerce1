@@ -193,83 +193,83 @@ const getshippingamount=(startRange, limitRange)=>{
         navigate={navigation.navigate}
         openControlPanel={() => openControlPanel}
       />
-      <View style={{ flex: 1, backgroundColor: '#f1f1f1' }}>
+      <View style={{ flex: 1}}>
       { !loading ?
         <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
         <View style={{flex:1}}>
-          <View style={styles.cartdetails}>
-            {cartData  && cartData.vendorOrders && cartData.vendorOrders.length>0?
-              cartData.vendorOrders.map((vendor, i) => {
-                return (
-                <View style={{backgroundColor:"#fff",marginBottom:15}}>
-                  <View style={{paddingHorizontal:15,borderBottomWidth:1,borderColor:"#eee"}}>
-                    <Text style={[commonStyles.headerText,{alignSelf:"flex-start"}]}>{vendor.vendor_id.companyName}</Text>
-                  </View>  
-                  {vendor.cartItems.map((item,index)=>{
-                    return(
-                      <View key={index}>
-                        <View key={index} style={styles.proddetails}>
-                          <View style={styles.flxdir}>
-                            <View style={styles.flxpd}>
-                              <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id})}>
-                                {item.product_ID.productImage.length > 0 ?
-                                  <Image
-                                    style={styles.imgwdht}
-                                    source={{ uri: item.product_ID.productImage[0] }}
-                                  />
-                                  :
-                                  <Image
-                                    style={styles.imgwdht}
-                                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                                  />
-                                }
-                              </TouchableOpacity>
-                            </View>
-                            <View style={styles.flxmg}>
-                              <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id })}>
-                                {item.product_ID.productNameRlang ?
-                                <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
-                                : 
-                                <Text style={styles.productname}>{item.product_ID.productName}</Text>
-                                }
-                                </TouchableOpacity>
-                              <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-                                {item.product_ID.availableQuantity > 0 ?
-                                  <View style={[styles.flxdir]}>
-                                    <View style={[styles.flxdir]}>
-                                      <Text style={styles.ogprice}>{currency} </Text>
-                                      {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
-                                    </View>
-                                    <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                        <Text style={styles.ogprice}> {item.product_ID.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                        </Text>
-                                    </View>
-                                    {item.product_ID.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                                        <Text style={styles.ogprice}>( {item.product_ID.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                        </Text>
-                                    </View>}
-                                  </View>
-                                  :
-                                  <Text style={styles.totaldata}>SOLD OUT</Text>
-                                }
-                              </View>
-                              <Counter start={item.quantity} min={1} max={100}
-                                buttonStyle={{
-                                  borderColor: colors.theme,
-                                  borderWidth: 1,
-                                  borderRadius: 25,
-                                  width: 15,
-                                  height: 7
-                                }}
-                                buttonTextStyle={{
-                                  color: colors.theme,
-                                }}
-                                countTextStyle={{
-                                  color: colors.theme,
-                                }}
-                                size={5}
-                                onChange={(e)=>onChange(e,item.product_ID._id,vendor.vendor_id._id)} 
+          {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
+            <View style={styles.cartdetails}>
+            {cartData.vendorOrders.map((vendor, i) => {
+              return (
+              <View style={{backgroundColor:"#fff",marginBottom:15}}>
+                <View style={{paddingHorizontal:15,borderBottomWidth:1,borderColor:"#eee"}}>
+                  <Text style={[commonStyles.headerText,{alignSelf:"flex-start"}]}>{vendor.vendor_id.companyName}</Text>
+                </View>  
+                {vendor.cartItems.map((item,index)=>{
+                  return(
+                    <View key={index}>
+                      <View key={index} style={styles.proddetails}>
+                        <View style={styles.flxdir}>
+                          <View style={styles.flxpd}>
+                            <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id})}>
+                              {item.product_ID.productImage.length > 0 ?
+                                <Image
+                                  style={styles.imgwdht}
+                                  source={{ uri: item.product_ID.productImage[0] }}
                                 />
+                                :
+                                <Image
+                                  style={styles.imgwdht}
+                                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                />
+                              }
+                            </TouchableOpacity>
+                          </View>
+                          <View style={styles.flxmg}>
+                            <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID._id })}>
+                              {item.product_ID.productNameRlang ?
+                              <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.product_ID.productNameRlang}</Text>
+                              : 
+                              <Text style={styles.productname}>{item.product_ID.productName}</Text>
+                              }
+                              </TouchableOpacity>
+                            <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
+                              {item.product_ID.availableQuantity > 0 ?
+                                <View style={[styles.flxdir]}>
+                                  <View style={[styles.flxdir]}>
+                                    <Text style={styles.ogprice}>{currency} </Text>
+                                    {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
+                                  </View>
+                                  <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                      <Text style={styles.ogprice}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                  </View>
+                                  {item.product_ID.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
+                                      <Text style={styles.ogprice}>( {item.product_ID.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                  </View>}
+                                </View>
+                                :
+                                <Text style={styles.totaldata}>SOLD OUT</Text>
+                              }
+                            </View>
+                            <Counter start={item.quantity} min={1} max={100}
+                              buttonStyle={{
+                                borderColor: colors.theme,
+                                borderWidth: 1,
+                                borderRadius: 25,
+                                width: 15,
+                                height: 7
+                              }}
+                              buttonTextStyle={{
+                                color: colors.theme,
+                              }}
+                              countTextStyle={{
+                                color: colors.theme,
+                              }}
+                              size={5}
+                              onChange={(e)=>onChange(e,item.product_ID._id,vendor.vendor_id._id)} 
+                              />
                           </View>
                           <View style={styles.flxmg2}>
                             <View style={styles.proddeletes}>
@@ -341,22 +341,8 @@ const getshippingamount=(startRange, limitRange)=>{
                  
                 </View>
                 )
-              })
-              :
-              <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-                <Image
-                  source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-                />
-                <Button
-                      onPress={() => navigation.navigate('Dashboard')}
-                      title={"Add Products"}
-                      buttonStyle={styles.buttonshopping}
-                      containerStyle={styles.continueshopping}
-                />
-              </View>   
-            }
-            {
-              cartData && cartData.paymentDetails ?
+              })}
+              
                 <View style={styles.totaldetails}>
                   <View style={styles.flxdata}>
                     <View style={{ flex: 0.6 }}>
@@ -437,10 +423,20 @@ const getshippingamount=(startRange, limitRange)=>{
                     }
                   </View>
                 </View>
-                :
-                null
-            }
           </View>
+          :
+          <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+            <Image
+              source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+            />
+            <Button
+                  onPress={() => navigation.navigate('Dashboard')}
+                  title={"Add Products"}
+                  buttonStyle={styles.buttonshopping}
+                  containerStyle={styles.continueshopping}
+            />
+          </View>   
+        }
         </View>
       </KeyboardAwareScrollView>
       :

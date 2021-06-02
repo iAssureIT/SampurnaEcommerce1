@@ -4,7 +4,8 @@ import {
     SET_DISCOUNTED_LIST,
     SET_LOADING,
     SET_CATEGORY_WISE_LIST,
-    SET_CATEGORY_LIST
+    SET_CATEGORY_LIST,
+    SET_ALL_PRODUCT_LIST
   } from './types';
   
   const initialUserState = {
@@ -12,7 +13,8 @@ import {
     exclusiveList     : [],
     discountedList    : [],
     categoryWiseList  : [],
-    categoryList      : []
+    categoryList      : [],
+    allProductList    : [],
   };
   export default (state = initialUserState, {type, payload}) => {
     switch (type) {
@@ -36,11 +38,16 @@ import {
           ...state,
           categoryWiseList : payload
         };
-        case SET_CATEGORY_LIST:
-        return {
-          ...state,
-          categoryList : payload
-        };
+      case SET_CATEGORY_LIST:
+      return {
+        ...state,
+        categoryList : payload
+      };
+      case SET_ALL_PRODUCT_LIST:
+      return {
+        ...state,
+        allProductList : payload.allProductList
+      };
       case SET_LOADING:
         return {
           ...state,

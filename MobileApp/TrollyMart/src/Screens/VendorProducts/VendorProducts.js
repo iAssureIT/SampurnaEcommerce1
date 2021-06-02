@@ -20,6 +20,7 @@ import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonSty
 import FilterModal            from '../../ScreenComponents/FilterModal/FilterModal.js';  
 import { getCategoryWiseList }from '../../redux/productList/actions.js';
 import { ActivityIndicator } from 'react-native-paper';
+import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 
 export const VendorProducts = (props)=>{
   const isFocused = useIsFocused();
@@ -47,10 +48,11 @@ export const VendorProducts = (props)=>{
     userDetails : store.userDetails,
   }));
   const {productList,userDetails} = store;
+  console.log("productList",productList);
 
   useEffect(() => {
     getData();
- },[]);
+ },[props]);
  
  const getData=()=>{
     AsyncStorage.multiGet(['user_id', 'token'])
@@ -102,7 +104,6 @@ export const VendorProducts = (props)=>{
   }
 
 
-
   return (
     <React.Fragment>
       <HeaderBar3
@@ -134,24 +135,29 @@ export const VendorProducts = (props)=>{
           setCategory = {setCategory}
         />
 
-       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-          <View style={styles.formWrapper}>
+        
+        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
           {productList.loading ?
-            <ActivityIndicator />
-            :
-            <ProductList 
-              navigate      = {navigation.navigate} 
-              newProducts   = {productList.categoryWiseList}  
-              userId        = {userId}  
-              loading       = {productList.loading}
-              limit         = {20}
-              payload       = {payload_obj}
-              type          = "vendor_sub_cat"
-            />
-          }  
-          </View>
+          <ActivityIndicator color={colors.theme}/>
+          :
+          productList.categoryWiseList && productList.categoryWiseList.length >0 ?<View style={styles.formWrapper}>
+        
+          <ProductList 
+            navigate      = {navigation.navigate} 
+            newProducts   = {productList.categoryWiseList}  
+            userId        = {userId}  
+            loading       = {productList.loading}
+            limit         = {5}
+            payload       = {payload_obj}
+            type          = "vendor_sub_cat"
+          />
+        </View>
+        :
+        <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+          <Text style={CommonStyles.noDataFound}>No Product Found</Text>
+        </View> 
+      } 
       </ScrollView>
-
       <Footer/>
      </View>
       <FilterModal

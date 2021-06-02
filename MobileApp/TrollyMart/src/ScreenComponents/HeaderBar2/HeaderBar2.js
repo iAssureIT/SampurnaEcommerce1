@@ -13,10 +13,9 @@ import {
   SearchBar,
   Button 
 } from 'react-native-elements';
-import ValidationComponent  from "react-native-form-validator";
 import axios                from 'axios'; 
 import styles               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HeaderBar2Styles.js';
-import { connect,useDispatch,useSelector }      from 'react-redux';
+import {useDispatch,useSelector }      from 'react-redux';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import { getSearchResult,getSuggestion } 	from '../../redux/globalSearch/actions';
@@ -25,10 +24,8 @@ import { SET_SEARCH_CALL,
       SET_SEARCH_TEXT,
       SET_SERACH_LIST
     } 	from '../../redux/globalSearch/types';
-import { useNavigation } from '@react-navigation/native';
 import { DrawerActions } from '@react-navigation/native';
 
-// import {Autocomplete}       from  'react-native-autocomplete-input';
   const HeaderBars2=(props)=>{
     const {navigation} = props;;
     const [searchText,useSearchText] = useState('');
@@ -97,7 +94,7 @@ import { DrawerActions } from '@react-navigation/native';
       <View style={styles.header2main}>
         <Header
           statusBarProps={{ barStyle: 'light-content' }}
-          backgroundColor={'transparent'}
+          backgroundColor={colors.theme}
           placement="left"
           leftContainerStyle={styles.leftside}
           centerContainerStyle={styles.center}
@@ -106,28 +103,26 @@ import { DrawerActions } from '@react-navigation/native';
             <View style={styles.flxdir}>
               <View style={{ marginTop: 10,}}>
                 <TouchableOpacity  onPress={()=> navigation.dispatch(DrawerActions.toggleDrawer())}>
-                  <Icon size={25} name='bars' type='font-awesome' color={colors.theme} />
+                  <Icon size={25} name='bars' type='font-awesome' color={colors.white} />
                 </TouchableOpacity>
               </View>
             </View>
           }
           centerComponent={
-            <View style={styles.flxdircenter}>
               <Image
                 resizeMode="contain"
                 source={require("../../AppDesigns/currentApp/images/Logo.png")}
                 style={styles.whitename}
               />
-            </View>
           }
           rightComponent={
               <View style={styles.notificationbell}>
                <TouchableOpacity style={styles.bellIcon} onPress={()=> navigation.navigate('InAppNotification')}>
-                <Icon name="bell-o" type="font-awesome"    size={25} color={colors.theme} />
+                <Icon name="bell-o" type="font-awesome"    size={25} color={colors.white} />
                 <Text style={styles.notificationText}>{inAppNotificationsCount}</Text>
                </TouchableOpacity> 
                 <TouchableOpacity onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} style={{marginLeft:20,justiafyContent:"flex-end"}}>
-                  <Icon name="phone" type="font-awesome"  size={25} color={colors.theme} />
+                  <Icon name="phone" type="font-awesome"  size={25} color={colors.white} />
                 </TouchableOpacity>
 
                 {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate('Stores')}>
@@ -159,9 +154,9 @@ import { DrawerActions } from '@react-navigation/native';
           />
           
         </View>
-          <TouchableOpacity style={{height:30,backgroundColor:colors.theme,alignItems:"center",paddingHorizontal:5,flexDirection:"row",justifyContent:"space-between"}} onPress={()=>navigation.navigate('LocationMain')}>
-              <Icon name="crosshairs-gps" type="material-community" size={20} color={colors.white} iconStyle={{}}/>
-              <Text numberOfLines={1} style={{flex:.98,color:colors.white}}>{location.address}</Text>
+          <TouchableOpacity style={styles.location} onPress={()=>navigation.navigate('LocationMain')}>
+              <Icon name="crosshairs-gps" type="material-community" size={20} color={colors.black} iconStyle={{}}/>
+              <Text numberOfLines={1} style={{flex:.98,color:colors.black}}>{location.address}</Text>
           </TouchableOpacity>
       </View>
     );

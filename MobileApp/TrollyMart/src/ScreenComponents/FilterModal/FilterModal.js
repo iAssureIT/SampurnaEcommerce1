@@ -46,11 +46,6 @@ const FilterModal = (props) => {
     sizeArray:[],
   });
   var payload = {};
-  console.log("filterOptions",filterOptions);
-  console.log("subCategory",subCategory);
-  console.log("brandsArray",brandsArray);
-  console.log("sizeArray",sizeArray);
-  console.log("localFilters",localFilters);
 //   const [filterListLocal, setFilterListLocal] ==================== useState(vehicleCategory);
   const dispatch = useDispatch();
 //   useEffect(() => {
@@ -164,7 +159,6 @@ const FilterModal = (props) => {
                   "Sub Category": (
                     <MultiSelectComponent
                       onSelect={(values) => {
-                        console.log('values on select', values);
                         setFilters({...localFilters, subCategory: values});
                       }}
                       selected={localFilters.subCategory}
@@ -178,7 +172,6 @@ const FilterModal = (props) => {
                   "Brand": (
                     <MultiSelectComponent
                       onSelect={(values) => {
-                        console.log('values on select', values);
                         setFilters({...localFilters, brandsArray: values});
                       }}
                       selected={localFilters.brandsArray}
@@ -192,7 +185,6 @@ const FilterModal = (props) => {
                   "Size": (
                     <MultiSelectComponent
                       onSelect={(values) => {
-                        console.log('values on select', values);
                         setFilters({...localFilters, sizeArray: values});
                       }}
                       selected={localFilters.sizeArray}
@@ -227,7 +219,6 @@ const FilterModal = (props) => {
               }}
               title='Apply'
               onPress={async() => {
-                console.log("localFilters",localFilters);
                 var payload ={
                     "vendorID"          : vendor_id,
                     "sectionUrl"        : sectionUrl,

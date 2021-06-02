@@ -56,6 +56,7 @@ export default StyleSheet.create({
 	mainrightside: {
 		// width: 108,
 		padding: 4,
+		// backgroundColor:"#fff"
 	},
 	sectionImages:{
 		// width: 100,
@@ -70,7 +71,12 @@ export default StyleSheet.create({
 	},
 	proddets: {
 		flexDirection: 'row',
-		marginBottom: '1%',
+		// marginBottom: '1%',
+	},
+	categoryContainer: {
+		flexDirection: 'row',
+		height:60,
+		// marginBottom: '1%',
 	},
 	imageMenuWraper:{	
 		borderWidth:1,

@@ -109,7 +109,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                   dispatch(getSearchResult(item,user_id,10));
                   Keyboard.dismiss();
                   }} style={styles.flatList}>
-                    <Highlighter
+                  <Highlighter
                     highlightStyle={{backgroundColor: '#eee'}}
                     searchWords={[globalSearch.searchText]}
                     textToHighlight={`${item}`}
@@ -147,16 +147,19 @@ export const Dashboard = withCustomerToaster((props)=>{
                 <Text style={value === "lowestlocation" ? styles.tabText : styles.tabText1}>Lowest Location</Text>
               </TouchableOpacity>
             </View>  */}
+            <View  style={[styles.formWrapper,{paddingVertical:5,marginTop:10}]}> 
+              {globalSearch.searchText ?
+                null
+              :
+                <MenuCarouselSection
+                  navigation  = {navigation} 
+                  showImage   = {true}
+                  boxHeight   = {80}
+                />
+              }
+            </View>
           <View  style={[styles.formWrapper,{paddingHorizontal:15,paddingVertical:5, marginBottom:'18%'}]}> 
-            {globalSearch.searchText ?
-              null
-            :
-              <MenuCarouselSection
-                navigation  = {navigation} 
-                showImage   = {true}
-                boxHeight   = {80}
-              />
-            }
+            
             {globalSearch.searchText ?
               null
             :
@@ -215,7 +218,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                   />
             :
             <View>
-              {productList.featuredList && productList.featuredList && productList.featuredList.length > 0 ? 
+              {/* {productList.featuredList && productList.featuredList && productList.featuredList.length > 0 ? 
                 <ProductList 
                   navigate    = {navigation.navigate} 
                   title       = {'Featured Products'}  
@@ -227,9 +230,9 @@ export const Dashboard = withCustomerToaster((props)=>{
                   limit       = {6}
                   loading     = {productList.loading}
                   />
-                : null}
+                : null} */}
                 
-              {productList.exclusiveList && productList.exclusiveList.length > 0  ? 
+              {/* {productList.exclusiveList && productList.exclusiveList.length > 0  ? 
                 <ProductList 
                   navigate    = {navigation.navigate} 
                   title       = {'Exclusive Products'}  
@@ -241,9 +244,9 @@ export const Dashboard = withCustomerToaster((props)=>{
                   limit       = {6}
                   loading     = {productList.loading}
                 />
-                : null}
+                : null} */}
 
-              {productList.discountedList && productList.discountedList.length > 0  ? 
+              {/* {productList.discountedList && productList.discountedList.length > 0  ? 
                 <ProductList 
                   navigate    = {navigation.navigate} 
                   title       = {'Discounted Products'}  
@@ -255,7 +258,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                   limit       = {6}
                   loading     = {productList.loading}
                   />
-                : null}
+                : null} */}
               </View>  
             }
           </View>  

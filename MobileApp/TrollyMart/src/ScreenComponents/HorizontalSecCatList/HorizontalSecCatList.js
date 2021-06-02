@@ -54,6 +54,7 @@ export const HorizontalSecCatList =(props)=>{
     }
     axios.post("/api/sections/get/list",formValues)
       .then((response) => {
+        console.log(" setProductList response",response);
         setProductList(response.data);
       })
       .catch((error) => {
@@ -68,6 +69,7 @@ export const HorizontalSecCatList =(props)=>{
           onPress={() =>{
               navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
               dispatch(getCategoryWiseList(item._id,user_id ? user_id : null,"lowestprice",props.section));
+              navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})
             }  
           }>
             <View style={styles.flx1}>

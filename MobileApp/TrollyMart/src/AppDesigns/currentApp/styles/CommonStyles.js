@@ -115,6 +115,9 @@ export default StyleSheet.create({
     subHeaderText :{
         fontSize: 15, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
     },
+    label :{
+        fontSize: 15, fontFamily: 'Montserrat-SemiBold',color:"#333"
+    },
     linkText:{
         color: colors.textLight,
         fontSize: 15,
@@ -126,13 +129,25 @@ export default StyleSheet.create({
         fontSize: 15,
         fontFamily:"Montserrat-Regular",
     },
+    noDataFound :{
+        fontSize: 20, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
+    },
 
 
     //add Button Style
     addBtnStyle: {
-		backgroundColor: colors.button,
+		backgroundColor: colors.cartButton,
 		minHeight: 30,
-		marginLeft: 15,
-		width: "80%",
+		width: "100%",
     },
+    addBtnText:{
+        fontFamily:"Montserrat-Regular",
+        fontSize  : 12
+    },
+    addBtnContainer:{
+        // marginTop:15,
+        padding:15
+        // alignSelf:'fl'
+        // alignSelf:'center',
+    } 
 });

@@ -4,7 +4,8 @@ import {
     SET_DISCOUNTED_LIST,
     SET_LOADING,
     SET_CATEGORY_WISE_LIST,
-    SET_CATEGORY_LIST
+    SET_CATEGORY_LIST,
+    SET_ALL_PRODUCT_LIST
 } from './types';
 import axios from 'axios';
 
@@ -24,7 +25,7 @@ export const getList = (productType,user_id,limit) => {
                 dispatch({
                     type        : SET_FEATURE_LIST,
                     payload: {
-                       featuredList : response.data
+                        featuredList : response.data
                     },
                 });
             }else if(productType==="exclusive"){
@@ -39,6 +40,14 @@ export const getList = (productType,user_id,limit) => {
                     type        : SET_DISCOUNTED_LIST,
                     payload: {
                        discountedList : response.data
+                    },
+                });
+            }
+            else if(productType==="view_all"){
+                dispatch({
+                    type        : SET_ALL_PRODUCT_LIST,
+                    payload: {
+                       allProductList : response.data
                     },
                 });
             }
@@ -79,7 +88,7 @@ export const getCategoryWiseList = (payload) => {
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{
                 console.log("payload",payload);
-                console.log("response",response);
+                console.log("response======>",response);
                 dispatch({
                     type: SET_CATEGORY_WISE_LIST,
                     payload: response.data,

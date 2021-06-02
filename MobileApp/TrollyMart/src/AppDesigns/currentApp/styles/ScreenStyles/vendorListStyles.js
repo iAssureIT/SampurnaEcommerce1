@@ -2,6 +2,10 @@ import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { colors } from '../styles.js';
 export default StyleSheet.create({
 	container:{
+		flex:1,
+		flex:1,
+		paddingHorizontal:15,
+		paddingVertical:5,
 		backgroundColor:"#fff"
 	},
 	regionalProductName:{

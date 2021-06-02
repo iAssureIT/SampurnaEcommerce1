@@ -58,7 +58,7 @@ export default StyleSheet.create({
   cartdetails:{
     flex:1,
     paddingHorizontal:15,
-    marginTop:15,marginBottom:"20%"
+    marginTop:15,marginBottom:"20%",
   },
   minpurchase:{
     color: "#c10000" ,

@@ -198,7 +198,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
                                           {pitem.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(pitem.originalPrice * pitem.quantity).toFixed(2)}</Text>}
                                         </View>
                                         <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}> {pitem.discountedPrice * pitem.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
                                         </View>
                                         {pitem.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>

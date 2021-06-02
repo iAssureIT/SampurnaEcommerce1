@@ -35,6 +35,7 @@ import StoreDetails               from '../Screens/Stores/StoreDetails.js';
 import {AllProductList}           from '../Screens/AllProductList/AllProductList.js';
 import {OrderDetails}             from '../Screens/MyOrders/OrderDetails.js';
 import {AccountDashboard}         from '../Screens/AccountDashboard/AccountDashboard.js';
+import {MyAccount}                from '../Screens/MyAccount/MyAccount.js';
 import {AccountInformation}       from'../Screens/AccountDashboard/AccountInformation.js';
 import ResetPwd                   from'../Screens/AccountDashboard/ResetPwd.js';
 import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
@@ -85,6 +86,7 @@ export const HomeStack = () => (
     <Home.Screen name="AccountDashboard"            component={AccountDashboard} />
     <Home.Screen name="ResetPwd"                    component={ResetPwd} />
     <Home.Screen name="AccountInformation"          component={AccountInformation} />
+    <Home.Screen name="MyAccount"                   component={MyAccount} />
     <Home.Screen name="MyProductReview"             component={MyProductReview} />
     <Home.Screen name="SupportSystem"               component={SupportSystem} />
     <Home.Screen name="OrderSummary"                component={OrderSummary} />

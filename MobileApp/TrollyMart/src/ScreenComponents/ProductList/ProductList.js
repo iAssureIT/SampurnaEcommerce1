@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList
+  TouchableOpacity, Image, FlatList, Alert,StyleSheet, ImageBackground
 } from 'react-native';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/ProductListStyles.js';
 import { Icon, Button }       from "react-native-elements";
@@ -35,7 +35,7 @@ export const ProductList = withCustomerToaster((props)=>{
   const [limit,setLimit]= useState(props.limit);
   useEffect(() => {
     getData();
-  },[]);
+  },[props]);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -99,7 +99,8 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
   const viewall=(limitRange)=>{
-    dispatch(getList(type,user_id,limitRange));
+    dispatch(getList("view_all",user_id,limitRange));
+    console.log("props.route",props.route);
     navigation.navigate(props.route,{"type":type,"limit":limitRange})
   }
 
@@ -162,22 +163,31 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
 
+
   const _renderlist = ({ item, index })=>{
+    console.log("item",item);
       var availablessiz = [];
       availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
       const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
       return (
-        <View key={index}  style={[styles.mainrightside,index%2===1&&{marginLeft:'5%'}]} >
+        <View key={index}  style={[styles.productContainer,index%2===1&&{marginLeft:'5%'}]} >
           <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency})}>
             <View style={styles.flx5}>
               <View style={styles.flx1}>
                 {
+                  
                   item.productImage && item.productImage.length > 0 ?
-                    <Image
+                    <ImageBackground
                       source={{ uri: item.productImage[0] }}
                       style={styles.subcatimg}
                       resizeMode="stretch"
-                    />
+                    >{item.discountPercent && item.discountPercent >0?
+                        <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
+                            <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
+                            <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
+                         </ImageBackground> :null
+                      }    
+                    </ImageBackground>
                     :
                     <Image
                       source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
@@ -185,7 +195,8 @@ export const ProductList = withCustomerToaster((props)=>{
                     />
                 }
                   <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,index)} >
-                    <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
+                    <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
+
                   </TouchableOpacity>
                 {
                   item.discountPercent > 0 ?
@@ -217,7 +228,7 @@ export const ProductList = withCustomerToaster((props)=>{
                       iconStyle={{ marginTop: 5, marginRight: 3 }}
                     /> */}
                     <Text style={styles.ogprice}>{currency} </Text>
-                    <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
+                   {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice} - </Text>:null}
                   </View>
                   <View style={[styles.flxdir,{alignItems:"center"}]}>
                     {/* <Icon
@@ -228,10 +239,10 @@ export const ProductList = withCustomerToaster((props)=>{
                       iconStyle={{ marginTop: 5}}
                     /> */}
                     {item.discountPercent > 0 ?
-                          <Text style={styles.ogprice}> - {item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                           </Text>
                         :
-                        <Text style={styles.ogprice}> - {item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                        <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
                       }
                   </View>
                 </View>
@@ -266,9 +277,9 @@ export const ProductList = withCustomerToaster((props)=>{
                 <Button
                     onPress={() => addToCart(item._id,item.vendor_ID,item.vendorName)}
                     titleStyle={CommonStyles.addBtnText}
-                    title="Add"
+                    title="ADD TO CART"
                     buttonStyle={CommonStyles.addBtnStyle}
-                    containerStyle={CommonStyles.addBtnClor}
+                    containerStyle={CommonStyles.addBtnContainer}
                   />
                 </View>
               </View>
@@ -285,10 +296,11 @@ export const ProductList = withCustomerToaster((props)=>{
           {props.title&&<View style={styles.maintitle}>
             <Text style={styles.title}>{props.title} </Text>
           </View>}
+
           {props.route &&<View style={styles.viewalltxt}>
             <View style={styles.sizedrpbtn}>
               <Button
-                onPress={() => {viewall(10)}}
+                onPress={() => {viewall(20)}}
                 titleStyle={styles.buttonText1}
                 title="View All"
                 buttonStyle={CommonStyles.addBtnStyle}
@@ -316,25 +328,27 @@ export const ProductList = withCustomerToaster((props)=>{
               // nestedScrollEnabled
               initialNumToRender            = {6}
               ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-              onEndReachedThreshold         = {0.5}
-              ListEmptyComponent            = {
-                <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-                <Image
-                  source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-                />
-              </View>
-            }
+              onEndReachedThreshold         = {0.6}
+            //   ListEmptyComponent            = {
+            //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+            //     <Image
+            //       source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+            //     />
+            //   </View>
+            // }
               onEndReached={({ distanceFromEnd }) => {
-                if(distanceFromEnd >= 0 && limit > 10) {
+                console.log("distanceFromEnd",distanceFromEnd);
+                if(distanceFromEnd === 0 && limit > 6) {
                   onEnd();
                      //Call pagination function
                 }
               }}
               getItemLayout={(data, index) => (
-                {length: 200, offset: 200 * index, index}
+                {length: 500, offset: 500 * index, index}
               )}
               /> 
         </View> 
       </React.Fragment>
     );
 })
+

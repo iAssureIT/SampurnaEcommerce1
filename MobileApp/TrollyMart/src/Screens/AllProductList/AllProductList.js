@@ -54,13 +54,13 @@ export const AllProductList  = withCustomerToaster((props)=>{
               <View style={styles.formWrapper}>
                 <View style={{marginTop:15}}>
                   {!loading ?
-                    productList[listType] && productList[listType].length > 0 ?
+                    productList.allProductList && productList.allProductList.length > 0 ?
                       <ProductList 
                         navigate        = {navigation.navigate} 
-                        newProducts     = {productList[listType]}  
+                        newProducts     = {productList.allProductList}  
                         userId          = {user_id} 
                         categories      = {[]}
-                        limit           = {10}
+                        limit           = {props.limit}
                         type            = {type}
                         loading         = {productList.loading}
                     />

@@ -23,6 +23,7 @@ import Modal                  from "react-native-modal";
 import Carousel               from 'react-native-banner-carousel-updated';
 import {SimilarProducts}      from '../../ScreenComponents/SimilarProducts/SimilarProducts.js';
 import {withCustomerToaster}  from '../../redux/AppState.js';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [isOpen,setOpen]                    = useState(false);
@@ -288,8 +289,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                  <Button
                     onPress={() => handlePressAddCart()}
                     title={"ADD TO CART"}
-                    buttonStyle={styles.button1}
-                    containerStyle={styles.buttonContainer1}
+                    buttonStyle={CommonStyles.addBtnStyle}
+                    containerStyle={CommonStyles.addBtnContainer}
                     icon={
                       <Icon
                         name="shopping-cart"

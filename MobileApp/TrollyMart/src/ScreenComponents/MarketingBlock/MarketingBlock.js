@@ -29,6 +29,7 @@ export const MarketingBlock=(props)=>{
     }
     axios.post('/api/deals/get/list',payload)
     .then((res)=>{
+      console.log("res marketingblock",res)
         setImages(res.data)
     })
     .catch((error)=>{
@@ -37,11 +38,12 @@ export const MarketingBlock=(props)=>{
  }
 
  const redirectPage=(item)=>{
-     if(item.sectionID){
-        navigation.navigate('CategoriesComponent',{section_id:item.sectionID})
-     }else if(item.categoryID){
-        navigation.navigate('SubCategoriesComp',{category_ID:item.categoryID})
-     }
+    //  if(item.sectionID){
+    //     navigation.navigate('CategoriesComponent',{section_id:item.sectionID})
+    //  }else if(item.categoryID){
+    //     navigation.navigate('SubCategoriesComp',{category_ID:item.categoryID})
+    //  }
+    navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})
  }
 
   const renderPage=(item, index)=>{

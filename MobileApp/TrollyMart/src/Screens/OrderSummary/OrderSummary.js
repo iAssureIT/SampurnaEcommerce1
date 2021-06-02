@@ -240,7 +240,6 @@ import { SafeAreaView }         from 'react-native';
                       <View style={{backgroundColor:"#fff",marginBottom:15}}>
                         <View style={{ flex: 0.6,flexDirection:"row",padding:10 }}>
                           <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName}</Text>
-                        <Text style={styles.totaldata}>Total</Text>
                       </View> 
                       {vendor.cartItems && vendor.cartItems.length>0 && vendor.cartItems.map((item,index)=>{
                         return(
@@ -278,7 +277,7 @@ import { SafeAreaView }         from 'react-native';
                                           {item.product_ID.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(item.product_ID.originalPrice * item.quantity).toFixed(2)}</Text>}
                                         </View>
                                         <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}> {item.product_ID.discountedPrice * item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            <Text style={styles.ogprice}> {(item.product_ID.discountedPrice * item.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
                                         </View>
                                         {item.product_ID.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
@@ -299,7 +298,7 @@ import { SafeAreaView }         from 'react-native';
                         <View style={styles.totaldetails}>
                             <View style={styles.flxdata}>
                               <View style={{ flex: 0.6,flexDirection:"row" }}>
-                                <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
+                                {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName}</Text> */}
                                 <Text style={styles.totaldata}>Total</Text>
                               </View>
                               <View style={{ flex: 0.4 }}>

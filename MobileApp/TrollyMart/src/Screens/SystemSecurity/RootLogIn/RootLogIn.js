@@ -261,7 +261,7 @@ const window = Dimensions.get('window');
                 </TouchableOpacity>
                 </View>
             </View>
-            <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
+            {/* <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center"}}>
               <GoogleSigninButton
                 style={{ width: window.width-50, height: 50 }}
@@ -270,7 +270,7 @@ const window = Dimensions.get('window');
                 onPress={()=>_signIn()}
                 // disabled={this.state.isSigninInProgress} 
                 />
-            </View>
+            </View> */}
             <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton

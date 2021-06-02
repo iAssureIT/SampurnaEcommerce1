@@ -64,7 +64,7 @@ export const Menu = (props)=>{
         </View>
       <View style={styles.menuWrapper}>
         {user_id!==""&&<View>
-        <TouchableOpacity onPress={()=> navigation.navigate('AccountDashboard')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('MyAccount')}>
           <View style={styles.menu}>
             <Icon 
               size={22} 
