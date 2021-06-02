@@ -37,7 +37,7 @@ import ProductList                  from './StoreManagement/product/productList/
 import BulkProductImageUpload       from './storeAdmin/bulkimageUpload/BulkProductImageUpload.js'
 import FileWiseProductList          from './StoreManagement/product/fileproductList/component/fileproductList.js';
 
-import AllOrdersList                from './StoreManagement/orders/component/AllOrders.js';
+import AllOrdersList                from './StoreManagement/orders/component/AllOrdersMVMP.js';
 import NewOrdersList                from './StoreManagement/orders/component/NewOrdersList.js';
 import VerifiedOrdersList           from './StoreManagement/orders/component/VerifiedOrdersList.js';
 import PackedOrdersList             from './StoreManagement/orders/component/PackedOrdersList.js';

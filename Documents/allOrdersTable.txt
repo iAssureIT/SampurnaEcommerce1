@@ -1,0 +1,21 @@
+
+First order = 1001
+
+MaxOrderNumber = 1001
+
+NewOrderNumber = MaxOrderNumber + 1;
+
+
+Order Number    Date        Customer        Total Price     Vendors         
+
+  1001      01/06/2021      Ashish Naik      AED 333.66     Lulu Hypermart  - AED 100    - New                      View 
+            10:10 am        Silicon Oasis                   Choithrams      - AED 123    - Processing Order         View
+                                                            Al Maya         - AED 110.66 - On the way               View
+
+  1001      01/06/2021      Ashish Naik      AED 333.66     Lulu Hypermart  - AED 100    - New                      View 
+            10:10 am                                        Choithrams      - AED 123    - Processing Order         View
+                                                            Al Maya         - AED 110.66 - On the way               View
+
+  1001      01/06/2021      Ashish Naik      AED 333.66     Lulu Hypermart  - AED 100    - New                      View 
+            10:10 am                                        Choithrams      - AED 123    - Processing Order         View
+                                                            Al Maya         - AED 110.66 - On the way               View

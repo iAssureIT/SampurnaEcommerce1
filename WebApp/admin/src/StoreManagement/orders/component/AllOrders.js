@@ -62,7 +62,11 @@ export default class AllOrders extends Component{
 				var createdAt 			= moment(response.data[i].createdAt).format("DD/MM/YYYY hh:mm a");
 				var status 				= response.data[i].status;
 				console.log("status => ",status);
-				var deliveryStatus 	= response.data[i].vendorOrders.deliveryStatus[response.data[i].vendorOrders.deliveryStatus.length-1].status === "Dispatch" ? 'Out for Delivery' : response.data[i].vendorOrders.deliveryStatus[response.data[i].vendorOrders.deliveryStatus.length-1].status;
+				console.log(" response.data[i].vendorOrders => ", response.data[i].vendorOrders);
+				console.log("response.data[i].vendorOrders.deliveryStatus => ", response.data[i].vendorOrders[0].deliveryStatus);
+				console.log("response.data[i].vendorOrders.deliveryStatus.length-1 => ", response.data[i].vendorOrders[0].deliveryStatus.length-1);
+				console.log(" => ", );
+				var deliveryStatus 	= response.data[i].vendorOrders[0].deliveryStatus[response.data[i].vendorOrders[0].deliveryStatus.length-1].status === "Dispatch" ? 'Out for Delivery' : response.data[i].vendorOrders[0].deliveryStatus[response.data[i].vendorOrders[0].deliveryStatus.length-1].status;
 				console.log("deliveryStatus => ", deliveryStatus)
 				var viewOrder 			=  "/viewOrder/"+response.data[i]._id;
 				// var deliveryStatus 	=  response.data[i].vendorOrders.deliveryStatus[response.data[i].vendorOrders.deliveryStatus.length-1].status;

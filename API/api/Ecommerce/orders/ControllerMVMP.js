@@ -43,10 +43,7 @@ exports.insert_orders = (req, res, next) => {
 		});
 
 		order.save()
-		.then(orderdata => {
-			// console.log("orderdata =====> ",orderdata);
-			// console.log("req.body.user_ID =====> ",req.body.user_ID);
-			         		
+		.then(orderdata => {			         		
 			/*======================== Remove Cart Items =============================*/
 
 			Carts.deleteOne({ "user_ID" : ObjectId(req.body.user_ID) })
@@ -74,12 +71,12 @@ exports.insert_orders = (req, res, next) => {
 								},
 							)
 							.then(productInventoryData=>{
-								console.log("Product Inventory data = ",productInventoryData);
+								// console.log("Product Inventory data = ",productInventoryData);
 								// res.status(200);
 								// console.log("productInventoryData._id = ",productInventoryData._id);
 								// console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
 								var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
-								console.log("newQuantity = ",newQuantity);
+								// console.log("newQuantity = ",newQuantity);
 
 								ProductInventory.updateOne(
 									{ _id : ObjectId(productInventoryData._id) },
@@ -96,7 +93,7 @@ exports.insert_orders = (req, res, next) => {
 									}
 								)		 
 								.then(inventoryupdateData=>{
-									console.log("inventoryupdateData = ",inventoryupdateData);
+									// console.log("inventoryupdateData = ",inventoryupdateData);
 									// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
 								})
 								.catch(err =>{
@@ -1829,6 +1826,7 @@ exports.list_bill_by_user = (req, res, next) => {
 	 });
 };
 exports.get_orders_with_filters = (req, res, next) => {
+	console.log("req.body => ",req.body)
   let selector = {};
   let status = req.body.status ? req.body.status : '';
   let franchiseID = req.body.franchiseID ? req.body.franchiseID : '';
@@ -1866,15 +1864,28 @@ exports.get_orders_with_filters = (req, res, next) => {
 		  "$redact":
 		  {
 			 "$cond": {
-				"if": { "$eq": [{ "$arrayElemAt": ["$deliveryStatus.status", -1] }, req.body.status] },
+				"if": { "$eq": [{ "$arrayElemAt": ["$vendorOrders.deliveryStatus.status", -1] }, req.body.status] },
 				"then": "$$KEEP",
 				"else": "$$PRUNE"
 			 }
-		  }
-		}])
+		  }		  
+		},
+		{
+			$lookup: {
+				from: "entitymaster",
+				let: { client_id: "$vendorOrders.vendor_id" },    
+				pipeline : [
+					{ $match: { $expr: { $eq: [ "$_id", "$$client_id" ] } }, },
+					{ $project : { _id:1, companyName:1 } }
+				],
+				as: "vendorOrders.vendorName"
+			}
+		}
+	])
 		.sort({ createdAt: -1 })
 		.exec()
 		.then(data => {
+			console.log("data => ",data);
 		  res.status(200).json(data);
 		})
 		.catch(err => {
@@ -1889,6 +1900,7 @@ exports.get_orders_with_filters = (req, res, next) => {
 		.sort({ createdAt: -1 })
 		.exec()
 		.then(data => {
+			console.log("data => ",data)
 		  res.status(200).json(data);
 		})
 		.catch(err => {

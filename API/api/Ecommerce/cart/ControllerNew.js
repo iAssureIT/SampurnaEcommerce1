@@ -11,7 +11,7 @@ const moment 	    = require('moment-timezone');
 
 /**=========== Add Cart Products ===========*/
 exports.insert_cartid = (req,res,next)=>{
-    console.log("req.body===",req.body);
+    // console.log("req.body===",req.body);
 
 	Carts.findOne({"user_ID": req.body.user_ID})
     .exec()
@@ -52,16 +52,16 @@ exports.insert_cartid = (req,res,next)=>{
 
                         if(productData !== null){
                             console.log("When same Product is already Available")  
-                            console.log("condition => ",(filteredVendorProducts && filteredVendorProducts.length > 0))
+                            // console.log("condition => ",(filteredVendorProducts && filteredVendorProducts.length > 0))
                             if (filteredVendorProducts && filteredVendorProducts.length > 0) {
-                                console.log("filteredVendorProducts=> ",filteredVendorProducts)
-                                console.log("filteredVendorProducts[0].vendor_quantityOfProducts =>",filteredVendorProducts[0].vendor_quantityOfProducts)
+                                // console.log("filteredVendorProducts=> ",filteredVendorProducts)
+                                // console.log("filteredVendorProducts[0].vendor_quantityOfProducts =>",filteredVendorProducts[0].vendor_quantityOfProducts)
                                 var vendor_quantityOfProducts  = parseInt(filteredVendorProducts[0].vendor_quantityOfProducts) + parseInt(req.body.quantity);
                             }else{
                                 var vendor_quantityOfProducts = 0;
                             }
                             var order_quantityOfProducts = productData.order_quantityOfProducts ? parseInt(productData.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
-                            console.log("vars => ",vendor_quantityOfProducts)
+                            // console.log("vars => ",vendor_quantityOfProducts)
                             Carts.updateOne(
                                 {'_id' : cartData._id, 'vendorOrders.vendor_id' : req.body.vendor_ID},
                                 // {$set : {
@@ -81,7 +81,7 @@ exports.insert_cartid = (req,res,next)=>{
                             )
                             .exec()
                             .then(data=>{
-                                console.log("updated data => ", productData)
+                                // console.log("updated data => ", productData)
                                 if(data.nModified == 1){
                                     Carts.updateOne(
                                         {'_id' : cartData._id, 'vendorOrders.vendor_id' : req.body.vendor_ID},
@@ -92,7 +92,7 @@ exports.insert_cartid = (req,res,next)=>{
                                     )
                                     .exec()
                                     .then(updateone=>{
-                                        console.log("updateone => ",updateone)
+                                        // console.log("updateone => ",updateone)
                                     })
                                     .catch(err =>{
                                         console.log('1',err);
@@ -207,7 +207,7 @@ exports.insert_cartid = (req,res,next)=>{
                     )
                     .exec()
                     .then(data=>{
-                        console.log("else updated => ",data)
+                        // console.log("else updated => ",data)
                         if(data.nModified == 1){
                             res.status(200).json({
                                 "message": "Product added to cart successfully.",
@@ -234,7 +234,7 @@ exports.insert_cartid = (req,res,next)=>{
             });
         }else{
             console.log("When some No cart data available") 
-            console.log("vendorCartItem => ",vendorCartItem);        
+            // console.log("vendorCartItem => ",vendorCartItem);        
             
             const cartDetails = new Carts({
                 _id                         : new mongoose.Types.ObjectId(),
@@ -245,14 +245,14 @@ exports.insert_cartid = (req,res,next)=>{
             });
             cartDetails.save()
             .then(saveddata=>{
-                console.log("saveddata => ",saveddata);
+                // console.log("saveddata => ",saveddata);
                 res.status(200).json({
                     "message"   : "Product added to cart successfully.",
                     "cartCount" : 1
                 });
             })
             .catch(err =>{
-                console.log('4',err);
+                // console.log('4',err);
                 res.status(500).json({
                     error: err
                 });
@@ -261,7 +261,7 @@ exports.insert_cartid = (req,res,next)=>{
         }		
 	})
 	.catch(err =>{
-        console.log('5',err);
+        // console.log('5',err);
 		res.status(500).json({
 			error: err
 		});

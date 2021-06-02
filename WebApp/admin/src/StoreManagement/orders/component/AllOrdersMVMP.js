@@ -1,0 +1,1120 @@
+import React, { Component }   from 'react';
+import $                      from 'jquery';
+import axios                  from 'axios';
+import jQuery                 from 'jquery';
+import swal                   from 'sweetalert';
+import S3FileUpload           from 'react-s3';
+// import { result }             from 'underscore';
+import IAssureTable           from "../OrderTable/IAssureTable.jsx";
+// import IAssureTable           from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
+import 'jquery-validation';
+import 'bootstrap/js/tab.js';
+// import '../css/CategoryManagement.css';
+// import { set } from 'mongoose';
+
+class AllOrdersList extends Component{
+	constructor(props) {
+		super(props);
+		this.state = {
+			"subcatgArr"             	: [],
+			"addEditModeCategory"      : "",
+			"addEditModeSubCategory"   : [],
+			"addEditMode"              : "",
+			"categoryImage"            : "",
+			/**=============== SubCategory Details ===============*/
+			"subcategorytableHeading"  : {
+														subCategoryTitle  	: "Subcategory Title",
+			},
+			"subcategorytableObjects"	: {
+														deleteMethod      	: 'delete',
+														apiLink              : '/api/category',
+														paginationApply      : true,
+														searchApply          : true,
+														editUrl              : '/project-master-data',
+														deleteUrl            : '/project-master-data',
+														patchStatusUrl       : '/api/category/patch/subcategory/status',
+														type                 : 'SubCategories',
+														showAction 			 : false
+			},
+			/**=============== Category Details ===============*/
+			"tableHeading"             : {
+														section              : "Section",
+														category             : "Category Title",
+														categoryNameRlang    : "Category Name RL",
+														categoryRank         : "Category Rank",
+														categoryDescription 	: "Category Description",
+														subCategory         	: "SubCategories"
+			},
+			"tableObjects"          	: {
+														deleteMethod        	: 'delete',
+														apiLink              : '/api/category',
+														paginationApply      : true,
+														searchApply          : true,
+														editUrl              : '/project-master-data/',
+														deleteUrl            : '/project-master-data',
+														patchStatusUrl      	: '/api/category/patch/status',
+														type                 : 'Categories',
+														showAction 			 : true
+			},
+			"sectionsList"          	: [],
+			"startRange"            	: 0,
+			"limitRange"            	: 10,
+			"editId"                	: this.props.editId ? this.props.editId : '',
+			"section"               	: 'Select Section',
+			"tableName"             	: 'Category-management',
+			"subtablename" 				: "Subcategory-management",
+			tableData 					: [],
+			subcategorytableData 		: []
+		};
+		this.openSubCategoryModal = this.openSubCategoryModal.bind(this);
+	}
+
+	handleChange(event){ 
+		const target = event.target;
+		const name   = target.name;
+
+		this.setState({
+			[name]: event.target.value,
+		});
+	}
+	
+	sectionChange(event){
+		// const target = event.target;
+		// const name   = target.name;
+
+		this.setState({
+			// section     : event.target.value.split('|')[0],
+			section     : event.target.value.split('|')[0],
+			section_ID  : event.target.value.split('|')[1],
+		},()=>{
+		  // console.log('sectionChange', this.state.section, this.state.section_ID);
+		});
+	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log("Inside componentWillRecive props",nextProps);
+		// console.log("EditId:===",this.state.editId);
+		
+		if(nextProps && nextProps.editId && nextProps.editId !== undefined &&  nextProps.history.location.pathname !== "/project-master-data"){      
+		  	this.setState({
+			  	editId : nextProps.editId
+		  	},()=>{
+			 	this.edit(this.state.editId);
+		  	})
+		}
+	}
+  
+	componentDidMount(){
+		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+		var token       = userDetails.token;
+		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
+
+		window.openSubCategoryModal	= this.openSubCategoryModal;
+		
+		window.scrollTo(0, 0);
+		// console.log("editId:",this.props.editId);
+		var inputBox 		= document.getElementById("categoryRank");
+		var invalidChars 	= ["-","+","e"];
+  
+		inputBox.addEventListener("keydown", function(e) {
+		  	if (invalidChars.includes(e.key)) {
+			 	e.preventDefault();
+		  	}
+		});
+  
+		if(this.state.editId && this.state.editId !== "undefined"){      
+		  	this.edit(this.state.editId);
+		}
+		$.validator.addMethod("regxsection", function (value, element, arg) {
+		  	return arg !== value;
+		}, "Please select the section");		
+		$.validator.addMethod("valueNotEquals", function(value, element, arg){
+		  	return arg !== value;
+		}, "Please select the section");
+		$.validator.addMethod("letterswithspace", function(value, element) {
+		  	return this.optional(element) || /^[a-z][a-z\s]*$/i.test(value);
+		}, "Please enter letters only");
+		$.validator.addMethod("charactersLength", function(value, element) {
+		  	return this.optional(element) || value.length <= 128;
+		}, "Please enter less than 128 characters");
+		$.validator.addMethod("digitsLength", function(value, element) {
+		  	return this.optional(element) || value.length <= 5;
+		}, "Please enter max 5 digits only.");
+
+		// $.validator.addMethod("regxA1", function(value, element, regexpr) {          
+		//   return regexpr.test(value);
+		// }, "Name should only contain letters & number.");
+  
+		$.validator.setDefaults({
+		  	debug 	: true,
+		  	success 	: "valid"
+		});
+
+		$("#categoryManagement").validate({
+		  	rules : {
+			 	section : {
+					required 			: true,
+					valueNotEquals 	: "Select Section"
+			 	},
+			 	category : {
+					required 			: true,
+					letterswithspace 	: true,
+					charactersLength 	: true
+			 	},
+				categoryRank : {
+					required 			: true,
+					digitsLength 		: true
+			 	}
+			 // categoryDescription: {
+			 //   required: true,
+			 //   // regxA1: /^[A-Za-z][A-Za-z0-9\-\s]/, 
+			 // },
+		  	},
+		  	
+			errorPlacement: function(error, element) {
+			 	if (element.attr("name") === "section"){
+					error.insertAfter("#section");
+				}
+			 	if (element.attr("name") === "category"){
+					error.insertAfter("#category");
+			 	}
+			 	if (element.attr("name") === "categoryRank"){
+					error.insertAfter("#categoryRank");
+			 	}
+			
+				// if (element.attr("name") === "categoryDescription"){
+				//   error.insertAfter("#categoryDescription");
+				// }         
+			}
+		});
+
+		this.getSectionData();
+		this.getDataCount();
+		this.getData(this.state.startRange,this.state.limitRange);
+		// this.getSubCategoryData(this.state.startRange,this.state.limitRange);
+	}
+
+	getDataCount(){
+		axios.get('/api/category/get/count')
+		.then((response)=>{
+		  	// console.log('dataCount', response.data);
+		  	this.setState({
+			 	dataCount : response.data.dataCount
+		  	})
+		})
+		.catch((error)=>{
+		  	console.log('error', error);
+		  	if(error.message === "Request failed with status code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You Need to Login Again. Click 'OK' to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+		});
+	}
+
+	
+	/**=========== getData() ===========*/
+	getData(startRange, limitRange){
+		var data = {
+		  startRange : startRange,
+		  limitRange : limitRange
+		}
+		
+		axios.post('/api/category/get/list', data)
+		.then((response)=>{
+		  	console.log('category tableData', response.data);
+		  
+		  	var tableData = response.data.reverse().map((a, i)=>{                      
+				return{ 
+					_id                   : a._id,
+					section               : a.section,
+					category              : a.category,
+					categoryNameRlang     : a.categoryNameRlang,
+					categoryRank          : a.categoryRank,
+					categoryDescription   : a.categoryDescription,
+					subCategory           : "<a aria-hidden='true' class='actionLinks' title='Show all SubCategories' id='" + a._id + "'data-toggle='modal' data-target='#subCategoryModal' onclick=window.openSubCategoryModal('"+ a._id + "')> View </a>",
+					status                : a.status,
+					subCategories 		  : a.subCategory
+				}
+			})
+			this.setState({
+				tableData : tableData
+			},()=>{
+				console.log("categories data => ",this.state.tableData);
+				if(this.state.category_id && this.state.category_id !== "undefined"){
+					this.getSubCategoryData();
+					// this.openSubCategoryModal(this.state.category_id);
+				}
+			})
+		})
+		.catch((error)=>{
+			console.log('error', error);
+			if(error.message === "Request Failed with Status Code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is Expired.",                
+					text  : "You need to login again. Click OK to Go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+		});
+	}
+
+
+	/**=========== getSubCategoryData() ===========*/
+	getSubCategoryData(){
+		if (this.state.category_id) {	
+			console.log("id => ", this.state.category_id)
+
+			axios.get('/api/category/get/one/'+this.state.category_id)
+			.then((response)=>{
+				console.log('One category tableData', response.data);
+				if(response.data && response.data !== undefined && response.data.subCategory && response.data.subCategory.length > 0){	
+					var subcategorytableData = response.data.subCategory;
+					this.setState({
+						subcategorytableData 	: subcategorytableData,
+						subcategoryDataCount 	: subcategorytableData.length,
+						category_id 		 	: this.state.category_id,
+						categoryName 			: response.data.category
+					})
+				}else{					
+					this.setState({
+						subcategorytableData 	: [],
+						subcategoryDataCount 	: 0,
+						category_id 			: this.state.category_id,
+						categoryName 			: ''
+					})
+				}
+				console.log("subcategorytableData => ",this.state.subcategorytableData);
+				// if(filteredCategory && filteredCategory.length > 0 && filteredCategory[0].subCategories && filteredCategory[0].subCategories.length > 0){
+				// 	var subcategorytableData = filteredCategory[0].subCategories;
+				// 	this.setState({
+				// 		subcategorytableData 	: subcategorytableData,
+				// 		subcategoryDataCount 	: subcategorytableData.length,
+				// 		category_id 		 	: category_id,
+				// 		categoryName 			: filteredCategory[0].category
+				// 	})
+				// }
+				// var tableData = response.data.reverse().map((a, i)=>{                      
+				// 	return{ 
+				// 		_id                   : a._id,
+				// 		section               : a.section,
+				// 		category              : a.category,
+				// 		categoryNameRlang     : a.categoryNameRlang,
+				// 		categoryRank          : a.categoryRank,
+				// 		categoryDescription   : a.categoryDescription,
+				// 		subCategory           : "<a aria-hidden='true' class='actionLinks' title='Show all SubCategories' id='" + a._id + "'data-toggle='modal' data-target='#subCategoryModal' onclick=window.openSubCategoryModal('"+ a._id + "')> View </a>",
+				// 		status                : a.status,
+				// 		subCategories 		  : a.subCategory
+				// 	}
+				// })
+				// this.setState({
+				// 	tableData : tableData
+				// },()=>{
+				// 	console.log("categories data => ",this.state.tableData);
+				// 	if(this.state.category_id && this.state.category_id !== "undefined"){
+				// 		this.openSubCategoryModal(this.state.category_id);
+				// 	}
+				// })
+			})
+			.catch((error)=>{
+				console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+					localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+						title : "Your Session is expired.",                
+						text  : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+						if (okay) {
+							window.location.href = "/login";
+						}
+					});
+				}
+			});
+		}
+	}
+	
+	/*======== openSubCategoryModal() ========*/
+	openSubCategoryModal(category_id){
+		this.setState({downloadFlag : false});
+		if(category_id){			
+			console.log("category_id => ",category_id);
+			console.log("tableData => ",this.state.tableData);
+			if(this.state.tableData && this.state.tableData.length > 0){
+				var filteredCategory = this.state.tableData.filter((filteredcategory)=> String(filteredcategory._id) === String(category_id));
+				console.log("filteredCategory => ",filteredCategory);
+				// console.log("filteredCategory[0].subCategories => ",filteredCategory[0].subCategories);
+				if(filteredCategory && filteredCategory.length > 0 && filteredCategory[0].subCategories && filteredCategory[0].subCategories.length > 0){
+					var subcategorytableData = filteredCategory[0].subCategories;
+					this.setState({
+						subcategorytableData 	: subcategorytableData,
+						subcategoryDataCount 	: subcategorytableData.length,
+						category_id 		 	: category_id,
+						categoryName 			: filteredCategory[0].category
+					})
+				}else{					
+					this.setState({
+						subcategorytableData 	: [],
+						subcategoryDataCount 	: 0,
+						category_id 			: category_id,
+						categoryName 			: ''
+					})
+				}
+				console.log("subcategorytableData => ",subcategorytableData);
+			}else{
+				this.setState({
+					subcategorytableData 	: [],
+					subcategoryDataCount 	: 0,
+					category_id 			: category_id
+				})
+			}			 
+		}
+	}
+	
+	addNewSubCatArray(event){
+		let arrLength = this.state.subcatgArr ? this.state.subcatgArr : null;
+		arrLength.push({
+			subCategoryCode 	: "a"+arrLength.length,
+			subCategoryTitle 	: "",
+			subCategoryImage 	: "",
+		});
+		this.setState({
+			subcatgArr : arrLength,
+		},()=>{
+			// console.log('subcatgArr',this.state.subcatgArr);
+		}); 
+	}
+
+	// addNewRow(index){
+	// 	return(
+	// 		<div className="col-lg-12 col-md-12 NOpadding newSubCatgArr">   
+	// 			<div className="col-lg-11 col-md-11 NOpadding">             
+	// 				<input type="text" id={index} value={this.state['subCategoryTitle'+index]} name={"subCategoryTitle"+index} onChange={this.handleChange.bind(this)} className={"form-control newSubCatg"+index} placeholder="Category Title" aria-label="Brand" aria-describedby="basic-addon1" ref={"newSubCatg"+index} />
+	// 			</div>
+	// 			<div className="col-lg-1 col-md-1 deleteSubCategory fa fa-trash" id={index} onClick={this.deleteSubCategory.bind(this)}>		
+	// 			</div>
+	// 		</div>
+	// 	);
+	// }
+	getSectionData(){
+		axios.get('/api/sections/get/list')
+		.then((res)=>{
+			// console.log('res', res.data);
+			this.setState({
+				sectionsList : res.data
+			})
+		})
+		.catch((error)=>{
+			console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is Expired.",                
+					text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+		})
+	}
+
+	deleteSubCategory(event){
+		event.preventDefault();
+		var id = event.target.id;
+		// console.log('subCategory Id',id);
+
+		let arrLength 	= this.state.subcatgArr ? this.state.subcatgArr : null;
+		// var index 		= arrLength.indexOf(id);
+		
+		arrLength.splice(arrLength.findIndex(v => v.subCategoryCode === id), 1);
+		this.setState({
+			subcatgArr : arrLength
+		},()=>{});
+	}
+
+	submitCategory(event){
+		event.preventDefault();
+		// console.log('bjgjbmbmb',$('#categoryManagement').valid());
+		if($('#categoryManagement').valid()){
+			var addRowLength 				= this.state.subcatgArr ? this.state.subcatgArr.length : null;
+			var categoryDimentionArray = [];
+			console.log("addRowLength----------",this.state.subcatgArr);
+
+		  	axios.get('/api/category/get/count')
+		  	.then((response)=>{
+			 	var catCodeLength = response.data.dataCount;
+			 	// console.log("catCodeLength",catCodeLength);
+			 	// console.log("addRowLength",addRowLength);
+				if(addRowLength){
+					for(var i=0;i<addRowLength;i++){
+						console.log("1 => ",($(".attributeName" + i).val()));
+						console.log("2 => ",($(".subCategoryImage"+i).attr("src")));
+						if(($(".attributeName" + i).val()) !== "" && ($(".attributeValue" + i).val()) !== ""){
+							var obj = {
+								"index"             : i,
+								"subCategoryCode"   : catCodeLength+'|'+i,
+								"subCategoryTitle"  : $(".newSubCatg"+i).val(),
+								"subCategoryUrl"    : $(".subcategoryUrl"+i).val(),
+								"subCategoryImage"  : $(".subCategoryImage"+i).attr("src"),
+							}
+							if($(".newSubCatg"+i).val()){
+								console.log("subcategory obj===",obj);
+								axios.post('/api/category/get/list')
+								.then((response)=>{
+									console.log("response in get Category list => ",response);
+
+								})
+								.catch((error)=>{
+									console.log('error', error);
+								});
+								// categoryDimentionArray.push(obj);
+								// var finalCategoryArray = Array.from(new Set(categoryDimentionArray.map(c => c.subCategoryTitle.toLowerCase()))).map(subCategoryTitle => {
+								//   console.log("c => ",c);
+								//   console.log("id => ",subCategoryTitle);
+								//   return{
+								//     subCategoryTitle : subCategoryTitle,
+								//   }
+								// })
+								categoryDimentionArray.push(obj);
+								var result = [];
+								if(categoryDimentionArray.length > 0){ 
+									console.log("categoryDimentionArray=> ",categoryDimentionArray)                   
+									const map    = new Map();
+									for (const item of categoryDimentionArray) {
+										if(!map.has(item.subCategoryTitle)){
+											map.set(item.subCategoryTitle, true);    // set any value to Map
+											result.push({
+												index             : item.index,
+												subCategoryTitle  : item.subCategoryTitle,
+												subCategoryCode   : item.subCategoryCode,
+												subCategoryUrl    : item.subCategoryUrl,
+												subCategoryImage  : item.subCategoryImage,
+												status            : "Published",
+											});
+										}
+									}
+								}
+								this.setState({
+									allowToSubmit: true
+								})
+							}else{
+								// console.log("subCategoryTitleErrora"+i, " subCategoryTitlea0Error");
+								this.setState({
+									["subCategoryTitleErrora"+i] 	: "This field is required.",
+									allowToSubmit 					:  false
+								})
+							}
+						}
+					}
+				}
+			 	// console.log("categoryDimentionArray",categoryDimentionArray);
+
+			 
+				var formValues = {
+					"section"                   : this.state.section,
+					"section_ID"                : this.state.section_ID,
+					"category"                  : this.refs.category.value,
+					"categoryNameRlang"         : this.refs.categoryNameRlang.value,
+					"categoryUrl"               : this.refs.categoryUrl.value,
+					// "subCategory"               : categoryDimentionArray ? categoryDimentionArray : [],
+					"subCategory"               : result,
+					"categoryDescription"       : this.refs.categoryDescription.value,
+					"categoryImage"             : this.state.categoryImage,
+					"categoryRank"              : this.state.categoryRank,
+				}
+
+				console.log("Formvalues = ", formValues);
+
+				axios.post('/api/category/post', formValues)
+				.then((response)=>{
+				  	/*swal({text  : response.data.message,});*/
+				  	swal(" ",(response.data.message ));
+				
+					this.setState({
+						"section"               	: 'Select',
+						"category"                 : '',
+						"categoryUrl"              : '',
+						"addEditModeCategory"      : '',
+						"addEditModeSubCategory"   : '',
+						"categoryDescription"      : '',
+						"subcatgArr"               : [],
+						"categoryImage"            : "",
+						"categoryRank"             : "",
+						"categoryNameRlang"        : '',
+						"status"                   : ''
+					});
+					$(':input').val('');
+					this.getData(this.state.startRange, this.state.limitRange);
+				})
+				.catch((error)=>{
+					console.log('error', error);
+					if(error.message === "Request failed with status code 401"){
+						localStorage.removeItem("userDetails");
+						localStorage.clear();
+						swal({  
+							title : "Your Session is Expired.",                
+							text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+						})
+						.then(okay => {
+							if (okay) {
+								window.location.href = "/login";
+							}
+						});
+					}
+				});
+		  })
+		  .catch((error)=>{
+				console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+					localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+						title : "Your Session is Expired.",                
+						text  : "You need to Login Again. Click 'OK' to Go to Login Page"
+					})
+					.then(okay => {
+						if (okay) {
+							window.location.href = "/login";
+						}
+					});
+				}
+			});
+		}
+	}
+	 
+	updateCategory(event){
+		event.preventDefault();
+		// console.log('bjgjbmbmb',$('#categoryManagement').valid());
+		if($('#categoryManagement').valid()){
+		  	var addRowLength            = this.state.subcatgArr ? this.state.subcatgArr.length : null;
+		  	var categoryDimentionArray  = [];
+		  	var newresult               = [];
+		  
+		  	var formValues = {
+				"category_ID"               : this.state.editId,
+				"section"                   : this.state.section,
+				"section_ID"                : this.state.section_ID,
+				"category"                  : this.refs.category.value,
+				"categoryUrl"               : this.refs.categoryUrl.value,
+				// "subCategory"               : categoryDimentionArray,
+				"subCategory"               : newresult,
+				"categoryDescription"       : this.refs.categoryDescription.value,
+				"categoryImage"             : this.state.categoryImage,
+				"categoryRank"              : this.state.categoryRank,
+				"categoryNameRlang"         : this.refs.categoryNameRlang.value
+			}
+
+		  	console.log("formValues = ", formValues);
+		  	axios.get('/api/category/get/count')
+		  	.then((response)=>{
+			 	var catCodeLength = response.data.dataCount;
+				if(addRowLength){
+					console.log("addRowLength => ",addRowLength);  
+					for(var i=0;i<addRowLength;i++){
+						var obj = {
+								"index"             : i,
+								"subCategoryCode"   : catCodeLength+'|'+i,
+								"subCategoryTitle"  : $(".newSubCatg"+i).val(),
+								"subCategoryUrl"    : $(".subcategoryUrl"+i).val(),
+								"subCategoryImage"    : $(".subCategoryImage"+i).attr("src"),
+						}
+						if($(".newSubCatg"+i).val()){
+							categoryDimentionArray.push(obj);							
+							this.setState({
+								allowToUpdate : true
+							})
+						}else{
+							// console.log("subCategoryTitleErrora"+i, " subCategoryTitlea0Error");
+							this.setState({
+								["subCategoryTitleErrora"+i] 	: "This field is required.",
+								allowToUpdate 						: false
+							})
+						}
+					}
+					if(i >= addRowLength){
+						if(categoryDimentionArray.length > 0){    
+							console.log("categoryDimentionArray => ",categoryDimentionArray);                
+							const map    = new Map();
+							for (const item1 of categoryDimentionArray) {
+								console.log("item => ", item1)
+								if(!map.has(item1.subCategoryTitle)){
+									map.set(item1.subCategoryTitle, true);    // set any value to Map
+									newresult.push({
+										index             : item1.index,
+										subCategoryTitle  : item1.subCategoryTitle,
+										subCategoryCode   : item1.subCategoryCode,
+										subCategoryUrl    : item1.subCategoryUrl,
+										subCategoryImage  : item1.subCategoryImage
+									});
+								}
+							}
+						}
+						console.log("newresult => ", newresult);
+					}
+				}
+
+			 	// if(this.state.allowToUpdate === true){
+				// console.log("In update");
+				axios.patch('/api/category/patch', formValues)
+				.then((response)=>{
+					swal({
+						text  : response.data.message,
+					});
+					this.getData(this.state.startRange, this.state.limitRange);
+					this.setState({
+						"section"                       : 'Select',
+						"category"                      : '',
+						"categoryUrl"                   : '',
+						"categoryRank"                  : '',
+						"addEditModeCategory"           : '',
+						"addEditModeSubCategory"        : '',
+						"categoryDescription"           : '',
+						"editId"                        : '',
+						"subcatgArr"                    : [],
+						"categoryNameRlang"             : '',
+						"categoryImage"                 : "",
+					},()=>{
+						this.props.history.push('/project-master-data');
+						// this.props.editId = '';
+					});
+					console.log("props => ",this.props);
+					// this.props.history.push('/category-management');					
+					// window.location.href ='/project-master-data';
+				})
+				.catch((error)=>{
+					console.log('error', error);
+					if(error.message === "Request failed with status code 401"){
+						localStorage.removeItem("userDetails");
+						localStorage.clear();
+						swal({  
+							title : "Your Session is Expired.",                
+							text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+						})
+						.then(okay => {
+							if (okay) {
+								window.location.href = "/login";
+							}
+						});
+					}
+				});
+			 // }
+		  	})
+		  	.catch((error)=>{
+			 	console.log('error', error);
+			 	if(error.message === "Request failed with status code 401"){
+				  	localStorage.removeItem("userDetails");
+				  	localStorage.clear();
+				  	swal({  
+						title : "Your Session is expired.",                
+						text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+				  	})
+				  	.then(okay => {
+				  		if (okay) {
+							window.location.href = "/login";
+				  		}
+				  	});
+				}
+		  	});
+		}
+	}
+	
+	edit(editId){
+		// var editId = id.editId; 
+		// console.log("edit Id send to axios:",editId);
+		// console.log("Id send to axios:",id);
+		axios.get('/api/category/get/one/'+editId)
+		.then((response)=>{
+		  	console.log('record to be edit', response.data);
+		  	if(response.data){
+				this.setState({
+					"section"                   : response.data.section,
+					"section_ID"                : response.data.section_ID,
+					"category"                  : response.data.category,
+					"categoryNameRlang"         : response.data.categoryNameRlang,
+					"categoryUrl"               : response.data.categoryUrl,
+					"categoryRank"              : response.data.categoryRank,
+					"addEditModeCategory"       : response.data.category,
+					"addEditModeSubCategory"    : response.data.subCategory,
+					"subcatgArr"                : response.data.subCategory,
+					"categoryDescription"       : response.data.categoryDescription,
+					"categoryImage"             : response.data.categoryImage,
+				},()=>{
+					console.log("this.state.section----",this.state.section);
+					console.log("this.state.section_ID----",this.state.section_ID);
+					console.log("this.state.category----",this.state.category);
+					console.log("this.state.categoryImage----",this.state.categoryImage);
+					var addRowLength = this.state.subcatgArr ? this.state.subcatgArr.length : 0;
+					if(addRowLength){
+						for(var i=0;i<addRowLength;i++){
+							console.log("subCategory => ",this.state.subcatgArr[i])
+							this.setState ({
+								['subCategoryTitle'+this.state.subcatgArr[i].subCategoryCode]  : this.state.subcatgArr[i].subCategoryTitle,
+								['subcategoryUrl'+this.state.subcatgArr[i].subCategoryCode] 	: this.state.subcatgArr[i].subCategoryUrl,
+								['subCategoryImage'+this.state.subcatgArr[i].subCategoryCode] 	: this.state.subcatgArr[i].subCategoryImage
+							},()=>{});
+						}
+					}
+				});
+		 	}
+		})
+		.catch((error)=>{
+			console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is Expired.",                
+					text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+		});
+	}
+	
+	uploadImage(event){
+		event.preventDefault();
+		var name 	= event.currentTarget.name;
+		var image 	= "";
+
+		// console.log("name => ", event.currentTarget.name);
+		if (event.currentTarget.files && event.currentTarget.files[0]) {
+			// for(var i=0; i<event.currentTarget.files.length; i++){
+			var file = event.currentTarget.files[0];
+			console.log("file => ",file);
+			if (file) {
+				var fileName  	= file.name; 
+				var ext 		= fileName.split('.').pop();  
+				if(ext === "jpg" || ext === "png" || ext === "jpeg" || ext==="webp" || ext==="WEBP" || ext === "JPG" || ext === "PNG" || ext === "JPEG"){
+					if (file) {
+						var objTitle = { fileInfo : file }
+						console.log("object => ",objTitle)
+						image = objTitle ;
+						
+					}else{          
+						swal("Images not uploaded");  
+					}//file
+				}else{ 
+					swal("Allowed images formats are (jpg,png,jpeg)");   
+				}//file types
+			}//file
+			// }//for 
+  			console.log("event.currentTarget.files => ",(event.currentTarget.files))
+			if(event.currentTarget.files){
+				// this.setState({
+				// 	categoryImage : categoryImage
+				// },()=>{
+				// 	// console.log("categoryImage => ",this.state.categoryImage)
+				// });  
+				main().then(formValues=>{
+					if(name === "file"){
+						this.setState({
+							categoryImage : formValues.image
+						}, ()=>{
+							console.log("categoryImage => ",this.state.categoryImage)
+						})
+					}else{
+						console.log("Image else => ",this.state.categoryImage);
+						this.setState({
+							[name] : formValues.image
+						}, ()=>{
+							console.log("subcategoryImage => ",name, this.state[name])
+						})
+					}
+				});
+				async function main(){
+					var config 	= await getConfig();
+					var s3url 	= await s3upload(image.fileInfo, config, this);
+
+					const formValues = {
+						"image"    : s3url,
+						"status"   : "New"
+					};	
+					console.log("formValues => ",formValues)
+					return Promise.resolve(formValues);
+				}
+				function s3upload(image,configuration){	
+					return new Promise(function(resolve,reject){
+						S3FileUpload
+						.uploadFile(image,configuration)
+						.then((Data)=>{
+							resolve(Data.location);
+						})
+						.catch((error)=>{
+							console.log(error);
+							if(error.message === "Request failed with status code 401"){
+								localStorage.removeItem("userDetails");
+								localStorage.clear();
+								swal({  
+									title : "Your Session is Expired.",                
+									text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+								})
+								.then(okay => {
+									if (okay) {
+										window.location.href = "/login";
+									}
+								});
+							}
+						})
+					})
+				}   
+				function getConfig(){
+					return new Promise(function(resolve,reject){
+						axios.get('/api/projectSettings/get/S3')
+						.then((response)=>{
+							// console.log("s3 response :",response.data);
+							const config = {
+								bucketName      : response.data.bucket,
+								dirName         : process.env.ENVIRONMENT,
+								region          : response.data.region,
+								accessKeyId     : response.data.key,
+								secretAccessKey : response.data.secret,
+							}
+							resolve(config);                           
+						})
+						.catch(function(error){
+							console.log(error);
+							if(error.message === "Request failed with status code 401"){
+								localStorage.removeItem("userDetails");
+								localStorage.clear();
+								swal({  
+									title : "Your Session is expired.",                
+									text  : "You need to login again. Click OK to go to Login Page"
+								})
+								.then(okay => {
+									if (okay) {
+										window.location.href = "/login";
+									}
+								});
+							}
+						})		
+					})
+				}        
+			}
+		}
+	}
+	
+	// deleteImage(event){		
+	// 	var id 					= event.target.id;
+	// 	var productImageArray 	= this.state.productImageArray;
+	// 	console.log('id', id);
+	// 	console.log('productImageArray', productImageArray);
+
+	// 	productImageArray.splice(productImageArray.findIndex(v => v === id), 1);
+	// 	this.setState({
+	// 		categoryImage 		: "",
+	// 		productImageArray : productImageArray
+	// 	},()=>{});
+	// }
+	
+	createCategoryUrl(event){
+		const target = event.target;
+		const name   = target.name;
+		this.setState({
+			[name]: event.target.value,
+		});
+		var url = event.target.value;
+		if(url){
+			url = url.replace(/\s+/g, '-').toLowerCase();
+			this.setState({
+				categoryUrl : url
+			})
+		}
+	}
+
+	deleteImage(event){
+		// event.preventDefault();
+		var name = event.currentTarget.id.split("-")[1];
+		console.log("name => ",name)
+		if(name === "file"){
+			this.setState({
+				categoryImage : ""
+			}, ()=>{
+				console.log("categoryImage => ",this.state.categoryImage)
+			})
+		}else{
+			console.log("Image else => ",this.state.categoryImage);
+			this.setState({
+				[name] : ""
+			}, ()=>{
+				console.log("subcategoryImage => ",name, this.state[name])
+			})
+		}
+	}
+	
+	getSearchText(searchText, startRange, limitRange){
+		this.getSearchCount(searchText);
+		var formValues={ 
+			"searchText"    : searchText,
+			"startRange"    : startRange,
+			"limitRange"    : limitRange
+		};
+		axios.post("/api/category/searchCategory",formValues)
+		.then((response)=>{ 
+			console.log('tableData', response.data);
+			var tableData = response.data.reverse().map((a, i)=>{                      
+				return{ 
+					_id                   : a._id,
+					section               : a.section,
+					category              : a.category,
+					categoryNameRlang     : a.categoryNameRlang,
+					categoryRank          : a.categoryRank,
+					categoryDescription   : a.categoryDescription,
+					subCategory           : "<a aria-hidden='true' class='actionLinks' title='Show all SubCategories' id='" + a._id + "'data-toggle='modal' data-target='#subCategoryModal' onclick=window.openSubCategoryModal('"+ a._id + "')> View </a>",
+					status                : a.status,
+					subCategories 		  : a.subCategory
+				}
+			})		 
+			this.setState({
+				tableData : tableData,
+				//dataCount : response.data.length
+			});
+		})
+		.catch((error)=>{
+			console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is Expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+		})
+	}
+	
+	getSearchCount(searchText){
+		var formValues = { 
+		  	"searchText" : searchText
+		};
+		axios.post("/api/category/searchCategoryCount",formValues)
+		.then((response)=>{ 
+			this.setState({
+				dataCount : response.data.dataCount
+			},()=>{
+			})
+		})
+		.catch((error)=>{
+			console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is Expired.",                
+					text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+		})
+	}
+	handleSubCatChange(event){
+		this.setState({
+			[event.target.name] 						: event.target.value,
+			["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
+		})
+	}
+
+	createSubCategoryUrl(event){
+		const target = event.target;
+		const name   = target.name;
+		this.setState({
+			[name] 										: event.target.value,
+			["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
+		});
+		var url = event.target.value;
+		if(url){
+			url = url.replace(/\s+/g, '-').toLowerCase();
+			this.setState({
+				["subcategoryUrl"+event.target.id] : url
+			})
+		}
+	}
+
+	selectedProducts(checkedProductsList) {
+		// console.log('checkedUsersList', checkedUsersList);
+		this.setState({
+			checkedProducts: checkedProductsList,
+			messageData: {}
+		})
+		// console.log("this.state.checkedUser",this.state.checkedUser);
+ 	}
+
+  	setunCheckedProducts(value) {
+		this.setState({
+			unCheckedProducts 	: value,
+			messageData 			: {}
+		})
+  	}
+
+	render(){		
+		return(
+			<div className="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div className="row">
+					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div className="formWrapper">
+							<section className="content">
+								<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent">
+									<div className="row">
+										<div className="">
+											<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
+												<h4 className="weighttitle NOpadding-right">All Orders </h4>
+											</div>
+                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+												<IAssureTable 
+													tableHeading          = {this.state.tableHeading}
+													twoLevelHeader        = {this.state.twoLevelHeader} 
+													dataCount             = {this.state.dataCount}
+													tableData             = {this.state.tableData}
+													getData               = {this.getData.bind(this)}
+													tableObjects          = {this.state.tableObjects}
+													getSearchText         = {this.getSearchText.bind(this)} 
+													tableName             = {this.state.tableName}
+													currentView           = {"Category-Management-table"}
+													selectedProducts      = {this.selectedProducts.bind(this)}
+													setunCheckedProducts  = {this.setunCheckedProducts.bind(this)}
+													unCheckedProducts     = {this.state.unCheckedProducts}
+												/>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
+export default AllOrdersList;
