@@ -177,11 +177,11 @@ class ShoppingVerticals extends Component {
                 Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                   Array.isArray(this.state.itemList) && this.state.itemList.map((data, index) => { 
                     { if(this.state.groupSettings.showOnlySection){
-                      url = "/section/"+data.itemUrl;
+                      url = "/vendor-list/"+data.itemUrl;
                     }else if(this.state.groupSettings.showOnlyCategory){
-                      url = "/category/"+data.itemUrl;
+                      url = "/vendor-list/"+data.itemUrl;
                     }else{
-                      url = "/subcategory/"+data.itemUrl;
+                      url = "/vendor-list/"+data.itemUrl;
                     }
                     }                     
                     return (

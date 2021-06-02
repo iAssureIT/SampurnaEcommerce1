@@ -23,10 +23,11 @@ class Product extends Component{
     }
 
     componentDidMount(){
-        // console.log("2. Inside product ComponentDidMount");
-        var user_ID = localStorage.getItem("user_ID"); 
-        const websiteModel = localStorage.getItem("websiteModel");      
-        const showLoginAs = localStorage.getItem("showLoginAs"); 
+        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        var user_ID                = userDetails.user_id; 
+        const websiteModel         = sampurnaWebsiteDetails.preferences.websiteModel;      
+        const showLoginAs          = sampurnaWebsiteDetails.preferences.websiteModel.showLoginAs; 
         if(user_ID!==null){     
           this.setState({
             user_ID:user_ID,
@@ -40,7 +41,7 @@ class Product extends Component{
     }
 
     addCart(formValues, quantityAdded, availableQuantity) {
-      if(localStorage.getItem('webSiteModel')==='FranchiseModel'){
+      if(this.state.webSiteModel === 'FranchiseModel'){
         axios.post('/api/carts/post', formValues)
           .then((response) => {
             // store.dispatch(fetchCartData());
@@ -107,16 +108,14 @@ class Product extends Component{
     }//end else websiteModel
     }
   
-    submitCart(event) { 
-      const user_ID = localStorage.getItem('user_ID');
-      if(user_ID){
+    submitCart(event) {
+      if(this.state.user_ID){
       var id = event.target.id;
-      if(localStorage.getItem("websiteModel")=== "FranchiseModel"){
+      if(this.state.websiteModel === "FranchiseModel"){
         var selectedSize = $('#'+id+"-size").val();      
         var size = event.target.getAttribute('mainsize');      
         var unit = event.target.getAttribute('unit');      
       }    
-      const userid = localStorage.getItem('user_ID');
       var availableQuantity = event.target.getAttribute('availablequantity');
       var currProId = event.target.getAttribute('currpro');
       // if(this.props.recentCartData && this.props.recentCartData.vendorOrders){
@@ -128,12 +127,12 @@ class Product extends Component{
       // }
       var quantityAdded=0;
       var formValues ={};
-      if(localStorage.getItem("websiteModel")=== "FranchiseModel"){
+      if(this.state.websiteModel === "FranchiseModel"){
         if(selectedSize === size){
            var quantity = 1;
            var totalWeight = selectedSize +" "+unit
            formValues = {
-            "user_ID": userid,
+            "user_ID": this.state.user_ID,
             "product_ID": event.target.id,
             "quantity": 1,  
             "selectedSize" : selectedSize,
@@ -146,7 +145,7 @@ class Product extends Component{
           quantity    = selectedSize/size;
           totalWeight = size*quantity +" "+unit;
           formValues = {
-            "user_ID"      : userid,
+            "user_ID"      : this.state.user_ID,
             "product_ID"   : event.target.id,
             "quantity"     : quantity,
             "selectedSize" : selectedSize,
@@ -157,7 +156,7 @@ class Product extends Component{
   
       }else{      
         formValues = {
-          "user_ID": userid,
+          "user_ID": this.state.user_ID,
           "product_ID": event.target.id,
           "quantity": 1,   
           "vendorName" : event.target.getAttribute('vendor_name'),
@@ -170,7 +169,7 @@ class Product extends Component{
         ['sizeCollage' + currProId]: false
       })
     }else{
-      if(localStorage.getItem('showLoginAs')==="modal"){
+      if(this.state.showLoginAs === "modal"){
         $('#loginFormModal').show();       
         }else{
         this.setState({
@@ -247,7 +246,7 @@ class Product extends Component{
       else {
         var previousUrl = window.location.href;
         localStorage.setItem("previousUrl",previousUrl);
-        if(localStorage.getItem('showLoginAs')==="modal"){
+        if(this.state.showLoginAs === "modal" ==="modal"){
           $('#loginFormModal').show();        
           }else{
           this.setState({
@@ -271,7 +270,7 @@ class Product extends Component{
   
 
     render(){
-      // console.log("1. newProducts----",this.state.newProducts);
+      console.log("1. newProducts----",this.props.newProducts);
 
       var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
@@ -280,7 +279,7 @@ class Product extends Component{
       // console.log("XSCol==",XSCol);
       return (
         <div className="row">
-         <Message messageData={this.state.messageData} /> 
+          <Message messageData={this.state.messageData} /> 
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => {  
                 var x = this.props.wishList && this.props.wishList.length > 0 ? this.props.wishList.filter((abc) => abc.product_ID === data._id) : [];
@@ -354,7 +353,7 @@ class Product extends Component{
                           }
                           <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
                             {
-                              localStorage.getItem("websiteModel")=== "FranchiseModel"?                                  
+                              this.state.websiteModel === "FranchiseModel"?                                  
                                 data.discountPercent ?    
                                 <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
                                   <span className={Style.price}><span className={Style.oldprice}>
@@ -401,7 +400,7 @@ class Product extends Component{
                           <div className={"col-12 NoPadding " +Style.NoPadding}>
                             <div className={"col-12 NoPadding " +Style.NoPadding}>                                  
                               {
-                                localStorage.getItem("websiteModel")=== "FranchiseModel"?
+                                this.state.websiteModel === "FranchiseModel"?
                                 <div className={"col-12 NoPadding " +Style.btnWrap +" " +Style.NoPadding}>                                                                             
                                     <div className={"col--6 NoPadding " +Style.selectSizeBox +" " +Style.NoPadding}>                                                                              
                                     <select className={"col-12 " +Style.selectdropdown +" " +Style.valid +" " +Style.availablesize +" " +Style.NoPadding} currpro={data._id} id={data._id +"-size"} mainsize={data.size} unit={data.unit} name="size" aria-invalid="false">

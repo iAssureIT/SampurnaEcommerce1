@@ -72,10 +72,8 @@ class Header extends React.Component {
         }
     }
     getCartCount() {
-        // console.log("inside cart count");
-        const userid = localStorage.getItem('user_ID');
-        if(userid){
-            axios.get("/api/carts/get/count/" + userid)
+        if(this.state.userID){
+            axios.get("/api/carts/get/count/" + this.state.userID)
             .then((response) => {
             //   console.log("cartcount--",response.data);
             store.dispatch(updateCartCount(response.data));
