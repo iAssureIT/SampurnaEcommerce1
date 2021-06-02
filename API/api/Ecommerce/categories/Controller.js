@@ -443,32 +443,19 @@ exports.update_category_status = (req,res,next)=>{
 };
 
 exports.update_subcategory_status = (req,res,next)=>{
-    // console.log("update_subcategory_status Body = ", req.body);
-    // console.log(" req.body.item_id ====" ,req.body.item_id);
-    // console.log(" req.body.status ====" ,req.body.status);
-
     Category.updateOne(
         { _id : ObjectId(req.body.item_id.split("-")[1]), 'subCategory._id' : ObjectId(req.body.item_id.split("-")[0])},  
         { $set : 
             {
-                // status                      : req.body.status,
                 'subCategory.$.status' 	: req.body.status,	
             }
         }
     )
     .exec()
     .then(data=>{
-        // console.log("SubCategory Updated data => ", data);       
-    
-        // if(data.nModified == 1){
-            res.status(200).json({
-                "message": "SubCategory Updated Successfully!"
-            });
-        // }else{
-        //     res.status(401).json({
-        //         "message": "Section Not Found"
-        //     });
-        // }
+        res.status(200).json({
+            "message": "SubCategory Updated Successfully!"
+        });
     })
     .catch(err =>{
         console.log(err);
@@ -481,27 +468,19 @@ exports.update_subcategory_status = (req,res,next)=>{
 /**========== fetch_categories_by_vendor ===========*/
 exports.fetch_categories_by_vendor = (req,res,next)=>{
     Section.findOne({sectionUrl : req.params.sectionUrl})
-    .exec()
     .then(sectiondata=>{
         if(sectiondata && sectiondata !== null && sectiondata !== undefined){  
 
-            // console.log("section data ===:", sectiondata._id);
             Product.find({section_ID : ObjectId(sectiondata._id), vendor_ID : ObjectId(req.params.vendorID), status : "Publish"}, {section_ID : 1, section : 1, category_ID : 1, category : 1,  subCategory_ID : 1, brand : 1})
             .then(productData=>{
 
-                console.log("product section data ===:", productData);
                 if(productData && productData.length > 0){
                     processData();
                     async function processData(){   
                         var brandList            = [...new Set(productData.map(product => product.brand))];               
                         var categories           = [...new Set(productData.map(product => String(product.category_ID)).filter(product => product !== 'undefined'))];
                         var subCategories        = [...new Set(productData.map(product => String(product.subCategory_ID)).filter(product => product !== 'undefined'))];
-                        console.log("brandList => ",brandList);
-                        // console.log("categories => ",categories);
-                        // console.log("subCategories => ",subCategories);
-                        // var categoryList = await getCategoryList(categories);
                         var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
-                        console.log("categoryAndSubcategoryList",categoryAndSubcategoryList);
                         res.status(200).json({
                             categoryList    : categoryAndSubcategoryList,
                             brandList       : brandList    

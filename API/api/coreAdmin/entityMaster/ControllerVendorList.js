@@ -2,6 +2,7 @@ const mongoose          = require("mongoose");
 const Products          = require('../../Ecommerce/products/Model');
 const Sections          = require('../../Ecommerce/sections/Model');
 const EntityMaster      = require('./ModelEntityMaster');
+const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
 const StorePreferences  = require('../../Ecommerce/StorePreferences/Model.js');
 const haversine         = require('haversine-distance')
 var ObjectId 		    = require('mongodb').ObjectID;
@@ -12,10 +13,9 @@ exports.getVendorList = (req,res,next)=>{
     Sections.find({"sectionUrl" : req.body.sectionUrl})
     .exec()
     .then(sectiondata=>{
-        console.log("sectiondata => ",sectiondata)
         var section_ID  = sectiondata[0]._id;
         var sectionName = sectiondata[0].section;
-        console.log("sectiondata => ",sectiondata[0]._id);
+        
         if(sectiondata && sectiondata.length > 0){
         Products.distinct("vendor_ID", {section_ID : section_ID} )
         .then(uniqueVendors =>{  
@@ -33,7 +33,8 @@ exports.getVendorList = (req,res,next)=>{
                             for(var i=0; i<vendorDetails.length; i++){
                                 // console.log("vendorDetails => ",vendorDetails[i])
                                 if(vendorDetails[i].locations && vendorDetails[i].locations.length > 0){
-                                    for(let j=0; j<vendorDetails[i].locations.length; j++){
+                                    
+                                    for(let j = 0; j < vendorDetails[i].locations.length; j++){
                                         var vendor_ID   = vendorDetails[i]._id;
                                         var vendorLogo  = vendorDetails[i].companyLogo[0];
                                         var vendorName  = vendorDetails[i].companyName;
@@ -83,6 +84,7 @@ exports.getVendorList = (req,res,next)=>{
                     }
                 })
                 .catch(err =>{
+                    console.log("Error while finding vendor's data => ",error);
                     res.status(500).json({
                         message : "500 Vendors Locations not found.",
                         error   : err,
@@ -95,7 +97,7 @@ exports.getVendorList = (req,res,next)=>{
             }
         })
         .catch(error =>{
-            console.log ("error = ",error);
+            console.log ("Error While finding distinct products for selected vendor = ",error);
             res.status(500).json({
                 message : "500 Some problem occurred while finding Vendors for Section : "+sectionName,        
                 error   : error
@@ -108,7 +110,7 @@ exports.getVendorList = (req,res,next)=>{
         }
     })
     .catch(err =>{
-        console.log("err => ",err);
+        console.log("Error while finding Section Data => ",err);
         res.status(500).json({
             error : err
         });
@@ -118,24 +120,32 @@ exports.getVendorList = (req,res,next)=>{
 /**=========== calcUserVendorDist() ===========*/
 function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
     return new Promise(function(resolve,reject){
-        //First point User Location
-        var userLocation = { lat: userLat, lng: userLong }
+        processDistance()
 
-        //Second point Vendor Location
-        var vendorLocation = { lat: vendorLat, lng: vendorLong }        
-        
-        //Distance in meters (default)
-        var distance_m = haversine(userLocation, vendorLocation);
+        async function processDistance(){
+            //First point User Location
+            var userLocation = { lat: userLat, lng: userLong }
 
-        //Distance in miles
-        var distance_miles = distance_m * 0.00062137119;
-        console.log("distance_miles => ",distance_miles);
+            //Second point Vendor Location
+            var vendorLocation = { lat: vendorLat, lng: vendorLong }        
+            
+            //Distance in meters (default)
+            var distance_m = haversine(userLocation, vendorLocation);
 
-        //Distance in kilometers
-        var distance_km = distance_m /1000; 
-        console.log("distance_km => ",distance_km);
-        
-        resolve(distance_km);
+            //Distance in miles
+            var distance_miles = distance_m * 0.00062137119;
+
+            //Distance in kilometers
+            var distance_km = distance_m /1000; 
+            
+            //get unit of distance
+            var unitOfDistance = await getAdminPreferences();
+            if(unitOfDistance.toLowerCase() === "mile"){
+                resolve(distance_miles);
+            }else{
+                resolve(distance_km);
+            }            
+        }
     });
 }
 
@@ -162,10 +172,9 @@ function getDistanceLimit(){
 /**=========== getAdminPreferences() ===========*/
 function getAdminPreferences(){
     return new Promise(function(resolve,reject){
-        StorePreferences.findOne()
+        AdminPreferences.findOne()
         .exec()
         .then(adminPreferences=>{
-            console.log("")
             if(adminPreferences !== null){
                 resolve(adminPreferences.unitOfDistance);
             }else{
@@ -173,7 +182,7 @@ function getAdminPreferences(){
             }            
         })
         .catch(err =>{
-            console.log("Error => ",err);
+            console.log("Error while fetching admin preferences => ",err);
             reject(err)
         });
     });

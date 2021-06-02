@@ -74,43 +74,45 @@ exports.insert_orders = (req, res, next) => {
 								},
 							)
 							.then(productInventoryData=>{
-								// console.log("Product Inventory data = ",productInventoryData);
+								console.log("Product Inventory data = ",productInventoryData);
 								// res.status(200);
 								// console.log("productInventoryData._id = ",productInventoryData._id);
 								// console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
 								var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
-								// console.log("newQuantity = ",newQuantity);
+								console.log("newQuantity = ",newQuantity);
+
 								ProductInventory.updateOne(
 									{ _id : ObjectId(productInventoryData._id) },
 									{ $set :{
-												currentQuantity   : newQuantity
-											},
+											currentQuantity   : newQuantity
+										},
 										$push : {								
 											updateLog       : {
 												date        : new Date(),
 												updatedBy   : ObjectId(req.body.user_ID),
-												order_id    : ObjectId(orderdata._id),
+												// order_id    : ObjectId(orderdata._id),
 											}
 										}
 									}
 								)		 
 								.then(inventoryupdateData=>{
-									// console.log("inventoryupdateData = ",inventoryupdateData);
-									console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
+									console.log("inventoryupdateData = ",inventoryupdateData);
+									// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
 								})
 								.catch(err =>{
-									res.status(500).json({
-										error 	: err,
-										message : 'Error While Updating Inventory'
-									});
+									console.log("Error While Updating Inventory")
+									// res.status(500).json({
+									// 	error 	: err,
+									// 	message : 'Error While Updating Inventory'
+									// });
 								}); 							
 							})
 							.catch(err =>{
-								console.log()
-								res.status(500).json({
-									error : error,
-									message : 'Error Finding Inventory Data'
-								});
+								console.log("Error Finding Inventory Data")
+								// res.status(500).json({
+								// 	error : error,
+								// 	message : 'Error Finding Inventory Data'
+								// });
 							}); 
 						} //for m
 					}//for l
