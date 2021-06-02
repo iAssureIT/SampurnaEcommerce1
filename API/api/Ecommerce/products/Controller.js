@@ -184,14 +184,14 @@ exports.bulkUploadProduct = (req,res,next)=>{
                                             if(EntityData && EntityData.length > 0 ){
                                                 var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0],EntityData);
                                             }else{
-                                                remark+= "Company Name not found";
+                                                remark+= "Vendor Company Does Not Exists";
                                             }
                                         }else{                                            
                                             var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0]);
-                                            if(EntityDataArray  !== "" && EntityDataArray !== undefined ){
+                                            if(EntityData  !== "" && EntityData !== undefined ){
                                                 var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0],EntityData);
                                             }else{
-                                                remark+= "Vendor not found";
+                                                remark+= "Vendor Company Does Not Exists";
                                             }
                                         } 
                                         // console.log('insertProductObject',insertProductObject)
@@ -243,7 +243,7 @@ exports.bulkUploadProduct = (req,res,next)=>{
                 //     remark += "product quantity not found, ";
                 // }
                 if (productData[k].originalPrice == undefined) {
-                    remark += "product price not found, ";
+                    remark += "Product's original does price not found, ";
                 }
             }            
 
@@ -2075,13 +2075,13 @@ exports.search_product = (req,res,next)=>{
                 res.status(200).json(products);
             }    
         }else{
-            res.status(404).json('Product Details not found');
+            res.status(200).json('Product Details not found');
         }
     })
     .catch(err =>{
         console.log(err);
         res.status(500).json({
-            error: err
+            error : err
         });
     });
 };
@@ -3029,47 +3029,45 @@ exports.getattributesbysubcategory = (req,res,next)=>{
 };
 
 
-var insertUnitOfMeasurment = async(unit,created) =>{
+var insertUnitOfMeasurment = async(unit, created) =>{
     // console.log("insertUnitOfMeasurment",unit);
     return new Promise(function(resolve,reject){ 
         UnitOfMeasurmentMaster.find({})
-            .exec()
-            .then(data=>{
-                // console.log("departmentExists",data);
-                var departmentExists = data.filter((data)=>{
-                    if (data.unit == unit) {
-                        return data;
-                    }
-                })
-
-                // console.log("department Exists",departmentExists);
-                if (departmentExists.length>0) {
-                    // console.log("departmentExists length > 0")
-                    departmentId = departmentExists[0]._id;
-                    resolve( data._id );
-                }else{
-                     unitOfMeasurmentMaster = new UnitOfMeasurmentMaster({
-                        _id                   : new mongoose.Types.ObjectId(),
-                        // companyID                   : req.body.companyID,
-                        unit            : unit,
-                        createdBy                   : created,
-                        createdAt                   : new Date()
-                    })
-                    unitOfMeasurmentMaster.save()
-                    .then(data=>{
-                        // console.log("saved");
-                        resolve( data._id );
-                    })
-                    .catch(err =>{
-                        reject(err); 
-                    });
+        .exec()
+        .then(data=>{
+            // console.log("departmentExists",data);
+            var departmentExists = data.filter((data)=>{
+                if ((data.unit).toLowerCase() === (unit).toLowerCase()) {
+                    return data;
                 }
             })
-            .catch(err =>{
-                reject(err);
-            }); 
-        
-          
+
+            // console.log("department Exists",departmentExists);
+            if (departmentExists.length>0) {
+                // console.log("departmentExists length > 0")
+                departmentId = departmentExists[0]._id;
+                resolve( data._id );
+            }else{
+                    unitOfMeasurmentMaster = new UnitOfMeasurmentMaster({
+                    _id             : new mongoose.Types.ObjectId(),
+                    // companyID      : req.body.companyID,
+                    unit            : unit,
+                    createdBy       : created,
+                    createdAt       : new Date()
+                })
+                unitOfMeasurmentMaster.save()
+                .then(data=>{
+                    // console.log("saved");
+                    resolve( data._id );
+                })
+                .catch(err =>{
+                    reject(err); 
+                });
+            }
+        })
+        .catch(err =>{
+            reject(err);
+        });          
     });
 }
 
@@ -3103,17 +3101,16 @@ exports.bulkProductUpdate = (req,res,next)=>{
                     }
                 }) 
                 console.log("EntityData => ",EntityData);
-                 var EntityDataArray = EntityData.map((entityArr, i)=>{
+                var EntityDataArray = EntityData.map((entityArr, i)=>{
                     return entityArr.companyName;
-                  })
-              }else{
+                })
+            }else{
                 var EntityData = allEntityData.filter((data)=>{
                     // console.log("data.companyName == productData[k].CompanyName",data.companyName == productData[k].CompanyName);
-                      if (data.companyName == allEntityData[0].companyName) {
+                    if (data.companyName == allEntityData[0].companyName) {
                         return data;
-                        }
-                }) 
-    
+                    }
+                })    
                 // var EntityDataArray = allEntityData[0].companyName;
             }
             if(productData[k].productCode !== undefined && productData[k].itemCode !== undefined){
@@ -3149,19 +3146,17 @@ exports.bulkProductUpdate = (req,res,next)=>{
                                             remark+= "Company Name not found"
 
                                            }
-                                       }else{
+                                        }else{
                                         console.log("Called 2")
                                         //  var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
-                                        if(EntityDataArray  != "" && EntityDataArray != undefined ){
-                                            var updateProductObject = await updateProductBulkRecords(productData[k]);
-                                           }else{
-                                            remark+= "Vendor not found"
+                                            if(EntityDataArray  != "" && EntityDataArray != undefined ){
+                                                var updateProductObject = await updateProductBulkRecords(productData[k]);
+                                            }else{
+                                                remark+= "Vendor not found"
+                                            }
+                                        } 
 
-                                           }
-
-                                       } 
-
-                                         console.log('updateProductBulk => ',updateProductObject)
+                                        console.log('updateProductBulk => ',updateProductObject)
 
                                         if (updateProductObject !== 0 && updateProductObject !== null) {
                                             console.log("updateProductObject.nModified => ",updateProductObject.nModified);
@@ -3170,7 +3165,6 @@ exports.bulkProductUpdate = (req,res,next)=>{
                                             }
                                         }else{
                                             // console.log('else updateProductBulk',updateProductObject)
-
                                             DuplicateCount++;
                                             remark += "Product Not Found ";
                                         }
@@ -3272,8 +3266,8 @@ exports.bulkProductUpdate = (req,res,next)=>{
 
         console.log("msgstr",msgstr);
         res.status(200).json({
-            "message": msgstr,
-            "warning": warning
+            "message" : msgstr,
+            "warning" : warning
         });
     }
 };
@@ -3357,10 +3351,9 @@ exports.bulkUploadProductUpdate = (req,res,next)=>{
                                         //  var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
                                         if(EntityDataArray  != "" && EntityDataArray != undefined ){
                                             var updateProductObject = await updateProductBulk(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0],EntityData);
-                                           }else{
+                                        }else{
                                             remark+= "Vendor not found"
-
-                                           }
+                                        }
 
                                        } 
 
@@ -3817,7 +3810,7 @@ function getAll(searchText) {
 exports.products_by_lowest_price = (req,res,next)=>{
     main();
     async function main(){
-        // console.log("req.body => ",req.body);
+        console.log("req.body => ",req.body);
         var userLat         = req.body.userLatitude;
         var userLong        = req.body.userLongitude;
         var selector        = {};
@@ -3825,11 +3818,11 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
 
         selector["$and"].push({"status": "Publish"});
-        
+        /**----------- Find Vendorwise Products ------------ */
         if(req.body.vendorID && req.body.vendorID !== '' && req.body.vendorID !== undefined){
             selector["$and"].push({"vendor_ID": ObjectId(req.body.vendorID) })
         }
-        
+        /**----------- Find Products for particular Section ------------ */
         if(req.body.sectionUrl && req.body.sectionUrl !== '' && req.body.sectionUrl !== undefined){
             var section_ID = await getSectionData(req.body.sectionUrl); 
             
@@ -3837,7 +3830,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
                 selector["$and"].push({"section_ID": ObjectId(section_ID) })
             }           
         }
-
+        /**----------- Find Products for selected category in particular Section ------------ */
         if(req.body.categoryUrl && req.body.categoryUrl !== '' && req.body.categoryUrl !== undefined){
             var categoryData = await getCategoryData(req.body.categoryUrl); 
             
@@ -3848,9 +3841,9 @@ exports.products_by_lowest_price = (req,res,next)=>{
                 // if(subCategory && subCategory.length > 0){
                 //     selector["$and"].push({"subCategory_ID": { $in : subCategory}})
                 // }  
+                /**----------- Find Products for selected subcategory in particular Section and Category ------------ */
                 if(req.body.subCategoryUrl && req.body.subCategoryUrl.length > 0){
-                    if(categoryData.subCategory && categoryData.subCategory.length > 0){
-                        // var subCategory    = categoryData.subCategory.filter(subCategoryData => subCategoryData.subCategoryUrl === req.body.subcategoryUrl);
+                    if(categoryData.subCategory && categoryData.subCategory.length > 0){                        
                         var subCategory    = filterByKey(req.body.subCategoryUrl, categoryData.subCategory).map((subCatg, i)=>{
                                                 return subCatg._id;
                                             });
@@ -3861,10 +3854,56 @@ exports.products_by_lowest_price = (req,res,next)=>{
                 }
             }
         }
-
-        if(req.body.subcategoryID && req.body.subcategoryID !== '' && req.body.subcategoryID !== undefined){
-            selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
+        /**----------- Filter Products By it's Brand ------------ */
+        if(req.body.brand && req.body.brand !== '' && req.body.brand !== undefined){
+            selector["$and"].push({"brand": req.body.brand })
         }
+
+        // if(req.body.subcategoryID && req.body.subcategoryID !== '' && req.body.subcategoryID !== undefined){
+        //     selector["$and"].push({"subCategory_ID": ObjectId(req.body.subcategoryID) })
+        // }
+
+        /**----------- Sorting Products ------------ */
+        if(req.body.sortProductBy && req.body.sortProductBy !== undefined){
+            if((req.body.sortProductBy).toLowerCase() === "az"){  
+                /**----------- Sorting Product A to Z ------------ */              
+                var returnFunction = function (firstProduct, secondProduct) {
+                    if (firstProduct.productName < secondProduct.productName) {
+                        return -1;
+                    }
+                    else if (firstProduct.productName > secondProduct.productName) {
+                        return 1;
+                    }
+                    else {
+                        return 0;
+                    }
+                }
+            }else if((req.body.sortProductBy).toLowerCase() === "za"){
+                /**----------- Sorting Product Z to A ------------ */   
+                var returnFunction = function (firstProduct, secondProduct) {
+                    if (firstProduct.productName > secondProduct.productName) {
+                        return -1;
+                    }
+                    else if (firstProduct.productName < secondProduct.productName) {
+                        return 1;
+                    }
+                    else {
+                        return 0;
+                    }
+                }
+            }else if((req.body.sortProductBy).toLowerCase() === "ph"){
+                /**----------- Sorting Product by Price High to Low ------------ */   
+                var returnFunction = function(a, b) {
+                    return b.discountedPrice - a.discountedPrice;
+                }
+            }else if((req.body.sortProductBy).toLowerCase() === "pl"){
+                /**----------- Sorting Product by Price Low to High ------------ */   
+                var returnFunction = function(a, b) {
+                    return a.discountedPrice - b.discountedPrice;
+                }
+            }
+        }
+        console.log("selector => ",selector);
 
         Products.aggregate([ 
             {$match : selector},
@@ -3915,16 +3954,16 @@ exports.products_by_lowest_price = (req,res,next)=>{
                                 if(i >= wish.length){
                                     // console.log("FinalVendorSequence======= ",FinalVendorSequence)
                                     if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                                        res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
+                                        res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }else{
-                                        res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
+                                        res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }                            
                                 }       
                             }else{
                                 if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                                    res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
+                                    res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 }else{
-                                    res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
+                                    res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 } 
                             }
                         })
@@ -3938,9 +3977,9 @@ exports.products_by_lowest_price = (req,res,next)=>{
                     }else{
                         if(FinalVendorSequence && FinalVendorSequence.length > 0){
                             // console.log(" ==== ",mapOrder(products, FinalVendorSequence, 'vendor_ID'))
-                            res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange));
+                            res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                         }else{
-                            res.status(200).json(products.slice(req.body.startRange, req.body.limitRange));
+                            res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                         } 
                     }    
                 }else{
@@ -3956,6 +3995,47 @@ exports.products_by_lowest_price = (req,res,next)=>{
         });
     }
 };
+
+// function sortProducts(sortMethod){
+//         switch (sortMethod.toLowerCase()) {
+//           case "pl":
+//             {
+//               this.ProdData = this.ProdData.sort((low, high) => low.Price - high.Price);
+//               break;
+//             }
+    
+//           case "High":
+//             {
+//               this.ProdData = this.ProdData.sort((low, high) => high.Price - low.Price);
+//               break;
+//             }
+    
+//           case "Name":
+//             {
+//               this.ProdData = this.ProdData.sort(function (low, high) {
+//                 if (low.Name < high.Name) {
+//                   return -1;
+//                 }
+//                 else if (low.Name > high.Name) {
+//                   return 1;
+//                 }
+//                 else {
+//                   return 0;
+//                 }
+//               })
+//               break;
+//             }
+    
+//           default: {
+//             this.ProdData = this.ProdData.sort((low, high) => low.Price - high.Price);
+//             break;
+//           }
+    
+//         }
+//         return this.ProdData;
+    
+//       }
+// }
 
 /**=========== getSectionData() ===========*/
 function getSectionData(sectionUrl){
