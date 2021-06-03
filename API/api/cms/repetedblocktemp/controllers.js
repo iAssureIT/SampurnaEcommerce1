@@ -1,5 +1,6 @@
 const mongoose	= require("mongoose");
-const RepBlock = require('./models.js');
+const RepBlock  = require('./models.js');
+var ObjectId    = require('mongodb').ObjectID;
 
 exports.repcreate_block = (req,res,next)=>{
     console.log("Request.body ======",req.body);
@@ -23,10 +24,10 @@ exports.repcreate_block = (req,res,next)=>{
                     )
                     .exec()
                     .then(data=>{
-                        res.status(200).json({
+                        // res.status(200).json({
                                             
-                                                ID      : repblock_id
-                                            });
+                        //                         ID      : repblock_id
+                        //                     });
                         if(data.nModified == 1){
                             res.status(200).json("Block updated");
                         }else{
@@ -86,7 +87,7 @@ exports.list_Rep_Block = (req,res,next)=>{
 
 exports.fetch_Rep_Block = (req,res,next)=>{
     console.log("inside single fetch");
-    RepBlock.findOne({"_id":req.params.tempRepBlock_id})
+    RepBlock.findOne({"_id": ObjectId(req.params.tempRepBlock_id)})
         .exec()
         .then(data=>{
             if(data){

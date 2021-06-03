@@ -2,7 +2,7 @@ const express 	= require("express");
 const router 	= express.Router();
 const BlockController = require('./controllers.js');
 
-router.post('/post', BlockController.create_block);
+// router.post('/post', BlockController.create_block);
 router.post('/post/pagetype', BlockController.fetch_pagetype);
 router.post('/post/blocktype', BlockController.fetch_blocktype);
 router.post('/post/pageblocktype', BlockController.fetch_page_block_type);

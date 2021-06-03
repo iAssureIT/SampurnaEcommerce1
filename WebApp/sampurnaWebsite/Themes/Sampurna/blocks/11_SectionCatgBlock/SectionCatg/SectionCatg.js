@@ -12,7 +12,6 @@ class ShoppingVerticals extends Component {
     this.state = {      
       productType        : props.type,
       itemList           : [
-        
       ],
       Productsloading    : true,
       blockTitle         : "Shopping Verticals",      
