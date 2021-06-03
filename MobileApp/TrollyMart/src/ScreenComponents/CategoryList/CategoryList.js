@@ -18,19 +18,18 @@ export const CategoryList = (props)=>{
   const [selected,setSelected]=useState('');
   const isFocused = useIsFocused();
   const store = useSelector(store => ({
-    data  : store.productList.categoryList,
+    categoryList  : store.productList.categoryList.categoryList,
   }));
-  const {data}=store;
+  const {categoryList}=store;
 
 
   useEffect(() => {
-    if(data && data.categoryList && data.categoryList.length >0){
-      props.setCategory(data?.categoryList[0])
-      setSelected(data?.categoryList[0]?.category);
+    if(categoryList && categoryList.length >0){
+      props.setCategory(categoryList[0])
+      setSelected(categoryList[0].category);
     }
-   },[isFocused,data?.categoryList[0]?.category]);
+   },[isFocused]);
 
-   console.log("categoryList",data.categoryList);
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, i })=>{
     return (
@@ -76,10 +75,10 @@ export const CategoryList = (props)=>{
       {/* <Text style={styles.title}>List of Sections</Text> */}
         <View style={styles.categoryContainer}>
           {
-          data.categoryList && data.categoryList.length > 0 ?
+          categoryList && categoryList.length > 0 ?
             <FlatList
               horizontal                      = {true}
-              data={data.categoryList}
+              data={categoryList}
               renderItem={item => _renderlist(item)}
               keyExtractor={item => item._id}
               showsHorizontalScrollIndicator={false}

@@ -3855,8 +3855,8 @@ exports.products_by_lowest_price = (req,res,next)=>{
             }
         }
         /**----------- Filter Products By it's Brand ------------ */
-        if(req.body.brand && req.body.brand !== '' && req.body.brand !== undefined){
-            selector["$and"].push({"brand": req.body.brand })
+        if(req.body.brand && req.body.brand.length >0){
+            selector["$and"].push({"brand": {$in:req.body.brand}})
         }
 
         // if(req.body.subcategoryID && req.body.subcategoryID !== '' && req.body.subcategoryID !== undefined){

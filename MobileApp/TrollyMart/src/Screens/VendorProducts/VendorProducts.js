@@ -46,8 +46,9 @@ export const VendorProducts = (props)=>{
   const store = useSelector(store => ({
     productList : store.productList,
     userDetails : store.userDetails,
+    brandList   : store.productList.categoryList.brandList,
   }));
-  const {productList,userDetails} = store;
+  const {productList,userDetails,brandList} = store;
   console.log("productList",productList);
 
   useEffect(() => {
@@ -165,7 +166,7 @@ export const VendorProducts = (props)=>{
           closeModal      = {() => setShowFilters(false)}
           visible         = {showFilters}
           subCategory     = {subCategory}
-          brandsArray     = {[]}
+          brandsArray     = {brandList.map((a, i)=>{return {label :a,value :a}})}
           sizeArray       = {[]}
           vendor_id       = {vendor.vendor_ID}
           sectionUrl      = {sectionUrl}

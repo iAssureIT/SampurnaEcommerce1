@@ -76,7 +76,6 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
   const addToCart=(productid,vendor_ID,vendorName)=>{
-    console.log("props",props);
     if(user_id){
       const formValues = {
         "user_ID"     : user_id,
@@ -100,7 +99,6 @@ export const ProductList = withCustomerToaster((props)=>{
 
   const viewall=(limitRange)=>{
     dispatch(getList("view_all",user_id,limitRange));
-    console.log("props.route",props.route);
     navigation.navigate(props.route,{"type":type,"limit":limitRange})
   }
 
@@ -165,7 +163,6 @@ export const ProductList = withCustomerToaster((props)=>{
 
 
   const _renderlist = ({ item, index })=>{
-    console.log("item",item);
       var availablessiz = [];
       availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
       const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
