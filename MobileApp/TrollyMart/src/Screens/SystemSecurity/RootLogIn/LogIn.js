@@ -177,33 +177,69 @@ const window = Dimensions.get('window');
           axios.post('/api/auth/post/signup/user/otp/new',formValues)
           .then((response) => {
             console.log("response",response);
-            setLoading(false)
-            // if(response.data.message == 'USER_CREATED'){            
-            //   var sendData = {
-            //     "event": "5",
-            //     "toUser_id": response.data.ID,
-            //     "toUserRole":"user",
-            //       "variables": {
-            //         "Username" : response.data.result.profile.firstname,
-            //         "OTP" : response.data.result.profile.otpEmail,
-            //       }
-            //     }
-            //     axios.post('/api/masternotifications/post/sendNotification', sendData)
-            //     .then((res) => {
-            //     })
-            //     .catch((error) => { console.log('notification error: ',error)})
-            //     setToast({text: "Great, Information submitted successfully", color: 'green'});
-            //     AsyncStorage.multiSet([
-            //       ['user_id_signup', response.data.ID],
-            //     ])
-            //     navigation.navigate('OTPVerification',{userID:response.data.ID,Username:response.data.result.profile.firstname});
-            // }else{
-            //   setToast({text: response.data.message, color:  colors.warning});
-            // }
+            // setLoading(false)
+            if(response.data.message == 'USER_CREATED'){            
+              var sendData = {
+                "event": "5",
+                "toUser_id": response.data.ID,
+                "toUserRole":"user",
+                  "variables": {
+                    "Username" : response.data.result.profile.firstname,
+                    "OTP" : response.data.result.profile.otpEmail,
+                  }
+                }
+                axios.post('/api/masternotifications/post/sendNotification', sendData)
+                .then((res) => {
+                })
+                .catch((error) => { console.log('notification error: ',error)})
+                AsyncStorage.multiSet([
+                  ['user_id', res.data.ID],
+                  ['token', res.data.token],
+                ]);
+                axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.token;
+                dispatch(
+                  setUserDetails({
+                    user_id     : res.data.ID,
+                    token       : res.data.token,
+                    firstName   : res.data.userDetails.firstName,
+                    lastName    : res.data.userDetails.lastName,
+                    email       : res.data.userDetails.email,
+                    mobile      : res.data.userDetails.mobile,
+                    countryCode : res.data.userDetails.countryCode,
+                    fullName    : res.data.userDetails.fullName,
+                    company_id  : res.data.userDetails.company_id,
+                    companyID   : res.data.userDetails.companyID,
+                    companyName : res.data.userDetails.companyName,
+                    status      : res.data.userDetails.status,
+                    role        : res.data.roles
+                  }),
+                );
+                navigation.push('App')
+            }else{
+              // setToast({text: response.data.message, color:  colors.warning});
+              dispatch(
+              setUserDetails({
+                user_id     : res.data.ID,
+                token       : res.data.token,
+                firstName   : res.data.userDetails.firstName,
+                lastName    : res.data.userDetails.lastName,
+                email       : res.data.userDetails.email,
+                mobile      : res.data.userDetails.mobile,
+                countryCode : res.data.userDetails.countryCode,
+                fullName    : res.data.userDetails.fullName,
+                company_id  : res.data.userDetails.company_id,
+                companyID   : res.data.userDetails.companyID,
+                companyName : res.data.userDetails.companyName,
+                status      : res.data.userDetails.status,
+                role        : res.data.roles
+              }),
+            );
+            navigation.push('App')
+            }
           })
           .catch((error) => {
             console.log("error",error);
-            setLoading(false);
+            // setLoading(false);
             setToast({text: 'Something went wrong.', color: 'red'});
           })
         }catch(error){

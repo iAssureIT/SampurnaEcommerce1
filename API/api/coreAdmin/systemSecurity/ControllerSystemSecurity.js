@@ -1731,7 +1731,9 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 								.then(user => {
 									if (user.length > 0) {
 										return res.status(200).json({
-											message: 'User already exits.'
+											message: 'User already exits.',
+											ID: result._id,
+											user 
 										});
 									} else {
 										bcrypt.hash(req.body.pwd, 10, (err, hash) => {
@@ -1801,7 +1803,7 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 																// 	});
 																// });
 															}else {
-																res.status(200).json({ message: "USER_NOT_CREATED",ID: result._id,result })
+																res.status(200).json({ message: "USER_NOT_CREATED"})
 															}
 														})
 														.catch(err => {
