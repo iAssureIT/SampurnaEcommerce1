@@ -26,10 +26,10 @@ export const CategoryList = (props)=>{
   useEffect(() => {
     if(categoryList && categoryList.length >0){
       props.setCategory(categoryList[0])
-      setSelected(categoryList[0].category);
+      setSelected(categoryList[0]?.category);
     }
-   },[isFocused]);
-
+   },[isFocused,categoryList && categoryList.length>0 ?categoryList[0]?.category : '']);
+   console.log("selected",selected);
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, i })=>{
     return (

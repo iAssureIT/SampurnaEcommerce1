@@ -1801,7 +1801,7 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 																// 	});
 																// });
 															}else {
-																res.status(200).json({ message: "USER_NOT_CREATED" })
+																res.status(200).json({ message: "USER_NOT_CREATED",ID: result._id,result })
 															}
 														})
 														.catch(err => {

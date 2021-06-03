@@ -5,9 +5,12 @@ import {
     SET_LOADING,
     SET_CATEGORY_WISE_LIST,
     SET_CATEGORY_LIST,
-    SET_ALL_PRODUCT_LIST
+    SET_ALL_PRODUCT_LIST,
+    SET_SEARCH_PAYLOAD,
+    STOP_SCROLL
 } from './types';
 import axios from 'axios';
+import { Alert } from 'react-native';
 
 export const getList = (productType,user_id,limit) => {
     return async (dispatch, getState) => {
@@ -74,29 +77,50 @@ export const getCategoryWiseList = (payload) => {
         payload.user_id         = store.userDetails.user_id;
         payload.userLatitude    = store.location?.coords?.latitude,
         payload.userLongitude   = store.location?.coords?.longitude,
+        console.log("payload",payload);
         axios.get("/api/category/get/list/"+payload.sectionUrl+"/"+payload.vendorID)
         .then((category)=>{
-            console.log("category",category);
             dispatch({
                 type: SET_CATEGORY_LIST,
                 payload: category.data,
             });
             if(!payload.categoryUrl){
-                payload.categoryUrl = category?.data[0]?.categoryUrl;
+                payload.categoryUrl = category?.data?.categoryList[0]?.categoryUrl;
                 // payload.subCategoryUrl = category?.data[0]?.subCategory[0]?.subCategoryUrl;
             }
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{
-                console.log("payload",payload);
-                console.log("response======>",response);
+                console.log("response",response);
+                if(payload.scroll && payload.scroll === true){
+                    // console.log('store.productList.categoryWiseList',store.productList.categoryWiseList);
+                    var newList = store.productList.categoryWiseList.concat(response.data);
+                    console.log("newList",newList);
+                    dispatch({
+                        type: SET_CATEGORY_WISE_LIST,
+                        payload: newList,
+                    });
+                   
+                }else{
+                    dispatch({
+                        type: SET_CATEGORY_WISE_LIST,
+                        payload: response.data,
+                    });
+                    
+                }
                 dispatch({
-                    type: SET_CATEGORY_WISE_LIST,
-                    payload: response.data,
-                });
+                    type: SET_SEARCH_PAYLOAD,
+                    payload: payload,
+                  });
                 dispatch({
                     type: SET_LOADING,
                     payload: false,
                 });
+                if(response.data < 10){
+                    dispatch({
+                        type: STOP_SCROLL,
+                        payload: true,
+                    });
+                }
             })
             .catch((error)=>{
                 console.log("error getList1",error);

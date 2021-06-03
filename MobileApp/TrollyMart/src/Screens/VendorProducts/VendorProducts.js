@@ -4,8 +4,9 @@ import {
   Text,
   View,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
-import { Icon }               from "react-native-elements";
+import { Icon,ButtonGroup }  from "react-native-elements";
 import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
@@ -18,9 +19,11 @@ import {CategoryList}         from '../../ScreenComponents/CategoryList/Category
 import {MenuCarouselSection}  from '../../ScreenComponents/Section/MenuCarouselSection.js';  
 import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import FilterModal            from '../../ScreenComponents/FilterModal/FilterModal.js';  
+import {SortModal}            from '../../ScreenComponents/SortModal/SortModal.js';  
 import { getCategoryWiseList }from '../../redux/productList/actions.js';
-import { ActivityIndicator } from 'react-native-paper';
-import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
+import { ActivityIndicator }  from 'react-native-paper';
+import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
+import {STOP_SCROLL,SET_CATEGORY_WISE_LIST}          from '../../redux/productList/types';
 
 export const VendorProducts = (props)=>{
   const isFocused = useIsFocused();
@@ -30,12 +33,12 @@ export const VendorProducts = (props)=>{
   const [wished,setWished]=useState('');
   const [packSize,setPackSize]=useState('');
   const [showFilters,setShowFilters]= useState(false);
+  const [selectedIndex, setIndex] = useState();
   const [subCategory,setSubCategory]= useState([]);
   const {navigation,route}=props;
-  const [payload_obj,setPayload] = useState();
+  const [showSort, toggleSort] = useState(false);
   const {vendor,sectionUrl,section}=route.params;
   const dispatch 		= useDispatch();
-  console.log("route.params",route.params);
 
   const filterOptions = [
     "Sub Category",
@@ -47,8 +50,9 @@ export const VendorProducts = (props)=>{
     productList : store.productList,
     userDetails : store.userDetails,
     brandList   : store.productList.categoryList.brandList,
+    payload     : store.productList.searchPayload,
   }));
-  const {productList,userDetails,brandList} = store;
+  const {productList,userDetails,brandList,payload} = store;
   console.log("productList",productList);
 
   useEffect(() => {
@@ -90,27 +94,52 @@ export const VendorProducts = (props)=>{
           value :e.categoryUrl+"^"+a.subCategoryUrl,        
       } 
     })
+    dispatch({
+      type:STOP_SCROLL,
+      payload:false
+    })
     setSubCategory(subCategoryArray);
-    var payload ={
-      "vendorID"          : vendor.vendor_ID,
-      "sectionUrl"        : sectionUrl,
-      "categoryUrl"       : e.categoryUrl,
-      "subCategoryUrl"    : [],
-      // "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
-      "startRange"        : 0,
-      "limitRange"        : 20
-    } 
-    setPayload(payload);
+    payload.vendorID        = vendor.vendor_ID;
+    payload.sectionUrl      = sectionUrl;
+    payload.categoryUrl     = e.categoryUrl;
+    payload.subCategoryUrl  = e.subCategoryUrl;
+    payload.scroll          = false;
+    payload.startRange      = 0;
+    payload.limitRange      = 10;
+    console.log("payload",payload);
+    dispatch({
+      type : SET_CATEGORY_WISE_LIST,
+      payload : []
+    })
     dispatch(getCategoryWiseList(payload));
   }
 
+  const sortOptions = [
+    {label: 'A -> Z',  sort_order: 'AZ'},
+    {label: 'Z -> A',  sort_order: 'ZA'},
+    {label: 'Price Low -> High', sort_order: 'PL'},
+    {label: 'Price High -> Low',  sort_order: 'PH'},
+  ];
+
+  const SortButton = () => (
+    <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+      <Icon color={"#333"} name="sort" />
+    </View>
+  );
+  const FilterButton = () => (
+    <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+      <Icon color={"#333"} name="filter" type="material-community" />
+    </View>
+  );
+
+  const buttons = [{element: SortButton}, {element: FilterButton}];
 
   return (
     <React.Fragment>
       <HeaderBar3
-        goBack={navigation.goBack}
-        headerTitle={"Product List"}
-        navigate={navigation.navigate}
+        goBack      = {navigation.goBack}
+        headerTitle = {"Product List"}
+        navigate    = {navigation.navigate}
       />
       <View style={styles.addsuperparent}>
         <MenuCarouselSection  
@@ -120,57 +149,82 @@ export const VendorProducts = (props)=>{
             selected    = {section}
         />
         <View style={{flexDirection:"row"}}>
-          <View style={{flex:0.1}}></View>
+          <View style={{flex:0.1}}/>
           <View style={{flex:0.9}}>
             <Text style={CommonStyles.headerText}>{vendor.vendorName}</Text>
           </View>  
+         {/* <View style={{flex:0.5}}> */}
+          {/* <ButtonGroup
+          onPress={(index) => {
+            if (index === 0) {
+              setIndex(0);
+              toggleSort(true);
+            } else {
+              toggleFilters(true);
+              setIndex(1);
+            }
+          }}
+          selectedIndex={selectedIndex}
+          buttons={buttons}
+          containerStyle={{
+            height: 50,
+            backgroundColor: '#fff',
+            marginTop: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            marginBottom: 0,
+            borderWidth:0
+          }}
+          selectedButtonStyle={{backgroundColor: 'transparent'}}
+          selectedTextStyle={{color: '#fa6801'}}
+        /> */}
+        {/* </View> */}
           <TouchableOpacity style={{flex:0.1}} onPress={()=>setShowFilters(true)}>
-            <Icon name="filter" type="font-awesome" color={"#333"}  />
-          </TouchableOpacity>  
+            <Icon name="filter" type="material-community" color={"#333"}  />
+          </TouchableOpacity>
+          <TouchableOpacity style={{flex:0.1}} onPress={()=>toggleSort(true)}>
+            <Icon name="sort" type="material-community" color={"#333"}  />
+          </TouchableOpacity>
         </View>
-
         <CategoryList 
           navigation  = {navigation}  
           showImage   = {true} 
           boxHeight   = {40} 
           setCategory = {setCategory}
         />
-
-        
-        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-          {productList.loading ?
-          <ActivityIndicator color={colors.theme}/>
-          :
-          productList.categoryWiseList && productList.categoryWiseList.length >0 ?<View style={styles.formWrapper}>
-        
-          <ProductList 
-            navigate      = {navigation.navigate} 
-            newProducts   = {productList.categoryWiseList}  
-            userId        = {userId}  
-            loading       = {productList.loading}
-            limit         = {5}
-            payload       = {payload_obj}
-            type          = "vendor_sub_cat"
-          />
-        </View>
+        {productList.categoryWiseList.length ===0 && productList.loading ?
+        <ActivityIndicator color={colors.theme}/>
+        : 
+          productList.categoryWiseList && productList.categoryWiseList.length >0 ?
+            <ProductList 
+              navigate      = {navigation.navigate} 
+              newProducts   = {productList.categoryWiseList}  
+              userId        = {userId}  
+              loading       = {productList.loading}
+              limit         = {10}
+              payload       = {payload}
+              type          = "vendor_sub_cat"
+            />
         :
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
           <Text style={CommonStyles.noDataFound}>No Product Found</Text>
         </View> 
       } 
-      </ScrollView>
-      <Footer/>
-     </View>
+      <SortModal
+        sortOptions={sortOptions}
+        closeModal={() => toggleSort(false)}
+        visible={showSort}
+      />
       <FilterModal
           filterOptions   = {filterOptions}
           closeModal      = {() => setShowFilters(false)}
           visible         = {showFilters}
           subCategory     = {subCategory}
-          brandsArray     = {brandList.map((a, i)=>{return {label :a,value :a}})}
+          brandsArray     = {brandList && brandList.length > 0 ? brandList.map((a, i)=>{return {label :a,value :a}}): []}
           sizeArray       = {[]}
-          vendor_id       = {vendor.vendor_ID}
-          sectionUrl      = {sectionUrl}
       />
+      <Footer/>
+     </View>
     </React.Fragment>
   );
 }

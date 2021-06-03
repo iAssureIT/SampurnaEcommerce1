@@ -118,6 +118,9 @@ export default StyleSheet.create({
     label :{
         fontSize: 15, fontFamily: 'Montserrat-SemiBold',color:"#333"
     },
+    text :{
+        fontSize: 15, fontFamily: 'Montserrat-Regular',color:"#333"
+    },
     linkText:{
         color: colors.textLight,
         fontSize: 15,

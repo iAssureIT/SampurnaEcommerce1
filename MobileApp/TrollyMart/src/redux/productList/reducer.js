@@ -5,7 +5,9 @@ import {
     SET_LOADING,
     SET_CATEGORY_WISE_LIST,
     SET_CATEGORY_LIST,
-    SET_ALL_PRODUCT_LIST
+    SET_ALL_PRODUCT_LIST,
+    SET_SEARCH_PAYLOAD,
+    STOP_SCROLL
   } from './types';
   
   const initialUserState = {
@@ -15,6 +17,8 @@ import {
     categoryWiseList  : [],
     categoryList      : [],
     allProductList    : [],
+    searchPayload     : '',
+    stop_scroll       : false
   };
   export default (state = initialUserState, {type, payload}) => {
     switch (type) {
@@ -38,6 +42,11 @@ import {
           ...state,
           categoryWiseList : payload
         };
+      case STOP_SCROLL:
+      return {
+        ...state,
+        stop_scroll : payload
+      };  
       case SET_CATEGORY_LIST:
       return {
         ...state,
@@ -47,6 +56,11 @@ import {
       return {
         ...state,
         allProductList : payload.allProductList
+      };
+      case SET_SEARCH_PAYLOAD:
+      return {
+        ...state,
+        searchPayload : payload,
       };
       case SET_LOADING:
         return {

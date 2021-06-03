@@ -20,7 +20,7 @@ import { ScrollView }           from 'react-native';
 import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
-
+import {STOP_SCROLL}          from '../../redux/productList/types';
 
 export const VendorList = withCustomerToaster((props)=>{
     const [loading,setLoading] =useState(false);
@@ -41,6 +41,10 @@ export const VendorList = withCustomerToaster((props)=>{
 
     const getData = ()=>{
         setLoading(true);
+        dispatch({
+            type:STOP_SCROLL,
+            payload:false
+          })
        var formValues =  {
         "startRange" : 0,
         "limitRange" : 10,
@@ -65,7 +69,7 @@ export const VendorList = withCustomerToaster((props)=>{
             "vendorID"          : vendor.vendor_ID,
             "sectionUrl"        : sectionUrl,
             "startRange"        : 0,
-            "limitRange"        : 5
+            "limitRange"        : 8
           } 
         dispatch(getCategoryWiseList(payload));
         navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section});

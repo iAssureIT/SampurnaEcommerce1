@@ -45,7 +45,7 @@ const FilterModal = (props) => {
     brandsArray:[],
     sizeArray:[],
   });
-  var payload = {};
+  const payload = useSelector(store =>store.productList.searchPayload);
 //   const [filterListLocal, setFilterListLocal] ==================== useState(vehicleCategory);
   const dispatch = useDispatch();
 //   useEffect(() => {
@@ -219,18 +219,23 @@ const FilterModal = (props) => {
               }}
               title='Apply'
               onPress={async() => {
-                var payload ={
-                    "vendorID"          : vendor_id,
-                    "sectionUrl"        : sectionUrl,
-                    "categoryUrl"       : localFilters.subCategory[0]?.value.split("^")[0],
-                    "subCategoryUrl"    : localFilters.subCategory.map(e=>e.value?.split("^")[1]),
-                    "startRange"        : 0,
-                    "limitRange"        : 20
-                  } 
+                // var payload ={
+                //     "categoryUrl"       : localFilters.subCategory[0]?.value.split("^")[0],
+                //     "subCategoryUrl"    : localFilters.subCategory.map(e=>e.value?.split("^")[1]),
+                //     "startRange"        : 0,
+                //     "limitRange"        : 20,
+                //     "brand"             : localFilters.brandsArray.map(e=>e.value),
+                //   } 
+                payload.categoryUrl     = localFilters.subCategory[0]?.value.split("^")[0];
+                payload.subCategoryUrl  = localFilters.subCategory.map(e=>e.value?.split("^")[1]);
+                payload.brand           = localFilters.brandsArray.map(e=>e.value);
+                payload.scroll          = false;
+                payload.startRange      = 0;
+                payload.limitRange      = 10;
                 dispatch(getCategoryWiseList(payload));
                 closeModal();
               }}
-              disabled={localFilters.subCategory.length>0?false:true}
+              disabled={localFilters.subCategory.length>0||localFilters.brandsArray.length>0?false:true}
               titleStyle={{color: colors.theme}}
               buttonStyle={{borderRadius: 0, backgroundColor: colors.layoutColor}}
             />

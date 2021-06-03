@@ -19,7 +19,7 @@ import { useNavigation }      from '@react-navigation/native';
 import { ActivityIndicator }  from 'react-native-paper';
 import { getSearchResult } 	  from '../../redux/globalSearch/actions';
 import { useIsFocused }       from "@react-navigation/native";
-
+import FastImage              from 'react-native-fast-image'
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
@@ -39,8 +39,10 @@ export const ProductList = withCustomerToaster((props)=>{
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
+    stop_scroll     : store.productList.stop_scroll
   }));
   const {currency}=store.preferences;
+  const {stop_scroll}=store;
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
       var availableSizes = [];
@@ -64,6 +66,7 @@ export const ProductList = withCustomerToaster((props)=>{
     }
     setProductDetails(props.newProducts);
     setType(props.type);
+    // setLimit(props.limit)
     var data =  await AsyncStorage.multiGet(['user_id', 'token']);
     setUserId(data[0][1]);
   }
@@ -108,7 +111,9 @@ export const ProductList = withCustomerToaster((props)=>{
     if(type === "Search"){
       dispatch(getSearchResult(props.searchText,user_id,limitRange));
     }if(type === "vendor_sub_cat"){
+        payload.startRange =limit+1;
         payload.limitRange =limitRange;
+        payload.scroll     = true;
         dispatch(getCategoryWiseList(payload));
     }else{
       dispatch(getList(type,user_id,limitRange));
@@ -174,17 +179,18 @@ export const ProductList = withCustomerToaster((props)=>{
                 {
                   
                   item.productImage && item.productImage.length > 0 ?
-                    <ImageBackground
+                    <FastImage
                       source={{ uri: item.productImage[0] }}
                       style={styles.subcatimg}
-                      resizeMode="stretch"
+                      // resizeMode="stretch"
+                      resizeMode={FastImage.resizeMode.contain}
                     >{item.discountPercent && item.discountPercent >0?
                         <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
                             <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
                             <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
                          </ImageBackground> :null
                       }    
-                    </ImageBackground>
+                    </FastImage>
                     :
                     <Image
                       source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
@@ -306,45 +312,36 @@ export const ProductList = withCustomerToaster((props)=>{
             </View>
           </View>}
         </View>
-        {/* <MenuCarouselSection
-           navigation  = {navigation} 
-          //  type        = {value}
-           showImage   = {true}
-          //  selected    = {section}
-         />
-        <CategoryList /> */}
-        <View style={[styles.proddets,{marginBottom:60}]}>
-           
-            <FlatList
-              data                          = {productsDetails}
-              showsVerticalScrollIndicator  = {false}
-              renderItem                    = {_renderlist} 
-              nestedScrollEnabled           = {true}
-              numColumns                    = {2}
-              keyExtractor                  = {item => item._id.toString()}
-              // nestedScrollEnabled
-              initialNumToRender            = {6}
-              ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-              onEndReachedThreshold         = {0.6}
-            //   ListEmptyComponent            = {
-            //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-            //     <Image
-            //       source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-            //     />
-            //   </View>
-            // }
-              onEndReached={({ distanceFromEnd }) => {
-                console.log("distanceFromEnd",distanceFromEnd);
-                if(distanceFromEnd === 0 && limit > 6) {
-                  onEnd();
-                     //Call pagination function
-                }
-              }}
-              getItemLayout={(data, index) => (
-                {length: 500, offset: 500 * index, index}
-              )}
-              /> 
-        </View> 
+        <FlatList
+          data                          = {productsDetails}
+          showsVerticalScrollIndicator  = {false}
+          contentContainerStyle         ={{paddingHorizontal:15,paddingBottom:60}}
+          renderItem                    = {_renderlist} 
+          nestedScrollEnabled           = {true}
+          numColumns                    = {2}
+          bounces={false}
+          keyExtractor                  = {item => item._id.toString()}
+          // initialNumToRender            = {6}
+          ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
+          onEndReachedThreshold          = {0.01}
+        //   ListEmptyComponent            = {
+        //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+        //     <Image
+        //       source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+        //     />
+        //   </View>
+        // }
+          onEndReached={() => {
+            // console.log("distanceFromEnd",distanceFromEnd);
+            if(limit > 6 && !stop_scroll) {
+              onEnd();
+                  //Call pagination function
+            }
+          }}
+          // getItemLayout={(data, index) => (
+          //   {length: 500, offset: 500 * index, index}
+          // )}
+          /> 
       </React.Fragment>
     );
 })

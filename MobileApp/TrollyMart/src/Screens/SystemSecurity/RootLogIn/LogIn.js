@@ -29,7 +29,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 
 GoogleSignin.configure({
-  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
   webClientId: "1023694532217-4b1v4vf0oukma7c8c1bnogpr40b28kii.apps.googleusercontent.com",
   offlineAccess: false,
 });
@@ -161,7 +161,51 @@ const window = Dimensions.get('window');
       try {
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
+        console.log("userInfo",userInfo);
         await GoogleSignin.revokeAccess();
+          var formValues = {
+            firstname   : userInfo.user.givenName,
+            lastname    : userInfo.user.familyName,
+            mobNumber   : "",
+            pincode     : "",
+            email       : userInfo.user.email,
+            pwd         : "welcome123",
+            role        : 'user',
+            status      : 'active',
+            countryCode : ""
+          }
+          axios.post('/api/auth/post/signup/user/otp/new',formValues)
+          .then((response) => {
+            console.log("response",response);
+            setLoading(false)
+            // if(response.data.message == 'USER_CREATED'){            
+            //   var sendData = {
+            //     "event": "5",
+            //     "toUser_id": response.data.ID,
+            //     "toUserRole":"user",
+            //       "variables": {
+            //         "Username" : response.data.result.profile.firstname,
+            //         "OTP" : response.data.result.profile.otpEmail,
+            //       }
+            //     }
+            //     axios.post('/api/masternotifications/post/sendNotification', sendData)
+            //     .then((res) => {
+            //     })
+            //     .catch((error) => { console.log('notification error: ',error)})
+            //     setToast({text: "Great, Information submitted successfully", color: 'green'});
+            //     AsyncStorage.multiSet([
+            //       ['user_id_signup', response.data.ID],
+            //     ])
+            //     navigation.navigate('OTPVerification',{userID:response.data.ID,Username:response.data.result.profile.firstname});
+            // }else{
+            //   setToast({text: response.data.message, color:  colors.warning});
+            // }
+          })
+          .catch((error) => {
+            console.log("error",error);
+            setLoading(false);
+            setToast({text: 'Something went wrong.', color: 'red'});
+          })
         }catch(error){
           if (error.code === statusCodes.SIGN_IN_CANCELLED) {
             console.log("sign in was cancelled");
@@ -261,7 +305,7 @@ const window = Dimensions.get('window');
                 </TouchableOpacity>
                 </View>
             </View>
-            {/* <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
+            <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center"}}>
               <GoogleSigninButton
                 style={{ width: 50, height: 50,borderRadius:15 }}
@@ -270,7 +314,7 @@ const window = Dimensions.get('window');
                 onPress={()=>_signIn()}
                 // disabled={this.state.isSigninInProgress} 
                 />
-            </View> */}
+            </View>
             <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
