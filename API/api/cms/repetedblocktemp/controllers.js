@@ -24,23 +24,23 @@ exports.repcreate_block = (req,res,next)=>{
                     )
                     .exec()
                     .then(data=>{
-                        // res.status(200).json({
+                        res.status(200).json({
                                             
-                        //                         ID      : repblock_id
-                        //                     });
-                        if(data.nModified == 1){
-                            res.status(200).json("Block updated");
-                        }else{
-                            res.status(404).json("Block  Not updated");
-                        }
+                            ID      : repblock_id
+                        });
+                        // console.log("data => ",data)
+                        // if(data.nModified === 1){
+                        //     res.status(200).json("Block updated");
+                        // }else{
+                        //     res.status(404).json("Block  Not updated");
+                        // }
                     })
                     .catch(err =>{
                         console.log(err);
                         res.status(500).json({
                             error: err
                         });
-                    });
-               
+                    });               
             })
             .catch(err =>{
                 console.log(err);
