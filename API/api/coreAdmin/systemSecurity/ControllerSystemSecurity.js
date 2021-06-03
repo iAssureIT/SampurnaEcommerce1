@@ -1732,7 +1732,7 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 									if (user.length > 0) {
 										return res.status(200).json({
 											message: 'User already exits.',
-											ID: result._id,
+											ID: user._id,
 											user 
 										});
 									} else {
