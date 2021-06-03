@@ -15,14 +15,14 @@ export default class AllOrders extends Component{
 	constructor(props) {
 	 	super(props);
 		this.state = {
-			"data" 					: [],
+			"data" 				: [],
 			"allProductsArray" 	: []
 		}
 		this.getOrders = this.getOrders.bind(this);
 	}
 	 
 	componentDidMount(){
-		var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+		var userDetails   	= JSON.parse(localStorage.getItem("userDetails"));
 		var token       	= userDetails.token;
 		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 
@@ -36,19 +36,19 @@ export default class AllOrders extends Component{
 		axios.post("/api/orders/get/get_orders")
 		.then((response)=>{
 			console.log("response.data of order==>",response.data)
-			var UsersArray 		= [];
-			var allProductsArray = [];
+			var UsersArray 			= [];
+			var allProductsArray 	= [];
 
 			for (let i = 0; i < response.data.length; i++) {
-				var _id 							= response.data[i]._id;
-				var orderID 					= response.data[i].orderID;
-				var userFullName 				= response.data[i].userFullName;
+				var _id 					= response.data[i]._id;
+				var orderID 				= response.data[i].orderID;
+				var userFullName 			= response.data[i].userFullName;
 				var totalQuantity 			= response.data[i].order_quantityOfProducts;
-				var productCount 				= response.data[i].order_numberOfProducts;
-				var totalAmount 				= response.data[i].paymentDetails.netPayableAmount;
-				var currency 					= response.data[i].paymentDetails.currency;
+				var productCount 			= response.data[i].order_numberOfProducts;
+				var totalAmount 			= response.data[i].paymentDetails.netPayableAmount;
+				var currency 				= response.data[i].paymentDetails.currency;
 				
-				var shippingtime 				= response.data[i].shippingtime;
+				var shippingtime 			= response.data[i].shippingtime;
 				var productarr 				= [];
 				var allocatedToFranchise 	= response.data[i].allocatedToFranchise ?response.data[i].allocatedToFranchise.companyName : null;
 				// var billNumber = response.data[i].billNumber ? response.data[i].billNumber : '';
@@ -59,13 +59,15 @@ export default class AllOrders extends Component{
 					// productarr.push(response.data[i].vendorOrders[j].productName +' '+response.data[i].products[j].quantity )
 				}
 
-				var createdAt 			= moment(response.data[i].createdAt).format("DD/MM/YYYY hh:mm a");
-				var status 				= response.data[i].status;
+				var createdAt 	= moment(response.data[i].createdAt).format("DD/MM/YYYY hh:mm a");
+				var status 		= response.data[i].status;
+				
 				console.log("status => ",status);
-				console.log(" response.data[i].vendorOrders => ", response.data[i].vendorOrders);
+				console.log("response.data[i].vendorOrders => ", response.data[i].vendorOrders);
 				console.log("response.data[i].vendorOrders.deliveryStatus => ", response.data[i].vendorOrders[0].deliveryStatus);
 				console.log("response.data[i].vendorOrders.deliveryStatus.length-1 => ", response.data[i].vendorOrders[0].deliveryStatus.length-1);
 				console.log(" => ", );
+				
 				var deliveryStatus 	= response.data[i].vendorOrders[0].deliveryStatus[response.data[i].vendorOrders[0].deliveryStatus.length-1].status === "Dispatch" ? 'Out for Delivery' : response.data[i].vendorOrders[0].deliveryStatus[response.data[i].vendorOrders[0].deliveryStatus.length-1].status;
 				console.log("deliveryStatus => ", deliveryStatus)
 				var viewOrder 			=  "/viewOrder/"+response.data[i]._id;
@@ -98,7 +100,7 @@ export default class AllOrders extends Component{
 			//  console.log("UsersArray",UsersArray);
 
 			this.setState({
-				data 					: UsersArray,
+				data 				: UsersArray,
 				allProductsArray 	: allProductsArray,
 				orderData 			: response.data
 			},()=>{
@@ -114,11 +116,11 @@ export default class AllOrders extends Component{
 				localStorage.clear();
 				swal({  
 					title : "Your Session is expired.",                
-					text : "You need to login again. Click OK to go to Login Page"
+					text  : "You need to login again. Click OK to go to Login Page"
 				})
 				.then(okay => {
 					if (okay) {
-							window.location.href = "/login";
+						window.location.href = "/login";
 					}
 				});
 			}

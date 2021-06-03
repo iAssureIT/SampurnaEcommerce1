@@ -732,7 +732,7 @@ class IAssureTable extends Component {
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
 									<option value="Not Selected" disabled>Select Limit</option>
-									<option value={10}>10</option>
+									{/* <option value={10}>10</option> */}
 									<option value={25}>25</option>
 									<option value={50}>50</option>
 									<option value={100}>100</option>
@@ -745,7 +745,7 @@ class IAssureTable extends Component {
 		       	}
 				<div className="col-lg-6  col-md-6  col-xs-12 col-sm-12 text-center mt50">
 	        		{/* <label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Filtered Products: <span >{this.state.dataCount}</span> </label> */}
-					<label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Selected Products: <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label>
+					{/* <label className="col-lg-6 col-md-6 col-sm-12 col-xs-12">Selected Products: <span >{this.state.allid ? this.state.allid.length : '0'}</span> </label> */}
 				</div> 
 				{
 		       		this.state.tableObjects.searchApply === true ? 
@@ -770,7 +770,7 @@ class IAssureTable extends Component {
 		                            	this.state.twoLevelHeader.apply === true ?
 		                            	this.state.twoLevelHeader.firstHeaderData.map((data, index)=>{
 		                            		return(
-												<th key={index} colSpan={data.mergedColoums} className="umDynamicHeader srpadd textAlignCenter">{data.heading}</th>			
+												<th key={index} colSpan={data.mergedColoums} rowSpan={data.mergedRows} className="umDynamicHeader srpadd textAlignCenter">{data.heading}</th>			
 		                            		);		                            		
 		                            	})	
 		                            	:
@@ -778,12 +778,12 @@ class IAssureTable extends Component {
 									}
 	                            </tr>
 	                            <tr className="">
-	                            <th className="umDynamicHeader srpadd textAlignLeft">
+	                            {/* <th className="umDynamicHeader srpadd textAlignLeft">
 									<div className="uMDetailContainer">
 										<input type="checkbox" className="allSelector col-lg-1 col-md-1 col-sm-3 col-xs-1" name="allSelector" onChange={this.checkAll.bind(this)}/>
-								    	{/* <span className="uMDetailCheck"></span> */}
+								    	 <span className="uMDetailCheck"></span> 
 								    </div>
-								</th>
+								</th> */}
 		                            { this.state.tableHeading ?
 										Object.entries(this.state.tableHeading).map( 
 											([key, value], i)=> {
@@ -795,10 +795,10 @@ class IAssureTable extends Component {
 										:
 										<th className="umDynamicHeader srpadd textAlignLeft"></th>
 									}
-									<th className="umDynamicHeader srpadd textAlignLeft">Featured</th>
+									{/* <th className="umDynamicHeader srpadd textAlignLeft">Featured</th>
 									<th className="umDynamicHeader srpadd textAlignLeft">Exclusive</th>
-									<th className="umDynamicHeader srpadd textAlignLeft">Status</th>
-									<th className="umDynamicHeader srpadd textAlignLeft">Action</th>
+									<th className="umDynamicHeader srpadd textAlignLeft">Status</th> */}
+									<th rowSpan={2} className="umDynamicHeader srpadd textAlignLeft">Action</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>
@@ -808,8 +808,7 @@ class IAssureTable extends Component {
 											// console.log("value",value)											
 											return(
 												<tr key={i} className="">
-													<td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>
-													
+													{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
 													{
 														Object.entries(value).map( 
 															([key, value1], i)=> {
@@ -849,7 +848,7 @@ class IAssureTable extends Component {
 															}
 														)
 													}
-													<td className="col-lg-1 textAlignCenter">
+													{/* <td className="col-lg-1 textAlignCenter">
                                                       <i onClick={this.changeAttribute.bind(this)} data-attribute="featured" data-ID={value._id} data-attributeValue={value.featured} title={ (value.featured === true )? "Disable It" : "Enable It" } className={'fa fa-check-circle prodCheckboxDim ' + ( value.featured === true ? "prodCheckboxDimSelected" : "prodCheckboxDimNotSelected" )} aria-hidden="true"></i>
                                                     </td>
                                                     <td className="col-lg-1 textAlignCenter">
@@ -861,16 +860,16 @@ class IAssureTable extends Component {
                                                         {/* <div onClick={this.changeStatusOfProd.bind(this)} data-ID={value._id} className={( value.status === ("Unpublish") ? ("prodStatUnpublish") : (value.status === "Publish" ? "prodStatPublish" : "prodStatDraft") )} data-status={value.status} >
                                                             {(value.status === ("Unpublish") ? ("Unpublished") : (value.status === ("Draft") ? ("Draft") : ("Published")))}
                                                         </div> */}
-                                                    </td>
+                                                    {/* </td>  */}
 													<td className="textAlignCenter">
 														<span class="displayInline">
-															<a href={"/product-details/"+value._id} className="" title="View" data-ID={value._id}>
+															<a href={"/viewOrder/"+value._id} className="" title="View" data-ID={value._id}>
 	                                                            <i className="fa fa-eye" aria-hidden="true"></i>
 	                                                        </a>&nbsp; &nbsp;
-															<i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
+															{/* <i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
 															<i className={"fa fa-image "} id={value._id} name={value.productNameBasic} nameRlang={value.productNameRlang} data-toggle="modal" title="Upload Product Image" data-target={"#productImageModal"} onClick={this.showImageModal.bind(this)}></i>&nbsp; &nbsp;
 														
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}
+															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>} */}
 															</span>
 														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
 	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -1023,6 +1022,54 @@ class IAssureTable extends Component {
                     </div>
                   	</div>
                 </div>
+				<table border="1">
+
+<tr>
+
+  <th rowspan="2" colspan="2"></th>
+
+  <th colspan="2">Fruit</th>
+
+</tr>
+
+
+
+<tr>
+
+  <th>Oranges</th>
+
+  <th>Grapefruit</th>
+
+</tr>
+
+
+
+<tr>
+
+  <th rowspan="2">Feature</th>
+
+  <th>Flavor</th>
+
+  <td>Sweet</td>
+
+  <td rowspan="2">Tart</td>
+
+</tr>
+
+
+
+<tr>
+
+  <th>Size</th>
+
+  <td>Small</td>
+
+  {/* <td>Large</td> */}
+
+</tr>
+
+</table>
+
 	            
 
             </div>

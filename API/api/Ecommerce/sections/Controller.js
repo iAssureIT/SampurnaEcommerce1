@@ -238,7 +238,7 @@ exports.deleteAllSections = (req, res, next) => {
 
 /**=========== get_list_for_section_category_block() =========== */
 exports.get_list_for_section_category_block = (req,res,next)=>{
-    console.log("secreq.body => ",req.body);
+    // console.log("secreq.body => ",req.body);
     var startRange = 0;
     var selector        = {}; 
     selector['$and']    = [];
@@ -256,7 +256,7 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
         var limitRange = req.body.numOfRows * req.body.numOfItemPerRow;
     }
 
-    console.log("selector => ",selector)
+    // console.log("selector => ",selector)
 
     Sections.aggregate([
         {$match : selector},
@@ -271,7 +271,7 @@ exports.get_list_for_section_category_block = (req,res,next)=>{
     ])
     .exec()
     .then(sectiondata=>{
-        console.log("section data => ", sectiondata);
+        // console.log("section data => ", sectiondata);
         var returnData = [];
         if (sectiondata && sectiondata.length > 0) {  
             processData();
@@ -403,7 +403,7 @@ var getCategoryBrands = async(section_id, category_id, subCategory_id) =>{
 
 
 exports.update_section_status = (req,res,next)=>{
-    console.log("update_section_status Body = ", req.body);
+    // console.log("update_section_status Body = ", req.body);
     Sections.updateOne(
         { _id : ObjectId(req.body.item_id)},  
         { $set : 
@@ -425,7 +425,7 @@ exports.update_section_status = (req,res,next)=>{
             })
             .exec()
             .then(data=>{
-                console.log(data);
+                // console.log(data);
             }) 
             .catch(err =>{console.log(err);})
     

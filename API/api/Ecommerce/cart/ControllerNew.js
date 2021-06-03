@@ -185,7 +185,7 @@ exports.insert_cartid = (req,res,next)=>{
                             });
                         });                      
                     }else{                        
-                        console.log("When no Products availabe for same vendor")  
+                        // console.log("When no Products availabe for same vendor")  
                         // var order_quantityOfProducts = cartData.order_quantityOfProducts ? parseInt(cartData.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
                         // var order_numberOfProducts   = cartData.order_numberOfProducts  ? parseInt(cartData.order_numberOfProducts) + 1 : 0;                 
                         var order_quantityOfProducts = cartData.order_quantityOfProducts ? parseInt(cartData.order_quantityOfProducts) + parseInt(req.body.quantity) : parseInt(req.body.quantity);
@@ -233,7 +233,7 @@ exports.insert_cartid = (req,res,next)=>{
                 });
             });
         }else{
-            console.log("When some No cart data available") 
+            // console.log("When some No cart data available") 
             // console.log("vendorCartItem => ",vendorCartItem);        
             
             const cartDetails = new Carts({
@@ -302,8 +302,8 @@ exports.list_cart_product = (req,res,next)=>{
                     data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
                     if(wish.length > 0){
                         for(var k=0; k<wish.length; k++){
-                            console.log("String(wish[k].product_ID)",String(wish[k].product_ID));
-                            console.log("String(data.vendorOrders[i].cartItems[j].product_ID._id)",String(data.vendorOrders[i].cartItems[j].product_ID._id));
+                            // console.log("String(wish[k].product_ID)",String(wish[k].product_ID));
+                            // console.log("String(data.vendorOrders[i].cartItems[j].product_ID._id)",String(data.vendorOrders[i].cartItems[j].product_ID._id));
                             if(String(wish[k].product_ID) === String(data.vendorOrders[i].cartItems[j].product_ID._id)){
                                 data.vendorOrders[i].cartItems[j].product_ID.isWish = true;
                                 break;
@@ -388,33 +388,33 @@ exports.count_cart = (req,res,next)=>{
 
 /*============ Remove Cart Items ===========*/
 exports.remove_cart_items = (req, res, next)=>{
-    console.log('remove_cart_items =>', req.body);
+    // console.log('remove_cart_items =>', req.body);
 
     Carts.findOne({"user_ID": req.body.user_ID})
     .exec()
     .then(cartdata =>{
         var order_numberOfProducts           = cartdata.order_numberOfProducts;
         var order_quantityOfProducts         = cartdata.order_quantityOfProducts;
-        console.log("cartdata",cartdata);
+        // console.log("cartdata",cartdata);
         var vendor                           = cartdata.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) === String(req.body.vendor_ID));
-        console.log("vendor",vendor);
+        // console.log("vendor",vendor);
         if(vendor && vendor.length > 0 && vendor[0].cartItems && vendor[0].cartItems.length > 0){
-            console.log("vendor[0].vendor_quantityOfProducts => ",vendor[0].vendor_quantityOfProducts);
-            console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);
+            // console.log("vendor[0].vendor_quantityOfProducts => ",vendor[0].vendor_quantityOfProducts);
+            // console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);
             if(vendor[0].cartItems.length > 1){
                 var productToBeRemoved  = vendor[0].cartItems.filter(cartProduct => String(cartProduct._id) === String(req.body.cartItem_ID));
             }else{
                 var productToBeRemoved  = vendor[0].cartItems;
             }
-            console.log("productToBeRemoved => ",productToBeRemoved)
+            // console.log("productToBeRemoved => ",productToBeRemoved)
             var vendor_numberOfProducts      = vendor[0].vendor_numberOfProducts - 1;
             var vendor_quantityOfProducts    = vendor[0].vendor_quantityOfProducts - productToBeRemoved[0].quantity;
             var newVendorCartItems           = vendor[0].cartItems.filter(cartProduct => String(cartProduct._id) !== String(req.body.cartItem_ID));
-            console.log("vendor_numberOfProducts => ",vendor_numberOfProducts)
-            console.log("vendor_quantityOfProducts => ",vendor_quantityOfProducts)
-            console.log("newVendorCartItems => ",newVendorCartItems)
+            // console.log("vendor_numberOfProducts => ",vendor_numberOfProducts)
+            // console.log("vendor_quantityOfProducts => ",vendor_quantityOfProducts)
+            // console.log("newVendorCartItems => ",newVendorCartItems)
             if(newVendorCartItems.length === 0){
-                console.log("if ===============> ")
+                // console.log("if ===============> ")
                 //If the removed product was the only product in cartItems array, then remove the whole vendor object.
                 var newVendorArr             = cartdata.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) !== String(req.body.vendor_ID));
 
@@ -448,8 +448,8 @@ exports.remove_cart_items = (req, res, next)=>{
                     });
                 });   
             }else{
-                console.log("else ===============> ","newVendorCartItems => ", newVendorCartItems,"vendor_numberOfProducts => ", vendor_numberOfProducts,"vendor_quantityOfProducts => ", vendor_quantityOfProducts,"order_numberOfProducts => ", (order_numberOfProducts - 1),"order_quantityOfProducts => ", (order_quantityOfProducts - productToBeRemoved[0].quantity) )
-                console.log("form values => ",)
+                // console.log("else ===============> ","newVendorCartItems => ", newVendorCartItems,"vendor_numberOfProducts => ", vendor_numberOfProducts,"vendor_quantityOfProducts => ", vendor_quantityOfProducts,"order_numberOfProducts => ", (order_numberOfProducts - 1),"order_quantityOfProducts => ", (order_quantityOfProducts - productToBeRemoved[0].quantity) )
+                // console.log("form values => ",)
                 Carts.updateOne(
                     { "user_ID" : req.body.user_ID, 'vendorOrders.vendor_id' :  req.body.vendor_ID },
                     {
@@ -464,7 +464,7 @@ exports.remove_cart_items = (req, res, next)=>{
                 ) 
                 .exec()
                 .then(cartUpdateData=>{
-                    console.log("cartUpdateData remove => ",cartUpdateData);
+                    // console.log("cartUpdateData remove => ",cartUpdateData);
 
                     if(cartUpdateData.nModified == 1){                          
                         res.status(200).json({
@@ -563,17 +563,17 @@ Carts.updateOne(
 
 /**=========== Change Cart Products Quantity ===========*/
 exports.change_cart_item_quantity = (req, res, next)=>{
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
 
     Carts.findOne({"user_ID": req.body.user_ID})
     .exec()
     .then(cartdata =>{
-        console.log("cartdata= > ",cartdata)
+        // console.log("cartdata= > ",cartdata)
         var previous_order_quantityOfProducts = cartdata.order_quantityOfProducts;
         var vendor = cartdata.vendorOrders.filter(vendors => String(vendors.vendor_id) === String(req.body.vendor_ID));
         if(vendor && vendor.length > 0 && vendor[0].cartItems && vendor[0].cartItems.length > 0){
             var previous_vendor_quantityOfProducts = vendor[0].vendor_quantityOfProducts;
-            console.log("vendor => ", vendor);
+            // console.log("vendor => ", vendor);
             var vendorProduct = vendor[0].cartItems.filter(products => String(products.product_ID) === String(req.body.product_ID));
             if(vendorProduct && vendorProduct.length > 0){
                 var previousProductQuantity = vendorProduct[0].quantity;
@@ -581,10 +581,10 @@ exports.change_cart_item_quantity = (req, res, next)=>{
                 var previousProductQuantity = 0;
             }
         }
-        console.log("previous_order_quantityOfProducts => ", previous_order_quantityOfProducts);
-        console.log("previous_vendor_quantityOfProducts => ", previous_vendor_quantityOfProducts);
-        console.log("previousProductQuantity => ", previousProductQuantity);
-        console.log(" => ", );
+        // console.log("previous_order_quantityOfProducts => ", previous_order_quantityOfProducts);
+        // console.log("previous_vendor_quantityOfProducts => ", previous_vendor_quantityOfProducts);
+        // console.log("previousProductQuantity => ", previousProductQuantity);
+        // console.log(" => ", );
 
 
         // res.status(200).json(data);       
@@ -604,7 +604,7 @@ exports.change_cart_item_quantity = (req, res, next)=>{
         )
         .exec()
         .then(data=>{
-            console.log("data => ",data);
+            // console.log("data => ",data);
             if(data.nModified === 1){    
                 var order_quantityOfProducts    = (previous_order_quantityOfProducts - previousProductQuantity) + req.body.quantityAdded;
                 var vendor_quantityOfProducts   = (previous_vendor_quantityOfProducts - previousProductQuantity) + req.body.quantityAdded;
@@ -617,7 +617,7 @@ exports.change_cart_item_quantity = (req, res, next)=>{
                 )
                 .exec()
                 .then(updateone=>{
-                    console.log("updateone => ",updateone)
+                    // console.log("updateone => ",updateone)
                 })
                 .catch(err =>{
                     console.log('1',err);
@@ -650,7 +650,7 @@ exports.change_cart_item_quantity = (req, res, next)=>{
 
 /**=========== Update Delivery Address ===========*/
 exports.add_address_to_cart = (req, res, next)=>{
-    console.log("cart req.body===",req.body)
+    // console.log("cart req.body===",req.body)
     Carts.findOne({"user_ID": req.body.user_ID})       
         .exec()
         .then(cartData=>{
@@ -680,7 +680,7 @@ exports.add_address_to_cart = (req, res, next)=>{
                 .exec()
                 .then(data=>{
                     // if(data.nModified == 1){
-                        console.log("cartdata===",data);
+                        // console.log("cartdata===",data);
                         res.status(200).json({
                             "message": "Address added to cart successfully."
                         });

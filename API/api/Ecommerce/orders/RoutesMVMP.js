@@ -14,27 +14,27 @@ router.patch('/paymentorder/:order_ID', 														orderController.update_ord
 
 router.patch('/patch/updateDeliveryStatus', 													orderController.updateDeliveryStatus);
 
-router.patch('/patch/changeToPreviousStatus', 												    checkAuth, orderController.changeToPreviousStatus);
+router.patch('/patch/changeToPreviousStatus', 												    orderController.changeToPreviousStatus);
 
-router.get('/get/list', 																		checkAuth, orderController.list_order);
+router.get('/get/list', 																		orderController.list_order);
 
-router.get('/get/franchisewise/list/:franchiseID', 										        checkAuth, orderController.list_franchise_order);
+router.get('/get/franchisewise/list/:franchiseID', 										        orderController.list_franchise_order);
 
-router.post('/get/vendorwiselist/:vendorID', 												    checkAuth, orderController.vendor_order_list);
+router.post('/get/vendorwiselist/:vendorID', 												    orderController.vendor_order_list);
 
-router.get('/get/orderlist/:status', 															checkAuth, orderController.list_orderby_status);
+router.get('/get/orderlist/:status', 															orderController.list_orderby_status);
 
-router.get('/get/orderlist/:status/:franchiseID', 											    checkAuth, orderController.list_orderby_status_franchisewise);
+router.get('/get/orderlist/:status/:franchiseID', 											    orderController.list_orderby_status_franchisewise);
 
-router.post('/get/vendororderstatuslist/:vendorID', 										    checkAuth, orderController.vendor_orderlistby_status);
+router.post('/get/vendororderstatuslist/:vendorID', 										    orderController.vendor_orderlistby_status);
 
-router.get('/get/count', 																		checkAuth, orderController.count_order);
+router.get('/get/count', 																		orderController.count_order);
 
-router.get('/get/vendorwisecount/:vendorID', 												    checkAuth, orderController.vendor_order_count);
+router.get('/get/vendorwisecount/:vendorID', 												    orderController.vendor_order_count);
 
 router.get('/get/list/:userID', 															    orderController.list_order_by_user);
 
-router.post('/get/list', 																		checkAuth, orderController.list_order_with_limits);
+router.post('/get/list', 																		orderController.list_order_with_limits);
 
 router.get('/get/one/:orderID', 																orderController.fetch_order);
 

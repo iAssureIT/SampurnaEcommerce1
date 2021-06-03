@@ -54,7 +54,7 @@ import CouponManagement             from './storeAdmin/CouponManagement/CouponMa
 import BaList                       from './storeAdmin/baManagement/listOfBAs/components/BusinessAssociateList.js';
 import AddNewBA                     from './storeAdmin/baManagement/BAOnboarding/basicInfo/basicInfo.js';
 import ProductDetails               from './StoreManagement/product/ProductDetails/ProductDetails.js';
-import viewOrder                    from './StoreManagement/orders/component/viewOrder.js';
+import viewOrder                    from './StoreManagement/orders/component/ViewOrderMVMP.js';
 
 //================== Reports ===============//
 import Reports                      from './admin/Reports/Reports.js';

@@ -169,7 +169,7 @@ exports.bulkUploadProduct = (req,res,next)=>{
                         var categoryObject  = await categoryInsert(inputCategory, inputSubcategory, inputSection, section[0]._id, productData[k].categoryNameRlang);                        
                         var taxObject       = []
                         
-                        console.log("categoryObject 1 => ",categoryObject);
+                        // console.log("categoryObject 1 => ",categoryObject);
 
                         if(productData[k].taxName){
                             taxObject = await taxInsert(productData[k].taxName,productData[k].taxRate);
@@ -224,8 +224,8 @@ exports.bulkUploadProduct = (req,res,next)=>{
                 if (productData[k].category === undefined) {
                     remark += ", category not found, ";
                 }
-                console.log("condition *=> ",(productData[k].productCode === undefined));
-                console.log("productCode *=> ",productData[k].productCode);
+                // console.log("condition *=> ",(productData[k].productCode === undefined));
+                // console.log("productCode *=> ",productData[k].productCode);
 
                 if (productData[k].productCode === undefined) {
                     remark += "Product code not found, ";
@@ -747,9 +747,9 @@ function taxInsert(taxName,taxRate) {
 
 
 var insertProduct = async (section_ID, section, categoryObject, data,taxObject,EntityData = []) => {
-    console.log('insertProduct data>>>>>>',data);
+    // console.log('insertProduct data>>>>>>',data);
     // console.log("EntityData in product insert => ",EntityData)
-    console.log("categoryObject in product => ",categoryObject)
+    // console.log("categoryObject in product => ",categoryObject)
     return new Promise(function(resolve,reject){ 
         productDuplicateControl();
         async function productDuplicateControl(){
@@ -835,7 +835,7 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
                 products
                 .save()
                 .then(data=>{
-                    console.log("product added => ",data);
+                    // console.log("product added => ",data);
                     const productInventory = new ProductInventory({
                         _id                       : new mongoose.Types.ObjectId(), 
                         vendor_ID                 : ObjectId(data.vendor_ID), 
@@ -1172,9 +1172,9 @@ exports.wishlist_product = (req,res,next)=>{
 
 
 exports.list_productby_type_mobile = (req,res,next)=>{
-    console.log("req.params=>",req.params);
+    // console.log("req.params=>",req.params);
     var {productType,user_ID,limit} = req.params;
-    console.log("user_ID",user_ID);
+    // console.log("user_ID",user_ID);
     var selector={};
     if(productType == 'featured'){
         selector={'featured':true,  "status": "Publish"};
@@ -1512,11 +1512,11 @@ exports.fetch_product = (req,res,next)=>{
     .then(product=>{
         if(product){
             product = {...product._doc, isWish:false};
-            console.log("user_ID",user_ID);
+            // console.log("user_ID",user_ID);
             if(user_ID && user_ID!=='null'){
                 Wishlists.find({user_ID:user_ID})
                 .then(wish=>{
-                    console.log("wish",wish);
+                    // console.log("wish",wish);
                     if(wish.length > 0){
                         for(var i=0; i<wish.length; i++){
                             if(String(wish[i].product_ID) === String(product._id)){
@@ -2016,7 +2016,7 @@ exports.list_productby_subcategory = (req,res,next)=>{
 
 exports.search_product = (req,res,next)=>{
     // console.log("req body in se// localStorage.setItem("pincode", response.data.pincode);arch ==>",req.body);
-    console.log("req params in search ==>",req.params);
+    // console.log("req params in search ==>",req.params);
     Products.find(
             {
                 "$and" : [
@@ -2041,7 +2041,7 @@ exports.search_product = (req,res,next)=>{
     .limit(parseInt(req.params.limit))
     .exec()
     .then(products=>{
-        console.log("products",products);
+        // console.log("products",products);
         if(products){
             for (let k = 0; k < products.length; k++) {
                 products[k] = {...products[k]._doc, isWish:false};
@@ -2237,7 +2237,7 @@ exports.vendor_search_count_product = (req,res,next)=>{
     .exec()
     .then(data=>{
         //console.log(data);
-        res.status(200).json({"dataCount" :data});
+        // res.status(200).json({"dataCount" :data});
     })
     .catch(err =>{
         console.log(err);
@@ -3073,7 +3073,7 @@ var insertUnitOfMeasurment = async(unit, created) =>{
 
 // bulk Product update 
 exports.bulkProductUpdate = (req,res,next)=>{
-    console.log("req.body bulkProductUpdate => ",req.body);
+    // console.log("req.body bulkProductUpdate => ",req.body);
     var record          = []; 
     var failedRecords   = [];
     var i               = 0;
@@ -3100,7 +3100,7 @@ exports.bulkProductUpdate = (req,res,next)=>{
                         return data;
                     }
                 }) 
-                console.log("EntityData => ",EntityData);
+                // console.log("EntityData => ",EntityData);
                 var EntityDataArray = EntityData.map((entityArr, i)=>{
                     return entityArr.companyName;
                 })
@@ -3140,14 +3140,14 @@ exports.bulkProductUpdate = (req,res,next)=>{
                                     //    } 
                                        if(productData[k].websiteModel === "MarketPlace"){
                                         if(EntityData  !== "" && EntityData !== undefined ){
-                                            console.log("Called 1")
+                                            // console.log("Called 1")
                                             var updateProductObject = await updateProductBulkRecords(productData[k]);
                                            }else{
                                             remark+= "Company Name not found"
 
                                            }
                                         }else{
-                                        console.log("Called 2")
+                                        // console.log("Called 2")
                                         //  var insertProductObject = await insertProduct(sectionObject.section_ID, sectionObject.section, categoryObject,productData[k],taxObject[0]);
                                             if(EntityDataArray  != "" && EntityDataArray != undefined ){
                                                 var updateProductObject = await updateProductBulkRecords(productData[k]);
@@ -3156,10 +3156,10 @@ exports.bulkProductUpdate = (req,res,next)=>{
                                             }
                                         } 
 
-                                        console.log('updateProductBulk => ',updateProductObject)
+                                        // console.log('updateProductBulk => ',updateProductObject)
 
                                         if (updateProductObject !== 0 && updateProductObject !== null) {
-                                            console.log("updateProductObject.nModified => ",updateProductObject.nModified);
+                                            // console.log("updateProductObject.nModified => ",updateProductObject.nModified);
                                             if(updateProductObject.nModified !== 0){
                                                 Count++;
                                             }
@@ -3264,7 +3264,7 @@ exports.bulkProductUpdate = (req,res,next)=>{
             warning = true;
         }
 
-        console.log("msgstr",msgstr);
+        // console.log("msgstr",msgstr);
         res.status(200).json({
             "message" : msgstr,
             "warning" : warning
@@ -3275,7 +3275,7 @@ exports.bulkProductUpdate = (req,res,next)=>{
 
 // bulk update 
 exports.bulkUploadProductUpdate = (req,res,next)=>{
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
     var record          = []; 
     var failedRecords   = [];
     var i               = 0;
@@ -3357,7 +3357,7 @@ exports.bulkUploadProductUpdate = (req,res,next)=>{
 
                                        } 
 
-                                         console.log('updateProductBulk => ',updateProductObject)
+                                        //  console.log('updateProductBulk => ',updateProductObject)
 
                                         if (updateProductObject !== 0) {
                                             if(updateProductObject.nModified !== 0){
@@ -3794,7 +3794,7 @@ function getAll(searchText) {
             var subCategory = data.map(a=>a.subCategory);
             var product     = data.map(a=>a.productName);
             var result      = product.concat(category).concat(subCategory).concat(section).concat(brand);
-            console.log("result",result);
+            // console.log("result",result);
             resolve(result);
         })
         .catch(err =>{
@@ -3810,7 +3810,7 @@ function getAll(searchText) {
 exports.products_by_lowest_price = (req,res,next)=>{
     main();
     async function main(){
-        console.log("req.body => ",req.body);
+        // console.log("req.body => ",req.body);
         var userLat         = req.body.userLatitude;
         var userLong        = req.body.userLongitude;
         var selector        = {};
@@ -3903,7 +3903,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
                 }
             }
         }
-        console.log("selector => ",selector);
+        // console.log("selector => ",selector);
 
         Products.aggregate([ 
             {$match : selector},

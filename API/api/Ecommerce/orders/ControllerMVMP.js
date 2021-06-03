@@ -55,12 +55,12 @@ exports.insert_orders = (req, res, next) => {
 				//         		Update Product Inventory
 				//=============================================================
 				if(userCartDeleted.deletedCount === 1){
-					// console.log("Inside if => ", req.body.vendorOrders)
+					console.log("Inside if => ", req.body.vendorOrders)
 					for (var l = 0; l < req.body.vendorOrders.length; l++) {		
-
+						console.log("req.body.vendorOrders[l] => ",req.body.vendorOrders[l])
 						for (let m = 0; m < req.body.vendorOrders[l].products.length; m++) {
 							var productQuantity = req.body.vendorOrders[l].products[m].quantity;
-							// console.log("req.body.vendorOrders[l].products[m].quantity = ",req.body.vendorOrders[l].products[m].quantity);
+							console.log("req.body.vendorOrders[l].products[m].quantity = ",req.body.vendorOrders[l].products[m].quantity);
 
 							ProductInventory
 							.findOne(
@@ -71,12 +71,12 @@ exports.insert_orders = (req, res, next) => {
 								},
 							)
 							.then(productInventoryData=>{
-								// console.log("Product Inventory data = ",productInventoryData);
+								console.log("Product Inventory data = ",productInventoryData);
 								// res.status(200);
 								// console.log("productInventoryData._id = ",productInventoryData._id);
 								// console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
 								var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
-								// console.log("newQuantity = ",newQuantity);
+								console.log("newQuantity = ",newQuantity);
 
 								ProductInventory.updateOne(
 									{ _id : ObjectId(productInventoryData._id) },
@@ -93,7 +93,7 @@ exports.insert_orders = (req, res, next) => {
 									}
 								)		 
 								.then(inventoryupdateData=>{
-									// console.log("inventoryupdateData = ",inventoryupdateData);
+									console.log("inventoryupdateData = ",inventoryupdateData);
 									// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
 								})
 								.catch(err =>{
@@ -1884,9 +1884,19 @@ exports.get_orders_with_filters = (req, res, next) => {
 	])
 		.sort({ createdAt: -1 })
 		.exec()
-		.then(data => {
-			console.log("data => ",data);
-		  res.status(200).json(data);
+		.then(async(data) => {
+			console.log('+++++ data +++++', data);
+			for(var i=0;i<data.length;i++){
+				for(var j=0;j<data[i].vendorOrders.length;j++){
+					console.log("data[i].vendorOrders",data[i].vendorOrders);
+					var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
+					console.log("vendor => ",vendor);
+					data[i].vendorOrders[j].vendorName = vendor.companyName;
+				}
+			}
+			if(i>=data.length){
+				res.status(200).json(data);
+			}
 		})
 		.catch(err => {
 		  console.log(err);
@@ -1899,9 +1909,19 @@ exports.get_orders_with_filters = (req, res, next) => {
 		.populate("allocatedToFranchise")
 		.sort({ createdAt: -1 })
 		.exec()
-		.then(data => {
-			console.log("data => ",data)
-		  res.status(200).json(data);
+		.then(async(data) => {
+			console.log('+++++ data +++++', data);
+			for(var i=0;i<data.length;i++){
+				for(var j=0;j<data[i].vendorOrders.length;j++){
+					console.log("data[i].vendorOrders",data[i].vendorOrders);
+					var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
+					console.log("vendor => ",vendor);
+					data[i].vendorOrders[j].vendorName = vendor.companyName;
+				}
+			}
+			if(i>=data.length){
+				res.status(200).json(data);
+			}
 		})
 		.catch(err => {
 		  console.log(err);
