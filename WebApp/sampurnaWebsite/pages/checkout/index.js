@@ -371,7 +371,7 @@ class Checkout extends Component {
         //   console.log("vendorOrders====",vendorOrders);
 
         var paymentMethod = $("input[name='paymentmethods']:checked").val();
-        console.log("paymentMethod====",paymentMethod);
+        // console.log("paymentMethod====",paymentMethod);
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
         var formValues = {
             "paymentMethod": paymentMethod,
@@ -379,7 +379,7 @@ class Checkout extends Component {
             "email"    : this.state.email,
             "fullName" : this.state.fullName
         }
-        console.log("Formvalues===",formValues);
+        // console.log("Formvalues===",formValues);
         for(var i=0;i<this.props.recentCartData.vendorOrders.length;i++){
             var soldProducts = this.props.recentCartData.vendorOrders[i].products.filter((a, i) => {
                 return a.availableQuantity <= 0;

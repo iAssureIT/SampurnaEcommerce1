@@ -35,6 +35,7 @@ class Header extends React.Component {
 	 async componentDidMount(){      
 
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        // console.log("sampurnaWebsiteDetails===",sampurnaWebsiteDetails);
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         var deliveryLocation = false;
         // this.getCartCount();

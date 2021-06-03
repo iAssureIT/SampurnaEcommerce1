@@ -80,7 +80,7 @@ class CategoryBlock extends Component{
                                     src={categorydata.categoryImg ? categorydata.categoryImg : "/images/eCommerce/notavailable.jpg"}
                                     alt="ProductImg" 
                                     className={"img-responsive " +style.NoAvailableImg }
-                                    height={150}
+                                    height={90}
                                     width={100} 
                                     layout={'intrinsic'}
                                   />

@@ -104,6 +104,7 @@
   --globalColor : #222222;
   --globalborderRadious : 0px;
   --globalErrColor: #cc0000;
+  --cartBgColor   : #033554;
 
   --globalMainTitleFontSize : 18px;
   --globalMainTitleTextStyle : capitalize;
@@ -396,19 +397,20 @@ body{
   border:2px solid #222222;
 }
 .globalAddToCartBtn{
-  /* background-color: var(--globalBgColor) !important; */
-  /* color: #fff !important; */
-  /* border:2px solid #222222; */
-  background-color: transparent;
-  color: #666 !important;
-  border:1px solid #ccc;
+  background-color: var(--cartBgColor) !important;
+  /* background-color: transparent; */
+  color: #fff !important;
+  border:1px solid #033554;
   text-transform: uppercase;
   transition: var(--globalTransition) !important;
   font-size: 11px !important;
-  border-radius: var(--globalborderRadious) !important;
+  /* border-radius: var(--globalborderRadious) !important; */
   text-align:center;
-  padding: 7px 15px !important;
-  margin-top: 10px !important;
+  padding: 10px 15px !important;
+  margin-top: 17px !important;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-bottom: 0px;
   font-weight: 600 !important;
 }
 

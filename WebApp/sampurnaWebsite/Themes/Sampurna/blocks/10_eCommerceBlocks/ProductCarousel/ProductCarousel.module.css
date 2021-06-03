@@ -19,7 +19,6 @@
 
 /* ---------- rightside flter -----------  */
 .rightSidefilter{
-  margin-bottom: 20px;
   margin-top: 20px;
 }
 .sortProducts,
@@ -146,20 +145,27 @@ color: #FBBD65!important;
 }
 .discounttag{
   position: absolute;
-  background-color: var(--Discountcolor) !important;
+  /* background-color: var(--Discountcolor) !important; */
+  background-image: url("/images/eCommerce/OfferTag.png");
+  background-size: cover ;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
   color: var(--whiteColor) !important;
   /* border: solid 1px #666; */
   border-radius: 3px;
-  padding: 3px 6px 3px 5px;
-  left: 7.7%;
+  /* padding: 3px 6px 3px 5px; */
+  /* left: 7.7%; */
   /* top: 4%; */
   width: 50px;
+  height: 55px;
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
-  margin-top: 10px;
+  margin-top: 0px;
 }
-
+.labelCategory{
+  font-size: 14px !important;
+}
 @media screen and (max-width: 480px) {
  .card{
   border: 1px solid #f1f2f2;
@@ -230,6 +236,8 @@ color: #FBBD65!important;
   background-image: url("/images/eCommerce/productloader.gif");
   background-size: contain;
   background-repeat: no-repeat;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 .hoveractions1 a{
   display: block;
@@ -267,7 +275,7 @@ color: #FBBD65!important;
 
 
 .innerDiv{
-  padding: 10px 10px 5px 10px;
+  padding: 10px 0px 5px 0px;
   text-align: center;
 }
 .innerDiv a{
@@ -293,6 +301,8 @@ font-weight: bold;
 .globalProdName{
   height: 18px;
   margin-bottom: -10px;
+  font-size: 14px;
+  /* cursor: pointer; */
 }
 .priceWrapper{
   height: 18px;
@@ -353,7 +363,7 @@ font-weight: bold;
 }
 .productListWrapper{
   margin-top: 20px;
-  border-top: solid 5px #C78D31;
+  border-top: solid 1px #eee;
   padding-bottom: 20px;
 }
 .filterWrapper{
@@ -362,13 +372,19 @@ font-weight: bold;
 .ProductViewWrapper{
   padding-bottom: 20px;
 }
-.productBlock {
-  border: 1px solid #f1f2f2;
+.productCaroselBlock{
+  border: 1px solid #aaa;
   margin-top: 5px;
   margin-bottom: 5px;
-  height: 420px;
-  /* height: 350px; */
-  /* height: auto; */
+  height: 310px;
+  border-radius: 15px;
+}
+.productBlock {
+  border: 1px solid #637070;
+  border-radius: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 300px;
 }
 .availablesize {
   padding: 0 10px!important;
@@ -422,6 +438,7 @@ font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
     display: block;
+    font-size: 14px;
 }
 .wishIcon{ 
   margin-top: 5px;

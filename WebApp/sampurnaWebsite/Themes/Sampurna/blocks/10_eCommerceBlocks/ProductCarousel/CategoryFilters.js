@@ -6,6 +6,7 @@ import Link                   from 'next/link';
 import Carousel               from 'react-multi-carousel';
 import style                  from './categoryBlock.module.css';
 import Message                from '../../StaticBlocks/Message/Message.js';
+import Style                  from './ProductCarousel.module.css';
 import { connect }            from 'react-redux';
 import store                  from '../../../../../redux/store.js'; 
 import {getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
@@ -31,7 +32,7 @@ const responsive = {
 class CategoryFilters extends Component{
     constructor(props) {
         super(props);
-        this.state = { 
+        this.props = { 
             categoryData : [],
             vendor_ID    : ''
             
@@ -39,7 +40,7 @@ class CategoryFilters extends Component{
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-      // console.log("props--",nextProps);
+      console.log("props--",nextProps);
       if (nextProps.newProducts) {
         // return ({ 
         //   categoryData: nextProps.categoryData,
@@ -50,58 +51,55 @@ class CategoryFilters extends Component{
     }
 
     render(){
-      // console.log("this.state.categoryData===",this.props.categoryData);
+      console.log("this.props.categoryData===",this.props.categoryData);
       return (
-        <div className="panel-group" id="accordion">                      
-                      <div className={Style.categoryFilterTitle}> Categories </div>  
-                      {
-                      this.state.categoryData && this.state.categoryData.map((category,index)=>{
-                        var i = index+1;
-                        return(
-                          <div key={index} className="panelCategory paneldefault">
-                            <div className={"panel-heading "+Style.panelHeading}>
-                            {category.subCategory && category.subCategory.length?
-                              <h4 data-toggle="collapse" data-parent="#accordion" href={"#collapse"+i} className="panel-title expand">
-                                <div className="right-arrow pull-right">+</div>                                  
-                                {/* <Link href={`/category/${encodeURIComponent(category.categoryUrl)}`}> */}
-                                <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl}>
-                                  <a >{category.category}</a>
-                                </Link>
-                              </h4>
-                              :
-                              <h4  className="panel-title expand">  
-                                {/* <Link href={`/category/${encodeURIComponent(category.categoryUrl)}`}>                               */}
-                                <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl}> 
-                                    <a >{category.category}</a>
-                                </Link>
-                              </h4>
-                              }
-                            </div>
-                            {category.subCategory?
-                            <div id={"collapse"+i} className="panel-collapse collapse">
-                              <div className="panel-body">
-                                <ul className={Style.categoryUl}>
-                                    {category.subCategory && category.subCategory.map((subcategory,index)=>{   
-                                    return(
-                                      <li key={index} className={Style.subcategoryLi}>                                          
-                                        {/* <Link href={`/subcategory/${encodeURIComponent(subcategory.subCategoryUrl)}`}> */}
-                                        <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl+"/"+subcategory.subCategoryUrl}>
-                                          <a className={"subCategorylia "+Style.subCategorylia}>{subcategory.subCategoryTitle}</a>
-                                        </Link> 
-                                      </li>
-                                    )
-                                    })
-                                    }
-                                  </ul>
-                              </div>                                
-                            </div>
-                            :null
-                            }
-                        </div>
-                        )
-                        })                 
-                      }  
-                    </div> 
+          <div className="panel-group" id="accordion">                      
+            <div className={Style.categoryFilterTitle}> Categories </div>  
+            {
+            this.props.categoryData && this.props.categoryData.map((category,index)=>{
+              var i = index+1;
+              return(
+                <div key={index} className="panelCategory paneldefault">
+                  <div className={"panel-heading "+Style.panelHeading}>
+                  {category.subCategory && category.subCategory.length?
+                    <h4 data-toggle="collapse" data-parent="#accordion" href={"#collapse"+i} className="panel-title expand">
+                      <div className="right-arrow pull-right">+</div> 
+                      <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl}>
+                        <a >{category.category}</a>
+                      </Link>
+                    </h4>
+                    :
+                    <h4  className="panel-title expand"> 
+                      <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl}> 
+                          <a >{category.category}</a>
+                      </Link>
+                    </h4>
+                    }
+                  </div>
+                  {category.subCategory?
+                  <div id={"collapse"+i} className="panel-collapse collapse">
+                    <div className="panel-body">
+                      <ul className={Style.categoryUl}>
+                          {category.subCategory && category.subCategory.map((subcategory,index)=>{   
+                          return(
+                            <li key={index} className={Style.subcategoryLi}>  
+                              <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl+"/"+subcategory.subCategoryUrl}>
+                                <a className={"subCategorylia "+Style.subCategorylia}>{subcategory.subCategoryTitle}</a>
+                              </Link> 
+                            </li>
+                          )
+                          })
+                          }
+                        </ul>
+                    </div>                                
+                  </div>
+                  :null
+                  }
+              </div>
+              )
+              })                 
+            }  
+          </div> 
      ) 
     }
 }

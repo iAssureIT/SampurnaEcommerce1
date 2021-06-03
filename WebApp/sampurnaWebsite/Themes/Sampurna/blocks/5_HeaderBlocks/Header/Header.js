@@ -146,12 +146,7 @@ class Header extends React.Component {
                             </div>
                         </div> 
                         <div className="col-12 NoPadding">
-                        <div className="navbar-header">                 
-                            {/* <button className="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                            </button>    */}
+                        <div className="navbar-header"> 
                             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                                 <span className="navbar-toggler-icon"></span>
                             </button>                             

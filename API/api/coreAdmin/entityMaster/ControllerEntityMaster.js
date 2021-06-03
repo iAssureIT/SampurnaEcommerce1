@@ -357,7 +357,7 @@ exports.getWorkLocation = (req, res, next)=>{
     // console.log("body=>",req.body)
     var selector = {};
     if(req.body.company_id){
-        selector = {'_id':ObjectID(req.body.company_id)}
+        selector = {'_id':ObjectId(req.body.company_id)}
     }else{
         selector = {"entityType":req.body.entityType} 
     }
@@ -539,7 +539,7 @@ exports.addLocation = (req,res,next)=>{
             var getnext = await getNextBranchCode(req.body.entityID)
             locationdetails.branchCode = getnext;
             EntityMaster.updateOne(
-                    { _id: ObjectID(req.body.entityID) },  
+                    { _id: ObjectId(req.body.entityID) },  
                     {
                         $push:  { 'locations' : locationdetails }
                     }

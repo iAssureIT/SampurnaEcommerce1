@@ -15,6 +15,8 @@ import Style                  from './ProductCarousel.module.css';
 import style                  from './categoryBlock.module.css';
 import CategoryBlock          from './CategoryBlock.js';
 import Product                from './Product.js';
+import CategoryFilters        from './CategoryFilters.js';
+import BrandFilters           from './BrandFilters.js';
 import 'react-multi-carousel/lib/styles.css';
 
 import {getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
@@ -27,17 +29,10 @@ const productImgHeight = publicRuntimeConfig.IMGHeight;
   
 
 const sortOptions = [
-  { value: 'alphabeticallyAsc', label: 'Name A -> Z' },
-  { value: 'alphabeticallyDsc', label: 'Name Z -> A' },
+  { value: 'alphabeticallyAsc', label: 'Sort By A -> Z' },
+  { value: 'alphabeticallyDsc', label: 'Sort By Z -> A' },
   { value: 'priceAsc', label: 'Price Low -> High' },
   { value: 'priceDsc', label:'Price High -> Low'},
-];
-
-const displayProductOptions = [
-  { value: '10', label: '10 Products / page' },
-  { value: '20', label: '20 Products / page' },
-  { value: '40', label: '40 Products / page' },
-  { value: '1000', label: 'All Products / page'}
 ];
 
 const responsive = {
@@ -91,14 +86,14 @@ class ProductCarousel extends Component {
         totalProducts      : 12,
         leftSideFilters    : false
       }, 
-      ProductsLoading : false,
-      loading         : true,
-      blockTitle: "Fruits",
+      ProductsLoading    : false,
+      loading            : true,
+      blockTitle         : "Fruits",
       filterSettings     : [],
       categoryData       : [],
-      // categoryData  : [],
-      selector:{
-          limit:20
+      brandData          : [],
+      selector           :{
+                    limit:20
       },
       user_ID : '',
       userLatitude : "",
@@ -127,6 +122,12 @@ class ProductCarousel extends Component {
   async componentDidMount(){
     var formValues = {};
     var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    if(userDetails){
+      this.setState({
+        userID : userDetails.userid
+      });
+    }
     if(sampurnaWebsiteDetails){
         // console.log("sampurnaWebsiteDetails=>",sampurnaWebsiteDetails);
       if(sampurnaWebsiteDetails.deliveryLocation){
@@ -137,8 +138,9 @@ class ProductCarousel extends Component {
       }
       if(sampurnaWebsiteDetails.preferences){
         this.setState({
+            "currency"      :  sampurnaWebsiteDetails.preferences.currency,
             "showLoginAs"   :  sampurnaWebsiteDetails.preferences.showLoginAs,
-            "websiteModel"  :sampurnaWebsiteDetails.preferences.websiteModel
+            "websiteModel"  :  sampurnaWebsiteDetails.preferences.websiteModel
         });
       }
     }
@@ -169,87 +171,87 @@ class ProductCarousel extends Component {
     } 
   }
 
-      if(this.props.block_id){
-      axios.get('/api/blocks/get/'+this.props.block_id)    
-      .then((response)=>{
-        if(response.data){
-        // console.log("1.blocks response data=>",response.data);                
-        this.setState({
-           blockSettings   : response.data.blockSettings,  
-           productSetting  : response.data.productSettings,   
-           blockTitle      : response.data.blockTitle, 
+  if(this.props.block_id){
+    axios.get('/api/blocks/get/'+this.props.block_id)    
+    .then((response)=>{
+      if(response.data){
+      // console.log("1.blocks response data=>",response.data);                
+      this.setState({
+          blockSettings   : response.data.blockSettings,  
+          productSetting  : response.data.productSettings,   
+          blockTitle      : response.data.blockTitle, 
+        
+      },async ()=>{
+        if(this.state.blockSettings.showCarousel === false){
+          // console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
           
-        },async ()=>{
-          if(this.state.blockSettings.showCarousel === false){
-            // console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
-           
-            await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
-            .then((categoryResponse)=>{
-              if(categoryResponse.data){     
-                console.log("3.response.data category list=",categoryResponse.data[0].categoryUrl); 
-                this.setState({
-                  categoryData     : categoryResponse.data.categoryList,                     
-                },()=>{
+          await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
+          .then((categoryResponse)=>{
+            if(categoryResponse.data){     
+              // console.log("3.response.data category list=",categoryResponse.data); 
+              this.setState({
+                categoryData     : categoryResponse.data.categoryList,    
+                brandData        : categoryResponse.data.brandList,           
+              },()=>{
+                formValues = {
+                  "vendor_ID"      : vendor_ID,
+                  "sectionUrl"     : this.state.sectionUrl,
+                  "categoryUrl"    : this.state.categoryUrl===""?categoryResponse.data.categoryList.categoryUrl:this.state.categoryUrl,
+                  "subCategoryUrl" : [this.state.subCategoryUrl],
+                  "userLatitude"   : this.state.userLatitude,
+                  "userLongitude"  : this.state.userLongitude,
+                  "startRange"     : this.state.startRange,
+                  "limitRange"     : this.state.limitRange,
+                }
+              });
+            }
+          })
+          .catch((error)=>{
+              console.log('error', error);
+          })
+          
+        }else{
+          // console.log("blockSettings=>",this.state.blockSettings);
+          formValues = {
+            "vendor_ID"      : "",
+            "sectionUrl"     : this.state.blockSettings.section? (this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
+            "categoryUrl"    : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
+            "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+            "userLatitude"   : this.state.userLatitude,
+            "userLongitude"  : this.state.userLongitude,
+            "startRange"     : this.state.startRange,
+            "limitRange"     : this.state.limitRange,
+            }
+        }
 
-                  formValues = {
-                    "vendor_ID"      : vendor_ID,
-                    "sectionUrl"     : this.state.sectionUrl,
-                    "categoryUrl"    : this.state.categoryUrl===""?categoryResponse.data[0].categoryUrl:this.state.categoryUrl,
-                    "subCategoryUrl" : [this.state.subCategoryUrl],
-                    "userLatitude"   : this.state.userLatitude,
-                    "userLongitude"  : this.state.userLongitude,
-                    "startRange"     : this.state.startRange,
-                    "limitRange"     : this.state.limitRange,
-                  }
-                });
-              }
-            })
-            .catch((error)=>{
-                console.log('error', error);
-            })
-            
-          }else{
-            // console.log("blockSettings=>",this.state.blockSettings);
-            formValues = {
-              "vendor_ID"      : "",
-              "sectionUrl"     : this.state.blockSettings.section? (this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
-              "categoryUrl"    : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
-              "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
-              "userLatitude"   : this.state.userLatitude,
-              "userLongitude"  : this.state.userLongitude,
-              "startRange"     : this.state.startRange,
-              "limitRange"     : this.state.limitRange,
-             }
-          }
-
-          if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
-            var productApiUrl = this.props.productApiUrl;
-            // console.log("productlist productApiUrl===",productApiUrl);
-          }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
-            var productApiUrl = this.props.productApiUrl;
+        if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
+          var productApiUrl = this.props.productApiUrl;
+          // console.log("productlist productApiUrl===",productApiUrl);
+        }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
+          var productApiUrl = this.props.productApiUrl;
+          // console.log("productApiUrl===",productApiUrl);
+        }else{ 
+            var productApiUrl = this.state.blockSettings.blockApi;
             // console.log("productApiUrl===",productApiUrl);
-          }else{ 
-              var productApiUrl = this.state.blockSettings.blockApi;
-              // console.log("productApiUrl===",productApiUrl);
-          }
-          if(productApiUrl){
-            this.getProductList(productApiUrl,formValues);
-        }//end productApiUrl
-        });
-      }else{
-        this.setState({          
-          ProductsLoading : false
-        });
-      }
-      })
-      .catch((error)=>{
-          console.log('error', error);
-      })
-    }//end if blockid
-  }
+        }
+        if(productApiUrl){
+          this.getProductList(productApiUrl,formValues);
+      }//end productApiUrl
+      });
+    }else{
+      this.setState({          
+        ProductsLoading : false
+      });
+    }
+    })
+    .catch((error)=>{
+        console.log('error', error);
+    })
+  }//end if blockid
+}
 
   getProductList(productApiUrl,formValues){
-    console.log("productApiUrl=>",productApiUrl);
+    // console.log("productApiUrl=>",productApiUrl);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
@@ -268,7 +270,7 @@ class ProductCarousel extends Component {
       this.setState({
         newProducts     : response.data,                          
       },()=>{
-        console.log("newProducts=>",this.state.newProducts);
+        // console.log("newProducts=>",this.state.newProducts);
         if(this.state.newProducts.length>0){
           this.setState({
             ProductsLoading : true,
@@ -297,133 +299,9 @@ class ProductCarousel extends Component {
         console.log('error', error);
       })
   }
-  getBrandsBySection(sectionUrl) {
-		axios.get("/api/products/get/listBrand/" + sectionUrl)
-    .then((response) => {
-      this.setState({
-        brands: response.data
-      })
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
-	}
 
-	getBrandsByCategories(filterUrlArray) {
-    // console.log("inside getBrandsByCategories",filterUrlArray);
-		var formValues = {
-			filterUrlArray: filterUrlArray
-		}
-
-		axios.post("/api/products/get/listBrandByCategories", formValues)
-    .then((response) => {
-      // console.log("brand response.data===",response.data);
-      this.setState({
-        brands: response.data
-      })
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
-	}
-  getBrandsBySubcategories(categoryUrl) {
-		var formValues = {
-      subcategories: categoryUrl
-		}
-		axios.post("/api/products/get/listBrandBySubcategories", formValues)
-			.then((response) => {
-				this.setState({
-
-					brands: response.data
-				})
-			})
-			.catch((error) => {
-				console.log('error', error);
-			})
-  }
-  onSelectedItemsChange(filterType, selecteditems){
-		var checkboxes = document.getElementsByName('brands[]');
-		var brands = [];
-		for (var i = 0, n = checkboxes.length; i < n; i++) {
-			if (checkboxes[i].checked) {
-				brands.push(checkboxes[i].value);
-			}
-		}
-		if(filterType === 'category') {
-			var selector = this.state.selector;
-			delete selector.subCategory_ID;
-			selector.section_ID = this.props.match.params.sectionID;
-			selector.price = this.state.price;
-			selector.category_ID = $(selecteditems.target).data().id;
-			if (this.props.match.params.subcategoryID && !selector.subCategory_ID) {
-				selector.subCategory_ID = this.props.match.params.subcategoryID;
-			}
-			this.setState({ selector: selector }, () => {
-				this.getFilteredProducts(this.state.selector);
-			})
-		}
-		if (filterType === 'subcategory') {
-			selector = this.state.selector;
-			selector.section_ID = this.props.match.params.sectionID;
-			selector.price = this.state.price;
-			selector.subCategory_ID = $(selecteditems.target).data().id;
-
-			if (this.props.match.params.categoryID && !selector.category_ID) {
-				selector.category_ID = this.props.match.params.categoryID;
-			}
-			this.setState({ selector: selector }, () => {
-				this.getFilteredProducts(this.state.selector);
-			})
-		}
-		if (filterType === 'brands') {
-			selector = this.state.selector;
-			selector.price = this.state.price;
-			selector.brands = brands;
-			this.setState({ selector: selector }, () => {
-				this.getFilteredProducts(this.state.selector);
-			})
-    }
-  }
-  
-  filterCategoriesData(filterBy,filterKey){
-    if(filterBy === "listbycategory"){
-      var categoryData = this.state.categoryData.filter((val,key)=>{ 
-        // console.log("val ===",val.categoryUrl.toLowerCase());         
-          return val.categoryUrl.toLowerCase() === filterKey.toLowerCase()
-      })
-      this.setState({
-        categoryData:categoryData,
-      },()=>{
-          // console.log("after category filter categoryData===",categoryData);
-      })
-    }
-    if(filterBy === "listbysubcategory"){
-      // console.log("subcategory data====",categoryData); 
-      var categoryData = this.state.categoryData.filter((val,key)=>{        
-          // console.log("category  val===",val); 
-          if(val.subCategory && val.subCategory.length>0){
-            var categoryData = val.subCategory.filter((subval,key)=>{
-                return val.subCategoryUrl?val.subCategoryUrl.toLowerCase():null;
-            })
-          }
-      })
-      this.setState({
-        categoryData:categoryData
-      })
-    }
-    if(filterBy === "listbysection"){
-      var categoryData = this.state.categoryData.filter((val,key)=>{
-        return val.section.toLowerCase() === filterKey.toLowerCase()
-      })
-      this.setState({
-        categoryData:categoryData
-      },()=>{
-          // console.log("after section filter categoryData===",categoryData);
-      })
-    }
-  }
   addCart(formValues, quantityAdded, availableQuantity) {
-    if(localStorage.getItem('webSiteModel')==='FranchiseModel'){
+    if(this.state.webSiteModel==='FranchiseModel'){
       axios.post('/api/carts/post', formValues)
         .then((response) => {
           // store.dispatch(fetchCartData());
@@ -465,7 +343,7 @@ class ProductCarousel extends Component {
         })
       }, 3000);
     } else {
-      console.log("formValues==",formValues);
+      // console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)
         .then((response) => {
           // console.log("this.props.fetchCartData();",this.props.fetchCartData());
@@ -496,9 +374,8 @@ class ProductCarousel extends Component {
   submitCart(event) { 
     const user_ID = localStorage.getItem('user_ID');
     if(user_ID){
-      // console.log("this.props.recentCartData[0].cartItems:",this.props.recentCartData[0].cartItems);
     var id = event.target.id;
-    if(localStorage.getItem("websiteModel")=== "FranchiseModel"){
+    if(this.state.websiteModel=== "FranchiseModel"){
       var selectedSize = $('#'+id+"-size").val();      
       var size = event.target.getAttribute('mainsize');      
       var unit = event.target.getAttribute('unit');      
@@ -510,7 +387,7 @@ class ProductCarousel extends Component {
     var productCartData = recentCartData.filter((a) => a.product_ID === id);
     var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
     var formValues ={};
-    if(localStorage.getItem("websiteModel")=== "FranchiseModel"){
+    if(this.state.websiteModel=== "FranchiseModel"){
       if(selectedSize === size){
          var quantity = 1;
          var totalWeight = selectedSize +" "+unit
@@ -553,7 +430,7 @@ class ProductCarousel extends Component {
     })
   }else{
 
-    if(localStorage.getItem('showLoginAs')==="modal"){
+    if(this.state.showLoginAs==="modal"){
       $('#loginFormModal').show();       
       }else{
       this.setState({
@@ -610,7 +487,7 @@ class ProductCarousel extends Component {
     else {
       var previousUrl = window.location.href;
       localStorage.setItem("previousUrl",previousUrl);
-      if(localStorage.getItem('showLoginAs')==="modal"){
+      if(this.state/showLoginAs ==="modal"){
         $('#loginFormModal').show();        
         }else{
         this.setState({
@@ -678,43 +555,6 @@ class ProductCarousel extends Component {
       this.getProductList(productApiUrl,formValues);
     }
   };
-
-  limitProducts = displayProduct => {
-    event.preventDefault();
-    this.setState({ displayProduct });
-    var sortBy = displayProduct.value;
-    this.setState({ displayProduct });
-		var selector = this.state.selector;
-    selector.limit = displayProduct.value;
-		this.setState({ selector: selector }, () => {		
-			this.getFilteredProducts(this.state.selector);			
-    })
-  }
-  getFilteredProducts(selector){
-		if (selector.limit) {
-      selector.limit = selector.limit;
-      var pageUrl = window.location.pathname;
-      let a = pageUrl ? pageUrl.split('/') : "";
-      const urlParam =a[2];
-      if(a[1] === 'category'){
-        selector.categoryUrl = urlParam;
-      }else{
-        selector.sectionUrl = urlParam;
-      }
-		} else {
-			selector.limit = "50";
-		}
-    axios.post("/api/products/post/list/filterProductsByCategory/", selector)
-			.then((response) => {
-				this.setState({ 
-          newProducts: response.data ,
-          ProductsLoading : true
-        });
-			})
-			.catch((error) => {
-				console.log('error', error);
-			})
-	}
 
   render() {
     const { effect } = this.state;
@@ -787,7 +627,7 @@ class ProductCarousel extends Component {
                             var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
                           return (
                               <div key={index} className={"col-12 " +Style.singleProduct}>                          
-                              <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
+                              <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                                 <div className={"col-12 NoPadding"}>
                                   <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                                   <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
@@ -807,7 +647,7 @@ class ProductCarousel extends Component {
                                         src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                                         alt="ProductImg" 
                                         className={"img-responsive " +Style.NoAvailableImg }
-                                        height={300}
+                                        height={200}
                                         width={265} 
                                         layout={'intrinsic'}
                                       />
@@ -835,11 +675,11 @@ class ProductCarousel extends Component {
                                       :null
                                       }
                                       {data.productNameRlang?
-                                      <div className={"col-12 globalProductItemName NoPadding RegionalFont "+Style.NoPadding } title={data.productNameRlang}>
+                                      <div className={"col-12 globalProductItemName RegionalFont " } title={data.productNameRlang}>
                                         <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>&nbsp;                                        
                                       </div>
                                       :
-                                      <div className={"col-12 globalProductItemName NoPadding "+Style.NoPadding } title={data.productName}>
+                                      <div className={"col-12 globalProductItemName  " } title={data.productName}>
                                       <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;</div>
                                       }
                                       <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
@@ -851,22 +691,20 @@ class ProductCarousel extends Component {
                                             </div>   
                                             :
                                               <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>
-                                                <span className={Style.price}><i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice} {data.size? "/ " +data.size:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                       
+                                                <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} {data.size? "/ " +data.size:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                       
                                               </div>
         
                                           :                                    
                                             data.discountPercent ?
                                             <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
                                               <span className={Style.price}><span className={Style.oldprice }>&nbsp;
-                                              {/* <i className="fas fa-rupee-sign"></i> */}
-                                              AED&nbsp;{(data.originalPrice).toFixed(2)}&nbsp;</span>&nbsp;
-                                              {/* <i className="fa fa-inr"></i> */}
-                                              AED&nbsp;{(data.discountedPrice).toFixed(2)} 
+                                              {this.state.currency}&nbsp;{(data.originalPrice).toFixed(2)}&nbsp;</span>&nbsp;
+                                              {this.state.currency}&nbsp;{(data.discountedPrice).toFixed(2)} 
                                               </span>
                                             </div>
                                             :  
                                             <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                              <span className={Style.price}><i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice} </span> &nbsp;                                      
+                                              <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} </span> &nbsp;                                      
                                             </div> 
                                         }
                                       </div>
@@ -912,19 +750,19 @@ class ProductCarousel extends Component {
                                             </div>
                                             :
                                             data.availableQuantity > 0 ?
-                                              <div>
-                                              {this.state.user_ID?
-                                              <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
-                                                  &nbsp;Add To Cart
-                                              </button>
-                                              :
-                                              <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
-                                                  &nbsp;Add To Cart
-                                              </button>
-                                              }     
+                                              <div className="col-12 NoPadding">
+                                                {this.state.user_ID?
+                                                <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 NoPadding  fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                                    &nbsp;Add To Cart
+                                                </button>
+                                                :
+                                                <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                                    &nbsp;Add To Cart
+                                                </button>
+                                                }     
                                               </div>                                           
                                               :
-                                              <div className={Style.outOfStock}>Sold Out</div>
+                                              <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
                                           }
                                         </div>
                                       </div>
@@ -947,111 +785,55 @@ class ProductCarousel extends Component {
                   {this.state.blockSettings.showCarousel === false?
                       < CategoryBlock 
                         categoryData = {this.state.categoryData}
-                        vendor_ID ={this.state.vendor_ID}
-                        sectionUrl = {this.state.sectionUrl}
+                        vendor_ID    ={this.state.vendor_ID}
+                        sectionUrl   = {this.state.sectionUrl}
                       />
                   :null
 
                   }   
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
-
-                    // this.state.blockSettings.showCarousel === false?
-                    //   < CategoryFilters 
-                    //     categoryData = {this.state.categoryData}
-                    //     vendor_ID ={this.state.vendor_ID}
-                    //     sectionUrl = {this.state.sectionUrl}
-                    //   />
-                    // :null
-                    
-
                   <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
+                  <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-12 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
                     {this.state.categoryData && this.state.categoryData.length>0?    
-                    <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-12 NoPadding  filterWrapper " +Style.filterBlockWrapper}> 
                     
-                    <div className="panel-group" id="accordion">                      
-                      <div className={Style.categoryFilterTitle}> Categories </div>  
-                      {
-                      this.state.categoryData && this.state.categoryData.map((category,index)=>{
-                        var i = index+1;
-                        return(
-                          <div key={index} className="panelCategory paneldefault">
-                            <div className={"panel-heading "+Style.panelHeading}>
-                            {category.subCategory && category.subCategory.length?
-                              <h4 data-toggle="collapse" data-parent="#accordion" href={"#collapse"+i} className="panel-title expand">
-                                <div className="right-arrow pull-right">+</div>                                  
-                                {/* <Link href={`/category/${encodeURIComponent(category.categoryUrl)}`}> */}
-                                <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl}>
-                                  <a >{category.category}</a>
-                                </Link>
-                              </h4>
-                              :
-                              <h4  className="panel-title expand">  
-                                {/* <Link href={`/category/${encodeURIComponent(category.categoryUrl)}`}>                               */}
-                                <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl}> 
-                                    <a >{category.category}</a>
-                                </Link>
-                              </h4>
-                              }
-                            </div>
-                            {category.subCategory?
-                            <div id={"collapse"+i} className="panel-collapse collapse">
-                              <div className="panel-body">
-                                <ul className={Style.categoryUl}>
-                                    {category.subCategory && category.subCategory.map((subcategory,index)=>{   
-                                    return(
-                                      <li key={index} className={Style.subcategoryLi}>                                          
-                                        {/* <Link href={`/subcategory/${encodeURIComponent(subcategory.subCategoryUrl)}`}> */}
-                                        <Link href={"/products/"+this.state.vendor_ID+"/"+this.state.sectionUrl+"/"+category.categoryUrl+"/"+subcategory.subCategoryUrl}>
-                                          <a className={"subCategorylia "+Style.subCategorylia}>{subcategory.subCategoryTitle}</a>
-                                        </Link> 
-                                      </li>
-                                    )
-                                    })
-                                    }
-                                  </ul>
-                              </div>                                
-                            </div>
-                            :null
-                            }
-                        </div>
-                        )
-                        })                 
-                      }  
-                    </div> 
+                      < CategoryFilters 
+                        categoryData  = {this.state.categoryData}
+                        blockSettings = {this.state.blockSettings}
+                        vendor_ID     = {this.state.vendor_ID}
+                        sectionUrl    = {this.state.sectionUrl}
+                        userLatitude  = {this.state.userLatitude}
+                        userLongitude = {this.state.userLongitude}
+                        startRange    = {this.state.startRange}
+                        limitRange    = {this.state.limitRange}
+                      />
+                    
+                    :' '
+                    }
+                    {this.state.brandData && this.state.brandData.length>0?  
+                      < BrandFilters 
+                        blockSettings = {this.state.blockSettings}
+                        brandData     = {this.state.brandData}
+                        vendor_ID     ={this.state.vendor_ID}
+                        sectionUrl    = {this.state.sectionUrl}
+                        userLatitude  = {this.state.userLatitude}
+                        userLongitude = {this.state.userLongitude}
+                        startRange    = {this.state.startRange}
+                        limitRange    = {this.state.limitRange}
+                      />                    
+                    :' '
+                    }
+                 </div>
 
-                    {/* filter product by brand */}
-                    {/* <div className="panel-group" id="accordion">                      
-                      <div className={Style.categoryFilterTitle}> Brand </div>  
-                      {
-                      this.state.brands && this.state.brands.length > 0?
-                      this.state.brands.map((brand,index)=>{
-                        var i = index+1;
-                        return(
-                          <div className="col-12 noPadding panelCategory paneldefault" key={index}>
-                            <div className={"row panel-heading "+Style.panelHeading}>
-                              <div className=" col-1 NoPadding centreDetailContainerEcommerce">
-                                <input className=" " type="checkbox" name="brands[]" onChange={this.onSelectedItemsChange.bind(this, "brands")} value={brand} />
-                              </div>
-                              <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
-                            </div>                              
-                          </div>
-                        )
-                        })   
-                        :''
-                      }
-                    </div>  */}
-                  </div> 
-                  :' '
-                  }
+
                   <div className={"col-9 col-sm-12 col-xs-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className="row">
                       <div className={"col-12 " +Style.rightSidefilter}>
                         <div className ="row">
                         <div className={"col-12 "}>
-                          <div className="col-3 col-xs-6 NoPadding pull-right">     
+                          <div className="col-2 col-xs-6 NoPadding pull-right">     
                             <div className="form-group ">
-                                <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
+                                <label className={"labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.labelCategory}>Sort Product By<span className="astrick"></span></label>
                                 <Select
                                     value={effect}
                                     onChange={this.sortProducts}
@@ -1060,17 +842,6 @@ class ProductCarousel extends Component {
                                 />
                             </div> 
                           </div>
-                          {/* <div className="col-3 col-xs-8 NoPadding pull-right">
-                              <div className="form-group ">
-                                  <label className="label-category labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Sort Product By<span className="astrick"></span></label>
-                                  <Select
-                                      value={displayProducts}
-                                      onChange={this.limitProducts}
-                                      options={displayProductOptions}
-                                      autoFocus = {false}
-                                  />
-                            </div>
-                          </div> */}
                         </div>                        
                         </div>
                       </div>
@@ -1082,8 +853,6 @@ class ProductCarousel extends Component {
                           <Product newProducts={this.state.newProducts}
                                 productSettings = {this.state.productSettings}
                                 blockSettings   = {this.state.blockSettings}
-                                
-
                           />
                         :
                         <div className="col-2 offset-5 ">   
@@ -1093,7 +862,6 @@ class ProductCarousel extends Component {
                         }
                       </div>
                     </div>
-
                   </div>                    
                   </div>                    
                   :
@@ -1113,8 +881,7 @@ class ProductCarousel extends Component {
                   }  
                   </div>
                   </div>
-                }
-                            
+                }           
                 </div>
                 } 
                 </div>

@@ -19,20 +19,25 @@ class Product extends Component{
             
         }
         
-        // console.log("1. Inside constructor");
     }
 
     componentDidMount(){
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
-        var user_ID                = userDetails.user_id; 
-        const websiteModel         = sampurnaWebsiteDetails.preferences.websiteModel;      
-        const showLoginAs          = sampurnaWebsiteDetails.preferences.websiteModel.showLoginAs; 
+        if(userDetails){
+          var user_ID                = userDetails.user_id; 
+        }
+        if(sampurnaWebsiteDetails.preferences){
+          this.setState({
+            currency      : sampurnaWebsiteDetails.preferences.currency,
+            showLoginAs   : sampurnaWebsiteDetails.preferences.websiteModel.showLoginAs,
+            websiteModel  : sampurnaWebsiteDetails.preferences.websiteModel
+          })
+        }
+       
         if(user_ID!==null){     
           this.setState({
-            user_ID:user_ID,
-            showLoginAs: showLoginAs,
-            websiteModel:websiteModel
+            user_ID       : user_ID,
           },()=>{
               this.getWishlistData();
           }); 
@@ -44,7 +49,6 @@ class Product extends Component{
       if(this.state.webSiteModel === 'FranchiseModel'){
         axios.post('/api/carts/post', formValues)
           .then((response) => {
-            // store.dispatch(fetchCartData());
             this.props.fetchCartData();
             this.setState({
               messageData: {
@@ -307,7 +311,7 @@ class Product extends Component{
                               <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                           :null
                           }
-                          {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
+                          {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
                         </div>
                         <div className={styleMedia.ImgWrapper}>
                         <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
@@ -316,8 +320,8 @@ class Product extends Component{
                             src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                             alt="ProductImg" 
                             className={"img-responsive " +Style.NoAvailableImg }
-                            height={230}
-                            width={200} 
+                            height={200}
+                            width={260} 
                             layout={'intrinsic'}
                           />
                         </a>
@@ -344,11 +348,11 @@ class Product extends Component{
                           :null
                           }
                           {data.productNameRlang?
-                          <div className={"col-12 globalProductItemName NoPadding RegionalFont "+Style.NoPadding } title={data.productNameRlang}>
+                          <div className={"col-12 globalProductItemName  RegionalFont " } title={data.productNameRlang}>
                             <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>&nbsp;                                        
                           </div>
                           :
-                          <div className={"col-12 globalProductItemName NoPadding "+Style.NoPadding } title={data.productName}>
+                          <div className={"col-12 globalProductItemName  " } title={data.productName}>
                           <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;</div>
                           }
                           <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
@@ -357,26 +361,26 @@ class Product extends Component{
                                 data.discountPercent ?    
                                 <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
                                   <span className={Style.price}><span className={Style.oldprice}>
-                                    <i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice}</span>    
+                                  {this.state.currency}&nbsp;{data.originalPrice} </span>&nbsp; {this.state.currency} {data.discountedPrice}</span>    
                                 </div>   
                                 :
                                   <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>
-                                    <span className={Style.price}><i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice} {data.size? "/ " +data.size:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                       
+                                    <span className={Style.price}>{this.state.currency} &nbsp;{data.originalPrice} {data.size? "/ " +data.size:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                       
                                   </div>
 
                               :                                    
                                 data.discountPercent ?
                                 <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                  <span className={Style.price}><span className={Style.oldprice }>&nbsp;<i className="fas fa-rupee-sign"></i>&nbsp;{data.originalPrice}&nbsp;</span>&nbsp;
+                                  <span className={Style.price}><span className={Style.oldprice }>&nbsp;{this.state.currency} &nbsp;{data.originalPrice}&nbsp;</span>&nbsp;
                                   {/* <i className="fa fa-inr"></i> */}
-                                  AED &nbsp;{(data.discountedPrice).toFixed(2)} 
+                                  {this.state.currency} &nbsp;{(data.discountedPrice).toFixed(2)} 
                                   </span>
                                 </div>
                                 :  
                                 <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
                                   <span className={Style.price}>
                                     {/* <i className="fas fa-rupee-sign"></i> */}
-                                    AED &nbsp;{(data.originalPrice).toFixed(2)} </span> &nbsp;                                      
+                                    {this.state.currency} &nbsp;{(data.originalPrice).toFixed(2)} </span> &nbsp;                                      
                                 </div> 
                             }
                           </div>
@@ -425,19 +429,19 @@ class Product extends Component{
                                 </div>
                                 :
                                 data.availableQuantity > 0 ?
-                                  <div>
+                                  <div className={"col-12 " +Style.NoPadding}>
                                   {this.state.user_ID?
-                                  <button type="submit" vendor_name={data.vendorName} vendor_id={data.vendor_ID} id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                  <button type="submit" vendor_name={data.vendorName} vendor_id={data.vendor_ID} id={data._id} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                       &nbsp;Add To Cart
                                   </button>
                                   :
-                                  <button type="submit" id={data._id} vendor_name={data.vendorName} vendor_id={data.vendor_ID} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                  <button type="submit" id={data._id} vendor_name={data.vendorName} vendor_id={data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
                                       &nbsp;Add To Cart
                                   </button>
                                   }     
                                   </div>                                           
                                   :
-                                  <div className={Style.outOfStock}>Sold Out</div>
+                                  <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
                               }
                             </div>
                           </div>
