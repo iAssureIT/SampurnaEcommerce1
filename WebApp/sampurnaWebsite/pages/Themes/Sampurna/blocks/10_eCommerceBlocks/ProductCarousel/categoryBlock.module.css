@@ -1,0 +1,21 @@
+
+.productsCategoryBlock a{
+    text-decoration: none !important;
+}
+.categoryCarousel{
+    /* margin-bottom: 20px; */
+}
+.categoryName{
+    font-size: 14px;
+    color: #000;
+}
+.categoryName:hover{
+    color: lightcoral;
+    text-decoration: none !important;
+}
+.categoryBlock:hover {
+    text-decoration: none !important;
+}
+.categoryPhoto{
+    display: grid !important;
+}

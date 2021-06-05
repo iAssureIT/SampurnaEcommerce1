@@ -1,0 +1,90 @@
+.cartBanner{
+    height: 300px;
+    background: url("/images/cartBanner.png");
+    padding: 6% 10%;
+    color: #fff;
+    text-align: center;
+}
+.cartBannerText{
+    color: #fff;
+    text-align: center;
+}
+.cartUL{
+    line-height: 60px;
+    font-size: 1.2rem;
+    list-style: none none;
+    color: #A2632C !important
+}
+.cartUL li{
+    display: inline-block;
+}
+.cartUL li a{
+    color: #fff;
+}
+.cartBannerText  ul::before {
+    position: absolute;
+    content: "";
+    /* background: url("/images/contact-Recovered.png") no-repeat; */
+    bottom: -10px;
+    left: 50%;
+    width: 79px;
+    height: 1px;
+    transform: translate(-50%,0);
+    top: 0;
+}
+.totalWeight{
+    text-transform: uppercase !important;
+}
+.cartProductTable thead tr .itemth, .proWeight{ 
+    text-align: center !important;
+}
+@media only screen and (device-width: 667px) {
+  .cartProductDetail {
+      padding: 0px 15px;
+      margin-bottom: 10px !important;
+  }
+}
+@media only screen and (max-device-width: 480px) {  
+.banner{
+    height: auto !important;
+} 
+}
+
+@media only screen and (max-device-width: 480px) {
+  .innloginwrap{
+      margin-top: 120px ! important;
+    }
+  .cartProductDetail{
+    font-size: 12px ! important;
+  }  
+  .cartPrice{
+    font-size: 12px ! important;
+  }
+  .ForMobile{
+    width: 400px ! important;
+  }
+    .bannerTitle_{
+      font-size: 24px ! important;
+    }
+    .cartSummary{
+      margin-left: 30px ! important;
+    }
+  }
+
+  .couponMsg{
+    font-size: 12px;
+    color: #f00;
+    margin-top: 4px;
+  }
+  .cartProductDetail h5{
+  font-size: 15px ! important;
+}
+.productSize{
+  font-size: 14px ! important;
+}
+.cartPrice{
+  font-size: 14px ! important;
+}
+.cartDiscountPercent{
+  font-size: 14px ! important;
+}

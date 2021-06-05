@@ -65,12 +65,11 @@ class Checkout extends Component {
     }
     async componentDidMount() {
         await this.props.fetchCartData();
-        var userid = localStorage.getItem('user_ID');
         var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
         this.setState({
-            user_ID : userid,
+            user_ID : userDetails.user_id,
             email   : userDetails.email,
             fullName: userDetails.firstName +" "+userDetails.lastName ,
             websiteModel : localStorage.getItem('websiteModel'),
@@ -82,7 +81,7 @@ class Checkout extends Component {
         
         // this.getCartData();
         this.gettimes(this.state.startRange, this.state.limitRange);        
-        axios.get('/api/users/get/' + localStorage.getItem("user_ID"))
+        axios.get('/api/users/get/' + this.state.user_ID)
             .then(result => {
                 this.setState({
                     mobile: result.data.mobile,
@@ -92,22 +91,6 @@ class Checkout extends Component {
             .catch(err => {
                 console.log('Errr', err);
             })
-
-        // var type = "PG"
-        // axios.post('/api/projectsettings/getS3Details/' + type)
-        //     .then(result => {
-        //         //    console.log('projectsettings Response===> ', result.data);
-        //         this.setState({
-        //             environment: result.data.environment,
-        //             namepayg: result.data.namepayg,
-        //             partnerid: result.data.partnerid,
-        //             secretkey: result.data.secretkey,
-        //             status: result.data.status,
-        //         })
-        //     })
-        //     .catch(err => {
-        //         console.log('Errr', err);
-        //     })
     }
     
     validateForm() {
@@ -216,9 +199,8 @@ class Checkout extends Component {
         }
         
     getUserAddress() {
-        var user_ID = localStorage.getItem('user_ID');
-        if(user_ID){
-        axios.get("/api/ecommusers/" +user_ID)
+        if(this.state.user_ID){
+        axios.get("/api/ecommusers/" +this.state.user_ID)
             .then((response) => {
                 // console.log('userData res', response.data.deliveryAddress);
                 
@@ -336,13 +318,6 @@ class Checkout extends Component {
         } else {
             this.setState({ pincodeExists: true })
         }
-    }
-
-    giftOption(event) {
-        event.preventDefault();
-        this.setState({
-            giftOption: this.state.giftOption === true ? false : true
-        })
     }
 
     placeOrder(event) {

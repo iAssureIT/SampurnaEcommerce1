@@ -1,0 +1,111 @@
+d.bestsellerBx2{
+	height:355px;
+	border-bottom:1px solid #ddd;
+	border-right:1px solid #ddd;
+	border-left:1px solid #ddd;
+}
+.bestsellerBx1{
+	height:50px;
+	/*background: yellow;*/
+	padding-left:20px;
+	border:1px solid #ddd;
+}
+.spc20{
+ margin-top:20px;
+}
+.bestsellerpill{
+	height:100%;
+	/*width:100%;*/
+	font-size:16px;
+	font-weight:700;
+	padding-top:10px;
+	color:#A2632C;
+	border-bottom:2px solid #A2632C;
+	padding-left:0px!important;
+	padding-right:0px!important;
+}
+.sellersubbx{
+	height:300px;
+	border:1px solid #ddd;
+	margin-top:20px;
+	padding-left:0px!important;
+}
+.sellerul{
+	margin-top:5px;
+	color:#333;
+	font-weight:500;
+}
+.sellerul:hover{
+	color:#A2632C;
+	cursor:pointer;
+}
+
+.sellerul {
+  list-style: none; /* Remove default bullets */
+}
+
+.sellerul li::before { 
+  content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: #999; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
+  font-size: 150%;
+}
+
+.offerflag{
+	background:#A2632C;
+	color:white;
+	margin-top:10px;
+	width:50px;
+	padding:3px;
+	font-weight:700;
+}
+.offerimg{
+	height: 90px;
+    /*width: 140px;*/
+	margin-top:50px;
+}
+.offerimgsrc{
+	height:100%;
+	width:100%;
+}
+.imgttl{
+	margin-top:40px;
+	/*padding-left:35px;*/
+	font-size: 16px;
+    font-weight: bold;
+}
+
+.imgttl:hover{
+	cursor:pointer;
+	color:#A2632C;
+}
+.reviewstrimg{
+	color:#999;
+	margin-left:2px;
+}
+.linethr{
+	color: #888 !important;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+.lineprice{
+	color: #333!important;
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 20px;
+
+}
+.addtocartbtn{
+	height:26px;
+	padding-top:5px;
+	padding-bottom:7px;
+	border:1px solid #A2632C;
+	border-radius:15px;
+	width:140px;
+	margin-top:10px;
+	color:#A2632C;
+}

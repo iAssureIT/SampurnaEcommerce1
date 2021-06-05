@@ -24,8 +24,7 @@ if (typeof window !== "undefined") {
     require("jquery");
     require("popper.js");
     require("bootstrap/dist/js/bootstrap");
-  }
-
+}
 //Binding events. 
 Router.events.on('routeChangeStart', () => NProgress.start()); 
 Router.events.on('routeChangeComplete', () => NProgress.done()); 
@@ -46,7 +45,6 @@ Router.events.on('routeChangeError', () => NProgress.done());
 	useEffect(() => {
 	 	axios.get("/api/projectSettings/get/GOOGLE",)
          .then((response) => {
-            // console.log("app.js googleAPIKey response",response.data.googleapikey);
               setGoogleAPIKey(response.data.googleapikey);
               window.initMap=setInitMap(true);
           })
@@ -81,8 +79,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
-        {/* <script src= {"https://maps.googleapis.com/maps/api/js?key="+googleAPIKey+"&libraries=geometry,drawing,places"}></script>                  */}
+        <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>               
       </Head>
       {
         initMap ?

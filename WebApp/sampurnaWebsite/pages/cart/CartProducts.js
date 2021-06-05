@@ -519,11 +519,11 @@ class CartProducts extends Component{
                                     <div className="col-12">
                                     {    
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
-                                        // console.log("vendorWiseCartData==",vendorWiseCartData);
+                                        console.log("vendorWiseCartData==",vendorWiseCartData);
                                         return(  
                                             <div className="row" key={index}>
                                                 <div className="col-9">
-                                                    <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendorName}</b></div>
+                                                    <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
                                                         // console.log("vendorData=>",vendorData);
                                                     return(
@@ -641,7 +641,7 @@ class CartProducts extends Component{
                                     </div>
                                     <div className="col-12 CouponCode">
                                         <div className="row ">
-                                        <div className="col-9">
+                                        <div className="col-9 mt-4">
                                             <div className="col-4 offset-4 checkoutBtn">
                                             {
                                             this.state.minvalueshipping?
