@@ -10,6 +10,7 @@ var ObjectId 		    = require('mongodb').ObjectID;
 
 exports.getVendorList = (req,res,next)=>{
     console.log("req.body => ", req.body);
+    
     Sections.find({"sectionUrl" : req.body.sectionUrl})
     .exec()
     .then(sectiondata=>{

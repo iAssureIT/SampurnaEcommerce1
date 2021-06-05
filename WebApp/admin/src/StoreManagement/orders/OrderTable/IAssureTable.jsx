@@ -905,7 +905,7 @@ class IAssureTable extends Component {
 								}
 	                    	</tbody>
 	                    </table>
-	                    {
+	                    {/* {
 	                    	this.state.tableObjects.paginationApply === true ?
 		                    	this.state.tableData && this.state.tableData.length > 0 ?
 		                    	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 paginationAdminWrap">
@@ -949,7 +949,7 @@ class IAssureTable extends Component {
 								null
 							:
 							null
-	                    }
+	                    } */}
 	                    
 	                </div>                        
 	            </div>

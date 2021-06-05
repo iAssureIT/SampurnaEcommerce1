@@ -148,7 +148,7 @@ class AllOrdersList extends Component{
 					_id             : a._id,
 					orderNumber     : a.orderID,
 					orderDate       : moment(a.createdAt).format("DD/MM/YYYY"),
-					customer     	: '<div>'+ a.userFullName +'<br/> Address : ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
+					customer     	: '<div><b>'+ a.userFullName +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
 					totalPrice  	: a.paymentDetails.currency + " " + a.paymentDetails.netPayableAmount,
 					vendorName   	: a.vendorOrders 
 										? 

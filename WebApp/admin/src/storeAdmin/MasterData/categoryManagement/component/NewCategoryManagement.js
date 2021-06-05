@@ -158,7 +158,7 @@ class CategoryManagement extends Component{
 			 	},
 			 	category : {
 					required 			: true,
-					letterswithspace 	: true,
+					// letterswithspace 	: true,
 					charactersLength 	: true
 			 	},
 				categoryRank : {
