@@ -1,10 +1,5 @@
 import axios from 'axios';
 
-
-// if (typeof window !== undefined) {
-//   require('localstorage-polyfill');
-// }  
-
 export const setBlockData = (data) => ({
     type: 'SET_BLOCKS_DATA',
     payload : data
@@ -20,8 +15,6 @@ export const getBlockData = (data) => ({
 })
 
 export function updatePin(pincode,status) {
-  // console.log("In Action updatePin value ===",pincode);
-  // console.log("In Action updatestatus value ===",status);
   return {
     type: "PINCODE_DATA",
     deliveryPincode: pincode,

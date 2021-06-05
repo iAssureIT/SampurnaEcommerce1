@@ -636,7 +636,6 @@ class CartProducts extends Component{
                                             </div>
                                         ) //end return   
                                         })// end fechcartData map
-
                                     }
                                     </div>
                                     <div className="col-12 CouponCode">
