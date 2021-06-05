@@ -525,7 +525,7 @@ class CartProducts extends Component{
                                                 <div className="col-9">
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
-                                                        // console.log("vendorData=>",vendorData);
+                                                        console.log("vendorData=>",vendorData);
                                                     return(
                                                         <div key={index}>
                                                             <div className="col-12">
@@ -583,7 +583,7 @@ class CartProducts extends Component{
                                                                     <div className="nowrap col-3">
                                                                     {
                                                                         vendorData.product_ID.availableQuantity > 0 ?
-                                                                            <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice:vendorData.product_ID.originalPrice}</span>
+                                                                            <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice * vendorData.quantity :vendorData.product_ID.originalPrice * vendorData.quantity}</span>
                                                                         :
                                                                         <span>-</span>
                                                                     }    

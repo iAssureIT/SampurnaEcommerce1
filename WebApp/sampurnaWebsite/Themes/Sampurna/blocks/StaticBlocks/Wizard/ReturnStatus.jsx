@@ -5,7 +5,6 @@ import moment 				from 'moment';
 // import { browserHistory } 	from 'react-router';
 // import {Link} 				from 'react-router';
 
-// import "../../../sites/currentSite/common/StepWizard.css";
 
 export default class ReturnStatus extends Component{
 	constructor(props){

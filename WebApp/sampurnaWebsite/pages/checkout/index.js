@@ -229,6 +229,7 @@ class Checkout extends Component {
             }); 
         } 
     }
+
     checkboxClick(event) {
         let isChecked = !this.state.isChecked;
         // console.log("isChecked:", isChecked);
@@ -481,7 +482,7 @@ class Checkout extends Component {
                             })
                         }
                         // console.log("cartItems",cartItems);
-                        console.log("cartData==",this.props.recentCartData);
+                        // console.log("cartData==",this.props.recentCartData);
 
                         var orderData = {
                             user_ID                   : this.state.user_ID,
@@ -821,7 +822,7 @@ class Checkout extends Component {
             <div className="col-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
                 <Message messageData={this.state.messageData} />
                 <div className="row">
-                    <Loader type="fullpageloader" />
+                    {/* <Loader type="fullpageloader" /> */}
                     {/* <div className ="fullpageloader">
                         <div className="col-lg-6 col-lg-offset-3 col-md-4 col-md-offset-4  col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
                             <img src="/images/loader.gif" className=""></img>
@@ -1247,7 +1248,7 @@ class Checkout extends Component {
 
                                     <div className="col-12">
                                     {
-                                        !this.state.paymethods ?
+                                        !this.state.paymentMethods ?
                                         <button className=" globaleCommBtn eCommTitle col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" onClick={this.placeOrder.bind(this)}>Place Order</button>
                                         :
                                         <div className="col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" >
