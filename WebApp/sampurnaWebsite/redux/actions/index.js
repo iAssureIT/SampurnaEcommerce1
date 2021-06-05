@@ -64,7 +64,7 @@ export function updateCartCount() {
       if (userid) {
         axios.get("/api/carts/get/count/" + userid)
         .then((response) => {
-          console.log("cartcount = ",response);
+          // console.log("cartcount = ",response);
           dispatch(cartCount(response.data));
         })
         .catch((error) => {

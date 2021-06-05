@@ -44,126 +44,28 @@ class CartProducts extends Component{
 
     async componentDidMount(){
         var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-        var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
-        var token         = userDetails.token;
-        axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
-        var websiteModel = localStorage.getItem('websiteModel');
+       
         this.setState({
-            websiteModel : websiteModel,
-            currency     : currency
+            user_ID      : userDetails.user_id,
+            websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
+            currency     : sampurnaWebsiteDetails.preferences.currency
         })
         await this.props.fetchCartData();
-        // this.getdiscounteddata(this.state.startRange, this.state.limitRange);
-        // this.getshippingamount(this.state.startRange, this.state.limitRange);
-        // this.getTaxmasterData();
-        // this.getCartTotal();
     }
-    // getCartTotal(){
-    //     this.props.recentCartData.length
-    //     for(let i =0;i<this.props.recentCartData.length;i++){
-    //         var tax = this.props.recentCartData[i].cartTotal;
-    //     }
-    // }
-
-    // getTaxmasterData(){
-    //     axios.post('/api/expensetypemaster/get/list')
-    //     .then((response) => {
-    //         // console.log('TaxData tableData ==== ', response.data[0]);
-    //         if(response.data[0]){
-    //         this.setState({
-    //             taxrate: response.data[0].GSTRate, 
-    //             taxName: response.data[0].type             
-    //         },()=>{
-               
-    //         })
-    //     }
-    //     })
-    //     .catch((error) => {
-    //         console.log("error => ",error);
-    //         if(error.message === "Request failed with status code 401"){
-    //             var userDetails =  localStorage.removeItem("userDetails");
-    //             // localStorage.clear();
-    //             swal({  
-    //                 title : "Your Session is expired.",                
-    //                 text  : "You need to login again. Click OK to go to Login Page"
-    //             })
-    //             .then(okay => {
-    //                 if (okay) {
-    //                     window.location.href = "/login";
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-    // getdiscounteddata(startRange, limitRange) {
-    //     axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
-    //         .then((response) => {
-    //             // console.log('Disscount tableData ==== ', response.data[0]);
-    //             if(response.data[0]){
-    //             this.setState({
-    //                 discountdata: response.data[0],
-    //                 discounttype: response.data[0].discounttype,
-    //                 discountin: response.data[0].discountin,
-    //                 discountvalue: response.data[0].discountvalue,
-    //             })
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.log("error => ",error);
-    //             if(error.message === "Request failed with status code 401"){
-    //                 var userDetails =  localStorage.removeItem("userDetails");
-    //                 localStorage.clear();
-    //                 swal({  
-    //                     title : "Your Session is expired.",                
-    //                     text  : "You need to login again. Click OK to go to Login Page"
-    //                 })
-    //                 .then(okay => {
-    //                     if (okay) {
-    //                         window.location.href = "/login";
-    //                     }
-    //                 });
-    //             }
-    //         });
-    // }
-    // getshippingamount(startRange, limitRange){
-    //     axios.get('/api/shipping/get/list-with-limits/' + startRange + '/' + limitRange)
-    //     .then((response) => {
-        //   console.log('shippingamount = ', response.data[0].shippingcosting);
-        //   this.setState({
-    //         minvalueshipping: response.data[0].shippingcosting,
-    //       })
-    //     })
-    //     .catch((error) => {
-    //       console.log("error => ",error);
-    //         if(error.message === "Request failed with status code 401"){
-    //             var userDetails =  localStorage.removeItem("userDetails");
-    //             localStorage.clear();
-    //             swal({  
-    //                 title : "Your Session is expired.",                
-    //                 text  : "You need to login again. Click OK to go to Login Page"
-    //             })
-    //             .then(okay => {
-    //                 if (okay) {
-    //                     window.location.href = "/login";
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
     Removefromcart(event){
         event.preventDefault();
-        const userid = localStorage.getItem('user_ID');
         const cartitemid = event.target.getAttribute('id');
         const vendorid = event.target.getAttribute('vendorid');
         const formValues = { 
-            "user_ID"     : userid,
+            "user_ID"     : this.state.user_ID,
             "cartItem_ID" : cartitemid,
             vendor_ID     : vendorid,
         }
-        console.log("Removefromcart===",formValues);
+        // console.log("Removefromcart===",formValues);
         axios.patch("/api/carts/remove" ,formValues)
         .then((response)=>{
+            // console.log("removecart res=>",response.data);
             this.setState({
                 messageData : {
                   "type" : "outpage",
@@ -182,31 +84,17 @@ class CartProducts extends Component{
         })
         .catch((error)=>{
             console.log("error => ",error);
-            // if(error.message === "Request failed with status code 401"){
-            //     var userDetails =  localStorage.removeItem("userDetails");
-            //     localStorage.clear();
-            //     swal({  
-            //         title : "Your Session is expired.",                
-            //         text  : "You need to login again. Click OK to go to Login Page"
-            //     })
-            //     .then(okay => {
-            //         if (okay) {
-            //             window.location.href = "/login";
-            //         }
-            //     });
-            // }
         })
     }
     cartquantityincrease(event){
         event.preventDefault();
-        const userid     = localStorage.getItem('user_ID');
         const product_ID = event.target.getAttribute('productid');   
         const vendor_id = event.target.getAttribute('vendor_id');     
         const quantity   = parseInt(event.target.getAttribute('dataquntity'));
         var availableQuantity = parseInt(event.target.getAttribute('availablequantity'));
         const quantityAdded   = parseInt(quantity+1);
 
-        if(localStorage.getItem('websiteModel')==="FranchiseModel"){
+        if(this.state.websiteModel ==="FranchiseModel"){
             const size       = event.target.getAttribute('size');
             const unit       = event.target.getAttribute('unit');
             var totalWeight  = quantityAdded * size;             
@@ -221,7 +109,7 @@ class CartProducts extends Component{
                 totalWeight      = totalWeight+" "+unit;
             }
             const formValues = { 
-                "user_ID"     	: userid,
+                "user_ID"     	: this.state.user_ID,
                 "product_ID" 	: product_ID,
                 "totalWeight"   : totalWeight,
                 "vendor_ID"     : vendor_id ,
@@ -234,24 +122,11 @@ class CartProducts extends Component{
             })
             .catch((error)=>{
                 console.log("error => ",error);
-                // if(error.message === "Request failed with status code 401"){
-                //     var userDetails =  localStorage.removeItem("userDetails");
-                //     localStorage.clear();
-                //     swal({  
-                //         title : "Your Session is expired.",                
-                //         text  : "You need to login again. Click OK to go to Login Page"
-                //     })
-                //     .then(okay => {
-                //         if (okay) {
-                //             window.location.href = "/login";
-                //         }
-                //     });
-                // }
             })
             
         }else{
             const formValues = { 
-                "user_ID"     	: userid,
+                "user_ID"     	: this.state.user_ID,
                 "product_ID" 	: product_ID,
                 "quantityAdded" : quantityAdded,
                 "totalWeight"   : totalWeight,
@@ -275,26 +150,14 @@ class CartProducts extends Component{
                 }, 3000);
             }
             else{
-                console.log("formValues===",formValues);
+                // console.log("formValues===",formValues);
                 axios.patch("/api/carts/quantity" ,formValues)
                 .then((response)=>{
+                        // console.log("increament response=>",response.data);
                         this.props.fetchCartData();
                 })
                 .catch((error)=>{
                     console.log("error => ",error);
-                    // if(error.message === "Request failed with status code 401"){
-                    //     var userDetails =  localStorage.removeItem("userDetails");
-                    //     localStorage.clear();
-                    //     swal({  
-                    //         title : "Your Session is expired.",                
-                    //         text  : "You need to login again. Click OK to go to Login Page"
-                    //     })
-                    //     .then(okay => {
-                    //         if (okay) {
-                    //             window.location.href = "/login";
-                    //         }
-                    //     });
-                    //}
                 })
             }
         }        
@@ -314,13 +177,12 @@ class CartProducts extends Component{
 
     cartquantitydecrease(event){
     	event.preventDefault();
-        const userid     = localStorage.getItem('user_ID');
         const cartitemid = event.target.getAttribute('id'); 
         const vendor_id  = event.target.getAttribute('vendor_id');
         const quantity   = parseInt(event.target.getAttribute('dataquntity'));
         const quantityAdded = parseInt(quantity-1) <= 0 ? 1 : parseInt(quantity-1);
        
-        if(localStorage.getItem('websiteModel')==="FranchiseModel"){
+        if(this.state.websiteModel==="FranchiseModel"){
             const size       = event.target.getAttribute('size');
             const unit       = event.target.getAttribute('unit');
             var totalWeight  = quantityAdded * size;
@@ -337,61 +199,35 @@ class CartProducts extends Component{
                 totalWeight      = totalWeight+" "+unit;
             }
             const formValues = { 
-                "user_ID"     	: userid,
+                "user_ID"     	: this.state.user_ID,
                 "product_ID" 	: cartitemid,
                 "quantityAdded" : quantityAdded,
                 "totalWeight"   : totalWeight,
                 "vendor_ID"     : vendor_id, 
             }   
-            console.log("formValues===",formValues);         
+            // console.log("formValues===",formValues);         
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                     this.props.fetchCartData();
             })
             .catch((error)=>{
                 console.log("error => ",error);
-                // if(error.message === "Request failed with status code 401"){
-                //     var userDetails =  localStorage.removeItem("userDetails");
-                //     localStorage.clear();
-                //     swal({  
-                //         title : "Your Session is expired.",                
-                //         text  : "You need to login again. Click OK to go to Login Page"
-                //     })
-                //     .then(okay => {
-                //         if (okay) {
-                //             window.location.href = "/login";
-                //         }
-                //     });
-                // }
             })
             
         }else{
             const formValues    = { 
-                "user_ID"     	: userid,
+                "user_ID"     	: this.state.user_ID,
                 "product_ID" 	: cartitemid,
                 "quantityAdded" : quantityAdded,     
                 "vendor_ID"     : vendor_id,       
             }
-            console.log("formValues===",formValues);
+            // console.log("formValues===",formValues);
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                 this.props.fetchCartData();
             })
             .catch((error)=>{
                 console.log("error => ",error);
-                // if(error.message === "Request failed with status code 401"){
-                //     var userDetails =  localStorage.removeItem("userDetails");
-                //     localStorage.clear();
-                //     swal({  
-                //         title : "Your Session is expired.",                
-                //         text  : "You need to login again. Click OK to go to Login Page"
-                //     })
-                //     .then(okay => {
-                //         if (okay) {
-                //             window.location.href = "/login";
-                //         }
-                //     });
-                // }
             })
         }
         
@@ -425,26 +261,19 @@ class CartProducts extends Component{
             Router.push('/checkout');            
         }
     }
-    continueShopping(event){
-        event.preventDefault();
-        this.props.history.push('/');
-    }
-    updateShoppingCart(){
-        window.location.reload();
-    }
+   
     moveWishlist(event){
-        event.preventDefault();
-        const userid = localStorage.getItem('user_ID');
+        event.preventDefault();        
         const cartitemid = event.target.getAttribute('id');
         const productid = event.target.getAttribute('productid');
         const formValues = { 
-            "user_ID"    : userid,
+            "user_ID"    : this.state.user_ID,
             "cartItem_ID" : cartitemid,
         }
 
 
           const wishValues = {
-            "user_ID": userid,
+            "user_ID": this.state.user_ID,
             "product_ID": productid,
           }
           axios.post('/api/wishlist/post', wishValues)
@@ -466,40 +295,13 @@ class CartProducts extends Component{
                         })
                     }, 3000);
                     this.props.fetchCartData();
-                    // window.location.reload();
                 })
                 .catch((error)=>{
                     console.log("error => ",error);
-                    if(error.message === "Request failed with status code 401"){
-                        var userDetails =  localStorage.removeItem("userDetails");
-                        localStorage.clear();
-                        swal({  
-                            title : "Your Session is expired.",                
-                            text  : "You need to login again. Click OK to go to Login Page"
-                        })
-                        .then(okay => {
-                            if (okay) {
-                                window.location.href = "/login";
-                            }
-                        });
-                    }
                 })
             })
             .catch((error) => {
                 console.log("error => ",error);
-                if(error.message === "Request failed with status code 401"){
-                    var userDetails =  localStorage.removeItem("userDetails");
-                    localStorage.clear();
-                    swal({  
-                        title : "Your Session is expired.",                
-                        text  : "You need to login again. Click OK to go to Login Page"
-                    })
-                    .then(okay => {
-                        if (okay) {
-                            window.location.href = "/login";
-                        }
-                    });
-                }
             })
     }
 
@@ -519,13 +321,13 @@ class CartProducts extends Component{
                                     <div className="col-12">
                                     {    
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
-                                        console.log("vendorWiseCartData==",vendorWiseCartData);
+                                        // console.log("vendorWiseCartData==",vendorWiseCartData);
                                         return(  
                                             <div className="row" key={index}>
                                                 <div className="col-9">
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
-                                                        console.log("vendorData=>",vendorData);
+                                                        // console.log("vendorData=>",vendorData);
                                                     return(
                                                         <div key={index}>
                                                             <div className="col-12">
@@ -725,7 +527,7 @@ class CartProducts extends Component{
     }
 }
 const mapStateToProps = state => (
-    console.log("state in cartProductsdata====",state.data.recentCartData),
+    // console.log("state in cartProductsdata====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

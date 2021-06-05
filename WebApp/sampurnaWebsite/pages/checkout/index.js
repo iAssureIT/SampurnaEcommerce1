@@ -72,7 +72,7 @@ class Checkout extends Component {
             user_ID : userDetails.user_id,
             email   : userDetails.email,
             fullName: userDetails.firstName +" "+userDetails.lastName ,
-            websiteModel : localStorage.getItem('websiteModel'),
+            websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
             currency     : currency,
         },()=>{
             this.getUserAddress();

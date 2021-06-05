@@ -54,10 +54,13 @@ const VendorList = ()=> {
                                                         <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                             <img src={vendordata.vendorLogo} className={"vendor img-thumbnail "+Style.vendorLogo }/>
                                                         </div>   
-                                                        <div className={"col-9 text-center " +Style.vendorName}>{vendordata.vendorName}</div>
-                                                        <div className="col-9 deliveryTime">
-                                                            Delivery Time - 4km
+                                                        <div className={"col-9 "}>
+                                                            <div className={"col-12 " +Style.vendorName}>{vendordata.vendorName}</div>
+                                                            <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
+                                                                Delivery Time - {vendordata.vendorDistance>0?vendordata.vendorDistance:0} &nbsp;Km
+                                                            </div>
                                                         </div>
+                                                        
                                                     </div> 
                                                 </ Link >
                                             </div>

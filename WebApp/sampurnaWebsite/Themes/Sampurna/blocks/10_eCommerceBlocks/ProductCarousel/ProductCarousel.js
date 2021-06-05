@@ -235,6 +235,7 @@ class ProductCarousel extends Component {
             // console.log("productApiUrl===",productApiUrl);
         }
         if(productApiUrl){
+          // console.log("formValues=>",formValues);
           this.getProductList(productApiUrl,formValues);
       }//end productApiUrl
       });
@@ -362,7 +363,6 @@ getWishlistData() {
         "vendor_ID"  : event.target.getAttribute('vendor_id'),       
       }      
     }
-
     this.addCart(formValues, quantityAdded, availableQuantity);
     this.setState({
       ['sizeCollage' + currProId]: false
@@ -376,9 +376,8 @@ getWishlistData() {
         messageData: {
           "type": "outpage",
           "icon": "fa fa-exclamation-circle",
-          "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
-          // "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",          
-          
+          // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
+          "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
           "class": "danger",
           "autoDismiss": true
         }
@@ -434,7 +433,7 @@ getWishlistData() {
         })
       }, 3000);
     } else {
-      // console.log("formValues==",formValues);
+      console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)
         .then((response) => {
           // console.log("this.props.fetchCartData();",this.props.fetchCartData());
@@ -610,16 +609,13 @@ getWishlistData() {
                     ssr={true} // means to render carousel on server-side.
                     infinite={false}
                     autoPlay= {false}
-                    // autoPlay={this.props.deviceType !== "mobile" ? true : false}
                     autoPlaySpeed={3000}
                     keyBoardControl={true}
                     customTransition="all .20"
                     transitionDuration={500}
-                    // containerclassName="carousel-container"
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     deviceType={this.props.deviceType}
                     itemclassName="carousel-item-padding-10-px">
-                        
                     { 
                       Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
                         Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
@@ -785,7 +781,6 @@ getWishlistData() {
                         })
                         :''
                     }
-
                   </Carousel>
                   : 
                   <div className={"col-12 NoPadding " +Style.ProductListWrapper }>              
@@ -833,8 +828,6 @@ getWishlistData() {
                     :' '
                     }
                  </div>
-
-
                   <div className={"col-9 col-sm-12 col-xs-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className="row">
                       <div className={"col-12 " +Style.rightSidefilter}>
@@ -855,7 +848,6 @@ getWishlistData() {
                         </div>
                       </div>
                     </div> 
-
                     <div className="col-12">
                       <div className="row">
                         {this.state.newProducts.length>=1?
@@ -906,7 +898,6 @@ getWishlistData() {
   }
 }
 const mapStateToProps = state => (
-  // console.log("state in productCarousel====",state.data),
   {
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,
@@ -918,7 +909,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = {
   fetchCartData    : getCartData,  
   updateCartCount  : updateCartCount,
-  getWishlistData: getWishlistData,
+  getWishlistData  : getWishlistData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCarousel);

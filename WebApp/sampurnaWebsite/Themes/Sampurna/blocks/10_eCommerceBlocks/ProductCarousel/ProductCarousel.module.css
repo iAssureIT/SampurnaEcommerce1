@@ -200,10 +200,10 @@ color: #FBBD65!important;
 .card{
   border: 1px solid #f1f2f2;
 }
-.productDetails{
+/* .productDetails{
   padding-bottom: 15px;
   min-height: 110px;
-}
+} */
 .item-top{
   text-align: center;
 }
@@ -276,7 +276,7 @@ color: #FBBD65!important;
 
 
 .innerDiv{
-  padding: 10px 0px 5px 0px;
+  padding: 10px 0px 0px 0px;
   text-align: center;
 }
 .innerDiv a{
@@ -297,16 +297,16 @@ font-weight: bold;
   font-size: 10px !important;
 }
 .globalProductItemName{
-  height: 18px;
+  height: 25px;
 }
 .globalProdName{
-  height: 18px;
+  height: 25px;
   margin-bottom: -10px;
   font-size: 14px;
   /* cursor: pointer; */
 }
 .priceWrapper{
-  height: 18px;
+  height: 25px;
 }
 .price{
   font-size: 14px;
@@ -377,7 +377,7 @@ font-weight: bold;
   border: 1px solid #aaa;
   margin-top: 5px;
   margin-bottom: 5px;
-  height: 310px;
+  /* height: 310px; */
   border-radius: 15px;
 }
 .productBlock {
@@ -385,7 +385,7 @@ font-weight: bold;
   border-radius: 15px;
   margin-top: 5px;
   margin-bottom: 5px;
-  height: 300px;
+  /* height: 300px; */
 }
 .availablesize {
   padding: 0 10px!important;

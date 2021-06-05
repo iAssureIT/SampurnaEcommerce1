@@ -1,13 +1,17 @@
 .vendorCard{
     height: 140px;
     border-radius: 20px;
-    /* background-image: url("/images/eCommerce/vendorCard.jpg"); */
+    background-image: url("/images/eCommerce/vendorCard.jpg");
     background-position: 100%;
-    background-color: #bbb; 
+    /* background: rgba(0, 15, 0, 0.3); */
     cursor: pointer;
+}
+.deliveryTime{
+    margin-top: 40px !important;
 }
 .cardBody{
     color: #fff;
+    z-index: 1;
 }
 .vendorLogo{
     /* height: 100px; */
