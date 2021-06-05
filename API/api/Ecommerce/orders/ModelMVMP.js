@@ -89,6 +89,7 @@ const orderSchema = mongoose.Schema({
             vendor_beforeDiscountTotal: Number,
             vendor_discountAmount     : Number,
             vendor_afterDiscountTotal : Number,
+            vendor_taxAmount          : Number,
             deliveryStatus            : [{
                 "status"          : String,  //Only 4 status to be shown to user: New, Packaging, Dispatched, Delivered
                 "timestamp"       : Date,

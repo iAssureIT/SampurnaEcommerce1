@@ -276,11 +276,7 @@ exports.list_cart_product = (req,res,next)=>{
     .exec()
     .then(async(data)=>{
         if(data){
-            var vendor_beforeDiscountTotal  = 0;
-            var vendor_afterDiscountTotal   = 0;
-            var vendor_discountAmount       = 0;
-            var vendor_taxAmount            = 0;
-            var vendor_shippingCharges      = 0;
+            
             var vendorOrders                = data.vendorOrders;
             var order_beforeDiscountTotal   = 0;
             var order_afterDiscountTotal    = 0;
@@ -289,7 +285,13 @@ exports.list_cart_product = (req,res,next)=>{
             var order_shippingCharges       = 0;
             
             var wish = await Wishlists.find({user_ID:req.params.user_ID});
-            for(var i = 0; i<vendorOrders.length;i++){            
+            for(var i = 0; i<vendorOrders.length;i++){    
+                var vendor_beforeDiscountTotal  = 0;
+                var vendor_afterDiscountTotal   = 0;
+                var vendor_discountAmount       = 0;
+                var vendor_taxAmount            = 0;
+                var vendor_shippingCharges      = 0;     
+                   
                 for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
                     vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){

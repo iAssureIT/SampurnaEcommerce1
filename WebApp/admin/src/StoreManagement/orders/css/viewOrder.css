@@ -297,3 +297,8 @@
 .orderDetailTitles{
     font-size:14px;
 }
+.vendorOrderDetails{
+    background-color: #fff8f8;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+}

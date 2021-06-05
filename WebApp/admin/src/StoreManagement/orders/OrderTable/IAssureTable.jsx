@@ -1021,57 +1021,7 @@ class IAssureTable extends Component {
                       </div>
                     </div>
                   	</div>
-                </div>
-				<table border="1">
-
-<tr>
-
-  <th rowspan="2" colspan="2"></th>
-
-  <th colspan="2">Fruit</th>
-
-</tr>
-
-
-
-<tr>
-
-  <th>Oranges</th>
-
-  <th>Grapefruit</th>
-
-</tr>
-
-
-
-<tr>
-
-  <th rowspan="2">Feature</th>
-
-  <th>Flavor</th>
-
-  <td>Sweet</td>
-
-  <td rowspan="2">Tart</td>
-
-</tr>
-
-
-
-<tr>
-
-  <th>Size</th>
-
-  <td>Small</td>
-
-  {/* <td>Large</td> */}
-
-</tr>
-
-</table>
-
-	            
-
+                </div>				
             </div>
 	    );
 		

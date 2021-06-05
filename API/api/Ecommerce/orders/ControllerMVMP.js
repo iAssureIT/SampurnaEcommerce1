@@ -553,11 +553,29 @@ exports.count_order = (req, res, next) => {
 };
 exports.fetch_order = (req, res, next) => {
   	Orders.findOne({ _id: req.params.orderID }).sort({ createdAt: -1 })
-	.populate('franchiseCustId')
 	.populate('vendorOrders.vendor_id')
 	.exec()
-	.then(data => {
-		res.status(200).json(data);
+	.then(async(data) => {
+		console.log('data', data);
+		// for(var i=0;i<data.length;i++){
+			// for(var j=0;j<data[i].vendorOrders.length;j++){
+				// console.log("data[i].vendorOrders",data[i].vendorOrders);
+				if(data !== null){
+					for(var j=0;j<data.vendorOrders.length;j++){
+						var vendor = await Entitymaster.findOne({_id:data.vendorOrders[j].vendor_id},{companyName:1,_id:0})
+						data.vendorOrders[j].vendorName = vendor.companyName;
+					}
+					if(j>=data.vendorOrders.length){
+						res.status(200).json(data);
+					}
+				}else{
+					res.status(200).json(data);
+				}
+		// 	}
+		// }
+		// if(i>=data.length){
+			
+		// }
 	})
 	.catch(err => {
 		console.log(err);
