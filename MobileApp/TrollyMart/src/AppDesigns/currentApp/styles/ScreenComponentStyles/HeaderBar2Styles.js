@@ -90,7 +90,7 @@ export default StyleSheet.create({
     alignItems:'center',
     ...Platform.select({
       ios: {
-        height: 85,
+        height: 110,
         // paddingTop: 25,
 
       },

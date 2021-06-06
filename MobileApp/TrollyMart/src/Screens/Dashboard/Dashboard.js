@@ -155,6 +155,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                   navigation  = {navigation} 
                   showImage   = {true}
                   boxHeight   = {80}
+                  // index       = {0}
                 />
               }
             </View>

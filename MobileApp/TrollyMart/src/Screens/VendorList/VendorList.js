@@ -27,6 +27,8 @@ export const VendorList = withCustomerToaster((props)=>{
     const [value,setValue] =useState('lowestprice');
     const section = props.route.params?.section;
     const sectionUrl = props.route.params?.sectionUrl;
+    const index = props.route.params?.index;
+    console.log("index",index);
     const [vendorList,setVendorList] =useState([]);
     const dispatch 		= useDispatch();
     const store = useSelector(store => ({
@@ -69,10 +71,11 @@ export const VendorList = withCustomerToaster((props)=>{
             "vendorID"          : vendor.vendor_ID,
             "sectionUrl"        : sectionUrl,
             "startRange"        : 0,
-            "limitRange"        : 8
+            "limitRange"        : 8,
           } 
         dispatch(getCategoryWiseList(payload));
-        navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section});
+        
+        navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section,index:index});
     }
 
     const _renderlist = ({ item, index })=>{
@@ -118,6 +121,7 @@ export const VendorList = withCustomerToaster((props)=>{
                     showImage   = {true}
                     selected    = {section}
                     boxHeight   = {60}
+                    index       = {index}
                 />
                 <View style={styles.proddets}>
                 {loading ?

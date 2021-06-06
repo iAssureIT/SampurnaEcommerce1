@@ -12,7 +12,7 @@ import {AuthLoadingScreen}    from "./src/ScreenComponents/AuthLoadingScreen/Aut
 import SplashScreen           from 'react-native-splash-screen';
 
 axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com';
-// axios.defaults.baseURL = 'http://10.39.1.142:3366';
+// axios.defaults.baseURL = 'http://10.39.1.85:3366';
 console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
 StatusBar.setHidden(true);
 

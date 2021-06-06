@@ -25,7 +25,7 @@ export const FormInput = props => {
       inputContainerStyle= {styles.containerStyle}
       leftIconContainerStyle={styles.leftIconContainerStyle}
       errorStyle={{ color: 'red' ,margin:0}}
-      inputStyle={{textAlignVertical: "top"}}
+      inputStyle={{textAlignVertical: "top",marginLeft:5}}
     />
   );
 };
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderColor:"#ccc",
     paddingLeft:15,
     paddingRight:15,
-    margin:0
+    margin:0,
   }
   
 });

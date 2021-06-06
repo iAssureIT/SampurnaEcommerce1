@@ -28,6 +28,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
+
 GoogleSignin.configure({
   scopes: ['https://www.googleapis.com/auth/drive.readonly'],
   webClientId: "1023694532217-4b1v4vf0oukma7c8c1bnogpr40b28kii.apps.googleusercontent.com",
@@ -189,7 +190,7 @@ const window = Dimensions.get('window');
               <View style={styles.syslogo}>
                   <Image
                   resizeMode="contain"
-                  source={require("../../../AppDesigns/currentApp/images/Logo.png")}
+                  source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
                   style={styles.syslogoimg}
                   />
               </View>
@@ -198,7 +199,7 @@ const window = Dimensions.get('window');
             <View style={commonStyles.formWrapper}>
             <FormInput
               labelName       = "Email Id/Mobile No"
-              placeholder     = "Email Id"
+              placeholder     = "Enter Email Id / Mobile No"
               onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"
@@ -211,7 +212,7 @@ const window = Dimensions.get('window');
             />
             <FormInput
               labelName     = "Password"
-              placeholder   = "Password"
+              placeholder   = "Enter Password"
               onChangeText  = {handleChange('password')}
               errors        = {errors}
               name          = "password"
@@ -261,7 +262,7 @@ const window = Dimensions.get('window');
                 </TouchableOpacity>
                 </View>
             </View>
-           <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
+           {/* <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center"}}>
               <GoogleSigninButton
                 style={{ width: window.width-50, height: 50 }}
@@ -270,14 +271,14 @@ const window = Dimensions.get('window');
                 onPress={()=>_signIn()}
                 // disabled={this.state.isSigninInProgress} 
                 />
-            </View> 
+            </View>  */}
             <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
                   title       = {'Login As a Guest'}
                   onPress     = {()=>navigation.push('App')}
                   background  = {true}
-                  loading     = {btnLoading}
+                  // loading     = {btnLoading}
               />
             </View>
           </View>

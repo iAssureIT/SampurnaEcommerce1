@@ -134,6 +134,7 @@ const window = Dimensions.get('window');
               <FormBody
                 btnLoading={btnLoading}
                 navigation={navigation}
+                dispatch={dispatch}
                 {...formProps}
               />
             )}
@@ -151,6 +152,7 @@ const window = Dimensions.get('window');
       btnLoading,
       setFieldValue,
       navigation,
+      dispatch
     } = props;
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
@@ -175,67 +177,27 @@ const window = Dimensions.get('window');
             countryCode : ""
           }
           axios.post('/api/auth/post/signup/user/otp/new',formValues)
-          .then((response) => {
-            console.log("response",response);
+          .then((res) => {
+            console.log("response",res);
             // setLoading(false)
-            if(response.data.message == 'USER_CREATED'){            
+            if(res.data.message == 'USER_CREATED'){            
               var sendData = {
                 "event": "5",
-                "toUser_id": response.data.ID,
+                "toUser_id": res.data.ID,
                 "toUserRole":"user",
                   "variables": {
-                    "Username" : response.data.result.profile.firstname,
-                    "OTP" : response.data.result.profile.otpEmail,
+                    "Username" : res.data.result.profile.firstname,
+                    "OTP" : res.data.result.profile.otpEmail,
                   }
                 }
                 axios.post('/api/masternotifications/post/sendNotification', sendData)
                 .then((res) => {
                 })
                 .catch((error) => { console.log('notification error: ',error)})
-                AsyncStorage.multiSet([
-                  ['user_id', res.data.ID],
-                  ['token', res.data.token],
-                ]);
-                axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.token;
-                dispatch(
-                  setUserDetails({
-                    user_id     : res.data.ID,
-                    token       : res.data.token,
-                    firstName   : res.data.userDetails.firstName,
-                    lastName    : res.data.userDetails.lastName,
-                    email       : res.data.userDetails.email,
-                    mobile      : res.data.userDetails.mobile,
-                    countryCode : res.data.userDetails.countryCode,
-                    fullName    : res.data.userDetails.fullName,
-                    company_id  : res.data.userDetails.company_id,
-                    companyID   : res.data.userDetails.companyID,
-                    companyName : res.data.userDetails.companyName,
-                    status      : res.data.userDetails.status,
-                    role        : res.data.roles
-                  }),
-                );
-                navigation.push('App')
-            }else{
-              // setToast({text: response.data.message, color:  colors.warning});
-              dispatch(
-              setUserDetails({
-                user_id     : res.data.ID,
-                token       : res.data.token,
-                firstName   : res.data.userDetails.firstName,
-                lastName    : res.data.userDetails.lastName,
-                email       : res.data.userDetails.email,
-                mobile      : res.data.userDetails.mobile,
-                countryCode : res.data.userDetails.countryCode,
-                fullName    : res.data.userDetails.fullName,
-                company_id  : res.data.userDetails.company_id,
-                companyID   : res.data.userDetails.companyID,
-                companyName : res.data.userDetails.companyName,
-                status      : res.data.userDetails.status,
-                role        : res.data.roles
-              }),
-            );
-            navigation.push('App')
+              
             }
+           
+            navigation.push('App')
           })
           .catch((error) => {
             console.log("error",error);
@@ -269,7 +231,7 @@ const window = Dimensions.get('window');
               <View style={styles.syslogo}>
                   <Image
                   resizeMode="contain"
-                  source={require("../../../AppDesigns/currentApp/images/Logo.png")}
+                  source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
                   style={styles.syslogoimg}
                   />
               </View>
@@ -278,7 +240,7 @@ const window = Dimensions.get('window');
             <View style={commonStyles.formWrapper}>
             <FormInput
               labelName       = "Email Id/Mobile No"
-              placeholder     = "Email Id"
+              placeholder     = "Enter Email Id / Mobile No"
               onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"
@@ -291,7 +253,7 @@ const window = Dimensions.get('window');
             />
             <FormInput
               labelName     = "Password"
-              placeholder   = "Password"
+              placeholder   = "Enter Password"
               onChangeText  = {handleChange('password')}
               errors        = {errors}
               name          = "password"
@@ -341,7 +303,7 @@ const window = Dimensions.get('window');
                 </TouchableOpacity>
                 </View>
             </View>
-            <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
+            {/* <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center"}}>
               <GoogleSigninButton
                 style={{ width: 50, height: 50,borderRadius:15 }}
@@ -350,14 +312,14 @@ const window = Dimensions.get('window');
                 onPress={()=>_signIn()}
                 // disabled={this.state.isSigninInProgress} 
                 />
-            </View>
+            </View> */}
             <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
                   title       = {'Login As a Guest'}
                   onPress     = {()=>navigation.navigate('LocationMain')}
                   background  = {true}
-                  loading     = {btnLoading}
+                  // loading     = {btnLoading}
               />
             </View>
           </View>

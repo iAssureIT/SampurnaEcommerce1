@@ -26,7 +26,7 @@ import { connect,
 
   useEffect(() => {
     getData()
-  },[props]);
+  },[]);
 
   handleNavigation = (screen) =>{
     this.props.navigate(screen);

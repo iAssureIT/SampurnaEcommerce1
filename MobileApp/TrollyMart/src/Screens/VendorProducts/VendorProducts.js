@@ -37,7 +37,7 @@ export const VendorProducts = (props)=>{
   const [subCategory,setSubCategory]= useState([]);
   const {navigation,route}=props;
   const [showSort, toggleSort] = useState(false);
-  const {vendor,sectionUrl,section}=route.params;
+  const {vendor,sectionUrl,section,index}=route.params;
   const dispatch 		= useDispatch();
 
   const filterOptions = [
@@ -53,7 +53,6 @@ export const VendorProducts = (props)=>{
     payload     : store.productList.searchPayload,
   }));
   const {productList,userDetails,brandList,payload} = store;
-  console.log("productList",productList);
 
   useEffect(() => {
     getData();
@@ -102,7 +101,7 @@ export const VendorProducts = (props)=>{
     payload.vendorID        = vendor.vendor_ID;
     payload.sectionUrl      = sectionUrl;
     payload.categoryUrl     = e.categoryUrl;
-    payload.subCategoryUrl  = e.subCategoryUrl;
+    payload.subCategoryUrl  = e.subCategoryUrl ? e.subCategoryUrl : [] ;
     payload.scroll          = false;
     payload.startRange      = 0;
     payload.limitRange      = 10;
@@ -147,6 +146,7 @@ export const VendorProducts = (props)=>{
             showImage   = {true} 
             boxHeight   = {40} 
             selected    = {section}
+            index       = {index}
         />
         <View style={{flexDirection:"row"}}>
           <View style={{flex:0.1}}/>

@@ -45,6 +45,8 @@ import {Location}                 from '../Screens/Location/Location.js';
 import {Confirmation}             from '../Screens/Location/Confirmation.js';
 import {VendorList}               from '../Screens/VendorList/VendorList.js';
 import {VendorProducts}           from '../Screens/VendorProducts/VendorProducts.js';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 
 const Home = createDrawerNavigator();
 const TransitionScreenOptions = {
@@ -153,6 +155,19 @@ const LocationStack = () => (
       <Home.Screen name="SubCatCompView"  component={SubCatCompView} />
   </LocationMain.Navigator>
 );
+
+
+const Tab = createBottomTabNavigator();
+function MyTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Dashboard" component={Dashboard} />
+      <Tab.Screen name="CartComponent" component={CartComponent} />
+      <Tab.Screen name="WishlistComponent" component={WishlistComponent} />
+      <Tab.Screen name="MyOrder" component={MyOrder} />
+    </Tab.Navigator>
+  );
+}
 
 const config = {
   animation: 'spring',

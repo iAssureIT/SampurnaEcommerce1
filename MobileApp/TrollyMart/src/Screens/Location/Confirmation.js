@@ -1,5 +1,5 @@
 import React,{ useState,useEffect,useRef}from 'react';
-import {View,Dimensions,Image,Modal,TouchableOpacity,StyleSheet,SafeAreaView,Text}            from 'react-native';
+import {View,Dimensions,Image,Modal,TouchableOpacity,StyleSheet,SafeAreaView,Text,Platform}            from 'react-native';
 import {withCustomerToaster}        from '../../redux/AppState.js';
 import { request,
     check,
@@ -30,7 +30,7 @@ export const Confirmation = withCustomerToaster((props)=>{
 
 
     const getPermission = ()=>{
-        request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+        request(Platform.OS ==='android' ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
         .then(result => {
             console.log("result",result);
           switch (result) {

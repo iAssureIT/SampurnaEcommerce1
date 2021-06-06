@@ -18,6 +18,7 @@ import Geocoder                     from 'react-native-geocoding';
 import {FormButton}                 from '../../ScreenComponents/FormButton/FormButton';
 import { SET_USER_ADDRESS}          from '../../redux/location/types';
 import { connect,useDispatch,useSelector }      from 'react-redux';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const window = Dimensions.get('window');
 navigator.geolocation = require('react-native-geolocation-service');
@@ -40,7 +41,8 @@ export const Location = withCustomerToaster((props)=>{
       const {location} = store;
         console.log("location",location);
 
-    useEffect(() => {
+    useEffect(async() => {
+        console.log("axios.get('/api/projectsettings/get/GOOGLE')",await axios.get('https://devapi.knock-knockeshop.com/api/projectsettings/get/GOOGLE'));
         axios.get('/api/projectsettings/get/GOOGLE')
         .then(async(response) => {
             console.log("response",response);
@@ -137,6 +139,7 @@ export const Location = withCustomerToaster((props)=>{
             })
             Geocoder.from(coordinate.latitude,coordinate.longitude).then(
                 json => {
+                    console.log('json',json);
                 var address = json.results[0].formatted_address;
                 setAddress(address);
                 setBtnLoading(false);
@@ -270,10 +273,11 @@ export const Location = withCustomerToaster((props)=>{
         </View>}    
          {region&&<MapView
                 provider={PROVIDER_GOOGLE}
+                mapType={Platform.OS == "android" ? "none" : "standard"}
                 ref={map => map = map}
                 region = {region}
                 style={[{width:window.width,height:window.height}]}
-                onRegionChangeComplete={addMarker}
+                onRegionChangeComplete={()=>    addMarker}
                 customMapStyle={mapStyle}
            />}
        </View> 

@@ -208,7 +208,7 @@ export default StyleSheet.create({
   borderRadius:5,width: 150, height:85, backgroundColor: '#ccc',marginRight:15
   },
   formWrapper:{
-  	paddingHorizontal:15
+  	// paddingHorizontal:15
   },
   categoryTitle:{
    color:'#333',textAlign:'center',marginTop:5,marginBottom:10,fontSize:13,fontFamily:"Montserrat-Regular",flexWrap: 'wrap' 

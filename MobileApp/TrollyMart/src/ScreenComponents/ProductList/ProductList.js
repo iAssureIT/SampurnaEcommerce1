@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList, Alert,StyleSheet, ImageBackground
+  TouchableOpacity, Image, FlatList, Alert,StyleSheet, ImageBackground,Platform
 } from 'react-native';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/ProductListStyles.js';
 import { Icon, Button }       from "react-native-elements";
@@ -19,7 +19,8 @@ import { useNavigation }      from '@react-navigation/native';
 import { ActivityIndicator }  from 'react-native-paper';
 import { getSearchResult } 	  from '../../redux/globalSearch/actions';
 import { useIsFocused }       from "@react-navigation/native";
-import FastImage              from 'react-native-fast-image'
+import FastImage              from 'react-native-fast-image';
+// import {product}              from '../../ScreenComponents/Product/Product.js'
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
@@ -179,8 +180,13 @@ export const ProductList = withCustomerToaster((props)=>{
                 {
                   
                   item.productImage && item.productImage.length > 0 ?
-                    <FastImage
-                      source={{ uri: item.productImage[0] }}
+                    <ImageBackground
+                      source={{ 
+                        uri: item.productImage[0],
+                        priority: FastImage.priority.high, 
+                        // cache:FastImage.cacheControl.immutable 
+                        cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
+                      }}
                       style={styles.subcatimg}
                       // resizeMode="stretch"
                       resizeMode={FastImage.resizeMode.contain}
@@ -190,7 +196,7 @@ export const ProductList = withCustomerToaster((props)=>{
                             <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
                          </ImageBackground> :null
                       }    
-                    </FastImage>
+                    </ImageBackground>
                     :
                     <Image
                       source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
@@ -338,9 +344,9 @@ export const ProductList = withCustomerToaster((props)=>{
                   //Call pagination function
             }
           }}
-          // getItemLayout={(data, index) => (
-          //   {length: 500, offset: 500 * index, index}
-          // )}
+          getItemLayout={(data, index) => (
+            {length: 500, offset: 500 * index, index}
+          )}
           /> 
       </React.Fragment>
     );

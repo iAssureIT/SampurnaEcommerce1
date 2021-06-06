@@ -166,7 +166,7 @@ const FormBody = (props) => {
           <View style={styles.boxOpacity}>
           <Image
             style={{height: 120, width: 150, alignSelf: 'center'}}
-            source={require("../../../AppDesigns/currentApp/images/Logo.png")}
+            source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
             resizeMode="contain"
           />
            <View style={styles.textTitleWrapper}><Text style={commonStyle.headerText}>OTP Verification</Text></View>
