@@ -302,6 +302,34 @@
     margin-bottom: 10px;
     padding-bottom: 15px;
 }
+/* .vendorTotalRows{
+    background-color: #fff4f4;
+} */
+.orderTotalRows{
+    background-color: #fff4f4;
+}
+.totals{
+    text-align: center;
+    vertical-align: middle;
+}
+.finalTotal{
+    font-weight: 700;
+    font-size: 14px !important;
+}
+.orderedOn{
+    font-size: 14px !important;
+    padding: 15px;
+    font-weight: 700;
+    border-bottom: 1px solid #ccc;
+    border-radius: 25px;
+}
+.orderedOnDate, .orderNumber{
+    color:  #8b0000;
+    font-size: 16px;
+}
+.orderSummary{
+    padding: 10px 0;
+}
 
 
 
@@ -310,9 +338,23 @@
 
 
 
-
-
-
+.box-content{
+    font-weight: 500 !important;
+    color: #333 !important;
+    font-size: 13px !important;
+    font-family: 'montserrat-font';
+}
+.orderNumberDiv{
+    text-align: right;
+}
+.vendorNameRow th{
+    border-top: solid 1px #ddd;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #8b0000;
+    text-align: center;
+}
 .shippingAddressTitle{
     padding: 9px;
 }
@@ -403,9 +445,19 @@
     margin-top: 15px;
 }
 .orderImg{
-    height: 100px;
-    width: 100px;
+    height: 90px;
+    width: 90px;
     position:relative;
+}
+.vendorTotalTitle{
+    float: right;
+    font-weight: 600;
+    font-size: 14px !important;
+}
+.vendorTotalAmount{
+    float: right; 
+    font-weight: 600;
+    font-size: 14px !important;
 }
 .orderTable .table th,
 .orderTable .table td{
@@ -528,18 +580,12 @@
 .required{
     color: red !important;
 }
-.checkoutAddressModal{
-    /* overflow: hidden; */
-}
 .termsNconditionsmodal{
     margin-top: -10px;
     cursor: pointer;
 }
 .listStyle li{
     list-style: disc;
-}
-.orderReviewsWrapper tr td{
-    /* padding: 0px; */
 }
 .termsNconditionsmodal:hover{
     color: #80b435;   
@@ -591,7 +637,50 @@
 .tableRow{
     padding-top: 20px;
     border-top: solid 1px #ddd;
-    border-bottom: solid 1px #ddd;
+    /* border-bottom: solid 1px #ddd; */
+}
+.orderTable thead tr th{
+    padding: 20px 15px;
+    background: #fff4f4;
+    font-size: 16px;
+}
+.tableRowWrapper tr{
+    margin: 10px 0;
+}
+.orderTable .productImageTH{
+    width: 200px;
+}
+.orderTable tbody tr td{
+    padding: 10px;
+}
+.orderTable{
+    margin-bottom: 0;
+}
+.currencyStyle{
+    font-size: 10px;
+}
+.discountedPrice{
+    font-weight: 600;
+    float: left;
+    font-size: 14px !important;
+    padding: 0 10px 0 0;
+}
+.beforeDiscount{
+    float: left;    
+}
+.oldProductPrice{
+    text-decoration: line-through;
+    font-size: 13px !important;
+}
+.productDiscountPercent{
+    color: #388e3c !important;
+    font-weight: 600;
+    font-size: 14px !important;
+}
+.backtoMyOrdersDiv{
+    padding: 14px 0;
+    text-decoration: underline;
+    font-size: 14px !important;
 }
 
 @media only screen and (max-device-width: 480px) {   

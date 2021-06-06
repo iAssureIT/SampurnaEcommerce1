@@ -17,9 +17,10 @@ exports.insert_cartid = (req,res,next)=>{
     .exec()
     .then(cartData =>{
         var vendorCartItem = {
-            vendor_id   : req.body.vendor_ID,
-            vendorName  : req.body.vendorName,
-            cartItems   : [
+            vendor_id           : req.body.vendor_ID,
+            vendorLocation_id   : req.body.vendorLocation_id,
+            vendorName          : req.body.vendorName,
+            cartItems           : [
                 {
                     product_ID          : req.body.product_ID,
                     quantity            : req.body.quantity,
@@ -87,7 +88,11 @@ exports.insert_cartid = (req,res,next)=>{
                                         {'_id' : cartData._id, 'vendorOrders.vendor_id' : req.body.vendor_ID},
                                         {$set : {
                                             'order_quantityOfProducts'                  : order_quantityOfProducts,
-                                            'vendorOrders.$.vendor_quantityOfProducts'  : vendor_quantityOfProducts
+                                            'vendorOrders.$.vendor_quantityOfProducts'  : vendor_quantityOfProducts,
+                                            "userDelLocation"                           : {
+                                                lat     : req.body.userLatitude,
+                                                long    : req.body.userLongitude
+                                            },
                                         }},
                                     )
                                     .exec()
@@ -153,7 +158,11 @@ exports.insert_cartid = (req,res,next)=>{
                                         'vendorOrders.$.vendor_numberOfProducts'    : vendor_numberOfProducts, 
                                         'vendorOrders.$.vendor_quantityOfProducts'  : vendor_quantityOfProducts,
                                         'order_numberOfProducts'                    : order_numberOfProducts,
-                                        'order_quantityOfProducts'                  : order_quantityOfProducts
+                                        'order_quantityOfProducts'                  : order_quantityOfProducts,
+                                        'userDelLocation'                           : {
+                                            lat     : req.body.userLatitude,
+                                            long    : req.body.userLongitude
+                                        },
                                     }
                                 },
                                 )
@@ -199,8 +208,12 @@ exports.insert_cartid = (req,res,next)=>{
                             $set: { 
                                 // 'vendorOrders.$.vendor_numberOfProducts'    : vendor_numberOfProducts, 
                                 // 'vendorOrders.$.vendor_quantityOfProducts'  : vendor_quantityOfProducts,
-                                'order_numberOfProducts'                    : order_numberOfProducts,
-                                'order_quantityOfProducts'                  : order_quantityOfProducts
+                                'order_numberOfProducts'        : order_numberOfProducts,
+                                'order_quantityOfProducts'      : order_quantityOfProducts,
+                                "userDelLocation"               : {
+                                    lat     : req.body.userLatitude,
+                                    long    : req.body.userLongitude
+                                },
                             }
 
                         }
@@ -239,6 +252,10 @@ exports.insert_cartid = (req,res,next)=>{
             const cartDetails = new Carts({
                 _id                         : new mongoose.Types.ObjectId(),
                 "user_ID"                   : req.body.user_ID,
+                "userDelLocation"           : {
+                    lat     : req.body.userLatitude,
+                    long    : req.body.userLongitude
+                },
                 "vendorOrders"              : vendorCartItem,
                 "order_numberOfProducts"    : 1, 
                 "order_quantityOfProducts"  : req.body.quantity
@@ -292,7 +309,7 @@ exports.list_cart_product = (req,res,next)=>{
                 var vendor_taxAmount            = 0;
                 var vendor_shippingCharges      = 0;     
                    
-                for(var j = 0; j<vendorOrders[i].cartItems.length;j++){
+                for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
                     vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
                         vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);

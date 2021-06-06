@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const cartSchema = mongoose.Schema({
 	_id			          : mongoose.Schema.Types.ObjectId,
     user_ID               : { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+    userDelLocation       : {lat: Number, long: Number},
     vendorOrders          : [
         {
-            vendor_id   : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
-            vendorName  : String,
-            cartItems   : [
+            vendor_id           : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
+            vendorLocation_id   : String,
+            vendorName          : String,
+            cartItems           : [
                 {
                     product_ID          : { type: mongoose.Schema.Types.ObjectId, ref: 'products' },
                     quantity            : Number,

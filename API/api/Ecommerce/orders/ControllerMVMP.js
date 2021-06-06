@@ -24,121 +24,146 @@ exports.insert_orders = (req, res, next) => {
 	// console.log("Inside order post",req.body); 
 
 	if (req.body.vendorOrders && req.body.vendorOrders.length > 0) {
+		processOrders();
+		async function processOrders(){
+			var nextOrderId = await getNextSequenceOrderId();
+			// console.log("nextOrderId => ",nextOrderId)
 
-		const order = new Orders({
-			_id 						: new mongoose.Types.ObjectId(),
-			orderID 					: Math.round(new Date().getTime() / 1000),
-			user_ID 					: req.body.user_ID,
-			userName 					: req.body.userEmail,
-			userFullName 				: req.body.userFullName,
-			paymentDetails            	: req.body.paymentDetails,
-			customerShippingTime      	: req.body.customerShippingTime,
-			order_numberOfProducts    	: req.body.order_numberOfProducts, 
-			order_quantityOfProducts  	: req.body.order_quantityOfProducts, 
-			orderStatus 				: req.body.orderStatus,
-			vendorOrders 				: req.body.vendorOrders,
-			deliveryAddress				: req.body.deliveryAddress,			
-			createdAt 					: new Date(),
-			createdBy 					: req.body.user_ID
-		});
+			const order = new Orders({
+				_id 						: new mongoose.Types.ObjectId(),
+				orderID 					: nextOrderId,
+				user_ID 					: req.body.user_ID,
+				userName 					: req.body.userEmail,
+				userFullName 				: req.body.userFullName,
+				paymentDetails            	: req.body.paymentDetails,
+				customerShippingTime      	: req.body.customerShippingTime,
+				order_numberOfProducts    	: req.body.order_numberOfProducts, 
+				order_quantityOfProducts  	: req.body.order_quantityOfProducts, 
+				orderStatus 				: req.body.orderStatus,
+				vendorOrders 				: req.body.vendorOrders,
+				deliveryAddress				: req.body.deliveryAddress,			
+				createdAt 					: new Date(),
+				createdBy 					: req.body.user_ID
+			});
 
-		order.save()
-		.then(orderdata => {			         		
-			/*======================== Remove Cart Items =============================*/
+			order.save()
+			.then(orderdata => {			         		
+				/*======================== Remove Cart Items =============================*/
 
-			Carts.deleteOne({ "user_ID" : ObjectId(req.body.user_ID) })
-			.exec()
-			.then(userCartDeleted => {
-				// console.log("userCartDeleted => ",userCartDeleted)
+				Carts.deleteOne({ "user_ID" : ObjectId(req.body.user_ID) })
+				.exec()
+				.then(userCartDeleted => {
+					// console.log("userCartDeleted => ",userCartDeleted)
 
-				//=============================================================
-				//         		Update Product Inventory
-				//=============================================================
-				if(userCartDeleted.deletedCount === 1){
-					console.log("Inside if => ", req.body.vendorOrders)
-					for (var l = 0; l < req.body.vendorOrders.length; l++) {		
-						console.log("req.body.vendorOrders[l] => ",req.body.vendorOrders[l])
-						for (let m = 0; m < req.body.vendorOrders[l].products.length; m++) {
-							var productQuantity = req.body.vendorOrders[l].products[m].quantity;
-							console.log("req.body.vendorOrders[l].products[m].quantity = ",req.body.vendorOrders[l].products[m].quantity);
+					//=============================================================
+					//         		Update Product Inventory
+					//=============================================================
+					if(userCartDeleted.deletedCount === 1){
+						// console.log("Inside if => ", req.body.vendorOrders)
+						for (var l = 0; l < req.body.vendorOrders.length; l++) {		
+							// console.log("req.body.vendorOrders[l] => ",req.body.vendorOrders[l])
+							for (let m = 0; m < req.body.vendorOrders[l].products.length; m++) {
+								var productQuantity = req.body.vendorOrders[l].products[m].quantity;
+								// console.log("req.body.vendorOrders[l].products[m].quantity = ",req.body.vendorOrders[l].products[m].quantity);
 
-							ProductInventory
-							.findOne(
-								{ 
-									vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
-									productCode 		 : req.body.vendorOrders[l].products[m].productCode,
-									itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
-								},
-							)
-							.then(productInventoryData=>{
-								console.log("Product Inventory data = ",productInventoryData);
-								// res.status(200);
-								// console.log("productInventoryData._id = ",productInventoryData._id);
-								// console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
-								var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
-								console.log("newQuantity = ",newQuantity);
+								ProductInventory
+								.findOne(
+									{ 
+										vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
+										productCode 		 : req.body.vendorOrders[l].products[m].productCode,
+										itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
+									},
+								)
+								.then(productInventoryData=>{
+									// console.log("Product Inventory data = ",productInventoryData);
+									// res.status(200);
+									// console.log("productInventoryData._id = ",productInventoryData._id);
+									// console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
+									var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
+									// console.log("newQuantity = ",newQuantity);
 
-								ProductInventory.updateOne(
-									{ _id : ObjectId(productInventoryData._id) },
-									{ $set :{
-											currentQuantity   : newQuantity
-										},
-										$push : {								
-											updateLog       : {
-												date        : new Date(),
-												updatedBy   : ObjectId(req.body.user_ID),
-												// order_id    : ObjectId(orderdata._id),
+									ProductInventory.updateOne(
+										{ _id : ObjectId(productInventoryData._id) },
+										{ $set :{
+												currentQuantity   : newQuantity
+											},
+											$push : {								
+												updateLog       : {
+													date        : new Date(),
+													updatedBy   : ObjectId(req.body.user_ID),
+													// order_id    : ObjectId(orderdata._id),
+												}
 											}
 										}
-									}
-								)		 
-								.then(inventoryupdateData=>{
-									console.log("inventoryupdateData = ",inventoryupdateData);
-									// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
+									)		 
+									.then(inventoryupdateData=>{
+										// console.log("inventoryupdateData = ",inventoryupdateData);
+										// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
+									})
+									.catch(err =>{
+										console.log("Error While Updating Inventory")
+										// res.status(500).json({
+										// 	error 	: err,
+										// 	message : 'Error While Updating Inventory'
+										// });
+									}); 							
 								})
 								.catch(err =>{
-									console.log("Error While Updating Inventory")
+									console.log("Error Finding Inventory Data")
 									// res.status(500).json({
-									// 	error 	: err,
-									// 	message : 'Error While Updating Inventory'
+									// 	error : error,
+									// 	message : 'Error Finding Inventory Data'
 									// });
-								}); 							
-							})
-							.catch(err =>{
-								console.log("Error Finding Inventory Data")
-								// res.status(500).json({
-								// 	error : error,
-								// 	message : 'Error Finding Inventory Data'
-								// });
-							}); 
-						} //for m
-					}//for l
-					if(l >= req.body.vendorOrders.length){
-						res.status(200).json({ 
-							order_id : orderdata._id,
-							message  : 'Order placed successfully' 
-						});
+								}); 
+							} //for m
+						}//for l
+						if(l >= req.body.vendorOrders.length){
+							res.status(200).json({ 
+								order_id : orderdata._id,
+								message  : 'Order placed successfully' 
+							});
+						}
 					}
-				}
+				})
+				.catch(error => {							
+					res.status(500).json({
+						error 	: error,
+						message : 'Error While Clearing CartItems '
+					});
+				})							
 			})
-			.catch(error => {							
+			.catch(error => {
+				console.log('Error 500 While Placing Order => ', error);
 				res.status(500).json({
-					error 	: error,
-					message : 'Error While Clearing CartItems '
+					error   : error,
+					message : 'Error While Placing Order'
 				});
-			})							
-		})
-		.catch(error => {
-			console.log('Error 500 While Placing Order => ', error);
-			res.status(500).json({
-				error   : error,
-				message : 'Error While Placing Order'
-			});
-		})
+			})
+		}
 	} //if vendorOrders
 }
 
-
+function getNextSequenceOrderId() {
+    return new Promise((resolve,reject)=>{
+    Orders.findOne()    
+        .sort({orderID : -1})   
+        .exec()
+        .then(data=>{
+			// console.log("data => ", data);
+            if (data) { 
+                var sequenceOrderNumber = data.orderID;
+                sequenceOrderNumber = sequenceOrderNumber + 1;
+                resolve(sequenceOrderNumber) 
+            }else{
+               resolve(1)
+            }
+            
+        })
+        .catch(err =>{
+            reject(0)
+        });
+    });
+}
 
  	/*========== Split VendorWise Orders ==========*/
  	function addSplitVendorOrders(orderID) {
@@ -528,7 +553,7 @@ exports.list_order_with_limits = (req, res, next) => {
 	 .sort({ createdAt: -1 })
 	 .exec()
 	 .then(data => {
-		console.log("data in order ==>", data);
+		// console.log("data in order ==>", data);
 		res.status(200).json(data);
 	 })
 	 .catch(err => {
@@ -1903,12 +1928,12 @@ exports.get_orders_with_filters = (req, res, next) => {
 		.sort({ createdAt: -1 })
 		.exec()
 		.then(async(data) => {
-			console.log('+++++ data +++++', data);
+			// console.log('+++++ data +++++', data);
 			for(var i=0;i<data.length;i++){
 				for(var j=0;j<data[i].vendorOrders.length;j++){
-					console.log("data[i].vendorOrders",data[i].vendorOrders);
+					// console.log("data[i].vendorOrders",data[i].vendorOrders);
 					var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
-					console.log("vendor => ",vendor);
+					// console.log("vendor => ",vendor);
 					data[i].vendorOrders[j].vendorName = vendor.companyName;
 				}
 			}
@@ -1928,12 +1953,12 @@ exports.get_orders_with_filters = (req, res, next) => {
 		.sort({ createdAt: -1 })
 		.exec()
 		.then(async(data) => {
-			console.log('+++++ data +++++', data);
+			// console.log('+++++ data +++++', data);
 			for(var i=0;i<data.length;i++){
 				for(var j=0;j<data[i].vendorOrders.length;j++){
-					console.log("data[i].vendorOrders",data[i].vendorOrders);
+					// console.log("data[i].vendorOrders",data[i].vendorOrders);
 					var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
-					console.log("vendor => ",vendor);
+					// console.log("vendor => ",vendor);
 					data[i].vendorOrders[j].vendorName = vendor.companyName;
 				}
 			}
@@ -2267,7 +2292,7 @@ exports.franchise_daily_orders_count = (req, res, next) => {
 	 ])
 	 .exec()
 	 .then(data => {
-		console.log("datatatatta",data);
+		// console.log("datatatatta",data);
 		var count = data.length > 0 ?  data.length : 0;
 		if(count == undefined){
 			  res.status(200).json({ "dataCount": 0 });
@@ -2350,7 +2375,7 @@ exports.update_order_payment = (req, res, next) => {
   )
 	 .exec()
 	 .then(data => {
-		console.log('getpaymentgateway UPdate order Response===> ', data);
+		// console.log('getpaymentgateway UPdate order Response===> ', data);
 
 		if (data.nModified == 1) {
 		  res.status(200).json({
