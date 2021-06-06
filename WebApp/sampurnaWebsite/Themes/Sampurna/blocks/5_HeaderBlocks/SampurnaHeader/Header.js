@@ -32,29 +32,21 @@ class Header extends React.Component {
             deliveryLocation   : "-"
          }
     }    
-	 async componentDidMount(){      
-
-        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-        // console.log("sampurnaWebsiteDetails===",sampurnaWebsiteDetails);
+	 async componentDidMount(){
+        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         var deliveryLocation = false;
-        // this.getCartCount();
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
-                // console.log("deliveryLocation = ",deliveryLocation);
             }
             store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)) ;
-
-            //======= Get User Data ===========
             if(userDetails){
                 var user_id = userDetails.user_id;       
                 if(user_id !== null){
                     this.setState({
                         "userID": user_id,
                     },()=>{
-                        // this.props.updateCartCount();
-                        // this.props.getWishlistData();
                     })     
                 }
             }
@@ -72,47 +64,58 @@ class Header extends React.Component {
             });
         }
     }
-   render(){
+
+    render(){
         return(   
             <div className="col-12 headerWrapper NoPadding">
-            <div className="col-12 NoPadding multilevelType2MenuWrapper"> 
-            <header>
-                <nav className="navbar navbar-expand-md navbar-dark megamenu">
-                    <div className="col-12 NoPadding ">
-                        <div className="col-12 top-header">
-                            <div className="row logoWrap"> 
-                                                           
-                                <Websitelogo />
+                <div className="col-12 NoPadding multilevelType2MenuWrapper"> 
+                    <header>
+                        <nav className="navbar navbar-expand-md navbar-dark megamenu">
+                            <div className="col-12 NoPadding ">
+                                <div className="col-12 top-header">
+                                    <div className="row logoWrap"> 
+                                                                
+                                        <Websitelogo />
 
-                                <Searchbar />
+                                        <Searchbar />
 
-                                <div className="col-8 col-sm-2 ml-4 systemSecurity"> 
-                                    <div className="row">                                  
-                                        < SystemSecurityModal />
-                                        < MyCart />
+                                        <div className="col-8 col-sm-2 ml-4 systemSecurity"> 
+                                            <div className="row">                                  
+                                                < SystemSecurityModal />
+                                                < MyCart />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div className="col-12 NoPadding">
+                                    <div className="navbar-header">
+                                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                                            <span className="navbar-toggler-icon"></span>
+                                        </button>                             
+                                    </div>
+                                    <div id="collapsibleNavbar" className="col-12 collapse navbar-collapse navHeaderCollapse ">
+                                        <Megamenu />
+                                    </div>
+                                </div>                    
+                            </div>
+                        </nav>
+
+                        <DisplayLocation />
+                        <div id="locationModal" className="col-12 modal in"  data-keyboard="false" >
+                            <div className="modal-dialog modal-xl " >
+                                <div className="modal-content " style={{'background': '#fff'}}>                            
+                                    <div className="modal-body">  
+                                        <div className="modal-header">
+                                            <h6 className="modal-title">Your Delivery Location</h6>
+                                        </div>
+                                        <DeliveryLocationPopup/>
                                     </div>
                                 </div>
-                            </div>
-                        </div> 
-                        <div className="col-12 NoPadding">
-                            <div className="navbar-header">
-                                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                                    <span className="navbar-toggler-icon"></span>
-                                </button>                             
-                            </div>
-                            <div id="collapsibleNavbar" className="col-12 collapse navbar-collapse navHeaderCollapse ">
-                                <Megamenu />
-                            </div>
-                        </div>                    
-                    </div>
-                </nav>
-                
-                <DisplayLocation />
-                
-                {!this.state.loading&&<DeliveryLocationPopup  homeFirstVisit={this.state.homeFirstVisit}/>}
-            </header>
-            </div>
-        </div>         
+                            </div>  
+                        </div>  
+                    </header>
+                </div>
+            </div>         
         );        
     }
 }

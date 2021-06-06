@@ -596,20 +596,22 @@ li a{
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.cangelocationBtn{
-    font-size: 9px !important
+.changelocationBtn{
+    font-size: 9px !important;
+    padding  : 9px;
 }
 #locationModal .modal-content{
-    height: 400px;
+    /* height: 400px; */
 }
 .orText{
     font-size: 12px;
+    padding-top: 18px;
 }
 .currentLocationBlock{
     margin-top: 50px;
 }
 .detectLocationBtn{
-    margin-top: 30px;
+    margin-top: 12px;
 }
 .deliveryForm input[type="text"]{
     font-size:12px !important;
@@ -619,4 +621,20 @@ li a{
 }
 .cartImg Link{
     cursor: pointer;
+}
+
+
+.googleMap{
+    margin-top: 20px;
+    /* height: 200px !important; */
+}
+.DeliveryLocation{
+    border: 1px solid #aaa;
+    min-height: 360px;
+    padding-top: 50px;
+    margin-top: 50px;
+}
+.headerWrapper .logoBlock{
+    margin-top: 0px !important;
+    margin-bottom: 22px !important;
 }

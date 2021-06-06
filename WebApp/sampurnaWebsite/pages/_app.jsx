@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react';
-import Head from 'next/head'
+import Head                 from 'next/head'
 import firebase             from 'firebase/app';
-import 'firebase/database';
 import getConfig            from 'next/config';
 import Link                 from 'next/link';
 import dynamic              from 'next/dynamic';
@@ -12,7 +11,9 @@ import store                from '../redux/store.js'
 import Router               from 'next/router';
 import NProgress            from 'nprogress'; //nprogress module
 import ReactDependentScript from "react-dependent-script";
+import 'firebase/database';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import 'nprogress/nprogress.css'; //styles of nprogress
 import '../Themes/Sampurna/style/multivendor_global.css';
 import '../Themes/Sampurna/style/stdBlockStyle.css';

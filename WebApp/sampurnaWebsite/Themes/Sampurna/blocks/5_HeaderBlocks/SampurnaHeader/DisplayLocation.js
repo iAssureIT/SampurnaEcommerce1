@@ -32,17 +32,6 @@ class DisplayLocation extends React.Component {
       // console.log("1. DisplayLoc - LSsampurnaWebsiteDetails = ", this.props.sampurnaWebsiteDetails.deliveryLocation);  
     }
 
-    // if(sampurnaWebsiteDetails.deliveryLocation){
-    //     this.setState({
-    //         "address"        : sampurnaWebsiteDetails.deliveryLocation.address,
-    //         // "country"      : this.props.delLocAddr.country, 
-    //     });
-    //   }else{
-    //     this.setState({
-    //       "address"        : "Please Select Your Delivery Location",
-    //     });
-    //   }
-
   }
     
    render() {
@@ -57,12 +46,12 @@ class DisplayLocation extends React.Component {
                     ?
                       <span>
                         <span className="deliveryAddress">&nbsp; <b>Your current location is - </b>{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span>  
-                        <button type="button" className="btn btn-outline-primary pull-right cangelocationBtn" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Delivery Location</button>  
+                        <button type="button" className="btn btn-outline-primary pull-right changelocationBtn" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Delivery Location</button>  
                       </span>
                     :
                       <span>
                         <span className="deliveryAddress">&nbsp; Your Delivery Location is not available </span>  
-                        <button type="button" className="btn btn-outline-primary pull-right cangelocationBtn" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
+                        <button type="button" className="btn btn-outline-primary pull-right changelocationBtn" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
                       </span>
                   :
                     <span>

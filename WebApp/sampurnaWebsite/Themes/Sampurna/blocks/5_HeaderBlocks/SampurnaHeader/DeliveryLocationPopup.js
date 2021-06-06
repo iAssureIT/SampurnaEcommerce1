@@ -7,12 +7,12 @@ import Head      from 'next/head';
 import Router    from 'next/router';
 import Link      from 'next/link';
 import swal      from 'sweetalert';
-import $         from 'jquery'
-import  store    from '../../../../../redux/store.js';
+import $         from 'jquery';
+import GoogleMap from './Googlemap.js';
+import store    from '../../../../../redux/store.js';
 import {setDeliveryLocation,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import Geocode   from "react-geocode"; 
-
 
 class DeliveryLocationPopup extends React.Component {
 	constructor(props) {
@@ -20,6 +20,7 @@ class DeliveryLocationPopup extends React.Component {
 		this.state = { 
             address : "",
             googleapiKey : "",
+            latLong      : {},
 		}; 
     }
     componentDidMount(){   
@@ -29,18 +30,36 @@ class DeliveryLocationPopup extends React.Component {
                 this.setState({
                     "googleapiKey" : response.data.googleapikey,
                 })
-                
               }
          })
          .catch((error) =>{
             console.log(error)
          })  
+        
+         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+         var user_details           =  JSON.parse(localStorage.getItem('userDetails'));
+         if(user_details){
+             this.setState({
+                 userDetails : user_details
+             },()=>{
+                 this.getUserAddress(userDetails.userId);
+             })
+         }
+         if(sampurnaWebsiteDetails.deliveryLocation){
+            var latLongDetails = {
+                lat : sampurnaWebsiteDetails.deliveryLocation.latitude,
+                lng : sampurnaWebsiteDetails.deliveryLocation.longitude
+            }
+             this.setState({
+                 address : sampurnaWebsiteDetails.deliveryLocation.address,
+                 latLong :latLongDetails
+             })
+         }
 
-        if(this.props.homeFirstVisit){
-            $('#locationModal').modal('show');   
-        }
     }
+    getUserAddress(userId){
 
+    }
     takeCurrentLocation(){
         var that=this;
                 // console.log("google api key ===",that.state.googleapiKey);
@@ -62,12 +81,21 @@ class DeliveryLocationPopup extends React.Component {
                 Geocode.setLocationType("ROOFTOP");
 
                 // Enable or disable logs. Its optional.
-                Geocode.enableDebug();        
-
+                Geocode.enableDebug();     
                 navigator.geolocation.getCurrentPosition(function(position) {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
                     .then((response) => {
                             const address = response.results[0].formatted_address;
+                           var latLongDetails = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                              }
+
+                            if(latLongDetails){
+                                that.setState({
+                                    latLong   : latLongDetails,
+                                })
+                            }
                             var deliveryLocation = {
                                 "address"        : response.results[0].formatted_address,
                                 "city"           : response.results[0].city,
@@ -98,16 +126,10 @@ class DeliveryLocationPopup extends React.Component {
                         }
                     );
                 });
- 
     }
-
-    // closeModal(event){        
-    //     $('#locationModal').modal('hide'); 
-    // }
 
     saveLocation(event) {
         event.preventDefault();
-
         var deliveryLocation = {
             "address"        : this.state.address,
             "city"           : this.state.city,
@@ -121,6 +143,16 @@ class DeliveryLocationPopup extends React.Component {
             "longitude"      : this.state.longitude,
             "homeFirstVisit" : false,
         }
+        if(deliveryLocation){
+            var latLongDetails = {
+                lat: this.state.latitude,
+                lng: this.state.longitude
+            }
+            this.setState({
+                deliveryLocation : this.state.deliveryLocation,
+                "latLong"        : latLongDetails,
+            })
+        }
         if(this.props.sampurnaWebsiteDetails){
             var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
             sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
@@ -132,8 +164,10 @@ class DeliveryLocationPopup extends React.Component {
         store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
         
         $('#locationModal').modal('hide'); 
+        swal("Delivery Location added successfuly");
+        // Router.push('/');
         
-        console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+        // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
     }
 
     handleChangePlaces = address => {
@@ -190,7 +224,7 @@ class DeliveryLocationPopup extends React.Component {
                         stateCode: stateCode,
                         countryCode: countryCode
                     })
-                    console.log("setstate on select:", this.state.address);
+                    // console.log("setstate on select:", this.state.address);
                 }
 
             })
@@ -208,96 +242,107 @@ class DeliveryLocationPopup extends React.Component {
     
    render() {
        const ref = React.createRef();
+       if(this.state.userDetails && this.state.userDetails.token){
+           var xlCol =  8;
+           var offset = 0
+       }else{
+        var xlCol =  10;
+        var offset = 1;
+       }
     return (
-		<div className="col-12 NoPadding DeliveryLocation ">
-			<div id="locationModal" className="modal in"  data-keyboard="false" >
-				<div className="modal-dialog" >                                        
-					<div className="modal-content " style={{'background': '#fff'}}>                            
-                        <div className="modal-body">  
-                        <div className="modal-header">
-                            <h6 className="modal-title">Your Delivery Location</h6>
-                            {/* <button type="button" className="close pull-right" data-dismiss="modal" onClick={this.closeModal.bind(this)}>&times;</button> */}
-                        </div>                            
-                        <div className="col-12 NoPadding loginForm mobileViewNoPadding">
-                            <form className="deliveryForm">
-                                <div className="col-12 NoPadding">
-                                    <PlacesAutocomplete 
-                                        value={this.state.address}
-                                        onChange={this.handleChangePlaces}
-                                        onSelect={this.handleSelect}
-                                        highlightFirstSuggestion={true}>
-                                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                            <div>
-                                                <label className=" mt-2 "> Search Location </label>
-                                                <input
-                                                    {...getInputProps({
-                                                        placeholder: 'Start typing & select location from dropdown suggestions...',
-                                                        className: 'location-search-input form-control col-12 locationSearch',
-                                                        id: "address",
-                                                        name: "address",
-                                                        required: true
-                                                    })}
-                                                    
-                                                />
-                                                {/* <div className="errorMsg">{this.state.errors.address}</div> */}
-                                                <div className="autocomplete-dropdown-container SearchListContainer">
-                                                    {loading && <div>Loading...</div>}
-                                                    {suggestions.map(suggestion => {
-                                                        const className = suggestion.active
-                                                            ? 'suggestion-item--active'
-                                                            : 'suggestion-item';
-                                                        // inline style for demonstration purpose
-                                                        const style = suggestion.active
-                                                            ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                            : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                                        return (
-                                                            <div
-                                                                {...getSuggestionItemProps(suggestion, {
-                                                                    className,
-                                                                    style,
-                                                                })}
-                                                            >
-                                                                <span>{suggestion.description}</span>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            </div>
-                                            )}
-                                    </PlacesAutocomplete>
-                                </div>
-                                {/* <div className="errorMsg">{this.state.errors.address}</div> */}
-                                <div className="col-12 currentLocationBlock">
-                                    <div className="text-center orText">OR</div>
-                                    <div className="col-6 offset-3 detectLocationBtn">
-                                        <button type="button" className="btn btn-outline-primary pull-center cangelocationBtn" onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
-                                    </div>
-                                </div>
-
-                                <button type="button" className="btn btn-outline-primary pull-right cangelocationBtn" onClick={this.saveLocation.bind(this)}>Save & Close</button>
-
-                            </form>
-
-                        </div>                                                     
+        <div className="col-12">
+            <div className="row">
+                {
+                    this.state.userDetails && this.state.userDetails.token? 
+                        <div className="col-2 AddressListWrapper">
+                            Address list
                         </div>
-					</div>
-                </div>
-            </div>            
+                    :null
+                }
+                <div className={"col-"+xlCol +" offset-" +offset +" NoPadding DeliveryLocation"}>
+                <div className="col-10 offset-1 NoPadding mobileViewNoPadding">
+                    <form className=" col-12 deliveryForm">
+                        <div className="row">
+                            <div className="col-4 currentLocationBlock">
+                                <div className="row">
+                                    <div className="col-9 detectLocationBtn">
+                                        <button type="button" className="btn btn-outline-primary pull-center changelocationBtn" onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
+                                    </div>
+                                    <div className="text-center orText col-2 ">OR</div>
+                                </div>
+                            </div>
+                            <div className="col-8 NoPadding">
+                                <PlacesAutocomplete 
+                                    value={this.state.address}
+                                    onChange={this.handleChangePlaces}
+                                    onSelect={this.handleSelect}
+                                    highlightFirstSuggestion={true}>
+                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                        <div className="col-12 ">
+                                            <label className=" mt-2 "> Search Location </label>
+                                            <input
+                                                {...getInputProps({
+                                                    placeholder: 'Start typing & select location from dropdown suggestions...',
+                                                    className: 'location-search-input form-control locationSearch',
+                                                    id: "address",
+                                                    name: "address",
+                                                    required: true
+                                                })}
+                                                
+                                            />
+                                            <div className="autocomplete-dropdown-container SearchListContainer">
+                                                {loading && <div>Loading...</div>}
+                                                {suggestions.map(suggestion => {
+                                                    const className = suggestion.active
+                                                        ? 'suggestion-item--active'
+                                                        : 'suggestion-item';
+                                                    const style = suggestion.active
+                                                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                    return (
+                                                        <div
+                                                            {...getSuggestionItemProps(suggestion, {
+                                                                className,
+                                                                style,
+                                                            })}
+                                                        >
+                                                            <span>{suggestion.description}</span>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                        )}
+                                </PlacesAutocomplete>
+                            </div>
+                            
+                            <div className="col-12 pull-right">
+                                <button type="button" className="btn btn-outline-primary pull-right changelocationBtn" onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                            </div>
+                        </div>
+                    </form>
+                    < GoogleMap
+                        googleapiKey = {this.state.googleapiKey}
+                        latLongDetails = {this.state.latLong}
+                    />
+
+                </div>                                                     
+            </div>
+            </div>
         </div>
+        
     );
   }
 }
 
 const mapStateToProps = state => (
-    // console.log("1. state in location====",state.data),
     {
         sampurnaWebsiteDetails : state.data.sampurnaWebsiteDetails
     });
   
-  const mapDispatchToProps = {    
-    setSampurnaWebsiteDetails : setSampurnaWebsiteDetails,    
-  };
-  
+    const mapDispatchToProps = {    
+        setSampurnaWebsiteDetails : setSampurnaWebsiteDetails,    
+    };
   
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryLocationPopup);
 
