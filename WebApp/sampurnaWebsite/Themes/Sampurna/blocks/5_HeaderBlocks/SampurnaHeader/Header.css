@@ -600,6 +600,10 @@ li a{
     font-size: 9px !important;
     padding  : 9px;
 }
+.changelocationBtn1{
+    font-size: 9px !important;
+    padding  : 5px;
+}
 #locationModal .modal-content{
     /* height: 400px; */
 }

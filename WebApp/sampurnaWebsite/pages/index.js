@@ -55,12 +55,6 @@ export default function App({pageData}) {
 
               < DeliveryLocationPopup />
 
-              { userDetails && userDetails.token ?
-                <div>Address list</div>
-              :
-                null
-              }
-
               <div className="row"> 
                   <Footer />
               </div>

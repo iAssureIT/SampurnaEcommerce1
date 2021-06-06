@@ -101,6 +101,7 @@ class Header extends React.Component {
                         </nav>
 
                         <DisplayLocation />
+                        
                         <div id="locationModal" className="col-12 modal in"  data-keyboard="false" >
                             <div className="modal-dialog modal-xl " >
                                 <div className="modal-content " style={{'background': '#fff'}}>                            

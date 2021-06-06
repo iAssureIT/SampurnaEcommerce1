@@ -361,6 +361,7 @@ font-weight: bold;
 .productWrapper{
   padding-left: 5px;
   padding-right: 5px;
+  margin-bottom: 15px !important;
 }
 .productListWrapper{
   margin-top: 20px;

@@ -38,32 +38,28 @@ class DisplayLocation extends React.Component {
     return (
 		<div className="container-fluid DisplayLocation ">
 			<div  className="col-12" >
-                <i className="fas fa-globe"></i>
-                {
-                  this.props.sampurnaWebsiteDetails
-                  ?
-                    this.props.sampurnaWebsiteDetails.deliveryLocation
-                    ?
-                      <span>
-                        <span className="deliveryAddress">&nbsp; <b>Your current location is - </b>{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span>  
-                        <button type="button" className="btn btn-outline-primary pull-right changelocationBtn" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Delivery Location</button>  
-                      </span>
-                    :
-                      <span>
-                        <span className="deliveryAddress">&nbsp; Your Delivery Location is not available </span>  
-                        <button type="button" className="btn btn-outline-primary pull-right changelocationBtn" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
-                      </span>
-                  :
-                    <span>
-                      <span className="deliveryAddress">&nbsp; Your Delivery Location is not available </span>  
-                      <button type="button" className="btn btn-outline-primary pull-right cangelocationBtn" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
-                    </span>
-            
-                  }
-                
-            </div>  
-            <DeliveryLocationPopup/>          
-        </div>
+          <i className="fas fa-globe"></i>
+          {
+            this.props.sampurnaWebsiteDetails?
+              this.props.sampurnaWebsiteDetails.deliveryLocation
+              ?
+                <span>
+                  <span className="deliveryAddress">&nbsp; <b>Your current location is - </b>{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span>  
+                  <button type="button" className="btn btn-outline-primary pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Delivery Location</button>  
+                </span>
+              :
+                <span>
+                  <span className="deliveryAddress">&nbsp; Your Delivery Location is not available </span>  
+                  <button type="button" className="btn btn-outline-primary pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
+                </span>
+            :
+              <span>
+                <span className="deliveryAddress">&nbsp; Your Delivery Location is not available </span>  
+                <button type="button" className="btn btn-outline-primary pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
+              </span>
+          }     
+      </div>  
+    </div>
     );
   }
 }

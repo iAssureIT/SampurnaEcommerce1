@@ -5,21 +5,21 @@ import GoogleMapReact         from 'google-map-react';
 import Marker                 from './Marker.js';
 
 class GoogleMap extends React.Component {
-    static defaultProps = {
-        latLong: {
-          lat: 25.1279484,
-          lng: 55.3862638
-        },
-        zoom: 15
-      };
+    // static defaultProps = {
+    //     latLong: {
+    //       lat: 25.1279484,
+    //       lng: 55.3862638
+    //     },
+    //     zoom: 15
+    //   };
 
 	constructor(props) {
 		super(props);
 		 this.state = {
-            googleapiKey : "",
-            userDetails  : "",
-            latLongValues      : {},
-          
+            googleapiKey  : "",
+            userDetails   : "",
+            latLongValues : {},
+            zoom          : 15
          }
     }  
     componentDidUpdate(prevProps, prevState) {
