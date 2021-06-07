@@ -35,7 +35,7 @@ const orderSchema = mongoose.Schema({
     customerShippingTime      : String,
     order_numberOfProducts    : Number, //Sum of all number of products in all vendors
     order_quantityOfProducts  : Number, //Sum of total quantity of items in each vendor
-    orderStatus               : String, //New, Processing, Delivered
+    orderStatus               : String, //New, Delivered, Cancelled
 
 
     vendorOrders : [
@@ -71,13 +71,7 @@ const orderSchema = mongoose.Schema({
                     "subCategory_ID"    : String,
                     "subCategory"       : String,
                     "productStatus"     : String,
-                    "returnedDate"      : Date,
-                    "deliveryStatus"    : [{
-                                            "status"          : String,
-                                            "expDeliveryDate" : Date,
-                                            "Date"            : Date,
-                                            "userid"          : String
-                                        }]
+                    "returnedDate"      : Date
                 }
             ],
             orderStatus               : String,  //new,verified,packing,inspection,dispatched,delivered,cancelled

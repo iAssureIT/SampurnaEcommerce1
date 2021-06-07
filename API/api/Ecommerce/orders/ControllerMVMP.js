@@ -167,9 +167,7 @@ function getNextSequenceOrderId() {
 
 /**=========== Cancel Order  ===========*/
 exports.cancel_order = (req, res, next) => {
-	console.log("Order cancelled => ",req.body);
 	if((req.body.type).toLowerCase() === "vendororder" && req.body.vendor_id){
-		console.log("in if ")
 		Orders.updateOne(
 		{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 		{
@@ -178,21 +176,21 @@ exports.cancel_order = (req, res, next) => {
 			},
 			$push: {
 				"vendorOrders.$.deliveryStatus" : {
-					status 	: 'Cancelled',
-					Date 	: new Date(),
-					// userid 	: req.body.userid
+					status 				: 'Cancelled',
+					timestamp 			: new Date(),
+					statusUpdatedBy 	: req.body.userid
 				}
 			}
 		})
 		.exec()
 		.then(data => {
 			// console.log(data);
-			if (data.nModified == 1) {
+			if (data.nModified === 1) {
 				res.status(200).json({
-					"message"	: "Order is cancelled Successfully."
+					"message"	: "Order cancelled successfully."
 				});
 			} else {
-				res.status(401).json({
+				res.status(200).json({
 					"message": "Order Not Found"
 				});
 			}
@@ -208,14 +206,14 @@ exports.cancel_order = (req, res, next) => {
 		{ _id: ObjectId(req.body.order_id)},		
 		{
 			$set:{
-				"orderStatus"    			: "Cancelled",
-				"vendorOrders.orderStatus"  : "Cancelled"
+				"orderStatus"    				: "Cancelled",
+				"vendorOrders.$[].orderStatus"  : "Cancelled"
 			},			
 			$push: {
-				"vendorOrders.deliveryStatus" : {
-					status 	: 'Cancelled',
-					Date 	: new Date(),
-					// userid 	: req.body.userid
+				"vendorOrders.$[].deliveryStatus" : {
+					status 				: 'Cancelled',
+					timestamp 			: new Date(),
+					statusUpdatedBy 	: req.body.userid
 				}
 			}		
 		})
@@ -224,11 +222,11 @@ exports.cancel_order = (req, res, next) => {
 			// console.log(data);
 			if (data.nModified === 1) {
 				res.status(200).json({
-					"message"	: "Order is cancelled Successfully."
+					"message"	: "Order cancelled successfully."
 				});
 			} else {
-				res.status(401).json({
-					"message": "Order Not Found"
+				res.status(200).json({
+					"message": "Oops, something went wrong Order not cancelled"
 				});
 			}
 		})
