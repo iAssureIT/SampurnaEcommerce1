@@ -168,32 +168,77 @@ function getNextSequenceOrderId() {
 /**=========== Cancel Order  ===========*/
 exports.cancel_order = (req, res, next) => {
 	if((req.body.type).toLowerCase() === "vendororder" && req.body.vendor_id){
-		Orders.updateOne(
-		{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
-		{
-			$set:{
-				"vendorOrders.$.orderStatus"    : "Cancelled"
-			},
-			$push: {
-				"vendorOrders.$.deliveryStatus" : {
-					status 				: 'Cancelled',
-					timestamp 			: new Date(),
-					statusUpdatedBy 	: req.body.userid
+		Orders.findOne({ _id: ObjectId(req.body.order_id)})
+		.then(async(orderdata) => {
+			var vendorOrder = orderdata.vendorOrders.filter(vendorOrder => String(vendorOrder.vendor_id) === String(req.body.vendor_id))
+			console.log("vendorOrder => ",vendorOrder)
+			
+			var order_beforeDiscountTotal   = orderdata.paymentDetails.beforeDiscountTotal;
+            var order_afterDiscountTotal    = orderdata.paymentDetails.afterDiscountTotal;
+            var order_discountAmount        = orderdata.paymentDetails.discountAmount;
+            var order_taxAmount             = orderdata.paymentDetails.taxAmount;
+            var order_shippingCharges       = 0;
+            var maxServiceCharges           = 0; 
+
+			var maxServiceChargesData   = await StorePreferences.findOne({},{maxServiceCharges : 1});            
+            if(maxServiceChargesData !== null){
+                maxServiceCharges = maxServiceChargesData.maxServiceCharges;
+            }
+
+			for (var i = 0; i < orderdata.vendorOrders.length; i++) {
+				order_shippingCharges += (vendorOrders[i].vendor_shippingCharges).toFixed(2);
+				if(String(vendorOrders[i].vendor_id) === String(req.body.vendor_id)){
+					order_beforeDiscountTotal   -=  vendorOrder[0].vendor_beforeDiscountTotal;
+					order_afterDiscountTotal    -=  vendorOrder[0].vendor_afterDiscountTotal;
+					order_discountAmount        -=  vendorOrder[0].vendor_discountAmount;
+					order_taxAmount             -=  vendorOrder[0].vendor_taxAmount;
+					order_shippingCharges 		-= (vendorOrders[i].vendor_shippingCharges).toFixed(2);
+				}				
+			}
+			if(i >= orderdata.vendorOrders.length){
+				/*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
+                data.paymentDetails.shippingCharges     = maxServiceCharges && maxServiceCharges > 0 
+                                                                    ? maxServiceCharges > order_shippingCharges 
+                                                                        ? 
+                                                                            (order_shippingCharges).toFixed(2) 
+                                                                        : 
+                                                                            maxServiceCharges 
+                                                                    : 
+                                                                        (order_shippingCharges).toFixed(2);
+			}			
+
+			Orders.updateOne(
+			{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
+			{
+				$set:{
+					"vendorOrders.$.orderStatus"    : "Cancelled"
+				},
+				$push: {
+					"vendorOrders.$.deliveryStatus" : {
+						status 				: 'Cancelled',
+						timestamp 			: new Date(),
+						statusUpdatedBy 	: req.body.userid
+					}
 				}
-			}
-		})
-		.exec()
-		.then(data => {
-			// console.log(data);
-			if (data.nModified === 1) {
-				res.status(200).json({
-					"message"	: "Order cancelled successfully."
+			})
+			.then(updatedata => {
+				// console.log(data);
+				if (updatedata.nModified === 1) {
+					res.status(200).json({
+						"message"	: "Order cancelled successfully."
+					});
+				} else {
+					res.status(200).json({
+						"message": "Order Not Found"
+					});
+				}
+			})
+			.catch(err => {
+				console.log(err);
+				res.status(500).json({
+					error: err
 				});
-			} else {
-				res.status(200).json({
-					"message": "Order Not Found"
-				});
-			}
+			});
 		})
 		.catch(err => {
 			console.log(err);
@@ -238,6 +283,27 @@ exports.cancel_order = (req, res, next) => {
 		});
 	}
 }
+/**=========== getDistanceWiseShippinCharges() ===========*/
+function getDistanceWiseShippinCharges(){
+    return new Promise(function(resolve,reject){
+        StorePreferences.findOne()
+        .then(storePreferences=>{
+            console.log("storePreferences => ",storePreferences)
+            console.log("Condition => ",(storePreferences && storePreferences.serviseChargesByDistance && storePreferences.serviseChargesByDistance.length > 0))
+            if(storePreferences && storePreferences.serviseChargesByDistance){
+                console.log("storePreferences.serviseChargesByDistance => ",storePreferences.serviseChargesByDistance)
+                resolve(storePreferences.serviseChargesByDistance);
+            }else{
+                resolve([]);
+            }            
+        })
+        .catch(err =>{
+            console.log("Error => ",err);
+            reject(err)
+        });
+    });
+}
+
  	/*========== Split VendorWise Orders ==========*/
  	function addSplitVendorOrders(orderID) {
 		return new Promise(function (resolve, reject) {
