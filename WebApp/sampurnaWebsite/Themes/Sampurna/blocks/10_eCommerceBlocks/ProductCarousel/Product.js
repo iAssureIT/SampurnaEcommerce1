@@ -10,10 +10,6 @@ import store                  from '../../../../../redux/store.js';
 import useRouter              from 'next/router';
 import {updateCartCount,getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
 
-const router = useRouter();
-// const {vendorId} = router.query
-console.log("useRouter",router.query);
-
 class Product extends Component{
     constructor(props) {
         super(props);
@@ -43,7 +39,7 @@ class Product extends Component{
           this.setState({
             user_ID       : user_ID,
           },()=>{
-              this.getWishlistData();
+              // this.getWishlistData();
           }); 
         }
 
@@ -118,6 +114,7 @@ class Product extends Component{
     }
   
     submitCart(event) {
+      console.log("lat long",this.props.userLongitude,this.props.userLatitude,this.props.vendorlocation_ID);
       if(this.state.user_ID){
       var id = event.target.id;
       var vendor_id
@@ -159,9 +156,6 @@ class Product extends Component{
             "product_ID"        : event.target.id,
             "vendor_ID"         : "",
             "quantity"          : quantity,
-            "userLatitude"      : "",
-            "userLongitude"     : "",
-            "vendorLocation_id" : "",
             "selectedSize"      : selectedSize,
             "size"              : size,
             "totalWeight"       : totalWeight,
@@ -169,11 +163,14 @@ class Product extends Component{
         }
       }else{      
         formValues = {
-          "user_ID": this.state.user_ID,
-          "product_ID": event.target.id,
-          "quantity": 1,   
-          "vendorName" : event.target.getAttribute('vendor_name'),
-          "vendor_ID"  : event.target.getAttribute('vendor_id'),     
+          "user_ID"           : this.state.user_ID,
+          "product_ID"        : event.target.id,
+          "quantity"          : 1,   
+          "userLatitude"      : this.props.userLatitude,
+          "userLongitude"     : this.props.userLongitude,
+          "vendorLocation_id" : this.props.vendorlocation_ID,
+          "vendorName"        : event.target.getAttribute('vendor_name'),
+          "vendor_ID"         : event.target.getAttribute('vendor_id'),     
         }      
       }
   
@@ -249,7 +246,7 @@ class Product extends Component{
                 messageData: {},
               })
             }, 3000);
-            this.getWishlistData();
+            // this.getWishlistData();
             // this.props.getWishlistData();
           })
           .catch((error) => {

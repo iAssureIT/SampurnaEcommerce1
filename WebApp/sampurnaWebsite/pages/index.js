@@ -4,7 +4,7 @@ import axios                           from 'axios';
 import MasterPage                      from '../MasterPage/MasterPage.js';
 import DeliveryLocationPopup           from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/DeliveryLocationPopup';
 import Websitelogo                     from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
-import Searchbar                       from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Searchbar.js';
+import SearchBar                       from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Searchbar.js';
 import Footer                          from '../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import GoogleMap                       from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Googlemap.js';
 
@@ -18,8 +18,8 @@ export default function App({pageData}) {
 
   useEffect(()=>{
     var sampurnaWebsiteDetailsObj =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-    var user_details           =  JSON.parse(localStorage.getItem('userDetails'));
-    console.log("sampurnaWebsiteDetails.deliveryLocation=>",sampurnaWebsiteDetailsObj);
+    var user_details              =  JSON.parse(localStorage.getItem('userDetails'));
+    // console.log("sampurnaWebsiteDetails.deliveryLocation=>",sampurnaWebsiteDetailsObj);
     if(sampurnaWebsiteDetailsObj){
         if(sampurnaWebsiteDetailsObj.deliveryLocation){
           // console.log("sampurnaWebsiteDetails.deliveryLocation=>",sampurnaWebsiteDetails.deliveryLocation);
@@ -44,7 +44,8 @@ export default function App({pageData}) {
                                 <div className="col-12 top-header">
                                     <div className="row headeLogoWrap mt-4">                
                                           <Websitelogo />
-                                          <Searchbar />
+                                          <div className="ml-4 mr-4 col-12 col-sm-7 text-center searchTitle"> <h2>Search Your Location</h2></div>
+                                          {/* <SearchBar /> */}
                                     </div>
                                 </div>                                                    
                             </div>

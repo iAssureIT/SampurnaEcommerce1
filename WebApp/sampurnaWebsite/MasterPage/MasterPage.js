@@ -33,6 +33,7 @@ class MasterPage extends React.Component {
 		};
 	}
 	componentDidMount(){
+		console.log("inside masterpage");
 		window.onload = (event) => {	
 			this.setState({
 				"pageLoaded" : true
@@ -77,7 +78,7 @@ class MasterPage extends React.Component {
 							var component = result._id ? result.blockComponentName : "TitleDesc";
 							var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
 							var block_id=result.block_id?result.block_id._id:"";
-							// console.log("component==",component);
+							console.log("component==",component);
 							const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
 							{
 								loading: () =>

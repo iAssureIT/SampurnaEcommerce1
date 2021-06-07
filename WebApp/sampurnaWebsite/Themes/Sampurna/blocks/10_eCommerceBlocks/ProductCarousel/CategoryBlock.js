@@ -70,7 +70,7 @@ class CategoryBlock extends Component{
                   deviceType={this.props.deviceType}  
                   containerClass="carousel-container">
                     {this.props.categoryData.map((categorydata, index) => {
-                      var url = "/products/"+this.props.vendor_ID+"/"+this.props.sectionUrl+"/"+categorydata.categoryUrl;
+                      var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+categorydata.categoryUrl;
                       return (
                       <div className="col-12 productsCategoryBlock "  key={index}> 
                           <Link href={url} className ={"col-12 "}> 

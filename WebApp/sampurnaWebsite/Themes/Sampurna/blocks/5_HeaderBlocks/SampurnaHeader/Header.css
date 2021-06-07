@@ -627,7 +627,12 @@ li a{
 .cartImg Link{
     cursor: pointer;
 }
-
+.closeModalBtn{
+    margin-top: -60px;
+    font-size: 40px !important;
+    font-weight: 100 !important;
+    color: #999;
+}
 
 .googleMap{
     margin-top: 20px;
@@ -641,6 +646,10 @@ li a{
 }
 .searchAdrressLable{
     font-size: 15px;
+}
+.searchTitle{
+    color: #fff;
+
 }
 .headerWrapper .logoBlock{
     margin-top: 0px !important;

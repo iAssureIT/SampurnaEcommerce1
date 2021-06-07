@@ -64,13 +64,13 @@ class CategoryFilters extends Component{
                   {category.subCategory && category.subCategory.length?
                     <h4 data-toggle="collapse" data-parent="#accordion" href={"#collapse"+i} className="panel-title expand">
                       <div className="right-arrow pull-right">+</div> 
-                      <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl}>
+                      <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl}>
                         <a >{category.category}</a>
                       </Link>
                     </h4>
                     :
                     <h4  className="panel-title expand"> 
-                      <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl}> 
+                      <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl}> 
                           <a >{category.category}</a>
                       </Link>
                     </h4>
@@ -83,7 +83,7 @@ class CategoryFilters extends Component{
                           {category.subCategory && category.subCategory.map((subcategory,index)=>{   
                           return(
                             <li key={index} className={Style.subcategoryLi}>  
-                              <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl+"/"+subcategory.subCategoryUrl}>
+                              <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl+"/"+subcategory.subCategoryUrl}>
                                 <a className={"subCategorylia "+Style.subCategorylia}>{subcategory.subCategoryTitle}</a>
                               </Link> 
                             </li>

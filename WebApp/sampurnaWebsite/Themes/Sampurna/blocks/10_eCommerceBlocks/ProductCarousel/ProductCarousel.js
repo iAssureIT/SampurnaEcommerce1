@@ -120,6 +120,7 @@ class ProductCarousel extends Component {
 		}
   }
   async componentDidMount(){
+    console.log("inside productCarousel");
     var formValues = {};
     var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -146,17 +147,19 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
-
+    console.log("url===",url);
     if(url[4] !== "undefined"){
-      var vendor_ID      = url[4];
-      var sectionUrl     = url[5];
-      var categoryUrl    = url[6];
-      var subCategoryUrl = url[7];
+      var vendor_ID              = url[4];
+      var vendorlocation_ID      = url[5];
+      var sectionUrl             = url[6];
+      var categoryUrl            = url[7];
+      var subCategoryUrl         = url[8];
       this.setState({
-        "vendor_ID"      : vendor_ID,
-        "sectionUrl"     : sectionUrl,
-        "categoryUrl"    : categoryUrl?categoryUrl:"",
-        "subCategoryUrl" : subCategoryUrl?subCategoryUrl:""
+        "vendor_ID"         : vendor_ID,
+        "vendorlocation_ID" : vendorlocation_ID,
+        "sectionUrl"        : sectionUrl,
+        "categoryUrl"       : categoryUrl?categoryUrl:"",
+        "subCategoryUrl"    : subCategoryUrl?subCategoryUrl:""
       })
     }
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -167,7 +170,7 @@ class ProductCarousel extends Component {
         user_ID : userDetails.user_id
       },()=>{
           // console.log("user_ID=>",this.state.user_ID);
-          this.getWishlistData();
+          // this.getWishlistData();
       });
     } 
   }
@@ -175,7 +178,7 @@ class ProductCarousel extends Component {
     axios.get('/api/blocks/get/'+this.props.block_id)    
     .then((response)=>{
       if(response.data){
-      // console.log("1.blocks response data=>",response.data);                
+      console.log("1.blocks response data=>",response.data);                
       this.setState({
           blockSettings   : response.data.blockSettings,  
           productSetting  : response.data.productSettings,   
@@ -183,7 +186,7 @@ class ProductCarousel extends Component {
         
       },async ()=>{
         if(this.state.blockSettings.showCarousel === false){
-          // console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
+          console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
           
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
           .then((categoryResponse)=>{
@@ -194,14 +197,15 @@ class ProductCarousel extends Component {
                 brandData        : categoryResponse.data.brandList,           
               },()=>{
                 formValues = {
-                  "vendor_ID"      : vendor_ID,
-                  "sectionUrl"     : this.state.sectionUrl,
-                  "categoryUrl"    : this.state.categoryUrl===""?categoryResponse.data.categoryList.categoryUrl:this.state.categoryUrl,
-                  "subCategoryUrl" : [this.state.subCategoryUrl],
-                  "userLatitude"   : this.state.userLatitude,
-                  "userLongitude"  : this.state.userLongitude,
-                  "startRange"     : this.state.startRange,
-                  "limitRange"     : this.state.limitRange,
+                  "vendor_ID"         : vendor_ID,
+                  "vendorLocation_id" : this.state.vendorlocation_ID,
+                  "sectionUrl"        : this.state.sectionUrl,
+                  "categoryUrl"       : this.state.categoryUrl===""?categoryResponse.data.categoryList.categoryUrl:this.state.categoryUrl,
+                  "subCategoryUrl"    : [this.state.subCategoryUrl],
+                  "userLatitude"      : this.state.userLatitude,
+                  "userLongitude"     : this.state.userLongitude,
+                  "startRange"        : this.state.startRange,
+                  "limitRange"        : this.state.limitRange,
                 }
               });
             }
@@ -213,20 +217,21 @@ class ProductCarousel extends Component {
         }else{
           // console.log("blockSettings=>",this.state.blockSettings);
           formValues = {
-            "vendor_ID"      : "",
-            "sectionUrl"     : this.state.blockSettings.section? (this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
-            "categoryUrl"    : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
-            "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
-            "userLatitude"   : this.state.userLatitude,
-            "userLongitude"  : this.state.userLongitude,
-            "startRange"     : this.state.startRange,
-            "limitRange"     : this.state.limitRange,
+            "vendor_ID"         : "",
+            "vendorLocation_id" : "",
+            "sectionUrl"        : this.state.blockSettings.section? (this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
+            "categoryUrl"       : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
+            "subCategoryUrl"    : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+            "userLatitude"      : this.state.userLatitude,
+            "userLongitude"     : this.state.userLongitude,
+            "startRange"        : this.state.startRange,
+            "limitRange"        : this.state.limitRange,
             }
         }
 
         if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
-          // console.log("productlist productApiUrl===",productApiUrl);
+          console.log("productlist productApiUrl===",productApiUrl);
         }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
           // console.log("productApiUrl===",productApiUrl);
@@ -235,7 +240,7 @@ class ProductCarousel extends Component {
             // console.log("productApiUrl===",productApiUrl);
         }
         if(productApiUrl){
-          // console.log("formValues=>",formValues);
+          console.log("formValues=>",formValues);
           this.getProductList(productApiUrl,formValues);
       }//end productApiUrl
       });
@@ -271,7 +276,7 @@ getProductList(productApiUrl,formValues){
       this.setState({
         newProducts     : response.data,                          
       },()=>{
-        // console.log("newProducts=>",this.state.newProducts);
+        console.log("newProducts=>",this.state.newProducts);
         if(this.state.newProducts.length>0){
           this.setState({
             ProductsLoading : true,
@@ -285,6 +290,7 @@ getProductList(productApiUrl,formValues){
         console.log('error', error);
     })
   }
+
 getCartCount() {
     // const userid = localStorage.getItem('user_ID');
     if(userid){
@@ -433,7 +439,7 @@ getWishlistData() {
         })
       }, 3000);
     } else {
-      console.log("formValues==",formValues);
+      // console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)
         .then((response) => {
           // console.log("this.props.fetchCartData();",this.props.fetchCartData());
@@ -486,7 +492,7 @@ getWishlistData() {
               messageData: {},
             })
           }, 3000);
-          this.getWishlistData();
+          // this.getWishlistData();
         })
         .catch((error) => {
           console.log('error', error);
@@ -788,9 +794,12 @@ getWishlistData() {
 
                   {this.state.blockSettings.showCarousel === false?
                       < CategoryBlock 
-                        categoryData = {this.state.categoryData}
-                        vendor_ID    ={this.state.vendor_ID}
-                        sectionUrl   = {this.state.sectionUrl}
+                        categoryData       = {this.state.categoryData}
+                        vendor_ID          = {this.state.vendor_ID}
+                        vendorlocation_ID  = {this.state.vendorlocation_ID}
+                        userLatitude       = {this.state.userLongitude}
+                        userLongitude      = {this.state.userLongitude}
+                        sectionUrl         = {this.state.sectionUrl}
                       />
                   :null
 
@@ -802,28 +811,30 @@ getWishlistData() {
                     {this.state.categoryData && this.state.categoryData.length>0?    
                     
                       < CategoryFilters 
-                        categoryData  = {this.state.categoryData}
-                        blockSettings = {this.state.blockSettings}
-                        vendor_ID     = {this.state.vendor_ID}
-                        sectionUrl    = {this.state.sectionUrl}
-                        userLatitude  = {this.state.userLatitude}
-                        userLongitude = {this.state.userLongitude}
-                        startRange    = {this.state.startRange}
-                        limitRange    = {this.state.limitRange}
+                        categoryData       = {this.state.categoryData}
+                        blockSettings      = {this.state.blockSettings}
+                        vendor_ID          = {this.state.vendor_ID}
+                        vendorlocation_ID  = {this.state.vendorlocation_ID}
+                        sectionUrl         = {this.state.sectionUrl}
+                        userLatitude       = {this.state.userLatitude}
+                        userLongitude      = {this.state.userLongitude}
+                        startRange         = {this.state.startRange}
+                        limitRange         = {this.state.limitRange}
                       />
                     
                     :' '
                     }
                     {this.state.brandData && this.state.brandData.length>0?  
                       < BrandFilters 
-                        blockSettings = {this.state.blockSettings}
-                        brandData     = {this.state.brandData}
-                        vendor_ID     ={this.state.vendor_ID}
-                        sectionUrl    = {this.state.sectionUrl}
-                        userLatitude  = {this.state.userLatitude}
-                        userLongitude = {this.state.userLongitude}
-                        startRange    = {this.state.startRange}
-                        limitRange    = {this.state.limitRange}
+                        blockSettings      = {this.state.blockSettings}
+                        brandData          = {this.state.brandData}
+                        vendor_ID          = {this.state.vendor_ID}
+                        vendorlocation_ID  = {this.state.vendorlocation_ID}
+                        sectionUrl         = {this.state.sectionUrl}
+                        userLatitude       = {this.state.userLatitude}
+                        userLongitude      = {this.state.userLongitude}
+                        startRange         = {this.state.startRange}
+                        limitRange         = {this.state.limitRange}
                       />                    
                     :' '
                     }
@@ -852,8 +863,11 @@ getWishlistData() {
                       <div className="row">
                         {this.state.newProducts.length>=1?
                           <Product newProducts={this.state.newProducts}
-                                productSettings = {this.state.productSettings}
-                                blockSettings   = {this.state.blockSettings}
+                                productSettings    = {this.state.productSettings}
+                                blockSettings      = {this.state.blockSettings}
+                                vendorlocation_ID  = {this.state.vendorlocation_ID}
+                                userLatitude       = {this.state.userLatitude}
+                                userLongitude      = {this.state.userLongitude}
                           />
                         :
                         <div className="col-2 offset-5 ">   
@@ -893,7 +907,7 @@ getWishlistData() {
        </div>
       </div>
       :
-      ""
+      "loading..."
     );
   }
 }

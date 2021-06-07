@@ -14,7 +14,7 @@ const VendorList = ()=> {
     const [categoryList,setCategoryList] = useState([]);
     const router = useRouter();
     const {sectionUrl} = router.query
-    console.log("useRouter",router.query);
+    // console.log("useRouter",router.query);
     useEffect(()=>{
         var formValues =  {
             "startRange" : 0,
@@ -50,7 +50,8 @@ const VendorList = ()=> {
                                     return(
                                         <div className="col-6" key={index}>
                                             <div className={"col-12 card mt-4 " +Style.vendorCard}>
-                                                <Link href={"/products/"+vendordata.vendor_ID+"/"+sectionUrl} className={+Style.vedorLink}>
+                                            <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+sectionUrl} className={+Style.vedorLink}>
+                                                {/* <Link href={"/products/"+vendordata.vendor_ID +"/"+sectionUrl} className={+Style.vedorLink}> */}
                                                     <div className={"row card-body " +Style.cardBody}>
                                                         <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                             <img src={vendordata.vendorLogo} className={"vendor img-thumbnail "+Style.vendorLogo }/>

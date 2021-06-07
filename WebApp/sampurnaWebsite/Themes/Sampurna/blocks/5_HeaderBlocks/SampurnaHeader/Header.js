@@ -6,17 +6,14 @@ import Image                  from 'next/image';
 import Router                 from 'next/router'; 
 import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
-import parse, { domToReact }  from 'html-react-parser';
-import Searchbar              from './Searchbar.js';
+import SearchBar              from './Searchbar.js';
 import Megamenu               from './Megamenu.js';
 import DeliveryLocationPopup  from './DeliveryLocationPopup.js';
 import DisplayLocation        from './DisplayLocation.js';
 import SystemSecurityModal    from './SystemSecurityModal.js';
 import Websitelogo            from './Websitelogo.js';
 import MyCart                 from './MyCart.js';
-import { updateCartCount,setProductApiUrl,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'font-awesome/css/font-awesome.min.css';
+import {setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 
 class Header extends React.Component {
 	constructor(props) {
@@ -27,42 +24,19 @@ class Header extends React.Component {
             userID             : "", 
             userLocation       : true,  
             address            : "",
-            homeFirstVisit     : false,
-            loading            : true,
             deliveryLocation   : "-"
          }
     }    
 	 async componentDidMount(){
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
-        var deliveryLocation = false;
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
             }
             store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)) ;
-            if(userDetails){
-                var user_id = userDetails.user_id;       
-                if(user_id !== null){
-                    this.setState({
-                        "userID": user_id,
-                    },()=>{
-                    })     
-                }
-            }
         }
-
-        if(!deliveryLocation){
-            this.setState({
-                "homeFirstVisit" : true,
-                "address"        : "",
-                loading          : false
-            });
-        }else{
-            this.setState({
-                deliveryLocation : deliveryLocation,
-            });
-        }
+        
     }
 
     render(){
@@ -77,7 +51,7 @@ class Header extends React.Component {
                                                                 
                                         <Websitelogo />
 
-                                        <Searchbar />
+                                        <SearchBar />
 
                                         <div className="col-8 col-sm-2 ml-4 systemSecurity"> 
                                             <div className="row">                                  
@@ -105,10 +79,11 @@ class Header extends React.Component {
                         <div id="locationModal" className="col-12 modal in"  data-keyboard="false" >
                             <div className="modal-dialog modal-xl " >
                                 <div className="modal-content " style={{'background': '#fff'}}>                            
-                                    <div className="modal-body">  
+                                    <div className="modal-body">                                          
                                         <div className="modal-header">
                                             <h6 className="modal-title">Your Delivery Location</h6>
                                         </div>
+                                        <button type="button" className="close closeModalBtn"  data-dismiss="modal" >&times;</button>  
                                         <DeliveryLocationPopup/>
                                     </div>
                                 </div>
@@ -122,15 +97,12 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => (
-    // console.log("1. state in header====",state.data),
     {
-        recentCartData   :  state.data.recentCartData,
+        // recentCartData   :  state.data.recentCartData,
     });
   
   const mapDispatchToProps = {
-    setProductApiUrl            : setProductApiUrl,
     setSampurnaWebsiteDetails   : setSampurnaWebsiteDetails
   };
-  
   
   export default connect(mapStateToProps, mapDispatchToProps)(Header);

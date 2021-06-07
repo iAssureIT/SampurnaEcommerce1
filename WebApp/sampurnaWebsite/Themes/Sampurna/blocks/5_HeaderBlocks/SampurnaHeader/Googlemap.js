@@ -15,7 +15,7 @@ class GoogleMap extends React.Component {
          }
     }  
     componentDidUpdate(prevProps, prevState) {
-        console.log("prevProps===",prevProps);
+        // console.log("prevProps===",prevProps);
         var latLongDetails = {
             lat: prevProps.latLongDetails.lat,
             lng: prevProps.latLongDetails.lng

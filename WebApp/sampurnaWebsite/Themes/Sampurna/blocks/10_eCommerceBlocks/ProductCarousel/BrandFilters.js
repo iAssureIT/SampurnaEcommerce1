@@ -126,7 +126,7 @@ class BrandFilters extends Component{
                 <div className="col-12 noPadding panelCategory paneldefault" key={index}>
                     <div className={"row panel-heading "+Style.panelHeading}>
                         <div className=" col-1 NoPadding centreDetailContainerEcommerce">
-                        <input className=" " type="checkbox" name="brands[]" onChange={this.onSelectedItemsChange.bind(this)} value={brand} />
+                          <input className=" " type="checkbox" name="brands[]" onChange={this.onSelectedItemsChange.bind(this)} value={brand} />
                         </div>
                         <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
                     </div>                              

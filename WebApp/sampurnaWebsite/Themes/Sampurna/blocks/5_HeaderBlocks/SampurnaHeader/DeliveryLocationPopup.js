@@ -49,7 +49,7 @@ class DeliveryLocationPopup extends React.Component {
              })
          }
          if(sampurnaWebsiteDetails){
-             console.log("sampurnaWebsiteDetails=",sampurnaWebsiteDetails);
+            //  console.log("sampurnaWebsiteDetails=",sampurnaWebsiteDetails);
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var latLongDetails = {
                     lat : sampurnaWebsiteDetails.deliveryLocation.latitude,
@@ -59,7 +59,7 @@ class DeliveryLocationPopup extends React.Component {
                     address : sampurnaWebsiteDetails.deliveryLocation.address,
                     latLong :latLongDetails
                 },()=>{
-                    console.log("latLong===",this.state.latLong);
+                    // console.log("latLong===",this.state.latLong);
                 })
             }
         }
@@ -136,13 +136,13 @@ class DeliveryLocationPopup extends React.Component {
                             if(that.props.sampurnaWebsiteDetails){
                                 var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
                                 sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                                console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+                                // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
                             }else{
                                 var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
                             }
 
                             localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
-                            console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
+                            // console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
                             store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
                             that.setState({ address: deliveryLocation.address });                              
                         },
