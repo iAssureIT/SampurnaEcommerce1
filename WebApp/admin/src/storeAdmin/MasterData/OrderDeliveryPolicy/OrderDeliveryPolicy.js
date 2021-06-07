@@ -3,9 +3,9 @@ import $                      from 'jquery';
 import jQuery                 from 'jquery';
 import axios                  from 'axios';
 import swal                   from 'sweetalert';
-import  './StorePreferences.css';
+import  './OrderDeliveryPolicy.css';
 
-class StorePreferences extends Component {
+class OrderDeliveryPolicy extends Component {
 	constructor(props) {        
 		super(props);
 		this.state = {
@@ -77,7 +77,7 @@ class StorePreferences extends Component {
 			debug   : true,
 			success : "valid"
 		});
-		$("#StorePreferencesForm").validate({
+		$("#OrderDeliveryPolicyForm").validate({
 			rules: {
 			maxRadius: {
 					required: true,
@@ -220,8 +220,8 @@ class StorePreferences extends Component {
 		}
 		
 		console.log('formValues', formValues);
-		console.log("condition => ",($("#StorePreferencesForm").valid()));
-		if($("#StorePreferencesForm").valid()){        
+		console.log("condition => ",($("#OrderDeliveryPolicyForm").valid()));
+		if($("#OrderDeliveryPolicyForm").valid()){        
 			axios.post('/api/storepreference/post', formValues)
 			.then((response)=>{                
 					console.log("response after insert webapp:",response.data.message); 
@@ -263,45 +263,54 @@ class StorePreferences extends Component {
 									<div className="row">
 										<div className="">
 											<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
-												<h4 className="weighttitle NOpadding-right">Store Prefereces </h4>
+												<h4 className="weighttitle NOpadding-right">Order Delivery Policy </h4>
 											</div>
 								
 											<div className="col-lg-12 col-md-12 marginTopp NOpadding">
-												<form id="StorePreferencesForm" className="">
+												<form id="OrderDeliveryPolicyForm" className="">
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
-														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Maximum Distance Radius to Show Vendors ( in {this.state.unitOfDistance} ) <i className="redFont">*</i></label>
-															<input className="form-control" placeholder="Maximum Radius in Kms" ref="maxRadius"
-															 	type 		= "number"
-																name 		= "maxRadius" 
-																id 			= "maxRadius" 
-																value 		= {this.state.maxRadius} 
-																onChange 	= {this.handleChange.bind(this)} 
-															/>
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">														 	
+															<label>Maximum Distance Radius to Show Vendors <i className="redFont">*</i></label>
+															<div className="input-group">
+																<input className="form-control" placeholder="Maximum Radius in Kms" ref="maxRadius"
+																	type 		= "number"
+																	name 		= "maxRadius" 
+																	id 			= "maxRadius" 
+																	value 		= {this.state.maxRadius} 
+																	onChange 	= {this.handleChange.bind(this)} 
+																/>
+																<span class="input-group-addon addontext">{this.state.unitOfDistance}</span>   
+															</div>
 														</div>
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Minimum order amount per vendor to place order (in {this.state.currency} ) <i className="redFont">*</i></label>
-															<input className = "form-control" placeholder = "Minimum Order Value" ref = "minOrderValue"
-																type 		= "text" 
-																id 			= "minOrderValue" 
-																name 		= "minOrderValue"
-																value	 	= {this.state.minOrderValue} 
-																onChange    = {this.handleChange.bind(this)} 
-															/>
+															<label>Minimum order amount per vendor to place order <i className="redFont">*</i></label>
+															<div className="input-group"> 	
+																<input className = "form-control" placeholder = "Minimum Order Value" ref = "minOrderValue"
+																	type 		= "text" 
+																	id 			= "minOrderValue" 
+																	name 		= "minOrderValue"
+																	value	 	= {this.state.minOrderValue} 
+																	onChange    = {this.handleChange.bind(this)} 
+																/>
+																<span class="input-group-addon addontext">{this.state.currency}</span> 
+															</div>
 														</div>                            
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Maximum service charges applicable (in {this.state.currency} ) <i className="redFont">*</i></label>
-															<input className = "form-control" placeholder = "Default Service Charges" ref = "maxServiceCharges"
-																type 		= "text" 
-																id 			= "maxServiceCharges" 
-																name 		= "maxServiceCharges"
-																value	 	= {this.state.maxServiceCharges} 
-																onChange = {this.handleChange.bind(this)} 
-															/>
+															<label>Maximum service charges applicable <i className="redFont">*</i></label>
+															<div className="input-group"> 	
+																<input className = "form-control" placeholder = "Default Service Charges" ref = "maxServiceCharges"
+																	type 		= "text" 
+																	id 			= "maxServiceCharges" 
+																	name 		= "maxServiceCharges"
+																	value	 	= {this.state.maxServiceCharges} 
+																	onChange = {this.handleChange.bind(this)} 
+																/>
+																<span class="input-group-addon addontext">{this.state.currency}</span> 
+															</div>
 														</div>                            
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
@@ -405,5 +414,5 @@ class StorePreferences extends Component {
 		);
 	} 
 }
-export default StorePreferences;
+export default OrderDeliveryPolicy;
 

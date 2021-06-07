@@ -80,7 +80,7 @@ const orderSchema = mongoose.Schema({
                                         }]
                 }
             ],
-            orderStatus               : String,  //new,verified,packing,inspection,dispatched,delivered,
+            orderStatus               : String,  //new,verified,packing,inspection,dispatched,delivered,cancelled
             delivery_person_id        : { type: mongoose.Schema.Types.ObjectId, ref: 'businessAssociate' }, 
             delivery_person_name      : String,
 

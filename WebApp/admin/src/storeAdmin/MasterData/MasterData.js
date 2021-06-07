@@ -1,23 +1,24 @@
-import React, {Component} 		from 'react';
-import {render}           		from 'react-dom';
-import $                  		from "jquery";
+import React, {Component} 			from 'react';
+import {render}           			from 'react-dom';
+import $                  			from "jquery";
 import jQuery from 'jquery';
-import axios              		from 'axios';
-import swal                 	from 'sweetalert';
+import axios              			from 'axios';
+import swal                 		from 'sweetalert';
 
-import Section            		from './sectionManagement/component/SectionManagementNew.js';
-import ShippingManagement     from './shippingManagement/component/ShippingManagement.js';
-import TimeManagement         from './timeManagement/component/TimeManagement.js';
-import Category           		from './categoryManagement/component/NewCategoryManagement.js';
-import TaxName            		from './TaxName/TaxName.js';
-import TaxRate            		from './TaxRate/TaxRate.js';
-// import UnitOfMeasurment   	from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
-import UnitOfMeasurment   		from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
-import PhotoGallery       		from './Gallery/component/Gallery.js';
-import OrderStatus   			from './orderStatusManagement/orderStatusManagement.js';
-import BannerImages       		from './BannerImages/component/BannerImages.js';
-import DistanceRange       	from './DistanceRange/DistanceRange.js';
-import StorePreferences       from './StorePreferences/StorePreferences.js';
+import Section            			from './sectionManagement/component/SectionManagementNew.js';
+import ShippingManagement     		from './shippingManagement/component/ShippingManagement.js';
+import TimeManagement         		from './timeManagement/component/TimeManagement.js';
+import Category           			from './categoryManagement/component/NewCategoryManagement.js';
+import TaxName            			from './TaxName/TaxName.js';
+import TaxRate            			from './TaxRate/TaxRate.js';
+// import UnitOfMeasurment   		from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
+import UnitOfMeasurment   			from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
+import PhotoGallery       			from './Gallery/component/Gallery.js';
+import OrderStatus   				from './orderStatusManagement/orderStatusManagement.js';
+import BannerImages       			from './BannerImages/component/BannerImages.js';
+import DistanceRange       			from './DistanceRange/DistanceRange.js';
+import OrderDeliveryPolicy      	from './OrderDeliveryPolicy/OrderDeliveryPolicy.js';
+import OrderCancellationPolicy      from './OrderCancellationPolicy/OrderCancellationPolicy.js';
 
 
 // import '../../coreadmin/companysetting/css/CompanySetting.css';
@@ -131,7 +132,8 @@ import StorePreferences       from './StorePreferences/StorePreferences.js';
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#PhotoGallery" data-toggle="tab">Photo Gallery Master</a></li>
 													{ this.state.showOrderStatus !== "No" ? <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderStatus" data-toggle="tab">Order Status Master</a></li> : null } 
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#BannerImages" data-toggle="tab">Mobile Banner Images </a></li>
-													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#StorePreferences" data-toggle="tab">Store Preferences </a></li>
+													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderDeliveryPolicy" data-toggle="tab">Order Delivery Policy </a></li>
+													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderCancellationPolicy" data-toggle="tab">Order Cancellation Policy </a></li>
 												</ul>   
 											</div>                      
 											<div className="tab-content col-lg-9 col-md-9 col-xs-12 col-sm-12">   
@@ -148,7 +150,8 @@ import StorePreferences       from './StorePreferences/StorePreferences.js';
 												<div className="tab-pane" id="TaxRate">         <TaxRate           editId={this.state.editId}/>  </div> */}
 												{/* <div className="tab-pane" id="UnitOfMeasurment"><UnitOfMeasurment  editId={this.state.editId}/>  </div>   */}
 												<div className="tab-pane" id="BannerImages"><BannerImages editId={this.state.editId}/>  </div>  
-												<div className="tab-pane" id="StorePreferences"><StorePreferences editId={this.state.editId}/>  </div> 												
+												<div className="tab-pane" id="OrderDeliveryPolicy"><OrderDeliveryPolicy editId={this.state.editId}/>  </div> 												
+												<div className="tab-pane" id="OrderCancellationPolicy"><OrderCancellationPolicy editId={this.state.editId}/>  </div> 												
 											</div> 
 										</div>
 									</div>

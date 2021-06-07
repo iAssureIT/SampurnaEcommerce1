@@ -16,6 +16,8 @@ router.patch('/patch/updateDeliveryStatus', 													orderController.updateD
 
 router.patch('/patch/changeToPreviousStatus', 												    orderController.changeToPreviousStatus);
 
+router.patch('/cancel/order', 													                orderController.cancel_order);
+
 router.get('/get/list', 																		orderController.list_order);
 
 router.get('/get/franchisewise/list/:franchiseID', 										        orderController.list_franchise_order);

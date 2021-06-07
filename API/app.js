@@ -92,6 +92,7 @@ const ReturnedProductsRoutes  				= require("./api/Ecommerce/returnedProducts/Ro
 const BulkUploadTemplate					= require("./api/Ecommerce/bulkUploadTemplate/Routes"); 
 const adminPreference     					= require("./api/Ecommerce/adminPreference/Routes");
 const storePreference     					= require("./api/Ecommerce/StorePreferences/Routes");
+const orderCancellationPolicyRoutes			= require("./api/Ecommerce/OrderCancellationPolicy/Routes");
 const unitOfMeasurment    					= require("./api/Ecommerce/departmentMaster/RoutesUnitofmeasurment");
 const orderStatus    						= require("./api/Ecommerce/orderStatusMaster/Routes");
 const BannerImages         					= require("./api/Ecommerce/BannerImages/Routes.js");
@@ -157,6 +158,7 @@ app.use("/api/customerReview", 				customerReviewRoutes);
 app.use("/api/preference", 					taxSetting);
 app.use("/api/adminpreference", 			adminPreference);
 app.use("/api/storepreference", 			storePreference);
+app.use("/api/ordercancellationpolicy", 	orderCancellationPolicyRoutes);
 app.use("/api/sections", 					SectionRoutes);
 app.use("/api/shipping", 					ShippingRoutes);
 app.use("/api/time", 						TimingRoutes);

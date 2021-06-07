@@ -39,7 +39,7 @@ exports.insert_orders = (req, res, next) => {
 				customerShippingTime      	: req.body.customerShippingTime,
 				order_numberOfProducts    	: req.body.order_numberOfProducts, 
 				order_quantityOfProducts  	: req.body.order_quantityOfProducts, 
-				orderStatus 				: req.body.orderStatus,
+				orderStatus 				: "New",
 				vendorOrders 				: req.body.vendorOrders,
 				deliveryAddress				: req.body.deliveryAddress,			
 				createdAt 					: new Date(),
@@ -165,6 +165,81 @@ function getNextSequenceOrderId() {
     });
 }
 
+/**=========== Cancel Order  ===========*/
+exports.cancel_order = (req, res, next) => {
+	console.log("Order cancelled => ",req.body);
+	if((req.body.type).toLowerCase() === "vendororder" && req.body.vendor_id){
+		console.log("in if ")
+		Orders.updateOne(
+		{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
+		{
+			$set:{
+				"vendorOrders.$.orderStatus"    : "Cancelled"
+			},
+			$push: {
+				"vendorOrders.$.deliveryStatus" : {
+					status 	: 'Cancelled',
+					Date 	: new Date(),
+					// userid 	: req.body.userid
+				}
+			}
+		})
+		.exec()
+		.then(data => {
+			// console.log(data);
+			if (data.nModified == 1) {
+				res.status(200).json({
+					"message"	: "Order is cancelled Successfully."
+				});
+			} else {
+				res.status(401).json({
+					"message": "Order Not Found"
+				});
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+	}else{
+		Orders.updateOne(
+		{ _id: ObjectId(req.body.order_id)},		
+		{
+			$set:{
+				"orderStatus"    			: "Cancelled",
+				"vendorOrders.orderStatus"  : "Cancelled"
+			},			
+			$push: {
+				"vendorOrders.deliveryStatus" : {
+					status 	: 'Cancelled',
+					Date 	: new Date(),
+					// userid 	: req.body.userid
+				}
+			}		
+		})
+		.exec()
+		.then(data => {
+			// console.log(data);
+			if (data.nModified === 1) {
+				res.status(200).json({
+					"message"	: "Order is cancelled Successfully."
+				});
+			} else {
+				res.status(401).json({
+					"message": "Order Not Found"
+				});
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+	}
+}
  	/*========== Split VendorWise Orders ==========*/
  	function addSplitVendorOrders(orderID) {
 		return new Promise(function (resolve, reject) {
