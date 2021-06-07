@@ -7,7 +7,12 @@ import Message                from '../../StaticBlocks/Message/Message.js';
 import Style                  from './ProductCarousel.module.css';
 import { connect }            from 'react-redux';
 import store                  from '../../../../../redux/store.js'; 
+import useRouter              from 'next/router';
 import {updateCartCount,getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
+
+const router = useRouter();
+// const {vendorId} = router.query
+console.log("useRouter",router.query);
 
 class Product extends Component{
     constructor(props) {
@@ -18,7 +23,6 @@ class Product extends Component{
             blockSettings : [],
             
         }
-        
     }
 
     componentDidMount(){
@@ -116,6 +120,7 @@ class Product extends Component{
     submitCart(event) {
       if(this.state.user_ID){
       var id = event.target.id;
+      var vendor_id
       if(this.state.websiteModel === "FranchiseModel"){
         var selectedSize = $('#'+id+"-size").val();      
         var size = event.target.getAttribute('mainsize');      
@@ -150,15 +155,18 @@ class Product extends Component{
           quantity    = selectedSize/size;
           totalWeight = size*quantity +" "+unit;
           formValues = {
-            "user_ID"      : this.state.user_ID,
-            "product_ID"   : event.target.id,
-            "quantity"     : quantity,
-            "selectedSize" : selectedSize,
-            "size"         : size,
-            "totalWeight"  : totalWeight,
+            "user_ID"           : this.state.user_ID,
+            "product_ID"        : event.target.id,
+            "vendor_ID"         : "",
+            "quantity"          : quantity,
+            "userLatitude"      : "",
+            "userLongitude"     : "",
+            "vendorLocation_id" : "",
+            "selectedSize"      : selectedSize,
+            "size"              : size,
+            "totalWeight"       : totalWeight,
           }
         }
-  
       }else{      
         formValues = {
           "user_ID": this.state.user_ID,

@@ -1,18 +1,20 @@
-import React     from 'react';
-import axios     from 'axios';
-import {connect} from 'react-redux';
-import dynamic   from 'next/dynamic'
-import getConfig from 'next/config';
-import Head      from 'next/head';
-import Router    from 'next/router';
-import Link      from 'next/link';
-import swal      from 'sweetalert';
-import $         from 'jquery';
-import GoogleMap from './Googlemap.js';
-import store    from '../../../../../redux/store.js';
-import {setDeliveryLocation,setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
+import React             from 'react';
+import axios             from 'axios';
+import {connect}         from 'react-redux';
+import dynamic           from 'next/dynamic'
+import getConfig         from 'next/config';
+import Head              from 'next/head';
+import Router            from 'next/router';
+import Link              from 'next/link';
+import swal              from 'sweetalert';
+import $                 from 'jquery';
+import GoogleMap         from './Googlemap.js';
+import store             from '../../../../../redux/store.js';
+import AddressList       from './AddressList.js';
+import Geocode           from "react-geocode"; 
+import {setDeliveryLocation,setSampurnaWebsiteDetails }    from '../../../../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import Geocode   from "react-geocode"; 
+
 
 class DeliveryLocationPopup extends React.Component {
 	constructor(props) {
@@ -20,6 +22,7 @@ class DeliveryLocationPopup extends React.Component {
 		this.state = { 
             address : "",
             googleapiKey : "",
+            detectCurrentLocation : false
 		}; 
     }
     componentDidMount(){   
@@ -36,31 +39,37 @@ class DeliveryLocationPopup extends React.Component {
          })  
         
          var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+
          var user_details           =  JSON.parse(localStorage.getItem('userDetails'));
          if(user_details){
              this.setState({
                  userDetails : user_details
              },()=>{
-                 this.getUserAddress(userDetails.userId);
+                 this.getUserAddress(this.state.userDetails.user_id);
              })
          }
-         if(sampurnaWebsiteDetails.deliveryLocation){
-            var latLongDetails = {
-                lat : sampurnaWebsiteDetails.deliveryLocation.latitude,
-                lng : sampurnaWebsiteDetails.deliveryLocation.longitude
+         if(sampurnaWebsiteDetails){
+             console.log("sampurnaWebsiteDetails=",sampurnaWebsiteDetails);
+            if(sampurnaWebsiteDetails.deliveryLocation){
+                var latLongDetails = {
+                    lat : sampurnaWebsiteDetails.deliveryLocation.latitude,
+                    lng : sampurnaWebsiteDetails.deliveryLocation.longitude
+                }
+                this.setState({
+                    address : sampurnaWebsiteDetails.deliveryLocation.address,
+                    latLong :latLongDetails
+                },()=>{
+                    console.log("latLong===",this.state.latLong);
+                })
             }
-             this.setState({
-                 address : sampurnaWebsiteDetails.deliveryLocation.address,
-                 latLong :latLongDetails
-             })
-         }
+        }
 
     }
     getUserAddress(userId) {
         if(userId){
         axios.get("/api/ecommusers/" +userId)
             .then((response) => {
-                // console.log('userData res', response.data.deliveryAddress);
+                // console.log('userData address res', response.data.deliveryAddress);
                 if(response.data){
                     this.setState({
                         "userAddress"    : response.data.deliveryAddress,
@@ -69,7 +78,6 @@ class DeliveryLocationPopup extends React.Component {
                         "email"          : response.data.profile.email
                     });
                 }
-                
             })
             .catch((error) => {
                 console.log('error', error);
@@ -81,7 +89,7 @@ class DeliveryLocationPopup extends React.Component {
                 // console.log("google api key ===",that.state.googleapiKey);
                 Geocode.setApiKey(that.state.googleapiKey);
 
-                 // set response language. Defaults to english.
+                // set response language. Defaults to english.
                 Geocode.setLanguage('en');
 
                 // set response region. Its optional.
@@ -109,6 +117,7 @@ class DeliveryLocationPopup extends React.Component {
                             if(latLongDetails){
                                 that.setState({
                                     latLong   : latLongDetails,
+                                    detectCurrentLocation : true
                                 })
                             }
                             var deliveryLocation = {
@@ -132,7 +141,8 @@ class DeliveryLocationPopup extends React.Component {
                                 var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
                             }
 
-                            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));           
+                            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
+                            console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
                             store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
                             that.setState({ address: deliveryLocation.address });                              
                         },
@@ -145,40 +155,43 @@ class DeliveryLocationPopup extends React.Component {
 
     saveLocation(event) {
         event.preventDefault();
-        var deliveryLocation = {
-            "address"        : this.state.address,
-            "city"           : this.state.city,
-            "area"           : this.state.area,
-            "district"       : this.state.district,
-            "pincode"        : this.state.pincode,
-            "country"        : this.state.country,
-            "stateCode"      : this.state.stateCode,
-            "countryCode"    : this.state.countryCode,
-            "latitude"       : this.state.latitude,
-            "longitude"      : this.state.longitude,
-            "homeFirstVisit" : false,
-        }
-        if(deliveryLocation){
-            var latLongDetails = {
-                lat: this.state.latitude,
-                lng: this.state.longitude
+        if(!this.state.detectCurrentLocation){
+            var deliveryLocation = {
+                "address"        : this.state.address,
+                "city"           : this.state.city,
+                "area"           : this.state.area,
+                "district"       : this.state.district,
+                "pincode"        : this.state.pincode,
+                "country"        : this.state.country,
+                "stateCode"      : this.state.stateCode,
+                "countryCode"    : this.state.countryCode,
+                "latitude"       : this.state.latitude,
+                "longitude"      : this.state.longitude,
+                "homeFirstVisit" : false,
             }
-            this.setState({
-                deliveryLocation : this.state.deliveryLocation,
-                "latLong"        : latLongDetails,
-            })
-        }
-        if(this.props.sampurnaWebsiteDetails){
-            var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
-            sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-        }else{
-            var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-        }
-        
-        localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
-        store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
-        $('#locationModal').modal('hide'); 
-        swal("Thank You !! Location saved");
+            if(!deliveryLocation){
+                var latLongDetails = {
+                    lat: this.state.latitude,
+                    lng: this.state.longitude
+                }
+                this.setState({
+                    deliveryLocation : this.state.deliveryLocation,
+                    "latLong"        : latLongDetails,
+                })
+            }
+            if(this.props.sampurnaWebsiteDetails){
+                var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
+                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+            }else{
+                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+            }
+            
+            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
+            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
+            $('#locationModal').modal('hide'); 
+        }//end if detectCurrentLocation
+
+        // swal("Thank You !! Location saved");
         window.location.reload();
         Router.push('/');
         
@@ -188,24 +201,23 @@ class DeliveryLocationPopup extends React.Component {
     handleChangePlaces = address => {
         this.setState({ address: address });
     };
+
     handleSelect = address => {
         geocodeByAddress(address)
             .then((results) => {
                 if (results) {
-                    console.log("result ===",results);
+                    // console.log("result ===",results);
                     for (var i = 0; i < results[0].address_components.length; i++) {
                         for (var b = 0; b < results[0].address_components[i].types.length; b++) {
                             switch (results[0].address_components[i].types[b]) {
                                 case 'sublocality_level_1':
                                     var area = results[0].address_components[i].long_name;
-                                    // console.log("area===",area);
                                     break;
                                 case 'sublocality_level_2':
                                     area = results[0].address_components[i].long_name;
                                     break;
                                 case 'locality':
                                     var city = results[0].address_components[i].long_name;
-                                    // console.log("area===",city);
                                     break;
                                 case 'administrative_area_level_1':
                                     var state = results[0].address_components[i].long_name;
@@ -220,7 +232,6 @@ class DeliveryLocationPopup extends React.Component {
                                     break;
                                 case 'postal_code':
                                     var pincode = results[0].address_components[i].long_name;
-                                    // this.checkPincode(pincode);
                                     break;
                                 default:
                                     break;
@@ -238,57 +249,60 @@ class DeliveryLocationPopup extends React.Component {
                         stateCode: stateCode,
                         countryCode: countryCode,
                     })
-                    // console.log("setstate on select:", this.state.address);
+
+                    console.log("setstate on select:", this.state.address);
+
+                   
                 }
-
             })
-            .catch(error => console.error('Error', error));
-
-        geocodeByAddress(address)
+            if(address){
+            geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
-            .then(({ latitude, longitude }) => {
-                if(latitude && longitude){
-                    var latLongDetails = {
-                        lat: latitude,
-                        lng: longitude
+                .then(({ lat, lng }) => {
+                    // console.log("lat = ",lat," long = ",lng);
+                    if(lat && lng){
+                        var latLongDetails = {
+                            lat: lat,
+                            lng: lng
+                        }
+                        this.setState({
+                            latlong : latLongDetails,
+                            latitude : lat,
+                            longitude : lng
+                        },()=>{
+                            console.log("getting latlong ====",this.state.latlong);
+                        })
                     }
-                    this.setState({ 'latitude': latitude });
-                    this.setState({ 'longitude': longitude });
-                    this.setState({
-                        latlong : latLongDetails
-                    },()=>{
-                        console.log("latlong ====",this.state.latlong);
-                    })
-                }
-            })
-            .catch(error => console.error('latlong Error', error));
-            
+                })
+            .catch(error => console.error('Error', error));
+            }
+
         this.setState({ addressLine1: address });
     }; //end google api   
     
    render() {
        const ref = React.createRef();
-       console.log("latlong=>",this.state.latLong);
+    //    console.log("latlong=>",this.state.latLong);
        if(this.state.userDetails && this.state.userDetails.token){
-           var xlCol =  8;
+           var xlCol =  9;
            var offset = 0
        }else{
         var xlCol =  10;
         var offset = 1;
        }
     return (
-        <div className="col-12">
+        <div className="col-12 DeliveryLocation">
             <div className="row">
                 {
                     this.state.userDetails && this.state.userDetails.token? 
-                    <div className="col-2 AddressListWrapper">
+                    <div className="col-3 AddressListWrapper">
                         <AddressList 
                         userAddress =  {this.state.userAddress}/>
                     </div>
                     :null
                 }
-                <div className={"col-"+xlCol +" offset-" +offset +" NoPadding DeliveryLocation"}>
-                <div className="col-10 offset-1 NoPadding mobileViewNoPadding">
+                <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
+                <div className="col-12 offset-0 mobileViewNoPadding">
                     <form className=" col-12 deliveryForm">
                         <div className="row">
                             <div className="col-4 currentLocationBlock">
@@ -307,11 +321,11 @@ class DeliveryLocationPopup extends React.Component {
                                     highlightFirstSuggestion={true}>
                                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                         <div className="col-12 ">
-                                            <label className=" mt-2 "> Search Location </label>
+                                            <label className=" mt-2 searchAdrressLable"> Search Location </label>
                                             <input
                                                 {...getInputProps({
                                                     placeholder: 'Start typing & select location from dropdown suggestions...',
-                                                    className: 'location-search-input form-control locationSearch',
+                                                    className: 'location-search-input form-control',
                                                     id: "address",
                                                     name: "address",
                                                     required: true
@@ -344,7 +358,7 @@ class DeliveryLocationPopup extends React.Component {
                                 </PlacesAutocomplete>
                             </div>
                             
-                            <div className="col-12 pull-right">
+                            <div className="col-12 pull-right mt-2 ">
                                 <button type="button" className="btn btn-outline-primary pull-right changelocationBtn" onClick={this.saveLocation.bind(this)}>Save & Close</button>
                             </div>
                         </div>

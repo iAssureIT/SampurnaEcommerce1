@@ -270,8 +270,6 @@ class CartProducts extends Component{
             "user_ID"    : this.state.user_ID,
             "cartItem_ID" : cartitemid,
         }
-
-
           const wishValues = {
             "user_ID": this.state.user_ID,
             "product_ID": productid,

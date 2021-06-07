@@ -40,7 +40,7 @@ class CategoryFilters extends Component{
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-      console.log("props--",nextProps);
+      // console.log("props--",nextProps);
       if (nextProps.newProducts) {
         // return ({ 
         //   categoryData: nextProps.categoryData,
@@ -51,7 +51,7 @@ class CategoryFilters extends Component{
     }
 
     render(){
-      console.log("this.props.categoryData===",this.props.categoryData);
+      // console.log("this.props.categoryData===",this.props.categoryData);
       return (
           <div className="panel-group" id="accordion">                      
             <div className={Style.categoryFilterTitle}> Categories </div>  

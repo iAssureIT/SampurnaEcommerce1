@@ -20,28 +20,17 @@ class AddresssList extends React.Component {
   }
 
   async componentDidMount(){       
-    //======  Check if you already have delivery location stored in localstorage  ======
-    var sampurnaWebsiteDetails = "";
 
-    if(this.props.sampurnaWebsiteDetails){
-      if(this.props.sampurnaWebsiteDetails.deliveryLocation){
-        sampurnaWebsiteDetails = await Promise.resolve(this.props.sampurnaWebsiteDetails);
-      }else{
-        sampurnaWebsiteDetails = await Promise.resolve(JSON.parse(localStorage.getItem("sampurnaWebsiteDetails")));
-      }
-      // console.log("1. DisplayLoc - LSsampurnaWebsiteDetails = ", this.props.sampurnaWebsiteDetails.deliveryLocation);  
-    }
-
-  }
-    
+  }  
    render() {
+    //  console.log("User Address list =>",this.props.userAddress);
     return (
-		<div className="row">
-        Address list
-        {this.state.userAddress && this.state.userAddress.length>=0?
-            this.state.userAddress.map((data,index)=>{
+		<div className="col-12 NoPadding ">
+        <div className="col-12 NoPadding addressTitle pb-2 ">Shipping Address List</div>
+        {this.props.userAddress && this.props.userAddress.length>=0?
+            this.props.userAddress.map((data,index)=>{
                 return(
-                    <div className="col-12">
+                    <div className="col-12 NoPadding mb-4 singleAddressBlock">
                         <input type="radio" checked={this.state.addressId === data._id} value={data._id} 
                             onChange={(e)=>{
                             this.setState({ 
@@ -52,11 +41,9 @@ class AddresssList extends React.Component {
                             })
                             }}
                             name="checkoutAddess" pincode={data.pincode}  required className="codRadio"/>
-                        <span className="checkoutADDCss"><b>{data.addType} Address&nbsp;</b> <br />
-                        <span className="checkoutADDCss">Name : {data.name}.</span> <br />
+                        <span className="myAddress"><b>{data.addType.split('(')[0]} Address&nbsp;</b> <br />                       
                         {data.addressLine2}, {data.addressLine1},
-                        Pincode - {data.pincode}. <br />
-                        Email: {data.email} <br />Mobile: {data.mobileNumber} <br /><br /></span>
+                        </span>
                     </div>
                 )
             })
@@ -67,7 +54,6 @@ class AddresssList extends React.Component {
     );
   }
 }
-
 
 const mapStateToProps = state => (
   {

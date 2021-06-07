@@ -5,14 +5,6 @@ import GoogleMapReact         from 'google-map-react';
 import Marker                 from './Marker.js';
 
 class GoogleMap extends React.Component {
-    // static defaultProps = {
-    //     latLong: {
-    //       lat: 25.1279484,
-    //       lng: 55.3862638
-    //     },
-    //     zoom: 15
-    //   };
-
 	constructor(props) {
 		super(props);
 		 this.state = {
@@ -41,9 +33,9 @@ class GoogleMap extends React.Component {
         }
     }  
    render(){
-       console.log("latlong props=",this.props);
+    //    console.log("latlong props=",this.props);
     //    console.log("latlong=",this.state.latLong.lng);
-       console.log("apikey=",this.props.googleapiKey);
+    //    console.log("apikey=",this.props.googleapiKey);
 
         return(  
             <div className=" col-12 googleMap mt-4 mb-4 ">   

@@ -39,7 +39,7 @@ class BrandFilters extends Component{
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-      console.log("props--",nextProps);
+      // console.log("props--",nextProps);
       if (nextProps.newProducts) {
         // return ({ 
         //   categoryData: nextProps.categoryData,
@@ -98,7 +98,7 @@ class BrandFilters extends Component{
           this.setState({
             newProducts     : response.data,                          
           },()=>{
-            console.log("newProducts=>",this.state.newProducts);
+            // console.log("newProducts=>",this.state.newProducts);
             if(this.state.newProducts.length>0){
               this.setState({
                 ProductsLoading : true,
@@ -114,7 +114,7 @@ class BrandFilters extends Component{
       }
     
     render(){
-      console.log("this.props.categoryData===",this.props.brandData);
+      // console.log("this.props.categoryData===",this.props.brandData);
       return (
         <div className="panel-group" id="accordion">                      
             <div className={Style.categoryFilterTitle}> Brand </div>  

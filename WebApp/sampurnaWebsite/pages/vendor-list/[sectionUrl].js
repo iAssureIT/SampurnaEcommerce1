@@ -14,7 +14,7 @@ const VendorList = ()=> {
     const [categoryList,setCategoryList] = useState([]);
     const router = useRouter();
     const {sectionUrl} = router.query
-    // console.log("router",router);
+    console.log("useRouter",router.query);
     useEffect(()=>{
         var formValues =  {
             "startRange" : 0,
@@ -26,6 +26,7 @@ const VendorList = ()=> {
         axios.post("/api/vendorlist/post/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){
+                    console.log("vendorResponse=>",vendorResponse);
                     setVendorList(vendorResponse.data)
                 }
 			})
