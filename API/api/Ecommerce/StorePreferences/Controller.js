@@ -3,13 +3,13 @@ var ObjectId            = require('mongodb').ObjectID;
 const StorePreference   = require('./Model');
 
 exports.insert_preferences = (req, res, next) => {
-    console.log("Store Preferences => ",req.body);
+    // console.log("Store Preferences => ",req.body);
 	StorePreference.findOne()
     .exec()
     .then(data =>{
-        console.log("data => ",data);
+        // console.log("data => ",data);
         if(data && data !== null){
-            console.log("if => ") 
+            // console.log("if => ") 
         //   console.log("data:",data);
             StorePreference.updateOne(
                 { _id : ObjectId(data._id)},  
@@ -17,7 +17,7 @@ exports.insert_preferences = (req, res, next) => {
                     $set:{
                         "maxRadius"                 : req.body.maxRadius,
                         "minOrderValue"             : req.body.minOrderValue,
-                        "defaultServiceCharges"     : req.body.defaultServiceCharges,
+                        "maxServiceCharges"         : req.body.maxServiceCharges,
                         "serviseChargesByDistance"  : req.body.serviseChargesByDistance
                     }
                 }
@@ -35,12 +35,12 @@ exports.insert_preferences = (req, res, next) => {
                 });
             });
         }else{    
-            console.log("else => ",req.body)            
+            // console.log("else => ",req.body)            
             const storePreference = new StorePreference({
                 "_id"                       : mongoose.Types.ObjectId(),      
                 "maxRadius"                 : req.body.maxRadius,
                 "minOrderValue"             : req.body.minOrderValue,
-                "defaultServiceCharges"     : req.body.defaultServiceCharges,
+                "maxServiceCharges"         : req.body.maxServiceCharges,
                 "serviseChargesByDistance"  : req.body.serviseChargesByDistance,
                 "createdAt"                 : new Date()
             });            

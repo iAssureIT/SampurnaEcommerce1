@@ -12,7 +12,7 @@ class StorePreferences extends Component {
 			"editId"           			: "",
 			"maxRadius" 				: "",
 			"minOrderValue"      		: "",
-			"defaultServiceCharges" 	: "", 		
+			"maxServiceCharges" 	: "", 		
 			"serviseChargesByDistance" 	: [{
 				minDistance 	: 0,
 				maxDistance 	: 0,
@@ -85,7 +85,7 @@ class StorePreferences extends Component {
 				minOrderValue: {
 					required: true,
 				},
-				defaultServiceCharges: {
+				maxServiceCharges: {
 					required: true,
 				},
 			},
@@ -98,8 +98,8 @@ class StorePreferences extends Component {
 					error.insertAfter("#minOrderValue");
 					element.focus();
 				}
-				if (element.attr("name") === "defaultServiceCharges") {
-					error.insertAfter("#defaultServiceCharges");
+				if (element.attr("name") === "maxServiceCharges") {
+					error.insertAfter("#maxServiceCharges");
 					element.focus();
 				}
 			}
@@ -111,12 +111,12 @@ class StorePreferences extends Component {
 		axios.get("/api/storepreference/get")
 		.then(storepreference =>{
 			if(storepreference.data){
-				console.log("preferences.data=========",storepreference.data[0].defaultServiceCharges);
+				console.log("preferences.data=========",storepreference.data[0].maxServiceCharges);
 				this.setState({
 					'editId'           			: storepreference.data[0]._id,
 					'maxRadius'     			: storepreference.data[0].maxRadius,
 					'minOrderValue' 			: storepreference.data[0].minOrderValue,
-					'defaultServiceCharges' 	: storepreference.data[0].defaultServiceCharges,
+					'maxServiceCharges' 		: storepreference.data[0].maxServiceCharges,
 					'serviseChargesByDistance' 	: storepreference.data[0].serviseChargesByDistance,
 				})        
 			}
@@ -215,7 +215,7 @@ class StorePreferences extends Component {
 		var formValues = {
 			'maxRadius'     				: this.state.maxRadius,
 			'minOrderValue' 				: this.state.minOrderValue,
-			'defaultServiceCharges' 		: this.state.defaultServiceCharges,
+			'maxServiceCharges' 		: this.state.maxServiceCharges,
 			'serviseChargesByDistance' 		: this.state.serviseChargesByDistance
 		}
 		
@@ -295,11 +295,11 @@ class StorePreferences extends Component {
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Maximum service charges applicable (in {this.state.currency} ) <i className="redFont">*</i></label>
-															<input className = "form-control" placeholder = "Default Service Charges" ref = "defaultServiceCharges"
+															<input className = "form-control" placeholder = "Default Service Charges" ref = "maxServiceCharges"
 																type 		= "text" 
-																id 			= "defaultServiceCharges" 
-																name 		= "defaultServiceCharges"
-																value	 	= {this.state.defaultServiceCharges} 
+																id 			= "maxServiceCharges" 
+																name 		= "maxServiceCharges"
+																value	 	= {this.state.maxServiceCharges} 
 																onChange = {this.handleChange.bind(this)} 
 															/>
 														</div>                            

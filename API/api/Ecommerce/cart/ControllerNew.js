@@ -1,12 +1,16 @@
-const mongoose	    = require("mongoose");
-var ObjectId        = require('mongodb').ObjectID;
-const Carts         = require('./ModelNew');
-const Coupon        = require('../CouponManagement/Model');
-const Products      = require('../products/Model');
-const Orders        = require('../orders/Model');
-const Wishlists     = require('../wishlist/Model');
-const _             = require('underscore');  
-const moment 	    = require('moment-timezone');  
+const mongoose	        = require("mongoose");
+var ObjectId            = require('mongodb').ObjectID;
+const Carts             = require('./ModelNew');
+const Coupon            = require('../CouponManagement/Model');
+const Products          = require('../products/Model');
+const Orders            = require('../orders/Model');
+const Wishlists         = require('../wishlist/Model');
+const EntityMaster      = require('../../coreAdmin/entityMaster/ModelEntityMaster');
+const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
+const StorePreferences  = require('../../Ecommerce/StorePreferences/Model.js');
+const _                 = require('underscore');  
+const moment 	        = require('moment-timezone');
+const haversine         = require('haversine-distance')  
 // import axios from 'axios';
 
 /**=========== Add Cart Products ===========*/
@@ -138,15 +142,13 @@ exports.insert_cartid = (req,res,next)=>{
                             var order_quantityOfProducts = productDataForVendor.order_quantityOfProducts ? parseInt(productDataForVendor.order_quantityOfProducts) + parseInt(req.body.quantity) : 0;
                             var order_numberOfProducts   = productDataForVendor.order_numberOfProducts ? parseInt(productDataForVendor.order_numberOfProducts) + 1 : 0;
                             // console.log("d =>>>>>>>> ",vendor_quantityOfProducts, vendor_numberOfProducts, order_quantityOfProducts, order_numberOfProducts)
-                            var product = {
-                                
+                            var product = {                                
                                     product_ID          : req.body.product_ID,
                                     quantity            : req.body.quantity,
                                     totalWeight         : req.body.totalWeight,
                                     productRate         : req.body.productRate,
                                     discountPercent     : req.body.discountPercent,
-                                    discountedPrice     : req.body.discountedPrice,
-                                
+                                    discountedPrice     : req.body.discountedPrice,                                
                             }      
                             Carts.updateOne(
                                 {'_id' : cartData._id, 'vendorOrders.vendor_id' :  req.body.vendor_ID},
@@ -300,15 +302,27 @@ exports.list_cart_product = (req,res,next)=>{
             var order_discountAmount        = 0;
             var order_taxAmount             = 0;
             var order_shippingCharges       = 0;
+            var maxServiceCharges           = 0;
             
-            var wish = await Wishlists.find({user_ID:req.params.user_ID});
+            var wish                    = await Wishlists.find({user_ID:req.params.user_ID});
+            var maxServiceChargesData   = await StorePreferences.findOne({},{maxServiceCharges : 1});
+            
+            if(maxServiceChargesData !== null){
+                maxServiceCharges = maxServiceChargesData.maxServiceCharges;
+            }
             for(var i = 0; i<vendorOrders.length;i++){    
                 var vendor_beforeDiscountTotal  = 0;
                 var vendor_afterDiscountTotal   = 0;
                 var vendor_discountAmount       = 0;
                 var vendor_taxAmount            = 0;
-                var vendor_shippingCharges      = 0;     
-                   
+                var vendor_shippingCharges      = 0; 
+                
+                var vendorShippingCharges = await getVendorWiseShippingCharges(vendorOrders[i].vendor_id._id, vendorOrders[i].vendorLocation_id, data.userDelLocation);
+                
+                if (vendorShippingCharges.code === "SUCCESS") {
+                    vendor_shippingCharges = vendorShippingCharges.serviceCharges;
+                }                    
+                
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
                     vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
                     if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
@@ -350,11 +364,19 @@ exports.list_cart_product = (req,res,next)=>{
                 data.paymentDetails.afterDiscountTotal          = (order_afterDiscountTotal).toFixed(2);
                 data.paymentDetails.discountAmount              = (order_discountAmount).toFixed(2);
                 data.paymentDetails.taxAmount                   = (order_taxAmount).toFixed(2);
-                data.paymentDetails.shippingCharges             = (order_shippingCharges).toFixed(2);
+                /*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
+                data.paymentDetails.shippingCharges             = maxServiceCharges && maxServiceCharges > 0 
+                                                                    ? maxServiceCharges > order_shippingCharges 
+                                                                        ? 
+                                                                            (order_shippingCharges).toFixed(2) 
+                                                                        : 
+                                                                            maxServiceCharges 
+                                                                    : 
+                                                                        (order_shippingCharges).toFixed(2);
                 data.paymentDetails.afterDiscountCouponAmount   = 0;
                 data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
             }
-            console.log("data",data);
+            // console.log("data",data);
             res.status(200).json(data);
         }else{
             res.status(200).json(data);
@@ -369,6 +391,172 @@ exports.list_cart_product = (req,res,next)=>{
 };
 
 
+/*========== get Vendor wise Delivery Charges ==========*/
+function getVendorWiseShippingCharges(vendor_id, location_id, userDelLocation) { 
+    console.log("vendor_id => ", vendor_id);
+    console.log("location_id => ", location_id);
+    console.log("userDelLocation => ", userDelLocation);
+    var userLat     = userDelLocation.lat;
+    var userLong    = userDelLocation.long;
+
+
+    var currDate = new Date();
+    
+    return new Promise(function (resolve, reject) {
+        EntityMaster.findOne({"_id" : ObjectId(vendor_id), "locations._id" : ObjectId(location_id)},{locations : 1})
+        .then(async(vendorLocationData) => {
+            console.log("vendorLocationData => ",vendorLocationData);
+            if(vendorLocationData.locations && vendorLocationData.locations.length > 0){
+                var vendorLocation = vendorLocationData.locations.filter(function (locationObj) {
+                    return String(locationObj._id) === String(location_id);
+                });
+                console.log("vendorLocation => ",vendorLocation)
+
+                if(vendorLocation && vendorLocation.length > 0){
+                    var vendorLat   = vendorLocation[0].latitude;
+                    var vendorLong  = vendorLocation[0].longitude;
+
+                    if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
+                        var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, userLat, userLong);
+                        console.log("vendorDist => ",vendorDist)
+                        var distanceWiseShippinCharges = await getDistanceWiseShippinCharges();
+
+                        console.log("distanceWiseShippinCharges => ",distanceWiseShippinCharges);
+                        if(distanceWiseShippinCharges && distanceWiseShippinCharges.length > 0){
+                            var serviceCharges = 0;
+                            for (var i = 0; i < distanceWiseShippinCharges.length; i++) {
+                                if(vendorDist >= distanceWiseShippinCharges[i].minDistance && vendorDist < distanceWiseShippinCharges[i].maxDistance){
+                                    serviceCharges = distanceWiseShippinCharges[i].serviceCharges;
+                                }                                
+                            }
+                            if(i >= distanceWiseShippinCharges.length){
+                                resolve({
+                                    code                : "SUCCESS", 
+                                    serviceCharges      : serviceCharges
+                                });
+                            }
+                        }else{
+                            reject({
+                                code    : "FAILED", 
+                                message : "Please add distance wise Shipping Charges in Store Preferences."
+                            });
+                        }
+                    }else{
+                        reject({
+                            code    : "FAILED", 
+                            message : "No User Location Data Found"
+                        });
+                    }
+                }else{
+                    reject({
+                        code    : "FAILED", 
+                        message : "No Vendor Location Found"
+                    });
+                }
+            }else{
+                reject({
+                    code    : "FAILED", 
+                    message : "No Vendor Locations Found"
+                });
+            }
+            // if(coupondata !== null){
+            //     Orders.find({user_ID : user_ID, 'paymentDetails.disocuntCoupon_id' : coupondata._id})
+            //     .then(orderData => {  
+            //         if(orderData.length < coupondata.couponLimit){
+            //             resolve({code: "SUCCESS", dataObj: coupondata});
+            //         }else{
+            //             resolve({code: "FAILED", message: "This Coupon Code used for "+orderData.length+" times and the max number of times the coupn can be used is "+coupondata.couponLimit});
+            //         }
+            //     })
+            //     .catch(error=>{
+            //         reject({code: "FAILED", message: "Some error in finding Order Data"});
+            //     })
+            // }else{
+            //     resolve({code: "FAILED", message: "Such Coupon Code Doesn't exist!"});
+            // }
+        })
+        .catch(error=>{
+            reject({
+                code    : "FAILED", 
+                message : "Some error in finding Vendor Location"
+            });
+        })
+    })
+}
+
+/**=========== calcUserVendorDist() ===========*/
+function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
+    return new Promise(function(resolve,reject){
+        processDistance()
+
+        async function processDistance(){
+            //First point User Location
+            var userLocation = { lat: userLat, lng: userLong }
+
+            //Second point Vendor Location
+            var vendorLocation = { lat: vendorLat, lng: vendorLong }        
+            
+            //Distance in meters (default)
+            var distance_m = haversine(userLocation, vendorLocation);
+
+            //Distance in miles
+            var distance_miles = distance_m * 0.00062137119;
+
+            //Distance in kilometers
+            var distance_km = distance_m /1000; 
+            
+            console.log("distance_miles => ",distance_miles)
+            console.log("distance_km => ",distance_km)
+            //get unit of distance
+            var unitOfDistance = await getAdminPreferences();
+            if(unitOfDistance.toLowerCase() === "mile"){
+                resolve(distance_miles);
+            }else{
+                resolve(distance_km);                
+            }            
+        }
+    });
+}
+
+/**=========== getAdminPreferences() ===========*/
+function getAdminPreferences(){
+    return new Promise(function(resolve,reject){
+        AdminPreferences.findOne()
+        .exec()
+        .then(adminPreferences=>{
+            if(adminPreferences !== null){
+                resolve(adminPreferences.unitOfDistance);
+            }else{
+                resolve(adminPreferences);
+            }            
+        })
+        .catch(err =>{
+            console.log("Error while fetching admin preferences => ",err);
+            reject(err)
+        });
+    });
+}
+
+/**=========== getDistanceWiseShippinCharges() ===========*/
+function getDistanceWiseShippinCharges(){
+    return new Promise(function(resolve,reject){
+        StorePreferences.findOne()
+        .then(storePreferences=>{
+            console.log("storePreferences => ",storePreferences)
+            console.log("Condition => ",(storePreferences && storePreferences.serviseChargesByDistance && storePreferences.serviseChargesByDistance.length > 0))
+            if(storePreferences && storePreferences.serviseChargesByDistance){
+                console.log("storePreferences.serviseChargesByDistance => ",storePreferences.serviseChargesByDistance)
+                resolve(storePreferences.serviseChargesByDistance);
+            }else{
+                resolve([]);
+            }            
+        })
+        .catch(err =>{
+            console.log("Error => ",err);
+            reject(err)
+        });
+    });
+}
 
 exports.all_list_cart = (req,res,next)=>{
     Carts.find()       
@@ -755,14 +943,14 @@ exports.apply_coupon = (req,res,next)=>{
     .then(data=>{   
         processCouponData(data);
         async function processCouponData(data){
-            var errMessage      = "";  
-            var isCouponValid   = await checkCouponValidity(req.body.couponCode, req.body.user_ID);                    
-                                     
-            var vendor_beforeDiscountTotal  = 0;
-            var vendor_afterDiscountTotal   = 0;
-            var vendor_discountAmount       = 0;
-            var vendor_taxAmount            = 0;
-            var vendor_shippingCharges      = 0;
+            var errMessage              = "";  
+            var isCouponValid           = await checkCouponValidity(req.body.couponCode, req.body.user_ID);                    
+            
+            var maxServiceChargesData   = await StorePreferences.findOne({},{maxServiceCharges : 1});
+            if(maxServiceChargesData !== null){
+                maxServiceCharges = maxServiceChargesData.maxServiceCharges;
+            }
+
             var vendorOrders                = data.vendorOrders;
             var order_beforeDiscountTotal   = 0;
             var order_afterDiscountTotal    = 0;
@@ -770,7 +958,18 @@ exports.apply_coupon = (req,res,next)=>{
             var order_taxAmount             = 0;
             var order_shippingCharges       = 0;
             
-            for(var i = 0; i < vendorOrders.length; i++){            
+            for(var i = 0; i < vendorOrders.length; i++){      
+                var vendor_beforeDiscountTotal  = 0;
+                var vendor_afterDiscountTotal   = 0;
+                var vendor_discountAmount       = 0;
+                var vendor_taxAmount            = 0;
+                var vendor_shippingCharges      = 0;  
+                
+                var vendorShippingCharges = await getVendorWiseShippingCharges(vendorOrders[i].vendor_id._id, vendorOrders[i].vendorLocation_id, data.userDelLocation);
+                if (vendorShippingCharges.code === "SUCCESS") {
+                    vendor_shippingCharges = vendorShippingCharges.serviceCharges;
+                } 
+
                 // console.log("vendorOrders[i].cartItems",i, " ",vendorOrders[i].cartItems);
                 for(var j = 0; j < vendorOrders[i].cartItems.length; j++){
 
@@ -804,7 +1003,15 @@ exports.apply_coupon = (req,res,next)=>{
                 data.paymentDetails.afterDiscountTotal  = (order_afterDiscountTotal).toFixed(2);
                 data.paymentDetails.discountAmount      = (order_discountAmount).toFixed(2);
                 data.paymentDetails.taxAmount           = (order_taxAmount).toFixed(2);
-                data.paymentDetails.shippingCharges     = (order_shippingCharges).toFixed(2);
+                /*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
+                data.paymentDetails.shippingCharges             = maxServiceCharges && maxServiceCharges > 0 
+                                                                    ? maxServiceCharges > order_shippingCharges 
+                                                                        ? 
+                                                                            (order_shippingCharges).toFixed(2) 
+                                                                        : 
+                                                                            maxServiceCharges 
+                                                                    : 
+                                                                        (order_shippingCharges).toFixed(2);
                 
                 if (isCouponValid.code === "FAILED") {
                     errMessage                                      = isCouponValid.message;
