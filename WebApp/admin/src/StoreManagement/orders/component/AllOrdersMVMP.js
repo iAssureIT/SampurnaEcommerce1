@@ -26,7 +26,8 @@ class AllOrdersList extends Component{
 														// vendors 				: "Vendors",
 														vendorName  			: "Vendor Name",
 														vendorPrice 			: "Vendor Price",
-														vendorStatus 			: "Vendor Status"
+														vendorStatus 			: "Vendor Status",
+														changeVendorStatus 	    : "Change Vendor Status"
 			},
 			"twoLevelHeader"            : {
 											apply : true,
