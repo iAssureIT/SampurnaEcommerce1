@@ -43,9 +43,10 @@ exports.my_addresses = (req, res, next) => {
 				var distance = 0;
 				if(latitude && longitude){
 					distance= await calcDist(user.deliveryAddress[i].latitude,user.deliveryAddress[i].longitude, latitude, longitude);
+					console.log("distance",distance);
 					user.deliveryAddress[i] = {...user.deliveryAddress[i]._doc, distance:distance};
 				}else{
-					user.deliveryAddress[i].distance= distance;
+					user.deliveryAddress[i] = {...user.deliveryAddress[i]._doc, distance:distance};
 				}
 			}
 			if(i>=user.deliveryAddress.length){
