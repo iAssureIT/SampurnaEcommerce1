@@ -10,6 +10,8 @@ const BusinessAssociate 	= require('../businessAssociate/Model');
 const ReturnedProducts 		= require('../returnedProducts/Model');
 const Products 				= require('../products/Model');
 const Adminpreference 		= require('../adminPreference/Model');
+const StorePreferences  	= require('../StorePreferences/Model.js');
+const Coupon            	= require('../CouponManagement/Model');
 const Allowablepincode 		= require('../allowablePincodes/Model');
 const Entitymaster 			= require('../../coreAdmin/entityMaster/ModelEntityMaster.js');
 const globalVariable 		= require('../../../nodemon');
@@ -168,52 +170,134 @@ function getNextSequenceOrderId() {
 /**=========== Cancel Order  ===========*/
 exports.cancel_order = (req, res, next) => {
 	if((req.body.type).toLowerCase() === "vendororder" && req.body.vendor_id){
+		
 		Orders.findOne({ _id: ObjectId(req.body.order_id)})
-		.then(async(orderdata) => {
-			var vendorOrder = orderdata.vendorOrders.filter(vendorOrder => String(vendorOrder.vendor_id) === String(req.body.vendor_id))
-			console.log("vendorOrder => ",vendorOrder)
-			
+		.then(async(orderdata) => {			
 			var order_beforeDiscountTotal   = orderdata.paymentDetails.beforeDiscountTotal;
             var order_afterDiscountTotal    = orderdata.paymentDetails.afterDiscountTotal;
             var order_discountAmount        = orderdata.paymentDetails.discountAmount;
             var order_taxAmount             = orderdata.paymentDetails.taxAmount;
+			var order_numberOfProducts 		= orderdata.order_numberOfProducts;
+			var order_quantityOfProducts 	= orderdata.order_quantityOfProducts;
+			var afterDiscountCouponAmount 	= orderdata.paymentDetails.afterDiscountCouponAmount;
             var order_shippingCharges       = 0;
             var maxServiceCharges           = 0; 
-
+			var netPayableAmount 			= 0;
+			var couponCancelMessage 		= "";
+			
 			var maxServiceChargesData   = await StorePreferences.findOne({},{maxServiceCharges : 1});            
             if(maxServiceChargesData !== null){
-                maxServiceCharges = maxServiceChargesData.maxServiceCharges;
+				maxServiceCharges = maxServiceChargesData.maxServiceCharges;
             }
-
-			for (var i = 0; i < orderdata.vendorOrders.length; i++) {
-				order_shippingCharges += (vendorOrders[i].vendor_shippingCharges).toFixed(2);
-				if(String(vendorOrders[i].vendor_id) === String(req.body.vendor_id)){
-					order_beforeDiscountTotal   -=  vendorOrder[0].vendor_beforeDiscountTotal;
-					order_afterDiscountTotal    -=  vendorOrder[0].vendor_afterDiscountTotal;
-					order_discountAmount        -=  vendorOrder[0].vendor_discountAmount;
-					order_taxAmount             -=  vendorOrder[0].vendor_taxAmount;
-					order_shippingCharges 		-= (vendorOrders[i].vendor_shippingCharges).toFixed(2);
+			
+			for (var i = 0; i < orderdata.vendorOrders.length; i++) {				
+				order_shippingCharges = order_shippingCharges + orderdata.vendorOrders[i].vendor_shippingCharges;
+				
+				if(String(orderdata.vendorOrders[i].vendor_id) === String(req.body.vendor_id)){
+					order_beforeDiscountTotal   -=  orderdata.vendorOrders[i].vendor_beforeDiscountTotal;
+					order_afterDiscountTotal    -=  orderdata.vendorOrders[i].vendor_afterDiscountTotal;
+					order_discountAmount        -=  orderdata.vendorOrders[i].vendor_discountAmount;
+					order_taxAmount             -=  orderdata.vendorOrders[i].vendor_taxAmount;
+					order_shippingCharges 		-= (orderdata.vendorOrders[i].vendor_shippingCharges).toFixed(2);
+					order_numberOfProducts 		-= (orderdata.vendorOrders[i].vendor_numberOfProducts).toFixed(2);
+					order_quantityOfProducts 	-= (orderdata.vendorOrders[i].vendor_quantityOfProducts).toFixed(2);
 				}				
 			}
 			if(i >= orderdata.vendorOrders.length){
 				/*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
-                data.paymentDetails.shippingCharges     = maxServiceCharges && maxServiceCharges > 0 
-                                                                    ? maxServiceCharges > order_shippingCharges 
-                                                                        ? 
-                                                                            (order_shippingCharges).toFixed(2) 
-                                                                        : 
-                                                                            maxServiceCharges 
-                                                                    : 
-                                                                        (order_shippingCharges).toFixed(2);
-			}			
+                order_shippingCharges     = (maxServiceCharges && maxServiceCharges > 0 
+											? 
+												maxServiceCharges > order_shippingCharges 
+												? 
+													order_shippingCharges
+												: 
+													maxServiceCharges 
+											: 
+												order_shippingCharges);
 
+				
+				if (orderdata.paymentDetails.disocuntCoupon_id && orderdata.paymentDetails.disocuntCoupon_id !== undefined) {
+					
+					var isCouponValid           = await fetchCouponData(orderdata.paymentDetails.disocuntCoupon_id); 
+					console.log("isCouponValid => ",isCouponValid)                   
+					
+					if (isCouponValid.code === "FAILED") {
+						couponCancelMessage         = isCouponValid.message;
+						netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);			
+						afterDiscountCouponAmount   = 0;
+					}else{ 
+						/*---- Check for Min Puchase amount for Coupon to be applied ----*/
+						if(parseFloat(order_afterDiscountTotal) > parseFloat(isCouponValid.dataObj.minPurchaseAmount)){
+	
+							if ((isCouponValid.dataObj.couponin).toLowerCase() === "percent") {
+								var discountInPercent   = (order_afterDiscountTotal * isCouponValid.dataObj.couponvalue) / 100;								
+								
+								/*------  Check for Applicable Maximum Discount Amount -------*/
+								var discoutAfterCouponApply     =   isCouponValid.dataObj.maxDiscountAmount 
+																	? 
+																		discountInPercent < isCouponValid.dataObj.maxDiscountAmount 
+																		? 
+																			discountInPercent 
+																		:   
+																			isCouponValid.dataObj.maxDiscountAmount 
+																	: 
+																		discountInPercent;
+								afterDiscountCouponAmount   	= (discoutAfterCouponApply).toFixed(2);
+								netPayableAmount            	= ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);                       
+	
+							}else if((isCouponValid.dataObj.couponin).toLowerCase() === "amount"){
+								
+								/*------  Check for Applicable Maximum Discount Amount -------*/
+								var discoutAfterCouponApply     =   isCouponValid.dataObj.maxDiscountAmount 
+																	? 
+																		isCouponValid.dataObj.couponvalue < isCouponValid.dataObj.maxDiscountAmount 
+																		? 
+																			(isCouponValid.dataObj.couponvalue).toFixed(2) 
+																		: 
+																			isCouponValid.dataObj.maxDiscountAmount 
+																	: 
+																		(isCouponValid.dataObj.couponvalue).toFixed(2);
+						
+								afterDiscountCouponAmount   	= (discoutAfterCouponApply).toFixed(2);
+								netPayableAmount    			= ((order_afterDiscountTotal - discoutAfterCouponApply) + order_taxAmount + order_shippingCharges).toFixed(2);	
+							}    
+						}else{
+							netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);							
+							afterDiscountCouponAmount   = 0;
+							couponCancelMessage 		= "This Coupon Code is Only Applicable if Minimum Cart Amount is "+ isCouponValid.dataObj.minPurchaseAmount	
+						}	
+					}			
+				}else{
+					netPayableAmount = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);						
+				}
+			}			
+			// console.log("order_beforeDiscountTotal => ",order_beforeDiscountTotal);
+			// console.log("order_afterDiscountTotal => ",order_afterDiscountTotal);
+			// console.log("order_taxAmount => ",order_taxAmount);
+			// console.log("afterDiscountCouponAmount => ",afterDiscountCouponAmount);
+			// console.log("order_shippingCharges => ",order_shippingCharges);
+			// console.log("maxServiceCharges => ",maxServiceCharges);
+			// console.log("netPayableAmount => ",netPayableAmount);		
+			// console.log("order_numberOfProducts => ",order_numberOfProducts);
+			// console.log("order_quantityOfProducts => ",order_quantityOfProducts);
+			// console.log("couponCancelMessage => ",couponCancelMessage);			
 			Orders.updateOne(
 			{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 			{
 				$set:{
-					"vendorOrders.$.orderStatus"    : "Cancelled"
+					"vendorOrders.$.orderStatus"    			: "Cancelled",
+					"paymentDetails.beforeDiscountTotal" 		: order_beforeDiscountTotal,
+					"paymentDetails.discountAmount" 			: order_discountAmount,
+					"paymentDetails.afterDiscountTotal" 		: order_afterDiscountTotal,
+					"paymentDetails.taxAmount" 					: order_taxAmount,
+					"paymentDetails.shippingCharges" 			: order_shippingCharges,
+					"paymentDetails.afterDiscountCouponAmount" 	: afterDiscountCouponAmount,
+					"paymentDetails.netPayableAmount" 			: netPayableAmount,
+					"order_numberOfProducts" 					: order_numberOfProducts,
+					"order_quantityOfProducts" 					: order_quantityOfProducts,
+					"paymentDetails.couponCancelMessage" 		: couponCancelMessage
 				},
-				$push: {
+				$push: {	
 					"vendorOrders.$.deliveryStatus" : {
 						status 				: 'Cancelled',
 						timestamp 			: new Date(),
@@ -222,7 +306,7 @@ exports.cancel_order = (req, res, next) => {
 				}
 			})
 			.then(updatedata => {
-				// console.log(data);
+				console.log("updatedata => ",updatedata);
 				if (updatedata.nModified === 1) {
 					res.status(200).json({
 						"message"	: "Order cancelled successfully."
@@ -264,7 +348,6 @@ exports.cancel_order = (req, res, next) => {
 		})
 		.exec()
 		.then(data => {
-			// console.log(data);
 			if (data.nModified === 1) {
 				res.status(200).json({
 					"message"	: "Order cancelled successfully."
@@ -282,6 +365,23 @@ exports.cancel_order = (req, res, next) => {
 			});
 		});
 	}
+}
+
+/*========== Fetch Coupon Data ==========*/
+function fetchCouponData(coupon_id) {     
+    return new Promise(function (resolve, reject) {
+        Coupon.findOne({"_id" : ObjectId(coupon_id)})
+        .then(coupondata => {
+            if(coupondata !== null){  
+                resolve({code: "SUCCESS", dataObj: coupondata});                
+            }else{
+                resolve({code: "FAILED", message: "Such Coupon Code Doesn't exist!"});
+            }
+        })
+        .catch(error=>{
+            reject({code: "FAILED", message: "Some error in finding Coupon"});
+        })
+    })
 }
 /**=========== getDistanceWiseShippinCharges() ===========*/
 function getDistanceWiseShippinCharges(){

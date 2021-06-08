@@ -20,6 +20,7 @@ const orderSchema = mongoose.Schema({
         discountCouponPercent     : Number,
         discountCouponAmount      : Number,
         afterDiscountCouponAmount : Number,
+        couponCancelMessage       : String,
         taxAmount                 : Number,
         shippingCharges           : Number,
         netPayableAmount          : Number,  //NetPayableAmount = afterDiscountCouponAmount + taxAmount + shippingCharges
@@ -85,6 +86,7 @@ const orderSchema = mongoose.Schema({
             vendor_discountAmount     : Number,
             vendor_afterDiscountTotal : Number,
             vendor_taxAmount          : Number,
+            vendor_shippingCharges    : Number,
             deliveryStatus            : [{
                 "status"          : String,  //Only 4 status to be shown to user: New, Packaging, Dispatched, Delivered
                 "timestamp"       : Date,
