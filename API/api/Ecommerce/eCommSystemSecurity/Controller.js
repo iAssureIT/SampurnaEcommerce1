@@ -39,7 +39,7 @@ exports.my_addresses = (req, res, next) => {
 		.exec()
 		.then(async(user) => {
 			console.log("user",user);
-			for(var i=0; i<=user.deliveryAddress.length; i++){
+			for(var i=0; i<user.deliveryAddress.length; i++){
 				if(latitude && longitude){
 					user.deliveryAddress[i].distance= await calcDist(user.deliveryAddress[i].latitude,user.deliveryAddress[i].longitude, latitude, longitude);
 				}else{
