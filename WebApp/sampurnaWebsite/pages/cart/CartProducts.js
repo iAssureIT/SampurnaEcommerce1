@@ -62,7 +62,7 @@ class CartProducts extends Component{
             "cartItem_ID" : cartitemid,
             vendor_ID     : vendorid,
         }
-        // console.log("Removefromcart===",formValues);
+        console.log("Removefromcart===",formValues);
         axios.patch("/api/carts/remove" ,formValues)
         .then((response)=>{
             // console.log("removecart res=>",response.data);
@@ -221,7 +221,7 @@ class CartProducts extends Component{
                 "quantityAdded" : quantityAdded,     
                 "vendor_ID"     : vendor_id,       
             }
-            // console.log("formValues===",formValues);
+            console.log("formValues===",formValues);
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                 this.props.fetchCartData();
@@ -319,13 +319,13 @@ class CartProducts extends Component{
                                     <div className="col-12">
                                     {    
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
-                                        // console.log("vendorWiseCartData==",vendorWiseCartData);
+                                        console.log("vendorWiseCartData==",vendorWiseCartData);
                                         return(  
                                             <div className="row" key={index}>
                                                 <div className="col-9">
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
-                                                        // console.log("vendorData=>",vendorData);
+                                                        console.log("vendorData=>",vendorData);
                                                     return(
                                                         <div key={index}>
                                                             <div className="col-12">
@@ -366,10 +366,10 @@ class CartProducts extends Component{
                                                                     {
                                                                         vendorData.product_ID.availableQuantity > 0 ?
                                                                         <div className="quantityWrapper">
-                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorData.product_ID.vendor_ID} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
+                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
                                                                                 onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
                                                                             <span className="inputQuantity">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
-                                                                            <span className="plusQuantity fa fa-plus" vendor_id={vendorData.product_ID.vendor_ID} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
+                                                                            <span className="plusQuantity fa fa-plus" vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
                                                                                 onClick={this.cartquantityincrease.bind(this)}></span><br/>   
                                                                             { this.state.websiteModel === 'FranchiseModel'?                                                                 
                                                                                 <span className ="productUnit" id={vendorData.product_ID._id}> Of {vendorData.product_ID.size}&nbsp;<span className="CapsUnit">{vendorData.product_ID.unit}</span></span>
@@ -389,7 +389,7 @@ class CartProducts extends Component{
                                                                     }    
                                                                     </div>
                                                                     <div className="col-1">
-                                                                        <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorData.product_ID.vendor_ID} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
+                                                                        <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorWiseCartData.vendor_id._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
                                                                     </div>
                                                                 </div> 
                                                             </div>
@@ -525,7 +525,7 @@ class CartProducts extends Component{
     }
 }
 const mapStateToProps = state => (
-    // console.log("state in cartProductsdata====",state.data.recentCartData),
+    console.log("state in cartProductsdata====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

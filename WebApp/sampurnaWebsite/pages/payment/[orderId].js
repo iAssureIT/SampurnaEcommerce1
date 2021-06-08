@@ -19,6 +19,28 @@ class Payment extends Component {
   }
 
   componentDidMount() {
+    var pageUrl = window.location.pathname;
+    let a = pageUrl ? pageUrl.split('/') : "";
+    const urlParam =a[2];
+    if(urlParam){
+      this.setState({
+        orderID : urlParam
+      },()=>{
+        if(this.state.orderID){
+          axios.get("/api/orders/get/one/" + this.state.orderID)
+          .then((response) => {
+            // console.log('orderData response', response.data)
+            this.setState({
+              orderData: response.data
+            })
+          })
+          .catch((error) => {
+            console.log('error', error);
+          })
+        }
+      })
+    }
+
       var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
       var currency = sampurnaWebsiteDetails.preferences.currency;
       var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
@@ -30,25 +52,7 @@ class Payment extends Component {
           currency     : currency,
       })
       
-      var pageUrl = window.location.pathname;
-        let a = pageUrl ? pageUrl.split('/') : "";
-        const urlParam =a[2];
-        if(urlParam){
-          this.setState({
-            orderID : urlParam
-          },()=>{
-            axios.get("/api/orders/get/one/" + this.state.orderID)
-            .then((response) => {
-              // console.log('orderData response', response.data)
-              this.setState({
-                orderData: response.data
-              })
-            })
-            .catch((error) => {
-              console.log('error', error);
-            })
-          })
-        }
+      
   }
   render() {
     // console.log("this.state.orderData.vendorOrders===",this.state.orderData);

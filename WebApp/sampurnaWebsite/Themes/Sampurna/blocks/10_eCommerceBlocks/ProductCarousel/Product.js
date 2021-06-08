@@ -170,8 +170,9 @@ class Product extends Component{
           "userLongitude"     : this.props.userLongitude,
           "vendorLocation_id" : this.props.vendorlocation_ID,
           "vendorName"        : event.target.getAttribute('vendor_name'),
-          "vendor_ID"         : event.target.getAttribute('vendor_id'),     
-        }      
+          "vendor_ID"         : this.props.vendor_ID,     
+        }   
+        // console.log("formValues=",formValues);   
       }
   
       this.addCart(formValues, quantityAdded, availableQuantity);

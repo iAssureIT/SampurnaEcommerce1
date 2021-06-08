@@ -7,8 +7,17 @@
     margin-bottom: 20px;
     padding-bottom: 20px;
     border: 1px solid #ddd;
-    height: 680px;
+    height: 936px;
     /* overflow: auto; */
+}
+.saveAddressBtn{
+
+}
+::placeholder {
+    font-size: 14px !important;
+  }
+.shippingInput label{
+    font-size: 15px;
 }
 .discountValue{
     color: #f00 !important;
@@ -31,7 +40,8 @@
     margin-bottom: 20px;
 }
 .shippingInput{
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    margin-bottom: 10px;
 }
 .shippingtimes{
     margin-top: 30px;

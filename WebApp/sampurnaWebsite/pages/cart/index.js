@@ -95,6 +95,5 @@ export async function getServerSideProps({query}){
     setProductApiUrl: setProductApiUrl
   };
   
-  
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 

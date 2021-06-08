@@ -99,7 +99,7 @@ class ProductCarousel extends Component {
       userLatitude : "",
       userLatitude : "",
       startRange   : 0,
-      limitRange   : 50,
+      limitRange   : 28,
       vendor_ID    : "",
       categoryUrl  : ""
     };
@@ -215,7 +215,7 @@ class ProductCarousel extends Component {
           })
           
         }else{
-          // console.log("blockSettings=>",this.state.blockSettings);
+          console.log("formValues=>",formValues);
           formValues = {
             "vendor_ID"         : "",
             "vendorLocation_id" : "",
@@ -227,6 +227,7 @@ class ProductCarousel extends Component {
             "startRange"        : this.state.startRange,
             "limitRange"        : this.state.limitRange,
             }
+            console.log("formValues=>",formValues);
         }
 
         if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
@@ -865,6 +866,7 @@ getWishlistData() {
                           <Product newProducts={this.state.newProducts}
                                 productSettings    = {this.state.productSettings}
                                 blockSettings      = {this.state.blockSettings}
+                                vendor_ID          = {this.state.vendor_ID}
                                 vendorlocation_ID  = {this.state.vendorlocation_ID}
                                 userLatitude       = {this.state.userLatitude}
                                 userLongitude      = {this.state.userLongitude}

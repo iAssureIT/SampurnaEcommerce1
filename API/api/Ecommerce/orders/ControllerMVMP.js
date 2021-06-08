@@ -61,12 +61,15 @@ exports.insert_orders = (req, res, next) => {
 					//         		Update Product Inventory
 					//=============================================================
 					if(userCartDeleted.deletedCount === 1){
-						// console.log("Inside if => ", req.body.vendorOrders)
+						console.log("Inside if => ", req.body.vendorOrders)
 						for (var l = 0; l < req.body.vendorOrders.length; l++) {		
 							// console.log("req.body.vendorOrders[l] => ",req.body.vendorOrders[l])
 							for (let m = 0; m < req.body.vendorOrders[l].products.length; m++) {
 								var productQuantity = req.body.vendorOrders[l].products[m].quantity;
 								// console.log("req.body.vendorOrders[l].products[m].quantity = ",req.body.vendorOrders[l].products[m].quantity);
+								console.log("req.body.vendorOrders[l].vendor_id._id => ", req.body.vendorOrders[l].vendor_id._id)
+								console.log("req.body.vendorOrders[l].products[m].productCode => ", req.body.vendorOrders[l].products[m].productCode)
+								console.log("req.body.vendorOrders[l].products[m].itemCode => ", req.body.vendorOrders[l].products[m].itemCode)
 
 								ProductInventory
 								.findOne(

@@ -8,7 +8,8 @@ import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Sa
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
-import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
+// import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
+import UserAddress          from './UserAddress.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
 import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 import { connect }          from 'react-redux';
@@ -325,7 +326,7 @@ class Checkout extends Component {
         event.preventDefault();        
         var addressValues = {};
         var vendorOrders = this.props.recentCartData.vendorOrders;
-        // console.log("this.props.recentCartData.vendorOrders==",this.props.recentCartData.vendorOrders);
+        console.log("this.props.recentCartData.vendorOrders==",this.props.recentCartData.vendorOrders);
         for(var i = 0; i<vendorOrders.length;i++){ 
             vendorOrders[i].products =[];
             if(vendorOrders[i].cartItems){
@@ -499,37 +500,35 @@ class Checkout extends Component {
                             deliveryAddress           : addressValues,
                            
                         }
-                        console.log("OrdersData===",orderData);
+                        // console.log("OrdersData===",orderData);
 
                         if (this.state.isChecked) {                            
                             axios.post('/api/orders/post', orderData)
                                 .then((result) => {
-                                    if(result.data){
-                                    // console.log("Order response ===",result,this.state.paymentmethods);
-                                    if (this.state.paymentmethods === 'cod') {
-                                        this.setState({paymethods : true})
-                                        $('.fullpageloader').show();
-                                        this.props.fetchCartData();
-                                        this.setState({
-                                            messageData: {
-                                                "type": "outpage",
-                                                "icon": "fa fa-check-circle",
-                                                "message": "Order Placed Successfully ",
-                                                "class": "success",
-                                                "autoDismiss": true
-                                            }
-                                        })
-                                        
-                                        setTimeout(() => {
+                                    if(result.data.order_id){
+                                        console.log("Order response ===",result.data);
+                                        if (this.state.paymentmethods === 'cod') {
+                                            this.setState({paymethods : true})
+                                            $('.fullpageloader').show();
+                                            this.props.fetchCartData();
                                             this.setState({
-                                                messageData: {},
-                                                paymethods : false,
+                                                messageData: {
+                                                    "type": "outpage",
+                                                    "icon": "fa fa-check-circle",
+                                                    "message": "Order Placed Successfully ",
+                                                    "class": "success",
+                                                    "autoDismiss": true
+                                                }
                                             })
-                                        }, 3000);
+                                            setTimeout(() => {
+                                                this.setState({
+                                                    messageData: {},
+                                                    paymethods : false,
+                                                })
+                                            }, 3000);
 
-                                        Router.push('/payment/' + result.data.order_id);
-                                    }
-
+                                            Router.push('/payment/' + result.data.order_id);
+                                        }
                                     } else {
                                         this.setState({paymethods : true})
                                         var paymentdetails = {
@@ -815,7 +814,6 @@ class Checkout extends Component {
     }
 
     render() {
-        // this.props.fetchCartData();
         return (
             <div className="col-12 NoPadding">
             < Header/>
@@ -828,7 +826,20 @@ class Checkout extends Component {
                             <img src="/images/loader.gif" className=""></img>
                         </div> 
                     </div>                     */}
-                    <Address opDone={this.opDones.bind(this)} />
+                    {/* <Address opDone={this.opDones.bind(this)} /> */}
+                    <div className="modal addressModal col-6 offset-3 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">  
+                        <div className="modal-content loginModalContent  loginBackImageHeight" style={{'background': '#fff'}}>    
+                            <div className="modal-header checkoutAddressModal globalBgColor1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                {/* <img src="../../../sites/currentSite/images/Icon.png" /> */}
+                                <img src={'images/eCommerce/logo.png'} />
+                                <button type="button" className="close"  data-dismiss="modal">&times;</button>  
+                                <h4 className="modal-title modalheadingcont">ADDRESS</h4>
+                            </div>                        
+                            <div className="modal-body">
+                                <UserAddress />
+                            </div>
+                        </div>
+                    </div>
                     <SmallBanner bannerData={this.state.bannerData} />
                     {this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length>0?
                     <div className="container-fluid">
@@ -902,8 +913,7 @@ class Checkout extends Component {
                                                                 <span className="checkoutADDCss"><b>{data.addType} Address&nbsp;</b> <br />
                                                                     <span className="checkoutADDCss">Name : {data.name}.</span> <br />
                                                                     {data.addressLine2}, {data.addressLine1},
-                                                                    Pincode - {data.pincode}. <br />
-                                                                    Email: {data.email} <br />Mobile: {data.mobileNumber} <br /><br /></span>
+                                                                    Mobile: {data.mobileNumber} <br /><br /></span>
                                                             </div>
                                                         );
                                                     })
@@ -918,108 +928,7 @@ class Checkout extends Component {
                                         :
                                         <div className="col-12 shippingAddress NoPadding">
                                             <div className="col-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS</div>
-                                            {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt25">SHIPPING 
-                                                <button className="btn modalBtn anasBtn col-lg-12 col-md-12 col-sm-12 col-xs-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</button>
-                                            </div> */}
-                                            <div className="col-12 addressWrapper">
-                                                <div className="col-12 shippingInput">
-                                                    <label className="col-12 NoPadding">Full Name <span className="required">*</span></label>
-                                                    <input type="text" maxLength="50" ref="username" name="username" id="username" value={this.state.username} 
-                                                    onChange={this.handleChange.bind(this)} className="col-12 form-control" />
-                                                    <div className="errorMsg">{this.state.errors.username}</div>
-                                                </div>
-                                                <div className="col-12 shippingInput">
-                                                    <label className="col-12 NoPadding">Mobile Number <span className="required">*</span></label>
-                                                    <input placeholder="Eg. 9876543210" maxLength="10" type="text" ref="mobileNumber" name="mobileNumber" id="mobileNumber" value={this.state.mobileNumber} 
-                                                    onChange={this.handleChange.bind(this)} className="col-12 form-control" />
-                                                    <div className="errorMsg">{this.state.errors.mobileNumber}</div>
-                                                </div>
-                                                <div className="col-12 shippingInput">
-                                                    <label className="col-12 NoPadding">Email <span className="required">*</span></label>
-                                                    <input type="email" ref="email" name="email" id="email" value={this.state.email} 
-                                                    onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
-                                                    <div className="errorMsg">{this.state.errors.email}</div>
-                                                </div>
-                                                <div className="col-12 shippingInput">
-                                                    <label className="col-12 NoPadding">House No/Office No <span className="required">*</span></label>
-                                                    <input type="text" ref="addressLine2" name="addressLine2" id="addressLine2" value={this.state.addressLine2}
-                                                    onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
-                                                    <div className="errorMsg">{this.state.errors.addressLine2}</div>
-                                                </div>
-                                                <div className="col-12 shippingInput" >
-                                                    <PlacesAutocomplete value={this.state.addressLine1}
-                                                        onChange={this.handleChangePlaces}
-                                                        onSelect={this.handleSelect}
-                                                    >
-                                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                                            <div>
-                                                                <label className="col-12 NoPadding">Search your address here <span className="required">*</span></label>
-                                                                <input
-                                                                    {...getInputProps({
-                                                                        placeholder: 'Start typing ...',
-                                                                        className: 'location-search-input col-lg-12 form-control errorinputText',
-                                                                        id: "addressLine1",
-                                                                        name: "addressLine1",
-                                                                        required: true
-                                                                        
-                                                                    })}
-                                                                    // onChange={this.addressChange.bind(this)}
-                                                                />
-                                                                <div className="errorMsg">{this.state.errors.addressLine1}</div>
-                                                                <div className="autocomplete-dropdown-container SearchListContainer">
-                                                                    {loading && <div>Loading...</div>}
-                                                                    {suggestions.map(suggestion => {
-                                                                        const className = suggestion.active
-                                                                            ? 'suggestion-item--active'
-                                                                            : 'suggestion-item';
-                                                                        // inline style for demonstration purpose
-                                                                        const style = suggestion.active
-                                                                            ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                                            : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                                                        return (
-                                                                            <div
-                                                                                {...getSuggestionItemProps(suggestion, {
-                                                                                    className,
-                                                                                    style,
-                                                                                })}
-                                                                            >
-                                                                                <span>{suggestion.description}</span>
-                                                                            </div>
-                                                                        );
-                                                                    })}
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </PlacesAutocomplete>
-                                                </div>
-                                                {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 shippingInput">
-                                                <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">Zip/Postal Code <span className="required">*</span></label>
-                                                <input type="number" ref="pincode" name="pincode" id="pincode" value={this.state.pincode} max="6" onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
-                                                <div className="DeliveryNotPoss">Delivery is not possible on this pincode</div>
-                                                {this.state.pincodeExists ? null : <label style={{ color: "red", fontWeight: "100" }}>This pincode does not exists!</label>}
-                                            </div> */}
-                                                <div className="col-12 shippingInput">
-                                                    <label className="col-12 NoPadding">Zip/Postal Code <span className="required">*</span></label>
-                                                    <input type="number" ref="pincode" name="pincode" id="pincode" defaultValue={this.state.pincode} maxLength="6" minLength="6"
-                                                     onChange={this.handleChange.bind(this)} className="col-12 form-control" required />
-                                                    {this.state.pincodeExists ? null : <label className="DeliveryNotPoss" style={{ color: "red" }}>This pincode does not exists!</label>}
-                                                    <div className="DeliveryNotPoss">Delivery is not possible on this pincode</div>
-                                                    <div className="errorMsg">{this.state.errors.pincode}</div>
-                                                </div>
-                                                <div className="col-12 shippingInput lastField">
-                                                    <label className="col-12 NoPadding">Address type <span className="required">*</span></label>
-                                                    <select id="addType" name="addType" ref="addType" defaultValue={this.state.addType} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control">
-                                                        <option defaultValue="" disabled>-- Select Address Type -- </option>
-                                                        <option defaultValue="Home">Home (All day delivery) </option>
-                                                        <option defaultValue="Office">Office/Commercial (10 AM - 5 PM Delivery)</option>
-                                                        <option defaultValue="Relative">Relative (All day delivery)</option>
-                                                        <option defaultValue="Friend">Friend (All day delivery)</option>
-                                                    </select>
-                                                    <div className="errorMsg">{this.state.errors.addType}</div>
-                                                </div>
-
-                                            </div>
-                                            <div className="col-12 manageHeight"></div>
+                                                <UserAddress />
                                         </div>
                                 }
                             </div>
@@ -1278,7 +1187,7 @@ class Checkout extends Component {
     }
 }
 const mapStateToProps = state => (
-    // console.log("state in checkout====",state.data.recentCartData),
+    console.log("state in checkout====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

@@ -22,7 +22,8 @@ class DeliveryLocationPopup extends React.Component {
 		this.state = { 
             address : "",
             googleapiKey : "",
-            detectCurrentLocation : false
+            detectCurrentLocation : false,
+            userAddress : [],
 		}; 
     }
     componentDidMount(){   
@@ -69,13 +70,15 @@ class DeliveryLocationPopup extends React.Component {
         if(userId){
         axios.get("/api/ecommusers/" +userId)
             .then((response) => {
-                // console.log('userData address res', response.data.deliveryAddress);
+                console.log('userData address res', response.data.deliveryAddress);
                 if(response.data){
                     this.setState({
                         "userAddress"    : response.data.deliveryAddress,
                         "username"       : response.data.profile.fullName,
                         "mobileNumber"   : response.data.profile.mobile,
                         "email"          : response.data.profile.email
+                    },()=>{
+                        console.log("userAddress=",this.state.userAddress);
                     });
                 }
             })
@@ -109,6 +112,7 @@ class DeliveryLocationPopup extends React.Component {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
                     .then((response) => {
+                        console.log("location response=>",response.results.results);
                             const address = response.results[0].formatted_address;
                            var latLongDetails = {
                                 lat: position.coords.latitude,
@@ -120,30 +124,56 @@ class DeliveryLocationPopup extends React.Component {
                                     detectCurrentLocation : true
                                 })
                             }
+                            var details = response.results[0];
+                            console.log("details",details);
+                            for (var i = 0; i < details.address_components.length; i++) {
+                                for (var b = 0; b < details.address_components[i].types.length; b++) {
+                                    switch (details.address_components[i].types[b]) {
+                                    case 'sublocality_level_2':
+                                        var detailAddress = details.address_components[i].long_name;
+                                        break;
+                                    case 'sublocality_level_1':
+                                        var area = details.address_components[i].long_name;
+                                        break;
+                                    case 'locality':
+                                        var city = details.address_components[i].long_name;
+                                        break;
+                                    case 'administrative_area_level_1':
+                                        var state = details.address_components[i].long_name;
+                                        break;
+                                    case 'country':
+                                        var country = details.address_components[i].long_name;
+                                        break;
+                                    case 'postal_code':
+                                        var pincode = details.address_components[i].long_name;
+                                        break;
+                                    }
+                                }
+                            }
                             var deliveryLocation = {
                                 "address"        : response.results[0].formatted_address,
-                                "city"           : response.results[0].city,
-                                "area"           : response.results[0].area,
+                                "city"           : city,
+                                "area"           : area,
                                 "district"       : response.results[0].district,
-                                "pincode"        : response.results[0].pincode,
-                                "country"        : response.results[0].country,
-                                "stateCode"      : response.results[0].stateCode,
-                                "countryCode"    : response.results[0].countryCode,
+                                "pincode"        : pincode,
+                                "country"        : country,
                                 "latitude"       : position.coords.latitude,
                                 "longitude"      : position.coords.longitude,
-                                "homeFirstVisit" : false,
                             }
-                            if(that.props.sampurnaWebsiteDetails){
-                                var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
-                                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                                // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
-                            }else{
-                                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-                            }
+                            if(deliveryLocation){
+                                if(that.props.sampurnaWebsiteDetails){
+                                    console.log("deliveryLocation=",deliveryLocation);
+                                    var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
+                                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                                    console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+                                }else{
+                                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                                }
 
-                            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
-                            // console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
-                            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
+                                // console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
+                                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                            }
                             that.setState({ address: deliveryLocation.address });                              
                         },
                         (error) => {
@@ -206,7 +236,7 @@ class DeliveryLocationPopup extends React.Component {
         geocodeByAddress(address)
             .then((results) => {
                 if (results) {
-                    // console.log("result ===",results);
+                    console.log("result ===",results);
                     for (var i = 0; i < results[0].address_components.length; i++) {
                         for (var b = 0; b < results[0].address_components[i].types.length; b++) {
                             switch (results[0].address_components[i].types[b]) {
@@ -283,7 +313,7 @@ class DeliveryLocationPopup extends React.Component {
    render() {
        const ref = React.createRef();
     //    console.log("latlong=>",this.state.latLong);
-       if(this.state.userDetails && this.state.userDetails.token){
+       if(this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0){
            var xlCol =  9;
            var offset = 0
        }else{
@@ -294,7 +324,7 @@ class DeliveryLocationPopup extends React.Component {
         <div className="col-12 DeliveryLocation">
             <div className="row">
                 {
-                    this.state.userDetails && this.state.userDetails.token? 
+                    this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 AddressListWrapper">
                         <AddressList 
                         userAddress =  {this.state.userAddress}/>

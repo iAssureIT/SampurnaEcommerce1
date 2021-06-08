@@ -289,6 +289,7 @@ exports.insert_cartid = (req,res,next)=>{
 
 /**=========== Vendorwise List of Cart Items for Particular User ===========*/
 exports.list_cart_product = (req,res,next)=>{    
+    console.log("req.params.user_ID==",req.params.user_ID);
     Carts.findOne({user_ID:ObjectId(req.params.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
@@ -770,7 +771,7 @@ Carts.updateOne(
 
 /**=========== Change Cart Products Quantity ===========*/
 exports.change_cart_item_quantity = (req, res, next)=>{
-    // console.log("req.body => ",req.body);
+    console.log("req.body => ",req.body);
 
     Carts.findOne({"user_ID": req.body.user_ID})
     .exec()
@@ -811,7 +812,7 @@ exports.change_cart_item_quantity = (req, res, next)=>{
         )
         .exec()
         .then(data=>{
-            // console.log("data => ",data);
+            console.log("data => ",data);
             if(data.nModified === 1){    
                 var order_quantityOfProducts    = (previous_order_quantityOfProducts - previousProductQuantity) + req.body.quantityAdded;
                 var vendor_quantityOfProducts   = (previous_vendor_quantityOfProducts - previousProductQuantity) + req.body.quantityAdded;

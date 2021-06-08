@@ -16,13 +16,27 @@ const VendorList = ()=> {
     const {sectionUrl} = router.query
     // console.log("useRouter",router.query);
     useEffect(()=>{
-        var formValues =  {
-            "startRange" : 0,
-            "limitRange" : 10,
-            "sectionUrl" : sectionUrl,
-            "latitude"   : "",
-            "longitude"  : ""
+        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
+        if(sampurnaWebsiteDetails){
+            if(sampurnaWebsiteDetails.deliveryLocation){
+                var formValues =  {
+                    "startRange" : 0,
+                    "limitRange" : 10,
+                    "sectionUrl" : sectionUrl,
+                    "latitude"   : sampurnaWebsiteDetails.deliveryLocation.latitude,
+                    "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude
+                }
+            }else{
+                var formValues =  {
+                    "startRange" : 0,
+                    "limitRange" : 10,
+                    "sectionUrl" : sectionUrl,
+                    "latitude"   : "",
+                    "longitude"  : ""
+                }
+            }
         }
+        
         axios.post("/api/vendorlist/post/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){
