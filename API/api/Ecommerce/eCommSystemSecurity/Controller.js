@@ -46,7 +46,7 @@ exports.my_addresses = (req, res, next) => {
 					user.deliveryAddress[i].distance= 0;
 				}
 			}
-			if(i>=deliveryAddress.length){
+			if(i>=user.deliveryAddress.length){
 				res.status(500).json(user);
 			}
 		})
