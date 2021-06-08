@@ -20,7 +20,8 @@ exports.getVendorList = (req,res,next)=>{
         if(sectiondata && sectiondata.length > 0){
         Products.distinct("vendor_ID", {section_ID : section_ID} )
         .then(uniqueVendors =>{  
-            if(uniqueVendors && uniqueVendors.length >0){
+            console.log("uniqueVendors => ",uniqueVendors)
+            if(uniqueVendors && uniqueVendors.length > 0){
                 EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1, companyName:1, companyLogo : 1})              
                 .exec()
                 .then(vendorDetails=>{
@@ -60,9 +61,6 @@ exports.getVendorList = (req,res,next)=>{
                                         // console.log("vendorLocations => ",vendorDetails[i].locationsj);
                                         vendorLocations.push(vendorDetails[i].locationsj);
                                     }
-                                    if(j >= vendorDetails[i].locations.length){
-                                        
-                                    }
                                 }
                             }
                             if(i >= vendorDetails.length){
@@ -72,17 +70,18 @@ exports.getVendorList = (req,res,next)=>{
                                 if(vendorLocations && vendorLocations.length > 0){
                                     const key = 'vendor_ID';
                                     if(userLat && userLong){
+                                        console.log("distanceLimit=> ",distanceLimit)
+                                        console.log("vendorLocations => ",vendorLocations);
                                         if(distanceLimit){
-                                            var FinalVendorLocations = [...new Map(vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((a, b) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
-                                            // var FinalVendorLocations = vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((a, b) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item]);
-                                            // console.log("FinalVendorLocations 1 =>",FinalVendorLocations)
+                                            var FinalVendorLocations = [...new Map(vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
+                                            console.log("FinalVendorLocations 1 =>",FinalVendorLocations)
                                         }else{                                            
-                                            var FinalVendorLocations = [...new Map(vendorLocations.sort((a, b) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
-                                            // console.log("FinalVendorLocations 2 =>",FinalVendorLocations)
+                                            var FinalVendorLocations = [...new Map(vendorLocations.sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
+                                            console.log("FinalVendorLocations 2 =>",FinalVendorLocations)
                                         }
                                     }else{
                                         var FinalVendorLocations = [...new Map(vendorLocations.sort((a, b) => a.vendorName.localeCompare(b.vendorName)).map(item =>[item[key], item])).values()];
-                                        // console.log("FinalVendorLocations 3 =>",FinalVendorLocations)
+                                        console.log("FinalVendorLocations 3 =>",FinalVendorLocations)
                                     }
                                     res.status(200).json(FinalVendorLocations);
                                 }                            
