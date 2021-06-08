@@ -38,6 +38,7 @@ exports.my_addresses = (req, res, next) => {
 	User.findOne({ _id: ObjectID(user_id)},{deliveryAddress:1})
 		.exec()
 		.then(async(user) => {
+			console.log("user",user);
 			for(var i=0; i<=user.deliveryAddress.length; i++){
 				if(latitude && longitude){
 					user.deliveryAddress[i].distance= await calcDist(user.deliveryAddress[i].latitude,user.deliveryAddress[i].longitude, latitude, longitude);
