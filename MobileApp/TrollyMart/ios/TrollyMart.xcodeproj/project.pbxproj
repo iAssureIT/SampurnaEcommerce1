@@ -7,34 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7C0C2C45266E381000D83162 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968D266D1CD2008C2278 /* AntDesign.ttf */; };
-		7C0C2C46266E381000D83162 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968C266D1CD2008C2278 /* Entypo.ttf */; };
-		7C0C2C47266E381000D83162 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968E266D1CD2008C2278 /* EvilIcons.ttf */; };
-		7C0C2C48266E381000D83162 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968F266D1CD2008C2278 /* Feather.ttf */; };
-		7C0C2C49266E381000D83162 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009684266D1CD2008C2278 /* FontAwesome.ttf */; };
-		7C0C2C4A266E381000D83162 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009685266D1CD2008C2278 /* FontAwesome5_Brands.ttf */; };
-		7C0C2C4B266E381000D83162 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968A266D1CD2008C2278 /* FontAwesome5_Regular.ttf */; };
-		7C0C2C4C266E381000D83162 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968B266D1CD2008C2278 /* FontAwesome5_Solid.ttf */; };
-		7C0C2C4D266E381000D83162 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009686266D1CD2008C2278 /* Fontisto.ttf */; };
-		7C0C2C4E266E381000D83162 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009688266D1CD2008C2278 /* Foundation.ttf */; };
-		7C0C2C4F266E381000D83162 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009682266D1CD2008C2278 /* Ionicons.ttf */; };
-		7C0C2C50266E381000D83162 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009683266D1CD2008C2278 /* MaterialCommunityIcons.ttf */; };
-		7C0C2C51266E381000D83162 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009687266D1CD2008C2278 /* MaterialIcons.ttf */; };
-		7C0C2C52266E381000D83162 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009681266D1CD2008C2278 /* Octicons.ttf */; };
-		7C0C2C53266E381000D83162 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009689266D1CD2008C2278 /* SimpleLineIcons.ttf */; };
-		7C0C2C54266E381000D83162 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009690266D1CD2008C2278 /* Zocial.ttf */; };
 		7C0C2C55266E381000D83162 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */; };
-		7C0C2C56266E381000D83162 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7C009613266CE6EC008C2278 /* GoogleMaps.bundle */; };
 		7C0C2C57266E381000D83162 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */; };
 		7C0C2C58266E381000D83162 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED5949263C9ABF00A70AD0 /* Montserrat-Regular.ttf */; };
 		7C0C2C59266E381000D83162 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED594B263C9ABF00A70AD0 /* Montserrat-SemiBold.ttf */; };
 		7C2E6182266E5EE8001C5D72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C2E6181266E5EE7001C5D72 /* GoogleService-Info.plist */; };
+		7C2E618C266E6B01001C5D72 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7C2E618A266E67BE001C5D72 /* GoogleMaps.bundle */; };
+		7C2E61B3266E7434001C5D72 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968D266D1CD2008C2278 /* AntDesign.ttf */; };
+		7C2E61B4266E7434001C5D72 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968C266D1CD2008C2278 /* Entypo.ttf */; };
+		7C2E61B5266E7434001C5D72 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968E266D1CD2008C2278 /* EvilIcons.ttf */; };
+		7C2E61B6266E7434001C5D72 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968F266D1CD2008C2278 /* Feather.ttf */; };
+		7C2E61B7266E7434001C5D72 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009684266D1CD2008C2278 /* FontAwesome.ttf */; };
+		7C2E61B8266E7434001C5D72 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009685266D1CD2008C2278 /* FontAwesome5_Brands.ttf */; };
+		7C2E61B9266E7434001C5D72 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968A266D1CD2008C2278 /* FontAwesome5_Regular.ttf */; };
+		7C2E61BA266E7434001C5D72 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968B266D1CD2008C2278 /* FontAwesome5_Solid.ttf */; };
+		7C2E61BB266E7434001C5D72 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009686266D1CD2008C2278 /* Fontisto.ttf */; };
+		7C2E61BC266E7434001C5D72 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009688266D1CD2008C2278 /* Foundation.ttf */; };
+		7C2E61BD266E7434001C5D72 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009682266D1CD2008C2278 /* Ionicons.ttf */; };
+		7C2E61BE266E7434001C5D72 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009683266D1CD2008C2278 /* MaterialCommunityIcons.ttf */; };
+		7C2E61BF266E7434001C5D72 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009687266D1CD2008C2278 /* MaterialIcons.ttf */; };
+		7C2E61C0266E7434001C5D72 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009681266D1CD2008C2278 /* Octicons.ttf */; };
+		7C2E61C1266E7434001C5D72 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009689266D1CD2008C2278 /* SimpleLineIcons.ttf */; };
+		7C2E61C2266E7434001C5D72 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C009690266D1CD2008C2278 /* Zocial.ttf */; };
 		7C34B64A266E58EA0078724F /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B649266E58EA0078724F /* GoogleMaps.framework */; };
 		7C34B64D266E590B0078724F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C34B64B266E590B0078724F /* AppDelegate.m */; };
-		7C34B64E266E590B0078724F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C34B64C266E590B0078724F /* main.m */; };
 		7C34B650266E593E0078724F /* libPods-TrollyMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B64F266E593E0078724F /* libPods-TrollyMart.a */; };
 		7C34B652266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */; };
 		7C46EF13266E536A001EFAF2 /* TrollyMartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TrollyMartTests.m */; };
+		7C6A38EF266F3605004A4ED2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */; };
+		7C6A38F0266F3605004A4ED2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */; };
+		7C6A38F1266F3605004A4ED2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6A38EB266F3605004A4ED2 /* main.m */; };
+		7C6A3911266F4401004A4ED2 /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A3910266F4401004A4ED2 /* appstore.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +57,6 @@
 		1070D0C083692586D4DADFFC /* Pods-TrollyMart-TrollyMartTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart-TrollyMartTests.release.xcconfig"; path = "Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TrollyMart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrollyMart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72C5A81AB5E516BB491819A5 /* Pods-TrollyMart-TrollyMartTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart-TrollyMartTests.debug.xcconfig"; path = "Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests.debug.xcconfig"; sourceTree = "<group>"; };
-		7C009613266CE6EC008C2278 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		7C009681266D1CD2008C2278 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		7C009682266D1CD2008C2278 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
@@ -73,11 +75,20 @@
 		7C00968F266D1CD2008C2278 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		7C009690266D1CD2008C2278 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		7C2E6181266E5EE7001C5D72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "TrollyMart/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7C2E618A266E67BE001C5D72 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		7C34B649266E58EA0078724F /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Pods/GoogleMaps/Maps/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		7C34B64B266E590B0078724F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TrollyMart/AppDelegate.m; sourceTree = "<group>"; };
 		7C34B64C266E590B0078724F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TrollyMart/main.m; sourceTree = "<group>"; };
 		7C34B64F266E593E0078724F /* libPods-TrollyMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-TrollyMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-TrollyMart-TrollyMartTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7C6A38E9266F3605004A4ED2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7C6A38EB266F3605004A4ED2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7C6A38EC266F3605004A4ED2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7C6A38ED266F3605004A4ED2 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7C6A38EE266F3605004A4ED2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C6A3910266F4401004A4ED2 /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appstore.png; path = "../../../../../../Downloads/AppIcons (5)/appstore.png"; sourceTree = "<group>"; };
 		7CED5949263C9ABF00A70AD0 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../../eCommApp/android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.otf"; path = "../../eCommApp/android/app/src/main/assets/fonts/Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		7CED594B263C9ABF00A70AD0 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../../eCommApp/android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -155,7 +166,6 @@
 				7C009689266D1CD2008C2278 /* SimpleLineIcons.ttf */,
 				7C009690266D1CD2008C2278 /* Zocial.ttf */,
 				7C009616266CF52A008C2278 /* Montserrat-Medium.ttf */,
-				7C009613266CE6EC008C2278 /* GoogleMaps.bundle */,
 				7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */,
 				7CED5949263C9ABF00A70AD0 /* Montserrat-Regular.ttf */,
 				7CED594B263C9ABF00A70AD0 /* Montserrat-SemiBold.ttf */,
@@ -174,6 +184,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7C6A38E7266F3605004A4ED2 /* TrollyMart */ = {
+			isa = PBXGroup;
+			children = (
+				7C6A3910266F4401004A4ED2 /* appstore.png */,
+				7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */,
+				7C6A38E9266F3605004A4ED2 /* AppDelegate.h */,
+				7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */,
+				7C6A38EB266F3605004A4ED2 /* main.m */,
+				7C6A38EC266F3605004A4ED2 /* Images.xcassets */,
+				7C6A38ED266F3605004A4ED2 /* AppDelegate.m */,
+				7C6A38EE266F3605004A4ED2 /* Info.plist */,
+			);
+			path = TrollyMart;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,7 +209,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7C6A38E7266F3605004A4ED2 /* TrollyMart */,
 				7C2E6181266E5EE7001C5D72 /* GoogleService-Info.plist */,
+				7C2E618A266E67BE001C5D72 /* GoogleMaps.bundle */,
 				7C34B64B266E590B0078724F /* AppDelegate.m */,
 				7C34B64C266E590B0078724F /* main.m */,
 				223D6B615D3B4179909DA51C /* Resources */,
@@ -302,24 +329,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C0C2C45266E381000D83162 /* AntDesign.ttf in Resources */,
-				7C0C2C46266E381000D83162 /* Entypo.ttf in Resources */,
-				7C0C2C47266E381000D83162 /* EvilIcons.ttf in Resources */,
-				7C0C2C48266E381000D83162 /* Feather.ttf in Resources */,
-				7C0C2C49266E381000D83162 /* FontAwesome.ttf in Resources */,
-				7C0C2C4A266E381000D83162 /* FontAwesome5_Brands.ttf in Resources */,
-				7C0C2C4B266E381000D83162 /* FontAwesome5_Regular.ttf in Resources */,
-				7C0C2C4C266E381000D83162 /* FontAwesome5_Solid.ttf in Resources */,
-				7C0C2C4D266E381000D83162 /* Fontisto.ttf in Resources */,
-				7C0C2C4E266E381000D83162 /* Foundation.ttf in Resources */,
-				7C0C2C4F266E381000D83162 /* Ionicons.ttf in Resources */,
-				7C0C2C50266E381000D83162 /* MaterialCommunityIcons.ttf in Resources */,
-				7C0C2C51266E381000D83162 /* MaterialIcons.ttf in Resources */,
-				7C0C2C52266E381000D83162 /* Octicons.ttf in Resources */,
-				7C0C2C53266E381000D83162 /* SimpleLineIcons.ttf in Resources */,
-				7C0C2C54266E381000D83162 /* Zocial.ttf in Resources */,
+				7C2E61B3266E7434001C5D72 /* AntDesign.ttf in Resources */,
+				7C2E61B4266E7434001C5D72 /* Entypo.ttf in Resources */,
+				7C2E61B5266E7434001C5D72 /* EvilIcons.ttf in Resources */,
+				7C2E61B6266E7434001C5D72 /* Feather.ttf in Resources */,
+				7C2E61B7266E7434001C5D72 /* FontAwesome.ttf in Resources */,
+				7C6A3911266F4401004A4ED2 /* appstore.png in Resources */,
+				7C2E61B8266E7434001C5D72 /* FontAwesome5_Brands.ttf in Resources */,
+				7C2E61B9266E7434001C5D72 /* FontAwesome5_Regular.ttf in Resources */,
+				7C2E61BA266E7434001C5D72 /* FontAwesome5_Solid.ttf in Resources */,
+				7C2E61BB266E7434001C5D72 /* Fontisto.ttf in Resources */,
+				7C6A38EF266F3605004A4ED2 /* LaunchScreen.storyboard in Resources */,
+				7C2E61BC266E7434001C5D72 /* Foundation.ttf in Resources */,
+				7C2E61BD266E7434001C5D72 /* Ionicons.ttf in Resources */,
+				7C2E61BE266E7434001C5D72 /* MaterialCommunityIcons.ttf in Resources */,
+				7C2E61BF266E7434001C5D72 /* MaterialIcons.ttf in Resources */,
+				7C2E61C0266E7434001C5D72 /* Octicons.ttf in Resources */,
+				7C2E61C1266E7434001C5D72 /* SimpleLineIcons.ttf in Resources */,
+				7C2E61C2266E7434001C5D72 /* Zocial.ttf in Resources */,
+				7C6A38F0266F3605004A4ED2 /* GoogleService-Info.plist in Resources */,
+				7C2E618C266E6B01001C5D72 /* GoogleMaps.bundle in Resources */,
 				7C0C2C55266E381000D83162 /* Montserrat-Medium.ttf in Resources */,
-				7C0C2C56266E381000D83162 /* GoogleMaps.bundle in Resources */,
 				7C0C2C57266E381000D83162 /* Montserrat-Bold.otf in Resources */,
 				7C2E6182266E5EE8001C5D72 /* GoogleService-Info.plist in Resources */,
 				7C0C2C58266E381000D83162 /* Montserrat-Regular.ttf in Resources */,
@@ -429,11 +459,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TrollyMart/Pods-TrollyMart-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TrollyMart/Pods-TrollyMart-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
@@ -492,7 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C34B64D266E590B0078724F /* AppDelegate.m in Sources */,
-				7C34B64E266E590B0078724F /* main.m in Sources */,
+				7C6A38F1266F3605004A4ED2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,7 +609,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
 				ENABLE_BITCODE = NO;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/GoogleMaps/Maps/Frameworks",
@@ -611,7 +640,6 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/GoogleMaps/Maps/Frameworks",
@@ -622,7 +650,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

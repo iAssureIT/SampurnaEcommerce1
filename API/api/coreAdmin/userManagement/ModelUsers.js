@@ -61,6 +61,7 @@ const userSchema = mongoose.Schema({
 			"addType"	   : String,
 			"latitude"     : Number,
 			"longitude"    : Number,
+			"distance"     : Number,
 		}	
 
 ],

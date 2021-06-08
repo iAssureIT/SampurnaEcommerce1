@@ -21,6 +21,7 @@ import { connect,useDispatch,useSelector }      from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
 import {setToast, 
   withCustomerToaster}        from '../../redux/AppState.js';
+  import { SET_USER_ADDRESS}          from '../../redux/location/types';
 // export default class AddressDefaultComp extends React.Component {
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
@@ -32,7 +33,8 @@ import {setToast,
     const [adddata,setAddData]  = useState('');
     const [selectedindex,setSelectedIndex]  = useState(-1);
     const [user_id,setUserId] = useState('');
-    const {delivery}=route.params;
+    const dispatch = useDispatch();
+    const {delivery,disabled}=route.params;
     useEffect(() => {
       getAddressList()
     },[props,isFocused]); 
@@ -40,6 +42,7 @@ import {setToast,
   const getAddressList=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
     .then((data) => {
+      console.log("data[1][1]",data[1][1]);
       setUserId(data[1][1]);
       axios.get('/api/ecommusers/' + data[1][1])
         .then((response) => {
@@ -47,7 +50,7 @@ import {setToast,
             var deliveryAddress = response.data.deliveryAddress;
             setDeliveryAddress(deliveryAddress);
           } else {
-            // navigation.navigate('AddressComponent');
+            navigation.navigate('AddressComponent',{'delivery':delivery});
             setDeliveryAddress([]);
           }
 
@@ -113,7 +116,27 @@ import {setToast,
     setAddressId(id);
     setAddData(adddata);
     setSelectedIndex(selectedindex);
+    console.log("adddata",adddata);
+    var address = {
+      'addressLine1'      : adddata.addressLine1,
+      'area'              : adddata.area,
+      'city'              : adddata.city,
+      'state'             : adddata.state,
+      'country'           : adddata.country,
+      'pincode'           : adddata.pincode,
+      'latlong'           : {
+        "lat" : adddata.lat,
+        "lng" : adddata.lng
+      }
+    }
+      AsyncStorage.setItem('location',JSON.stringify(address));
+      dispatch({
+          type: SET_USER_ADDRESS,
+          payload:address
+      })
   }
+
+  console.log("addressid",addressid);
     return (
       <React.Fragment>
         <HeaderBar3
@@ -124,14 +147,14 @@ import {setToast,
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container} style={{marginBottom:50}} keyboardShouldPersistTaps="handled" >
             <View style={styles.padhr15}>
-              <View style={styles.addcmpbtn}>
-                  <Button
+               <View style={styles.addcmpbtn}>
+               {!disabled &&<Button
                     onPress={() => navigation.navigate('AddressComponent',{"delivery":delivery})}
                     title={"ADD NEW ADDRESS"}
                     buttonStyle={styles.button1}
                     containerStyle={styles.buttonContainer1}
                     titleStyle={styles.buttonTextEDIT}
-                  />
+                  />}
               </View>
               {deliveryAddress ?
                 deliveryAddress.length > 0 ?
@@ -152,18 +175,18 @@ import {setToast,
                           <View style={styles.chkvw}>
                           </View>
                           <View style={styles.proddeletes}>
-                            <Icon
+                            {!disabled&&<Icon
                               onPress={() => deleteAdress(item._id)}
                               name="delete"
                               type="AntDesign"
                               size={18}
                               color="#ff4444"
                               iconStyle={styles.iconstyle}
-                            />
+                            />}
                           </View>
                         </View>
                         <View style={styles.padhr18}>
-                          <Text style={styles.address}>{item.addressLine1}</Text>
+                          <Text style={styles.address}>{item.addressLine1+", "+item.addressLine2}</Text>
                           <View style={styles.mobflx}>
                             <Text style={styles.mobileno}>Mobile:</Text>
                             <Text style={styles.mobilenum}>{item.mobileNumber}</Text>
@@ -187,7 +210,7 @@ import {setToast,
               }
               {delivery && <View style={styles.continuebtn}>
                 {
-                  addressid ?
+                  addressid!=='' ?
                     <TouchableOpacity >
                       <Button
                         onPress={() => navigation.navigate('OrderSummary', { addData: adddata, user_id: user_id })}
@@ -208,9 +231,32 @@ import {setToast,
                     </TouchableOpacity>
                 }
               </View>}
+                {disabled && <View style={styles.continuebtn}>
+                {
+                  addressid!=='' ?
+                    <TouchableOpacity >
+                      <Button
+                        onPress={() => navigation.navigate('App')}
+                        title={"CONTINUE"}
+                        buttonStyle={styles.button1}
+                        containerStyle={styles.buttonContainer1}
+                        titleStyle={styles.buttonTextEDIT}
+                      />
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity >
+                      <Button
+                        title={"CONTINUE"}
+                        buttonStyle={styles.buttondis}
+                        containerStyle={styles.buttonContainer1}
+                        titleStyle={styles.buttonTextEDIT}
+                      />
+                    </TouchableOpacity>
+                }
+              </View>}
             </View>
           </ScrollView>
-          <Footer />
+          {!disabled &&<Footer />}
         </View>
       </React.Fragment>
     );

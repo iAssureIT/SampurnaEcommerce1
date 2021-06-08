@@ -184,7 +184,7 @@ import { SafeAreaView }         from 'react-native';
                   <Text style={styles.addoffice}>{addDataAddType}</Text>
                 </View>
                 <View style={{}}>
-                  <Text style={styles.address}>{addDataAddressLine1}</Text>
+                  <Text style={styles.address}>{addDataAddressLine1+", "+addDataAddressLine2}</Text>
                   <View style={styles.mobflx}>
                     <Text style={styles.mobileno}>Mobile:</Text>
                     <Text style={styles.mobilenum}>{addDataMobileNumber}</Text>

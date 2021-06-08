@@ -91,7 +91,7 @@ const window = Dimensions.get('window');
                           role        : res.data.roles
                         }),
                       );
-                      navigation.push('App')
+                      navigation.push('Confirmation');
                     }
                   }else if(res.data.message === 'INVALID_PASSWORD'){
                     setToast({text: "Please enter correct password", color: colors.warning});

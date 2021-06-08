@@ -57,8 +57,8 @@ export const HorizontalProductList =(props)=>{
       "startRange"        : 0,
       "limitRange"        : 20,
       "user_id"           : store.userDetails.user_id,
-      "userLatitude"      : store.location?.coords?.latitude,
-      "userLongitude"     : store.location?.coords?.longitude,
+      "userLatitude"      : store.location?.address?.latlong?.lat,
+      "userLongitude"     : store.location?.address?.latlong?.lng,
     } 
     axios.post(props.blockApi,payload)
       .then((response) => {

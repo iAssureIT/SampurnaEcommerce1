@@ -27,7 +27,11 @@ export const Confirmation = withCustomerToaster((props)=>{
     const dispatch = useDispatch();
     const mapStyle = [];
     const ref = useRef();
-
+    const store = useSelector(store => ({
+      location      : store.location,
+      userDetails   : store.userDetails
+    }));
+    const {location,userDetails} = store;
 
     const getPermission = ()=>{
         request(Platform.OS ==='android' ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
@@ -65,17 +69,17 @@ export const Confirmation = withCustomerToaster((props)=>{
     }
 
   
-    
+    console.log("userDetails",userDetails);
     return (
         <View>
             <View style={{height:window.height, justifyContent:"flex-end",backgroundColor:"#fff"}}>
-                <View style={{flex:.8,justifyContent:"center",alignItems:"center",paddingHorizontal:15}}>
+                <View style={{flex:.7,justifyContent:"center",alignItems:"center",paddingHorizontal:15}}>
                     <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/>
                     <Text style={{color:"#333",fontFamily:"Montserrat-Bold",fontSize:18,alignSelf:"center"}}>Delivery Location</Text>
                     <Text>Set your delivery location to browse stores around you.</Text>
                 </View>    
-                <View style={{flex:.2}}>
-                    <View style={{paddingHorizontal:30}}>
+                <View style={{flex:.3}}>
+                    <View style={{paddingHorizontal:30,marginBottom:15}}>
                     <FormButton
                         title       = {'Detect My Location'}
                         onPress     = {()=>getPermission()}
@@ -83,13 +87,29 @@ export const Confirmation = withCustomerToaster((props)=>{
                         // icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
                         // loading     = {btnLoading}
                         />
-                    </View>    
-                    <Text 
-                        style={{textDecorationLine:'underline',color:"#333",fontFamily:"Montserrat-Bold",padding:15,alignSelf:"center"}}
-                        onPress={()=>navigation.navigate('Location',{type:'Manual'})}
-                    >
-                        Set Location Manually
-                    </Text>
+                    </View>  
+                    <View style={{paddingHorizontal:30,marginBottom:15}}>
+                      <FormButton
+                          title       = {'Set Location Manually'}
+                          onPress     = {()=>navigation.navigate('Location',{type:'Manual'})}
+                          background  = {true}
+                          // icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
+                          // loading     = {btnLoading}
+                          />
+                    </View>
+                    {userDetails && userDetails.user_id && userDetails.user_id!=="" ?
+                      <View style={{paddingHorizontal:30,marginBottom:15}}>
+                        <FormButton
+                          title       = {'Choose From Addresses'}
+                          onPress     = {()=>navigation.navigate('AddressDefaultComp',{delivery:false,disabled:true})}
+                          background  = {true}
+                          // icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
+                          // loading     = {btnLoading}
+                          />
+                      </View>
+                      :
+                      null
+                    } 
                 </View>   
             </View>
             <BottomModal

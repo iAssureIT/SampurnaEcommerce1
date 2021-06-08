@@ -122,6 +122,7 @@ export const LocationScreen = () => (
   <RegisterRoutes.Navigator headerMode="none">
       <LocationRoutes.Screen name="Confirmation"  component={Confirmation} />
       <LocationRoutes.Screen name="Location"      component={Location} />
+      <LocationRoutes.Screen name="AddressDefaultComp" component={AddressDefaultComp} />
   </RegisterRoutes.Navigator>     
 );
 
@@ -152,7 +153,7 @@ const LocationStack = () => (
       <LocationMain.Screen name="LocationMain"  component={LocationScreen} />
       <LocationMain.Screen name="App"           component={HomeStack} />
       <LocationMain.Screen name="Auth"          component={RegisterStack} />
-      <Home.Screen name="SubCatCompView"  component={SubCatCompView} />
+      <LocationMain.Screen name="SubCatCompView" component={SubCatCompView} />
   </LocationMain.Navigator>
 );
 

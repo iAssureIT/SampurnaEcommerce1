@@ -51,12 +51,13 @@ export const VendorList = withCustomerToaster((props)=>{
         "startRange" : 0,
         "limitRange" : 10,
         "sectionUrl" : sectionUrl,
-        "userLatitude"   : store.location?.coords?.latitude,
-        "userLongitude"  : store.location?.coords?.longitude
+        "latitude"   : store.location?.address?.latlong?.lat,
+        "longitude"  : store.location?.address?.latlong?.lng
     }
     console.log("formValues",formValues);
         axios.post('/api/vendorlist/post/vendor/list',formValues)
         .then(res=>{
+            console.log("vendor res",res);
             setLoading(false);
             setVendorList(res.data)
         })
@@ -75,7 +76,7 @@ export const VendorList = withCustomerToaster((props)=>{
           } 
         dispatch(getCategoryWiseList(payload));
         
-        navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section,index:index});
+        navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section,index:index,vendorLocation_id:vendor.vendorLocation_id});
     }
 
     const _renderlist = ({ item, index })=>{
@@ -93,7 +94,7 @@ export const VendorList = withCustomerToaster((props)=>{
                                     <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:20}]}>{item.vendorName}</Card.Title>
                                 </View>
                                 <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:.6}}>
-                                    <Card.Title style={[{color:"#fff",opacity:1,paddingHorizontal:5}]}>{item.vendorDistance ? item.vendorDistance : "60 Min"}</Card.Title>
+                                    <Card.Title style={[{color:"#fff",opacity:1,paddingHorizontal:5}]}>{item.vendorDistance ? item.vendorDistance +" KM" : "60 Min"}</Card.Title>
                                 </View>    
                              </View>
                         </View>

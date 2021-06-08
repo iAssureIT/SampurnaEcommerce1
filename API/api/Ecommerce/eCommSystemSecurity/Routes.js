@@ -6,6 +6,7 @@ const UserController = require('./Controller.js');
 
 
 router.get('/:userID',UserController.user_details);
+router.post('/myaddresses',UserController.my_addresses);
 router.get('/:email',UserController.get_user_details);
 router.delete('/:userID',UserController.delete_user);
 router.patch('/userdetails/:userID',UserController.update_user_details); 

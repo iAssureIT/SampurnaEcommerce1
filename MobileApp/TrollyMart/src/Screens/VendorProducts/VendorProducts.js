@@ -37,7 +37,7 @@ export const VendorProducts = (props)=>{
   const [subCategory,setSubCategory]= useState([]);
   const {navigation,route}=props;
   const [showSort, toggleSort] = useState(false);
-  const {vendor,sectionUrl,section,index}=route.params;
+  const {vendor,sectionUrl,section,index,vendorLocation_id}=route.params;
   const dispatch 		= useDispatch();
 
   const filterOptions = [
@@ -204,6 +204,7 @@ export const VendorProducts = (props)=>{
               limit         = {10}
               payload       = {payload}
               type          = "vendor_sub_cat"
+              vendorLocation_id = {vendorLocation_id}
             />
         :
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>

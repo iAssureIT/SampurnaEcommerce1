@@ -45,6 +45,9 @@ import PhoneInput                   from "react-native-phone-number-input";
       'This field cannot contain only special characters or numbers',
       specialCharacterValidator,
     ),
+    addressLine1: Yup.string()
+    .required('This field is required'),
+
     fromaddress: Yup.string()
     .required('This field is required'),
    
@@ -65,11 +68,13 @@ export const AddressComponent = withCustomerToaster((props)=>{
     
     const [googleapikey,setGoogleAPIKey] = useState('');
     const store = useSelector(store => ({
-      userDetails : store.userDetails
+      userDetails : store.userDetails,
+      location    : store.location
     }));
 
-    const {userDetails}= store;
+    const {userDetails,location}= store;
     const {delivery}=route.params;  
+    console.log("location",location);
   
     useEffect(() => {
       var type = 'GOOGLE';
@@ -95,12 +100,13 @@ export const AddressComponent = withCustomerToaster((props)=>{
           <Formik
             onSubmit={(data) => {
               console.log("data",data);
-              const {fromaddress,contactperson,fromarea,fromPincode,fromcity,fromstate,fromcountry,fromlatlong,mobileNumber,addresstype}=data;
+              const {addressLine1,fromaddress,contactperson,fromarea,fromPincode,fromcity,fromstate,fromcountry,fromlatlong,mobileNumber,addresstype}=data;
               var formValues = {
                 "user_ID"       : userDetails.user_id,
                 "name"          : contactperson,
-                "addressLine1"  : fromaddress,
-                "addressLine2"  : fromarea,
+                "addressLine1"  : addressLine1,
+                "addressLine2"  : fromaddress,
+                "area"          : fromarea,
                 "pincode"       : fromPincode,
                 // "district"      : modaldistrict,
                 "city"          : fromcity,
@@ -114,7 +120,11 @@ export const AddressComponent = withCustomerToaster((props)=>{
               console.log("formValues",formValues);
               axios.patch('/api/ecommusers/patch/address', formValues)
               .then((response) => {
-                navigation.navigate('AddressDefaultComp',{"delivery":delivery});
+                // if(delivery){
+                  // navigation.navigate('OrderSummary', { 'addData': formValues, 'user_id': userDetails.user_id })
+                // }else{
+                  navigation.navigate('AddressDefaultComp',{"delivery":delivery});
+                // }
               })
               .catch((error) => {
                 console.log('error', error)
@@ -133,13 +143,14 @@ export const AddressComponent = withCustomerToaster((props)=>{
               addsaved            : false,
               validpincodeaddress : false,
               pincodeExists       : false,
-              fromaddress         : "",
-              fromarea            : '',
+              addressLine1        : "",
+              fromaddress         : location?.address?.addressLine2,
+              fromarea            : location?.address?.area,
               fromPincode         : '',
-              fromlatlong         : '',
-              fromcity            : '',
-              fromstate           : '',
-              fromcountry         : '' 
+              fromlatlong         : location?.address?.latlong,
+              fromcity            : location?.address?.city,
+              fromstate           : location?.address?.state,
+              fromcountry         : location?.address?.country, 
             }}>
             {(formProps) => (
               <FormBody
@@ -147,6 +158,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                 navigation      = {navigation}
                 setToast        = {setToast}
                 googleapikey    = {googleapikey}
+                delivery        = {delivery}
                 {...formProps}
               />
             )}
@@ -166,7 +178,8 @@ export const AddressComponent = withCustomerToaster((props)=>{
         navigation,
         values,
         setToast,
-        googleapikey
+        googleapikey,
+        delivery
       } = props;
       const [openModal, setModal] = useState(false);
       const [showPassword, togglePassword] = useState(false);
@@ -176,6 +189,9 @@ export const AddressComponent = withCustomerToaster((props)=>{
       const [valid, setValid] = useState(false);
       const [showMessage, setShowMessage] = useState(false);
       const phoneInput = useRef(null);
+      const ref = useRef();
+      const [selection,setSelection] = useState({start:0,end:0});
+      ref.current?.setAddressText(values.fromaddress);
       // var mobileNumber = values.mobileNumber.split(" ");
       // if(mobileNumber && mobileNumber.length >0){
       //   var countryCode = mobileNumber[0].trim('+');
@@ -203,12 +219,12 @@ export const AddressComponent = withCustomerToaster((props)=>{
       <React.Fragment>
         <HeaderBar3
           goBack={navigation.goBack}
-          headerTitle={'Add Delivery Address'}
+          headerTitle={delivery ? "Delivery Address": 'Add Delivery Address'}
           navigate={navigation.navigate}
           // openControlPanel={() => openControlPanel()}
         />
         <View style={styles.addsuperparent}>
-          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={{}} keyboardShouldPersistTaps="handled" >
             <View style={styles.formWrapper}>
               <View style={{ backgroundColor: '#fff', paddingVertical: 20, paddingHorizontal: 15, marginTop: 15, marginBottom: "5%" }}>
               <FormInput
@@ -250,6 +266,20 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     />
                   <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                 </View>   
+                <FormInput
+                    labelName       = "Flat / Office No"
+                    placeholder     = "Flat / Office No"
+                    onChangeText    = {handleChange('addressLine1')}
+                    required        = {true}
+                    name            = "addressLine1"
+                    errors          = {errors}
+                    touched         = {touched}
+                    // iconName        = {'user-circle-o'}
+                    // iconType        = {'font-awesome'}
+                    autoCapitalize  = "none"
+                    value           = {values.addressLine1}  
+                    // disabled        = {deliveuuuuuuuuuyyry}       
+                  />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
                   <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
                     <Text>Address</Text>{' '}
@@ -257,8 +287,11 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     *
                     </Text>
                 </Text>
+              
                   <GooglePlacesAutocomplete
+                  autoCorrect={false} 
                     placeholder               = 'Address'
+                    ref                       = {ref}
                     minLength                 = {2} // minimum length of text to search
                     autoFocus                 = {true}
                     returnKeyType             = {'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
@@ -308,6 +341,13 @@ export const AddressComponent = withCustomerToaster((props)=>{
                       setFieldValue('fromlatlong',details.latlong);
                       setFieldValue('formatted_address',details.formatted_address);
                     }}
+                    textInputProps={{ 
+                      selection:selection,
+                      onSelectionChange : ({ nativeEvent: { selection, text } }) => {setSelection(selection)},
+                      clearButtonMode: 'never',
+                      editable : !delivery,
+                      style    :  { color: '#999',fontFamily:"Montserrat-Medium",fontSize:18 }
+                    }}
                     getDefaultValue={() => ''}
                     query={{
                       // key: 'AIzaSyCrzFPcpBm_YD5DfBl9zJ2KwOjiRpOQ1lE',
@@ -323,34 +363,50 @@ export const AddressComponent = withCustomerToaster((props)=>{
                       textInput: {
                         height :45,
                       },
-
                     }}/>
               </View>
                <View>
-                  <FormInput
-                    labelName       = "Flat/Office No"
-                    placeholder     = "Flat/Office No"
+               <FormInput
+                    labelName       = "Area"
+                    placeholder     = "Area"
                     onChangeText    = {handleChange('fromarea')}
                     required        = {true}
                     name            = "fromarea"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'user-circle-o'}
-                    iconType        = {'font-awesome'}
+                    // iconName        = {'user-circle-o'}
+                    // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
+                    value           = {values.fromarea}  
+                    disabled        = {delivery}       
+                  />
+                <FormInput
+                    labelName       = "City"
+                    placeholder     = "City"
+                    onChangeText    = {handleChange('fromcity')}
+                    required        = {true}
+                    value           = {values.fromcity}
+                    name            = "fromcity"
+                    errors          = {errors}
+                    touched         = {touched}
+                    // iconName        = {'user-circle-o'}
+                    // iconType        = {'font-awesome'}
+                    autoCapitalize  = "none"
+                    disabled        = {delivery}  
                   />
                    <FormInput
-                    labelName       = "State/Province"
-                    placeholder     = "State/Province"
+                    labelName       = "Emirate"
+                    placeholder     = "Emirate"
                     onChangeText    = {handleChange('fromstate')}
                     required        = {true}
                     value           = {values.fromstate}
                     name            = "fromstate"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'user-circle-o'}
-                    iconType        = {'font-awesome'}
+                    // iconName        = {'user-circle-o'}
+                    // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
+                    disabled        = {delivery}  
                   />
                    <FormInput
                     labelName       = "Country"
@@ -361,9 +417,10 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     name            = "fromcountry"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'user-circle-o'}
-                    iconType        = {'font-awesome'}
+                    // iconName        = {'user-circle-o'}
+                    // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
+                    disabled        = {delivery}  
                   />
                   <FormInput
                     labelName       = "Postal code"
@@ -373,8 +430,8 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     name            = "fromPincode"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'user-circle-o'}
-                    iconType        = {'font-awesome'}
+                    // iconName        = {'user-circle-o'}
+                    // iconType        = {'font-awesome'}
                     autoCapitalize  = "none"
                   />
                 </View>
@@ -395,6 +452,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     style               = {styles.ddStyle}
                     data                = {ShippingType}
                     value               = {values.addresstype}
+                    underlineColorAndroid ='transparent'
                     // onChangeText={(addresstype) => { this.setState({ addresstype }) }}
                     onChangeText={handleChange('addresstype')}
                   />

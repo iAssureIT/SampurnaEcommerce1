@@ -4,16 +4,14 @@ import {
   } from './types';
   
   const initialUserState = {
-    address   : '',
-    coords    : ''
+    address   : {},
   };
   export default (state = initialUserState, {type, payload}) => {
     switch (type) {
       case SET_USER_ADDRESS:
         return {
           ...state,
-          address   : payload.address,
-          coords    : payload.coords    
+          address   : payload,
         };
       case SET_LOADING:
         return {

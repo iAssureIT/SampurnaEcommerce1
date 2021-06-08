@@ -320,7 +320,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View> 
                       <View style={{ flex: 0.4 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                      <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_shippingCharges.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
@@ -333,7 +333,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         :
                         <View>
                           <Text style={styles.minpurchase}>Minimum order should be {currency} {minvalueshipping} to Checkout & Place Order.
-                              {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth {currency} {(minvalueshipping - (vendor.total)).toFixed(2)} to proceed further.</Text> </Text>
+                              {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth {currency} {(minvalueshipping - (vendor.vendor_afterDiscountTotal)).toFixed(2)} to proceed further.</Text> </Text>
                         </View>
                       }
                     </View>
@@ -401,10 +401,10 @@ const getshippingamount=(startRange, limitRange)=>{
                     <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                   </View>
                   <View>
-                    {minvalueshipping <= cartData.paymentDetails.afterDiscountTotal ?
+                    {minvalueshipping <= cartData.paymentDetails.netPayableAmount ?
                       <View>
                         <Button
-                          onPress        = {() => navigation.navigate('AddressDefaultComp', { userID: userId,"delivery":true})}
+                          onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
                           title          = {"PROCEED TO CHECKOUT"}
                           buttonStyle    = {styles.button1}
                           containerStyle = {styles.buttonContainer1}

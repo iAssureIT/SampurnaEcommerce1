@@ -5,8 +5,9 @@ var ObjectID = require('mongodb').ObjectID;
 var request = require('request-promise');
 const User = require('../../coreAdmin/userManagementnew/ModelUsers.js');
 const Role = require('../../coreAdmin/rolesManagement/ModelRoles.js');
+const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
 const globalVariable = require("../../../nodemon.js");
-
+const haversine         = require('haversine-distance')
 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
@@ -30,6 +31,84 @@ exports.user_details = (req, res, next) => {
 			});
 		});
 };
+
+exports.my_addresses = (req, res, next) => {
+	var {user_id,latitude,longitude} = req.body;
+	User.findOne({ _id: user_id },{deliveryAddress:1})
+		.exec()
+		.then(async(user) => {
+			for(var i=0; i<=user.deliveryAddress.length; i++){
+				if(latitude && longitude){
+					user.deliveryAddress[i].distance= await calcDist(users.deliveryAddress[i].latitude,users.deliveryAddress[i].longitude, latitude, longitude);
+				}else{
+					user.deliveryAddress[i].distance= 0;
+				}
+			}
+			if(i>=deliveryAddress.length){
+				res.status(500).json(user);
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
+};
+
+function calcDist(addLat,addLng, userLat, userLng){
+    return new Promise(function(resolve,reject){
+        processDistance()
+
+        async function processDistance(){
+            //First point User Location
+            var userLocation = { lat: userLat, lng: userLng }
+
+            //Second point Vendor Location
+            var addLocation = { lat: addLat, lng: addLng }        
+            
+            //Distance in meters (default)
+            var distance_m = haversine(userLocation, addLocation);
+
+            //Distance in miles
+            var distance_miles = distance_m * 0.00062137119;
+
+            //Distance in kilometers
+            var distance_km = distance_m /1000; 
+            
+            //get unit of distance
+            var unitOfDistance = await getAdminPreferences();
+            if(unitOfDistance.toLowerCase() === "mile"){
+                resolve(distance_miles);
+            }else{
+                resolve(distance_km);
+            }            
+        }
+    });
+}
+
+
+/**=========== getAdminPreferences() ===========*/
+function getAdminPreferences(){
+    return new Promise(function(resolve,reject){
+        AdminPreferences.findOne()
+        .exec()
+        .then(adminPreferences=>{
+            if(adminPreferences !== null){
+                resolve(adminPreferences.unitOfDistance);
+            }else{
+                resolve(adminPreferences);
+            }            
+        })
+        .catch(err =>{
+            console.log("Error while fetching admin preferences => ",err);
+            reject(err)
+        });
+    });
+ }
+
+
+
 exports.get_user_details = (req, res, next) => {
 	var email = req.params.email;
 	User.findOne({ "profile.email": email })

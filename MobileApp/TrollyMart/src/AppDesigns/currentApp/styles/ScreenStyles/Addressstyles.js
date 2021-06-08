@@ -9,6 +9,9 @@ export default StyleSheet.create({
     flexDirection:'row',
     flex:1
   },
+  container:{
+    marginTop:15
+  },  
   imageMenuWraper:{ 
     borderWidth:1,borderColor:'#f1f1f1',borderRadius:5,width: 150, height:85, backgroundColor: '#ccc',marginRight:15
   },
@@ -258,7 +261,10 @@ export default StyleSheet.create({
     paddingHorizontal:2
   },
   ddStyle:{
-    fontFamily:"Montserrat-Regular"
+    fontFamily:"Montserrat-Regular",
+    borderColor:"#eee",
+    backgroundColor:"#fff",
+    borderWidth:1,
   },
   addsuperparent:{
     flex:1,backgroundColor:'#f1f1f1',

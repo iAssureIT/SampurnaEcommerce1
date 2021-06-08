@@ -39,13 +39,9 @@ export const Location = withCustomerToaster((props)=>{
         location      : store.location
       }));
       const {location} = store;
-        console.log("location",location);
-
     useEffect(async() => {
-        console.log("axios.get('/api/projectsettings/get/GOOGLE')",await axios.get('https://devapi.knock-knockeshop.com/api/projectsettings/get/GOOGLE'));
         axios.get('/api/projectsettings/get/GOOGLE')
         .then(async(response) => {
-            console.log("response",response);
             await setGoogleAPIKey(response.data.googleapikey);
             await Geocoder.init(response.data.googleapikey);
             if(type==="Auto"){
@@ -97,7 +93,42 @@ export const Location = withCustomerToaster((props)=>{
                         })
                         Geocoder.from(latitude, longitude)
                         .then(json => {
-                            var address = json.results[0].formatted_address;
+                            var details = json.results[0];
+                            console.log("details",details);
+                            for (var i = 0; i < details.address_components.length; i++) {
+                                for (var b = 0; b < details.address_components[i].types.length; b++) {
+                                    switch (details.address_components[i].types[b]) {
+                                    case 'sublocality_level_2':
+                                        var address = details.address_components[i].long_name;
+                                        break;
+                                    case 'sublocality_level_1':
+                                        var area = details.address_components[i].long_name;
+                                        break;
+                                    case 'locality':
+                                        var city = details.address_components[i].long_name;
+                                        break;
+                                    case 'administrative_area_level_1':
+                                        var state = details.address_components[i].long_name;
+                                        break;
+                                    case 'country':
+                                        var country = details.address_components[i].long_name;
+                                        break;
+                                    case 'postal_code':
+                                        var pincode = details.address_components[i].long_name;
+                                        break;
+                                    }
+                                }
+                            }
+                            var address = {
+                                'addressLine2'     : details.formatted_address,
+                                'area'              : area,
+                                'city'              : city,
+                                'state'             : state,
+                                'country'           : country,
+                                'pincode'           : pincode,
+                                'latlong'           : details.geometry.location
+                            }
+                            console.log("address",address);
                             setAddress(address);
                             // ref.current?.setAddressText(address);
                         })
@@ -139,9 +170,41 @@ export const Location = withCustomerToaster((props)=>{
             })
             Geocoder.from(coordinate.latitude,coordinate.longitude).then(
                 json => {
-                    console.log('json',json);
-                var address = json.results[0].formatted_address;
-                setAddress(address);
+                    var details = json.results[0];
+                    for (var i = 0; i < details.address_components.length; i++) {
+                        for (var b = 0; b < details.address_components[i].types.length; b++) {
+                            switch (details.address_components[i].types[b]) {
+                            case 'sublocality_level_2':
+                                var address = details.address_components[i].long_name;
+                                break;
+                            case 'sublocality_level_1':
+                                var area = details.address_components[i].long_name;
+                                break;
+                            case 'locality':
+                                var city = details.address_components[i].long_name;
+                                break;
+                            case 'administrative_area_level_1':
+                                var state = details.address_components[i].long_name;
+                                break;
+                            case 'country':
+                                var country = details.address_components[i].long_name;
+                                break;
+                            case 'postal_code':
+                                var pincode = details.address_components[i].long_name;
+                                break;
+                            }
+                        }
+                    }
+                    var address = {
+                        'addressLine2'     : details.formatted_address,
+                        'area'              : area,
+                        'city'              : city,
+                        'state'             : state,
+                        'country'           : country,
+                        'pincode'           : pincode,
+                        'latlong'           : details.geometry.location
+                    }
+                    setAddress(address);
                 setBtnLoading(false);
                 // ref.current?.setAddressText(address);
             },
@@ -152,11 +215,10 @@ export const Location = withCustomerToaster((props)=>{
       }
 
     const confirmLocation=()=>{
-        var payload = {"address":address,"coords":coords};
-        AsyncStorage.setItem('location',JSON.stringify(payload));
+        AsyncStorage.setItem('location',JSON.stringify(address));
         dispatch({
             type: SET_USER_ADDRESS,
-            payload:payload
+            payload:address
         })
         navigation.navigate('App');
     }  
@@ -175,16 +237,47 @@ export const Location = withCustomerToaster((props)=>{
             placeholder='Search for area street name...'
             onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
-                var address = details.formatted_address;
-                const latlong = details.geometry.location;
+                for (var i = 0; i < details.address_components.length; i++) {
+                    for (var b = 0; b < details.address_components[i].types.length; b++) {
+                        switch (details.address_components[i].types[b]) {
+                        case 'sublocality_level_2':
+                            var address = details.address_components[i].long_name;
+                            break;
+                        case 'sublocality_level_1':
+                            var area = details.address_components[i].long_name;
+                            break;
+                        case 'locality':
+                            var city = details.address_components[i].long_name;
+                            break;
+                        case 'administrative_area_level_1':
+                            var state = details.address_components[i].long_name;
+                            break;
+                        case 'country':
+                            var country = details.address_components[i].long_name;
+                            break;
+                        case 'postal_code':
+                            var pincode = details.address_components[i].long_name;
+                            break;
+                        }
+                    }
+                }
+                var address = {
+                    'addressLine2'      : details.formatted_address,
+                    'area'              : area,
+                    'city'              : city,
+                    'state'             : state,
+                    'country'           : country,
+                    'pincode'           : pincode,
+                    'latlong'           : details.geometry.location
+                }
                 setAddress(address);
-                setCoords({"latitude": latlong.lat,"longitude":latlong.lng});
-                ref.current?.setAddressText(address);
+                setCoords({"latitude": details.geometry.location.lat,"longitude":details.geometry.location.lng});
+                ref.current?.setAddressText(details.formatted_address);
                 setRegion({
-                    latitude: latlong.lat,
-                    longitude: latlong.lng,
-                    latitudeDelta: latlong.lat * 0.0001,
-                    longitudeDelta: latlong.lng * 0.0001 
+                    latitude: details.geometry.location.lat,
+                    longitude: details.geometry.location.lng,
+                    latitudeDelta: details.geometry.location.lat * 0.0001,
+                    longitudeDelta: details.geometry.location.lng * 0.0001 
                 })
             }}
             GoogleReverseGeocodingQuery
@@ -255,7 +348,7 @@ export const Location = withCustomerToaster((props)=>{
             <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5}}>Delivery Location</Text>
             <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>
                 <Icon name="crosshairs-gps" type='material-community' size={20} color="black" />
-                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>{region? address : "-"}</Text>
+                <Text numberOfLines={2} style={{flex:.98,fontFamily:"Montserrat-SemiBold",fontWeight:"bold"}}>{region? address.addressLine2 : "-"}</Text>
             </View>   
             <View style={{justifyContent:"flex-end"}}>
                 <FormButton
@@ -273,11 +366,11 @@ export const Location = withCustomerToaster((props)=>{
         </View>}    
          {region&&<MapView
                 provider={PROVIDER_GOOGLE}
-                mapType={Platform.OS == "android" ? "none" : "standard"}
+                mapType={Platform.OS == "android" ? "standard" : "standard"}
                 ref={map => map = map}
                 region = {region}
                 style={[{width:window.width,height:window.height}]}
-                onRegionChangeComplete={()=>    addMarker}
+                onRegionChangeComplete={addMarker}
                 customMapStyle={mapStyle}
            />}
        </View> 

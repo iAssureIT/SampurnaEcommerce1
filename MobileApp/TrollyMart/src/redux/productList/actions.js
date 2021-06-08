@@ -75,8 +75,8 @@ export const getCategoryWiseList = (payload) => {
         });
         const store = getState();
         payload.user_id         = store.userDetails.user_id;
-        payload.userLatitude    = store.location?.coords?.latitude,
-        payload.userLongitude   = store.location?.coords?.longitude,
+        payload.userLatitude    = store.location?.address?.latlong?.lat
+        payload.userLongitude   = store.location?.address?.latlong?.lng,
         console.log("payload",payload);
         axios.get("/api/category/get/list/"+payload.sectionUrl+"/"+payload.vendorID)
         .then((category)=>{

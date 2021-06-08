@@ -25,7 +25,7 @@ import FastImage              from 'react-native-fast-image';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
-  const {setToast,category_ID,loading,section_id,list_type,payload} = props; 
+  const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
@@ -40,9 +40,11 @@ export const ProductList = withCustomerToaster((props)=>{
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
-    stop_scroll     : store.productList.stop_scroll
+    stop_scroll     : store.productList.stop_scroll,
+    location        : store.location
   }));
   const {currency}=store.preferences;
+  console.log("location",location);
   const {stop_scroll}=store;
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
@@ -82,11 +84,15 @@ export const ProductList = withCustomerToaster((props)=>{
   const addToCart=(productid,vendor_ID,vendorName)=>{
     if(user_id){
       const formValues = {
-        "user_ID"     : user_id,
-        "product_ID"  : productid,
-        "vendor_ID"   : vendor_ID,
-        "quantity"    : packsizes === "" || 0 ? 1 : packsizes,
+        "user_ID"           : user_id,
+        "product_ID"        : productid,
+        "vendor_ID"         : vendor_ID,
+        "quantity"          : packsizes === "" || 0 ? 1 : packsizes,
+        "userLatitude"      : store.location?.address?.latlong?.lat,
+        "userLongitude"     : store.location?.address?.latlong?.lng,
+        "vendorLocation_id" : vendorLocation_id,
       }
+      console.log("formValues",formValues);
       axios
         .post('/api/Carts/post', formValues)
         .then((response) => {

@@ -15,7 +15,7 @@ import { connect,
         useDispatch,
         useSelector }             from 'react-redux';
 import {AppContainer,
-  AuthContainer}        from "../../config/routes.js";
+  AuthContainer,LocationContainer}        from "../../config/routes.js";
 import { SET_USER_ADDRESS}        from '../../redux/location/types';
 import { ActivityIndicator } from 'react-native-paper';
 
@@ -50,14 +50,17 @@ import { ActivityIndicator } from 'react-native-paper';
       }
     };
     return (
-      loading?
-      <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
-        <ActivityIndicator/>
-      </View>  
-      :
-      location ?
-      <AppContainer/>
-      :
-      <AuthContainer />
+        loading?
+          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
+            <ActivityIndicator/>
+          </View>  
+        :
+        user_id ?
+          location ?
+            <AppContainer/>
+          :
+          <LocationContainer/>
+        :
+        <AuthContainer/>
     );
 }
