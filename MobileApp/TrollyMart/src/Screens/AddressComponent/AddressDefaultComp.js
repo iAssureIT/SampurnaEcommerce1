@@ -58,7 +58,7 @@ import {setToast,
         "longitude"     : store.location?.address?.latlong?.lng,
       }
       console.log("formValues",formValues);
-      axios.get('/api/ecommusers/myaddresses',formValues)
+      axios.post('/api/ecommusers/myaddresses',formValues)
         .then((response) => {
           console.log("response",response);
           if (response.data.deliveryAddress.length > 0) {

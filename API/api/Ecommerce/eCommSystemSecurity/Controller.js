@@ -8,7 +8,6 @@ const Role = require('../../coreAdmin/rolesManagement/ModelRoles.js');
 const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
 const globalVariable = require("../../../nodemon.js");
 const haversine         = require('haversine-distance');
-const { Console } = require("node:console");
 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
@@ -41,7 +40,7 @@ exports.my_addresses = (req, res, next) => {
 		.then(async(user) => {
 			for(var i=0; i<=user.deliveryAddress.length; i++){
 				if(latitude && longitude){
-					user.deliveryAddress[i].distance= await calcDist(users.deliveryAddress[i].latitude,users.deliveryAddress[i].longitude, latitude, longitude);
+					user.deliveryAddress[i].distance= await calcDist(user.deliveryAddress[i].latitude,user.deliveryAddress[i].longitude, latitude, longitude);
 				}else{
 					user.deliveryAddress[i].distance= 0;
 				}
