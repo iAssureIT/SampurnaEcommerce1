@@ -22,24 +22,31 @@ class AddresssList extends React.Component {
   async componentDidMount(){       
 
   }  
+  getAddress(event){
+      event.preventDefault();
+      this.setState({
+          latitude  : event.target.getAttribute('latitude'),
+          longitude : event.target.getAttribute('longitude'),
+      })
+  }
    render() {
-    //  console.log("User Address list =>",this.props.userAddress);
+     console.log("User Address list =>",this.props.userAddress);
     return (
 		<div className="col-12 NoPadding ">
         <div className="col-12 NoPadding addressTitle pb-2 ">Shipping Address List</div>
         {this.props.userAddress && this.props.userAddress.length>=0?
             this.props.userAddress.map((data,index)=>{
+                console.log("address data==",data);
                 return(
                     <div className="col-12 NoPadding mb-4 singleAddressBlock">
-                        <input type="radio" checked={this.state.addressId === data._id} value={data._id} 
-                            onChange={(e)=>{
-                            this.setState({ 
-                                "addressId": e.target.value,
-                            },()=>{
-                                console.log("e.target.value===",e.target.value);
-                                console.log("addressId===",this.state.addressId);
-                            })
+                        <input type="radio" checked={data._id} value={data._id} 
+                            onChange={()=>{
+                                this.setState({
+                                    latitude : data.latitude,
+                                    longitude : data.longitude
+                                })
                             }}
+                            latitude={data.latitude} longitude={data.longitude}
                             name="checkoutAddess" pincode={data.pincode}  required className="codRadio"/>
                         <span className="myAddress"><b>{data.addType.split('(')[0]} Address&nbsp;</b> <br />                       
                         {data.addressLine2}, {data.addressLine1},

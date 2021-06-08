@@ -62,25 +62,28 @@ class ProductViewEcommerce extends Component {
 	}	  
 
 	async componentDidMount(){
-		const user_ID = localStorage.getItem("user_ID");
-		if(user_ID){
+		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails){
+            if(userDetails.user_id){
+				this.setState({
+					user_ID :  userDetails.user_id,
+				},()=>{
+					this.validation();
+					this.getWishData();
+					this.reviewAverage();
+					this.getMyReview();
+				})
+               
+            }
+        }
+		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
-				"userid":user_ID
-			},()=>{
-				this.validation();
-				this.getWishData();
-				this.reviewAverage();
-				this.getMyReview();
-			});
+				websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
+				showLoginAs  : sampurnaWebsiteDetails.preferences.showLoginAs
+			})
 		}
 		
-
-		// if ($('#loginFormModal').hasClass('in'))
-		// {
-		// 	console.log("The modal is currently fading in. Please wait.");
-		// }
-		const websiteModel = localStorage.getItem("websiteModel");      
-		const showLoginAs = localStorage.getItem("showLoginAs");   
 		var pageUrl = window.location.pathname;
 		let a = pageUrl ? pageUrl.split('/') : "";
 		const urlParam =a[4];
@@ -223,7 +226,7 @@ class ProductViewEcommerce extends Component {
 	}
 	getWishData(){
 		// console.log("getWishData userid====",this.state.userid +" " +this.state.productID);
-		axios.get("/api/wishlist/get/one/productwish/"+this.state.userid+"/" + this.state.productID)
+		axios.get("/api/wishlist/get/one/productwish/"+this.state.user_ID+"/" + this.state.productID)
 		.then((response) => {
 			// console.log("response====",response.data);
 			if(response.data){
@@ -250,8 +253,7 @@ class ProductViewEcommerce extends Component {
 	addtocart(event) {
 		event.preventDefault();	
 		// console.log("this.props.recentCartData",this.props)	
-		var user_ID = localStorage.getItem("user_ID");
-		if(user_ID){
+		if(this.state.user_ID){
 			if(this.props.recentCartData[0] && this.props.recentCartData[0].cartItems.length>0){
 				var cartLength = this.props.recentCartData[0].cartItems.length;
 				var productId = event.target.id;
@@ -277,14 +279,13 @@ class ProductViewEcommerce extends Component {
 			}
 			if(this.validation()){
 				var id = event.target.id;
-				const userid = localStorage.getItem('user_ID');
 				var availableQuantity = event.target.getAttribute('availableQuantity');
 				var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
 				var productCartData = recentCartData.filter((a)=>a.product_ID === id);
 				var quantityAdded = productCartData.length>0 ? productCartData[0].quantity : 0;
 				
 				const formValues = {
-					"user_ID": userid,
+					"user_ID": this.state.user_ID,
 					"product_ID": event.target.id,
 					"quantity": this.state.totalQuanity,
 				}
@@ -333,7 +334,7 @@ class ProductViewEcommerce extends Component {
 		}else{
 		//   var previousUrl = window.location.href;
 		// 	localStorage.setItem("previousUrl",previousUrl);
-			if(localStorage.getItem('websiteModel') && localStorage.getItem('showLoginAs')==='modal'){
+			if(this.state.websiteModel && this.state.showLoginAs==='modal'){
 				$('#loginFormModal').show();
 				}else{
 				this.setState({
@@ -357,16 +358,13 @@ class ProductViewEcommerce extends Component {
 	
 	addtowishlist(event) {
 		event.preventDefault();
-		var user_ID = localStorage.getItem('user_ID');
-		if (user_ID) {
+		if (this.state.user_ID) {
 			var id = event.target.id;
 			axios.get('/api/products/get/one/' + id)
 				.then((response) => {
-					const userid = localStorage.getItem('user_ID');
-					
 					const formValues =
 					{
-						"user_ID": userid,
+						"user_ID": this.state.user_ID,
 						"product_ID": response.data._id,
 					}
 
@@ -399,7 +397,7 @@ class ProductViewEcommerce extends Component {
 		} else {
 			var previousUrl = window.location.href;
       		localStorage.setItem("previousUrl",previousUrl);
-			  if(localStorage.getItem('websiteModel') && localStorage.getItem('showLoginAs')==='modal'){
+			  if(this.state.websiteModel && this.state.showLoginAs === 'modal'){
 				$('#loginFormModal').show();
 				}else{
 				this.setState({

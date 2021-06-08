@@ -29,7 +29,7 @@ class ProductDetailsEcommerce extends Component {
 	componentDidMount(){
 		// console.log("componentDidMount in product",this.props);
 		store.dispatch(setProductApiUrl(this.props.productApi))
-
+		
 		var pageUrl = window.location.pathname;
 		let a = pageUrl ? pageUrl.split('/') : "";
 		const urlParam =a[3];
