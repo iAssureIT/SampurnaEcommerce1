@@ -43,7 +43,6 @@ const userSchema = mongoose.Schema({
 					},
 	roles       : [String],
 	deliveryAddress : [
-		
 		{
 			"user_ID"      : String,
 			"name"         : String,
