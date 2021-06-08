@@ -7,7 +7,8 @@ const User = require('../../coreAdmin/userManagementnew/ModelUsers.js');
 const Role = require('../../coreAdmin/rolesManagement/ModelRoles.js');
 const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
 const globalVariable = require("../../../nodemon.js");
-const haversine         = require('haversine-distance')
+const haversine         = require('haversine-distance');
+const { Console } = require("node:console");
 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
@@ -33,8 +34,9 @@ exports.user_details = (req, res, next) => {
 };
 
 exports.my_addresses = (req, res, next) => {
+	console.log("req.body",req.body);
 	var {user_id,latitude,longitude} = req.body;
-	User.findOne({ _id: user_id },{deliveryAddress:1})
+	User.findOne({ _id: ObjectID(user_id)},{deliveryAddress:1})
 		.exec()
 		.then(async(user) => {
 			for(var i=0; i<=user.deliveryAddress.length; i++){

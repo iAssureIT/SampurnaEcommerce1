@@ -35,17 +35,32 @@ import {setToast,
     const [user_id,setUserId] = useState('');
     const dispatch = useDispatch();
     const {delivery,disabled}=route.params;
+    const store = useSelector(store => ({
+      location : store.location,
+    }));
+    
     useEffect(() => {
       getAddressList()
     },[props,isFocused]); 
   
+   
+
+    console.log("store",store)
   const getAddressList=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
     .then((data) => {
       console.log("data[1][1]",data[1][1]);
       setUserId(data[1][1]);
-      axios.get('/api/ecommusers/' + data[1][1])
+      
+      var formValues = {
+        "user_id" : data[1][1],
+        "latitude"      : store.location?.address?.latlong?.lat,
+        "longitude"     : store.location?.address?.latlong?.lng,
+      }
+      console.log("formValues",formValues);
+      axios.get('/api/ecommusers/myaddresses',formValues)
         .then((response) => {
+          console.log("response",response);
           if (response.data.deliveryAddress.length > 0) {
             var deliveryAddress = response.data.deliveryAddress;
             setDeliveryAddress(deliveryAddress);
