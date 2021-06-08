@@ -460,22 +460,22 @@ exports.add_delivery_address = (req, res, next) => {
 		{
 			$push: {
 				"deliveryAddress": [{
-					"name": req.body.name,
-					"email": req.body.email,
-					"addressLine1": req.body.addressLine1,
-					"addressLine2": req.body.addressLine2,
-					"pincode"     : req.body.pincode,
-					"area"        : req.body.area,
-					"district"    : req.body.district,
-					"city"        : req.body.city,
-					"stateCode"   : req.body.stateCode,
-					"state"       : req.body.state,
-					"countryCode" : req.body.countryCode,
-					"country"     : req.body.country,
-					"mobileNumber": req.body.mobileNumber,
-					"addType"     : req.body.addType,
-					"latitude"    : req.body.latitude,
-					"longitude"   : req.body.longitude
+					"name" 			: req.body.name,
+					"email"			: req.body.email,
+					"addressLine1"	: req.body.addressLine1,
+					"addressLine2"	: req.body.addressLine2,
+					"pincode"     	: req.body.pincode,
+					"area"        	: req.body.area,
+					"district"    	: req.body.district,
+					"city"        	: req.body.city,
+					"stateCode"   	: req.body.stateCode,
+					"state"       	: req.body.state,
+					"countryCode" 	: req.body.countryCode,
+					"country"     	: req.body.country,
+					"mobileNumber"	: req.body.mobileNumber,
+					"addType"     	: req.body.addType,
+					"latitude"    	: req.body.latitude,
+					"longitude"   	: req.body.longitude
 				}]
 			}
 		})

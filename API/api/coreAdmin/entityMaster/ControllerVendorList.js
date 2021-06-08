@@ -9,7 +9,7 @@ var ObjectId 		    = require('mongodb').ObjectID;
 
 
 exports.getVendorList = (req,res,next)=>{
-    // console.log("req.body => ", req.body);
+    console.log("req.body => ", req.body);
     
     Sections.find({"sectionUrl" : req.body.sectionUrl})
     .exec()
@@ -18,101 +18,101 @@ exports.getVendorList = (req,res,next)=>{
         var sectionName = sectiondata[0].section;
         
         if(sectiondata && sectiondata.length > 0){
-        Products.distinct("vendor_ID", {section_ID : section_ID} )
-        .then(uniqueVendors =>{  
-            console.log("uniqueVendors => ",uniqueVendors)
-            if(uniqueVendors && uniqueVendors.length > 0){
-                EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1, companyName:1, companyLogo : 1})              
-                .exec()
-                .then(vendorDetails=>{
-                    if(vendorDetails && vendorDetails.length > 0){
-                        var vendorLocations = [];
-                        const userLat       = req.body.latitude; 
-                        const userLong      = req.body.longitude; 
+           
+            Products.distinct("vendor_ID", {section_ID : section_ID} )
+            .then(uniqueVendors =>{ 
+                if(uniqueVendors && uniqueVendors.length > 0){
+                    
+                    EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations:1, companyName:1, companyLogo : 1})              
+                    .exec()
+                    .then(vendorDetails=>{
+                        
+                        if(vendorDetails && vendorDetails.length > 0){
+                            var vendorLocations = [];
+                            const userLat       = req.body.latitude; 
+                            const userLong      = req.body.longitude; 
 
-                        getVendorDistArray();
-                        async function getVendorDistArray() {
-                            for(var i=0; i<vendorDetails.length; i++){
-                                // console.log("vendorDetails => ",vendorDetails[i])
-                                if(vendorDetails[i].locations && vendorDetails[i].locations.length > 0){
-                                    
-                                    for(var j = 0; j < vendorDetails[i].locations.length; j++){
-                                        var vendor_ID           = vendorDetails[i]._id;
-                                        var vendorLogo          = vendorDetails[i].companyLogo[0];
-                                        var vendorName          = vendorDetails[i].companyName;
-                                        var address             = vendorDetails[i].locations[j].addressLine1;
-                                        var vendorLocation_id   = vendorDetails[i].locations[j]._id;
-                                        var vendorLat           = vendorDetails[i].locations[j].latitude;
-                                        var vendorLong          = vendorDetails[i].locations[j].longitude;
+                            getVendorDistArray();
+                            async function getVendorDistArray() {
+                                for(var i=0; i<vendorDetails.length; i++){
+                                    // console.log("vendorDetails => ",vendorDetails[i])
+                                    if(vendorDetails[i].locations && vendorDetails[i].locations.length > 0){
                                         
-                                        if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
-                                            var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, userLat, userLong);
+                                        for(var j = 0; j < vendorDetails[i].locations.length; j++){
+                                            var vendor_ID           = vendorDetails[i]._id;
+                                            var vendorLogo          = vendorDetails[i].companyLogo[0];
+                                            var vendorName          = vendorDetails[i].companyName;
+                                            var address             = vendorDetails[i].locations[j].addressLine1;
+                                            var vendorLocation_id   = vendorDetails[i].locations[j]._id;
+                                            var vendorLat           = vendorDetails[i].locations[j].latitude;
+                                            var vendorLong          = vendorDetails[i].locations[j].longitude;
+                                            
+                                            if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
+                                                var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, userLat, userLong);
+                                            }
+                                            
+                                            vendorDetails[i].locationsj = {
+                                                                                // ...vendorDetails[i].locations[j]._doc, 
+                                                                                "vendorLogo"        : vendorLogo,
+                                                                                "vendor_ID"         : vendor_ID, 
+                                                                                "vendorName"        : vendorName, 
+                                                                                "vendorAddress"     : address,
+                                                                                "vendorLocation_id" : vendorLocation_id,
+                                                                                "vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : ''
+                                                                            };
+                                            // console.log("vendorLocations => ",vendorDetails[i].locationsj);
+                                            vendorLocations.push(vendorDetails[i].locationsj);
                                         }
-                                        
-                                        vendorDetails[i].locationsj = {
-                                                                            // ...vendorDetails[i].locations[j]._doc, 
-                                                                            "vendorLogo"        : vendorLogo,
-                                                                            "vendor_ID"         : vendor_ID, 
-                                                                            "vendorName"        : vendorName, 
-                                                                            "vendorAddress"     : address,
-                                                                            "vendorLocation_id" : vendorLocation_id,
-                                                                            "vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : ''
-                                                                        };
-                                        // console.log("vendorLocations => ",vendorDetails[i].locationsj);
-                                        vendorLocations.push(vendorDetails[i].locationsj);
                                     }
                                 }
-                            }
-                            if(i >= vendorDetails.length){
-                                var distanceLimit = await getDistanceLimit();
-                                // console.log("distanceLimit=>",distanceLimit)
-                                // console.log("vendorLocations=>",vendorLocations)
-                                if(vendorLocations && vendorLocations.length > 0){
-                                    const key = 'vendor_ID';
-                                    if(userLat && userLong){
-                                        console.log("distanceLimit=> ",distanceLimit)
-                                        console.log("vendorLocations => ",vendorLocations);
-                                        if(distanceLimit){
-                                            var FinalVendorLocations = [...new Map(vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
-                                            console.log("FinalVendorLocations 1 =>",FinalVendorLocations)
-                                        }else{                                            
-                                            var FinalVendorLocations = [...new Map(vendorLocations.sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
-                                            console.log("FinalVendorLocations 2 =>",FinalVendorLocations)
+                                if(i >= vendorDetails.length){
+                                    var distanceLimit = await getDistanceLimit();
+                                    console.log("distanceLimit=>",distanceLimit)
+                                    console.log("vendorLocations=>",vendorLocations)
+                                    if(vendorLocations && vendorLocations.length > 0){
+                                        const key = 'vendor_ID';
+                                        if(userLat && userLong){
+                                            if(distanceLimit){
+                                                var FinalVendorLocations = [...new Map(vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
+                                                // console.log("FinalVendorLocations 1 =>",FinalVendorLocations)
+                                            }else{                                            
+                                                var FinalVendorLocations = [...new Map(vendorLocations.sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
+                                                // console.log("FinalVendorLocations 2 =>",FinalVendorLocations)
+                                            }
+                                        }else{
+                                            var FinalVendorLocations = [...new Map(vendorLocations.sort((a, b) => a.vendorName.localeCompare(b.vendorName)).map(item =>[item[key], item])).values()];
+                                            // console.log("FinalVendorLocations 3 =>",FinalVendorLocations)
                                         }
-                                    }else{
-                                        var FinalVendorLocations = [...new Map(vendorLocations.sort((a, b) => a.vendorName.localeCompare(b.vendorName)).map(item =>[item[key], item])).values()];
-                                        console.log("FinalVendorLocations 3 =>",FinalVendorLocations)
-                                    }
-                                    res.status(200).json(FinalVendorLocations);
-                                }                            
+                                        res.status(200).json(FinalVendorLocations);
+                                    }                            
+                                }
                             }
+                        }else{
+                            res.status(200).json({
+                                message : "200 Vendors Locations not found for Vendors of section  : "+sectionName, 
+                            });    
                         }
-                    }else{
-                        res.status(200).json({
-                            message : "200 Vendors Locations not found for Vendors of section  : "+sectionName, 
-                        });    
-                    }
-                })
-                .catch(err =>{
-                    console.log("Error while finding vendor's data => ",error);
-                    res.status(500).json({
-                        message : "500 Vendors Locations not found.",
-                        error   : err,
+                    })
+                    .catch(err =>{
+                        console.log("Error while finding vendor's data => ",error);
+                        res.status(500).json({
+                            message : "500 Vendors Locations not found.",
+                            error   : err,
+                        });
                     });
+                }else{
+                    res.status(200).json({
+                        message : "200 Unique Vendors not found for Section : "+sectionName, 
+                    });
+                }
+            })
+            .catch(error =>{
+                console.log ("Error While finding distinct products for selected vendor = ",error);
+                res.status(500).json({
+                    message : "500 Some problem occurred while finding Vendors for Section : "+sectionName,        
+                    error   : error
                 });
-            }else{
-                res.status(200).json({
-                    message : "200 Unique Vendors not found for Section : "+sectionName, 
-                });
-            }
-        })
-        .catch(error =>{
-            console.log ("Error While finding distinct products for selected vendor = ",error);
-            res.status(500).json({
-                message : "500 Some problem occurred while finding Vendors for Section : "+sectionName,        
-                error   : error
             });
-        });
         }else{
             res.status(200).json({
                 message : "200 Section not found : "+sectionName, 

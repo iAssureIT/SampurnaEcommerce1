@@ -2014,7 +2014,80 @@ exports.list_productby_subcategory = (req,res,next)=>{
     });
 };
 
+// exports.search_product = (req,res,next)=>{
+//     // console.log("req body in se// localStorage.setItem("pincode", response.data.pincode);arch ==>",req.body);
+//     // console.log("req params in search ==>",req.params);
+//     Products.find(
+//             {
+//                 "$and" : [
+//                 { "$or": 
+//                     [
+//                     {"productName"                : {'$regex' : req.params.searchstr , $options: "i"} },
+//                     {"brand"                      : {'$regex' : req.params.searchstr , $options: "i"} },
+//                     {"section"                    : {'$regex' : req.params.searchstr , $options: "i"} },
+//                     {"category"                   : {'$regex' : req.params.searchstr , $options: "i"} },
+//                     {"subCategory"                : {'$regex' : req.params.searchstr , $options: "i"} },
+//                     {"productDetails"             : {'$regex' : req.params.searchstr , $options: "i"} }, 
+//                     {"shortDescription"           : {'$regex' : req.params.searchstr , $options: "i"} }, 
+//                     {"featureList.feature"        : {'$regex' : req.params.searchstr , $options: "i"} }, 
+//                     {"attributes.attributeName"   : {'$regex' : req.params.searchstr , $options: "i"} },
+//                     {"attributes.attributeValue"  : {'$regex' : req.params.searchstr , $options: "i"} } 
+//                     ] 
+//                 },
+//                 { "$or": [{"status":"Publish"}] }
+//                 ]
+//             }
+//         )
+//     .limit(parseInt(req.params.limit))
+//     .exec()
+//     .then(products=>{
+//         // console.log("products",products);
+//         if(products){
+//             for (let k = 0; k < products.length; k++) {
+//                 products[k] = {...products[k]._doc, isWish:false};
+//             }
+//             if(req.params.user_id && req.params.user_id!=='null'){
+//                 Wishlists.find({user_ID:req.params.user_id})
+//                 .then(wish=>{
+//                     if(wish.length > 0){
+//                         for(var i=0; i<wish.length; i++){
+//                             for(var j=0; j<products.length; j++){
+//                                 if(String(wish[i].product_ID) === String(products[j]._id)){
+//                                     products[j]= {...products[j], isWish:true};
+//                                     break;
+//                                 }
+//                             }
+//                         }   
+//                         if(i >= wish.length){
+//                             res.status(200).json(products);
+//                         }       
+//                     }else{
+//                         res.status(200).json(products);
+//                     }
+//                  })
+//                  .catch(err =>{
+//                     console.log(err);
+//                     res.status(500).json({
+//                         error: err
+//                     });
+//                 });
+//             }else{
+//                 res.status(200).json(products);
+//             }    
+//         }else{
+//             res.status(200).json('Product Details not found');
+//         }
+//     })
+//     .catch(err =>{
+//         console.log(err);
+//         res.status(500).json({
+//             error : err
+//         });
+//     });
+// };
+
 exports.search_product = (req,res,next)=>{
+    console.log("req.body => ",req.body);
     // console.log("req body in se// localStorage.setItem("pincode", response.data.pincode);arch ==>",req.body);
     // console.log("req params in search ==>",req.params);
     Products.find(
@@ -2022,23 +2095,23 @@ exports.search_product = (req,res,next)=>{
                 "$and" : [
                 { "$or": 
                     [
-                    {"productName"                : {'$regex' : req.params.searchstr , $options: "i"} },
-                    {"brand"                      : {'$regex' : req.params.searchstr , $options: "i"} },
-                    {"section"                    : {'$regex' : req.params.searchstr , $options: "i"} },
-                    {"category"                   : {'$regex' : req.params.searchstr , $options: "i"} },
-                    {"subCategory"                : {'$regex' : req.params.searchstr , $options: "i"} },
-                    {"productDetails"             : {'$regex' : req.params.searchstr , $options: "i"} }, 
-                    {"shortDescription"           : {'$regex' : req.params.searchstr , $options: "i"} }, 
-                    {"featureList.feature"        : {'$regex' : req.params.searchstr , $options: "i"} }, 
-                    {"attributes.attributeName"   : {'$regex' : req.params.searchstr , $options: "i"} },
-                    {"attributes.attributeValue"  : {'$regex' : req.params.searchstr , $options: "i"} } 
+                    {"productName"                : {'$regex' : req.body.searchstr , $options: "i"} },
+                    {"brand"                      : {'$regex' : req.body.searchstr , $options: "i"} },
+                    {"section"                    : {'$regex' : req.body.searchstr , $options: "i"} },
+                    {"category"                   : {'$regex' : req.body.searchstr , $options: "i"} },
+                    {"subCategory"                : {'$regex' : req.body.searchstr , $options: "i"} },
+                    {"productDetails"             : {'$regex' : req.body.searchstr , $options: "i"} }, 
+                    {"shortDescription"           : {'$regex' : req.body.searchstr , $options: "i"} }, 
+                    {"featureList.feature"        : {'$regex' : req.body.searchstr , $options: "i"} }, 
+                    {"attributes.attributeName"   : {'$regex' : req.body.searchstr , $options: "i"} },
+                    {"attributes.attributeValue"  : {'$regex' : req.body.searchstr , $options: "i"} } 
                     ] 
                 },
                 { "$or": [{"status":"Publish"}] }
                 ]
             }
         )
-    .limit(parseInt(req.params.limit))
+    .limit(parseInt(req.body.limit))
     .exec()
     .then(products=>{
         // console.log("products",products);
@@ -2046,8 +2119,8 @@ exports.search_product = (req,res,next)=>{
             for (let k = 0; k < products.length; k++) {
                 products[k] = {...products[k]._doc, isWish:false};
             }
-            if(req.params.user_id && req.params.user_id!=='null'){
-                Wishlists.find({user_ID:req.params.user_id})
+            if(req.body.user_id && req.body.user_id!=='null'){
+                Wishlists.find({user_ID:req.body.user_id})
                 .then(wish=>{
                     if(wish.length > 0){
                         for(var i=0; i<wish.length; i++){
@@ -3678,26 +3751,29 @@ exports.checkItemCodeExists = (req,res,next)=>{
 
 exports.search_suggestion = async(req,res,next)=>{
     // console.log("req.body=>",req.body);
-    // Products.find({"section" : { "$regex": req.body.searchText, $options: "i"}},{category:1})
     var section     = await getSection(req.body.searchText);
     var category    = await getCategory(req.body.searchText);
-    var subCategory = await getSubCat(req.body.subCategory);
+    var subCategory = await getSubCat(req.body.searchText);
     var brand       = await getBrand(req.body.searchText);
     var product     = await getProduct(req.body.searchText);
-    var all         = await getAll(req.body.searchText);
-    var result      = section.concat(category).concat(subCategory).concat(brand).concat(product).concat(all);
+    // var all         = await getAll(req.body.searchText);
+    var result      = section.concat(category).concat(subCategory).concat(brand).concat(product);
+    // var result      = all;
     result          = result.filter(item => item !== undefined) 
     result          = [...new Set(result)]
+    console.log("result => ",result);
     res.status(200).json(result);
 }
 
 
 function getSection(searchText) {
     return new Promise(function(resolve,reject){  
-        Products.find({"section" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{section:1})
+        // Products.find({"section" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{section:1})
+        Products.find({"section" : {'$regex' : searchText , $options: "i"}},{section:1})
         .limit(10)
         .then(data =>{
             var section = data.map(a=>a.section);
+            console.log("section => ",section)
             resolve(section);
         })
         .catch(err =>{
@@ -3708,10 +3784,11 @@ function getSection(searchText) {
 }
 function getCategory(searchText) {
     return new Promise(function(resolve,reject){  
-        Products.find({"category" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{category:1})
+        Products.find({"category" : {'$regex' : searchText , $options: "i"}},{category:1})
         .limit(10)
         .then(data =>{
             var category = data.map(a=>a.category);
+            console.log("category => ",category)            
             resolve(category);
         })
         .catch(err =>{
@@ -3723,10 +3800,11 @@ function getCategory(searchText) {
 
 function getBrand(searchText) {
     return new Promise(function(resolve,reject){  
-        Products.find({"brand" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{brand:1})
+        Products.find({"brand" : {'$regex' : searchText , $options: "i"}},{brand:1})
         .limit(10)
         .then(data =>{
             var brand = data.map(a=>a.brand);
+            console.log("brand => ",brand)
             resolve(brand);
         })
         .catch(err =>{
@@ -3737,11 +3815,12 @@ function getBrand(searchText) {
 }
 function getProduct(searchText) {
     return new Promise(function(resolve,reject){  
-        Products.find({"productName" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{productName:1})
+        Products.find({"productName" : {'$regex' : searchText , $options: "i"}},{productName:1})
         .limit(10)
         .then(data =>{
             var productName = data.map(a=>a.productName);
             productName= [...new Set(productName)]
+            console.log("productName => ",productName)
             resolve(productName);
         })
         .catch(err =>{
@@ -3753,10 +3832,11 @@ function getProduct(searchText) {
 
 function getSubCat(searchText) {
     return new Promise(function(resolve,reject){  
-        Products.find({"subCategory" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{subCategory:1})
+        Products.find({"subCategory" : {'$regex' : searchText , $options: "i"}},{subCategory:1})
         .limit(10)
         .then(data =>{
             var subCategory = data.map(a=>a.subCategory);
+            console.log("subCategory => ",subCategory)
             resolve(subCategory);
         })
         .catch(err =>{
@@ -3788,6 +3868,7 @@ function getAll(searchText) {
         )
         .limit(10)
         .then(data =>{
+            console.log("data => ",data)
             var brand       = data.map(a=>a.brand);
             var section     = data.map(a=>a.section);
             var category    = data.map(a=>a.category);
