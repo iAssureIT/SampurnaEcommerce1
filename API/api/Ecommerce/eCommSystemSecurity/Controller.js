@@ -47,7 +47,7 @@ exports.my_addresses = (req, res, next) => {
 				}
 			}
 			if(i>=user.deliveryAddress.length){
-				res.status(500).json(user);
+				res.status(200).json(user);
 			}
 		})
 		.catch(err => {
