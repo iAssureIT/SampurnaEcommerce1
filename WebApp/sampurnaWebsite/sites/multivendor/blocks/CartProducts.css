@@ -21,6 +21,7 @@
     border: 1px solid #F7BB64;
 }
 
+
 .cartWishIcon:hover{
     color: #fff;
     cursor: pointer;
@@ -103,9 +104,6 @@
 .CouponCode{
     padding: 20px 20px;
 }
-.checkoutBtn{
-    margin-top: 40px;
-}
 .cartDelete{
     margin-top: 6px;
     border-radius: 4px;
@@ -122,12 +120,14 @@
     margin-bottom: 10px;
 }
 .cartSummary{
+    display: inline-block;
     margin-top: 15px;
     background: #eee;
     border: 1px solid #dedede;
     border-radius: 4px;
     margin-bottom: 10px;
     padding: 5px;
+    /* height: 170px; */
 }
 .summaryTable{
     color: #999;

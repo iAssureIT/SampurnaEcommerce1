@@ -90,7 +90,7 @@ class ProductViewEcommerce extends Component {
 		this.setState({
 			productID : urlParam
 		},()=>{
-			// console.log(this.state.productID)
+			console.log(this.state.productID)
 			axios.get("/api/products/get/one/" + this.state.productID)
 		.then((response) => {
 			this.setState({

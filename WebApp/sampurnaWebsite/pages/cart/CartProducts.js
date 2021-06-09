@@ -1,7 +1,8 @@
 import React, { Component }   from 'react';
 import $                      from 'jquery';
 import axios                  from 'axios';
-import Router                 from 'next/router'
+import Router                 from 'next/router';
+import Link                   from 'next/link';
 import { connect }            from 'react-redux';
 import {getCartData}          from '../../redux/actions/index.js'; 
 import  store                 from '../../redux/store.js'; 
@@ -440,74 +441,82 @@ class CartProducts extends Component{
                                     </div>
                                     <div className="col-12 CouponCode">
                                         <div className="row ">
-                                        <div className="col-9 mt-4">
-                                            <div className="col-4 offset-4 checkoutBtn">
-                                            {
-                                            this.state.minvalueshipping?
-                                                <div className="col-12 NoPadding">
-                                                { this.state.minvalueshipping <= this.props.recentCartData.paymentDetails.netPayableAmount  ?
-                                                    <button onClick={this.proceedToCheckout.bind(this)} className="col-12 globaleCommBtn btn cartCheckout NoPadding">
-                                                        PROCEED TO CHECKOUT
-                                                    </button>
-                                                    :
-                                                    <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout" disable>
+                                            <div className="col-9 mt-4 text-center">
+                                                <div className="col-12">
+                                                    <Link href="/">
+                                                        <a className="shoppingLink">Contiune Shopping</a>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                            <div className="col-3 NoPadding">
+                                                <div className="col-12  cartSummary ">
+                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                        <div className="row">
+                                                            <div className="col-8">Final Total Amount</div>
+                                                            <div className="col-4 textAlignRight">&nbsp;
+                                                            {this.state.currency} &nbsp;{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? parseInt(this.props.recentCartData.paymentDetails.netPayableAmount) : 0.00} </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                        <div className="row">
+                                                            <div className="col-8">Total Savings</div>
+                                                            <div className="col-4 textAlignRight">&nbsp; 
+                                                                {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00} 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                        <div className="row">
+                                                            <div className="col-8">Total Tax</div>
+                                                            <div className="col-4 textAlignRight">&nbsp; 
+                                                                {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00} 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                        <div className="row">
+                                                            <div className="col-8">Total Delivery Charges</div>
+                                                            <div className="col-4 textAlignRight">&nbsp; 
+                                                                {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                        <div className="row">
+                                                            <div className="col-8">Grand Total</div>
+                                                            <div className="col-4 textAlignRight">&nbsp;
+                                                                {this.state.currency} {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00} 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-12">
+                                                <div className="col-12 NoPadding checkoutBtn">
+                                                {
+                                                    this.state.minvalueshipping?
+                                                    <div className="col-12 NoPadding">
+                                                    { this.state.minvalueshipping <= this.props.recentCartData.paymentDetails.netPayableAmount  ?
+                                                        <button onClick={this.proceedToCheckout.bind(this)} className="col-12 globaleCommBtn btn cartCheckout NoPadding">
+                                                            PROCEED TO CHECKOUT
+                                                        </button>
+                                                        :
+                                                        <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout" disable>
+                                                            PROCEED TO CHECKOUT
+                                                        </button> 
+                                                    }
+                                                    </div>
+                                                :
+                                                    <button  className="col-12 btn globaleCommBtn blockcartCheckout" 
+                                                    onClick={this.proceedToCheckout.bind(this)}>
                                                         PROCEED TO CHECKOUT
                                                     </button> 
+
                                                 }
                                                 </div>
-                                            :
-                                                <button  className="col-12 btn globaleCommBtn blockcartCheckout" 
-                                                onClick={this.proceedToCheckout.bind(this)}>
-                                                    PROCEED TO CHECKOUT
-                                                </button> 
-
-                                            }
-                                            </div>
-                                            <div className="col-12 text-center couponMsg"> Proceed to checkout to apply discount coupon code </div>
-                                        </div>
-                                        <div className="col-3  cartSummary ">
-                                            <div className="col-12 totalAmounts mb-2 pull-right">
-                                                <div className="row">
-                                                    <div className="col-8">Final Total Amount</div>
-                                                    <div className="col-4 textAlignRight">&nbsp;
-                                                    {this.state.currency} &nbsp;{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? parseInt(this.props.recentCartData.paymentDetails.netPayableAmount) : 0.00} </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-12 totalAmounts mb-2 pull-right">
-                                                <div className="row">
-                                                    <div className="col-8">Total Savings</div>
-                                                    <div className="col-4 textAlignRight">&nbsp; 
-                                                        {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00} 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-12 totalAmounts mb-2 pull-right">
-                                                <div className="row">
-                                                    <div className="col-8">Total Tax</div>
-                                                    <div className="col-4 textAlignRight">&nbsp; 
-                                                        {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00} 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-12 totalAmounts mb-2 pull-right">
-                                                <div className="row">
-                                                    <div className="col-8">Total Delivery Charges</div>
-                                                    <div className="col-4 textAlignRight">&nbsp; 
-                                                        {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-12 totalAmounts mb-2 pull-right">
-                                                <div className="row">
-                                                    <div className="col-8">Grand Total</div>
-                                                    <div className="col-4 textAlignRight">&nbsp;
-                                                        {this.state.currency} {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00} 
-                                                    </div>
-                                                </div>
+                                                <div className="col-12 text-center couponMsg"> Proceed to checkout to apply discount coupon code </div>
                                             </div>
                                         </div>
-                                        
-                                    </div>                              
+                                        </div>                              
                                     </div>
                                 </div>                           
                             </div>  

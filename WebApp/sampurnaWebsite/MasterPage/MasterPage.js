@@ -4,8 +4,8 @@ import {connect}             from 'react-redux';
 import dynamic               from 'next/dynamic';
 import getConfig             from 'next/config';
 import Head                  from 'next/head'
-import ScrollTop             from '../Themes/Sampurna/blocks/StaticBlocks/ScrollTop/ScrollTop.js';
-import Banner                from '../Themes/Sampurna/blocks/3_BannerManagement/Banner/Banner.js';
+// import ScrollTop             from '../Themes/Sampurna/blocks/StaticBlocks/ScrollTop/ScrollTop.js';
+// import Banner                from '../Themes/Sampurna/blocks/3_BannerManagement/Banner/Banner.js';
 
 // import BlogCarousel from '../blockTemplate/BlogCarousel/BlogCarousel.js';
 

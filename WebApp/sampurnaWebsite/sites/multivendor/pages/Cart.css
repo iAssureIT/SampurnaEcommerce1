@@ -38,6 +38,9 @@
 .cartProductTable thead tr .itemth, .proWeight{ 
     text-align: center !important;
 }
+.shoppingLink{
+  font-size: 15px;
+}
 @media only screen and (device-width: 667px) {
   .cartProductDetail {
       padding: 0px 15px;

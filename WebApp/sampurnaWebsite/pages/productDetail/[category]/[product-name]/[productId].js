@@ -35,6 +35,8 @@ class ProductDetailsEcommerce extends Component {
 		const urlParam =a[3];
 		this.setState({
 			productID : urlParam
+		},()=>{
+			console.log("productID-",this.state.productID);
 		});
 
 	}

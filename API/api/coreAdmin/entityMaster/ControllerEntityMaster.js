@@ -1529,7 +1529,8 @@ exports.bulkUploadEntity = (req, res, next) => {
                         var str = "C"+parseInt(getnext)
                     }else if(entity[k].entityType == 'vendor'){
                     //    var str = "V"+parseInt(getnext)
-                    var str = parseInt(getnext)
+                        var str = parseInt(getnext)
+                        console.log("company Id => ",str)
                     }else if(entity[k].entityType == 'supplier'){ 
                         var str = "S"+parseInt(getnext)
                     }else{var str = 1}
@@ -1812,19 +1813,19 @@ exports.bulkUploadEntity = (req, res, next) => {
             }
         }
         // console.log("validData",validData);
-        EntityMaster.insertMany(validData)
-        .then(data => {
-            // console.log("Data *=> ",data)
-        })
-        .catch(err => {
-            console.log(err);
-        });
+        // EntityMaster.insertMany(validData)
+        // .then(data => {
+        //     // console.log("Data *=> ",data)
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // });
 
-        failedRecords.FailedRecords = invalidData;
-        failedRecords.fileName      = req.body.fileName;
-        failedRecords.totalRecords  = req.body.totalRecords;
+        // failedRecords.FailedRecords = invalidData;
+        // failedRecords.fileName      = req.body.fileName;
+        // failedRecords.totalRecords  = req.body.totalRecords;
 
-        await insertFailedRecords(failedRecords, req.body.updateBadData);
+        // await insertFailedRecords(failedRecords, req.body.updateBadData);
 
         res.status(200).json({
             "message"   : "Bulk upload process is completed successfully!",
