@@ -18,62 +18,62 @@ class AllOrdersList extends Component{
 		super(props);
 		this.state = {
 			                  
-			"tableHeading"             : {
-														orderNumber             : "Order Number",
-														orderDate             	: "Order Date",
-														customer    			: "Customer",
-														totalPrice         		: "Total Price",
-														// vendors 				: "Vendors",
-														vendorName  			: "Vendor Name",
-														vendorPrice 			: "Vendor Price",
-														vendorStatus 			: "Vendor Status",
-														changeVendorStatus 	    : "Change Vendor Status"
+			"tableHeading"     	: {
+									orderNumber             : "Order Number",
+									orderDate             	: "Order Date",
+									customer    			: "Customer",
+									totalPrice         		: "Total Price",
+									// vendors 				: "Vendors",
+									vendorName  			: "Vendor Name",
+									vendorPrice 			: "Vendor Price",
+									vendorStatus 			: "Vendor Status",
+									changeVendorStatus 	    : "Change Vendor Status"
 			},
-			"twoLevelHeader"            : {
-											apply : true,
-											firstHeaderData : [
-												{
-													heading 		: 'Order Details',
-													mergedColoums 	: 4,
-													// mergedRows 		: 1
-												},
-												// {
-												// 	heading 		: 'Order Date',
-												// 	mergedColoums 	: 1,
-												// 	mergedRows 		: 1
-												// },
-												// {
-												// 	heading 		: 'Customer',
-												// 	mergedColoums 	: 1,
-												// 	mergedRows 		: 1
-												// },
-												{
-													heading 		: 'Vendor',
-													mergedColoums 	: 3,
-													// mergedRows 		: 1
-												},
-												{
-													heading 		: '',
-													mergedColoums 	: 1,
-													// mergedRows 		: 1
-												},
-											]
+			"twoLevelHeader"    : {
+									apply : true,
+									firstHeaderData : [
+										{
+											heading 		: 'Order Details',
+											mergedColoums 	: 4,
+											// mergedRows 		: 1
+										},
+										// {
+										// 	heading 		: 'Order Date',
+										// 	mergedColoums 	: 1,
+										// 	mergedRows 		: 1
+										// },
+										// {
+										// 	heading 		: 'Customer',
+										// 	mergedColoums 	: 1,
+										// 	mergedRows 		: 1
+										// },
+										{
+											heading 		: 'Vendor',
+											mergedColoums 	: 4,
+											// mergedRows 		: 1
+										},
+										{
+											heading 		: '',
+											mergedColoums 	: 1,
+											// mergedRows 		: 1
+										},
+									]
 			},
-			"tableObjects"          	: {
-														// deleteMethod        	: 'delete',
-														// apiLink              	: '/api/category',
-														paginationApply      	: true,
-														searchApply          	: true,
-														// editUrl              	: '/project-master-data/',
-														// deleteUrl            	: '/project-master-data',
-														patchStatusUrl      	: '/api/category/patch/status',
-														// type                 	: 'Categories',
-														showAction 			 	: true
+			"tableObjects"      : {
+									// deleteMethod        	: 'delete',
+									// apiLink              	: '/api/category',
+									paginationApply      	: true,
+									searchApply          	: true,
+									// editUrl              	: '/project-master-data/',
+									// deleteUrl            	: '/project-master-data',
+									patchStatusUrl      	: '/api/category/patch/status',
+									// type                 	: 'Categories',
+									showAction 			 	: true
 			},
-			"startRange"            	: 0,
-			"limitRange"            	: 10,
-			"tableName"             	: 'AllOrders',
-			tableData 					: [],
+			"startRange"       	: 0,
+			"limitRange"        : 10,
+			"tableName"         : 'AllOrders',
+			tableData 			: [],
 		};
 	}
 
@@ -150,7 +150,7 @@ class AllOrdersList extends Component{
 					orderNumber     : a.orderID,
 					orderDate       : moment(a.createdAt).format("DD/MM/YYYY"),
 					customer     	: '<div><b>'+ a.userFullName +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
-					totalPrice  	: a.paymentDetails.currency + " " + a.paymentDetails.netPayableAmount,
+					totalPrice  	: a.paymentDetails.currency + " " + a.paymentDetails.netPayableAmount,					
 					vendorName   	: a.vendorOrders 
 										? 
 											(a.vendorOrders.map((b)=>{
@@ -166,12 +166,26 @@ class AllOrdersList extends Component{
 					vendorStatus   	: a.vendorOrders 
 										? 
 											(a.vendorOrders.map((b)=>{
+												var status = (b.deliveryStatus[b.deliveryStatus.length - 1].status).replace(/\s+/g, '-').toLowerCase()
+												console.log("b.deliveryStatus => ",b.deliveryStatus)
+												console.log("status => ",status)
 												return '<div>'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
 													? 
-														"<a aria-hidden='true' class='statusAction' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "' onclick=window.changeVendorOrderStatus('" + a._id + "-" + b.vendor_id + "')>" +(b.deliveryStatus[b.deliveryStatus.length - 1].status) + "</a>"
+														"<a aria-hidden='true' class='statusDiv  " + status + "'>" +(b.deliveryStatus[b.deliveryStatus.length - 1].status) + "</a>"
 													 
 													: 
 														'') + '</div>'
+											})).join(' ')
+										: [],
+					changeVendorStatus  : a.vendorOrders 
+										? 
+											(a.vendorOrders.map((b)=>{
+												// url = url.replace(/\s+/g, '-').toLowerCase();
+												
+												return(
+														"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "' onclick=window.changeVendorOrderStatus('" + a._id + "-" + b.vendor_id + "')> Change Status </div>"
+													 
+												)
 											})).join(' ')
 										: []
 				}
@@ -179,7 +193,7 @@ class AllOrdersList extends Component{
 			this.setState({
 				tableData : tableData
 			},()=>{
-				console.log("categories data => ",this.state.tableData);
+				console.log("order data => ",this.state.tableData);
 				if(this.state.category_id && this.state.category_id !== "undefined"){
 					this.getSubCategoryData();
 					// this.openSubCategoryModal(this.state.category_id);

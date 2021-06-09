@@ -104,7 +104,7 @@ router.get('/get/searchcount/:searchstr/:vendorID', 					checkAuth, productContr
 
 // router.get('/get/search/website/:searchstr/:user_id/:limit', 		    productController.search_product);
 
-router.post('/get/search/website/:searchstr/:user_id/:limit', 		    productController.search_product);
+router.post('/get/search/website', 		                                productController.search_product);
 
 router.post('/get/search/suggestion', 						            productController.search_suggestion);
 

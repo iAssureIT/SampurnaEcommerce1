@@ -295,3 +295,42 @@
 .statusAction{
  cursor: pointer;
 }
+.changeVendorStatusBtn{
+    background: #367ea8;
+    width: fit-content;
+    padding: 8px 15px;
+    font-size: 12px !important;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+.statusDiv{
+
+}
+.vendorOrderStatus{
+
+}
+.new, .new_order{
+
+}
+.delivered_and_paid {
+
+}
+.dispatched{
+
+}
+.delivery_initiated{
+
+}
+.dispatch_approved{
+
+}
+.inspection{
+
+}
+.packed{
+
+}
+.verified{
+
+}

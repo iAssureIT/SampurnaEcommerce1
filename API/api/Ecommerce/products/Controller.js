@@ -8,6 +8,7 @@ const Orders               = require('../orders/Model');
 const ProductInventory     = require('../ProductInventory/Model');
 const Carts                = require('../cart/Model');
 const Wishlists            = require('../wishlist/Model');
+const StorePreferences     = require('../../Ecommerce/StorePreferences/Model.js');
 const ExpenseTypeMaster    = require('../../coreAdmin/expenseTypeMaster/ModelExpenseTypeMaster');
 var ObjectId               = require('mongodb').ObjectID;
 var UnitOfMeasurmentMaster = require('../departmentMaster/ModelUnitofmeasurment');
@@ -149,10 +150,19 @@ exports.bulkUploadProduct = (req,res,next)=>{
                 if (inputSection !== '') { 
                     
                     if (allSectionsData && allSectionsData.length > 0) {
-                        const sectionExists = allSectionsData.some(sectiondata => sectiondata.section.toLowerCase() === inputSection.toLowerCase());
-                        
-                        if (!sectionExists) {
+                        // console.log("allSectionsData 1 => ",allSectionsData)
+                        // console.log("inputSection => ",inputSection)
+
+                        var sectionExists = allSectionsData.filter(function (e) {
+                            return e.section.toLowerCase() === inputSection.toLowerCase();
+                        }); 
+                        // const sectionExists = allSectionsData.some(sectiondata => sectiondata.section.toLowerCase() === inputSection.toLowerCase());
+                        // console.log("sectionExists => ",sectionExists)
+                        if (sectionExists && sectionExists.length > 0) {
                             var sectionObject = await sectionInsert(productData[k].section); 
+                            allSectionsData.push(sectionObject)
+                        }else{
+                            var sectionObject = await sectionInsert(productData[k].section);
                             allSectionsData.push(sectionObject)
                         }
                     }else{
@@ -161,11 +171,14 @@ exports.bulkUploadProduct = (req,res,next)=>{
                     }                   
                     
                     var inputCategory = productData[k].category.trim();
+                    // console.log("inputCategory => ",inputCategory)
+                    // console.log("allSectionsData => ",allSectionsData)
                     if (inputCategory !== undefined){                        
                         var section = allSectionsData.filter(function (e) {
                             return e.section.toLowerCase() === productData[k].section.toLowerCase();
                         });  
-
+                        // console.log("section => ",section)
+                        // console.log("section id => ",section[0]._id)
                         var categoryObject  = await categoryInsert(inputCategory, inputSubcategory, inputSection, section[0]._id, productData[k].categoryNameRlang);                        
                         var taxObject       = []
                         
@@ -180,7 +193,10 @@ exports.bulkUploadProduct = (req,res,next)=>{
                             if(typeof(productData[k].discountPercent) === 'number' && productData[k].discountPercent >= 0){
                                 if(typeof(productData[k].discountedPrice) === 'number' && productData[k].discountedPrice >= 0){
                                     if(typeof(productData[k].originalPrice) === 'number' && productData[k].originalPrice >= 0 ){
+                                        // console.log("productData[k].websiteModel => ",productData[k].websiteModel)
+                                        // console.log("productData[k].VendorCompanyID => ",productData[k].VendorCompanyID)
                                         if(productData[k].websiteModel === "MarketPlace"){
+                                            // console.log("EntityData => ",(EntityData && EntityData.length > 0 ))
                                             if(EntityData && EntityData.length > 0 ){
                                                 var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0],EntityData);
                                             }else{
@@ -212,8 +228,12 @@ exports.bulkUploadProduct = (req,res,next)=>{
                                remark += "Discount Percent should be number,";
                             }                            
                         }  
-                    }
-                }
+                    }else{
+                        remark += "Category not found,";
+                    } 
+                }else{
+                    remark += "Section not found,";
+                } 
             }
             
             if (productData[k].itemCode !== undefined) {
@@ -763,8 +783,15 @@ var insertProduct = async (section_ID, section, categoryObject, data,taxObject,E
             // console.log('vendorData',data.vendor);
             // console.log('vendorData',data.vendor);
             // console.log("productEntity",productEntity)
-            if(data.unit){
+            // console.log("unit from record => ",data.unit)
+            // console.log("(data.unit) => ",(data.unit))
+
+            if(data.unit !== undefined){
                var insertUOM = await insertUnitOfMeasurment(data.unit);
+            //    console.log("insertUOM => ",insertUOM)
+            }else{
+                var insertUOM = await insertUnitOfMeasurment("number");
+                // console.log("insertUOM => ",insertUOM)
             }
 
             if(data.vendor != undefined && data.vendor != ''){
@@ -2111,10 +2138,22 @@ exports.search_product = (req,res,next)=>{
                 ]
             }
         )
-    .limit(parseInt(req.body.limit))
+    // .limit(parseInt(req.body.limit))
     .exec()
-    .then(products=>{
-        // console.log("products",products);
+    .then(async(products)=>{
+        console.log("products",products.length);
+        var userLat         = req.body.userLatitude;
+        var userLong        = req.body.userLongitude;
+
+        var FinalVendorSequence = [];
+        if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
+            const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
+            
+            // console.log("uniqueVendors=> ",uniqueVendors);     
+            FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
+        }
+        console.log("FinalVendorSequence => ", FinalVendorSequence);
+
         if(products){
             for (let k = 0; k < products.length; k++) {
                 products[k] = {...products[k]._doc, isWish:false};
@@ -3108,18 +3147,29 @@ var insertUnitOfMeasurment = async(unit, created) =>{
         UnitOfMeasurmentMaster.find({})
         .exec()
         .then(data=>{
-            // console.log("departmentExists",data);
-            var departmentExists = data.filter((data)=>{
-                if ((data.unit).toLowerCase() === (unit).toLowerCase()) {
-                    return data;
-                }
-            })
+            // console.log("UnitOfMeasurmentMaster",data);
+            // console.log("unit => ",unit)
+            // console.log("isNaN(data.unit) => ",isNaN(parseInt(unit)))
+            if(isNaN(unit)){
+                var departmentExists = data.filter((data)=>{
+                    if ((data.unit).toLowerCase() === (unit).toLowerCase()) {
+                        return data;
+                    }
+                })
+            }else{
+                var departmentExists = data.filter((data)=>{
+                    // console.log("data.unit => ",unit)
+                    if ((data.unit).toLowerCase() === "number") {
+                        return data;                                           
+                    }
+                })
+            }
 
             // console.log("department Exists",departmentExists);
-            if (departmentExists.length>0) {
+            if (departmentExists && departmentExists.length > 0) {
                 // console.log("departmentExists length > 0")
                 departmentId = departmentExists[0]._id;
-                resolve( data._id );
+                resolve( departmentId );
             }else{
                     unitOfMeasurmentMaster = new UnitOfMeasurmentMaster({
                     _id             : new mongoose.Types.ObjectId(),
@@ -3129,9 +3179,9 @@ var insertUnitOfMeasurment = async(unit, created) =>{
                     createdAt       : new Date()
                 })
                 unitOfMeasurmentMaster.save()
-                .then(data=>{
+                .then(insertdata=>{
                     // console.log("saved");
-                    resolve( data._id );
+                    resolve( insertdata._id );
                 })
                 .catch(err =>{
                     reject(err); 
@@ -4255,19 +4305,31 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
                                 
                                 vendorDetails[i].locationsj =   {
                                                                     "vendor_ID"         : vendor_ID, 
-                                                                    "vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : ''
+                                                                    "vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : '',
+                                                                    "vendorLocation_id" : vendorDetails[i].locations[j]._id
                                                                 };
                                 vendorLocations.push(vendorDetails[i].locationsj);
                             }
                         }
                     }
                     if(i >= vendorDetails.length){
-                        const key = 'vendor_ID';
+                        const key           = 'vendor_ID';
+                        var distanceLimit   = await getDistanceLimit();
+
                         if(vendorLocations && vendorLocations.length > 0){
-                            // console.log("vendorLocations => ",vendorLocations);
-                            FinalVendorSequence           = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))] 
+                            console.log("distanceLimit => ",distanceLimit);
+                            console.log("vendorLocations => ",vendorLocations);
+                            // FinalVendorSequence           = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))] 
+                            if(distanceLimit){
+                                // var FinalVendorSequence = [...new Map(vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
+                                var FinalVendorSequence = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))];
+                                console.log("FinalVendorSequence 1 =>",FinalVendorSequence)
+                            }else{
+                                // var FinalVendorSequence  = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item =>[item[key], item])).values()] 
+                                var FinalVendorSequence  = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))];
+                                console.log("FinalVendorSequence => 2 ",FinalVendorSequence);
+                            }
                             resolve(FinalVendorSequence)
-                            // console.log("FinalVendorSequence => ",FinalVendorSequence);
                         }                            
                     }
                 }
@@ -4282,3 +4344,23 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
         });
     })
 }
+
+
+/**=========== getDistanceLimit() ===========*/
+function getDistanceLimit(){
+    return new Promise(function(resolve,reject){
+        StorePreferences.findOne({},{"maxRadius" : 1})
+        .exec()
+        .then(storePreferences=>{
+            if(storePreferences && storePreferences.maxRadius){
+                resolve(parseInt(storePreferences.maxRadius));
+            }else{
+                resolve(0);
+            }            
+        })
+        .catch(err =>{
+            console.log("Error => ",err);
+            reject(err)
+        });
+    });
+ }
