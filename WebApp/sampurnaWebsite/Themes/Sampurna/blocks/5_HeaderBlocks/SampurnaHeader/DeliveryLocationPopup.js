@@ -70,7 +70,7 @@ class DeliveryLocationPopup extends React.Component {
         if(userId){
         axios.get("/api/ecommusers/" +userId)
             .then((response) => {
-                console.log('userData address res', response.data.deliveryAddress);
+                // console.log('userData address res', response.data.deliveryAddress);
                 if(response.data){
                     this.setState({
                         "userAddress"    : response.data.deliveryAddress,
@@ -78,7 +78,7 @@ class DeliveryLocationPopup extends React.Component {
                         "mobileNumber"   : response.data.profile.mobile,
                         "email"          : response.data.profile.email
                     },()=>{
-                        console.log("userAddress=",this.state.userAddress);
+                        // console.log("userAddress=",this.state.userAddress);
                     });
                 }
             })
@@ -125,7 +125,7 @@ class DeliveryLocationPopup extends React.Component {
                                 })
                             }
                             var details = response.results[0];
-                            console.log("details",details);
+                            // console.log("details",details);
                             for (var i = 0; i < details.address_components.length; i++) {
                                 for (var b = 0; b < details.address_components[i].types.length; b++) {
                                     switch (details.address_components[i].types[b]) {
@@ -162,10 +162,10 @@ class DeliveryLocationPopup extends React.Component {
                             }
                             if(deliveryLocation){
                                 if(that.props.sampurnaWebsiteDetails){
-                                    console.log("deliveryLocation=",deliveryLocation);
+                                    // console.log("deliveryLocation=",deliveryLocation);
                                     var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
                                     sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                                    console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+                                    // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
                                 }else{
                                     var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
                                 }
@@ -236,7 +236,7 @@ class DeliveryLocationPopup extends React.Component {
         geocodeByAddress(address)
             .then((results) => {
                 if (results) {
-                    console.log("result ===",results);
+                    // console.log("result ===",results);
                     for (var i = 0; i < results[0].address_components.length; i++) {
                         for (var b = 0; b < results[0].address_components[i].types.length; b++) {
                             switch (results[0].address_components[i].types[b]) {

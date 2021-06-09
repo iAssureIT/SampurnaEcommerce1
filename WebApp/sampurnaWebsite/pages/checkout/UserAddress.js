@@ -133,6 +133,8 @@ class UserAddress extends Component {
                             //     })
                             // }, 3000);
                             swal("Thank You!!! Address Save successfuly");
+                            window.location.reload();
+                            
                             })
                             .catch((error)=>{
                                 console.log('error', error)

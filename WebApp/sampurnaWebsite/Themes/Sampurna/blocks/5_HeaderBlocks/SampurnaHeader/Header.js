@@ -49,7 +49,10 @@ class Header extends React.Component {
                                 <div className="col-12 top-header">
                                     <div className="row logoWrap"> 
                                                                 
-                                        <Websitelogo />
+                                        
+                                        <div className="col-2">
+                                            <Websitelogo />
+                                        </div>
 
                                         <SearchBar />
 

@@ -42,9 +42,11 @@ export default function App({pageData}) {
                         <nav className="navbar navbar-expand-md navbar-dark megamenu">
                             <div className="col-12 NoPadding ">
                                 <div className="col-12 top-header">
-                                    <div className="row headeLogoWrap mt-4">                
-                                          <Websitelogo />
-                                          <div className="ml-4 mr-4 col-12 col-sm-7 text-center searchTitle"> <h2>Search Your Location</h2></div>
+                                    <div className="row headeLogoWrap mt-4">  
+                                          <div className="col-2">
+                                              <Websitelogo />
+                                          </div>  
+                                          <div className="ml-4 mr-4 col-7 text-center searchTitle"> <h2>Search Your Location</h2></div>
                                           {/* <SearchBar /> */}
                                     </div>
                                 </div>                                                    

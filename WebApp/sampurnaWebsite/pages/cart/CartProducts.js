@@ -319,13 +319,13 @@ class CartProducts extends Component{
                                     <div className="col-12">
                                     {    
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
-                                        console.log("vendorWiseCartData==",vendorWiseCartData);
+                                        // console.log("vendorWiseCartData==",vendorWiseCartData);
                                         return(  
                                             <div className="row" key={index}>
                                                 <div className="col-9">
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
-                                                        console.log("vendorData=>",vendorData);
+                                                        // console.log("vendorData=>",vendorData);
                                                     return(
                                                         <div key={index}>
                                                             <div className="col-12">
@@ -525,7 +525,7 @@ class CartProducts extends Component{
     }
 }
 const mapStateToProps = state => (
-    console.log("state in cartProductsdata====",state.data.recentCartData),
+    // console.log("state in cartProductsdata====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

@@ -46,7 +46,7 @@ router.patch('/patch/dispatchOrder', 															checkAuth, orderController.d
 
 router.get('/get/listbyba/:ba_ID', 																checkAuth, orderController.list_order_by_ba);
 
-router.patch('/get/cancelOrder', 																checkAuth, orderController.cancelOrder);
+router.patch('/get/cancelOrder', 																orderController.cancelOrder);
  
 router.patch('/get/returnOrder', 																checkAuth, orderController.returnOrder);
 

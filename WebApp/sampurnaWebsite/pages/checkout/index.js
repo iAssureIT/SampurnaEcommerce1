@@ -15,10 +15,10 @@ import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/
 import { connect }          from 'react-redux';
 import {getCartData}        from '../../redux/actions/index.js'; 
 import  store               from '../../redux/store.js'; 
-
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
-import moment from 'moment';
-import swal from 'sweetalert';
+import moment               from 'moment';
+import swal                 from 'sweetalert';
+import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 
 class Checkout extends Component {
     constructor(props) {
@@ -67,6 +67,12 @@ class Checkout extends Component {
     async componentDidMount() {
         await this.props.fetchCartData();
         var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.deliveryLocation){
+            this.setState({
+                latitude   : sampurnaWebsiteDetails.deliveryLocation.latitude,
+                longitude  : sampurnaWebsiteDetails.deliveryLocation.longitude
+            })
+        }
         var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
         this.setState({
@@ -76,10 +82,10 @@ class Checkout extends Component {
             websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
             currency     : currency,
         },()=>{
-            this.getUserAddress();
+            // this.getUserAddress();
+            this.getAddressWithDistanceLimit();
             // console.log("currency=",this.state.currency);
         })
-        
         // this.getCartData();
         this.gettimes(this.state.startRange, this.state.limitRange);        
         axios.get('/api/users/get/' + this.state.user_ID)
@@ -93,83 +99,50 @@ class Checkout extends Component {
                 console.log('Errr', err);
             })
     }
+    getAddressWithDistanceLimit(){
+
+        var formValues = {
+            "user_id"       : this.state.user_ID,
+            "latitude"      : this.state.latitude,
+            "longitude"     : this.state.longitude,
+        }
+        console.log("formValues=>",formValues);
+        axios.post('/api/ecommusers/myaddresses',formValues)
+        .then(response => {
+            if(response){
+                console.log("distanceResponse=>",response);
+                this.setState({
+                    "deliveryAddress": response.data.deliveryAddress,
+                    // "username": response.data.profile.fullName,
+                    // "mobileNumber": response.data.profile.mobile,
+                    // "email": response.data.profile.email
+                },()=>{
+                    let fields = this.state.fields;
+                    // fields["username"] = response.data.profile.fullName;
+                    // fields["mobileNumber"] = response.data.profile.mobile;
+                    // fields["email"] = response.data.profile.email;   
+                    // fields["addressLine2 "] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addressLine2 :  null;   
+                                    
+                    // fields["pincode"] = response.data.profile.pincode;
+                    // fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
+                    // fields["paymentmethods"] = 'cod';
+                    this.setState({
+                        fields
+                    });
+                });
+            }
+        })
+        .catch({
+
+        })
+
+    }
     
     validateForm() {
 		let fields = this.state.fields;
 		let errors = {};
         let formIsValid = true;	
-        	
-		if (!fields["username"]) {
-            formIsValid = false;
-            errors["username"] = "This field is required.";
-        }
-        if (typeof fields["username"] !== "undefined") {			
-        //regular expression for username validation
-        var pattern = new RegExp(/^[A-za-z']+( [A-Za-z']+)*$/)
-        if (!pattern.test(fields["username"])) {
-            formIsValid = false;
-            errors["username"] = "Name should only contain letters.";
-        }else{
-            errors["username"] = "";
-        }
-        }
-
-        if (!fields["email"]) {
-			formIsValid = false;
-			errors["email"] = "Please enter your email.";
-		  }
-		  if (typeof fields["email"] !== "undefined") {
-			//regular expression for email validation
-			var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-			if (!pattern.test(fields["email"])) {
-			  formIsValid = false;
-			  errors["email"] = "Please enter valid email.";
-			}
-		  }
-	  
-		if (!fields["mobileNumber"]) {
-			formIsValid = false;
-			errors["mobileNumber"] = "This field is required.";
-		}
-		if (typeof fields["mobileNumber"] !== "undefined") {
-			//regular expression for email validation
-			var pattern = new RegExp(/^([7-9][0-9]{9})$/)
-			if (!pattern.test(fields["mobileNumber"])) {
-			  formIsValid = false;
-			  errors["mobileNumber"] = "Please enter valid mobile number.";
-			}
-        }
         
-        // for house no
-        // if (typeof fields["addressLine2"] === "undefined") {           
-        //     if (fields["addressLine2"] === undefined) {
-		// 	  formIsValid = false;
-		// 	  errors["addressLine2"] = "This feild is required";
-		// 	}
-        // }
-
-        // if (typeof fields["addressLine1"] === "undefined") {
-        //     console.log("addressLine1",fields["addressLine1"])
-        //     if (fields["addressLine1"] === undefined) {
-		// 	  formIsValid = false;
-		// 	  errors["addressLine1"] = "This feild is required";
-		// 	}
-        // }
-
-        // if (fields["pincode"]==="") {
-		// 	formIsValid = false;
-		// 	errors["pincode"] = "This field is required.";
-		// }
-		// if (typeof fields["pincode"] !== "undefined") {
-        //     var pattern = new RegExp(/^[1-9][0-9]{5}$/);
-        //     console.log("pattern.test(fields)==",pattern.test(fields["pincode"]));
-        //     console.log("pattern.test(fields)==", fields["pincode"]);
-		// 	if (pattern.test(fields["pincode"])) {
-		// 	  formIsValid = false;
-		// 	  errors["pincode"] = "Please enter 6 digit pincode.";
-		// 	}
-        // }
-
         if (!fields["addType"]) {
             formIsValid = false;
             errors["addType"] = "Please select Address type.";
@@ -187,23 +160,18 @@ class Checkout extends Component {
             formIsValid = false;
             errors["paymentmethods"] = "Please select payment method.";
         }
-        // if (!fields["checkoutAddess"]) {
-        //     formIsValid = false;
-        //     errors["checkoutAddess"] = "Please select your address.";
-        // }
-        
-
         this.setState({
             errors: errors
           });
-          return formIsValid;
+        //   return formIsValid;
+        return true;
         }
         
     getUserAddress() {
         if(this.state.user_ID){
         axios.get("/api/ecommusers/" +this.state.user_ID)
             .then((response) => {
-                // console.log('userData res', response.data.deliveryAddress);
+                console.log('userData res', response.data.deliveryAddress);
                 
                 this.setState({
                     "deliveryAddress": response.data.deliveryAddress,
@@ -248,7 +216,7 @@ class Checkout extends Component {
         });
 
         let fields = this.state.fields;
-        console.log("event.target.value===",isChecked);
+        // console.log("event.target.value===",isChecked);
 		fields[event.target.name] = isChecked;
 		this.setState({
 		  fields
@@ -326,7 +294,7 @@ class Checkout extends Component {
         event.preventDefault();        
         var addressValues = {};
         var vendorOrders = this.props.recentCartData.vendorOrders;
-        console.log("this.props.recentCartData.vendorOrders==",this.props.recentCartData.vendorOrders);
+        // console.log("this.props.recentCartData.vendorOrders==",this.props.recentCartData.vendorOrders);
         for(var i = 0; i<vendorOrders.length;i++){ 
             vendorOrders[i].products =[];
             if(vendorOrders[i].cartItems){
@@ -789,7 +757,7 @@ class Checkout extends Component {
     applyCoupon(event){
         event.preventDefault();
         var couponCode = this.refs.couponCode.value;
-        console.log("couponCode===",couponCode);
+        // console.log("couponCode===",couponCode);
         var userDetails = JSON.parse(localStorage.getItem('userDetails'));
         var userId = userDetails.user_id;
             var payload={
@@ -827,15 +795,20 @@ class Checkout extends Component {
                         </div> 
                     </div>                     */}
                     {/* <Address opDone={this.opDones.bind(this)} /> */}
-                    <div className="modal addressModal col-6 offset-3 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">  
-                        <div className="modal-content loginModalContent  loginBackImageHeight" style={{'background': '#fff'}}>    
-                            <div className="modal-header checkoutAddressModal globalBgColor1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                {/* <img src="../../../sites/currentSite/images/Icon.png" /> */}
-                                <img src={'images/eCommerce/logo.png'} />
-                                <button type="button" className="close"  data-dismiss="modal">&times;</button>  
-                                <h4 className="modal-title modalheadingcont">ADDRESS</h4>
+                    <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">  
+                        <div className="modal-content loginModalContent " style={{'background': '#fff'}}>    
+                            <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
+                                <div className="col-4">
+                                    < WebsiteLogo />
+                                </div>
+                                <div className="col-7 text-center">
+                                    <h6 className="modal-title modalheadingcont">SHIPPING ADDRESS</h6>
+                                </div>
+                                <div className="col-1 text-center">
+                                    <button type="button" className="close"  data-dismiss="modal">&times;</button> 
+                                </div>
                             </div>                        
-                            <div className="modal-body">
+                            <div className="modal-body addressModalBody">
                                 <UserAddress />
                             </div>
                         </div>
@@ -878,42 +851,31 @@ class Checkout extends Component {
                                                 </div>
                                                 {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
                                                     this.state.deliveryAddress.map((data, index) => {
-                                                        // console.log("checked ==", this.state.addressId === data._id);
+                                                        // console.log("address data ==", data);
                                                         return (
-                                                            <div key={'check' + index} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 notAvailable" id={data._id}>Delivery is not possible on this address</div> */}
-                                                                <div className="errorMsg">{this.state.errors.checkoutAddess}</div>
-                                                                {this.state.websiteModel === 'FranchiseModel'?
-                                                                <input type="radio" checked={this.state.addressId === data._id} value={data._id} name="checkoutAddess" pincode={data.pincode} required onChange={this.checkDelivery.bind(this)} className="codRadio" />
-                                                                : 
-                                                                this.state.addressId === data._id  ? 
-                                                                <input type="radio" checked={this.state.addressId === data._id} value={data._id} 
-                                                                 onChange={(e)=>{
-                                                                    this.setState({ 
-                                                                        "addressId": e.target.value,
-                                                                    },()=>{
-                                                                        console.log("e.target.value===",e.target.value);
-                                                                        console.log("addressId===",this.state.addressId);
-                                                                    })
-                                                                 }}
-                                                                 name="checkoutAddess" pincode={data.pincode}  required className="codRadio"/>
-                                                                 :
-                                                                 <input type="radio" checked={index===0?true:false} value={data._id} 
-                                                                 onChange={(e)=>{
-                                                                    this.setState({
-                                                                        "addressId": e.target.value,
-                                                                    },()=>{
-                                                                        // console.log("e.target.value===",e.target.value);
-                                                                        // console.log("addressId===",this.state.addressId);
-                                                                    })
-                                                                 }}
-                                                                 name="checkoutAddess" pincode={data.pincode}  required className="codRadio"/>
-                                                                
-                                                                }
-                                                                <span className="checkoutADDCss"><b>{data.addType} Address&nbsp;</b> <br />
+                                                            <div key={'check' + index} className="col-12">
+                                                                <div className="row " >
+                                                                <div className="form-check col-1">
+                                                                    <input type="radio" className="form-check-input" disabled={data.distance <=1 ?false: true} name="selectAddress" id={"address"+index} value={data._id} 
+                                                                    onChange={(e)=>{
+                                                                        this.setState({
+                                                                            "addressId": e.target.value,
+                                                                        },()=>{
+                                                                            // console.log("e.target.value===",e.target.value);
+                                                                            // console.log("addressId===",this.state.addressId);
+                                                                        })
+                                                                    }}
+                                                                    name="checkoutAddess" pincode={data.pincode}  required className="codRadio"/>
+                                                                </div>
+                                                                <div className="checkoutADDCss col-11"><b>{data.addType} Address&nbsp;</b> <br />
                                                                     <span className="checkoutADDCss">Name : {data.name}.</span> <br />
                                                                     {data.addressLine2}, {data.addressLine1},
-                                                                    Mobile: {data.mobileNumber} <br /><br /></span>
+                                                                    Mobile: {data.mobileNumber}</div>
+                                                                </div>
+                                                                { data.distance >=1?
+                                                                    <div className="errorMsg col-12 NoPadding">This address is out of delivery.</div>
+                                                                 :null
+                                                                 } 
                                                             </div>
                                                         );
                                                     })
@@ -922,7 +884,7 @@ class Checkout extends Component {
                                                 }
                                             </div>
                                             <div className="col-12 mt2">
-                                                <button className="btn globaleCommBtn col-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</button>
+                                                <div className="btn globaleCommBtn col-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
                                             </div>
                                         </div>
                                         :
@@ -1101,7 +1063,7 @@ class Checkout extends Component {
                                                 <div className="row">
                                                     <div className="col-md-7 col-xl-7 col-12 shippingtimes">
                                                         <div className="row">
-                                                            <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" required />  &nbsp;
+                                                            <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />  &nbsp;
                                                             <div className="col-12 col-xl-10 col-md-10 termsWrapper">
                                                                 <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree, to the Terms & Conditions</span> <span className="required">*</span>
                                                             </div>

@@ -1405,7 +1405,7 @@ exports.list_order_by_user = (req, res, next) => {
 	 });
 };
 exports.cancelOrder = (req, res, next) => {
-  //console.log("Order cancelled");
+  console.log("Order cancelled");
   Orders.updateOne(
 	 { _id: req.body.orderID },
 	 {
@@ -1422,7 +1422,7 @@ exports.cancelOrder = (req, res, next) => {
   )
 	 .exec()
 	 .then(data => {
-		// console.log(data);
+		console.log(data);
 		if (data.nModified == 1) {
 		  res.status(200).json({
 			 "message": "Order is cancelled Successfully.",

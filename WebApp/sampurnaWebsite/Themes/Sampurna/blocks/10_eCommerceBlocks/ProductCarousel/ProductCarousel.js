@@ -120,7 +120,6 @@ class ProductCarousel extends Component {
 		}
   }
   async componentDidMount(){
-    console.log("inside productCarousel");
     var formValues = {};
     var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -147,7 +146,7 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
-    console.log("url===",url);
+    // console.log("url===",url);
     if(url[4] !== "undefined"){
       var vendor_ID              = url[4];
       var vendorlocation_ID      = url[5];
@@ -178,7 +177,7 @@ class ProductCarousel extends Component {
     axios.get('/api/blocks/get/'+this.props.block_id)    
     .then((response)=>{
       if(response.data){
-      console.log("1.blocks response data=>",response.data);                
+      // console.log("1.blocks response data=>",response.data);                
       this.setState({
           blockSettings   : response.data.blockSettings,  
           productSetting  : response.data.productSettings,   
@@ -186,7 +185,7 @@ class ProductCarousel extends Component {
         
       },async ()=>{
         if(this.state.blockSettings.showCarousel === false){
-          console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
+          // console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
           
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
           .then((categoryResponse)=>{
@@ -215,7 +214,6 @@ class ProductCarousel extends Component {
           })
           
         }else{
-          console.log("formValues=>",formValues);
           formValues = {
             "vendor_ID"         : "",
             "vendorLocation_id" : "",
@@ -227,12 +225,12 @@ class ProductCarousel extends Component {
             "startRange"        : this.state.startRange,
             "limitRange"        : this.state.limitRange,
             }
-            console.log("formValues=>",formValues);
+            // console.log("formValues=>",formValues);
         }
 
         if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
-          console.log("productlist productApiUrl===",productApiUrl);
+          // console.log("productlist productApiUrl===",productApiUrl);
         }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
           // console.log("productApiUrl===",productApiUrl);
@@ -241,7 +239,7 @@ class ProductCarousel extends Component {
             // console.log("productApiUrl===",productApiUrl);
         }
         if(productApiUrl){
-          console.log("formValues=>",formValues);
+          // console.log("formValues=>",formValues);
           this.getProductList(productApiUrl,formValues);
       }//end productApiUrl
       });

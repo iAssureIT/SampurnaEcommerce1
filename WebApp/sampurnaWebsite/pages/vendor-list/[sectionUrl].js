@@ -8,7 +8,6 @@ import { components }       from 'react-select';
 import Style                from "./vendor-list.module.css";
 import { useRouter }        from 'next/router';
 
-
 const VendorList = ()=> {
     const [vendorList,setVendorList] = useState([]);
     const [categoryList,setCategoryList] = useState([]);
@@ -36,7 +35,7 @@ const VendorList = ()=> {
                 }
             }
         }
-        
+        console.log("vendor list FormValues=>",formValues);
         axios.post("/api/vendorlist/post/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){

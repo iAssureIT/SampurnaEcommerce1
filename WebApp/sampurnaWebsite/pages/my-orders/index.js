@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios                from 'axios';
-import $, { event }                    from 'jquery';
+import $, { data, event }                    from 'jquery';
 import moment               from "moment";
 import { FaStar }           from 'react-icons/fa';
 import                      'bootstrap/dist/css/bootstrap.min.css';
@@ -14,7 +14,7 @@ import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Addr
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
 import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
-
+import Countdown            from "react-countdown";
 export default class MyOrders extends Component {
   constructor(props) {
     super(props);
@@ -94,7 +94,7 @@ export default class MyOrders extends Component {
           console.log("response.data=>",response.data);
           $('.fullpageloader').hide();
           this.setState({
-            orderData: response.data[0],
+            orderData: response.data,
             loading: false
           }, () => {
             console.log("orderData after setstate=>",this.state.orderData);
@@ -366,16 +366,24 @@ export default class MyOrders extends Component {
     $('#cancelProductModal .modaltext').html('');
     $('#cancelProductModal .modaltext').append(str);
   }
+
   cancelProductAction(event) {
     event.preventDefault();
     $('.fullpageloader').show();
-    var id = $(event.target).data('id');
-
-    var formValues = {
-      "orderID": id,
-      "userid": this.state.userID
+    var orderId = event.target.id;
+    // var id = $(event.target).data('id');
+    // var vendorid = event.target.getAttribute('vendorId');
+    if(orderId){
+      var formValues = {
+        "order_id"   : orderId,
+        "userid"    : this.state.user_ID,
+        "type"      : "wholeorder",
+        "vendor_id" : '',
+      }
     }
-    axios.patch('/api/orders/get/cancelOrder', formValues)
+    if(formValues){
+    console.log("formValues=",formValues);
+    axios.patch('/api/orders/cancel/order', formValues)
       .then((response) => {
         // console.log("cancel order response:",this.state.orderData);
         $('.fullpageloader').hide();
@@ -383,13 +391,13 @@ export default class MyOrders extends Component {
         const el = document.createElement('div')
         el.innerHTML = "<a href='/CancellationPolicy' style='color:blue !important'>View Cancellation Policy</a>"
         
-        axios.get('/api/orders/get/one/' +id)
+        axios.get('/api/orders/get/one/' +orderId)
         .then((res) => {                                    
             // =================== Notification OTP ==================
         if(res){
           var sendData = {
             "event": "4",
-            "toUser_id": this.state.user_id,
+            "toUser_id": this.state.user_ID,
             "toUserRole": "user",
             "variables": {
                 "Username": res.data.userFullName,
@@ -403,6 +411,7 @@ export default class MyOrders extends Component {
         .catch((error) => { console.log('notification error: ', error) })
       }
     })
+
       // =================== Notification ==================
 
         this.setState({
@@ -423,6 +432,7 @@ export default class MyOrders extends Component {
       })
       .catch((error) => {
       })
+    }
   }
   handleChange(event) {
     this.setState({
@@ -459,10 +469,10 @@ export default class MyOrders extends Component {
   }
 
   render() {
+    console.log("1.this.state.orderData=",this.state.orderData);
     return (
-      <div>
+      <div className="col-12 NoPadding">
         <Header />
-        {/* <BreadCrumbs /> */}
         <div className="container">
           <Message messageData={this.state.messageData} />
           {
@@ -478,176 +488,112 @@ export default class MyOrders extends Component {
                 </div>
 
                 <div className="col-12 col-xl-9 col-md-12">
-                  <h4 className="table-caption">My Orders</h4>
-
-                  <div className="col-12 orderIdborder">
-                    <div className="col-12 NoPadding">
-                      <div className="row">
-                        <div className="col-6 NOpadding">
-                            <div className="orderIdButton globalBgColor col-12 col-md-12">{"Order ID : "+(this.state.orderData.orderID)}</div>
-                        </div>                       
-                        <div className="col-6 NOpadding">
-                            <div className="col-12 text-right">Date - {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}</div>
-                        </div>                        
-                      </div> 
-                    </div> 
-                  
-                    
-                  {
-                    this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?                    
-                      this.state.orderData.vendorOrders.map((vendordata, index) => {
-                        console.log("orderData:",vendordata);
-                        return (
-                          <div key={index} style={{marginBottom:"40px"}} className={"vendorOrderHistory"}>   
-
-                            <div className="col-12 NOpadding">
-                                <span className="vendorName">{vendordata.vendorName}</span> &nbsp;
-                            </div>           
-
-                            { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                              <div className="col-12 orderIdborder">
-                                  <StepWizard data={vendordata} />
-                              </div> :null
-                            }
-                            <div className="col-12 orderbodyborder">
-                              <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
-                                <div className="row ">                                      
-                                    <div className="col-12 NOpadding">
-                                      <div className="col-8 offset-2">
-                                          <span className="col-8 title">&nbsp; Amount</span>
-                                          <span className="col-4 textAlignRight title">&nbsp; 
-                                              {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
-                                          </span>
-                                      </div>
-                                      <div className="col-8 offset-2">
-                                          <span className="col-8 title">&nbsp; Number Of Items</span>
-                                          <span className="col-4 textAlignRight title">&nbsp; 
-                                              {vendordata.order_numberOfProducts} 
-                                          </span>
-                                      </div>
-                                    </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-12 orderfooterborder">
-                              <div className="row">
-                                <div className="col-6">
-                                  <p className="orderfootertag"><span>Ordered On: </span>{moment(vendordata.createdAt).format("DD MMMM YYYY")} </p>
-                                </div>
-                                <div className="col-6">
-                                  <p className="orderfootertag2"><span>Ordered Total: </span> <i className="fa fa-inr"></i>&nbsp;{vendordata.vendor_afterDiscountTotal} </p>
-                                </div>
-                              </div> 
-                            </div>
-                          </div>
-                        );
-                      })
-                      :
-                      <div className="col-12 textAlignCenter">
-                        <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
-                        <img src="/images/eCommerce/emptyorder.png" alt=""/>
-                      </div>
-                  }
-
-                  <div className="col-6 NOpadding">
-                      {/* <div className="actionbtn col-12   NOpadding">
-                        { this.state.orderData.deliveryStatus[this.state.orderData.deliveryStatus.length - 1].status !== 'Cancelled' ? 
-                          <a className="btn filterallalphab" target="_blank" rel="noopener noreferrer" href={"/view-order/" + this.state.orderData._id} title="View Order">
-                          <span> Invoice</span></a> : <div className="pull-right"><span className="cancelledtext"> Cancelled</span></div>
-                        }
-                        {
-                          data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Cancelled' || data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Returned' ? '' :
-                            data.deliveryStatus[data.deliveryStatus.length - 1].status === "New Order" || data.deliveryStatus[data.deliveryStatus.length - 1].status === "Verified"
-                              || data.deliveryStatus[data.deliveryStatus.length - 1].status === "Packed" ? <button type="button" data-toggle="modal" data-target="#cancelProductModal" className="btn filterallalphab" name="returnbtn" title="Cancel" onClick={this.cancelProduct.bind(this)}
-                                data-status={data.deliveryStatus[data.deliveryStatus.length - 1].status} data-id={data._id}>Cancel</button> : ''
-                        }
-                      </div> */}
-                      <div className=" col-12">
-                        <div className="row">
-                          <div className=" col-6 pull-left"><span className="orderBtns" onClick={this.showOrdersDetails.bind(this)}> View Details</span></div>
-                           <div className=" col-6 pull-right"><span className="orderBtns"> Cancel Order</span></div>
-                        </div>
-                      </div>
+                  <div className="col-12">
+                      <h4 className="table-caption">My Orders</h4>
                   </div>
 
-
-                    {/* returnProductModal */}
-
-                    <div className="modal" id="returnProductModal" role="dialog">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <img src="" alt="" />
-                            <button type="button" className="close modalclosebut" data-dismiss="modal">&times;</button>
-                            <h4 className="modal-title modalheadingcont">RETURN PRODUCT</h4>
-                          </div>
-                          <h4 className="modaltext"></h4>
-                          <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12">
-                            <table className="data table table-order-items history" id="my-orders-table">
-                              <thead>
-                                <tr>
-                                  <th scope="col" className="col id">Product Image</th>
-                                  <th scope="col" className="col id">Product Name</th>
-                                  <th scope="col" className="col date">Price</th>
-                                </tr>
-                              </thead>
-                              <tbody>{
-                                this.state.oneproductdetails ?
-                                  <tr>
-                                    <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="" /></td>
-                                    {this.state.oneproductdetails.productNameRlang?
-                                      <td data-th="Order #" className="col id RegionalFont">{this.state.oneproductdetails.productName}</td>
-                                    :
-                                      <td data-th="Order #" className="col id">{this.state.oneproductdetails.productName}</td>
-                                    }
-                                    <td data-th="Order Total" className="col total"><span><i className={"fa fa-" + this.state.oneproductdetails.currency}> {this.state.oneproductdetails.discountedPrice}</i></span></td>
-                                  </tr>
+                  <div className="col-12">
+                    {this.state.orderData && this.state.orderData.length > 0 ? 
+                      this.state.orderData.map((singleOrder, index) => {
+                        return(
+                          <div className="col-12 NoPadding orderIdborder">
+                            <div className="col-12  NoPadding orderNowrapper mb-4 pb-2">
+                              <div className="row">
+                                <div className="col-6">
+                                    <div className="orderIdBtn col-12 col-md-12">{"Order ID : "+(singleOrder.orderID)}</div>
+                                </div>                       
+                                <div className="col-6 NOpadding">
+                                    <div className="col-12 text-right">Date - {moment(singleOrder.createdAt).format("DD MMMM YYYY")}</div>
+                                </div>                        
+                              </div> 
+                            </div> 
+                            <div className="col-12 totalOrderBlock pb-2">
+                              <div className="row">
+                                <div className="col-6 NoPadding">
+                                  <div className={"col-12 pull-left"}> Total Amount</div>
+                                  <div className={"col-12 pull-left"}> {this.state.currency} &nbsp; {singleOrder.paymentDetails.netPayableAmount}</div>
+                                </div>                       
+                                <div className="col-6 NOpadding">
+                                    <div className="col-4 orderStatus pull-right ">{singleOrder.orderStatus}</div> 
+                                </div>                        
+                              </div> 
+                            </div> 
+                              {
+                                singleOrder && singleOrder.vendorOrders && singleOrder.vendorOrders.length > 0 ?                    
+                                singleOrder.vendorOrders.map((vendordata, index) => {
+                                    // console.log("orderData:",vendordata);
+                                    return (
+                                      <div className="col-12 vendorwiseOrderHistory mb-4 mt-4">
+                                        <div className="col-12" >
+                                        <div key={index} className={"row "}>
+                                          <div className="col-4 NoPadding ">
+                                              <span className="">{vendordata.vendorName}</span> &nbsp;
+                                          </div>           
+                                          <div className="col-6">
+                                              <div className="row ">   
+                                                    <div className="col-12 title NoPadding">
+                                                      <div className="row">
+                                                          <span className="col-6 ">&nbsp; Number Of Items </span>
+                                                          <span className="col-1">:</span>
+                                                          <span className="col-5 ">
+                                                              {vendordata.order_numberOfProducts} 5
+                                                          </span>
+                                                      </div>
+                                                    </div>             
+                                                    <div className="col-12">
+                                                        <div className="row">
+                                                          <span className="col-6 ">&nbsp; Amount </span>
+                                                          <span className="col-1">:</span>
+                                                          <span className="col-5 "> 
+                                                              {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
+                                                          </span>
+                                                        </div>
+                                                    </div>
+                                              </div>
+                                          </div>
+                                          <div className="col-2 orderStatus">
+                                            {vendordata.orderStatus}
+                                          </div>
+                                        </div>
+                                        </div>
+                                      </div>
+                                    );
+                                  })
                                   :
-                                  null
+                                  <div className="col-12 textAlignCenter">
+                                    <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
+                                    <img src="/images/eCommerce/emptyorder.png" alt=""/>
+                                  </div>
                               }
-                              </tbody>
-                            </table>
-                            <div className="inputrow">
-                              <h4>Back Details</h4>
-                            </div>
 
-                            <form id="returnForm">
-                              <div className="inputrow">
-                                <span>
-                                  <label className="col-12 NOpadding ">Reason for Return <label className="astricsign">*</label></label>
-
-                                </span>
-                                <textarea rows="5" cols="55" className="reasonForReturn" name="reasonForReturn" required></textarea>
+                              <div className="col-12 "> 
+                                  <div className="row">
+                                    <div className="col-6 pull-left orderBtnWrapper">
+                                      <button className=" btn btn-secondary col-6 ">
+                                        <a href="/order-details" className="col-12 showDetailsBtn ">Show Details</a>
+                                      </button>
+                                    </div>
+                                    <div className="col-5 offset-1 pull-right ">
+                                        <button className=" btn btn-danger cancelbtn col-12 " id={singleOrder._id} onClick={this.cancelProductAction.bind(this)} >Cancel Order Within &nbsp;
+                                          <Countdown date={Date.now() + 10000} />
+                                          &nbsp; Min
+                                        </button>
+                                    </div>
+                                  </div>
                               </div>
-                              <div className="inputrow">
-                                <label className="col-12 NOpadding  ">Bank Name<label className="astricsign">*</label></label>
-                                <input type="text" ref="bankname" name="bankname" id="bankname" value={this.state.bankname} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
-                              </div>
-                              <div className="inputrow">
-                                <label className="col-12 NOpadding ">Bank Account No<label className="astricsign">*</label></label>
-                                <input type="text" ref="bankacctno" name="bankacctno" id="bankacctno" value={this.state.bankacctno} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
-                              </div>
-                              <div className="inputrow">
-                                <label className="col-12 NOpadding">IFSC Code<label className="astricsign">*</label></label>
-                                <input type="text" ref="ifsccode" name="ifsccode" id="ifsccode" value={this.state.ifsccode} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
-                              </div>
-                            </form>
-
                           </div>
-                          <div className="canreturn modal-footer">
-                            <div className="col-12">
-                              <br />
-
-                              <button className="btn btn-danger" onClick={this.returnProductAction.bind(this)} id="returnProductBtn" >Save</button>
-                              <button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                        )
+                      })
+                    :
+                    <div className="col-12 textAlignCenter">
+                      <div className="mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Orders Yet</div>
+                      <img src="/images/eCommerce/emptyorder.png" alt=""/>
                     </div>
+                    }
+
 
                     {/* cancelProductModal */}
-                    <div className="modal" id="cancelProductModal" role="dialog">
+                    {/* <div className="modal" id="cancelProductModal" role="dialog">
                       <div className="modal-dialog">
                         <div className="modal-content">
                           <div className="modal-header">
@@ -670,11 +616,11 @@ export default class MyOrders extends Component {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* feedbackProductModal */}
 
-                    <div className="modal" id="feedbackProductModal" role="dialog">
+                    {/* <div className="modal" id="feedbackProductModal" role="dialog">
                       <div className="modal-dialog">
                         <div className="modal-content">
                           <div className="modal-header feedbackModalHeader">
@@ -743,7 +689,7 @@ export default class MyOrders extends Component {
                         </div>
                       </div>
                     </div>
-                
+                 */}
                 
                   </div>
                 </div>

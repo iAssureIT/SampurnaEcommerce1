@@ -475,7 +475,9 @@ export default class MyOrders extends Component {
                 </div>
 
                 <div className="col-12 col-xl-9 col-md-12">
-                  <h4 className="table-caption">My Orders</h4>
+                  <div className="col-12">
+                      <h4 className="table-caption">My Orders</h4>
+                  </div>
 
                   <div className="col-12 orderIdborder">
                     <div className="col-12 NoPadding">

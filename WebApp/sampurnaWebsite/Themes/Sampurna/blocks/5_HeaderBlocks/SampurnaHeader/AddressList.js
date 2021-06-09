@@ -30,13 +30,13 @@ class AddresssList extends React.Component {
       })
   }
    render() {
-     console.log("User Address list =>",this.props.userAddress);
+    //  console.log("User Address list =>",this.props.userAddress);
     return (
 		<div className="col-12 NoPadding ">
         <div className="col-12 NoPadding addressTitle pb-2 ">Shipping Address List</div>
         {this.props.userAddress && this.props.userAddress.length>=0?
             this.props.userAddress.map((data,index)=>{
-                console.log("address data==",data);
+                // console.log("address data==",data);
                 return(
                     <div className="col-12 NoPadding mb-4 singleAddressBlock">
                         <input type="radio" checked={data._id} value={data._id} 

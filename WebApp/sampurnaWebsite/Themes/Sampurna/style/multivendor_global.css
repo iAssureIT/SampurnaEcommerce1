@@ -22,6 +22,7 @@
 @import "../../../sites/multivendor/pages/Checkout.css";
 @import "../../../sites/multivendor/pages/Payment.css";
 @import "../../../sites/multivendor/pages/MyOrders.css";
+@import "../../../sites/multivendor/pages/MyOrdersDetails.css";
 @import "../../../sites/multivendor/pages/Account.css";
 @import "../../../sites/multivendor/pages/EditAccount.css";
 @import "../../../sites/multivendor/pages/Wishlist.css";
@@ -97,6 +98,7 @@
   --globalWishlistBorderColor : #222222; 
   --gobalCurrentBgColor : #222222;
   --gobalCurrentColor : #fff;
+  --globalBtnFont : 14px;
 
   --globalHoverColor : #222222;
   --globalBgColor : #222222;
