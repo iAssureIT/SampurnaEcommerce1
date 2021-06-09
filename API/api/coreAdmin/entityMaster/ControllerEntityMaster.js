@@ -1011,12 +1011,14 @@ exports.filterEntities_grid = (req,res,next)=>{
 };
 
 exports.fetchEntities = (req, res, next)=>{
-    EntityMaster.find({entityType:req.body.type})
+    // console.log("req.body => ",req.body)
+    EntityMaster.find({entityType : req.body.type})
         .sort({createdAt : -1})
         .skip(req.body.startRange)
         .limit(req.body.limitRange)
         .exec()
         .then(data=>{
+            // console.log("data => ",data)
             res.status(200).json(data);
         })
         .catch(err =>{
@@ -1502,8 +1504,8 @@ exports.bulkUploadEntity = (req, res, next) => {
     processData();
     async function processData() {
         for (var k = 0; k < entity.length; k++) {
-            console.log("entityType = > ",k, entity[k].entityType)
-            console.log("Condition => ", (entity[k].entityType !== '-'))
+            // console.log("entityType = > ",k, entity[k].entityType)
+            // console.log("Condition => ", (entity[k].entityType !== '-'))
             if (entity[k].entityType !== '-') {
                 // remark += "entityType not found, ";
             
@@ -1556,13 +1558,13 @@ exports.bulkUploadEntity = (req, res, next) => {
                     //     }
                     //     designationId = await insertCompanywiseDesignation(desigData)
                     // }                
-                    console.log("req.body.EntityType => ", entity[k].entityType);
+                    // console.log("req.body.EntityType => ", entity[k].entityType);
                     var allEntities     = await fetchAllEntities(entity[k].entityType);
                     // console.log("allEntities => ", allEntities);
                     if(validData && validData.length > 0){
                         var vendorExists  = validData.filter((data) => {
-                            console.log("data.companyName => ", data.companyName);
-                            console.log("entity[k].companyName => ", entity[k].CompanyName);
+                            // console.log("data.companyName => ", data.companyName);
+                            // console.log("entity[k].companyName => ", entity[k].CompanyName);
                             if ((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()) {
                                 return data;
                             }
@@ -1579,8 +1581,8 @@ exports.bulkUploadEntity = (req, res, next) => {
                         })
                     }else{                    
                         var vendorExists  = allEntities.filter((data) => {
-                            console.log("data.companyName => ", data.companyName);
-                            console.log("entity[k].companyName => ", entity[k].CompanyName);
+                            // console.log("data.companyName => ", data.companyName);
+                            // console.log("entity[k].companyName => ", entity[k].CompanyName);
                             if ((data.companyName).toLowerCase() === (entity[k].companyName).toLowerCase()) {
                                 return data;
                             }
@@ -1596,7 +1598,7 @@ exports.bulkUploadEntity = (req, res, next) => {
                             // }
                         })
                     }
-                    console.log("vendorExists=> ",k + " ", vendorExists);
+                    // console.log("vendorExists=> ",k + " ", vendorExists);
                     if(vendorExists && vendorExists.length === 0){
                     
                         var employeeExists  = allEntities.filter((data) => {
@@ -1696,8 +1698,8 @@ exports.bulkUploadEntity = (req, res, next) => {
                                     "emailSubject"  : "Email Verification",
                                     "emailContent"  : "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
                                 }
-                                console.log("userDetails => ",userDetails)
-                                console.log("entity[k].LoginCredential => ",entity[k].loginCredential)
+                                // console.log("userDetails => ",userDetails)
+                                // console.log("entity[k].LoginCredential => ",entity[k].loginCredential)
                                 if( (userDetails.email != '-') && entity[k].loginCredential && ((entity[k].loginCredential).toLowerCase() === 'yes')){
                                     var userID = await createUser(userDetails);
                                 }                                               
@@ -1720,7 +1722,7 @@ exports.bulkUploadEntity = (req, res, next) => {
                                 locations                 : locationdetails,
                                 contactPersons            : contactdetails,                           
                             }
-                            console.log("validObjects=> ",validObjects)
+                            // console.log("validObjects=> ",validObjects)
 
                             validData.push(validObjects);
 
@@ -1749,10 +1751,10 @@ exports.bulkUploadEntity = (req, res, next) => {
                 }
                 remark = '';
             }else{
-                console.log("validData => ",validData);
+                // console.log("validData => ",validData);
                 if(validData && validData.length > 0){                
                     var vendorRecord = validData[validData.length -1];
-                    console.log("vendorRecord => ",vendorRecord);
+                    // console.log("vendorRecord => ",vendorRecord);
                     if (entity[k].Country === '-') {
                         remark += "Country not found, ";
                     }
@@ -1760,7 +1762,7 @@ exports.bulkUploadEntity = (req, res, next) => {
                         remark += "City not found, ";
                     }
 
-                    console.log("1 Condition => ",(entity[k].LocationType !== '-'))
+                    // console.log("1 Condition => ",(entity[k].LocationType !== '-'))
 
                     if (entity[k].LocationType !== '-') {                      
                         
@@ -1782,7 +1784,7 @@ exports.bulkUploadEntity = (req, res, next) => {
                             longitude           : lng,                                            
                         }
 
-                        console.log("validData.locations" ,validData[0].locations)
+                        // console.log("validData.locations" ,validData[0].locations)
                         vendorRecord.locations.push(vendorLocation);
                     }
                     var contactPerson   = {
@@ -1809,10 +1811,10 @@ exports.bulkUploadEntity = (req, res, next) => {
                 }
             }
         }
-        console.log("validData",validData);
+        // console.log("validData",validData);
         EntityMaster.insertMany(validData)
         .then(data => {
-            console.log("Data *=> ",data)
+            // console.log("Data *=> ",data)
         })
         .catch(err => {
             console.log(err);
@@ -1843,7 +1845,7 @@ function insertCompanywiseDepartment(deptData) {
         })
         departmentMaster.save()
         .then(data => {
-            console.log("department data => ",data);
+            // console.log("department data => ",data);
             resolve(data._id);
         })
         .catch(err => {
@@ -1864,7 +1866,7 @@ function insertCompanywiseDesignation(desigData) {
         })
         designationMaster.save()
         .then(data => {
-            console.log("designation => ",data);
+            // console.log("designation => ",data);
             resolve(data._id);
         })
         .catch(err => {
@@ -1891,24 +1893,24 @@ var fetchAllEntities = async (type) => {
 
 /*=========== Get Latitude Longitude ===========*/
 function getLatLong(address){
-    console.log("address => ",address)
+    // console.log("address => ",address)
     return new Promise(function(resolve, reject){
         var type = 'GOOGLE';         
         axios.get('http://localhost:'+globalVariable.port+'/api/projectsettings/get/'+type)
         .then((response)=>{ 
-            console.log("response => ",response.data);       
+            // console.log("response => ",response.data);       
             const options = {
                 provider       : 'google',
                 httpAdapter    : 'https', // Default
                 apiKey         : response.data.googleapikey, // for Mapquest, OpenCage, Google Premier
                 formatter      : null          
             };
-            console.log("options => ",options); 
+            // console.log("options => ",options); 
             const geocoder = NodeGeocoder(options);
-            console.log("geocoder",geocoder);
+            // console.log("geocoder",geocoder);
 
             geocoder.geocode('address', function(err, res) {
-            console.log("res => ",res); 
+            // console.log("res => ",res); 
             resolve(res)
             }); 
         })
@@ -1933,10 +1935,10 @@ var fetchAllUsers = async (email) => {
 /*=========== Create User ===========*/
 function createUser(userDetails){       
     return new Promise(function(resolve, reject){
-        console.log("userDetails---",userDetails);
+        // console.log("userDetails---",userDetails);
         axios.post('http://localhost:'+globalVariable.port+'/api/auth/post/signup/user', userDetails)
         .then((response)=>{    
-            console.log("user response",response.data);         
+            // console.log("user response",response.data);         
             resolve(response.data.ID);
             if(response.data.message === 'USER_CREATED'){
                 //swal(response.data.message);
