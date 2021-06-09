@@ -241,7 +241,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
                               </View> 
                               <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                              <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                              <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_shippingCharges}</Text>
                                 </View>
                               </View>
                             </View>

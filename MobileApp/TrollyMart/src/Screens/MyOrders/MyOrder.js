@@ -59,7 +59,7 @@ export const MyOrder = withCustomerToaster((props)=>{
   const [cancelOrderId,setCancelOrderId]=useState('');
   const [loading,setLoading]=useState(true);
   const isFocused = useIsFocused();
-  const {navigation}=props;
+  const {navigation,setToast}=props;
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -81,6 +81,7 @@ export const MyOrder = withCustomerToaster((props)=>{
             setLoading(false);
           })
           .catch((error) => {
+            console.log("error",error);
             setLoading(false);
             if (error.response.status == 401) {
               AsyncStorage.removeItem('user_id');

@@ -81,7 +81,7 @@ export const VendorList = withCustomerToaster((props)=>{
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity onPress={()=>goToProductList(item)}>
+            <TouchableOpacity  onPress={()=>goToProductList(item)}>
                 <Card containerStyle={{flex:1,padding:0,marginHorizontal:0,elevation:5}} >
                     <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',height:100}}>
                         <View style={{flex:1,flexDirection:"row"}}>

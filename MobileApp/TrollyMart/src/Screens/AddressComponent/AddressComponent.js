@@ -51,8 +51,8 @@ import PhoneInput                   from "react-native-phone-number-input";
     fromaddress: Yup.string()
     .required('This field is required'),
    
-    fromarea: Yup.string()
-    .required('This field is required'),
+    // fromarea: Yup.string()
+    // .required('This field is required'),
    
     fromstate: Yup.string()
     .required('This field is required'),
@@ -370,7 +370,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     labelName       = "Area"
                     placeholder     = "Area"
                     onChangeText    = {handleChange('fromarea')}
-                    required        = {true}
+                    required        = {false}
                     name            = "fromarea"
                     errors          = {errors}
                     touched         = {touched}

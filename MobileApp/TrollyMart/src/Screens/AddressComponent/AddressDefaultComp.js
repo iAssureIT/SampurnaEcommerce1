@@ -22,6 +22,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {setToast, 
   withCustomerToaster}        from '../../redux/AppState.js';
   import { SET_USER_ADDRESS}          from '../../redux/location/types';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 // export default class AddressDefaultComp extends React.Component {
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
@@ -134,16 +135,18 @@ import {setToast,
     console.log("adddata",adddata);
     var address = {
       'addressLine1'      : adddata.addressLine1,
+      'addressLine2'      : adddata.addressLine2,
       'area'              : adddata.area,
       'city'              : adddata.city,
       'state'             : adddata.state,
       'country'           : adddata.country,
       'pincode'           : adddata.pincode,
       'latlong'           : {
-        "lat" : adddata.lat,
-        "lng" : adddata.lng
+        "lat"               : adddata.latitude,
+        "lng"               : adddata.longitude
       }
     }
+    console.log("address",address);
       AsyncStorage.setItem('location',JSON.stringify(address));
       dispatch({
           type: SET_USER_ADDRESS,
@@ -172,7 +175,7 @@ import {setToast,
                   />}
               </View>
               {deliveryAddress ?
-                deliveryAddress.length > 0 ?
+                deliveryAddress.length > 1 ?
                 deliveryAddress.map((item, i) => {
                   return (
                     <View key={i} 
@@ -182,10 +185,11 @@ import {setToast,
                       :
                           styles.addcmpchkbx
                       )]}>
-                    <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item) }} >
+                    {item.distance<=1 ?
+                      <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item)}} >
                         <View style={styles.addchkbx}>
-                          <View style={styles.nameofcontact}>
-                            <Text style={styles.addname}> {item.name}</Text>
+                          <View style={[styles.nameofcontact,{paddingHorizontal:14}]}>
+                            <Text style={CommonStyles.label}> {item.name}</Text>
                           </View>
                           <View style={styles.chkvw}>
                           </View>
@@ -201,14 +205,41 @@ import {setToast,
                           </View>
                         </View>
                         <View style={styles.padhr18}>
-                          <Text style={styles.address}>{item.addressLine1+", "+item.addressLine2}</Text>
+                          <Text style={styles.text}>{item.addressLine1+", "+item.addressLine2}</Text>
                           <View style={styles.mobflx}>
-                            <Text style={styles.mobileno}>Mobile:</Text>
-                            <Text style={styles.mobilenum}>{item.mobileNumber}</Text>
+                            <Text style={CommonStyles.label}>Mobile:</Text>
+                            <Text style={styles.text}>{item.mobileNumber}</Text>
                           </View>
                         </View>
-
-                    </TouchableOpacity>
+                      </TouchableOpacity>
+                      :
+                      <View style={{backgroundColor:"#fefefe",borderRadius:15}} >
+                        <View style={styles.addchkbx}>
+                          <View style={[styles.nameofcontact,{paddingHorizontal:14}]}>
+                            <Text style={CommonStyles.text}> {item.name}</Text>
+                          </View>
+                          <View style={styles.chkvw}>
+                          </View>
+                          <View style={styles.proddeletes}>
+                            {!disabled&&<Icon
+                              onPress={() => deleteAdress(item._id)}
+                              name="delete"
+                              type="AntDesign"
+                              size={18}
+                              color="#ff4444"
+                              iconStyle={styles.iconstyle}
+                            />}
+                          </View>
+                        </View>
+                        <View style={styles.padhr18}>
+                          <Text style={styles.text}>{item.addressLine1+", "+item.addressLine2}</Text>
+                          <View style={styles.mobflx}>
+                            <Text style={CommonStyles.text}>Mobile:</Text>
+                            <Text style={styles.text}>{item.mobileNumber}</Text>
+                          </View>
+                        </View>
+                      </View>
+                    }
                     </View>
                   )
                 })

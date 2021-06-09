@@ -335,7 +335,7 @@ export const ProductList = withCustomerToaster((props)=>{
           keyExtractor                  = {item => item._id.toString()}
           // initialNumToRender            = {6}
           ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-          onEndReachedThreshold          = {0.01}
+          onEndReachedThreshold          = {0.5}
         //   ListEmptyComponent            = {
         //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
         //     <Image

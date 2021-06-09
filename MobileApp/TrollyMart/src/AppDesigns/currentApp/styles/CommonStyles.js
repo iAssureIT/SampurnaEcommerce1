@@ -116,7 +116,7 @@ export default StyleSheet.create({
         fontSize: 15, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
     },
     label :{
-        fontSize: 15, fontFamily: 'Montserrat-SemiBold',color:"#333"
+        fontSize: 15, fontFamily: 'Montserrat-Medium',color:"#333"
     },
     text :{
         fontSize: 15, fontFamily: 'Montserrat-Regular',color:"#333"

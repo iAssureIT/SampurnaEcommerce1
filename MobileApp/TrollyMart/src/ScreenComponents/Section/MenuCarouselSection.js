@@ -27,7 +27,7 @@ export const MenuCarouselSection = (props)=>{
    }
    let wait = new Promise((resolve) => setTimeout(resolve, 500));  // Smaller number should work
    wait.then( () => {
-     flatlist.current.scrollToIndex({index:index, animated: true});
+    //  flatlist.current.scrollToIndex({index:index, animated: true});
    });
   },[props.selected,props.index]);
 

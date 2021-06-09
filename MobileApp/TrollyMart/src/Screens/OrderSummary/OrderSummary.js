@@ -335,7 +335,7 @@ import { SafeAreaView }         from 'react-native';
                               </View> 
                               <View style={{ flex: 0.4 }}>
                                 <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                              <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                              <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_shippingCharges}</Text>
                                 </View>
                               </View>
                             </View>
@@ -450,7 +450,7 @@ import { SafeAreaView }         from 'react-native';
                       </View> 
                       <View style={{ flex: 0.4 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                      <Text style={styles.totalpriceincart}>{currency} 0</Text>
+                      <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.shippingCharges}</Text>
                         </View>
                       </View>
                     </View>
