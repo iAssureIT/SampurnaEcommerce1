@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Image  from 'next/image';
-import Link   from 'next/link';
+import Image                from 'next/image';
+import Link                 from 'next/link';
+import Websitelogo          from '../../5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
@@ -16,6 +17,7 @@ export default class Footer extends Component {
            categoryData  :[],
         }
     }
+    
     componentDidMount(){
         axios.get("/api/sections/get/get_megamenu_list")
             .then((response)=>{
@@ -115,10 +117,9 @@ export default class Footer extends Component {
                 </div>
             </div>
             <div className="col-xl-3 col-md-2 col-sm-6  col-12 onlineShoppingWrapper">               
-                <div className="logo col-12">
+                {/* <div className="logo col-12">
                     <Link href="/">
                     <a  title="BookStore logo "style={{float:"right"}}>
-                        {/* <img src="/images/eCommerce/kokilaLogo.png" alt="images" className="footerLogoImg col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding"/> */}
                         <Image
                             src="/images/eCommerce/multistoreLogo.png"
                             className={"footerLogoImg"}
@@ -127,7 +128,8 @@ export default class Footer extends Component {
                         />
                     </a>
                     </Link>
-                </div> 
+                </div>  */}
+                < Websitelogo />
                 <div className="col-12">
                     <div className="col-12 FooterTitle FooterTitle2">Connect Us</div>
                     <div className="col-12 col-sm-6 col-lg-12 col-md-12  NoPadding">
