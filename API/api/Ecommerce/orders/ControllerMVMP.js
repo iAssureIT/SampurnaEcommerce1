@@ -1388,7 +1388,9 @@ exports.list_order_by_user = (req, res, next) => {
 				console.log("data[i].vendorOrders",data[i].vendorOrders);
 				var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
 				console.log("vendor",vendor);
-				data[i].vendorOrders[j].vendorName = vendor.companyName;
+				if(vendor && vendor.companyName){
+					data[i].vendorOrders[j].vendorName = vendor.companyName;
+				}
 			}
 		}
 		if(i>=data.length){
