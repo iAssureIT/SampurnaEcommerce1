@@ -27,10 +27,10 @@ class MyCart extends React.Component {
     }
    render(){
         return(  
-            <div className="col-4 NoPadding">
+            <div className="col-3 NoPadding">
             {this.state.userID?
-                <a href="/cart" className="col-12 col-sm-6 cartHeader NoPadding">        
-                    <div className="row mtm3">
+                <a href="/cart" className="col-12 cartHeader">        
+                    <div className="row ">
                         <div className="col-5 p-2 ml-4">
                             <img className=" cartImg rotateImg" src="/images/eCommerce/cart.png"></img>
                         </div>
@@ -41,7 +41,7 @@ class MyCart extends React.Component {
                     </div>
                 </a>
                 :
-                <a href="" className="abc col-12 col-sm-6 cartHeader NoPadding" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">   
+                <a href="" className="abc col-12 cartHeader" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">   
                     <div className="row">
                         <div className="col-5 p-2 ml-4">
                             <img className="cartImg rotateImg" src="/images/eCommerce/cart.png"></img>

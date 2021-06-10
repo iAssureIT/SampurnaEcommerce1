@@ -439,12 +439,15 @@ ul:hover > .dropDownLevel3 {
       color: #fff;
       padding-top: 5px;
       text-align: center;
-      font-size: 15px;
+      font-size: 13px;
       transition: 0.5s ease;
   }
   .loginView:hover{
     /* background-color: #fff; */
     /* color: var(--color) !important;  */
+  }
+  .customerName{
+      font-size: 11px;
   }
   .loginViewWrapper{
       display: inline-block !important;
@@ -527,7 +530,7 @@ li a{
     font-size: 11px;
 }
 .cartHeader{
-    background-color: #3174E3;
+    /* background-color: #3174E3; */
     height: 40px;
     font-weight: 600;
     color: #fff;

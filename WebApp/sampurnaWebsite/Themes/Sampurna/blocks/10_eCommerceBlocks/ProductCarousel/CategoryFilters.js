@@ -39,6 +39,7 @@ class CategoryFilters extends Component{
         }
     }
     componentDidMount(){
+      console.log("inside componentDid");
       if(this.props.subCategoryUrl){
         // console.log("inside if",$);
           $('panel-title').addClass(' Style.activeSubCategory');
@@ -47,13 +48,8 @@ class CategoryFilters extends Component{
       }
     }
   componentDidUpdate(prevProps, prevState) {
-  if(prevProps.subCategoryUrl){
-    console.log("inside if",document);
-      $('.panel-title').addClass(' Style.activeSubCategory');
-      var v = document.getElementByClass(".panel-title");
-      v.className += "activeSubCategory";
+  
   }
-}
 
     // static getDerivedStateFromProps(nextProps, prevState) {
       // console.log("props--",nextProps);

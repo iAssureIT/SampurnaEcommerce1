@@ -13,6 +13,7 @@ import DisplayLocation        from './DisplayLocation.js';
 import SystemSecurityModal    from './SystemSecurityModal.js';
 import Websitelogo            from './Websitelogo.js';
 import MyCart                 from './MyCart.js';
+import Wishlist               from './Wishlist.js';
 import {setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 
 class Header extends React.Component {
@@ -48,18 +49,17 @@ class Header extends React.Component {
                             <div className="col-12 NoPadding ">
                                 <div className="col-12 top-header">
                                     <div className="row logoWrap"> 
-                                                                
-                                        
                                         <div className="col-2">
                                             <Websitelogo />
                                         </div>
 
                                         <SearchBar />
 
-                                        <div className="col-8 col-sm-2 ml-4 systemSecurity"> 
+                                        <div className="col-2 NoPadding systemSecurity"> 
                                             <div className="row">                                  
                                                 < SystemSecurityModal />
                                                 < MyCart />
+                                                < Wishlist />
                                             </div>
                                         </div>
                                     </div>

@@ -59,6 +59,7 @@ class header extends React.Component {
             //   console.log("response===",res.data);  
               this.setState({
                 userData : res.data.profile,
+                userName : res.data.profile.firstname,
                 firstname: res.data.profile.firstname.substring(0, 1),
                 lastname : res.data.profile.lastname.substring(0, 1)
               },()=>{
@@ -99,14 +100,20 @@ class header extends React.Component {
     }
    render() {
     return (
-        <div className="col-8 col-sm-8">  
+        <div className="col-7">  
             <div className="col-12 loginViewWrapper ">
                 <div className="row mtm3">
                 {this.state.loggedIn ? 
                     <li className="dropdown myaccDropdown">
                         <span className="col-12 NoPadding ">
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding">     
-                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="loginView ">My Account</span></span> 
+                                <span style={{float: "right"}} className="faIcon col-12 NoPadding">
+                                    <div className="col-12 NoPadding">
+                                        <span className=" col-12 NoPadding customerName"> Hello&nbsp; {this.state.userName} </span><br/>
+                                        <span className="loginView ">My Account <i className="fa fa-angle-down"></i></span>
+                                    </div>
+                                    
+                                </span> 
                             </div>
                         </span>
                         <ul className="col-3 dropdown-menu list-DropDownMenu">                                        
@@ -128,10 +135,12 @@ class header extends React.Component {
                                     </div>
                                     </div>
                                 </div>                            
-                            </li>                                  
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/account"><a>My Profile</a></Link></li>
+                            </li>   
+
                             <li className="col-12 NOpadding myAccMenu"><Link href="/my-orders"><a>My Orders</a></Link></li>
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/wishlist"><a>My Wishlist</a></Link></li>
+                            <li className="col-12 NOpadding myAccMenu"><Link href="/wishlist"><a>My Wishlist</a></Link></li>                               
+                            <li className="col-12 NOpadding myAccMenu"><Link href="/account"><a>My Profile</a></Link></li>
+                  
                             <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                         </ul>
                     </li>
