@@ -117,6 +117,10 @@
   color: #999999 !important;
 }
 
+.footer_bottom{
+  background-color:#000000;
+}
+
 .footer_bottom p{
   margin:0 !important;
 }
@@ -229,7 +233,7 @@
 }
 
 .footer3{
-  background: #fff;
+  background: #000000;
   color: #898989;
   padding:18px;
   font-size: 13px;
@@ -254,7 +258,7 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
   /* background: #f3f3f3 !important; */
-  padding: 30px 0;
+  padding: 30px 0px 0px 0px;
   margin-top: -4px;
 }
 .footerWrapper{
@@ -264,8 +268,10 @@
   padding-left: 0px;
   padding-right: 0px;
   margin-top: 20px;
-  background-color: #f3f3f3 !important;
-  background-image: url("/images/eCommerce/footerBgImg.webp");
+  color:#ffffff;
+  background-color: var(--color) !important;  
+  /*background-color: #f3f3f3 !important;*/
+  /*background-image: url("/images/eCommerce/footerBgImg.webp");*/
   background: position 100%;
 }
 /* .footerWrapper .container-fluid{
@@ -296,17 +302,106 @@
 .onlineShoppingWrapper{
   /* border:solid 1px #aaa; */
 }
-.FooterTitle{
+/*.FooterTitle{
   font-weight: 600;
   font-size: 18px;
   /* text-align: right; */
-}
+
 .FooterTitle2{
   text-align: right;
 }
 .sectionName{
   padding-left: 0px !important;
 
+}
+
+.payCard2{
+  width: 46px;
+  height: 28px;
+  background: #fff url("/images/eCommerce/mastercard-logo-473B8726A9-seeklogo.com.png") 0% 0% no-repeat padding-box;
+  opacity: 1;
+  float:left;
+  margin-right:15px;
+
+}
+
+.payCard1{
+  width: 46px;
+  height: 28px;
+  background: #fff url("/images/eCommerce/visa-logo.png") 0% 0% no-repeat padding-box;
+  opacity: 1;
+  float:left;
+  margin-right:15px;
+
+}
+
+.width{
+  width: 279px;
+  height: 42px;
+
+}
+
+.appleCard{
+  width: 124px;
+  height: 42px;
+  background-size: 124px;  
+  background-image:url("/images/eCommerce/1.gif");
+  background-repeat:no-repeat;
+  /*background: transparent url("/images/eCommerce/1.gif") 0% 0% no-repeat padding-box;*/
+  opacity: 1;
+  object-fit: fill !important;  
+  float:left;
+
+}
+
+.androidCard{
+  width: 124px;
+  height: 42px;
+  background-size: 124px;
+  background-image:url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif");
+  background-repeat:no-repeat;
+  /*background: transparent url("/images/eCommerce/1_grpEUqlOJE6Fysw7ErWIBQ.gif") 100% 100% no-repeat padding-box;*/
+  opacity: 1;
+  object-fit: fill !important;
+  float:left;
+
+
+}
+
+.logo{
+  height: 100px;
+  padding-top:80px;
+}
+
+.footerBottom{
+  height: 100px;
+  padding-top:45px;
+  
+}
+
+.text_Center{
+  text-align:center;
+}
+
+.text_Center p{
+  margin-top:15px !important;
+}
+
+.footer3Class{
+  font-size:14px;
+  color:#bbb;
+}
+
+.ml0{
+  margin-left:0px !important;
+}
+
+.mt15{
+  margin-top:15px !important;
+}
+
+.mt80{
+  margin-top:80px;
 }
 .footerLogoImg{
   margin-bottom: 30px;
@@ -316,7 +411,8 @@
   line-height: 2;
 }
 .sectionName .sectionurl{
-  color: #444 !important;
+  /*color: #444 !important;*/
+  color: #ffffff !important;  
   font-size: 14px;
   text-decoration: none;
   font-weight: 700;
@@ -327,9 +423,11 @@
   margin-bottom:8px;
 }
 .categortTitle span{
-    font-weight: 500;
-    font-size:14px;
-    color: #444 !important;
+    /*font-weight: 500;*/
+    /*font-size:14px;*/
+    font-size:12px;
+    color:#fff;
+    /*color: #444 !important;*/
     text-decoration: none !important;
     transition: 0.3s ease;
 }
@@ -351,7 +449,8 @@
   width: 35px;
   text-align: center;
   margin-left: 25px;
-  background-color: transparent;
+  background-color: #ffffff;  
+  /*background-color: transparent;*/
   transition: 0.6s ease;
 }
 .socialMediaIcons .fab:hover{

@@ -20,7 +20,7 @@ export default class Footer extends Component {
     
     componentDidMount(){
         axios.get("/api/sections/get/get_megamenu_list")
-            .then((response)=>{ 
+            .then((response)=>{
                 if(response){
                     this.setState({ 
                         categoryData : response.data
@@ -129,31 +129,14 @@ export default class Footer extends Component {
                     </a>
                     </Link>
                 </div>  */}
-                {/*< Websitelogo />*/}
+                < Websitelogo />
                 <div className="col-12">
-                    <div className="col-12 FooterTitle NOpadding">Connect with Us</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 Nopadding">
-                        <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                    
-                        <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>
-                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>  
-                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>                          
-                        <div className="socialMediaIcons"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                   
-                    </div>
-                </div>
-
-                <div className="col-12 mt80">
-                    <div className="col-12 FooterTitle">Payment card</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15">
-                        <div className="payCard1"></div>
-                        <div className="payCard2"></div>                        
-                    </div>
-                </div>
-
-                <div className="col-12 mt80">
-                    <div className="col-12 FooterTitle">We are in</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width">
-                        <div className="appleCard"></div>
-                        <div className="androidCard"></div>                        
+                    <div className="col-12 FooterTitle FooterTitle2">Connect Us</div>
+                    <div className="col-12 col-sm-6 col-lg-12 col-md-12  NoPadding">
+                        <div className="socialMediaIcons pull-right"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f"></i></a></Link></div>
+                        <div className="socialMediaIcons pull-right"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram" aria-hidden="true"></i></a></Link></div>
+                        <div className="socialMediaIcons pull-right"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube" aria-hidden="true"></i></a></Link></div>  
+                        <div className="socialMediaIcons pull-right"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fab fa-twitter" aria-hidden="true"></i></a></Link></div>                   
                     </div>
                 </div>
             </div>
@@ -162,20 +145,13 @@ export default class Footer extends Component {
         </div>
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
-              <div className="row footerBottom">
-              < Websitelogo />
-              <div className="col-9 text_Center">
-                  <div className="footer3Class">
-                      Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
-                  </div>
-                  <p><i className="fa fa-copyright"></i>2021,Trollymart.com</p>
-              </div>
-               {/* <div className="col-12 col-sm-6 copyrighttxt">
+              <div className="row">
+                <div className="col-12 col-sm-6 copyrighttxt">
                     <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Trolly</span><span className="mandaiColor">Mart</span> All Rights Reserved.</p>
                 </div>
                 <div className="col-12 col-sm-6 footernabbar NoPadding">
                     <span className=" pull-right ">Design & Developed by <Link href="http://iassureit.com/"><a target="_blank"> iAssure International Technologies Pvt. Ltd. </a></Link> Version 1.0</span>
-                </div>*/}
+                </div>
             </div>  
         </div>
        </div> 
