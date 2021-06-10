@@ -1,25 +1,27 @@
 //MVMP = Multivendor Market Place
 
-const mongoose 				= require("mongoose");
-const Orders 			    = require('./ModelMVMP');
-const Carts 				= require('../cart/ModelNew');
-const Masternotifications 	= require('../../coreAdmin/notificationManagement/ModelMasterNotification.js');
-const User 					= require('../../coreAdmin/userManagementnew/ModelUsers.js');
-const ProductInventory 		= require('../ProductInventory/Model.js');
-const BusinessAssociate 	= require('../businessAssociate/Model');
-const ReturnedProducts 		= require('../returnedProducts/Model');
-const Products 				= require('../products/Model');
-const Adminpreference 		= require('../adminPreference/Model');
-const StorePreferences  	= require('../StorePreferences/Model.js');
-const Coupon            	= require('../CouponManagement/Model');
-const Allowablepincode 		= require('../allowablePincodes/Model');
-const Entitymaster 			= require('../../coreAdmin/entityMaster/ModelEntityMaster.js');
-const globalVariable 		= require('../../../nodemon');
-const moment 				= require('moment-timezone');
-const FranchiseGoods 		= require('../distributionManagement/Model');
-const axios             	= require('axios');
-var ObjectId 				= require('mongodb').ObjectID;
-var request 				= require('request-promise');
+const mongoose 					= require("mongoose");
+const Orders 			    	= require('./ModelMVMP');
+const Carts 					= require('../cart/ModelNew');
+const Masternotifications 		= require('../../coreAdmin/notificationManagement/ModelMasterNotification.js');
+const User 						= require('../../coreAdmin/userManagementnew/ModelUsers.js');
+const ProductInventory 			= require('../ProductInventory/Model.js');
+const BusinessAssociate 		= require('../businessAssociate/Model');
+const ReturnedProducts 			= require('../returnedProducts/Model');
+const Products 					= require('../products/Model');
+const Adminpreference 			= require('../adminPreference/Model');
+const StorePreferences  		= require('../StorePreferences/Model.js');
+const OrderCancellationPolicy   = require('../../Ecommerce/OrderCancellationPolicy/Model.js');
+
+const Coupon            		= require('../CouponManagement/Model');
+const Allowablepincode 			= require('../allowablePincodes/Model');
+const Entitymaster 				= require('../../coreAdmin/entityMaster/ModelEntityMaster.js');
+const globalVariable 			= require('../../../nodemon');
+const moment 					= require('moment-timezone');
+const FranchiseGoods 			= require('../distributionManagement/Model');
+const axios             		= require('axios');
+var ObjectId 					= require('mongodb').ObjectID;
+var request 					= require('request-promise');
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
@@ -827,12 +829,19 @@ exports.fetch_order = (req, res, next) => {
 		// for(var i=0;i<data.length;i++){
 			// for(var j=0;j<data[i].vendorOrders.length;j++){
 				// console.log("data[i].vendorOrders",data[i].vendorOrders);
+				var maxDurationForCancelOrderData = await OrderCancellationPolicy.findOne({},{maxDurationForCancelOrder : 1})
+    			if(maxDurationForCancelOrderData !== null && maxDurationForCancelOrderData.maxDurationForCancelOrder > 0){
+					var maxDurationForCancelOrder = maxDurationForCancelOrderData.maxDurationForCancelOrder;
+				}else{
+					var maxDurationForCancelOrder = 0;
+				}
 				if(data !== null){
 					for(var j=0;j<data.vendorOrders.length;j++){
 						var vendor = await Entitymaster.findOne({_id:data.vendorOrders[j].vendor_id},{companyName:1,_id:0})
 						data.vendorOrders[j].vendorName = vendor.companyName;
 					}
 					if(j>=data.vendorOrders.length){
+						data.maxDurationForCancelOrder = maxDurationForCancelOrder;
 						res.status(200).json(data);
 					}
 				}else{
@@ -1382,18 +1391,30 @@ exports.list_order_by_user = (req, res, next) => {
   ])
 	 .exec()
 	 .then(async(data) => {
-		console.log('data', data);
+		// console.log('data', data);
+		var maxDurationForCancelOrderData = await OrderCancellationPolicy.findOne({},{maxDurationForCancelOrder : 1})
+		
+		if(maxDurationForCancelOrderData !== null && maxDurationForCancelOrderData.maxDurationForCancelOrder > 0){
+			var maxDurationForCancelOrder = maxDurationForCancelOrderData.maxDurationForCancelOrder;
+		}else{
+			var maxDurationForCancelOrder = 0;
+		}
+
 		for(var i=0;i<data.length;i++){
 			for(var j=0;j<data[i].vendorOrders.length;j++){
-				console.log("data[i].vendorOrders",data[i].vendorOrders);
+				// console.log("data[i].vendorOrders",data[i].vendorOrders);
 				var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
-				console.log("vendor",vendor);
+				// console.log("vendor",vendor);
 				if(vendor && vendor.companyName){
 					data[i].vendorOrders[j].vendorName = vendor.companyName;
 				}
 			}
+			if(j >= data[i].vendorOrders.length){
+				data[i].maxDurationForCancelOrder = maxDurationForCancelOrder;
+			}
 		}
 		if(i>=data.length){
+			
 			res.status(200).json(data);
 		}
 	 })

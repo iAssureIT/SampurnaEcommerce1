@@ -18,6 +18,7 @@ exports.insert_preferences = (req, res, next) => {
                         "maxRadius"                 : req.body.maxRadius,
                         "minOrderValue"             : req.body.minOrderValue,
                         "maxServiceCharges"         : req.body.maxServiceCharges,
+                        "maxNumberOfVendors"        : req.body.maxNumberOfVendors,
                         "serviseChargesByDistance"  : req.body.serviseChargesByDistance
                     }
                 }
@@ -41,6 +42,7 @@ exports.insert_preferences = (req, res, next) => {
                 "maxRadius"                 : req.body.maxRadius,
                 "minOrderValue"             : req.body.minOrderValue,
                 "maxServiceCharges"         : req.body.maxServiceCharges,
+                "maxNumberOfVendors"        : req.body.maxNumberOfVendors,
                 "serviseChargesByDistance"  : req.body.serviseChargesByDistance,
                 "createdAt"                 : new Date()
             });            

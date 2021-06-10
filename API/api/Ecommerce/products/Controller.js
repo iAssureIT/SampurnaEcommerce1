@@ -157,8 +157,8 @@ exports.bulkUploadProduct = (req,res,next)=>{
                             return e.section.toLowerCase() === inputSection.toLowerCase();
                         }); 
                         // const sectionExists = allSectionsData.some(sectiondata => sectiondata.section.toLowerCase() === inputSection.toLowerCase());
-                        console.log("sectionExists => ",sectionExists)
-                        console.log("condition => ",(sectionExists && sectionExists.length === 0))
+                        // console.log("sectionExists => ",sectionExists)
+                        // console.log("condition => ",(sectionExists && sectionExists.length === 0))
                         if (sectionExists && sectionExists.length === 0) {
                             var sectionObject   = await sectionInsert(productData[k].section); 
                             var section         = sectionObject;
@@ -180,9 +180,9 @@ exports.bulkUploadProduct = (req,res,next)=>{
                     // console.log("inputCategory => ",inputCategory)
                     // console.log("allSectionsData => ",allSectionsData)
                     if (inputCategory !== undefined){  
-                        console.log("sectionObject => ",sectionObject)                      
+                        // console.log("sectionObject => ",sectionObject)                      
                         // var section = sectionObject;
-                        console.log("section k => ",productData[k].section,"sectionArr => ",section)
+                        // console.log("section k => ",productData[k].section,"sectionArr => ",section)
                         // console.log("section id => ",section._id)
                         var categoryObject  = await categoryInsert(inputCategory, inputSubcategory, inputSection, section._id, productData[k].categoryNameRlang);                        
                         var taxObject       = []
@@ -581,7 +581,7 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                         Category.findOne({ category : catgName})
                         .exec()
                         .then(categoryObject=>{
-                            console.log("categoryObject.subCategory.length-1 => ",categoryObject.subCategory.length-1)
+                            // console.log("categoryObject.subCategory.length-1 => ",categoryObject.subCategory.length-1)
                             if(categoryObject){  
                                 let returnData = {
                                                     _id                 : categoryPresent._id, 

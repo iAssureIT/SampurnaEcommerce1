@@ -79,7 +79,7 @@ class OrderDeliveryPolicy extends Component {
 		});
 		$("#OrderDeliveryPolicyForm").validate({
 			rules: {
-			maxRadius: {
+				maxRadius: {
 					required: true,
 				},
 				minOrderValue: {
@@ -88,6 +88,9 @@ class OrderDeliveryPolicy extends Component {
 				maxServiceCharges: {
 					required: true,
 				},
+				maxNumberOfVendors: {
+					required: true,
+				}
 			},
 			errorPlacement: function (error, element) {
 				if (element.attr("name") === "maxRadius") {
@@ -100,6 +103,10 @@ class OrderDeliveryPolicy extends Component {
 				}
 				if (element.attr("name") === "maxServiceCharges") {
 					error.insertAfter("#maxServiceCharges");
+					element.focus();
+				}
+				if (element.attr("name") === "maxNumberOfVendors") {
+					error.insertAfter("#maxNumberOfVendors");
 					element.focus();
 				}
 			}
@@ -117,6 +124,7 @@ class OrderDeliveryPolicy extends Component {
 					'maxRadius'     			: storepreference.data[0].maxRadius,
 					'minOrderValue' 			: storepreference.data[0].minOrderValue,
 					'maxServiceCharges' 		: storepreference.data[0].maxServiceCharges,
+					'maxNumberOfVendors' 		: storepreference.data[0].maxNumberOfVendors,
 					'serviseChargesByDistance' 	: storepreference.data[0].serviseChargesByDistance,
 				})        
 			}
@@ -215,7 +223,8 @@ class OrderDeliveryPolicy extends Component {
 		var formValues = {
 			'maxRadius'     				: this.state.maxRadius,
 			'minOrderValue' 				: this.state.minOrderValue,
-			'maxServiceCharges' 		: this.state.maxServiceCharges,
+			'maxServiceCharges' 			: this.state.maxServiceCharges,
+			'maxNumberOfVendors' 			: this.state.maxNumberOfVendors,
 			'serviseChargesByDistance' 		: this.state.serviseChargesByDistance
 		}
 		
@@ -288,7 +297,7 @@ class OrderDeliveryPolicy extends Component {
 															<label>Minimum order amount per vendor to place order <i className="redFont">*</i></label>
 															<div className="input-group"> 	
 																<input className = "form-control" placeholder = "Minimum Order Value" ref = "minOrderValue"
-																	type 		= "text" 
+																	type 		= "number" 
 																	id 			= "minOrderValue" 
 																	name 		= "minOrderValue"
 																	value	 	= {this.state.minOrderValue} 
@@ -303,7 +312,7 @@ class OrderDeliveryPolicy extends Component {
 															<label>Maximum service charges applicable <i className="redFont">*</i></label>
 															<div className="input-group"> 	
 																<input className = "form-control" placeholder = "Default Service Charges" ref = "maxServiceCharges"
-																	type 		= "text" 
+																	type 		= "number" 
 																	id 			= "maxServiceCharges" 
 																	name 		= "maxServiceCharges"
 																	value	 	= {this.state.maxServiceCharges} 
@@ -311,6 +320,18 @@ class OrderDeliveryPolicy extends Component {
 																/>
 																<span class="input-group-addon addontext">{this.state.currency}</span> 
 															</div>
+														</div>                            
+													</div>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
+														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+															<label>Maximum number of vendors allowed in cart <i className="redFont">*</i></label>
+															<input className = "form-control" placeholder = "Maximum Number of Vendors Allowed in Cart" ref = "maxNumberOfVendors"
+																type 		= "number" 
+																id 			= "maxNumberOfVendors" 
+																name 		= "maxNumberOfVendors"
+																value	 	= {this.state.maxNumberOfVendors} 
+																onChange = {this.handleChange.bind(this)} 
+															/>
 														</div>                            
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">

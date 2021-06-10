@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 
 const storePreferenceSchema = mongoose.Schema({
 	_id			                : mongoose.Schema.Types.ObjectId,    
-    maxRadius                   : String,
-    minOrderValue               : String,
-    maxServiceCharges           : String,
+    maxRadius                   : Number,
+    minOrderValue               : Number,
+    maxServiceCharges           : Number,
+    maxNumberOfVendors          : Number,
     serviseChargesByDistance    : [
                                     {
                                         minDistance     : Number,

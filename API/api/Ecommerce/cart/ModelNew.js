@@ -4,6 +4,7 @@ const cartSchema = mongoose.Schema({
 	_id			          : mongoose.Schema.Types.ObjectId,
     user_ID               : { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     userDelLocation       : {lat: Number, long: Number},
+    minOrderAmount        : Number,
     vendorOrders          : [
         {
             vendor_id           : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },

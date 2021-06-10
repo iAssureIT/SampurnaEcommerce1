@@ -113,6 +113,7 @@ const orderSchema = mongoose.Schema({
                                     "latitude"        : Number,
                                     "longitude"       : Number,
                                 },
+    maxDurationForCancelOrder : Number,
     createdBy                 : String,
     createdAt                 : Date
 });
