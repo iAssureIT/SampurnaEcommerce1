@@ -157,7 +157,8 @@ exports.bulkUploadProduct = (req,res,next)=>{
                             return e.section.toLowerCase() === inputSection.toLowerCase();
                         }); 
                         // const sectionExists = allSectionsData.some(sectiondata => sectiondata.section.toLowerCase() === inputSection.toLowerCase());
-                        // console.log("sectionExists => ",sectionExists)
+                        console.log("sectionExists => ",sectionExists)
+                        console.log("condition => ",(sectionExists && sectionExists.length === 0))
                         if (sectionExists && sectionExists.length === 0) {
                             var sectionObject = await sectionInsert(productData[k].section); 
                             allSectionsData.push(sectionObject)
@@ -174,13 +175,12 @@ exports.bulkUploadProduct = (req,res,next)=>{
                     var inputCategory = productData[k].category.trim();
                     // console.log("inputCategory => ",inputCategory)
                     // console.log("allSectionsData => ",allSectionsData)
-                    if (inputCategory !== undefined){                        
-                        var section = allSectionsData.filter(function (e) {
-                            return e.section.toLowerCase() === productData[k].section.toLowerCase();
-                        });  
-                        // console.log("section => ",section)
-                        // console.log("section id => ",section[0]._id)
-                        var categoryObject  = await categoryInsert(inputCategory, inputSubcategory, inputSection, section[0]._id, productData[k].categoryNameRlang);                        
+                    if (inputCategory !== undefined){  
+                        console.log("sectionObject => ",sectionObject)                      
+                        var section = sectionObject;
+                        console.log("section k => ",productData[k].section,"sectionArr => ",section)
+                        // console.log("section id => ",section._id)
+                        var categoryObject  = await categoryInsert(inputCategory, inputSubcategory, inputSection, section._id, productData[k].categoryNameRlang);                        
                         var taxObject       = []
                         
                         // console.log("categoryObject 1 => ",categoryObject);
@@ -199,14 +199,14 @@ exports.bulkUploadProduct = (req,res,next)=>{
                                         if(productData[k].websiteModel === "MarketPlace"){
                                             // console.log("EntityData => ",(EntityData && EntityData.length > 0 ))
                                             if(EntityData && EntityData.length > 0 ){
-                                                var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0],EntityData);
+                                                var insertProductObject = await insertProduct(section._id, section.section, categoryObject,productData[k],taxObject[0],EntityData);
                                             }else{
                                                 remark+= "Vendor Company Does Not Exists";
                                             }
                                         }else{                                            
-                                            var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0]);
+                                            var insertProductObject = await insertProduct(section._id, section.section, categoryObject,productData[k],taxObject[0]);
                                             if(EntityData  !== "" && EntityData !== undefined ){
-                                                var insertProductObject = await insertProduct(section[0]._id, section[0].section, categoryObject,productData[k],taxObject[0],EntityData);
+                                                var insertProductObject = await insertProduct(section._id, section.section, categoryObject,productData[k],taxObject[0],EntityData);
                                             }else{
                                                 remark+= "Vendor Company Does Not Exists";
                                             }
