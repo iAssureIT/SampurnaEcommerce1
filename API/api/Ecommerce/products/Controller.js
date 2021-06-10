@@ -581,12 +581,13 @@ function categoryInsert(catgName,subcatgName,sectionname,section,categoryNameRla
                         Category.findOne({ category : catgName})
                         .exec()
                         .then(categoryObject=>{
+                            console.log("categoryObject.subCategory.length-1 => ",categoryObject.subCategory.length-1)
                             if(categoryObject){  
                                 let returnData = {
                                                     _id                 : categoryPresent._id, 
                                                     category            : categoryPresent.category,
                                                     categoryNameRlang   : categoryPresent.categoryNameRlang, 
-                                                    subCategory_ID      : categoryObject.subCategory[categoryObject.subCategory.length-1]._id
+                                                    subCategory_ID      : categoryObject.subCategory && categoryObject.subCategory.length > 0 ? categoryObject.subCategory[categoryObject.subCategory.length-1]._id : null
                                                 }                                 
                                 resolve(returnData);
                                 // console.log("4. returnData => ",returnData)
