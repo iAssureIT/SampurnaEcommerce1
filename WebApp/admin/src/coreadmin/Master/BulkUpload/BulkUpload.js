@@ -155,11 +155,11 @@ class BulkUpload extends Component{
 
 	/**============ getFileDetails() ===========*/
 	getFileDetails(fileName){
-		axios
-		.get(this.state.fileDetailUrl+fileName)
+		axios.get(this.state.fileDetailUrl+fileName)
 		.then((response)=> {
 		 	$('.fullpageloader').hide();  
 		 	if (response) {
+				//  console.log("response data => ",response.data)
 			 	this.setState({
 					fileDetails         : response.data,
 					failedRecordsCount  : response.data.failedRecords.length,

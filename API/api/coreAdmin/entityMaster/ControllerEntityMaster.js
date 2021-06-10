@@ -1501,7 +1501,7 @@ exports.bulkUploadEntity = (req, res, next) => {
     var failedRecords   = [];
     var count           = 0;
     var duplicateCount  = 0;
-    console.log("entity...",entity);
+    // console.log("entity...",entity);
 
     processData();
     async function processData() {
@@ -1524,31 +1524,42 @@ exports.bulkUploadEntity = (req, res, next) => {
                     remark += "companyPhone not found, ";
                 }
 
-                if (remark === '') {
-                    var getnext = await getNextSequence(entity[k].entityType)
-                    console.log("getnext => ",getnext);
-                    // console.log("entity[k].EntityType => ",entity[k].EntityType)
+                if (remark === '') {                    
+                    // console.log("condition 1 ",(validData && validData.length > 0))
                     if(validData && validData.length > 0){
-                        maxCompanyID = Math.max.apply(null, validData.map(function(vendor) {
+                        var maxCompanyID = Math.max.apply(null, validData.map(function(vendor) {
                             return vendor.companyID;
                         }));
-                        console.log("maxCompanyID => ",maxCompanyID);
+                        // console.log("maxCompanyID => ", k, " " ,maxCompanyID);
+                        var getnext = parseInt(maxCompanyID + 1);
+
+                        if(entity[k].entityType == 'corporate'){
+                            var str = "C"+parseInt(maxCompanyID + 1)
+                        }else if((entity[k].entityType).toLowerCase() === 'vendor'){
+                            //    var str = "V"+parseInt(getnext)
+                            var str = parseInt(maxCompanyID + 1);
+                            // console.log("str => ",str);
+                        }else if(entity[k].entityType == 'supplier'){ 
+                            var str = "S"+parseInt(maxCompanyID + 1)
+                        }
                     }else{
+                        var getnext = await getNextSequence(entity[k].entityType)
+                        // console.log("entityType 2 => ",(entity[k].entityType).toLowerCase());
+                        // console.log("condition 2 => ",((entity[k].entityType).toLowerCase() === 'vendor'));
                         if(entity[k].entityType == 'corporate'){
                             var str = "C"+parseInt(getnext)
-                        }else if((entity[k].entityType).toLowerCase === 'vendor'){
+                        }else if((entity[k].entityType).toLowerCase() === 'vendor'){
                             //    var str = "V"+parseInt(getnext)
                             var str = parseInt(getnext);
-                            console.log("str => ",str);
                         }else if(entity[k].entityType == 'supplier'){ 
                             var str = "S"+parseInt(getnext)
-                        }else{
-                            var str = 1
                         }
                     }
+                    // console.log("getnext => ",getnext);
+                    // console.log("str => ",str);
 
-                    var companyNo  = getnext ? getnext : 1;
-                    var companyID  = str ? str : 1;
+                    var companyNo  = getnext;
+                    var companyID  = str;
 
 
                     // var departmentId, designationId;
@@ -1741,7 +1752,7 @@ exports.bulkUploadEntity = (req, res, next) => {
 
                         } else {
 
-                            remark                      += "data already exists.";
+                            remark                      += "This Vendor Employee Already Exists in the System.";
                             invalidObjects              = entity[k];
                             invalidObjects.failedRemark = remark;
 
@@ -1825,19 +1836,19 @@ exports.bulkUploadEntity = (req, res, next) => {
             }
         }
         // console.log("validData",validData);
-        // EntityMaster.insertMany(validData)
-        // .then(data => {
-        //     // console.log("Data *=> ",data)
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // });
+        EntityMaster.insertMany(validData)
+        .then(data => {
+            // console.log("Data *=> ",data)
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
-        // failedRecords.FailedRecords = invalidData;
-        // failedRecords.fileName      = req.body.fileName;
-        // failedRecords.totalRecords  = req.body.totalRecords;
+        failedRecords.FailedRecords = invalidData;
+        failedRecords.fileName      = req.body.fileName;
+        failedRecords.totalRecords  = req.body.totalRecords;
 
-        // await insertFailedRecords(failedRecords, req.body.updateBadData);
+        await insertFailedRecords(failedRecords, req.body.updateBadData);
 
         res.status(200).json({
             "message"   : "Bulk upload process is completed successfully!",
