@@ -30,7 +30,7 @@ class MyCart extends React.Component {
             <div className="col-4 NoPadding">
             {this.state.userID?
                 <a href="/cart" className="col-12 col-sm-6 cartHeader NoPadding">        
-                    <div className="row">
+                    <div className="row mtm3">
                         <div className="col-5 p-2 ml-4">
                             <img className=" cartImg rotateImg" src="/images/eCommerce/cart.png"></img>
                         </div>

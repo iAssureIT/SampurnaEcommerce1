@@ -130,7 +130,7 @@ export default class Footer extends Component {
                     </Link>
                 </div>  */}
                 {/*< Websitelogo />*/}
-                <div className="col-12">
+                <div className="col-xl-12 col-md-6 col-sm-6  col-12">
                     <div className="col-12 FooterTitle NOpadding">Connect with Us</div>
                     <div className="col-12 col-sm-6 col-lg-12 col-md-12 Nopadding">
                         <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                    
@@ -141,7 +141,7 @@ export default class Footer extends Component {
                     </div>
                 </div>
 
-                <div className="col-12 mt80">
+                <div className="col-xl-12 col-md-6 col-sm-6  col-12 mt80">
                     <div className="col-12 FooterTitle">Payment card</div>
                     <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15">
                         <div className="payCard1"></div>
@@ -149,7 +149,7 @@ export default class Footer extends Component {
                     </div>
                 </div>
 
-                <div className="col-12 mt80">
+                <div className="col-xl-12 col-md-6 col-sm-6  col-12 mt80">
                     <div className="col-12 FooterTitle">We are in</div>
                     <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width">
                         <div className="appleCard"></div>

@@ -101,7 +101,7 @@ class header extends React.Component {
     return (
         <div className="col-8 col-sm-8">  
             <div className="col-12 loginViewWrapper ">
-                <div className="row ">
+                <div className="row mtm3">
                 {this.state.loggedIn ? 
                     <li className="dropdown myaccDropdown">
                         <span className="col-12 NoPadding ">

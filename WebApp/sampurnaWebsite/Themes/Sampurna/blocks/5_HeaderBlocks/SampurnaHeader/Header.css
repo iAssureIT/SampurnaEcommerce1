@@ -40,7 +40,7 @@
 }
 .logoWrap{
     margin-top: 20px;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
 }
 .dropDownLevel1 a,
 .dropDownLevel1 .sectionForMobile{
@@ -218,9 +218,13 @@ ul:hover > .dropDownLevel3 {
     background-color: transparent !important;
 }
 
+.mtm3{
+    margin-top:-3px !important;
+}
+
 /*============= right navbar ================ */
 .rightNavbar{
-    margin-top: 5px !important;
+    margin-bottom: 15px !important;
 }
 .rightNavbar li a{
     color:#fff !important;
@@ -653,7 +657,7 @@ li a{
 }
 .headerWrapper .logoBlock{
     margin-top: 0px !important;
-    margin-bottom: 22px !important;
+    /*margin-bottom: 22px !important;*/
 }
 
 /* AddressList css */
