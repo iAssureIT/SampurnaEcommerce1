@@ -158,7 +158,9 @@ class ProductCarousel extends Component {
         "vendorlocation_ID" : vendorlocation_ID,
         "sectionUrl"        : sectionUrl,
         "categoryUrl"       : categoryUrl?categoryUrl:"",
-        "subCategoryUrl"    : subCategoryUrl?subCategoryUrl:""
+        "subCategoryUrl"    : subCategoryUrl!==undefined?subCategoryUrl:""
+      },()=>{
+          console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
       })
     }
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -190,23 +192,31 @@ class ProductCarousel extends Component {
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              // console.log("3.response.data category list=",categoryResponse.data); 
-              this.setState({
-                categoryData     : categoryResponse.data.categoryList,    
-                brandData        : categoryResponse.data.brandList,           
-              },()=>{
-                formValues = {
-                  "vendor_ID"         : vendor_ID,
-                  "vendorLocation_id" : this.state.vendorlocation_ID,
-                  "sectionUrl"        : this.state.sectionUrl,
-                  "categoryUrl"       : this.state.categoryUrl===""?categoryResponse.data.categoryList.categoryUrl:this.state.categoryUrl,
-                  "subCategoryUrl"    : [this.state.subCategoryUrl],
-                  "userLatitude"      : this.state.userLatitude,
-                  "userLongitude"     : this.state.userLongitude,
-                  "startRange"        : this.state.startRange,
-                  "limitRange"        : this.state.limitRange,
-                }
-              });
+              console.log("3.response.data category list=",categoryResponse.data); 
+              for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
+                  if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
+                    var subCategoryData = categoryResponse.data.categoryList[i].subCategory;
+                    console.log("my subCategoryData===",subCategoryData);
+                        this.setState({
+                          categoryData     : categoryResponse.data.categoryList,    
+                          brandData        : categoryResponse.data.brandList, 
+                          subCategoryData  : categoryResponse.data.categoryList[i].subCategory,     
+                        },()=>{
+                          formValues = {
+                            "vendor_ID"         : vendor_ID,
+                            "vendorLocation_id" : this.state.vendorlocation_ID,
+                            "sectionUrl"        : this.state.sectionUrl,
+                            "categoryUrl"       : this.state.categoryUrl===""?categoryResponse.data.categoryList.categoryUrl:this.state.categoryUrl,
+                            "subCategoryUrl"    : [this.state.subCategoryUrl],
+                            "userLatitude"      : this.state.userLatitude,
+                            "userLongitude"     : this.state.userLongitude,
+                            "startRange"        : this.state.startRange,
+                            "limitRange"        : this.state.limitRange,
+                          }
+                        });
+                  }
+              }
+             
             }
           })
           .catch((error)=>{
@@ -810,11 +820,13 @@ getWishlistData() {
                     {this.state.categoryData && this.state.categoryData.length>0?    
                     
                       < CategoryFilters 
-                        categoryData       = {this.state.categoryData}
+                        categoryData       = {this.state.subCategoryData}
                         blockSettings      = {this.state.blockSettings}
                         vendor_ID          = {this.state.vendor_ID}
                         vendorlocation_ID  = {this.state.vendorlocation_ID}
                         sectionUrl         = {this.state.sectionUrl}
+                        subCategoryUrl     = {this.state.subCategoryUrl}
+                        categoryUrl        = {this.state.categoryUrl}
                         userLatitude       = {this.state.userLatitude}
                         userLongitude      = {this.state.userLongitude}
                         startRange         = {this.state.startRange}
@@ -822,6 +834,7 @@ getWishlistData() {
                       />
                     
                     :' '
+
                     }
                     {this.state.brandData && this.state.brandData.length>0?  
                       < BrandFilters 
@@ -830,6 +843,7 @@ getWishlistData() {
                         vendor_ID          = {this.state.vendor_ID}
                         vendorlocation_ID  = {this.state.vendorlocation_ID}
                         sectionUrl         = {this.state.sectionUrl}
+                        categoryUrl        = {this.state.categoryUrl}
                         userLatitude       = {this.state.userLatitude}
                         userLongitude      = {this.state.userLongitude}
                         startRange         = {this.state.startRange}
@@ -912,6 +926,7 @@ getWishlistData() {
   }
 }
 const mapStateToProps = state => (
+  
   {
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,

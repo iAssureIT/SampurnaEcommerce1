@@ -845,15 +845,13 @@ class Checkout extends Component {
                                     this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
                                         <div className="col-12 shippingAddress NoPadding">
                                             <div className="col-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS <span className="required">*</span></div>
-                                            <div className="col-12 addressWrapper">
-                                                <div className="col-12">
-                                                    <label id="checkoutAddess"></label>
-                                                </div>
+                                            <div className="col-12 addressWrapper pt-4">
+                                                
                                                 {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
                                                     this.state.deliveryAddress.map((data, index) => {
                                                         // console.log("address data ==", data);
                                                         return (
-                                                            <div key={'check' + index} className="col-12">
+                                                            <div key={'check' + index} className="col-12 NoPadding">
                                                                 <div className="row " >
                                                                 <div className="form-check col-1">
                                                                     <input type="radio" className="form-check-input" disabled={data.distance <=1 ?false: true} name="selectAddress" id={"address"+index} value={data._id} 
@@ -867,13 +865,15 @@ class Checkout extends Component {
                                                                     }}
                                                                     name="checkoutAddess" pincode={data.pincode}  required className="codRadio"/>
                                                                 </div>
-                                                                <div className="checkoutADDCss col-11"><b>{data.addType} Address&nbsp;</b> <br />
+                                                                <div className="checkoutADDCss col-10"><b>{data.addType} Address&nbsp;</b> <br />
                                                                     <span className="checkoutADDCss">Name : {data.name}.</span> <br />
                                                                     {data.addressLine2}, {data.addressLine1},
                                                                     Mobile: {data.mobileNumber}</div>
                                                                 </div>
                                                                 { data.distance >=1?
-                                                                    <div className="errorMsg col-12 NoPadding">This address is out of delivery.</div>
+                                                                    <div className="errorMsg col-12">
+                                                                        <div className="errorMsg col-12">This address is out of delivery.</div>
+                                                                    </div>
                                                                  :null
                                                                  } 
                                                             </div>

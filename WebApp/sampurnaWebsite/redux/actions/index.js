@@ -84,7 +84,6 @@ export function getCartData() {
       return axios.get("/api/carts/get/cartproductlist/"+userid)
         .then((response)=>{ 
           if(response){   
-            // console.log("inside acion  fetchCartData:",response.data);  
             dispatch(fetchcartdata(response.data));
           }
         })
@@ -102,10 +101,10 @@ export function getWishlistData() {
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
     var userid = userDetails.user_id;
     if (userid) {      
-      // return axios.get('/api/wishlist/get/userwishlist/'+userid)
       axios.get('/api/wishlist/get/wishlistdata/'+userid) 
       .then((response)=>{
         if(response){
+          dispatch(setWishlistData(response.data));
         }       
       })
       .catch((error)=>{

@@ -6,8 +6,7 @@ import getConfig             from 'next/config';
 import Head                  from 'next/head'
 // import ScrollTop             from '../Themes/Sampurna/blocks/StaticBlocks/ScrollTop/ScrollTop.js';
 // import Banner                from '../Themes/Sampurna/blocks/3_BannerManagement/Banner/Banner.js';
-
-// import BlogCarousel from '../blockTemplate/BlogCarousel/BlogCarousel.js';
+// import BlogCarousel          from '../blockTemplate/BlogCarousel/BlogCarousel.js';
 
 const { publicRuntimeConfig } = getConfig();
 const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
@@ -33,7 +32,7 @@ class MasterPage extends React.Component {
 		};
 	}
 	componentDidMount(){
-		console.log("inside masterpage");
+		// console.log("inside masterpage");
 		window.onload = (event) => {	
 			this.setState({
 				"pageLoaded" : true
@@ -78,7 +77,7 @@ class MasterPage extends React.Component {
 							var component = result._id ? result.blockComponentName : "TitleDesc";
 							var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
 							var block_id=result.block_id?result.block_id._id:"";
-							console.log("component==",component);
+							// console.log("component==",component);
 							const OtherComponent = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),					
 							{
 								loading: () =>

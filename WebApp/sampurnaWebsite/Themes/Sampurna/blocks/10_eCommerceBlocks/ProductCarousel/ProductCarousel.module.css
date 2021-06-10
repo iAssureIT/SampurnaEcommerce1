@@ -462,15 +462,6 @@ font-weight: bold;
   /* display: none; */
   margin-left: 1220px !important;
 }
-.categoryFilterTitle{
-  font-size: 20px;
-  padding: 20px 10px;
-  border-bottom:solid 1px #ddd;
-}
-.filterBlockWrapper{
-   border: solid 1px #eee;
-   height: max-content;
-}
 .NoPadding{
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -489,6 +480,18 @@ font-weight: bold;
   height: 20px;
 }
 /* css for filters */
+.categoryFilterTitle{
+  font-size: 18px;
+  padding: 20px 10px;
+  border-bottom:solid 1px #ddd;
+}
+.activeSubCategory{
+  color: #f00 !important;
+}
+.filterBlockWrapper{
+   border: solid 1px #eee;
+   height: max-content;
+}
 .accordion {
   background-color: #eee;
   color: #444;

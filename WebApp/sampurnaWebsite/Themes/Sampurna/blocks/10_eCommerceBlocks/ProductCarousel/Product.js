@@ -230,7 +230,7 @@ class Product extends Component{
         // console.log("inside wishlist==",formValues);
         axios.post('/api/wishlist/post', formValues)
           .then((response) => {
-            // console.log("wishlist ressponse===",response.data);
+            console.log("wishlist ressponse===",response.data);
             var previousUrl = window.location.href;
             localStorage.setItem("previousUrl", previousUrl);
             this.setState({
@@ -293,8 +293,8 @@ class Product extends Component{
           <Message messageData={this.state.messageData} /> 
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => {  
-                var x = this.props.wishList && this.props.wishList.length > 0 ? this.props.wishList.filter((abc) => abc.product_ID === data._id) : [];
-                // var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
+                // var x = this.props.wishList && this.props.wishList.length > 0 ? this.props.wishList.filter((abc) => abc.product_ID === data._id) : [];
+                var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';
                 var tooltipMsg = '';
                 if (x && x.length > 0) {
@@ -471,6 +471,7 @@ class Product extends Component{
 }
 
 const mapStateToProps = state => (
+  
   {
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,

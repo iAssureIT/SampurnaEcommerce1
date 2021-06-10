@@ -39,7 +39,7 @@ const VendorList = ()=> {
         axios.post("/api/vendorlist/post/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){
-                    console.log("vendorResponse=>",vendorResponse);
+                    // console.log("vendorResponse=>",vendorResponse);
                     setVendorList(vendorResponse.data)
                 }
 			})

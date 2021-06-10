@@ -38,64 +38,52 @@ class CategoryFilters extends Component{
             
         }
     }
+    componentDidMount(){
+      if(this.props.subCategoryUrl){
+        // console.log("inside if",$);
+          $('panel-title').addClass(' Style.activeSubCategory');
+          // var v = document.getElementByClass(".panel-title");
+          // v.className += "activeSubCategory";
+      }
+    }
+  componentDidUpdate(prevProps, prevState) {
+  if(prevProps.subCategoryUrl){
+    console.log("inside if",document);
+      $('.panel-title').addClass(' Style.activeSubCategory');
+      var v = document.getElementByClass(".panel-title");
+      v.className += "activeSubCategory";
+  }
+}
 
-    static getDerivedStateFromProps(nextProps, prevState) {
+    // static getDerivedStateFromProps(nextProps, prevState) {
       // console.log("props--",nextProps);
-      if (nextProps.newProducts) {
+      // if (nextProps.newProducts) {
         // return ({ 
         //   categoryData: nextProps.categoryData,
         //   vendor_ID   : nextProps.vendor_ID,
         // }) // <- this is setState equivalent
-      }
-      return null
-    }
+      // }
+      // return null
+    // }
 
     render(){
-      // console.log("this.props.categoryData===",this.props.categoryData);
+      console.log("subcategory this.props.categoryData===",this.props.categoryData);
       return (
           <div className="panel-group" id="accordion">                      
-            <div className={Style.categoryFilterTitle}> Categories </div>  
+            <div className={Style.categoryFilterTitle}> Sub Categories </div>  
             {
-            this.props.categoryData && this.props.categoryData.map((category,index)=>{
+            this.props.categoryData && this.props.categoryData.map((subcategory,index)=>{
               var i = index+1;
               return(
                 <div key={index} className="panelCategory paneldefault">
                   <div className={"panel-heading "+Style.panelHeading}>
-                  {category.subCategory && category.subCategory.length?
-                    <h4 data-toggle="collapse" data-parent="#accordion" href={"#collapse"+i} className="panel-title expand">
-                      <div className="right-arrow pull-right">+</div> 
-                      <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl}>
-                        <a >{category.category}</a>
-                      </Link>
-                    </h4>
-                    :
-                    <h4  className="panel-title expand"> 
-                      <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl}> 
-                          <a >{category.category}</a>
-                      </Link>
-                    </h4>
-                    }
+                      <h4  className="panel-title"> 
+                        <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
+                            <a >{subcategory.subCategoryTitle}</a>
+                        </Link>
+                      </h4>
                   </div>
-                  {category.subCategory?
-                  <div id={"collapse"+i} className="panel-collapse collapse">
-                    <div className="panel-body">
-                      <ul className={Style.categoryUl}>
-                          {category.subCategory && category.subCategory.map((subcategory,index)=>{   
-                          return(
-                            <li key={index} className={Style.subcategoryLi}>  
-                              <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+category.categoryUrl+"/"+subcategory.subCategoryUrl}>
-                                <a className={"subCategorylia "+Style.subCategorylia}>{subcategory.subCategoryTitle}</a>
-                              </Link> 
-                            </li>
-                          )
-                          })
-                          }
-                        </ul>
-                    </div>                                
-                  </div>
-                  :null
-                  }
-              </div>
+                </div>
               )
               })                 
             }  
@@ -105,3 +93,5 @@ class CategoryFilters extends Component{
 }
 
 export default CategoryFilters;
+
+

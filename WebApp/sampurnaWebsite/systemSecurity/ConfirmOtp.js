@@ -14,11 +14,17 @@ class ConfirmOtp extends Component {
     this.state = {
       showMessage: false,
       fields: {},
-      errors: {}
+      errors: {},
+      userID: "",
 
     }
   }
   componentDidMount() {
+    var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails){
+          var userID                = userDetails.user_id; 
+        }
   }
 
   validateForm() {
@@ -47,10 +53,8 @@ class ConfirmOtp extends Component {
 
   confirmOTP(event) {
     event.preventDefault();
-    var userID = localStorage.getItem('userID');
-    // var url = this.props.match.params;
     var formValues = {
-      "user_ID": userID,
+      "user_ID": this.state.userID,
       "emailOTP": parseInt(this.refs.emailotp.value),
       "status": "Active"
     }
@@ -169,7 +173,7 @@ class ConfirmOtp extends Component {
         <div className="col-12 NoPadding">
           <div className="col-12 mobileViewNoPadding">
             <div className="col-12 mobileViewNoPadding">
-              <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
+              {/* <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
                   <Image 
                       src={"/images/eCommerce/multistoreLogo.png"}
                       className={"logoImg"}
@@ -177,7 +181,7 @@ class ConfirmOtp extends Component {
                       width={200}
                       layout="responsive"
                   />	
-              </div>
+              </div> */}
               <div className="col-12 innloginwrap mb25">
                 <h4>Confirm OTP</h4>
               </div>
@@ -200,14 +204,16 @@ class ConfirmOtp extends Component {
                       <div className="loginforgotpass mt25">
                         <label>Found your Password?</label>&nbsp;<a href="" onClick={this.openSignInModal.bind(this)} className="" >Sign In <b>&#8702;</b></a>
                       </div>
-                      <div className="mt30 col-12 mb25 NoPadding">
-                        <div className="col-xs-12 col-sm-7">
-                          <div id="resendOtpBtn" onClick={this.resendOtp.bind(this)} className="col-12 btn globaleCommBtn  systemsecBtn">
-                              Resend OTP
+                      <div className="mt30 col-12 mb25 ">
+                        <div className="row">
+                          <div className="col-xs-12 col-sm-7">
+                            <div id="resendOtpBtn" onClick={this.resendOtp.bind(this)} className="col-12 btn globaleCommBtn  systemsecBtn">
+                                Resend OTP
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-xs-12 col-sm-5">
-                           <button type="submit" onClick={this.confirmOTP.bind(this)} className="col-12 btn loginBtn globaleCommBtn systemsecBtn">Submit</button>
+                          <div className="col-xs-12 col-sm-5">
+                            <button type="submit" onClick={this.confirmOTP.bind(this)} className="col-12 btn loginBtn globaleCommBtn systemsecBtn">Submit</button>
+                          </div>
                         </div>
                       </div>
                     </form>

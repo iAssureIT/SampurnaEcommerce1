@@ -33,86 +33,25 @@ class BrandFilters extends Component{
         super(props);
         this.state = { 
             categoryData : [],
+            brandArray   : [],
             vendor_ID    : ''
             
         }
     }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-      // console.log("props--",nextProps);
-      if (nextProps.newProducts) {
-        // return ({ 
-        //   categoryData: nextProps.categoryData,
-        //   vendor_ID   : nextProps.vendor_ID,
-        // }) // <- this is setState equivalent
-      }
-      return null
-    }
-    onSelectedItemsChange = effect => {
-        this.setState({ effect });
-        var brand = effect.value;   
-        var formValues = {
-          "vendor_ID"      : "",
-          "sectionUrl"     : this.props.blockSettings.section? (this.props.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
-          "categoryUrl"    : this.props.blockSettings.category === "all" ? "" : this.props.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
-          "subCategoryUrl" : this.props.blockSettings.subCategory !== "all"?[this.props.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
-          "userLatitude"   : this.props.userLatitude,
-          "userLongitude"  : this.props.userLongitude,
-          "startRange"     : this.props.startRange,
-          "limitRange"     : this.props.limitRange,
-          "sortProductBy"  : '',
-          "brand"          : brand, 
-        }
-        if(!this.props.blockSettings.showCarousel && this.state.filterSettings){
-          var productApiUrl = this.props.productApiUrl;
-          // console.log("productlist productApiUrl===",productApiUrl);
-        }else if(!this.props.blockSettings.showCarousel && !this.state.filterSettings){
-          var productApiUrl = this.props.productApiUrl;
-          // console.log("productApiUrl===",productApiUrl);
-        }else{ 
-            var productApiUrl = this.props.blockSettings.blockApi;
-            // console.log("productApiUrl===",productApiUrl);
-        }
-        if(formValues){
-          this.getProductList(productApiUrl,formValues);
-        }
-      };
-
-      getProductList(productApiUrl,formValues){
-        // console.log("productApiUrl=>",productApiUrl);
-        axios.post(productApiUrl,formValues)     
-        .then((response)=>{
-          if(response.data){     
-          // console.log("response.data in product carousel===",response.data);       
-          if(this.state.websiteModel === "FranchiseModel"){
-            for(var i=0;i<response.data.length;i++){       
-                var availableSizes = [];         
-                if(response.data[i].size){              
-                  availableSizes.push(response.data[i].size*1);
-                  availableSizes.push(response.data[i].size*2);
-                  availableSizes.push(response.data[i].size*4); 
-                  response.data[i].availableSizes = availableSizes;           
-                }
-            }
-          } 
-          this.setState({
-            newProducts     : response.data,                          
-          },()=>{
-            // console.log("newProducts=>",this.state.newProducts);
-            if(this.state.newProducts.length>0){
-              this.setState({
-                ProductsLoading : true,
-                loading         : false
-              });  
-            }
-          });
-        }
-        })
-        .catch((error)=>{
-            console.log('error', error);
-        })
-      }
     
+    getBrandWiseData(event){
+      console.log("brand value ==",event.target.value);
+      var brandArray = this.state.brandArray;
+      if(event.target.value !== "undefined"){
+        var brandValue = event.target.value;
+        brandArray.push(brandValue);
+      }
+      this.setState({
+        brandArray : brandArray
+      },()=>{
+        console.log("brandArray => ",this.state.brandArray)
+      })
+    }
     render(){
       // console.log("this.props.categoryData===",this.props.brandData);
       return (
@@ -126,7 +65,7 @@ class BrandFilters extends Component{
                 <div className="col-12 noPadding panelCategory paneldefault" key={index}>
                     <div className={"row panel-heading "+Style.panelHeading}>
                         <div className=" col-1 NoPadding centreDetailContainerEcommerce">
-                          <input className=" " type="checkbox" name="brands[]" onChange={this.onSelectedItemsChange.bind(this)} value={brand} />
+                          <input className=" " type="checkbox" name="brands[]" onChange={this.getBrandWiseData.bind(this)} value={brand} />
                         </div>
                         <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
                     </div>                              

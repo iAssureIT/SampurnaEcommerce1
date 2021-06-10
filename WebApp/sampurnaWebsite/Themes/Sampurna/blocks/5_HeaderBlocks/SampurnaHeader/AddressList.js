@@ -38,7 +38,7 @@ class AddresssList extends React.Component {
             this.props.userAddress.map((data,index)=>{
                 // console.log("address data==",data);
                 return(
-                    <div className="col-12 NoPadding mb-4 singleAddressBlock">
+                    <div className="col-12 NoPadding mb-4 singleAddressBlock" key={index}>
                         <input type="radio" checked={data._id} value={data._id} 
                             onChange={()=>{
                                 this.setState({
