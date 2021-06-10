@@ -380,14 +380,20 @@
 }
 
 .text_Center{
-  text-align:center;
+  text-align:right !important;
+  /*margin-right:120px  !important;*/
+
+  position:absolute;
+
 }
 
 .text_Center p{
   margin-top:15px !important;
+  margin-right:140px  !important;
+  /*text-align:center !important;*/
 }
 
-.footer3Class{
+.footer3Class {
   font-size:14px;
   color:#bbb;
 }

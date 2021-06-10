@@ -164,7 +164,7 @@ export default class Footer extends Component {
             <div className="col-12 footer_bottom">
               <div className="row footerBottom">
               < Websitelogo />
-              <div className="col-9 text_Center">
+              <div className="col-8 text_Center">
                   <div className="footer3Class">
                       Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                   </div>
