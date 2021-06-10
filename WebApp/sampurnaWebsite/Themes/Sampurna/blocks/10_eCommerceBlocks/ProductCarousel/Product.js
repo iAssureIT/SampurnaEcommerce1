@@ -39,7 +39,7 @@ class Product extends Component{
           this.setState({
             user_ID       : user_ID,
           },()=>{
-              // this.getWishlistData();
+              this.props.getWishlistData();
           }); 
         }
 
@@ -219,10 +219,8 @@ class Product extends Component{
     }
     addtowishlist(event) {
       event.preventDefault();
-      // console.log("recentWishlistData===",this.props.recentWishlistData);
       if (this.state.user_ID) {
         var id = event.target.id;
-        // const userid = localStorage.getItem('user_ID');
         const formValues = {
           "user_ID": this.state.user_ID,
           "product_ID": id,
@@ -230,7 +228,7 @@ class Product extends Component{
         // console.log("inside wishlist==",formValues);
         axios.post('/api/wishlist/post', formValues)
           .then((response) => {
-            console.log("wishlist ressponse===",response.data);
+            // console.log("wishlist ressponse===",response.data);
             var previousUrl = window.location.href;
             localStorage.setItem("previousUrl", previousUrl);
             this.setState({
@@ -247,8 +245,7 @@ class Product extends Component{
                 messageData: {},
               })
             }, 3000);
-            // this.getWishlistData();
-            // this.props.getWishlistData();
+            this.props.getWishlistData();
           })
           .catch((error) => {
             console.log('error', error);
@@ -281,7 +278,7 @@ class Product extends Component{
   
 
     render(){
-      // console.log("1. newProducts----",this.props.newProducts);
+      // console.log("1.recentWishlistData newProducts----",this.props.recentWishlistData);
 
       var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
@@ -292,7 +289,8 @@ class Product extends Component{
         <div className="row">
           <Message messageData={this.state.messageData} /> 
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
-            Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => {  
+            Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
+              console.log("data._id=",data._id) 
                 // var x = this.props.wishList && this.props.wishList.length > 0 ? this.props.wishList.filter((abc) => abc.product_ID === data._id) : [];
                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';

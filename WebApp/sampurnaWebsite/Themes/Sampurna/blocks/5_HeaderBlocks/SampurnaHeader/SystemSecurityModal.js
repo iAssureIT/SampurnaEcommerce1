@@ -101,16 +101,16 @@ class header extends React.Component {
    render() {
     return (
 
-        <div className="col-8 col-lg-4 col-sm-8 NoPadding">  
+        <div className="col-8 col-sm-6 NoPadding">  
             <div className="col-12 loginViewWrapper ">
-                <div className="col-12 col-lg-12 row mtm3">
+                <div className="col-12 col-lg-12 row">
                 {this.state.loggedIn ? 
                     <li className="dropdown myaccDropdown">
                         <span className="col-12 NoPadding ">
 
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
                                 <div className="mtm10">  
-                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hi&nbsp; {this.state.userName}</span></span>
+                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
                                 <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span></div>
                                 {/*<span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="loginView ">My Account</span></span> */}
                             </div>
@@ -143,9 +143,13 @@ class header extends React.Component {
                             <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                         </ul>
                     </li>
-                    : <span className="" >
+                    : 
+                    <span className=" col-12 NoPadding signInBlock" >
                         <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                            <span className="col-12 loginView">Login <i className="fa fa-user"></i></span> 
+                            <span className="col-12 loginView">Sign in &nbsp;
+                                {/* <i className="fa fa-user"></i> */}
+                                <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
+                            </span> 
                         </a>          
                     </span> 
                 }

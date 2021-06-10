@@ -32,7 +32,8 @@ class ProductDetailsEcommerce extends Component {
 		
 		var pageUrl = window.location.pathname;
 		let a = pageUrl ? pageUrl.split('/') : "";
-		const urlParam =a[3];
+		const urlParam =a[4];
+		console.log("productID urlParam-",urlParam);
 		this.setState({
 			productID : urlParam
 		},()=>{

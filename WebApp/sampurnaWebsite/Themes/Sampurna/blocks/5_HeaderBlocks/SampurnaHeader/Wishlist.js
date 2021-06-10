@@ -22,9 +22,9 @@ class Wishlist extends React.Component {
                     <a title="wishlistIcon ">
                         <Image
                             src={"/images/eCommerce/wishlist.png"}
-                            className={"logoImg hidden-x"}
-                            height ={30}
-                            width={50}
+                            className={" hidden-x rotateImg" }
+                            height ={25}
+                            width={30}
                             layout={'intrinsic'}
                         />
                     </a>

@@ -29,28 +29,36 @@ class MyCart extends React.Component {
         return(  
             <div className="col-3 NoPadding">
             {this.state.userID?
-                <a href="/cart" className="col-12 cartHeader">        
-                    <div className="row mtm3">
-                        <div className="col-5 p-2 ml-4">
-                            <img className=" cartImg rotateImg" src="/images/eCommerce/cart.png"></img>
+                <a href="/cart" className="row cartHeader">  
+                        <div className="col-6 ml-4">
+                            <Image
+                            src={"/images/eCommerce/cart.png"}
+                            className={"rotateImg" }
+                            height ={65}
+                            width={65}
+                            layout={'intrinsic'}
+                        />
                         </div>
                         <div className="col-2 cartCount NoPadding">
                             <div className="cartCountCircle">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
                             &nbsp;                                
                         </div>
-                    </div>
                 </a>
                 :
-                <a href="" className="abc col-12 cartHeader" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">   
-                    <div className="row">
-                        <div className="col-5 p-2 ml-4">
-                            <img className="cartImg rotateImg" src="/images/eCommerce/cart.png"></img>
+                <a href="" className="row cartHeader" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
+                        <div className="col-6 ml-4">
+                            <Image
+                            src={"/images/eCommerce/cart.png"}
+                            className={"rotateImg" }
+                            height ={65}
+                            width={65}
+                            layout={'intrinsic'}
+                        />
                         </div>
                         <div className="col-2 cartCount NoPadding">
                             <div className="cartCountCircle ">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
                             &nbsp;                                
                         </div>
-                    </div>
                 </a>
             }
             </div>

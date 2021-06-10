@@ -34,7 +34,6 @@ const responsive = {
 	}
   };
   
-  
 class ProductViewEcommerce extends Component {
 	constructor(props) {
 		super(props);
@@ -77,6 +76,7 @@ class ProductViewEcommerce extends Component {
                
             }
         }
+		
 		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
 				websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
@@ -90,22 +90,24 @@ class ProductViewEcommerce extends Component {
 		this.setState({
 			productID : urlParam
 		},()=>{
-			console.log(this.state.productID)
+			console.log("productID",this.state.productID);
 			axios.get("/api/products/get/one/" + this.state.productID)
 		.then((response) => {
-			this.setState({
-				productData: response.data,
-				selectedImage: response.data.productImage[0],
-				quanityLimit: response.data.availableQuantity,
-				selectedColor : response.data.color,
-				selectedSize : response.data.size,
-				websiteModel : websiteModel
-			},()=>{
-				// window.fbq('track', 'CustomizeProduct',this.state.productData.productName,this.state.productData.originalPrice);
-				// console.log('selectedColor',this.state.selectedColor);
-				this.getProductData();
-				this.getProductSizeData();
-			})
+			if(response){
+				this.setState({
+					productData: response.data,
+					selectedImage: response.data.productImage[0],
+					quanityLimit: response.data.availableQuantity,
+					selectedColor : response.data.color,
+					selectedSize : response.data.size,
+					websiteModel : this.state.websiteModel
+				},()=>{
+					// window.fbq('track', 'CustomizeProduct',this.state.productData.productName,this.state.productData.originalPrice);
+					// console.log('selectedColor',this.state.selectedColor);
+					this.getProductData();
+					this.getProductSizeData();
+				})
+			}
 			this.forceUpdate();
 		})
 		.catch((error) => {

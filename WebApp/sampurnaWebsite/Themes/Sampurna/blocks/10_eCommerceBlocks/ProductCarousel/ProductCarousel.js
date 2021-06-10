@@ -101,7 +101,8 @@ class ProductCarousel extends Component {
       startRange   : 0,
       limitRange   : 28,
       vendor_ID    : "",
-      categoryUrl  : ""
+      categoryUrl  : "",
+      brandArray   : [],
     };
   }
   componentDidUpdate(){
@@ -160,8 +161,8 @@ class ProductCarousel extends Component {
         "categoryUrl"       : categoryUrl?categoryUrl:"",
         "subCategoryUrl"    : subCategoryUrl!==undefined?subCategoryUrl:""
       },()=>{
-          console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
-          console.log("2.categoryUrl===",this.state.categoryUrl);
+          // console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
+          // console.log("2.categoryUrl===",this.state.categoryUrl);
       })
     }
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -172,7 +173,7 @@ class ProductCarousel extends Component {
         user_ID : userDetails.user_id
       },()=>{
           // console.log("user_ID=>",this.state.user_ID);
-          // this.getWishlistData();
+          this.props.getWishlistData();
       });
     } 
   }
@@ -188,8 +189,6 @@ class ProductCarousel extends Component {
         
       },async ()=>{
         if(this.state.blockSettings.showCarousel === false){
-          // console.log("2. sectionUrl =",this.state.sectionUrl,this.state.categoryUrl,vendor_ID);
-          
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
@@ -200,7 +199,7 @@ class ProductCarousel extends Component {
                       console.log("categoryResponse.data.categoryList[i].subCategory=",categoryResponse.data.categoryList[i].subCategory);
                       var subCategoryData = categoryResponse.data.categoryList[i].subCategory;
                     }else{
-                      // var subCategoryData = categoryResponse.data.categoryList[0].subCategory;
+                      var subCategoryData = categoryResponse.data.categoryList[0].subCategory;
                     }
                 }
                     // console.log("my subCategoryData===",subCategoryData);
@@ -221,34 +220,6 @@ class ProductCarousel extends Component {
                             "limitRange"        : this.state.limitRange,
                           }
                         });
-                  
-                  // else{
-                  //   console.log("aaaaa-",categoryResponse.data.categoryList[0].subCategory[0].subCategoryUrl)
-                  //   var subCategoriesData = categoryResponse.data.categoryList[0].subCategory;
-                  //   this.setState({
-                  //     categoryData     : categoryResponse.data.categoryList,  
-                  //     brandData        : categoryResponse.data.brandList, 
-                  //     subCategoryData  : subCategoriesData,  
-                  //     categoryUrl      : categoryResponse.data.categoryList[0].categoryUrl,
-                  //     subCategoryUrl   : categoryResponse.data.categoryList[0].subCategory[0].subCategoryUrl,   
-
-                  //   },()=>{
-                  //     formValues = {
-                  //       "vendor_ID"         : vendor_ID,
-                  //       "vendorLocation_id" : this.state.vendorlocation_ID,
-                  //       "sectionUrl"        : this.state.sectionUrl,
-                  //       "categoryUrl"       : categoryResponse.data.categoryList[0].categoryUrl,
-                  //       "subCategoryUrl"    : categoryResponse.data.categoryList[0].subCategory[0].subCategoryUrl,
-                  //       "userLatitude"      : this.state.userLatitude,
-                  //       "userLongitude"     : this.state.userLongitude,
-                  //       "startRange"        : this.state.startRange,
-                  //       "limitRange"        : this.state.limitRange,
-                  //     }
-                  //   });
-
-                  // }
-             
-             
             }
           })
           .catch((error)=>{
@@ -269,21 +240,26 @@ class ProductCarousel extends Component {
             }
             // console.log("formValues=>",formValues);
         }
-
         if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
-          // console.log("productlist productApiUrl===",productApiUrl);
+          this.setState({
+            productApiUrl : productApiUrl,
+          })
         }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
-          // console.log("productApiUrl===",productApiUrl);
+          this.setState({
+            productApiUrl : productApiUrl,
+          })
         }else{ 
             var productApiUrl = this.state.blockSettings.blockApi;
-            // console.log("productApiUrl===",productApiUrl);
+            this.setState({
+              productApiUrl : productApiUrl,
+            })
         }
-        if(productApiUrl){
+        if(formValues && this.state.productApiUrl){
           // console.log("formValues=>",formValues);
           this.getProductList(productApiUrl,formValues);
-      }//end productApiUrl
+        }//end productApiUrl
       });
     }else{
       this.setState({          
@@ -298,7 +274,7 @@ class ProductCarousel extends Component {
 }
 
 getProductList(productApiUrl,formValues){
-    // console.log("productApiUrl=>",productApiUrl);
+    // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
@@ -345,22 +321,8 @@ getCartCount() {
         })
     }
 }
-getWishlistData() {
-    axios.get('/api/wishlist/get/wishlistdata/' + this.state.user_ID)    
-      .then((response) => {
-        if(response){
-          // console.log("wislist response====",response.data);
-          this.setState({
-            wishList: response.data
-          });
-        }        
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
-  }
 
-  submitCart(event) { 
+submitCart(event) { 
     if(this.state.user_ID){
     var id = event.target.id;
     if(this.state.websiteModel=== "FranchiseModel"){
@@ -533,7 +495,7 @@ getWishlistData() {
               messageData: {},
             })
           }, 3000);
-          // this.getWishlistData();
+          this.props.getWishlistData();
         })
         .catch((error) => {
           console.log('error', error);
@@ -596,20 +558,42 @@ getWishlistData() {
       "sortProductBy"  : sortBy,
       "brand"          : '' 
     }
-    if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
-      var productApiUrl = this.props.productApiUrl;
-      // console.log("productlist productApiUrl===",productApiUrl);
-    }else if(!this.state.blockSettings.showCarousel && !this.state.filterSettings){
-      var productApiUrl = this.props.productApiUrl;
-      // console.log("productApiUrl===",productApiUrl);
-    }else{ 
-        var productApiUrl = this.state.blockSettings.blockApi;
-        // console.log("productApiUrl===",productApiUrl);
-    }
-    if(formValues){
-      this.getProductList(productApiUrl,formValues);
-    }
+    if(this.state.productApiUrl && formValues){
+      this.getProductList(this.state.productApiUrl,formValues);
+      $("html, body").animate({ scrollTop: 200 }, 500);
+    }//end productApiUrl
   };
+  getBrandWiseData(event){
+    console.log("brand value ==",event.target.value);
+    var brandArray = this.state.brandArray;
+    if(event.target.value !== "undefined"){
+      var brandValue = event.target.value;
+      brandArray.push(brandValue);
+    }
+    this.setState({
+      brandArray : brandArray
+    },()=>{
+      // console.log("brandArray => ",this.state.brandArray);
+      var formValues = {
+        "vendor_ID"      : "", 
+        "sectionUrl"     : this.state.blockSettings.section? (this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
+        "categoryUrl"    : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
+        "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+        "userLatitude"   : this.state.userLatitude,
+        "userLongitude"  : this.state.userLongitude,
+        "startRange"     : this.state.startRange,
+        "limitRange"     : this.state.limitRange,
+        "sortProductBy"  : '',
+        "brand"          : this.state.brandArray 
+      }     
+      if( formValues && this.state.productApiUrl){
+        // console.log("formValues=>",formValues);
+        $("html, body").animate({ scrollTop: 0 }, 800);
+        this.getProductList(this.state.productApiUrl,formValues);
+      }//end productApiUrl
+      
+    })
+  }
 
   render() {
     const { effect } = this.state;
@@ -666,7 +650,8 @@ getWishlistData() {
                     { 
                       Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
                         Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
-                            var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
+                            // var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
+                            var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
                             var wishClass = 'r';
                             var tooltipMsg = '';
                             if (x && x.length > 0) {
@@ -871,18 +856,38 @@ getWishlistData() {
 
                     }
                     {this.state.brandData && this.state.brandData.length>0?  
-                      < BrandFilters 
-                        blockSettings      = {this.state.blockSettings}
-                        brandData          = {this.state.brandData}
-                        vendor_ID          = {this.state.vendor_ID}
-                        vendorlocation_ID  = {this.state.vendorlocation_ID}
-                        sectionUrl         = {this.state.sectionUrl}
-                        categoryUrl        = {this.state.categoryUrl}
-                        userLatitude       = {this.state.userLatitude}
-                        userLongitude      = {this.state.userLongitude}
-                        startRange         = {this.state.startRange}
-                        limitRange         = {this.state.limitRange}
-                      />                    
+                      // < BrandFilters 
+                      //   blockSettings      = {this.state.blockSettings}
+                      //   brandData          = {this.state.brandData}
+                      //   vendor_ID          = {this.state.vendor_ID}
+                      //   vendorlocation_ID  = {this.state.vendorlocation_ID}
+                      //   sectionUrl         = {this.state.sectionUrl}
+                      //   categoryUrl        = {this.state.categoryUrl}
+                      //   userLatitude       = {this.state.userLatitude}
+                      //   userLongitude      = {this.state.userLongitude}
+                      //   startRange         = {this.state.startRange}
+                      //   limitRange         = {this.state.limitRange}
+                      // />   
+                      <div className="panel-group" >                      
+                        <div className={Style.categoryFilterTitle}> Brand </div>  
+                        {
+                        this.state.brandData && this.state.brandData.length > 0?
+                        this.state.brandData.map((brand,index)=>{
+                        var i = index+1;
+                        return(
+                            <div className="col-12 noPadding panelCategory paneldefault" key={index}>
+                                <div className={"row panel-heading "+Style.panelHeading}>
+                                    <div className="NoPadding centreDetailContainerEcommerce">
+                                      <input className=" " type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
+                                    </div>
+                                    <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
+                                </div>                              
+                            </div>
+                        )
+                        })   
+                        :''
+                        }
+                    </div>  
                     :' '
                     }
                  </div>
@@ -907,7 +912,6 @@ getWishlistData() {
                       </div>
                     </div> 
                     <div className="col-12">
-                      <div className="row">
                         {this.state.newProducts.length>=1?
                           <Product newProducts={this.state.newProducts}
                                 productSettings    = {this.state.productSettings}
@@ -924,8 +928,7 @@ getWishlistData() {
                         </div>
                         }
                       </div>
-                    </div>
-                  </div>                    
+                    </div>                  
                   </div>                    
                   :
                   // if left side filters are not available in product block
@@ -955,7 +958,9 @@ getWishlistData() {
        </div>
       </div>
       :
-      "loading..."
+      <div className="col-2 offset-5 loading">
+        <img src="/images/eCommerce/loader.gif" className="col-12 lazyload" loading="lazy"></img>
+      </div> 
     );
   }
 }

@@ -19,13 +19,13 @@
 }
 
 .userEmail{
-    font-size:10px;
-    color:#ccc;
+    font-size:13px;
+    color:#fff;
     line-height:1 !important;
 }
 
 .userName{
-    font-size:12px;
+    font-size:11px;
     color:#fff;
 }
 
@@ -34,6 +34,7 @@
 }
 .navHeaderCollapse{
     background-color: #E8E8E8;
+    margin-top: 38px;
 }
 #pageOpacity {
     height: 700px;
@@ -271,7 +272,9 @@ ul:hover > .dropDownLevel3 {
     padding: 0px 4px;
     /* border: dotted 1px #154799; */
     border-radius: 100%;
-    font-size: 12px;
+    font-size: 11px;
+    margin-top: -10px;
+    margin-left: -5px;
 }
 /*===========Megamenu===============*/
 .megamenu{
@@ -369,9 +372,13 @@ ul:hover > .dropDownLevel3 {
 }
 .list-DropDownMenu{
     min-width: 200px !important;
-    left: -120px !important;
-    margin-top: 10px !important;
+    left: -44px !important;
+    margin-top: 13px !important;
     border-radius: 5px !important;
+}
+.signInBlock{
+    border-radius: 5px;
+    padding: 5px;
 }
 .list-DropDownMenu > li > a{
     transition: 0.6s ease;
@@ -419,6 +426,9 @@ ul:hover > .dropDownLevel3 {
       margin-top: 10px;
       
   }
+  .cartinner{
+      margin-top: -10px;
+  }
   .userinfo{
       color: #FFF;
       font-size: 12px;
@@ -463,10 +473,14 @@ ul:hover > .dropDownLevel3 {
       font-weight: 600;
       color: #333;
       background-color:#fff;
-      padding: 5px !important;
+      padding: 8px !important;
       text-align: center;
       font-size: 13px;
       transition: 0.5s ease;
+      border-radius: 5px;
+  }
+  .userIconImg{
+      height: 18px;
   }
   .loginView:hover{
     /* background-color: #fff; */
@@ -548,12 +562,12 @@ li a{
 }
 .cartCountCircle{
     background-color: #DC1919;
-    height: 21px;
-    width: 21px;
+    height: 18px;
+    width: 18px;
     padding: 3px;
     text-align: center;
     border-radius: 100%;
-    font-size: 11px;
+    font-size: 10px;
 }
 .cartHeader{
     /* background-color: #3174E3; */

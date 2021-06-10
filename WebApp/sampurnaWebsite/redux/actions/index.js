@@ -104,6 +104,7 @@ export function getWishlistData() {
       axios.get('/api/wishlist/get/wishlistdata/'+userid) 
       .then((response)=>{
         if(response){
+          console.log("Wishlist Data-",response.data);
           dispatch(setWishlistData(response.data));
         }       
       })
