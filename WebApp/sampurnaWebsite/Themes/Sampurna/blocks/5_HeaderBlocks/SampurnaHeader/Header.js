@@ -55,7 +55,8 @@ class Header extends React.Component {
 
                                         <SearchBar />
 
-                                        <div className="col-2 NoPadding systemSecurity"> 
+
+                                        <div className="col-8 col-lg-3 col-sm-2 systemSecurity NoPadding"> 
                                             <div className="row">                                  
                                                 < SystemSecurityModal />
                                                 < MyCart />

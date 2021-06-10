@@ -27,7 +27,7 @@ class Searchbar extends React.Component {
 
    render(){
         return(  
-            <div className=" ml-4 mr-4 col-12 col-sm-7 ">                                
+            <div className="col-12 col-sm-7 ">                                
                 <div className="col-12 NoPadding">  
                     <div className="row mtm3"> 
                         {/* <select name="category_product" className=" col-3 category-selection">

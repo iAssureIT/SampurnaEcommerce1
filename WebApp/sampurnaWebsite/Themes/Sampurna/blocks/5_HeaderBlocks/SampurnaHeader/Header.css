@@ -12,6 +12,23 @@
     background-position: 50% 0px;
     /* z-index: 1000; */
 }
+
+.mtm10{
+        margin-top: -7px !important;
+        line-height:1 !important;
+}
+
+.userEmail{
+    font-size:10px;
+    color:#ccc;
+    line-height:1 !important;
+}
+
+.userName{
+    font-size:12px;
+    color:#fff;
+}
+
 .blockZindex{
     z-index: 1000;
 }
@@ -362,6 +379,9 @@ ul:hover > .dropDownLevel3 {
 }
 .myAccMenu{
     font-size: 14px;
+    line-height:2;
+    border-top:1px solid #ccc;
+    padding:5px 5px;
 }
 .beforeLogin{
     margin-top: 10px;
