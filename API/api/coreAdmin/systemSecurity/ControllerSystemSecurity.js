@@ -62,6 +62,7 @@ exports.user_signup_user = (req, res, next) => {
 														},
 													},
 													username: emailId.toLowerCase(),
+													authService : req.body.authService,
 													profile: {
 														firstname: req.body.firstname,
 														lastname: req.body.lastname,
@@ -161,6 +162,7 @@ exports.user_signup_user = (req, res, next) => {
 														},
 													},
 													username: req.body.mobNumber,
+													authService : req.body.authService,
 													profile:
 													{
 														firstname: req.body.firstname,
@@ -270,6 +272,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 															},
 														},
 														username: emailId.toLowerCase(),
+														authService : req.body.authService,
 														profile:
 														{
 															firstname: req.body.firstname,
@@ -391,6 +394,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 															},
 														},
 														username: req.body.mobNumber,
+														authService : req.body.authService,
 														profile:
 														{
 															firstname: req.body.firstname,
@@ -1554,7 +1558,8 @@ exports.user_login_mob_email = (req, res, next) => {
 			{"profile.mobile" : username},
 			{$and:[
 				{"profile.email"  :  username},
-				{"profile.email"  :  {$ne:''}}
+				{"profile.email"  :  {$ne:''}},
+				{"authService"  :  {$eq:''}}
 			]
 			},
 		],"roles": role}
@@ -1719,24 +1724,53 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 					.exec()
 					.then(role => {
 						if (role) {
-							User.find({$or:[
-									{"profile.mobile" : req.body.mobNumber},
-									{$and:[
+							User.findOne({
+									$and:[
 											{"profile.email"  :  req.body.email},
 											{"profile.email"  :  {$ne:''}}
 										]
 									},
-								]})
+								)
 								.exec()
 								.then(user => {
-									if (user.length > 0) {
-										return res.status(200).json({
-											message: 'User already exits.',
+									console.log("user",user);
+									if (user) {
+										const token = jwt.sign({
+											email: req.body.email,
+											userId: user._id,
+										}, globalVariable.JWT_KEY,
+											{
+												// expiresIn: "365d"
+												expiresIn: globalVariable.timeOutLimitSecs
+											}
+										);
+										res.status(200).json({
+											message: 'Login Auth Successful',
+											token: token,
+											roles: user.roles,
 											ID: user._id,
-											user 
+											loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
+											companyID: user.profile.companyID,
+											userDetails: {
+												firstName: user.profile.firstname,
+												lastName: user.profile.lastname,
+												email: user.profile.email,
+												countryCode : user.profile.countryCode,
+												phone: user.profile.phone,
+												city: user.profile.city,
+												deliveryAddress: user.deliveryAddress,
+												pincode: user.profile.pincode,
+												companyID: user.profile.companyID,
+												company_id: user.profile.company_id,
+												companyName: user.profile.companyName,
+												locationID: user.profile.locationID,
+												user_id: user._id,
+												roles: user.roles,
+												token: token,
+											}
 										});
 									} else {
-										bcrypt.hash(req.body.pwd, 10, (err, hash) => {
+										bcrypt.hash(req.body.name, 10, (err, hash) => {
 											if (err) {
 												return res.status(500).json({
 													message: "Failed to match the password",
@@ -1754,7 +1788,8 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 
 															},
 														},
-														username: req.body.email ? req.body.email.toLowerCase() : '',
+														username: req.body.firstname ? req.body.email.toLowerCase() : '',
+														authService : req.body.authService,
 														profile:
 														{
 															firstname : req.body.firstname,
@@ -1779,29 +1814,70 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 													user.save()
 														.then(result => {
 															if (result) {
-																// request({
-																// 	"method": "POST",
-																// 	"url": "http://localhost:" + globalVariable.port + "/send-email",
-																// 	"body": {
-																// 		email: req.body.email,
-																// 		subject: req.body.emailSubject,
-																// 		text: req.body.emailContent + " Your OTP is " + emailOTP,
-																// 	},
-																// 	"json": true,
-																// 	"headers": {
-																// 		"User-Agent": "Test Agent"
-																// 	}
-																// })
-																// .then(source => {
-																	res.status(200).json({ message: "USER_CREATED", ID: result._id,result })
-																// })
-																// .catch(err => {
-																// 	console.log(err);
-																// 	res.status(500).json({
-																// 		message: "Failed to Send Email",
-																// 		error: err
-																// 	});
-																// });
+																const token = jwt.sign({
+																	email: req.body.email,
+																	userId: user._id,
+																}, globalVariable.JWT_KEY,
+																	{
+																		// expiresIn: "365d"
+																		expiresIn: globalVariable.timeOutLimitSecs
+																	}
+																);
+								
+															User.updateOne(
+																{ "_id": ObjectID(result._id)},
+																{
+																	$push: {
+																		"services.resume.loginTokens": {
+																			whenLogin: new Date(),
+																			loginTimeStamp: new Date(),
+																			hashedToken: token
+																		}
+																	}
+																}
+															)
+																.exec()
+																.then(updateUser => {
+																	if (updateUser.nModified == 1) {
+																		res.status(200).json({
+																			message: 'Login Auth Successful',
+																			token: token,
+																			roles: user.roles,
+																			ID: user._id,
+																			loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
+																			companyID: user.profile.companyID,
+																			userDetails: {
+																				firstName: user.profile.firstname,
+																				lastName: user.profile.lastname,
+																				email: user.profile.email,
+																				countryCode : user.profile.countryCode,
+																				phone: user.profile.phone,
+																				city: user.profile.city,
+																				deliveryAddress: user.deliveryAddress,
+																				pincode: user.profile.pincode,
+																				companyID: user.profile.companyID,
+																				company_id: user.profile.company_id,
+																				companyName: user.profile.companyName,
+																				locationID: user.profile.locationID,
+																				user_id: user._id,
+																				roles: user.roles,
+																				token: token,
+																			}
+																		});
+																	} else {
+																		return res.status(200).json({
+																			message: 'INVALID_PASSWORD'
+																		});
+																	}
+																})
+							
+																.catch(err => {
+																	console.log("500 err ", err);
+																	res.status(500).json({
+																		message: "Failed to save token",
+																		error: err
+																	});
+																});
 															}else {
 																res.status(200).json({ message: "USER_NOT_CREATED"})
 															}

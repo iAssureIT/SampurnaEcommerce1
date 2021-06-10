@@ -78,6 +78,7 @@ const userSchema = mongoose.Schema({
 		}
 	},
 	username	: {type:String},
+	authService : String,
 	profile 	:
 					{
 						company_id 				: { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },

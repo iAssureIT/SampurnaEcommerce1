@@ -27,6 +27,13 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {
+  LoginButton,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+  LoginManager
+} from 'react-native-fbsdk';
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -157,9 +164,14 @@ const window = Dimensions.get('window');
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
+    const [userInfo,setUserInfo]=useState({});
     
+  const logoutWithFacebook = () => {
+    LoginManager.logOut();
+    setUserInfo({})
+  };
 
-  const _signIn = async () => {
+  const google_login = async () => {
       try {
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
@@ -171,39 +183,13 @@ const window = Dimensions.get('window');
             mobNumber   : "",
             pincode     : "",
             email       : userInfo.user.email,
-            pwd         : "welcome123",
+            pwd         : userInfo.user.email,
             role        : 'user',
             status      : 'active',
-            countryCode : ""
+            countryCode : "",
+            authService : "google"
           }
-          axios.post('/api/auth/post/signup/user/otp/new',formValues)
-          .then((res) => {
-            console.log("response",res);
-            // setLoading(false)
-            if(res.data.message == 'USER_CREATED'){            
-              var sendData = {
-                "event": "5",
-                "toUser_id": res.data.ID,
-                "toUserRole":"user",
-                  "variables": {
-                    "Username" : res.data.result.profile.firstname,
-                    "OTP" : res.data.result.profile.otpEmail,
-                  }
-                }
-                axios.post('/api/masternotifications/post/sendNotification', sendData)
-                .then((res) => {
-                })
-                .catch((error) => { console.log('notification error: ',error)})
-              
-            }
-           
-            navigation.push('App')
-          })
-          .catch((error) => {
-            console.log("error",error);
-            // setLoading(false);
-            setToast({text: 'Something went wrong.', color: 'red'});
-          })
+          sign_in(formValues)
         }catch(error){
           if (error.code === statusCodes.SIGN_IN_CANCELLED) {
             console.log("sign in was cancelled");
@@ -223,8 +209,149 @@ const window = Dimensions.get('window');
         }
     }; 
 
+    const getInfoFromToken = (token) => {
+      const PROFILE_REQUEST_PARAMS = {
+        fields: {
+          string: 'id, name,  first_name, last_name, email',
+        },
+      };
+      const profileRequest = new GraphRequest(
+        '/me',
+        {token, parameters: PROFILE_REQUEST_PARAMS},
+        (error, user) => {
+          if (error) {
+            console.log('login info has error: ' + error);
+          } else {
+            setUserInfo(user);  
+            console.log('user:', user);
+            var formValues = {
+              firstname   : user.first_name,
+              lastname    : user.last_name,
+              mobNumber   : "",
+              pincode     : "",
+              email       : user.email,
+              pwd         : user.id,
+              role        : 'user',
+              status      : 'active',
+              countryCode : "",
+              authService : "facebook"
+            }
+            console.log("formValues",formValues);
+            sign_in(formValues);
+            logoutWithFacebook;
+          }
+        },
+      );
+      new GraphRequestManager().addRequest(profileRequest).start();
+    };
 
-  return (
+     loginWithFacebook = () => {
+      // Attempt a login using the Facebook login dialog asking for default permissions.
+      LoginManager.logInWithPermissions(['public_profile']).then(
+        login => {
+          if (login.isCancelled) {
+            console.log('Login cancelled');
+          } else {
+            AccessToken.getCurrentAccessToken().then(data => {
+              const accessToken = data.accessToken.toString();
+              getInfoFromToken(accessToken);
+            });
+          }
+        },
+        error => {
+          console.log('Login fail with error: ' + error);
+        },
+      );
+    };
+
+
+    const sign_in=(formValues)=>{
+      console.log("formValues",formValues);
+      axios.post('/api/auth/post/signup/user/otp/new',formValues)
+      .then((res) => {
+        console.log("response",res);
+        // setLoading(false)
+        if(res.data.message === "Login Auth Successful"){
+          if(res.data.passwordreset === false  ){
+            navigation.navigate('ChangePassword',{user_id:res.data.ID})
+          }else{  
+            AsyncStorage.multiSet([
+              ['user_id', res.data.ID],
+              ['token', res.data.token],
+            ]);
+            axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.token;
+            dispatch(
+              setUserDetails({
+                user_id     : res.data.ID,
+                token       : res.data.token,
+                firstName   : res.data.userDetails.firstName,
+                lastName    : res.data.userDetails.lastName,
+                email       : res.data.userDetails.email,
+                mobile      : res.data.userDetails.mobile,
+                countryCode : res.data.userDetails.countryCode,
+                fullName    : res.data.userDetails.fullName,
+                company_id  : res.data.userDetails.company_id,
+                companyID   : res.data.userDetails.companyID,
+                companyName : res.data.userDetails.companyName,
+                status      : res.data.userDetails.status,
+                role        : res.data.roles,
+              }),
+            );
+            navigation.navigate('LocationMain');
+          }
+        }
+      })
+      .catch((error) => {
+        console.log("error",error);
+        // setLoading(false);
+        setToast({text: 'Something went wrong.', color: 'red'});
+      })
+    }
+
+
+    const login_guest =()=>{
+      axios.post('/api/auth/post/signup/user/otp/new',formValues)
+      .then((res) => {
+        console.log("response",res);
+        // setLoading(false)
+        if(res.data.message === "Login Auth Successful"){
+          if(res.data.passwordreset === false  ){
+            navigation.navigate('ChangePassword',{user_id:res.data.ID})
+          }else{  
+            AsyncStorage.multiSet([
+              ['user_id', res.data.ID],
+              ['token', res.data.token],
+            ]);
+            axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.token;
+            dispatch(
+              setUserDetails({
+                user_id     : res.data.ID,
+                token       : res.data.token,
+                firstName   : res.data.userDetails.firstName,
+                lastName    : res.data.userDetails.lastName,
+                email       : res.data.userDetails.email,
+                mobile      : res.data.userDetails.mobile,
+                countryCode : res.data.userDetails.countryCode,
+                fullName    : res.data.userDetails.fullName,
+                company_id  : res.data.userDetails.company_id,
+                companyID   : res.data.userDetails.companyID,
+                companyName : res.data.userDetails.companyName,
+                status      : res.data.userDetails.status,
+                role        : res.data.roles,
+              }),
+            );
+            navigation.navigate('LocationMain');
+          }
+        }
+      })
+      .catch((error) => {
+        console.log("error",error);
+        // setLoading(false);
+        setToast({text: 'Something went wrong.', color: 'red'});
+      })
+    }
+
+    return (
       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
       <View style={{paddingHorizontal:20}}>
           <View style={styles.boxOpacity}>
@@ -303,21 +430,41 @@ const window = Dimensions.get('window');
                 </TouchableOpacity>
                 </View>
             </View>
-            {/* <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
-            <View style={{alignItems:"center",justifyContent:"center"}}>
+           <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
+            <View style={{alignItems:"center",justifyContent:"center",flexDirection:'row'}}>
               <GoogleSigninButton
-                style={{ width: 50, height: 50,borderRadius:15 }}
+                style={{ width: 60, height: 60,marginRight:15}}
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Light}
-                onPress={()=>_signIn()}
+                onPress={()=>google_login()}
                 // disabled={this.state.isSigninInProgress} 
                 />
-            </View> */}
+                <TouchableOpacity
+                  onPress={loginWithFacebook}
+                  style={{
+                    backgroundColor: '#fff',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 50, 
+                    height: 50,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5,
+                  }}>
+                  <Icon name='facebook' type='font-awesome' size={25} color="#4267B2"/>
+                </TouchableOpacity>
+            </View>
             <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
-                  title       = {'Login As a Guest'}
-                  onPress     = {()=>navigation.navigate('LocationMain')}
+                  title       = {'Continue As a Guest'}
+                  // onPress     = {()=>navigation.navigate('LocationMain')}
+                  onPress     = {()=>login_guest()}
                   background  = {true}
                   // loading     = {btnLoading}
               />

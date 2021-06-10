@@ -38,5 +38,8 @@
       <meta-data
        android:name="com.google.android.maps.v2.API_KEY"
        android:value="AIzaSyC2Ubr7BFRt1rjOU9XajVBNRUV5w8VLe0k"/>
+      <meta-data 
+        android:name="com.facebook.sdk.ApplicationId" 
+        android:value="@string/facebook_app_id"/>
     </application>
 </manifest>

@@ -4,8 +4,9 @@ import {
   Text,
   View,
   Image,
+  TouchableOpacity
 }                     from 'react-native';
-import { Icon, Card } from "react-native-elements";
+import { Icon, Card,Button } from "react-native-elements";
 import {HeaderBar3}   from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
@@ -19,8 +20,10 @@ import {withCustomerToaster}    from '../../redux/AppState.js';
 import { connect,
   useDispatch,
   useSelector }                 from 'react-redux';
-  import StepIndicator        from 'react-native-step-indicator';
-
+import StepIndicator        from 'react-native-step-indicator';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import CountDown from 'react-native-countdown-component';
+import Modal                from "react-native-modal";
   const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
   const customStyles = {
     stepIndicatorSize                 : 25,
@@ -58,11 +61,14 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [mobileNumber,setMobNum]=useState('');
   const [deliveryAddress,setDeliveryAdd]=useState('');
   const [order,setOrder]=useState('');
+  const [cancelOrderId,setCancelOrderId]=useState('');
+  const [cancelVendorId,setCancelVendorId]=useState('');
   const {orderid}=route.params;
 
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
+    userDetails     : store.userDetails
   }));
   console.log("store",store);
   const {currency}=store.preferences;
@@ -93,10 +99,79 @@ export const OrderDetails = withCustomerToaster((props)=>{
   }
 
 
+  const confirmCancelOrderBtn = () => {
+    var formValues = {
+      "type"        : cancelVendorId === "" ? "wholeorder" : "vendororder", //or wholeorder
+      "vendor_id"   : cancelVendorId !== "" ? cancelVendorId : "", // if type is vendororder
+      "order_id"    : cancelOrderId,
+      // "userid"      : store.userDetails.user_id,
+    }
+    console.log("formValues",formValues);
+    axios.patch('/api/orders/cancel/order', formValues)
+      .then((response) => {
+        console.log("response",response);
+        axios.get('/api/orders/get/one/' + cancelOrderId)
+          .then((res) => {
+            console.log("res",res);
+            setCancelOrderModal(false);
+            setOrder(res.data);
+            setToast({text: 'Your order has been cancelled.', color: 'green'});
+            var sendData = {
+              "event": "4",
+              "toUser_id": store.userDetailsuser_id,
+              "toUserRole": "user",
+              "variables": {
+                "Username": res.data.userFullName,
+                "orderId": res.data.orderID,
+                "orderdate": moment(res.data.createdAt).format('DD-MMM-YY LT'),
+              }
+            }
+            axios.post('/api/masternotifications/post/sendNotification', sendData)
+              .then((res) => { })
+              .catch((error) => { console.log('notification error: ', error) })
+            
+          })
+          .catch((error) => {
+            if (error.response.status == 401) {
+              AsyncStorage.removeItem('user_id');
+              AsyncStorage.removeItem('token');
+              setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
+              navigation.navigate('Auth')
+            }else{
+              setToast({text: 'Something went wrong.', color: 'red'});
+            }  
+          })
+      });
+  }
+
+
   const toggle=()=>{
     let isOpen = !isOpen;
     setOpen(isOpen);
   }
+
+  const cancelButton = (orderDate)=>{
+    var min = moment(orderDate).add(60, 'minutes');
+    var duration = moment.duration(min.diff(new Date())).asSeconds();
+    if(duration > 0 &&duration < 3600){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+  const cancelTime = (orderDate)=>{
+    var min = moment(orderDate).add(60, 'minutes');
+    var duration = moment.duration(min.diff(new Date())).asSeconds();
+    return Math.abs(duration);
+}
+
+
+const cancelorderbtn = (id,vendor_id) => {
+  setCancelOrderModal(true);
+  setCancelOrderId(id);
+  setCancelVendorId(vendor_id);
+}
 
     if (props.loading) {
       return (
@@ -166,11 +241,40 @@ export const OrderDetails = withCustomerToaster((props)=>{
                                   />
                                 </View>
                                 :
-                                <View style={styles.orderstatus}>
-                                  <Text style={styles.ordercancelled}>Order Cancelled</Text>
-                                </View>
+                                // <View style={styles.orderstatus}>
+                                  <Text style={styles.ordercancelled}>{vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status}</Text>
+                                // </View>
                             }
                           </View>
+                          {cancelButton(order.createdAt) ?
+                           vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'  && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid" ?
+                            null
+                            :
+                            <View style={[{paddingRight:0,height:30,width:150,alignSelf:'flex-end',marginBottom:15}]}>
+                              {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'&&
+                              <TouchableOpacity style={[styles.cancelButton,{flexDirection:"row",height:30}]} onPress={()=>cancelorderbtn(order._id,vendor.vendor_id._id)}>
+                                <Text style={[CommonStyles.text,{color:"#fff",fontFamily:"Montserrat-Medium"}]}>CANCEL THIS ORDER</Text>
+                                {/* <View style={{flexDirection:'row'}}>
+                                  <CountDown
+                                    size={10}
+                                    until={cancelTime(order.createdAt)}
+                                    onFinish={() => getorderlist()}
+                                    digitStyle={{borderWidth: 0, borderColor: '#333',margin:0,padding:0}}
+                                    digitTxtStyle={{color: '#fff',fontSize:13,fontFamily:"Montserrat-Medium"}}
+                                    timeLabelStyle={{color: '#fff', fontWeight: 'bold'}}
+                                    separatorStyle={{color: '#fff',margin:0}}
+                                    timeToShow={['M', 'S']}
+                                    timeLabels={{m: null, s: null}}
+                                    showSeparator={true}
+                                    style={{margin:0,}}
+                                  />
+                                  <Text style={{color:"#fff",alignSelf:'center',fontFamily:"Montserrat-Medium",fontSize:13}}>MINUTES</Text>
+                                </View>   */}
+                              </TouchableOpacity>}
+                            </View>
+                            :
+                            null
+                          }
                           {vendor.products.map((pitem, index) => {
                             // console.log("pitem===>", pitem);
                             return (
@@ -246,6 +350,8 @@ export const OrderDetails = withCustomerToaster((props)=>{
                               </View>
                             </View>
                             <View>
+
+                            
                             </View>
                           </View>
                         </View>
@@ -319,12 +425,80 @@ export const OrderDetails = withCustomerToaster((props)=>{
                         </View>
                       </View>
                     </View>
+                    {cancelButton(order.createdAt) ?
+                      order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
+                      null
+                      :
+                      <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
+                        {order.orderStatus && order.orderStatus !== 'Cancelled'&&
+                        <TouchableOpacity style={[styles.cancelButton,{flexDirection:"row"}]} onPress={()=>cancelorderbtn(order._id,'')}>
+                          <Text style={[CommonStyles.text,{color:"#fff",fontFamily:"Montserrat-Medium"}]}>CANCEL ORDER WITHIN</Text>
+                          <View style={{flexDirection:'row'}}>
+                            <CountDown
+                              size={10}
+                              until={cancelTime(order.createdAt)}
+                              onFinish={() => getorderlist()}
+                              digitStyle={{borderWidth: 0, borderColor: '#333',margin:0,padding:0}}
+                              digitTxtStyle={{color: '#fff',fontSize:13,fontFamily:"Montserrat-Medium"}}
+                              timeLabelStyle={{color: '#fff', fontWeight: 'bold'}}
+                              separatorStyle={{color: '#fff',margin:0}}
+                              timeToShow={['M', 'S']}
+                              timeLabels={{m: null, s: null}}
+                              showSeparator={true}
+                              style={{margin:0,}}
+                            />
+                            <Text style={{color:"#fff",alignSelf:'center',fontFamily:"Montserrat-Medium",fontSize:13}}>MINUTES</Text>
+                          </View>  
+                        </TouchableOpacity>}
+                      </View>
+                      :
+                      null
+                    }
                   </View>
                 </View>
               </View>
             </ScrollView>
           </View>
           <Footer />
+          <Modal isVisible={cancelOrderModal}
+            onBackdropPress={() => setCancelOrderModal(false)}
+            coverScreen={true}
+            hideModalContentWhileAnimating={true}
+            style={{ paddingHorizontal: '5%', zIndex: 999 }}
+            animationOutTiming={500}>
+            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+              <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
+                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+              </View>
+              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+                Are you sure you want to Cancel order?
+              </Text>
+              <View style={styles.cancelbtn}>
+                <View style={styles.cancelvwbtn}>
+                  <TouchableOpacity>
+                    <Button
+                      onPress={() => setCancelOrderModal(false)}
+                      titleStyle={styles.buttonText}
+                      title="NO"
+                      buttonStyle={styles.buttonRED}
+                      containerStyle={styles.buttonContainer2}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.ordervwbtn}>
+                  <TouchableOpacity>
+                    <Button
+                      onPress={() => confirmCancelOrderBtn()}
+                      titleStyle={styles.buttonText1}
+                      title="Yes"
+                      buttonStyle={styles.button1}
+                      containerStyle={styles.buttonContainer2}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </React.Fragment>
       );
     }

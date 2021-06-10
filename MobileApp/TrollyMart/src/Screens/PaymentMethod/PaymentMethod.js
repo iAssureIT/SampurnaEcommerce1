@@ -143,6 +143,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         userEmail                 : userDetails.email,
         vendorOrders		         : vendorOrders,
         order_quantityOfProducts	: cartdata.order_quantityOfProducts,
+        order_numberOfProducts    :cartdata.order_numberOfProducts,
         deliveryAddress		        : deliveryAddress,
         paymentMethod             : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
         paymentDetails					  : cartdata.paymentDetails,

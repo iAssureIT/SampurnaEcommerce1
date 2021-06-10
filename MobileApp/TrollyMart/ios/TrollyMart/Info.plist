@@ -4,7 +4,7 @@
 <dict>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>appstore.png</string>
+		<string>Icon-App-60x60@2x.png</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -14,6 +14,8 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
+	<key>CFBundleIcons~ipad</key>
+	<dict/>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -43,6 +45,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSHumanReadableCopyright</key>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The e-commerce app identify the user location and define the nearby vendor to supply the ordered items. Hence locatioin of the user is required.</string>
 	<key>UIAppFonts</key>

@@ -23,9 +23,11 @@ import moment               from 'moment';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
 import { useIsFocused }     from "@react-navigation/native";
 import {withCustomerToaster}    from '../../redux/AppState.js';
+import CountDown from 'react-native-countdown-component';
 import { connect,
   useDispatch,
   useSelector }                 from 'react-redux';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
 const customStyles = {
   stepIndicatorSize                 : 25,
@@ -64,19 +66,18 @@ export const MyOrder = withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
   }));
-  console.log("store",store);
   const {currency}=store.preferences;
   useEffect(() => {
     getorderlist();
 }, [props,isFocused]);
 
  const getorderlist=()=>{
+  setLoading(true)
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
         setUserId(data[1][1]);
           axios.get('/api/orders/get/list/' + data[1][1])
           .then((response) => {
-            console.log("getorderlist",response.data);
             setMyOrders(response.data);
             setLoading(false);
           })
@@ -104,20 +105,21 @@ export const MyOrder = withCustomerToaster((props)=>{
    _drawer.open()
   }
 
-  const confirmcancelorderbtn = () => {
+  const confirmCancelOrderBtn = () => {
     var formValues = {
-      "orderID": cancelOrderId,
-      "userid": user_id,
+      "type"        : "wholeorder", //or wholeorder
+      "vendor_id"   : "", // if type is vendororder
+      "order_id"    : cancelOrderId,
+      "userid"      : user_id,
     }
-    axios.patch('/api/orders/get/cancelOrder', formValues)
+    axios.patch('/api/orders/cancel/order', formValues)
       .then((response) => {
+        console.log("response",response);
         axios.get('/api/orders/get/one/' + cancelOrderId)
           .then((res) => {
             setCancelOrderModal(false);
             getorderlist();
-            Alert.alert(
-              "Your order has been cancelled."
-            );
+            setToast({text: 'Your order has been cancelled.', color: 'green'});
             var sendData = {
               "event": "4",
               "toUser_id": user_id,
@@ -128,7 +130,6 @@ export const MyOrder = withCustomerToaster((props)=>{
                 "orderdate": moment(res.data.createdAt).format('DD-MMM-YY LT'),
               }
             }
-            console.log('sendDataToUser==>', sendData)
             axios.post('/api/masternotifications/post/sendNotification', sendData)
               .then((res) => { })
               .catch((error) => { console.log('notification error: ', error) })
@@ -138,7 +139,7 @@ export const MyOrder = withCustomerToaster((props)=>{
             if (error.response.status == 401) {
               AsyncStorage.removeItem('user_id');
               AsyncStorage.removeItem('token');
-              setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+              setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
               navigation.navigate('Auth')
             }else{
               setToast({text: 'Something went wrong.', color: 'red'});
@@ -151,6 +152,24 @@ export const MyOrder = withCustomerToaster((props)=>{
     setCancelOrderModal(true);
     setCancelOrderId(id);
   }
+
+  const cancelButton = (orderDate)=>{
+      var min = moment(orderDate).add(5, 'minutes');
+      var duration = moment.duration(min.diff(new Date())).asSeconds();
+      if(duration > 0 &&duration < 300){
+        return true;
+      }else{
+        return false;
+      }
+  }
+
+  const cancelTime = (orderDate)=>{
+    var min = moment(orderDate).add(5, 'minutes');
+    var duration = moment.duration(min.diff(new Date())).asSeconds();
+    return Math.abs(duration);
+}
+
+
 
     if (props.loading) {
       return (
@@ -175,10 +194,22 @@ export const MyOrder = withCustomerToaster((props)=>{
                   myorders ?
                     myorders.length > 0 ?
                       myorders.map((order, i) => {
+                        var positionOrder = 0;
+                        if (order.orderStatus === "New Order" || order.orderStatus === "Verified") {
+                          positionOrder = 0;
+                        } else if (order.orderStatus === "Packed" || order.orderStatus === "Inspection" || order.orderStatus ==="Dispatch Approved" ) {
+                          positionOrder = 1;
+                        } else if (order.orderStatus === "Dispatch" || order.orderStatus ===  "Delivery Initiated") {
+                          positionOrder = 2;
+                        }else if (order.orderStatus === "Delivered & Paid") {
+                          positionOrder = 3;
+                        } else if (order.orderStatus === "Cancelled") {
+                          positionOrder = 4;
+                        }
                         return(
-                          <View style={styles.prodinfoparent}>
+                          <View style={[styles.prodinfoparent,]}>
                             <View style={{flexDirection:'row'}}>
-                              <View style={styles.orderid}>
+                              <View style={[styles.orderid]}>
                                 <Text style={styles.orderidinfo}>Order No :</Text>
                                 <Text style={styles.orderidinfo}>{order.orderID}</Text>
                               </View>
@@ -192,30 +223,49 @@ export const MyOrder = withCustomerToaster((props)=>{
                                 <Text style={styles.totaldata}>Total Amount</Text>
                                 <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                               </View>
+                              {positionOrder === 3  &&
                               <View style={{flex:0.3,justifyContent:"center",alignItems:"center"}}>
-                                <Text style={[styles.totaldata,{padding:5,backgroundColor:"#fff"}]}>New Order</Text>
+                                <View style={[styles.vendorStatus,
+                                      (positionOrder === 0 ? 
+                                      {backgroundColor:'#017BFE'}
+                                      :
+                                      positionOrder === 1 ? 
+                                      {backgroundColor:colors.warning}
+                                      :
+                                      positionOrder === 2 ? 
+                                      {backgroundColor:"#EB984E"}
+                                      :
+                                      positionOrder === 3 ?  
+                                      {backgroundColor:colors.success}
+                                      :
+                                      positionOrder === 4 ?  
+                                      {backgroundColor:colors.red}
+                                      :
+                                      "#eee")
+                                    ]}>
+                                <Text style={[styles.totaldata,{padding:5,color:"#fff"}]}>{order.orderStatus}</Text>
                               </View>
+                            </View>}
                           </View>   
                           {order.vendorOrders.map((item,i)=>{
                             var position = 0;
-                            console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",item.deliveryStatus[item.deliveryStatus.length - 1].status);
                             if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New Order" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Verified") {
                               position = 0;
                             } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
                               position = 1;
                             } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Dispatch" || item.deliveryStatus[item.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
                               position = 2;
-                            } 
-                            else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid") {
+                            }else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Delivered & Paid") {
+                              position = 3;
+                            } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Cancelled") {
                               position = 4;
-                            }  
-                            console.log("position",position);
+                            }   
                             return (
                               <Card containerStyle={styles.orderstatusmgtop}>
                                 <View style={{marginBottom:5}}>
                                   <Text style={[styles.totaldata]}>{item.vendorName}</Text>
                                 </View>  
-                                  {
+                                  {/* {
                                     item && item.deliveryStatus
                                       && item.deliveryStatus[item.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                       <View style={styles.orderstatus}>
@@ -230,55 +280,97 @@ export const MyOrder = withCustomerToaster((props)=>{
                                       <View style={styles.orderstatus}>
                                         <Text style={styles.ordercancelled}>Order Cancelled</Text>
                                       </View>
-                                  }
-                                  <View style={styles.flxdata}>
-                                  <View style={{ flex: 0.5 }}>
-                                    <Text style={styles.totaldata}>Amount </Text>
-                                  </View>
-                                  <View style={{ flex: 0.5 }}>
-                                    <View style={{ flexDirection: "row",}}>
-                                      <Text style={styles.totalpriceincart}>: {currency} {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                                  } */}
+                                <View style={{flexDirection:'row'}}>
+                                  <View style={{flex:0.6}}>
+                                    <View style={styles.flxdata}>
+                                      <View style={{ flex: 0.35 }}>
+                                        <Text style={styles.totaldata}>Items</Text>
+                                      </View>
+                                      <View style={{ flex: 0.65 }}>
+                                        <View style={{ flexDirection: "row",}}>
+                                          <Text style={styles.totalpriceincart}>: {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
+                                        </View>
+                                      </View>
                                     </View>
-                                  </View>
-                                </View>
-                                <View style={styles.flxdata}>
-                                  <View style={{ flex: 0.5 }}>
-                                    <Text style={styles.totaldata}>No Of Products </Text>
-                                  </View>
-                                  <View style={{ flex: 0.5 }}>
-                                    <View style={{ flexDirection: "row",}}>
-                                      <Text style={styles.totalpriceincart}>: {item.vendor_numberOfProducts && item.vendor_numberOfProducts}</Text>
+                                    <View style={styles.flxdata}>
+                                      <View style={{ flex: 0.35 }}>
+                                        <Text style={styles.totaldata}>Amount </Text>
+                                      </View>
+                                      <View style={{ flex: 0.65 }}>
+                                        <View style={{ flexDirection: "row",}}>
+                                          <Text style={styles.totalpriceincart}>: {currency} {item.vendor_afterDiscountTotal && item.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                                        </View>
+                                      </View>
                                     </View>
+                                  </View>  
+                                  <View style={{flex:.4,justifyContent:'flex-end'}}>
+                                    <View style={[styles.vendorStatus,]}>
+                                      <Text style={[commonStyles.label,
+                                      (position === 0 ? 
+                                      {color:'#017BFE',alignSelf:'flex-end'}
+                                      :
+                                      position === 1 ? 
+                                      {color:colors.warning,alignSelf:'flex-end'}
+                                      :
+                                      position === 2 ? 
+                                      {color:"#EB984E",alignSelf:'flex-end'}
+                                      :
+                                      position === 3 ?  
+                                      {color:colors.success,alignSelf:'flex-end'}
+                                      :
+                                      position === 4 ?  
+                                      {color:colors.red,alignSelf:'flex-end'}
+                                      :
+                                      "#eee")]}>{item.deliveryStatus[item.deliveryStatus.length - 1].status}</Text>
+                                    </View>  
                                   </View>
-                                </View>
+                                </View>  
                               </Card>
                             )
                             })
                           }
                           <View style={styles.orderdetsandcancelbtn}>
                             {order ?
-                              <View style={styles.ordercancelstatus}>
-                                <View style={styles.ordercancelsstatus}>
-                                  <Button
-                                    onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
-                                    titleStyle      = {commonStyles.buttonText1}
-                                    title           = "ORDER DETAILS"
-                                    buttonStyle     = {commonStyles.button}
-                                    containerStyle  = {commonStyles.buttonContainer}
-                                  />
-                                </View>
-                                {order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
+                              <View style={[styles.ordercancelstatus,{justifyContent:"flex-end"}]}>
+                                {cancelButton(order.createdAt) ?
+                                  order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
                                   null
                                   :
                                   <View style={styles.orderdetailsstatus}>
-                                    <Button
-                                      onPress         = {() => cancelorderbtn(order._id)}
-                                      titleStyle      = {styles.buttonText}
-                                      title           = "CANCEL ORDER"
-                                      buttonStyle     = {styles.buttonRED}
-                                      containerStyle  = {styles.buttonContainer2}
-                                    />
-                                  </View>}
+                                    {order.orderStatus && order.orderStatus !== 'Cancelled'&&
+                                      <TouchableOpacity style={styles.cancelButton} onPress={()=>cancelorderbtn(order._id)}>
+                                      <Text style={[CommonStyles.text,{color:"#fff",fontFamily:"Montserrat-Medium"}]}>CANCEL ORDER WITHIN</Text>
+                                      <View style={{flexDirection:'row'}}>
+                                        <CountDown
+                                          size={10}
+                                          until={cancelTime(order.createdAt)}
+                                          onFinish={() => getorderlist()}
+                                          digitStyle={{borderWidth: 0, borderColor: '#333',margin:0,padding:0}}
+                                          digitTxtStyle={{color: '#fff',fontSize:13,fontFamily:"Montserrat-Medium"}}
+                                          timeLabelStyle={{color: '#fff', fontWeight: 'bold'}}
+                                          separatorStyle={{color: '#fff',margin:0}}
+                                          timeToShow={['M', 'S']}
+                                          timeLabels={{m: null, s: null}}
+                                          showSeparator={true}
+                                          style={{margin:0,}}
+                                        />
+                                        <Text style={{color:"#fff",alignSelf:'center',fontFamily:"Montserrat-Medium",fontSize:13}}>MINUTES</Text>
+                                      </View>  
+                                    </TouchableOpacity>}
+                                  </View>
+                                  :
+                                  null
+                                }
+                                <View style={[styles.ordercancelsstatus]}>
+                                  <Button
+                                    onPress         = {() => navigation.navigate('OrderDetails', { orderid: order._id })}
+                                    titleStyle      = {commonStyles.buttonText1}
+                                    title           = "SHOW DETAILS"
+                                    buttonStyle     = {[commonStyles.button,{height:50}]}
+                                    containerStyle  = {commonStyles.buttonContainer}
+                                  />
+                                </View>
                               </View>
                               :
                               <View style={styles.orderstatustxtcancel}></View>
@@ -332,7 +424,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                 <View style={styles.ordervwbtn}>
                   <TouchableOpacity>
                     <Button
-                      onPress={() => confirmcancelorderbtn()}
+                      onPress={() => confirmCancelOrderBtn()}
                       titleStyle={styles.buttonText1}
                       title="Yes"
                       buttonStyle={styles.button1}

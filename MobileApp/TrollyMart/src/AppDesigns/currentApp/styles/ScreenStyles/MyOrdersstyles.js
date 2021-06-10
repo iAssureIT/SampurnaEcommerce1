@@ -109,7 +109,7 @@ export default StyleSheet.create({
     flex:1,marginBottom:"30%"
   },
   prodinfoparent:{
-    flex:1,backgroundColor:'#fff',
+ backgroundColor:'#fff',
     marginTop:15,
     paddingHorizontal:15,
     paddingVertical:15,borderWidth:1,
@@ -179,12 +179,12 @@ export default StyleSheet.create({
     
   },
   ordercancelsstatus:{
-    flex:0.5,
-    paddingRight:10,
+    flex:0.4,
+    paddingLeft:10,
   },
   orderdetailsstatus:{
-    flex:0.5,
-    paddingLeft:10,
+    flex:0.6,
+    paddingRight:10,
   },
   mrp:{
     fontSize:13,fontFamily:"Montserrat-Regular",
@@ -264,9 +264,7 @@ export default StyleSheet.create({
     flex:0.8,backgroundColor:'#f1f1f1',borderWidth:1,
     borderColor:'#f1f1f1',paddingHorizontal:15
   },
-  cancelbtn:{
-    flexDirection:'row',marginTop:20,paddingRight:10
-  },
+
   orderstatustxt:{
     fontSize:12,fontFamily:"Montserrat-SemiBold", color:'#666',marginBottom:15,
     marginTop: 10,
@@ -281,20 +279,33 @@ export default StyleSheet.create({
     marginTop: 10,
   }, 
   ordervwbtn:{
-    flex:0.5,borderRadius:3,shadowColor: '#fff',
+    flex:0.48,
+    borderRadius:3,
+    shadowColor: '#fff',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 5,
+    paddingLeft:15
   },
   cancelvwbtn:{
-    flex:0.5,marginRight:10,borderRadius:3,shadowColor: '#fff',
+    flex:0.48,
+    borderRadius:3,
+    shadowColor: '#fff',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     elevation: 5,
+    paddingRight:15
+  },
+  vendorStatus:{
+    // height:0,
+    width:"100%",
+    justifyContent:"center",
+    alignItems:"center",
+    backgroundColor:"#fff"
   },
   orderstatusmgtop:{
-    flex:1,
+    // flex:1,
     margin:0,
     marginBottom:15,
   },
@@ -327,7 +338,7 @@ export default StyleSheet.create({
   },
   buttonRED:{
     backgroundColor: colors.buttonRED,
-    height: 45,
+    // height: 45,
     width:"100%",
   },
   buttonConfirm:{
@@ -346,7 +357,8 @@ export default StyleSheet.create({
     color: 'red',
     fontFamily:"Montserrat-SemiBold",
     fontSize:14,
-    justifyContent : "center"
+    justifyContent : "center",
+    alignSelf:"flex-end"
   },
   buttonText:{
     color: colors.buttonText,
@@ -355,8 +367,8 @@ export default StyleSheet.create({
   },
   buttonContainer:{
      width:"100%",
-    marginTop:15,
-    marginBottom:15,
+    // marginTop:15,
+    // marginBottom:15,
     ...Platform.select({
       ios:{
         justifyContent:'center',
@@ -418,7 +430,6 @@ export default StyleSheet.create({
     fontSize:14,fontFamily:"Montserrat-SemiBold", color:'#333'
   },
   totalpriceincart:{
-    marginTop:-2,
     fontSize:14,
     fontFamily:"Montserrat-SemiBold", 
     color:'#333',
@@ -431,4 +442,15 @@ export default StyleSheet.create({
 		textDecorationLine: 'line-through',
 
 	},
+  cancelButton:{
+    backgroundColor:colors.buttonRED,
+    height:50,
+    width:"100%",
+    borderRadius:3,
+    justifyContent:"center",
+    alignItems:'center'
+  },
+  cancelbtn:{
+    flexDirection:'row',marginTop:20,justifyContent:'space-between'
+  },
 })
