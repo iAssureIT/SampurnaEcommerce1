@@ -160,15 +160,19 @@ exports.bulkUploadProduct = (req,res,next)=>{
                         console.log("sectionExists => ",sectionExists)
                         console.log("condition => ",(sectionExists && sectionExists.length === 0))
                         if (sectionExists && sectionExists.length === 0) {
-                            var sectionObject = await sectionInsert(productData[k].section); 
+                            var sectionObject   = await sectionInsert(productData[k].section); 
+                            var section         = sectionObject;
                             allSectionsData.push(sectionObject)
+                        }else{
+                            var section = sectionExists[0];
                         }
                         // else{
                         //     var sectionObject = await sectionInsert(productData[k].section);
                         //     allSectionsData.push(sectionObject)
                         // }
                     }else{
-                        var sectionObject = await sectionInsert(productData[k].section);
+                        var sectionObject   = await sectionInsert(productData[k].section);
+                        var section         = sectionObject;
                         allSectionsData.push(sectionObject)
                     }                   
                     
@@ -177,7 +181,7 @@ exports.bulkUploadProduct = (req,res,next)=>{
                     // console.log("allSectionsData => ",allSectionsData)
                     if (inputCategory !== undefined){  
                         console.log("sectionObject => ",sectionObject)                      
-                        var section = sectionObject;
+                        // var section = sectionObject;
                         console.log("section k => ",productData[k].section,"sectionArr => ",section)
                         // console.log("section id => ",section._id)
                         var categoryObject  = await categoryInsert(inputCategory, inputSubcategory, inputSection, section._id, productData[k].categoryNameRlang);                        
