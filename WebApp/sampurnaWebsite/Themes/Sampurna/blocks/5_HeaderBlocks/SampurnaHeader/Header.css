@@ -57,7 +57,7 @@
 }
 .logoWrap{
     margin-top: 20px;
-    /*margin-bottom: 10px;*/
+    margin-bottom: -35px;
 }
 .dropDownLevel1 a,
 .dropDownLevel1 .sectionForMobile{
@@ -264,7 +264,7 @@ ul:hover > .dropDownLevel3 {
     /* font-family: "Montserrat-Medium","HelveticaNeue","Helvetica Neue",sans-serif,"Montserrat-Medium","HelveticaNeue","Helvetica Neue",sans-serif !important; */
 }
 .logoImg{
-    height: 60px;
+    height: 60px !important; 
 }
 .cartCount{
     color: #fff;
@@ -362,11 +362,16 @@ ul:hover > .dropDownLevel3 {
     color: #fff;
     background-color: var(--color) !important;
 }
+
+.outBTN{
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+}
 .list-DropDownMenu{
     min-width: 200px !important;
-    left: 0px !important;
+    left: -120px !important;
     margin-top: 10px !important;
-    border-radius: 0px !important;
+    border-radius: 5px !important;
 }
 .list-DropDownMenu > li > a{
     transition: 0.6s ease;
@@ -456,8 +461,9 @@ ul:hover > .dropDownLevel3 {
   }
   .loginView{
       font-weight: 600;
-      color: #fff;
-      padding-top: 5px;
+      color: #333;
+      background-color:#fff;
+      padding: 5px !important;
       text-align: center;
       font-size: 13px;
       transition: 0.5s ease;

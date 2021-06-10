@@ -23,7 +23,7 @@ class Wishlist extends React.Component {
                         <Image
                             src={"/images/eCommerce/wishlist.png"}
                             className={"logoImg hidden-x"}
-                            height ={20}
+                            height ={30}
                             width={50}
                             layout={'intrinsic'}
                         />

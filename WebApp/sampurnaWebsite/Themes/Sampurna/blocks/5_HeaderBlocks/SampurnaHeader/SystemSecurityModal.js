@@ -110,8 +110,8 @@ class header extends React.Component {
 
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
                                 <div className="mtm10">  
-                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hi {this.state.userData ? this.state.userData.fullName : null}</span></span>
-                                <span className="userEmail">{this.state.userData ? this.state.userData.email : null}</span></div>
+                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hi&nbsp; {this.state.userName}</span></span>
+                                <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span></div>
                                 {/*<span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="loginView ">My Account</span></span> */}
                             </div>
                         </span>
@@ -140,12 +140,12 @@ class header extends React.Component {
                             <li className="col-12 NOpadding myAccMenu"><Link href="/wishlist"><a>My Wishlist</a></Link></li>                               
                             <li className="col-12 NOpadding myAccMenu"><Link href="/account"><a>My Profile</a></Link></li>
                   
-                            <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
+                            <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                         </ul>
                     </li>
                     : <span className="" >
-                        <a href="" className="faIcon faLoginIcon col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                            <span className="col-12 loginView">Login</span> 
+                        <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
+                            <span className="col-12 loginView">Login <i className="fa fa-user"></i></span> 
                         </a>          
                     </span> 
                 }
