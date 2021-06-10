@@ -158,13 +158,14 @@ exports.bulkUploadProduct = (req,res,next)=>{
                         }); 
                         // const sectionExists = allSectionsData.some(sectiondata => sectiondata.section.toLowerCase() === inputSection.toLowerCase());
                         // console.log("sectionExists => ",sectionExists)
-                        if (sectionExists && sectionExists.length > 0) {
+                        if (sectionExists && sectionExists.length === 0) {
                             var sectionObject = await sectionInsert(productData[k].section); 
                             allSectionsData.push(sectionObject)
-                        }else{
-                            var sectionObject = await sectionInsert(productData[k].section);
-                            allSectionsData.push(sectionObject)
                         }
+                        // else{
+                        //     var sectionObject = await sectionInsert(productData[k].section);
+                        //     allSectionsData.push(sectionObject)
+                        // }
                     }else{
                         var sectionObject = await sectionInsert(productData[k].section);
                         allSectionsData.push(sectionObject)

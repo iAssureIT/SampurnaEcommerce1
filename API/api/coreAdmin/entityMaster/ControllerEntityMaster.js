@@ -80,7 +80,7 @@ function getNextSequence(entityType) {
                 console.log("seq 2 => ",seq)
                 resolve(seq) 
             }else{
-               resolve(1)
+               resolve(2)
             }
             
         })
