@@ -486,7 +486,7 @@ font-weight: bold;
   border-bottom:solid 1px #ddd;
 }
 .activeSubCategory{
-  color: #f00 !important;
+  background-color: #FFC0CB !important;
 }
 .filterBlockWrapper{
    border: solid 1px #eee;

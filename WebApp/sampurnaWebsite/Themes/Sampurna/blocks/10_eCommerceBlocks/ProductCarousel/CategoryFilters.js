@@ -39,7 +39,6 @@ class CategoryFilters extends Component{
         }
     }
     componentDidMount(){
-      console.log("inside componentDid");
       if(this.props.subCategoryUrl){
         // console.log("inside if",$);
           $('panel-title').addClass(' Style.activeSubCategory');
@@ -63,7 +62,7 @@ class CategoryFilters extends Component{
     // }
 
     render(){
-      console.log("subcategory this.props.categoryData===",this.props.categoryData);
+      console.log("this.props.categoryData===",this.props.categoryData);
       return (
           <div className="panel-group" id="accordion">                      
             <div className={Style.categoryFilterTitle}> Sub Categories </div>  
@@ -72,6 +71,15 @@ class CategoryFilters extends Component{
               var i = index+1;
               return(
                 <div key={index} className="panelCategory paneldefault">
+                  {this.props.subCategoryUrl === subcategory.subCategoryUrl?
+                    <div className={"panel-heading " +Style.activeSubCategory +" "+Style.panelHeading}>
+                        <h4  className="panel-title"> 
+                          <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
+                              <a >{subcategory.subCategoryTitle}</a>
+                          </Link>
+                        </h4>
+                    </div>
+                  :
                   <div className={"panel-heading "+Style.panelHeading}>
                       <h4  className="panel-title"> 
                         <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
@@ -79,6 +87,7 @@ class CategoryFilters extends Component{
                         </Link>
                       </h4>
                   </div>
+                  }
                 </div>
               )
               })                 

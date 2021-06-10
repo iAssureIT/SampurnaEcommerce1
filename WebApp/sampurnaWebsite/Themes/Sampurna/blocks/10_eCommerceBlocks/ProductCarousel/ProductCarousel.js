@@ -161,6 +161,7 @@ class ProductCarousel extends Component {
         "subCategoryUrl"    : subCategoryUrl!==undefined?subCategoryUrl:""
       },()=>{
           console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
+          console.log("2.categoryUrl===",this.state.categoryUrl);
       })
     }
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -192,15 +193,21 @@ class ProductCarousel extends Component {
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              console.log("3.response.data category list=",categoryResponse.data); 
-              for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
-                  if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
-                    var subCategoryData = categoryResponse.data.categoryList[i].subCategory;
-                    console.log("my subCategoryData===",subCategoryData);
+              console.log("legth=",categoryResponse.data.categoryList.length); 
+                for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
+                    if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
+                      console.log("4.categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,this.state.categoryUrl);
+                      console.log("categoryResponse.data.categoryList[i].subCategory=",categoryResponse.data.categoryList[i].subCategory);
+                      var subCategoryData = categoryResponse.data.categoryList[i].subCategory;
+                    }else{
+                      // var subCategoryData = categoryResponse.data.categoryList[0].subCategory;
+                    }
+                }
+                    // console.log("my subCategoryData===",subCategoryData);
                         this.setState({
-                          categoryData     : categoryResponse.data.categoryList,    
+                          categoryData     : categoryResponse.data.categoryList,  
                           brandData        : categoryResponse.data.brandList, 
-                          subCategoryData  : categoryResponse.data.categoryList[i].subCategory,     
+                          subCategoryData  : subCategoryData,     
                         },()=>{
                           formValues = {
                             "vendor_ID"         : vendor_ID,
@@ -214,8 +221,33 @@ class ProductCarousel extends Component {
                             "limitRange"        : this.state.limitRange,
                           }
                         });
-                  }
-              }
+                  
+                  // else{
+                  //   console.log("aaaaa-",categoryResponse.data.categoryList[0].subCategory[0].subCategoryUrl)
+                  //   var subCategoriesData = categoryResponse.data.categoryList[0].subCategory;
+                  //   this.setState({
+                  //     categoryData     : categoryResponse.data.categoryList,  
+                  //     brandData        : categoryResponse.data.brandList, 
+                  //     subCategoryData  : subCategoriesData,  
+                  //     categoryUrl      : categoryResponse.data.categoryList[0].categoryUrl,
+                  //     subCategoryUrl   : categoryResponse.data.categoryList[0].subCategory[0].subCategoryUrl,   
+
+                  //   },()=>{
+                  //     formValues = {
+                  //       "vendor_ID"         : vendor_ID,
+                  //       "vendorLocation_id" : this.state.vendorlocation_ID,
+                  //       "sectionUrl"        : this.state.sectionUrl,
+                  //       "categoryUrl"       : categoryResponse.data.categoryList[0].categoryUrl,
+                  //       "subCategoryUrl"    : categoryResponse.data.categoryList[0].subCategory[0].subCategoryUrl,
+                  //       "userLatitude"      : this.state.userLatitude,
+                  //       "userLongitude"     : this.state.userLongitude,
+                  //       "startRange"        : this.state.startRange,
+                  //       "limitRange"        : this.state.limitRange,
+                  //     }
+                  //   });
+
+                  // }
+             
              
             }
           })
@@ -809,6 +841,8 @@ getWishlistData() {
                         userLatitude       = {this.state.userLongitude}
                         userLongitude      = {this.state.userLongitude}
                         sectionUrl         = {this.state.sectionUrl}
+                        subCategoryUrl     = {this.state.subCategoryUrl}
+                        categoryUrl        = {this.state.categoryUrl}
                       />
                   :null
 

@@ -50,18 +50,18 @@ class CategoryBlock extends Component{
     }
 
     render(){
-      // console.log("this.state.categoryData===",this.props.categoryData);
+      console.log("props category ====",this.props);
       return (
         <div className={"container NoPadding " +style.categoryCarousel}>
             <Carousel 
               className=""
-                  swipeable={false}
+                  swipeable={true}
                   draggable={true}
                   showDots={false}
                   responsive={responsive}
                   ssr={true} // means to render carousel on server-side.
                   infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlay={false}
                   autoPlaySpeed={3000}
                   keyBoardControl={true}
                   customTransition="all .20"
