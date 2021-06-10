@@ -486,12 +486,12 @@ export default class AdminDashboard extends Component{
 							null
 							}  
 
-						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)} style={{display:'none'}}>
+						{/* <li className="singleTreeview" onClick={this.clickDashboard.bind(this)} style={{display:'none'}}>
 							<a href="/cms/dashboard" title="cms" onClick={()=>this.openMenu("dashboard")}>
 								<i className="fa fa-object-group" aria-hidden="true"></i>
 								<span className="sidebarMenuTitle">CMS</span>
 							</a>
-						</li>
+						</li> */}
 						
 						 {//
 						// this.state.websiteModel === "MarketPlace" ?
@@ -522,7 +522,7 @@ export default class AdminDashboard extends Component{
 
 					 
 					
-						{
+						{/* {
 							this.state.websiteModel === "MarketPlace" ?
 							// console.log("data===",this.state.websiteModel)
 									<li className="treeview" >
@@ -551,10 +551,10 @@ export default class AdminDashboard extends Component{
 													<i className="fa fa-circle-o dashr" />Category Wise Sales Report
 												</a> 
 											</li>     */}
-										</ul>
+										{/*</ul>
 									</li>
 							 : null
-						}
+						} */}
 
 					 
 

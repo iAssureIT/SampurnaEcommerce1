@@ -69,13 +69,15 @@ exports.insertEntity = (req,res,next)=>{
 
 function getNextSequence(entityType) {
     return new Promise((resolve,reject)=>{
-    EntityMaster.findOne({entityType:entityType})    
-        .sort({companyNo : -1})   
+    EntityMaster.findOne({entityType : entityType})    
+        .sort({companyID : -1})   
         .exec()
         .then(data=>{
             if (data) { 
-                var seq = data.companyNo;
+                var seq = data.companyID;
+                console.log("seq 1 => ",seq)
                 seq = seq+1;
+                console.log("seq 2 => ",seq)
                 resolve(seq) 
             }else{
                resolve(1)
@@ -1524,16 +1526,26 @@ exports.bulkUploadEntity = (req, res, next) => {
 
                 if (remark === '') {
                     var getnext = await getNextSequence(entity[k].entityType)
+                    console.log("getnext => ",getnext);
                     // console.log("entity[k].EntityType => ",entity[k].EntityType)
-                    if(entity[k].entityType == 'corporate'){
-                        var str = "C"+parseInt(getnext)
-                    }else if(entity[k].entityType == 'vendor'){
-                    //    var str = "V"+parseInt(getnext)
-                        var str = parseInt(getnext)
-                        console.log("company Id => ",str)
-                    }else if(entity[k].entityType == 'supplier'){ 
-                        var str = "S"+parseInt(getnext)
-                    }else{var str = 1}
+                    if(validData && validData.length > 0){
+                        maxCompanyID = Math.max.apply(null, validData.map(function(vendor) {
+                            return vendor.companyID;
+                        }));
+                        console.log("maxCompanyID => ",maxCompanyID);
+                    }else{
+                        if(entity[k].entityType == 'corporate'){
+                            var str = "C"+parseInt(getnext)
+                        }else if((entity[k].entityType).toLowerCase === 'vendor'){
+                            //    var str = "V"+parseInt(getnext)
+                            var str = parseInt(getnext);
+                            console.log("str => ",str);
+                        }else if(entity[k].entityType == 'supplier'){ 
+                            var str = "S"+parseInt(getnext)
+                        }else{
+                            var str = 1
+                        }
+                    }
 
                     var companyNo  = getnext ? getnext : 1;
                     var companyID  = str ? str : 1;
