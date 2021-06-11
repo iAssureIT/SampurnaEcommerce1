@@ -1,0 +1,22 @@
+.trollyMartTCWrapper{
+    font-size: 13px;
+    line-height: 1.7;
+    letter-spacing: normal;
+    font-weight: 400;
+    color: #5f5f5f;
+    padding-bottom: 30px;
+    backface-visibility: hidden;
+    text-align: justify;
+}
+.trollyMartMainWrapper h2{
+    position: relative;
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 75px;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    color: #000;
+    line-height: 100%;
+    z-index: 1;
+}

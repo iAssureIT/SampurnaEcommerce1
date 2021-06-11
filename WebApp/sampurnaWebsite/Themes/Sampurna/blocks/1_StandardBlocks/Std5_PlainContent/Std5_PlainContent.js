@@ -77,17 +77,20 @@ export default class Std5_PlainContent extends Component{
                             <StdBlockTitleWhite blockTitle={this.state.blocks.blockTitle} />
                             <div className="col-12 stdBlockContentWrapper">
                                 <h3 className="stdBlockSubTitleWhite">{this.state.blocks.blockSubTitle}</h3>
-                                <p className="mt-5 stdBlockDescriptionWhite" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                                <p className={"mt-5 trollyMartTCWrapper "+S.trollyMartTCWrapper} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                             </div>
                         </section>
                     :
-                        <section className="col-12 stdBlockWrapper">
-                            <StdBlockSeparatorBlue />
-                            <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} />
-                            <div className="col-12 stdBlockContentWrapper">
-                                <h3 className="stdBlockSubTitleBlack">{this.state.blocks.blockSubTitle}</h3>
-                                <p className="mt-5 stdBlockDescriptionBlack" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
-                            </div>
+                        <section className={"col-10 offset-1 text-center  trollyMartMainWrapper "+S.trollyMartMainWrapper}>
+                           <div className="row">
+                                <StdBlockTitleBlack  blockTitle={this.state.blocks.blockTitle} />
+                                <div className="col-12 stdBlockContentWrapper">
+                                    <div className="row">
+                                        <h3 className="stdBlockSubTitleBlack">{this.state.blocks.blockSubTitle}</h3>
+                                        <p className={"trollyMartTCWrapper "+S.trollyMartTCWrapper} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                                    </div>
+                                </div>
+                           </div> 
                         </section>
                 }
             </div>
