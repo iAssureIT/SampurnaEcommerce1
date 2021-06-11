@@ -58,7 +58,7 @@ export default class Footer extends Component {
        <div className="container-fluid">
         <div className="col-12 footer1">
           <div className="row">
-            <div className="col-12 col-md-7 categoryFooterWrapper">
+            <div className="col-12 col-md-6 categoryFooterWrapper">
                 <div className="col-12  NoPadding">
                     <div className="col-12  FooterTitle">Online Shopping</div>
                     <div className=" col-xl-3 col-md-3 col-12 hrLine"></div>
@@ -97,7 +97,7 @@ export default class Footer extends Component {
                </div> 
             </div>
             </div>
-            <div className="col-12 col-xl-2 col-md-3 col-sm-6 aboutusFooterWrapper">
+            <div className="col-12 col-xl-2 col-md-2 col-sm-6 aboutusFooterWrapper">
                 <div>
                     <div className="col-12 FooterTitle">About Us</div>
                     <div className="col-7 hrLine"></div>
@@ -116,7 +116,7 @@ export default class Footer extends Component {
                                   
                 </div>
             </div>
-            <div className="col-xl-3 col-md-2 col-sm-6  col-12 onlineShoppingWrapper">               
+            <div className="col-xl-3 col-md-4 col-sm-6  col-12 onlineShoppingWrapper">               
                 {/* <div className="logo col-12">
                     <Link href="/">
                     <a  title="BookStore logo "style={{float:"right"}}>
@@ -130,9 +130,9 @@ export default class Footer extends Component {
                     </Link>
                 </div>  */}
                 {/*< Websitelogo />*/}
-                <div className="col-xl-12 col-md-6 col-sm-6  col-12">
+                <div className="col-xl-12 col-md-12 col-sm-12  col-12">
                     <div className="col-12 FooterTitle NOpadding">Connect with Us</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 Nopadding">
+                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding">
                         <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                    
                         <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>
                         <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>  
@@ -141,7 +141,7 @@ export default class Footer extends Component {
                     </div>
                 </div>
 
-                <div className="col-xl-12 col-md-6 col-sm-6  col-12 mt80">
+                <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding mt80">
                     <div className="col-12 FooterTitle">Payment card</div>
                     <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15">
                         <div className="payCard1"></div>
@@ -149,7 +149,7 @@ export default class Footer extends Component {
                     </div>
                 </div>
 
-                <div className="col-xl-12 col-md-6 col-sm-6  col-12 mt80">
+                <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding mt80">
                     <div className="col-12 FooterTitle">We are in</div>
                     <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width">
                         <div className="appleCard"></div>
@@ -163,8 +163,11 @@ export default class Footer extends Component {
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
               <div className="row footerBottom">
-              < Websitelogo />
-              <div className="col-8 text_Center">
+              <div className="col-4 col-sm-12 col-lg-4 col-md-4 col-sx-12">
+                  < Websitelogo />
+              </div>
+              
+              <div className="col-8 col-sm-12 col-lg-4 col-md-8 col-sx-12 text_Center">
                   <div className="footer3Class">
                       Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                   </div>
