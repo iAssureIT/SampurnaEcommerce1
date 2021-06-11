@@ -1,11 +1,30 @@
 .vendorCard{
     height: 140px;
-    border-radius: 20px;
+    border-radius: 10px;
     background-image: url("/images/eCommerce/vendorCard.jpg");
     background-position: 100%;
+    box-shadow: 2px 2px 3px #dddddd;
+
     /* background: rgba(0, 15, 0, 0.3); */
     cursor: pointer;
 }
+
+.vendorCard::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.7);
+    /*background-color: rgba(0,0,0,0.25);*/
+}
+
+.bgGray{
+    background-color:#eee;
+    padding:15px 15px 30px 15px;
+}
+
 .deliveryTime{
     margin-top: 40px !important;
 }
@@ -35,6 +54,7 @@
     background-size: cover;
     background-position: 100%;
     height: 100%;
+    border-radius:100%;
 }
 .vendorCard a{
     text-decoration: none !important;

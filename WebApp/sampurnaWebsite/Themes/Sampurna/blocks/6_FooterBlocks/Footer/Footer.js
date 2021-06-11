@@ -6,6 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
 
+import S from './Footer.module.css';
+
+
 export default class Footer extends Component {
 
     constructor(props){
@@ -58,20 +61,20 @@ export default class Footer extends Component {
        <div className="container-fluid">
         <div className="col-12 footer1">
           <div className="row">
-            <div className="col-12 col-md-6 categoryFooterWrapper">
+            <div className="col-12 col-md-12 col-lg-12 categoryFooterWrapper">
                 <div className="col-12  NoPadding">
                     <div className="col-12  FooterTitle">Online Shopping</div>
-                    <div className=" col-xl-3 col-md-3 col-12 hrLine"></div>
+                    <div className="col-xl-3 col-md-3 col-12 hrLine"></div>
                 </div>
                 <div className="col-12  NoPadding">
                   <div className="row">
                     {Array.isArray(this.state.categoryData) && this.state.categoryData.map((data,index)=>{
                         return(
-                            index <=2 ?
-                            <div className="col-4 footerSection" key={index}>
+                            
+                            <div className="col-2 col-lg-2 col-md-3 footerSection" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
                                     <Link href={`/section/${encodeURIComponent(data.sectionUrl)}`}>
-                                        <a className="sectionurl" ><span>{data.section}</span></a>
+                                        <a className="sectionurl footerSubT" ><span>{data.section}</span></a>
                                     </Link>
                                 {
                                     data.categorylist.map((cateoryDetails,catindex)=>{            
@@ -80,7 +83,7 @@ export default class Footer extends Component {
                                             <div key={catindex} className="">                                   
                                                 <div className="categortTitle">
                                                     <Link href={`/category/${encodeURIComponent(cateoryDetails.categoryUrl)}`}>
-                                                        <a><span>{cateoryDetails.category}</span></a>
+                                                        <a><span className="f9">{cateoryDetails.category}</span></a>
                                                     </Link>
                                                 </div>
                                             </div>
@@ -90,19 +93,15 @@ export default class Footer extends Component {
                                 }
                                 </div>
                             </div>
-                            :null
                         );
                         })
                     }
-               </div> 
-            </div>
-            </div>
-            <div className="col-12 col-xl-2 col-md-2 col-sm-6 aboutusFooterWrapper">
+                    <div className={"col-2 col-xl-1 col-md-1 col-sm-6 aboutusFooterWrapper pr0 pr-0 "+S.pr0 }>
                 <div>
-                    <div className="col-12 FooterTitle">About Us</div>
+                    <div className="col-12 footerSubT pr-0">About Us</div>
                     <div className="col-7 hrLine"></div>
                 </div>
-                <div className="col-12 ">
+                <div className="col-12 pr-0">
                     <div className="categortTitle"><Link href="/aboutus"><a ><span>&nbsp;About Us</span></a></Link></div>
                     <div className="categortTitle"><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>    
                     <div className="categortTitle"><Link href="/return-policy"><a ><span>&nbsp;Return Policy</span></a></Link></div>
@@ -116,7 +115,7 @@ export default class Footer extends Component {
                                   
                 </div>
             </div>
-            <div className="col-xl-3 col-md-4 col-sm-6  col-12 onlineShoppingWrapper">               
+            <div className="col-xl-3 col-md-3 col-sm-6  col-2 onlineShoppingWrapper">               
                 {/* <div className="logo col-12">
                     <Link href="/">
                     <a  title="BookStore logo "style={{float:"right"}}>
@@ -141,7 +140,7 @@ export default class Footer extends Component {
                     </div>
                 </div>
 
-                <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding mt80">
+                <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding md-mt-5 mt80">
                     <div className="col-12 FooterTitle">Payment card</div>
                     <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15">
                         <div className="payCard1"></div>
@@ -151,12 +150,17 @@ export default class Footer extends Component {
 
                 <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding mt80">
                     <div className="col-12 FooterTitle">We are in</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width">
+                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width pr-0">
                         <div className="appleCard"></div>
                         <div className="androidCard"></div>                        
                     </div>
                 </div>
             </div>
+
+               </div> 
+            </div>
+            </div>
+            
            </div>             
         </div>
         </div>
@@ -167,7 +171,7 @@ export default class Footer extends Component {
                   < Websitelogo />
               </div>
               
-              <div className="col-8 col-sm-12 col-lg-4 col-md-8 col-sx-12 text_Center">
+              <div className="col-8 col-sm-12 col-lg-8 col-md-8 col-sx-12 text_Center">
                   <div className="footer3Class">
                       Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                   </div>
