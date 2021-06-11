@@ -50,6 +50,11 @@ export const setSampurnaWebsiteDetails = sampurnaWebsiteDetails => ({
   sampurnaWebsiteDetails: sampurnaWebsiteDetails
 });
 
+export const setLocations = setLocations => ({
+  type: 'SET_LATLONG',
+  setLocations: setLocations
+});
+
 
 export function updateForm(formValue) {
   return {
@@ -79,41 +84,45 @@ export function updateCartCount() {
 export function getCartData() {
 	return dispatch =>{
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    if(userDetails){
       var userid = userDetails.user_id;
-    if (userid) {
-      return axios.get("/api/carts/get/cartproductlist/"+userid)
-        .then((response)=>{ 
-          if(response){   
-            dispatch(fetchcartdata(response.data));
-          }
-        })
-        .catch((error)=>{ 
-            console.log('error', error);
-        })
-    }else{
-      dispatch(fetchcartdata([]));
-    }
+      if (userid) {
+        return axios.get("/api/carts/get/cartproductlist/"+userid)
+          .then((response)=>{ 
+            if(response){   
+              dispatch(fetchcartdata(response.data));
+            }
+          })
+          .catch((error)=>{ 
+              console.log('fetchcartdata error', error);
+          })
+      }else{
+        dispatch(fetchcartdata([]));
+      }
+  }
   }  
 }
 
 export function getWishlistData() {
 	return dispatch =>{
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
-    var userid = userDetails.user_id;
-    if (userid) {      
-      axios.get('/api/wishlist/get/wishlistdata/'+userid) 
-      .then((response)=>{
-        if(response){
-          console.log("Wishlist Data-",response.data);
-          dispatch(setWishlistData(response.data));
-        }       
-      })
-      .catch((error)=>{
-        console.log('error', error);
-      })
+    if(userDetails){
+      var userid = userDetails.user_id;
+      if (userid) {      
+        axios.get('/api/wishlist/get/wishlistdata/'+userid) 
+        .then((response)=>{
+          if(response){
+            // console.log("Wishlist Data-",response.data);
+            dispatch(setWishlistData(response.data));
+          }       
+        })
+        .catch((error)=>{
+          console.log('error', error);
+        })
 
-    }else{
-      dispatch(setWishlistData([]));
+      }else{
+        dispatch(setWishlistData([]));
+      }
     }
   }  
 }

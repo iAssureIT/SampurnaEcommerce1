@@ -42,7 +42,7 @@ class Checkout extends Component {
             },
             deliveryAddress: [],
             pincodeExists: true,
-            paymentmethods: "cod",
+            paymentmethods: "",
             paymethods: false,
             addressLine1: "",
             addType     : '',
@@ -106,11 +106,11 @@ class Checkout extends Component {
             "latitude"      : this.state.latitude,
             "longitude"     : this.state.longitude,
         }
-        console.log("formValues=>",formValues);
+        // console.log("formValues=>",formValues);
         axios.post('/api/ecommusers/myaddresses',formValues)
         .then(response => {
             if(response){
-                console.log("distanceResponse=>",response);
+                // console.log("distanceResponse=>",response);
                 this.setState({
                     "deliveryAddress": response.data.deliveryAddress,
                     // "username": response.data.profile.fullName,
@@ -171,7 +171,7 @@ class Checkout extends Component {
         if(this.state.user_ID){
         axios.get("/api/ecommusers/" +this.state.user_ID)
             .then((response) => {
-                console.log('userData res', response.data.deliveryAddress);
+                // console.log('userData res', response.data.deliveryAddress);
                 
                 this.setState({
                     "deliveryAddress": response.data.deliveryAddress,
@@ -371,9 +371,9 @@ class Checkout extends Component {
                     "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
                     "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
                 }
-                // console.log("inside if address values====",addressValues);               
+                console.log("inside if address values====",addressValues);               
             } else {
-                // console.log("inside else new address");
+                console.log("inside else new address");
                 addressValues = {
                     "user_ID": this.state.user_ID,
                     "name": this.state.username,
@@ -572,70 +572,6 @@ class Checkout extends Component {
    
     }
 
-    saveModalAddress(event) {
-        event.preventDefault();
-        // this.modalvalidation();
-        this.validateForm();
-        var addressValues = {
-            "user_ID": this.state.user_ID,
-            "name": this.refs.modalname.value,
-            "email": this.refs.modalemail.value,
-            "addressLine1": this.refs.modaladdressLine1.value,
-            "addressLine2": this.refs.modaladdressLine2.value,
-            "pincode": this.refs.modalpincode.value,
-            "block": this.refs.modalblock.value,
-            "city": this.refs.modalcity.value,
-            "state": this.refs.modalstate.value,
-            "country": this.refs.modalcountry.value,
-            "mobileNumber": this.refs.modalmobileNumber.value,
-            "addType": this.refs.modaladdType.value,
-            "latititude": this.state.latititude,
-            "longitude": this.state.longitude,
-        }
-        // console.log("modal addressValues:", addressValues);
-
-        if ($('#modalAddressForm').valid()) {
-
-            axios.patch('/api/ecommusers/patch/address', post)
-                .then((response) => {
-                    this.setState({
-                        messageData: {
-                            "type": "outpage",
-                            "icon": "fa fa-check-circle",
-                            "message": "&nbsp; " + response.data.message,
-                            "class": "success",
-                        }
-                    })
-
-                    setTimeout(() => {
-                        this.setState({
-                            messageData: {},
-                        })
-                    }, 3000);
-                    this.getUserAddress();
-                    // $(".checkoutAddressModal").hide();
-                    // $(".modal-backdrop").hide();
-                })
-                .catch((error) => {
-                    console.log('error', error);
-                });
-        }
-    }
-
-    Closepagealert(event) {
-        event.preventDefault();
-        $(".toast-error").html('');
-        $(".toast-success").html('');
-        $(".toast-info").html('');
-        $(".toast-warning").html('');
-        $(".toast-error").removeClass('toast');
-        $(".toast-success").removeClass('toast');
-        $(".toast-info").removeClass('toast');
-        $(".toast-warning").removeClass('toast');
-    }
-    handleChangePlaces = address => {
-        this.setState({ addressLine1: address });
-    };
     selectedTimings(event) {
         var selectedValue = event.target.value;
         var keywordSelectedValue = selectedValue.split('$')[0];
@@ -724,36 +660,6 @@ class Checkout extends Component {
             .join(' ');
     }
 
-    opDones() {
-        this.getUserAddress();
-    }
-
-    checkDelivery(event) {
-        // event.preventDefault();
-        var target = event.target.pincode;
-        var id = event.target.value;
-        console.log("addressId =", id);
-        $('.notAvailable').hide();
-        const pincode = event.target.getAttribute('pincode');
-        // console.log("target:", pincode);
-        this.setState({
-            "addressId": id,
-        })
-        axios.get("/api/allowablepincode/checkpincode/" + pincode)
-            .then((response) => {
-                if (response) {
-                    if (response.data.message !== "Delivery Available") {
-                        // console.log("Delivery not possible on this address");
-                        $('#' + id).show();
-                        $(".placeOrder").attr("disabled", true);
-                    } else {
-                        $('#' + id).hide();
-                        $(".placeOrder").attr("disabled", false);
-                    }
-                }
-            });
-    }
-
     applyCoupon(event){
         event.preventDefault();
         var couponCode = this.refs.couponCode.value;
@@ -834,7 +740,7 @@ class Checkout extends Component {
                                             <input name="paymentmethods" type="radio" value="crdbt" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "crdbt"} onClick={this.handleChange.bind(this)} />
                                             <span className="col-12 col-md-11 col-sm-10 col-xs-10">Credit / Debit Card</span>
                                         </div>
-                                        <div className="errorMsg">{this.state.errors.paymentmethods}</div>
+                                        <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
                                         {/*  <button className="btn anasBtn col-lg-3 col-lg-offset-9 col-md-2 col-md-offset-10 col-sm-12 col-xs-12 placeOrder" onClick={this.placeOrder.bind(this)}>Place Order</button> */}
                                         <div className="col-12 mt15">
                                             <div id="payMethod"></div>
@@ -1027,7 +933,9 @@ class Checkout extends Component {
                                                 <div className="row">
                                                     <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
                                                     <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.discountAmount>0 ? this.props.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
+                                                    <span className="col-md-6 col-12">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
                                                     <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
+                                                    
                                                     
                                                     <div className="col-12 mb-2 mt-2">
                                                         <div className="row">
@@ -1067,8 +975,8 @@ class Checkout extends Component {
                                                             <div className="col-12 col-xl-10 col-md-10 termsWrapper">
                                                                 <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree, to the Terms & Conditions</span> <span className="required">*</span>
                                                             </div>
-                                                            <div className="col-12 col-xl-11 col-md-11">
-                                                                <div className="errorMsg termConditionErrorMsg col-12 NoPadding">{this.state.errors.termsNconditions}</div>
+                                                            <div className="col-11">
+                                                                <div className="errorMsg termConditionErrorMsg col-12 ">{this.state.errors.termsNconditions}</div>
                                                             </div>
                                                         </div> 
                                                     </div>
@@ -1149,7 +1057,7 @@ class Checkout extends Component {
     }
 }
 const mapStateToProps = state => (
-    console.log("state in checkout====",state.data.recentCartData),
+    // console.log("state in checkout====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

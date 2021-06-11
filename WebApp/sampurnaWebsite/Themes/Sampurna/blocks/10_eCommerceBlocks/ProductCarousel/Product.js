@@ -290,7 +290,7 @@ class Product extends Component{
           <Message messageData={this.state.messageData} /> 
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
-              console.log("data._id=",data._id) 
+              // console.log("data._id=",data._id) 
                 // var x = this.props.wishList && this.props.wishList.length > 0 ? this.props.wishList.filter((abc) => abc.product_ID === data._id) : [];
                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';

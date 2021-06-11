@@ -39,15 +39,12 @@ class CategoryFilters extends Component{
         }
     }
     componentDidMount(){
-      if(this.props.subCategoryUrl){
-        // console.log("inside if",$);
-          $('panel-title').addClass(' Style.activeSubCategory');
-          // var v = document.getElementByClass(".panel-title");
-          // v.className += "activeSubCategory";
-      }
+      
     }
   componentDidUpdate(prevProps, prevState) {
-  
+    if(this.props.subCategoryUrl){
+      $('.panel-title').addClass('activeSubCategory');
+    }
   }
 
     // static getDerivedStateFromProps(nextProps, prevState) {
@@ -62,7 +59,7 @@ class CategoryFilters extends Component{
     // }
 
     render(){
-      console.log("this.props.categoryData===",this.props.categoryData);
+      // console.log("this.props.categoryData===",this.props.categoryData);
       return (
           <div className="panel-group" id="accordion">                      
             <div className={Style.categoryFilterTitle}> Sub Categories </div>  

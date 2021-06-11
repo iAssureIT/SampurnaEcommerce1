@@ -44,7 +44,7 @@ const reducer = (state = initialState,action) =>{
             // console.log("reducer action.recentcartdata===",action.cartData);
             return {...state, recentCartData: action.cartData};
         case "FETCH_WISHLIST_DATA" :
-            console.log("reducer.wishlistData===",action.wishlistData);
+            // console.log("reducer.wishlistData===",action.wishlistData);
             return {...state, recentWishlistData: action.wishlistData};
         case "WISHLIST_COUNT_INITIALLY" :
             return {...state, wishlistCount: action.wishlistCount}
@@ -69,6 +69,9 @@ const reducer = (state = initialState,action) =>{
         case "SET_SAMPURNA-WEBSITE-DETAILS" : 
             // console.log("action.sampurnaWebsiteDetails====",action.sampurnaWebsiteDetails);
             return {...state, sampurnaWebsiteDetails: action.sampurnaWebsiteDetails} 
+        case "SET_LATLONG" : 
+            return {...state, getLatlong: action.setLocations}
+        
            
             
         default:

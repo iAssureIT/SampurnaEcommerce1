@@ -88,7 +88,7 @@ class ProductDetailsEcommerce extends Component {
 						); 
 						return(
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding" key={index}>
-								<OtherComponent block_id={block_id} key={index}/>
+								{/* <OtherComponent block_id={block_id} key={index}/> */}
 							</div>
 						)
 					})

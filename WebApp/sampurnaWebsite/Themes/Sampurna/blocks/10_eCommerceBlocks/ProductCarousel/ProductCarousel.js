@@ -192,11 +192,11 @@ class ProductCarousel extends Component {
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              console.log("legth=",categoryResponse.data.categoryList.length); 
+              // console.log("legth=",categoryResponse.data.categoryList.length); 
                 for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
                     if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
-                      console.log("4.categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,this.state.categoryUrl);
-                      console.log("categoryResponse.data.categoryList[i].subCategory=",categoryResponse.data.categoryList[i].subCategory);
+                      // console.log("4.categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,this.state.categoryUrl);
+                      // console.log("categoryResponse.data.categoryList[i].subCategory=",categoryResponse.data.categoryList[i].subCategory);
                       var subCategoryData = categoryResponse.data.categoryList[i].subCategory;
                     }else{
                       var subCategoryData = categoryResponse.data.categoryList[0].subCategory;
@@ -293,7 +293,7 @@ getProductList(productApiUrl,formValues){
       this.setState({
         newProducts     : response.data,                          
       },()=>{
-        console.log("newProducts=>",this.state.newProducts);
+        // console.log("newProducts=>",this.state.newProducts);
         if(this.state.newProducts.length>0){
           this.setState({
             ProductsLoading : true,

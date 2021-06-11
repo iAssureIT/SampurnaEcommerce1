@@ -38,7 +38,7 @@ class CategoryBlock extends Component{
         }
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
+    //static getDerivedStateFromProps(nextProps, prevState) {
       // console.log("props--",nextProps);
       //if (nextProps.newProducts) {
         // return ({ 
@@ -46,11 +46,11 @@ class CategoryBlock extends Component{
         //   vendor_ID   : nextProps.vendor_ID,
         // }) // <- this is setState equivalent
       //}
-      return null
-    }
+      //return null
+    //}
 
     render(){
-      console.log("props category ====",this.props);
+      // console.log("props category ====",this.props);
       return (
         <div className={"container NoPadding " +style.categoryCarousel}>
             <Carousel 

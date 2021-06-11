@@ -22,6 +22,8 @@ class UserAddress extends Component {
             console.log("userDetails=>",userDetails.user_id);
             this.setState({
                 user_ID   : userDetails.user_id,
+            },()=>{
+                this.getUserDetails();
             })
         }
         if(sampurnaWebsiteDetails){
@@ -38,6 +40,25 @@ class UserAddress extends Component {
                 })
             }
         }
+    }
+    getUserDetails() {
+        if(this.state.user_ID){
+        axios.get("/api/ecommusers/" +this.state.user_ID)
+            .then((response) => {
+            if(response){
+                this.setState({
+                    "deliveryAddress": response.data.deliveryAddress,
+                    "fullname": response.data.profile.fullName,
+                    "mobileNumber": response.data.profile.mobile,
+                    "email": response.data.profile.email
+                });
+            }
+            })
+        
+            .catch((error) => {
+                console.log('error', error);
+            }); 
+        } 
     }
     validateForm() {
 		let fields = this.state.fields;
@@ -237,7 +258,7 @@ class UserAddress extends Component {
                             </div> 
                             <div className="col-12 shippingInput">
                                 <label className="col-12 NoPadding">Mobile Number <span className="required">*</span></label>
-                                <input maxLength="10" placeholder="" type="text" ref="mobileNumber" name="mobileNumber" id="mobileNumber" value={this.state.modalmobileNumber} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
+                                <input maxLength="10" placeholder="" type="text" ref="mobileNumber" name="mobileNumber" id="mobileNumber" value={this.state.mobileNumber} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control" />
                                 <div className="errorMsg">{this.state.errors.modalmobileNumber}</div>
                             </div>
                             <div className="col-12 shippingInput">
@@ -272,6 +293,7 @@ class UserAddress extends Component {
                             <div className="col-12 shippingInput">
                                 <label className="col-12 NoPadding">Address type <span className="required">*</span></label>
                                 <select id="modaladdType" name="modaladdType" ref="modaladdType" value={this.state.modaladdType} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control">
+                                    <option >-- Select Address Type --</option>
                                     <option value="Home">Home (All day delivery) </option>
                                     <option value="Office">Office/Commercial (10 AM - 5 PM Delivery)</option>
                                     <option value="Relative">Relative (All day delivery)</option>

@@ -136,7 +136,7 @@ class ShoppingVerticals extends Component {
                   {
                     Array.isArray(this.state.itemList) && this.state.itemList.length > 0 ?
                       this.state.itemList.map((data, index) => {   
-                        console.log("deals data=",data);                   
+                        // console.log("deals data=",data);                   
                         return (
                           <div className={"col-"+XLcol} key={index}>
                               <div className="col-12">

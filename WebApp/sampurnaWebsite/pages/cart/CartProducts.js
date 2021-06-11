@@ -40,20 +40,37 @@ class CartProducts extends Component{
             discountvalue: 0,
             discounttype : '',
             coupenPrice  : 0,
+            CheckoutBtn : true,
         }
     }
 
     async componentDidMount(){
         var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
-       
+       if(userDetails){
         this.setState({
             user_ID      : userDetails.user_id,
-            websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
-            currency     : sampurnaWebsiteDetails.preferences.currency
         })
+       }
+        if(sampurnaWebsiteDetails){
+            this.setState({
+                websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
+                currency     : sampurnaWebsiteDetails.preferences.currency
+            })
+        }
         await this.props.fetchCartData();
+        if(this.props.recentCartData.vendorOrders){
+            for(let i=0;i<this.props.recentCartData.vendorOrders.length;i++){
+                if(this.props.recentCartData.vendorOrders[i].vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ){
+                    this.setState({
+                        CheckoutBtn : false
+                    })
+                }
+                break;
+            }
+        }
     }
+
     Removefromcart(event){
         event.preventDefault();
         const cartitemid = event.target.getAttribute('id');
@@ -312,7 +329,7 @@ class CartProducts extends Component{
                 <div className="row">
                     <Message messageData={this.state.messageData} />
                     {   
-                    this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length>0? 
+                    this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length>0? 
                     <div className="col-12 NOpadding" style={{"marginBottom":"20px"}}>
                         <div className="row">  
                             <div className="col-12 col-xl-12 col-md-12 table-responsive cartProduct">
@@ -320,7 +337,7 @@ class CartProducts extends Component{
                                     <div className="col-12">
                                     {    
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
-                                        // console.log("vendorWiseCartData==",vendorWiseCartData);
+                                        console.log("vendorWiseCartData==",vendorWiseCartData);
                                         return(  
                                             <div className="row" key={index}>
                                                 <div className="col-9">
@@ -398,6 +415,16 @@ class CartProducts extends Component{
                                                     );
                                                     })
                                                 }
+                                                {
+                                                    this.props.recentCartData.minOrderAmount < vendorWiseCartData.vendor_netPayableAmount?
+                                                        <div className="col-12"> 
+                                                            <div className="col-12">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
+                                                            <div className="col-12">
+                                                                <a href={"/products/"+vendorWiseCartData._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"}>To continue shopping click here</a>
+                                                            </div>
+                                                        </div>
+                                                    :null
+                                                    }
                                                 </div>
                                                 <div className="col-3 vendorWiseSummury cartSummary ">
                                                 <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
@@ -483,8 +510,8 @@ class CartProducts extends Component{
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right">
                                                         <div className="row">
-                                                            <div className="col-8">Grand Total</div>
-                                                            <div className="col-4 textAlignRight">&nbsp;
+                                                            <div className="col-7">Grand Total</div>
+                                                            <div className="col-5 textAlignRight">&nbsp;
                                                                 {this.state.currency} {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00} 
                                                             </div>
                                                         </div>
@@ -493,24 +520,19 @@ class CartProducts extends Component{
                                                 <div className="col-12">
                                                 <div className="col-12 NoPadding checkoutBtn">
                                                 {
-                                                    this.state.minvalueshipping?
+                                                    this.state.CheckoutBtn?
                                                     <div className="col-12 NoPadding">
-                                                    { this.state.minvalueshipping <= this.props.recentCartData.paymentDetails.netPayableAmount  ?
-                                                        <button onClick={this.proceedToCheckout.bind(this)} className="col-12 globaleCommBtn btn cartCheckout NoPadding">
-                                                            PROCEED TO CHECKOUT
-                                                        </button>
-                                                        :
                                                         <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout" disable>
                                                             PROCEED TO CHECKOUT
-                                                        </button> 
-                                                    }
+                                                        </button>
                                                     </div>
                                                 :
-                                                    <button  className="col-12 btn globaleCommBtn blockcartCheckout" 
-                                                    onClick={this.proceedToCheckout.bind(this)}>
-                                                        PROCEED TO CHECKOUT
-                                                    </button> 
-
+                                                    <div className="col-12 NoPadding">
+                                                        <button  className="col-12 btn globaleCommBtn blockcartCheckout" 
+                                                            onClick={this.proceedToCheckout.bind(this)}>
+                                                            PROCEED TO CHECKOUT
+                                                        </button> 
+                                                    </div>
                                                 }
                                                 </div>
                                                 <div className="col-12 text-center couponMsg"> Proceed to checkout to apply discount coupon code </div>
@@ -534,7 +556,7 @@ class CartProducts extends Component{
     }
 }
 const mapStateToProps = state => (
-    // console.log("state in cartProductsdata====",state.data.recentCartData),
+    console.log("state in cartProductsdata====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

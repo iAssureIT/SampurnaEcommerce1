@@ -9,7 +9,7 @@ import Message from '../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Mes
 import ReactImageZoom from 'react-image-zoom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import ProductViewEcommerceDetailsReviewFAQ from "./ProductViewEcommerceDetailsReviewFAQ.js";
+// import ProductViewEcommerceDetailsReviewFAQ from "./ProductViewEcommerceDetailsReviewFAQ.js";
 import {ntc} from '../../../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 import { withRouter } from 'next/router'
 import dynamic from 'next/dynamic';
@@ -50,7 +50,7 @@ class ProductViewEcommerce extends Component {
 									"availableQuantity" : 1
 								},
 			"productID"     : '',
-			"userid"        : ""
+			"user_ID"        : ""
 
 		};
 		this.changeImage = this.changeImage.bind(this);
@@ -64,7 +64,7 @@ class ProductViewEcommerce extends Component {
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
-            if(userDetails.user_id){
+            if(userDetails){
 				this.setState({
 					user_ID :  userDetails.user_id,
 				},()=>{
@@ -91,7 +91,10 @@ class ProductViewEcommerce extends Component {
 			productID : urlParam
 		},()=>{
 			console.log("productID",this.state.productID);
-			axios.get("/api/products/get/one/" + this.state.productID)
+			console.log("userID",this.state.user_ID);
+
+			// user_ID :  userDetails.user_id,
+			axios.get("/api/products/get/one/" + this.state.productID +"/"+this.state.user_ID?this.state.user_ID:null)
 		.then((response) => {
 			if(response){
 				this.setState({
@@ -671,7 +674,6 @@ class ProductViewEcommerce extends Component {
 						<Message messageData={this.state.messageData} />
 						<div className="col-12">
 							<div className="row">
-
 							{this.state.productData.brandNameRlang?
                                 <div className={"col-12 globalProduct_brand RegionalFont NoPadding productDetailsMB "} title={this.state.productData.brandNameRlang}>{this.state.productData.brandNameRlang}</div>
                                 :
@@ -903,33 +905,7 @@ class ProductViewEcommerce extends Component {
 								</div>
 
 							</div>
-							<div id="loginFormModal" className="modal in">
-							<div className="modal-dialog">                                        
-								<div className="modal-content loginModalContent">                            
-									<div className="modal-body">   
-									<button type="button" className="close"  data-dismiss="modal" aria-hidden="true">&times;</button>                                                            
-										{this.props.formToShow === "login" ?
-											<div className="col-lg-12 col-md-12 loginForm">
-												<Login />
-											</div>  
-										: null
-										}  
-										{this.props.formToShow === "signUp" ?
-											<div className="col-lg-12 col-md-12 signupForm">
-												<SignUp />
-											</div>  
-										: null
-										} 
-										{this.props.formToShow === "forgotPassword" ?
-											<div className="col-lg-12 col-md-12 loginForm">
-												<ForgotPassword />
-											</div>  
-										: null
-										}                                                                
-									</div>
-								</div>
-							</div>
-						</div>
+							
 						</div>
 						{
 							this.state.productData.productDetails ? 
@@ -941,7 +917,7 @@ class ProductViewEcommerce extends Component {
 							:
 							null
 						}
-						<ProductViewEcommerceDetailsReviewFAQ productID = { this.state.productID } />
+						{/* <ProductViewEcommerceDetailsReviewFAQ productID = { this.state.productID } /> */}
 					</div>
 					</div>
 				</div>

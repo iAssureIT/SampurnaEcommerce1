@@ -59,7 +59,7 @@ class Cart extends Component{
                       // console.log("component",component);
 						          return(
                         <div className="col-12 NoPadding" key={index}>
-                          <OtherComponent block_id={block_id} key={index}/>
+                          {/* <OtherComponent block_id={block_id} key={index}/> */}
                         </div>
 						            )
 				              })
