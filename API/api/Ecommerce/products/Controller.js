@@ -4132,7 +4132,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
                                         // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                         console.log("if wish products ==== 1",products)
                                         console.log("if wish ==== 1",products.filter((product) => FinalVendorSequence.toString().includes(String(product.vendor_ID))).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
-                                        res.status(200).json(products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                        res.status(200).json(products.filter((product) => FinalVendorSequence.toString().includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }else{
                                         console.log("if wish products ==== 2",products)
                                         console.log("if wish ==== 2",products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
@@ -4144,7 +4144,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
                                     // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     console.log("else wish products ==== 1",products)
                                     console.log("else wish ==== 1",products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
-                                    res.status(200).json(products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                    res.status(200).json(products.filter((product) => FinalVendorSequence.toString().includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 }else{
                                     console.log("else wish products ==== 2",products)
                                     console.log("else wish ==== 2",products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
