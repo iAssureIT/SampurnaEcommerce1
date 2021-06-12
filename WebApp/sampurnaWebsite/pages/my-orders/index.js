@@ -550,9 +550,16 @@ export default class MyOrders extends Component {
                                                     </div>
                                               </div>
                                           </div>
-                                          <div className="col-2 orderStatus">
-                                            {vendordata.orderStatus}
-                                          </div>
+                                          {vendordata.orderStatus === "Cancelled"
+                                          ?
+                                            <div className="col-2 orderStatus cancelOrderStatus">
+                                              {vendordata.orderStatus}
+                                            </div>
+                                          :
+                                            <div className="col-2 orderStatus">
+                                              {vendordata.orderStatus}
+                                            </div>
+                                          }
                                         </div>
                                         </div>
                                       </div>
@@ -573,10 +580,11 @@ export default class MyOrders extends Component {
                                       </button>
                                     </div>
                                     <div className="col-5 offset-1 pull-right ">
-                                        <button className=" btn btn-danger cancelbtn col-12 " id={singleOrder._id} onClick={this.cancelProductAction.bind(this)} >Cancel Order Within &nbsp;
+                                        {/* <button className=" btn btn-danger cancelbtn col-12 " id={singleOrder._id} onClick={this.cancelProductAction.bind(this)} >Cancel Order Within &nbsp;
                                           <Countdown date={Date.now() + 10000} />
                                           &nbsp; Min
-                                        </button>
+                                        </button> */}
+                                        <div className="cancelOrderbtn" id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order Within  {singleOrder.maxDurationForCancelOrder} &nbsp;Min</div>
                                     </div>
                                   </div>
                               </div>

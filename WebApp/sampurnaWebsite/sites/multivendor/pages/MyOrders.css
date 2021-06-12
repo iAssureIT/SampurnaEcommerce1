@@ -26,6 +26,9 @@
 	color: #fff !important;
 	font-size: var(--globalBtnFont);
 }
+.cancelOrderStatus{
+	color: #f00;
+}
 .cancelbtn{
 	/* font-size: var(--globalBtnFont) !important; */
 	font-size: 12px !important;

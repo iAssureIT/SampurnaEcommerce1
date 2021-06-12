@@ -32,7 +32,7 @@ class WebsiteLogo extends React.Component {
    render(){
         return(  
             <div className="col-12 mr-6 mt-2 logoBlock NoPadding">
-                <Link href="/">
+                {/* <Link href="/">
                     <a title="navbar-brand Sitelogo ">
                         <Image
                             src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/multistoreLogo.png"}
@@ -42,7 +42,16 @@ class WebsiteLogo extends React.Component {
                             layout={'intrinsic'}
                         />
                     </a>
-                </Link>
+                </Link> */}
+                <a href="/" title="navbar-brand Sitelogo ">
+                    <Image
+                        src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/multistoreLogo.png"}
+                        className={"logoImg hidden-x"}
+                        height ={40}
+                        width={170}
+                        layout={'intrinsic'}
+                    />
+                </a>
             </div>
         );        
     }

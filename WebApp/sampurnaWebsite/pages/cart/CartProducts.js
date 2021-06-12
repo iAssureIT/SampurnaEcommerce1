@@ -59,7 +59,7 @@ class CartProducts extends Component{
             })
         }
         await this.props.fetchCartData();
-        if(this.props.recentCartData){
+        if(this.props.recentCartData && this.props.recentCartData.vendorOrders){
             for(let i=0;i<this.props.recentCartData.vendorOrders.length;i++){
                 if(this.props.recentCartData.vendorOrders[i].vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ){
                     this.setState({

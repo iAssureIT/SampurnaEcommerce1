@@ -224,7 +224,16 @@ text-align:right ! important;
  .cartColor span{
     font-size: 14px ! important;
   }
-
+.cancelOrderbtn{
+    font-size: 13px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    transition: 0.5s ease;
+    text-align: right;
+}
+.cancelOrderbtn:hover{
+    color: #f00;
+}
 @media only screen and (max-device-width: 480px) {
   .orderTable h5{
     height: 30px ! important;
