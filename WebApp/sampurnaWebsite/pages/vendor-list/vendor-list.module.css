@@ -1,14 +1,15 @@
 .vendorCard{
     height: 140px;
-    border-radius: 10px;
-    background-image: url("/images/eCommerce/vendorCard.jpg");
-    background-position: 100%;
     box-shadow: 2px 2px 3px #dddddd;
-
     /* background: rgba(0, 15, 0, 0.3); */
     cursor: pointer;
+    background-image: url("/images/eCommerce/vendorCard.jpg");
+    background-position: 100%;
 }
 
+.vendorLogoImg{
+    
+}
 .vendorCard::before {
     content: "";
     position: absolute;
@@ -22,7 +23,7 @@
 
 .bgGray{
     background-color:#eee;
-    padding:15px 15px 30px 15px;
+    padding-bottom:15px;
 }
 
 .deliveryTime{
@@ -50,11 +51,12 @@
     font-size: 25px;
 }
 .vendorLogo{
-    background-image: url("/images/eCommerce/productloader.gif");
-    background-size: cover;
-    background-position: 100%;
     height: 100%;
     border-radius:100%;
+    border:solid 1px #ccc;
+    border-radius: 100%;
+    /* background-image: url("/images/eCommerce/loader.gif"); */
+    background-position: 100%;
 }
 .vendorCard a{
     text-decoration: none !important;

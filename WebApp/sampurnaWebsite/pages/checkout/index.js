@@ -371,9 +371,9 @@ class Checkout extends Component {
                     "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
                     "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
                 }
-                console.log("inside if address values====",addressValues);               
+                // console.log("inside if address values====",addressValues);               
             } else {
-                console.log("inside else new address");
+                // console.log("inside else new address");
                 addressValues = {
                     "user_ID": this.state.user_ID,
                     "name": this.state.username,
@@ -393,33 +393,10 @@ class Checkout extends Component {
                     "latitude": this.state.latitude,
                     "longitude": this.state.longitude,
                 }
-                    $('.fullpageloader').show();
                     console.log("addressValues:===",addressValues);
-                    axios.patch('/api/ecommusers/patch/address', addressValues)
-                        .then((response) => {
-                            $('.fullpageloader').hide();
-                            this.setState({
-                                messageData: {
-                                    "type": "outpage",
-                                    "icon": "fa fa-check-circle",
-                                    "message": "&nbsp; " + response.data.message,
-                                    "class": "success",
-                                    "autoDismiss": true
-                                }
-                            })
-                            setTimeout(() => {
-                                this.setState({
-                                    messageData: {},
-                                })
-                            }, 3000);
-                            this.getUserAddress();
-                        })
-                        .catch((error) => {
-                            console.log('error', error);
-                        });
-               // }
+                   
             }
-
+                // console.log("address to added to cart =",addressValues);
                 axios.patch('/api/carts/address', addressValues)
                     .then(async (response) => {
                         console.log("Response After inserting address to cart===",response);
@@ -472,12 +449,12 @@ class Checkout extends Component {
 
                         if (this.state.isChecked) {                            
                             axios.post('/api/orders/post', orderData)
-                                .then((result) => {
-                                    if(result.data.order_id){
+                                .then(async( result) => {
+                                    if(result.data && result.data.order_id){
                                         console.log("Order response ===",result.data);
                                         if (this.state.paymentmethods === 'cod') {
                                             this.setState({paymethods : true})
-                                            $('.fullpageloader').show();
+                                            // $('.fullpageloader').show();
                                             this.props.fetchCartData();
                                             this.setState({
                                                 messageData: {
@@ -495,14 +472,15 @@ class Checkout extends Component {
                                                 })
                                             }, 3000);
 
-                                            Router.push('/payment/' + result.data.order_id);
+                                           await Router.push('/payment/' + result.data.order_id);
                                         }
                                     } else {
+                                        console.log("inside online payment");
                                         this.setState({paymethods : true})
                                         var paymentdetails = {
                                             MERCHANT_ID: this.state.partnerid,
                                             MERCHANT_ACCESS_CODE: this.state.secretkey,
-                                            REFERENCE_NO: result.data.order_ID,
+                                            REFERENCE_NO: result.data.order_id,
                                             AMOUNT: this.state.amountofgrandtotal*100,
                                             CUSTOMER_MOBILE_NO: this.state.mobile,
                                             CUSTOMER_EMAIL_ID: this.state.email,
@@ -520,7 +498,7 @@ class Checkout extends Component {
                                                 this.setState({paymethods : false})
                                             })
                                     }
-                                    axios.get('/api/orders/get/one/' + result.data.order_ID)
+                                    axios.get('/api/orders/get/one/' + result.data.order_id)
                                         .then((res) => {
                                             // =================== Order place Notification  ==================
                                             if (res) {
@@ -534,7 +512,7 @@ class Checkout extends Component {
                                                         "Username": res.data.userFullName,
                                                         "amount"  : res.data.total,                                                        
                                                         "total": res.data.total,
-                                                        "orderid": res.data.orderID,
+                                                        "orderid": res.data.order_id,
                                                         "shippingtime": res.data.shippingtime?res.data.shippingtime:"Any time",
                                                     }
                                                 }

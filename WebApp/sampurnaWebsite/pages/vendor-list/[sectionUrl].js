@@ -48,7 +48,7 @@ const VendorList = ()=> {
 			})
     },[sectionUrl])
         return(
-            <section>
+            <section className={ Style.bgGray}>
                 <Header />    
                 <div className="container">
                     <div className="col-12">
@@ -67,7 +67,10 @@ const VendorList = ()=> {
                                                 {/* <Link href={"/products/"+vendordata.vendor_ID +"/"+sectionUrl} className={+Style.vedorLink}> */}
                                                     <div className={"row card-body " +Style.cardBody}>
                                                         <div className={ "col-3 NoPadding "+Style.vendorLogo}>
-                                                            <img src={vendordata.vendorLogo} className={"vendor img-thumbnail "}/>
+                                                            {vendordata.vendorLogo?
+                                                            <img src={vendordata.vendorLogo} className={"vendorLogoImg img-thumbnail "}/>
+                                                            :
+                                                            null}
                                                         </div>   
                                                         <div className={"col-9 "}>
                                                             <div className={"col-12 " +Style.vendorName}>{vendordata.vendorName}</div>

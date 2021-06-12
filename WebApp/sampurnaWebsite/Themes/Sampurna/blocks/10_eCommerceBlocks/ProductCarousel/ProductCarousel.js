@@ -238,7 +238,7 @@ class ProductCarousel extends Component {
             "startRange"        : this.state.startRange,
             "limitRange"        : this.state.limitRange,
             }
-            // console.log("formValues=>",formValues);
+            console.log("carousel formValues=>",formValues);
         }
         if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
@@ -256,10 +256,11 @@ class ProductCarousel extends Component {
               productApiUrl : productApiUrl,
             })
         }
-        if(formValues && this.state.productApiUrl){
-          // console.log("formValues=>",formValues);
-          this.getProductList(productApiUrl,formValues);
-        }//end productApiUrl
+        this.getProductList(productApiUrl,formValues);
+        // if(formValues && this.state.productApiUrl){
+        //   console.log("formValues=>",formValues);
+        //   this.getProductList(productApiUrl,formValues);
+        // }//end productApiUrl
       });
     }else{
       this.setState({          
@@ -278,7 +279,7 @@ getProductList(productApiUrl,formValues){
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      // console.log("response.data in product carousel===",response.data);       
+      console.log("response.data in product carousel===",response.data);       
       if(this.state.websiteModel === "FranchiseModel"){
         for(var i=0;i<response.data.length;i++){       
             var availableSizes = [];         

@@ -382,7 +382,7 @@ export default class MyOrders extends Component {
       }
     }
     if(formValues){
-    console.log("formValues=",formValues);
+    // console.log("formValues=",formValues);
     axios.patch('/api/orders/cancel/order', formValues)
       .then((response) => {
         // console.log("cancel order response:",this.state.orderData);
@@ -479,7 +479,6 @@ export default class MyOrders extends Component {
             this.state.loading ?
               <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> 
               :
-
               <div className="col-12 NOpadding">
                 <br />
                <div className="row"> 
@@ -496,7 +495,7 @@ export default class MyOrders extends Component {
                     {this.state.orderData && this.state.orderData.length > 0 ? 
                       this.state.orderData.map((singleOrder, index) => {
                         return(
-                          <div className="col-12 NoPadding orderIdborder">
+                          <div className="col-12 NoPadding orderIdborder" key={index}>
                             <div className="col-12  NoPadding orderNowrapper mb-4 pb-2">
                               <div className="row">
                                 <div className="col-6">

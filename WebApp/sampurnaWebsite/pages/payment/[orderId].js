@@ -13,7 +13,6 @@ class Payment extends Component {
       this.state = {
         "orderData": {},
 		    "companyInfo": [],
-		    "orderID" : '',
         externalData: null,
       };
   }
@@ -22,12 +21,13 @@ class Payment extends Component {
     var pageUrl = window.location.pathname;
     let a = pageUrl ? pageUrl.split('/') : "";
     const urlParam =a[2];
+    console.log("urlParam",urlParam);
     if(urlParam){
       this.setState({
         orderID : urlParam
-      },()=>{
+      },async()=>{
         if(this.state.orderID){
-          axios.get("/api/orders/get/one/" + this.state.orderID)
+          await axios.get("/api/orders/get/one/" + this.state.orderID)
           .then((response) => {
             // console.log('orderData response', response.data)
             this.setState({
@@ -35,7 +35,7 @@ class Payment extends Component {
             })
           })
           .catch((error) => {
-            console.log('error', error);
+            console.log('order id error', error);
           })
         }
       })
