@@ -42,7 +42,7 @@ class Checkout extends Component {
             },
             deliveryAddress: [],
             pincodeExists: true,
-            paymentmethods: "",
+            paymentmethods: "cod",
             paymethods: false,
             addressLine1: "",
             addType     : '',
@@ -1047,7 +1047,10 @@ class Checkout extends Component {
                           </div>  
                         </form>
                     </div>
-                    :null
+                    :
+                    <div className="col-12  textAlignCenter">
+                        <img className="col-12 col-md-4 col-sm-6 " src={"/images/eCommerce/emptycart.png"} alt="" />                          
+                    </div> 
                     }
                 </div>
             </div>

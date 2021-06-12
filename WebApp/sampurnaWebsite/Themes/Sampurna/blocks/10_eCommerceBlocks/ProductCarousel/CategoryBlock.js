@@ -50,7 +50,7 @@ class CategoryBlock extends Component{
     //}
 
     render(){
-      // console.log("props category ====",this.props);
+      // console.log("props category ====",this.props.categoryData);
       return (
         <div className={"container NoPadding " +style.categoryCarousel}>
             <Carousel 
@@ -77,7 +77,7 @@ class CategoryBlock extends Component{
                             <a className ={"col-12 " +style.categoryBlock}>
                               <div className={"itemImg col-12 NoPadding " +style.categoryPhoto }>
                                   <Image                                           
-                                    src={categorydata.categoryImg ? categorydata.categoryImg : "/images/eCommerce/notavailable.jpg"}
+                                    src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.jpg"}
                                     alt="ProductImg" 
                                     className={"img-responsive " +style.NoAvailableImg }
                                     height={90}

@@ -32,12 +32,9 @@ class ProductDetailsEcommerce extends Component {
 		
 		var pageUrl = window.location.pathname;
 		let a = pageUrl ? pageUrl.split('/') : "";
-		const urlParam =a[4];
-		console.log("productID urlParam-",urlParam);
+		const urlParam =a[3];
 		this.setState({
 			productID : urlParam
-		},()=>{
-			console.log("productID-",this.state.productID);
 		});
 
 	}
@@ -71,7 +68,6 @@ class ProductDetailsEcommerce extends Component {
 				<Header/>
 				{/* <BreadCrumbs /> */}
 				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop180  backColorGray">
-				{/* <ProductViewEcommerce productID = { this.props.match.params.productID } /> */}
 				<ProductViewEcommerce productID = { this.state.productID } />
 					{ this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
 						this.props.pageData.pageBlocks.map((result, index)=>{

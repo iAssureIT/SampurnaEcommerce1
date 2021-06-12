@@ -64,11 +64,14 @@ class CartProducts extends Component{
                 if(this.props.recentCartData.vendorOrders[i].vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ){
                     this.setState({
                         CheckoutBtn : false
+                    },()=>{
+                        console.log("CheckoutBtn===",this.state.CheckoutBtn)
                     })
                 }
                 break;
             }
         }
+        
     }
 
     Removefromcart(event){
@@ -322,6 +325,7 @@ class CartProducts extends Component{
     }
 
     render(){
+        
         return(            
             <div className="container-fluid">
             <div className="col-12 cartHeight">
@@ -416,10 +420,10 @@ class CartProducts extends Component{
                                                     })
                                                 }
                                                 {
-                                                    this.props.recentCartData.minOrderAmount < vendorWiseCartData.vendor_netPayableAmount?
+                                                   vendorWiseCartData.vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ?
                                                         <div className="col-12"> 
                                                             <div className="col-12">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
-                                                            <div className="col-12">
+                                                            <div className="col-12 text-center">
                                                                 <a href={"/products/"+vendorWiseCartData._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"}>To continue shopping click here</a>
                                                             </div>
                                                         </div>
@@ -520,7 +524,7 @@ class CartProducts extends Component{
                                                 <div className="col-12">
                                                 <div className="col-12 NoPadding checkoutBtn">
                                                 {
-                                                    this.state.CheckoutBtn?
+                                                    !this.state.CheckoutBtn?
                                                     <div className="col-12 NoPadding">
                                                         <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout" disable>
                                                             PROCEED TO CHECKOUT

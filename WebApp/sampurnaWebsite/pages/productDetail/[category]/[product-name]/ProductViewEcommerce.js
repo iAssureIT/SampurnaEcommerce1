@@ -9,7 +9,7 @@ import Message from '../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Mes
 import ReactImageZoom from 'react-image-zoom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-// import ProductViewEcommerceDetailsReviewFAQ from "./ProductViewEcommerceDetailsReviewFAQ.js";
+import ProductViewEcommerceDetailsReviewFAQ from "./ProductViewEcommerceDetailsReviewFAQ.js";
 import {ntc} from '../../../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 import { withRouter } from 'next/router'
 import dynamic from 'next/dynamic';
@@ -33,6 +33,7 @@ const responsive = {
 	  slidesToSlide: 1 // optional, default to 1.
 	}
   };
+  
   
 class ProductViewEcommerce extends Component {
 	constructor(props) {
@@ -64,23 +65,23 @@ class ProductViewEcommerce extends Component {
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
-            if(userDetails){
+            if(userDetails.user_id){
 				this.setState({
 					user_ID :  userDetails.user_id,
 				},()=>{
-					this.validation();
-					this.getWishData();
-					this.reviewAverage();
-					this.getMyReview();
+					// this.validation();
+					// this.getWishData();
+					// this.reviewAverage();
+					// this.getMyReview();
 				})
                
             }
         }
-		
 		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
 				websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
-				showLoginAs  : sampurnaWebsiteDetails.preferences.showLoginAs
+				showLoginAs  : sampurnaWebsiteDetails.preferences.showLoginAs,
+				currency     : sampurnaWebsiteDetails.preferences.currency,
 			})
 		}
 		
@@ -90,27 +91,28 @@ class ProductViewEcommerce extends Component {
 		this.setState({
 			productID : urlParam
 		},()=>{
-			console.log("productID",this.state.productID);
-			console.log("userID",this.state.user_ID);
-
-			// user_ID :  userDetails.user_id,
-			axios.get("/api/products/get/one/" + this.state.productID +"/"+this.state.user_ID?this.state.user_ID:null)
-		.then((response) => {
-			if(response){
-				this.setState({
-					productData: response.data,
-					selectedImage: response.data.productImage[0],
-					quanityLimit: response.data.availableQuantity,
-					selectedColor : response.data.color,
-					selectedSize : response.data.size,
-					websiteModel : this.state.websiteModel
-				},()=>{
-					// window.fbq('track', 'CustomizeProduct',this.state.productData.productName,this.state.productData.originalPrice);
-					// console.log('selectedColor',this.state.selectedColor);
-					this.getProductData();
-					this.getProductSizeData();
-				})
+			// console.log("this.state.user_ID",this.state.user_ID)
+			if(this.state.user_ID!==""){
+				var url = "/api/products/get/one/" + this.state.productID +"/" +this.state.user_ID;
+			}else{
+				var url = "/api/products/get/one/" + this.state.productID +"/" +null;
 			}
+			// console.log("url",url);
+		axios.get(url)
+		.then((response) => {
+			this.setState({
+				productData: response.data,
+				selectedImage: response.data.productImage[0],
+				quanityLimit: response.data.availableQuantity,
+				selectedColor : response.data.color,
+				selectedSize : response.data.size,
+				websiteModel : this.state.websiteModel
+			},()=>{
+				// window.fbq('track', 'CustomizeProduct',this.state.productData.productName,this.state.productData.originalPrice);
+				// console.log('selectedColor',this.state.selectedColor);
+				this.getProductData();
+				this.getProductSizeData();
+			})
 			this.forceUpdate();
 		})
 		.catch((error) => {
@@ -122,8 +124,7 @@ class ProductViewEcommerce extends Component {
 		// this.getMyReview();
 		})   
 		// this.setState({showLoginAs: showLoginAs,websiteModel:websiteModel}); 
-		await this.props.fetchCartData(); 
-		
+		// this.props.fetchCartData();
 		
 	}
 	validation(){
@@ -670,7 +671,7 @@ class ProductViewEcommerce extends Component {
 							</div>
 						</div>
 
-						<div className="col-12 col-sm-6 ">
+						<div className="col-12 col-sm-7 ">
 						<Message messageData={this.state.messageData} />
 						<div className="col-12">
 							<div className="row">
@@ -689,7 +690,7 @@ class ProductViewEcommerce extends Component {
                                 </div>
                                 :
                                 <div className={"col-12 globalProductItemName NoPadding NoPadding" } title={this.state.productData.productName}>
-									<span className={ "ellipsis globalProdName"}>{this.state.productData.productName} </span>&nbsp;
+									{/* <span className={ "ellipsis globalProdName"}>{this.state.productData.productName} </span>&nbsp; */}
 									<div ><span className="productNameClassNew"> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> ( <span className="marathiName">{this.state.productData.shortDescription}</span> )</div>
 									<div className="col-12">									
 										<div className="undrln row"> </div>
@@ -726,17 +727,17 @@ class ProductViewEcommerce extends Component {
 													this.state.productData.discountPercent ? <span className="originalPrice"><i className="fa fa-inr"> </i>&nbsp; {this.state.productData.originalPrice} - {this.state.productData.size}&nbsp;{this.state.productData.unit}</span> : null
 													} */}
 													{ this.state.productData.discountPercent ? 
-														<span className="priceEcommerceNew"><span className="oldprice"><i className="fa fa-inr "></i>&nbsp;{this.state.productData.originalPrice} </span>&nbsp; <i className="fa fa-inr "></i> {this.state.productData.discountedPrice} / {this.state.productData.size}&nbsp;<span className="ProSize">{this.state.productData.unit}</span></span>         
+														<span className="priceEcommerceNew"><span className="oldprice"><i className="fa fa-inr "></i>&nbsp;{this.state.productData.originalPrice} </span>&nbsp; {this.state.currency}&nbsp; {this.state.productData.discountedPrice} / {this.state.productData.size}&nbsp;<span className="ProSize">{this.state.productData.unit}</span></span>         
 														:
-														<span className="priceEcommerceNew"><i className="fa fa-inr"></i>&nbsp;{this.state.productData.originalPrice} / {this.state.productData.size}&nbsp;<span className="ProSize">{this.state.productData.unit}</span></span>   
+														<span className="priceEcommerceNew">{this.state.currency}&nbsp;{this.state.productData.originalPrice} / {this.state.productData.size}&nbsp;<span className="ProSize">{this.state.productData.unit}</span></span>   
 													}                         
 												</div>
 											: 
 												<div>
 													{ this.state.productData.discountPercent ? 
-														<span className="priceEcommerceNew"><span className="oldprice"><i className="fa fa-inr "></i>&nbsp;{this.state.productData.originalPrice} </span>&nbsp; <i className="fa fa-inr "></i> {this.state.productData.discountedPrice} /{this.state.productData.size}&nbsp;<span className="ProSize">{this.state.productData.unit}</span></span>         
+														<span className="priceEcommerceNew"><span className="oldprice">{this.state.currency}&nbsp;{this.state.productData.originalPrice} </span>&nbsp; <i className="fa fa-inr "></i> {this.state.productData.discountedPrice} /{this.state.productData.size}&nbsp;<span className="ProSize">{this.state.productData.unit}</span></span>         
 														:
-														<span className="priceEcommerceNew"><i className="fa fa-inr"></i>&nbsp;{this.state.productData.originalPrice} / {this.state.productData.size}&nbsp;<span className="ProSize">{this.state.productData.unit}</span></span>   
+														<span className="priceEcommerceNew">{this.state.currency}&nbsp;{this.state.productData.originalPrice} / {this.state.productData.size}&nbsp;<span className="ProSize">{this.state.productData.unit}</span></span>   
 													} 
 												</div>
 												
@@ -816,34 +817,34 @@ class ProductViewEcommerce extends Component {
 										<div className="col-12 NOpadding">
 											{this.state.relatedProductArray && this.state.relatedProductArray.length>0?
 												this.state.relatedProductArray.map((a,i)=>{
-													if(a.color){
-														var color  = ntc.name(a.color);
-															return(
-																<div className="col-12 " key={i}>
-																<div className="row">
-																 { i===0?	
-																	<div>															
-																		<label className="col-12 NOpadding mt15 detailtitle">Color</label>
-																		<div className="col-sm-1 col-2 NOpadding">
-																			<label title={color[1]} className="colorBox">
-																				<input title="Please select color first." checked={this.state.selectedColor === a.color ? true : false} value={a.color} name="color" type="radio" id={a._id} onChange={this.setNewProduct.bind(this)}/>
-																				<span style={{'backgroundColor' : a.color}} className="color col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding"></span>
-																			</label>
-																		</div>
-																	</div>
+													// if(a.color){
+													// 	var color  = ntc.name(a.color);
+													// 		return(
+													// 			<div className="col-12 " key={i}>
+													// 			<div className="row">
+													// 			 { i===0?	
+													// 				<div>															
+													// 					<label className="col-12 NOpadding mt15 detailtitle">Color</label>
+													// 					<div className="col-sm-1 col-2 NOpadding">
+													// 						<label title={color[1]} className="colorBox">
+													// 							<input title="Please select color first." checked={this.state.selectedColor === a.color ? true : false} value={a.color} name="color" type="radio" id={a._id} onChange={this.setNewProduct.bind(this)}/>
+													// 							<span style={{'backgroundColor' : a.color}} className="color col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding"></span>
+													// 						</label>
+													// 					</div>
+													// 				</div>
 																	
-																	:
-																	<div className="col-sm-1 col-2 NOpadding">
-																		<label title={color[1]} className="colorBox">
-																			<input title="Please select color first." checked={this.state.selectedColor === a.color ? true : false} value={a.color} name="color" type="radio" id={a._id} onChange={this.setNewProduct.bind(this)}/>
-																			<span style={{'backgroundColor' : a.color}} className="color col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding"></span>
-																		</label>
-																	</div>
-																}
-																</div>
-																</div>
-															);														
-													}													
+													// 				:
+													// 				<div className="col-sm-1 col-2 NOpadding">
+													// 					<label title={color[1]} className="colorBox">
+													// 						<input title="Please select color first." checked={this.state.selectedColor === a.color ? true : false} value={a.color} name="color" type="radio" id={a._id} onChange={this.setNewProduct.bind(this)}/>
+													// 						<span style={{'backgroundColor' : a.color}} className="color col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding"></span>
+													// 					</label>
+													// 				</div>
+													// 			}
+													// 			</div>
+													// 			</div>
+													// 		);														
+													// }													
 												})
 											:
 												null
@@ -905,7 +906,33 @@ class ProductViewEcommerce extends Component {
 								</div>
 
 							</div>
-							
+							<div id="loginFormModal" className="modal in">
+							<div className="modal-dialog">                                        
+								<div className="modal-content loginModalContent">                            
+									<div className="modal-body">   
+									<button type="button" className="close"  data-dismiss="modal" aria-hidden="true">&times;</button>                                                            
+										{this.props.formToShow === "login" ?
+											<div className="col-lg-12 col-md-12 loginForm">
+												<Login />
+											</div>  
+										: null
+										}  
+										{this.props.formToShow === "signUp" ?
+											<div className="col-lg-12 col-md-12 signupForm">
+												<SignUp />
+											</div>  
+										: null
+										} 
+										{this.props.formToShow === "forgotPassword" ?
+											<div className="col-lg-12 col-md-12 loginForm">
+												<ForgotPassword />
+											</div>  
+										: null
+										}                                                                
+									</div>
+								</div>
+							</div>
+						</div>
 						</div>
 						{
 							this.state.productData.productDetails ? 
@@ -917,7 +944,7 @@ class ProductViewEcommerce extends Component {
 							:
 							null
 						}
-						{/* <ProductViewEcommerceDetailsReviewFAQ productID = { this.state.productID } /> */}
+						<ProductViewEcommerceDetailsReviewFAQ productID = { this.state.productID } />
 					</div>
 					</div>
 				</div>
@@ -933,6 +960,6 @@ const mapStateToProps = (state) => {
 	}
   }
   const mapDispachToProps = (dispatch) => {
-	return  bindActionCreators({ fetchCartData: getCartData }, dispatch)
+	fetchCartData    : getCartData
   }
   export default connect(mapStateToProps, mapDispachToProps)(ProductViewEcommerce);
