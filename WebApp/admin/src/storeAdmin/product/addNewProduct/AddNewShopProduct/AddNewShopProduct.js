@@ -695,7 +695,7 @@ class AddNewShopProduct extends Component {
 		"category_ID" : this.refs.category.value.split('|')[1],
 		"category"    : this.refs.category.value.split('|')[0],
 		"categoryNameRlang" : this.state.categoryNameRlang,
-		"subCategory_ID": this.refs.subCategory.value.split('|')[1],
+		"subCategory_ID": this.refs.subCategory.value.split('|')[1].split("-")[0],
 		"subCategory" : this.refs.subCategory.value.split('|')[0],
 		"brand"       : this.refs.brand.value,
 		"brandNameRlang" : this.refs.brandNameRlang.value,
