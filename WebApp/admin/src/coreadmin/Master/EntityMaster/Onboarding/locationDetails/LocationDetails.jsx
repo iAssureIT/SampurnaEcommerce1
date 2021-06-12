@@ -246,12 +246,12 @@ class LocationDetails extends Component {
 		$.validator.addMethod("regxdistrict", function (value, element, arg) {
 			return arg !== value;
 		}, "Please select the district");
-		$.validator.addMethod("regxGSTIN", function (value, element, regexpr) {
-			return regexpr.test(value);
-		}, "Please enter valid GSTIN.");
-		$.validator.addMethod("regxPAN", function (value, element, regexpr) {
-			return regexpr.test(value);
-		}, "Please enter valid PAN.");
+		// $.validator.addMethod("regxGSTIN", function (value, element, regexpr) {
+		// 	return regexpr.test(value);
+		// }, "Please enter valid GSTIN.");
+		// $.validator.addMethod("regxPAN", function (value, element, regexpr) {
+		// 	return regexpr.test(value);
+		// }, "Please enter valid PAN.");
 		
 		$.validator.addMethod("regxarea", function (value, element, regexpr) {
 			return regexpr.test(value);
@@ -290,14 +290,14 @@ class LocationDetails extends Component {
 				// 	required: true,
 				// 	pincodeRegx: /^[0-9][0-9\-\s]/,
 				// },
-				GSTIN: {
-					required:true,
-					regxGSTIN: /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[A-Za-z1-9]{1}[z|Z]{1}[A-Za-z0-9]{1}$|^$/,
-				},
-				PAN: {
-					required:true,
-					regxPAN: /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$|^$/,
-				},
+				// GSTIN: {
+				// 	required:true,
+				// 	regxGSTIN: /^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[A-Za-z1-9]{1}[z|Z]{1}[A-Za-z0-9]{1}$|^$/,
+				// },
+				// PAN: {
+				// 	required:true,
+				// 	regxPAN: /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$|^$/,
+				// },
 				// area: {
 				// 	regxarea: /^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$|^$/,
 				// },
@@ -1652,9 +1652,11 @@ class LocationDetails extends Component {
 																: */}
 																	<div>
 																		<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12  " >
-																			<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">State <i className="astrick">*</i> {this.props.typeOption == 'Local' ? <i className="astrick">*</i> : null}
+																			<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Emirate <i className="astrick">*</i> 
+																			{/* {this.props.typeOption == 'Local' ? <i className="astrick">*</i> : null} */}
 																			</label>
-																			<select id="states" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12"
+																			<input type="text" id="states" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.states} ref="states" name="states" onChange={this.handleChange} />
+																			{/* <select id="states" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12"
 																				ref="states" value={this.state.states} name="states" onChange={this.handleChangeState} >
 																				<option selected={true}>-- Select --</option>
 																				{
@@ -1666,7 +1668,7 @@ class LocationDetails extends Component {
 																						}
 																						) : ''
 																				}
-																			</select>
+																			</select> */}
 																		</div>
 																		<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12  " >
 																			<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">City 
@@ -1682,7 +1684,7 @@ class LocationDetails extends Component {
 																	</div>
 																{/* } */}
 																</div>
-																<div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+																{/* <div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 																	<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12  " >
 																		<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">GSTIN<i className="astrick">*</i>
 																			<a data-tip data-for='basicInfo4Tooltip' className="pull-right"> <i title="Eg. 29ABCDE1234F1Z5" className="fa fa-question-circle"></i> </a>
@@ -1804,7 +1806,7 @@ class LocationDetails extends Component {
 											                                null)
 																		}
 																	</div>
-																</div>
+																</div> */}
 																<div className="col-lg-7 col-md-7 col-sm-7 col-xs-7  NOpadding pull-right">
 																	{this.props.match.params.entityID ?
 																		
@@ -1893,8 +1895,7 @@ class LocationDetails extends Component {
 																						<div className="col-md-12">
 																						<li className="gst">GSTIN : {Suppliersdata.GSTIN}</li>
 																						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-																						{
-																							Suppliersdata.GSTDocument && Suppliersdata.GSTDocument.length > 0 ?
+																						{Suppliersdata.GSTDocument && Suppliersdata.GSTDocument.length > 0 ?
 																								Suppliersdata.GSTDocument.map((doc, i) => {
 																									if(('extension',doc.substring(doc.lastIndexOf("."))) === '.pdf'){
 																										return (
@@ -1930,7 +1931,7 @@ class LocationDetails extends Component {
 																						</div>
 																						</div>
 																						:
-																						null
+																							null
 																						}
 																						{Suppliersdata.PAN ?
 																						<div className="col-md-12">

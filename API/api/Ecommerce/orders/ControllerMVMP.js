@@ -82,10 +82,10 @@ exports.insert_orders = (req, res, next) => {
 									},
 								)
 								.then(productInventoryData=>{
-									// console.log("Product Inventory data = ",productInventoryData);
+									console.log("Product Inventory data = ",productInventoryData);
 									// res.status(200);
-									// console.log("productInventoryData._id = ",productInventoryData._id);
-									// console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
+									console.log("productInventoryData._id = ",productInventoryData._id);
+									console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
 									var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
 									// console.log("newQuantity = ",newQuantity);
 
