@@ -3987,7 +3987,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
     main();
     async function main(){
-        // console.log("req.body => ",req.body);
+        console.log("req.body => ",req.body);
         var userLat         = req.body.userLatitude;
         var userLong        = req.body.userLongitude;
         var selector        = {};
@@ -4104,14 +4104,14 @@ exports.products_by_lowest_price = (req,res,next)=>{
                 if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
                     const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
                     
-                    // console.log("uniqueVendors=> ",uniqueVendors);     
+                    console.log("uniqueVendors=> ",uniqueVendors);     
                     FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong);
                     FinalVendorSequence = FinalVendorSequence.map(vendor => vendor.vendor_ID);
                 }
 
                 if(products){ 
                     // var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
-                    // console.log("products => ",products.length)    
+                    console.log("products => ",products.length)    
                     for (let k = 0; k < products.length; k++) {
                         products[k] = {...products[k], isWish : false};
                     }
@@ -4130,16 +4130,20 @@ exports.products_by_lowest_price = (req,res,next)=>{
                                 if(i >= wish.length){
                                     if(FinalVendorSequence && FinalVendorSequence.length > 0){                                        
                                         // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                        console.log("if wish ==== 1",products.filter((product) => FinalVendorSequence.toString().includes(String(product.vendor_ID))).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                                         res.status(200).json(products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }else{
+                                        console.log("if wish ==== 2",products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                                         res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }                            
                                 }       
                             }else{
                                 if(FinalVendorSequence && FinalVendorSequence.length > 0){
                                     // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                    console.log("==== 2",products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                                     res.status(200).json(products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 }else{
+                                    console.log("else wish ==== 2",products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                                     res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 } 
                             }
@@ -4153,11 +4157,12 @@ exports.products_by_lowest_price = (req,res,next)=>{
                         });
                     }else{
                         if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                            // console.log(" ==== ",mapOrder(products, FinalVendorSequence, 'vendor_ID'))
+                            console.log(" ==== 1",products.filter((product) => FinalVendorSequence.toString().includes(String(product.vendor_ID))).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                             // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                             res.status(200).json(products.filter((product) => FinalVendorSequence.toString().includes(String(product.vendor_ID))).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                             
                         }else{
+                            console.log("==== 2",products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                             res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                         } 
                     }    
