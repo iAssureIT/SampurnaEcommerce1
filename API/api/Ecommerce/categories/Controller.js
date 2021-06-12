@@ -548,10 +548,10 @@ function getSubCategoryList(categories, subcategories){
         )              
         .exec()
         .then(categoryDetails=>{
-            // console.log("categoryDetails * => ",categoryDetails);
+            console.log("categoryDetails * => ",categoryDetails);
             if(categoryDetails && categoryDetails.length > 0){
                 var returnData = categoryDetails.map((a, i)=>{
-                    // console.log("a = > " , a)
+                    console.log("a = > " , a)
                     return {
                         "_id"                   : a._id,
                         "category"              : a.category,
@@ -566,6 +566,7 @@ function getSubCategoryList(categories, subcategories){
                                                         []
                     }
                 })
+                console.log("returnData",returnData);
                 resolve(returnData.sort((a, b) => a.categoryRank - b.categoryRank));
             }else{
                 resolve([]);
