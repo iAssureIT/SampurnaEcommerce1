@@ -4130,9 +4130,11 @@ exports.products_by_lowest_price = (req,res,next)=>{
                                 if(i >= wish.length){
                                     if(FinalVendorSequence && FinalVendorSequence.length > 0){                                        
                                         // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                        console.log("if wish products ==== 1",products)
                                         console.log("if wish ==== 1",products.filter((product) => FinalVendorSequence.toString().includes(String(product.vendor_ID))).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                                         res.status(200).json(products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }else{
+                                        console.log("if wish products ==== 2",products)
                                         console.log("if wish ==== 2",products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                                         res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }                            
@@ -4140,9 +4142,11 @@ exports.products_by_lowest_price = (req,res,next)=>{
                             }else{
                                 if(FinalVendorSequence && FinalVendorSequence.length > 0){
                                     // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
-                                    console.log("==== 2",products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
+                                    console.log("else wish products ==== 1",products)
+                                    console.log("else wish ==== 1",products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                                     res.status(200).json(products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 }else{
+                                    console.log("else wish products ==== 2",products)
                                     console.log("else wish ==== 2",products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                                     res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 } 
@@ -4157,11 +4161,13 @@ exports.products_by_lowest_price = (req,res,next)=>{
                         });
                     }else{
                         if(FinalVendorSequence && FinalVendorSequence.length > 0){
+                            console.log("products ==== 1",products)
                             console.log(" ==== 1",products.filter((product) => FinalVendorSequence.toString().includes(String(product.vendor_ID))).slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                             // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                             res.status(200).json(products.filter((product) => FinalVendorSequence.toString().includes(String(product.vendor_ID))).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                             
                         }else{
+                            console.log("products ==== 2",products)
                             console.log("==== 2",products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction))
                             res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                         } 
