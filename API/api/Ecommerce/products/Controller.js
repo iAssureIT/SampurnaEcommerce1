@@ -2167,7 +2167,8 @@ exports.search_product = (req,res,next)=>{
         //     return product.vendor_ID;
         //   });
         // console.log("grouped => ",grouped);
-
+        // var sortProduct = products.sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)
+        // console.log("sortProduct => ",sortProduct)
         if(products){
             for (let k = 0; k < products.length; k++) {
                 products[k] = {...products[k]._doc, isWish:false};
@@ -2188,34 +2189,26 @@ exports.search_product = (req,res,next)=>{
                             res.status(200).json(
                                 FinalVendorSequence 
                                 ? 
-                                    _.groupBy(products.filter((product) => {
+                                    products.filter((product) => {
                                         return FinalVendorSequence.some((vendor) => {
                                         return String(vendor.vendor_ID) === String(product.vendor_ID);
                                         })
-                                    }), function(filterdproduct) {
-                                        return filterdproduct.universalProductCode;
-                                    }) 
+                                    }).sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)
                                 : 
-                                    _.groupBy(products, function(product) {
-                                        return product.universalProductCode;
-                                    })
+                                    products.sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)
                             );
                         }       
                     }else{
                         res.status(200).json(
                             FinalVendorSequence 
                             ? 
-                                _.groupBy(products.filter((product) => {
+                                products.filter((product) => {
                                     return FinalVendorSequence.some((vendor) => {
                                     return String(vendor.vendor_ID) === String(product.vendor_ID);
                                     })
-                                }), function(filterdproduct) {
-                                    return filterdproduct.universalProductCode;
-                                }) 
+                                }).sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)
                             : 
-                                _.groupBy(products, function(product) {
-                                    return product.universalProductCode;
-                                })
+                                products.sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)                        
                         );
                     }
                  })
@@ -2227,20 +2220,15 @@ exports.search_product = (req,res,next)=>{
                 });
             }else{
                 res.status(200).json(
-                    
                     FinalVendorSequence 
                     ? 
-                        _.groupBy(products.filter((product) => {
+                        products.filter((product) => {
                             return FinalVendorSequence.some((vendor) => {
                             return String(vendor.vendor_ID) === String(product.vendor_ID);
                             })
-                        }), function(filterdproduct) {
-                            return filterdproduct.universalProductCode;
-                        }) 
+                        }).sort((a, b) => (String(a.vendor_ID) <=  String(b.vendor_ID)) ? 1 : -1)
                     : 
-                        _.groupBy(products, function(product) {
-                            return product.universalProductCode;
-                        })
+                        products.sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)                        
                 );
             }    
         }else{
