@@ -2150,7 +2150,7 @@ exports.search_product = (req,res,next)=>{
         console.log("products",products.length);
         var userLat         = req.body.userLatitude;
         var userLong        = req.body.userLongitude;
-
+        
         var FinalVendorSequence = [];
         if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
             const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
@@ -2159,6 +2159,14 @@ exports.search_product = (req,res,next)=>{
             FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
         }
         console.log("FinalVendorSequence => ", FinalVendorSequence);
+        // var grouped = _.groupBy(products.filter((el) => {
+        //     return FinalVendorSequence.some((f) => {
+        //       return String(f.vendor_ID) === String(el.vendor_ID);
+        //     })
+        //   }), function(product) {
+        //     return product.vendor_ID;
+        //   });
+        // console.log("grouped => ",grouped);
 
         if(products){
             for (let k = 0; k < products.length; k++) {
@@ -2177,10 +2185,38 @@ exports.search_product = (req,res,next)=>{
                             }
                         }   
                         if(i >= wish.length){
-                            res.status(200).json(products);
+                            res.status(200).json(
+                                FinalVendorSequence 
+                                ? 
+                                    _.groupBy(products.filter((product) => {
+                                        return FinalVendorSequence.some((vendor) => {
+                                        return String(vendor.vendor_ID) === String(product.vendor_ID);
+                                        })
+                                    }), function(filterdproduct) {
+                                        return filterdproduct.universalProductCode;
+                                    }) 
+                                : 
+                                    _.groupBy(products, function(product) {
+                                        return product.universalProductCode;
+                                    })
+                            );
                         }       
                     }else{
-                        res.status(200).json(products);
+                        res.status(200).json(
+                            FinalVendorSequence 
+                            ? 
+                                _.groupBy(products.filter((product) => {
+                                    return FinalVendorSequence.some((vendor) => {
+                                    return String(vendor.vendor_ID) === String(product.vendor_ID);
+                                    })
+                                }), function(filterdproduct) {
+                                    return filterdproduct.universalProductCode;
+                                }) 
+                            : 
+                                _.groupBy(products, function(product) {
+                                    return product.universalProductCode;
+                                })
+                        );
                     }
                  })
                  .catch(err =>{
@@ -2190,7 +2226,22 @@ exports.search_product = (req,res,next)=>{
                     });
                 });
             }else{
-                res.status(200).json(products);
+                res.status(200).json(
+                    
+                    FinalVendorSequence 
+                    ? 
+                        _.groupBy(products.filter((product) => {
+                            return FinalVendorSequence.some((vendor) => {
+                            return String(vendor.vendor_ID) === String(product.vendor_ID);
+                            })
+                        }), function(filterdproduct) {
+                            return filterdproduct.universalProductCode;
+                        }) 
+                    : 
+                        _.groupBy(products, function(product) {
+                            return product.universalProductCode;
+                        })
+                );
             }    
         }else{
             res.status(200).json('Product Details not found');
@@ -3945,6 +3996,7 @@ function getAll(searchText) {
 
 /**=========== products_by_lowest_price() =========== */
 exports.products_by_lowest_price = (req,res,next)=>{
+
     main();
     async function main(){
         // console.log("req.body => ",req.body);
@@ -3956,13 +4008,12 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
         selector["$and"].push({"status": "Publish"});
         /**----------- Find Vendorwise Products ------------ */
-        if(req.body.vendorID && req.body.vendorID !== '' && req.body.vendorID !== undefined){
-            selector["$and"].push({"vendor_ID": ObjectId(req.body.vendorID) })
+        if(req.body.vendor_ID && req.body.vendor_ID !== '' && req.body.vendor_ID !== undefined){
+            selector["$and"].push({"vendor_ID": ObjectId(req.body.vendor_ID) })
         }
         /**----------- Find Products for particular Section ------------ */
         if(req.body.sectionUrl && req.body.sectionUrl !== '' && req.body.sectionUrl !== undefined){
             var section_ID = await getSectionData(req.body.sectionUrl); 
-            
             if(section_ID && section_ID !== '' && section_ID !== undefined){
                 selector["$and"].push({"section_ID": ObjectId(section_ID) })
             }           
@@ -3970,7 +4021,6 @@ exports.products_by_lowest_price = (req,res,next)=>{
         /**----------- Find Products for selected category in particular Section ------------ */
         if(req.body.categoryUrl && req.body.categoryUrl !== '' && req.body.categoryUrl !== undefined){
             var categoryData = await getCategoryData(req.body.categoryUrl); 
-            
             if(categoryData && categoryData !== '' && categoryData !== undefined){
                 selector["$and"].push({"category_ID": ObjectId(categoryData._id) })
                 // var subCategory = await getSubCategoryData(categoryData._id, req.body.subCategoryUrl); 
@@ -4067,7 +4117,8 @@ exports.products_by_lowest_price = (req,res,next)=>{
                     const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
                     
                     // console.log("uniqueVendors=> ",uniqueVendors);     
-                    FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
+                    FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong);
+                    FinalVendorSequence = FinalVendorSequence.map(vendor => vendor.vendor_ID);
                 }
 
                 if(products){ 
@@ -4089,16 +4140,17 @@ exports.products_by_lowest_price = (req,res,next)=>{
                                     }
                                 }   
                                 if(i >= wish.length){
-                                    // console.log("FinalVendorSequence======= ",FinalVendorSequence)
-                                    if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                                        res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                    if(FinalVendorSequence && FinalVendorSequence.length > 0){                                        
+                                        // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                        res.status(200).json(products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }else{
                                         res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                     }                            
                                 }       
                             }else{
                                 if(FinalVendorSequence && FinalVendorSequence.length > 0){
-                                    res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                    // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                                    res.status(200).json(products.filter((product) => FinalVendorSequence.includes(product.vendor_ID)).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 }else{
                                     res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                                 } 
@@ -4114,13 +4166,15 @@ exports.products_by_lowest_price = (req,res,next)=>{
                     }else{
                         if(FinalVendorSequence && FinalVendorSequence.length > 0){
                             // console.log(" ==== ",mapOrder(products, FinalVendorSequence, 'vendor_ID'))
-                            res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                            // res.status(200).json(mapOrder(products, FinalVendorSequence, 'vendor_ID').slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                            res.status(200).json(products.filter((product) => FinalVendorSequence.toString().includes(String(product.vendor_ID))).slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
+                            
                         }else{
                             res.status(200).json(products.slice(req.body.startRange, req.body.limitRange).sort(returnFunction));
                         } 
                     }    
                 }else{
-                    res.status(404).json('Product Details not found');
+                    res.status().json('Product Details not found');
                 }
             }
         })
@@ -4179,7 +4233,7 @@ function getSectionData(sectionUrl){
     return new Promise(function(resolve,reject){
         Sections.findOne({"sectionUrl" : sectionUrl})
         .exec()
-        .then(sectiondata=>{            
+        .then(sectiondata=>{ 
             if(sectiondata && sectiondata !== undefined){
                 resolve(sectiondata._id)
             }            
@@ -4323,19 +4377,19 @@ function getVendorSequence(uniqueVendors, userLat, userLong) {
                         var distanceLimit   = await getDistanceLimit();
 
                         if(vendorLocations && vendorLocations.length > 0){
-                            console.log("distanceLimit => ",distanceLimit);
-                            console.log("vendorLocations => ",vendorLocations);
+                            // console.log("distanceLimit => ",distanceLimit);
+                            // console.log("vendorLocations => ",vendorLocations);
                             // FinalVendorSequence           = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))] 
                             if(distanceLimit){
-                                // var FinalVendorSequence = [...new Map(vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
-                                var FinalVendorSequence = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))];
-                                console.log("FinalVendorSequence 1 =>",FinalVendorSequence)
+                                var FinalVendorSequence = [...new Map(vendorLocations.filter(vendorLocation => parseFloat(vendorLocation.vendorDistance) <= parseFloat(distanceLimit)).sort((b, a) => parseFloat(a.vendorDistance) - parseFloat(b.vendorDistance)).map(item =>[item[key], item])).values()];
+                                // var FinalVendorSequence = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))];
+                                // console.log("FinalVendorSequence 1 =>",FinalVendorSequence.sort((a, b) => (parseFloat(a.vendorDistance) > parseFloat(b.vendorDistance)) ? 1 : -1))
                             }else{
-                                // var FinalVendorSequence  = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item =>[item[key], item])).values()] 
-                                var FinalVendorSequence  = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))];
-                                console.log("FinalVendorSequence => 2 ",FinalVendorSequence);
+                                var FinalVendorSequence  = [...new Map(vendorLocations.sort((b, a) => parseFloat(a.vendorDistance) - parseFloat(b.vendorDistance)).map(item =>[item[key], item])).values()] 
+                                // var FinalVendorSequence  = [...new Set(vendorLocations.sort((a, b) => parseInt(a.vendorDistance) - parseInt(b.vendorDistance)).map(item => String(item.vendor_ID)))];
+                                // console.log("FinalVendorSequence => 2 ",FinalVendorSequence.sort((a, b) => (parseFloat(a.vendorDistance) > parseFloat(b.vendorDistance)) ? 1 : -1));
                             }
-                            resolve(FinalVendorSequence)
+                            resolve(FinalVendorSequence.sort((a, b) => (parseFloat(a.vendorDistance) > parseFloat(b.vendorDistance)) ? 1 : -1))
                         }                            
                     }
                 }
