@@ -90,6 +90,8 @@ router.patch('/remove/image', 											checkAuth, productController.remove_pho
 
 router.get('/get/one/:productID/:user_ID', 								productController.fetch_product);
 
+router.get('/get/one/:productID', 								        productController.fetch_One_product);
+
 router.get('/get/hotproduct', 											productController.fetch_hot_product);
 
 router.delete('/delete/:productID', 									checkAuth, productController.delete_product);

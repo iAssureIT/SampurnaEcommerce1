@@ -909,7 +909,7 @@ class AddNewShopProduct extends Component {
 		"category_ID"       : this.refs.category.value.split('|')[1],
 		"category"          : this.refs.category.value.split('|')[0],
 		"categoryNameRlang" : this.state.categoryNameRlang,
-		"subCategory_ID"    : this.refs.subCategory.value.split('|')[1],
+		"subCategory_ID"    : this.refs.subCategory.value.split('|')[1].split("-")[0],
 		"subCategory"       : this.refs.subCategory.value.split('|')[0],
 		"brand"             : this.refs.brand.value,
 		"brandNameRlang"    : this.refs.brandNameRlang.value,
@@ -1244,7 +1244,7 @@ class AddNewShopProduct extends Component {
 												<option disabled selected defaultValue="">Select Vendor</option>
 												{this.state.vendorArray && this.state.vendorArray.length > 0 ?
 												  this.state.vendorArray.map((data, index) => {
-													 {console.log("vendor options----",data)}
+													//  {console.log("vendor options----",data)}
 													 return (
 													  /* this.state.websiteModel == 'SingleOwner'? 
 														<option key={index} value={data.companyName + '|' + data.user_ID + '|' + data._id} selected>{data.companyName} - ({"VendorID : "+data.companyID})</option>
@@ -1415,6 +1415,7 @@ class AddNewShopProduct extends Component {
 											 <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 paddingLeftZeroo">
 												<label>Currency <i className="redFont">*</i></label>
 												<select className="form-control selectdropdown" ref="currency" id="currency" name="currency" value={this.state.currency} onChange={this.handleChange.bind(this)}>
+												  <option value="aed">AED</option>
 												  <option value="inr">INR</option>
 												  <option value="usd">USD</option>
 												  <option value="eur">EUR</option>

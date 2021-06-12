@@ -1584,6 +1584,26 @@ exports.fetch_product = (req,res,next)=>{
         });
     });
 };
+exports.fetch_One_product = (req,res,next)=>{
+    Products.findOne({_id : req.params.productID})
+    .exec()
+    .then(product=>{
+        if(product){
+            // console.log("user_ID",user_ID);
+            
+                res.status(200).json(product);
+             
+        }else{
+            res.status(200).json(product);
+        }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
 exports.fetch_hot_product = (req,res,next)=>{
     Products.find({ "offered": true})
     .sort({ "createdAt": 1 })

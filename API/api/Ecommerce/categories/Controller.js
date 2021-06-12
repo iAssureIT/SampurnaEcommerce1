@@ -523,8 +523,8 @@ function getCategoryList(categories){
 
 /**=========== getSubCategoryList() ===========*/
 function getSubCategoryList(categories, subcategories){
-    // console.log("categories===>",categories);
-    // console.log("subcategories===>",subcategories);
+    console.log("categories===>",categories);
+    console.log("subcategories===>",subcategories);
 
     return new Promise(function(resolve,reject){
         Category.find(
