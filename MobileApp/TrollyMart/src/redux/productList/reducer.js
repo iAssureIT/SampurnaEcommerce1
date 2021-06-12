@@ -7,7 +7,8 @@ import {
     SET_CATEGORY_LIST,
     SET_ALL_PRODUCT_LIST,
     SET_SEARCH_PAYLOAD,
-    STOP_SCROLL
+    STOP_SCROLL,
+    SET_CART_COUNT
   } from './types';
   
   const initialUserState = {
@@ -18,7 +19,8 @@ import {
     categoryList      : [],
     allProductList    : [],
     searchPayload     : '',
-    stop_scroll       : false
+    stop_scroll       : false,
+    cartCount          : 0,
   };
   export default (state = initialUserState, {type, payload}) => {
     switch (type) {
@@ -42,6 +44,11 @@ import {
           ...state,
           categoryWiseList : payload
         };
+      case SET_CART_COUNT:
+      return {
+        ...state,
+        cartCount : payload
+      };
       case STOP_SCROLL:
       return {
         ...state,

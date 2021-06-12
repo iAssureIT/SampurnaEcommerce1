@@ -27,6 +27,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
     const isFocused = useIsFocused();
+    console.log("isFocused",isFocused);
     const [isChecked,setIsChecked] = useState(false);
     const [checked,setChecked]     = useState('first');
     const [deliveryAddress,setDeliveryAddress]  = useState([]);
@@ -39,10 +40,12 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
     const store = useSelector(store => ({
       location : store.location,
     }));
+
+    
     
     useEffect(() => {
       getAddressList()
-    },[props,isFocused]); 
+    },[props.delivery]); 
   
    
 
@@ -65,11 +68,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
           if (response.data.deliveryAddress.length > 0) {
             var deliveryAddress = response.data.deliveryAddress;
             setDeliveryAddress(deliveryAddress);
-          } else {
-            navigation.navigate('AddressComponent',{'delivery':delivery});
-            setDeliveryAddress([]);
           }
-
         })
         .catch((error) => {
           console.log("error",error);
@@ -175,7 +174,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                   />}
               </View>
               {deliveryAddress ?
-                deliveryAddress.length > 1 ?
+                deliveryAddress.length > 0 ?
                 deliveryAddress.map((item, i) => {
                   return (
                     <View key={i} 

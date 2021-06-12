@@ -21,6 +21,7 @@ export const getUserDetails = (user_id) => {
     const store = getState();
     Axios.get('/api/users/get/id/'+user_id) 
     .then(res => {
+      console.log("getUserDetails",res);
       dispatch({
         type: SET_USER_DETAILS,
         payload: {

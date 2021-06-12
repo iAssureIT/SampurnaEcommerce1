@@ -98,7 +98,7 @@ export const VendorProducts = (props)=>{
       payload:false
     })
     setSubCategory(subCategoryArray);
-    payload.vendorID        = vendor.vendor_ID;
+    payload.vendor_ID        = vendor.vendor_ID;
     payload.sectionUrl      = sectionUrl;
     payload.categoryUrl     = e.categoryUrl;
     payload.subCategoryUrl  = e.subCategoryUrl ? e.subCategoryUrl : [] ;

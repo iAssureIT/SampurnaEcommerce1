@@ -7,7 +7,8 @@ import {
     SET_CATEGORY_LIST,
     SET_ALL_PRODUCT_LIST,
     SET_SEARCH_PAYLOAD,
-    STOP_SCROLL
+    STOP_SCROLL,
+    SET_CART_COUNT
 } from './types';
 import axios from 'axios';
 import { Alert } from 'react-native';
@@ -67,6 +68,27 @@ export const getList = (productType,user_id,limit) => {
 
 
 
+export const getCartCount = (user_id) => {
+    return async (dispatch, getState) => {
+        const store = getState();
+        axios.get("/api/carts/get/count/" + user_id)
+        .then((response)=>{
+            console.log("response",response);
+            dispatch({
+                type: SET_CART_COUNT,
+                payload: response.data,
+            });
+        })
+        .catch((error)=>{
+            console.log("error getList",error);
+        })
+    };
+};
+
+
+
+
+
 export const getCategoryWiseList = (payload) => {
     return async (dispatch, getState) => {
         dispatch({
@@ -78,19 +100,24 @@ export const getCategoryWiseList = (payload) => {
         payload.userLatitude    = store.location?.address?.latlong?.lat
         payload.userLongitude   = store.location?.address?.latlong?.lng,
         console.log("payload",payload);
-        axios.get("/api/category/get/list/"+payload.sectionUrl+"/"+payload.vendorID)
+        axios.get("/api/category/get/list/"+payload.sectionUrl+"/"+payload.vendor_ID)
         .then((category)=>{
+            console.log("category",category);
             dispatch({
                 type: SET_CATEGORY_LIST,
                 payload: category.data,
             });
             if(!payload.categoryUrl){
-                payload.categoryUrl = category?.data?.categoryList[0]?.categoryUrl;
-                // payload.subCategoryUrl = category?.data[0]?.subCategory[0]?.subCategoryUrl;
+                // payload.categoryUrl = category?.data?.categoryList[0]?.categoryUrl;
+                if(category?.data?.categoryList[0].subCategory && category?.data?.categoryList[0].subCategory.length >0){
+                    // payload.subCategoryUrl = category?.data?.categoryList[0].subCategory[0]?.subCategoryUrl;
+                }else{
+                    // payload.subCategoryUrl = []
+                }   
             }
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{
-                // console.log("response",response);
+                console.log("response getCategoryWiseList",response);
                 if(payload.scroll && payload.scroll === true){
                     // console.log('store.productList.categoryWiseList',store.productList.categoryWiseList);
                     var newList = store.productList.categoryWiseList.concat(response.data);

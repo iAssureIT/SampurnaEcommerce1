@@ -85,6 +85,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
 
 
   const getProductsView=(productID,user_id)=>{
+    console.log("productID",productID)
+    console.log("user_id",user_id)
     axios.get("/api/Products/get/one/"+ productID+"/"+user_id)
       .then((response) => {
         console.log("getProductsView=>",response);

@@ -151,9 +151,9 @@ export const OrderDetails = withCustomerToaster((props)=>{
   }
 
   const cancelButton = (orderDate)=>{
-    var min = moment(orderDate).add(60, 'minutes');
+    var min = moment(orderDate).add(order.maxDurationForCancelOrder, 'minutes');
     var duration = moment.duration(min.diff(new Date())).asSeconds();
-    if(duration > 0 &&duration < 3600){
+    if(duration > 0 &&duration < order.maxDurationForCancelOrder*60){
       return true;
     }else{
       return false;
@@ -161,7 +161,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   }
   
   const cancelTime = (orderDate)=>{
-    var min = moment(orderDate).add(60, 'minutes');
+    var min = moment(orderDate).add(order.maxDurationForCancelOrder, 'minutes');
     var duration = moment.duration(min.diff(new Date())).asSeconds();
     return Math.abs(duration);
 }
@@ -250,10 +250,11 @@ const cancelorderbtn = (id,vendor_id) => {
                            vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'  && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid" ?
                             null
                             :
+                            order.vendorOrders.length>1 && 
                             <View style={[{paddingRight:0,height:30,width:150,alignSelf:'flex-end',marginBottom:15}]}>
-                              {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'&&
+                             {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'&&
                               <TouchableOpacity style={[styles.cancelButton,{flexDirection:"row",height:30}]} onPress={()=>cancelorderbtn(order._id,vendor.vendor_id._id)}>
-                                <Text style={[CommonStyles.text,{color:"#fff",fontFamily:"Montserrat-Medium"}]}>CANCEL THIS ORDER</Text>
+                                  <Text style={[CommonStyles.text,{color:"#fff",fontFamily:"Montserrat-Medium"}]}>CANCEL THIS ORDER</Text>
                                 {/* <View style={{flexDirection:'row'}}>
                                   <CountDown
                                     size={10}

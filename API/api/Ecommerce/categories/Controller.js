@@ -473,7 +473,7 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
 
             Product.find({section_ID : ObjectId(sectiondata._id), vendor_ID : ObjectId(req.params.vendorID), status : "Publish"}, {section_ID : 1, section : 1, category_ID : 1, category : 1,  subCategory_ID : 1, brand : 1})
             .then(productData=>{
-
+                console.log("productData",productData);
                 if(productData && productData.length > 0){
                     processData();
                     async function processData(){   

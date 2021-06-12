@@ -463,8 +463,8 @@ const window = Dimensions.get('window');
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
                   title       = {'Continue As a Guest'}
-                  // onPress     = {()=>navigation.navigate('LocationMain')}
-                  onPress     = {()=>login_guest()}
+                  onPress     = {()=>navigation.navigate('LocationMain')}
+                  // onPress     = {()=>login_guest()}
                   background  = {true}
                   // loading     = {btnLoading}
               />

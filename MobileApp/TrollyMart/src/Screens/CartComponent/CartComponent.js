@@ -20,9 +20,10 @@ import {useDispatch,
 import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view'
 import commonStyles               from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import AsyncStorage               from '@react-native-async-storage/async-storage';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 
 export const CartComponent = withCustomerToaster((props)=>{
-  console.log("props",props);
   const dispatch = useDispatch();
   const {setToast,navigation,route} = props; 
   const [cartData,setCartData] = useState('');
@@ -76,7 +77,7 @@ const getshippingamount=(startRange, limitRange)=>{
   const getCartItems=(userId)=>{
     axios.get('/api/carts/get/cartproductlist/' + userId)
       .then((response) => {
-        console.log("getCartItems",response)
+        console.log("response.data",response.data)
         setLoading(false);
         if(response.data){
           setCartData(response.data);
@@ -138,7 +139,6 @@ const getshippingamount=(startRange, limitRange)=>{
     }
     axios.post('/api/wishlist/post', wishValues)
     .then((response) => {
-      console.log("response",response);
       if(userId){
         getCartItems(userId);
       }
@@ -185,6 +185,24 @@ const getshippingamount=(startRange, limitRange)=>{
         }  
       })
   }
+
+  const goToProductList=(vendor,sectionUrl)=>{
+    var payload ={
+        "vendorID"          : vendor.vendor_id._id,
+        "sectionUrl"        : vendor.cartItems[0].product_ID.section.toLowerCase(),
+        "startRange"        : 0,
+        "limitRange"        : 8,
+      } 
+    dispatch(getCategoryWiseList(payload));
+    
+    navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:vendor.cartItems[0].product_ID.section.toLowerCase(),section:vendor.cartItems[0].product_ID.section,vendorLocation_id:vendor.vendorLocation_id});
+}
+
+  if(cartData && cartData.vendorOrders && cartData.vendorOrders.length>0){
+  var disabled = cartData.vendorOrders.every(el => el.vendor_afterDiscountTotal > cartData.minOrderAmount);
+  }
+  console.log("disabled")
+
   return (
     <React.Fragment>
       <HeaderBar3
@@ -294,7 +312,7 @@ const getshippingamount=(startRange, limitRange)=>{
                   <View style={styles.totaldetails}>
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6,flexDirection:"row" }}>
-                        <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
+                        {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata}>Total</Text>
                       </View>
                       <View style={{ flex: 0.4 }}>
@@ -324,16 +342,16 @@ const getshippingamount=(startRange, limitRange)=>{
                         </View>
                       </View>
                     </View>
-                    <View style={{ flex: 1, marginTop: 10 }}>
+                    {/* <View style={{ flex: 1, marginTop: 10 }}>
                       <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                    </View>
+                    </View> */}
                     <View>
-                      {minvalueshipping <= vendor.vendor_afterDiscountTotal ?
+                      {cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal ?
                         null
                         :
-                        <View>
-                          <Text style={styles.minpurchase}>Minimum order should be {currency} {minvalueshipping} to Checkout & Place Order.
-                              {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth {currency} {(minvalueshipping - (vendor.vendor_afterDiscountTotal)).toFixed(2)} to proceed further.</Text> </Text>
+                        <View style={{}}>
+                          <Text style={styles.minpurchase}>For vendor {vendor.vendor_id.companyName.toLowerCase()} minimum shopping amount is {currency} {cartData.minOrderAmount}.</Text>
+                          <Text style={[CommonStyles.linkText,{alignSelf:'center'}]} onPress={()=>goToProductList(vendor)}>For continue shopping click here.</Text>
                         </View>
                       }
                     </View>
@@ -401,13 +419,13 @@ const getshippingamount=(startRange, limitRange)=>{
                     <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
                   </View>
                   <View>
-                    {minvalueshipping <= cartData.paymentDetails.netPayableAmount ?
                       <View>
                         <Button
                           onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
                           title          = {"PROCEED TO CHECKOUT"}
                           buttonStyle    = {styles.button1}
                           containerStyle = {styles.buttonContainer1}
+                          disabled       = {disabled}
                         />
                         <View style={styles.flxdata}>
                           <View style={{ flex: 1 }}>
@@ -415,12 +433,6 @@ const getshippingamount=(startRange, limitRange)=>{
                           </View>
                         </View>
                       </View>
-                      :
-                      <View>
-                        <Text style={styles.minpurchase}>Minimum order should be {currency} {minvalueshipping} to Checkout & Place Order.
-                            {"\n"}<Text style={styles.minpurchaseadd}>Add more products worth {currency} {(minvalueshipping - cartData.paymentDetails.netPayableAmount).toFixed(2)} to proceed further.</Text> </Text>
-                      </View>
-                    }
                   </View>
                 </View>
           </View>

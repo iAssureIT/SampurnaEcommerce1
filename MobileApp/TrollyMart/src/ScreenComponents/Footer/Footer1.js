@@ -20,28 +20,13 @@ import { SET_SEARCH_CALL,
 
 export const Footer =(props)=>{
   const navigation = useNavigation();
-  const [cartCount,setCartCount]=useState(0);
   const dispatch = useDispatch();
   const store = useSelector(store => ({
     userDetails  : store.userDetails,
+    cartCount     : store.productList.cartCount,
   }));
-  const {userDetails} = store;
+  const {userDetails,cartCount} = store;
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
-  useEffect(() => {
-    getData()
-  },[props]);
-
-  const getData=()=>{
-    if(userDetails.user_id){
-      axios.get("/api/carts/get/count/" + userDetails.user_id)
-      .then((response) => {
-        setCartCount(response.data);
-      })
-      .catch((error) => {
-        console.log("error",error);
-       })
-    }
-  }
 
     return (
       <View>

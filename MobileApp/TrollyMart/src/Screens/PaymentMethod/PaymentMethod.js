@@ -19,12 +19,14 @@ import {withCustomerToaster}  from '../../redux/AppState.js';
 import { connect,
   useDispatch,
   useSelector }               from 'react-redux';
+  import {getCartCount } 		              from '../../redux/productList/actions';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export const PaymentMethod = withCustomerToaster((props)=>{
   console.log(" PaymentMethod props",props)
   const {navigation,route,setToast}=props;
-  
+
+  const dispatch = useDispatch();
   const [checked,setChecked]                = useState('first');
   const [btnLoading,setBtnLoading]          = useState(false);
   const [paymentmethods,setPaymentMethods]  = useState("cod");
@@ -158,7 +160,9 @@ export const PaymentMethod = withCustomerToaster((props)=>{
           axios.get('/api/orders/get/one/' + result.data.order_id)
             .then((res) => {
               console.log("res",res);
+              dispatch(getCartCount(userID))
               if (paymentmethods === 'cod') {
+
                 navigation.navigate('OrderDetails', { orderid: res.data._id })
                 setPaymentMethods("cod");
                 setBtnLoading(false);

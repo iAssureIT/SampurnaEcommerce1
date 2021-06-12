@@ -9,12 +9,22 @@ import axios from 'axios';
 
 export const getSearchResult = (searchText,user_id,limit) => {
     return async (dispatch, getState) => {
+        const store = getState();
         dispatch({
             type: SET_LOADING,
             payload: true,
         });
-        axios.get("/api/products/get/search/website/" + searchText+"/"+user_id+"/"+limit)
+        var payload = {
+            searchstr : searchText,
+            user_id   : user_id,
+            limit     : limit,
+            userLatitude      : store.location?.address?.latlong?.lat,
+            userLongitude     : store.location?.address?.latlong?.lng
+        }
+        console.log("payload",payload)
+        axios.post("/api/products/get/search/website" ,payload)
         .then((response) => {
+            console.log("getSearchResult",response);
             dispatch({
                 type: SET_SERACH_LIST,
                 payload: response.data,

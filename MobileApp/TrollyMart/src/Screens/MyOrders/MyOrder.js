@@ -78,6 +78,7 @@ export const MyOrder = withCustomerToaster((props)=>{
         setUserId(data[1][1]);
           axios.get('/api/orders/get/list/' + data[1][1])
           .then((response) => {
+            console.log("response",response);
             setMyOrders(response.data);
             setLoading(false);
           })
@@ -154,9 +155,9 @@ export const MyOrder = withCustomerToaster((props)=>{
   }
 
   const cancelButton = (orderDate)=>{
-      var min = moment(orderDate).add(5, 'minutes');
+      var min = moment(orderDate).add(myorders[0].maxDurationForCancelOrder, 'minutes');
       var duration = moment.duration(min.diff(new Date())).asSeconds();
-      if(duration > 0 &&duration < 300){
+      if(duration > 0 &&duration < myorders[0].maxDurationForCancelOrder*60){
         return true;
       }else{
         return false;
@@ -164,7 +165,7 @@ export const MyOrder = withCustomerToaster((props)=>{
   }
 
   const cancelTime = (orderDate)=>{
-    var min = moment(orderDate).add(5, 'minutes');
+    var min = moment(orderDate).add(myorders[0].maxDurationForCancelOrder, 'minutes');
     var duration = moment.duration(min.diff(new Date())).asSeconds();
     return Math.abs(duration);
 }

@@ -9,28 +9,28 @@ import styles           from '../../AppDesigns/currentApp/styles/ScreenComponent
 import Animated         from "react-native-reanimated";
 import {  useSelector } from 'react-redux';
 import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
+import { ScrollView } from "react-native-gesture-handler";
+
 
 export const MenuCarouselSection = (props)=>{
   const {navigation,showImage,boxHeight}=props;
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [selected,setSelected]=useState();
-  const flatlist = useRef(0);
+  const refContainer = useRef(0);
   const [index,setIndex]=useState(0);
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
   const section = useSelector(store => store.section.sections)
   useEffect(() => {
-    console.log("props.index",props.index);
    setSelected(props.selected);
    if(props.index){
     setIndex(props.index)
    }
-   let wait = new Promise((resolve) => setTimeout(resolve, 500));  // Smaller number should work
-   wait.then( () => {
-    //  flatlist.current.scrollToIndex({index:index, animated: true});
-   });
+   
   },[props.selected,props.index]);
-
+  if(refContainer.current){
+    refContainer.current.scrollToIndex({ animated: true, index: props.index });
+  }   
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, index })=>{
     return (
@@ -70,24 +70,26 @@ export const MenuCarouselSection = (props)=>{
     // }
   }
 
-
   return (
     <View>
       {/* <Text style={styles.title}>List of Sections</Text> */}
         <View style={styles.proddets}>
           {section && section.length > 0 ?
             <FlatList
-              horizontal                      = {true}
+              horizontal  = {true}
               data={section}
-              ref={flatlist}
+              ref={refContainer}
+              renderScrollComponent={props => <ScrollView {...props} />}
+              // scrollToIndex={{animated:true,index:6}}
+              // onContentSizeChange={() => refContainer?.current?.scrollToEnd()}
               renderItem={item => _renderlist(item)}
-              keyExtractor={item => item._id}
+              keyExtractor={(item, index) => item._id.toString()}
               showsHorizontalScrollIndicator={false}
-              // ref={(node) => scroll = node}
+              ref={(node) => scroll = node}
               // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
-              getItemLayout={(data, index) => (
-                {length: 500, offset: 500 * index, index}
-              )}
+              // getItemLayout={(data, index) => (
+              //   {length: 500, offset: 500 * index, index}
+              // )}
           />:[]} 
         </View>
       {/* <View style={styles.menuborderstyle}></View> */}

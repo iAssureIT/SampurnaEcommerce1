@@ -19,7 +19,7 @@ import {Footer}                     from '../../ScreenComponents/Footer/Footer1.
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
 import Loading                      from '../../ScreenComponents/Loading/Loading.js';
 import {withCustomerToaster}        from '../../redux/AppState.js';
-import { getList } 		              from '../../redux/productList/actions';
+import { getList,getCartCount } 		              from '../../redux/productList/actions';
 import { getSectionList } 		      from '../../redux/section/actions';
 import { getPreferences } 		      from '../../redux/storeSettings/actions';
 import { SET_SEARCH_CALL,
@@ -47,9 +47,9 @@ export const Dashboard = withCustomerToaster((props)=>{
   //   preferences     : store.storeSettings.preferences
   // }));
     useEffect(() => {
-      dispatch(getSectionList());
-      dispatch(getPreferences());
-      getBlocks();
+        dispatch(getSectionList());
+        dispatch(getPreferences());
+        getBlocks();
     },[]);
 
     useEffect(() => {

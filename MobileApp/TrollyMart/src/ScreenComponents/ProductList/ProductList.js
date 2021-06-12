@@ -13,7 +13,9 @@ import AsyncStorage           from '@react-native-async-storage/async-storage';
 import {useDispatch,
         useSelector }         from 'react-redux';
 import { getList,
-        getCategoryWiseList } from '../../redux/productList/actions';
+        getCategoryWiseList,
+        getCartCount
+       } from '../../redux/productList/actions';
 import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { useNavigation }      from '@react-navigation/native';
 import { ActivityIndicator }  from 'react-native-paper';
@@ -96,6 +98,7 @@ export const ProductList = withCustomerToaster((props)=>{
       axios
         .post('/api/Carts/post', formValues)
         .then((response) => {
+          dispatch(getCartCount(user_id));
           setToast({text: response.data.message, color: 'green'});
         })
         .catch((error) => {

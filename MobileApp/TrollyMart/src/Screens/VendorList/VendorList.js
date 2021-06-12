@@ -69,7 +69,7 @@ export const VendorList = withCustomerToaster((props)=>{
 
     const goToProductList=(vendor)=>{
         var payload ={
-            "vendorID"          : vendor.vendor_ID,
+            "vendor_ID"         : vendor.vendor_ID,
             "sectionUrl"        : sectionUrl,
             "startRange"        : 0,
             "limitRange"        : 8,

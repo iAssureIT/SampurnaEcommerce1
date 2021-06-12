@@ -62,7 +62,7 @@ export default StyleSheet.create({
   },
   minpurchase:{
     color: "#c10000" ,
-    marginTop:50
+    marginTop:10,
   },
   minpurchaseadd:{
     color: "#c10000" ,
