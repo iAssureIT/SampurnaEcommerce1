@@ -18,6 +18,22 @@
 .cartUL li{
     display: inline-block;
 }
+.disableBtn{
+  cursor:not-allowed;
+}
+.infoCircle{
+  cursor: pointer;
+}
+.vendorWarning{
+  color: #f00;
+  font-size: 14px;
+  text-align: center;
+}
+.vendorShoppinglink{
+  font-size: 13px;
+  color: #222222;
+  text-decoration-line: underline;
+}
 .cartUL li a{
     color: #fff;
 }

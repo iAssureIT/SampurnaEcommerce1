@@ -52,7 +52,7 @@ const VendorList = ()=> {
                 <Header />    
                 <div className="container">
                     <div className="col-12">
-                    <div className={" " +Style.bgGray}>
+                    <div className={" row " +Style.bgGray}>
                         <div className="col-12">
                             <div className={"col-12 text-center  mt2 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
                         </div>
@@ -68,7 +68,7 @@ const VendorList = ()=> {
                                                     <div className={"row card-body " +Style.cardBody}>
                                                         <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                             {vendordata.vendorLogo?
-                                                            <img src={vendordata.vendorLogo} className={"vendorLogoImg img-thumbnail "}/>
+                                                            <img src={vendordata.vendorLogo} className={"img-thumbnail " +Style.vendorLogoImg}/>
                                                             :
                                                             null}
                                                         </div>   

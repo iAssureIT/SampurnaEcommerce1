@@ -14,6 +14,9 @@
 }
 .itemImg img{
     border-radius: 10px;
+    background-image: url(/images/eCommerce/productloader.gif);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .secCateblock{
     text-decoration: none !important;

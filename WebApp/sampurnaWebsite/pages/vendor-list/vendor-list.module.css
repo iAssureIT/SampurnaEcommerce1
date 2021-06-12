@@ -5,10 +5,14 @@
     cursor: pointer;
     background-image: url("/images/eCommerce/vendorCard.jpg");
     background-position: 100%;
+    border: solid 2px ;
 }
 
 .vendorLogoImg{
-    
+    border-radius: 100% !important;
+    height: 100%;
+    width: 100% !important;
+    border: solid 2px #ccc
 }
 .vendorCard::before {
     content: "";

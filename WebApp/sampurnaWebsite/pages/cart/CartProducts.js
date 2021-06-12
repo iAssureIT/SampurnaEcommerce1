@@ -59,7 +59,7 @@ class CartProducts extends Component{
             })
         }
         await this.props.fetchCartData();
-        if(this.props.recentCartData.vendorOrders){
+        if(this.props.recentCartData){
             for(let i=0;i<this.props.recentCartData.vendorOrders.length;i++){
                 if(this.props.recentCartData.vendorOrders[i].vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ){
                     this.setState({
@@ -71,7 +71,6 @@ class CartProducts extends Component{
                 break;
             }
         }
-        
     }
 
     Removefromcart(event){
@@ -242,7 +241,7 @@ class CartProducts extends Component{
                 "quantityAdded" : quantityAdded,     
                 "vendor_ID"     : vendor_id,       
             }
-            console.log("formValues===",formValues);
+            // console.log("formValues===",formValues);
             axios.patch("/api/carts/quantity" ,formValues)
             .then((response)=>{
                 this.props.fetchCartData();
@@ -325,7 +324,6 @@ class CartProducts extends Component{
     }
 
     render(){
-        
         return(            
             <div className="container-fluid">
             <div className="col-12 cartHeight">
@@ -422,9 +420,9 @@ class CartProducts extends Component{
                                                 {
                                                    vendorWiseCartData.vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ?
                                                         <div className="col-12"> 
-                                                            <div className="col-12">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
+                                                            <div className="col-12 vendorWarning">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
                                                             <div className="col-12 text-center">
-                                                                <a href={"/products/"+vendorWiseCartData._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"}>To continue shopping click here</a>
+                                                                <a href={"/products/"+vendorWiseCartData._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"} className="vendorShoppinglink">To continue shopping click here</a>
                                                             </div>
                                                         </div>
                                                     :null
@@ -506,7 +504,12 @@ class CartProducts extends Component{
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right">
                                                         <div className="row">
-                                                            <div className="col-8">Total Delivery Charges</div>
+                                                            <div className="col-8">Total Delivery Charges 
+                                                            
+                                                            {/* <a tabindex="0" class="" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="Delivery charge details">
+                                                                <i className="fa fa-info-circle infoCircle"></i>
+                                                            </a> */}
+                                                            </div>
                                                             <div className="col-4 textAlignRight">&nbsp; 
                                                                 {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
                                                             </div>
@@ -524,9 +527,9 @@ class CartProducts extends Component{
                                                 <div className="col-12">
                                                 <div className="col-12 NoPadding checkoutBtn">
                                                 {
-                                                    !this.state.CheckoutBtn?
+                                                    this.state.CheckoutBtn === false?
                                                     <div className="col-12 NoPadding">
-                                                        <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout" disable>
+                                                        <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout disableBtn" disabled>
                                                             PROCEED TO CHECKOUT
                                                         </button>
                                                     </div>

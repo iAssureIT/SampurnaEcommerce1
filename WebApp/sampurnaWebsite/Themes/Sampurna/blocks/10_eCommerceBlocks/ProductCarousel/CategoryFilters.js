@@ -33,8 +33,8 @@ class CategoryFilters extends Component{
     constructor(props) {
         super(props);
         this.props = { 
-            categoryData : [],
-            vendor_ID    : ''
+            // categoryData : [],
+            // vendor_ID    : ''
             
         }
     }
@@ -59,15 +59,18 @@ class CategoryFilters extends Component{
     // }
 
     render(){
-      // console.log("this.props.categoryData===",this.props.categoryData);
+      console.log("this.props.categoryData===",this.props.categoryData);
       return (
-          <div className="panel-group" id="accordion">                      
-            <div className={Style.categoryFilterTitle}> Sub Categories </div>  
+          <div className="panel-group" id="accordion">    
+            {this.props.categoryData.length>0?                  
+              <div className={Style.categoryFilterTitle}> Sub Categories </div>  
+              :null
+            }
             {
             this.props.categoryData && this.props.categoryData.map((subcategory,index)=>{
               var i = index+1;
               return(
-                <div key={index} className="panelCategory paneldefault">
+                <div key={index} className="panelCategory paneldefault ">
                   {this.props.subCategoryUrl === subcategory.subCategoryUrl?
                     <div className={"panel-heading " +Style.activeSubCategory +" "+Style.panelHeading}>
                         <h4  className="panel-title"> 

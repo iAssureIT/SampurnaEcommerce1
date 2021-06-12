@@ -532,6 +532,7 @@ font-weight: bold;
 .panelHeading{
   padding: 5px 10px !important;
   cursor: pointer;
+  border-bottom: solid 1px #ccc;
 }
 .panelHeading h4 a{
   text-decoration: none !important;
@@ -617,7 +618,14 @@ font-weight: bold;
 }
 }
 
+
+.panelCategory{
+  border-bottom: solid 1px #ccc;
+}
 .brandFilterInput{
   height: 15px !important;
   width: 15px !important;
+}
+.brandInput{
+  padding: 5px 0px;
 }

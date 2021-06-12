@@ -92,6 +92,7 @@ class ProductCarousel extends Component {
       filterSettings     : [],
       categoryData       : [],
       brandData          : [],
+      subCategoryData    : [],
       selector           :{
                     limit:20
       },
@@ -122,6 +123,9 @@ class ProductCarousel extends Component {
   }
   async componentDidMount(){
     var formValues = {};
+    var subcategoryArray = false;
+    var noCategoryUrl   = true;
+    
     var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
     if(userDetails){
@@ -129,6 +133,7 @@ class ProductCarousel extends Component {
         userID : userDetails.user_id
       });
     }
+
     if(sampurnaWebsiteDetails){
         // console.log("sampurnaWebsiteDetails=>",sampurnaWebsiteDetails);
       if(sampurnaWebsiteDetails.deliveryLocation){
@@ -147,7 +152,7 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
-    // console.log("url===",url);
+    console.log("url===",url);
     if(url[4] !== "undefined"){
       var vendor_ID              = url[4];
       var vendorlocation_ID      = url[5];
@@ -161,6 +166,7 @@ class ProductCarousel extends Component {
         "categoryUrl"       : categoryUrl?categoryUrl:"",
         "subCategoryUrl"    : subCategoryUrl!==undefined?subCategoryUrl:""
       },()=>{
+
           // console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
           // console.log("2.categoryUrl===",this.state.categoryUrl);
       })
@@ -189,25 +195,52 @@ class ProductCarousel extends Component {
         
       },async ()=>{
         if(this.state.blockSettings.showCarousel === false){
-          await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +vendor_ID)     
+          // console.log("this.state.sectionUrl===",this.state.sectionUrl,this.state.vendor_ID);
+          await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              // console.log("legth=",categoryResponse.data.categoryList.length); 
+              // console.log("categoryUrl=",this.state.categoryUrl); 
                 for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
+                  // console.log("categoryResponse.data.categoryList[i].categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,"===",this.state.categoryUrl);
                     if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
                       // console.log("4.categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,this.state.categoryUrl);
                       // console.log("categoryResponse.data.categoryList[i].subCategory=",categoryResponse.data.categoryList[i].subCategory);
                       var subCategoryData = categoryResponse.data.categoryList[i].subCategory;
-                    }else{
-                      var subCategoryData = categoryResponse.data.categoryList[0].subCategory;
-                    }
+                      // console.log("if subCategoryData array=>",subCategoryData);
+                      subcategoryArray = true;
+                      noCategoryUrl = false;
+                      // console.log("subcategoryArray=",subcategoryArray);
+                      break;
+                      
+                     }
                 }
+                  if(subcategoryArray === false){
+                    var subCategoryData = categoryResponse.data.categoryList[0].subCategory;
+                      // console.log("else subCategoryData===",subCategoryData);
+                      this.setState({
+                        categoryUrl :  categoryResponse.data.categoryList[0].categoryUrl,
+                      })
+                      noCategoryUrl = false;
+                  }
+
+                  if(noCategoryUrl === true){
+                    var subCategoryData = categoryResponse.data.categoryList[0].subCategory;
+                      // console.log("else subCategoryData===",subCategoryData);
+                      this.setState({
+                        categoryUrl :  categoryResponse.data.categoryList[0].categoryUrl,
+                      })
+                  }
+
+                  if(subCategoryData){
                     // console.log("my subCategoryData===",subCategoryData);
                         this.setState({
                           categoryData     : categoryResponse.data.categoryList,  
                           brandData        : categoryResponse.data.brandList, 
                           subCategoryData  : subCategoryData,     
                         },()=>{
+                          // console.log("1.categoryData=",this.state.categoryData);
+                          // console.log("1.brandData=",this.state.brandData);
+                          // console.log("1.subCategoryData=",this.state.subCategoryData);
                           formValues = {
                             "vendor_ID"         : vendor_ID,
                             "vendorLocation_id" : this.state.vendorlocation_ID,
@@ -220,6 +253,7 @@ class ProductCarousel extends Component {
                             "limitRange"        : this.state.limitRange,
                           }
                         });
+                  }
             }
           })
           .catch((error)=>{
@@ -238,7 +272,7 @@ class ProductCarousel extends Component {
             "startRange"        : this.state.startRange,
             "limitRange"        : this.state.limitRange,
             }
-            console.log("carousel formValues=>",formValues);
+            // console.log("carousel formValues=>",formValues);
         }
         if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
@@ -256,11 +290,9 @@ class ProductCarousel extends Component {
               productApiUrl : productApiUrl,
             })
         }
+
         this.getProductList(productApiUrl,formValues);
-        // if(formValues && this.state.productApiUrl){
-        //   console.log("formValues=>",formValues);
-        //   this.getProductList(productApiUrl,formValues);
-        // }//end productApiUrl
+       
       });
     }else{
       this.setState({          
@@ -576,22 +608,22 @@ submitCart(event) {
     },()=>{
       // console.log("brandArray => ",this.state.brandArray);
       var formValues = {
-        "vendor_ID"      : "", 
-        "sectionUrl"     : this.state.blockSettings.section? (this.state.blockSettings.section.replace(/\s/g, '-').toLowerCase()):null,
-        "categoryUrl"    : this.state.blockSettings.category === "all" ? "" : this.state.blockSettings.category.replace(/\s/g, '-').toLowerCase(),
+        "vendor_ID"      : this.state.vendor_ID, 
+        "sectionUrl"     : this.state.sectionUrl,
+        "categoryUrl"    : this.state.categoryUrl,
         "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
         "userLatitude"   : this.state.userLatitude,
         "userLongitude"  : this.state.userLongitude,
-        "startRange"     : this.state.startRange,
-        "limitRange"     : this.state.limitRange,
+        "startRange"     : 0,
+        "limitRange"     : 28,
         "sortProductBy"  : '',
         "brand"          : this.state.brandArray 
       }     
-      if( formValues && this.state.productApiUrl){
-        // console.log("formValues=>",formValues);
+     // if( formValues && this.state.productApiUrl){
+        console.log("formValues=>",this.state.productApiUrl);
         $("html, body").animate({ scrollTop: 0 }, 800);
         this.getProductList(this.state.productApiUrl,formValues);
-      }//end productApiUrl
+      //}//end productApiUrl
       
     })
   }
@@ -869,24 +901,32 @@ submitCart(event) {
                       //   startRange         = {this.state.startRange}
                       //   limitRange         = {this.state.limitRange}
                       // />   
-                      <div className="panel-group" >                      
-                        <div className={Style.categoryFilterTitle}> Brand </div>  
+                      <div className="panel-group" >     
+                        {this.state.brandData.length && this.state.brandData[0].brand!=' '>0?                 
+                          <div className={Style.categoryFilterTitle}> Brand </div>  
+                        :null}
                         {
-                        this.state.brandData && this.state.brandData.length > 0?
-                        this.state.brandData.map((brand,index)=>{
-                        var i = index+1;
-                        return(
-                            <div className="col-12 noPadding panelCategory paneldefault" key={index}>
-                                <div className={"row panel-heading "+Style.panelHeading}>
-                                    <div className="NoPadding centreDetailContainerEcommerce">
-                                      <input className=" " type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
-                                    </div>
-                                    <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
-                                </div>                              
-                            </div>
-                        )
-                        })   
-                        :''
+                          this.state.brandData && this.state.brandData.length > 0
+                          ?
+                              this.state.brandData.map((brand,index)=>{
+                              var i = index+1;
+                              if(brand === ""){
+                                return true;
+                              }else{
+                                return(
+                                  <div className="col-12 noPadding panelCategory paneldefault" key={index}>
+                                      <div className={"row panel-heading "+Style.panelHeading}>
+                                          <div className={"NoPadding centreDetailContainerEcommerce "+Style.brandInput}>
+                                            <input className="" type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
+                                          </div>
+                                          <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
+                                      </div>                              
+                                  </div>
+                                )
+                              }
+                            })   
+                          :
+                            null
                         }
                     </div>  
                     :' '
