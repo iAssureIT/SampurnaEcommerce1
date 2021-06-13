@@ -347,7 +347,7 @@ const window = Dimensions.get('window');
                       },
                     ]}>
                       <TouchableOpacity
-                        onPress={() => navigation.navigate('RootLogIn')} style={{flexDirection:"row"}}>
+                        onPress={() => navigation.navigate('LogIn')} style={{flexDirection:"row"}}>
                           <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} />
                         <Text style={commonStyles.linkText}>Sign In</Text>
                       </TouchableOpacity>

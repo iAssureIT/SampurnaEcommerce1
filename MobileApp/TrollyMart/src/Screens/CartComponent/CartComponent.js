@@ -30,7 +30,7 @@ export const CartComponent = withCustomerToaster((props)=>{
   const [startRange,setStartRange] = useState(0);
   const [limitRange,setLimitRange] = useState(10);
   const [removefromcart,setRemoveFromCart] =useState(false);
-  const [loading,setLoading] =useState(false);
+  const [loading,setLoading] =useState(true);
   const [userId,setUserId] =useState(''); 
   const [minvalueshipping,setMinValueShipping] = useState('');
   const [cartitemid,setCartItemId] = useState('');
@@ -425,7 +425,7 @@ const getshippingamount=(startRange, limitRange)=>{
                           title          = {"PROCEED TO CHECKOUT"}
                           buttonStyle    = {styles.button1}
                           containerStyle = {styles.buttonContainer1}
-                          disabled       = {disabled}
+                          disabled       = {!disabled}
                         />
                         <View style={styles.flxdata}>
                           <View style={{ flex: 1 }}>

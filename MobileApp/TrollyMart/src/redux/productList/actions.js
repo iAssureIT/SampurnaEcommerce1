@@ -97,31 +97,25 @@ export const getCategoryWiseList = (payload) => {
         });
         const store = getState();
         payload.user_id         = store.userDetails.user_id;
-        payload.userLatitude    = store.location?.address?.latlong?.lat
-        payload.userLongitude   = store.location?.address?.latlong?.lng,
-        console.log("payload",payload);
-        axios.get("/api/category/get/list/"+payload.sectionUrl+"/"+payload.vendor_ID)
-        .then((category)=>{
-            console.log("category",category);
+        payload.userLatitude    = store.location?.address?.latlong?.lat;
+        payload.userLongitude   = store.location?.address?.latlong?.lng;
+        if(!payload.categoryUrl){
+            var category =await axios.get("/api/category/get/list/"+payload.sectionUrl+"/"+payload.vendor_ID);
             dispatch({
                 type: SET_CATEGORY_LIST,
                 payload: category.data,
             });
-            if(!payload.categoryUrl){
-                // payload.categoryUrl = category?.data?.categoryList[0]?.categoryUrl;
-                if(category?.data?.categoryList[0].subCategory && category?.data?.categoryList[0].subCategory.length >0){
-                    // payload.subCategoryUrl = category?.data?.categoryList[0].subCategory[0]?.subCategoryUrl;
-                }else{
-                    // payload.subCategoryUrl = []
-                }   
-            }
+            payload.categoryUrl = category?.data?.categoryList[0]?.categoryUrl;
+            // if(category?.data?.categoryList[0].subCategory && category?.data?.categoryList[0].subCategory.length >0){
+            //     payload.subCategoryUrl = category?.data?.categoryList[0].subCategory[0]?.subCategoryUrl;
+            // }else{
+            // payload.subCategoryUrl = []
+            // }
+        }
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{
-                console.log("response getCategoryWiseList",response);
                 if(payload.scroll && payload.scroll === true){
-                    // console.log('store.productList.categoryWiseList',store.productList.categoryWiseList);
                     var newList = store.productList.categoryWiseList.concat(response.data);
-                    // console.log("newList",newList);
                     dispatch({
                         type: SET_CATEGORY_WISE_LIST,
                         payload: newList,
@@ -152,10 +146,6 @@ export const getCategoryWiseList = (payload) => {
             .catch((error)=>{
                 console.log("error getList1",error);
             })
-        })
-        .catch((error)=>{
-            console.log("error getList2",error);
-        })
     };
 };
 

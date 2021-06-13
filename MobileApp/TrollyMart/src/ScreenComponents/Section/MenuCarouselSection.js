@@ -7,9 +7,10 @@ import {Text,View,
     }                   from 'react-native';
 import styles           from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
 import Animated         from "react-native-reanimated";
-import {  useSelector } from 'react-redux';
+import {  useSelector,useDispatch } from 'react-redux';
 import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
 import { ScrollView } from "react-native-gesture-handler";
+import {SET_CATEGORY_LIST,SET_CATEGORY_WISE_LIST} from '../../redux/productList/types';
 
 
 export const MenuCarouselSection = (props)=>{
@@ -17,6 +18,7 @@ export const MenuCarouselSection = (props)=>{
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [selected,setSelected]=useState();
+  const dispatch 		= useDispatch();
   const refContainer = useRef(0);
   const [index,setIndex]=useState(0);
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
@@ -35,7 +37,24 @@ export const MenuCarouselSection = (props)=>{
   const _renderlist = ({ item, index })=>{
     return (
       <View key={index} style={styles.mainrightside}>
-        <TouchableOpacity style={{borderWidth:selected===item.section ? 2:0,borderRadius:10,borderColor:colors.theme}} onPress={()=>{setSelected(item.section);navigation.navigate("VendorList",{sectionUrl:item.sectionUrl,section:item.section,type:props.type,index:index});}}>
+        <TouchableOpacity style={{borderWidth:selected===item.section ? 2:0,borderRadius:10,borderColor:colors.theme}} 
+          onPress={()=>{
+                setSelected(item.section);
+                navigation.navigate("VendorList",{
+                    sectionUrl  : item.sectionUrl,
+                    section     : item.section,
+                    type        : props.type,
+                    index       : index
+                });  
+                dispatch({
+                  type     : SET_CATEGORY_LIST,
+                  payload  : [],
+                });
+                dispatch({
+                  type     : SET_CATEGORY_WISE_LIST,
+                  payload  : [],
+                });
+            }}>
           {showImage ?
             <ImageBackground onPress={()=>navigation.navigate('VendorList',{section_id:item._id})} source={item.sectionImage ? {uri : item.sectionImage}:noImage} style={[styles.sectionImages,{height:boxHeight}]} imageStyle={{opacity:0.6}}>
               <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#fff"}]}>{item.section}</Text>

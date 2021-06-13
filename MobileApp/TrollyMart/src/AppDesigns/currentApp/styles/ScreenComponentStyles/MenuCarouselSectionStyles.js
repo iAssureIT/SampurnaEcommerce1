@@ -54,7 +54,7 @@ export default StyleSheet.create({
 		flex:1
 	},
 	mainrightside: {
-		// width: 108,
+		width: 150,
 		padding: 4,
 		// backgroundColor:"#fff"
 	},

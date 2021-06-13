@@ -130,7 +130,7 @@ export const HorizontalSecCatList =(props)=>{
   }
 
     return (
-      <View style={{paddingHorizontal:0}}>
+      <View style={{paddingHorizontal:15}}>
       <Text style={styles.title}>{props.blockTitle}</Text>
         <View style={styles.proddets}>
           {productList && productList.length > 0 ?

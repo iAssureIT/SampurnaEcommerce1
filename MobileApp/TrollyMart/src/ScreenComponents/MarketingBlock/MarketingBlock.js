@@ -69,7 +69,7 @@ export const MarketingBlock=(props)=>{
                 loop            = {true}
                 index           = {0}
             //  pageSize={BannerWidth}
-                pageSize        = {width-30 }
+                pageSize        = {width}
                 >
             {images.map((image, index) => renderPage(image, index))}
             </Carousel>

@@ -4,7 +4,7 @@ import {
   ScrollView,
   Text,
   View,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   ImageBackground,
   Image,ActivityIndicator,
   Dimensions,
@@ -175,7 +175,7 @@ export const HorizontalProductList =(props)=>{
   const _renderlist = ({ item, index })=>{
     return (
       <View key={index}  style={[styles.productContainer,{width:window.width-215,marginRight:15}]} >
-        <TouchableOpacity   onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})}}>
+        <TouchableWithoutFeedback   onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})}}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
               {
@@ -289,13 +289,13 @@ export const HorizontalProductList =(props)=>{
               </View>
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </View>
     )
   }
 
     return (
-      <View style={{paddingHorizontal:0,paddingVertical:15}}>
+      <View style={{paddingHorizontal:15,paddingVertical:15}}>
       <Text style={styles.title}>{props.blockTitle}</Text>
         {productList && productList.length > 0 ?
           <FlatList
@@ -303,7 +303,7 @@ export const HorizontalProductList =(props)=>{
             data                = {productList}
             renderItem          = {item => _renderlist(item)}
             initialNumToRender  = {6}
-            keyExtractor        = {item => item._id}
+            keyExtractor        = {item => item._id.toString()}
             // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
         />
         // <ProductList 

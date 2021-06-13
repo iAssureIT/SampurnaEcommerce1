@@ -37,11 +37,13 @@ export const AccountDashboard =(props)=>{
   const getData=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
     .then((data) => {
+      console.log("data",data);
       setUserId(data[1][1]);
       axios.get('/api/ecommusers/'+data[1][1])
       .then((res) => {
-        var dAddress = res.data.deliveryAddress.length>0 ? res.data.deliveryAddress[0].addressLine1 : null;
-        // setDetails(res.data);
+        console.log("res",res);
+        var dAddress = res.data.deliveryAddress.length>0 ? res.data.deliveryAddress[0].addressLine1+", "+res.data.deliveryAddress[0].addressLine2 : null;
+        // setDetails(res);
         setFullName(res.data.profile.fullName);
         setEmail(res.data.profile.email);
         setAddress(dAddress);
@@ -51,6 +53,7 @@ export const AccountDashboard =(props)=>{
         setLoading(false);
       })
       .catch((error) => {
+        console.log("error",error);
         setLoading(false);
         if (error.response.status == 401) {
           setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
@@ -96,21 +99,21 @@ export const AccountDashboard =(props)=>{
                   <View style={styles.accusermobinfo}>
                     <Text style={styles.accusermob}>Your Address</Text>
                     <Text style={{flex:0.05}}>: </Text>
-                    <Text style={styles.accmobnumber}>{dAddress } </Text> 
+                    <Text style={styles.accmobnumber}>{dAddress?dAddress:"NA"} </Text> 
                   </View>
                 </View>
                 <View style={styles.padhr18}>
                 <View style={styles.accusermobinfo}>
                   <Text style={styles.accusermob}>Mobile</Text>
                   <Text style={{flex:0.05}}>: </Text>
-                  <Text style={styles.accmobnumber}>{mobNumber}</Text>
+                  <Text style={styles.accmobnumber}>{mobNumber?mobNumber :"NA"}</Text>
                 </View>
                 </View>
                 <View style={styles.padhr18}>
                 <View style={styles.accusermobinfo}>
                   <Text style={styles.accusermob}>Email Id</Text>
                   <Text style={{flex:0.05}}>: </Text>
-                  <Text style={styles.accmobnumber}>{email}</Text>
+                  <Text style={styles.accmobnumber}>{email ? email :"NA"}</Text>
                 </View>
                 </View>
                 <View style={styles.acceditbtn}>

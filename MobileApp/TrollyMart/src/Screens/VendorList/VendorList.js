@@ -22,8 +22,9 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {STOP_SCROLL}          from '../../redux/productList/types';
 
+TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const VendorList = withCustomerToaster((props)=>{
-    const [loading,setLoading] =useState(false);
+    const [loading,setLoading] =useState(true);
     const [value,setValue] =useState('lowestprice');
     const section = props.route.params?.section;
     const sectionUrl = props.route.params?.sectionUrl;
@@ -38,11 +39,11 @@ export const VendorList = withCustomerToaster((props)=>{
     // const {location} =store.location ;
     const {navigation} =props;
     useEffect(() => {
+        setLoading(true);
         getData();
     },[props]);
 
     const getData = ()=>{
-        setLoading(true);
         dispatch({
             type:STOP_SCROLL,
             payload:false
@@ -81,8 +82,8 @@ export const VendorList = withCustomerToaster((props)=>{
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity  onPress={()=>goToProductList(item)}>
-                <Card containerStyle={{flex:1,padding:0,marginHorizontal:0,elevation:5}} >
+            <TouchableOpacity  style={{elevation:5}} onPress={()=>goToProductList(item)}>
+                <Card containerStyle={{flex:1,padding:0,marginHorizontal:0}} >
                     <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',height:100}}>
                         <View style={{flex:1,flexDirection:"row"}}>
                             {/* <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.vendorAddress}</Card.Title> */}
@@ -94,7 +95,7 @@ export const VendorList = withCustomerToaster((props)=>{
                                     <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:20}]}>{item.vendorName}</Card.Title>
                                 </View>
                                 <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:.6}}>
-                                    <Card.Title style={[{color:"#fff",opacity:1,paddingHorizontal:5}]}>{item.vendorDistance ? item.vendorDistance +" KM" : "60 Min"}</Card.Title>
+                                    <Card.Title style={[{color:"#fff",opacity:1,paddingHorizontal:5}]}>Delivery Time : {item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title>
                                 </View>    
                              </View>
                         </View>

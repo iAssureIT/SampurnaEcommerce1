@@ -148,7 +148,7 @@ import { SafeAreaView }         from 'react-native';
       axios.patch('/api/carts/put/coupon',payload)
       .then(res=>{
         console.log("applyCoupen res",res);
-          setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
+          setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data.data);
           setCouponCode('');
       })

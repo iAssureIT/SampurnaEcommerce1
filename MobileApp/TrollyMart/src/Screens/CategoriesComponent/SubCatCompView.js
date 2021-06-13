@@ -23,8 +23,11 @@ import Modal                  from "react-native-modal";
 import Carousel               from 'react-native-banner-carousel-updated';
 import {SimilarProducts}      from '../../ScreenComponents/SimilarProducts/SimilarProducts.js';
 import {withCustomerToaster}  from '../../redux/AppState.js';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-
+import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {getCartCount}         from '../../redux/productList/actions';
+import {useDispatch }         from 'react-redux';
+import Loading from '../../ScreenComponents/Loading/Loading.js';
+import { useIsFocused } from '@react-navigation/native';
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [isOpen,setOpen]                    = useState(false);
   const [countofprod,setCounterProd]        = useState(1);
@@ -36,11 +39,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const [productdata,setProductData]        = useState([]);
   const [number,setNumber]                = useState(1);
   const [addToCart,setAddToCart]          = useState(false);
+  const [loading,setLoading]          = useState(true);
+  const dispatch 		= useDispatch();
+  const isFocused = useIsFocused();
   const {navigation,route,setToast} =props;
-  const {productID,currency}=route.params;
+  const {productID,currency,vendorLocation_id,location}=route.params;
 
   useEffect(() => {
-    console.log("useEffect");
+    setLoading(true);
     getData();
   },[props]);
 
@@ -85,12 +91,10 @@ export const SubCatCompView = withCustomerToaster((props)=>{
 
 
   const getProductsView=(productID,user_id)=>{
-    console.log("productID",productID)
-    console.log("user_id",user_id)
     axios.get("/api/Products/get/one/"+ productID+"/"+user_id)
       .then((response) => {
-        console.log("getProductsView=>",response);
         setProductData(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log("error",error);
@@ -107,7 +111,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
 
   const onChange=(number)=>{
     var carqty = {};
-    console.log("number",number)
     setCounterProd(parseInt(number));
     setNumber(parseInt(number));
   }
@@ -142,16 +145,19 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const handlePressAddCart=()=>{
     if(user_id){
       const formValues = {
-        "user_ID"     : user_id,
-        "product_ID"  : productID,
-        "vendor_ID"   : productdata.vendor_ID,
-        "quantity"    : number === undefined || "" ? 1 : number,
+        "user_ID"           : user_id,
+        "product_ID"        : productID,
+        "vendor_ID"         : productdata.vendor_ID,
+        "quantity"          : number === "" || 0 ? 1 : number,
+        "userLatitude"      : location?.address?.latlong?.lat,
+        "userLongitude"     : location?.address?.latlong?.lng,
+        "vendorLocation_id" : vendorLocation_id,
       }
-      console.log("formValues",formValues);
       axios
         .post('/api/carts/post', formValues)
         .then((response) => {
-          setToast({text: 'Added to cart.', color: 'green'});
+          dispatch(getCartCount(user_id));
+          setToast({text: response.data.message, color: 'green'});
         })
         .catch((error) => {
           console.log("error",error);
@@ -183,12 +189,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
         <HeaderBar3
           goBack={navigation.goBack}
           navigate={navigation.navigate}
-          headerTitle={productdata.productName }
+          headerTitle={productdata.productName ? productdata.productName.toUpperCase() :""}
           toggle={() => toggle()}
           // openControlPanel={() => openControlPanel()}
         />
         <View style={styles.prodviewcatsuperparent}>
-        {
+        {loading ?
+          <Loading/>
+          :
           productdata && productdata.productName  && productdata.discountedPrice ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
             <View style={styles.formWrapper}>
@@ -203,7 +211,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     pageSize={370}
                     >
                     {productdata.productImage.map((image, index) => {
-                    console.log("image>>>>>>",image);
                     return (
                       <Image
                       source={{ uri: image}}

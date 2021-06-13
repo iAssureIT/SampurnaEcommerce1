@@ -24,6 +24,7 @@ import { getCategoryWiseList }from '../../redux/productList/actions.js';
 import { ActivityIndicator }  from 'react-native-paper';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import {STOP_SCROLL,SET_CATEGORY_WISE_LIST}          from '../../redux/productList/types';
+import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 
 export const VendorProducts = (props)=>{
   const isFocused = useIsFocused();
@@ -40,6 +41,8 @@ export const VendorProducts = (props)=>{
   const {vendor,sectionUrl,section,index,vendorLocation_id}=route.params;
   const dispatch 		= useDispatch();
 
+  TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
+  
   const filterOptions = [
     "Sub Category",
     "Brand",
@@ -193,7 +196,7 @@ export const VendorProducts = (props)=>{
           setCategory = {setCategory}
         />
         {productList.categoryWiseList.length ===0 && productList.loading ?
-        <ActivityIndicator color={colors.theme}/>
+        <Loading />
         : 
           productList.categoryWiseList && productList.categoryWiseList.length >0 ?
             <ProductList 

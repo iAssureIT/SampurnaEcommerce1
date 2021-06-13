@@ -27,6 +27,7 @@ import FastImage              from 'react-native-fast-image';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
+  console.log("props",props);
   const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -38,15 +39,14 @@ export const ProductList = withCustomerToaster((props)=>{
   const [limit,setLimit]= useState(props.limit);
   useEffect(() => {
     getData();
-  },[props]);
+  },[props.limit,props.newProducts]);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     stop_scroll     : store.productList.stop_scroll,
     location        : store.location
   }));
-  const {currency}=store.preferences;
-  console.log("location",location);
+  const {currency,location}=store.preferences;
   const {stop_scroll}=store;
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
@@ -94,7 +94,6 @@ export const ProductList = withCustomerToaster((props)=>{
         "userLongitude"     : store.location?.address?.latlong?.lng,
         "vendorLocation_id" : vendorLocation_id,
       }
-      console.log("formValues",formValues);
       axios
         .post('/api/Carts/post', formValues)
         .then((response) => {
@@ -172,139 +171,135 @@ export const ProductList = withCustomerToaster((props)=>{
       navigation.navigate('Auth');
       setToast({text: "You need to login first", color: colors.warning});
     }
-    
   }
 
-
-
   const _renderlist = ({ item, index })=>{
-      var availablessiz = [];
-      availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
-      const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
-      return (
-        <View key={index}  style={[styles.productContainer,index%2===1&&{marginLeft:'5%'}]} >
-          <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency})}>
-            <View style={styles.flx5}>
-              <View style={styles.flx1}>
-                {
-                  
-                  item.productImage && item.productImage.length > 0 ?
-                    <ImageBackground
-                      source={{ 
-                        uri: item.productImage[0],
-                        priority: FastImage.priority.high, 
-                        // cache:FastImage.cacheControl.immutable 
-                        cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
-                      }}
-                      style={styles.subcatimg}
-                      // resizeMode="stretch"
-                      resizeMode={FastImage.resizeMode.contain}
-                    >{item.discountPercent && item.discountPercent >0?
-                        <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
-                            <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
-                            <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
-                         </ImageBackground> :null
-                      }    
-                    </ImageBackground>
-                    :
-                    <Image
-                      source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                      style={styles.subcatimg}
-                    />
-                }
-                  <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,index)} >
-                    <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
-
-                  </TouchableOpacity>
-                {
-                  item.discountPercent > 0 ?
-                    <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
-                    :
-                    null
-                }
-              </View>
-              <View style={[styles.flx1, styles.protxt]}>
-                {item.brandNameRlang ?
-                <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
-                : 
-                <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>
-                }
-                {item.brandNameRlang ?
-                <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
-                :
-                <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
-                }                       
-              </View>
-              <View style={[styles.flx1, styles.prdet]}>
-                <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
-                  <View style={[styles.flxdir]}>
-                    {/* <Icon
-                      name={item.currency}
-                      type="font-awesome"
-                      size={13}
-                      color="#333"
-                      iconStyle={{ marginTop: 5, marginRight: 3 }}
-                    /> */}
-                    <Text style={styles.ogprice}>{currency} </Text>
-                   {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice} - </Text>:null}
-                  </View>
-                  <View style={[styles.flxdir,{alignItems:"center"}]}>
-                    {/* <Icon
-                      name={item.currency}
-                      type="font-awesome"
-                      size={13}
-                      color="#333"
-                      iconStyle={{ marginTop: 5}}
-                    /> */}
-                    {item.discountPercent > 0 ?
-                          <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                          </Text>
-                        :
-                        <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
-                      }
-                  </View>
-                </View>
-              </View>
-              <View style={styles.addtocartbtn}>
-                {/*availablessiz && availablessiz.length > 0 ? 
-                    <View style={styles.inputTextWrapper}>
-                    <Dropdown
-                        onChangeText    = {(value) => handleTypeChange(value, availablessiz)}
-                        data            = {availablessiz}
-                        value           = {packsizes}
-                        containerStyle  = {styles.ddContainer}
-                        inputContainerStyle = {styles.ddInputContainer}
-                        // dropdownPosition={- 5}
-                        baseColor       = {'white'}
-                        labelFontSize   ={10}
-                        rippleCentered  ={true}
-                        dropdownOffset  = {{ top:0, left: 0, bottom: 0 }}
-                        itemTextStyle   = {styles.ddItemText}
-                        disabledLineType= 'none'
-                        underlineColor  = 'transparent'
-                        style           = {{height:30,
-                                            backgroundColor:"#fff",
-                                            borderWidth:1,
-                                            borderColor:colors.theme,
-                                            borderRadius:5
-                                          }}
-                      /> 
-                    </View>
-                : null */}
-              <View style={styles.sizedrpbtn}>
-                <Button
-                    onPress={() => addToCart(item._id,item.vendor_ID,item.vendorName)}
-                    titleStyle={CommonStyles.addBtnText}
-                    title="ADD TO CART"
-                    buttonStyle={CommonStyles.addBtnStyle}
-                    containerStyle={CommonStyles.addBtnContainer}
+    var availablessiz = [];
+    availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
+    const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
+    return (
+      <View key={index}  style={[styles.productContainer,index%2===1&&{marginLeft:'5%'}]} >
+        <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location})}>
+          <View style={styles.flx5}>
+            <View style={styles.flx1}>
+              {
+                item.productImage && item.productImage.length > 0 ?
+                  <FastImage
+                    source={{ 
+                      uri: item.productImage[0],
+                      priority: FastImage.priority.high, 
+                      // cache:FastImage.cacheControl.immutable 
+                      cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
+                    }}
+                    style={styles.subcatimg}
+                    // resizeMode="stretch"
+                    resizeMode={FastImage.resizeMode.contain}
+                  >{item.discountPercent && item.discountPercent >0?
+                      <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
+                          <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
+                          <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
+                        </ImageBackground> :null
+                    }    
+                  </FastImage>
+                  :
+                  <Image
+                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                    style={styles.subcatimg}
                   />
+              }
+                <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,index)} >
+                  <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
+
+                </TouchableOpacity>
+              {
+                item.discountPercent > 0 ?
+                  <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
+                  :
+                  null
+              }
+            </View>
+            <View style={[styles.flx1, styles.protxt]}>
+              {/* {item.brandNameRlang ?
+              <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
+              :  */}
+              <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>
+              {/* } */}
+              {/* {item.brandNameRlang ?
+              <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
+              : */}
+              <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
+              {/* }                        */}
+            </View>
+            <View style={[styles.flx1, styles.prdet]}>
+              <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
+                <View style={[styles.flxdir]}>
+                  {/* <Icon
+                    name={item.currency}
+                    type="font-awesome"
+                    size={13}
+                    color="#333"
+                    iconStyle={{ marginTop: 5, marginRight: 3 }}
+                  /> */}
+                  <Text style={styles.ogprice}>{currency} </Text>
+                  {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice} - </Text>:null}
+                </View>
+                <View style={[styles.flxdir,{alignItems:"center"}]}>
+                  {/* <Icon
+                    name={item.currency}
+                    type="font-awesome"
+                    size={13}
+                    color="#333"
+                    iconStyle={{ marginTop: 5}}
+                  /> */}
+                  {item.discountPercent > 0 ?
+                        <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                        </Text>
+                      :
+                      <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                    }
                 </View>
               </View>
             </View>
-          </TouchableOpacity>
-        </View>
-      )
+            <View style={styles.addtocartbtn}>
+              {/*availablessiz && availablessiz.length > 0 ? 
+                  <View style={styles.inputTextWrapper}>
+                  <Dropdown
+                      onChangeText    = {(value) => handleTypeChange(value, availablessiz)}
+                      data            = {availablessiz}
+                      value           = {packsizes}
+                      containerStyle  = {styles.ddContainer}
+                      inputContainerStyle = {styles.ddInputContainer}
+                      // dropdownPosition={- 5}
+                      baseColor       = {'white'}
+                      labelFontSize   ={10}
+                      rippleCentered  ={true}
+                      dropdownOffset  = {{ top:0, left: 0, bottom: 0 }}
+                      itemTextStyle   = {styles.ddItemText}
+                      disabledLineType= 'none'
+                      underlineColor  = 'transparent'
+                      style           = {{height:30,
+                                          backgroundColor:"#fff",
+                                          borderWidth:1,
+                                          borderColor:colors.theme,
+                                          borderRadius:5
+                                        }}
+                    /> 
+                  </View>
+              : null */}
+            <View style={styles.sizedrpbtn}>
+              <Button
+                  onPress={() => addToCart(item._id,item.vendor_ID,item.vendorName)}
+                  titleStyle={CommonStyles.addBtnText}
+                  title="ADD TO CART"
+                  buttonStyle={CommonStyles.addBtnStyle}
+                  containerStyle={CommonStyles.addBtnContainer}
+                />
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
   }
 
 
@@ -336,9 +331,9 @@ export const ProductList = withCustomerToaster((props)=>{
           numColumns                    = {2}
           bounces={false}
           keyExtractor                  = {item => item._id.toString()}
-          // initialNumToRender            = {6}
+          initialNumToRender            = {6}
           ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-          onEndReachedThreshold          = {0.5}
+          onEndReachedThreshold          = {0.01}
         //   ListEmptyComponent            = {
         //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
         //     <Image

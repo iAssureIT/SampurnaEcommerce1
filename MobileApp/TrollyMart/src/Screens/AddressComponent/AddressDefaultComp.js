@@ -45,7 +45,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
     
     useEffect(() => {
       getAddressList()
-    },[props.delivery]); 
+    },[props]); 
   
    
 
@@ -68,6 +68,8 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
           if (response.data.deliveryAddress.length > 0) {
             var deliveryAddress = response.data.deliveryAddress;
             setDeliveryAddress(deliveryAddress);
+          }else{
+            navigation.navigate('AddressComponent',{"delivery":delivery})
           }
         })
         .catch((error) => {

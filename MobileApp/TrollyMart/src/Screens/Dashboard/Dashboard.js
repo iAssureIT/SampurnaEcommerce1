@@ -52,13 +52,13 @@ export const Dashboard = withCustomerToaster((props)=>{
         getBlocks();
     },[]);
 
-    useEffect(() => {
-      if(isFocused){
-        dispatch(getList('featured',user_id,limit));
-        dispatch(getList('exclusive',user_id,limit));
-        dispatch(getList('discounted',user_id,limit));
-      }  
-    },[isFocused]);
+    // useEffect(() => {
+    //   if(isFocused){
+    //     dispatch(getList('featured',user_id,limit));
+    //     dispatch(getList('exclusive',user_id,limit));
+    //     dispatch(getList('discounted',user_id,limit));
+    //   }  
+    // },[isFocused]);
 
   const getBlocks=()=>{
     axios.get('/api/pages/get/page_block/homepage')
@@ -159,7 +159,7 @@ export const Dashboard = withCustomerToaster((props)=>{
                 />
               }
             </View>
-          <View  style={[styles.formWrapper,{paddingHorizontal:15,paddingVertical:5, marginBottom:'18%'}]}> 
+          <View  style={[styles.formWrapper,{paddingVertical:5, marginBottom:'18%'}]}> 
             
             {globalSearch.searchText ?
               null
