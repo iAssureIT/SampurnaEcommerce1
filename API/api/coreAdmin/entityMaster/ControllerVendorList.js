@@ -53,12 +53,13 @@ exports.getVendorList = (req,res,next)=>{
                                             
                                             vendorDetails[i].locationsj = {
                                                                                 // ...vendorDetails[i].locations[j]._doc, 
-                                                                                "vendorLogo"        : vendorLogo,
-                                                                                "vendor_ID"         : vendor_ID, 
-                                                                                "vendorName"        : vendorName, 
-                                                                                "vendorAddress"     : address,
-                                                                                "vendorLocation_id" : vendorLocation_id,
-                                                                                "vendorDistance"    : vendorDist ? vendorDist.toFixed(2) : ''
+                                                                                "vendorLogo"            : vendorLogo,
+                                                                                "vendor_ID"             : vendor_ID, 
+                                                                                "vendorName"            : vendorName, 
+                                                                                "vendorAddress"         : address,
+                                                                                "vendorLocation_id"     : vendorLocation_id,
+                                                                                "vendorDistance"        : vendorDist ? vendorDist.toFixed(2) : '',
+                                                                                "expectedDiliveryTime"  : (parseInt(30) + parseInt(30 * vendorDist))
                                                                             };
                                             // console.log("vendorLocations => ",vendorDetails[i].locationsj);
                                             vendorLocations.push(vendorDetails[i].locationsj);

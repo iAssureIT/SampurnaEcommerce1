@@ -224,7 +224,7 @@ exports.cancel_order = (req, res, next) => {
 				if (orderdata.paymentDetails.disocuntCoupon_id && orderdata.paymentDetails.disocuntCoupon_id !== undefined) {
 					
 					var isCouponValid           = await fetchCouponData(orderdata.paymentDetails.disocuntCoupon_id); 
-					console.log("isCouponValid => ",isCouponValid)                   
+					// console.log("isCouponValid => ",isCouponValid)                   
 					
 					if (isCouponValid.code === "FAILED") {
 						couponCancelMessage         = isCouponValid.message;
@@ -276,16 +276,16 @@ exports.cancel_order = (req, res, next) => {
 					netPayableAmount = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);						
 				}
 			}			
-			console.log("order_beforeDiscountTotal => ",order_beforeDiscountTotal);
-			console.log("order_afterDiscountTotal => ",order_afterDiscountTotal);
-			console.log("order_taxAmount => ",order_taxAmount);
-			console.log("afterDiscountCouponAmount => ",afterDiscountCouponAmount);
-			console.log("order_shippingCharges => ",order_shippingCharges);
-			console.log("maxServiceCharges => ",maxServiceCharges);
-			console.log("netPayableAmount => ",netPayableAmount);		
-			console.log("order_numberOfProducts => ",order_numberOfProducts);
-			console.log("order_quantityOfProducts => ",order_quantityOfProducts);
-			console.log("couponCancelMessage => ",couponCancelMessage);			
+			// console.log("order_beforeDiscountTotal => ",order_beforeDiscountTotal);
+			// console.log("order_afterDiscountTotal => ",order_afterDiscountTotal);
+			// console.log("order_taxAmount => ",order_taxAmount);
+			// console.log("afterDiscountCouponAmount => ",afterDiscountCouponAmount);
+			// console.log("order_shippingCharges => ",order_shippingCharges);
+			// console.log("maxServiceCharges => ",maxServiceCharges);
+			// console.log("netPayableAmount => ",netPayableAmount);		
+			// console.log("order_numberOfProducts => ",order_numberOfProducts);
+			// console.log("order_quantityOfProducts => ",order_quantityOfProducts);
+			// console.log("couponCancelMessage => ",couponCancelMessage);			
 			Orders.updateOne(
 			{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 			{
