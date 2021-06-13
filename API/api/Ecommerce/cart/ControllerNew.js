@@ -400,7 +400,15 @@ exports.list_cart_product = (req,res,next)=>{
                                                                     : 
                                                                         (order_shippingCharges).toFixed(2);
                 data.paymentDetails.afterDiscountCouponAmount   = 0;
-                data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + order_shippingCharges).toFixed(2);
+                data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
+                                                                                                                    ? maxServiceCharges > order_shippingCharges 
+                                                                                                                        ? 
+                                                                                                                            (order_shippingCharges)
+                                                                                                                        : 
+                                                                                                                            maxServiceCharges 
+                                                                                                                    : 
+                                                                                                                        (order_shippingCharges)
+                                                                                                                )).toFixed(2);
                 data.minOrderAmount                             = minOrderAmount;
             }
             // console.log("data",data);
