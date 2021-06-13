@@ -59,7 +59,7 @@ exports.getVendorList = (req,res,next)=>{
                                                                                 "vendorAddress"         : address,
                                                                                 "vendorLocation_id"     : vendorLocation_id,
                                                                                 "vendorDistance"        : vendorDist ? vendorDist.toFixed(2) : '',
-                                                                                "expectedDiliveryTime"  : (parseInt(30) + parseInt(30 * vendorDist))
+                                                                                "expectedDiliveryTime"  : (parseInt(30) + parseInt((60/20) * vendorDist))
                                                                             };
                                             // console.log("vendorLocations => ",vendorDetails[i].locationsj);
                                             vendorLocations.push(vendorDetails[i].locationsj);
@@ -68,8 +68,8 @@ exports.getVendorList = (req,res,next)=>{
                                 }
                                 if(i >= vendorDetails.length){
                                     var distanceLimit = await getDistanceLimit();
-                                    console.log("distanceLimit=>",distanceLimit)
-                                    console.log("vendorLocations=>",vendorLocations)
+                                    // console.log("distanceLimit=>",distanceLimit)
+                                    // console.log("vendorLocations=>",vendorLocations)
                                     if(vendorLocations && vendorLocations.length > 0){
                                         const key = 'vendor_ID';
                                         if(userLat && userLong){
