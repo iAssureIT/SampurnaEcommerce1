@@ -521,6 +521,10 @@
 .footerSection{
   padding-left: 30px ! important;
 }
+
+.pl0{
+  padding-left:0px !important;
+}
 /* .BookStore_logo a{
   float: right ! important;
 }*/
