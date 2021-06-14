@@ -319,7 +319,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               </View>
             </View>
             <SimilarProducts 
-              category_id = {productdata.category_ID} 
+              productdata = {productdata} 
               user_id     = {user_id} 
               title       = {"You May Also Like"}
               currency    = {currency}

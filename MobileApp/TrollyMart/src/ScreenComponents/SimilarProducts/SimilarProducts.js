@@ -12,7 +12,7 @@ import { useNavigation }  from '@react-navigation/native';
 
 export const SimilarProducts =(props)=>{
   // const navigation = useNavigation();
-  const {category_id,user_id,title,currency,navigation} =props;
+  const {user_id,title,currency,navigation,productdata} =props;
   // const BannerWidth = Dimensions.get('window').width-100;
   const [productList,setProductList]=useState([]);
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
@@ -22,10 +22,16 @@ export const SimilarProducts =(props)=>{
 
   const getData=()=>{
     var formValues = {
-      
+      vendor_ID      : productdata.vendor_ID,
+      category_ID    : productdata.category_ID,
+      subCategory_ID : productdata.subCategory_ID,
+      section_ID     : productdata.section_ID,
+      user_ID        : user_id
     }
-    axios.get("/api/products/get/similarproducts",formValues)
+    console.log("formValues",formValues);
+    axios.get("/api/products/get/similar_products",formValues)
       .then((response) => {
+        console.log("response",response);
         setProductList(response.data);
       })
       .catch((error) => {

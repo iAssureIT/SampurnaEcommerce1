@@ -1974,11 +1974,12 @@ exports.list_productby_category = (req,res,next)=>{
 
 
 exports.similar_products = (req,res,next)=>{
-    var {categoryID,user_ID,vendor_ID,subCategory_ID} = req.body;
+    console.log("req.body",req.body);
+    var {category_ID,user_ID,vendor_ID,section_ID,subCategory_ID,section_ID} = req.body;
     if(subCategory_ID){
-        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : categoryID, "subCategory_ID"   : subCategory_ID}
+        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : category_ID, "subCategory_ID"   : subCategory_ID,"section_ID":section_ID}
     }else{
-        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : categoryID}
+        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : category_ID,"section_ID":section_ID}
     }
     Products.find(selector)
     .exec()
@@ -2016,7 +2017,7 @@ exports.similar_products = (req,res,next)=>{
                 res.status(200).json(products);
             }    
         }else{
-            res.status(404).json('Product Details not found');
+            res.status(404).json(products);
         }
         // res.status(200).json(data);
     })
