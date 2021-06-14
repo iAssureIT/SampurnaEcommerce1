@@ -372,6 +372,7 @@ font-weight: bold;
 }
 .ProductViewWrapper{
   padding-bottom: 20px;
+  background : #E8E8E8;
 }
 .productCaroselBlock{
   border: 1px solid #aaa;
@@ -381,11 +382,21 @@ font-weight: bold;
   border-radius: 15px;
 }
 .productBlock {
-  border: 1px solid #637070;
+  /* border: 1px solid #637070; */
   border-radius: 15px;
   margin-top: 5px;
   margin-bottom: 5px;
+background: #fff;
   /* height: 300px; */
+}
+.productDetailVendorName{
+  font-size: 13px !important;
+}
+.vendorName{
+  font-size: 12px;
+}
+.chaneVendorBtn{
+  text-decoration: underline;
 }
 .availablesize {
   padding: 0 10px!important;

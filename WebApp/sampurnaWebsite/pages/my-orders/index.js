@@ -503,6 +503,7 @@ export default class MyOrders extends Component {
                                 </div>                       
                                 <div className="col-6 NOpadding">
                                     <div className="col-12 text-right">Date - {moment(singleOrder.createdAt).format("DD MMMM YYYY")}</div>
+                                    <div className="col-12 text-right">Time -  {moment(singleOrder.createdAt).format("HH:mm")}</div>
                                 </div>                        
                               </div> 
                             </div> 
@@ -513,7 +514,14 @@ export default class MyOrders extends Component {
                                   <div className={"col-12 pull-left"}> {this.state.currency} &nbsp; {singleOrder.paymentDetails.netPayableAmount}</div>
                                 </div>                       
                                 <div className="col-6 NOpadding">
-                                    <div className="col-4 orderStatus pull-right ">{singleOrder.orderStatus}</div> 
+                                    <div className="col-4 orderStatus pull-right ">
+                                      {singleOrder.orderStatus=== "New"?
+                                        <span class="badge badge-primary">{singleOrder.orderStatus}</span>
+                                      :
+                                        <span class="badge badge-primary">{singleOrder.orderStatus}</span>
+                                      }
+                                      
+                                    </div> 
                                 </div>                        
                               </div> 
                             </div> 

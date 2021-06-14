@@ -24,14 +24,17 @@
     background-color: rgba(0,0,0,0.7);
     /*background-color: rgba(0,0,0,0.25);*/
 }
-
+.timeImg{
+    /* height: 40px; */
+    /* width: 40px; */
+}
 .bgGray{
     background-color:#eee;
     padding-bottom:15px;
 }
 
 .deliveryTime{
-    margin-top: 40px !important;
+    margin-top: -10px !important;
 }
 .cardBody{
     color: #fff;
@@ -53,6 +56,11 @@
 }
 .vendorName{
     font-size: 25px;
+}
+.delTime{
+    position: absolute;
+    top: 50px;
+    right: 50px;
 }
 .vendorLogo{
     height: 100%;

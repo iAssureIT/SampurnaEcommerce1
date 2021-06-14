@@ -63,7 +63,7 @@ class Product extends Component{
               this.setState({
                 messageData: {},
               })
-            }, 3000);
+            }, 36000);
           })
           .catch((error) => {
             console.log('error', error);
@@ -84,7 +84,7 @@ class Product extends Component{
           this.setState({
             messageData: {},
           })
-        }, 3000);
+        }, 36000);
       } else {
         axios.post('/api/carts/post', formValues)
           .then((response) => {
@@ -101,7 +101,7 @@ class Product extends Component{
               this.setState({ 
                 messageData: {},
               })
-            }, 3000);
+            }, 36000);
             this.props.fetchCartData();
             this.props.updateCartCount();
   
@@ -197,7 +197,7 @@ class Product extends Component{
           this.setState({
             messageData: {},
           })
-        }, 3000);
+        }, 36000);
       }//end else
     }
     }
@@ -244,7 +244,7 @@ class Product extends Component{
               this.setState({
                 messageData: {},
               })
-            }, 3000);
+            }, 36000);
             this.props.getWishlistData();
           })
           .catch((error) => {
@@ -271,7 +271,7 @@ class Product extends Component{
             this.setState({
               messageData: {},
             })
-          }, 3000);
+          }, 36000);
         }
       }
     }
@@ -352,14 +352,16 @@ class Product extends Component{
                             <div className={"col-12 globalProduct_brand"} title={data.category}>{data.category}</div>
                           :null
                           }
-                          {data.productNameRlang?
-                          <div className={"col-12 globalProductItemName  RegionalFont " } title={data.productNameRlang}>
-                            <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>&nbsp;                                        
-                          </div>
-                          :
+                          {/* {data.productNameRlang?
+                            <div className={"col-12 globalProductItemName  RegionalFont " } title={data.productNameRlang}>
+                                <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>&nbsp;                                        
+                            </div>:null
+                          } */}
+
                           <div className={"col-12 globalProductItemName  " } title={data.productName}>
-                          <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;</div>
-                          }
+                            <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;
+                          </div>
+
                           <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
                             {
                               this.state.websiteModel === "FranchiseModel"?                                  

@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import Image                from 'next/image';
 import Link                 from 'next/link';
 import Websitelogo          from '../../5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
-
 import S from './Footer.module.css';
 
 
@@ -28,7 +25,7 @@ export default class Footer extends Component {
                     this.setState({ 
                         categoryData : response.data
                     },()=>{
-                        // console.log("categoryData===",this.state.categoryData);
+                        console.log("categoryData===",this.state.categoryData);
                     })
                 }
             })
@@ -36,22 +33,6 @@ export default class Footer extends Component {
                 console.log('error', error);
             })
     }
-
-    // getCompanyDetails(){
-    //     axios.get("/api/entitymaster/get/one/companyName/1")
-    //       .then((response)=>{ 
-    //         console.log("companyData:" ,response.data);
-    //         this.setState({
-    //             companyInfo   : response.data[0],
-    //             locationdata  : response.data[0].companyLocationsInfo,             
-    //         },
-    //             ()=>{
-    //           })
-    //       })
-    //       .catch((error)=>{
-    //             console.log('error', error);
-    //       })
-    // }
 
     render(){
        return(
@@ -73,7 +54,7 @@ export default class Footer extends Component {
                             
                             <div className="col-2 col-lg-2 col-md-3 footerSection" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
-                                    <Link href={`/section/${encodeURIComponent(data.sectionUrl)}`}>
+                                    <Link href={"vendor-list/"+data.sectionUrl}>
                                         <a className="sectionurl footerSubT" ><span>{data.section}</span></a>
                                     </Link>
                                 {
@@ -82,7 +63,7 @@ export default class Footer extends Component {
                                         catindex<8?  
                                             <div key={catindex} className="">                                   
                                                 <div className="categortTitle">
-                                                    <Link href={`/category/${encodeURIComponent(cateoryDetails.categoryUrl)}`}>
+                                                    <Link href={""+data.sectionUrl}>
                                                         <a><span className="f9">{cateoryDetails.category}</span></a>
                                                     </Link>
                                                 </div>
@@ -107,7 +88,7 @@ export default class Footer extends Component {
                     <div className="categortTitle"><Link href="/return-policy"><a ><span>&nbsp;Return Policy</span></a></Link></div>
                     {/* <div className="categortTitle"><a href="/terms-conditions" target="_blank"><span>Terms Of Use</span></a></div> */}
                     {/* <div className="categortTitle"><a href="/privacypolicy" target="_blank"><span>Privacy Policy</span></a></div> */}      
-                    <div className="categortTitle"><Link href="/legal-notice"><a ><span>&nbsp;Legal Notice</span></a></Link></div>
+                    <div className="categortTitle"><Link href="/legal-policy"><a ><span>&nbsp;Legal Notice</span></a></Link></div>
                     <div className="categortTitle"><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div> 
                     <div className="categortTitle"><Link href="/photo-gallery"><a ><span>&nbsp;Photo Gallery</span></a></Link></div> 
                     <div className="categortTitle"><Link href="/blogs"><a ><span>&nbsp;Blogs</span></a></Link></div>
@@ -171,11 +152,14 @@ export default class Footer extends Component {
                   < Websitelogo />
               </div>
               
-              <div className="col-8 col-sm-12 col-lg-8 col-md-8 col-sx-12 text_Center">
+              <div className="col-5 col-sx-12 text_Center">
                   <div className="footer3Class">
                       Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                   </div>
-                  <p><i className="fa fa-copyright"></i>2021,Trollymart.com</p>
+                  <div className="col-12 text-center">
+                    <p><i className="fa fa-copyright"></i>2021,Trollymart.com</p>
+                  </div>
+                  
               </div>
                {/* <div className="col-12 col-sm-6 copyrighttxt">
                     <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Trolly</span><span className="mandaiColor">Mart</span> All Rights Reserved.</p>

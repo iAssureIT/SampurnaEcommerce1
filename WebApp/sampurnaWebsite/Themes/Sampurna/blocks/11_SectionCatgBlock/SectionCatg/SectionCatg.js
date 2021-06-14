@@ -109,7 +109,7 @@ class ShoppingVerticals extends Component {
       }
     };
 
-    // console.log("inside rendor this.state.itemList===",this.state.itemList);
+    console.log("inside rendor this.state.itemList===",this.state.itemList);
     // console.log("this.state.groupSettings.noOfItem",this.state.groupSettings);
     return (
       <div className="col-12 mt20">
@@ -182,7 +182,7 @@ class ShoppingVerticals extends Component {
                     })
                   }
               </Carousel>
-            : <div>no item</div>
+            : <div>No Item Available</div>
           :
             <div className="row sectionCategoryBlock">                      
               {
@@ -209,7 +209,7 @@ class ShoppingVerticals extends Component {
                       </div>                    
                     );
                   })
-                  : ''
+                  : null
               }	
             </div>    
           } 

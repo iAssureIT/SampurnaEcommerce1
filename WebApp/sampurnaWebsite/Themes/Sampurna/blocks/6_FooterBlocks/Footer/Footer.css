@@ -449,12 +449,12 @@
 .socialMediaIcons .fab{
   border-radius: 100%;
   border:var(--border2px) !important;
-  padding-top: 10px;
+  padding-top: 7px;
   float: left;
   color: var(--color);
   margin-top: 20px;
-  height: 35px;
-  width: 35px;
+  height: 32px;
+  width: 32px;
   text-align: center;
   margin-left: 15px;
   background-color: #ffffff;  

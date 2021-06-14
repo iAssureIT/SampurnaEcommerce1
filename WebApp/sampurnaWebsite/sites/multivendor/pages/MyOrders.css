@@ -4,8 +4,8 @@
 
 }
 .orderStatus{
-	border: solid 1px #ccc;
-	font-size: 12px;
+	/* border: solid 1px #ccc; */
+	font-size: 14px;
 	padding: 5px 10px;
 	text-align: center;
 	height: 30px;

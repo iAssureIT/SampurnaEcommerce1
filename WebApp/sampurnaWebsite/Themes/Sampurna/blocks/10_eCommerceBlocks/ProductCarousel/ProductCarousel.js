@@ -37,7 +37,7 @@ const sortOptions = [
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
+    breakpoint: { max: 10000, min: 1024 },
     items: 5,
     slidesToSlide: 1 // optional, default to 1.
   },
@@ -106,6 +106,7 @@ class ProductCarousel extends Component {
       brandArray   : [],
     };
   }
+
   componentDidUpdate(){
     if(this.state.categoryData.length < 1){
 			$('.filterWrapper').hide();
@@ -122,6 +123,7 @@ class ProductCarousel extends Component {
 		}
   }
   async componentDidMount(){
+
     var formValues = {};
     var subcategoryArray = false;
     var noCategoryUrl   = true;
@@ -166,6 +168,19 @@ class ProductCarousel extends Component {
         "categoryUrl"       : categoryUrl?categoryUrl:"",
         "subCategoryUrl"    : subCategoryUrl!==undefined?subCategoryUrl:""
       },()=>{
+
+        axios.get('/api/entitymaster/get/one/'+this.state.vendor_ID)    
+        .then((vendorResponse)=>{
+            if(vendorResponse){
+              // console.log("vendorResponse===",vendorResponse);
+                this.setState({
+                    vendorData : vendorResponse.data[0],
+                })
+            }
+        })
+        .catch((error) =>{
+          console.log("error in get vendor=",error);
+        })
 
           // console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
           // console.log("2.categoryUrl===",this.state.categoryUrl);
@@ -428,7 +443,7 @@ submitCart(event) {
         this.setState({
           messageData: {},
         })
-      }, 3000);
+      }, 10000);
     }//end else
   }
   }
@@ -452,7 +467,7 @@ submitCart(event) {
             this.setState({
               messageData: {},
             })
-          }, 3000);
+          }, 10000);
         })
         .catch((error) => {
           console.log('error', error);
@@ -473,7 +488,7 @@ submitCart(event) {
         this.setState({
           messageData: {},
         })
-      }, 3000);
+      }, 10000);
     } else {
       // console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)
@@ -492,7 +507,7 @@ submitCart(event) {
             this.setState({
               messageData: {},
             })
-          }, 3000);
+          }, 10000);
           this.props.fetchCartData();
           this.props.updateCartCount();
         })
@@ -527,7 +542,7 @@ submitCart(event) {
             this.setState({
               messageData: {},
             })
-          }, 3000);
+          }, 10000);
           this.props.getWishlistData();
         })
         .catch((error) => {
@@ -554,7 +569,7 @@ submitCart(event) {
           this.setState({
             messageData: {},
           })
-        }, 3000);
+        }, 10000);
       }
     }
   }
@@ -673,7 +688,7 @@ submitCart(event) {
                     ssr={true} // means to render carousel on server-side.
                     infinite={false}
                     autoPlay= {false}
-                    autoPlaySpeed={3000}
+                    autoPlaySpeed={1000}
                     keyBoardControl={true}
                     customTransition="all .20"
                     transitionDuration={500}
@@ -849,8 +864,15 @@ submitCart(event) {
                   </Carousel>
                   : 
                   <div className={"col-12 NoPadding " +Style.ProductListWrapper }>              
-                  <div className={"container-fluid " }>
-
+                  <div className={"col-12  NoPadding " }>
+                  <div className={"col-12 NoPadding pt-2 mt-2 " +Style.productDetailVendorName}> 
+                    <span className="col-6 NoPadding "> 
+                       vendor  - &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+                    </span>
+                    <span className={"col-2 text-right pull-right NoPadding "+Style.chaneVendorBtn }> 
+                        <Link href={"/vendor-list/"+this.state.sectionUrl} className="col-12 NoPadding text-right" >Change Vendor</Link>
+                    </span>
+                  </div>
                   {this.state.blockSettings.showCarousel === false?
                       < CategoryBlock 
                         categoryData       = {this.state.categoryData}

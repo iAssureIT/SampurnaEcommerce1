@@ -35,7 +35,7 @@ const VendorList = ()=> {
                 }
             }
         }
-        console.log("vendor list FormValues=>",formValues);
+        // console.log("vendor list FormValues=>",formValues);
         axios.post("/api/vendorlist/post/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){
@@ -56,7 +56,6 @@ const VendorList = ()=> {
                         <div className="col-12">
                             <div className={"col-12 text-center  mt2 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
                         </div>
-                        
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
                                     // console.log("vendorList===",vendorList);
@@ -75,10 +74,10 @@ const VendorList = ()=> {
                                                         <div className={"col-9 "}>
                                                             <div className={"col-12 " +Style.vendorName}>{vendordata.vendorName}</div>
                                                             <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
-                                                                Delivery Time - {vendordata.vendorDistance>0?vendordata.vendorDistance:0} &nbsp;Km
+                                                                <span className={Style.delTime}>{vendordata.expectedDiliveryTime>0?vendordata.expectedDiliveryTime:0} &nbsp;min</span>
+                                                                <img src="/images/eCommerce/time.png" className={"img "+Style.timeImg}></img>
                                                             </div>
                                                         </div>
-                                                        
                                                     </div> 
                                                 </ Link >
                                             </div>
