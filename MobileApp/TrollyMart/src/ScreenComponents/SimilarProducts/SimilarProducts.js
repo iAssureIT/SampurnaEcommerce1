@@ -9,6 +9,7 @@ import {
 import styles             from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
 import axios              from 'axios';
 import { useNavigation }  from '@react-navigation/native';
+import FastImage              from 'react-native-fast-image';
 
 export const SimilarProducts =(props)=>{
   // const navigation = useNavigation();
@@ -22,9 +23,10 @@ export const SimilarProducts =(props)=>{
 
   const getData=()=>{
     var formValues = {
+      product_ID     : productdata._id,
       vendor_ID      : productdata.vendor_ID,
       category_ID    : productdata.category_ID,
-      subCategory_ID : productdata.subCategory_ID,
+      // subCategory_ID : productdata.subCategory_ID,
       section_ID     : productdata.section_ID,
       user_ID        : user_id
     }
@@ -46,13 +48,17 @@ export const SimilarProducts =(props)=>{
                <View style={styles.flx1}>
                 {
                   item.productImage && item.productImage.length > 0 ?
-                    <Image
-                      source={{ uri: item.productImage[0] }}
+                    <FastImage
+                      source={{ 
+                        uri: item.productImage[0],
+                        priority: FastImage.priority.high,
+                        cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable), 
+                      }}
                       style={styles.subcatimg}
                       resizeMode="stretch"
                     />
                     :
-                    <Image
+                    <FastImage
                       source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
                       style={styles.subcatimg}
                     />
