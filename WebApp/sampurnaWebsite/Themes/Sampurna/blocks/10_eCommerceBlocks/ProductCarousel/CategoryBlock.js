@@ -4,7 +4,7 @@ import axios                  from 'axios';
 import Image                  from 'next/image';
 import Link                   from 'next/link';
 import Carousel               from 'react-multi-carousel';
-import style                  from './categoryBlock.module.css';
+import Style                  from './categoryBlock.module.css';
 import Message                from '../../StaticBlocks/Message/Message.js';
 import { connect }            from 'react-redux';
 import store                  from '../../../../../redux/store.js'; 
@@ -52,7 +52,7 @@ class CategoryBlock extends Component{
     render(){
       // console.log("props category ====",this.props.categoryData);
       return (
-        <div className={"container NoPadding " +style.categoryCarousel}>
+        <div className={"container NoPadding " +Style.categoryCarousel}>
             <Carousel 
               className=""
                   swipeable={true}
@@ -74,18 +74,18 @@ class CategoryBlock extends Component{
                       return (
                       <div className="col-12 productsCategoryBlock "  key={index}> 
                           <Link href={url} className ={"col-12 "}> 
-                            <a className ={"col-12 " +style.categoryBlock}>
-                              <div className={"itemImg col-12 NoPadding " +style.categoryPhoto }>
+                            <a className ={"col-12 " +Style.categoryBlock}>
+                              <div className={"itemImg col-12 NoPadding " +Style.categoryPhoto }>
                                   <Image                                           
                                     src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.jpg"}
                                     alt="ProductImg" 
-                                    className={"img-responsive " +style.NoAvailableImg }
+                                    className={"img-responsive " +Style.NoAvailableImg }
                                     height={90}
                                     width={100} 
                                     layout={'intrinsic'}
                                   />
                               </div>
-                              <div className={"col-12 text-center mt-2 " +style.categoryName} title={categorydata.category}>{categorydata.category}</div>
+                              <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
                             </a>
                           </Link>
                       </div>                            

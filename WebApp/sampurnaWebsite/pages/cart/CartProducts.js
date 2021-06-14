@@ -8,6 +8,8 @@ import {getCartData}          from '../../redux/actions/index.js';
 import  store                 from '../../redux/store.js'; 
 import Message                from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import OrderSummury           from './OrderSummury.js';
+import Style                  from './CartProducts.module.css';
+
 // import {ntc} from '../../ntc/ntc.js';
 // import { size } from 'underscore';
 // import Loader from "../../common/loader/Loader.js";
@@ -335,14 +337,15 @@ class CartProducts extends Component{
                     <div className="col-12 NOpadding" style={{"marginBottom":"20px"}}>
                         <div className="row">  
                             <div className="col-12 col-xl-12 col-md-12 table-responsive cartProduct">
-                                <div className="table cartProductTable">                                   
+                                <div className="table">                                   
                                     <div className="col-12">
                                     {    
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
                                         console.log("vendorWiseCartData==",vendorWiseCartData);
                                         return(  
-                                            <div className="row" key={index}>
-                                                <div className="col-9">
+                                            <div className={"row " +Style.singleRow} key={index}>
+                                                <div className="col-8">
+                                                    <div className={"col-12 " +Style.singleVendorBox}>
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
                                                         // console.log("vendorData=>",vendorData);
@@ -417,6 +420,7 @@ class CartProducts extends Component{
                                                     );
                                                     })
                                                 }
+                                                </div>
                                                 {
                                                    vendorWiseCartData.vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ?
                                                         <div className="col-12"> 
@@ -428,7 +432,7 @@ class CartProducts extends Component{
                                                     :null
                                                     }
                                                 </div>
-                                                <div className="col-3 vendorWiseSummury cartSummary ">
+                                                <div className={"offset-1 col-3 vendorWiseSummury cartSummary pull-right " +Style.summaryClass}>
                                                 <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
                                                     {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
                                                 <table className="table table-responsive summaryTable">
@@ -473,7 +477,7 @@ class CartProducts extends Component{
                                             <div className="col-9 mt-4 text-center">
                                                 <div className="col-12">
                                                     <Link href="/">
-                                                        <a className="shoppingLink">Contiune Shopping</a>
+                                                        <a className={"shoppingLink " +Style.shopping}>Contiune Shopping</a>
                                                     </Link>
                                                 </div>
                                             </div>
