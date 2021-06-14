@@ -469,7 +469,7 @@ export default class MyOrders extends Component {
   }
 
   render() {
-    console.log("1.this.state.orderData=",this.state.orderData);
+    console.log("1. myorder page this.state.orderData=",this.state.orderData);
     return (
       <div className="col-12 NoPadding">
         <Header />
@@ -496,18 +496,32 @@ export default class MyOrders extends Component {
                       this.state.orderData.map((singleOrder, index) => {
                         return(
                           <div className="col-12 NoPadding orderIdborder" key={index}>
-                            <div className="col-12  NoPadding orderNowrapper mb-4 pb-2">
+                            <div className="col-12  NoPadding orderNowrapper mb-4 ">
                               <div className="row">
                                 <div className="col-6">
-                                    <div className="orderIdBtn col-12 col-md-12">{"Order ID : "+(singleOrder.orderID)}</div>
+                                    <div className="col-12">{singleOrder.orderStatus}</div>
+                                    <div className="col-12">{"Order ID : "+(singleOrder.orderID)}</div>
+                                    <div className="col-12">{"Total amount : "+this.state.currency +" " +(singleOrder.paymentDetails.netPayableAmount)}</div>
                                 </div>                       
                                 <div className="col-6 NOpadding">
-                                    <div className="col-12 text-right">Date - {moment(singleOrder.createdAt).format("DD MMMM YYYY")}</div>
-                                    <div className="col-12 text-right">Time -  {moment(singleOrder.createdAt).format("HH:mm")}</div>
+                                    <div className="row">
+                                        <div className="col-12 NoPadding">
+                                          <span className="col-6 text-right">Date - {moment(singleOrder.createdAt).format("DD MMMM YYYY")}&nbsp;</span>
+                                          <span className="col-6 text-right">Time -  {moment(singleOrder.createdAt).format("HH:mm")}</span>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="col-12"> Cash on delivery</div> 
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="col-12 orderAddress"> 
+                                              {singleOrder.deliveryAddress.addressLine2}, <br/> {singleOrder.deliveryAddress.addressLine1}
+                                            </div> 
+                                        </div>
+                                    </div>
                                 </div>                        
                               </div> 
                             </div> 
-                            <div className="col-12 totalOrderBlock pb-2">
+                            {/* <div className="col-12 totalOrderBlock pb-2">
                               <div className="row">
                                 <div className="col-6 NoPadding">
                                   <div className={"col-12 pull-left"}> Total Amount</div>
@@ -515,16 +529,15 @@ export default class MyOrders extends Component {
                                 </div>                       
                                 <div className="col-6 NOpadding">
                                     <div className="col-4 orderStatus pull-right ">
-                                      {singleOrder.orderStatus=== "New"?
-                                        <span class="badge badge-primary">{singleOrder.orderStatus}</span>
+                                      {singleOrder.orderStatus=== "Cancelled"?
+                                        <span class="badge badge-danger">{singleOrder.orderStatus}</span>
                                       :
                                         <span class="badge badge-primary">{singleOrder.orderStatus}</span>
                                       }
-                                      
                                     </div> 
                                 </div>                        
                               </div> 
-                            </div> 
+                            </div>  */}
                               {
                                 singleOrder && singleOrder.vendorOrders && singleOrder.vendorOrders.length > 0 ?                    
                                 singleOrder.vendorOrders.map((vendordata, index) => {
@@ -538,35 +551,31 @@ export default class MyOrders extends Component {
                                           </div>           
                                           <div className="col-6">
                                               <div className="row ">   
-                                                    <div className="col-12 title NoPadding">
-                                                      <div className="row">
-                                                          <span className="col-6 ">&nbsp; Number Of Items </span>
-                                                          <span className="col-1">:</span>
-                                                          <span className="col-5 ">
-                                                              {vendordata.order_numberOfProducts} 5
-                                                          </span>
-                                                      </div>
-                                                    </div>             
-                                                    <div className="col-12">
-                                                        <div className="row">
-                                                          <span className="col-6 ">&nbsp; Amount </span>
-                                                          <span className="col-1">:</span>
-                                                          <span className="col-5 "> 
-                                                              {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
-                                                          </span>
-                                                        </div>
+                                                  <div className="col-12 title NoPadding">
+                                                    <div className="row">
+                                                        <span className="col-6 ">&nbsp; Number Of Items </span>
+                                                        <span className="col-1">:</span>
+                                                        <span className="col-5 ">
+                                                            {vendordata.order_numberOfProducts} 5
+                                                        </span>
                                                     </div>
+                                                  </div>             
+                                                  <div className="col-12">
+                                                      <div className="row">
+                                                        <span className="col-6 ">&nbsp; Amount </span>
+                                                        <span className="col-1">:</span>
+                                                        <span className="col-5 "> 
+                                                            {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
+                                                        </span>
+                                                      </div>
+                                                  </div>
                                               </div>
                                           </div>
-                                          {vendordata.orderStatus === "Cancelled"
-                                          ?
-                                            <div className="col-2 orderStatus cancelOrderStatus">
-                                              {vendordata.orderStatus}
-                                            </div>
+
+                                          {vendordata.orderStatus=== "Cancelled"?
+                                            <span className=" col-2 orderStatusBadge badge badge-danger">{vendordata.orderStatus}</span>
                                           :
-                                            <div className="col-2 orderStatus">
-                                              {vendordata.orderStatus}
-                                            </div>
+                                            <span className=" col-2 orderStatusBadge badge badge-primary">{vendordata.orderStatus}</span>
                                           }
                                         </div>
                                         </div>
@@ -579,20 +588,15 @@ export default class MyOrders extends Component {
                                     <img src="/images/eCommerce/emptyorder.png" alt=""/>
                                   </div>
                               }
-
                               <div className="col-12 "> 
                                   <div className="row">
-                                    <div className="col-6 pull-left orderBtnWrapper">
-                                      <button className=" btn btn-secondary col-6 ">
+                                    <div className="col-5  pull-left ">
+                                        <div className="cancelOrderbtn" id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                    </div>
+                                    <div className="col-4 offset-3 pull-right orderBtnWrapper">
+                                      <button className=" btn btn-secondary col-12 ">
                                         <a href="/order-details" className="col-12 showDetailsBtn ">Show Details</a>
                                       </button>
-                                    </div>
-                                    <div className="col-5 offset-1 pull-right ">
-                                        {/* <button className=" btn btn-danger cancelbtn col-12 " id={singleOrder._id} onClick={this.cancelProductAction.bind(this)} >Cancel Order Within &nbsp;
-                                          <Countdown date={Date.now() + 10000} />
-                                          &nbsp; Min
-                                        </button> */}
-                                        <div className="cancelOrderbtn" id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order Within  {singleOrder.maxDurationForCancelOrder} &nbsp;Min</div>
                                     </div>
                                   </div>
                               </div>
@@ -605,8 +609,6 @@ export default class MyOrders extends Component {
                       <img src="/images/eCommerce/emptyorder.png" alt=""/>
                     </div>
                     }
-
-
                     {/* cancelProductModal */}
                     {/* <div className="modal" id="cancelProductModal" role="dialog">
                       <div className="modal-dialog">

@@ -136,8 +136,10 @@ table > tfoot > tr > td:last-of-type {
 	border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
-    padding: 10px;
+    padding:  0px 10px;
     background : #eeeeee6b;
+    border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 }
 .orderbodyborder{
 	padding: 10px;
@@ -229,7 +231,7 @@ text-align:right ! important;
     text-decoration-line: underline;
     cursor: pointer;
     transition: 0.5s ease;
-    text-align: right;
+    /* text-align: right; */
 }
 .cancelOrderbtn:hover{
     color: #f00;

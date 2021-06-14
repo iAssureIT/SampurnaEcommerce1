@@ -195,7 +195,6 @@ class Payment extends Component {
                                                                         <h5 className="productName">{productdata.productName}</h5>
                                                                     }
                                                                     </a>
-
                                                                     {productdata.discountPercent ?
                                                                         <div className="col-12 NoPadding">
                                                                             <span className="cartOldprice">{this.state.currency} &nbsp;{productdata.originalPrice}</span>&nbsp;

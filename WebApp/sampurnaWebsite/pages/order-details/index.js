@@ -14,7 +14,7 @@ import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Addr
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
 import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
-
+import ProductsView         from './ProductsView.js';
 export default class MyOrders extends Component {
   constructor(props) {
     super(props);
@@ -281,56 +281,7 @@ export default class MyOrders extends Component {
     })
   }
 
-  returnProductAction(event) {
-    event.preventDefault();
-
-    var id = $(event.target).data('id');
-    var productid = $(event.target).data('productid');
-    var altorderid = $(event.target).data('altorderid');
-    var reasonForReturn = $('.reasonForReturn').val();
-
-    var formValues = {
-      "orderID": id,
-      "altorderid": altorderid,
-      "productID": productid,
-      "reasonForReturn": reasonForReturn,
-      "bankname": $('#bankname').val(),
-      "bankacctno": $('#bankacctno').val(),
-      "ifsccode": $('#ifsccode').val()
-    }
-    
-
-    if ($('#returnForm').valid()) {
-      // $('.fullpageloader').show();
-      axios.patch('/api/orders/get/returnOrder', formValues)
-        .then((response) => {
-          $('.fullpageloader').hide();
-          this.getMyOrders();
-          this.setState({
-            messageData: {
-              "type": "outpage",
-              "icon": "fa fa-exclamation-circle",
-              "message": response.data.message,
-              "class": "warning",
-              "autoDismiss": true
-            }
-          })
-          setTimeout(() => {
-            this.setState({
-              messageData: {},
-            })
-          }, 3000);
-          var modal = document.getElementById('returnProductModal');
-          modal.style.display = "none";
-
-          $('.modal-backdrop').remove();
-        })
-
-        .catch((error) => {
-          console.log('error', error);
-        })
-    }
-  }
+  
   Closepagealert(event) {
     event.preventDefault();
     $(".toast-error").html('');
@@ -344,7 +295,6 @@ export default class MyOrders extends Component {
 
   }
   cancelProduct(event) {
-
     $('#cancelProductModal').show();
     var status = $(event.target).data('status');
     var id = $(event.target).data('id');
@@ -405,8 +355,6 @@ export default class MyOrders extends Component {
     })
       // =================== Notification ==================
 
-
-        
         this.setState({
           messageData: {
             "type": "outpage",
@@ -426,19 +374,15 @@ export default class MyOrders extends Component {
       .catch((error) => {
       })
   }
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
+ 
   handleChangeReview(event) {
     this.setState({
       [event.target.name]: event.target.value,
       reviewTextError : event.target.value ? "" : "Please Enter your feedback."
     })
   }
+
   ratingReview(event){
-    
     console.log("event.target.value---",event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
@@ -457,16 +401,14 @@ export default class MyOrders extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="col-12">
         <Header />
-        {/* <BreadCrumbs /> */}
         <div className="container">
           <Message messageData={this.state.messageData} />
           {
             this.state.loading ?
               <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> 
               :
-
               <div className="col-12 NOpadding">
                 <br />
                <div className="row"> 
@@ -476,52 +418,67 @@ export default class MyOrders extends Component {
 
                 <div className="col-12 col-xl-9 col-md-12">
                   <div className="col-12">
-                      <h4 className="table-caption">My Orders</h4>
+                      <h4 className="table-caption">Orders Details</h4>
                   </div>
 
-                  <div className="col-12 orderIdborder">
-                    <div className="col-12 NoPadding">
+                  <div className="col-12 orderDetails  NoPadding">
+                    <div className="col-12 orderDetailsTop">
                       <div className="row">
-                        <div className="col-6 NOpadding">
-                            <div className="orderIdButton globalBgColor col-12 col-md-12">{"Order ID : "+(this.state.orderData.orderID)}</div>
+                        <div className="col-6 ">
+                            <div className="col-12">{"Order Status : "+(this.state.orderData.orderStatus)}</div>
+                            <div className="col-12">{"Order ID : "+(this.state.orderData.orderID)}</div>
+                            <div className="col-12">{"Total amount : "+(this.state.orderData.orderID)}</div>
                         </div>                       
-                        <div className="col-6 NOpadding">
-                            <div className="col-12 text-right">Date - {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}</div>
+                        <div className="col-6 ">
+                            <div className="row">
+                              <div className="col-12 NoPadding">
+                                <span className="col-6 text-right">Date - {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}&nbsp;</span>
+                                <span className="col-6 text-right">Time -  {moment(this.state.orderData.createdAt).format("HH:mm")}</span>
+                              </div>
+                              <div className="col-12">
+                                  <div className="col-12"> Cash on delivery</div> 
+                              </div>
+                              <div className="col-12">
+                                  <div className="col-12 orderAddress"> 
+                                    {/* {this.state.deliveryAddress.addressLine2}, <br/> {this.state.deliveryAddress.addressLine1} */}
+                                  </div> 
+                              </div>
+                            </div>
                         </div>
                         {/* <div className="col-6 NOpadding">
                           <div className="actionbtn col-12   NOpadding">
                             { this.state.orderData.deliveryStatus[this.state.orderData.deliveryStatus.length - 1].status !== 'Cancelled' ? 
                               <a className="btn filterallalphab" target="_blank" rel="noopener noreferrer" href={"/view-order/" + this.state.orderData._id} title="View Order">
                               <span> Invoice</span></a> : <div className="pull-right"><span className="cancelledtext"> Cancelled</span></div>
-                            }
-                            {
-                              data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Cancelled' || data.deliveryStatus[data.deliveryStatus.length - 1].status === 'Returned' ? '' :
-                                data.deliveryStatus[data.deliveryStatus.length - 1].status === "New Order" || data.deliveryStatus[data.deliveryStatus.length - 1].status === "Verified"
-                                  || data.deliveryStatus[data.deliveryStatus.length - 1].status === "Packed" ? <button type="button" data-toggle="modal" data-target="#cancelProductModal" className="btn filterallalphab" name="returnbtn" title="Cancel" onClick={this.cancelProduct.bind(this)}
-                                    data-status={data.deliveryStatus[data.deliveryStatus.length - 1].status} data-id={data._id}>Cancel</button> : ''
-                            }
-                          </div>
-                        </div> */}
+                            }*/}
                       </div> 
                     </div> 
-                  
-                    
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?                    
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
-                          console.log("orderData:",vendordata);
+                          console.log( " Order details orderData:",vendordata);
                           return (
                             <div key={index} style={{marginBottom:"40px"}} className={"vendorOrderHistory"}>   
-
-                              <div className="col-12 NOpadding">
-                                  <span className="vendorName">{vendordata.vendorName}</span> &nbsp;
-                              </div>           
-
+                              <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
+                                <div className="row">
+                                  <div className="col-7 NOpadding">
+                                      <span className="vendorName">{vendordata.vendorName}</span> &nbsp;
+                                  </div> 
+                                  <div className="col-5 ">
+                                      <div className="cancelOrderbtn" id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                  </div>    
+                                </div>      
+                              </div>
                               { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                 <div className="col-12 orderIdborder">
                                     <StepWizard data={vendordata} />
                                 </div> :null
                               }
+
+                              <ProductsView 
+                                orderData = {vendordata.products}
+                              />
+
                               <div className="col-12 orderbodyborder">
                                 <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
                                   <div className="row ">                                      
@@ -561,181 +518,6 @@ export default class MyOrders extends Component {
                           <img src="/images/eCommerce/emptyorder.png" alt=""/>
                         </div>
                     }
-
-
-                    {/* returnProductModal */}
-
-                    <div className="modal" id="returnProductModal" role="dialog">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <img src="" alt="" />
-                            <button type="button" className="close modalclosebut" data-dismiss="modal">&times;</button>
-                            <h4 className="modal-title modalheadingcont">RETURN PRODUCT</h4>
-                          </div>
-                          <h4 className="modaltext"></h4>
-                          <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12">
-                            <table className="data table table-order-items history" id="my-orders-table">
-                              <thead>
-                                <tr>
-                                  <th scope="col" className="col id">Product Image</th>
-                                  <th scope="col" className="col id">Product Name</th>
-                                  <th scope="col" className="col date">Price</th>
-                                </tr>
-                              </thead>
-                              <tbody>{
-                                this.state.oneproductdetails ?
-                                  <tr>
-                                    <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.jpg"} alt="" /></td>
-                                    {this.state.oneproductdetails.productNameRlang?
-                                      <td data-th="Order #" className="col id RegionalFont">{this.state.oneproductdetails.productName}</td>
-                                    :
-                                      <td data-th="Order #" className="col id">{this.state.oneproductdetails.productName}</td>
-                                    }
-                                    <td data-th="Order Total" className="col total"><span><i className={"fa fa-" + this.state.oneproductdetails.currency}> {this.state.oneproductdetails.discountedPrice}</i></span></td>
-                                  </tr>
-                                  :
-                                  null
-                              }
-                              </tbody>
-                            </table>
-                            <div className="inputrow">
-                              <h4>Back Details</h4>
-                            </div>
-
-                            <form id="returnForm">
-                              <div className="inputrow">
-                                <span>
-                                  <label className="col-12 NOpadding ">Reason for Return <label className="astricsign">*</label></label>
-
-                                </span>
-                                <textarea rows="5" cols="55" className="reasonForReturn" name="reasonForReturn" required></textarea>
-                              </div>
-                              <div className="inputrow">
-                                <label className="col-12 NOpadding  ">Bank Name<label className="astricsign">*</label></label>
-                                <input type="text" ref="bankname" name="bankname" id="bankname" value={this.state.bankname} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
-                              </div>
-                              <div className="inputrow">
-                                <label className="col-12 NOpadding ">Bank Account No<label className="astricsign">*</label></label>
-                                <input type="text" ref="bankacctno" name="bankacctno" id="bankacctno" value={this.state.bankacctno} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
-                              </div>
-                              <div className="inputrow">
-                                <label className="col-12 NOpadding">IFSC Code<label className="astricsign">*</label></label>
-                                <input type="text" ref="ifsccode" name="ifsccode" id="ifsccode" value={this.state.ifsccode} onChange={this.handleChange.bind(this)} className="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-control returninputbox" required />
-                              </div>
-                            </form>
-
-                          </div>
-                          <div className="canreturn modal-footer">
-                            <div className="col-12">
-                              <br />
-
-                              <button className="btn btn-danger" onClick={this.returnProductAction.bind(this)} id="returnProductBtn" >Save</button>
-                              <button type="button" className="btn btn-default" data-dismiss="modal">Cancel</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* cancelProductModal */}
-                    <div className="modal" id="cancelProductModal" role="dialog">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <img src="" alt="" />
-                            <button type="button" className="close modalclosebut" data-dismiss="modal">&times;</button>
-                            <h4 className="modalTitle modalheadingcont">CANCEL ORDER</h4>
-                          </div>
-                          <div className="modal-body">
-                            <h4 className="modaltext"></h4>
-                          </div>
-                          <div className="modal-footer">
-                            <div className="cantcancel">
-                              <a className="btn btn-warning" href="/ReturnPolicy">View Return Policy</a>
-                              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                            <div className="cancancel">
-                              <button className="btn btn-danger" onClick={this.cancelProductAction.bind(this)} id="cancelProductBtn" data-dismiss="modal"  >Yes</button>
-                              <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* feedbackProductModal */}
-
-                    <div className="modal" id="feedbackProductModal" role="dialog">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header feedbackModalHeader">
-                            <img src="/favicon.ico" alt="" />
-                            <h4 className="modal-title modalheadingcont">PRODUCT REVIEW</h4>
-                            <button type="button" className="close modalclosebut" onClick={this.closeModal.bind(this)} data-dismiss="modal">&times;</button>
-                          </div>
-                          <div className="modal-body">
-                            <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12">
-                              <table className="data table table-order-items history" id="my-orders-table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col" className="col id">Product Image</th>
-                                    <th scope="col" className="col id">Product Name</th>
-                                    <th scope="col" className="col date textAlignRight">Price</th>
-                                  </tr>
-                                </thead>
-                                <tbody>{
-                                  this.state.oneproductdetails ?
-                                    <tr>
-                                      <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" /></td>
-                                      {this.state.oneproductdetails.productNameRlang?                                      
-                                        <td data-th="Order #" className="col id RegionalFont">{this.state.oneproductdetails.productNameRlang}</td>
-                                      :
-                                        <td data-th="Order #" className="col id">{this.state.oneproductdetails.productName}</td>
-                                      }
-                                      
-                                      <td data-th="Order Total" className="col total textAlignRight"><span><i className={"fa fa-" + this.state.oneproductdetails.currency}> {this.state.oneproductdetails.discountedPrice}</i></span></td>
-                                    </tr>
-                                    :
-                                    null
-                                }
-                                </tbody>
-                              </table>
-                              <form className="feedbackForm col-12" id="">
-                                <div className="col-12 row">
-                                  <fieldset className="ratingReview stars givefeedback ">
-                                    <input type="radio" id="star1" name="ratingReview" checked={this.state.ratingReview === 1 ? true : false} onChange={this.ratingReview.bind(this)} value="1" /><label htmlFor="star1"></label>
-                                    <input type="radio" id="star2" name="ratingReview" checked={this.state.ratingReview === 2 ? true : false} onChange={this.ratingReview.bind(this)} value="2" /><label htmlFor="star2"></label>
-                                    <input type="radio" id="star3" name="ratingReview" checked={this.state.ratingReview === 3 ? true : false} onChange={this.ratingReview.bind(this)} value="3" /><label htmlFor="star3"></label>
-                                    <input type="radio" id="star4" name="ratingReview" checked={this.state.ratingReview === 4 ? true : false} onChange={this.ratingReview.bind(this)} value="4" /><label htmlFor="star4"></label>
-                                    <input type="radio" id="star5" name="ratingReview" checked={this.state.ratingReview === 5 ? true : false} onChange={this.ratingReview.bind(this)} value="5" /><label htmlFor="star5"></label>
-                                  </fieldset>
-                                  <div className="clearfix "></div>
-                                </div>
-                                <label className="error">{this.state.reviewStarError}</label>
-                                <div className="row inputrow">
-                                  <label className="col-12 mt15">Write review</label>
-                                  <div className="col-12 ">
-                                    <textarea rows="5" className="col-12 " onChange={this.handleChangeReview.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
-                                    <label className="error">{this.state.reviewTextError}</label>
-                                  </div>
-                                </div>
-                                <div className="row inputrow">
-                                </div>
-                              </form>
-                            </div>
-
-                          </div>
-                          <div className="modal-footer modalfooterborder ">
-                            <div className="col-12 actionbtn ">
-                              <button className="btn mt15" onClick={this.submitReview.bind(this)} data-productid={this.state.oneproductdetails && this.state.oneproductdetails._id}
-                              >{this.state.rating_ID ? 'Update' :'Submit'}</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                
                 
                   </div>
                 </div>

@@ -15,6 +15,11 @@
 }
 .orderNowrapper{
 	border-bottom: solid 1px #ddd;
+    background: #033554;
+    color: #fff;
+    border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	font-size: 14px;
 }
 .totalOrderBlock{
 	border-bottom: solid 1px #ddd;
@@ -25,6 +30,10 @@
 .showDetailsBtn{
 	color: #fff !important;
 	font-size: var(--globalBtnFont);
+}
+.orderStatusBadge{
+	height: 17px;
+	padding:5px;
 }
 .cancelOrderStatus{
 	color: #f00;
