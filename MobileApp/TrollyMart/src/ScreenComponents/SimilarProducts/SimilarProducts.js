@@ -29,7 +29,7 @@ export const SimilarProducts =(props)=>{
       user_ID        : user_id
     }
     console.log("formValues",formValues);
-    axios.get("/api/products/get/similar_products",formValues)
+    axios.post("/api/products/get/similar_products",formValues)
       .then((response) => {
         console.log("response",response);
         setProductList(response.data);
