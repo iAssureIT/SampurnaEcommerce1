@@ -46,6 +46,8 @@ router.get('/get/list/:sectionID', 								        productController.list_produc
 
 router.get('/get/listby/category/:categoryID/:user_ID', 		        productController.list_productby_category);
 
+router.get('/get/similar_products', 		                            productController.similar_products);
+
 router.get('/get/listbycategory/:categoryUrl', 				            productController.list_productby_categoryUrl);
 
 router.get('/get/listbysection/:sectionUrl', 					        productController.list_productby_sectionUrl);

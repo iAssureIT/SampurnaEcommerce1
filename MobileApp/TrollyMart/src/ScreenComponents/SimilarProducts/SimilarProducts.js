@@ -21,7 +21,10 @@ export const SimilarProducts =(props)=>{
   },[props]);
 
   const getData=()=>{
-    axios.get("/api/Products/get/listby/category/" + category_id+"/"+user_id)
+    var formValues = {
+      
+    }
+    axios.get("/api/products/get/similarproducts",formValues)
       .then((response) => {
         setProductList(response.data);
       })

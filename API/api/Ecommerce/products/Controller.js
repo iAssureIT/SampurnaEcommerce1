@@ -1970,6 +1970,65 @@ exports.list_productby_category = (req,res,next)=>{
         });
     });
 };
+
+
+
+exports.similar_products = (req,res,next)=>{
+    var {categoryID,user_ID,vendor_ID,subCategory_ID} = req.body;
+    if(subCategory_ID){
+        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : categoryID, "subCategory_ID"   : subCategory_ID}
+    }else{
+        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : categoryID}
+    }
+    Products.find(selector)
+    .exec()
+    .then(products=>{
+        if(products){
+            for (let k = 0; k < products.length; k++) {
+                products[k] = {...products[k]._doc, isWish:false};
+            }
+            if(user_ID && user_ID!=='null'){
+                Wishlists.find({user_ID:user_ID})
+                .then(wish=>{
+                    if(wish.length > 0){
+                        for(var i=0; i<wish.length; i++){
+                            for(var j=0; j<products.length; j++){
+                                if(String(wish[i].product_ID) === String(products[j]._id)){
+                                    products[j]= {...products[j], isWish:true};
+                                    break;
+                                }
+                            }
+                        }   
+                        if(i >= wish.length){
+                            res.status(200).json(products);
+                        }       
+                    }else{
+                        res.status(200).json(products);
+                    }
+                 })
+                 .catch(err =>{
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            }else{
+                res.status(200).json(products);
+            }    
+        }else{
+            res.status(404).json('Product Details not found');
+        }
+        // res.status(200).json(data);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+};
+
+
 exports.list_productby_categoryUrl = (req,res,next)=>{
     // console.log("categoryID==============",req.params.categoryUrl);
     Category.find({categoryUrl : req.params.categoryUrl})
