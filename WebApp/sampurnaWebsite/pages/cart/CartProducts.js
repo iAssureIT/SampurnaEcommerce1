@@ -361,9 +361,9 @@ class CartProducts extends Component{
                                                                     <div className="col-4 cartProductDetail">
                                                                         <a href={"/product-detail/" + vendorData.product_ID.productUrl + "/" +vendorData.product_ID}>
                                                                             {vendorData.product_ID.productNameRlang?
-                                                                                <h5 className="RegionalFont">{vendorData.product_ID.productNameRlang}</h5>
+                                                                                <h5 className="RegionalFont"><b>{vendorData.product_ID.productNameRlang}</b></h5>
                                                                             :
-                                                                                <h5 className="">{vendorData.product_ID.productName}</h5>
+                                                                                <h5 className=""><b>{vendorData.product_ID.productName}</b></h5>
                                                                             }
                                                                         </a>
                                                                     {
@@ -440,12 +440,12 @@ class CartProducts extends Component{
                                                         <tr>
                                                             <td>Sub Total</td>
                                                             <td className="textAlignRight">&nbsp; 
-                                                            {this.state.currency} &nbsp;{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00} </td>
+                                                            <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
                                                         </tr>
                                                         <tr>
                                                             <td>You Saved</td>
                                                             <td className="textAlignRight">&nbsp; 
-                                                            {this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00} </td>
+                                                            <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
                                                         </tr>
                                                         {/* <tr>
                                                             <td>Delivery Charges</td>
@@ -454,13 +454,13 @@ class CartProducts extends Component{
                                                         <tr>
                                                             <td>Tax</td>  
                                                             <td className="textAlignRight saving">&nbsp; 
-                                                                <span> {this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</span>
+                                                                <span> <b>{this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</b></span>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td className="cartTotal"> Totals </td>
+                                                            <td className="cartTotal"> <b>Totals</b> </td>
                                                             <td className="textAlignRight cartTotal">&nbsp; 
-                                                            {this.state.currency} &nbsp;{vendorWiseCartData.vendor_netPayableAmount}
+                                                            <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_netPayableAmount}</b>
                                                             </td>
                                                         </tr>
                                                     </tbody>
