@@ -24,6 +24,9 @@
 .infoCircle{
   cursor: pointer;
 }
+.cartWarning{
+  background: #E88686 !important;
+}
 .vendorWarning{
   color: #f00;
   font-size: 14px;

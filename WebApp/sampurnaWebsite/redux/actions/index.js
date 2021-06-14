@@ -90,6 +90,20 @@ export function getCartData() {
         return axios.get("/api/carts/get/cartproductlist/"+userid)
           .then((response)=>{ 
             if(response){   
+              // console.log("my cart response =",response.data);
+              for(let i=0;i<response.data.vendorOrders.length;i++){
+                  if(response.data.vendorOrders[i].vendor_netPayableAmount < response.data.minOrderAmount){
+                    
+                    var cartBtnDisabled = true;
+                    response.data.vendorOrders[i].invalidOrder = "cartWarning";
+                    response.data.vendorOrders[i].cartBtnDisabled = true;
+                    
+                  }
+              }
+              if(cartBtnDisabled){
+                response.data.cartBtnDisabled = true;
+              }
+              // console.log("cart response =",response.data);
               dispatch(fetchcartdata(response.data));
             }
           })

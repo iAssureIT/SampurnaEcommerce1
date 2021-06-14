@@ -326,6 +326,7 @@ class CartProducts extends Component{
     }
 
     render(){
+        console.log("this.props.recentCartData===",this.props.recentCartData.cartBtnDisabled);
         return(            
             <div className="container-fluid">
             <div className="col-12 cartHeight">
@@ -430,41 +431,38 @@ class CartProducts extends Component{
                                                             </div>
                                                         </div>
                                                     :null
-                                                    }
+                                                }
                                                 </div>
-                                                <div className={"offset-1 col-3 vendorWiseSummury cartSummary pull-right " +Style.summaryClass}>
-                                                <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
-                                                    {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
-                                                <table className="table table-responsive summaryTable">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Sub Total</td>
-                                                            <td className="textAlignRight">&nbsp; 
-                                                            <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>You Saved</td>
-                                                            <td className="textAlignRight">&nbsp; 
-                                                            <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
-                                                        </tr>
-                                                        {/* <tr>
-                                                            <td>Delivery Charges</td>
-                                                            <td className="textAlignRight saving">&nbsp; { vendorWiseCartData.vendor_shippingCharges } </td>
-                                                        </tr>                                                         */}
-                                                        <tr>
-                                                            <td>Tax</td>  
-                                                            <td className="textAlignRight saving">&nbsp; 
-                                                                <span> <b>{this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</b></span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td className="cartTotal"> <b>Totals</b> </td>
-                                                            <td className="textAlignRight cartTotal">&nbsp; 
-                                                            <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_netPayableAmount}</b>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                
+                                                <div className={"offset-1 col-3 vendorWiseSummury cartSummary pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
+                                                    <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
+                                                        {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
+                                                    <table className="table table-responsive summaryTable">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Sub Total</td>
+                                                                <td className="textAlignRight">&nbsp; 
+                                                                <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>You Saved</td>
+                                                                <td className="textAlignRight">&nbsp; 
+                                                                <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
+                                                            </tr>                                                        
+                                                            <tr>
+                                                                <td>Tax</td>  
+                                                                <td className="textAlignRight saving">&nbsp; 
+                                                                    <span> <b>{this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</b></span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td className="cartTotal"> <b>Totals</b> </td>
+                                                                <td className="textAlignRight cartTotal">&nbsp; 
+                                                                <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_netPayableAmount}</b>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             
                                             </div>
@@ -531,7 +529,7 @@ class CartProducts extends Component{
                                                 <div className="col-12">
                                                 <div className="col-12 NoPadding checkoutBtn">
                                                 {
-                                                    this.state.CheckoutBtn === false?
+                                                    this.props.recentCartData.cartBtnDisabled?
                                                     <div className="col-12 NoPadding">
                                                         <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout disableBtn" disabled>
                                                             PROCEED TO CHECKOUT
@@ -567,7 +565,7 @@ class CartProducts extends Component{
     }
 }
 const mapStateToProps = state => (
-    console.log("state in cartProductsdata====",state.data.recentCartData),
+    // console.log("state in cartProductsdata====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

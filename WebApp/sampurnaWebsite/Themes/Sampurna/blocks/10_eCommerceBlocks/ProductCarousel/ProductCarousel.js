@@ -326,7 +326,7 @@ getProductList(productApiUrl,formValues){
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      console.log("response.data in product carousel===",response.data);       
+      // console.log("response.data in product carousel===",response.data);       
       if(this.state.websiteModel === "FranchiseModel"){
         for(var i=0;i<response.data.length;i++){       
             var availableSizes = [];         
@@ -726,18 +726,19 @@ submitCart(event) {
                                       {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
                                     </div>
                                     <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
-                                    <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
-                                    <a className={Style.product_item_photo } tabIndex="-1" >                                      
-                                      <Image                                           
-                                        src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
-                                        alt="ProductImg" 
-                                        className={"img-responsive " +Style.NoAvailableImg }
-                                        height={200}
-                                        width={265} 
-                                        layout={'intrinsic'}
-                                      />
-                                    </a>
-                                    </Link>
+                                      {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
+                                      <Link href={"/vendorlist/" +data._id}>
+                                      <a className={Style.product_item_photo } tabIndex="-1" >                                      
+                                        <Image                                           
+                                          src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
+                                          alt="ProductImg" 
+                                          className={"img-responsive " +Style.NoAvailableImg }
+                                          height={200}
+                                          width={265} 
+                                          layout={'intrinsic'}
+                                        />
+                                      </a>
+                                      </Link>
                                     </div>
                                   </div>
                                   <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
