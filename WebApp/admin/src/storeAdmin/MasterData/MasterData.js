@@ -14,7 +14,7 @@ import TaxRate            			from './TaxRate/TaxRate.js';
 // import UnitOfMeasurment   		from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
 import UnitOfMeasurment   			from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
 import PhotoGallery       			from './Gallery/component/Gallery.js';
-import OrderStatus   				from './orderStatusManagement/orderStatusManagement.js';
+import OrderStatus   				from './orderStatusManagement/OrderStatusMaster.js';
 import BannerImages       			from './BannerImages/component/BannerImages.js';
 import DistanceRange       			from './DistanceRange/DistanceRange.js';
 import OrderDeliveryPolicy      	from './OrderDeliveryPolicy/OrderDeliveryPolicy.js';
@@ -126,14 +126,14 @@ import OrderCancellationPolicy      from './OrderCancellationPolicy/OrderCancell
 													{/* <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#TaxName" data-toggle="tab">         Tax Name         </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#TaxRate" data-toggle="tab">         Tax Rate         </a></li> */}
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#UnitOfMeasurment" data-toggle="tab">Unit of Measurement Master</a></li>
-													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#distanceRange" data-toggle="tab">Distance Range</a></li>
-													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#ShippingManagement" data-toggle="tab">Shipping Master </a></li>
+													{/* <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#distanceRange" data-toggle="tab">Distance Range</a></li> */}
+													{/* <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#ShippingManagement" data-toggle="tab">Shipping Master </a></li> */}
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#TimeManagement" data-toggle="tab">Time Master </a></li>
-													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#PhotoGallery" data-toggle="tab">Photo Gallery Master</a></li>
 													{ this.state.showOrderStatus !== "No" ? <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderStatus" data-toggle="tab">Order Status Master</a></li> : null } 
-													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#BannerImages" data-toggle="tab">Mobile Banner Images </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderDeliveryPolicy" data-toggle="tab">Order Delivery Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderCancellationPolicy" data-toggle="tab">Order Cancellation Policy </a></li>
+													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#PhotoGallery" data-toggle="tab">Photo Gallery Master</a></li>
+													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#BannerImages" data-toggle="tab">Mobile Banner Images </a></li>
 												</ul>   
 											</div>                      
 											<div className="tab-content col-lg-9 col-md-9 col-xs-12 col-sm-12">   

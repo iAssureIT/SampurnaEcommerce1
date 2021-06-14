@@ -257,7 +257,8 @@ class Layout extends Component  {
                                                         <Route path="/franchise-order-view/:orderId"                    exact strict component={OrderPurchaseView} />
 
                                                         { /*Order List*/}
-                                                        <Route path="/allorders"                                        exact strict component={AllOrdersList} />
+                                                        {/* <Route path="/allorders"                                        exact strict component={AllOrdersList} /> */}
+                                                        <Route path="/orders-list/:orderStatus"                           exact strict component={AllOrdersList} />
                                                         <Route path="/new-orders-list"                                  exact strict component={NewOrdersList} />
                                                         <Route path="/verified-orders-list"                             exact strict component={VerifiedOrdersList} />
                                                         <Route path="/packed-orders-list"                               exact strict component={PackedOrdersList} />

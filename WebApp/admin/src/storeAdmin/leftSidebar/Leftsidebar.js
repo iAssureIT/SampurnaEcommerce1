@@ -139,7 +139,7 @@ export default class AdminDashboard extends Component{
 	}
 
 	activeMenu(event){
-		// console.log('event.currentTarget',event.currentTarget);
+		console.log('event.currentTarget',event.currentTarget);
 		event.preventDefault();
 		var a 			= event.currentTarget
 		var pathname 	= event.currentTarget.getAttribute("data-id"); 
@@ -263,22 +263,22 @@ export default class AdminDashboard extends Component{
 								</span>
 							</a>
 							<ul className="treeview-menu" > 
-							{/* <li className="noPadLR"> 
-								<a href="/allorders" data-id="/allorders" onClick={this.activeMenu.bind(this)} title="All Orders">
+							<li className="noPadLR"> 
+								<a href="/orders-list/all" data-id="/orders-list/all" onClick={this.activeMenu.bind(this)} title="All Orders">
 									<i className="fa fa-circle-o dashr" />All Orders
 								</a> 
 							</li> 
 							{Array.isArray(this.state.orderStatusData) && this.state.orderStatusData.map( (data,index)=>{
+								var status = (data.orderStatus).replace(/\s+/g, '-').toLowerCase();
 								return(
 									<li className="noPadLR"> 
-										<a href="/new-orders-list" data-id="/new-orders-list" title="New Order List" onClick={this.activeMenu.bind(this)}>
-											<i className="fa fa-circle-o dashr" />{data.orderStatus}
+										<a href={"/orders-list/"+status} data-id={"/orders-list/"+status} title={data.orderStatus + " Orders"} onClick={this.activeMenu.bind(this)}>
+											<i className="fa fa-circle-o dashr" />{data.orderStatus + " Orders"}
 										</a> 
 									</li>  
 								)
-							})  
-							}              */}
-								<li className="noPadLR"> 
+							})}              
+								{/* <li className="noPadLR"> 
 									<a href="/allorders" data-id="/allorders" onClick={this.activeMenu.bind(this)} title="All Orders">
 										<i className="fa fa-circle-o dashr" />All Orders
 									</a> 
@@ -323,7 +323,7 @@ export default class AdminDashboard extends Component{
 									<a href="/delivered-orders-list" data-id="/delivered-orders-list" title="Delivered & Paid Order List" onClick={this.activeMenu.bind(this)}>
 										<i className="fa fa-circle-o dashr" />Delivered & Paid Order List
 									</a> 
-								</li>  
+								</li>   */}
 
 							</ul>
 						</li>
@@ -461,7 +461,7 @@ export default class AdminDashboard extends Component{
 						: 
 							null 
 						}
-							 {this.state.showDiscount !== 'No'
+						{/* {this.state.showDiscount !== 'No'
 						 ?
 								<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
 									<a href="/discount-management" title="Discount Management" onClick={()=>this.openMenu("dashboard")}>
@@ -471,7 +471,7 @@ export default class AdminDashboard extends Component{
 								</li>
 						 :
 						 null
-						 }   
+						 }    */}
 							
 						
 					{this.state.showCoupenCode !== 'No'?

@@ -1,13 +1,13 @@
-import React, { Component }   from 'react';
-import $                      from 'jquery';
-import axios                  from 'axios';
-import jQuery                 from 'jquery';
-import swal                   from 'sweetalert';
-import S3FileUpload           from 'react-s3';
-import moment                 from "moment";
-// import { result }             from 'underscore';
-import IAssureTable           from "../OrderTable/IAssureTable.jsx";
-// import IAssureTable           from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
+import React, { Component }   	from 'react';
+import $                      	from 'jquery';
+import axios                  	from 'axios';
+import jQuery                 	from 'jquery';
+import swal                   	from 'sweetalert';
+import S3FileUpload           	from 'react-s3';
+import moment                 	from "moment";
+import IAssureTable           	from "../OrderTable/IAssureTable.jsx";
+// import { result }            from 'underscore';
+// import IAssureTable          from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
 // import '../css/CategoryManagement.css';
@@ -102,8 +102,79 @@ class AllOrdersList extends Component{
 	componentDidMount(){
 		this.getDataCount();
 		this.getData(this.state.startRange,this.state.limitRange);
-
+		var currency = localStorage.getItem("preferencedata");
+		console.log("currency => ",currency)
 		// this.getSubCategoryData(this.state.startRange,this.state.limitRange);
+		this.getAdminPreferences();
+		this.getAllorderStatus();
+	}
+
+	
+	getAllorderStatus(){
+		axios.get('/api/orderstatus/get/list')
+		.then((response) => {
+			// console.log("getAllorderStatus 402 response ==>",response)
+			this.setState({
+				"orderStatusArray": response.data,
+			},()=>{
+					console.log("getAllorderStatus response ==>",response)
+			})
+		})
+		.catch((error) => {
+			console.log("Error in orderstatus = ", error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+							window.location.href = "/login";
+					}
+				});
+			}
+		})
+	}
+
+	//======= Admin Preferences ==========
+	getAdminPreferences(){
+		axios.get("/api/adminpreference/get")
+		.then(preferences =>{
+			if(preferences.data){
+				// console.log("preferences.data[0] => ",preferences.data[0])
+				// var askpincodeToUser = preferences.data[0].askPincodeToUser;
+
+				this.setState({
+					'websiteModel'     	: preferences.data[0].websiteModel,
+					'askPincodeToUser' 	: preferences.data[0].askPincodeToUser,
+					'showLoginAs'      	: preferences.data[0].showLoginAs,
+					'showInventory'    	: preferences.data[0].showInventory,
+					'showDiscount'    	: preferences.data[0].showDiscount,
+					'showCoupenCode'    : preferences.data[0].showCoupenCode,
+					'showOrderStatus'   : preferences.data[0].showOrderStatus,
+					'currency' 			: preferences.data[0].currency,
+					'unitOfDistance' 	: preferences.data[0].unitOfDistance
+				})									
+			}
+		})
+		.catch(error=>{
+				console.log("Error in preferences = ", error);
+				if(error.message === "Request failed with status code 401"){
+					var userDetails =  localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+							title : "Your Session is expired.",                
+							text  : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+					if (okay) {
+							window.location.href = "/login";
+					}
+					});
+				}
+		})
 	}
 
 	getDataCount(){
@@ -150,7 +221,7 @@ class AllOrdersList extends Component{
 					orderNumber     : a.orderID,
 					orderDate       : moment(a.createdAt).format("DD/MM/YYYY"),
 					customer     	: '<div><b>'+ a.userFullName +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
-					totalPrice  	: a.paymentDetails.currency + " " + a.paymentDetails.netPayableAmount,					
+					totalPrice  	: this.state.currency + " " + a.paymentDetails.netPayableAmount,					
 					vendorName   	: a.vendorOrders 
 										? 
 											(a.vendorOrders.map((b)=>{
@@ -160,7 +231,7 @@ class AllOrdersList extends Component{
 					vendorPrice   	: a.vendorOrders 
 										? 
 											(a.vendorOrders.map((b)=>{
-												return ('<div>'+ a.paymentDetails.currency + " " + b.vendor_afterDiscountTotal + '</div>').trim(",")
+												return ('<div>'+ this.state.currency + " " + b.vendor_afterDiscountTotal + '</div>').trim(",")
 											})).join(' ')
 										: [],
 					vendorStatus   	: a.vendorOrders 
@@ -169,9 +240,9 @@ class AllOrdersList extends Component{
 												var status = (b.deliveryStatus[b.deliveryStatus.length - 1].status).replace(/\s+/g, '-').toLowerCase()
 												console.log("b.deliveryStatus => ",b.deliveryStatus)
 												console.log("status => ",status)
-												return '<div>'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
+												return '<div class="statusDiv">'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
 													? 
-														"<a aria-hidden='true' class='statusDiv  " + status + "'>" +(b.deliveryStatus[b.deliveryStatus.length - 1].status) + "</a>"
+														"<a aria-hidden='true' class='" + status + "'>" +(b.deliveryStatus[b.deliveryStatus.length - 1].status) + "</a>"
 													 
 													: 
 														'') + '</div>'
@@ -183,7 +254,7 @@ class AllOrdersList extends Component{
 												// url = url.replace(/\s+/g, '-').toLowerCase();
 												
 												return(
-														"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "' onclick=window.changeVendorOrderStatus('" + a._id + "-" + b.vendor_id + "')> Change Status </div>"
+														"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "' onclick=window.changeVendorOrderStatus('" + a._id + "-" + b.vendor_id + "') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
 													 
 												)
 											})).join(' ')
@@ -217,6 +288,18 @@ class AllOrdersList extends Component{
 			}
 		});
 	}
+
+	/*======== openCancelledRemarkModal() ========*/
+	openCancelledRemarkModal(id){
+		if(id){
+		   this.setState({ 
+			   masterInvoice_id 	: id,
+			   downloadFlag 		: false 
+		   },()=>{
+				 this.getSingleMasterInvoiceRecord(this.state.masterInvoice_id);
+		   })
+		}
+   	}
 	
 	getSearchText(searchText, startRange, limitRange){
 		this.getSearchCount(searchText);
@@ -360,6 +443,28 @@ class AllOrdersList extends Component{
 									</div>
 								</div>
 							</section>
+						</div>
+					</div>
+				</div>
+				<div className="modal fade" id="changeOrderStatusModal" role="dialog">
+					<div className="modal-dialog modal-lg">
+						<div className="modal-content">
+							<div className="modal-header">
+								<button type="button" className="close" data-dismiss="modal">&times;</button>
+								<h4 className="modal-title">Modal Header</h4>
+							</div>
+							<div className="modal-body">
+								<ol class="progtrckr" data-progtrckr-steps="5">
+									<li class="progtrckr-done">Order Processing</li>
+									<li class="progtrckr-done">Pre-Production</li>
+									<li class="progtrckr-done">In Production</li>
+									<li class="progtrckr-wip">Shipped</li>
+									<li class="progtrckr-todo">Delivered</li>
+								</ol>
+							</div>
+							<div className="modal-footer">
+								<button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
 						</div>
 					</div>
 				</div>
