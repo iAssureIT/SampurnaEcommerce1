@@ -1977,9 +1977,9 @@ exports.similar_products = (req,res,next)=>{
     console.log("req.body",req.body);
     var {category_ID,user_ID,vendor_ID,section_ID,subCategory_ID,section_ID,product_ID} = req.body;
     if(subCategory_ID){
-        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : category_ID, "subCategory_ID"   : subCategory_ID,"section_ID":section_ID,product_ID:{$neq:product_ID}}
+        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : category_ID, "subCategory_ID"   : subCategory_ID,"section_ID":section_ID,product_ID:{$ne:product_ID}}
     }else{
-        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : category_ID,"section_ID":section_ID,product_ID:{$neq:product_ID}}
+        var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : category_ID,"section_ID":section_ID,product_ID:{$ne:product_ID}}
     }
     Products.find(selector)
     .exec()
