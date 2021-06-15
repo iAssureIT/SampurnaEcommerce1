@@ -28,12 +28,11 @@ import {getCartCount}         from '../../redux/productList/actions';
 import {useDispatch }         from 'react-redux';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import { useIsFocused } from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
 export const SubCatCompView = withCustomerToaster((props)=>{
-  const [isOpen,setOpen]                    = useState(false);
   const [countofprod,setCounterProd]        = useState(1);
   const [wishlisted,setWishListed]          = useState('');
   const [alreadyincarts,setAlreadyInCarts]  = useState(false);
-  const [wishlistedproduct,setWishListedProduct] = useState(false);
   const [alreadyinwishlist,setAlreadyInWishlist] = useState(false);
   const [user_id,setUserId]                = useState('');
   const [productdata,setProductData]        = useState([]);
@@ -115,32 +114,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     setNumber(parseInt(number));
   }
 
-  
-  // const handlePressAddCart=()=>{
-  //   const formValues = {
-  //     "user_ID": user_id,
-  //     "product_ID": productID,
-  //     "quantity": number === undefined || "" ? 1 : number,
-  //   }
-  //   console.log("formValues addCart =========>", formValues);
-  //   axios
-  //     .post('/api/Carts/post', formValues)
-  //     .then((response) => {
-  //       setAddToCart(true);
-  //     })
-  //     .catch((error) => {
-  //       setAlreadyInCarts(true);
-  //       if (error.response.status == 401) {
-  //         AsyncStorage.removeItem('user_id');
-  //         AsyncStorage.removeItem('token');
-  //         setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-  //         navigation.navigate('Auth')
-  //       }else{
-  //         setToast({text: 'Something went wrong.', color: 'red'});
-  //       }  
-  //     })
-  // }
-
 
   const handlePressAddCart=()=>{
     if(user_id){
@@ -204,7 +177,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               <View style={styles.imgvw}>
                 {productdata.productImage && productdata.productImage.length>0 ?
                  <Carousel
-                    autoplay={false}
+                    autoplay={true}
                     autoplayTimeout={10000}
                     loop={false}
                     index={0}
@@ -212,10 +185,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     >
                     {productdata.productImage.map((image, index) => {
                     return (
-                      <Image
-                      source={{ uri: image}}
+                      <FastImage
+                      source={{ 
+                        uri: image,
+                        priority: FastImage.priority.high, 
+                        cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
+                      }}
                       style={styles.saleimg}
-                      resizeMode="contain"
+                      resizeMode={FastImage.resizeMode.contain}
                     />
                     );
                   })}
@@ -248,16 +225,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <Text numberOfLines={1} style={styles.shortDescription}>{shortDescription}</Text> */}
                 </View>
                 <View style={styles.flxdirview}>
-                  {/* <Icon
-                    name={productdata.currency}
-                    type="font-awesome"
-                    size={18}
-                    color="#333"
-                    iconStyle={styles.rupeeicn}
-                  /> */}
                   <Text style={styles.proddetprice}>{currency} </Text>
                   {/* <Text style={styles.rupeetxt}> {discountedPrice}</Text> */}
-                  <Text style={styles.proddetprice}>{productdata.discountedPrice}  {productdata.size ? <Text style={styles.packofnos}> - {productdata.size}  {productdata.unit}</Text> : null}</Text>
+                  <Text style={styles.proddetprice}>{productdata.discountedPrice.toFixed(2)}  {productdata.size ? <Text style={styles.packofnos}> - {productdata.size}  {productdata.unit}</Text> : null}</Text>
                 </View>
               </View>
               <View style={styles.orderstatus}>

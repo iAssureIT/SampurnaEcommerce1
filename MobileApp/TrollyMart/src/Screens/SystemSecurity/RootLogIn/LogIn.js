@@ -245,7 +245,7 @@ const window = Dimensions.get('window');
       new GraphRequestManager().addRequest(profileRequest).start();
     };
 
-     loginWithFacebook = () => {
+    const loginWithFacebook = () => {
       // Attempt a login using the Facebook login dialog asking for default permissions.
       LoginManager.logInWithPermissions(['public_profile']).then(
         login => {
@@ -308,9 +308,27 @@ const window = Dimensions.get('window');
       })
     }
 
+    const getRandomInt=(min, max)=>{
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
 
+    
     const login_guest =()=>{
-      axios.post('/api/auth/post/signup/user/otp/new',formValues)
+      var formValues = {
+        firstname   : "",
+        lastname    : "",
+        mobNumber   : "",
+        pincode     : "",
+        email       : "",
+        pwd         : "guest"+getRandomInt(1000, 9999),
+        role        : 'user',
+        status      : 'active',
+        countryCode : "",
+        authService : "guest"
+      }
+      axios.post('/api/auth/post/signup/user/guest_login',formValues)
       .then((res) => {
         console.log("response",res);
         // setLoading(false)
@@ -463,8 +481,8 @@ const window = Dimensions.get('window');
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
                   title       = {'Continue As a Guest'}
-                  onPress     = {()=>navigation.navigate('LocationMain')}
-                  // onPress     = {()=>login_guest()}
+                  // onPress     = {()=>navigation.navigate('LocationMain')}
+                  onPress     = {()=>login_guest()}
                   background  = {true}
                   // loading     = {btnLoading}
               />

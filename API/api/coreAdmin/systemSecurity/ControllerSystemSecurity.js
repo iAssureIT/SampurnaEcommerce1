@@ -1919,6 +1919,170 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 };
 
 
+
+exports.user_signup_guest_login = (req, res, next) => {
+	console.log("req body",req.body);
+		if(req.body.pwd && req.body.role) {
+			var userRole = (req.body.role).toLowerCase();
+			if (userRole) {
+				Role.findOne({ role: userRole })
+					.exec()
+					.then(role => {
+						if (role) {
+							User.findOne({'authService':'guest'}).sort({_id:-1}).limit(1)
+							.exec()
+							.then(users => {
+								console.log("users",users);
+									bcrypt.hash(req.body.pwd, 10, (err, hash) => {
+										if (err) {
+											console.log("err",err);
+											return res.status(500).json({
+												message: "Failed to match the password",
+												error: err
+											});
+										} else {
+											var emailOTP = getRandomInt(1000, 9999);
+											if (emailOTP) {
+												const user = new User({
+													_id: new mongoose.Types.ObjectId(),
+													createdAt: new Date,
+													services: {
+														password: {
+															bcrypt: hash
+
+														},
+													},
+													username: users ? parseInt(users.username)+1 : 1,
+													authService : req.body.authService,
+													profile:
+													{
+														firstname : req.body.firstname,
+														lastname: req.body.lastname,
+														fullName: req.body.firstname + ' ' + req.body.lastname,
+														email: req.body.email ? req.body.email.toLowerCase() : '',
+														companyID: req.body.companyID,
+														pincode: req.body.pincode,
+														companyName: req.body.companyName,
+														mobile: req.body.mobNumber,
+														createdAt: new Date(),
+														otpEmail: 1234,
+														countryCode : req.body.countryCode,
+														status: req.body.status ? req.body.status : "Inactive",
+														createdBy: req.body.createdBy,
+													},
+													roles: [userRole]
+												});
+												if (!req.body.firstname) {
+													user.profile.fullName = req.body.fullName;
+												}
+												user.save()
+													.then(result => {
+														if (result) {
+															const token = jwt.sign({
+																email: req.body.email,
+																userId: user._id,
+															}, globalVariable.JWT_KEY,
+																{
+																	// expiresIn: "365d"
+																	expiresIn: globalVariable.timeOutLimitSecs
+																}
+															);
+							
+														User.updateOne(
+															{ "_id": ObjectID(result._id)},
+															{
+																$push: {
+																	"services.resume.loginTokens": {
+																		whenLogin: new Date(),
+																		loginTimeStamp: new Date(),
+																		hashedToken: token
+																	}
+																}
+															}
+														)
+															.exec()
+															.then(updateUser => {
+																if (updateUser.nModified == 1) {
+																	res.status(200).json({
+																		message: 'Login Auth Successful',
+																		token: token,
+																		roles: user.roles,
+																		ID: user._id,
+																		loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
+																		companyID: user.profile.companyID,
+																		userDetails: {
+																			firstName: user.profile.firstname,
+																			lastName: user.profile.lastname,
+																			email: user.profile.email,
+																			countryCode : user.profile.countryCode,
+																			phone: user.profile.phone,
+																			city: user.profile.city,
+																			deliveryAddress: user.deliveryAddress,
+																			pincode: user.profile.pincode,
+																			companyID: user.profile.companyID,
+																			company_id: user.profile.company_id,
+																			companyName: user.profile.companyName,
+																			locationID: user.profile.locationID,
+																			user_id: user._id,
+																			roles: user.roles,
+																			token: token,
+																		}
+																	});
+																} else {
+																	return res.status(200).json({
+																		message: 'INVALID_PASSWORD'
+																	});
+																}
+															})
+						
+															.catch(err => {
+																console.log("500 err ", err);
+																res.status(500).json({
+																	message: "Failed to save token",
+																	error: err
+																});
+															});
+														}else {
+															res.status(200).json({ message: "USER_NOT_CREATED"})
+														}
+													})
+													.catch(err => {
+														console.log(err);
+														res.status(500).json({
+															message: "Failed to save User Details",
+															error: err
+														});
+													});
+											}
+										}
+									});
+								})
+								.catch(err => {
+									console.log(err);
+									res.status(500).json({
+										message: "Failed which finding the User",
+										error: err
+									});
+								});
+						} else {
+							res.status(200).json({ message: "Role does not exits" });
+						}
+					})
+					.catch(err => {
+						console.log(err);
+						res.status(500).json({
+							message: "Failed when trying to find Role",
+							error: err
+						});
+					});
+			}
+		} else {
+			res.status(200).json({ message: "Email, pwd and role are mandatory" });
+		}
+};
+
+
+
 exports.set_send_otp = (req, res, next) => {
 	console.log("re body",req.body);
 	User.findOne({$or:[

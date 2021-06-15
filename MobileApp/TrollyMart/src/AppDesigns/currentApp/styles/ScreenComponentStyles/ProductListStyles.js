@@ -439,6 +439,7 @@ export default StyleSheet.create({
 	subcatimg: {
 		height:150,
 		width:"100%",
+		backgroundColor:"#eee"
 			// borderWidth: 1, borderBottomColor: '#ccc',
 	},
 	noprod: {

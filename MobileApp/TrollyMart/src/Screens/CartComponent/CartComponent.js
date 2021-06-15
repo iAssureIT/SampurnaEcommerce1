@@ -199,7 +199,7 @@ const getshippingamount=(startRange, limitRange)=>{
 }
 
   if(cartData && cartData.vendorOrders && cartData.vendorOrders.length>0){
-  var disabled = cartData.vendorOrders.every(el => el.vendor_afterDiscountTotal > cartData.minOrderAmount);
+  var disabled = cartData.vendorOrders.every(el => el.vendor_afterDiscountTotal >= cartData.minOrderAmount);
   }
   console.log("disabled")
 

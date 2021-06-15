@@ -239,8 +239,6 @@ const window = Dimensions.get('window');
               background  = {true}
               loading     = {btnLoading}
             />
-           
-       
             <View
               style={[
                 {

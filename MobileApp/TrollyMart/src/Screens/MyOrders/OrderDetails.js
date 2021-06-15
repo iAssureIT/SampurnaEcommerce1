@@ -24,6 +24,7 @@ import StepIndicator        from 'react-native-step-indicator';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import CountDown from 'react-native-countdown-component';
 import Modal                from "react-native-modal";
+import { useIsFocused }     from "@react-navigation/native";
   const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
   const customStyles = {
     stepIndicatorSize                 : 25,
@@ -52,18 +53,12 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const {navigation,route,setToast}=props;
   const [isOpen,setOpen]=useState(false);
   const [cancelOrderModal,setCancelOrderModal] =useState(false);
-  const [ordernumber,setOrderNumber] =useState("");
-  const [currentPosition,setCurrentPosition]=useState(0);
-  const [myorders,setMyOrders]=useState([]);
-  const [totalamount,setTotalAmount]=useState(0);
-  const [userName,setUserName]=useState('');
-  const [userFullName,setUserFullName]=useState('');
-  const [mobileNumber,setMobNum]=useState('');
-  const [deliveryAddress,setDeliveryAdd]=useState('');
   const [order,setOrder]=useState('');
   const [cancelOrderId,setCancelOrderId]=useState('');
   const [cancelVendorId,setCancelVendorId]=useState('');
+  const [loading,setLoading]=useState(true);
   const {orderid}=route.params;
+  const isFocused = useIsFocused();
 
 
   const store = useSelector(store => ({
@@ -75,15 +70,17 @@ export const OrderDetails = withCustomerToaster((props)=>{
 
   useEffect(() => {
     getorderlist(orderid);
-}, [props]);
+}, [props,isFocused]);
 
  
 
   const getorderlist=(orderid)=>{
+    setLoading(true);
     axios.get('/api/orders/get/one/' + orderid)
       .then((response) => {
         console.log("getorderlist",response.data);
           setOrder(response.data);
+          setLoading(false);
       })
       .catch((error) => {
         console.log("error",error);
@@ -93,7 +90,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
+          setToast({text: 'Something went wrong2.', color: 'red'});
         }  
       });
   }
@@ -138,7 +135,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
               setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
               navigation.navigate('Auth')
             }else{
-              setToast({text: 'Something went wrong.', color: 'red'});
+              setToast({text: 'Something went wrong1.', color: 'red'});
             }  
           })
       });
@@ -154,6 +151,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
     var min = moment(orderDate).add(order.maxDurationForCancelOrder, 'minutes');
     var duration = moment.duration(min.diff(new Date())).asSeconds();
     if(duration > 0 &&duration < order.maxDurationForCancelOrder*60){
+      setTimeout(function(){getorderlist(orderid) },  Math.abs(duration) *1000);
       return true;
     }else{
       return false;
@@ -173,334 +171,298 @@ const cancelorderbtn = (id,vendor_id) => {
   setCancelVendorId(vendor_id);
 }
 
-    if (props.loading) {
-      return (
-        <Loading />
-      );
-    } else {
-      return (
-        <React.Fragment>
-          <HeaderBar3
-            goBack={navigation.goBack}
-            navigate={navigation.navigate}
-            headerTitle={"My Orders Details"}
-            toggle={() =>toggle()}
-            openControlPanel={() => openControlPanel()}
-          />
-          <View style={styles.superparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-              <View style={styles.formWrapper}>
-                <View style={styles.parent}>
+    return (
+      <React.Fragment>
+        <HeaderBar3
+          goBack={navigation.goBack}
+          navigate={navigation.navigate}
+          headerTitle={"My Orders Details"}
+          toggle={() =>toggle()}
+          openControlPanel={() => openControlPanel()}
+        />
+      {loading?
+        <Loading/>
+        :
+        <View style={styles.superparent}>
+          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+            <View style={styles.formWrapper}>
+              <View style={styles.parent}>
 
-                  <View style={[styles.prodinfoparent]}>
-                    <View style={{flexDirection:'row'}}>
-                      <View style={styles.orderid}>
-                        <Text style={styles.orderidinfo}>Order No :</Text>
-                        <Text style={styles.orderidinfo}>{order.orderID}</Text>
-                      </View>
-                      <View style={styles.orderid}>
-                        <Text style={styles.orderidinfo}>Date : </Text>
-                        <Text style={styles.orderidinfo}>{moment(order.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
-                      </View>
-                    </View> 
-                  </View>  
-                    {/* <View style={styles.addressdetais}>
-                      <Text style={styles.addtitle}>Shipping Address <Text style={styles.addressdets}>: {order.deliveryAddress ? order.deliveryAddress.addressLine2+" "+order.deliveryAddress.addressLine1 : "NA"}</Text></Text>
-                      <Text style={styles.addtitle}>Mobile Number <Text style={styles.addressdets}>: {order.deliveryAddress ?  order.deliveryAddress.mobileNumber : "NA"}</Text></Text>
-                    </View> */}
-                    {
-                      order && order.vendorOrders.length > 0 ?
-                      order.vendorOrders.map((vendor,i)=>{
-                        var position = 0;
-                        console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status);
-                        if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "New Order" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Verified") {
-                          position = 0;
-                        } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Packed" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Inspection" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
-                          position = 1;
-                        } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Dispatch" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
-                          position = 2;
-                        } 
-                        else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid") {
-                          position = 4;
-                        }  
-                        return(
-                        <View style={styles.prodinfoparent1}>
-                          <View style={{marginBottom:5}}>
-                            <Text style={[styles.totaldata]}>{vendor.vendor_id.companyName}</Text>
-                          </View> 
-                          <View style={styles.orderstatusmgtop}>
-                            {
-                              vendor && vendor.deliveryStatus
-                                && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                                <View style={styles.orderstatus}>
-                                  <StepIndicator
-                                    customStyles={customStyles}
-                                    currentPosition={position}
-                                    labels={labels}
-                                    stepCount={4}
-                                  />
+                <View style={[styles.prodinfoparent]}>
+                  <View style={{flexDirection:'row'}}>
+                    <View style={styles.orderid}>
+                      <Text style={styles.orderidinfo}>Order No :</Text>
+                      <Text style={styles.orderidinfo}>{order.orderID}</Text>
+                    </View>
+                    <View style={styles.orderid}>
+                      <Text style={styles.orderidinfo}>Date : </Text>
+                      <Text style={styles.orderidinfo}>{moment(order.createdAt).format("DD/MM/YYYY hh:mm a")}</Text>
+                    </View>
+                  </View> 
+                </View>  
+                  {/* <View style={styles.addressdetais}>
+                    <Text style={styles.addtitle}>Shipping Address <Text style={styles.addressdets}>: {order.deliveryAddress ? order.deliveryAddress.addressLine2+" "+order.deliveryAddress.addressLine1 : "NA"}</Text></Text>
+                    <Text style={styles.addtitle}>Mobile Number <Text style={styles.addressdets}>: {order.deliveryAddress ?  order.deliveryAddress.mobileNumber : "NA"}</Text></Text>
+                  </View> */}
+                  {
+                    order && order.vendorOrders.length > 0 ?
+                    order.vendorOrders.map((vendor,i)=>{
+                      var position = 0;
+                      console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status);
+                      if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "New Order" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Verified") {
+                        position = 0;
+                      } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Packed" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Inspection" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
+                        position = 1;
+                      } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Dispatch" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
+                        position = 2;
+                      } 
+                      else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid") {
+                        position = 4;
+                      }  
+                      return(
+                      <View style={styles.prodinfoparent1}>
+                        <View style={{marginBottom:5}}>
+                          <Text style={[styles.totaldata]}>{vendor.vendor_id.companyName}</Text>
+                        </View> 
+                        <View style={styles.orderstatusmgtop}>
+                          {
+                            vendor && vendor.deliveryStatus
+                              && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled' ?
+                              <View style={styles.orderstatus}>
+                                <StepIndicator
+                                  customStyles={customStyles}
+                                  currentPosition={position}
+                                  labels={labels}
+                                  stepCount={4}
+                                />
+                              </View>
+                              :
+                              // <View style={styles.orderstatus}>
+                                <Text style={styles.ordercancelled}>{vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status}</Text>
+                              // </View>
+                          }
+                        </View>
+                        
+                        {vendor.products.map((pitem, index) => {
+                          // console.log("pitem===>", pitem);
+                          return (
+                            <Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+                              <View style={{flex:0.3}}>
+                                {pitem.productImage[0] ?<Image
+                                  style={styles.img15}
+                                  source={{ uri: pitem.productImage[0] }}
+                                  resizeMode="contain"
+                                />:
+                                <Image
+                                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                  style={styles.img15}
+                                />
+                              }
+                              </View>
+                              <View style={{flex:0.7,paddingHorizontal:5}}>
+                                <Text style={styles.prodinfo}>{pitem.productName}</Text>
+                                <Text style={styles.prodinfo}> {pitem.quantity} Pack </Text>
+                                <View style={styles.flx4}>
+                                  <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
+                                    <View style={[styles.flxdir]}>
+                                      <View style={[styles.flxdir]}>
+                                        <Text style={styles.ogprice}>{currency} </Text>
+                                        {pitem.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(pitem.originalPrice * pitem.quantity).toFixed(2)}</Text>}
+                                      </View>
+                                      <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                          <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                          </Text>
+                                      </View>
+                                      {pitem.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
+                                          <Text style={styles.ogprice}>( {pitem.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                          </Text>
+                                      </View>}
+                                    </View>
+                                  </View>
                                 </View>
-                                :
-                                // <View style={styles.orderstatus}>
-                                  <Text style={styles.ordercancelled}>{vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status}</Text>
-                                // </View>
-                            }
+                              </View>  
+                            </Card>
+                          );
+                        })}
+                        <View style={styles.totaldetails}>
+                          <View style={styles.flxdata}>
+                            <View style={{ flex: 0.6,flexDirection:"row" }}>
+                              <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
+                              <Text style={styles.totaldata}>Total</Text>
+                            </View>
+                            <View style={{ flex: 0.4 }}>
+                              <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
+                              </View>
+                            </View>
                           </View>
-                          {cancelButton(order.createdAt) ?
-                           vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'  && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid" ?
+                          <View style={styles.flxdata}>
+                            <View style={{ flex: 0.6 }}>
+                              <Text style={styles.totaldata}>You Saved </Text>
+                            </View> 
+                            <View style={{ flex: 0.4 }}>
+                              <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                <Text style={styles.totalpriceincart}> - </Text>
+                            <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
+                              </View>
+                            </View>
+                          </View>
+                          <View style={styles.flxdata}>
+                            <View style={{ flex: 0.6 }}>
+                              <Text style={styles.totaldata}>Delivery Charges </Text>
+                            </View> 
+                            <View style={{ flex: 0.4 }}>
+                              <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                            <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_shippingCharges}</Text>
+                              </View>
+                            </View>
+                          </View>
+                          <View>
+                          </View>
+                        </View>
+                        {cancelButton(order.createdAt) ?
+                            vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'  && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid" ?
                             null
                             :
                             order.vendorOrders.length>1 && 
                             <View style={[{paddingRight:0,height:30,width:150,alignSelf:'flex-end',marginBottom:15}]}>
-                             {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'&&
-                              <TouchableOpacity style={[styles.cancelButton,{flexDirection:"row",height:30}]} onPress={()=>cancelorderbtn(order._id,vendor.vendor_id._id)}>
-                                  <Text style={[CommonStyles.text,{color:"#fff",fontFamily:"Montserrat-Medium"}]}>CANCEL THIS ORDER</Text>
-                                {/* <View style={{flexDirection:'row'}}>
-                                  <CountDown
-                                    size={10}
-                                    until={cancelTime(order.createdAt)}
-                                    onFinish={() => getorderlist()}
-                                    digitStyle={{borderWidth: 0, borderColor: '#333',margin:0,padding:0}}
-                                    digitTxtStyle={{color: '#fff',fontSize:13,fontFamily:"Montserrat-Medium"}}
-                                    timeLabelStyle={{color: '#fff', fontWeight: 'bold'}}
-                                    separatorStyle={{color: '#fff',margin:0}}
-                                    timeToShow={['M', 'S']}
-                                    timeLabels={{m: null, s: null}}
-                                    showSeparator={true}
-                                    style={{margin:0,}}
-                                  />
-                                  <Text style={{color:"#fff",alignSelf:'center',fontFamily:"Montserrat-Medium",fontSize:13}}>MINUTES</Text>
-                                </View>   */}
-                              </TouchableOpacity>}
-                            </View>
+                              {vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status && vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status !== 'Cancelled'&&
+                                  <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",alignSelf:'flex-end'}]} onPress={()=>cancelorderbtn(order._id,vendor.vendor_id._id)}>Cancel this order</Text>
+                              }
+                              </View>
                             :
                             null
                           }
-                          {vendor.products.map((pitem, index) => {
-                            // console.log("pitem===>", pitem);
-                            return (
-                              <Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
-                                <View style={{flex:0.3}}>
-                                  {pitem.productImage[0] ?<Image
-                                    style={styles.img15}
-                                    source={{ uri: pitem.productImage[0] }}
-                                    resizeMode="contain"
-                                  />:
-                                  <Image
-                                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                                    style={styles.img15}
-                                  />
-                                }
-                                </View>
-                                <View style={{flex:0.7,paddingHorizontal:5}}>
-                                  <Text style={styles.prodinfo}>{pitem.productName}</Text>
-                                  <Text style={styles.prodinfo}> {pitem.quantity} Pack </Text>
-                                  <View style={styles.flx4}>
-                                    <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
-                                      <View style={[styles.flxdir]}>
-                                        <View style={[styles.flxdir]}>
-                                          <Text style={styles.ogprice}>{currency} </Text>
-                                          {pitem.discountPercent > 0 &&<Text style={styles.discountpricecut}>{(pitem.originalPrice * pitem.quantity).toFixed(2)}</Text>}
-                                        </View>
-                                        <View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}> {(pitem.discountedPrice * pitem.quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                        </View>
-                                        {pitem.discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
-                                            <Text style={styles.ogprice}>( {pitem.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                        </View>}
-                                      </View>
-                                    </View>
-                                  </View>
-                                </View>  
-                              </Card>
-                            );
-                          })}
-                          <View style={styles.totaldetails}>
-                            <View style={styles.flxdata}>
-                              <View style={{ flex: 0.6,flexDirection:"row" }}>
-                                <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
-                                <Text style={styles.totaldata}>Total</Text>
-                              </View>
-                              <View style={{ flex: 0.4 }}>
-                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                  <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
-                                </View>
-                              </View>
-                            </View>
-                            <View style={styles.flxdata}>
-                              <View style={{ flex: 0.6 }}>
-                                <Text style={styles.totaldata}>You Saved </Text>
-                              </View> 
-                              <View style={{ flex: 0.4 }}>
-                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                  <Text style={styles.totalpriceincart}> - </Text>
-                              <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
-                                </View>
-                              </View>
-                            </View>
-                            <View style={styles.flxdata}>
-                              <View style={{ flex: 0.6 }}>
-                                <Text style={styles.totaldata}>Delivery Charges </Text>
-                              </View> 
-                              <View style={{ flex: 0.4 }}>
-                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                              <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_shippingCharges}</Text>
-                                </View>
-                              </View>
-                            </View>
-                            <View>
-
-                            
-                            </View>
-                          </View>
-                        </View>
-                        )
-                      })
-                      :
-                      null
-                    }
-                  <View style={styles.prodinfoparent1}>
-                    <View style={styles.totaldetails}>
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Final Total Amount </Text>
-                        </View>
-                        <View style={{ flex: 0.4 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
-                          </View>
-                        </View>
                       </View>
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Total Savings </Text>
-                        </View> 
-                        <View style={{ flex: 0.4 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}> - </Text>
-                            <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.discountAmount.toFixed(2)}</Text>
-                          </View>
-                        </View>
+                      )
+                    })
+                    :
+                    null
+                  }
+                <View style={styles.prodinfoparent1}>
+                  <View style={styles.totaldetails}>
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Final Total Amount </Text>
                       </View>
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Total Tax  </Text>
-                        </View> 
-                        <View style={{ flex: 0.4 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
-                          </View>
-                        </View>
-                      </View>
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Discount Coupon Amount </Text>
-                        </View> 
-                        <View style={{ flex: 0.4 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
-                          </View>
-                        </View>
-                      </View>
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Total Delivery Charges </Text>
-                        </View> 
-                        <View style={{ flex: 0.4 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                        <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.shippingCharges.toFixed(2)}</Text>
-                          </View>
-                        </View>
-                      </View>
-                      <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
-                      <View style={styles.flxdata}>
-                        <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Grand Total</Text>
-                        </View>
-                        <View style={{ flex: 0.4 }}>
-                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                            <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
-                          </View>
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
-                    {cancelButton(order.createdAt) ?
-                      order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
-                      null
-                      :
-                      <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
-                        {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                        <TouchableOpacity style={[styles.cancelButton,{flexDirection:"row"}]} onPress={()=>cancelorderbtn(order._id,'')}>
-                          <Text style={[CommonStyles.text,{color:"#fff",fontFamily:"Montserrat-Medium"}]}>CANCEL ORDER WITHIN</Text>
-                          <View style={{flexDirection:'row'}}>
-                            <CountDown
-                              size={10}
-                              until={cancelTime(order.createdAt)}
-                              onFinish={() => getorderlist()}
-                              digitStyle={{borderWidth: 0, borderColor: '#333',margin:0,padding:0}}
-                              digitTxtStyle={{color: '#fff',fontSize:13,fontFamily:"Montserrat-Medium"}}
-                              timeLabelStyle={{color: '#fff', fontWeight: 'bold'}}
-                              separatorStyle={{color: '#fff',margin:0}}
-                              timeToShow={['M', 'S']}
-                              timeLabels={{m: null, s: null}}
-                              showSeparator={true}
-                              style={{margin:0,}}
-                            />
-                            <Text style={{color:"#fff",alignSelf:'center',fontFamily:"Montserrat-Medium",fontSize:13}}>MINUTES</Text>
-                          </View>  
-                        </TouchableOpacity>}
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Total Savings </Text>
+                      </View> 
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincart}> - </Text>
+                          <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.discountAmount.toFixed(2)}</Text>
+                        </View>
                       </View>
-                      :
-                      null
-                    }
+                    </View>
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Total Tax  </Text>
+                      </View> 
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Discount Coupon Amount </Text>
+                      </View> 
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Total Delivery Charges </Text>
+                      </View> 
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                      <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.shippingCharges.toFixed(2)}</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
+                    <View style={styles.flxdata}>
+                      <View style={{ flex: 0.6 }}>
+                        <Text style={styles.totaldata}>Grand Total</Text>
+                      </View>
+                      <View style={{ flex: 0.4 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                          <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
+                        </View>
+                      </View>
+                    </View>
                   </View>
-                </View>
-              </View>
-            </ScrollView>
-          </View>
-          <Footer />
-          <Modal isVisible={cancelOrderModal}
-            onBackdropPress={() => setCancelOrderModal(false)}
-            coverScreen={true}
-            hideModalContentWhileAnimating={true}
-            style={{ paddingHorizontal: '5%', zIndex: 999 }}
-            animationOutTiming={500}>
-            <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
-              <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
-                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-              </View>
-              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
-                Are you sure you want to Cancel order?
-              </Text>
-              <View style={styles.cancelbtn}>
-                <View style={styles.cancelvwbtn}>
-                  <TouchableOpacity>
-                    <Button
-                      onPress={() => setCancelOrderModal(false)}
-                      titleStyle={styles.buttonText}
-                      title="NO"
-                      buttonStyle={styles.buttonRED}
-                      containerStyle={styles.buttonContainer2}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.ordervwbtn}>
-                  <TouchableOpacity>
-                    <Button
-                      onPress={() => confirmCancelOrderBtn()}
-                      titleStyle={styles.buttonText1}
-                      title="Yes"
-                      buttonStyle={styles.button1}
-                      containerStyle={styles.buttonContainer2}
-                    />
-                  </TouchableOpacity>
+                  {cancelButton(order.createdAt) ?
+                    order.orderStatus && order.orderStatus !== 'Cancelled'  && order.deliveryStatus === "Delivered & Paid" ?
+                    null
+                    :
+                     <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40}]}>
+                      {order.orderStatus && order.orderStatus !== 'Cancelled'&&
+                       <View style={{justifyContent:'center'}}>
+                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",alignSelf:'center'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel order before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('hh:mm')}</Text>
+                        </View>
+                      }
+                      </View>
+                    :
+                    null
+                  }
                 </View>
               </View>
             </View>
-          </Modal>
-        </React.Fragment>
-      );
-    }
+          </ScrollView>
+        </View>}
+        <Footer />
+        <Modal isVisible={cancelOrderModal}
+          onBackdropPress={() => setCancelOrderModal(false)}
+          coverScreen={true}
+          hideModalContentWhileAnimating={true}
+          style={{ paddingHorizontal: '5%', zIndex: 999 }}
+          animationOutTiming={500}>
+          <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+            <View style={{ justifyContent: 'center', backgroundColor: "transparent", width: 60, height: 60, borderRadius: 30, overflow: 'hidden' }}>
+              <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
+            </View>
+            <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+              Are you sure you want to Cancel order?
+            </Text>
+            <View style={styles.cancelbtn}>
+              <View style={styles.cancelvwbtn}>
+                <TouchableOpacity>
+                  <Button
+                    onPress={() => setCancelOrderModal(false)}
+                    titleStyle={styles.buttonText}
+                    title="NO"
+                    buttonStyle={styles.buttonRED}
+                    containerStyle={styles.buttonContainer2}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.ordervwbtn}>
+                <TouchableOpacity>
+                  <Button
+                    onPress={() => confirmCancelOrderBtn()}
+                    titleStyle={styles.buttonText1}
+                    title="Yes"
+                    buttonStyle={styles.button1}
+                    containerStyle={styles.buttonContainer2}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </React.Fragment>
+    );
   })

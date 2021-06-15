@@ -443,7 +443,7 @@ export default StyleSheet.create({
 
 	},
   cancelButton:{
-    backgroundColor:colors.buttonRED,
+    backgroundColor:colors.white,
     height:50,
     width:"100%",
     borderRadius:3,

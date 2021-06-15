@@ -158,6 +158,7 @@ export const MyOrder = withCustomerToaster((props)=>{
       var min = moment(orderDate).add(myorders[0].maxDurationForCancelOrder, 'minutes');
       var duration = moment.duration(min.diff(new Date())).asSeconds();
       if(duration > 0 &&duration < myorders[0].maxDurationForCancelOrder*60){
+        setTimeout(function(){getorderlist() },  Math.abs(duration) *1000);
         return true;
       }else{
         return false;
@@ -340,25 +341,13 @@ export const MyOrder = withCustomerToaster((props)=>{
                                   :
                                   <View style={styles.orderdetailsstatus}>
                                     {order.orderStatus && order.orderStatus !== 'Cancelled'&&
-                                      <TouchableOpacity style={styles.cancelButton} onPress={()=>cancelorderbtn(order._id)}>
-                                      <Text style={[CommonStyles.text,{color:"#fff",fontFamily:"Montserrat-Medium"}]}>CANCEL ORDER WITHIN</Text>
-                                      <View style={{flexDirection:'row'}}>
-                                        <CountDown
-                                          size={10}
-                                          until={cancelTime(order.createdAt)}
-                                          onFinish={() => getorderlist()}
-                                          digitStyle={{borderWidth: 0, borderColor: '#333',margin:0,padding:0}}
-                                          digitTxtStyle={{color: '#fff',fontSize:13,fontFamily:"Montserrat-Medium"}}
-                                          timeLabelStyle={{color: '#fff', fontWeight: 'bold'}}
-                                          separatorStyle={{color: '#fff',margin:0}}
-                                          timeToShow={['M', 'S']}
-                                          timeLabels={{m: null, s: null}}
-                                          showSeparator={true}
-                                          style={{margin:0,}}
-                                        />
-                                        <Text style={{color:"#fff",alignSelf:'center',fontFamily:"Montserrat-Medium",fontSize:13}}>MINUTES</Text>
-                                      </View>  
-                                    </TouchableOpacity>}
+                                    <View style={[styles.orderdetailsstatus,{paddingRight:0,height:40,justifyContent:'center'}]}>
+                                    {order.orderStatus && order.orderStatus !== 'Cancelled'&&
+                                      <View style={{justifyContent:'center'}}>
+                                        <Text style={[CommonStyles.linkText,{fontFamily:"Montserrat-Medium",alignSelf:'center'}]} onPress={()=>cancelorderbtn(order._id,'')}>Cancel order before {moment(order.createdAt).add(order.maxDurationForCancelOrder, 'minutes').format('hh:mm')}</Text>
+                                      </View>
+                                    }
+                                    </View>}
                                   </View>
                                   :
                                   null

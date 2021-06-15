@@ -44,7 +44,7 @@ export const SimilarProducts =(props)=>{
 
   const _renderlist = ({ item, index })=>{
       return (
-          <TouchableOpacity style={{width:150,marginRight:10,height:230,backgroundColor:"#fff"}} onPress={() => navigation.push('SubCatCompView',{productID: item._id })}>
+          <TouchableOpacity style={{width:150,marginRight:10,height:230,backgroundColor:"#fff",borderWidth:1}} onPress={() => navigation.push('SubCatCompView',{productID: item._id })}>
                <View style={styles.flx1}>
                 {
                   item.productImage && item.productImage.length > 0 ?
@@ -53,6 +53,11 @@ export const SimilarProducts =(props)=>{
                         uri: item.productImage[0],
                         priority: FastImage.priority.high,
                         cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable), 
+                        preload :FastImage.preload([
+                          {
+                              uri: 'https://miro.medium.com/max/1158/1*9EBHIOzhE1XfMYoKz1JcsQ.gif',
+                          },
+                        ])
                       }}
                       style={styles.subcatimg}
                       resizeMode="stretch"

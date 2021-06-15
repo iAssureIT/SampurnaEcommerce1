@@ -37,6 +37,7 @@ export const ProductList = withCustomerToaster((props)=>{
   const [packsizes,setPacksizes]= useState('');
   const [user_id,setUserId]= useState('');
   const [limit,setLimit]= useState(props.limit);
+  // FastImage.preload = (sources: Source[]) =>FastImageViewNativeModule.preload(sources);
   useEffect(() => {
     getData();
   },[props.limit,props.newProducts]);
@@ -98,7 +99,11 @@ export const ProductList = withCustomerToaster((props)=>{
         .post('/api/Carts/post', formValues)
         .then((response) => {
           dispatch(getCartCount(user_id));
-          setToast({text: response.data.message, color: 'green'});
+          if(response.data.message === "Product added to cart successfully."){
+            setToast({text: response.data.message, color: 'green'});
+          }else{
+            setToast({text: response.data.message, color: colors.warning});
+          }
         })
         .catch((error) => {
           setToast({text: 'Product is already in cart.', color: colors.warning});
@@ -188,12 +193,13 @@ export const ProductList = withCustomerToaster((props)=>{
                     source={{ 
                       uri: item.productImage[0],
                       priority: FastImage.priority.high, 
-                      // cache:FastImage.cacheControl.immutable 
                       cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
                     }}
+                    // LoadingIndicatorComponent={ActivityIndicator}
+                    loadingIndicatorSource={{uri:"https://miro.medium.com/max/1158/1*9EBHIOzhE1XfMYoKz1JcsQ.gif"}}
                     style={styles.subcatimg}
                     // resizeMode="stretch"
-                    resizeMode={FastImage.resizeMode.contain}
+                    resizeMode={FastImage.resizeMode.stretch}
                   >{item.discountPercent && item.discountPercent >0?
                       <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
                           <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
