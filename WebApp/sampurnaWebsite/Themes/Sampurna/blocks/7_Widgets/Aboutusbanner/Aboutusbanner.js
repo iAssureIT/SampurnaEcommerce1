@@ -75,13 +75,18 @@ export default class Aboutusbanner extends Component{
         return(
             // <div className="row">
                 <section className={"col-12 "+S.blockWrapper}  style={{backgroundImage:"url("+this.state.blocks.bgImage+")"}}>
-                    <div className={"col-12 col-md-10 offset-md-1 "+S.textWrapper}> 
-                        <div className={"col-12 "+S.pageAboutText} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockTitle} }></div>
+                    <div className="row">
+                    <div className={"col-10 offset-1 col-lg-12 col-md-10 offset-md-1 "+S.textWrapper}> 
+                    <div className="row">
+                    
+                        <div className={" mt-3 "+S.pageAboutText} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockTitle} }></div>
                         <span className={" "+S.pageAboutText1} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockDescription} }></span>
                         <div className={"col-12 "+S.subTitle} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockSubTitle} }></div>
-                    </div>    
+                     </div>    
+                    </div> 
+                    </div>   
                 </section>
-            // </div>
+            //  </div>
              
         );
     }
