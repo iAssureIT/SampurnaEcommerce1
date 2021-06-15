@@ -51,7 +51,8 @@ export default class Footer extends Component {
                   <div className="row">
                     {Array.isArray(this.state.categoryData) && this.state.categoryData.map((data,index)=>{
                         return(
-                            
+                        
+                            index<10? 
                             <div className="col-2 col-lg-2 col-md-3 footerSection" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
                                     <Link href={"vendor-list/"+data.sectionUrl}>
@@ -74,6 +75,8 @@ export default class Footer extends Component {
                                 }
                                 </div>
                             </div>
+                            :null
+                        
                         );
                         })
                     }

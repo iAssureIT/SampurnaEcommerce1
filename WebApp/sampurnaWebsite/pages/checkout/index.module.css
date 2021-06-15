@@ -1,0 +1,95 @@
+.orderReviewsWrapper{
+	margin-bottom: 20px;
+}
+
+.eCommTitle {
+    background-color: #033554;
+    color: #fff;
+    font-weight:bold;
+    border-radius: 6px 6px 0px 0px;
+}
+
+.paymentMethod {
+    margin-top: 30px;
+    padding-bottom: 50px;
+    border: 1px solid #ddd;
+    border-radius: 6px;    
+}
+
+.shippingAddress {
+     word-break: break-all; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #ddd;
+    /*height: 936px;*/
+    height:auto;
+    border-radius: 6px;
+    /* overflow: auto; */
+}
+
+.paymentMethodTitle {
+    padding: 15px;
+    font-size:14px;
+    margin-bottom: 10px;
+}
+
+.orderReviews {
+    margin-top: 30px;
+    padding-bottom: 30px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    border-radius: 6px;    
+}
+
+.f14{
+	font-size:14px;
+}
+
+.checkoutADDCss {
+    font-size: 12px ! important;
+    line-height: 2;
+    /*margin-top:100px !important;*/
+}
+
+.f11N{
+	font-size: 11px ! important;
+	font-weight: 500;
+}
+
+.f13N{
+	font-size: 13px ! important;
+}
+
+.f14B{
+	font-size:14px !important;
+	/*font-weight:bold;*/
+}
+
+.bold{
+	font-weight:bold;
+}
+
+.border1{
+	border-radius:6px 0px 0px 6px !important;
+}
+
+.border2{
+	border-radius:0px 6px 6px 0px !important;
+}
+
+.cuponBtn {
+    padding: 5px;
+    font-size: 12px;
+    height: 38px;
+    background-color:#033554 !important;
+    color:#fff !important;
+}
+
+.currencyColor{
+	color:#878787;
+}
+
+.addressWrapper{
+	height:auto;
+}

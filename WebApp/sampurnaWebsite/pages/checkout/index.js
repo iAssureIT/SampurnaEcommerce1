@@ -20,6 +20,9 @@ import moment               from 'moment';
 import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 
+import Style                  from './index.module.css';
+
+
 class Checkout extends Component {
     constructor(props) {
         super(props);
@@ -702,18 +705,18 @@ class Checkout extends Component {
                     <div className="container-fluid">
                         <form className="col-12 " id="checkout">
                            <div className="row">
-                            <div className="col-12 col-xl-4 col-lg-4 col-sm-12">
+                            <div className="col-12 col-xl-3 col-md-12 col-lg-4 col-sm-12">
                                 <div className="col-12 NoPadding">
-                                    <div className="col-12 paymentMethod NoPadding">
-                                        <div className="col-12 eCommTitle paymentMethodTitle">PAYMENT METHOD <span className="required">*</span></div>
+                                    <div className={"col-12 NoPadding " +Style.paymentMethod}>
+                                        <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>PAYMENT METHOD <span className="required">*</span></div>
 
-                                        <div className="col-12 paymentInput">
+                                        <div className={"col-12 paymentInput " +Style.f14}>
                                             {/* <input name="payMethod" ref="payMethod" type="radio" value={this.state.payMethod} className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" checked="true" /> */}
                                             <input name="paymentmethods" type="radio" value="cod" className="webModelInput col-2 col-md-1"
                                                 checked={this.state.paymentmethods === "cod"} onClick={this.handleChange.bind(this)} />
                                             <span className="col-12 col-md-11 col-sm-10 col-xs-10">Cash On Delivery</span>
                                         </div>
-                                        <div className="col-12 paymentInput">
+                                        <div className={"col-12 paymentInput " +Style.f14}>
                                             {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
                                             <input name="paymentmethods" type="radio" value="crdbt" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "crdbt"} onClick={this.handleChange.bind(this)} />
                                             <span className="col-12 col-md-11 col-sm-10 col-xs-10">Credit / Debit Card</span>
@@ -727,9 +730,9 @@ class Checkout extends Component {
                                 </div>
                                 {
                                     this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
-                                        <div className="col-12 shippingAddress NoPadding">
-                                            <div className="col-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS <span className="required">*</span></div>
-                                            <div className="col-12 addressWrapper pt-4">
+                                        <div className={"col-12 NoPadding " +Style.shippingAddress}>
+                                            <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>SHIPPING ADDRESS <span className="required">*</span></div>
+                                            <div className={"col-12 pt-4 " +Style.addressWrapper}>
                                                 
                                                 {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
                                                     this.state.deliveryAddress.map((data, index) => {
@@ -749,10 +752,10 @@ class Checkout extends Component {
                                                                     }}
                                                                     name="checkoutAddess" pincode={data.pincode}  required className="codRadio"/>
                                                                 </div>
-                                                                <div className="checkoutADDCss col-10"><b>{data.addType} Address&nbsp;</b> <br />
-                                                                    <span className="checkoutADDCss">Name : {data.name}.</span> <br />
-                                                                    {data.addressLine2}, {data.addressLine1},
-                                                                    Mobile: {data.mobileNumber}</div>
+                                                                <div className="checkoutADDCss mb-4 col-10"><span className="mb-2 "><b>{data.addType} Address&nbsp;</b></span> <br />
+                                                                    <span className={"checkoutADDCss " +Style.checkoutADDCss}>Name : {data.name}.</span> <br />
+                                                                    <span className={" " +Style.checkoutADDCss}>{data.addressLine2}, {data.addressLine1},
+                                                                    Mobile: {data.mobileNumber}</span></div>
                                                                 </div>
                                                                 { data.distance >=1?
                                                                     <div className="errorMsg col-12">
@@ -773,15 +776,15 @@ class Checkout extends Component {
                                         </div>
                                         :
                                         <div className="col-12 shippingAddress NoPadding">
-                                            <div className="col-12 eCommTitle shippingAddressTitle">SHIPPING ADDRESS</div>
+                                            <div className={"col-12 shippingAddressTitle " +Style.eCommTitle}>SHIPPING ADDRESS</div>
                                                 <UserAddress />
                                         </div>
                                 }
                             </div>
-                            <div className="col-12 col-md-12 col-lg-8 col-sm-12">
-                                <div className="col-12 orderReviews NoPadding table-responsive">
-                                    <div className="col-12 eCommTitle orderReviewsTitle">ORDER REVIEWS</div>
-                                    <div className="col-12 orderReviewsWrapper">
+                            <div className="col-12 col-xl-9 col-md-12 col-lg-8 col-sm-12">
+                                <div className={"col-12 NoPadding table-responsive " +Style.orderReviews}>
+                                    <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>ORDER REVIEWS</div>
+                                    <div className={"col-12 " +Style.orderReviewsWrapper}>
                                         <table className="table table-borderless orderTable">
                                             <thead>
                                                 <tr>
@@ -821,24 +824,24 @@ class Checkout extends Component {
                                                                                         </a>
 
                                                                                         {cartdata.product_ID.discountPercent ?
-                                                                                            <div className="col-12 NoPadding">
-                                                                                                <span className="cartOldprice">{this.state.currency} &nbsp;{cartdata.product_ID.originalPrice}</span>&nbsp;
-                                                                                            <span className="cartPrice">{this.state.currency}&nbsp;{cartdata.product_ID.discountedPrice}</span> &nbsp; &nbsp;
-                                                                                            <span className="cartDiscountPercent">( {Math.floor(cartdata.product_ID.discountPercent)}% Off ) </span>
+                                                                                            <div className={"col-12 NoPadding " +Style.f11N}>
+                                                                                                <span className={"cartOldprice " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{cartdata.product_ID.originalPrice}</span>&nbsp;
+                                                                                            <span className={"cartPrice " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.discountedPrice}</span> &nbsp; &nbsp;
+                                                                                            <span className={"cartDiscountPercent " +Style.f11N}>( {Math.floor(cartdata.product_ID.discountPercent)}% Off ) </span>
                                                                                             </div>
                                                                                             :
-                                                                                            <span className="price">{this.state.currency}&nbsp;{cartdata.product_ID.originalPrice}</span>
+                                                                                            <span className={"price " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.originalPrice}</span>
                                                                                         }
                                                                                         <div>
-                                                                                            {cartdata.product_ID.color ? <span className="cartColor">Color : <span style={{ backgroundColor: cartdata.product_ID.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(cartdata.product_ID.color)[1]}, </span> : null}
-                                                                                            {cartdata.product_ID.size ? <span className="cartColor">Size : {cartdata.product_ID.size} &nbsp; {cartdata.product_ID.unit}</span> : null}
+                                                                                            {cartdata.product_ID.color ? <span className={"cartColor " +Style.f11N}>Color : <span style={{ backgroundColor: cartdata.product_ID.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(cartdata.product_ID.color)[1]}, </span> : null}
+                                                                                            {cartdata.product_ID.size ? <span className={"cartColor " +Style.f11N}>Size : {cartdata.product_ID.size} &nbsp; {cartdata.product_ID.unit}</span> : null}
                                                                                         </div>
                                                                                     </td>
                                                                                     <td className="textAlignLeft">
                                                                                         {
                                                                                             cartdata.product_ID.availableQuantity > 0 ?
                                                                                                 // <span className="productPrize textAlignRight"><i className={"fa fa-" + cartdata.product_ID.currency}></i> &nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>
-                                                                                                <span className="productPrize textAlignRight">{this.state.currency}&nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>
+                                                                                                <span className={"productPrize textAlignRight " +Style.f11N +" "+Style.bold}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>
                                                                                                 :
                                                                                                 <span>-</span>
                                                                                         }
@@ -846,16 +849,16 @@ class Checkout extends Component {
                                                                                     <td className="textAlignCenter">
                                                                                         {
                                                                                             cartdata.product_ID.availableQuantity > 0 ?
-                                                                                                <span className=" textAlignRight">{cartdata.quantity}</span>
+                                                                                                <span className={"textAlignRight " +Style.f11N +" "+Style.bold}>{cartdata.quantity}</span>
                                                                                                 :
-                                                                                                <span className="textAlignCenter sold">SOLD OUT</span>
+                                                                                                <span className={"textAlignCenter sold " +Style.f11N +" "+Style.bold}>SOLD OUT</span>
                                                                                         }
                                                                                     </td>
                                                                                     <td className="textAlignRight">
                                                                                         {
                                                                                             cartdata.product_ID.availableQuantity > 0 ?
-                                                                                                <span className="productPrize textAlignRight">
-                                                                                                    {this.state.currency}
+                                                                                                <span className={"productPrize textAlignRight " +Style.f11N +" "+Style.bold}>
+                                                                                                    <span className={" " +Style.currencyColor}>{this.state.currency}</span>
                                                                                                     {/* {cartdata.product_ID.currency} */}
                                                                                                     &nbsp;{cartdata.product_ID.discountedPrice}</span>
                                                                                                 :
@@ -870,23 +873,23 @@ class Checkout extends Component {
                                                                     </td>
                                                                 </tr>
                                                                 <tr className=" col-12 tableRow">
-                                                                    <td colSpan="5"> 
+                                                                    <td className={" " +Style.f13N +" "+Style.bold} colSpan="5"> 
                                                                         <div className="col-6 offset-3">
                                                                             <span className="col-8 title">{vendorWiseData.vendorName}&nbsp; Total</span>
                                                                             <span className="col-4 textAlignRight title NoPadding">&nbsp; 
-                                                                                {this.state.currency} &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? (vendorWiseData.vendor_netPayableAmount).toFixed(2) : 0.00} 
+                                                                                <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? (vendorWiseData.vendor_netPayableAmount).toFixed(2) : 0.00} 
                                                                             </span>
                                                                         </div>
                                                                         <div className="col-6 offset-3">
                                                                             <span className="col-8 title">You Saved&nbsp;</span>
                                                                             <span className="col-4 textAlignRight title NoPadding">&nbsp; 
-                                                                                {this.state.currency} &nbsp;{vendorWiseData.total > 0 ? vendorWiseData.vendor_discountAmount : 0.00} 
+                                                                                <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{vendorWiseData.total > 0 ? vendorWiseData.vendor_discountAmount : 0.00} 
                                                                             </span>
                                                                         </div>
                                                                         <div className="col-6 offset-3">
                                                                             <span className="col-8 title">Tax &nbsp;</span>
                                                                             <span className="col-4 textAlignRight title NoPadding">&nbsp; 
-                                                                                {this.state.currency} &nbsp;{vendorWiseData.vendor_taxAmount > 0 ? vendorWiseData.vendor_taxAmount : 0.00} 
+                                                                                <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{vendorWiseData.vendor_taxAmount > 0 ? vendorWiseData.vendor_taxAmount : 0.00} 
                                                                             </span>
                                                                         </div>                                                                        
                                                                     </td>
@@ -908,22 +911,22 @@ class Checkout extends Component {
                                         {this.props.recentCartData?
                                         <div className="col-12">
                                             <div className="col-12">
-                                                <div className="row">
-                                                    <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
-                                                    <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.discountAmount>0 ? this.props.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
-                                                    <span className="col-md-6 col-12">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
-                                                    <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight">{this.state.currency} &nbsp; {this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
+                                                <div className={"row " +Style.f13N}>
+                                                    <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
+                                                    <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.props.recentCartData.paymentDetails.discountAmount>0 ? this.props.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
+                                                    <span className="col-md-6 col-12">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
+                                                    <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
                                                     
                                                     
                                                     <div className="col-12 mb-2 mt-2">
-                                                        <div className="row">
-                                                            <div className="form-group col-7">
-                                                                <input type="text" className="form-control couponCode" ref="couponCode" id="couponCode" name="couponCode" placeholder="Enter Discount Coupon Here..." />
+                                                        <div className="row mt-5">
+                                                            <div className={"form-group col-3 NoPadding " +Style.border1}>
+                                                                <input type="text" className={"form-control couponCode " +Style.border1} ref="couponCode" id="couponCode" name="couponCode" placeholder="Enter Discount Coupon Here..." />
                                                             </div>
-                                                            <div className="col-2">
-                                                                <button type="button" className="col-12 btn btn-primary pull-right cuponBtn" onClick={this.applyCoupon.bind(this)}>Apply</button>
+                                                            <div className="col-2 col-md-2 col-sx-2 NoPadding">
+                                                                <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>
                                                             </div>
-                                                            <div className="col-3 text-right"> {this.state.currency}&nbsp; {this.state.couponAmount>0? this.state.couponAmount : 0.00}</div>
+                                                            <div className="col-3 text-right"> <span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp; {this.state.couponAmount>0? this.state.couponAmount : 0.00}</div>
                                                         </div>
                                                     </div>
 
@@ -931,9 +934,9 @@ class Checkout extends Component {
                                                         <div className="col-12 checkoutBorder"></div>
                                                     </div>
                                                     <div className="col-12 grandTotal mt-4 mb-2">
-                                                        <div className="row">
-                                                            <span className="col-6 orderTotalText">Grand Total</span>
-                                                            <span className="col-6 textAlignRight orderTotalPrize globalTotalPrice">{this.state.currency} &nbsp;
+                                                        <div className={"row " +Style.f13N}>
+                                                            <span className={"col-6 orderTotalText " +Style.f13N +" "+Style.bold}>Grand Total</span>
+                                                            <span className={"col-6 textAlignRight orderTotalPrize globalTotalPrice " +Style.f13N}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
                                                                 {(this.props.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }
                                                             </span>
                                                         </div>
@@ -948,7 +951,7 @@ class Checkout extends Component {
                                             <div className="col-12">
                                                 <div className="row">
                                                     <div className="col-md-7 col-xl-7 col-12 shippingtimes">
-                                                        <div className="row">
+                                                        <div className={"row " +Style.f13N}>
                                                             <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />  &nbsp;
                                                             <div className="col-12 col-xl-10 col-md-10 termsWrapper">
                                                                 <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree, to the Terms & Conditions</span> <span className="required">*</span>
@@ -958,9 +961,9 @@ class Checkout extends Component {
                                                             </div>
                                                         </div> 
                                                     </div>
-                                                    <div className="col-12 col-xl-5 col-md-5">
+                                                    <div className={"col-12 col-xl-5 col-md-5 " +Style.f13N}>
                                                         <span className="col-12 col-xl-12 nopadding">Select Shipping Time<span className="required"></span></span>
-                                                        <select onChange={this.selectedTimings.bind(this)} className="col-12  noPadding  form-control" ref="shippingtime" name="shippingtime" >
+                                                        <select onChange={this.selectedTimings.bind(this)} className={"col-12  noPadding  form-control " +Style.f13N} ref="shippingtime" name="shippingtime" >
                                                             <option name="shippingtime" disabled="disabled" selected="true">-- Select --</option>
                                                             {
                                                                 this.state.gettimes && this.state.gettimes.length > 0 ?
@@ -1006,7 +1009,7 @@ class Checkout extends Component {
                                     <div className="col-12">
                                     {
                                         !this.state.paymentMethods ?
-                                        <button className=" globaleCommBtn eCommTitle col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" onClick={this.placeOrder.bind(this)}>Place Order</button>
+                                        <button className={" globaleCommBtn col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12 " +Style.eCommTitle} onClick={this.placeOrder.bind(this)}>Place Order</button>
                                         :
                                         <div className="col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" >
                                                 <Loaderspinner
