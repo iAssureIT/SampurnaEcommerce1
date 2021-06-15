@@ -15,6 +15,9 @@ import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/Brea
 import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
 import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
 import ProductsView         from './ProductsView.js';
+
+import Style                  from './index.module.css';
+
 export default class MyOrders extends Component {
   constructor(props) {
     super(props);
@@ -401,15 +404,15 @@ export default class MyOrders extends Component {
   }
   render() {
     return (
-      <div className="col-12">
+      <div className="col-12 NoPadding">
         <Header />
-        <div className="container">
+        <div className={" " +Style.container1 }>
           <Message messageData={this.state.messageData} />
           {
             this.state.loading ?
               <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> 
               :
-              <div className="col-12 NOpadding">
+              <div className="col-12 NoPadding">
                 <br />
                <div className="row"> 
                 <div className="col-12 col-xl-3 col-md-12 col-sm-12 myOrderSidebar ">
@@ -418,20 +421,20 @@ export default class MyOrders extends Component {
 
                 <div className="col-12 col-xl-9 col-md-12">
                   <div className="col-12">
-                      <h4 className="table-caption">Orders Details</h4>
+                      <h4 className={"table-caption " +Style.mainTitle}>Orders Details</h4>
                   </div>
 
-                  <div className="col-12 orderDetails  NoPadding">
-                    <div className="col-12 orderDetailsTop">
-                      <div className="row">
+                  <div className={"col-12 NoPadding orderIdborder " +Style.orderIdborderNew}>
+                    <div className="col-12 NoPadding orderDetailsTop mb-4 ">
+                      <div className={"row " +Style.ptb15}>
                         <div className="col-6 ">
                             <div className="col-12">{"Order Status : "+(this.state.orderData.orderStatus)}</div>
                             <div className="col-12">{"Order ID : "+(this.state.orderData.orderID)}</div>
                             <div className="col-12">{"Total amount : "+(this.state.orderData.orderID)}</div>
                         </div>                       
-                        <div className="col-6 ">
+                        <div className={"col-6 " +Style.rightside}>
                             <div className="row">
-                              <div className="col-12 NoPadding">
+                              <div className="col-12">
                                 <span className="col-6 text-right">Date - {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}&nbsp;</span>
                                 <span className="col-6 text-right">Time -  {moment(this.state.orderData.createdAt).format("HH:mm")}</span>
                               </div>
@@ -458,14 +461,14 @@ export default class MyOrders extends Component {
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
                           console.log( " Order details orderData:",vendordata);
                           return (
-                            <div key={index} style={{marginBottom:"40px"}} className={"vendorOrderHistory"}>   
+                            <div key={index} style={{marginBottom:"40px"}} className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>   
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
                                 <div className="row">
                                   <div className="col-7 NOpadding">
                                       <span className="vendorName">{vendordata.vendorName}</span> &nbsp;
                                   </div> 
-                                  <div className="col-5 ">
-                                      <div className="cancelOrderbtn" id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                  <div className="col-5 pull-right">
+                                      <div className={"col-12 cancelOrderbtn pull-right " +Style.cancelBtn +" "+Style.rightText} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
                                   </div>    
                                 </div>      
                               </div>
