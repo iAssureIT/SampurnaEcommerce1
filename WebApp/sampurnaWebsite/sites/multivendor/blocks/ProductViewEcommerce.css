@@ -14,14 +14,24 @@
     border-radius: 5px;
 }
 .miniImagesIn img{
-	height: 100%;
-	width: 100%;
+	height: 200px !important;
+	width: 300px !important;
 
 }.imageContainer img{
 	/* height: 100%; */
     height: 80px;
 	width: 100%; 
 
+}
+.productDetailWrapper{
+
+}
+.singleProductDetail{
+    border-bottom: solid 1px #ddd;
+    padding-bottom: 5px;
+}
+.FiltersBlock{
+    height: 100%;
 }
 .mg15{
     margin: 15px;

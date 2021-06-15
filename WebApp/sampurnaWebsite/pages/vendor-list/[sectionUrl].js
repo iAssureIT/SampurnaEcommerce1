@@ -44,7 +44,7 @@ const VendorList = ()=> {
                 }
 			})
 			.catch((error) => {
-				console.log('error', error);
+				console.log('productwise vendorlist error', error);
 			})
     },[sectionUrl])
         return(

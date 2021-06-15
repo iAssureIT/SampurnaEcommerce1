@@ -312,7 +312,7 @@ class DeliveryLocationPopup extends React.Component {
     
    render() {
        const ref = React.createRef();
-       console.log("latlong=>",this.props.getLatlong);
+    //    console.log("latlong=>",this.props.getLatlong);
        if(this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0){
            var xlCol =  9;
            var offset = 0

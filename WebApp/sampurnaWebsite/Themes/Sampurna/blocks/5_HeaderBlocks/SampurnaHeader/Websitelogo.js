@@ -24,7 +24,7 @@ class WebsiteLogo extends React.Component {
                 }
             })
             .catch((error) => {
-            console.log("error1",error);
+            console.log("get comapany deatails error",error);
             })
 
     }

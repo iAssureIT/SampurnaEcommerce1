@@ -69,10 +69,10 @@ class ProductDetailsEcommerce extends Component {
 				{/* <BreadCrumbs /> */}
 				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop180  backColorGray">
 				<ProductViewEcommerce productID = { this.state.productID } />
-					{ this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
+					{/* { this.props.pageData.pageBlocks && this.props.pageData.pageBlocks.length > 0 ?
 						this.props.pageData.pageBlocks.map((result, index)=>{
 						var component = result._id ? result.blockComponentName : "TitleDesc";
-						var block_id=result.block_id._id;						
+						var block_id=result.block_id ? result.block_id._id : null;						
 						var blockFolderName = result._id ? result.blockFolderName : "1_StandardBlocks";
 					    const OtherComponent = dynamic(() => import('../../../../Themes/'+SITE_NAME+'/blocks/'+blockFolderName+'/'+component+'/'+component+'.js'),				
 						{
@@ -84,13 +84,13 @@ class ProductDetailsEcommerce extends Component {
 						); 
 						return(
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding" key={index}>
-								{/* <OtherComponent block_id={block_id} key={index}/> */}
+								<OtherComponent block_id={block_id} key={index}/>
 							</div>
 						)
 					})
 					: 
 					<div><h2>There is no content</h2></div>
-					}
+					} */}
 
 				</div>
 				<Footer/>

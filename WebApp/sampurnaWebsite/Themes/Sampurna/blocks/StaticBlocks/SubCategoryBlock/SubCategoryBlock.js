@@ -4,11 +4,7 @@ import axios                  from 'axios';
 import Image                  from 'next/image';
 import Link                   from 'next/link';
 import Carousel               from 'react-multi-carousel';
-import Style                  from './categoryBlock.module.css';
-import Message                from '../../StaticBlocks/Message/Message.js';
-import { connect }            from 'react-redux';
-import store                  from '../../../../../redux/store.js'; 
-import {getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
+import Style                  from './SubCategoryBlock.module.css';
 
 const responsive = {
   desktop: {
@@ -28,7 +24,7 @@ const responsive = {
   }
 };
 
-class CategoryBlock extends Component{
+class SubCategoryBlock extends Component{
     constructor(props) {
         super(props);
         this.state = { 
@@ -37,22 +33,13 @@ class CategoryBlock extends Component{
             
         }
     }
-
-    //static getDerivedStateFromProps(nextProps, prevState) {
-      // console.log("props--",nextProps);
-      //if (nextProps.newProducts) {
-        // return ({ 
-        //   categoryData: nextProps.categoryData,
-        //   vendor_ID   : nextProps.vendor_ID,
-        // }) // <- this is setState equivalent
-      //}
-      //return null
-    //}
-
     render(){
-      console.log("props category ====",this.props.categoryData);
+      console.log("Subcategory Blocks ====",this.props.subCategoryData);
       return (
         <div className={"container NoPadding " +Style.categoryCarousel}>
+            <div className={"col-12 "}>
+                <h6>{this.props.blocktitle}</h6>
+            </div>
             <Carousel 
               className=""
                   swipeable={true}
@@ -69,22 +56,22 @@ class CategoryBlock extends Component{
                   removeArrowOnDeviceType={["mobile"]}
                   deviceType={this.props.deviceType}  
                   containerClass="carousel-container">
-                    {this.props.categoryData && this.props.categoryData.map((categorydata, index) => {
-                      var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+categorydata.categoryUrl;
+                    {this.props.subCategoryData && this.props.subCategoryData.map((categorydata, index) => {
+                      var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+this.props.categoryUrl/categorydata.subCategoryUrl;
                       return (
                       <div className="col-12 productsCategoryBlock "  key={index}> 
                           <Link href={url} className ={"col-12 "}> 
                             <a className ={"col-12 " +Style.categoryBlock}>
                               <div className={"itemImg col-12 NoPadding " +Style.categoryPhoto +" "+Style.itemImg}>
                                   <Image                                           
-                                    src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.jpg"}
+                                    src={categorydata.subCategoryImage ? categorydata.subCategoryImage : "/images/eCommerce/notavailable.jpg"}
                                     alt="ProductImg" 
                                     className={"img-responsive " +Style.NoAvailableImg }
-                                    height={90}
+                                    height={100}
                                     width={100} 
                                     layout={'intrinsic'}
                                   />
-                              <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
+                              <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.subCategoryTitle}>{categorydata.subCategoryTitle}</div>
 
                               </div>
                             </a>
@@ -99,4 +86,4 @@ class CategoryBlock extends Component{
     }
 }
 
-export default CategoryBlock;
+export default SubCategoryBlock;

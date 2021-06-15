@@ -109,7 +109,7 @@ class ShoppingVerticals extends Component {
       }
     };
 
-    console.log("inside rendor this.state.itemList===",this.state.itemList);
+    // console.log("inside rendor this.state.itemList===",this.state.itemList);
     // console.log("this.state.groupSettings.noOfItem",this.state.groupSettings);
     return (
       <div className="col-12 mt20">

@@ -278,7 +278,7 @@ class Product extends Component{
   
 
     render(){
-      // console.log("1.recentWishlistData newProducts----",this.props.recentWishlistData);
+      console.log("products props===",this.props);
 
       var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
@@ -319,7 +319,8 @@ class Product extends Component{
                           {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
                         </div>
                         <div className={styleMedia.ImgWrapper}>
-                        <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}>
+                        {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
+                        <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+data._id}>
                         <a className={Style.product_item_photo } tabIndex="-1" >
                           <Image                                           
                             src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}

@@ -53,10 +53,10 @@ class header extends React.Component {
     }
     getUserData() {
         if(this.state.userId){ 
-        axios.get('/api/users/' +this.state.userId)
+        axios.get('/api/users/get/id/' +this.state.userId)
           .then((res) => {
             if(res.data){
-            //   console.log("response===",res.data);  
+              console.log("user response===",res.data);  
               this.setState({
                 userData : res.data.profile,
                 userName : res.data.profile.firstname,

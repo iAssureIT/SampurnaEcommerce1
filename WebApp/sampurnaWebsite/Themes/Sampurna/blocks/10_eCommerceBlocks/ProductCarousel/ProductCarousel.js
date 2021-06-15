@@ -154,7 +154,7 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
-    console.log("url===",url);
+    // console.log("url===",url);
     if(url[4] !== "undefined"){
       var vendor_ID              = url[4];
       var vendorlocation_ID      = url[5];
@@ -168,11 +168,10 @@ class ProductCarousel extends Component {
         "categoryUrl"       : categoryUrl?categoryUrl:"",
         "subCategoryUrl"    : subCategoryUrl!==undefined?subCategoryUrl:""
       },()=>{
-
+        if(this.state.vendor_ID){
         axios.get('/api/entitymaster/get/one/'+this.state.vendor_ID)    
         .then((vendorResponse)=>{
             if(vendorResponse){
-              // console.log("vendorResponse===",vendorResponse);
                 this.setState({
                     vendorData : vendorResponse.data[0],
                 })
@@ -181,7 +180,7 @@ class ProductCarousel extends Component {
         .catch((error) =>{
           console.log("error in get vendor=",error);
         })
-
+      }
           // console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
           // console.log("2.categoryUrl===",this.state.categoryUrl);
       })
@@ -886,7 +885,6 @@ submitCart(event) {
                         categoryUrl        = {this.state.categoryUrl}
                       />
                   :null
-
                   }   
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?

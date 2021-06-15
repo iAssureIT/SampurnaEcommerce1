@@ -9,7 +9,8 @@ import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Mess
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
 import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
-import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
+import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
+import UserAddress              from '../../pages/checkout/UserAddress.js';
 
 class Account extends Component{
     constructor(props) {
@@ -31,16 +32,26 @@ class Account extends Component{
         },()=>{
             this.getUserData();
         })
+
+        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails){
+            if(userDetails.user_id){
+				this.setState({
+					user_ID :  userDetails.user_id,
+					userLongitude : userDetails.userLatitude,
+					userLongitude : userDetails.userLongitude,
+				},()=>{
+                    this.getUserData();
+				})
+            }
+        }
         
     }
     getUserData(){
-        // $('.fullpageloader').show();
-        // var userid = localStorage.getItem("user_ID");
-        axios.get('/api/users/'+this.state.user_ID)
+        axios.get('/api/users/get/id/'+this.state.user_ID)
         .then( (res)=>{
-            $('.fullpageloader').hide();
-            // console.log("Account response:",res);
-            // console.log("firstname:",res.data.profile.firstname);
+            // $('.fullpageloader').hide();
             this.setState({
                 firstName       : res.data.profile.firstname,
                 lastName        : res.data.profile.lastname,
@@ -60,21 +71,16 @@ class Account extends Component{
                 type            : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].type : "",
                 profileImage    : res.data.profile.profileImage
             })
-           // console.log("firstname:",this.state.firstName); 
         })
         .catch((error)=>{
-          console.log("error = ",error);
-          // alert("Something went wrong! Please check Get URL.");
+          console.log("account page getuser error = ",error);
         });
     }
     editUser(event){
         event.preventDefault();
         Router.push('/edit-account');
     }
-    addAddress(event){
-        event.preventDefault();
-        this.props.history.push('/address');
-    }
+    
     getAddressId(event){
         // event.preventDefault();
         this.setState({
@@ -93,7 +99,24 @@ class Account extends Component{
             <Header />
             {<Loader type="fullpageloader" />}
                 <SmallBanner bannerData={this.state.bannerData}/>  
-                <Address addressId={this.state.addressId} opDone={this.opDone.bind(this)}/>
+                <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">  
+                    <div className="modal-content loginModalContent " style={{'background': '#fff'}}>    
+                        <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
+                            <div className="col-4">
+                                < WebsiteLogo />
+                            </div>
+                            <div className="col-7 text-center">
+                                <h6 className="modal-title modalheadingcont">SHIPPING ADDRESS</h6>
+                            </div>
+                            <div className="col-1 text-center">
+                                <button type="button" className="close"  data-dismiss="modal">&times;</button> 
+                            </div>
+                        </div>                        
+                        <div className="modal-body addressModalBody">
+                            <UserAddress />
+                        </div>
+                    </div>
+                </div>
                 <div className="container">
                     <br/> 
                     <div className="row">
