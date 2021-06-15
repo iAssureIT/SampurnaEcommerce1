@@ -640,3 +640,20 @@ background: #fff;
 .brandInput{
   padding: 5px 0px;
 }
+
+.react-multiple-carousel__arrow::before {
+    font-size: 14px !important;
+    right:0px;
+    color: #ccc !important;
+    display: block;
+    font-family: revicons;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+}
+
+.react-multiple-carousel__arrow{
+  background: none;
+    min-width: 30px;
+    min-height: 30px;
+}

@@ -13,11 +13,25 @@
     margin-top: 20px;
 }
 .itemImg img{
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     background-image: url(/images/eCommerce/productloader.gif);
     background-size: cover;
     background-repeat: no-repeat;
+    box-shadow: -3px 3px 6px #00000029;
+    border-radius: 11px;
+    /*opacity: 0.5;*/
 }
+
+.itemImg img::before {
+     content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.7);
+}
+
 .secCateblock{
     text-decoration: none !important;
     color: #000;
