@@ -229,7 +229,7 @@ export default class ContactUsTrollyMart extends Component{
 												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
 												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} /> </div>
 											<div className={ "col-lg-12 pb-lg-5 pb-0 "}>
-												<button type="button" className={ "btn btn-default pull-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+												<button type="button" className={ " shadow-none btn btn-default pull-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
 											</div>
 										</form> {/* </div> */} </div>
 							</div>
