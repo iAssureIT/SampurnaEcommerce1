@@ -27,8 +27,8 @@ router.patch('/patch/setsendmobileotpusingMobile/:mobileNo',UserController.set_s
 
 //new api for systemsecurity
 router.post('/post/login/mob_email',UserController.user_login_mob_email); 
-router.post('/post/signup/user/otp/new',UserController.user_signup_user_otp_new); 
-router.post('/post/signup/user/guest_login',UserController.user_signup_guest_login); 
+router.post('/post/signup/social_media',UserController.user_signup_social_media); 
+router.post('/post/signup/guest_login',UserController.user_signup_guest_login); 
 router.patch('/patch/set_send_otp/:username',UserController.set_send_otp); 
 
 

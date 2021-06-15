@@ -17,6 +17,7 @@ import {FormButton}         from '../../../ScreenComponents/FormButton/FormButto
 import axios from "axios";
 import { colors, sizes } from '../../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
+import {setUserDetails}     from '../../../redux/user/actions';
 const LoginSchema = Yup.object().shape({
   otp: Yup.string()
   .required('This field is required')
@@ -27,7 +28,7 @@ export const OTPVerification = withCustomerToaster((props) => {
   const [btnLoading, setLoading] = useState(false);
   const {setToast,navigation,route} = props; //setToast function bhetta
   const {userID}=route.params;
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   console.log("user_id",userID);
   return (
     <React.Fragment>
@@ -36,59 +37,48 @@ export const OTPVerification = withCustomerToaster((props) => {
             setLoading(true);
             let { otp } = data;
             console.log("otp",otp);
-            axios.get('/api/auth/get/checkemailotp/usingID/'+userID+"/"+otp)
-            .then(response => {
+            axios.get('/api/auth/get/checkmobileotp/usingID/'+userID+"/"+otp)
+            .then(res => {
                 setLoading(false);
-                if (response.data.message == 'SUCCESS') {
-                  var sendData = {
-                    "event": "1",
-                    "toUser_id": userID,
-                    "toUserRole":"user",
-                    "variables": {
-                      // "Username" : this.state.fullName,
-                      }
-                  }
-                  axios.post('/api/masternotifications/post/sendNotification', sendData)
-                  .then((res) => {
-                  console.log('sendDataToUser in result==>>>', res.data)
-                  })
-                  .catch((error) => { console.log('notification error: ',error)})
-                //   axios.get('/api/users/get/id/'+userID)
-                //   .then(res => {
-                //     console.log("res",res);
-                //     AsyncStorage.multiSet([
-                //       ['user_id', res.data._id],
-                //       ['token', res.data.services.resume.loginTokens[0].hashedToken],
-                //     ]);
-                //     axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.services.resume.loginTokens[0].hashedToken
-                //     dispatch(
-                //       setUserDetails({
-                //         user_id     : res.data._id,
-                //         token       : res.data.services.resume.loginTokens[0].hashedToken,
-                //         firstName   : res.data.profile.firstname,
-                //         lastName    : res.data.profile.lastname,
-                //         email       : res.data.profile.email,
-                //         mobile      : res.data.profile.mobile,
-                //         countryCode : res.data.profile.countryCode,
-                //         fullName    : res.data.profile.fullName,
-                //         company_id  : res.data.profile.company_id,
-                //         companyID   : res.data.profile.companyID,
-                //         companyName : res.data.profile.companyName,
-                //         status      : res.data.profile.status,
-                //         role        : res.data.roles
-                //       }),
-                //     );
-                //     navigation.navigate('Dashboard')
-                //   })
-                //   .catch(error => {
-                //     console.log("errr",error);
-                //     setToast({text: 'Something went wrong.', color: 'red'});
-                //     setLoading(false);
-                //     if (error.response.status == 401) {
-                //       navigation.navigate('App')
-                //     }
-                // })
-                navigation.navigate('RootLogIn')
+                if(res.data.message == 'Login Auth Successful') {
+                  // var sendData = {
+                  //   "event": "1",
+                  //   "toUser_id": userID,
+                  //   "toUserRole":"user",
+                  //   "variables": {
+                  //     // "Username" : this.state.fullName,
+                  //     }
+                  // }
+                  //   axios.post('/api/masternotifications/post/sendNotification', sendData)
+                  //   .then((res) => {
+                  //   console.log('sendDataToUser in result==>>>', res.data)
+                  //   })
+                  //   .catch((error) => { console.log('notification error: ',error)})
+                    AsyncStorage.multiSet([
+                      ['user_id', res.data.ID],
+                      ['token', res.data.token],
+                    ]);
+                    console.log("res=======>",res);
+                    axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.token;
+                    dispatch(
+                      setUserDetails({
+                        user_id     : res.data.ID,
+                        token       : res.data.token,
+                        firstName   : res.data.userDetails.firstName,
+                        lastName    : res.data.userDetails.lastName,
+                        email       : res.data.userDetails.email,
+                        mobile      : res.data.userDetails.mobile,
+                        countryCode : res.data.userDetails.countryCode,
+                        fullName    : res.data.userDetails.fullName,
+                        company_id  : res.data.userDetails.company_id,
+                        companyID   : res.data.userDetails.companyID,
+                        companyName : res.data.userDetails.companyName,
+                        status      : res.data.userDetails.status,
+                        role        : res.data.roles
+                      }),
+                    );
+                    navigation.navigate('LocationMain');
+                // navigation.navigate('RootLogIn')
               }else{
                 setToast({text: 'Please enter correct OTP.', color: colors.warning});
               }

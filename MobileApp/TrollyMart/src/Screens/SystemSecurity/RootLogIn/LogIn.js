@@ -56,10 +56,10 @@ const window = Dimensions.get('window');
       return (
         <React.Fragment>
           <Formik
-            onSubmit={(data) => {
-              console.log("data",data);
+            onSubmit={(values,fun) => {
+              fun.resetForm(values);
               setLoading(true);
-              let {username, password} = data;
+              let {username, password} = values;
               const payload = {
                 username  : username,
                 password  : password,
@@ -234,7 +234,7 @@ const window = Dimensions.get('window');
               role        : 'user',
               status      : 'active',
               countryCode : "",
-              authService : "facebook"
+              authService : "facebook",
             }
             console.log("formValues1",formValues);
             sign_in(formValues);
@@ -267,7 +267,7 @@ const window = Dimensions.get('window');
 
     const sign_in=(formValues)=>{
       console.log("formValues",formValues);
-      axios.post('/api/auth/post/signup/user/otp/new',formValues)
+      axios.post('/api/auth/post/signup/social_media',formValues)
       .then((res) => {
         console.log("response",res);
         // setLoading(false)
@@ -329,7 +329,7 @@ const window = Dimensions.get('window');
         countryCode : "",
         authService : "guest"
       }
-      axios.post('/api/auth/post/signup/user/guest_login',formValues)
+      axios.post('/api/auth/post/signup/guest_login',formValues)
       .then((res) => {
         console.log("response",res);
         // setLoading(false)

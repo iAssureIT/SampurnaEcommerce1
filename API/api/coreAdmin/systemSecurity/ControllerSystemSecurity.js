@@ -382,7 +382,8 @@ exports.user_signup_user_otp = (req, res, next) => {
 													error: err
 												});
 											} else {
-												var mobileOTP = getRandomInt(1000, 9999);
+												// var mobileOTP = getRandomInt(1000, 9999);
+												var mobileOTP = 1234;
 												if (mobileOTP) {
 													const user = new User({
 														_id: new mongoose.Types.ObjectId(),
@@ -418,7 +419,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 													user.save()
 														.then(result => {
 															if(result) {
-																res.status(200).json({ message: "USER_CREATED", ID: result._id })
+																res.status(200).json({ message: "USER_CREATED", ID: result._id, result:result })
 															}else {
 																res.status(200).json({ message: "USER_NOT_CREATED" })
 															}
@@ -505,23 +506,82 @@ exports.check_userID_EmailOTP = (req, res, next) => {
 };
 
 exports.check_userID_MobileOTP = (req, res, next) => {
-	User.find({ _id: ObjectID(req.params.ID), "profile.otpMobile": req.params.mobileotp })
+	User.findOne({ _id: ObjectID(req.params.ID), "profile.otpMobile": req.params.mobileotp })
 		.exec()
-		.then(data => {
-			if (data.length > 0) {
+		.then(user => {
+			if (user) {
 				User.updateOne(
 					{ _id: ObjectID(req.params.ID) },
 					{
 						$set: {
 							"profile.otpMobile": 0,
-							"profile.status": "blocked"
+							"profile.status": "active"
 						}
 					}
 				)
 					.exec()
 					.then(data => {
 						if (data.nModified === 1) {
-							res.status(200).json({ message: "SUCCESS", userID: data._id });
+								const token = jwt.sign({
+									mobile: user.profile.mobile,
+									userId: user._id,
+								}, globalVariable.JWT_KEY,
+									{
+										expiresIn: globalVariable.timeOutLimitSecs
+									}
+								);
+
+							User.updateOne(
+								{ "_id": ObjectID(user._id)},
+								{
+									$push: {
+										"services.resume.loginTokens": {
+											whenLogin: new Date(),
+											loginTimeStamp: new Date(),
+											hashedToken: token
+										}
+									}
+								}
+							)
+								.exec()
+								.then(updateUser => {
+									if(updateUser.nModified == 1) {
+										res.status(200).json({
+											message: 'Login Auth Successful',
+											token: token,
+											roles: user.roles,
+											ID: user._id,
+											loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
+											companyID: user.profile.companyID,
+											authService:user.authService,
+											userDetails: {
+												firstName: user.profile.firstname,
+												lastName: user.profile.lastname,
+												email: user.profile.email,
+												countryCode : user.profile.countryCode,
+												phone: user.profile.phone,
+												city: user.profile.city,
+												deliveryAddress: user.deliveryAddress,
+												pincode: user.profile.pincode,
+												companyID: user.profile.companyID,
+												company_id: user.profile.company_id,
+												companyName: user.profile.companyName,
+												locationID: user.profile.locationID,
+												user_id: user._id,
+												roles: user.roles,
+												token: token,
+											}
+										});
+									}
+								})
+
+								.catch(err => {
+									console.log("500 err ", err);
+									res.status(500).json({
+										message: "Failed to save token",
+										error: err
+									});
+								});
 						} else {
 							res.status(200).json({ message: "SUCCESS_OTP_NOT_RESET" });
 						}
@@ -1716,7 +1776,7 @@ exports.user_login_mob_email = (req, res, next) => {
 
 
 
-exports.user_signup_user_otp_new = (req, res, next) => {
+exports.user_signup_social_media = (req, res, next) => {
 	console.log("req body",req.body);
 		if(req.body.pwd && req.body.role) {
 			var userRole = (req.body.role).toLowerCase();
@@ -1733,15 +1793,20 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 									},
 								)
 								.exec()
-								.then(user => {
-									console.log("user",user);
+								.then(async(user) => {
+									var username = '';
+									if(req.body.authService === "google"){
+										username = req.body.email 
+									}else if(req.body.authService === "facebook"){
+										var users = await User.findOne({'authService':'facebook'}).sort({_id:-1}).limit(1) 
+										username = users ? parseInt(users.username)+1 : 1;
+									}
 									if (user) {
 										const token = jwt.sign({
-											email: req.body.email,
+											username: req.body.username,
 											userId: user._id,
 										}, globalVariable.JWT_KEY,
 											{
-												// expiresIn: "365d"
 												expiresIn: globalVariable.timeOutLimitSecs
 											}
 										);
@@ -1772,8 +1837,11 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 											}
 										});
 									} else {
-										bcrypt.hash(req.body.firstname, 10, (err, hash) => {
+										
+										// console.log("username",username)
+										bcrypt.hash(username.toString(), 10, (err, hash) => {
 											if (err) {
+												console.log("err",err);
 												return res.status(500).json({
 													message: "Failed to match the password",
 													error: err
@@ -1790,7 +1858,7 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 
 															},
 														},
-														username: req.body.firstname ? req.body.email.toLowerCase() : '',
+														username: username ? username: '',
 														authService : req.body.authService,
 														profile:
 														{
@@ -1817,11 +1885,10 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 														.then(result => {
 															if (result) {
 																const token = jwt.sign({
-																	email: req.body.email,
+																	username: username,
 																	userId: user._id,
 																}, globalVariable.JWT_KEY,
 																	{
-																		// expiresIn: "365d"
 																		expiresIn: globalVariable.timeOutLimitSecs
 																	}
 																);
@@ -1945,6 +2012,7 @@ exports.user_signup_guest_login = (req, res, next) => {
 											});
 										} else {
 											var emailOTP = getRandomInt(1000, 9999);
+											var username = users ? parseInt(users.username)+1 :1;
 											if (emailOTP) {
 												const user = new User({
 													_id: new mongoose.Types.ObjectId(),
@@ -1955,7 +2023,7 @@ exports.user_signup_guest_login = (req, res, next) => {
 
 														},
 													},
-													username: users ? parseInt(users.username)+1 : 1,
+													username: username,
 													authService : req.body.authService,
 													profile:
 													{
@@ -1982,7 +2050,7 @@ exports.user_signup_guest_login = (req, res, next) => {
 													.then(result => {
 														if (result) {
 															const token = jwt.sign({
-																email: req.body.email,
+																email: username,
 																userId: user._id,
 															}, globalVariable.JWT_KEY,
 																{

@@ -8,7 +8,7 @@ import CompanySMSGateway            from  '../Components/CompanySMSGateway.js';
 import AmazonS3                     from  '../Components/AmazonS3.js';
 import GoogleApiKey                 from  '../Components/GoogleApiKey.js';
 import CompanyPaymentGateway        from  '../Components/CompanyPaymentGateway.js';
-
+import PushNotificationKey          from  '../Components/PushNotificationKey.js';
 import '../css/CompanySetting.css';
 
 
@@ -96,6 +96,7 @@ import axios from 'axios';
                             <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#SMSGateway" data-toggle="tab">SMS Gateway</a></li>
                             <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#amazon" data-toggle="tab">Amazon S3</a></li>
                             <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#googleapikey" data-toggle="tab">Google API Key</a></li>
+                            <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#firebaseapikey" data-toggle="tab">Firebase API Key</a></li>
                             <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#CompanyPaymentGateway" data-toggle="tab">Payment Gateway</a></li>
                           </ul>   
                       </div>
@@ -105,6 +106,7 @@ import axios from 'axios';
                         <div className="tab-pane" id="amazon">                <AmazonS3/>             </div>                                
                         <div className="tab-pane" id="googleapikey">          <GoogleApiKey/>         </div>          
                         <div className="tab-pane" id="CompanyPaymentGateway"> <CompanyPaymentGateway/> </div>
+                        <div className="tab-pane" id="firebaseapikey">        <PushNotificationKey/>  </div>    
                       </div> 
                     </div>
                   </div>

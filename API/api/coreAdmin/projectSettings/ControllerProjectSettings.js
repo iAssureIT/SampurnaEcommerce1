@@ -29,6 +29,10 @@ exports.create_projectSettings = (req, res, next) => {
                                     req.body.status;
             listRequiredFields  = "environment,namepayg,partnerid,secretkey,status";
             break;
+    case 'PUSH_NOTIFICATION'   :
+        conditionQuery      = req.body.key;
+        listRequiredFields  = "key";
+        break; 
         default         :
             res.status(200).json("type can be either S3 or SMS or GOOGLE or PG");
             break;

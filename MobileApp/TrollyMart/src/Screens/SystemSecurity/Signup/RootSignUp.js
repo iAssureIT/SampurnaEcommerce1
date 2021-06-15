@@ -79,9 +79,11 @@ const window = Dimensions.get('window');
                   pwd         : password,
                   role        : 'user',
                   status      : 'unverified',
-                  countryCode : countryCode
+                  countryCode : countryCode,
+                  username    : "MOBILE"
                 }
-                axios.post('/api/auth/post/signup/user/otp/new',formValues)
+                console.log("formValues",formValues);
+                axios.post('/api/auth/post/signup/user/otp',formValues)
                 .then((response) => {
                   setLoading(false)
                   if(response.data.message == 'USER_CREATED'){            

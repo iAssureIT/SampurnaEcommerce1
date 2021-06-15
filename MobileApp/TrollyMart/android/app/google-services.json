@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1023694532217-k7tnr00vivofhjg6lp9d1652dti5cicd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trollymart",
+            "certificate_hash": "56b8e30261330e78116694a3ad561647ea528768"
+          }
+        },
+        {
           "client_id": "1023694532217-sao3jccvtoq00fdhk27qubd9hni8tdj2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -37,6 +45,13 @@
             {
               "client_id": "1023694532217-4b1v4vf0oukma7c8c1bnogpr40b28kii.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1023694532217-4mts1vajbqprhrk5mflhq36pcpg6ajhj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ae.trollymart"
+              }
             }
           ]
         }
