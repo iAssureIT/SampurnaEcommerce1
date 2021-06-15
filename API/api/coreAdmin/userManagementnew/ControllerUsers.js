@@ -1145,12 +1145,12 @@ exports.post_list_users = (req,res,next)=>{
 	if(req.body.companyID){
 		if(companyID === 1){
 			// var selector = {roles:{$ne:["admin"]}, "profile.status":{$ne:"deleted-active"}};
-			var selector = {"profile.status":{$ne:"deleted-active"}};
+			var selector = {"profile.status":{$ne:"deleted-active"},"authService":{$ne:"guest"}};
 			// console.log("selector",selector);
 
 		}else{
 			// var selector = {"profile.companyID":companyID,roles:{$ne:["admin"]}};
-			var selector = {"profile.companyID":companyID,"profile.status":{$ne:"deleted-active"}};
+			var selector = {"profile.companyID":companyID,"profile.status":{$ne:"deleted-active"},"authService":{$ne:"guest"}};
 		}
 		// console.log("selector",selector)
 		User.find(selector)

@@ -37,6 +37,7 @@ export const getUserDetails = (user_id) => {
           companyName : res.data.profile.companyName,
           status      : res.data.profile.status,
           role        : res.data.roles,
+          authService : res.data.authService
         },
       });
       dispatch({

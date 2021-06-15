@@ -45,10 +45,11 @@ export const ProductList = withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     stop_scroll     : store.productList.stop_scroll,
-    location        : store.location
+    location        : store.location,
+    userDetails     : store.userDetails
   }));
   const {currency,location}=store.preferences;
-  const {stop_scroll}=store;
+  const {stop_scroll,userDetails}=store;
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
       var availableSizes = [];
@@ -213,10 +214,10 @@ export const ProductList = withCustomerToaster((props)=>{
                     style={styles.subcatimg}
                   />
               }
-                <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,index)} >
+                {userDetails.authService!=="guest" &&<TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,index)} >
                   <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
 
-                </TouchableOpacity>
+                </TouchableOpacity>}
               {
                 item.discountPercent > 0 ?
                   <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>

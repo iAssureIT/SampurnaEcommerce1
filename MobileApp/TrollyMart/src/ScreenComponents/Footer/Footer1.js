@@ -58,12 +58,12 @@ export const Footer =(props)=>{
                 
               </TouchableOpacity>
             </View>
-            <View style={styles.iconOuterWrapper2}>
+            {userDetails.authService!=="guest" &&<View style={styles.iconOuterWrapper2}>
               <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate('WishlistComponent')}}>
                 <Icon name="heart-o" type="font-awesome" size={18} color="#666" />
                 <Text style={styles.footerTitle}>Wishlist</Text>
               </TouchableOpacity>
-            </View>
+            </View>}
             <View style={styles.iconOuterWrapper2}>
               <TouchableOpacity onPress={() => navigation.navigate('MyOrder')} >
                 <Icon name="shopping-bag" type="feather" size={15} color="#666" />

@@ -284,6 +284,7 @@ const window = Dimensions.get('window');
               setUserDetails({
                 user_id     : res.data.ID,
                 token       : res.data.token,
+                authService : res.data.authService,
                 firstName   : res.data.userDetails.firstName,
                 lastName    : res.data.userDetails.lastName,
                 email       : res.data.userDetails.email,
@@ -345,6 +346,7 @@ const window = Dimensions.get('window');
               setUserDetails({
                 user_id     : res.data.ID,
                 token       : res.data.token,
+                authService : res.data.authService,
                 firstName   : res.data.userDetails.firstName,
                 lastName    : res.data.userDetails.lastName,
                 email       : res.data.userDetails.email,

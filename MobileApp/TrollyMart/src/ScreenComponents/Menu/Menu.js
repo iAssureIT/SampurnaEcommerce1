@@ -11,33 +11,26 @@ import axios                    from "axios";
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuStyles.js';
 import {withCustomerToaster}     from '../../redux/AppState.js';
+import {useDispatch,
+  useSelector}              from 'react-redux';
 
 export const Menu = (props)=>{
   const {navigation}=props;
   const [firstName,setFirstName] = useState('');
   const [lastName,setLastName]   = useState('');
   const [user_id,setUserId]      = useState('');
-  ;
+  const userDetails = useSelector(store => store.userDetails);
+
+  console.log("userDetails",userDetails);
+
   useEffect(() => {
     getData()
   },[props]);
 
   const getData=()=>{
-    AsyncStorage.getItem('user_id')
-    .then((userId)=>{
-      if(userId){
-        axios
-        .get('/api/users/get/'+userId)
-        .then((user)=>{
-          setFirstName(user.data.firstname);
-          setLastName(user.data.lastname);
-          setUserId(userId);
-        })
-        .catch((error)=>{
-          console.log("error=>",error)
-        })
-      } 
-    })
+    setFirstName(userDetails.firstName);
+    setLastName(userDetails.lastName);
+    setUserId(userDetails.user_id);
   }
 
   const logout=()=>{
@@ -65,7 +58,7 @@ export const Menu = (props)=>{
         </View>	
         </View>
       <View style={styles.menuWrapper}>
-        {user_id!==""&&<View>
+        {user_id!==""&&userDetails.authService!=="guest" &&<View>
         <TouchableOpacity onPress={()=> navigation.navigate('MyAccount')}>
           <View style={styles.menu}>
             <Icon 
@@ -90,18 +83,6 @@ export const Menu = (props)=>{
             <Text style={styles.menuText}>My Addresses</Text>
           </View>
         </TouchableOpacity>
-          <TouchableOpacity onPress={()=> navigation.navigate('MyOrder')}>
-          <View style={styles.menu}>
-            <Icon 
-              size={20} 
-              name='briefcase' 
-              type='entypo' 
-              color='#666' 
-              containerStyle={styles.iconContainer}
-            />
-            <Text style={styles.menuText}>My Orders</Text>
-          </View>
-        </TouchableOpacity>
         <TouchableOpacity onPress={()=> navigation.navigate('WishlistComponent')}>
           <View style={styles.menu} >
             <Icon 
@@ -115,6 +96,18 @@ export const Menu = (props)=>{
           </View>
         </TouchableOpacity>
         </View>}
+        <TouchableOpacity onPress={()=> navigation.navigate('MyOrder')}>
+          <View style={styles.menu}>
+            <Icon 
+              size={20} 
+              name='briefcase' 
+              type='entypo' 
+              color='#666' 
+              containerStyle={styles.iconContainer}
+            />
+            <Text style={styles.menuText}>My Orders</Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={()=> navigation.navigate('SupportSystem')}>
           <View style={styles.menu} >
             <Icon 
@@ -127,7 +120,7 @@ export const Menu = (props)=>{
             <Text style={styles.menuText}>Help & Support</Text>
           </View>
         </TouchableOpacity> 
-        {user_id ?
+        {user_id && userDetails.authService!=="guest" ?
         <TouchableOpacity onPress={()=>logout()}>
           <View style={styles.menu}>
             <Icon 
