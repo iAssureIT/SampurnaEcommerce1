@@ -576,9 +576,9 @@ export default class MyOrders extends Component {
                                           </div>
 
                                           {vendordata.orderStatus=== "Cancelled"?
-                                            <span className=" col-1 orderStatusBadge badge badge-danger NoPadding">{vendordata.orderStatus}</span>
+                                            <span className=" col-2 col-xl-1 col-lg-1 orderStatusBadge badge badge-danger NoPadding">{vendordata.orderStatus}</span>
                                           :
-                                            <span className=" col-1 orderStatusBadge badge badge-primary NoPadding">{vendordata.orderStatus}</span>
+                                            <span className=" col-2 col-xl-1 col-lg-1 orderStatusBadge badge badge-primary NoPadding">{vendordata.orderStatus}</span>
                                           }
                                         </div>
                                         </div>
@@ -598,7 +598,7 @@ export default class MyOrders extends Component {
                                     </div>
                                     <div className="col-4 offset-3 pull-right orderBtnWrapper">
                                       <button className=" btn col-12 pull-right ">
-                                        <a href="/order-details" className={"col-7 showDetailsBtn " +Style.detailBtn}>Show Details</a>
+                                        <a href="/order-details" className={"col-12 col-xl-7 col-md-12 showDetailsBtn " +Style.detailBtn}>Show Details</a>
                                       </button>
                                     </div>
                                   </div>
