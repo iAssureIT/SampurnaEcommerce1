@@ -1,0 +1,24 @@
+.sideMenuBox{
+	height:60px !important;
+	margin:auto;
+	text-align:center;
+	border-radius:10px;
+	margin-bottom:15px !important;
+	background-color:#E9E9E9 !important;	
+}
+
+.sideMenuBox a{
+	margin:auto;
+	color:#000000 !important;
+	font-weight:bold;
+}
+
+.sideMenuBoxTOP{
+	margin-top:40px;
+}
+
+.active{
+	background-color:#033554 !important;
+	color:#fff !important;
+
+}

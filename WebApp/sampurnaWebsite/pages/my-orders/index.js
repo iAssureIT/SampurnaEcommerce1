@@ -15,6 +15,9 @@ import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/Brea
 import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
 import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
 import Countdown            from "react-countdown";
+
+import Style                  from './index.module.css';
+
 export default class MyOrders extends Component {
   constructor(props) {
     super(props);
@@ -473,7 +476,7 @@ export default class MyOrders extends Component {
     return (
       <div className="col-12 NoPadding">
         <Header />
-        <div className="container">
+        <div className={" " +Style.container1 }>
           <Message messageData={this.state.messageData} />
           {
             this.state.loading ?
@@ -482,30 +485,30 @@ export default class MyOrders extends Component {
               <div className="col-12 NOpadding">
                 <br />
                <div className="row"> 
-                <div className="col-12 col-xl-3 col-md-12 col-sm-12 myOrderSidebar ">
+                <div className="col-12 col-xl-3 col-md-3 col-sm-3 myOrderSidebar ">
                   <Sidebar />
                 </div>
 
-                <div className="col-12 col-xl-9 col-md-12">
+                <div className="col-12 col-xl-9 col-md-9 col-sm-9 pr-0">
                   <div className="col-12">
-                      <h4 className="table-caption">My Orders</h4>
+                      <h4 className={"table-caption " +Style.mainTitle}>My Orders</h4>
                   </div>
 
                   <div className="col-12">
                     {this.state.orderData && this.state.orderData.length > 0 ? 
                       this.state.orderData.map((singleOrder, index) => {
                         return(
-                          <div className="col-12 NoPadding orderIdborder" key={index}>
+                          <div className={"col-12 NoPadding orderIdborder " +Style.orderIdborderNew} key={index}>
                             <div className="col-12  NoPadding orderNowrapper mb-4 ">
-                              <div className="row">
+                              <div className={"row " +Style.ptb15}>
                                 <div className="col-6">
-                                    <div className="col-12">{singleOrder.orderStatus}</div>
+                                    <div className="col-12"><b>{singleOrder.orderStatus}</b></div>
                                     <div className="col-12">{"Order ID : "+(singleOrder.orderID)}</div>
-                                    <div className="col-12">{"Total amount : "+this.state.currency +" " +(singleOrder.paymentDetails.netPayableAmount)}</div>
+                                    <div className="col-12"><b>{"Total amount : "+this.state.currency +" " +(singleOrder.paymentDetails.netPayableAmount)}</b></div>
                                 </div>                       
-                                <div className="col-6 NOpadding">
+                                <div className={"col-6 " +Style.rightside}>
                                     <div className="row">
-                                        <div className="col-12 NoPadding">
+                                        <div className="col-12">
                                           <span className="col-6 text-right">Date - {moment(singleOrder.createdAt).format("DD MMMM YYYY")}&nbsp;</span>
                                           <span className="col-6 text-right">Time -  {moment(singleOrder.createdAt).format("HH:mm")}</span>
                                         </div>
@@ -543,13 +546,13 @@ export default class MyOrders extends Component {
                                 singleOrder.vendorOrders.map((vendordata, index) => {
                                     // console.log("orderData:",vendordata);
                                     return (
-                                      <div className="col-12 vendorwiseOrderHistory mb-4 mt-4">
+                                      <div className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>
                                         <div className="col-12" >
                                         <div key={index} className={"row "}>
-                                          <div className="col-4 NoPadding ">
-                                              <span className="">{vendordata.vendorName}</span> &nbsp;
+                                          <div className={"col-4 NoPadding "}>
+                                              <span className=""><b>{vendordata.vendorName}</b></span> &nbsp;
                                           </div>           
-                                          <div className="col-6">
+                                          <div className={"col-6 " +Style.middleText}>
                                               <div className="row ">   
                                                   <div className="col-12 title NoPadding">
                                                     <div className="row">
@@ -573,9 +576,9 @@ export default class MyOrders extends Component {
                                           </div>
 
                                           {vendordata.orderStatus=== "Cancelled"?
-                                            <span className=" col-2 orderStatusBadge badge badge-danger">{vendordata.orderStatus}</span>
+                                            <span className=" col-1 orderStatusBadge badge badge-danger NoPadding">{vendordata.orderStatus}</span>
                                           :
-                                            <span className=" col-2 orderStatusBadge badge badge-primary">{vendordata.orderStatus}</span>
+                                            <span className=" col-1 orderStatusBadge badge badge-primary NoPadding">{vendordata.orderStatus}</span>
                                           }
                                         </div>
                                         </div>
@@ -588,14 +591,14 @@ export default class MyOrders extends Component {
                                     <img src="/images/eCommerce/emptyorder.png" alt=""/>
                                   </div>
                               }
-                              <div className="col-12 "> 
+                              <div className={"col-12 " +Style.vendorRowBottom}> 
                                   <div className="row">
                                     <div className="col-5  pull-left ">
-                                        <div className="cancelOrderbtn" id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                        <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
                                     </div>
                                     <div className="col-4 offset-3 pull-right orderBtnWrapper">
-                                      <button className=" btn btn-secondary col-12 ">
-                                        <a href="/order-details" className="col-12 showDetailsBtn ">Show Details</a>
+                                      <button className=" btn col-12 pull-right ">
+                                        <a href="/order-details" className={"col-7 showDetailsBtn " +Style.detailBtn}>Show Details</a>
                                       </button>
                                     </div>
                                   </div>
