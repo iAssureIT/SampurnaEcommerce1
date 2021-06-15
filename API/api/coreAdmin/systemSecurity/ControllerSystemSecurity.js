@@ -1612,6 +1612,7 @@ exports.user_login_mob_email = (req, res, next) => {
 												ID: user._id,
 												loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
 												companyID: user.profile.companyID,
+												authService:user.authService,
 												userDetails: {
 													firstName: user.profile.firstname,
 													lastName: user.profile.lastname,
@@ -1751,6 +1752,7 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 											ID: user._id,
 											loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
 											companyID: user.profile.companyID,
+											authService:user.authService,
 											userDetails: {
 												firstName: user.profile.firstname,
 												lastName: user.profile.lastname,
@@ -1846,6 +1848,7 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 																			ID: user._id,
 																			loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
 																			companyID: user.profile.companyID,
+																			authService:user.authService,
 																			userDetails: {
 																				firstName: user.profile.firstname,
 																				lastName: user.profile.lastname,
@@ -2010,6 +2013,7 @@ exports.user_signup_guest_login = (req, res, next) => {
 																		ID: user._id,
 																		loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
 																		companyID: user.profile.companyID,
+																		authService : user.authService,
 																		userDetails: {
 																			firstName: user.profile.firstname,
 																			lastName: user.profile.lastname,
