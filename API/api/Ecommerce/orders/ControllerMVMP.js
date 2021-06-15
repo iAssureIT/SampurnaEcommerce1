@@ -43,7 +43,7 @@ exports.insert_orders = (req, res, next) => {
 				customerShippingTime      	: req.body.customerShippingTime,
 				order_numberOfProducts    	: req.body.order_numberOfProducts, 
 				order_quantityOfProducts  	: req.body.order_quantityOfProducts, 
-				orderStatus 				: "New Order",
+				orderStatus 				: "New",
 				vendorOrders 				: req.body.vendorOrders,
 				deliveryAddress				: req.body.deliveryAddress,			
 				createdAt 					: new Date(),
@@ -409,7 +409,51 @@ function getDistanceWiseShippinCharges(){
     });
 }
 
- 	/*========== Split VendorWise Orders ==========*/
+/*========== List Status Wise Orders ==========*/
+exports.list_orders_by_status = (req, res, next) => {
+	console.log("list_orders_by_status => ",req.body);
+	var selector        = {};
+	selector['$and']    = [];
+	if(req.body.status.toLowerCase() !== "all"){       
+        /**----------- Find Status wise Orders ------------ */
+        selector["$and"].push({
+			vendorOrders : { 
+				$elemMatch: { orderStatus: req.body.status } 
+			} 
+		})
+	}else{
+		selector["$and"].push({
+			vendorOrders : { 
+				$elemMatch: { orderStatus:{"$ne" : ""} }
+			} 
+		})
+	}
+	console.log("selector",selector);
+	// console.log("selector => ",selector[0].vendorOrders)
+	Orders.find(selector)
+	// aggregate([
+	// 	// {$match : { 
+	// 	// 	vendorOrders: { 
+	// 	// 		$elemMatch: { orderStatus: req.body.status } 
+	// 	// 	}
+	// 	// }}
+	// 	{$match : selector}
+	// ])
+	.populate('vendorOrders.vendor_id')
+	.sort({ createdAt: -1 })
+	.then(data => {
+		console.log("allocatedToFranchise===>>>",data);
+		res.status(200).json(data);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
+/*========== Split VendorWise Orders ==========*/
  	function addSplitVendorOrders(orderID) {
 		return new Promise(function (resolve, reject) {
 			Orders.findOne({"_id" : ObjectId(orderID)})
@@ -469,6 +513,43 @@ function getDistanceWiseShippinCharges(){
 			})
 		})
 	}
+
+/** =========== Change Vendor Order Status =========== */
+exports.change_vendor_orders_tatus = (req, res, next) => {
+	console.log("req.body => ",req.body)
+	Orders.updateOne(
+	{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
+	{
+		$set:{
+			"vendorOrders.$.orderStatus"    			: req.body.changeStatus
+		},
+		$push: {	
+			"vendorOrders.$.deliveryStatus" : {
+				status 				: req.body.changeStatus,
+				timestamp 			: new Date(),
+				statusUpdatedBy 	: req.body.userid
+			}
+		}
+	})
+	.then(updatedata => {
+		console.log("updatedata => ",updatedata);
+		if (updatedata.nModified === 1) {
+			res.status(200).json({
+				"message"	: "Vendor Order Status Updated Successfully."
+			});
+		} else {
+			res.status(200).json({
+				"message" : "Failed to Update Vendor Order Status"
+			});
+		}
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error : err
+		});
+	});
+}
 
  	/*========== Return Vendor Id ==========*/
  	function getVendorData(vendor_ID) {
@@ -860,6 +941,21 @@ exports.fetch_order = (req, res, next) => {
 		});
 	});
 };
+
+exports.fetch_one_order = (req, res, next) => {
+	Orders.findOne({ _id: req.params.orderID })
+  	.then(async(data) => {
+	  	console.log('data', data);
+		res.status(200).json(data);
+  	})
+  	.catch(err => {
+	  	console.log(err);
+	  	res.status(500).json({
+		  	error : err
+	  	});
+  	});
+};
+
 exports.delete_order = (req, res, next) => {
   Orders.deleteOne({ _id: ObjectId(req.params.orderID) })
 	 .exec()
@@ -1077,6 +1173,7 @@ exports.updateDeliveryStatus = (req, res, next) => {
 		});
 	 });
 };
+
 exports.changeToPreviousStatus = (req, res, next) => {
   Orders.updateOne(
 	 { _id: ObjectId(req.body.orderID) },
@@ -1092,6 +1189,7 @@ exports.changeToPreviousStatus = (req, res, next) => {
 		res.status(500).json({ error: err });
 	 });
 };
+
 exports.dispatchOrder = (req, res, next) => {
 
   /*Masternotifications.findOne({"templateType":"SMS","templateName":"Order Dispatched"})
@@ -1801,13 +1899,13 @@ exports.todaysorders = (req, res, next) => {
 exports.neworderscount = (req, res, next) => {
   Orders.aggregate([
 	 {
-		"$match": { "deliveryStatus.status": "New Order" }
+		"$match": { "deliveryStatus.status": "New" }
 	 },
 	 {
 		"$redact":
 		{
 		  "$cond": {
-			 "if": { "$eq": [{ "$arrayElemAt": ["$deliveryStatus.status", -1] }, "New Order"] },
+			 "if": { "$eq": [{ "$arrayElemAt": ["$deliveryStatus.status", -1] }, "New"] },
 			 "then": "$$KEEP",
 			 "else": "$$PRUNE"
 		  }

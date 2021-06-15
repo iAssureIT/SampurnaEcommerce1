@@ -140,8 +140,8 @@ import OrderCancellationPolicy      from './OrderCancellationPolicy/OrderCancell
 												<div className="tab-pane active" id="Section">    	<Section            	editId={this.state.editId}/>  </div>
 												<div className="tab-pane" id="Category">          	<Category           	editId={this.state.editId} history={this.props.history}/>  </div>
 												<div className="tab-pane" id="UnitOfMeasurment">  	<UnitOfMeasurment   	editId={this.state.editId}/>  </div>  
-												<div className="tab-pane" id="distanceRange">  		<DistanceRange   		editId={this.state.editId}/>  </div>  
-												<div className="tab-pane" id="ShippingManagement"> <ShippingManagement 	editId={this.state.editId}/>  </div>  
+												{/* <div className="tab-pane" id="distanceRange">  		<DistanceRange   		editId={this.state.editId}/>  </div>   */}
+												{/* <div className="tab-pane" id="ShippingManagement"> <ShippingManagement 	editId={this.state.editId}/>  </div>   */}
 												<div className="tab-pane" id="TimeManagement">    	<TimeManagement     	editId={this.state.editId}/>  </div>  
 												<div className="tab-pane" id="PhotoGallery">      	<PhotoGallery       	editId={this.state.editId}/>  </div>  
 												{/* {console.log("this.state.websiteModel",this.state.websiteModel)} */}

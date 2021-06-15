@@ -6,77 +6,72 @@ import swal                   	from 'sweetalert';
 import S3FileUpload           	from 'react-s3';
 import moment                 	from "moment";
 import IAssureTable           	from "../OrderTable/IAssureTable.jsx";
-// import { result }            from 'underscore';
-// import IAssureTable          from '../../../../coreadmin/IAssureTable/IAssureTable.jsx';
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
-// import '../css/CategoryManagement.css';
-// import { set } from 'mongoose';
 
 class AllOrdersList extends Component{
 	constructor(props) {
 		super(props);
-		this.state = {
-			                  
+		this.state = {			                  
 			"tableHeading"     	: {
-									orderNumber             : "Order Number",
-									orderDate             	: "Order Date",
-									customer    			: "Customer",
-									totalPrice         		: "Total Price",
-									// vendors 				: "Vendors",
-									vendorName  			: "Vendor Name",
-									vendorPrice 			: "Vendor Price",
-									vendorStatus 			: "Vendor Status",
-									changeVendorStatus 	    : "Change Vendor Status"
+				orderNumber             : "Order Number",
+				orderDate             	: "Order Date",
+				customer    			: "Customer",
+				totalPrice         		: "Total Price",
+				// vendors 				: "Vendors",
+				vendorName  			: "Vendor Name",
+				vendorPrice 			: "Vendor Price",
+				vendorStatus 			: "Vendor Status",
+				changeVendorStatus 	    : "Change Vendor Status"
 			},
 			"twoLevelHeader"    : {
-									apply : true,
-									firstHeaderData : [
-										{
-											heading 		: 'Order Details',
-											mergedColoums 	: 4,
-											// mergedRows 		: 1
-										},
-										// {
-										// 	heading 		: 'Order Date',
-										// 	mergedColoums 	: 1,
-										// 	mergedRows 		: 1
-										// },
-										// {
-										// 	heading 		: 'Customer',
-										// 	mergedColoums 	: 1,
-										// 	mergedRows 		: 1
-										// },
-										{
-											heading 		: 'Vendor',
-											mergedColoums 	: 4,
-											// mergedRows 		: 1
-										},
-										{
-											heading 		: '',
-											mergedColoums 	: 1,
-											// mergedRows 		: 1
-										},
-									]
+				apply 			: true,
+				firstHeaderData : [
+					{
+						heading 		: 'Order Details',
+						mergedColoums 	: 4,
+						// mergedRows 		: 1
+					},
+					// {
+					// 	heading 		: 'Order Date',
+					// 	mergedColoums 	: 1,
+					// 	mergedRows 		: 1
+					// },
+					// {
+					// 	heading 		: 'Customer',
+					// 	mergedColoums 	: 1,
+					// 	mergedRows 		: 1
+					// },
+					{
+						heading 		: 'Vendor',
+						mergedColoums 	: 4,
+						// mergedRows 		: 1
+					},
+					{
+						heading 		: '',
+						mergedColoums 	: 1,
+						// mergedRows 		: 1
+					},
+				]
 			},
 			"tableObjects"      : {
-									// deleteMethod        	: 'delete',
-									// apiLink              	: '/api/category',
-									paginationApply      	: true,
-									searchApply          	: true,
-									// editUrl              	: '/project-master-data/',
-									// deleteUrl            	: '/project-master-data',
-									patchStatusUrl      	: '/api/category/patch/status',
-									// type                 	: 'Categories',
-									showAction 			 	: true
+				// apiLink             	: '/api/category',
+				paginationApply      	: true,
+				searchApply          	: true,
+				patchStatusUrl      	: '/api/category/patch/status',
+				showAction 			 	: true
 			},
 			"startRange"       	: 0,
 			"limitRange"        : 10,
 			"tableName"         : 'AllOrders',
 			tableData 			: [],
+			activeStatus 		: ""
 		};
+		this.openChangeStatusModal = this.openChangeStatusModal.bind(this);
+		window.openChangeStatusModal  = this.openChangeStatusModal;
 	}
 
+	/* ======= handleChange() ========== */
 	handleChange(event){ 
 		const target = event.target;
 		const name   = target.name;
@@ -86,10 +81,10 @@ class AllOrdersList extends Component{
 		});
 	}	
 	
+	/* ======= componentWillReceiveProps() ========== */
 	componentWillReceiveProps(nextProps) {
 		console.log("Inside componentWillRecive props",nextProps);
-		// console.log("EditId:===",this.state.editId);
-		
+
 		if(nextProps && nextProps.editId && nextProps.editId !== undefined &&  nextProps.history.location.pathname !== "/project-master-data"){      
 		  	this.setState({
 			  	editId : nextProps.editId
@@ -99,26 +94,47 @@ class AllOrdersList extends Component{
 		}
 	}
   
-	componentDidMount(){
-		this.getDataCount();
-		this.getData(this.state.startRange,this.state.limitRange);
-		var currency = localStorage.getItem("preferencedata");
-		console.log("currency => ",currency)
-		// this.getSubCategoryData(this.state.startRange,this.state.limitRange);
+	/* ======= componentDidMount() ========== */
+	async componentDidMount(){
+		
+		// this.getDataCount();
 		this.getAdminPreferences();
-		this.getAllorderStatus();
+		var orderStatusData 	= await axios.get('/api/orderstatus/get/list');
+		var orderStatusArray 	= orderStatusData.data;
+		this.setState({
+			"orderStatusArray": orderStatusArray,
+		},()=>{
+			console.log("getAllorderStatus response ==>",this.state.orderStatusArray)
+		})
+		var orderStatusParams = this.props.match.params.orderStatus.replace(/-/g, ' ');
+		console.log("orderStatusParams * => ",orderStatusParams)
+		if(orderStatusArray && orderStatusArray.length > 0){
+			var orderStatusObject = await orderStatusArray.filter(orderStatus => (orderStatus.orderStatus).toLowerCase() === orderStatusParams);
+			if(orderStatusObject && orderStatusObject.length > 0){
+				var orderStatus = orderStatusObject[0].orderStatus;
+			}else{
+				var orderStatus = orderStatusParams;
+			}
+		}else{
+			var orderStatus = orderStatusParams;
+		}
+		console.log("orderStatus * => ",orderStatus)
+		this.setState({
+			orderStatus : orderStatus
+		},()=>{
+			console.log(" this.state.orderStatus => ",this.state.orderStatus);
+			this.getData(this.state.startRange,this.state.limitRange);		
+		})
+		// console.log("params => ",this.props.match.params.orderStatus);
 	}
 
-	
+	/* ======= getAllorderStatus() ========== */
 	getAllorderStatus(){
 		axios.get('/api/orderstatus/get/list')
 		.then((response) => {
 			// console.log("getAllorderStatus 402 response ==>",response)
-			this.setState({
-				"orderStatusArray": response.data,
-			},()=>{
-					console.log("getAllorderStatus response ==>",response)
-			})
+			
+			return response.data
 		})
 		.catch((error) => {
 			console.log("Error in orderstatus = ", error);
@@ -138,80 +154,101 @@ class AllOrdersList extends Component{
 		})
 	}
 
-	//======= Admin Preferences ==========
+	/* ======= openChangeStatusModal() ========== */
+	openChangeStatusModal(id){
+		console.log("id=============>",id)
+		var order_id 	= id.split("-")[0];
+		var vendor_id 	= id.split("-")[1];
+		console.log("id => ",id)
+		this.setState({
+			vendor_id 	: vendor_id,
+			order_id 	: order_id
+		},()=>{
+			this.getOneOrder(this.state.order_id, this.state.vendor_id);
+		})
+		
+	}
+	
+	/* ======= get Single order ========== */
+	getOneOrder(order_id, vendor_id){
+		axios.get('/api/orders/get/one/order/'+order_id)
+		.then((response) => {
+			console.log("get one order response ==>",response.data)
+			if (response.data && response.data.vendorOrders && response.data.vendorOrders.length > 0) {
+				var vendorOrder = response.data.vendorOrders.filter(vendorOrder => String(vendorOrder.vendor_id) === String(vendor_id))
+				console.log("vendorOrder => ",vendorOrder)
+				if(vendorOrder[0] && vendorOrder[0].deliveryStatus.length > 0){
+					var activeStatus 		= vendorOrder[0].deliveryStatus[vendorOrder[0].deliveryStatus.length -1].status;
+					var activeStatusObject 	= this.state.orderStatusArray.filter(status => status.orderStatus === activeStatus);
+					console.log("activeStatusObject => ",activeStatusObject);
+					if(activeStatusObject && activeStatusObject.length > 0){
+						var activeStatusRank  	= activeStatusObject[0].statusRank;
+					}else{
+						var activeStatusRank  	= 0;
+					}					
+					console.log("activeStatus => ",activeStatus);
+					this.setState({
+						activeStatus 		: activeStatus,
+						activeStatusRank 	: activeStatusRank
+					},()=>{})
+				}
+			}			
+		})
+		.catch((error) => {
+			console.log("Error in orderstatus = ", error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+							window.location.href = "/login";
+					}
+				});
+			}
+		})
+	}
+
+	/* ======= Admin Preferences ========== */
 	getAdminPreferences(){
 		axios.get("/api/adminpreference/get")
 		.then(preferences =>{
-			if(preferences.data){
-				// console.log("preferences.data[0] => ",preferences.data[0])
-				// var askpincodeToUser = preferences.data[0].askPincodeToUser;
-
+			if(preferences.data && preferences.data.length > 0){
 				this.setState({
-					'websiteModel'     	: preferences.data[0].websiteModel,
-					'askPincodeToUser' 	: preferences.data[0].askPincodeToUser,
-					'showLoginAs'      	: preferences.data[0].showLoginAs,
-					'showInventory'    	: preferences.data[0].showInventory,
-					'showDiscount'    	: preferences.data[0].showDiscount,
-					'showCoupenCode'    : preferences.data[0].showCoupenCode,
-					'showOrderStatus'   : preferences.data[0].showOrderStatus,
-					'currency' 			: preferences.data[0].currency,
-					'unitOfDistance' 	: preferences.data[0].unitOfDistance
+					'currency' 			: preferences.data[0].currency
 				})									
 			}
 		})
 		.catch(error=>{
-				console.log("Error in preferences = ", error);
-				if(error.message === "Request failed with status code 401"){
-					var userDetails =  localStorage.removeItem("userDetails");
-					localStorage.clear();
-					swal({  
-							title : "Your Session is expired.",                
-							text  : "You need to login again. Click OK to go to Login Page"
-					})
-					.then(okay => {
-					if (okay) {
-							window.location.href = "/login";
-					}
-					});
-				}
-		})
-	}
-
-	getDataCount(){
-		axios.get('/api/category/get/count')
-		.then((response)=>{
-		  	// console.log('dataCount', response.data);
-		  	this.setState({
-			 	dataCount : response.data.dataCount
-		  	})
-		})
-		.catch((error)=>{
-		  	console.log('error', error);
-		  	if(error.message === "Request failed with status code 401"){
-				localStorage.removeItem("userDetails");
+			console.log("Error in preferences = ", error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
 				localStorage.clear();
 				swal({  
-					title : "Your Session is expired.",                
-					text  : "You Need to Login Again. Click 'OK' to go to Login Page"
+						title : "Your Session is expired.",                
+						text  : "You need to login again. Click OK to go to Login Page"
 				})
 				.then(okay => {
 					if (okay) {
-						window.location.href = "/login";
+							window.location.href = "/login";
 					}
 				});
 			}
-		});
+		})
 	}
 
-	
 	/**=========== getData() ===========*/
-	getData(startRange, limitRange){
-		var data = {
+	async getData(startRange, limitRange){
+		var formValues = await {
 		  startRange : startRange,
-		  limitRange : limitRange
+		  limitRange : limitRange,
+		  status 	 : this.state.orderStatus
 		}
 		
-		axios.post('/api/orders/get/get_orders')
+		axios.post('/api/orders/get/list_orders_by_status',formValues)
 		.then((response)=>{
 		  	console.log('order tableData', response.data);		               
 		  
@@ -219,13 +256,14 @@ class AllOrdersList extends Component{
 				return{ 
 					_id             : a._id,
 					orderNumber     : a.orderID,
-					orderDate       : moment(a.createdAt).format("DD/MM/YYYY"),
+					orderDate       : '<div class=textFloatLeft><div>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')
+					+ '</div></div>',
 					customer     	: '<div><b>'+ a.userFullName +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
 					totalPrice  	: this.state.currency + " " + a.paymentDetails.netPayableAmount,					
 					vendorName   	: a.vendorOrders 
 										? 
 											(a.vendorOrders.map((b)=>{
-												return '<div>'+b.vendorName+'</div>'
+												return '<div>'+b.vendor_id.companyName+'</div>'
 											})).join(' ')
 										: [],
 					vendorPrice   	: a.vendorOrders 
@@ -237,7 +275,7 @@ class AllOrdersList extends Component{
 					vendorStatus   	: a.vendorOrders 
 										? 
 											(a.vendorOrders.map((b)=>{
-												var status = (b.deliveryStatus[b.deliveryStatus.length - 1].status).replace(/\s+/g, '-').toLowerCase()
+												var status = (b.deliveryStatus[b.deliveryStatus.length - 1].status).replace(/\s+/g, '_').toLowerCase()
 												console.log("b.deliveryStatus => ",b.deliveryStatus)
 												console.log("status => ",status)
 												return '<div class="statusDiv">'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
@@ -254,7 +292,7 @@ class AllOrdersList extends Component{
 												// url = url.replace(/\s+/g, '-').toLowerCase();
 												
 												return(
-														"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "' onclick=window.changeVendorOrderStatus('" + a._id + "-" + b.vendor_id + "') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
+														"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + b.vendor_id._id + "') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
 													 
 												)
 											})).join(' ')
@@ -300,120 +338,74 @@ class AllOrdersList extends Component{
 		   })
 		}
    	}
-	
-	getSearchText(searchText, startRange, limitRange){
-		this.getSearchCount(searchText);
-		var formValues={ 
-			"searchText"    : searchText,
-			"startRange"    : startRange,
-			"limitRange"    : limitRange
-		};
-		axios.post("/api/category/searchCategory",formValues)
-		.then((response)=>{ 
-			console.log('tableData', response.data);
-			var tableData = response.data.reverse().map((a, i)=>{                      
-				return{ 
-					_id                   : a._id,
-					section               : a.section,
-					category              : a.category,
-					categoryNameRlang     : a.categoryNameRlang,
-					categoryRank          : a.categoryRank,
-					categoryDescription   : a.categoryDescription,
-					subCategory           : "<a aria-hidden='true' class='actionLinks' title='Show all SubCategories' id='" + a._id + "'data-toggle='modal' data-target='#subCategoryModal' onclick=window.openSubCategoryModal('"+ a._id + "')> View </a>",
-					status                : a.status,
-					subCategories 		  : a.subCategory
-				}
-			})		 
-			this.setState({
-				tableData : tableData,
-				//dataCount : response.data.length
-			});
-		})
-		.catch((error)=>{
-			console.log('error', error);
-			if(error.message === "Request failed with status code 401"){
-				localStorage.removeItem("userDetails");
-				localStorage.clear();
-				swal({  
-					title : "Your Session is Expired.",                
-					text  : "You need to login again. Click OK to go to Login Page"
-				})
-				.then(okay => {
-					if (okay) {
-						window.location.href = "/login";
-					}
-				});
-			}
-		})
-	}
-	
-	getSearchCount(searchText){
-		var formValues = { 
-		  	"searchText" : searchText
-		};
-		axios.post("/api/category/searchCategoryCount",formValues)
-		.then((response)=>{ 
-			this.setState({
-				dataCount : response.data.dataCount
-			},()=>{
-			})
-		})
-		.catch((error)=>{
-			console.log('error', error);
-			if(error.message === "Request failed with status code 401"){
-				localStorage.removeItem("userDetails");
-				localStorage.clear();
-				swal({  
-					title : "Your Session is Expired.",                
-					text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
-				})
-				.then(okay => {
-					if (okay) {
-						window.location.href = "/login";
-					}
-				});
-			}
-		})
-	}
-	handleSubCatChange(event){
-		this.setState({
-			[event.target.name] 						: event.target.value,
-			["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
-		})
-	}
 
-	createSubCategoryUrl(event){
-		const target = event.target;
-		const name   = target.name;
+	/* ======= changeVendorOrderStatus() ========== */
+	async changeVendorOrderStatus(event){		
+		console.log("event => ",event.target.id);		
+
+		// console.log("activeStatusObject 1 => ",activeStatusObject);
+		// console.log("activeStatusObject 2 => ",this.state.activeStatus);
+		// console.log("activeStatusObject 3 => ",activeStatusRank);
+
+		var nextStatusRank = this.state.activeStatusRank + 1;
+		if(this.state.activeStatusRank === 1){
+			var previousStatusRank 	= 0;
+		}else{
+			var previousStatusRank 	= this.state.activeStatusRank - 1 ;
+		}
+
+		if(event.target.id === "Previous"){
+			var previousStatusObject 	= await this.state.orderStatusArray.filter(orderStatus => orderStatus.statusRank === previousStatusRank)
+			var changeStatus 			= previousStatusObject[0].orderStatus;
+			var changeStatusRank 		= previousStatusRank;
+		}else if(event.target.id === "Next"){
+			var nextStatusObject 	= await this.state.orderStatusArray.filter(orderStatus => orderStatus.statusRank === nextStatusRank)
+			console.log("nextStatusObject =>",nextStatusObject)
+			var changeStatus 		= nextStatusObject[0].orderStatus;
+			var changeStatusRank 	= nextStatusRank;
+		}
 		this.setState({
-			[name] 										: event.target.value,
-			["subCategoryTitleError"+event.target.id] 	: event.target.value ? "" : "This field is required."
-		});
-		var url = event.target.value;
-		if(url){
-			url = url.replace(/\s+/g, '-').toLowerCase();
-			this.setState({
-				["subcategoryUrl"+event.target.id] : url
+			changeStatus 		: changeStatus,
+			changeStatusRank 	: changeStatusRank
+		},()=>{
+			console.log("changeStatus => ", this.state.changeStatus)
+			console.log("changeStatusRank => ", this.state.changeStatusRank)
+		})	
+
+		
+		var formValues = { 
+			order_id 			: this.state.order_id,
+			vendor_id 			: this.state.vendor_id,
+			changeStatus 		: this.state.changeStatus,
+			changeStatusRank 	: this.state.changeStatusRank
+		};
+		if(this.state.changeStatus && this.state.changeStatusRank){
+			axios.patch("/api/orders/changevendororderstatus",formValues)
+			.then((response)=>{ 
+				console.log("res =====> ",response.data)
+				this.getOneOrder(this.state.order_id, this.state.vendor_id);
+				this.getData(this.state.startRange,this.state.limitRange);
+			})
+			.catch((error)=>{
+				console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+					localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+						title : "Your Session is Expired.",                
+						text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+					})
+					.then(okay => {
+						if (okay) {
+							window.location.href = "/login";
+						}
+					});
+				}
 			})
 		}
 	}
 
-	selectedProducts(checkedProductsList) {
-		// console.log('checkedUsersList', checkedUsersList);
-		this.setState({
-			checkedProducts: checkedProductsList,
-			messageData: {}
-		})
-		// console.log("this.state.checkedUser",this.state.checkedUser);
- 	}
-
-  	setunCheckedProducts(value) {
-		this.setState({
-			unCheckedProducts 	: value,
-			messageData 			: {}
-		})
-  	}
-
+	/* ======= render() ========== */
 	render(){		
 		return(
 			<div className="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -425,7 +417,7 @@ class AllOrdersList extends Component{
 									<div className="row">
 										<div className="">
 											<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
-												<h4 className="weighttitle NOpadding-right">All Orders </h4>
+												<h4 className="weighttitle NOpadding-right">{this.state.orderStatus} Orders </h4>
 											</div>
                                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 												<IAssureTable 
@@ -435,7 +427,7 @@ class AllOrdersList extends Component{
 													tableData             = {this.state.tableData}
 													getData               = {this.getData.bind(this)}
 													tableObjects          = {this.state.tableObjects}
-													getSearchText         = {this.getSearchText.bind(this)} 
+													// getSearchText         = {this.getSearchText.bind(this)} 
 													tableName             = {this.state.tableName}
 												/>
 											</div>
@@ -446,28 +438,82 @@ class AllOrdersList extends Component{
 						</div>
 					</div>
 				</div>
-				<div className="modal fade" id="changeOrderStatusModal" role="dialog">
+				<div className="changeOrderStatusModal modal fade" id="changeOrderStatusModal" role="dialog">
 					<div className="modal-dialog modal-lg">
-						<div className="modal-content">
-							<div className="modal-header">
+						<div className="modal-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div className="modal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<button type="button" className="close" data-dismiss="modal">&times;</button>
-								<h4 className="modal-title">Modal Header</h4>
+								<h4 className="modal-title">Change Vendor Status</h4>
 							</div>
-							<div className="modal-body">
-								<ol class="progtrckr" data-progtrckr-steps="5">
-									<li class="progtrckr-done">Order Processing</li>
-									<li class="progtrckr-done">Pre-Production</li>
-									<li class="progtrckr-done">In Production</li>
-									<li class="progtrckr-wip">Shipped</li>
-									<li class="progtrckr-todo">Delivered</li>
-								</ol>
+							<div className="modal-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								{(this.state.activeStatus).toLowerCase() === "cancelled"
+								?
+									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<h3 className="cancelledOrderMsg"> This Order is Cancelled</h3>
+									</div>
+								:
+									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div className="statusChange col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<ul id="progressbar">
+												{this.state.orderStatusArray && this.state.orderStatusArray.length > 0
+												?
+													this.state.orderStatusArray.map((data, index) => {												
+														var statusArrayLength = this.state.orderStatusArray.length;
+														console.log("statusArrayLength => ",statusArrayLength)
+														console.log("this.state.activeStatusRank => ",this.state.activeStatusRank)
+														
+														console.log("this.state.orderStatusArray => ",this.state.orderStatusArray)
+														console.log("data => ",data)
+														return (
+															<li className={"step0 " + 
+																(index === 0 
+																?
+																	"pointStart "
+																:
+																	index !== 0 && index < (statusArrayLength - 2) 
+																	? 
+																		"text-center pointMiddle " 
+																	: 
+																		index === statusArrayLength - 2 
+																		?	
+																			"text-right pointSecondLast "
+																		:
+																			statusArrayLength - 1
+																			? 
+																				"text-right pointLast " 
+																			: 
+																				""
+																		
+																) + (data.statusRank <= this.state.activeStatusRank ? "active " : "")
+															} 
+															id={data.statusRank}  key={index} style={{"width" : (100/statusArrayLength)+"%"}}>
+																{data.statusRank === this.state.activeStatusRank 
+																?
+																	<span className="activeStatus">{data.orderStatus}</span>
+																:
+																	data.orderStatus
+																}
+															</li>
+														)}
+													)
+												:
+													null
+												}
+											</ul>
+										</div>
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 actionButtons">
+											<button type="button" className={"btn btn-warning "+ (this.state.activeStatusRank === 1 ? "disabled noClick" : "")} onClick={this.changeVendorOrderStatus.bind(this)} id="Previous">&laquo; Previous</button>
+											<button type="button" className={"btn btn-success "+ (this.state.activeStatusRank === 5 ? "disabled noClick" : "")} onClick={this.changeVendorOrderStatus.bind(this)} id="Next">Next  &raquo;</button>
+										</div>
+									</div>
+								}
 							</div>
-							<div className="modal-footer">
+							<div className="modal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> 				
 			</div>
 		);
 	}

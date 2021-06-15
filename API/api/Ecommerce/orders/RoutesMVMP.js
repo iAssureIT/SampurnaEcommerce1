@@ -6,6 +6,10 @@ const orderController = require('./ControllerMVMP');
 
 router.post('/post', 																			orderController.insert_orders);
 
+router.patch('/changevendororderstatus', 													    orderController.change_vendor_orders_tatus);
+
+router.post('/get/list_orders_by_status', 													    orderController.list_orders_by_status);
+
 router.post('/pgcall/post', 																	orderController.paymentgatewaycall);
 
 router.patch('/', 																				orderController.update_order);
@@ -39,6 +43,8 @@ router.get('/get/list/:userID', 															    orderController.list_order_by
 router.post('/get/list', 																		orderController.list_order_with_limits);
 
 router.get('/get/one/:orderID', 																orderController.fetch_order);
+
+router.get('/get/one/order/:orderID', 															orderController.fetch_one_order);
 
 router.delete('/delete/:orderID', 																checkAuth, orderController.delete_order);
 
