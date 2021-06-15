@@ -59,8 +59,7 @@ class TemplateContent extends Component{
 		var id = event.target.id;
 		axios.delete('/api/masternotifications/delete/'+id)
 		.then((response)=> {
-		
-	    	swal(" ","Template deleted successfully!");
+	    	swal("Template deleted successfully");
 		    this.props.getData();
 		}).catch((error)=> {
 		});
@@ -68,7 +67,8 @@ class TemplateContent extends Component{
 
 	
 	changeStatus(event){
-		if(this.props.status == 'active'){
+		console.log('this.state.status==>',this.state.status)
+		if(this.state.status === 'active'){
 			var value = 'inactive';
 		}else{
 			var value = 'active';
@@ -79,7 +79,12 @@ class TemplateContent extends Component{
 		}
 		axios.patch('/api/masternotifications/patch/status',formValues)
 		.then((response)=>{
-			swal("Status changed successfully!")
+			if(response.data.updated === true){
+				swal("Status changed successfully!")
+			}else{
+				swal("Oops some error while updating status. Please try again!")
+			}
+			
 			this.getData();
 		})
 		.catch((error)=>{
@@ -116,20 +121,6 @@ class TemplateContent extends Component{
 		
 	}
 
-	CreateUserModal(){
-		console.log("inside Modal open ==>",this.props.templateValues._id)																																																																																																																																																																														
-		// window.$('#${this.props.templateValues._id}-rm}).modal("show");
-		window.$("#editNotifyModal-"+ this.props.templateValues._id).modal("show");
-		console.log("Modal open")
-	}
-	DeleteUserModal(){
-		console.log("inside Modal open ==>","#"+this.props.templateValues._id+"-rm")																																																																																																																																																																														
-		// window.$('#${this.props.templateValues._id}-rm}).modal("show");
-		// data-target={`#${this.props.templateValues._id}-rm`}
-		window.$("#"+this.props.templateValues._id+"-rm").modal("show");
-		console.log("Modal open")
-	}
-
 	render() {
 		if(this.props.status == 'active'){
 			$('#toggleSwitch').attr("checked", true);
@@ -139,20 +130,24 @@ class TemplateContent extends Component{
 			var text = this.state.content ? this.state.content : ''; 
 		        return (
 		    	<div className="contentBox col-lg-12">
-		      		<div className="pull-right actionBtn">
+		      		<div className="col-lg-1 pull-right actionBtn">
 		      			<div className="dropdown ">
 						  	<i className="fa fa-ellipsis-h dropbtn" aria-hidden="true"></i>
 						  	<div className="dropdown_content">
-			      				<ul className="pdcls ulbtm">
-	                                <a href="#" data-toggle="modal" data-target={"#editNotifyModal-"+this.props.templateValues._id} id={this.props.templateValues._id} title="Edit"><i className="fa fa-pencil" onClick={this.CreateUserModal.bind(this)} aria-hidden="true"></i></a>
-	                                <br/>
-	                                <a data-toggle="modal" data-target={`#${this.props.templateValues._id}-rm`}  id={this.props.templateValues._id}  title="Delete" ><i className="fa fa-trash-o" aria-hidden="true" onClick={this.DeleteUserModal.bind(this)}></i></a>
-			      				</ul>
+		      				<ul className="pdcls ulbtm">
+		      					 <li>  
+                                <a href="#" data-toggle="modal" data-target={"#editNotifyModal-"+this.props.templateValues._id+"-"+this.props.token} id={this.props.templateValues._id} title="Edit"><i className="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Edit</a>
+                              </li>
+                              <li>
+                                <a data-toggle="modal" data-target={`#${this.props.templateValues._id}-rm`}  id={this.props.templateValues._id} title="Delete"><i className="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Delete</a>
+                                 
+                              </li>
+		      				</ul>
 		      				</div>
 						</div>
 						
 					</div>
-					<EditNotificationModal emailNot={this.props.templateValues._id} getData={this.getData.bind(this)} data={this.props.templateValues} />
+					<EditNotificationModal token={this.props.token} emailNot={this.props.templateValues._id} getData={this.getData.bind(this)} data={this.props.templateValues} />
 
 					<div className="modal col-lg-12 col-md-12 col-sm-12 col-xs-12" id={`${this.props.templateValues._id}-rm`}  role="dialog">
 	                    <div className=" modal-dialog adminModal adminModal-dialog">
@@ -182,7 +177,7 @@ class TemplateContent extends Component{
 	                    </div>
 	               </div>
 
-					<div className="col-md-12 NOpadding divStyle">
+					<div className="col-md-11 NOpadding divStyle">
 						<div className="col-md-4">
 							<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 label-category">Role</label>
 							<p className="subject noBorderBox col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">{this.state.role}</p>
@@ -208,7 +203,7 @@ class TemplateContent extends Component{
 						        </label>
 						    </div>*/}
 						    <div className="btn-group btn-group-toggle col-lg-12 nopadding" data-toggle="buttons">
-                              <label className={this.state.status === "active" ? "btn toggleButton customToggleButton col-lg-3 btn-secondary active nopadding" : "nopadding btn toggleButton customToggleButton col-lg-3 btn-secondary "} value="active" onClick={this.changeStatus.bind(this, "active")}  >
+                              <label className={this.state.status === "active" ? "btn toggleButton customToggleButton col-lg-4 btn-secondary active nopadding" : "nopadding btn toggleButton customToggleButton col-lg-4 btn-secondary "} value="active" onClick={this.changeStatus.bind(this, "active")}  >
                                 <input type="radio"
                                   name="options"
                                   id="active"
@@ -217,7 +212,7 @@ class TemplateContent extends Component{
                                   checked={this.state.status === "active" ? "checked" : "unchecked"}
                                 /> Active
                             </label>
-                              <label className={this.state.status === "inactive" ? "btn toggleButton customToggleButton col-lg-3 btn-secondary active nopadding" : "btn toggleButton customToggleButton col-lg-3 btn-secondary nopadding" } value="inactive" onClick={this.changeStatus.bind(this, "inactive")}>
+                              <label className={this.state.status === "inactive" ? "btn toggleButton customToggleButton col-lg-4 btn-secondary active nopadding" : "btn toggleButton customToggleButton col-lg-4 btn-secondary nopadding"} value="inactive" onClick={this.changeStatus.bind(this, "inactive")}>
                                 <input type="radio" name="options" id="inactive" value="inactive" autoComplete="off" checked={this.state.toggleButtonValue === "inactive" ? "checked" : "unchecked"} /> Inactive
                             </label>
                               
@@ -231,7 +226,7 @@ class TemplateContent extends Component{
 						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div className="form-group overAuto">
 							 <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 label-category">Subject:</label>     						
-						        <p className="subject noBorderBox col-lg-12 col-md-12 col-sm-12 col-xs-12 wrapText">{this.state.subject}</p>
+						        <p className="subject noBorderBox col-lg-12 col-md-12 col-sm-12 col-xs-12 wrapText NOpadding">{this.state.subject}</p>
 							</div>	
 						</div>
 					</div>
@@ -242,7 +237,7 @@ class TemplateContent extends Component{
 						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div className="form-group overAuto">
 							 <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 label-category">Message:</label>     						
-							 <p  dangerouslySetInnerHTML={{ __html:text}} className="textAreaBox col-lg-12 col-md-12 col-sm-12 col-xs-12 wrapText"></p>
+							 <p  dangerouslySetInnerHTML={{ __html:text}} className="textAreaBox col-lg-12 col-md-12 col-sm-12 col-xs-12 wrapText NOpadding"></p>
 							</div>	
 						</div>
 					</div>

@@ -209,7 +209,7 @@ const cancelorderbtn = (id,vendor_id) => {
                     order.vendorOrders.map((vendor,i)=>{
                       var position = 0;
                       console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status);
-                      if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "New Order" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Verified") {
+                      if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "New" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Verified") {
                         position = 0;
                       } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Packed" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Inspection" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
                         position = 1;

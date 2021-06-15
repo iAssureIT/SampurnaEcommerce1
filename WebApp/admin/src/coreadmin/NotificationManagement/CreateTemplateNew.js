@@ -314,13 +314,12 @@ class CreateTemplateNew extends Component {
             return{
                  	"templateType": a.templateType ? a.templateType : '-',
 	                // "event": a.event ? a.event : '-',
+	                "entityType": a.entityType ? a.entityType : '-',
 	                "templateName": a.templateName ? a.templateName : '-',
 	                "role": a.role ? a.role : '-',
 	                "company": a.company ? a.company : '-',
-	                "entityType": a.entityType ? a.entityType : '-',
-	                "content": a.content ? a.content : '-',
 	                "subject": a.subject ? a.subject : '-',
-	               
+	                "content": a.content ? a.content : '-',
 	            }
           })
 
@@ -328,14 +327,13 @@ class CreateTemplateNew extends Component {
           return{
                 	
                  	"templateType": a.templateType ? a.templateType : '-',
-                 	"templateName": a.templateName ? a.templateName : '-',
-	                "role": a.role ? a.role : '-',
-	                "company": a.company ? a.company : '-',
 	                // "event": a.event ? a.event : '-',
 	                "entityType": a.entityType ? a.entityType : '-',
-	                "content": a.content ? a.content : '-',
+	                "templateName": a.templateName ? a.templateName : '-',
+	                "role": a.role ? a.role : '-',
+	                "company": a.company ? a.company : '-',
 	                "subject": a.subject ? a.subject : '-',
-	                
+	                "content": a.content ? a.content : '-',
                 	"failedRemark"  : a.failedRemark     ? a.failedRemark : '-' 
           }
           })
@@ -369,7 +367,7 @@ class CreateTemplateNew extends Component {
 		if(event && role){
 			if(templateType == 'Email'){
 				if(subject === "" & emailContent === null || emailContent === ""){
-					swal("For Email Template Subject & Message are mandatory")
+					swal(" ", "For Email Template Subject & Message are mandatory")
 				}else{
 					
 					var formValues = {
@@ -386,14 +384,14 @@ class CreateTemplateNew extends Component {
 				  	.then((response)=> {
 				    // handle success
 				    	if(response.data.message === "Notification Details already exists"){
-				    		swal("Email Template already exists")
+				    		swal(" ", "Email Template already exists")
 				    		
 				    	}else{
 				    		this.setState({
 								subject: "",
 								editorEmail: null
 							});
-					    	swal("Email Template added successfully!");
+					    	swal(" ", "Email Template added successfully");
 						}
 						
 				  	})
@@ -405,7 +403,7 @@ class CreateTemplateNew extends Component {
 				}
 			}else if(templateType == 'Notification'){
 				if(notificationContent === null || notificationContent === ""){
-					swal("Please enter message")
+					swal(" ", "Please enter message")
 				}else{
 					var formValues = {
 						"event":event,
@@ -420,13 +418,13 @@ class CreateTemplateNew extends Component {
 				  	.then((response)=> {
 				    // handle success
 				    	if(response.data.message === "Notification Details already exists"){
-				    		swal("Notification Template already exists")
+				    		swal(" ", "Notification Template already exists")
 				    		
 				    	}else{
 				    		this.setState({
 								editorNotification: null
 							});
-					    	swal("Notification template added successfully!");
+					    	swal(" ", "Notification template added successfully");
 						}
 				  	})
 				  	.catch((error)=> {
@@ -437,7 +435,7 @@ class CreateTemplateNew extends Component {
 				}
 			}else{
 				if(smsContent === null || smsContent === ""){
-					swal("Please enter message")
+					swal(" ", "Please enter message")
 				}else{
 					var formValues = {
 						"event":event,
@@ -452,13 +450,13 @@ class CreateTemplateNew extends Component {
 				  	.then((response)=> {
 				    // handle success
 				    	if(response.data.message === "Notification Details already exists"){
-				    		swal("SMS Template already exists")
+				    		swal(" ", "SMS Template already exists")
 				    		
 				    	}else{
 				    		this.setState({
 								editorSMS: null
 							});
-					    	swal("SMS template added successfully");
+					    	swal(" ", "SMS template added successfully");
 						}
 				  	})
 				  	.catch((error)=> {
@@ -469,7 +467,7 @@ class CreateTemplateNew extends Component {
 				}
 			}
 		}else{
-			swal("Please select Event & Role")
+			swal(" ", "Please select Event & Role")
 		}
 		
 	}
@@ -519,25 +517,22 @@ class CreateTemplateNew extends Component {
 
       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
         <section className="content">   
-          <div className="pageContent col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div  className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt20">
+          <div className="pageContent col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+            <div  className="box-header with-border box-headerPadding  col-lg-12 col-md-12 col-sm-12 col-xs-12 mrgTp12">
+              <h4 className="weighttitle col-lg-9 col-md-9 col-xs-11 col-sm-11">Create Template</h4>
               <ul className="nav tabNav nav-pills col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right">
-                <li className="active col-lg-5 col-md-5 col-xs-5 col-sm-5 NOpadding text-center"><a data-toggle="pill" href="#manual">Manual</a></li>
-                <li className="col-lg-6 col-md-6 col-xs-6 col-sm-6 NOpadding  text-center"><a data-toggle="pill" href="#bulk">Bulk Upload</a></li>
+                <li className="active col-lg-5 col-md-5 col-xs-5 col-sm-5 NOpadding text-center"><a data-toggle="pill" className="bulkBtn btnRadius" href="#manual">Manual</a></li>
+                <li className="col-lg-6 col-md-6 col-xs-6 col-sm-6 NOpadding  text-center"><a data-toggle="pill" className="bulkBtn btnRadius" href="#bulk">Bulk Upload</a></li>
               </ul>
             </div>
-            <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
-                <h4 className="weighttitle col-lg-11 col-md-11 col-xs-11 col-sm-11 NOpadding-right">Create Template</h4>
-            </div>
-
+            
             <section className="Content tab-content">
-                <div id="bulk" className="tab-pane fade in col-lg-12 col-md-1f2 col-sm-12 col-xs-12 mt NOpadding">
-                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 outerForm NOpadding">
-					{/*<h1>coming soon</h1>*/}
-                     <BulkUpload url="/api/masternotifications/bulkUploadNotification"
+                <div id="bulk" className="tab-pane fade in col-lg-12 col-md-1f2 col-sm-12 col-xs-12 mt">
+                  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 outerForm">
+                    <BulkUpload url="/api/masternotifications/bulkUploadNotification"
                         data={{ "entityType": this.state.pathname, "createdBy": localStorage.getItem("user_ID"), "corporateId": localStorage.getItem("corporate_ID") }}
                         uploadedData={this.uploadedData}
-                        fileurl="/BulkUploadTemplates/notification.xlsx"
+                        fileurl="https://fivebees.s3.ap-south-1.amazonaws.com/prod/master/notificationBulk.xls"
                         getFileDetails={this.getFileDetails.bind(this)}
                         fileDetails={this.state.fileDetails}
                         goodRecordsHeading={this.state.goodRecordsHeading}
@@ -553,7 +548,9 @@ class CreateTemplateNew extends Component {
                    <div className="col-md-12 NOpadding rowPadding">
 					<div className="col-md-3">
 						<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Event <sup className="astrick">*</sup></label>
-			            <select id="eventName" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.eventName} ref="eventName" name="eventName" onChange={this.handleEventChange.bind(this)}>
+			            <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-select" id="packagetype" >
+                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	                        <select id="eventName" className="form-control removeDownarrow brLeft0 brRadius3 col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.eventName} ref="eventName" name="eventName" onChange={this.handleEventChange.bind(this)}>
 			                <option disabled value="">--Select Event--</option>
 			                {this.state.eventArray && this.state.eventArray.length > 0 ?
 			                	this.state.eventArray.map((data,index)=>{
@@ -567,65 +564,78 @@ class CreateTemplateNew extends Component {
 			               
 			            </select>   
 					</div>
+				</div>
 					<div className="col-md-3">
 						<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Role<sup className="astrick">*</sup></label>
-			            <select id="role" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.role} ref="role" name="role" onChange={this.handleChange.bind(this)}>
-			                <option disabled value="">--Select Role--</option>
-			                {
-			                    this.state.roleArray && this.state.roleArray.length > 0 ?
-			                        this.state.roleArray.map((data, i)=>{
-			                            return(
-			                                <option key={i} value={data.role}>{data.role} </option>
-			                            );
-			                        })
-			                    :
-			                    null
-			                }
-			            </select>
+			            <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-select" id="packagetype" >
+	                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
+		                        <select id="role" className="form-control removeDownarrow brLeft0 brRadius3 col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.role} ref="role" name="role" onChange={this.handleChange.bind(this)}>
+				                <option disabled value="">--Select Role--</option>
+				                {
+				                    this.state.roleArray && this.state.roleArray.length > 0 ?
+				                        this.state.roleArray.map((data, i)=>{
+				                            return(
+				                                <option key={i} value={data.role}>{data.role} </option>
+				                            );
+				                        })
+				                    :
+				                    null
+				                }
+				            </select>
+						</div>
 					</div>
 					<div className="col-md-3">
 						<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Status<sup className="astrick">*</sup></label>
-			            <select id="status" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.status} ref="status" name="status" onChange={this.handleChange.bind(this)}>
-			                <option disabled value="">--Select Status--</option>
-			                <option> active </option>
-							<option> inactive </option>
-			            </select>
+			            <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-select" id="packagetype" >
+                         <span class="input-group-addon"><i class="fa fa-file"></i></span>
+		                        <select id="status" className="form-control removeDownarrow brLeft0 brRadius3 col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.status} ref="status" name="status" onChange={this.handleChange.bind(this)}>
+				                <option disabled value="">--Select Status--</option>
+				                <option> active </option>
+								<option> inactive </option>
+				            </select>
+						</div>
 					</div>
 					<div className="col-md-3">
 						<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Company</label>
-			            <select id="company" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.company} ref="company" name="company" onChange={this.handleChange.bind(this)}>
-			                <option disabled value="All">--Select Company--</option>
-			                {
-			                    this.state.companyArray && this.state.companyArray.length > 0 ?
-			                        this.state.companyArray.map((data, i)=>{
-			                            return(
-			                                <option key={i} value={data._id}>{data.companyName} </option>
-			                            );
-			                        })
-			                    :
-			                    null
-			                }
-			            </select>
+			            <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-select" id="packagetype" >
+                         <span class="input-group-addon"><i class="fa fa-building"></i></span>
+	                         <select id="company" className="form-control brRadius3 removeDownarrow brLeft0 col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.company} ref="company" name="company" onChange={this.handleChange.bind(this)}>
+				                <option disabled value="All">--Select Company--</option>
+				                {
+				                    this.state.companyArray && this.state.companyArray.length > 0 ?
+				                        this.state.companyArray.map((data, i)=>{
+				                            return(
+				                                <option key={i} value={data._id}>{data.companyName} </option>
+				                            );
+				                        })
+				                    :
+				                    null
+				                }
+				            </select>
+					   </div>
 				   </div>
 				</div>
-				<div className="col-md-12">
-					<ul className="nav nav-pills nav-justified rowPadding">
-					  <li className="active defaultColor" value="Email" onClick={this.selectType.bind(this,"Email")}><a data-toggle="pill" href="#email">Email</a></li>
-					  <li className="defaultColor" value="Notification" onClick={this.selectType.bind(this,"Notification")}><a data-toggle="pill" href="#notification">Notification</a></li>
-					  <li className="defaultColor" value="SMS" onClick={this.selectType.bind(this,"SMS")}><a data-toggle="pill" href="#sms">SMS</a></li>
+				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
+					<ul className="nav  nav_pills billingNav col-lg-12 col-md-12 col-sm-12 col-xs-12 mrgTp12 NOpadding" id="navContent">
+					  <li className="active col-lg-4 col-md-4 col-sm-12 col-xs-12" value="Email" onClick={this.selectType.bind(this,"Email")}><a data-toggle="pill" href="#email" className="TabName1 btnRadius TabStyle">Email</a></li>
+					  <li className=" col-lg-4 col-md-4 col-sm-12 col-xs-12" value="Notification" onClick={this.selectType.bind(this,"Notification")}><a data-toggle="pill" href="#notification" className="TabName1 btnRadius TabStyle">Notification</a></li>
+					  <li className="col-lg-4 col-md-4 col-sm-12 col-xs-12" value="SMS" onClick={this.selectType.bind(this,"SMS")}><a data-toggle="pill" href="#sms" className="TabName1 btnRadius TabStyle">SMS</a></li>
 					</ul>
 
-					<div className="tab-content NOpadding">
+					<div className="tab-content ">
 					  <div id="email" className="tab-pane fade in active">
-					    <div className="rowPadding subjectRow NOpadding col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					    <div className="rowPadding subjectRow paddLeft0 col-lg-3 col-md-3 col-sm-12 col-xs-12">
 							<div className="form-group">
 								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 labelform">Subject <span className="astrick">*</span></label>
-								<input type="text" name="subject" data-text="subject"  id="subject" value={this.state.subject} onChange={this.handleChange.bind(this)} className="subject form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 inputValid" required />
-							</div>
+								<div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 " id="packagetype" >
+		                         <span class="input-group-addon"><i class="fa fa-book"></i></span>
+			                        <input type="text" name="subject" data-text="subject"  id="subject" value={this.state.subject} onChange={this.handleChange.bind(this)} className="subject brLeft0  brRadius3 form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 inputValid" required />
+									</div>
+								</div>
 						</div>
 
-						<div className="NOpadding rowPadding col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<button className="btn-default btn-sm btnToken pull-right col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding" id="showEmailTokens" dataid="EmailTokens" onClick={this.showToken.bind(this)}>Show Available Tokens</button>
+						<div className="NOpadding rowPadding col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right">
+							<button className="btn-default btn-sm btnToken  col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding" id="showEmailTokens" dataid="EmailTokens" onClick={this.showToken.bind(this)}>Show Available Tokens</button>
 						</div>
 
 						<div className=" rowPadding col-lg-12 col-md-12 col-sm-12 col-xs-12 showTokens" id="EmailTokens">
@@ -679,7 +689,7 @@ class CreateTemplateNew extends Component {
 				</div>
 				<form className="newTemplateForm col-lg-12 col-md-12 col-sm-12 col-xs-12" id="newTemplateForm">
 					<div className="NOpadding paddingtop-down col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<button type="submit" onClick={this.submitTemplate.bind(this)} className="col-lg-3 col-md-3 col-sm-6 col-xs-12 btn pull-right button3 outlinebox">Save Template</button>
+						<button type="submit" onClick={this.submitTemplate.bind(this)} className="col-lg-2 col-md-3 col-sm-6 col-xs-12 btn12 pull-right button3 outlinebox btnRadius">Save Template</button>
 					</div>
 				</form>
                 </div>

@@ -126,6 +126,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
         "userLongitude"     : location?.address?.latlong?.lng,
         "vendorLocation_id" : vendorLocation_id,
       }
+      console.log("formValues",formValues);
       axios
         .post('/api/carts/post', formValues)
         .then((response) => {

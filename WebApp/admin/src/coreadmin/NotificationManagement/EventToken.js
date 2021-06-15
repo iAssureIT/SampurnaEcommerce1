@@ -19,19 +19,7 @@ class EventToken extends Component {
 
   componentDidMount(){
     this.getData();
-       var userDetails = JSON.parse(localStorage.getItem("userDetails"));
-        this.setState({
-            userDetails         : userDetails          
-        },()=>{
-
-            console.log("userDetails ==> ",this.state.userDetails);
-            console.log("userDetails ==> ",this.state.userDetails.user_id);
-        })
-     
-
-
-
-
+   
     $("#EventTokenForm").validate({
     rules: {
       event: {
@@ -42,8 +30,7 @@ class EventToken extends Component {
       },
      
     }
-    });
-      
+    });  
   }
 
   componentWillReceiveProps(nextProps){
@@ -62,7 +49,6 @@ class EventToken extends Component {
   getData(){
     axios.post('/api/EventToken/list')
     .then((response) => {
-      console.log("event token response ==> ",response)
         this.setState({ 
           templateData : response.data,
         });
@@ -76,9 +62,8 @@ class EventToken extends Component {
           event    : this.state.event, 
           templateName : this.state.templateName, 
           tokens : this.state.tokens, 
-          createdBy : localStorage.getItem("userID")
+          createdBy : localStorage.getItem("user_ID")
         }
-        console.log("formvalue ==> ",formvalue);
         if($("#EventTokenForm").valid()){
             axios.post('/api/EventToken/post',formvalue)
             .then((response)=> {
@@ -216,12 +201,12 @@ class EventToken extends Component {
 				              </div>
 				              
 				              
-				              <div className=" col-lg-12 col-md-12 col-xs-12 col-sm-12 marginTop70px">
+				              <div className=" col-lg-12 col-md-12 col-xs-12 col-sm-12 ">
 				                {
 				                    this.state.id === "" || this.state.id == undefined ?
-				                        <button className="col-lg-3 col-md-2 col-xs-12 col-sm-12 col-xs-12 pull-right btn button3 topMargin  outlinebox " type="submit" onClick={this.submit.bind(this)} >Submit</button>
+				                        <button className="col-lg-3 col-md-2 col-xs-12 col-sm-12 col-xs-12 pull-right btn button3 topMargin outlinebox" type="submit" onClick={this.submit.bind(this)} >Submit</button>
 				                    :
-				                        <button className="col-lg-3 col-md-2 col-xs-12 col-sm-12 col-xs-12 pull-right btn button3 topMargin marginTop70px outlinebox"   type="update" onClick={this.update.bind(this)} >Update</button>
+				                        <button className="col-lg-3 col-md-2 col-xs-12 col-sm-12 col-xs-12 pull-right btn button3 topMargin outlinebox" type="update" onClick={this.update.bind(this)} >Update</button>
 				                }
 				                
 				              </div>

@@ -10,9 +10,11 @@ import {setToast}             from './src/redux/AppState';
 import { LogBox,StatusBar }   from 'react-native';
 import {AuthLoadingScreen}    from "./src/ScreenComponents/AuthLoadingScreen/AuthLoadingScreen.js";
 import SplashScreen           from 'react-native-splash-screen';
+import {localNotificationService} from './src/LocalNotificationService';
+import {fcmService} from './src/FCMService';
 
-axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com';
-// axios.defaults.baseURL = 'http://10.39.1.96:3366';
+// axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com';
+axios.defaults.baseURL = 'http://10.39.1.96:3366';
 // console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
 StatusBar.setHidden(true);
 
@@ -21,6 +23,9 @@ StatusBar.setHidden(true);
   const [toast, setAppToast] = React.useState(null);
   useEffect(() => {
     LogBox.ignoreAllLogs();
+    fcmService.registerAppWithFCM()
+    fcmService.register(onRegister, onNotification, onOpenNotification)
+    localNotificationService.configure(onOpenNotification)
     setTimeout(() => {
       SplashScreen.hide();
     }, 2000);
@@ -28,9 +33,39 @@ StatusBar.setHidden(true);
       setAppToast(store.getState()?.appStateReducer?.toastState);
       setToken(store.getState()?.userReducer?.token || '');
     });
+    function onOpenNotification(notify) {
+      console.log("[App] onOpenNotification: ", notify)
+      alert("Open Notification: " + notify.body)
+    }
+
+    function onRegister(token) {
+      console.log("[App] onRegister: ", token)
+      // AsyncStorage.setItem('notification_token', token);
+    }
+
+    function onNotification(notify) {
+      console.log("[App] onNotification: ", notify)
+      const options = {
+        soundName: 'default',
+        playSound: true //,
+        // largeIcon: 'ic_launcher', // add icon large for Android (Link: app/src/main/mipmap)
+        // smallIcon: 'ic_launcher' // add icon small for Android (Link: app/src/main/mipmap)
+      }
+      localNotificationService.showNotification(
+        0,
+        notify.title,
+        notify.body,
+        notify,
+        options
+      )
+    }
+
     return () => {
+      console.log("[App] unRegister")
       unSubscribe();
-    };
+      fcmService.unRegister();
+      localNotificationService.unregister();
+    }
   }, []);
 
   return( 

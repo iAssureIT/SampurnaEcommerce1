@@ -236,7 +236,7 @@ const window = Dimensions.get('window');
               countryCode : "",
               authService : "facebook"
             }
-            console.log("formValues",formValues);
+            console.log("formValues1",formValues);
             sign_in(formValues);
             logoutWithFacebook;
           }

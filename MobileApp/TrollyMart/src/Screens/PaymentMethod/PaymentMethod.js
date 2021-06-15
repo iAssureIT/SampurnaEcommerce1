@@ -103,12 +103,12 @@ export const PaymentMethod = withCustomerToaster((props)=>{
           vendorOrders[i].products[j].quantity =vendorOrders[i].cartItems[j].quantity ;
           vendorOrders[i].deliveryStatus =[];
             vendorOrders[i].deliveryStatus.push({
-              "status"          : "New Order",
+              "status"          : "New",
               "timestamp"       : new Date(),
               "statusUpdatedBy" : userID,
               "expDeliveryDate" : new Date(),
           }) 
-          vendorOrders[i].orderStatus =  "New Order";
+          vendorOrders[i].orderStatus =  "New";
         } 
        delete vendorOrders[i].cartItems;
       }
@@ -150,7 +150,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         paymentMethod             : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
         paymentDetails					  : cartdata.paymentDetails,
         customerShippingTime      : shippingtime,
-        orderStatus               : "New Order"
+        orderStatus               : "New"
       }
 
       console.log("orderData==>", orderData);

@@ -17,4 +17,6 @@ router.post('/get/filterTemplate/:type',MasternotificationController.filterTempl
 router.post('/bulkUploadNotification',MasternotificationController.bulkUploadNotification);
 router.get('/get/filedetails/:fileName', MasternotificationController.filedetails);
 
+
+
 module.exports = router;

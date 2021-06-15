@@ -69,7 +69,7 @@ const getshippingamount=(startRange, limitRange)=>{
         setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
         navigation.navigate('Auth')
       }else{
-        setToast({text: 'Something went wrong.', color: 'red'});
+        setToast({text: 'Something went wrong1.', color: 'red'});
       }  
     });
  }
@@ -94,7 +94,7 @@ const getshippingamount=(startRange, limitRange)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
+          setToast({text: 'Something went wrong2.', color: 'red'});
         }  
       })
   }
@@ -120,7 +120,7 @@ const getshippingamount=(startRange, limitRange)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
+          setToast({text: 'Something went wrong3.', color: 'red'});
         }  
       });
   }
@@ -155,7 +155,7 @@ const getshippingamount=(startRange, limitRange)=>{
         setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
         navigation.navigate('Auth')
       }else{
-        setToast({text: 'Something went wrong.', color: 'red'});
+        setToast({text: 'Something went wrong4.', color: 'red'});
       }  
     })
   }
@@ -181,7 +181,7 @@ const getshippingamount=(startRange, limitRange)=>{
           setToast({text: 'Your Session is expired. You need to login again.', color: colors.warning});
           navigation.navigate('Auth')
         }else{
-          setToast({text: 'Something went wrong.', color: 'red'});
+          setToast({text: 'Something went wrong5.', color: 'red'});
         }  
       })
   }

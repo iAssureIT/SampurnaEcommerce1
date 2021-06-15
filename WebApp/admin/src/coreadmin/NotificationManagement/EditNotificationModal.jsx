@@ -135,7 +135,7 @@ class EditNotificationModal extends Component{
 				}
 				axios.patch('/api/masternotifications/update', formValues)
 				.then((response)=> {		
-					 swal("Template updated successfully!");		
+					 swal("Template updated successfully");		
 					this.setState({
 						shown : false,
 					});
@@ -212,7 +212,7 @@ class EditNotificationModal extends Component{
 	        return (
 	        	<div>
 	        		{this.state.shown === true ? 
-					<div className="modal modalHide" id={"editNotifyModal-"+this.props.emailNot} role="dialog">
+					<div className="modal modalHide" id={"editNotifyModal-"+this.props.emailNot+"-"+this.props.token} role="dialog">
 					  	<div className="modal-dialog modal-lg" role="document">
 					    	<div className="modal-content modalContent col-lg-12 NOpadding">
 					      		<div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -228,9 +228,11 @@ class EditNotificationModal extends Component{
 							        <form className="newTemplateForm" id="editModal" >
 							         	<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding rowPadding">
 											
-											<div className="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
+											<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12" >
                                                 <label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Event <sup className="astrick">*</sup></label>
-                                                <select id="event" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled="disabled" value={this.state.event} ref="event" name="event" >
+                                                <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-selectStatu" id="packagetype" >
+			                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			                                     <select id="event" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 brRadius3 brLeft0 removeDownarrow" disabled="disabled" value={this.state.event} ref="event" name="event" >
                                                     <option disabled value="">--Select Event--</option>
                                                     {this.state.eventArray && this.state.eventArray.length > 0 ?
                                                     	this.state.eventArray.map((data,index)=>{
@@ -242,10 +244,13 @@ class EditNotificationModal extends Component{
                                                     	<option disabled>No Event Added Yet</option>
                                                     }
                                                 </select>   
+                                          		  </div>
                                             </div>
-											<div className="col-md-3">
+											<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 												<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Role<sup className="astrick">*</sup></label>
-                                                <select id="role" disabled="disabled" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.role} ref="role" name="role" >
+                                                <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-selectStatu" id="packagetype" >
+			                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
+			                                     <select id="role" disabled="disabled" className="form-control brRadius3 brLeft0 removeDownarrow col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.role} ref="role" name="role" >
                                                     <option disabled value="">--Select Role--</option>
                                                     {
                                                         this.state.roleArray && this.state.roleArray.length > 0 ?
@@ -259,36 +264,48 @@ class EditNotificationModal extends Component{
                                                     }
                                                 </select>
 											</div>
-											<div className="col-md-3">
-												<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Status<sup className="astrick">*</sup></label>
-                                                <select id="status" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.status} ref="status" name="status" onChange={this.handleChange.bind(this)}>
-                                                    <option disabled value="">--Select Status--</option>
-                                                    <option> active </option>
-													<option> inactive </option>
-                                                </select>
 											</div>
-											<div className="col-md-3">
+										</div>
+										<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding rowPadding">	
+											<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+												<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Status<sup className="astrick">*</sup></label>
+                                                <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-selectStatu" id="packagetype" >
+				                                     <span class="input-group-addon"><i class="fa fa-file"></i></span>
+				                                     <select id="status" className="form-control brRadius3 brLeft0 removeDownarrow col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.status} ref="status" name="status" onChange={this.handleChange.bind(this)}>
+	                                                    <option disabled value="">--Select Status--</option>
+	                                                    <option> active </option>
+														<option> inactive </option>
+	                                                </select>
+												</div>
+											</div>
+											<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 												<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Company</label>
-                                                <select id="company" disabled="disabled" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.company} ref="company" name="company">
-                                                    <option disabled value="All">--Select Company--</option>
-                                                    {
-                                                        this.state.companyArray && this.state.companyArray.length > 0 ?
-                                                            this.state.companyArray.map((data, i)=>{
-                                                                return(
-                                                                    <option key={i} value={data._id}>{data.companyName} </option>
-                                                                );
-                                                            })
-                                                        :
-                                                        null
-                                                    }
-                                                </select>
+                                                <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-selectStatu" id="packagetype" >
+				                                     <span class="input-group-addon"><i class="fa fa-building"></i></span>
+				                                     <select id="company" disabled="disabled" className="form-control brLeft0 removeDownarrow col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.company} ref="company" name="company">
+	                                                    <option disabled value="All">--Select Company--</option>
+	                                                    {
+	                                                        this.state.companyArray && this.state.companyArray.length > 0 ?
+	                                                            this.state.companyArray.map((data, i)=>{
+	                                                                return(
+	                                                                    <option key={i} value={data._id}>{data.companyName} </option>
+	                                                                );
+	                                                            })
+	                                                        :
+	                                                        null
+	                                                    }
+	                                                </select>
+												</div>
 											</div>
 										</div>
 										{this.state.templateType!='Notification' && this.state.templateType!='SMS' ?
 											<div className="rowPadding col-lg-12 col-md-12 col-xs-12 col-sm-12">
 												<div className="form-group">
-												 <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 labelform">Subject <span className="astrick">*</span></label>     						
-											     <input type="text" name="subject" value={this.state.subject} onChange={this.handleChange} className="subject col-lg-12 col-md-12 col-sm-12 col-xs-12 inputValid" required/>
+													 <label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 labelform">Subject <span className="astrick">*</span></label>     						
+												     <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 " id="packagetype" >
+					                                     <span class="input-group-addon"><i class="fa fa-book"></i></span>
+					                                     <input type="text" name="subject" value={this.state.subject} onChange={this.handleChange} className="subject col-lg-12 col-md-12 col-sm-12 col-xs-12 inputValid brRadius3 brLeft0" required/>
+													</div>	
 												</div>	
 											</div>
 											:
@@ -313,7 +330,7 @@ class EditNotificationModal extends Component{
 										</div>
 									</form>
 							    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<button type="submit"  className="col-lg-3 col-md-3 col-sm-6 col-xs-12 btn pull-right button3 outlinebox" id={this.props.emailNot} onClick={this.updateNotificationEmail.bind(this)}>Update Template</button>
+									<button type="submit"  className="col-lg-3 col-md-3 col-sm-6 col-xs-12 btn pull-right button3 outlinebox btnRadius" id={this.props.emailNot} onClick={this.updateNotificationEmail.bind(this)}>Update Template</button>
 							   	</div>
 					      		</div>
 					   		</div>

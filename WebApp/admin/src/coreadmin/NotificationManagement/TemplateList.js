@@ -120,7 +120,11 @@ class TemplateList extends React.Component {
                 templateValues: response.data,
                 status: response.data.status
             })
-            $('#'+response.data._id).toggleClass('active').siblings().removeClass('active');
+            console.log("response.data._id",id)
+            $("#"+id).addClass('active');
+    //      $(".queDataCircle:first").addClass('activeCircle');
+
+            //$('#'+id).siblings().removeClass('active');
             if(response.data.company === null){
                 this.setState({
                     companyname : 'All'
@@ -143,18 +147,18 @@ class TemplateList extends React.Component {
         return (
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 contentWrapper nopadding">
             {this.state.templateDetails && this.state.templateDetails.length > 0 ?
-                <div>
-                    <div className="col-md-3 col-sm-3 nopadding">
+                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div className="col-md-4 col-sm-3 nopadding ">
                         <ul className="brand-pills nopadding" role="tablist" id="leftTabs">
                         {this.state.templateDetails.map((data,index)=>{
                             return(
-                                <li className="pill_temp" key={index} onClick={this.showTab.bind(this)} id={data._id} >{data.role+'-'+data.templateName}</li>
+                                <li className="pill_temp brRadius3" key={index} onClick={this.showTab.bind(this)} id={data._id} >{data.role+'-'+data.templateName}</li>
                             )
                         })}
                         </ul>
                     </div>
-                    <div className="col-md-9 col-sm-9">
-                        <TemplateContent templateValues={this.state.templateValues} getData={this.getData.bind(this)} company={this.state.companyname} status={this.state.status} />
+                    <div className="col-md-8 col-sm-9 nopadding">
+                        <TemplateContent token={this.props.token} templateValues={this.state.templateValues} getData={this.getData.bind(this)} company={this.state.companyname} status={this.state.status} />
                     </div>
                 </div>
                 :

@@ -197,7 +197,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                     myorders.length > 0 ?
                       myorders.map((order, i) => {
                         var positionOrder = 0;
-                        if (order.orderStatus === "New Order" || order.orderStatus === "Verified") {
+                        if (order.orderStatus === "New" || order.orderStatus === "Verified") {
                           positionOrder = 0;
                         } else if (order.orderStatus === "Packed" || order.orderStatus === "Inspection" || order.orderStatus ==="Dispatch Approved" ) {
                           positionOrder = 1;
@@ -251,7 +251,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                           </View>   
                           {order.vendorOrders.map((item,i)=>{
                             var position = 0;
-                            if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New Order" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Verified") {
+                            if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "New" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Verified") {
                               position = 0;
                             } else if (item.deliveryStatus[item.deliveryStatus.length - 1].status === "Packed" || item.deliveryStatus[item.deliveryStatus.length - 1].status === "Inspection" || item.deliveryStatus[item.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
                               position = 1;

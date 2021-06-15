@@ -1,37 +1,34 @@
-const mongoose  = require("mongoose");
+const mongoose	= require("mongoose");
 const Masternotifications = require('./ModelMasterNotification.js');
 const Notifications         = require('./ModelNotification.js');
-const User                  = require('../userManagementnew/ModelUsers.js');
+const User 				    = require('../userManagement/ModelUsers.js');
 const PersonMaster          = require('../personMaster/ModelPersonMaster.js');
 const EntityMaster          = require('../entityMaster/ModelEntityMaster.js');
 const EventTokenMaster      = require('../EventTokenMaster/ModelEventTokenMaster.js');
 const nodeMailer            = require('nodemailer');
 const GlobalMaster          = require('../projectSettings/ModelProjectSettings.js');
 const plivo                 = require('plivo');
-const FailedRecords         = require('../../Ecommerce/failedRecords/Model');
-const { user } = require("../../../nodemon.js");
-
-// const FailedRecords         = require('../failedRecords/ModelFailedRecords');
+const FailedRecords         = require('../failedRecords/ModelFailedRecords');
 
 
 exports.create_masternotification = (req,res,next)=>{
-    Masternotifications.findOne({templateType:req.body.templateType,event:req.body.event,role:req.body.role,status:req.body.status,company:req.body.company})
-        .exec()
-        .then(data =>{
-            if(data){
-                return res.status(200).json({
-                    message: 'Notification Details already exists'
-                });
-            }else{
-                const masternotifications = new Masternotifications({
+	Masternotifications.findOne({templateType:req.body.templateType,event:req.body.event,role:req.body.role,status:req.body.status,company:req.body.company})
+		.exec()
+		.then(data =>{
+			if(data){
+				return res.status(200).json({
+					message: 'Notification Details already exists'
+				});
+			}else{
+				const masternotifications = new Masternotifications({
                     _id             : new mongoose.Types.ObjectId(),
-                    templateType    : req.body.templateType,    
+                    templateType    : req.body.templateType,	
                     event           : req.body.event,    
                     templateName    : req.body.templateName,    
                     role            : req.body.role,
                     company         : req.body.company,
                     subject         : req.body.subject,
-                    content         : req.body.content, 
+                    content         : req.body.content,	
                     status          : req.body.status, 
                     createdAt       : new Date(),
                     createdBy       : req.body.createdBy,
@@ -46,14 +43,14 @@ exports.create_masternotification = (req,res,next)=>{
                             error: err
                         });
                     });
-            }
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
+			}
+		})
+		.catch(err =>{
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});
 };
 exports.list_masternotification = (req,res,next)=>{
     Masternotifications.find({})
@@ -137,7 +134,6 @@ exports.update_masternotification = (req,res,next)=>{
 };
 
 exports.update_status = (req,res,next)=>{
-    // console.log('req.body==>',req.body)
     Masternotifications.updateOne(
         { _id:req.body.notifId},  
         {
@@ -229,7 +225,6 @@ exports.filterTemplate = (req,res,next)=>{
 
 
 exports.send_notifications = (req, res, next) => {
-    // console.log("req.body===",req.body);
     Masternotifications.find({event: req.body.event,status:'active'})
     .sort({createdAt:1})
     .exec()
@@ -238,23 +233,24 @@ exports.send_notifications = (req, res, next) => {
         async function main(){
              // console.log('========================================================')
             var returnData = data
-            // console.log('1. returnData======>',returnData)
-            // console.log('returnData company=>',returnData[0].company)
+            console.log('returnData=>',returnData)
             if(returnData && returnData.length > 0){
                 for(var i=0 ; i< returnData.length ; i++){
-                    // console.log("Entering for loop for returnData at : ",i)
+                    console.log("Entering for loop for returnData at : ",i)
                     var role = returnData[i].role;
-                    // var company = req.body.company_id;
-                    var company = returnData[0].company;
+                    console.log("role : ",role)
+
+                    var company = req.body.company_id;
                     var templateName = returnData[i].event;
                     var mode = returnData[i].templateType;
-                    // console.log('========================================================')
+                    console.log("mode",mode);
 
-                    // console.log('2 .notif data=>',role,templateName,mode)
+                    console.log('notification data=>',role,company,templateName,mode,req.body.toUserRole)
+
 
                     if(role == 'admin'){
+                        // console.log('admin==>',mode,templateName,company)
                         var userData = await getAdminUserData();
-                        // console.log('admin==>',)
                         if(userData && userData.length > 0){
                            for(var j=0 ; j<userData.length ; j++){
                             var userRole = userData[j].role
@@ -266,14 +262,14 @@ exports.send_notifications = (req, res, next) => {
                         }
                         
                     }else if(role === req.body.toUserRole){
-                        //  console.log('3.self==>',mode,templateName,company)
                         var userData = await getSelfUserData(req.body.toUser_id);
+                        console.log("userData->",userData)
                         var userRole = userData.role
+                        console.log("userRole->",userRole)
                         var checkRole = userRole.includes(role);
+                        console.log("checkRole->",checkRole)
                         if(checkRole){
-                            // console.log("req.body.variables===",req.body.variables);
-                            // await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment)
-                            await callTemplates(mode,userData,role,templateName,req.body.variables)
+                            await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment)
                         }
                     }else if(role === req.body.intendedUserRole){
                          // console.log('manager==>',mode,templateName,company)
@@ -295,22 +291,12 @@ exports.send_notifications = (req, res, next) => {
                             }
                            }//j 
                         }
-                    }else if(role == 'student'){
-                           var userData = await getSelfUserData(req.body.toUser_id);
-                        var userRole = userData.role
-                        var checkRole = userRole.includes(role);
-                        if(checkRole){
-                            await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment)
-                        }
-
-
                     }else{
-                        // console.log('No data found')
+                        console.log('No data found')
                     }
                     // console.log('***************************************************')
                 }//i
             }//returnData
-            res.status(200).json({message:"Notification sent",data:data});
         }
     })
     .catch(err =>{
@@ -318,31 +304,27 @@ exports.send_notifications = (req, res, next) => {
     });   
 }
 
-// function callTemplates(mode,userData,role,templateName,company,variables,attachment){
-function callTemplates(mode,userData,role,templateName,variables){
-                // console.log("3.toUserData 322 ==> ",mode +'/userData-' +userData +'/role-'+role +'/template-'+templateName+"/variables--"+variables)
+function callTemplates(mode,userData,role,templateName,company,variables,attachment){
     sub();
         async function sub(){
-
+            console.log("mode,userData,role,templateName,company,variables,attachment",mode,userData,role,templateName,company,variables,attachment);
              // //==============  SEND EMAIL ================
             if(mode === 'Email'){
                 var toEmail = userData.email;
-                // console.log("Template Details====",templateName,userData.role[0],variables);
-                // const emailDetails = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
-                const emailDetails = await getTemplateDetailsEmail(templateName,userData.role[0],variables);
-                // const sendMail = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
-                // console.log("4. Email details-------",emailDetails);
-                const sendMail = await sendEmail(toEmail,emailDetails.subject,emailDetails.content)
+                const emailDetails = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
+                const sendMail = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
                 
             }else if(mode === 'Notification'){
                 var toUserId = userData.id;
-                const notificationDetails = await getTemplateDetailsInApp(templateName,userData.role,variables); 
+                const notificationDetails = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
                 const sendNotification = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
                
             }else if(mode === 'SMS'){
+                console.log("Inside SMS",company,templateName,userData,role,variables);
                 var toMobile = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
-                const SMSDetails = await getTemplateDetailsSMS(templateName,userData.role,variables);
+                const SMSDetails = await getTemplateDetailsSMS(company,templateName,userData.role,variables);
                 var text = SMSDetails.content.replace(/<[^>]+>/g, '');
+                console.log("toMobile",toMobile);
                 const SMS = await sendSMS(toMobile,text); 
                 
             }// mode == 'SMS'
@@ -379,12 +361,12 @@ function getAdminUserData() {
 }
 
 function getSelfUserData(toUserId) {
-    // console.log("toUserId",toUserId);
+    console.log("toUserId",toUserId);
     return new Promise(function (resolve, reject) {
         User.findOne({ "_id": toUserId })
             .exec()
             .then(data => {
-                // console.log("data",data)
+                console.log("data",data)
                 if(data && data.profile){
                     resolve({email:data.profile.email,
                             id: data._id,
@@ -500,18 +482,18 @@ function getOtherAdminData(role,company_id){
 //     // })
 // }
 function sendSMS(MobileNumber,text){
-    // console.log('=====INSIDE SMS======',MobileNumber,text)
+    console.log('=====INSIDE SMS======',MobileNumber,text)
         GlobalMaster.findOne({type:'SMS'})
         .exec() 
         .then(data=>{
-            // console.log('data.authID,data.authToken,data.sourceMobile: ',data.authToken,data.sourceMobile)
+            console.log('data.authID,data.authToken,data.sourceMobile: ',data.authToken,data.sourceMobile)
             var msg91 = require("msg91")(data.authToken, "FIVEBE", "4" );
-            var mobileNo = MobileNumber;
+            var mobileNo = MobileNumber.split(" ").join("");
             // console.log("mobileNo IN SMS=====>",MobileNumber.replaceAll("[\\D]", ""));
-            // console.log("mobileNo IN SMS=====>",mobileNo);
+            console.log("mobileNo IN SMS=====>",mobileNo);
             msg91.send(mobileNo, text.toString(), function(err, response){
-                // console.log(err);
-                // console.log("response IN SMS =====>",response);
+                console.log(err);
+                console.log("response IN SMS =====>",response);
             });
         })
         .catch(err =>{
@@ -542,7 +524,7 @@ function sendInAppNotification(toUserId,email,event,notificationDetails){
 }
 
 function sendEmail(toEmail,subject,content,attachment){
-    // console.log('====**INSIDE EMAIL**=====',toEmail,subject,content,attachment)
+    console.log('====**INSIDE EMAIL**=====',toEmail,subject,content,attachment)
     if(attachment == null || attachment == undefined || attachment == ""){
         var attachment = []
     }else{
@@ -552,7 +534,6 @@ function sendEmail(toEmail,subject,content,attachment){
       GlobalMaster.findOne({type:'EMAIL'})
         .exec() 
         .then(data=>{
-            // console.log("541 data ==> ",data )
             const senderEmail = data.user;
             const senderEmailPwd = data.password;
             // create reusable transporter object using the default SMTP transport
@@ -562,7 +543,7 @@ function sendEmail(toEmail,subject,content,attachment){
                 // secure: false, // true for 465, false for other ports
                 auth: {
                   user: senderEmail, 
-                  pass: senderEmailPwd  
+                  pass: senderEmailPwd 
                 }
               });
 
@@ -574,38 +555,37 @@ function sendEmail(toEmail,subject,content,attachment){
                     html: "<pre>" + content + "</pre>", // html body
                     attachments: attachment,
                 };
-                // console.log("Mail option===",mailOptions);
                let info =  transporter.sendMail(mailOptions, (error, info) => {
-                   if(error){
-                        // console.log("Message sent error:======", error);
-                   }else{
-                    // console.log("Message sent info:======",info);
-                   }
+                    // console.log("Message sent: %s", error,info);
                 });
-                // res.status(200).json({message:"Notification sent",data:data});
-                // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-                // console.log("Message sent: %s", messageId);
-                // Preview only available when sending through an Ethereal account
-                //   console.log("Preview URL: %s", nodeMailer.getTestMessageUrl(info));
-                // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+             
+              // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+        // console.log("Message sent: %s", info.messageId);
+              // Preview only available when sending through an Ethereal account
+              // console.log("Preview URL: %s", nodeMailer.getTestMessageUrl(info));
+              // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+              
             
+
         })
         .catch(err =>{
             console.log('mail error=>',err)
         });
-        //  main().catch(err=>{console.log('mail error=>',err)});
+         // main().catch(err=>{console.log('mail error=>',err)});
+      
    // }
+   
 }
 
-function getTemplateDetailsEmail(templateName,role,variables) {
-    // console.log("4 getTemplate details",templateName, variables)
+
+function getTemplateDetailsEmail(company,templateName,role,variables) {
+    // console.log(company,templateName, variables)
     
     return new Promise(function (resolve, reject) {
-        Masternotifications.findOne({ "event": templateName, "templateType": 'Email', "role":role, status:'active' })
+        Masternotifications.findOne({ "event": templateName, "templateType": 'Email', "company":company, "role":role, status:'active' })
             .exec()
             .then(NotificationData => {
                 if (NotificationData) {
-                    // console.log("NotificationData.content===",NotificationData.content);
                     var content = NotificationData.content;
                     var wordsplit = [];
                     if (content.indexOf('[') > -1) {
@@ -637,11 +617,9 @@ function getTemplateDetailsEmail(templateName,role,variables) {
                         });
                     }
                 }else{
-                    Masternotifications.findOne({ "event": templateName, "templateType": 'Email', "role":role, status:'active' })
+                    Masternotifications.findOne({ "event": templateName, "templateType": 'Email', "company":null, "role":role, status:'active' })
                     .exec()
                     .then(NotificationData => {
-                        if(NotificationData){
-                            // console.log("----------NotificationData.content===",NotificationData.content);
                             var content = NotificationData.content;
                             var wordsplit = [];
                             if (content.indexOf('[') > -1) {
@@ -672,7 +650,6 @@ function getTemplateDetailsEmail(templateName,role,variables) {
                                     subject: NotificationData.subject
                                 });
                             }
-                        }
                         
                     })
                     .catch(err => {
@@ -689,10 +666,10 @@ function getTemplateDetailsEmail(templateName,role,variables) {
         
    
 }
-function getTemplateDetailsSMS(templateName,role,variables) {
+function getTemplateDetailsSMS(company, templateName,role,variables) {
     // console.log('|||||||||||||INSIDE SMS TEMPLATE||||||||||||',company, templateName,role,variables)
     return new Promise(function (resolve, reject) {
-        Masternotifications.findOne({ "event": templateName, "templateType": 'SMS',"role":role, status:'active' })
+        Masternotifications.findOne({ "event": templateName, "templateType": 'SMS', "company": company, "role":role, status:'active' })
             .exec()
             .then(NotificationData => {
                 if (NotificationData) {
@@ -770,10 +747,10 @@ function getTemplateDetailsSMS(templateName,role,variables) {
     });
 }
 
-function getTemplateDetailsInApp(templateName,role,variables) {
+function getTemplateDetailsInApp(company, templateName,role,variables) {
     // console.log('in app: ',company,templateName, variables)
     return new Promise(function (resolve, reject) {
-        Masternotifications.findOne({ "event": templateName, "templateType": 'Notification', "role":role, status:'active' })
+        Masternotifications.findOne({ "event": templateName, "templateType": 'Notification', "company": company, "role":role, status:'active' })
             .exec()
             .then(NotificationData => {
                 if (NotificationData) {
@@ -854,7 +831,7 @@ function getTemplateDetailsInApp(templateName,role,variables) {
 exports.filedetails = (req,res,next)=>{
     // console.log('req------',req,'res',res);
     var finaldata = {};
-    // console.log(req.params.fileName)
+    console.log(req.params.fileName)
     Masternotifications.find( { fileName:req.params.fileName  }
     )
     .exec()
@@ -897,7 +874,7 @@ function getcompany(entityType,company){
        EntityMaster.findOne({companyName : { $regex : company, $options: "i"},entityType : entityType})
         .exec()
         .then(data=>{
-            // console.log("company data----",data);
+            console.log("company data----",data);
             if(data){
                 resolve(data._id);
             }else{
@@ -929,7 +906,7 @@ function getEvent(templateName){
 
 exports.bulkUploadNotification = (req, res, next) => {
     var Notification = req.body.data;
-    // console.log("Notification",req.body.data)
+    console.log("Notification",req.body.data)
     var validData = [];
     var validObjects = [];
     var invalidData = [];
@@ -969,7 +946,7 @@ exports.bulkUploadNotification = (req, res, next) => {
             // }
             var companylist=[];
             var company = await getcompany(Notification[k].entityType,Notification[k].company)
-            // console.log("company list",company);
+            console.log("company list",company);
             if(Notification[k].company != '-' && company){
                 if(company.message === 'COMPANY_NOT_FOUND'){
                     remark += "company not found, ";

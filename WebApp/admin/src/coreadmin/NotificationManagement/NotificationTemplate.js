@@ -179,34 +179,30 @@ class NotificationTemplate extends React.Component {
               return {
 
 	                "templateType": a.templateType ? a.templateType : '-',
+	                "event": a.event ? a.event : '-',
+	                "entityType": a.entityType ? a.entityType : '-',
 	                "templateName": a.templateName ? a.templateName : '-',
 	                "role": a.role ? a.role : '-',
 	                "company": a.company ? a.company : '-',
-	                "entityType": a.entityType ? a.entityType : '-',
-	                "content": a.content ? a.content : '-',
 	                "subject": a.subject ? a.subject : '-',
-	                "event": a.event ? a.event : '-',
-	                
-	                
-	                
-	              
+	                "content": a.content ? a.content : '-',
                  }
             })
 
             var failedRecordsTable = response.data.failedRecords.map((a, i) => {
               return {
                     "templateType": a.templateType ? a.templateType : '-',
-                    "templateName": a.templateName ? a.templateName : '-',
+	                "event": a.event ? a.event : '-',
+	                "entityType": a.entityType ? a.entityType : '-',
+	                "templateName": a.templateName ? a.templateName : '-',
 	                "role": a.role ? a.role : '-',
 	                "company": a.company ? a.company : '-',
-	                "entityType": a.entityType ? a.entityType : '-',
-	                "content": a.content ? a.content : '-',
 	                "subject": a.subject ? a.subject : '-',
-	                "event": a.event ? a.event : '-',
-	               
+	                "content": a.content ? a.content : '-',
               }
             })
           // }
+
           this.setState({
             goodRecordsTable: tableData,
             failedRecordsTable: failedRecordsTable
@@ -267,12 +263,12 @@ class NotificationTemplate extends React.Component {
 	    
     render() {
         return (
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
                         <section className="content">
                             <div className="pageContent col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
+                                <div className="box-header with-border NotificationPadding col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
                                     <h4 className="weighttitle col-lg-8 col-md-8 col-xs-8 col-sm-8 NOpadding-right">Notification Management</h4>
                                 </div>
                                 <section className="Content">
@@ -290,7 +286,7 @@ class NotificationTemplate extends React.Component {
 								            </div>*/}
    											 
                                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mrgTp1">
-                                            	<a href="/CreateTemplate"><button className="pull-right btn btn-primary btn-sm btn_oval col-lg-2 col-md-2"onClick={this.redirectTo.bind(this)}><i className="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add New Template</button></a>
+                                            	<a href="/CreateTemplate"><button className="pull-right btn12 buttonClass  btnRadius col-lg-2 col-md-2"onClick={this.redirectTo.bind(this)}>{/*<i className="fa fa-plus" aria-hidden="true"></i>*/}Add New Template</button></a>
                                             	{/*<CreateTemplate getType={this.getType.bind(this)} />*/}
    											</div>
    											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -316,9 +312,9 @@ class NotificationTemplate extends React.Component {
 									                </div>
 					                            </section>
 					                         </div>   
-   											<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 nopadding">									
-												<div className="col-lg-4 col-md-12 col-sm-12 col-xs-12 nopadding rowPadding">
-													<button type="button" className=" selectFilterBtn reset" onClick={this.selectFilter.bind(this)}>
+   											<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 firstElement nopadding">									
+												<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding rowPadding">
+													<button type="button" className="selectFilterBtn btnRadius reset" onClick={this.selectFilter.bind(this)}>
 														<i className="fa fa-filter"></i>&nbsp;&nbsp;<b> SELECT FILTER</b>
 													</button>
 												</div>
@@ -326,12 +322,17 @@ class NotificationTemplate extends React.Component {
 													<h5 className="box-title2 col-lg-2 col-md-11 col-sm-11 col-xs-12 nopadding">Filtered :&nbsp;&nbsp;<b>{this.state.filteredTemplatesCount}</b></h5>
 
 												</div>
-												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding firstElement filterWrapper rowPadding">
-													<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
-														<button type="button" className="reset selheight" onClick={this.resetFilter.bind(this)}>RESET FILTERS</button>
-													</div>
-													
-													<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12 nopadding">
+												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding firstElement1 filterWrapper mrgTp1">
+													{/*<div className="col-lg-2 col-md-12 col-sm-12 col-xs-12 nopadding">
+																											<button type="button" className="reset btnRadius selheight" onClick={this.resetFilter.bind(this)}>RESET FILTERS</button>
+																										</div>*/}
+													<div className="resetfilterButton" onClick={this.resetFilter.bind(this)}>
+									                    <i className="fa fa-refresh" aria-hidden="true"></i> Reset Filters
+									                </div>
+									            </div>
+
+									            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding filterTBSpace1 filterWrapper rowPadding">													
+													<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
 														<select id="filterEvent" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.filterEvent} ref="filterEvent" name="filterEvent" onChange={this.onSelectedItemsChange.bind(this,'filterEvent')}>
 	                                                        <option className="fontAjt" disabled value="">Select Event</option>
 	                                                       {this.state.eventArray && this.state.eventArray.length > 0 ?
@@ -345,7 +346,7 @@ class NotificationTemplate extends React.Component {
 											                }
 	                                                    </select>   
 													</div>
-													<div className="col-lg-2 col-md-12 col-xs-12 col-sm-12">
+													<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
 														<select id="filterRole" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.filterRole} ref="filterRole" name="filterRole" onChange={this.onSelectedItemsChange.bind(this,'filterRole')}>
 	                                                        <option className="fontAjt" disabled value="">Select Role</option>
 	                                                        {
@@ -360,7 +361,7 @@ class NotificationTemplate extends React.Component {
 	                                                        }
 	                                                    </select>
 													</div>
-													<div className="col-lg-2 col-md-12 col-xs-12 col-sm-12 nopadding">
+													<div className="col-lg-3 col-md-12 col-xs-12 col-sm-12">
 	                                                    <select id="filterStatus" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" value={this.state.filterStatus} ref="filterStatus" name="filterStatus" onChange={this.onSelectedItemsChange.bind(this,'filterStatus')}>
 	                                                        <option className="fontAjt" disabled value="">Select Status</option>
 	                                                        <option> active </option>
@@ -383,31 +384,32 @@ class NotificationTemplate extends React.Component {
 	                                                    </select>
 													</div>
 												</div>
-   											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mrgTp1">
-												<ul className="nav nav-pills nav-justified" id="navContents">
-											      <li className="active" onClick={this.clickTab.bind(this,'Email')}>
-											        <a data-toggle="tab" href="#email" role="tab">Email</a>
+   											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mrgTop30 NOPadding mrTp40 ">
+                   								<ul className="nav  nav_pills billingNav col-lg-10 col-lg-offset-1" id="navContent">
+											      
+											      <li className="active col-lg-4" onClick={this.clickTab.bind(this,'Email')}>
+											        <a data-toggle="tab" href="#email" className="TabName1 btnRadius TabStyle" role="tab">Email</a>
 											      </li>
-											      <li onClick={this.clickTab.bind(this,'SMS')}>
-											        <a data-toggle="tab" href="#sms" role="tab">SMS</a>
+											      <li className=" col-lg-4" onClick={this.clickTab.bind(this,'SMS')}>
+											        <a data-toggle="tab" href="#sms" className="TabName1 btnRadius TabStyle" role="tab">SMS</a>
 											      </li>
-											      <li onClick={this.clickTab.bind(this,'Notification')}>
-											        <a data-toggle="tab" href="#notification" role="tab">In-app Notification</a>
+											      <li className=" col-lg-4" onClick={this.clickTab.bind(this,'Notification')}>
+											        <a data-toggle="tab" href="#notification" className="TabName1 btnRadius TabStyle" role="tab">Notification</a>
 											      </li>
 											    </ul>
 
-                								<div className="tab-content" id="nav-tabContent">
-								                  <div className="tab-pane fade in active" id="email" role="tabpanel">
-								                        <TemplateList type={this.state.type} filteredSelectors={this.state.filteredSelectors} />
+                								<div className="tab-content mrTp45 col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding" id="nav-tabContent">
+								                  <div className="tab-pane fade in active col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding" id="email" role="tabpanel">
+								                        <TemplateList type={this.state.type} token="E" filteredSelectors={this.state.filteredSelectors} />
 								                  </div>
-								                  <div className="tab-pane fade" id="sms" role="tabpanel">
-								                        <TemplateList type={this.state.type} filteredSelectors={this.state.filteredSelectors} />
+								                  <div className="tab-pane fade col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding" id="sms" role="tabpanel">
+								                        <TemplateList type={this.state.type} token="S" filteredSelectors={this.state.filteredSelectors} />
 								                  </div>
-								                  <div className="tab-pane fade" id="notification" role="tabpanel">
-								                        <TemplateList type={this.state.type} filteredSelectors={this.state.filteredSelectors} />
+								                  <div className="tab-pane fade col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding" id="notification" role="tabpanel">
+								                        <TemplateList type={this.state.type} token="N" filteredSelectors={this.state.filteredSelectors} />
 								                  </div>
 	               								</div>
-   											</div>
+	   										</div>
    											
                                         </div>
                                     </div>

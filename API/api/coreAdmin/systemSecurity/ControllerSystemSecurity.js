@@ -1772,7 +1772,7 @@ exports.user_signup_user_otp_new = (req, res, next) => {
 											}
 										});
 									} else {
-										bcrypt.hash(req.body.name, 10, (err, hash) => {
+										bcrypt.hash(req.body.firstname, 10, (err, hash) => {
 											if (err) {
 												return res.status(500).json({
 													message: "Failed to match the password",

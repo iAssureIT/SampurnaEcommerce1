@@ -342,7 +342,7 @@ class CreateTemplate extends Component {
 				    		this.setState({
 								editorNotification: null
 							});
-					    	swal("Notification template added successfully !");
+					    	swal("Notification template added successfully");
 						}
 				  	})
 				  	.catch((error)=> {
@@ -374,7 +374,7 @@ class CreateTemplate extends Component {
 				    		this.setState({
 								editorSMS: null
 							});
-					    	swal("SMS template added successfully !");
+					    	swal("SMS template added successfully");
 						}
 				  	})
 				  	.catch((error)=> {
@@ -519,7 +519,7 @@ class CreateTemplate extends Component {
 
 					<div className="tab-content NOpadding">
 					  <div id="email" className="tab-pane fade in active">
-					    <div className="rowPadding subjectRow NOpadding col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					    <div className="rowPadding subjectRow NOpadding col-lg-4 col-md-4 col-sm-12 col-xs-12">
 							<div className="form-group">
 								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 labelform">Subject <span className="astrick">*</span></label>
 								<input type="text" name="subject" data-text="subject"  id="subject" value={this.state.subject} onChange={this.handleChange.bind(this)} className="subject form-control col-lg-12 col-md-12 col-sm-12 col-xs-12 inputValid" required />
