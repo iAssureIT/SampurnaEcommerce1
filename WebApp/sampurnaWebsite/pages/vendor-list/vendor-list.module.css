@@ -31,6 +31,13 @@
 .bgGray{
     background-color:#eee;
     padding-bottom:15px;
+    /*min-height:1100px;
+    height:auto;*/
+}
+
+.bgHeight{
+    min-height:1000px;
+    height:auto;
 }
 
 .deliveryTime{
@@ -78,4 +85,15 @@
 }
 .vedorLink{
     cursor: pointer;
+}
+
+.moreBtn{
+    text-align:right;
+    margin-bottom:15px !important;
+}
+
+.blueBTN{
+    color: #fff;
+    background-color: #033554;
+    border-color: #033554;
 }
