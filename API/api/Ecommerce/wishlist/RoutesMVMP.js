@@ -12,8 +12,6 @@ router.get('/get/list', 										 wishlistsController.list_wishlist);
 
 router.get('/get/userwishlist/:user_ID', 					 wishlistsController.get_user_wishlist);
 
-router.post('/get/userwishlist', 					         wishlistsController.get_user_wishlist);
-
 router.get('/get/wishlistdata/:user_ID', 					 wishlistsController.get_wishlist);
 
 router.get('/get/count', 										checkAuth, wishlistsController.count_wishlist);
