@@ -1,9 +1,6 @@
 import React, { Component }   	from 'react';
-import $                      	from 'jquery';
 import axios                  	from 'axios';
-import jQuery                 	from 'jquery';
 import swal                   	from 'sweetalert';
-import S3FileUpload           	from 'react-s3';
 import moment                 	from "moment";
 import IAssureTable           	from "../OrderTable/IAssureTable.jsx";
 import openSocket               from 'socket.io-client';
@@ -87,8 +84,6 @@ class AllOrdersList extends Component{
 	
 	/* ======= componentWillReceiveProps() ========== */
 	componentWillReceiveProps(nextProps) {
-		console.log("Inside componentWillRecive props",nextProps);
-
 		if(nextProps && nextProps.editId && nextProps.editId !== undefined &&  nextProps.history.location.pathname !== "/project-master-data"){      
 		  	this.setState({
 			  	editId : nextProps.editId
@@ -111,16 +106,17 @@ class AllOrdersList extends Component{
 			console.log("getAllorderStatus response ==>",this.state.orderStatusArray)
 		})
 		var orderStatusParams = this.props.match.params.orderStatus.replace(/-/g, ' ');
-		console.log("orderStatusParams * => ",orderStatusParams)
+		console.log("orderStatusParams * => ",orderStatusParams);
+		var orderStatus = "";
 		if(orderStatusArray && orderStatusArray.length > 0){
 			var orderStatusObject = await orderStatusArray.filter(orderStatus => (orderStatus.orderStatus).toLowerCase() === orderStatusParams);
 			if(orderStatusObject && orderStatusObject.length > 0){
-				var orderStatus = orderStatusObject[0].orderStatus;
+				orderStatus = orderStatusObject[0].orderStatus;
 			}else{
-				var orderStatus = orderStatusParams;
+				orderStatus = orderStatusParams;
 			}
 		}else{
-			var orderStatus = orderStatusParams;
+			orderStatus = orderStatusParams;
 		}
 		console.log("orderStatus * => ",orderStatus)
 		this.setState({
@@ -143,7 +139,7 @@ class AllOrdersList extends Component{
 		.catch((error) => {
 			console.log("Error in orderstatus = ", error);
 			if(error.message === "Request failed with status code 401"){
-				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.removeItem("userDetails");
 				localStorage.clear();
 				swal({  
 					title : "Your Session is expired.",                
@@ -187,10 +183,9 @@ class AllOrdersList extends Component{
 					var activeStatus 		= vendorOrder[0].deliveryStatus[vendorOrder[0].deliveryStatus.length -1].status;
 					var activeStatusObject 	= this.state.orderStatusArray.filter(status => status.orderStatus === activeStatus);
 					console.log("activeStatusObject => ",activeStatusObject);
+					var activeStatusRank  	= 0;
 					if(activeStatusObject && activeStatusObject.length > 0){
-						var activeStatusRank  	= activeStatusObject[0].statusRank;
-					}else{
-						var activeStatusRank  	= 0;
+						activeStatusRank  	= activeStatusObject[0].statusRank;
 					}					
 					console.log("activeStatus => ",activeStatus);
 					this.setState({
@@ -203,7 +198,7 @@ class AllOrdersList extends Component{
 		.catch((error) => {
 			console.log("Error in orderstatus = ", error);
 			if(error.message === "Request failed with status code 401"){
-				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.removeItem("userDetails");
 				localStorage.clear();
 				swal({  
 					title : "Your Session is expired.",                
@@ -231,7 +226,7 @@ class AllOrdersList extends Component{
 		.catch(error=>{
 			console.log("Error in preferences = ", error);
 			if(error.message === "Request failed with status code 401"){
-				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.removeItem("userDetails");
 				localStorage.clear();
 				swal({  
 						title : "Your Session is expired.",                
@@ -286,9 +281,9 @@ class AllOrdersList extends Component{
 												var status = (b.deliveryStatus[b.deliveryStatus.length - 1].status).replace(/\s+/g, '_').toLowerCase()
 												console.log("b.deliveryStatus => ",b.deliveryStatus)
 												console.log("status => ",status)
-												return '<div class="statusDiv">'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
+												return '<div class="statusDiv ' + status + '">'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
 													? 
-														"<a aria-hidden='true' class='" + status + "'>" +(b.deliveryStatus[b.deliveryStatus.length - 1].status) + "</a>"
+														(b.deliveryStatus[b.deliveryStatus.length - 1].status)
 													 
 													: 
 														'') + '</div>'
@@ -356,21 +351,25 @@ class AllOrdersList extends Component{
 		// console.log("activeStatusObject 3 => ",activeStatusRank);
 
 		var nextStatusRank = this.state.activeStatusRank + 1;
+		var previousStatusRank 	= 0;
 		if(this.state.activeStatusRank === 1){
-			var previousStatusRank 	= 0;
+			previousStatusRank 	= 0;
 		}else{
-			var previousStatusRank 	= this.state.activeStatusRank - 1 ;
+			previousStatusRank 	= this.state.activeStatusRank - 1 ;
 		}
+
+		var changeStatus 		= "";
+		var changeStatusRank 	= 0;
 
 		if(event.target.id === "Previous"){
 			var previousStatusObject 	= await this.state.orderStatusArray.filter(orderStatus => orderStatus.statusRank === previousStatusRank)
-			var changeStatus 			= previousStatusObject[0].orderStatus;
-			var changeStatusRank 		= previousStatusRank;
+			changeStatus 			= previousStatusObject[0].orderStatus;
+			changeStatusRank 		= previousStatusRank;
 		}else if(event.target.id === "Next"){
 			var nextStatusObject 	= await this.state.orderStatusArray.filter(orderStatus => orderStatus.statusRank === nextStatusRank)
 			console.log("nextStatusObject =>",nextStatusObject)
-			var changeStatus 		= nextStatusObject[0].orderStatus;
-			var changeStatusRank 	= nextStatusRank;
+			changeStatus 		= nextStatusObject[0].orderStatus;
+			changeStatusRank 	= nextStatusRank;
 		}
 		this.setState({
 			changeStatus 		: changeStatus,

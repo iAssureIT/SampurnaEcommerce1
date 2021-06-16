@@ -306,6 +306,7 @@
     font-weight: 600;
     cursor: pointer;
     margin-bottom: 10px;
+    white-space: nowrap;
 }
 .vendorOrderStatus{
 
@@ -314,6 +315,7 @@
     padding: .75rem 1.25rem;
     margin-bottom: 10px;
     text-align: center;
+    white-space: nowrap;
 }
 .new, .new_order{
     color: #155724;
