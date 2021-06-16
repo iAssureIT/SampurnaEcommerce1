@@ -8,12 +8,11 @@ const io = require('socket.io')(server);
 
 var adminOrtderListValues = {};
 io.on('connection', (client) => { 
+    console.log("connection established");
     client.on('room',(room)=> {
         client.join(room);
     });
 
-    
-    //Get Admin List and Post Order
     client.on('adminOrtderListValues', (payload) => {
         adminOrtderListValues = payload;
         getAdminOrderList(payload);

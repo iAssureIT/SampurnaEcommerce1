@@ -26,7 +26,8 @@ import CountDown from 'react-native-countdown-component';
 import Modal                from "react-native-modal";
 import { useIsFocused }     from "@react-navigation/native";
 import openSocket               from 'socket.io-client';
-const  socket = openSocket('http://10.39.1.126:3366',{ transports : ['websocket'] });
+import {REACT_APP_BASE_URL} from '@env'
+const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 
   const customStyles = {
     stepIndicatorSize                 : 25,

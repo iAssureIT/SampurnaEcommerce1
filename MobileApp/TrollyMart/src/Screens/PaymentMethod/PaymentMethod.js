@@ -21,9 +21,9 @@ import { connect,
   useSelector }               from 'react-redux';
 import {getCartCount } 		              from '../../redux/productList/actions';
 import openSocket               from 'socket.io-client';
+import {REACT_APP_BASE_URL} from '@env'
 
-const  socket = openSocket('http://10.39.1.126:3366',{ transports : ['websocket'] });
-console.log("axios.defaults.baseURL",axios.defaults.baseURL);
+const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export const PaymentMethod = withCustomerToaster((props)=>{

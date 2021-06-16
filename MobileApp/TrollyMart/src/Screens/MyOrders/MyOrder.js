@@ -29,7 +29,9 @@ import { connect,
   useSelector }                 from 'react-redux';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import openSocket               from 'socket.io-client';
-const  socket = openSocket('http://10.39.1.126:3366',{ transports : ['websocket'] });
+import {REACT_APP_BASE_URL} from '@env'
+console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
+const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 
 console.log("axios.defaults.baseURL",axios.defaults.baseURL);
 
