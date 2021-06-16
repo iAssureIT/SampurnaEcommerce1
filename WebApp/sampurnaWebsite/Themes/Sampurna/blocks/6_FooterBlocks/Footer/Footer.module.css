@@ -400,12 +400,21 @@
   color:#bbb;
 }
 
+.footerBottom {
+    min-height: 150px; 
+    padding-top: 45px;
+}
+
 .ml0{
   margin-left:0px !important;
 }
 
 .mt15{
   margin-top:15px !important;
+}
+
+.mt100{
+  margin-top:100px !important;  
 }
 
 .mt80{

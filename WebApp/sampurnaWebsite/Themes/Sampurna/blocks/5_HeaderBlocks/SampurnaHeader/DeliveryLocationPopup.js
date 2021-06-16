@@ -393,7 +393,7 @@ class DeliveryLocationPopup extends React.Component {
                                         <button type="button" className={"btn pull-center changelocationBtn " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
                                     </div>
                                     <div className={"text-center mt-2 NoPadding col-xl-1 col-12 col-sm-12 col-xs-12 col-md-12 " +Style.tw +" "+Style.f12}>OR</div>
-                                    <button type="button" className={"btn col-xl-2 col-12 col-lg-2 col-sm-12 col-xs-12 col-md-4 changelocationBtn " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                    <button type="button" className={"btn col-xl-2 col-12 col-lg-2 col-sm-12 col-xs-12 col-md-4  changelocationBtn " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                 </div>
                             </div>
                             

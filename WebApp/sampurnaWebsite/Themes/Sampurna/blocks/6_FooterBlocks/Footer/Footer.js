@@ -54,7 +54,7 @@ export default class Footer extends Component {
                         return(
                         
                             index<10? 
-                            <div className="col-2 col-lg-2 col-md-3 footerSection" key={index}>
+                            <div className="col-6 col-xl-2 col-lg-2 col-md-4 col-sm-6 footerSection" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
                                     <Link href={"vendor-list/"+data.sectionUrl}>
                                         <a className="sectionurl footerSubT" ><span>{data.section}</span></a>
@@ -81,7 +81,7 @@ export default class Footer extends Component {
                         );
                         })
                     }
-                    <div className={"col-2 col-xl-1 col-md-1 col-sm-6 aboutusFooterWrapper pr0 pr-0 "+S.pr0 }>
+                    <div className={"col-6 col-xl-1 col-lg-1 col-md-4 col-sm-6 aboutusFooterWrapper pr0 pr-0 pl-0 "+S.pr0 }>
                 <div>
                     <div className="col-12 footerSubT pr-0">About Us</div>
                     <div className="col-7 hrLine"></div>
@@ -100,7 +100,7 @@ export default class Footer extends Component {
                                   
                 </div>
             </div>
-            <div className="col-xl-3 col-md-3 col-sm-6  col-2 onlineShoppingWrapper">               
+            <div className="col-6 col-xl-3 col-lg-3 col-md-4 col-sm-6 NoPadding onlineShoppingWrapper">               
                 {/* <div className="logo col-12">
                     <Link href="/">
                     <a  title="BookStore logo "style={{float:"right"}}>
@@ -115,7 +115,7 @@ export default class Footer extends Component {
                 </div>  */}
                 {/*< Websitelogo />*/}
                 <div className="col-xl-12 col-md-12 col-sm-12  col-12">
-                    <div className="col-12 FooterTitle NOpadding">Connect with Us</div>
+                    <div className="col-12 FooterTitle NoPadding">Connect with Us</div>
                     <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding">
                         <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                    
                         <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>
@@ -125,7 +125,7 @@ export default class Footer extends Component {
                     </div>
                 </div>
 
-                <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding md-mt-5 mt80">
+                <div className={"col-12 col-sm-12 col-lg-12 col-md-12 Nopadding md-mt-5 " +S.mt100}>
                     <div className="col-12 FooterTitle">Payment card</div>
                     <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15">
                         <div className="payCard1"></div>
@@ -151,12 +151,12 @@ export default class Footer extends Component {
         </div>
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
-              <div className="row footerBottom">
-              <div className="col-4 col-sm-12 col-lg-4 col-md-4 col-sx-12">
+              <div className={"row " +S.footerBottom}>
+              <div className="col-12 col-sm-12 col-xl-4 col-lg-4 col-md-4 col-sx-12">
                   < Websitelogo />
               </div>
               
-              <div className="col-5 col-sx-12 text_Center">
+              <div className="col-12 col-sx-12 col-xl-5 col-lg-6 col-md-8 text_Center">
                   <div className="footer3Class">
                       Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                   </div>
