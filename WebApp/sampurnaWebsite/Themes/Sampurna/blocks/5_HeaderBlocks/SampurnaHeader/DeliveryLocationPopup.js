@@ -12,8 +12,13 @@ import GoogleMap         from './Googlemap.js';
 import store             from '../../../../../redux/store.js';
 import AddressList       from './AddressList.js';
 import Geocode           from "react-geocode"; 
+import Websitelogo            from './Websitelogo.js';
+
 import {setDeliveryLocation,setSampurnaWebsiteDetails }    from '../../../../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+
+import Style                  from './location.module.css';
+
 
 
 class DeliveryLocationPopup extends React.Component {
@@ -321,8 +326,8 @@ class DeliveryLocationPopup extends React.Component {
         var offset = 1;
        }
     return (
-        <div className="col-12 DeliveryLocation">
-            <div className="row">
+        <div className={"row DeliveryLocation " +Style.locationBg}>
+            <div className="col-12">
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 AddressListWrapper">
@@ -334,24 +339,19 @@ class DeliveryLocationPopup extends React.Component {
                 <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
                 <div className="col-12 offset-0 mobileViewNoPadding">
                     <form className=" col-12 deliveryForm">
-                        <div className="row">
-                            <div className="col-4 currentLocationBlock">
-                                <div className="row">
-                                    <div className="col-9 detectLocationBtn">
-                                        <button type="button" className="btn btn-outline-primary pull-center changelocationBtn" onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
-                                    </div>
-                                    <div className="text-center orText col-2 ">OR</div>
-                                </div>
+                        <div className="col-12 mt-5 ">
+                            <div className={"col-2 col-sm-12 col-xs-12 col-md-12 " +Style.ma}>
+                                <Websitelogo />
                             </div>
-                            <div className="col-8 NoPadding">
+                            <div className={" col-sm-12 col-lg-8 col-xs-12 col-md-12 " +Style.ma}>
                                 <PlacesAutocomplete 
                                     value={this.state.address}
                                     onChange={this.handleChangePlaces}
                                     onSelect={this.handleSelect}
                                     highlightFirstSuggestion={true}>
                                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                        <div className="col-12 ">
-                                            <label className=" mt-2 searchAdrressLable"> Search Location </label>
+                                        <div className="col-12 NoPadding ">
+                                            <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label>
                                             <input
                                                 {...getInputProps({
                                                     placeholder: 'Start typing & select location from dropdown suggestions...',
@@ -387,9 +387,18 @@ class DeliveryLocationPopup extends React.Component {
                                         )}
                                 </PlacesAutocomplete>
                             </div>
+                            <div className={"col-sm-12 col-xs-12 col-md-12 mt-5 " +Style.ma}>
+                                <div className={"row " +Style.ma}>
+                                    <div className="offset-xl-2 col-xl-3 col-12 col-sm-12 col-xs-12 col-md-12 NoPadding detectLocationBtn">
+                                        <button type="button" className={"btn pull-center changelocationBtn " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
+                                    </div>
+                                    <div className={"text-center mt-2 NoPadding col-xl-1 col-12 col-sm-12 col-xs-12 col-md-12 " +Style.tw +" "+Style.f12}>OR</div>
+                                    <button type="button" className={"btn col-xl-2 col-12 col-lg-2 col-sm-12 col-xs-12 col-md-4 changelocationBtn " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                </div>
+                            </div>
+                            
                             
                             <div className="col-12 pull-right mt-2 ">
-                                <button type="button" className="btn btn-outline-primary pull-right changelocationBtn" onClick={this.saveLocation.bind(this)}>Save & Close</button>
                             </div>
                         </div>
                     </form>
