@@ -57,7 +57,7 @@ exports.insert_orders = (req, res, next) => {
 				Carts.deleteOne({ "user_ID" : ObjectId(req.body.user_ID) })
 				.exec()
 				.then(userCartDeleted => {
-					// console.log("userCartDeleted => ",userCartDeleted)
+					console.log("userCartDeleted => ",userCartDeleted)
 
 					//=============================================================
 					//         		Update Product Inventory

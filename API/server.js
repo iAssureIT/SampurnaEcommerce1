@@ -9,10 +9,6 @@ const io = require('socket.io')(server);
 var adminOrtderListValues = {};
 io.on('connection', (client) => { 
     console.log("connection established");
-    client.on('room',(room)=> {
-        client.join(room);
-    });
-
     client.on('adminOrtderListValues', (payload) => {
         adminOrtderListValues = payload;
         getAdminOrderList(payload);
@@ -39,6 +35,10 @@ io.on('connection', (client) => {
         .catch(err=>{
             console.log(err)
         })
+    });
+
+    client.on('room',(room)=> {
+        client.join(room);
     });
  
     //Get User OrderList and Change Status
