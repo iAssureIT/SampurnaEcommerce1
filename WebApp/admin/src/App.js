@@ -9,7 +9,12 @@ import 'font-awesome/css/font-awesome.min.css';
 import './coreadmin/css/root.css';
 import './App.css';
 import $ from 'jquery';
-
+import openSocket from 'socket.io-client';
+const  socket = openSocket(process.env.REACT_APP_BASE_URL,{ transports : ['websocket'] });
+console.log('check 1', socket.connected);
+socket.on('connect', function() {
+  console.log('check 2', socket.connected);
+});
 // axios.defaults.baseURL = ;
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 // axios.defaults.baseURL = "http://qaunimandaiapi.iassureit.com/";

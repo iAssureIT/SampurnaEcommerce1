@@ -6,8 +6,12 @@ import swal                   	from 'sweetalert';
 import S3FileUpload           	from 'react-s3';
 import moment                 	from "moment";
 import IAssureTable           	from "../OrderTable/IAssureTable.jsx";
+import openSocket               from 'socket.io-client';
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
+
+const  socket = openSocket(process.env.REACT_APP_BASE_URL,{ transports : ['websocket'] });
+console.log("socket",socket);
 
 class AllOrdersList extends Component{
 	constructor(props) {
@@ -157,12 +161,14 @@ class AllOrdersList extends Component{
 	/* ======= openChangeStatusModal() ========== */
 	openChangeStatusModal(id){
 		console.log("id=============>",id)
-		var order_id 	= id.split("-")[0];
-		var vendor_id 	= id.split("-")[1];
+		var order_id 		= id.split("-")[0];
+		var vendor_id 		= id.split("-")[1];
+		var order_user_id 	= id.split("-")[2];
 		console.log("id => ",id)
 		this.setState({
-			vendor_id 	: vendor_id,
-			order_id 	: order_id
+			vendor_id 		: vendor_id,
+			order_id 		: order_id,
+			order_user_id	: order_user_id
 		},()=>{
 			this.getOneOrder(this.state.order_id, this.state.vendor_id);
 		})
@@ -247,12 +253,14 @@ class AllOrdersList extends Component{
 		  limitRange : limitRange,
 		  status 	 : this.state.orderStatus
 		}
+
 		
-		axios.post('/api/orders/get/list_orders_by_status',formValues)
-		.then((response)=>{
-		  	console.log('order tableData', response.data);		               
-		  
-		  	var tableData = response.data.reverse().map((a, i)=>{                      
+		// axios.post('/api/orders/get/list_orders_by_status',formValues)
+		// .then((response)=>{
+		socket.emit('adminOrtderListValues',formValues);
+		socket.on("adminBookingList", (response)=>{
+		console.log('order tableData', response);		               
+		  	var tableData = response.reverse().map((a, i)=>{                      
 				return{ 
 					_id             : a._id,
 					orderNumber     : a.orderID,
@@ -292,7 +300,7 @@ class AllOrdersList extends Component{
 												// url = url.replace(/\s+/g, '-').toLowerCase();
 												
 												return(
-														"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + b.vendor_id._id + "') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
+														"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + b.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
 													 
 												)
 											})).join(' ')
@@ -309,22 +317,22 @@ class AllOrdersList extends Component{
 				}
 			})
 		})
-		.catch((error)=>{
-			console.log('error', error);
-			if(error.message === "Request Failed with Status Code 401"){
-				localStorage.removeItem("userDetails");
-				localStorage.clear();
-				swal({  
-					title : "Your Session is Expired.",                
-					text  : "You need to login again. Click OK to Go to Login Page"
-				})
-				.then(okay => {
-					if (okay) {
-						window.location.href = "/login";
-					}
-				});
-			}
-		});
+		// .catch((error)=>{
+		// 	console.log('error', error);
+		// 	if(error.message === "Request Failed with Status Code 401"){
+		// 		localStorage.removeItem("userDetails");
+		// 		localStorage.clear();
+		// 		swal({  
+		// 			title : "Your Session is Expired.",                
+		// 			text  : "You need to login again. Click OK to Go to Login Page"
+		// 		})
+		// 		.then(okay => {
+		// 			if (okay) {
+		// 				window.location.href = "/login";
+		// 			}
+		// 		});
+		// 	}
+		// });
 	}
 
 	/*======== openCancelledRemarkModal() ========*/
@@ -377,31 +385,35 @@ class AllOrdersList extends Component{
 			order_id 			: this.state.order_id,
 			vendor_id 			: this.state.vendor_id,
 			changeStatus 		: this.state.changeStatus,
-			changeStatusRank 	: this.state.changeStatusRank
+			changeStatusRank 	: this.state.changeStatusRank,
+			order_user_id       : this.state.order_user_id
 		};
 		if(this.state.changeStatus && this.state.changeStatusRank){
-			axios.patch("/api/orders/changevendororderstatus",formValues)
-			.then((response)=>{ 
-				console.log("res =====> ",response.data)
-				this.getOneOrder(this.state.order_id, this.state.vendor_id);
-				this.getData(this.state.startRange,this.state.limitRange);
-			})
-			.catch((error)=>{
-				console.log('error', error);
-				if(error.message === "Request failed with status code 401"){
-					localStorage.removeItem("userDetails");
-					localStorage.clear();
-					swal({  
-						title : "Your Session is Expired.",                
-						text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
-					})
-					.then(okay => {
-						if (okay) {
-							window.location.href = "/login";
-						}
-					});
-				}
-			})
+			socket.emit('room',this.state.order_user_id);
+			socket.emit('changevendororderstatus',formValues);
+			socket.on("changeStatus", (response)=>{
+				// axios.patch("/api/orders/changevendororderstatus",formValues)
+				// .then((response)=>{ 
+					this.getOneOrder(this.state.order_id, this.state.vendor_id);
+					this.getData(this.state.startRange,this.state.limitRange);
+				// })
+				// .catch((error)=>{
+				// 	console.log('error', error);
+				// 	if(error.message === "Request failed with status code 401"){
+				// 		localStorage.removeItem("userDetails");
+				// 		localStorage.clear();
+				// 		swal({  
+				// 			title : "Your Session is Expired.",                
+				// 			text  : "You Need to Login Again. Click 'OK' to Go to Login Page"
+				// 		})
+				// 		.then(okay => {
+				// 			if (okay) {
+				// 				window.location.href = "/login";
+				// 			}
+				// 		});
+				// 	}
+				// })
+			})		
 		}
 	}
 

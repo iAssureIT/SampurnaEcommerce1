@@ -25,6 +25,9 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import CountDown from 'react-native-countdown-component';
 import Modal                from "react-native-modal";
 import { useIsFocused }     from "@react-navigation/native";
+import openSocket               from 'socket.io-client';
+const  socket = openSocket('http://10.39.1.126:3366',{ transports : ['websocket'] });
+
   const customStyles = {
     stepIndicatorSize                 : 25,
     currentStepIndicatorSize          : 30,
@@ -68,6 +71,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const {currency}=store.preferences;
 
   useEffect(() => {
+  
     axios.get('/api/orderstatus/get/list/')
     .then((response) => {
       console.log("response",response);
@@ -94,24 +98,27 @@ export const OrderDetails = withCustomerToaster((props)=>{
 
   const getorderlist=(orderid)=>{
     setLoading(true);
-    axios.get('/api/orders/get/one/' + orderid)
-      .then((response) => {
-        console.log("getorderlist",response.data);
-          setOrder(response.data);
+    socket.emit('room',orderid);
+    socket.emit('signle_order',orderid);
+    socket.on('getSingleOrder',(response)=>{
+      console.log("response",response);
+    // axios.get('/api/orders/get/one/' + orderid)
+    //   .then((response) => {
+          setOrder(response);
           setLoading(false);
-      })
-      .catch((error) => {
-        console.log("error",error);
-        if (error.response.status == 401) {
-          AsyncStorage.removeItem('user_id');
-          AsyncStorage.removeItem('token');
-          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-          navigation.navigate('Auth')
-        }else{
-          setToast({text: 'Something went wrong2.', color: 'red'});
-        }  
-      });
-      
+      // })
+      // .catch((error) => {
+      //   console.log("error",error);
+      //   if (error.response.status == 401) {
+      //     AsyncStorage.removeItem('user_id');
+      //     AsyncStorage.removeItem('token');
+      //     setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+      //     navigation.navigate('Auth')
+      //   }else{
+      //     setToast({text: 'Something went wrong2.', color: 'red'});
+      //   }  
+      // });
+    });
   }
 
 

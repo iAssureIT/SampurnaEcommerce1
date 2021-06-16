@@ -440,9 +440,9 @@ exports.list_orders_by_status = (req, res, next) => {
 	// 	{$match : selector}
 	// ])
 	.populate('vendorOrders.vendor_id')
-	.sort({ createdAt: -1 })
+	.sort({ createdAt: 1 })
 	.then(data => {
-		console.log("allocatedToFranchise===>>>",data);
+		// console.log("allocatedToFranchise===>>>",data);
 		res.status(200).json(data);
 	})
 	.catch(err => {

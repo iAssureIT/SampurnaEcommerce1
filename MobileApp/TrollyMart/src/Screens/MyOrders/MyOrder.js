@@ -28,6 +28,12 @@ import { connect,
   useDispatch,
   useSelector }                 from 'react-redux';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import openSocket               from 'socket.io-client';
+const  socket = openSocket('http://10.39.1.126:3366',{ transports : ['websocket'] });
+
+console.log("axios.defaults.baseURL",axios.defaults.baseURL);
+
+
 const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
 const customStyles = {
   stepIndicatorSize                 : 25,
@@ -55,7 +61,6 @@ const customStyles = {
 // stepStrokeFinishedColor: 'colors.theme',
 
 export const MyOrder = withCustomerToaster((props)=>{
-  const [user_id,setUserId]=useState('');
   const [myorders,setMyOrders]=useState([]);
   const [cancelOrderModal,setCancelOrderModal]=useState(false);
   const [cancelOrderId,setCancelOrderId]=useState('');
@@ -65,36 +70,38 @@ export const MyOrder = withCustomerToaster((props)=>{
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
+    userDetails     : store.userDetails
   }));
   const {currency}=store.preferences;
+  const {user_id}=store.userDetails;
   useEffect(() => {
     getorderlist();
 }, [props,isFocused]);
 
  const getorderlist=()=>{
   setLoading(true)
-    AsyncStorage.multiGet(['token', 'user_id'])
-      .then((data) => {
-        setUserId(data[1][1]);
-          axios.get('/api/orders/get/list/' + data[1][1])
-          .then((response) => {
-            console.log("response",response);
-            setMyOrders(response.data);
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.log("error",error);
-            setLoading(false);
-            if (error.response.status == 401) {
-              AsyncStorage.removeItem('user_id');
-              AsyncStorage.removeItem('token');
-              setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-              navigation.navigate('Auth')
-            }else{
-              setToast({text: 'Something went wrong.', color: 'red'});
-            }  
-          });
-      });
+ 
+        socket.emit('room',user_id);
+        socket.emit('userOrderList',user_id);
+        socket.on('getUserOrderList',(response)=>{
+          //    axios.get('/api/orders/get/list/' + data[1][1])
+          // .then((response) => {
+          console.log("response",response);
+          setMyOrders(response);
+          setLoading(false);
+        })
+          // .catch((error) => {
+          //   console.log("error",error);
+          //   setLoading(false);
+          //   if (error.response.status == 401) {
+          //     AsyncStorage.removeItem('user_id');
+          //     AsyncStorage.removeItem('token');
+          //     setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          //     navigation.navigate('Auth')
+          //   }else{
+          //     setToast({text: 'Something went wrong.', color: 'red'});
+          //   }  
+          // });
   }
 
   const toggle=()=>{

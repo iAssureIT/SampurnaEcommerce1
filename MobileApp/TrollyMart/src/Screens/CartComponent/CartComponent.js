@@ -47,6 +47,7 @@ export const CartComponent = withCustomerToaster((props)=>{
 
   const getData=()=>{
     const {userId} = route.params;
+    console.log("userId",userId);
     if(userId){
       setLoading(true);
       getshippingamount(startRange,limitRange);
@@ -75,6 +76,7 @@ const getshippingamount=(startRange, limitRange)=>{
  }
  
   const getCartItems=(userId)=>{
+    console.log("getCartItems",userId);
     axios.get('/api/carts/get/cartproductlist/' + userId)
       .then((response) => {
         console.log("response.data",response.data)

@@ -19,7 +19,11 @@ import {withCustomerToaster}  from '../../redux/AppState.js';
 import { connect,
   useDispatch,
   useSelector }               from 'react-redux';
-  import {getCartCount } 		              from '../../redux/productList/actions';
+import {getCartCount } 		              from '../../redux/productList/actions';
+import openSocket               from 'socket.io-client';
+
+const  socket = openSocket('http://10.39.1.126:3366',{ transports : ['websocket'] });
+console.log("axios.defaults.baseURL",axios.defaults.baseURL);
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export const PaymentMethod = withCustomerToaster((props)=>{
@@ -153,11 +157,12 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         orderStatus               : "New"
       }
 
-      console.log("orderData==>", orderData);
-      axios.post('/api/orders/post', orderData)
-        .then((result) => {
-          console.log("orderData==>", result.data);
-          axios.get('/api/orders/get/one/' + result.data.order_id)
+      socket.emit('postOrder',orderData);
+      socket.on("order", (result)=>{
+      // axios.post('/api/orders/post', orderData)
+      //   .then((result) => {
+          console.log("orderData==>", result);
+          axios.get('/api/orders/get/one/' + result.order_id)
             .then((res) => {
               console.log("res",res);
               dispatch(getCartCount(userID))
@@ -170,11 +175,11 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                 setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
             } else {
                 setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-                navigation.navigate('OrderDetails', { orderid: result.data._id })
+                navigation.navigate('OrderDetails', { orderid: result._id })
                 var paymentdetails = {
                     MERCHANT_ID           : partnerid,
                     MERCHANT_ACCESS_CODE  : secretkey,
-                    REFERENCE_NO          : result.data.order_ID,
+                    REFERENCE_NO          : result.order_ID,
                     AMOUNT                : totalamountpay,
                     CUSTOMER_MOBILE_NO    : mobile,
                     CUSTOMER_EMAIL_ID     : email,
@@ -217,11 +222,11 @@ export const PaymentMethod = withCustomerToaster((props)=>{
               // =================== Notification ==================
             })
       })
-        .catch((error) => {
-          console.log("error",error);
-          setBtnLoading(false);
-          console.log(error);
-        })
+        // .catch((error) => {
+        //   console.log("error",error);
+        //   setBtnLoading(false);
+        //   console.log(error);
+        // })
       }   
   }
 
