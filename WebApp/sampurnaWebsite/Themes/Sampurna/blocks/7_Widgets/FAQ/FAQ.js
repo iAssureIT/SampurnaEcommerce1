@@ -178,7 +178,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[0] ? this.state.blocks.repeatedBlocks[0].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse1" className="col-12 collapse" role="tabpanel" aria-labelledby="heading1" data-parent="#accordionEx">
+												<div id="collapse1" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading1" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[0] ? this.state.blocks.repeatedBlocks[0].Description : ""}}></p>
 												</div>
 											</div>
@@ -191,7 +191,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse2" className="col-12 collapse" role="tabpanel" aria-labelledby="heading2" data-parent="#accordionEx">
+												<div id="collapse2" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading2" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].Description : ""}}></p>
 												</div>
 											</div>
@@ -204,7 +204,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[2] ? this.state.blocks.repeatedBlocks[2].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse3" className="col-12 collapse" role="tabpanel" aria-labelledby="heading3" data-parent="#accordionEx">
+												<div id="collapse3" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading3" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[2] ? this.state.blocks.repeatedBlocks[2].Description : ""}}></p>
 												</div>
 											</div>
@@ -217,7 +217,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse4" className="col-12 collapse" role="tabpanel" aria-labelledby="heading4" data-parent="#accordionEx">
+												<div id="collapse4" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading4" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].Description : ""}}></p>
 												</div>
 											</div>
@@ -230,7 +230,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[4] ? this.state.blocks.repeatedBlocks[4].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse5" className="col-12 collapse" role="tabpanel" aria-labelledby="heading5" data-parent="#accordionEx">
+												<div id="collapse5" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading5" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[4] ? this.state.blocks.repeatedBlocks[4].Description : ""}}></p>
 												</div>
 											</div>
@@ -249,7 +249,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse6" className="col-12 collapse" role="tabpanel" aria-labelledby="heading6" data-parent="#accordionEx">
+												<div id="collapse6" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading6" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Description : ""}}></p>
 												</div>
 											</div>
@@ -262,7 +262,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[6] ? this.state.blocks.repeatedBlocks[6].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse7" className="col-12 collapse" role="tabpanel" aria-labelledby="heading7" data-parent="#accordionEx">
+												<div id="collapse7" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading7" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[6] ? this.state.blocks.repeatedBlocks[6].Description : ""}}></p>
 												</div>
 											</div>
@@ -275,7 +275,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[7] ? this.state.blocks.repeatedBlocks[7].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse8" className="col-12 collapse" role="tabpanel" aria-labelledby="heading8" data-parent="#accordionEx">
+												<div id="collapse8" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading8" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[7] ? this.state.blocks.repeatedBlocks[7].Description : ""}}></p>
 												</div>
 											</div>
@@ -288,7 +288,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[8] ? this.state.blocks.repeatedBlocks[8].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse9" className="col-12 collapse" role="tabpanel" aria-labelledby="heading9" data-parent="#accordionEx">
+												<div id="collapse9" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading9" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[8] ? this.state.blocks.repeatedBlocks[8].Description : ""}}></p>
 												</div>
 											</div>
@@ -301,7 +301,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[9] ? this.state.blocks.repeatedBlocks[9].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse10" className="col-12 collapse" role="tabpanel" aria-labelledby="heading10" data-parent="#accordionEx">
+												<div id="collapse10" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading10" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[9] ? this.state.blocks.repeatedBlocks[9].Description : ""}}></p>
 												</div>
 											</div>
@@ -326,7 +326,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[10] ? this.state.blocks.repeatedBlocks[10].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse11" className="col-12 collapse" role="tabpanel" aria-labelledby="heading11" data-parent="#accordionEx">
+												<div id="collapse11" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading11" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[10] ? this.state.blocks.repeatedBlocks[10].Description : ""}}></p>
 												</div>
 											</div>
@@ -339,7 +339,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[11] ? this.state.blocks.repeatedBlocks[11].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse12" className="col-12 collapse" role="tabpanel" aria-labelledby="heading12" data-parent="#accordionEx">
+												<div id="collapse12" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading12" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[11] ? this.state.blocks.repeatedBlocks[11].Description : ""}}></p>
 												</div>
 											</div>
@@ -352,7 +352,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[12] ? this.state.blocks.repeatedBlocks[12].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse13" className="col-12 collapse" role="tabpanel" aria-labelledby="heading13" data-parent="#accordionEx">
+												<div id="collapse13" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading13" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[12] ? this.state.blocks.repeatedBlocks[12].Description : ""}}></p>
 												</div>
 											</div>
@@ -365,7 +365,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[13] ? this.state.blocks.repeatedBlocks[13].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse14" className="col-12 collapse" role="tabpanel" aria-labelledby="heading14" data-parent="#accordionEx">
+												<div id="collapse14" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading14" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[13] ? this.state.blocks.repeatedBlocks[13].Description : ""}}></p>
 												</div>
 											</div>
@@ -378,7 +378,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[14] ? this.state.blocks.repeatedBlocks[14].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse15" className="col-12 collapse" role="tabpanel" aria-labelledby="heading15" data-parent="#accordionEx">
+												<div id="collapse15" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading15" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[14] ? this.state.blocks.repeatedBlocks[14].Description : ""}}></p>
 												</div>
 											</div>
@@ -398,7 +398,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[15] ? this.state.blocks.repeatedBlocks[15].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse16" className="col-12 collapse" role="tabpanel" aria-labelledby="heading16" data-parent="#accordionEx">
+												<div id="collapse16" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading16" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[15] ? this.state.blocks.repeatedBlocks[15].Description : ""}}></p>
 												</div>
 											</div>
@@ -411,7 +411,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[16] ? this.state.blocks.repeatedBlocks[16].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse17" className="col-12 collapse" role="tabpanel" aria-labelledby="heading17" data-parent="#accordionEx">
+												<div id="collapse17" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading17" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[16] ? this.state.blocks.repeatedBlocks[16].Description : ""}}></p>
 												</div>
 											</div>
@@ -424,7 +424,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[17] ? this.state.blocks.repeatedBlocks[17].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse18" className="col-12 collapse" role="tabpanel" aria-labelledby="heading18" data-parent="#accordionEx">
+												<div id="collapse18" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading18" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[17] ? this.state.blocks.repeatedBlocks[17].Description : ""}}></p>
 												</div>
 											</div>
@@ -437,7 +437,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[18] ? this.state.blocks.repeatedBlocks[18].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse19" className="col-12 collapse" role="tabpanel" aria-labelledby="heading19" data-parent="#accordionEx">
+												<div id="collapse19" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading19" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[18] ? this.state.blocks.repeatedBlocks[18].Description : ""}}></p>
 												</div>
 											</div>
@@ -450,7 +450,7 @@ export default class FAQ extends Component{
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[19] ? this.state.blocks.repeatedBlocks[19].Title : ""}}></h6>
 													</a>
 												</div>
-												<div id="collapse20" className="col-12 collapse" role="tabpanel" aria-labelledby="heading20" data-parent="#accordionEx">
+												<div id="collapse20" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading20" data-parent="#accordionEx">
 													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[19] ? this.state.blocks.repeatedBlocks[19].Description : ""}}></p>
 												</div>
 											</div>
