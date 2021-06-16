@@ -22,6 +22,7 @@ export default class Footer extends Component {
         axios.get("/api/sections/get/get_megamenu_list")
             .then((response)=>{ 
                 if(response){
+                    console.log("response",response);
                     this.setState({ 
                         categoryData : response.data
                     },()=>{
