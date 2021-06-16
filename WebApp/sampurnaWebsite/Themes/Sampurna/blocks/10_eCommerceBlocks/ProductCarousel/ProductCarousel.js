@@ -18,9 +18,7 @@ import Product                from './Product.js';
 import CategoryFilters        from './CategoryFilters.js';
 import BrandFilters           from './BrandFilters.js';
 import 'react-multi-carousel/lib/styles.css';
-
 import {getCartData,getWishlistData, updateCartCount}  from '../../../../../redux/actions/index.js'; 
-
 
 const { publicRuntimeConfig } = getConfig();
 var projectName = publicRuntimeConfig.CURRENT_SITE;
@@ -62,7 +60,6 @@ class ProductCarousel extends Component {
       products           : [],
       modalIDNew         : [],
       wishList           : [],
-      sizeCollage        : false,
       relatedProductArray: [],
       discountedProducts : [],
       productSettings    : {          
@@ -355,20 +352,6 @@ getProductList(productApiUrl,formValues){
     })
   }
 
-getCartCount() {
-    // const userid = localStorage.getItem('user_ID');
-    if(userid){
-        axios.get("/api/carts/get/count/" + this.state.user_ID)
-        .then((response) => {
-        //   console.log("cartcount--",response.data);
-        store.dispatch(updateCartCount(response.data));
-        })
-        .catch((error) => {
-        console.log("error",error);
-        })
-    }
-}
-
 submitCart(event) { 
     if(this.state.user_ID){
     var id = event.target.id;
@@ -382,35 +365,7 @@ submitCart(event) {
     var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
     var productCartData = recentCartData.filter((a) => a.product_ID === id);
     var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
-    var formValues ={};
-    if(this.state.websiteModel=== "FranchiseModel"){
-      if(selectedSize === size){
-         var quantity = 1;
-         var totalWeight = selectedSize +" "+unit
-         formValues = {
-          "user_ID": this.state.user_ID,
-          "product_ID": event.target.id,
-          "quantity": 1,  
-          "selectedSize" : selectedSize,
-          "size"         : size,
-          "totalWeight"  : totalWeight,      
-        }
-      }else{
-        quantity    = selectedSize/size;
-        totalWeight = size*quantity +" "+unit;
-        formValues = {
-          "user_ID"      : this.state.user_ID,
-          "product_ID"   : event.target.id,
-          "quantity"     : quantity,
-          "selectedSize" : selectedSize,
-          "size"         : size,
-          "totalWeight"  : totalWeight,
-          "vendorName"   : event.target.getAttribute('vendor_name'),
-          "vendor_ID"    : event.target.getAttribute('vendor_id'),  
-        }
-      }
-
-    }else{      
+    var formValues ={};  
       formValues = {
         "user_ID"    : this.state.user_ID,
         "product_ID" : event.target.id,
@@ -420,14 +375,10 @@ submitCart(event) {
       }      
     }
     this.addCart(formValues, quantityAdded, availableQuantity);
-    this.setState({
-      ['sizeCollage' + currProId]: false
-    })
-  }else{
 
     if(this.state.showLoginAs==="modal"){
       $('#loginFormModal').show();       
-      }else{
+    }else{
       this.setState({
         messageData: {
           "type": "outpage",
@@ -443,52 +394,10 @@ submitCart(event) {
           messageData: {},
         })
       }, 10000);
-    }//end else
-  }
+    }
+  
   }
   addCart(formValues, quantityAdded, availableQuantity) {
-    if(this.state.webSiteModel==='FranchiseModel'){
-      axios.post('/api/carts/post', formValues)
-        .then((response) => {
-          // store.dispatch(fetchCartData());
-          this.props.fetchCartData();
-          this.props.updateCartCount();
-          this.setState({
-            messageData: {
-              "type": "outpage",
-              "icon": "fa fa-check-circle",
-              "message": "&nbsp; " + response.data.message,
-              "class": "success",
-              "autoDismiss": true
-            }
-          })
-          setTimeout(() => {
-            this.setState({
-              messageData: {},
-            })
-          }, 10000);
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
-    }else{
-    if (quantityAdded >= availableQuantity) {
-    
-      this.setState({
-        messageData: {
-          "type": "outpage",
-          "icon": "fa fa-check-circle",
-          "message": "Last " + availableQuantity + " items taken by you",
-          "class": "success",
-          "autoDismiss": true
-        }
-      })
-      setTimeout(() => {
-        this.setState({
-          messageData: {},
-        })
-      }, 10000);
-    } else {
       // console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)
         .then((response) => {
@@ -513,9 +422,8 @@ submitCart(event) {
         .catch((error) => {
           console.log('cart post error', error);
         })
-    }
   }//end else websiteModel
-  }
+  
   addtowishlist(event) {
     event.preventDefault();
     if (this.state.user_ID) {
@@ -526,8 +434,6 @@ submitCart(event) {
       }
       axios.post('/api/wishlist/post', formValues)
         .then((response) => {
-          var previousUrl = window.location.href;
-          localStorage.setItem("previousUrl", previousUrl);
           this.setState({
             messageData: {
               "type": "outpage",
@@ -549,8 +455,6 @@ submitCart(event) {
         })
     }
     else {
-      var previousUrl = window.location.href;
-      localStorage.setItem("previousUrl",previousUrl);
       if(this.state/showLoginAs ==="modal"){
         $('#loginFormModal').show();        
         }else{
@@ -611,7 +515,7 @@ submitCart(event) {
     }//end productApiUrl
   };
   getBrandWiseData(event){
-    console.log("brand value ==",event.target.value);
+    // console.log("brand value ==",event.target.value);
     var brandArray = this.state.brandArray;
     if(event.target.value !== "undefined"){
       var brandValue = event.target.value;
@@ -634,7 +538,7 @@ submitCart(event) {
         "brand"          : this.state.brandArray 
       }     
      // if( formValues && this.state.productApiUrl){
-        console.log("formValues=>",this.state.productApiUrl);
+        // console.log("formValues=>",this.state.productApiUrl);
         $("html, body").animate({ scrollTop: 0 }, 800);
         this.getProductList(this.state.productApiUrl,formValues);
       //}//end productApiUrl
@@ -705,7 +609,7 @@ submitCart(event) {
                               wishClass = '';
                               tooltipMsg = 'Remove from wishlist';
                             } else {
-                              wishClass = 'r';
+                              wishClass = '-o';
                               tooltipMsg = 'Add To Wishlist';
                             }   
                             var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
@@ -717,7 +621,7 @@ submitCart(event) {
                                   <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
                                       {this.state.productSettings.displayWishlist === true?
                                           this.state.user_ID?
-                                          <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                                          <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +" fa-heart"+wishClass +" wishListIconColor "}></i></button>
                                           :
                                           <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                                       :null
@@ -726,7 +630,7 @@ submitCart(event) {
                                     </div>
                                     <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
                                       {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
-                                      <Link href={"/vendorlist/" +data._id}>
+                                      <Link href={"/home-to-vendorlist/" +data._id}>
                                       <a className={Style.product_item_photo } tabIndex="-1" >                                      
                                         <Image                                           
                                           src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}

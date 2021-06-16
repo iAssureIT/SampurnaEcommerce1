@@ -4,21 +4,12 @@ import { connect }          from 'react-redux';
 import getConfig            from 'next/config';
 import { withRouter }       from 'next/router'
 import dynamic              from 'next/dynamic';
-import $, { post }            from 'jquery';
 import CategoryBlock        from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryBlock.js';
 import Message              from '../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
-import ReactImageZoom       from 'react-image-zoom';
-import Carousel             from 'react-multi-carousel';
-import {ntc}                from '../../../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
-import ProductZoom          from './ProductZoom.js';
-import ProductCarouselView from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
-import CategoryFilters      from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryFilters.js';
-import {getCartData,getWishlistData, updateCartCount}  from '../../../../redux/actions/index.js'; 
-import 'react-multi-carousel/lib/styles.css';
-import SubCategoryBlock from '../../../../Themes/Sampurna/blocks/StaticBlocks/SubCategoryBlock/SubCategoryBlock.js';
+import {getCartData,getWishlistData, updateCartCount}  from '../../../../../redux/actions/index.js'; 
 
 const { publicRuntimeConfig } = getConfig();
-class ProductViewEcommerce extends Component {
+class ProductDetailView extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {		
@@ -41,7 +32,7 @@ class ProductViewEcommerce extends Component {
 			"limitRange"     : 28,
 
 		};
-	}
+	}	  
 
 	async componentDidMount(){
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
@@ -62,26 +53,6 @@ class ProductViewEcommerce extends Component {
 		  var vendor_ID              = url[4];
 		  var vendorlocation_ID      = url[5];
 		  var productId             = url[6];
-		  this.setState({
-			"vendor_ID"         : vendor_ID,
-			"vendorlocation_ID" : vendorlocation_ID,
-			"productID"         : productId,
-		  },()=>{
-			if(this.state.vendor_ID){
-				axios.get('/api/entitymaster/get/one/'+this.state.vendor_ID)    
-				.then((vendorResponse)=>{
-					if(vendorResponse){
-					// console.log("vendorResponse===",vendorResponse);
-						this.setState({
-							vendorData : vendorResponse.data[0],
-						})
-					}
-				})
-				.catch((error) =>{
-				console.log("error in get vendor=",error);
-				})
-			}
-			})
 		}
 		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
 			this.setState({
@@ -90,110 +61,8 @@ class ProductViewEcommerce extends Component {
 				currency     : sampurnaWebsiteDetails.preferences.currency,
 			})
 		}
-		if(productId){
-			if(this.state.user_ID!==""){
-				var url = "/api/products/get/one/" + productId +"/" +this.state.user_ID;
-			}else{
-				var url = "/api/products/get/one/" + productId +"/" +null;
-			}
-			// console.log("url",url);
-			axios.get(url)
-			.then((response) => {
-				if(response.data){
-					console.log("product response = ",response.data);
-					this.setState({
-						sectionUrl    : response.data.section.replace(' ','-').toLowerCase(),
-						categoryUrl   : response.data.category.replace(' ','-').toLowerCase(),
-						section_ID    : response.data.section_ID,
-						category_ID   : response.data.category_ID,
-						subCategoryUrl: response.data.subCategory ? response.data.subCategory.replace(' ','-').toLowerCase():"",
-						productData   : response.data,
-						selectedImage : response.data.productImage[0],
-						quanityLimit  : response.data.availableQuantity,
-						selectedColor : response.data.color,
-						selectedSize  : response.data.size,
-						websiteModel  : this.state.websiteModel
-					},async()=>{
-						await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
-						.then((categoryResponse)=>{
-							if(categoryResponse.data){    
-							this.setState({
-								categoryData     : categoryResponse.data.categoryList,  
-								brandData        : categoryResponse.data.brandList, 
-							}); 
-							// console.log("categoryUrl=",this.state.categoryUrl); 
-							// console.log("categoryResponse=",categoryResponse.data.categoryList);
-								for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
-									if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
-									var subCategoryData = categoryResponse.data.categoryList[i].subCategory?categoryResponse.data.categoryList[i].subCategory:[];
-									if(subCategoryData){
-										this.setState({
-											subCategoryData  : subCategoryData
-										});
-									}
-									break;
-								}
-								}
-							}
-						})
-						.catch((error)=>{
-							console.log("Error while getting subcategory=",error);
-						})
-
-						var similarProductsFormvalues = {
-							product_ID     : this.state.productID,
-							vendor_ID      : this.state.vendor_ID,
-							category_ID    : this.state.category_ID,
-							// subCategory_ID : productdata.subCategory_ID,
-							section_ID     : this.state.section_ID,
-							user_ID        : this.state.user_ID
-						}
-						if(similarProductsFormvalues){
-							// console.log("similarProductsFormvalues==",similarProductsFormvalues);
-							axios.post("/api/products/get/similar_products", similarProductsFormvalues)
-							.then((similarProductResponse)=>{
-								if(similarProductResponse){
-									// console.log("similarProductResponse==",similarProductResponse);
-									this.setState({
-										newProducts : similarProductResponse.data
-									})
-								}
-							})
-							.catch((error)=>{
-									console.log("error while getting similar product=",error);
-							})
-						}
-
-						
-
-
-					})
-				}
-			})
-			.catch((error) => {
-				console.log('error', error);
-			})
-		}
+		
 	}
-	
-	getWishData(){
-		axios.get("/api/wishlist/get/one/productwish/"+this.state.user_ID+"/" + this.state.productID)
-		.then((response) => {
-			// console.log("response====",response.data);
-			if(response.data){
-			this.setState({
-				wishIconClass : response.data ? "viewWishListActive" : "viewWishList",
-				wishTooltip   : response.data ? "Remove from wishlist" : "Add to wishlist",
-			},()=>{
-				// console.log("wishIconClass===",this.state.wishIconClass);
-			})
-			}
-		})
-		.catch((error) => {
-			console.log('error', error);
-		})
-	}
-	
 	addtocart(event) {
 		event.preventDefault();	
 		if(this.state.user_ID){
@@ -264,8 +133,7 @@ class ProductViewEcommerce extends Component {
 					}
 					axios.post('/api/wishlist/post', formValues)
 						.then((response) => {
-							this.getWishData();
-							// window.fbq('track', 'AddToWishlist');
+							this.props.recentWishlistData();
 							this.setState({
 								messageData: {
 									"type": "outpage",
@@ -360,9 +228,10 @@ class ProductViewEcommerce extends Component {
 		}
 	}
 	
-	render() {
 
-		var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
+	render() {
+		console.log("product wishlistdata  =====",this.props.recentWishlistData);
+        var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass = 'r';
 		var tooltipMsg = '';
 		if (x && x.length > 0) {
@@ -374,53 +243,10 @@ class ProductViewEcommerce extends Component {
 			console.log("wishClass=",wishClass);
 			tooltipMsg = 'Add To Wishlist';
 		} 
-	   
-		// console.log("product data  =====",this.state);eCommerce
-		const props = { width: 400, height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : '/images/eCommerce/notavailable.jpg' };
 		return (
 			<section>
-				<div className="col-12">
-					{this.state.categoryData && this.state.categoryData.length>0
-					?
-						< CategoryBlock 
-							categoryData       = {this.state.categoryData}
-							vendor_ID          = {this.state.vendor_ID}
-							vendorlocation_ID  = {this.state.vendorlocation_ID}
-							userLatitude       = {this.state.userLongitude}
-							userLongitude      = {this.state.userLongitude}
-							sectionUrl         = {this.state.sectionUrl}
-							subCategoryUrl     = {this.state.subCategoryUrl}
-							categoryUrl        = {this.state.categoryUrl}
-						/>
-					:	null
-					}
-				</div>
-
 				<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
-				<div className="row">
-					<div className="col-3 FiltersBlock">
-						< CategoryFilters 
-							categoryData       = {this.state.subCategoryData}
-							vendor_ID          = {this.state.vendor_ID}
-							vendorlocation_ID  = {this.state.vendorlocation_ID}
-							sectionUrl         = {this.state.sectionUrl}
-							subCategoryUrl     = {this.state.subCategoryUrl}
-							categoryUrl        = {this.state.categoryUrl}
-							userLatitude       = {this.state.userLatitude}
-							userLongitude      = {this.state.userLongitude}
-							startRange         = {this.state.startRange}
-							limitRange         = {this.state.limitRange}
-						/>
-					</div>
-					<div className="col-9 boxBorderInner mobileViewNoPadding mt50 ">
-						<div className="row">
-							<ProductZoom 
-								productData = {this.state.productData}
-							/>
-							<div className="col-12 col-sm-7 ">
-
-							<Message messageData={this.state.messageData} />
-							{this.state.productData?
+                {this.state.productData?
 							<div className="col-12">
 								<div className="row">
 								{this.state.productData.brandNameRlang?
@@ -530,47 +356,12 @@ class ProductViewEcommerce extends Component {
 							</div>
 							:null
 							}
-						</div>
-						</div>
-						{this.state.newProducts && this.state.newProducts.length>0
-							?
-								<ProductCarouselView 
-								    blockTitle         = {"Similar Items"}
-									newProducts        = {this.state.newProducts}
-									vendor_ID          = {this.state.vendor_ID}
-									vendorlocation_ID  = {this.state.vendorlocation_ID}
-									userLatitude       = {this.state.userLongitude}
-									userLongitude      = {this.state.userLongitude}
-									sectionUrl         = {this.state.sectionUrl}
-									subCategoryUrl     = {this.state.subCategoryUrl}
-									categoryUrl        = {this.state.categoryUrl}
-								/>
-							:null
-						}
-						{this.state.subCategoryData && this.state.subCategoryData.length>0
-							?
-								<SubCategoryBlock 
-									blocktitle         = {"Shop By Sub Categories"}
-									subCategoryData    = {this.state.subCategoryData}
-									vendor_ID          = {this.state.vendor_ID}
-									vendorlocation_ID  = {this.state.vendorlocation_ID}
-									userLatitude       = {this.state.userLongitude}
-									userLongitude      = {this.state.userLongitude}
-									sectionUrl         = {this.state.sectionUrl}
-									subCategoryUrl     = {this.state.subCategoryUrl}
-									categoryUrl        = {this.state.categoryUrl}
-								/>
-						:null
-						}
-
-							
-					</div>
-			</div>
-			</div>
-		</section>
+			    </div>
+		    </section>
 		);
 	}
 }
+
   const mapStateToProps = state => (
   
 	{

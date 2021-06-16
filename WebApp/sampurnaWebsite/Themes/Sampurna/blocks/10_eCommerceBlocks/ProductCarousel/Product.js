@@ -63,7 +63,7 @@ class Product extends Component{
               this.setState({
                 messageData: {},
               })
-            }, 10000);
+            }, 4000);
           })
           .catch((error) => {
             console.log('error', error);
@@ -84,7 +84,7 @@ class Product extends Component{
           this.setState({
             messageData: {},
           })
-        }, 10000);
+        }, 4000);
       } else {
         axios.post('/api/carts/post', formValues)
           .then((response) => {
@@ -101,7 +101,7 @@ class Product extends Component{
               this.setState({ 
                 messageData: {},
               })
-            }, 10000);
+            }, 4000);
             this.props.fetchCartData();
             this.props.updateCartCount();
   
@@ -197,7 +197,7 @@ class Product extends Component{
           this.setState({
             messageData: {},
           })
-        }, 10000);
+        }, 4000);
       }//end else
     }
     }
@@ -244,7 +244,7 @@ class Product extends Component{
               this.setState({
                 messageData: {},
               })
-            }, 10000);
+            }, 4000);
             this.props.getWishlistData();
           })
           .catch((error) => {
@@ -271,14 +271,14 @@ class Product extends Component{
             this.setState({
               messageData: {},
             })
-          }, 10000);
+          }, 4000);
         }
       }
     }
   
 
     render(){
-      console.log("products props===",this.props);
+      // console.log("products props===",this.props);
 
       var LGCol = 12/this.props.blockSettings.noOfProductPerLGRow;
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;

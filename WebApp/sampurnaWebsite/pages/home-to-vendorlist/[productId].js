@@ -13,8 +13,11 @@ const VendorList = ()=> {
     const [categoryList,setCategoryList] = useState([]);
     const router = useRouter();
     const {sectionUrl} = router.query
-    // console.log("useRouter",router.query);
+    console.log("useRouter",router.query);
     useEffect(()=>{
+        var url = window.location.href.split('/');
+        console.log("url==",url);
+        var productID = url[4];
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
@@ -23,7 +26,8 @@ const VendorList = ()=> {
                     "limitRange" : 10,
                     "sectionUrl" : sectionUrl,
                     "latitude"   : sampurnaWebsiteDetails.deliveryLocation.latitude,
-                    "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude
+                    "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude,
+                    "productID"  : productID,
                 }
             }else{
                 var formValues =  {
@@ -31,12 +35,13 @@ const VendorList = ()=> {
                     "limitRange" : 10,
                     "sectionUrl" : sectionUrl,
                     "latitude"   : "",
-                    "longitude"  : ""
+                    "longitude"  : "",
+                    "productID"  : productID,
                 }
             }
         }
         // console.log("vendor list FormValues=>",formValues);
-        axios.post("/api/vendorlist/post/vendor/list",formValues)
+        axios.post("/api/hometovendorlist/post/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){
                     // console.log("vendorResponse=>",vendorResponse);

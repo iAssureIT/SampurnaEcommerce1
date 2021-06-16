@@ -77,17 +77,31 @@ class ProductZoom extends Component {
 		
 	}
 	render() {
-		console.log("productZoom data  =====",this.props.productData.productImage);
-		// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage[0] ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
+		console.log("productZoom data  =====",this.props.productData && this.props.productData);
+		if(this.props.productData){
+			// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage.length>0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
+		}
+		
 		const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: '/images/eCommerce/notavailable.jpg' };
 		return (
 			<div className="col-5 mt20 mb20 boxBorder mobileViewNoPadding NoPadding">
+				{this.props.productData 
+				?
 				<div className="col-12 boxBorderInner mobileViewNoPadding ">
 					<div className="row">
 						<div className=" col-12 stickyDiv">
 							<div className="col-12 imageContainer imgCont">
 								<div className="prod-detail-slider prod-detail-filpCommon col-12 ">
-									<div id="react-app" className="col-4 item img-responsiveProduct">
+									<div id="react-app" className="col-4 item productZoomBlock img-responsiveProduct">
+										{/* <Image                                           
+											// src={this.props.productData.productImage.length>0? this.props.productData.productImage[0]:"/images/eCommerce/notavailable.jpg"}
+											src={"/images/eCommerce/notavailable.jpg"}
+											alt="ProductImg" 
+											className={"img-responsive prodImgMobileView " }
+											height={400}
+											width={400} 
+											layout={'intrinsic'}
+										/>	 */}
 										<ReactImageZoom {...props} />
 									</div> 
 									<div id="" className="col-8 NoPadding">
@@ -134,7 +148,7 @@ class ProductZoom extends Component {
 						</div>
 					</div>
 				</div>
-				
+									:null}
 			</div>
 		);
 	}

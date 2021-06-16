@@ -52,25 +52,33 @@ class Account extends Component{
         axios.get('/api/users/get/id/'+this.state.user_ID)
         .then( (res)=>{
             // $('.fullpageloader').hide();
-            this.setState({
-                firstName       : res.data.profile.firstname,
-                lastName        : res.data.profile.lastname,
-                fullName        : res.data.profile.fullName,
-                emailId         : res.data.profile.email,
-                mobileNumber    : res.data.profile.mobile,
-                name            : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].name : "",
-                deliveryAddressID : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0]._id : "",
-                addressLine1    : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].addressLine1 : "",
-                addressLine2    : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].addressLine2 : "",
-                block           : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].block : "",
-                district        : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].district : "",
-                city            : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].city : "",
-                pincode         : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].pincode : "",
-                state           : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].state : "",
-                country         : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].country : "",
-                type            : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].type : "",
-                profileImage    : res.data.profile.profileImage
-            })
+            if(res){
+                if(res){
+                    console.log("address response==",res);
+                    this.setState({
+                        firstName       : res.data.profile.firstname,
+                        lastName        : res.data.profile.lastname,
+                        fullName        : res.data.profile.fullName,
+                        emailId         : res.data.profile.email,
+                        mobileNumber    : res.data.profile.mobile,
+                        name            : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].name : "",
+                        deliveryAddressID : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0]._id : "",
+                        addressLine1    : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].addressLine1 : "",
+                        addressLine2    : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].addressLine2 : "",
+                        block           : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].block : "",
+                        district        : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].district : "",
+                        city            : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].city : "",
+                        pincode         : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].pincode : "",
+                        state           : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].state : "",
+                        country         : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].country : "",
+                        type            : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].type : "",
+                        profileImage    : res.data.profile.profileImage
+                    },()=>{
+                        console.log("this.state.addressLine1=",this.state.addressLine1);
+                    })
+                }
+                
+            }
         })
         .catch((error)=>{
           console.log("account page getuser error = ",error);
@@ -97,7 +105,7 @@ class Account extends Component{
         return(
             <div className="col-12 NoPadding">
             <Header />
-            {<Loader type="fullpageloader" />}
+            {/* {<Loader type="fullpageloader" />} */}
                 <SmallBanner bannerData={this.state.bannerData}/>  
                 <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">  
                     <div className="modal-content loginModalContent " style={{'background': '#fff'}}>    
@@ -129,7 +137,6 @@ class Account extends Component{
                             <h5 className="accountTitle">Account Dashboard</h5>
                             <p><label className="col-12">Hello {this.state.firstName}</label></p>
                             <div className="col-12 row mt15 mb15 mx-auto mobileViewNoPadding">
-                                                            
 
                                 <div className="col-12 col-lg-6 mt15 mb15 mobileViewNoPadding">
                                     <div className="col-12 accountBox">
@@ -143,7 +150,6 @@ class Account extends Component{
                                                 </div>
                                                 <div className="col-12 mt100">
                                                     <button className="btn globalCommonBtn col-12 col-sm-7 " onClick={this.editUser.bind(this)}><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp;
-                                                {/*<button className="btn btn-warning">CHANGE PASSWORD</button>*/}
                                                 </div>
                                             </div>
                                         </div>

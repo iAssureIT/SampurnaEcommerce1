@@ -204,39 +204,6 @@ class CartProducts extends Component{
         const quantity   = parseInt(event.target.getAttribute('dataquntity'));
         const quantityAdded = parseInt(quantity-1) <= 0 ? 1 : parseInt(quantity-1);
        
-        if(this.state.websiteModel==="FranchiseModel"){
-            const size       = event.target.getAttribute('size');
-            const unit       = event.target.getAttribute('unit');
-            var totalWeight  = quantityAdded * size;
-
-            if(unit === "gm"){
-                if(totalWeight >= 1000){
-                    totalWeight = totalWeight/1000;
-                    totalWeight = totalWeight+" KG";              
-                }
-                else{
-                    totalWeight      = totalWeight+" GM";
-                }
-            }else{
-                totalWeight      = totalWeight+" "+unit;
-            }
-            const formValues = { 
-                "user_ID"     	: this.state.user_ID,
-                "product_ID" 	: cartitemid,
-                "quantityAdded" : quantityAdded,
-                "totalWeight"   : totalWeight,
-                "vendor_ID"     : vendor_id, 
-            }   
-            // console.log("formValues===",formValues);         
-            axios.patch("/api/carts/quantity" ,formValues)
-            .then((response)=>{
-                    this.props.fetchCartData();
-            })
-            .catch((error)=>{
-                console.log("error => ",error);
-            })
-            
-        }else{
             const formValues    = { 
                 "user_ID"     	: this.state.user_ID,
                 "product_ID" 	: cartitemid,
@@ -251,8 +218,6 @@ class CartProducts extends Component{
             .catch((error)=>{
                 console.log("error => ",error);
             })
-        }
-        
     }
 
     proceedToCheckout(event){

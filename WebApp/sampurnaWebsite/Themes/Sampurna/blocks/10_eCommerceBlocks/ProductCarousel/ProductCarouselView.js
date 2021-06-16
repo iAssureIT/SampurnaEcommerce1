@@ -4,6 +4,7 @@ import Link                   from 'next/link';
 import axios                  from 'axios';
 import Carousel               from 'react-multi-carousel';
 import { connect }            from 'react-redux';
+import $, { post }            from 'jquery';
 import store                  from '../../../../../redux/store.js'; 
 import Message                from '../../StaticBlocks/Message/Message.js';
 import Select                 from 'react-select';
@@ -98,7 +99,7 @@ class ProductCarouselView extends Component {
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
     if(userDetails){
       this.setState({
-        userID : userDetails.user_id
+        user_ID : userDetails.user_id
       });
     }
 
@@ -136,198 +137,91 @@ class ProductCarouselView extends Component {
       },()=>{});
     }
 }
-       
 
 submitCart(event) { 
-    if(this.state.user_ID){
-    var id = event.target.id;
-    if(this.state.websiteModel=== "FranchiseModel"){
-      var selectedSize = $('#'+id+"-size").val();      
-      var size = event.target.getAttribute('mainsize');      
-      var unit = event.target.getAttribute('unit');      
-    }    
-    var availableQuantity = event.target.getAttribute('availablequantity');
-    var currProId = event.target.getAttribute('currpro');
-    var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
-    var productCartData = recentCartData.filter((a) => a.product_ID === id);
-    var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
-    var formValues ={};
-    if(this.state.websiteModel=== "FranchiseModel"){
-      if(selectedSize === size){
-         var quantity = 1;
-         var totalWeight = selectedSize +" "+unit
-         formValues = {
-          "user_ID": this.state.user_ID,
-          "product_ID": event.target.id,
-          "quantity": 1,  
-          "selectedSize" : selectedSize,
-          "size"         : size,
-          "totalWeight"  : totalWeight,      
-        }
-      }else{
-        quantity    = selectedSize/size;
-        totalWeight = size*quantity +" "+unit;
-        formValues = {
-          "user_ID"      : this.state.user_ID,
-          "product_ID"   : event.target.id,
-          "quantity"     : quantity,
-          "selectedSize" : selectedSize,
-          "size"         : size,
-          "totalWeight"  : totalWeight,
-          "vendorName"   : event.target.getAttribute('vendor_name'),
-          "vendor_ID"    : event.target.getAttribute('vendor_id'),  
-        }
-      }
-
-    }else{      
-      formValues = {
-        "user_ID"    : this.state.user_ID,
-        "product_ID" : event.target.id,
-        "quantity"   : 1,   
-        "vendorName" : event.target.getAttribute('vendor_name'),
-        "vendor_ID"  : event.target.getAttribute('vendor_id'),       
-      }      
-    }
-    this.addCart(formValues, quantityAdded, availableQuantity);
-    this.setState({
-      ['sizeCollage' + currProId]: false
-    })
-  }else{
-
-    if(this.state.showLoginAs==="modal"){
-      $('#loginFormModal').show();       
-      }else{
-      this.setState({
-        messageData: {
-          "type": "outpage",
-          "icon": "fa fa-exclamation-circle",
-          // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
-          "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
-          "class": "danger",
-          "autoDismiss": true
-        }
-      })
-      setTimeout(() => {
-        this.setState({
-          messageData: {},
-        })
-      }, 10000);
-    }//end else
-  }
-  }
-  addCart(formValues, quantityAdded, availableQuantity) {
-    if(this.state.webSiteModel==='FranchiseModel'){
-      axios.post('/api/carts/post', formValues)
-        .then((response) => {
-          // store.dispatch(fetchCartData());
-          this.props.fetchCartData();
-          this.props.updateCartCount();
-          this.setState({
-            messageData: {
-              "type": "outpage",
-              "icon": "fa fa-check-circle",
-              "message": "&nbsp; " + response.data.message,
-              "class": "success",
-              "autoDismiss": true
-            }
-          })
-          setTimeout(() => {
-            this.setState({
-              messageData: {},
-            })
-          }, 10000);
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
-    }else{
-    if (quantityAdded >= availableQuantity) {
+  if(this.state.user_ID){
+  var id = event.target.id;  
+  var availableQuantity = event.target.getAttribute('availablequantity');
+  var currProId = event.target.getAttribute('currpro');
+  var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
+  var productCartData = recentCartData.filter((a) => a.product_ID === id);
+  var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
+  var formValues ={};  
+    formValues = {
+      "user_ID"    : this.state.user_ID,
+      "product_ID" : event.target.id,
+      "quantity"   : 1,   
+      "vendorName" : event.target.getAttribute('vendor_name'),
+      "vendor_ID"  : event.target.getAttribute('vendor_id'),       
+    }   
     
-      this.setState({
-        messageData: {
-          "type": "outpage",
-          "icon": "fa fa-check-circle",
-          "message": "Last " + availableQuantity + " items taken by you",
-          "class": "success",
-          "autoDismiss": true
-        }
-      })
-      setTimeout(() => {
-        this.setState({
-          messageData: {},
-        })
-      }, 10000);
-    } else {
-      // console.log("formValues==",formValues);
-      axios.post('/api/carts/post', formValues)
-        .then((response) => {
-          // console.log("this.props.fetchCartData();",this.props.fetchCartData());
-          this.setState({
-            messageData: {
-              "type": "outpage",
-              "icon": "fa fa-check-circle",
-              "message": "&nbsp; " + response.data.message,
-              "class": "success",
-              "autoDismiss": true
-            }
-          })
-          setTimeout(() => {
-            this.setState({
-              messageData: {},
-            })
-          }, 10000);
-          this.props.fetchCartData();
-          this.props.updateCartCount();
-        })
-        .catch((error) => {
-          console.log('cart post error', error);
-        })
-    }
-  }//end else websiteModel
-  }
-  addtowishlist(event) {
-    event.preventDefault();
-    if (this.state.user_ID) {
-      var id = event.target.id;
-      const formValues = {
-        "user_ID": this.state.user_ID,
-        "product_ID": id,
-      }
-      axios.post('/api/wishlist/post', formValues)
-        .then((response) => {
-          var previousUrl = window.location.href;
-          localStorage.setItem("previousUrl", previousUrl);
-          this.setState({
-            messageData: {
-              "type": "outpage",
-              "icon": "fa fa-check-circle",
-              "message": "&nbsp; " + response.data.message,
-              "class": "success",
-              "autoDismiss": true
-            }
-          })
-          setTimeout(() => {
-            this.setState({
-              messageData: {},
-            })
-          }, 10000);
-          this.props.getWishlistData();
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
-    }
-    else {
-      if(this.state/showLoginAs ==="modal"){
-        $('#loginFormModal').show();        
-        }else{
+  this.addCart(formValues, quantityAdded, availableQuantity);   
+  }else{
+      if(this.state.showLoginAs==="modal"){
+        $('#loginFormModal').show();       
+      }else{
         this.setState({
           messageData: {
             "type": "outpage",
             "icon": "fa fa-exclamation-circle",
             // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
-            "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",          
-            "class": "warning",
+            "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
+            "class": "danger",
+            "autoDismiss": true
+          }
+        })
+        setTimeout(() => {
+          this.setState({
+            messageData: {},
+          })
+        }, 4000);
+      }
+      }
+}
+
+addCart(formValues, quantityAdded, availableQuantity) {
+    // console.log("formValues==",formValues);
+    axios.post('/api/carts/post', formValues)
+      .then((response) => {
+        // console.log("this.props.fetchCartData();",this.props.fetchCartData());
+        this.setState({
+          messageData: {
+            "type": "outpage",
+            "icon": "fa fa-check-circle",
+            "message": "&nbsp; " + response.data.message,
+            "class": "success",
+            "autoDismiss": true
+          }
+        })
+        setTimeout(() => {
+          this.setState({
+            messageData: {},
+          })
+        }, 4000);
+        this.props.fetchCartData();
+        this.props.updateCartCount();
+      })
+      .catch((error) => {
+        console.log('cart post error', error);
+      })
+}//end else websiteModel
+
+addtowishlist(event) {
+  event.preventDefault();
+  if (this.state.user_ID) {
+    var id = event.target.id;
+    const formValues = {
+      "user_ID": this.state.user_ID,
+      "product_ID": id,
+    }
+    axios.post('/api/wishlist/post', formValues)
+      .then((response) => {
+        this.setState({
+          messageData: {
+            "type": "outpage",
+            "icon": "fa fa-check-circle",
+            "message": "&nbsp; " + response.data.message,
+            "class": "success",
             "autoDismiss": true
           }
         })
@@ -336,15 +230,40 @@ submitCart(event) {
             messageData: {},
           })
         }, 10000);
-      }
+        this.props.getWishlistData();
+      })
+      .catch((error) => {
+        console.log('error', error);
+      })
+  }
+  else {
+    if(this.state.showLoginAs ==="modal"){
+      $('#loginFormModal').show();        
+      }else{
+      this.setState({
+        messageData: {
+          "type": "outpage",
+          "icon": "fa fa-exclamation-circle",
+          // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
+          "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",          
+          "class": "warning",
+          "autoDismiss": true
+        }
+      })
+      setTimeout(() => {
+        this.setState({
+          messageData: {},
+        })
+      }, 10000);
     }
   }
+}
 
-  render() {
-      console.log("this.state.newProducts==",this.props.newProducts)
+render() {
+      // console.log("this.state.newProducts==",this.props.newProducts)
     return (
         <div className={"col-12 " +Style.NoPadding}>        
-            {/* <Message messageData={this.state.messageData} />   */}
+            <Message messageData={this.state.messageData} />  
             <div className="col-12 ">
               <h4>{this.props.blockTitle}</h4>
             </div>
