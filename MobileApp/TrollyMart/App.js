@@ -14,7 +14,7 @@ import {localNotificationService} from './src/LocalNotificationService';
 import {fcmService} from './src/FCMService';
 
 // axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com';
-axios.defaults.baseURL = 'http://10.39.1.96:3366';
+axios.defaults.baseURL = 'http://10.39.1.126:3366';
 // console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
 StatusBar.setHidden(true);
 
@@ -99,5 +99,5 @@ const ToastProviderComponent = props => {
 const codePushOptions = {
  checkFrequency: codePush.CheckFrequency.ON_APP_START 
 };
-// export default codePush(codePushOptions)(App);
-export default App;
+export default codePush(codePushOptions)(App);
+// export default App;

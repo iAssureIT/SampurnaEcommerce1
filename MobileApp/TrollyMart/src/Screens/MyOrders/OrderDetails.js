@@ -25,13 +25,12 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import CountDown from 'react-native-countdown-component';
 import Modal                from "react-native-modal";
 import { useIsFocused }     from "@react-navigation/native";
-  const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
   const customStyles = {
     stepIndicatorSize                 : 25,
     currentStepIndicatorSize          : 30,
     separatorStrokeWidth              : 2,
     currentStepStrokeWidth            : 3,
-    stepStrokeCurrentColor            : colors.success,
+    stepStrokeCurrentColor            : colors.warning,
     stepStrokeWidth                   : 3,
     stepStrokeFinishedColor           : colors.success,
     stepStrokeUnFinishedColor         : '#aaaaaa',
@@ -42,12 +41,12 @@ import { useIsFocused }     from "@react-navigation/native";
     stepIndicatorCurrentColor         : '#ffffff',
     stepIndicatorLabelFontSize        : 13,
     currentStepIndicatorLabelFontSize : 13,
-    stepIndicatorLabelCurrentColor    : colors.success,
+    stepIndicatorLabelCurrentColor    : colors.warning,
     stepIndicatorLabelFinishedColor   : '#ffffff',
     stepIndicatorLabelUnFinishedColor : '#aaaaaa',
     labelColor                        : '#999999',
     labelSize                         : 13,
-    currentStepLabelColor             : colors.success,
+    currentStepLabelColor             : colors.warning,
   }
 export const OrderDetails = withCustomerToaster((props)=>{
   const {navigation,route,setToast}=props;
@@ -59,7 +58,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [loading,setLoading]=useState(true);
   const {orderid}=route.params;
   const isFocused = useIsFocused();
-
+  const [labels,setLabels] = useState([]);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -69,6 +68,25 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const {currency}=store.preferences;
 
   useEffect(() => {
+    axios.get('/api/orderstatus/get/list/')
+    .then((response) => {
+      console.log("response",response);
+      var array = response.data.map(e=>e.orderStatus);
+      // delete array[2];
+      array.splice(2, 1);
+      setLabels(array);
+    })
+    .catch((error) => {
+      console.log("error",error);
+      if (error.response.status == 401) {
+        AsyncStorage.removeItem('user_id');
+        AsyncStorage.removeItem('token');
+        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+        navigation.navigate('Auth')
+      }else{
+        setToast({text: 'Something went wrong2.', color: 'red'});
+      }  
+    });
     getorderlist(orderid);
 }, [props,isFocused]);
 
@@ -93,6 +111,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
           setToast({text: 'Something went wrong2.', color: 'red'});
         }  
       });
+      
   }
 
 
@@ -209,16 +228,27 @@ const cancelorderbtn = (id,vendor_id) => {
                     order.vendorOrders.map((vendor,i)=>{
                       var position = 0;
                       console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status);
-                      if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "New" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Verified") {
-                        position = 0;
-                      } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Packed" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Inspection" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
-                        position = 1;
-                      } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Dispatch" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
-                        position = 2;
-                      } 
-                      else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid") {
-                        position = 4;
-                      }  
+                      // if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "New" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Verified") {
+                      //   position = 0;
+                      // } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Packed" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Inspection" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
+                      //   position = 1;
+                      // } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Dispatch" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ===  "Delivery Initiated") {
+                      //   position = 2;
+                      // } 
+                      // else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Delivered & Paid") {
+                      //   position = 4;
+                      // }  
+                      var vendorStatus = vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status;
+                      console.log("vendorStatus",vendorStatus);
+                      console.log("labels",labels);
+                      if(vendorStatus === "Ready to Dispatch" || vendorStatus === "Processing"){
+                        var postion1 = labels.indexOf("Processing");
+                        console.log("postion",postion1);
+                      }else{
+                        var postion1 = labels.indexOf(vendorStatus)+1;
+                        console.log("postion",postion1);
+                      }
+                      
                       return(
                       <View style={styles.prodinfoparent1}>
                         <View style={{marginBottom:5}}>
@@ -231,7 +261,7 @@ const cancelorderbtn = (id,vendor_id) => {
                               <View style={styles.orderstatus}>
                                 <StepIndicator
                                   customStyles={customStyles}
-                                  currentPosition={position}
+                                  currentPosition={postion1}
                                   labels={labels}
                                   stepCount={4}
                                 />
