@@ -7,7 +7,7 @@ import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Fo
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 
-class ProductsView extends Component {
+class ProductReview extends Component {
   constructor(props) {
     super(props);
       this.state = {
@@ -99,4 +99,4 @@ class ProductsView extends Component {
   }
 }
 
-export default ProductsView;
+export default ProductReview;

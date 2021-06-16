@@ -7,7 +7,7 @@ import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Fo
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 
-class Payment extends Component {
+class ReturnForm extends Component {
   constructor(props) {
     super(props);
       this.state = {
@@ -157,4 +157,4 @@ class Payment extends Component {
   }
 }
 
-export default ProductsView;
+export default ReturnForm;

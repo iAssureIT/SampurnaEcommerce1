@@ -74,7 +74,8 @@ const VendorList = ()=> {
                                                         <div className={"col-9 "}>
                                                             <div className={"col-12 " +Style.vendorName}>{vendordata.vendorName}</div>
                                                             <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
-                                                                <span className={Style.delTime}>{vendordata.expectedDiliveryTime>0?vendordata.expectedDiliveryTime:0} &nbsp;min</span>
+                                                                {/* <span className={Style.delTime}>{vendordata.expectedDiliveryTime>0?vendordata.expectedDiliveryTime:0} &nbsp;min</span> */}
+                                                                <span className={Style.delTime}>60 &nbsp;min</span>
                                                                 <img src="/images/eCommerce/time.png" className={"img "+Style.timeImg}></img>
                                                             </div>
                                                         </div>

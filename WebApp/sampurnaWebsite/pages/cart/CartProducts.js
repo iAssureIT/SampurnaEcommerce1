@@ -87,7 +87,6 @@ class CartProducts extends Component{
         console.log("Removefromcart===",formValues);
         axios.patch("/api/carts/remove" ,formValues)
         .then((response)=>{
-            // console.log("removecart res=>",response.data);
             this.setState({
                 messageData : {
                   "type" : "outpage",
@@ -103,6 +102,7 @@ class CartProducts extends Component{
                 })
             }, 3000);
             this.props.fetchCartData();
+            
         })
         .catch((error)=>{
             console.log("error => ",error);

@@ -25,7 +25,7 @@ const responsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 3,
     slidesToSlide: 1 // optional, default to 1.
   },
   mobile: {
@@ -343,9 +343,11 @@ submitCart(event) {
   render() {
       console.log("this.state.newProducts==",this.props.newProducts)
     return (
-      !this.state.loading ?
         <div className={"col-12 " +Style.NoPadding}>        
             {/* <Message messageData={this.state.messageData} />   */}
+            <div className="col-12 ">
+              <h4>{this.props.blockTitle}</h4>
+            </div>
             <Carousel  
                         className={Style.customnNavButton +" " +Style.carouselNewWrapper}
                         swipeable={true}
@@ -363,9 +365,8 @@ submitCart(event) {
                         deviceType={this.props.deviceType}
                         itemclassName="carousel-item-padding-10-px">
                         { 
-                        Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
-                            Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
-                                // var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
+                        Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
+                            Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
                                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
                                 var wishClass = 'r';
                                 var tooltipMsg = '';
@@ -383,17 +384,14 @@ submitCart(event) {
                                     <div className={"col-12 NoPadding"}>
                                     <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                                     <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
-                                        {this.state.productSettings.displayWishlist === true?
-                                            this.state.user_ID?
+                                          {  this.state.user_ID?
                                             <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                                             :
                                             <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
-                                        :null
-                                        }
+                                          }
                                         {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
                                         </div>
                                         <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
-                                        {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
                                         <Link href={"/vendorlist/" +data._id}>
                                         <a className={Style.product_item_photo } tabIndex="-1" >                                      
                                             <Image                                           
@@ -410,15 +408,7 @@ submitCart(event) {
                                     </div>
                                     <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
                                         <div className={"col-12 " +Style.innerDiv}>
-                                        {this.state.productSettings.displayBrand === true ?
-                                            data.brandNameRlang?
-                                            <div className={"col-12 globalProduct_brand RegionalFont"} title={data.brandNameRlang}>{data.brandNameRlang}</div>
-                                            :
                                             <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={data.brand}>{data.brand}</div>
-
-                                        :null
-                                        }                                        
-                                        
                                         {this.state.productSettings.displaySection === true ?
                                             <div className={"col-12 globalProductItemName"} title={data.section}>{data.section}</div>
                                         :null
@@ -529,17 +519,13 @@ submitCart(event) {
                             })
                             :''
                         }
-                    </Carousel>
+            </Carousel>
         </div>  
-      :
-      <div className="col-2 offset-5 loading">
-        <img src="/images/eCommerce/loader.gif" className="col-12 lazyload" loading="lazy"></img>
-      </div> 
+      
     );
   }
 }
 const mapStateToProps = state => (
-  
   {
     cartCount          : state.data.cartCount,
     recentCartData     : state.data.recentCartData,

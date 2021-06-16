@@ -79,7 +79,7 @@ class ProductViewEcommerce extends Component {
             }
         }
 		var url = window.location.href.split('/');
-		console.log("url===",url);
+		// console.log("url===",url);
 		if(url[4] !== "undefined"){	
 		  var vendor_ID              = url[4];
 		  var vendorlocation_ID      = url[5];
@@ -93,7 +93,7 @@ class ProductViewEcommerce extends Component {
 				axios.get('/api/entitymaster/get/one/'+this.state.vendor_ID)    
 				.then((vendorResponse)=>{
 					if(vendorResponse){
-					console.log("vendorResponse===",vendorResponse);
+					// console.log("vendorResponse===",vendorResponse);
 						this.setState({
 							vendorData : vendorResponse.data[0],
 						})
@@ -124,15 +124,17 @@ class ProductViewEcommerce extends Component {
 				if(response.data){
 					console.log("product response = ",response.data);
 					this.setState({
-						sectionUrl : response.data.section.replace(' ','-').toLowerCase(),
-						categoryUrl: response.data.category.replace(' ','-').toLowerCase(),
+						sectionUrl    : response.data.section.replace(' ','-').toLowerCase(),
+						categoryUrl   : response.data.category.replace(' ','-').toLowerCase(),
+						section_ID    : response.data.section_ID,
+						category_ID   : response.data.category_ID,
 						subCategoryUrl: response.data.subCategory ? response.data.subCategory.replace(' ','-').toLowerCase():"",
-						productData: response.data,
-						selectedImage: response.data.productImage[0],
-						quanityLimit: response.data.availableQuantity,
+						productData   : response.data,
+						selectedImage : response.data.productImage[0],
+						quanityLimit  : response.data.availableQuantity,
 						selectedColor : response.data.color,
-						selectedSize : response.data.size,
-						websiteModel : this.state.websiteModel
+						selectedSize  : response.data.size,
+						websiteModel  : this.state.websiteModel
 					},async()=>{
 						await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
 						.then((categoryResponse)=>{
@@ -141,25 +143,54 @@ class ProductViewEcommerce extends Component {
 								categoryData     : categoryResponse.data.categoryList,  
 								brandData        : categoryResponse.data.brandList, 
 							}); 
-							console.log("categoryUrl=",this.state.categoryUrl); 
-							console.log("categoryResponse=",categoryResponse.data.categoryList);
+							// console.log("categoryUrl=",this.state.categoryUrl); 
+							// console.log("categoryResponse=",categoryResponse.data.categoryList);
 								for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
 									if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
 									var subCategoryData = categoryResponse.data.categoryList[i].subCategory?categoryResponse.data.categoryList[i].subCategory:[];
-									this.setState({
-										subCategoryData  : subCategoryData, 
-									});
-									break;
+									if(subCategoryData){
+										this.setState({
+											subCategoryData  : subCategoryData
+										});
 									}
+									break;
+								}
 								}
 							}
 						})
 						.catch((error)=>{
 							console.log("Error while getting subcategory=",error);
 						})
+
+						var similarProductsFormvalues = {
+							product_ID     : this.state.productID,
+							vendor_ID      : this.state.vendor_ID,
+							category_ID    : this.state.category_ID,
+							// subCategory_ID : productdata.subCategory_ID,
+							section_ID     : this.state.section_ID,
+							user_ID        : this.state.user_ID
+						}
+						if(similarProductsFormvalues){
+							console.log("similarProductsFormvalues==",similarProductsFormvalues);
+							axios.post("/api/products/get/similar_products", similarProductsFormvalues)
+							.then((similarProductResponse)=>{
+								if(similarProductResponse){
+									console.log("similarProductResponse==",similarProductResponse);
+									this.setState({
+										newProducts : similarProductResponse.data
+									})
+								}
+							})
+							.catch((error)=>{
+									console.log("error while getting similar product=",error);
+							})
+						}
+
+						
+
+
 					})
 				}
-				this.forceUpdate();
 			})
 			.catch((error) => {
 				console.log('error', error);
@@ -168,7 +199,6 @@ class ProductViewEcommerce extends Component {
 	}
 	
 	getWishData(){
-		// console.log("getWishData userid====",this.state.userid +" " +this.state.productID);
 		axios.get("/api/wishlist/get/one/productwish/"+this.state.user_ID+"/" + this.state.productID)
 		.then((response) => {
 			// console.log("response====",response.data);
@@ -410,7 +440,6 @@ class ProductViewEcommerce extends Component {
 					<div className="col-3 FiltersBlock">
 						< CategoryFilters 
 							categoryData       = {this.state.subCategoryData}
-							// blockSettings      = {this.state.blockSettings}
 							vendor_ID          = {this.state.vendor_ID}
 							vendorlocation_ID  = {this.state.vendorlocation_ID}
 							sectionUrl         = {this.state.sectionUrl}
@@ -536,6 +565,21 @@ class ProductViewEcommerce extends Component {
 							
 						</div>
 						</div>
+						{this.state.newProducts && this.state.newProducts.length>0
+							?
+								<ProductCarouselView 
+								    blockTitle         = {"Similar Items"}
+									newProducts        = {this.state.newProducts}
+									vendor_ID          = {this.state.vendor_ID}
+									vendorlocation_ID  = {this.state.vendorlocation_ID}
+									userLatitude       = {this.state.userLongitude}
+									userLongitude      = {this.state.userLongitude}
+									sectionUrl         = {this.state.sectionUrl}
+									subCategoryUrl     = {this.state.subCategoryUrl}
+									categoryUrl        = {this.state.categoryUrl}
+								/>
+							:null
+						}
 						{this.state.subCategoryData && this.state.subCategoryData.length>0
 							?
 								<SubCategoryBlock 
@@ -549,24 +593,10 @@ class ProductViewEcommerce extends Component {
 									subCategoryUrl     = {this.state.subCategoryUrl}
 									categoryUrl        = {this.state.categoryUrl}
 								/>
-							:null
-							}
+						:null
+						}
 
-							{/* {this.state.subCategoryData && this.state.subCategoryData.length>0
-							?
-								<ProductCarouselView 
-									blocktitle         = {"Shop By Sub Category"}
-									categoryData       = {this.state.subCategoryData}
-									vendor_ID          = {this.state.vendor_ID}
-									vendorlocation_ID  = {this.state.vendorlocation_ID}
-									userLatitude       = {this.state.userLongitude}
-									userLongitude      = {this.state.userLongitude}
-									sectionUrl         = {this.state.sectionUrl}
-									subCategoryUrl     = {this.state.subCategoryUrl}
-									categoryUrl        = {this.state.categoryUrl}
-								/>
-							:null
-							} */}
+							
 					</div>
 			</div>
 			</div>
