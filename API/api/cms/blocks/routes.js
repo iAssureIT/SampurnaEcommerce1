@@ -11,7 +11,7 @@ router.get('/get/list', BlockController.list_block);
 router.get('/get/similarblocklist/:blockComponentName', BlockController.similar_list_block);
 router.get('/get/block/:blockComponentName', BlockController.fetch_block_blockComponentName);
 router.get('/get/:ID', BlockController.fetch_block);
-router.patch('/patch/:ID',BlockController.c);
+router.patch('/patch/:ID',BlockController.update_block);
 router.patch('/patch/repblock/:ID',BlockController.update_rep_block_block);
 router.patch('/update/:ID',BlockController.update_block_filter);
 router.delete('/delete/all',BlockController.delete_all_block);
