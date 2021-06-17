@@ -38,10 +38,14 @@
 .card{
     border: none;
 }
+.card i{
+    margin-top: -15px;
+}
 .card_header{
     border-radius: 20px!important;
     background-color: #b1bfd8;
     background-image: linear-gradient(315deg, #b1bfd8 0%, #6782b4 74%);
+    
 }
 .card_header h6{
     color: #fff!important;
