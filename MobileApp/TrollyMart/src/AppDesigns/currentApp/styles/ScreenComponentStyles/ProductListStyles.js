@@ -233,12 +233,12 @@ export default StyleSheet.create({
 		fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#fff', marginTop: 0,
 	},
 	protxt: {
-		marginTop: 10, alignItems: "center",
+		alignItems: "center",
+		marginTop:10
 	},
 	prdet: {
 		flex:1,
 		marginTop: 5, alignItems: "center",
-		marginBottom: 10,
 	},
 	// addtocartbtn: {
 	// 	marginBottom: 20,
@@ -437,9 +437,10 @@ export default StyleSheet.create({
 		
 	},
 	subcatimg: {
-		height:150,
+		height:130,
 		width:"100%",
-		backgroundColor:"#eee"
+		alignSelf:'center',
+		backgroundColor:"#eee",
 			// borderWidth: 1, borderBottomColor: '#ccc',
 	},
 	noprod: {

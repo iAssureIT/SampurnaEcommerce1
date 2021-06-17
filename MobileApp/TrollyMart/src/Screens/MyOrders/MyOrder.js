@@ -186,13 +186,13 @@ export const MyOrder = withCustomerToaster((props)=>{
     } else {
       return (
         <React.Fragment>
-          <HeaderBar3
+          {/* <HeaderBar3
             goBack={navigation.goBack}
             navigate={navigation.navigate}
             headerTitle={"My Orders"}
             toggle={() => toggle()}
             openControlPanel={() => openControlPanel()}
-          />
+          /> */}
           <View style={styles.superparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>

@@ -23,18 +23,20 @@ import Loading                  from '../../ScreenComponents/Loading/Loading.js'
 import {STOP_SCROLL}          from '../../redux/productList/types';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
-export const VendorList = withCustomerToaster((props)=>{
+export const ProductVendorList = withCustomerToaster((props)=>{
     const [loading,setLoading] =useState(true);
     const [value,setValue] =useState('lowestprice');
     const section = props.route.params?.section;
     const sectionUrl = props.route.params?.sectionUrl;
     const index = props.route.params?.index;
+    const product_id = props.route.params?.product_id;
     console.log("index",index);
     const [vendorList,setVendorList] =useState([]);
     const dispatch 		= useDispatch();
     const store = useSelector(store => ({
         location        : store.location,
         userDetails     : store.userDetails,
+        preferences     : store.storeSettings.preferences
       }));
     // const {location} =store.location ;
     const {navigation} =props;
@@ -51,13 +53,14 @@ export const VendorList = withCustomerToaster((props)=>{
        var formValues =  {
         "startRange" : 0,
         "limitRange" : 10,
-        "sectionUrl" : sectionUrl,
+        "product_ID" : product_id,
         "latitude"   : store.location?.address?.latlong?.lat,
         "longitude"  : store.location?.address?.latlong?.lng
     }
     console.log("formValues",formValues);
-        axios.post('/api/vendorlist/post/vendor/list',formValues)
+        axios.post('/api/vendorlist/post/productwise/vendor/list',formValues)
         .then(res=>{
+            console.log("vendor res",res);
             setLoading(false);
             setVendorList(res.data)
         })
@@ -67,35 +70,24 @@ export const VendorList = withCustomerToaster((props)=>{
         })
     }
 
-    const goToProductList=(vendor)=>{
-        var payload ={
-            "vendor_ID"         : vendor.vendor_ID,
-            "sectionUrl"        : sectionUrl,
-            "startRange"        : 0,
-            "limitRange"        : 8,
-          } 
-        dispatch(getCategoryWiseList(payload));
-        
-        navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section,index:index,vendorLocation_id:vendor.vendorLocation_id});
-    }
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity  style={{elevation:5}} onPress={()=>goToProductList(item)}>
+            <TouchableOpacity  style={{elevation:5}} onPress={()=> navigation.navigate('SubCatCompView', { productID: product_id ,currency:store?.preferences?.currency,vendorLocation_id:item.vendorLocation_id,location:store.location})}>
                 <Card containerStyle={{flex:1,padding:0,marginHorizontal:0}} >
-                    <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',height:100}}>
+                    <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',height:120}}>
                         <View style={{flex:1,flexDirection:"row"}}>
                             {/* <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.vendorAddress}</Card.Title> */}
-                            <View style={{flex:0.3,justifyContent:'center'}}>
-                                <View style={{justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderRadius:100,marginHorizontal:5,height:80,width:80}}>
-                                    {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:80,width:80,borderRadius:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Card.Image> :null}
-                                </View>
-                            </View>    
+                            <View style={{height:'auto',backgroundColor:"#fff",justifyContent:"center",flex:0.3,alignItems:"center"}}>
+                                {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:80,width:80,marginHorizontal:5}} resizeMode="cover"></Card.Image> :null}
+                            </View>
                             <View style={{flex:0.7}}>
-                                <View style={{flex:.6}}>
-                                    <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:20}]}>{item.vendorName}</Card.Title>
+                                <View style={{flex:1}}>
+                                    <Text style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:20}]}>{item.vendorName}</Text>
+                                    <Text style={[CommonStyles.label,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.productName}</Text>
+                                    <Text style={[CommonStyles.label,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{store?.preferences?.currency} {item.productPrice}</Text>
                                 </View>
-                                <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:.6}}>
+                                <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:1,marginTop:5}}>
                                     <Card.Title style={[{color:"#fff",opacity:1,paddingHorizontal:5}]}>Delivery Time : {item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title>
                                 </View>    
                              </View>

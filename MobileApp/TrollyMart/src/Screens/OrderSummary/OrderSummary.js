@@ -170,11 +170,11 @@ import { SafeAreaView }         from 'react-native';
   console.log("couponCode",couponCode);
     return (
       <React.Fragment>
-        <HeaderBar3
+        {/* <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={'Order Summary'}
           navigate={navigation.navigate}
-        />
+        /> */}
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container} style={{marginBottom:"15%"}} keyboardShouldPersistTaps="handled" >
             <View style={styles.padhr15}>

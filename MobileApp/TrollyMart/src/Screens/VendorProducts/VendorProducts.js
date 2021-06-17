@@ -9,7 +9,7 @@ import {
 import { Icon,ButtonGroup }  from "react-native-elements";
 import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
-import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
+import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles';
 import AsyncStorage           from '@react-native-async-storage/async-storage';
 import { useIsFocused }       from "@react-navigation/native";
 import {ProductList}          from'../../ScreenComponents/ProductList/ProductList.js';
@@ -138,12 +138,12 @@ export const VendorProducts = (props)=>{
 
   return (
     <React.Fragment>
-      <HeaderBar3
+      {/* <HeaderBar3
         goBack      = {navigation.goBack}
         headerTitle = {"Product List"}
         navigate    = {navigation.navigate}
-      />
-      <View style={styles.addsuperparent}>
+      /> */}
+      <View style={[styles.container]}>
         <MenuCarouselSection  
             navigation  = {navigation}   
             showImage   = {true} 
@@ -154,7 +154,7 @@ export const VendorProducts = (props)=>{
         <View style={{flexDirection:"row"}}>
           <View style={{flex:0.1}}/>
           <View style={{flex:0.9}}>
-            <Text style={CommonStyles.headerText}>{vendor.vendorName}</Text>
+            <Text style={CommonStyles.headerText}>Vendor - {vendor.vendorName}</Text>
           </View>  
          {/* <View style={{flex:0.5}}> */}
           {/* <ButtonGroup
@@ -195,25 +195,27 @@ export const VendorProducts = (props)=>{
           boxHeight   = {40} 
           setCategory = {setCategory}
         />
-        {productList.categoryWiseList.length ===0 && productList.loading ?
-        <Loading />
-        : 
+          {productList.categoryWiseList.length ===0 && productList.loading ?
+          <Loading />
+          : 
           productList.categoryWiseList && productList.categoryWiseList.length >0 ?
-            <ProductList 
-              navigate      = {navigation.navigate} 
-              newProducts   = {productList.categoryWiseList}  
-              userId        = {userId}  
-              loading       = {productList.loading}
-              limit         = {10}
-              payload       = {payload}
-              type          = "vendor_sub_cat"
-              vendorLocation_id = {vendorLocation_id}
-            />
-        :
-        <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-          <Text style={CommonStyles.noDataFound}>No Product Found</Text>
-        </View> 
-      } 
+          <View style={{flex:10}}>
+          { <ProductList 
+                  navigate      = {navigation.navigate} 
+                  newProducts   = {productList.categoryWiseList}  
+                  userId        = {userId}  
+                  loading       = {productList.loading}
+                  limit         = {10}
+                  payload       = {payload}
+                  type          = "vendor_sub_cat"
+                  vendorLocation_id = {vendorLocation_id}
+                />}
+            </View>    
+          :
+          <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+            <Text style={CommonStyles.noDataFound}>No Product Found</Text>
+          </View> 
+        } 
       <SortModal
         sortOptions={sortOptions}
         closeModal={() => toggleSort(false)}
@@ -227,8 +229,8 @@ export const VendorProducts = (props)=>{
           brandsArray     = {brandList && brandList.length > 0 ? brandList.map((a, i)=>{return {label :a,value :a}}): []}
           sizeArray       = {[]}
       />
-      <Footer/>
      </View>
+     <Footer/>
     </React.Fragment>
   );
 }

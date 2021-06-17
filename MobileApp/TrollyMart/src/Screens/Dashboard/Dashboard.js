@@ -81,11 +81,11 @@ export const Dashboard = withCustomerToaster((props)=>{
 
   return (
     <React.Fragment>
-      <HeaderBar2 
+      {/* <HeaderBar2 
         navigation={navigation}
         toggle={setOpen} 
         openControlPanel={()=>_drawer.open()}
-      /> 
+      />  */}
       <View style={styles.superparent}>
       {loading ?
           <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
@@ -208,15 +208,17 @@ export const Dashboard = withCustomerToaster((props)=>{
               null
             } 
             {globalSearch.searchText ?
-              <ProductList 
-                  navigate    = {navigation.navigate} 
-                  title       = {'Search Products'}  
-                  newProducts = {globalSearch.searchList} 
-                  searchText     = {globalSearch.searchText}
-                  userId         = {user_id} 
-                  limit          = {20}
-                  loading        = {productList.loading}
+              <View style={{paddingHorizontal:15}}>
+                <ProductList 
+                    navigate    = {navigation.navigate} 
+                    title       = {'Search Products'}  
+                    newProducts = {globalSearch.searchList} 
+                    searchText     = {globalSearch.searchText}
+                    userId         = {user_id} 
+                    limit          = {20}
+                    loading        = {productList.loading}
                   />
+              </View>    
             :
             <View>
               {/* {productList.featuredList && productList.featuredList && productList.featuredList.length > 0 ? 

@@ -25,13 +25,15 @@ import { SET_SEARCH_CALL,
       SET_SERACH_LIST
     } 	from '../../redux/globalSearch/types';
 import { DrawerActions } from '@react-navigation/native';
+import { useNavigation }      from '@react-navigation/native';
 
   const HeaderBars2=(props)=>{
-    const {navigation} = props;;
+    console.log("props",props);
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
     const [user_id,setUserId] = useState('');
     const dispatch = useDispatch();
+    const navigation = useNavigation();
     const [list,setList]=useState([])
 
     const store = useSelector(store => ({
@@ -101,19 +103,31 @@ import { DrawerActions } from '@react-navigation/native';
           rightContainerStyle={styles.rightside}
           leftComponent={
             <View style={styles.flxdir}>
-              <View style={{ marginTop: 10,}}>
+                {props.backBtn ?
+                  <TouchableOpacity onPress={()=> navigation.goBack()}>
+                  <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
+                    <Icon size={30} name='keyboard-arrow-left' type='MaterialIcons' color='#fff' />
+                  </View>
+                </TouchableOpacity>
+                :
                 <TouchableOpacity  onPress={()=> navigation.dispatch(DrawerActions.toggleDrawer())}>
                   <Icon size={25} name='bars' type='font-awesome' color={colors.white} />
                 </TouchableOpacity>
-              </View>
+              }
             </View>
+            
           }
           centerComponent={
-              <Image
-                resizeMode="contain"
-                source={require("../../AppDesigns/currentApp/images/Logo.png")}
-                style={styles.whitename}
-              />
+              props.headerTitle && props.headerTitle!=="" ?
+                <View style={{width:200}}>
+                  <Text style={[{fontSize:18,color:'#fff',fontFamily:"Montserrat-SemiBold",textAlign:'center',alignSelf:'center'}]}>{props.headerTitle}</Text>
+                </View>  
+                :
+                <Image
+                  resizeMode="contain"
+                  source={require("../../AppDesigns/currentApp/images/Logo.png")}
+                  style={styles.whitename}
+                />
           }
           rightComponent={
               <View style={styles.notificationbell}>

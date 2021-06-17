@@ -44,7 +44,7 @@ export const SimilarProducts =(props)=>{
 
   const _renderlist = ({ item, index })=>{
       return (
-          <TouchableOpacity style={{width:150,marginRight:10,height:230,backgroundColor:"#fff",borderWidth:1}} onPress={() => navigation.push('SubCatCompView',{productID: item._id })}>
+          <TouchableOpacity style={{width:150,marginRight:10,height:230,backgroundColor:"#fff",borderWidth:1}} onPress={() => navigation.navigate('SubCatCompView',{productID: item._id })}>
                <View style={styles.flx1}>
                 {
                   item.productImage && item.productImage.length > 0 ?
@@ -99,10 +99,10 @@ export const SimilarProducts =(props)=>{
                       iconStyle={{ marginTop: 5}}
                     /> */}
                     {item.discountPercent > 0 ?
-                          <Text style={styles.ogprice}> - {item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          <Text style={styles.ogprice}> - {item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                           </Text>
                         :
-                        <Text style={styles.ogprice}> - {item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                        <Text style={styles.ogprice}> - {item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
                       }
                   </View>
                 </View>

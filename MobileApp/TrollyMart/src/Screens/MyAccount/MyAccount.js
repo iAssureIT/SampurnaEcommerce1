@@ -32,11 +32,11 @@ export const MyAccount =(props)=>{
   const {userDetails} = store;
   return (
     <React.Fragment>
-      <HeaderBar3
+      {/* <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={'My Account'}
           navigate={navigation.navigate}
-      />
+      /> */}
       <View style={styles.acdashsuperparent}>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
                 <View style={{flexDirection:"row",justifyContent:'space-between',marginTop:5}}>   

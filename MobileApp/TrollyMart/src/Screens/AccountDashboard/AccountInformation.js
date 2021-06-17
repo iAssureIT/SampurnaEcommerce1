@@ -163,13 +163,13 @@ export const AccountInformation=withCustomerToaster((props)=>{
     } else {
       return (
         <React.Fragment>
-          <HeaderBar3
+          {/* <HeaderBar3
             goBack={navigation.goBack}
             headerTitle={'Account Information'}
             navigate={navigation.navigate}
             toggle={() => this.toggle.bind(this)}
             openControlPanel={() => this.openControlPanel.bind(this)}
-          />
+          /> */}
           <View style={styles.profileparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
                 <View style={{ paddingHorizontal: 15, marginBottom: 30 }}>

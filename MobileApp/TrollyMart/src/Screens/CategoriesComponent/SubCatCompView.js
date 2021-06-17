@@ -43,6 +43,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();
   const {navigation,route,setToast} =props;
   const {productID,currency,vendorLocation_id,location}=route.params;
+  console.log("route.params",route.params);
 
   useEffect(() => {
     setLoading(true);
@@ -160,13 +161,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
 
     return (
       <React.Fragment>
-        <HeaderBar3
+        {/* <HeaderBar3
           goBack={navigation.goBack}
           navigate={navigation.navigate}
           headerTitle={productdata.productName ? productdata.productName.toUpperCase() :""}
           toggle={() => toggle()}
           // openControlPanel={() => openControlPanel()}
-        />
+        /> */}
         <View style={styles.prodviewcatsuperparent}>
         {loading ?
           <Loading/>

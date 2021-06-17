@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   Text
 } from 'react-native';
-import { Button}            from "react-native-elements";
+import { Button,Icon}            from "react-native-elements";
 import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}             from '../../ScreenComponents/Footer/Footer1.js';
 import styles               from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
@@ -28,16 +28,16 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
   console.log("wishList",wishList);
     return (
       <React.Fragment>
-        <HeaderBar3
+        {/* <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={'My Wishlist'}
           navigate={navigation.navigate}
           openControlPanel={() =>openControlPanel()}
-        />
+        /> */}
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <View style={{marginTop:15}}>
+                <View style={{marginTop:15,paddingBottom:60}}>
                   {loading ?
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
                     <ActivityIndicator size="large" color={colors.theme}/>
@@ -46,8 +46,11 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                     wishList && wishList.length > 0 ?
                     wishList.map((item,index)=>{
                       return(
-                        <View key={index}>
-                          <Text style={[CommonStyles.label,{paddingHorizontal:15}]}>{item.areaName}</Text>
+                        <View key={index} style={{paddingHorizontal:15}}>
+                          <View style={{flexDirection:"row",paddingTop:15,}}>
+                            <Icon name= "crosshairs-gps" type = 'material-community' size={18} color= "black" style={{paddingHorizontal:5}}/>
+                            <Text style={[CommonStyles.label,{flex:1}]}>{item.areaName}</Text>
+                          </View>  
                           <ProductList 
                             navigate    = {navigation.navigate} 
                             newProducts = {item.products}  

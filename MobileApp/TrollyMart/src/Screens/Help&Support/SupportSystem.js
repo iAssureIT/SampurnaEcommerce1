@@ -65,13 +65,13 @@ export const SupportSystem = (props)=>{
     } else {
         return (
             <React.Fragment>
-            <HeaderBar3
+            {/* <HeaderBar3
                 goBack={navigation.goBack}
                 navigate={navigation.navigate}
                 headerTitle={"Help & Support"}
                 toggle={() => toggle()}
                 openControlPanel={() => openControlPanel()}
-            />
+            /> */}
             <View style={styles.superparent}>
                 <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
                 <View styles={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 20 }}>

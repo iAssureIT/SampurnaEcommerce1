@@ -158,11 +158,11 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
   console.log("addressid",addressid);
     return (
       <React.Fragment>
-        <HeaderBar3
+        {/* <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={delivery ? 'Delivery Addresses' : 'My Addresses'}
           navigate={navigation.navigate}
-        />
+        /> */}
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container} style={{marginBottom:50}} keyboardShouldPersistTaps="handled" >
             <View style={styles.padhr15}>

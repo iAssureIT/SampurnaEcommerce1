@@ -217,12 +217,12 @@ export const AddressComponent = withCustomerToaster((props)=>{
   
     return (
       <React.Fragment>
-        <HeaderBar3
+        {/* <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={delivery ? "Delivery Address": 'Add Delivery Address'}
           navigate={navigation.navigate}
           // openControlPanel={() => openControlPanel()}
-        />
+        /> */}
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={{}} keyboardShouldPersistTaps="handled" >
             <View style={styles.formWrapper}>

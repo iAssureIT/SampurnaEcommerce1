@@ -232,11 +232,11 @@ export const PaymentMethod = withCustomerToaster((props)=>{
 
       return (
         <React.Fragment>
-          <HeaderBar3
+          {/* <HeaderBar3
             goBack={navigation.goBack}
             navigate={navigation.navigate}
             headerTitle={"Payment Methods"}
-          />
+          /> */}
           <View style={styles.superparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>

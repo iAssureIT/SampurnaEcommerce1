@@ -51,6 +51,7 @@ export const HorizontalProductList =(props)=>{
     } 
     axios.post(props.blockApi,payload)
       .then((response) => {
+        console.log("response",response);
         setProductList(response.data);
       })
       .catch((error) => {
@@ -61,11 +62,10 @@ export const HorizontalProductList =(props)=>{
   const _renderlist = ({ item, index })=>{
     return (
       <View key={index}  style={[styles.productContainer,{width:window.width-215,marginRight:15}]} >
-        <TouchableWithoutFeedback   onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})}}>
+        <TouchableWithoutFeedback  onPress={()=>{navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section,product_id:item._id})}}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
               {
-                
                 item.productImage && item.productImage.length > 0 ?
                   <FastImage
                     source={{ uri: item.productImage[0] }}
@@ -164,15 +164,15 @@ export const HorizontalProductList =(props)=>{
                     /> 
                   </View>
               : null */}
-            <View style={styles.sizedrpbtn}>
+            {/* <View style={styles.sizedrpbtn}>
               <Button
-                  onPress={()=>{navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})}}
+                  onPress={()=>{navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})}}
                   titleStyle={CommonStyles.addBtnText}
                   title="ADD TO CART"
                   buttonStyle={CommonStyles.addBtnStyle}
                   containerStyle={CommonStyles.addBtnContainer}
                 />
-              </View>
+              </View> */}
             </View>
           </View>
         </TouchableWithoutFeedback>

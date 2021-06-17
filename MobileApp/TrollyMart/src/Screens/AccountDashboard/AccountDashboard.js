@@ -70,11 +70,11 @@ export const AccountDashboard =(props)=>{
 
   return (
     <React.Fragment>
-      <HeaderBar3
+      {/* <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={'Account Dashboard'}
           navigate={navigation.navigate}
-      />
+      /> */}
       <View style={styles.acdashsuperparent}>
       {loading?
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>

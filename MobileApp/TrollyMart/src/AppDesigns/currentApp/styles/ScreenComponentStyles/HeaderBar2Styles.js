@@ -9,14 +9,14 @@ export default StyleSheet.create({
 
   whitename: {
     // backgroundColor:"#ff0",
-    marginTop:20,
+    // marginTop:20,
     height: 40,
     width:120,
     // alignSelf:'center'
   },
 
   searchvw: {
-    marginVertical: 10,
+    marginBottom: 10,
     height: 40,
     paddingHorizontal: 15,
     flexDirection: 'row',
@@ -61,7 +61,6 @@ export default StyleSheet.create({
 
   notificationbell: {
     flexDirection: 'row',
-    marginTop: 15,
     paddingLeft: 20,
     alignSelf: 'center',
     marginRight: 20,
@@ -82,25 +81,19 @@ export default StyleSheet.create({
 
   container: {
     backgroundColor: colors.theme,
-    padding: 0,
-    margin: 0,
-    paddingTop: 0,
     borderBottomColor:colors.theme,
     justifyContent:'center',
+    marginTop:5,
     alignItems:'center',
     ...Platform.select({
       ios: {
         height: 110,
         // paddingTop: 25,
-
       },
       android: {
-        paddingTop: 0,
-        paddingLeft: 0,
-        paddingRight: 0,
         borderTopWidth: 3,
         borderTopColor: colors.theme,
-        height: 60,
+        height: 55,
       }
     })
   },
@@ -111,7 +104,7 @@ export default StyleSheet.create({
 
   leftside: {
     paddingHorizontal: 15,
-    marginTop:15
+    // marginTop:15
   },
 
   center: {
@@ -124,7 +117,7 @@ export default StyleSheet.create({
     //  paddingHorizontal: 15,
     //  justifyContent:"flex-end",
     //  alignItems:"flex-end"
-    marginTop:15
+    marginTop:5
   },
 
   searchContainer: {
@@ -165,10 +158,10 @@ export default StyleSheet.create({
 
   location:{
     height:30,
-    backgroundColor:colors.white,
+    backgroundColor:colors.lightGrey,
     alignItems:"center",
     paddingHorizontal:5,
     flexDirection:"row",
-    justifyContent:"space-between"
+    justifyContent:"space-between",
   }
 });

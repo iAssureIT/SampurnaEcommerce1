@@ -200,13 +200,13 @@ const cancelorderbtn = (id,vendor_id) => {
 
     return (
       <React.Fragment>
-        <HeaderBar3
+        {/* <HeaderBar3
           goBack={navigation.goBack}
           navigate={navigation.navigate}
           headerTitle={"My Orders Details"}
           toggle={() =>toggle()}
           openControlPanel={() => openControlPanel()}
-        />
+        /> */}
       {loading?
         <Loading/>
         :

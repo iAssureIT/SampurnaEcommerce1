@@ -341,7 +341,7 @@ export const ProductList = withCustomerToaster((props)=>{
         <FlatList
           data                          = {productsDetails}
           showsVerticalScrollIndicator  = {false}
-          contentContainerStyle         ={{paddingHorizontal:15,paddingBottom:60}}
+          // contentContainerStyle         ={{paddingHorizontal:15}}
           renderItem                    = {_renderlist} 
           nestedScrollEnabled           = {true}
           numColumns                    = {2}

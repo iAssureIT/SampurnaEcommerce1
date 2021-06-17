@@ -207,12 +207,12 @@ const getshippingamount=(startRange, limitRange)=>{
 
   return (
     <React.Fragment>
-      <HeaderBar3
+      {/* <HeaderBar3
         goBack={navigation.goBack}
         headerTitle={'My Cart'}
         navigate={navigation.navigate}
         openControlPanel={() => openControlPanel}
-      />
+      /> */}
       <View style={{ flex: 1}}>
       { !loading ?
         <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>

@@ -44,9 +44,10 @@ import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.j
 import {Location}                 from '../Screens/Location/Location.js';
 import {Confirmation}             from '../Screens/Location/Confirmation.js';
 import {VendorList}               from '../Screens/VendorList/VendorList.js';
+import {ProductVendorList}        from '../Screens/VendorList/ProductVendorList.js';
 import {VendorProducts}           from '../Screens/VendorProducts/VendorProducts.js';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import  HeaderBar2                 from '../ScreenComponents/HeaderBar2/HeaderBar2.js';
 
 const Home = createDrawerNavigator();
 const TransitionScreenOptions = {
@@ -56,6 +57,8 @@ const TransitionScreenOptions = {
 
 
 export const HomeStack = () => (
+
+  
   <Home.Navigator 
     headerMode            = "none"
     // mode="modal"
@@ -71,36 +74,45 @@ export const HomeStack = () => (
     }}
     drawerContent   = { (props) => <Menu { ...props } />}
   >
-    <Home.Screen name="Dashboard"                   component={Dashboard} />
-    <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} />
-    <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp} />
-    <Home.Screen name="AllProductList"              component={AllProductList} />
-    <Home.Screen name="SubCatCompView"              component={SubCatCompView} />
-    <Home.Screen name="CartComponent"               component={CartComponent} />
-    <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} />
-    <Home.Screen name="AddressDefaultComp"          component={AddressDefaultComp} />
-    <Home.Screen name="AddressComponent"            component={AddressComponent} />
-    <Home.Screen name="AddressComponentforaddress"  component={AddressComponentforaddress} />
-    <Home.Screen name="AddressMenu"                 component={AddressMenu} />
-    <Home.Screen name="WishlistComponent"           component={WishlistComponent} />
-    <Home.Screen name="MyOrder"                     component={MyOrder} />
-    <Home.Screen name="OrderDetails"                component={OrderDetails} />
-    <Home.Screen name="AccountDashboard"            component={AccountDashboard} />
-    <Home.Screen name="ResetPwd"                    component={ResetPwd} />
-    <Home.Screen name="AccountInformation"          component={AccountInformation} />
-    <Home.Screen name="MyAccount"                   component={MyAccount} />
-    <Home.Screen name="MyProductReview"             component={MyProductReview} />
-    <Home.Screen name="SupportSystem"               component={SupportSystem} />
-    <Home.Screen name="OrderSummary"                component={OrderSummary} />
-    <Home.Screen name="PaymentMethod"               component={PaymentMethod} />
-    <Home.Screen name="Stores"                      component={Stores} />
-    <Home.Screen name="StoreDetails"                component={StoreDetails} />
-    <Home.Screen name="InAppNotification"           component={InAppNotification} /> 
-    <Home.Screen name="VendorList"                  component={VendorList} />
-    <Home.Screen name="VendorProducts"              component={VendorProducts} />
+    <Home.Screen name="Dashboard"                   component={Dashboard}  options={getHeaderConfig("",false)}/>
+    <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} options={getHeaderConfig("Dashboard",true)}/>
+    <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp}options={getHeaderConfig("Dashboard")} />
+    <Home.Screen name="AllProductList"              component={AllProductList} options={getHeaderConfig("Dashboard")}/>
+    <Home.Screen name="SubCatCompView"              component={SubCatCompView} options={getHeaderConfig("Product Details",true)}/>
+    <Home.Screen name="CartComponent"               component={CartComponent} options={getHeaderConfig("My Cart",true)}/>
+    <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} options={getHeaderConfig("Dashboard")}/>
+    <Home.Screen name="AddressDefaultComp"          component={AddressDefaultComp} options={getHeaderConfig("Delivery Addresses",true)}/>
+    <Home.Screen name="AddressComponent"            component={AddressComponent} options={getHeaderConfig("Add Address",true)}/>
+    <Home.Screen name="AddressComponentforaddress"  component={AddressComponentforaddress} options={getHeaderConfig("Dashboard")}/>
+    <Home.Screen name="AddressMenu"                 component={AddressMenu} options={getHeaderConfig("Dashboard")}/>
+    <Home.Screen name="WishlistComponent"           component={WishlistComponent} options={getHeaderConfig("My Wishlist",true)}/>
+    <Home.Screen name="MyOrder"                     component={MyOrder} options={getHeaderConfig("My Orders",true)}/>
+    <Home.Screen name="OrderDetails"                component={OrderDetails} options={getHeaderConfig("Orders Details",true)}/>
+    <Home.Screen name="AccountDashboard"            component={AccountDashboard} options={getHeaderConfig("Account Dashboard",true)}/>
+    <Home.Screen name="ResetPwd"                    component={ResetPwd} options={getHeaderConfig("Reset Password",true)}/>
+    <Home.Screen name="AccountInformation"          component={AccountInformation} options={getHeaderConfig("Account Information",true)}/>
+    <Home.Screen name="MyAccount"                   component={MyAccount} options={getHeaderConfig("My Account",true)}/>
+    <Home.Screen name="MyProductReview"             component={MyProductReview} options={getHeaderConfig("Dashboard")}/>
+    <Home.Screen name="SupportSystem"               component={SupportSystem} options={getHeaderConfig("Help & Support",true)}/>
+    <Home.Screen name="OrderSummary"                component={OrderSummary} options={getHeaderConfig("Order Summary",true)}/>
+    <Home.Screen name="PaymentMethod"               component={PaymentMethod} options={getHeaderConfig("Payment Methods",true)}/>
+    <Home.Screen name="Stores"                      component={Stores} options={getHeaderConfig("Dashboard")}/>
+    <Home.Screen name="StoreDetails"                component={StoreDetails} options={getHeaderConfig("Dashboard")}/>
+    <Home.Screen name="InAppNotification"           component={InAppNotification} options={getHeaderConfig("Dashboard")}/> 
+    <Home.Screen name="VendorList"                  component={VendorList} options={getHeaderConfig("Vendor List",true)}/>
+    <Home.Screen name="ProductVendorList"           component={ProductVendorList} options={getHeaderConfig("Vendor List",true)}/>
+    <Home.Screen name="VendorProducts"              component={VendorProducts} options={getHeaderConfig("Product List",true)}/>
   </Home.Navigator>
 );
 
+const getHeaderConfig = (title,backBtn) => {
+  return {
+    headerShown: true,
+    headerTitle: title,
+    headerTitleAlign: "left",
+    header: (props) => <HeaderBar2  headerTitle={title} backBtn={backBtn} />,
+  };
+};
 
 const RegisterRoutes = createStackNavigator();
 export const RegisterStack = () => (
@@ -132,7 +144,6 @@ const AppStack = () => (
       <App.Screen name="App"              component={HomeStack} />
       <App.Screen name="Auth"             component={RegisterStack} />
       <App.Screen name="LocationMain"     component={LocationScreen} />
-      <Home.Screen name="SubCatCompView"  component={SubCatCompView} />
   </App.Navigator>
 );
 
@@ -142,7 +153,6 @@ const AuthStack = () => (
       <Auth.Screen name="Auth"          component={RegisterStack} />
       <Auth.Screen name="App"           component={HomeStack} />
       <Auth.Screen name="LocationMain"  component={LocationScreen} />
-      <Home.Screen name="SubCatCompView"  component={SubCatCompView} />
   </Auth.Navigator>
 );
 
@@ -153,7 +163,6 @@ const LocationStack = () => (
       <LocationMain.Screen name="LocationMain"  component={LocationScreen} />
       <LocationMain.Screen name="App"           component={HomeStack} />
       <LocationMain.Screen name="Auth"          component={RegisterStack} />
-      <LocationMain.Screen name="SubCatCompView" component={SubCatCompView} />
   </LocationMain.Navigator>
 );
 

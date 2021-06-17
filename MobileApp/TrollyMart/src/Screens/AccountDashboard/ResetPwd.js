@@ -211,13 +211,13 @@ handleShowConfirmPassword = ()=>{
     } else {
       return (
         <React.Fragment>
-          <HeaderBar3
+          {/* <HeaderBar3
             goBack={goBack}
             headerTitle={'Reset Password'}
             navigate={navigate}
             toggle={() => this.toggle.bind(this)}
             openControlPanel={() => this.openControlPanel.bind(this)}
-          />
+          /> */}
           <View style={styles.profileparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={{ paddingHorizontal: 15, marginBottom: 30 }}>
