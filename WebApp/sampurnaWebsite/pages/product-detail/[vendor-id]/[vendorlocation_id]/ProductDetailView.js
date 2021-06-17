@@ -6,7 +6,7 @@ import { withRouter }       from 'next/router'
 import dynamic              from 'next/dynamic';
 import CategoryBlock        from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryBlock.js';
 import Message              from '../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
-import {getCartData,getWishlistData, updateCartCount}  from '../../../../../redux/actions/index.js'; 
+import {getCartData,getWishlistData, updateCartCount}  from '../../../../redux/actions/index.js'; 
 
 const { publicRuntimeConfig } = getConfig();
 class ProductDetailView extends Component {

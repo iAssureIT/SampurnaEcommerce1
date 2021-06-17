@@ -5,7 +5,6 @@ import 'firebase/database';
 import axios   from 'axios';
 import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
 import Footer      from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
-import BreadCrumbs from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import Style from './site-map.module.css';
 class SiteMap extends Component{
     constructor(props) {
@@ -44,7 +43,6 @@ class SiteMap extends Component{
         return(
             <div className="col-12 NoPadding">
             <Header/>
-            <BreadCrumbs />
             <div className="container">
             <div className={"col-12 pageTitle "+Style.pageTitle}><h2>Sitemap</h2></div>
 
