@@ -8,6 +8,9 @@ import { withRouter }       from 'next/router'
 import dynamic              from 'next/dynamic';
 import getConfig            from 'next/config';
 import Image                from 'next/image';
+
+import Style                  from './product_detail.module.css';
+
 const { publicRuntimeConfig } = getConfig();
 
 const responsive = {
@@ -84,7 +87,7 @@ class ProductZoom extends Component {
 		
 		const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: '/images/eCommerce/notavailable.jpg' };
 		return (
-			<div className="col-5 mt20 mb20 boxBorder mobileViewNoPadding NoPadding">
+			<div className="col-12 col-xl-5 col-lg-5 col-md-12 col-sm-12 mt20 mb20 boxBorder mobileViewNoPadding NoPadding">
 				{this.props.productData 
 				?
 				<div className="col-12 boxBorderInner mobileViewNoPadding ">
@@ -92,7 +95,7 @@ class ProductZoom extends Component {
 						<div className=" col-12 stickyDiv">
 							<div className="col-12 imageContainer imgCont">
 								<div className="prod-detail-slider prod-detail-filpCommon col-12 ">
-									<div id="react-app" className="col-4 item productZoomBlock img-responsiveProduct">
+									<div id="react-app" className={"col-8 item productZoomBlock img-responsiveProduct " +Style.ma}>
 										{/* <Image                                           
 											// src={this.props.productData.productImage.length>0? this.props.productData.productImage[0]:"/images/eCommerce/notavailable.jpg"}
 											src={"/images/eCommerce/notavailable.jpg"}
@@ -104,7 +107,7 @@ class ProductZoom extends Component {
 										/>	 */}
 										<ReactImageZoom {...props} />
 									</div> 
-									<div id="" className="col-8 NoPadding">
+									<div id="" className="col-12 NoPadding mt-3">
 									<Carousel
 										className="productview"
 										swipeable={true}
@@ -122,7 +125,7 @@ class ProductZoom extends Component {
 										removeArrowOnDeviceType={["Desktop","tablet", "mobile"]}
 										deviceType={this.props.deviceType}
 										//dotListClass="custom-dot-list-style"
-										itemClass="carousel-item-padding-10-px">
+										itemClass={"carousel-item-padding-10-px " +Style.smallBoxImg}>
 										{	
 											this.props.productData && Array.isArray(this.props.productData.productImage) && this.props.productData.productImage.map((data, index) => {
 												// console.log("map 581 =========>",data)
@@ -131,7 +134,7 @@ class ProductZoom extends Component {
 													<Image                                           
 														src={data}
 														alt="ProductImg" 
-														className={"img-responsive prodImgMobileView " }
+														className={"img-responsive prodImgMobileView " +Style.imageBoxPrd}
 														height={200}
 														width={400} 
 														layout={'intrinsic'}

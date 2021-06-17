@@ -17,6 +17,9 @@ import {getCartData,getWishlistData, updateCartCount}  from '../../../../redux/a
 import 'react-multi-carousel/lib/styles.css';
 import SubCategoryBlock from '../../../../Themes/Sampurna/blocks/StaticBlocks/SubCategoryBlock/SubCategoryBlock.js';
 
+import Style                  from './product_detail.module.css';
+
+
 const { publicRuntimeConfig } = getConfig();
 class ProductViewEcommerce extends Component {
 	constructor(props) {
@@ -402,7 +405,7 @@ class ProductViewEcommerce extends Component {
 
 				<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
 				<div className="row">
-					<div className="col-3 FiltersBlock">
+					<div className={"col-2 FiltersBlock " +Style.FilterBlkBox}>
 						< CategoryFilters 
 							categoryData       = {this.state.subCategoryData}
 							vendor_ID          = {this.state.vendor_ID}
@@ -416,40 +419,42 @@ class ProductViewEcommerce extends Component {
 							limitRange         = {this.state.limitRange}
 						/>
 					</div>
-					<div className="col-9 boxBorderInner mobileViewNoPadding mt50 ">
-						<div className="row">
+					<div className="col-10 boxBorderInner mobileViewNoPadding mt50 ">
+						<div className="row mb-5">
 							<ProductZoom 
 								productData = {this.state.productData}
 							/>
-							<div className="col-12 col-sm-7 ">
+							<div className="col-12 col-xl-7 col-lg-7 col-md-12 col-sm-12 ">
 
 							<Message messageData={this.state.messageData} />
 							{this.state.productData?
 							<div className="col-12">
 								<div className="row">
-								{this.state.productData.brandNameRlang?
-									<div className={"col-12 globalProduct_brand RegionalFont NoPadding productDetailsMB "} title={this.state.productData.brandNameRlang}>{this.state.productData.brandNameRlang}</div>
-									:
-									<div className={"col-12 globalProduct_brand NoPadding productDetailsMB"} title={this.state.productData.brand}>{this.state.productData.brand}</div>
-								}
+								
 								{this.state.productData.productNameRlang?
 									<div className={"col-12 globalProductItemName NoPadding productDetailsMB" } title={this.state.productData.productNameRlang}>
-										<span className={" RegionalFont ellipsis globalProdName productNameClassNew"}>{this.state.productData.productNameRlang} </span>&nbsp;    
+										<span className={" RegionalFont ellipsis globalProdName  " +Style.productNameClassNew}>{this.state.productData.productNameRlang} </span>&nbsp;&nbsp;&nbsp;   
 										<span className=""> <span className="productCode"> ( Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode} )</span> </span>
 									</div>
 									:
 									<div className={"col-12 globalProductItemName NoPadding NoPadding" } title={this.state.productData.productName}>
 										{/* <span className={ "ellipsis globalProdName"}>{this.state.productData.productName} </span>&nbsp; */}
-										<div ><span className="productNameClassNew"> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> </div>
+										<div ><span className={" " +Style.productNameClassNew}> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> </div>
 									</div>
 								}
+								{this.state.productData.brandNameRlang?
+									<div className={"col-12 globalProduct_brand RegionalFont mt-2 NoPadding " +Style.brandName} title={this.state.productData.brandNameRlang}>{this.state.productData.brandNameRlang}</div>
+									:
+									<div className={"col-12 globalProduct_brand NoPadding mt-2 "  +Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
+								}
+
 									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
 								{                                  
 									this.state.productData.discountPercent ?
 									<div className="col-12 NoPadding priceWrapper">
-									<span className="price"><span className="">&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</span>&nbsp;
+									<span className={" " +Style.f12}>Price : <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;
 									{/* <i className="fa fa-inr"></i> */}
-									{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)} 
+									<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
 									</span>
 									</div>
 									:  
@@ -466,20 +471,23 @@ class ProductViewEcommerce extends Component {
 												<div className="row">
 											{
 												this.state.productData.availableQuantity > 0 ?
-													<div className="col-9 NOpadding">
+													<div className="col-7 NOpadding">
 														<div className="row">
-															<div className="col-2 col-sm-3 qtyInput globaleCommLargeBtn" id="totalQuanity">
-																1
+															<div className="col-3 NoPadding">
+																<div className={"col-5 NoPadding float-left qtyIncrease  globaleCommLargeBtn " +Style.p17 +" "+Style.marginNo +" "+Style.radiusB1} id="totalQuanity">
+																	1
+																</div>
+																<div className={"col-6 float-left NoPadding " +Style.marginNo}>
+																	<i className={"fa fa-plus qtyIncrease globaleCommLargeBtn " +Style.radiusB2} id="addQuantity" onClick={this.addQuantity.bind(this)}></i><br />
+																	<i className={"fa fa-minus qtyIncrease globaleCommLargeBtn " +Style.radiusB3} id="decreaseQuantity" onClick={this.decreaseQuantity.bind(this)}></i>
+																</div>
 															</div>
-															<div className="col-2">
-																<i className="fa fa-plus qtyIncrease globaleCommLargeBtn" id="addQuantity" onClick={this.addQuantity.bind(this)}></i><br />
-																<i className="fa fa-minus qtyIncrease globaleCommLargeBtn" id="decreaseQuantity" onClick={this.decreaseQuantity.bind(this)}></i>
-															</div>
-															<div className="col-7 NOpadding mobileViewPaddingLeft">
+															
+															<div className="col-8 NOpadding mobileViewPaddingLeft">
 																{this.state.user_ID?
-																<div id={this.state.productData._id} vendor_id={this.state.productData.vendor_ID} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 viewAddtoCart globaleCommLargeBtn"  > &nbsp; Add To Cart</div>
+																<div id={this.state.productData._id} vendor_id={this.state.productData.vendor_ID} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.cartBTN}  > &nbsp; Add To Cart</div>
 																:
-																<div id={this.state.productData._id} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 viewAddtoCart globaleCommLargeBtn" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" > &nbsp; Add To Cart</div>
+																<div id={this.state.productData._id} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.cartBTN} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" > &nbsp; Add To Cart</div>
 																}	
 															</div>
 														</div>
@@ -491,19 +499,19 @@ class ProductViewEcommerce extends Component {
 												</div>
 											}
 											
-											<div className="col-2 col-sm-3  mobileViewNoPadding">
+											<div className="col-2 col-sm-3 NoPadding mobileViewNoPadding">
 												{this.state.user_ID?
-													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn "+this.state.wishIconClass}>
+													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn " +this.state.wishIconClass}>
 														<i className={"fa fa-heart"+wishClass +" heartIcon"}></i>
 													</div>
 												:
-													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn "+this.state.wishIconClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
+													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn " +this.state.wishIconClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
 														<i className={"fa fa-heart"+ wishClass +"heartIcon"}></i>
 													</div>												
 												}
 											</div>	
-											<div className="col-12 productDetailWrapper mt-4">
-												<h6>Products Information</h6>
+											<div className="col-12 productDetailWrapper mt-4 NoPadding">
+												<div >Products Information</div>
 												{this.state.productData.weight &&
 												<div className="col-12 singleProductDetail">
 													<span className="col-4">Brand</span>
@@ -519,7 +527,7 @@ class ProductViewEcommerce extends Component {
 													</div>
 												}
 												{this.state.productData.size &&
-													<div className="col-12 singleProductDetail">
+													<div className={"col-12 singleProductDetail " +Style.f12}>
 														<span className="col-4">Size</span>
 														<span className="col-1">:</span>
 														<span className="col-6">{this.state.productData.size}</span>
@@ -551,6 +559,7 @@ class ProductViewEcommerce extends Component {
 								/>
 							:null
 						}
+						<div className="mb-5"></div>
 						{this.state.subCategoryData && this.state.subCategoryData.length>0
 							?
 								<SubCategoryBlock 

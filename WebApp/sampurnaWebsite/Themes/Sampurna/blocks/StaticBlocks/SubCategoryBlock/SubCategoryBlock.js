@@ -38,7 +38,7 @@ class SubCategoryBlock extends Component{
       return (
         <div className={"container NoPadding " +Style.categoryCarousel}>
             <div className={"col-12 "}>
-                <h6>{this.props.blocktitle}</h6>
+                <h5>{this.props.blocktitle}</h5>
             </div>
             <Carousel 
               className=""

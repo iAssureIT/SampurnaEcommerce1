@@ -491,13 +491,19 @@ background: #fff;
 }
 /* css for filters */
 .categoryFilterTitle{
-  font-size: 18px;
+  font-size: 16px;
   padding: 20px 10px;
   border-bottom:solid 1px #ddd;
 }
 .activeSubCategory{
-  background-color: #FFC0CB !important;
+  /*background-color: #FFC0CB !important;*/
+  background-color: #033554 !important;  
 }
+
+.activeSubCategory a{
+  color:#fff !important;  
+}
+
 .filterBlockWrapper{
    border: solid 1px #eee;
    height: max-content;
@@ -547,7 +553,7 @@ background: #fff;
 }
 .panelHeading h4 a{
   text-decoration: none !important;
-  font-size: 15px !important;
+  font-size: 12px !important;
   color: #000;
 }
 .categoryUl{

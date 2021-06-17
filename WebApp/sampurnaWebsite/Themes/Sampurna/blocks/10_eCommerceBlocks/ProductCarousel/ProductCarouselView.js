@@ -265,7 +265,7 @@ render() {
         <div className={"col-12 " +Style.NoPadding}>        
             <Message messageData={this.state.messageData} />  
             <div className="col-12 ">
-              <h4>{this.props.blockTitle}</h4>
+              <h5>{this.props.blockTitle}</h5>
             </div>
             <Carousel  
                         className={Style.customnNavButton +" " +Style.carouselNewWrapper}

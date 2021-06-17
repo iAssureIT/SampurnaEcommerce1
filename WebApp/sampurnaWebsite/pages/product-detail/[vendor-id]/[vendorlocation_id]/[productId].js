@@ -6,6 +6,9 @@ import Head        from 'next/head'
 import getConfig   from 'next/config';
 import Header               from '../../../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+
+import Style                  from './product_detail.module.css';
+
 const { publicRuntimeConfig } = getConfig();
 var SITE_NAME =  publicRuntimeConfig.SITE_NAME;
 

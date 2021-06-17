@@ -8,6 +8,9 @@ import CategoryBlock        from '../../../../Themes/Sampurna/blocks/10_eCommerc
 import Message              from '../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
 import {getCartData,getWishlistData, updateCartCount}  from '../../../../redux/actions/index.js'; 
 
+import Style                  from './product_detail.module.css';
+
+
 const { publicRuntimeConfig } = getConfig();
 class ProductDetailView extends Component {
 	constructor(props) {
