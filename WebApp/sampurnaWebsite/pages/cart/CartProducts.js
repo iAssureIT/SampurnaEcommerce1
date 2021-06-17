@@ -392,7 +392,7 @@ class CartProducts extends Component{
                                                         <div className="col-12"> 
                                                             <div className="col-12 vendorWarning">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
                                                             <div className="col-12 text-center">
-                                                                <a href={"/products/"+vendorWiseCartData._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"} className="vendorShoppinglink">To continue shopping click here</a>
+                                                                <a href={"/products/"+vendorWiseCartData.vendor_id._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"} className="vendorShoppinglink">To continue shopping click here</a>
                                                             </div>
                                                         </div>
                                                     :null

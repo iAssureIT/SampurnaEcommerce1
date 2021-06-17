@@ -39,8 +39,8 @@ class Checkout extends Component {
             totalIndPrice: 0,
             addressId: "",
             bannerData: {
-                title: "CHECKOUT",
-                breadcrumb: 'Checkout',
+                title: "ORDER SUMMURY",
+                breadcrumb: 'Order Summury',
                 backgroungImage: 'images/eCommerce/checkout.png',
             },
             deliveryAddress: [],
@@ -63,12 +63,13 @@ class Checkout extends Component {
             taxrate : 0,
             taxName : '',
             couponAmount : 0.00,
-
         }
-        this.camelCase = this.camelCase.bind(this)
     }
     async componentDidMount() {
         await this.props.fetchCartData();
+        this.setState({
+            recentCartData: this.props.recentCartData
+        })
         var sampurnaWebsiteDetails = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.deliveryLocation){
             this.setState({
@@ -85,12 +86,10 @@ class Checkout extends Component {
             websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
             currency     : currency,
         },()=>{
-            // this.getUserAddress();
             this.getAddressWithDistanceLimit();
-            // console.log("currency=",this.state.currency);
         })
-        // this.getCartData();
-        this.gettimes(this.state.startRange, this.state.limitRange);        
+        this.gettimes(this.state.startRange, this.state.limitRange);    
+
         axios.get('/api/users/get/' + this.state.user_ID)
             .then(result => {
                 this.setState({
@@ -103,7 +102,6 @@ class Checkout extends Component {
             })
     }
     getAddressWithDistanceLimit(){
-
         var formValues = {
             "user_id"       : this.state.user_ID,
             "latitude"      : this.state.latitude,
@@ -135,8 +133,8 @@ class Checkout extends Component {
                 });
             }
         })
-        .catch({
-
+        .catch((error)=>{
+            console.log("Error while getting user address:",error);
         })
 
     }
@@ -159,15 +157,15 @@ class Checkout extends Component {
 			  errors["termsNconditions"] = "Please check terms and conditions";
 			}
         }
-        if (!fields["paymentmethods"]) {
+        if (!fields["paymentmethods"]){
             formIsValid = false;
             errors["paymentmethods"] = "Please select payment method.";
         }
         this.setState({
             errors: errors
           });
-        //   return formIsValid;
-        return true;
+          return formIsValid;
+          return true;
         }
         
     getUserAddress() {
@@ -260,12 +258,14 @@ class Checkout extends Component {
         this.setState({
             [event.target.name]: event.target.value
         })
-        if (event.target.name === 'pincode') {
-            this.handlePincode(event.target.value);
-            this.checkPincode(event.target.value);
-        }
+        // if (event.target.name === 'pincode') {
+        //     this.handlePincode(event.target.value);
+        //     this.checkPincode(event.target.value);
+        // }
+
         let fields = this.state.fields;
 		fields[event.target.name] = event.target.value;
+        console.log("handle change =",fields[event.target.name],);
 		this.setState({
 		  fields
 		});
@@ -296,8 +296,8 @@ class Checkout extends Component {
     placeOrder(event) {
         event.preventDefault();        
         var addressValues = {};
-        var vendorOrders = this.props.recentCartData.vendorOrders;
-        // console.log("this.props.recentCartData.vendorOrders==",this.props.recentCartData.vendorOrders);
+        var vendorOrders = this.state.recentCartData.vendorOrders;
+        // console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData.vendorOrders);
         for(var i = 0; i<vendorOrders.length;i++){ 
             vendorOrders[i].products =[];
             if(vendorOrders[i].cartItems){
@@ -319,7 +319,7 @@ class Checkout extends Component {
         //   console.log("vendorOrders====",vendorOrders);
 
         var paymentMethod = $("input[name='paymentmethods']:checked").val();
-        // console.log("paymentMethod====",paymentMethod);
+        console.log("paymentMethod====",paymentMethod);
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
         var formValues = {
             "paymentMethod": paymentMethod,
@@ -328,8 +328,8 @@ class Checkout extends Component {
             "fullName" : this.state.fullName
         }
         // console.log("Formvalues===",formValues);
-        for(var i=0;i<this.props.recentCartData.vendorOrders.length;i++){
-            var soldProducts = this.props.recentCartData.vendorOrders[i].products.filter((a, i) => {
+        for(var i=0;i<this.state.recentCartData.vendorOrders.length;i++){
+            var soldProducts = this.state.recentCartData.vendorOrders[i].products.filter((a, i) => {
                 return a.availableQuantity <= 0;
             })
         }
@@ -350,7 +350,6 @@ class Checkout extends Component {
             }, 6000);
         } else {
             if(this.validateForm()){
-                // console.log("validation true");
             if (this.state.deliveryAddress && this.state.deliveryAddress.length > 0) {
                 var deliveryAddress = this.state.deliveryAddress.filter((a, i) => {
                     return a._id === checkoutAddess
@@ -396,16 +395,18 @@ class Checkout extends Component {
                     "latitude": this.state.latitude,
                     "longitude": this.state.longitude,
                 }
-                    console.log("addressValues:===",addressValues);
+                    // console.log("addressValues:===",addressValues);
                    
             }
                 // console.log("address to added to cart =",addressValues);
+                if(this.validateForm()){
+                console.log("validation true");
                 axios.patch('/api/carts/address', addressValues)
                     .then(async (response) => {
                         console.log("Response After inserting address to cart===",response);
                         // await this.props.fetchCartData();
-                        for(i=0;i<this.props.recentCartData.vendorOrders.length;i++){
-                        var cartItems = this.props.recentCartData.vendorOrders[i].products.map((a, i) => {
+                        for(i=0;i<this.state.recentCartData.vendorOrders.length;i++){
+                        var cartItems = this.state.recentCartData.vendorOrders[i].products.map((a, i) => {
                             return {
                                 "product_ID": a._id,
                                 "productName": a.productName,
@@ -430,9 +431,6 @@ class Checkout extends Component {
                             }
                             })
                         }
-                        // console.log("cartItems",cartItems);
-                        // console.log("cartData==",this.props.recentCartData);
-
                         var orderData = {
                             user_ID                   : this.state.user_ID,
                             email                     : this.state.email,
@@ -441,10 +439,10 @@ class Checkout extends Component {
                             payment_status            : this.state.paymentmethods === 'online' ? "Paid" : "UnPaid",  // paid, unpaid
                             paymentMethod             : this.state.paymentmethods,
                             customerShippingTime      : this.state.shippingtime,
-                            order_numberOfProducts    : this.props.recentCartData.order_numberOfProducts,
-                            order_quantityOfProducts  : this.props.recentCartData.order_quantityOfProducts, //Sum of total quantity of items in each vendor
+                            order_numberOfProducts    : this.state.recentCartData.order_numberOfProducts,
+                            order_quantityOfProducts  : this.state.recentCartData.order_quantityOfProducts, //Sum of total quantity of items in each vendor
                             vendorOrders              : vendorOrders,
-                            paymentDetails            : this.props.recentCartData.paymentDetails,
+                            paymentDetails            : this.state.recentCartData.paymentDetails,
                             deliveryAddress           : addressValues,
                            
                         }
@@ -478,7 +476,6 @@ class Checkout extends Component {
                                            await Router.push('/payment/' + result.data.order_id);
                                         }
                                     } else {
-                                        console.log("inside online payment");
                                         this.setState({paymethods : true})
                                         var paymentdetails = {
                                             MERCHANT_ID: this.state.partnerid,
@@ -538,6 +535,7 @@ class Checkout extends Component {
                                     console.log(error);
                                 })
                         } else {
+                            $("html, body").animate({ scrollTop: 0 }, 800);
                             this.setState({
                                 isCheckedError: ["Please accept the terms & conditions."]
                             });
@@ -547,7 +545,9 @@ class Checkout extends Component {
                     .catch((error) => {
                         console.log('cart address update error', error);
                     })
-            //}
+            }else{
+                $("html, body").animate({ scrollTop: 0 }, 800);
+            }
         }
         }
    
@@ -651,15 +651,18 @@ class Checkout extends Component {
                 "user_ID"     : userId,
                 "couponCode"  : couponCode
             }
+            console.log("payload==",payload);
             axios.patch('/api/carts/put/coupon',payload)
             .then(couponResponse=>{
                 if(couponResponse.data){
                     console.log("couponResponse=>",couponResponse.data);
-                    this.props.fetchCartData();
+
                     this.setState({
-                        couponAmount : this.props.recentCartData.paymentDetails.afterDiscountCouponAmount,
+                        couponAmount : this.state.recentCartData.paymentDetails.afterDiscountCouponAmount,
+                        recentCartData:couponResponse.data.data
                     })
-                    swal({text: couponResponse.data.message, color:res.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
+                    swal(couponResponse.data.message);
+                    // swal({text: couponResponse.data.message, color:couponResponse.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
                 }
             })
             .catch(err=>{
@@ -676,12 +679,6 @@ class Checkout extends Component {
                 <Message messageData={this.state.messageData} />
                 <div className="row">
                     {/* <Loader type="fullpageloader" /> */}
-                    {/* <div className ="fullpageloader">
-                        <div className="col-lg-6 col-lg-offset-3 col-md-4 col-md-offset-4  col-sm-4 col-sm-offset-4 col-xs-12 loading abc">
-                            <img src="/images/loader.gif" className=""></img>
-                        </div> 
-                    </div>                     */}
-                    {/* <Address opDone={this.opDones.bind(this)} /> */}
                     <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">  
                         <div className="modal-content loginModalContent " style={{'background': '#fff'}}>    
                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
@@ -700,8 +697,10 @@ class Checkout extends Component {
                             </div>
                         </div>
                     </div>
+
                     <SmallBanner bannerData={this.state.bannerData} />
-                    {this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length>0?
+
+                    {this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length>0?
                     <div className="container-fluid">
                         <form className="col-12 " id="checkout">
                            <div className="row">
@@ -709,7 +708,6 @@ class Checkout extends Component {
                                 <div className="col-12 NoPadding">
                                     <div className={"col-12 NoPadding " +Style.paymentMethod}>
                                         <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>PAYMENT METHOD <span className="required">*</span></div>
-
                                         <div className={"col-12 paymentInput " +Style.f14}>
                                             {/* <input name="payMethod" ref="payMethod" type="radio" value={this.state.payMethod} className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" checked="true" /> */}
                                             <input name="paymentmethods" type="radio" value="cod" className="webModelInput col-2 col-md-1"
@@ -718,14 +716,15 @@ class Checkout extends Component {
                                         </div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
                                             {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
-                                            <input name="paymentmethods" type="radio" value="crdbt" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "crdbt"} onClick={this.handleChange.bind(this)} />
+                                            <input name="paymentmethods" type="radio" value="onlinePayment" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "onlinePayment"} onClick={this.handleChange.bind(this)} />
                                             <span className="col-12 col-md-11 col-sm-10 col-xs-10">Credit / Debit Card</span>
                                         </div>
-                                        <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
-                                        {/*  <button className="btn anasBtn col-lg-3 col-lg-offset-9 col-md-2 col-md-offset-10 col-sm-12 col-xs-12 placeOrder" onClick={this.placeOrder.bind(this)}>Place Order</button> */}
-                                        <div className="col-12 mt15">
-                                            <div id="payMethod"></div>
+                                        <div className={"col-12 paymentInput " +Style.f14}>
+                                            {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
+                                            <input name="paymentmethods" type="radio" value="cardOnDel" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "cardOnDel"} onClick={this.handleChange.bind(this)} />
+                                            <span className="col-12 col-md-11 col-sm-10 col-xs-10">Card On Delivery</span>
                                         </div>
+                                        <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
                                     </div>
                                 </div>
                                 {
@@ -737,11 +736,17 @@ class Checkout extends Component {
                                                 {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
                                                     this.state.deliveryAddress.map((data, index) => {
                                                         // console.log("address data ==", data);
+                                                        // {data.distance <=1
+                                                        // ?   
+                                                        //     $('.addressList_'+data._id).addClass('addressDesabled')
+                                                        // :
+                                                        //     $('.addressList_'+data._id).removeClass('addressDesabled')
+                                                        // }
                                                         return (
-                                                            <div key={'check' + index} className="col-12 NoPadding">
+                                                            <div key={'check' + index} className={"col-12 NoPadding " +"addressList_"+data._id}>
                                                                 <div className="row " >
                                                                 <div className="form-check col-1">
-                                                                    <input type="radio" className="form-check-input" disabled={data.distance <=1 ?false: true} name="selectAddress" id={"address"+index} value={data._id} 
+                                                                    <input type="radio" className="form-check-input" disabled = {true} name="selectAddress" id={"address"+index} value={data._id} 
                                                                     onChange={(e)=>{
                                                                         this.setState({
                                                                             "addressId": e.target.value,
@@ -757,12 +762,12 @@ class Checkout extends Component {
                                                                     <span className={" " +Style.checkoutADDCss}>{data.addressLine2}, {data.addressLine1},
                                                                     Mobile: {data.mobileNumber}</span></div>
                                                                 </div>
-                                                                { data.distance >=1?
+                                                                {/* { data.distance >=1?
                                                                     <div className="errorMsg col-12">
                                                                         <div className="errorMsg col-12">This address is out of delivery.</div>
                                                                     </div>
                                                                  :null
-                                                                 } 
+                                                                 }  */}
                                                             </div>
                                                         );
                                                     })
@@ -797,8 +802,8 @@ class Checkout extends Component {
                                             </thead>
                                             <tbody>
                                                 {
-                                                   this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length > 0 ?
-                                                        this.props.recentCartData.vendorOrders.map((vendorWiseData, index) => {
+                                                   this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
+                                                        this.state.recentCartData.vendorOrders.map((vendorWiseData, index) => {
                                                             return (
                                                                 <div className="col-12 tableRowWrapper" key={'cartData' + index}>
                                                                 <tr  className="col-12">
@@ -908,49 +913,44 @@ class Checkout extends Component {
                                     </div>
                                     <div className="col-12  checkOutTerms">
                                         <div className="row">
-                                        {this.props.recentCartData?
+                                        {this.state.recentCartData?
                                         <div className="col-12">
-                                            <div className="col-12">
-                                                <div className={"row " +Style.f13N}>
-                                                    <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
-                                                    <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.props.recentCartData.paymentDetails.discountAmount>0 ? this.props.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
-                                                    <span className="col-md-6 col-12">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.props.recentCartData.paymentDetails? (this.props.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
-                                                    <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
+                                            <div className="row">
+                                            <div className="col-5">
+                                            <div className="col-12 mb-2 mt-2">
+                                                <div className="row mt-5">
+                                                    <div className={"form-group col-8 NoPadding " +Style.border1}>
+                                                        <input type="text" className={"form-control couponCode " +Style.border1} ref="couponCode" id="couponCode" name="couponCode" placeholder="Enter Discount Coupon Here..." />
+                                                    </div>
+                                                    <div className="col-4 NoPadding">
+                                                        <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>
+                                                    </div>
                                                     
-                                                    
-                                                    <div className="col-12 mb-2 mt-2">
-                                                        <div className="row mt-5">
-                                                            <div className={"form-group col-3 NoPadding " +Style.border1}>
-                                                                <input type="text" className={"form-control couponCode " +Style.border1} ref="couponCode" id="couponCode" name="couponCode" placeholder="Enter Discount Coupon Here..." />
-                                                            </div>
-                                                            <div className="col-2 col-md-2 col-sx-2 NoPadding">
-                                                                <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>
-                                                            </div>
-                                                            <div className="col-3 text-right"> <span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp; {this.state.couponAmount>0? this.state.couponAmount : 0.00}</div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="col-12 mt15">
-                                                        <div className="col-12 checkoutBorder"></div>
-                                                    </div>
-                                                    <div className="col-12 grandTotal mt-4 mb-2">
-                                                        <div className={"row " +Style.f13N}>
-                                                            <span className={"col-6 orderTotalText " +Style.f13N +" "+Style.bold}>Grand Total</span>
-                                                            <span className={"col-6 textAlignRight orderTotalPrize globalTotalPrice " +Style.f13N}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
-                                                                {(this.props.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }
-                                                            </span>
-                                                        </div>
-                                                    </div>
                                                 </div>
+                                                <div className="col-12">------------------- OR -----------------</div>
+                                                <div className="row mt-5">
+                                                    <label>{"Credit points AED 20 " +"available"}</label>
+                                                    <div className={"form-group col-8 NoPadding " +Style.border1}>
+                                                        <input type="text" className={"form-control couponCode " +Style.border1} ref="creaditPoint" id="creaditPoint" name="creaditPoint" placeholder="20" />
+                                                    </div>
+                                                    <div className="col-4 NoPadding">
+                                                        <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>    
                                             </div>
-                                        </div> 
-                                        :null
-                                        } 
 
-                                        <div className="col-12">
-                                            <div className="col-12">
-                                                <div className="row">
-                                                    <div className="col-md-7 col-xl-7 col-12 shippingtimes">
+                                            <div className="col-7">
+                                                <div className={"row " +Style.f13N}>
+                                                    <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
+                                                    <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
+                                                    <span className="col-md-6 col-12">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
+                                                    <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
+                                                    <span className="col-md-6 col-12">Discounte Coupon :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.couponAmount>0? this.state.couponAmount : 0.00}</span>
+                                                    
+                                                    
+                                                    <div className="col-12 shippingtimes">
                                                         <div className={"row " +Style.f13N}>
                                                             <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />  &nbsp;
                                                             <div className="col-12 col-xl-10 col-md-10 termsWrapper">
@@ -961,7 +961,7 @@ class Checkout extends Component {
                                                             </div>
                                                         </div> 
                                                     </div>
-                                                    <div className={"col-12 col-xl-5 col-md-5 " +Style.f13N}>
+                                                    <div className={"col-12 " +Style.f13N}>
                                                         <span className="col-12 col-xl-12 nopadding">Select Shipping Time<span className="required"></span></span>
                                                         <select onChange={this.selectedTimings.bind(this)} className={"col-12  noPadding  form-control " +Style.f13N} ref="shippingtime" name="shippingtime" >
                                                             <option name="shippingtime" disabled="disabled" selected="true">-- Select --</option>
@@ -977,9 +977,33 @@ class Checkout extends Component {
                                                             }
                                                         </select>
                                                     </div>
+
+                                                    <div className="col-12 mt15">
+                                                        <div className="col-12 checkoutBorder"></div>
+                                                    </div>
+                                                    <div className="col-12 grandTotal mt-4 mb-2">
+                                                        <div className={"row " +Style.f13N}>
+                                                            <span className={"col-6 orderTotalText " +Style.f13N +" "+Style.bold}>Grand Total</span>
+                                                            <span className={"col-6 textAlignRight orderTotalPrize globalTotalPrice " +Style.f13N}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
+                                                                {(this.state.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div> 
+                                        :null
+                                        } 
+
+                                        <div className="col-12">
+                                            <div className="col-12">
+                                                <div className="row">
+                                                    
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div className="modal col-12 col-sm-6 offset-3 checkoutAddressModal" id="termsNconditionsmodal" role="dialog">
                                             <div className="col-12">
                                                 <div className="modal-content  col-12 NoPadding">
@@ -1003,6 +1027,7 @@ class Checkout extends Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         </div>  
                                     </div>
 
@@ -1048,6 +1073,7 @@ const mapStateToProps = state => (
 );
 const mapDispatchToProps = {
     fetchCartData: getCartData, 
+    // setCartData  : setCartData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

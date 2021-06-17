@@ -45,7 +45,7 @@ class WebsiteLogo extends React.Component {
                 </Link> */}
                 <a href="/" title="navbar-brand Sitelogo ">
                     <Image
-                        src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/multistoreLogo.png"}
+                        src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/loading.gif"}
                         className={"logoImg hidden-x"}
                         height ={40}
                         width={170}

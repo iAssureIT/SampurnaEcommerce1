@@ -22,11 +22,11 @@ export default class Footer extends Component {
         axios.get("/api/sections/get/get_megamenu_list")
             .then((response)=>{ 
                 if(response){
-                    console.log("response",response);
+                    // console.log("response",response);
                     this.setState({ 
                         categoryData : response.data
                     },()=>{
-                        console.log("categoryData===",this.state.categoryData);
+                        // console.log("categoryData===",this.state.categoryData);
                     })
                 }
             })
@@ -87,41 +87,30 @@ export default class Footer extends Component {
                     <div className="col-7 hrLine"></div>
                 </div>
                 <div className="col-12 pr-0">
-                    <div className="categortTitle"><Link href="/aboutus"><a ><span>&nbsp;About Us</span></a></Link></div>
+                    <div className="categortTitle"><Link href="/about-us"><a ><span>&nbsp;About Us</span></a></Link></div>
                     <div className="categortTitle"><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>    
                     <div className="categortTitle"><Link href="/return-policy"><a ><span>&nbsp;Return Policy</span></a></Link></div>
-                    {/* <div className="categortTitle"><a href="/terms-conditions" target="_blank"><span>Terms Of Use</span></a></div> */}
+                    <div className="categortTitle"><a href="/terms-conditions" target="_blank"><span>Terms and Conditions</span></a></div>
                     {/* <div className="categortTitle"><a href="/privacypolicy" target="_blank"><span>Privacy Policy</span></a></div> */}      
-                    <div className="categortTitle"><Link href="/legal-policy"><a ><span>&nbsp;Legal Notice</span></a></Link></div>
+                    <div className="categortTitle"><Link href="/legal-policy"><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
+                    <div className="categortTitle"><Link href="/faqs"><a ><span>&nbsp;FAQs</span></a></Link></div> 
                     <div className="categortTitle"><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div> 
-                    <div className="categortTitle"><Link href="/photo-gallery"><a ><span>&nbsp;Photo Gallery</span></a></Link></div> 
-                    <div className="categortTitle"><Link href="/blogs"><a ><span>&nbsp;Blogs</span></a></Link></div>
-                    <div className="categortTitle"><Link href="/faqs"><a ><span>&nbsp;FAQs</span></a></Link></div>      
+                    {/* <div className="categortTitle"><Link href="/photo-gallery"><a ><span>&nbsp;Photo Gallery</span></a></Link></div>  */}
+                    {/* <div className="categortTitle"><Link href="/blogs"><a ><span>&nbsp;Blogs</span></a></Link></div> */}
+                         
                                   
                 </div>
             </div>
             <div className="col-6 col-xl-3 col-lg-3 col-md-4 col-sm-6 NoPadding onlineShoppingWrapper">               
-                {/* <div className="logo col-12">
-                    <Link href="/">
-                    <a  title="BookStore logo "style={{float:"right"}}>
-                        <Image
-                            src="/images/eCommerce/multistoreLogo.png"
-                            className={"footerLogoImg"}
-                            height ={60}
-                            width={200}
-                        />
-                    </a>
-                    </Link>
-                </div>  */}
-                {/*< Websitelogo />*/}
+                
                 <div className="col-xl-12 col-md-12 col-sm-12  col-12">
                     <div className="col-12 FooterTitle NoPadding">Connect with Us</div>
                     <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding">
-                        <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                    
-                        <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>
-                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>  
-                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>                          
-                        <div className="socialMediaIcons"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                   
+                        <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fa fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                    
+                        <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fa fa-facebook-f mt15"></i></a></Link></div>
+                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fa fa-youtube mt15" aria-hidden="true"></i></a></Link></div>  
+                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fa fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>                          
+                        <div className="socialMediaIcons"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fa fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                   
                     </div>
                 </div>
 

@@ -14,7 +14,7 @@ componentDidMount(){
     axios.get("/api/sections/get/get_megamenu_list")
               .then((response)=>{
                if(response.data){
-                // console.log("section data===",response.data); 
+                console.log("section data===",response.data); 
                 this.setState({ 
                     categoryData : response.data
                 })
@@ -33,7 +33,7 @@ render(){
                     return( 
                     <li key={sectionindex.toString()} className="nav-item active dropdown dropDownLevel1">
                         
-                        <Link href={`/vendor-list/${encodeURIComponent(sectionDetails.sectionUrl)}`}>
+                        <Link href={decodeURI(`/vendor-list/${encodeURIComponent(sectionDetails.sectionUrl)}`)}>
                             <a className="">{sectionDetails.section}&nbsp;</a>
                         </Link>   
 

@@ -13,6 +13,9 @@
 .saveAddressBtn{
 
 }
+.addressDesabled{
+    opacity: 0.4;
+}
 .checkoutAddressModalHeader{
     background-color: #222222;
 }

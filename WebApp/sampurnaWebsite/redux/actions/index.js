@@ -117,6 +117,13 @@ export function getCartData() {
   }  
 }
 
+export function setCartData(data) {
+	return dispatch =>{
+    dispatch(fetchcartdata(data));
+  }  
+}
+
+
 export function getWishlistData() {
 	return dispatch =>{
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
