@@ -14,8 +14,16 @@ export const getWishList= (user_id) => {
         type: SET_LOADING,
         payload: true,
     });
-        axios.get('/api/wishlist/get/userwishlist/'+user_id)
+    const store = getState();
+    var payload ={
+        "user_ID"             : store.userDetails.user_id,
+        "userLat"             : store.location?.address?.latlong?.lat, 
+        "userLong"            : store.location?.address?.latlong?.lng
+    }
+    console.log("payload",payload);
+        axios.post('/api/wishlist/get/userwishlist',payload)
         .then((response)=>{
+            console.log("response",response);
             dispatch({
                 type    : WISH_LIST,
                 payload : {

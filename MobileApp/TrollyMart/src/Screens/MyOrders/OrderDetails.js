@@ -102,7 +102,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
     socket.emit('room',orderid);
     socket.emit('signle_order',orderid);
     socket.on('getSingleOrder',(response)=>{
-      console.log("response",response);
+      console.log("getSingleOrder response",response);
     // axios.get('/api/orders/get/one/' + orderid)
     //   .then((response) => {
           setOrder(response);

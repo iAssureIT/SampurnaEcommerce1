@@ -30,10 +30,7 @@ import { connect,
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import openSocket               from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
-console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
-
-console.log("axios.defaults.baseURL",axios.defaults.baseURL);
 
 
 const labels = ["Processing", "Preparing", "On the Way", "Delivered"];

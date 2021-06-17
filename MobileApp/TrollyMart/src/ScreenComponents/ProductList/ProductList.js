@@ -28,7 +28,7 @@ TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delay
 
 export const ProductList = withCustomerToaster((props)=>{
   console.log("props",props);
-  const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id} = props; 
+  const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
@@ -48,8 +48,9 @@ export const ProductList = withCustomerToaster((props)=>{
     location        : store.location,
     userDetails     : store.userDetails
   }));
-  const {currency,location}=store.preferences;
-  const {stop_scroll,userDetails}=store;
+  const {currency}=store.preferences;
+  const {stop_scroll,userDetails,location}=store;
+  console.log("location",location);
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
       var availableSizes = [];
@@ -142,12 +143,20 @@ export const ProductList = withCustomerToaster((props)=>{
   }
 
 
-  const addToWishList = (productid,index) => {
+  const addToWishList = (productid,vendor_id,index) => {
     if(user_id){
       const wishValues = {
-        "user_ID": user_id,
-        "product_ID": productid,
+        "user_ID"           : user_id,
+        "product_ID"        : productid,
+        "userDelLocation"   : {
+          "lat"               : location?.address?.latlong?.lat, 
+          "long"              : location?.address?.latlong?.lng,
+          "delLocation"       : location?.address?.addressLine2
+        },
+        "vendor_id"          : vendor_id,
+        "vendorLocation_id"  : vendorLocation_id,
       }
+      console.log("wishValues",wishValues);
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
           if(type){
@@ -214,7 +223,7 @@ export const ProductList = withCustomerToaster((props)=>{
                     style={styles.subcatimg}
                   />
               }
-                {userDetails.authService!=="guest" &&<TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,index)} >
+                {userDetails.authService!=="guest" &&<TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} >
                   <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
 
                 </TouchableOpacity>}

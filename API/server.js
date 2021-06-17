@@ -70,7 +70,7 @@ io.on('connection', (client) => {
         .then(response=>{
             io.sockets.emit('changeStatus', response.data);
             getUserOrderList(payload.order_user_id);
-            getSingleOrder(payload.order_id)
+            getSingleOrder(payload.order_id);
         })
         .catch(err=>{
             console.log(err)

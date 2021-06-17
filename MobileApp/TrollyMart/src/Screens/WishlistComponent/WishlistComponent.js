@@ -4,6 +4,7 @@ import {
   View,
   Image,
   ActivityIndicator,
+  Text
 } from 'react-native';
 import { Button}            from "react-native-elements";
 import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
@@ -14,18 +15,17 @@ import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
 import {withCustomerToaster}from '../../redux/AppState.js';
 import { useSelector }      from 'react-redux';
 import {ProductList}        from'../../ScreenComponents/ProductList/ProductList.js';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 
 export const WishlistComponent  = withCustomerToaster((props)=>{
   const {navigation}=props;
   const store = useSelector(store => ({
     wishList    : store.wishDetails.wishList,
   }));
-
-
   const {wishList} = store;
   const [user_id,setUserId] = useState('');
   const [loading,setLoading] = useState(false);
-  
+  console.log("wishList",wishList);
     return (
       <React.Fragment>
         <HeaderBar3
@@ -44,13 +44,20 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                   </View>
                   :
                     wishList && wishList.length > 0 ?
-                      <ProductList 
-                        navigate    = {navigation.navigate} 
-                        newProducts = {wishList}  
-                        userId      = {user_id} 
-                        categories  = {[]}
-                        loading     = {loading}
-                      />
+                    wishList.map((item,index)=>{
+                      return(
+                        <View key={index}>
+                          <Text style={[CommonStyles.label,{paddingHorizontal:15}]}>{item.areaName}</Text>
+                          <ProductList 
+                            navigate    = {navigation.navigate} 
+                            newProducts = {item.products}  
+                            userId      = {user_id} 
+                            categories  = {[]}
+                            loading     = {loading}
+                        />
+                        </View>
+                      )
+                    })
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
                       <Image

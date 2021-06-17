@@ -154,7 +154,7 @@ exports.get_user_wishlist = (req,res,next)=>{
             var product = {
                 vendor_id           : wishdata[i].vendor_id,
                 vendorLocation_id   : wishdata[i].vendorLocation_id,
-                product_id          : wishdata[i].product_ID._id,
+                _id                 : wishdata[i].product_ID._id,
                 productName         : wishdata[i].product_ID.productName,
                 productNameRlang    : wishdata[i].product_ID.productNameRlang,
                 brandNameRlang      : wishdata[i].product_ID.brandNameRlang,
