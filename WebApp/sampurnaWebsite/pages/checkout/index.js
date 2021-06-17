@@ -143,11 +143,12 @@ class Checkout extends Component {
 		let fields = this.state.fields;
 		let errors = {};
         let formIsValid = true;	
-        
-        if (!fields["addType"]) {
-            formIsValid = false;
-            errors["addType"] = "Please select Address type.";
-        }
+        console.log("fields[addType]=",fields["addType"]);
+        // if (!fields["addType"]) {
+        //     console.log("fields[addType]=",fields["addType"]);
+        //     formIsValid = false;
+        //     errors["addType"] = "Please select Address type.";
+        // }
         
         if (!fields["termsNconditions"]) {
             var pattern = this.state.isChecked
@@ -161,9 +162,14 @@ class Checkout extends Component {
             formIsValid = false;
             errors["paymentmethods"] = "Please select payment method.";
         }
+        if (!fields["checkoutAddess"]) {
+            formIsValid = false;
+            errors["checkoutAddess"] = "Please select your address.";
+        }
         this.setState({
             errors: errors
           });
+          console.log("formIsValid=",formIsValid);
           return formIsValid;
           return true;
         }
@@ -181,14 +187,14 @@ class Checkout extends Component {
                     "email": response.data.profile.email
                 },()=>{
                     let fields = this.state.fields;
-                    fields["username"] = response.data.profile.fullName;
-                    fields["mobileNumber"] = response.data.profile.mobile;
-                    fields["email"] = response.data.profile.email;   
+                    // fields["username"] = response.data.profile.fullName;
+                    // fields["mobileNumber"] = response.data.profile.mobile;
+                    // fields["email"] = response.data.profile.email;   
                     fields["addressLine2 "] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addressLine2 :  null;   
                                     
-                    fields["pincode"] = response.data.profile.pincode;
+                    // fields["pincode"] = response.data.profile.pincode;
                     fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
-                    fields["paymentmethods"] = 'cod';
+                    // fields["paymentmethods"] = 'cod';
                     this.setState({
                         fields
                     });
@@ -217,7 +223,7 @@ class Checkout extends Component {
         });
 
         let fields = this.state.fields;
-        // console.log("event.target.value===",isChecked);
+        console.log("event.target.value===",isChecked);
 		fields[event.target.name] = isChecked;
 		this.setState({
 		  fields
@@ -262,10 +268,10 @@ class Checkout extends Component {
         //     this.handlePincode(event.target.value);
         //     this.checkPincode(event.target.value);
         // }
-
+        console.log("paymentMethod=",event.target.value);
         let fields = this.state.fields;
 		fields[event.target.name] = event.target.value;
-        console.log("handle change =",fields[event.target.name],);
+        console.log("handle change =",fields[event.target.name]," ==",event.target.value);
 		this.setState({
 		  fields
 		});
@@ -296,6 +302,7 @@ class Checkout extends Component {
     placeOrder(event) {
         event.preventDefault();        
         var addressValues = {};
+        $("html, body").animate({ scrollTop: 450 }, 800);
         var vendorOrders = this.state.recentCartData.vendorOrders;
         // console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData.vendorOrders);
         for(var i = 0; i<vendorOrders.length;i++){ 
@@ -316,7 +323,6 @@ class Checkout extends Component {
              delete vendorOrders[i].cartItems;
             }
           }
-        //   console.log("vendorOrders====",vendorOrders);
 
         var paymentMethod = $("input[name='paymentmethods']:checked").val();
         console.log("paymentMethod====",paymentMethod);
@@ -327,7 +333,7 @@ class Checkout extends Component {
             "email"    : this.state.email,
             "fullName" : this.state.fullName
         }
-        // console.log("Formvalues===",formValues);
+        console.log("Formvalues===",formValues);
         for(var i=0;i<this.state.recentCartData.vendorOrders.length;i++){
             var soldProducts = this.state.recentCartData.vendorOrders[i].products.filter((a, i) => {
                 return a.availableQuantity <= 0;
@@ -350,7 +356,7 @@ class Checkout extends Component {
             }, 6000);
         } else {
             if(this.validateForm()){
-            if (this.state.deliveryAddress && this.state.deliveryAddress.length > 0) {
+                if (this.state.deliveryAddress && this.state.deliveryAddress.length > 0) {
                 var deliveryAddress = this.state.deliveryAddress.filter((a, i) => {
                     return a._id === checkoutAddess
                 })
@@ -373,9 +379,9 @@ class Checkout extends Component {
                     "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
                     "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
                 }
-                // console.log("inside if address values====",addressValues);               
+                console.log("inside if address values====",addressValues);               
             } else {
-                // console.log("inside else new address");
+                console.log("inside else new address");
                 addressValues = {
                     "user_ID": this.state.user_ID,
                     "name": this.state.username,
@@ -395,7 +401,7 @@ class Checkout extends Component {
                     "latitude": this.state.latitude,
                     "longitude": this.state.longitude,
                 }
-                    // console.log("addressValues:===",addressValues);
+                    console.log("addressValues:===",addressValues);
                    
             }
                 // console.log("address to added to cart =",addressValues);
@@ -651,15 +657,15 @@ class Checkout extends Component {
                 "user_ID"     : userId,
                 "couponCode"  : couponCode
             }
-            console.log("payload==",payload);
+            // console.log("payload==",payload);
             axios.patch('/api/carts/put/coupon',payload)
             .then(couponResponse=>{
                 if(couponResponse.data){
-                    console.log("couponResponse=>",couponResponse.data);
+                    // console.log("couponResponse=>",couponResponse.data);
 
                     this.setState({
                         couponAmount : this.state.recentCartData.paymentDetails.afterDiscountCouponAmount,
-                        recentCartData:couponResponse.data.data
+                        recentCartData:couponResponse.data.data,
                     })
                     swal(couponResponse.data.message);
                     // swal({text: couponResponse.data.message, color:couponResponse.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
@@ -721,7 +727,7 @@ class Checkout extends Component {
                                         </div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
                                             {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
-                                            <input name="paymentmethods" type="radio" value="cardOnDel" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "cardOnDel"} onClick={this.handleChange.bind(this)} />
+                                            <input name="paymentmethods" type="radio" value="cardOnDelivery" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "cardOnDel"} onClick={this.handleChange.bind(this)} />
                                             <span className="col-12 col-md-11 col-sm-10 col-xs-10">Card On Delivery</span>
                                         </div>
                                         <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
@@ -732,28 +738,37 @@ class Checkout extends Component {
                                         <div className={"col-12 NoPadding " +Style.shippingAddress}>
                                             <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>SHIPPING ADDRESS <span className="required">*</span></div>
                                             <div className={"col-12 pt-4 " +Style.addressWrapper}>
+                                            <div className="errorMsg">{this.state.errors.checkoutAddess}</div>
                                                 
                                                 {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
                                                     this.state.deliveryAddress.map((data, index) => {
                                                         // console.log("address data ==", data);
-                                                        // {data.distance <=1
-                                                        // ?   
-                                                        //     $('.addressList_'+data._id).addClass('addressDesabled')
-                                                        // :
-                                                        //     $('.addressList_'+data._id).removeClass('addressDesabled')
-                                                        // }
+                                                        {data.distance <=1
+                                                        ?   
+                                                            $('.addressList_'+data._id).addClass('addressDesabled')
+                                                        :
+                                                            $('.addressList_'+data._id).removeClass('addressDesabled')
+                                                        }
                                                         return (
                                                             <div key={'check' + index} className={"col-12 NoPadding " +"addressList_"+data._id}>
                                                                 <div className="row " >
                                                                 <div className="form-check col-1">
-                                                                    <input type="radio" className="form-check-input" disabled = {true} name="selectAddress" id={"address"+index} value={data._id} 
+                                                                    <input type="radio" className="form-check-input" disabled = {data.distance <=1?true:false} name="checkoutAddess" id={"address"+index} value={data._id} 
                                                                     onChange={(e)=>{
                                                                         this.setState({
                                                                             "addressId": e.target.value,
+
                                                                         },()=>{
                                                                             // console.log("e.target.value===",e.target.value);
                                                                             // console.log("addressId===",this.state.addressId);
                                                                         })
+
+                                                                        let fields = this.state.fields;
+                                                                        console.log("event.target.value===",e.target.value);
+                                                                        fields[e.target.name] = "checkoutAddess";
+                                                                        this.setState({
+                                                                        fields
+                                                                        });
                                                                     }}
                                                                     name="checkoutAddess" pincode={data.pincode}  required className="codRadio"/>
                                                                 </div>

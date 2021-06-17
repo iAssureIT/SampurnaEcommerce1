@@ -1,16 +1,27 @@
 
-.mr20{
-    /*margin-right: 20px;*/
-}
-.account-nav li a{
-	text-transform: none;
-	font-size: 14px;
-	font-weight: 100;
+.sidebarNav{
+	height:60px !important;
+	margin:auto;
+	text-align:center;
+	border-radius:10px;
+	margin-bottom:15px !important;
+	background-color:#E9E9E9;	
+    padding: 20px;
 }
 
-.account-nav .item{
-	margin:1px;
-	background-color:#eee;
+.sideMenuBox a{
+	margin:auto;
+	color:#000000;
+	font-weight:bold;
+}
+
+.sideMenuBoxTOP{
+	margin-top:40px;
+}
+
+.active{
+	background-color:#033554 !important;
+	color:#fff !important;
 }
 .nb-brand{
 	margin-top: 20px 

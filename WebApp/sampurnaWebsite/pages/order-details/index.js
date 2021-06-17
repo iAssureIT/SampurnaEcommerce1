@@ -108,14 +108,14 @@ export default class MyOrders extends Component {
       })
   }
   getMyUser() {    
-    axios.get("/api/users/" +this.state.user_ID)
+    axios.get("/api/users/get/id" +this.state.user_ID)
       .then((response) => {
         this.setState({
           reviewuserData: response.data
         })
       })
       .catch((error) => {
-        console.log('error', error);
+        console.log('Error while getting User data', error);
       })
   }
   showFeedbackForm() {
@@ -458,7 +458,7 @@ export default class MyOrders extends Component {
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?                    
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
-                          console.log( " Order details orderData:",vendordata);
+                          console.log( " Order details vendordata:",vendordata);
                           return (
                             <div key={index} style={{marginBottom:"40px"}} className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>   
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">

@@ -493,6 +493,7 @@ background: #fff;
 .categoryFilterTitle{
   font-size: 16px;
   padding: 20px 10px;
+  font-weight: 700;
   border-bottom:solid 1px #ddd;
 }
 .activeSubCategory{
@@ -553,7 +554,7 @@ background: #fff;
 }
 .panelHeading h4 a{
   text-decoration: none !important;
-  font-size: 12px !important;
+  font-size: 15px !important;
   color: #000;
 }
 .categoryUl{

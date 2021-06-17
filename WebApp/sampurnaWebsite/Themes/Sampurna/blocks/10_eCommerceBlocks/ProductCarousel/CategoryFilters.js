@@ -59,7 +59,7 @@ class CategoryFilters extends Component{
     // }
 
     render(){
-      console.log("this.props.categoryData===",this.props.categoryData);
+      // console.log("this.props.categoryData===",this.props.categoryData);
       return (
           <div className="panel-group" id="accordion">    
             {this.props.categoryData && this.props.categoryData.length>0?                  

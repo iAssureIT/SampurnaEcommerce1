@@ -322,19 +322,12 @@ class DeliveryLocationPopup extends React.Component {
            var xlCol =  9;
            var offset = 0
        }else{
-        var xlCol =  10;
-        var offset = 1;
+        var xlCol =  12;
+        var offset = 0;
        }
+       
     return (
-        <div >
-              {this.state.latLong?
-                        < GoogleMap
-                            googleapiKey = {this.state.googleapiKey}
-                            latLongDetails = {this.state.latLong}
-                        />
-                    :
-                    <div className={"col-12 NoPadding DeliveryLocation " +Style.locationBg +" "+Style.zindex}></div>}
-            <div className={"col-12 " +Style.height385 }>
+            <div className={"row " +Style.height385+" " +Style.locationBg} >
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 AddressListWrapper">
@@ -347,9 +340,9 @@ class DeliveryLocationPopup extends React.Component {
                 <div className="col-12 offset-0 mobileViewNoPadding">
                     <form className=" col-12 deliveryForm">
                         <div className="col-12 mt-5 ">
-                            <div className={"col-2 col-sm-12 col-xs-12 col-md-12 " +Style.ma}>
+                            {/* <div className={"col-2 col-sm-12 col-xs-12 col-md-12 " +Style.ma}>
                                 <Websitelogo />
-                            </div>
+                            </div> */}
                             <div className={" col-sm-12 col-lg-8 col-xs-12 col-md-12 " +Style.ma}>
                                 <PlacesAutocomplete 
                                     value={this.state.address}
@@ -419,7 +412,6 @@ class DeliveryLocationPopup extends React.Component {
                 </div>                                                     
             </div>
             </div>
-        </div>
         
     );
   }

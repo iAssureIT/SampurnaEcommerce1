@@ -2,13 +2,6 @@
     font-weight: 900;
     font-size: 16px;
 }
-.account-nav  li  a{
-	color: #555;
-}
-.account-nav li a:hover{
-	color:#80b435 !important;
-}
-
 table > tfoot > tr > th{
 	border-top: 0px solid #ddd !important;	
 	font-weight: 100;
@@ -21,9 +14,6 @@ table > tfoot > tr > td{
 
 table > tfoot > tr > td:last-of-type {
    text-align: right;
-}
-.box-content{
-	/* height: 150px; */
 }
 .subtotal{
 	border-top: 1px solid #ddd !important;

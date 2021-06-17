@@ -20,7 +20,7 @@ class ProductsView extends Component {
   }
 
   render() {
-    console.log("this.state.orderData.vendorOrders===",this.props.orderData);
+    console.log("productView vendorOrders===",this.props.orderData);
     return (
           <div className="col-12">
             <table className="table table-borderless orderTable">

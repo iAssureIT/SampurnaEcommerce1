@@ -146,9 +146,9 @@ body{
 .swiper-cube-shadow{
   display: none !important;
 }
-.current{
-  /*color: var(--gobalCurrentColor) !important;*/
-  /*background-color: var(--gobalCurrentBgColor) !important;*/
+.activeSideBar{
+	background-color:#033554 !important;
+	color:#fff !important;
 }
 .modal-backdrop{
   opacity: 0.7 !important;

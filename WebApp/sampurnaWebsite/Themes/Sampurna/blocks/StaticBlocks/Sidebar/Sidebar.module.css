@@ -1,15 +1,9 @@
-.sideMenuBox{
-	height:60px !important;
-	margin:auto;
-	text-align:center;
-	border-radius:10px;
-	margin-bottom:15px !important;
-	background-color:#E9E9E9 !important;	
-}
 
-.sideMenuBox a{
+.sideMenuBox {
 	margin:auto;
-	color:#000000 !important;
+	color:#000000;
+	font-size: 14px;
+	font-weight: 700;
 	font-weight:bold;
 }
 
