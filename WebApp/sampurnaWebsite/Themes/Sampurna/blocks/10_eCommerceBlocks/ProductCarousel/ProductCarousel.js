@@ -151,8 +151,16 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
-    // console.log("url===",url);
+    console.log("url===",url);
+    if(url[3]===undefined){
+      var addToCart = true
+      this.setState({
+        addToCart :true,
+      })
+    }
+    
     if(url[4] !== "undefined"){
+      console.log("inside if",url[3]);
       var vendor_ID              = url[4];
       var vendorlocation_ID      = url[5];
       var sectionUrl             = url[6];
@@ -630,7 +638,7 @@ submitCart(event) {
                                     </div>
                                     <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
                                       {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
-                                      <Link href={"/home-to-vendorlist/" +data._id}>
+                                      <Link href={"/home-to-vendorlist/"+data.section.replace(" ","-").toLowerCase()+"/" +data._id}>
                                       <a className={Style.product_item_photo } tabIndex="-1" >                                      
                                         <Image                                           
                                           src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
@@ -713,45 +721,25 @@ submitCart(event) {
                                       }                              
                                       <div className={"col-12 NoPadding " +Style.NoPadding}>
                                         <div className={"col-12 NoPadding " +Style.NoPadding}>                                  
-                                          {
-                                            localStorage.getItem("websiteModel")=== "FranchiseModel"?
-                                            <div className={"col-12 NoPadding " +Style.btnWrap +" " +Style.NoPadding}>                                                                             
-                                                <div className={"col--6 NoPadding " +Style.selectSizeBox +" " +Style.NoPadding}>                                                                              
-                                                <select className={"col-12 " +Style.selectdropdown +" " +Style.valid +" " +Style.availablesize +" " +Style.NoPadding} currpro={data._id} id={data._id +"-size"} mainsize={data.size} unit={data.unit} name="size" aria-invalid="false">
-                                                  { Array.isArray(data.availableSizes) && data.availableSizes.map((size, index) => {
-                                                      return( 
-                                                          size === 1000?                                                  
-                                                          <option className="" value={size} key={index}> 1 KG</option>
-                                                          :
-                                                          data.unit === "Box" || data.unit === "Wrap" || data.unit === "Pack" || data.unit==="pounch" ?                                                    
-                                                            <option className={Style.selectedSize} value={size} key={index}>{size} Pack</option>
-                                                              :
-                                                          <option className={Style.selectedSize} value={size} key={index}>{size}&nbsp;{data.unit}</option>                                                        
-                                                      )                                                        
-                                                    })
-                                                  }
-                                                </select>                                     
-                                              </div>    
-                                              <button type="submit" color={data.color} vendor_name={data.vendor_name} vendor_id={data.vendor_id} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
-                                                title="Add to Cart" className={"col-6 fa fa-shopping-cart "  }>                                                                         
-                                                &nbsp;Add
-                                              </button>                          
-                                            </div>
-                                            :
-                                            data.availableQuantity > 0 ?
-                                              <div className="col-12 NoPadding">
-                                                {this.state.user_ID?
-                                                <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 NoPadding  fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
-                                                    &nbsp;Add To Cart
-                                                </button>
-                                                :
-                                                <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
-                                                    &nbsp;Add To Cart
-                                                </button>
-                                                }     
-                                              </div>                                           
+                                          { 
+                                            this.state.addToCart &&
+                                            <div className="col-12 NoPadding">
+                                              {data.availableQuantity > 0 ?
+                                                <div className="col-12 NoPadding">
+                                                  {this.state.user_ID?
+                                                  <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 NoPadding  fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                                      &nbsp;Add To Cart
+                                                  </button>
+                                                  :
+                                                  <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                                      &nbsp;Add To Cart
+                                                  </button>
+                                                  }     
+                                                </div>                                           
                                               :
-                                              <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
+                                                <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
+                                              }             
+                                            </div>
                                           }
                                         </div>
                                       </div>

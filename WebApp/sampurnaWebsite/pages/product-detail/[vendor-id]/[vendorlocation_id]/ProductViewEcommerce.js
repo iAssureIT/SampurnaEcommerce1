@@ -96,14 +96,16 @@ class ProductViewEcommerce extends Component {
 			}else{
 				var url = "/api/products/get/one/" + productId +"/" +null;
 			}
-			// console.log("url",url);
+			console.log("url",url);
 			axios.get(url)
 			.then((response) => {
 				if(response.data){
-					console.log("product response = ",response.data);
+					// console.log("product response = ",response.data);
 					this.setState({
-						sectionUrl    : response.data.section.replace(' ','-').toLowerCase(),
-						categoryUrl   : response.data.category.replace(' ','-').toLowerCase(),
+						// sectionUrl    : response.data.section.replace(' ','-').toLowerCase(),
+						// categoryUrl   : response.data.category.replace(' ','-').toLowerCase(),
+						sectionUrl    : response.data.section.split(' ').join('-').toLowerCase(),
+						categoryUrl   : response.data.category.split(' ').join('-').toLowerCase(),
 						section_ID    : response.data.section_ID,
 						category_ID   : response.data.category_ID,
 						subCategoryUrl: response.data.subCategory ? response.data.subCategory.replace(' ','-').toLowerCase():"",
@@ -114,6 +116,7 @@ class ProductViewEcommerce extends Component {
 						selectedSize  : response.data.size,
 						websiteModel  : this.state.websiteModel
 					},async()=>{
+						// console.log("api data=",this.state.sectionUrl,this.state.vendor_ID);
 						await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
 						.then((categoryResponse)=>{
 							if(categoryResponse.data){    
@@ -129,6 +132,8 @@ class ProductViewEcommerce extends Component {
 									if(subCategoryData){
 										this.setState({
 											subCategoryData  : subCategoryData
+										},()=>{
+											console.log("subCategoryData==",subCategoryData);
 										});
 									}
 									break;
@@ -361,17 +366,16 @@ class ProductViewEcommerce extends Component {
 	}
 	
 	render() {
-
 		var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass = 'r';
 		var tooltipMsg = '';
 		if (x && x.length > 0) {
 			wishClass = '';
-			console.log("wishClass=",wishClass);
+			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Remove from wishlist';
 		} else {
 			wishClass = '-o';
-			console.log("wishClass=",wishClass);
+			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Add To Wishlist';
 		} 
 	   

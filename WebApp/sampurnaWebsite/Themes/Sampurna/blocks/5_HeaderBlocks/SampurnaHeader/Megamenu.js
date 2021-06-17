@@ -33,7 +33,7 @@ render(){
                     return( 
                     <li key={sectionindex.toString()} className="nav-item active dropdown dropDownLevel1">
                         
-                        <Link href={"/vendor-list/" +sectionDetails.sectionUrl} >
+                        <Link href={`/vendor-list/${encodeURIComponent(sectionDetails.sectionUrl)}`}>
                             <a className="">{sectionDetails.section}&nbsp;</a>
                         </Link>   
 

@@ -24,17 +24,16 @@
     background-color: rgba(0,0,0,0.7);
     /*background-color: rgba(0,0,0,0.25);*/
 }
-.timeImg{
-    /* height: 40px; */
-    /* width: 40px; */
+.HTVtimeImg{
+    margin-top: -60px;
 }
 .bgGray{
     background-color:#eee;
     padding-bottom:15px;
 }
 
-.deliveryTime{
-    margin-top: -10px !important;
+.HTVdelTime{
+    margin-top: 0px !important;
 }
 .cardBody{
     color: #fff;
@@ -57,9 +56,12 @@
 .vendorName{
     font-size: 25px;
 }
-.delTime{
+.vendor_price{
+    font-size: 14px;
+}
+.HTVdelTime{
     position: absolute;
-    top: 50px;
+    top: -10px;
     right: 50px;
 }
 .vendorLogo{

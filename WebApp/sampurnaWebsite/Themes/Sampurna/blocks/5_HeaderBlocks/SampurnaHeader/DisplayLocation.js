@@ -38,7 +38,7 @@ class DisplayLocation extends React.Component {
     return (
 		<div className="container-fluid DisplayLocation ">
 			<div  className="col-12" >
-          <i className="fas fa-globe"></i>
+          <i className="fa fa-globe"></i>
           {
             this.props.sampurnaWebsiteDetails?
               this.props.sampurnaWebsiteDetails.deliveryLocation
