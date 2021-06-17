@@ -326,8 +326,15 @@ class DeliveryLocationPopup extends React.Component {
         var offset = 1;
        }
     return (
-        <div className={"row DeliveryLocation " +Style.locationBg}>
-            <div className="col-12">
+        <div >
+              {this.state.latLong?
+                        < GoogleMap
+                            googleapiKey = {this.state.googleapiKey}
+                            latLongDetails = {this.state.latLong}
+                        />
+                    :
+                    <div className={"col-12 NoPadding DeliveryLocation " +Style.locationBg +" "+Style.zindex}></div>}
+            <div className={"col-12 " +Style.height385}>
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 AddressListWrapper">

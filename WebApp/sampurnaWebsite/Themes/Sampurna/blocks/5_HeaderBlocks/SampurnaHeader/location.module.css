@@ -1,9 +1,10 @@
 .locationBg{
-	background-image:url("/images/eCommerce/snazzy-image.gif");
+	background:url("/images/eCommerce/snazzy-image.gif");
 	background-size:100% 100%;
 	background-repeat:no-repeat;
 	margin-top:0px !important;
-	height:550px;
+	height:550px !important;
+	z-index: 1;
 }
 
 .locationBg::before {
@@ -14,6 +15,14 @@
     bottom: 0px;
     left: 0px;
     background-color: rgba(0,0,0,0.3);   
+}
+
+.height550{
+	height:550px !important;	
+}
+
+.height385{
+	height:385px;	
 }
 
 .ma{
@@ -37,4 +46,11 @@
 	background-color:#fff;
 	color:#000;
 	font-weight:bold;
+}
+
+.zindex{
+	position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
 }

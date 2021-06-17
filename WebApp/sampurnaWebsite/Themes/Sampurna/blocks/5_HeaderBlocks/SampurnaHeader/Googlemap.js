@@ -4,6 +4,9 @@ import Router                 from 'next/router';
 import GoogleMapReact         from 'google-map-react';
 import Marker                 from './Marker.js';
 
+import Style                  from './location.module.css';
+
+
 class GoogleMap extends React.Component {
 	constructor(props) {
 		super(props);
@@ -38,7 +41,7 @@ class GoogleMap extends React.Component {
     //    console.log("apikey=",this.props.googleapiKey);
 
         return(  
-            <div className=" col-12 googleMap mt-4 mb-4 ">   
+            <div className={" NoPadding col-12 googleMap mt-4 mb-4 " +Style.zindex +" "+Style.height550}>   
                 {this.props.latLongDetails ? 
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
