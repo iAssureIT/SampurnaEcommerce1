@@ -377,4 +377,4 @@ class ProductDetailView extends Component {
 	getWishlistData  : getWishlistData,
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(ProductViewEcommerce);
+  export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailView);
