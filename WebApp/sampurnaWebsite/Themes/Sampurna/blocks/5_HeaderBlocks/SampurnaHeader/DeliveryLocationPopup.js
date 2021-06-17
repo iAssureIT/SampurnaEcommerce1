@@ -334,7 +334,7 @@ class DeliveryLocationPopup extends React.Component {
                         />
                     :
                     <div className={"col-12 NoPadding DeliveryLocation " +Style.locationBg +" "+Style.zindex}></div>}
-            <div className={"col-12 " +Style.height385}>
+            <div className={"col-12 " +Style.height385 }>
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 AddressListWrapper">
