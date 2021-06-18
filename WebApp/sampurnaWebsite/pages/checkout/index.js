@@ -39,8 +39,8 @@ class Checkout extends Component {
             totalIndPrice: 0,
             addressId: "",
             bannerData: {
-                title: "ORDER SUMMURY",
-                breadcrumb: 'Order Summury',
+                title: "ORDER SUMMARY",
+                breadcrumb: 'Order Summary',
                 backgroungImage: 'images/eCommerce/checkout.png',
             },
             deliveryAddress: [],
