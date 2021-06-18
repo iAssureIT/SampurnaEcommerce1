@@ -105,7 +105,7 @@ class Account extends Component{
     }
     render(){
         return(
-            <div className="col-12 NoPadding">
+            <div className={"col-12 NoPadding accountMainWrapper "+Style.accountMainWrapper}>
             {/* <Header /> */}
             {/* {<Loader type="fullpageloader" />} */}
                 {/* <SmallBanner bannerData={this.state.bannerData}/>   */}

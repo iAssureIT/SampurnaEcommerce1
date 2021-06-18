@@ -128,8 +128,8 @@ class MyAccount extends Component{
                     <div class="row">
                         <div class="col-md-3">
                             {/* <!-- Tabs nav --> */}
-                            <div class={"nav flex-column nav-pills nav-pills-custom x "+S.x} id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a class={"nav-link mb-5 p-3  shadow active rounded y "+S.y}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <div class={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link mb-5 p-3  shadow active rounded"  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
                                     <i class="fa fa-user-circle mr-3"></i>
                                     <span class=" small text-uppercase">Account Dashboard</span></a>
             
@@ -137,7 +137,7 @@ class MyAccount extends Component{
                                     <i class="fa fa-info-circle mr-3"></i>
                                     <span class=" small text-uppercase">Account Information</span></a>
             
-                                <a class={"nav-link mb-5 p-3 shadow y "+S.y} id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                <a class="nav-link mb-5 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
                                     <i class="fa fa-address-card mr-3"></i>
                                     <span class=" small text-uppercase">Address Book</span></a>
             
@@ -160,7 +160,7 @@ class MyAccount extends Component{
                         </div>
             
             
-                        <div class="col-md-9">
+                        <div class={"col-md-9 myAccountSideWrapper "+S.myAccountSideWrapper}>
                             {/* <!-- Tabs content --> */}
                             <div class="tab-content" id="v-pills-tabContent">
                                 <div class="tab-pane fade shadow rounded bg-white show active pb-5" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
