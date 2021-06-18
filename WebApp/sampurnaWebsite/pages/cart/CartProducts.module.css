@@ -16,9 +16,29 @@
 	height:auto;
 	margin-top:0px !important;
 	border:none;
+	display: inline-block;
+    background: #eee;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.bbBox{
+	border-bottom:1px solid #ccc;
+	padding-bottom:15px !important;
 }
 
 .shopping{
 	color:#333 !important;
 	text-decoration: underline; 
+}
+
+.cartSummary1 {
+    display: inline-block;
+    margin-top: 15px;
+    background: #eee;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 5px;
+    /* height: 170px; */
 }

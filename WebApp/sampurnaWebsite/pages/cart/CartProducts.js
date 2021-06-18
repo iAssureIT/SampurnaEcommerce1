@@ -300,8 +300,8 @@ class CartProducts extends Component{
                     <Message messageData={this.state.messageData} />
                     {   
                     this.props.recentCartData && this.props.recentCartData.vendorOrders && this.props.recentCartData.vendorOrders.length>0? 
-                    <div className="col-12 NOpadding" style={{"marginBottom":"20px"}}>
-                        <div className="row">  
+                    <div className="col-12 pl-0" style={{"marginBottom":"20px"}}>
+                        <div className="col-12">  
                             <div className="col-12 col-xl-12 col-md-12 table-responsive cartProduct">
                                 <div className="table">                                   
                                     <div className="col-12">
@@ -310,7 +310,7 @@ class CartProducts extends Component{
                                         console.log("vendorWiseCartData==",vendorWiseCartData);
                                         return(  
                                             <div className={"row " +Style.singleRow} key={index}>
-                                                <div className="col-8">
+                                                <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8 ">
                                                     <div className={"col-12 " +Style.singleVendorBox}>
                                                     <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
                                                     { vendorWiseCartData.cartItems.map((vendorData, index)=>{
@@ -318,13 +318,13 @@ class CartProducts extends Component{
                                                     return(
                                                         <div key={index}>
                                                             <div className="col-12">
-                                                                <div className="row">
-                                                                    <div className="col-2 ForMobile">
+                                                                <div className={"row mb-4 " +Style.bbBox}>
+                                                                    <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-2 col-xl-2 ForMobile">
                                                                         <a href={"/product-detail/" + vendorData.product_ID.productUrl + "/" +vendorData.product_ID}>
                                                                             <img className="img  cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
                                                                         </a>
                                                                     </div>
-                                                                    <div className="col-4 cartProductDetail">
+                                                                    <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail">
                                                                         <a href={"/product-detail/" + vendorData.product_ID.productUrl + "/" +vendorData.product_ID}>
                                                                             {vendorData.product_ID.productNameRlang?
                                                                                 <h5 className="RegionalFont"><b>{vendorData.product_ID.productNameRlang}</b></h5>
@@ -351,7 +351,7 @@ class CartProducts extends Component{
                                                                     </div>
                                                                     </div> 
 
-                                                                    <div className="nowrap col-2">                                                         
+                                                                    <div className="nowrap col-12 col-sm-12 col-sx-12 col-md-4 col-lg-3 col-xl-2 mb-3 ">                                                         
                                                                     {
                                                                         vendorData.product_ID.availableQuantity > 0 ?
                                                                         <div className="quantityWrapper">
@@ -369,7 +369,7 @@ class CartProducts extends Component{
                                                                         <span className="sold textAlignCenter">SOLD OUT</span>
                                                                     }
                                                                     </div>  
-                                                                    <div className="nowrap col-3">
+                                                                    <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3">
                                                                     {
                                                                         vendorData.product_ID.availableQuantity > 0 ?
                                                                             <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice * vendorData.quantity :vendorData.product_ID.originalPrice * vendorData.quantity}</span>
@@ -377,7 +377,7 @@ class CartProducts extends Component{
                                                                         <span>-</span>
                                                                     }    
                                                                     </div>
-                                                                    <div className="col-1">
+                                                                    <div className="col-6 col-sm-12 col-sx-12 col-md-4 col-lg-1 col-xl-1 text-right  ">
                                                                         <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorWiseCartData.vendor_id._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
                                                                     </div>
                                                                 </div> 
@@ -399,7 +399,7 @@ class CartProducts extends Component{
                                                 }
                                                 </div>
                                                 
-                                                <div className={"offset-1 col-3 vendorWiseSummury cartSummary pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
+                                                <div className={"col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 vendorWiseSummury pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
                                                     <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
                                                         {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
                                                     <table className="table table-responsive summaryTable">
@@ -437,15 +437,15 @@ class CartProducts extends Component{
                                     </div>
                                     <div className="col-12 CouponCode">
                                         <div className="row ">
-                                            <div className="col-9 mt-4 text-center">
+                                            <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8  mt-1 mb-3 text-center">
                                                 <div className="col-12">
                                                     <Link href="/">
                                                         <a className={"shoppingLink " +Style.shopping}>Contiune Shopping</a>
                                                     </Link>
                                                 </div>
                                             </div>
-                                            <div className="col-3 NoPadding">
-                                                <div className="col-12  cartSummary ">
+                                            <div className="col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 NoPadding">
+                                                <div className={"col-12  " +Style.cartSummary1}>
                                                     <div className="col-12 totalAmounts mb-2 pull-right">
                                                         <div className="row">
                                                             <div className="col-8">Final Total Amount</div>

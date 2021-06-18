@@ -57,6 +57,19 @@
 	font-weight: 500;
 }
 
+.AEDColor{
+    color:#DC1919;
+}
+
+.orclass{
+    color:#333;
+    font-size:13px;
+}
+
+.grey{
+    color:#ccc ;
+}
+
 .f13N{
 	font-size: 13px ! important;
 }
