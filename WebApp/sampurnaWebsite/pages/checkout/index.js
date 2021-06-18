@@ -893,7 +893,7 @@ class Checkout extends Component {
                                                                     </td>
                                                                 </tr>
                                                                 <tr className=" col-12 tableRow">
-                                                                    <td className={" " +Style.f13N +" "+Style.bold} colSpan="5"> 
+                                                                    <td className={" " +Style.f13N +" "+Style.bold +" "} colSpan="5"> 
                                                                         <div className="col-6 offset-3">
                                                                             <span className="col-8 title">{vendorWiseData.vendorName}&nbsp; Total</span>
                                                                             <span className="col-4 textAlignRight title NoPadding">&nbsp; 
