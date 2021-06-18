@@ -375,7 +375,7 @@ font-weight: bold;
   background : #E8E8E8;
 }
 .productCaroselBlock{
-  border: 1px solid #aaa;
+  /*border: 1px solid #aaa;*/
   margin-top: 5px;
   margin-bottom: 5px;
   /* height: 310px; */

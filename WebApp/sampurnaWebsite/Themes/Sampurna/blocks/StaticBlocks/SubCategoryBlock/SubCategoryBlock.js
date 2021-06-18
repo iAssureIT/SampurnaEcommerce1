@@ -59,19 +59,19 @@ class SubCategoryBlock extends Component{
                     {this.props.subCategoryData && this.props.subCategoryData.map((categorydata, index) => {
                       var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+this.props.categoryUrl/categorydata.subCategoryUrl;
                       return (
-                      <div className="col-12 productsCategoryBlock "  key={index}> 
+                      <div className={"col-12 productsCategoryBlock " +Style.outerBox}  key={index}> 
                           <Link href={url} className ={"col-12 "}> 
                             <a className ={"col-12 " +Style.categoryBlock}>
                               <div className={"itemImg col-12 NoPadding " +Style.categoryPhoto +" "+Style.itemImg}>
                                   <Image                                           
                                     src={categorydata.subCategoryImage ? categorydata.subCategoryImage : "/images/eCommerce/notavailable.jpg"}
                                     alt="ProductImg" 
-                                    className={"img-responsive " +Style.NoAvailableImg }
+                                    className={"img-responsive " +Style.itemImg }
                                     height={100}
                                     width={100} 
                                     layout={'intrinsic'}
                                   />
-                              <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.subCategoryTitle}>{categorydata.subCategoryTitle}</div>
+                              <div className={"col-12 text-center " +Style.categoryName} title={categorydata.subCategoryTitle}>{categorydata.subCategoryTitle}</div>
 
                               </div>
                             </a>

@@ -716,19 +716,19 @@ class Checkout extends Component {
                                         <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>PAYMENT METHOD <span className="required">*</span></div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
                                             {/* <input name="payMethod" ref="payMethod" type="radio" value={this.state.payMethod} className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" checked="true" /> */}
-                                            <input name="paymentmethods" type="radio" value="cod" className="webModelInput col-2 col-md-1"
+                                            <input name="paymentmethods" type="radio" value="cod" className="webModelInput codRadio col-2 col-md-1"
                                                 checked={this.state.paymentmethods === "cod"} onClick={this.handleChange.bind(this)} />
-                                            <span className="col-12 col-md-11 col-sm-10 col-xs-10">Cash On Delivery</span>
+                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Cash On Delivery</span>
                                         </div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
                                             {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
-                                            <input name="paymentmethods" type="radio" value="onlinePayment" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "onlinePayment"} onClick={this.handleChange.bind(this)} />
-                                            <span className="col-12 col-md-11 col-sm-10 col-xs-10">Credit / Debit Card</span>
+                                            <input name="paymentmethods" type="radio" value="onlinePayment" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "onlinePayment"} onClick={this.handleChange.bind(this)} />
+                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Credit / Debit Card</span>
                                         </div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
                                             {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
-                                            <input name="paymentmethods" type="radio" value="cardOnDelivery" className="webModelInput col-2 col-md-1" checked={this.state.paymentmethods === "cardOnDel"} onClick={this.handleChange.bind(this)} />
-                                            <span className="col-12 col-md-11 col-sm-10 col-xs-10">Card On Delivery</span>
+                                            <input name="paymentmethods" type="radio" value="cardOnDelivery" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "cardOnDel"} onClick={this.handleChange.bind(this)} />
+                                            <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Card On Delivery</span>
                                         </div>
                                         <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
                                     </div>

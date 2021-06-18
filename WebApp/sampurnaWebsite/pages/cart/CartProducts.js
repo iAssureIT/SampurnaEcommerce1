@@ -327,9 +327,9 @@ class CartProducts extends Component{
                                                                     <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail">
                                                                         <a href={"/product-detail/" + vendorData.product_ID.productUrl + "/" +vendorData.product_ID}>
                                                                             {vendorData.product_ID.productNameRlang?
-                                                                                <h5 className="RegionalFont"><b>{vendorData.product_ID.productNameRlang}</b></h5>
+                                                                                <h6 className="RegionalFont">{vendorData.product_ID.productNameRlang}></h6>
                                                                             :
-                                                                                <h5 className=""><b>{vendorData.product_ID.productName}</b></h5>
+                                                                                <h6 className="">{vendorData.product_ID.productName}</h6>
                                                                             }
                                                                         </a>
                                                                     {

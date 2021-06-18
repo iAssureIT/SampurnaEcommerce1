@@ -262,7 +262,7 @@ addtowishlist(event) {
 render() {
       // console.log("this.state.newProducts==",this.props.newProducts)
     return (
-        <div className={"col-12 " +Style.NoPadding}>        
+        <div className={"col-12 " }>        
             <Message messageData={this.state.messageData} />  
             <div className="col-12 ">
               <h5>{this.props.blockTitle}</h5>
@@ -298,7 +298,7 @@ render() {
                                 }   
                                 var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
                             return (
-                                <div key={index} className={"col-12 " +Style.singleProduct}>                          
+                                <div key={index} className={"col-12 " }>                          
                                 <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                                     <div className={"col-12 NoPadding"}>
                                     <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>

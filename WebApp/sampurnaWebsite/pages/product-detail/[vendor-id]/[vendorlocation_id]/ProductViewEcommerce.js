@@ -405,7 +405,7 @@ class ProductViewEcommerce extends Component {
 
 				<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
 				<div className="row">
-					<div className={"col-2 FiltersBlock " +Style.FilterBlkBox}>
+					<div className={"col-12 col-lg-2 col-xl-2 col-md-2 col-sm-12 sol-xs-12 FiltersBlock " +Style.FilterBlkBox}>
 						< CategoryFilters 
 							categoryData       = {this.state.subCategoryData}
 							vendor_ID          = {this.state.vendor_ID}
@@ -478,8 +478,8 @@ class ProductViewEcommerce extends Component {
 																	1
 																</div>
 																<div className={"col-6 float-left NoPadding " +Style.marginNo}>
-																	<i className={"fa fa-plus qtyIncrease globaleCommLargeBtn " +Style.radiusB2} id="addQuantity" onClick={this.addQuantity.bind(this)}></i><br />
-																	<i className={"fa fa-minus qtyIncrease globaleCommLargeBtn " +Style.radiusB3} id="decreaseQuantity" onClick={this.decreaseQuantity.bind(this)}></i>
+																	<i className={"fa fa-plus qtyIncrease globaleCommLargeBtn " +Style.radiusB2 +" "+Style.marginNo} id="addQuantity" onClick={this.addQuantity.bind(this)}></i><br />
+																	<i className={"fa fa-minus qtyIncrease globaleCommLargeBtn " +Style.radiusB3 +" "+Style.marginNo} id="decreaseQuantity" onClick={this.decreaseQuantity.bind(this)}></i>
 																</div>
 															</div>
 															
@@ -499,14 +499,14 @@ class ProductViewEcommerce extends Component {
 												</div>
 											}
 											
-											<div className="col-2 col-sm-3 NoPadding mobileViewNoPadding">
+											<div className="col-2 col-lg-2 col-xl-2 col-md-3 col-sm-3 col-xs-3 NoPadding mobileViewNoPadding">
 												{this.state.user_ID?
-													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn " +this.state.wishIconClass}>
-														<i className={"fa fa-heart"+wishClass +" heartIcon"}></i>
+													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass}>
+														<i className={"far fa-heart"+wishClass +" heartIcon"}></i>
 													</div>
 												:
-													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn " +this.state.wishIconClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
-														<i className={"fa fa-heart"+ wishClass +"heartIcon"}></i>
+													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
+														<i className={"far fa-heart"+ wishClass +"heartIcon"}></i>
 													</div>												
 												}
 											</div>	

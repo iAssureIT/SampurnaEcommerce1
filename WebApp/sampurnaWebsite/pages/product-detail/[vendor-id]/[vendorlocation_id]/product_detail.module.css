@@ -19,6 +19,20 @@
 	padding:16px;
 }
 
+.heart{
+	font-size:40px;
+}
+
+.wishClass{
+	cursor: pointer;
+	font-size:16px;
+    padding: 15px 10px;
+    border-radius: 4px;
+    /*background-color:red;*/
+    border: 1px solid #80b435;
+    color: #80b435;
+}
+
 .radiusB1{
 	border-radius:4px 0px 0px 4px;
 	background-color:#ccc !important;

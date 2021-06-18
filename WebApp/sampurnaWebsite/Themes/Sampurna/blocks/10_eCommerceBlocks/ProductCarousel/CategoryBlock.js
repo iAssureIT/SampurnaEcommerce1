@@ -81,7 +81,7 @@ class CategoryBlock extends Component{
                                     alt="ProductImg" 
                                     className={"img-responsive " +Style.NoAvailableImg }
                                     height={90}
-                                    width={100} 
+                                    width={90} 
                                     layout={'intrinsic'}
                                   />
                               <div className={"col-12 text-center mt-2 " +Style.categoryName} title={categorydata.category}>{categorydata.category}</div>
