@@ -7,12 +7,12 @@ import { connect }          from 'react-redux';
 import {getCartData}        from '../../redux/actions/index.js'; 
 import  store               from '../../redux/store.js'; 
 
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
-import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+// import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import Style                from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
 
 
@@ -207,20 +207,20 @@ class Wishlist extends Component {
 
     return (
       <div>
-        <Header />      
-      <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding abc" +Style.wishlistProduct}>
+        {/* <Header />       */}
+      <div className={"col-12 " +Style.wishlistProduct}>
         <Message messageData={this.state.messageData} />
-        <SmallBanner bannerData={this.state.bannerData} />
+        {/* <SmallBanner bannerData={this.state.bannerData} /> */}
 
         <div className="container">
           <br />
           <div className="row">
-          <div className={"col-12 col-lg-3"}>
+          {/* <div className={"col-12 col-lg-3"}>
             <div className="row">
               <Sidebar />
             </div>
-          </div>
-          <div className={"col-12 col-sm-9 NOpadding"}>
+          </div> */}
+          <div className={"col-12"}>
             <br />
             <br />
             <div className="col-12 row">
@@ -315,7 +315,7 @@ class Wishlist extends Component {
           </div>
         </div>
       </div>
-    <Footer />
+    {/* <Footer /> */}
       </div>
     );
   }

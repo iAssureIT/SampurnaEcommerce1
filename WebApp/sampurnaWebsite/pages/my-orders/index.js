@@ -4,17 +4,17 @@ import $, { data, event }                    from 'jquery';
 import moment               from "moment";
 import { FaStar }           from 'react-icons/fa';
 import                      'bootstrap/dist/css/bootstrap.min.css';
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
 import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
-import Countdown            from "react-countdown";
+// import Countdown            from "react-countdown";
 
 import Style                  from './index.module.css';
 
@@ -474,24 +474,25 @@ export default class MyOrders extends Component {
   render() {
     console.log("1. myorder page this.state.orderData=",this.state.orderData);
     return (
-      <div className="col-12 NoPadding">
-        <Header />
-        <div className={" " +Style.container1 }>
+      <div className="col-12">
+         <div className="row"> 
+        {/* <Header /> */}
+       
           <Message messageData={this.state.messageData} />
           {
             this.state.loading ?
               <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> 
               :
-              <div className="col-12 NOpadding">
-                <br />
+              // <div className="col-12 NOpadding">
+              //   <br />
                <div className="row"> 
-                <div className="col-12 col-xl-3 col-md-3 col-sm-3 myOrderSidebar ">
+                {/* <div className="col-12 col-xl-3 col-md-3 col-sm-3 myOrderSidebar ">
                   <Sidebar />
-                </div>
+                </div> */}
 
-                <div className="col-12 col-xl-9 col-md-9 col-sm-9 pr-0">
+                <div className="col-12 col-xl-12 col-md-12 col-sm-12 pr-0">
                   <div className="col-12">
-                      <h4 className={"table-caption " +Style.mainTitle}>My Orders</h4>
+                      <h4 className={"table-caption py-3 "}>My Orders</h4>
                   </div>
 
                   <div className="col-12">
@@ -576,9 +577,9 @@ export default class MyOrders extends Component {
                                           </div>
 
                                           {vendordata.orderStatus=== "Cancelled"?
-                                            <span className=" col-2 col-xl-1 col-lg-1 orderStatusBadge badge badge-danger NoPadding">{vendordata.orderStatus}</span>
+                                            <span className={" col-2  orderStatusBadge badge badge-danger NoPadding "+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
                                           :
-                                            <span className=" col-2 col-xl-1 col-lg-1 orderStatusBadge badge badge-primary NoPadding">{vendordata.orderStatus}</span>
+                                            <span className={" col-2  orderStatusBadge badge badge-primary NoPadding "+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
                                           }
                                         </div>
                                         </div>
@@ -596,7 +597,7 @@ export default class MyOrders extends Component {
                                     <div className="col-5  pull-left ">
                                         <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
                                     </div>
-                                    <div className="col-4 offset-3 pull-right orderBtnWrapper">
+                                    <div className="col-7  pull-right orderBtnWrapper">
                                       <button className=" btn col-12 pull-right ">
                                         <a href="/order-details" className={"col-12 col-xl-7 col-md-12 showDetailsBtn " +Style.detailBtn}>Show Details</a>
                                       </button>
@@ -714,11 +715,12 @@ export default class MyOrders extends Component {
                   </div>
                 </div>
                </div> 
-              </div>
+              // </div>
           }
         </div>
-        <Footer />
-      </div>
+        {/* <Footer /> */}
+        </div>
+      
     );
   }
 }

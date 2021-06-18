@@ -15,18 +15,18 @@ exports.create_block = (req,res,next)=>{
             pageType            : req.body.pageType,
             bgImage             : req.body.bgImage,
             bgVideo             : req.body.bgVideo,
-            fgImage1             : req.body.fgImage1,
+            fgImage1            : req.body.fgImage1,
             fgImage2            : req.body.fgImage2,
             fgVideo             : req.body.fgVideo,
             repeatedBlocks      : req.body.repeatedBlocks,
             animationSettings   : req.body.animationSettings,
             blockGroup          : req.body.blockGroup,
             blockAppearOnPage   : req.body.blockAppearOnPage,
-            blockSettings   : req.body.blockSettings,
-            productSettings : req.body.productSettings,
-            filterSettings  : [],
-            groupSettings   : req.body.groupSettings,
-            dealSettings   : req.body.dealSettings,
+            blockSettings       : req.body.blockSettings,
+            productSettings     : req.body.productSettings,
+            filterSettings      : [],
+            groupSettings       : req.body.groupSettings,
+            dealSettings        : req.body.dealSettings,
             createdAt           : new Date(),
 
         });
@@ -190,13 +190,21 @@ exports.update_block = (req,res,next)=>{
                             "pageType"            : req.body.pageType,
                             "bgImage"             : req.body.bgImage,
                             "bgVideo"             : req.body.bgVideo,
-                            "fgImage1"             : req.body.fgImage1,
+                            "fgImage1"            : req.body.fgImage1,
 
                             "fgImage2"            : req.body.fgImage2,
                             "fgVideo"             : req.body.fgVideo,
                             "repeatedBlocks"      : req.body.repeatedBlocks,
                             "blockGroup"          : req.body.blockGroup,
                             "blockAppearOnPage"   : req.body.blockAppearOnPage,
+
+                            "dealSettings"        : req.body.dealSettings,
+                            "groupSettings"       : req.body.groupSettings,
+
+                            "animationSettings"   : req.body.animationSettings,
+                            "blockSettings"       : req.body.blockSettings,
+                            "productSettings"     : req.body.productSettings,
+                            
                         }
                     }
                 )

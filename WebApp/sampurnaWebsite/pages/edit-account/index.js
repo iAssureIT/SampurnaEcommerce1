@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import $                    from 'jquery';
 import axios                from 'axios';
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+// import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
+// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 
@@ -290,24 +290,22 @@ class EditAccount extends Component{
     render(){
         return(
             <div>
-            < Header />   
-            < BreadCrumbs />
+            {/* < Header />    */}
+            {/* < BreadCrumbs /> */}
             <div className="container">            
             <Message messageData={this.state.messageData} />
 
-                <div className="col-12 NoPadding">
+                {/* <div className="col-12 NoPadding"> */}
 
                 {/* <div className="container"> */}
 
-                    <Loader type="fullpageloader" /> 
-                    <br/>
+                    {/* <Loader type="fullpageloader" />  */}
+                   
                    <div className="row"> 
-                    <div className="col-12 col-xl-3 col-md-12">
-                        <Sidebar />
-                    </div>
-                    <div className=" col-12 col-xl-9 col-md-12 NoPadding mt25">
+                  
+                    <div className=" col-12 col-xl-12 col-md-12 NoPadding ">
                         <h4 className="accountTitle">Account Information</h4>
-                        <div className="col-12 mt15">
+                        <div className="col-12 ">
                             <form id="editAccount">
                                 <div className="row">
                                     <div className="col-12 col-md-6 mb-2">
@@ -408,8 +406,8 @@ class EditAccount extends Component{
                     </div>
                   </div>  
                 </div>            
-        </div>
-        <Footer />   
+        {/* </div> */}
+        {/* <Footer />    */}
         </div> 
         )
     }

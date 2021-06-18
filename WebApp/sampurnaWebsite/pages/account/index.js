@@ -6,11 +6,13 @@ import axios                from 'axios';
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
-import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+// import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import UserAddress              from '../../pages/checkout/UserAddress.js';
+import Style                  from './index.module.css';
+
 
 class Account extends Component{
     constructor(props) {
@@ -84,10 +86,10 @@ class Account extends Component{
           console.log("account page getuser error = ",error);
         });
     }
-    editUser(event){
-        event.preventDefault();
-        Router.push('/edit-account');
-    }
+    // editUser(event){
+    //     event.preventDefault();
+    //     Router.push('/edit-account');
+    // }
     
     getAddressId(event){
         // event.preventDefault();
@@ -104,9 +106,9 @@ class Account extends Component{
     render(){
         return(
             <div className="col-12 NoPadding">
-            <Header />
+            {/* <Header /> */}
             {/* {<Loader type="fullpageloader" />} */}
-                <SmallBanner bannerData={this.state.bannerData}/>  
+                {/* <SmallBanner bannerData={this.state.bannerData}/>   */}
                 <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">  
                     <div className="modal-content loginModalContent " style={{'background': '#fff'}}>    
                         <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
@@ -127,13 +129,9 @@ class Account extends Component{
                 </div>
                 <div className="container">
                     <br/> 
-                    <div className="row">
-                        <div className="col-12 col-lg-3">
-                            <div className="row">
-                                <Sidebar />
-                            </div>
-                        </div>
-                        <div className="col-12 col-lg-9 mt25">
+                    <div className="col-12">
+                       
+                        <div className="col-12 col-lg-12 mt25">
                             <h5 className="accountTitle">Account Dashboard</h5>
                             <p><label className="col-12">Hello {this.state.firstName}</label></p>
                             <div className="col-12 row mt15 mb15 mx-auto mobileViewNoPadding">
@@ -143,13 +141,13 @@ class Account extends Component{
                                         <div className="row">
                                             <div className="col-12 accountDivHeader">Contact Information</div>
                                             <div className="col-12 mt25 mb25">
-                                                <div className="col-12 NoPadding accUserDetails">
-                                                    <p className="col-12 textwrap">{this.state.fullName}</p>
-                                                    <p className="col-12 ">{this.state.emailId}</p>
-                                                    <p className="col-12 ">{this.state.mobileNumber}</p>
+                                                <div className={"col-12 NoPadding accUserDetails "+Style.accUserDetails}>
+                                                    <h6 className="col-12 textwrap">{this.state.fullName}</h6>
+                                                    <h6 className="col-12 ">{this.state.emailId}</h6>
+                                                    <h6 className="col-12 ">{this.state.mobileNumber}</h6>
                                                 </div>
                                                 <div className="col-12 mt100">
-                                                    <button className="btn globalCommonBtn col-12 col-sm-7 " onClick={this.editUser.bind(this)}><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp;
+                                                    <button className="btn globalCommonBtn col-12 col-sm-7 " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" ><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -161,8 +159,8 @@ class Account extends Component{
                                         <div className="row">
                                             <div className="col-12 accountDivHeader">Newsletters</div>
                                             <div className="col-12 mt25 mb25">
-                                                <div className="col-12 NoPadding accUserDetails">
-                                                    <p className="col-12">You don't subscribe to our newsletter.</p>
+                                                <div className={"col-12 NoPadding accUserDetails "+Style.accUserDetails}>
+                                                    <h6 className="col-12">You don't subscribe to our newsletter.</h6>
                                                 </div>
                                                 <div className="col-12 mt45">
                                                     <button className="btn globalCommonBtn col-12 col-sm-7 "><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button>
@@ -173,7 +171,8 @@ class Account extends Component{
                                 </div>
 
                                 <div className="col-12">
-                                    <label className="col-12 mt-4 mb-4 row">Address Book</label> 
+                                    <h5 className="col-12 mt-4">Address Book</h5> 
+                                    {/* <hr className="w-25 pull-left"/> */}
                                 </div>
                                 
                                 <div className="col-12 col-lg-6 mt15 mobileViewNoPadding">
@@ -182,7 +181,7 @@ class Account extends Component{
                                             <div className="col-12 accountDivHeader">Default Billing Address</div>
                                             { this.state.addressLine1 ?
                                                 <div className="col-12 mt25 mb25">
-                                                    <div className="col-12 NoPadding accUserDetails">
+                                                    <div className={"col-12 NoPadding accUserDetails "+Style.accUserDetails}>
                                                         <p className="col-12">{this.state.name}</p>
                                                         <p className="col-12">
                                                         {this.state.addressLine2} - &nbsp;
@@ -216,7 +215,7 @@ class Account extends Component{
                                             <div className="col-12 accountDivHeader">Default Shipping Address</div>
                                             { this.state.addressLine1 ?
                                                 <div className="col-12 mt25 mb25">
-                                                <div className="col-12 NoPadding accUserDetails">
+                                                <div className={"col-12 NoPadding accUserDetails "+Style.accUserDetails}>
                                                     <p className="col-12">
                                                     {this.state.addressLine2 ? this.state.addressLine2+"-" : null} &nbsp;
                                                     {this.state.addressLine1}- &nbsp;
@@ -244,7 +243,7 @@ class Account extends Component{
                         </div>
                     </div>
                 </div>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         )
     }

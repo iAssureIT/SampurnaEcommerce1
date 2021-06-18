@@ -5,12 +5,12 @@ import _            from 'underscore';
 import moment       from "moment";
 import swal         from 'sweetalert';
 
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
-import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
+// import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 
 class Productreview extends Component {
@@ -174,19 +174,19 @@ class Productreview extends Component {
   render() {
     return (
     <div>
-     <Header />
-      <div className="col-12 NoPadding">
+     {/* <Header /> */}
+      <div className="col-12 ">
         <Message messageData={this.state.messageData} />
-        <SmallBanner bannerData={this.state.bannerData} />
+        {/* <SmallBanner bannerData={this.state.bannerData} /> */}
 
         <div className=" container">
           <br />
           <div className="row"> 
-          <div className="col-12 col-md-3  NOpadding">
+          {/* <div className="col-12 col-md-3  NOpadding">
             <Sidebar />
-          </div>
-          <div className="col-12 col-lg-9 col-md-9  NOpadding">
-            <div className="mt25 col-12">
+          </div> */}
+          <div className="col-12   NOpadding">
+            <div className=" col-12">
               {
                 this.state.reviewData && this.state.reviewData.length > 0 ?
                   this.state.reviewData.map((data, index) => {
@@ -321,7 +321,7 @@ class Productreview extends Component {
          </div> 
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
       </div>
     );
   }

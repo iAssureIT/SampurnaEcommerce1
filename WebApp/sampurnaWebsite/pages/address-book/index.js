@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import $                    from 'jquery';
 import axios                from 'axios';
 
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+// import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
+// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
-import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
+// import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 
 class AddressBook extends Component{
     constructor(props) {
@@ -122,21 +122,19 @@ class AddressBook extends Component{
     render(){
         return(      
         <div>
-        <Header />  
-        <BreadCrumbs />
+        {/* <Header />   */}
+        {/* <BreadCrumbs /> */}
         <div className="container">
-            <Loader type="fullpageloader" />
+            {/* <Loader type="fullpageloader" /> */}
             <Address addressId={this.state.addressId} opDone={this.opDone.bind(this)}/>
             <div className="pagealertnone col-12">
               <Message messageData={this.state.messageData} />
             </div>
                 <div className="col-12 NoPadding">
-                    <br/>
+                   
                   <div className="row">  
-                    <div className="col-12 col-xl-3 col-md-12 NOpadding mr20">
-                        <Sidebar />
-                    </div>
-                    <div className="col-12 col-xl-9 col-md-12 col-sm-7 NOpadding mt25">
+                    
+                    <div className="col-12 col-xl-12 col-md-12 col-sm-7 NOpadding mt25">
                         <h5 className="addTitle">Default Addresses</h5>
                         <div className="col-12 col-md-6 mt-2 mb-4">
                             <div className="col-12">
@@ -156,7 +154,7 @@ class AddressBook extends Component{
                                         {/* <i id={this.state.deliveryAddressID} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn anasBtn deleteAdd"></i> */}
                                     </div>
                                     :
-                                    <div className="row">
+                                    <div className="col-12">
                                         <label>Default Billing Address</label>
                                         <p>You have not set a default billing address.</p>
                                         <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2">Add Billing Address</div>
@@ -191,10 +189,9 @@ class AddressBook extends Component{
                             </div>
                         </div>*/
                         }
-                        <div className="col-12 NoPadding"> 
-                            <h5 className="addTitle">Additional Address Entries</h5>
-                        </div>
+                       
                         <div className="col-12 mt-2 mb25 NOpaddingRight ">
+                        <h5 className="addTitle">Additional Address Entries</h5>
                             
                         
                         {
@@ -233,7 +230,7 @@ class AddressBook extends Component{
                   </div>  
                 </div>            
         </div>
-        <Footer />
+        {/* <Footer /> */}
         </div>
         )
     }

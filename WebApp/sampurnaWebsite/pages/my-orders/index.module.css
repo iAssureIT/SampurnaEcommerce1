@@ -24,6 +24,11 @@
 	font-size:11px;
 }
 
+.orderStatusBadge{
+	height:27px!important;
+	padding:8px!important;
+}
+
 .orderIdborderNew{
 	background:#ffffff !important;
 	height:auto;
@@ -35,6 +40,10 @@
 
 .vendorRowBottom{
 	margin:25px 0px;
+}
+.vendorRowBottom button{
+	outline: none !important;
+	border:none !important;
 }
 
 .detailBtn{

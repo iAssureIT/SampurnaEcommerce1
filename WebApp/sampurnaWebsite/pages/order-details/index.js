@@ -9,7 +9,7 @@ import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Fo
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
+// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
 import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
@@ -414,11 +414,11 @@ export default class MyOrders extends Component {
               <div className="col-12 NoPadding">
                 <br />
                <div className="row"> 
-                <div className="col-12 col-xl-3 col-md-12 col-sm-12 myOrderSidebar ">
+                {/* <div className="col-12 col-xl-3 col-md-12 col-sm-12 myOrderSidebar ">
                   <Sidebar />
-                </div>
+                </div> */}
 
-                <div className="col-12 col-xl-9 col-md-12">
+                <div className="col-12 col-12 col-md-12">
                   <div className="col-12">
                       <h4 className={"table-caption " +Style.mainTitle}>Orders Details</h4>
                   </div>
