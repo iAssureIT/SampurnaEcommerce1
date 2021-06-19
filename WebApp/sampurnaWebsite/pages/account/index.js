@@ -162,7 +162,7 @@ class Account extends Component{
                                                 <div className={"col-12 NoPadding accUserDetails "+Style.accUserDetails}>
                                                     <h6 className="col-12">You don't subscribe to our newsletter.</h6>
                                                 </div>
-                                                <div className="col-12 mt45">
+                                                <div className="col-12 pt-4 pt-lg-0 mt45">
                                                     <button className="btn globalCommonBtn col-12 col-sm-7 "><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button>
                                                 </div>
                                             </div>
@@ -192,14 +192,14 @@ class Account extends Component{
                                                         Contact Number: {this.state.mobileNumber}
                                                         </p>
                                                     </div>
-                                                    <div className="col-12">
+                                                    <div className="col-12 pt-4 pt-lg-0">
                                                         <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
                                                     </div>
                                                 </div>
                                                 :
                                                 <div className="col-12 mt25 mb25">
                                                     <p className="col-12">You have not set a default billing address.</p>
-                                                    <div className="col-12 mt25">
+                                                    <div className="col-12 pt-4 mt25">
                                                         <button data-toggle="modal" data-target="#checkoutAddressModal"
                                                          className="btn globalCommonBtn col-12 col-sm-7"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
                                                     </div>
@@ -224,7 +224,7 @@ class Account extends Component{
                                                     Contact Number: {this.state.mobileNumber} 
                                                     </p>
                                                 </div>
-                                                    <div className="col-12">
+                                                    <div className="col-12 pt-4 pt-lg-0">
                                                         <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
                                                     </div>
                                                 </div>
