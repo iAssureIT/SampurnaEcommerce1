@@ -10,6 +10,7 @@ import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/Smal
 // import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
 import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
 // import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
+import Style                  from './index.module.css';
 
 class AddressBook extends Component{
     constructor(props) {
@@ -121,117 +122,58 @@ class AddressBook extends Component{
     }
     render(){
         return(      
-        <div>
-        {/* <Header />   */}
-        {/* <BreadCrumbs /> */}
-        <div className="container">
-            {/* <Loader type="fullpageloader" /> */}
+            <div className="container-flex "> {/*
+            <Loader type="fullpageloader" /> */}
             <Address addressId={this.state.addressId} opDone={this.opDone.bind(this)}/>
-            <div className="pagealertnone col-12">
-              <Message messageData={this.state.messageData} />
-            </div>
-                <div className="col-12 NoPadding">
-                   
-                  <div className="row">  
-                    
-                    <div className="col-12 col-xl-12 col-md-12 col-sm-7 NOpadding mt25">
-                        <h5 className="addTitle">Default Addresses</h5>
-                        <div className="col-12 col-md-6 mt-2 mb-4">
-                            <div className="col-12">
-                                {
-                                    this.state.addressLine1 ? 
+            <div className=" col-12">
+                <Message messageData={this.state.messageData} /> </div>
+            <h5 className="font-weight-bold">Default Addresses</h5>
+            <div className={ "col-12   "+Style.accountDashBoardInnerwrapper}>
+                <div className="row">
+                    <div className="col-12 pt-4 ">
+                        <div className="row">
+                            <div className="col-12 col-lg-6">
+                                <div className="col-12"> { this.state.addressLine1 ?
                                     <div className="row">
                                         <label>Default Shipping / Billing Address</label>
-                                        <p>
-                                            {this.state.name} <br />
-                                            {this.state.addressLine2 ? this.state.addressLine2+",  " : null}
-                                            {this.state.addressLine1} - {this.state.pincode}. <br />                                            
-                                            {/* {this.state.city},<br /> */}
-                                            {/* {this.state.state}, {this.state.country} - {this.state.pincode}<br /> */}
-                                            Contact Number: {this.state.mobileNumber}
-                                        </p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn mt-2">Change Billing Address</div>
-                                        {/* <i id={this.state.deliveryAddressID} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn anasBtn deleteAdd"></i> */}
-                                    </div>
-                                    :
+                                        <p> {this.state.name}
+                                            <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {this.state.addressLine1} - {this.state.pincode}.
+                                            <br /> {/* {this.state.city},
+                                            <br /> */} {/* {this.state.state}, {this.state.country} - {this.state.pincode}
+                                            <br /> */} Contact Number: {this.state.mobileNumber} </p>
+                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn mt-2">Change Billing Address</div> {/* <i id={this.state.deliveryAddressID} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn anasBtn deleteAdd"></i> */} </div> :
                                     <div className="col-12">
                                         <label>Default Billing Address</label>
                                         <p>You have not set a default billing address.</p>
                                         <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2">Add Billing Address</div>
+                                    </div> } </div>
+                            </div>
+                            <div className="col-12 col-lg-6  NOpaddingRight ">
+                                <label className="text-center">Additional Address Entries</label> { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
+                                <div key={ 'address'+index} className="col-12 col-md-6 ">
+                                    <div className="col-12 ">
+                                        <div className="row">
+                                            <p> {address.name}
+                                                <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
+                                                <br /> {/* {this.state.city},
+                                                <br /> */} {/* {address.state}, {address.country} - {address.pincode}
+                                                <br /> */} Pincode : {address.pincode +"."}
+                                                <br /> Contact Number: {address.mobileNumber} </p>
+                                            <div data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn">Edit Address</div> &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn globalCommonBtn deleteAdd" style={{ "fontSize": '15px' }}></i> </div>
                                     </div>
-                                }
+                                </div> ); } }) :
+                                <p className="text-justify">You have no other address entries in your address book.</p> }
+                                <div className="col-12 NOpadding mt25">
+                                    <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className="btn globalCommonBtn addressSaveBtn">Add New Address</div>
+                                </div>
                             </div>
                         </div>
-                        {
-                        /*<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-2 mb25 NOpaddingRight">
-                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                {this.state.addressLine1 ?
-                                    <div className="row">
-                                        <label>Default Shipping Address</label>
-                                        <p>
-                                            {this.state.name} <br />
-                                            {this.state.addressLine1} <br />
-                                            {this.state.addressLine2} <br />
-                                            {this.state.block}, {this.state.city},<br />
-                                            {this.state.state}, {this.state.country} - {this.state.pincode}<br />
-                                            T: {this.state.mobileNumber}
-                                        </p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn btn-warning mt-2">Change Shipping Address</div>
-                                    </div>
-                                    :
-                                    <div className="row">
-                                        <label>Default Shipping Address</label>
-                                        <p>You have not set a default shipping address.</p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={'/address'} className="btn btn-warning mt-2">Add Shipping Address</div>
-                                    </div>
-                                }
-                                
-                            </div>
-                        </div>*/
-                        }
-                       
-                        <div className="col-12 mt-2 mb25 NOpaddingRight ">
-                        <h5 className="addTitle">Additional Address Entries</h5>
-                            
-                        
-                        {
-                            this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ?
-                            this.state.deliveryAddresses.map((address , index)=>{
-                                if(index !== 0){
-                                    return(
-                                        <div key={'address'+index} className="col-12 col-md-6 mb-2 NOpaddingLeft addressHeight">
-                                            <div className="col-12 ">
-                                                <div className="row">
-                                                    <p>
-                                                        {address.name} <br />
-                                                        {this.state.addressLine2 ? this.state.addressLine2+",  " : null}
-                                                        {address.addressLine1} <br />                                                        
-                                                        {/* {this.state.city},<br /> */}
-                                                        {/* {address.state}, {address.country} - {address.pincode}<br /> */}
-                                                        Pincode : {address.pincode +"."} <br />
-                                                        Contact Number: {address.mobileNumber}
-                                                    </p>
-                                                    <div  data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn">Edit Address</div> &nbsp;
-                                                    <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn globalCommonBtn deleteAdd" style={{"fontSize":'15px' }}></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                }
-                            })
-                            :
-                            <p>You have no other address entries in your address book.</p>
-                        }
-                        <div className="col-12 NOpadding mt25">
-                        <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className="btn globaleCommBtn addressSaveBtn">Add New Address</div>
-                        </div>
                     </div>
-                    </div>
-                  </div>  
-                </div>            
+                </div>
+            </div>
         </div>
-        {/* <Footer /> */}
-        </div>
+        
+       
         )
     }
 }

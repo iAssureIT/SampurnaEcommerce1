@@ -383,21 +383,22 @@ body{
 /* new */
 /* BTN FIVE */
 .globalCommonBtn{
-  background-color: #222222 !important;
+  background-color: #033554 !important;
+  height: 35px;
   font-size: 12px !important;
   color: #fff !important;
-  border:2px solid #222222 !important;
-  border-radius: 0px !important;
+  border:1px solid #033554 !important;
+  border-radius: 12px !important;
   text-align:center;
-  padding: 10px 20px !important;
-  margin-top: 5px !important;
+  padding: 8px 20px !important;
+  /* margin-top: 5px !important; */
   transition: 0.6s ease !important;
   font-weight: 600 !important;
 }
 .globalCommonBtn:hover{
   background-color: transparent !important;
   color: var(--globalColor) !important;
-  border:2px solid #222222;
+  border:1px solid #033554;
 }
 .globalAddToCartBtn{
   background-color: var(--cartBgColor) !important;

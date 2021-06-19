@@ -791,7 +791,7 @@ class Checkout extends Component {
                                                 }
                                             </div>
                                             <div className="col-12 mt2">
-                                                <div className="btn globaleCommBtn col-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
+                                                <div className="btn globalCommonBtn col-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
                                             </div>
                                         </div>
                                         :

@@ -17,7 +17,7 @@ import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wiza
 import ProductsView         from './ProductsView.js';
 import Style                  from './index.module.css';
 
-export default class MyOrders extends Component {
+export default class OrderDetails extends Component {
   constructor(props) {
     super(props);
     if (!this.props.loading) {
@@ -404,7 +404,7 @@ export default class MyOrders extends Component {
   render() {
     return (
       <div className="col-12 NoPadding">
-        <Header />
+        {/* <Header /> */}
         <div className={" " +Style.container1 }>
           <Message messageData={this.state.messageData} />
           {
@@ -527,7 +527,7 @@ export default class MyOrders extends Component {
               </div>
           }
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

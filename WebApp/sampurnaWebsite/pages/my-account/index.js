@@ -17,6 +17,7 @@ import AddressBook         from  '../../pages/address-book/index.js'
 import MyOrders               from '../../pages/my-orders/index.js'
 import Wishlist               from  '../../pages/wishlist/index.js'
 import Productreview               from '../../pages/productreview/index.js'
+import OrderDetails               from '../../pages/order-details/index.js'
 
 import S                from './index.module.css';
 
@@ -149,9 +150,9 @@ class MyAccount extends Component{
                                 <i class="fa fa-heart mr-3"></i>
                                 <span class=" small text-uppercase"> My Wishlist</span></a>
 
-                                <a class="nav-link mb-5 p-3 shadow" id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false">
+                                {/* <a class="nav-link mb-5 p-3 shadow" id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false">
                                 <i class="fa fa-star mr-3"></i>
-                                <span class=" small text-uppercase">My Product Reviews</span></a>
+                                <span class=" small text-uppercase">My Product Reviews</span></a> */}
 
 
                                    
@@ -183,7 +184,7 @@ class MyAccount extends Component{
                                     <Wishlist/>
                                  </div>
                                  <div class="tab-pane fade shadow rounded bg-white pb-5" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">
-                                    <Productreview/>
+                                    <OrderDetails />
                                  </div>
                                  
                             </div>

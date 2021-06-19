@@ -598,8 +598,8 @@ export default class MyOrders extends Component {
                                         <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
                                     </div>
                                     <div className="col-7  pull-right orderBtnWrapper">
-                                      <button className=" btn col-12 pull-right ">
-                                        <a href="/order-details" className={"col-12 col-xl-7 col-md-12 showDetailsBtn " +Style.detailBtn}>Show Details</a>
+                                      <button className=" btn col-6 pull-right ">
+                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-12 pull-right globalCommonBtn col-md-12 showDetailsBtn "}>Show Details</a>
                                       </button>
                                     </div>
                                   </div>
