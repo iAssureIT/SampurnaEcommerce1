@@ -539,6 +539,7 @@ ul:hover > .dropDownLevel3 {
 li a{
     list-style: none;
 }
+
 .ulDropdown li{
     display: inline-block;
 }
@@ -718,4 +719,15 @@ li a{
 }
 .myAddress{
     font-size: 13px;
+}
+.locationPage{
+	margin-top:0px !important;
+}
+.locationBg{
+	background:url("/images/eCommerce/snazzy-image.gif");
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+	margin-top:0px !important;
+	/* height:600px !important; */
+	z-index: 1;
 }

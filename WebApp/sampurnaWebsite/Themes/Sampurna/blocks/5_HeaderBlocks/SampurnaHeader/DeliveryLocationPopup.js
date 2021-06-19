@@ -19,8 +19,6 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-au
 
 import Style                  from './location.module.css';
 
-
-
 class DeliveryLocationPopup extends React.Component {
 	constructor(props) {
 		super(props);
@@ -117,7 +115,7 @@ class DeliveryLocationPopup extends React.Component {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     Geocode.fromLatLng(position.coords.latitude, position.coords.longitude)
                     .then((response) => {
-                        console.log("location response=>",response.results.results);
+                        // console.log("location response=>",response.results.results);
                             const address = response.results[0].formatted_address;
                            var latLongDetails = {
                                 lat: position.coords.latitude,
@@ -178,6 +176,8 @@ class DeliveryLocationPopup extends React.Component {
                                 localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
                                 // console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
                                 store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                                // Router.push("/");
+                                // window.location.reload();
                             }
                             that.setState({ address: deliveryLocation.address });                              
                         },
@@ -327,7 +327,7 @@ class DeliveryLocationPopup extends React.Component {
        }
        
     return (
-            <div className={"row " +Style.height385+" " +Style.locationBg} >
+            <div className={"row locationPage locationBg " +Style.height385+" " +Style.locationBg +" " +Style.locationPage} >
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 AddressListWrapper">
@@ -338,7 +338,7 @@ class DeliveryLocationPopup extends React.Component {
                 }
                 <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
                 <div className="col-12 offset-0 mobileViewNoPadding">
-                    <form className=" col-12 deliveryForm">
+                    <form className={" col-12 " +Style.deliveryForm}>
                         <div className="col-12 mt-5 ">
                             {/* <div className={"col-2 col-sm-12 col-xs-12 col-md-12 " +Style.ma}>
                                 <Websitelogo />
@@ -387,13 +387,16 @@ class DeliveryLocationPopup extends React.Component {
                                         )}
                                 </PlacesAutocomplete>
                             </div>
-                            <div className={"col-sm-12 col-xs-12 col-md-12 mt-5 " +Style.ma}>
-                                <div className={"row " +Style.ma}>
-                                    <div className="offset-xl-2 col-xl-3 col-12 col-sm-12 col-xs-12 col-md-12 NoPadding detectLocationBtn">
-                                        <button type="button" className={"btn pull-center changelocationBtn " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
+                            <div className={"col-sm-12 col-xs-12 col-md-12 col-lg-8 mt-5 " +Style.ma}>
+                                <div className="col-12">
+                                    <div className={"row " +Style.ma}>
+                                        <div className=" col-4 NoPadding detectLocationBtn">
+                                            <button type="button" className={"btn pull-center changelocationBtn " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
+                                        </div>
+                                        <div className={"text-center mt-2 NoPadding col-4 " +Style.tw +" "+Style.f12}>OR</div>
+
+                                        <button type="button" className={"btn col-4  changelocationBtn pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                     </div>
-                                    <div className={"text-center mt-2 NoPadding col-xl-1 col-12 col-sm-12 col-xs-12 col-md-12 " +Style.tw +" "+Style.f12}>OR</div>
-                                    <button type="button" className={"btn col-xl-2 col-12 col-lg-2 col-sm-12 col-xs-12 col-md-4  changelocationBtn " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                 </div>
                             </div>
                             

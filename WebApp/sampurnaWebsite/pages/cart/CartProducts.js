@@ -100,7 +100,7 @@ class CartProducts extends Component{
                 this.setState({
                     messageData   : {},
                 })
-            }, 3000);
+            }, 1500);
             this.props.fetchCartData();
             
         })
@@ -169,7 +169,7 @@ class CartProducts extends Component{
                     this.setState({
                         messageData   : {},
                     })
-                }, 3000);
+                }, 1500);
             }
             else{
                 // console.log("formValues===",formValues);
@@ -278,7 +278,7 @@ class CartProducts extends Component{
                         this.setState({
                             messageData   : {},
                         })
-                    }, 3000);
+                    }, 1500);
                     this.props.fetchCartData();
                 })
                 .catch((error)=>{

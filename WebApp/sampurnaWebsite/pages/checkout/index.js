@@ -107,11 +107,11 @@ class Checkout extends Component {
             "latitude"      : this.state.latitude,
             "longitude"     : this.state.longitude,
         }
-        // console.log("formValues=>",formValues);
+        console.log("formValues=>",formValues);
         axios.post('/api/ecommusers/myaddresses',formValues)
         .then(response => {
             if(response){
-                // console.log("distanceResponse=>",response);
+                console.log("distanceResponse=>",response);
                 this.setState({
                     "deliveryAddress": response.data.deliveryAddress,
                     // "username": response.data.profile.fullName,
@@ -304,7 +304,7 @@ class Checkout extends Component {
         var addressValues = {};
         $("html, body").animate({ scrollTop: 450 }, 800);
         var vendorOrders = this.state.recentCartData.vendorOrders;
-        // console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData.vendorOrders);
+        // console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData);
         for(var i = 0; i<vendorOrders.length;i++){ 
             vendorOrders[i].products =[];
             if(vendorOrders[i].cartItems){
@@ -313,12 +313,12 @@ class Checkout extends Component {
                 vendorOrders[i].products[j].quantity =vendorOrders[i].cartItems[j].quantity ;
                 vendorOrders[i].deliveryStatus =[];
                   vendorOrders[i].deliveryStatus.push({
-                    "status"          : "New Order",
+                    "status"          : "New",
                     "timestamp"       : new Date(),
                     "statusUpdatedBy" : this.state.user_ID,
                     "expDeliveryDate" : new Date(),
                 }) 
-                vendorOrders[i].orderStatus =  "New Order";
+                vendorOrders[i].orderStatus =  "New";
               } 
              delete vendorOrders[i].cartItems;
             }
@@ -333,6 +333,9 @@ class Checkout extends Component {
             "email"    : this.state.email,
             "fullName" : this.state.fullName
         }
+
+        this.state.recentCartData.paymentDetails.paymentMethod = paymentMethod;
+
         console.log("Formvalues===",formValues);
         for(var i=0;i<this.state.recentCartData.vendorOrders.length;i++){
             var soldProducts = this.state.recentCartData.vendorOrders[i].products.filter((a, i) => {
@@ -379,7 +382,7 @@ class Checkout extends Component {
                     "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
                     "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
                 }
-                console.log("inside if address values====",addressValues);               
+                // console.log("inside if address values====",addressValues);               
             } else {
                 console.log("inside else new address");
                 addressValues = {
@@ -452,7 +455,7 @@ class Checkout extends Component {
                             deliveryAddress           : addressValues,
                            
                         }
-                        // console.log("OrdersData===",orderData);
+                        console.log("OrdersData===",orderData);
 
                         if (this.state.isChecked) {                            
                             axios.post('/api/orders/post', orderData)
@@ -742,8 +745,8 @@ class Checkout extends Component {
                                                 
                                                 {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
                                                     this.state.deliveryAddress.map((data, index) => {
-                                                        // console.log("address data ==", data);
-                                                        {data.distance <=1
+                                                        console.log("address data ==", data);
+                                                        {data.distance >=1
                                                         ?   
                                                             $('.addressList_'+data._id).addClass('addressDesabled')
                                                         :
@@ -753,7 +756,7 @@ class Checkout extends Component {
                                                             <div key={'check' + index} className={"col-12 NoPadding " +"addressList_"+data._id}>
                                                                 <div className="row " >
                                                                 <div className="form-check col-1">
-                                                                    <input type="radio" className="form-check-input" disabled = {data.distance <=1?true:false} name="checkoutAddess" id={"address"+index} value={data._id} 
+                                                                    <input type="radio" className="form-check-input" disabled = {data.distance >=1?true:false} name="checkoutAddess" id={"address"+index} value={data._id} 
                                                                     onChange={(e)=>{
                                                                         this.setState({
                                                                             "addressId": e.target.value,

@@ -1,11 +1,10 @@
-.locationBg{
+/* .locationBg{
 	background:url("/images/eCommerce/snazzy-image.gif");
 	background-size:100% 100%;
 	background-repeat:no-repeat;
-	margin-top:0px !important;
-	/* height:600px !important; */
+	margin-top:0px !important;; 
 	z-index: 1;
-}
+} */
 
 .locationBg::before {
     content: "";
@@ -14,11 +13,11 @@
     right: 0px;
     bottom: 0px;
     left: 0px;
-    background-color: rgba(0,0,0,0.3);   
+    /* background-color: rgba(0,0,0,0.3);    */
 }
 
 .height550{
-	height:550px !important;	
+	height:480px !important;	
 }
 
 .height385{
@@ -47,6 +46,12 @@
 .zindex{
 	position: absolute;
   left: 0px;
-  top: 0px;
-  z-index: -1;
+  top: -71px;
+  z-index: 0;
+}
+.deliveryForm{
+	z-index: 4 !important;
+}
+.googleMap{
+	background-color: rgba(0,0,0,0.3) !important;   
 }

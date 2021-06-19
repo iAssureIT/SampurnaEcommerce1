@@ -3,6 +3,8 @@ import axios 		          from 'axios';
 import Router                 from 'next/router'; 
 import GoogleMapReact         from 'google-map-react';
 import Marker                 from './Marker.js';
+import $, { post }          from 'jquery';
+import jQuery               from 'jquery';
 
 import Style                  from './location.module.css';
 
@@ -14,10 +16,11 @@ class GoogleMap extends React.Component {
             googleapiKey  : "",
             userDetails   : "",
             latLongValues : {},
-            zoom          : 15
+            zoom          : 13
          }
     }  
     componentDidUpdate(prevProps, prevState) {
+        $('.locationPage').removeClass('locationBg');
         // console.log("prevProps===",prevProps);
         var latLongDetails = {
             lat: prevProps.latLongDetails.lat,
@@ -41,7 +44,7 @@ class GoogleMap extends React.Component {
     //    console.log("apikey=",this.props.googleapiKey);
 
         return(  
-            <div className={" NoPadding col-12 googleMap mt-4 mb-4 " +Style.zindex +" "+Style.height550}>   
+            <div className={" NoPadding col-12  mt-4 mb-4 " +Style.zindex +" "+Style.height550 +" " +Style.googleMap}>   
                 {this.props.latLongDetails ? 
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact

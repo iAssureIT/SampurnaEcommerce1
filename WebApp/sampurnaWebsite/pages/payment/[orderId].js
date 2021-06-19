@@ -96,7 +96,7 @@ class Payment extends Component {
                       </strong>
                       <div className="box-content">
                         {
-                          this.state.orderData.paymentMethod
+                          this.state.orderData.paymentDetails.paymentMethod
                         }
                       </div>
                     </div>
@@ -273,7 +273,7 @@ class Payment extends Component {
               </div>
 
                 <div className="backtoMyOrdersDiv">
-                  <Link href="/my-orders">
+                  <Link href="/my-account">
                       <a  className="backtoMyOrders"> Back to My Orders</a>
                   </Link>
                 </div>

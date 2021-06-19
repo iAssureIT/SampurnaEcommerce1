@@ -150,7 +150,7 @@ class header extends React.Component {
 
                             <li className="col-12 NOpadding myAccMenu"><Link href="/my-orders"><a>My Orders</a></Link></li>
                             <li className="col-12 NOpadding myAccMenu"><Link href="/wishlist"><a>My Wishlist</a></Link></li>                               
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/account"><a>My Profile</a></Link></li>
+                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Profile</a></Link></li>
                   
                             <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                         </ul>
