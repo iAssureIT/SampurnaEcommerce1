@@ -48,6 +48,13 @@ import {ProductVendorList}        from '../Screens/VendorList/ProductVendorList.
 import {VendorProducts}           from '../Screens/VendorProducts/VendorProducts.js';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import  HeaderBar2                 from '../ScreenComponents/HeaderBar2/HeaderBar2.js';
+import Drawer                     from 'react-native-drawer';
+import {AboutUs}                  from '../Screens/AboutUs/AboutUs.js';
+import {ContactUs}                from '../Screens/ContactUs/ContactUs.js';
+import {FAQ}                      from '../Screens/FAQ/FAQ.js';
+import {TermsAndConditions}               from '../Screens/TermsAndConditions/TermsAndConditions.js';
+import {PrivacyPolicy}               from '../Screens/PrivacyPolicy/PrivacyPolicy.js';
+
 
 const Home = createDrawerNavigator();
 const TransitionScreenOptions = {
@@ -55,6 +62,23 @@ const TransitionScreenOptions = {
 };
 
 
+const horizontalAnimation = {
+  gestureDirection: 'horizontal-inverted',
+  cardStyleInterpolator: ({ current, layouts }) => {
+    return {
+      cardStyle: {
+        transform: [
+          {
+            translateX: current.progress.interpolate({
+              inputRange: [0, 1],
+              outputRange: [layouts.screen.width, 0],
+            }),
+          },
+        ],
+      },
+    };
+  },
+};
 
 export const HomeStack = () => (
 
@@ -63,16 +87,9 @@ export const HomeStack = () => (
     headerMode            = "none"
     // mode="modal"
     initialRouteName ="Dashboard"
-    screenOptions={{
-      gestureEnabled:true,
-      gestureDirection:'horizontal',
-      cardStyleInterpolator:CardStyleInterpolators.forHorizontalIOS
-      // transitionSpec:{
-      //   open:config,
-      //   close:closeConfig
-      // }
-    }}
-    drawerContent   = { (props) => <Menu { ...props } />}
+    screenOptions={horizontalAnimation}
+    
+    drawerContent   = { (props) =>  <Drawer><Menu { ...props } /></Drawer>}
   >
     <Home.Screen name="Dashboard"                   component={Dashboard}  options={getHeaderConfig("",false)}/>
     <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} options={getHeaderConfig("Dashboard",true)}/>
@@ -102,6 +119,11 @@ export const HomeStack = () => (
     <Home.Screen name="VendorList"                  component={VendorList} options={getHeaderConfig("Vendor List",true)}/>
     <Home.Screen name="ProductVendorList"           component={ProductVendorList} options={getHeaderConfig("Vendor List",true)}/>
     <Home.Screen name="VendorProducts"              component={VendorProducts} options={getHeaderConfig("Product List",true)}/>
+    <Home.Screen name="AboutUs"                     component={AboutUs} options={getHeaderConfig("About Us",true)}/>
+    <Home.Screen name="ContactUs"                   component={ContactUs} options={getHeaderConfig("Contact Us",true)}/>
+    <Home.Screen name="TermsConditions"             component={TermsAndConditions} options={getHeaderConfig("Terms & Conditions",true)}/>
+    <Home.Screen name="PrivacyPolicy"             component={PrivacyPolicy} options={getHeaderConfig("Privacy Policy",true)}/>
+    <Home.Screen name="FAQ"                         component={FAQ} options={getHeaderConfig("Frequently Asked Questions",true)}/>
   </Home.Navigator>
 );
 

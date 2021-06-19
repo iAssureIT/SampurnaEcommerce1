@@ -1,298 +1,143 @@
-
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {
   ScrollView,
   Text,
-  View,
-  TouchableOpacity,
-  Image,
-  Alert,
+  View,ge,
 } from 'react-native';
-import { Header, Button, Icon, SearchBar } from "react-native-elements";
-import SideMenu from 'react-native-side-menu';
-import {Menu} from '../../ScreenComponents/Menu/Menu.js';
-import Footer from '../../ScreenComponents/Footer/Footer.js';
-import Notification from '../../ScreenComponents/Notification/Notification.js'
-// import styles from './Contactusstyles.js';
-import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Contactusstyles.js';
-import {colors} from '../../AppDesigns/currentApp/styles/styles.js.js';
-import Loading from '../../ScreenComponents/Loading/Loading.js';
-export default class ContactUs extends React.Component{
-  constructor(props){
-    super(props);
-    this.state={
-      	inputFocusColor       : colors.textLight,
-      	isOpen: false,
-    };
-  }
+import {Icon,}                  from "react-native-elements";
+import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
+import {Footer}                   from '../../ScreenComponents/Footer/Footer1.js';
+import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
+import Loading                  from '../../ScreenComponents/Loading/Loading.js';
+import {Linking}                from 'react-native'
+import Axios                    from 'axios';
+import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
+import AsyncStorage             from '@react-native-async-storage/async-storage';
+;
 
-  UNSAFE_componentWillReceiveProps(nextProps){
-  }
+export const ContactUs = (props)=>{
+    const {navigation}=props;
+    const [user_id,setUserId]               = useState('');
+    const [companyName,setCompanyName]      = useState('');
+    const [companyEmail,setCompanyEmail]    = useState('');
+    const [companyPhone,setCompanyPhone]    = useState('');
+    const [loading,setLoading]              = useState(true);
+    
+    useEffect(() => {
+        AsyncStorage.multiGet(['token', 'user_id'])
+        .then((data) => {
+            var token = data[0][1]
+            var user_id = data[1][1]
+            setUserId(user_id)
+        }); 
+        getData();
+    },[]);
 
-  updateMenuState(isOpen) {
-    this.setState({ isOpen });
-  }
 
-  displayValidationError = (errorField) =>{
-    let error = null;
-    if(this.state[errorField]){
-      error = <View style={{width:'100%'}}>
-                <Text style={{color:'#dc3545'}}>{this.state[errorField][0]}</Text>
-              </View> ;
+    const  openControlPanel = () => {
+        _drawer.open()
     }
-    return error;
-  }
 
-  toggle() {
-    let isOpen = !this.state.isOpen;
-      this.setState({
-        isOpen
-      });
-  }
-
-  closeControlPanel = () => {
-    this._drawer.close()
-  }
-
-  openControlPanel = () => {
-    this._drawer.open()
-  }
-
-  handleZipChange(value){
-    let x = value.replace(/\D/g, '').match(/(\d{0,5})(\d{0,4})/);
-    let y = !x[2] ? x[1] : x[1]+'-'+x[2];
-    this.setState({
-      zipcode : y,
-    });
-  }
-
-  handleDelete = (id) => {
-    Alert.alert("", "Are you sure you want to delete ?", [
-      { text: "Cancel" },
-      {
-        text: "Delete",
-        onPress: () => {
-          this.deleteCompetitor(id);
-        }
-      },
-    ]);
-  };
-
-  deleteCompetitor(id){
-    console.log("id = ",id);
-    Meteor.call('deleteCompetitor',id,(err,res)=>{
-      if(err){
-
-      }else{
-        Alert.alert('','Competitor has been deleted');
-      }
-    });
-  }
-
-
-
-  searchUpdated(text){
-    this.setState({ searchText: text });
-  }
-
-  render(){
-
-    const { navigate,dispatch,goBack } = this.props.navigation;
-    const menu = <Menu navigate={navigate} isOpen={this.state.isOpen}/>;
-
-    if(this.props.loading){
-      return(
-        <Loading />
-      );
-    }else{
-      return (
-        <Drawer
-          	ref={(ref) => this._drawer = ref}
-          	content={
-	            <Notification 
-              	navigate          = {this.props.navigation.navigate} 
-              	updateCount       = {()=>this.updateCount.bind(this)}  
-              	closeControlPanel = {()=>this.closeControlPanel.bind(this)} 
-	            />
-          	}
-          	side="right"
-          	>
-          	<SideMenu disableGestures={true} openMenuOffset={300} menu={menu} isOpen={this.state.isOpen}  onChange={isOpen => this.updateMenuState(isOpen)} >
-            <HeaderBar3
-              goBack={goBack}
-              headerTitle={ 'Contact Us'}
-          	  navigate={navigate}
-            	toggle={()=>this.toggle.bind(this)} 
-            	openControlPanel={()=>this.openControlPanel.bind(this)}
-            />
+    const getData=()=>{
+        Axios.get('/api/entitymaster/getCompany/1')
+        .then(res=>{
+            setCompanyName(res.data.companyName);
+            setCompanyPhone(res.data.companyPhone);
+            setCompanyEmail(res.data.companyEmail);
+            setLoading(false)
+        })
+        .catch(error=>{
+            if (error.response.status == 401) {
+                AsyncStorage.removeItem('user_id');
+                AsyncStorage.removeItem('token');
+                setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+                navigation.navigate('Auth')
+              }else{
+                setToast({text: 'Something went wrong.', color: 'red'});
+              }  
+        })
+    }
+    
+    if (loading) {
+        return (
+            <Loading />
+        );
+    } else {
+        return (
+            <React.Fragment>
+            {/* <HeaderBar3
+                goBack={navigation.goBack}
+                navigate={navigation.navigate}
+                headerTitle={"Help & Support"}
+                toggle={() => toggle()}
+                openControlPanel={() => openControlPanel()}
+            /> */}
             <View style={styles.superparent}>
-            	<ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-              		<View  style={styles.formWrapper}>
-               			<View style={styles.parent}>
-                     <Text style={styles.contactdets}>Details: </Text>
-                     <View style={styles.contactvw}>
-                      <View style={styles.flxdir}>
-                        <View style={styles.imgvw}>
-                          <Image
-                            style={styles.imgbg}
-                            source={{uri: 'https://www.lulus.com/video/so_3/product/390882.jpg'}}
-                          />
-                        </View>
-                        <View style={styles.rscontact}>
-                          <Text style={styles.contactcontent}>Women Red Solid Fit and Flare Dress(Red)</Text>
-                          <View style={styles.constacimgvw}>
-                            <View style={styles.rsvw}>
-                                <Icon
-                                name="rupee"
-                                type="font-awesome"
-                                size={15}
-                                color="#666"
-                                iconStyle={styles.contacticns}
-                                />
-                                <Text style={{textDecorationLine: 'line-through',fontSize:12,fontFamily:"Montserrat-Regular",}}>3,140</Text>
-                            </View>
-                            <View style={styles.flxdir}>
-                                <Icon
-                                name="rupee"
-                                type="font-awesome"
-                                size={15}
-                                color="#666"
-                                iconStyle={styles.contacticns}
-                                />
-                                <Text style={styles.pricers}>2,141</Text>
-                                <Text style={styles.peroffcont}> 68% OFF</Text>
-                            </View>
-                          </View>
-                          <View style={styles.constacimgvw}>
-                            <Text style={styles.soldby}>Sold by : </Text>
-                            <Text style={styles.fashioncontact}>Kuki Fashion</Text>
-                          </View>
-                          <View style={styles.constacimgvw}>
-                            <TouchableOpacity>
-                              <View style={styles.contacticn}>
-                                  <Icon
-                                    name="minus-circle-outline"
-                                    type="material-community"
-                                    size={15}
-                                    color="#666"
-                                    iconStyle={styles.mincircleicn}
-                                  />
-                              </View>
-                            </TouchableOpacity>
-                            <View style={styles.qty15}>
-                              <Text style={{}}>Qty : 15</Text>
-                            </View>
-                            <TouchableOpacity>
-                              <View style={styles.contimgvw}>
-                                <Icon
-                                  name="plus-circle-outline"
-                                  type="material-community"
-                                  size={15}
-                                  color="#666"
-                                  iconStyle={styles.plusciricn}
-                                />
-                              </View>
-                            </TouchableOpacity>
-                          </View>
-                          <View  style={styles.deletevw}>
-                              <View style={styles.delvws}>
-                              <TouchableOpacity>
-                                <Button
-                                  titleStyle={styles.buttonText2}
-                                  title="Delete"
-                                  buttonStyle={styles.button2}
-                                  containerStyle={styles.buttonContainer2}
-                                />
-                              </TouchableOpacity>
-                              </View>
-                            <View style={styles.mvtowishlist}>
-                              <TouchableOpacity>
-                                <Button
-                                  titleStyle={styles.buttonText2}
-                                  title="Move to Wishlist"
-                                  buttonStyle={styles.button2}
-                                  containerStyle={styles.buttonContainer2}
-                                />
-                              </TouchableOpacity>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
+                <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+                <View styles={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 20 }}>
+                        <View styles={{ marginBottom: 10, borderWidth: 1, borderColor: '#aaa', borderRadius: 5, shadowRadius: 5, }}>
+                        <View style={{ paddingHorizontal: 0 }}>
+                                <View style={{ flex: 1, paddingHorizontal: 20, marginTop: 15, alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
+                                    <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: 15 }}>
+                                        Are you facing any issue or do you have any feedback for {companyName}? Please choose any one of the options below to get in touch with us.
+                                    </Text>
+                                </View>
+                                <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
+                                    <View  style={{ flex: 0.15,marginTop: 5}}>
+                                        <Icon size={30} name='whatsapp' type='material-community' color='#5FCD65' style={{}}/>
+                                    </View>
+                                    <View  style={{ flex: 0.85,marginTop: 13}}>
+                                        <Text onPress={()=>{Linking.openURL('whatsapp://send?text='+companyName+' Support, I need your Help&phone='+companyPhone)}} 
+                                            style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 16 }}>
+                                            {companyPhone}
+                                        </Text>
 
-                     </View>
-                    <View style={styles.totalvw}>
-                      <View style={styles.totvw}>
-                      <View style={styles.flx5}>
-                        <Text style={styles.totalprod}>Subtotal (2 Item) </Text>
-                        <Text style={styles.totalprod}>Your Saving </Text>
-                        <Text style={styles.totalprod}>Shipping </Text>
-                        <Text style={styles.totalprod}>Order Total</Text>
-                      </View>
-                      <View  style={styles.flx5}>
-                        <View style={styles.icnvws}> 
-                           <Icon
-                              name="rupee"
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.contacticns}
-                              />
-                            <Text style={styles.conactprices}>4500</Text>
-                        </View>
-                        <View style={styles.icnvws}> 
-                           <Icon
-                              name="rupee"
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.contacticns}
-                              />
-                            <Text style={styles.conactprices}>4500</Text>
-                        </View>
-                        <View style={styles.icnvws}> 
-                           <Icon
-                              name="rupee"
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.contacticns}
-                              />
-                            <Text style={styles.conactprices}>50</Text>
-                        </View>
-                        <View style={styles.icnvws}> 
-                           <Icon
-                              name="rupee"
-                              type="font-awesome"
-                              size={15}
-                              color="#666"
-                              iconStyle={styles.contacticns}
-                              />
-                            <Text style={styles.conactprices}>4500</Text>
-                        </View>
-                      </View>
-                     </View>
-                     <View style={styles.mg20}>
-                        <TouchableOpacity >
-                          <Button
-                          onPress={()=>this.props.navigation.navigate('AddressDefaultComp')}
-                          title={"PROCEED TO CHECKOUT"}
-                          buttonStyle={styles.button1}
-                          containerStyle={styles.buttonContainer1}
-                          />
-                        </TouchableOpacity>
+                                    </View>
+                                </View>
+
+                                <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
+                                    <View  style={{ flex: 0.15,marginTop: 5}}>
+                                        <Icon size={30} name='phone' type='Feather' color='#77b5fe' style={{}}/>
+                                    </View>
+                                    <View  style={{ flex: 0.85,marginTop: 13}}>
+                                        <Text onPress={()=>{Linking.openURL('tel:'+companyPhone);}} 
+                                            style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 16 }}>
+                                           {companyPhone}
+                                        </Text>
+                                    </View>
+                                </View>
+
+                                <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
+                                    <View  style={{ flex: 0.15,marginTop: 5}}>
+                                        <Icon size={30} name='gmail' type='material-community' color='red' style={{}}/>
+                                    </View>
+                                    <View  style={{ flex: 0.85,marginTop: 13}}>
+                                        <Text onPress={() => Linking.openURL('mailto:'+companyEmail+'?subject=I need your help &body=Dear '+companyName+' Support,') }
+                                        style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 16 }}>
+                                            {companyEmail}
+                                        </Text>
+                                    </View>
+                                </View>
+
+                                <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
+                                    <View  style={{ flex: 0.15,marginTop: 5}}>
+                                        <Icon size={30} name='web' type='material-community' color='#666' style={{}}/>
+                                    </View>
+                                    <View  style={{ flex: 0.85,marginTop: 13}}>
+                                        <Text onPress={() => Linking.openURL(website_url) } 
+                                            style={{ fontFamily: 'Montserrat-SemiBold', color: '#0000FF', fontSize: 16 }}>
+                                            {website_url}
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>  
                     </View>
-                     </View>
-                    </View>
-              		</View>
-            	</ScrollView>
-            	<Footer/>
+                </ScrollView>
+
             </View>
-          </SideMenu>
-        </Drawer>
-      );  
+            <Footer />
+            </React.Fragment>
+        );
     }
-  }
 }
-
-
-

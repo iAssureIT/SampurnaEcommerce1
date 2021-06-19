@@ -43,8 +43,8 @@ export const Menu = (props)=>{
   
   return (
     <ScrollView contentContainerStyle={[styles.container]} scrollsToTop={false}>
-      <ImageBackground source={require("../../AppDesigns/currentApp/images/Side_drawer.png")} style={styles.container} resizeMode="cover" >
-        <View style={{flexDirection:"row",height:100,margin:40,paddingTop:30,borderBottomWidth:1}}>
+      {/* <ImageBackground source={require("../../AppDesigns/currentApp/images/Side_drawer.png")} style={styles.container} resizeMode="cover" > */}
+        <View style={{flexDirection:"row",height:100,margin:20,paddingTop:30,borderBottomWidth:1}}>
         <Avatar
         style={{borderWidth:1, borderColor:"#999"}}
             overlayContainerStyle={{}}
@@ -108,16 +108,64 @@ export const Menu = (props)=>{
             <Text style={styles.menuText}>My Orders</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=> navigation.navigate('SupportSystem')}>
+        <TouchableOpacity onPress={()=> navigation.navigate('AboutUs')}>
           <View style={styles.menu} >
             <Icon 
               size={20} 
-              name='bookmark-o' 
+              name='info-circle' 
               type='font-awesome' 
               color='#666' 
               containerStyle={styles.iconContainer}
             />
-            <Text style={styles.menuText}>Help & Support</Text>
+            <Text style={styles.menuText}>About Us</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=> navigation.navigate('TermsConditions')}>
+          <View style={styles.menu} >
+            <Icon 
+              size={20} 
+              name='file-contract' 
+              type='font-awesome-5' 
+              color='#666' 
+              containerStyle={styles.iconContainer}
+            />
+            <Text style={styles.menuText}>Terms And Conditions</Text>
+          </View>
+        </TouchableOpacity> 
+        <TouchableOpacity onPress={()=> navigation.navigate('PrivacyPolicy')}>
+          <View style={styles.menu} >
+            <Icon 
+              size={20} 
+              name='file-contract' 
+              type='font-awesome-5' 
+              color='#666' 
+              containerStyle={styles.iconContainer}
+            />
+            <Text style={styles.menuText}>Privacy Policy</Text>
+          </View>
+        </TouchableOpacity> 
+        <TouchableOpacity onPress={()=> navigation.navigate('FAQ')}>
+          <View style={styles.menu} >
+            <Icon 
+              size={20} 
+              name='question-circle' 
+              type='font-awesome' 
+              color='#666' 
+              containerStyle={styles.iconContainer}
+            />
+            <Text style={styles.menuText}>FAQ's</Text>
+          </View>
+        </TouchableOpacity> 
+        <TouchableOpacity onPress={()=> navigation.navigate('SupportSystem')}>
+          <View style={styles.menu} >
+            <Icon 
+              size={20} 
+              name='account-box' 
+              type='material-community' 
+              color='#666' 
+              containerStyle={styles.iconContainer}
+            />
+            <Text style={styles.menuText}>Contact Us</Text>
           </View>
         </TouchableOpacity> 
         {user_id && userDetails.authService!=="guest" ?
@@ -147,7 +195,7 @@ export const Menu = (props)=>{
           </View>
         </TouchableOpacity>}
       </View>
-      </ImageBackground>
+      {/* </ImageBackground> */}
   </ScrollView>
   );
 }

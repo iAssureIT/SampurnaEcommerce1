@@ -15,7 +15,7 @@ import {useDispatch,
 import { getList,
         getCategoryWiseList,
         getCartCount
-       } from '../../redux/productList/actions';
+       }                      from '../../redux/productList/actions';
 import { getWishList } 		    from '../../redux/wishDetails/actions';
 import { useNavigation }      from '@react-navigation/native';
 import { ActivityIndicator }  from 'react-native-paper';
@@ -50,7 +50,6 @@ export const ProductList = withCustomerToaster((props)=>{
   }));
   const {currency}=store.preferences;
   const {stop_scroll,userDetails,location}=store;
-  console.log("location",location);
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
       var availableSizes = [];
@@ -98,7 +97,38 @@ export const ProductList = withCustomerToaster((props)=>{
         "vendorLocation_id" : vendorLocation_id,
       }
       axios
-        .post('/api/Carts/post', formValues)
+        .post('/api/carts/post', formValues)
+        .then((response) => {
+          dispatch(getCartCount(user_id));
+          if(response.data.message === "Product added to cart successfully."){
+            setToast({text: response.data.message, color: 'green'});
+          }else{
+            setToast({text: response.data.message, color: colors.warning});
+          }
+        })
+        .catch((error) => {
+          setToast({text: 'Product is already in cart.', color: colors.warning});
+        })
+    }else{
+      navigation.navigate('Auth');
+      setToast({text: "You need to login first", color: colors.warning});
+    }  
+  }
+
+
+  const addToCartWish=(productid,vendor_ID,vendorLocation_id,vendorName)=>{
+    if(user_id){
+      const formValues = {
+        "user_ID"           : user_id,
+        "product_ID"        : productid,
+        "vendor_ID"         : vendor_ID,
+        "quantity"          : packsizes === "" || 0 ? 1 : packsizes,
+        "userLatitude"      : store.location?.address?.latlong?.lat,
+        "userLongitude"     : store.location?.address?.latlong?.lng,
+        "vendorLocation_id" : vendorLocation_id,
+      }
+      axios
+        .post('/api/carts/post', formValues)
         .then((response) => {
           dispatch(getCartCount(user_id));
           if(response.data.message === "Product added to cart successfully."){
@@ -194,7 +224,7 @@ export const ProductList = withCustomerToaster((props)=>{
     const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
     return (
       <View key={index}  style={[styles.productContainer,index%2===1&&{marginLeft:'5%'}]} >
-        <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location})}>
+        <TouchableOpacity  disabled={props.disabled}onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location})}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
               {
@@ -206,7 +236,7 @@ export const ProductList = withCustomerToaster((props)=>{
                       cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
                     }}
                     // LoadingIndicatorComponent={ActivityIndicator}
-                    loadingIndicatorSource={{uri:"https://miro.medium.com/max/1158/1*9EBHIOzhE1XfMYoKz1JcsQ.gif"}}
+                    PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
                     style={styles.subcatimg}
                     // resizeMode="stretch"
                     resizeMode={FastImage.resizeMode.stretch}
@@ -304,11 +334,12 @@ export const ProductList = withCustomerToaster((props)=>{
               : null */}
             <View style={styles.sizedrpbtn}>
               <Button
-                  onPress={() => addToCart(item._id,item.vendor_ID,item.vendorName)}
+                  onPress={() => item.vendor_ID ? addToCart(item._id,item.vendor_ID,item.vendorName) : addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)}
                   titleStyle={CommonStyles.addBtnText}
                   title="ADD TO CART"
                   buttonStyle={CommonStyles.addBtnStyle}
                   containerStyle={CommonStyles.addBtnContainer}
+                  disabled={props.disabled}
                 />
               </View>
             </View>
@@ -317,6 +348,9 @@ export const ProductList = withCustomerToaster((props)=>{
       </View>
     )
   }
+
+
+  console.log("productsDetails",productsDetails);
 
 
   return (

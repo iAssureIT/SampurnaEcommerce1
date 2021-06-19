@@ -78,9 +78,11 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                     <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',height:120}}>
                         <View style={{flex:1,flexDirection:"row"}}>
                             {/* <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.vendorAddress}</Card.Title> */}
-                            <View style={{height:'auto',backgroundColor:"#fff",justifyContent:"center",flex:0.3,alignItems:"center"}}>
-                                {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:80,width:80,marginHorizontal:5}} resizeMode="cover"></Card.Image> :null}
-                            </View>
+                            <View style={{flex:0.3,justifyContent:'center'}}>
+                                <View style={{justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderRadius:100,marginHorizontal:5,height:80,width:80}}>
+                                    {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:80,width:80,borderRadius:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Card.Image> :null}
+                                </View>
+                            </View>    
                             <View style={{flex:0.7}}>
                                 <View style={{flex:1}}>
                                     <Text style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:20}]}>{item.vendorName}</Text>

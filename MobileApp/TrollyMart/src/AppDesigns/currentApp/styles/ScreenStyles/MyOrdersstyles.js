@@ -453,4 +453,12 @@ export default StyleSheet.create({
   cancelbtn:{
     flexDirection:'row',marginTop:20,justifyContent:'space-between'
   },
+  containerStyle:{
+    borderWidth:1,
+    borderRadius:3,
+    // marginVertical:5,
+    borderColor:"#ccc",
+    paddingHorizontal: 0,
+    // height:43,
+  },
 })

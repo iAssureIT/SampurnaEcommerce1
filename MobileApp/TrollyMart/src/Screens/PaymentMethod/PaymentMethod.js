@@ -143,6 +143,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         "longitude"     : addData.longitude,
       }
 
+      cartdata.paymentDetails.paymentMethod = paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card";
       var orderData = { 
         user_ID 		              : userID,
         userFullName              : userDetails.fullName,
@@ -156,6 +157,8 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         customerShippingTime      : shippingtime,
         orderStatus               : "New"
       }
+
+      console.log("orderData",orderData);
 
       socket.emit('postOrder',orderData);
       socket.on("order", (result)=>{

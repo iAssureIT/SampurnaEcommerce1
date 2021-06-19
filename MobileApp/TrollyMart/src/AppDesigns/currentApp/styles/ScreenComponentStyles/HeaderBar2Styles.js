@@ -87,13 +87,13 @@ export default StyleSheet.create({
     alignItems:'center',
     ...Platform.select({
       ios: {
-        height: 110,
+        minHeight: 110,
         // paddingTop: 25,
       },
       android: {
         borderTopWidth: 3,
         borderTopColor: colors.theme,
-        height: 55,
+        minHeight: 55,
       }
     })
   },

@@ -4,9 +4,10 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  TextInput
 }                     from 'react-native';
-import { Icon, Card,Button } from "react-native-elements";
+import { Icon, Card,Button,Rating,Input } from "react-native-elements";
 import {HeaderBar3}   from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
@@ -27,8 +28,9 @@ import Modal                from "react-native-modal";
 import { useIsFocused }     from "@react-navigation/native";
 import openSocket               from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
+import OpenModal from '../Modal/OpenModal.js';
+import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
-
   const customStyles = {
     stepIndicatorSize                 : 25,
     currentStepIndicatorSize          : 30,
@@ -60,6 +62,11 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [cancelOrderId,setCancelOrderId]=useState('');
   const [cancelVendorId,setCancelVendorId]=useState('');
   const [loading,setLoading]=useState(true);
+  const [modal,setModal]=useState(false);
+  const [vendorDetails,setVendorDetails]=useState();
+  const [rating,setRating] = useState(1);
+  const [review,setReview] = useState('');
+  const [productIndex,setProductIndex]=useState('')
   const {orderid}=route.params;
   const isFocused = useIsFocused();
   const [labels,setLabels] = useState([]);
@@ -198,6 +205,36 @@ const cancelorderbtn = (id,vendor_id) => {
   setCancelVendorId(vendor_id);
 }
 
+
+  const submitReview=()=>{
+    var formValues = {
+      "customer_id"     		: store.userDetails.user_id,
+      "customerName"        : store.userDetails.firstName+" "+store.userDetails.lastName,
+      "order_id"        		: orderid,
+      "product_id"      		: vendorDetails.products[productIndex]._id,
+      "vendor_id" 			    : vendorDetails.vendor_id._id,
+      "vendorLocation_id"   : vendorDetails.vendorLocation_id,
+      "rating"          		: rating,
+      "customerReview"  		: "Good Product",
+      "status"          		: "New"
+    }
+    console.log("formValues",formValues);
+    axios.post('/api/customerReview/post',formValues)
+    .then(res=>{
+      console.log("res",res);
+      setModal(false);
+      setVendorDetails();
+      setProductIndex('');
+      setRating(1);
+      setToast({text: res.data.message, color: 'green'});
+    })
+    .catch(err=>{
+      console.log("err",err);
+    })
+  }
+
+  console.log('vendorDetails',vendorDetails);
+
     return (
       <React.Fragment>
         {/* <HeaderBar3
@@ -301,7 +338,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                 <Text style={styles.prodinfo}>{pitem.productName}</Text>
                                 <Text style={styles.prodinfo}> {pitem.quantity} Pack </Text>
                                 <View style={styles.flx4}>
-                                  <View style={[styles.flx1, styles.prdet,{marginVertical:10}]}>
+                                  <View style={[styles.flx1, styles.prdet,{marginVertical:5}]}>
                                     <View style={[styles.flxdir]}>
                                       <View style={[styles.flxdir]}>
                                         <Text style={styles.ogprice}>{currency} </Text>
@@ -316,6 +353,14 @@ const cancelorderbtn = (id,vendor_id) => {
                                           </Text>
                                       </View>}
                                     </View>
+                                    <View style={[styles.flxdir,{alignItems:"center",marginTop:10,flex:1}]}>
+                                        <View style={{flex:.5}}>
+                                          <Text style={[styles.ogprice,]}>Return</Text>
+                                        </View>  
+                                        <View style={{flex:.5}}>
+                                          <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Review</Text>
+                                        </View>  
+                                      </View>
                                   </View>
                                 </View>
                               </View>  
@@ -499,6 +544,77 @@ const cancelorderbtn = (id,vendor_id) => {
                 </TouchableOpacity>
               </View>
             </View>
+          </View>
+        </Modal>
+        <Modal isVisible={modal}
+          onBackdropPress={() => setModal(false)}
+          coverScreen={true}
+          hideModalContentWhileAnimating={true}
+          style={{ paddingHorizontal: '5%', zIndex: 999 }}
+          animationOutTiming={500}>
+          <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+          {vendorDetails&&<Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+              <View style={{flex:0.3}}>
+                { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
+                  style={styles.img15}
+                  source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
+                  resizeMode="contain"
+                />:
+                <Image
+                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                  style={styles.img15}
+                />
+              }
+              </View>
+              <View style={{flex:0.7,paddingHorizontal:5}}>
+                <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
+                <View style={styles.flx4}>
+                  <View style={[styles.flx1, styles.prdet]}>
+                    <View style={[styles.flxdir]}>
+                      <View style={[styles.flxdir]}>
+                        <Text style={styles.ogprice}>{currency} </Text>
+                        {vendorDetails.products[productIndex].discountPercent > 0 &&<Text style={styles.discountpricecut}>{(vendorDetails.products[productIndex].originalPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}</Text>}
+                      </View>
+                      <View style={[styles.flxdir,{alignItems:"center"}]}>
+                          <Text style={styles.ogprice}> {(vendorDetails.products[productIndex].discountedPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          </Text>
+                      </View>
+                      {vendorDetails.products[productIndex].discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
+                          <Text style={styles.ogprice}>( {vendorDetails.products[productIndex].discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          </Text>
+                      </View>}
+                    </View>
+                  </View>
+                </View>
+              </View>  
+            </Card>}
+            <Rating
+              // showRating
+              startingValue={rating}
+              onFinishRating={(e)=>setRating(e)}
+              style={{ paddingVertical: 10 }}
+            />
+              <Input
+                label   = "Leave a review"   
+                // placeholder           = "Leave a review..."
+                onChangeText          = {(text)=>setReview(text)}
+                autoCapitalize        = "none"
+                keyboardType          = "email-address"
+                inputContainerStyle   = {styles.containerStyle}
+                containerStyle        = {{paddingHorizontal:0}}
+                placeholderTextColor  = {'#bbb'}
+                inputStyle            = {{fontSize: 16}}
+                inputStyle            = {{textAlignVertical: "top"}}
+                autoCapitalize        = 'characters'
+                multiline             = {true}
+                numberOfLines         = {4}
+                value                 = {review}
+              />
+             <FormButton 
+                onPress    = {()=>submitReview()}
+                title       = {'Submit'}
+                background  = {true}
+              /> 
           </View>
         </Modal>
       </React.Fragment>

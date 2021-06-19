@@ -25,6 +25,8 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
   const {wishList} = store;
   const [user_id,setUserId] = useState('');
   const [loading,setLoading] = useState(false);
+
+  
   console.log("wishList",wishList);
     return (
       <React.Fragment>
@@ -57,6 +59,7 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                             userId      = {user_id} 
                             categories  = {[]}
                             loading     = {loading}
+                            disabled    = {parseInt(item.distance) <= 25 ? false :true}
                         />
                         </View>
                       )

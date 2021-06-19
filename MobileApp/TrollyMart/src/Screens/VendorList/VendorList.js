@@ -100,7 +100,6 @@ export const VendorList = withCustomerToaster((props)=>{
                                 </View>    
                              </View>
                         </View>
-                         
                     </Card.Image>    
                 </Card>
             </TouchableOpacity>        
