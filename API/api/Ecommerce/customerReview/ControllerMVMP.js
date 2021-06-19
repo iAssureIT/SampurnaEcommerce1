@@ -199,19 +199,36 @@ exports.change_review_status = (req, res, next) => {
 	});
 };
 
-exports.listCustomerReview = (req,res,next)=>{
-	CustomerReview.find({"product_id" : req.params.product_id, "status": "Publish"})
+/*=========== Customer Review List for Particular Product ===========*/
+exports.list_customer_review_for_product = (req,res,next)=>{
+	CustomerReview.find({"product_id" : req.params.product_id, "status": "Published"})
 	.exec()
 	.then(data=>{
-		  res.status(200).json(data);
-	 })
-	 .catch(err =>{
-		  console.log(err);
-		  res.status(500).json({
-				error: err
-		  });
-	 });
+		res.status(200).json(data);
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
 };
+
+/*=========== Customer Review For Single User ===========*/
+exports.single_customer_review_for_product = (req,res,next)=>{
+	CustomerReview.findOne({"product_id" : req.body.product_id, "customer_id" : req.body.customer_id, "order_id" : req.body.order_id,})
+	.exec()
+	.then(data=>{
+		res.status(200).json(data);
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
 exports.listCustomerProductReview = (req,res,next)=>{
 	 // console.log('param', req.params);
 	 CustomerReview.findOne({"customerID": ObjectId(req.params.customerID),  "product_id" : ObjectId(req.params.product_id), "orderID": ObjectId(req.params.orderID)})

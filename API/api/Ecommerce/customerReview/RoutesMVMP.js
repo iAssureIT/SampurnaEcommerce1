@@ -12,6 +12,9 @@ router.patch('/add/comment', 					                customerReviewController.add_a
 
 router.patch('/change/status', 					                customerReviewController.change_review_status);
 
+router.get('/get/list/:product_id', 				            customerReviewController.list_customer_review_for_product);
+
+router.post('/get/single/customer/review', 				        customerReviewController.single_customer_review_for_product);
 
 
 router.post('/search/post', 					                checkAuth, customerReviewController.searchCustomerReview);
@@ -20,7 +23,6 @@ router.patch('/patch', 							                checkAuth, customerReviewControlle
 
 router.patch('/admin/review', 					                checkAuth, customerReviewController.add_admin_comment);
 
-router.get('/get/list/:productID', 				                customerReviewController.listCustomerReview);
 
 router.put('/status', 							                checkAuth, customerReviewController.update_review_status);
 
