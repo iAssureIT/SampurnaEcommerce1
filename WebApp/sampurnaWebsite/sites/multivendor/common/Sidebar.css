@@ -19,10 +19,17 @@
 	margin-top:40px;
 }
 
-.active{
+/* .active{
 	background-color:#033554 !important;
 	color:#fff !important;
+} */
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color:#033554;
+    border-radius: 5px 20px 5px !important;
 }
+
 .nb-brand{
 	margin-top: 20px 
 }
