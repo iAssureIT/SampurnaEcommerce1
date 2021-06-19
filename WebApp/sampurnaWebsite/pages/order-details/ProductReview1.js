@@ -15,103 +15,11 @@ class ProductReview extends Component {
    
   }
 
-  showFeedbackForm() {
-    $('#feedbackFormDiv').show();
-  }
-  submitReview(event) {
-    $('.fullpageloader').show();
-    event.preventDefault();
-    var rating = $('input[name="ratingReview"]:checked', '.feedbackForm').val();
-    // console.log("rating===",rating);
-    // if(rating < 0 || rating === undefined){
-    //   this.setState({
-    //     reviewStarError: "Please give star rating."
-    //   })
-    // }else{
-      if (this.state.customerReview.length > 0) {
-        if(this.state.rating_ID){
-          var formValues = {
-            "rating_ID" : this.state.rating_ID,
-            "customerID": localStorage.getItem('user_ID'),
-            "customerName": this.state.customerName,
-            "orderID": this.state.orderID,
-            "productID": this.state.productID,
-            // "rating": parseInt(rating),
-            "rating": this.state.ratingReview,
-            "customerReview": this.state.customerReview
-          }
-          
-          axios.patch("/api/customerReview/patch", formValues)
-          .then((response) => {
-            $('.fullpageloader').hide();
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": response.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 3000);
-            var modal = document.getElementById('feedbackProductModal');
-            modal.style.display = "none";
-
-            $('.modal-backdrop').remove();
-          })
-          .catch((error) => {
-          })
-        }else{
-          formValues = {
-            "customerID": this.state.userID,
-            "customerName": this.state.reviewuserData.profile.fullName,
-            "orderID": this.state.orderID,
-            "productID": $(event.currentTarget).data('productid'),
-            "rating": parseInt(rating),
-            "customerReview": $('.feedbackForm textarea').val()
-          }
-          axios.post("/api/customerReview/post", formValues)
-          .then((response) => {
-            $('.fullpageloader').hide();
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": response.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 3000);
-            var modal = document.getElementById('feedbackProductModal');
-            modal.style.display = "none";
-
-            $('.modal-backdrop').remove();
-          })
-          .catch((error) => {
-          })
-        }
-      }else{
-        this.setState({
-          reviewTextError: "Please Enter your feedback."
-        })
-      }
-    //}
-  }
   render() {
     console.log(" productView this.state.orderData.vendorOrders===",this.props.productData);
     return (
         <div className="col-12">
             {/* feedbackProductModal */}
-
             <div className="modal" id="feedbackProductModal" role="dialog">
                       <div className="modal-dialog">
                         <div className="modal-content">

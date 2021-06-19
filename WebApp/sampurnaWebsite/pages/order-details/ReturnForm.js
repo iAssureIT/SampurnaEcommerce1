@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import axios                from 'axios';
 import moment               from 'moment';
 import Link                 from 'next/link';
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
-import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
-import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 
 class ReturnForm extends Component {
   constructor(props) {

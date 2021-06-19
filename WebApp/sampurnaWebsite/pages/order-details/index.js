@@ -52,51 +52,16 @@ export default class OrderDetails extends Component {
         this.getMyOrders();
         this.getMyUser();
       })
-    
-    // $.validator.setDefaults({
-    //   debug: true,
-    //   success: "valid"
-    // });
-    // $("#returnForm").validate({
-    //   rules: {
-    //     reasonForReturn: {
-    //       required: true,
-    //     },
-    //     bankname: {
-    //       required: true,
-    //     },
-    //     bankacctno: {
-    //       required: true,
-    //     },
-    //     ifsccode: {
-    //       required: true,
-    //     }
-    //   },
-    //   errorPlacement: function (error, element) {
-    //     if (element.attr("name") === "reasonForReturn") {
-    //       error.insertAfter(".reasonForReturn");
-    //     }
-    //     if (element.attr("name") === "bankname") {
-    //       error.insertAfter("#bankname");
-    //     }
-    //     if (element.attr("name") === "bankacctno") {
-    //       error.insertAfter("#bankacctno");
-    //     }
-    //     if (element.attr("name") === "ifsccode") {
-    //       error.insertAfter("#ifsccode");
-    //     }
-    //   }
-    // });
   }
+
   getMyOrders() {
-    // $('.fullpageloader').show(); 
-      axios.get("/api/orders/get/list/" +this.state.user_ID)
+      axios.get("/api/orders/get/one/" +this.props.order_id)
       .then((response) => {
         if(response.data){
-          console.log("response.data=>",response.data);
-          $('.fullpageloader').hide();
+          // console.log("response.data=>",response.data);
+          // $('.fullpageloader').hide();
           this.setState({
-            orderData: response.data[0],
+            orderData: response.data,
             loading: false
           }, () => {
             console.log("orderData after setstate=>",this.state.orderData);
@@ -108,110 +73,21 @@ export default class OrderDetails extends Component {
       })
   }
   getMyUser() {    
-    axios.get("/api/users/get/id" +this.state.user_ID)
+    axios.get("/api/users/get/id/" +this.state.user_ID)
       .then((response) => {
         this.setState({
           reviewuserData: response.data
+        },()=>{
+          console.log("reviewuserData=",this.state.reviewuserData);
         })
       })
       .catch((error) => {
         console.log('Error while getting User data', error);
       })
   }
-  showFeedbackForm() {
-    $('#feedbackFormDiv').show();
-  }
-  submitReview(event) {
-    $('.fullpageloader').show();
-    event.preventDefault();
-    var rating = $('input[name="ratingReview"]:checked', '.feedbackForm').val();
-    // console.log("rating===",rating);
-    // if(rating < 0 || rating === undefined){
-    //   this.setState({
-    //     reviewStarError: "Please give star rating."
-    //   })
-    // }else{
-      if (this.state.customerReview.length > 0) {
-        if(this.state.rating_ID){
-          var formValues = {
-            "rating_ID" : this.state.rating_ID,
-            "customerID": localStorage.getItem('user_ID'),
-            "customerName": this.state.customerName,
-            "orderID": this.state.orderID,
-            "productID": this.state.productID,
-            // "rating": parseInt(rating),
-            "rating": this.state.ratingReview,
-            "customerReview": this.state.customerReview
-          }
-          
-          axios.patch("/api/customerReview/patch", formValues)
-          .then((response) => {
-            $('.fullpageloader').hide();
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": response.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 3000);
-            var modal = document.getElementById('feedbackProductModal');
-            modal.style.display = "none";
-
-            $('.modal-backdrop').remove();
-          })
-          .catch((error) => {
-          })
-        }else{
-          formValues = {
-            "customerID": this.state.userID,
-            "customerName": this.state.reviewuserData.profile.fullName,
-            "orderID": this.state.orderID,
-            "productID": $(event.currentTarget).data('productid'),
-            "rating": parseInt(rating),
-            "customerReview": $('.feedbackForm textarea').val()
-          }
-          axios.post("/api/customerReview/post", formValues)
-          .then((response) => {
-            $('.fullpageloader').hide();
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": response.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 3000);
-            var modal = document.getElementById('feedbackProductModal');
-            modal.style.display = "none";
-
-            $('.modal-backdrop').remove();
-          })
-          .catch((error) => {
-          })
-        }
-      }else{
-        this.setState({
-          reviewTextError: "Please Enter your feedback."
-        })
-      }
-    //}
-  }
+  
   returnProduct(event) {
     $('#returnProductModal').show();
-
     var status = $(event.target).data('status');
     var id = $(event.target).data('id');
     var productid = $(event.target).data('productid');
@@ -243,8 +119,6 @@ export default class OrderDetails extends Component {
       $('.canreturn').hide();
     }
 
-    //$('.modaltext').html('');
-    // $('.modaltext').append(str); 
   }
   getoneproductdetails(event) {
     var productID = event.target.id;
@@ -318,6 +192,7 @@ export default class OrderDetails extends Component {
     $('#cancelProductModal .modaltext').html('');
     $('#cancelProductModal .modaltext').append(str);
   }
+
   cancelProductAction(event) {
     event.preventDefault();
     $('.fullpageloader').show();
@@ -376,24 +251,6 @@ export default class OrderDetails extends Component {
       .catch((error) => {
       })
   }
- 
-  handleChangeReview(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-      reviewTextError : event.target.value ? "" : "Please Enter your feedback."
-    })
-  }
-
-  ratingReview(event){
-    console.log("event.target.value---",event.target.value);
-    this.setState({
-      [event.target.name]: event.target.value,
-      reviewStarError : event.target.value ? "" : "Please give star rating."
-    },()=>{
-      console.log('ratingReview---', this.state.ratingReview);
-      console.log("reviewStarError===",this.state.reviewStarError);
-    })
-  }
   closeModal(event){
     this.setState({
       rating : "",
@@ -402,27 +259,20 @@ export default class OrderDetails extends Component {
     })
   }
   render() {
+    console.log("Order Details props====",this.props );
     return (
       <div className="col-12 NoPadding">
-        {/* <Header /> */}
         <div className={" " +Style.container1 }>
           <Message messageData={this.state.messageData} />
           {
-            this.state.loading ?
-              <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> 
-              :
+            this.state.orderData &&
               <div className="col-12 NoPadding">
                 <br />
                <div className="row"> 
-                {/* <div className="col-12 col-xl-3 col-md-12 col-sm-12 myOrderSidebar ">
-                  <Sidebar />
-                </div> */}
-
                 <div className="col-12 col-12 col-md-12">
                   <div className="col-12">
                       <h4 className={"table-caption " +Style.mainTitle}>Orders Details</h4>
                   </div>
-
                   <div className={"col-12 NoPadding orderIdborder " +Style.orderIdborderNew}>
                     <div className="col-12 NoPadding orderDetailsTop mb-4 ">
                       <div className={"row " +Style.ptb15}>
@@ -478,23 +328,30 @@ export default class OrderDetails extends Component {
                               }
 
                               <ProductsView 
-                                orderData = {vendordata.products}
+                                vendorWiseOrderData = {vendordata}
+                                orderData           = {this.state.orderData}
+                                orderStatus         = {vendordata.orderStatus}
+                                currency            = {this.state.currency}
+                                user_ID             = {this.state.user_ID}
+                                reviewuserData      = {this.state.reviewuserData}
+                                orderID             = {this.props.orderID}
                               />
+                              
 
                               <div className="col-12 orderbodyborder">
                                 <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
                                   <div className="row ">                                      
                                       <div className="col-12 NOpadding">
                                         <div className="col-8 offset-2">
-                                            <span className="col-8 title">&nbsp; Amount</span>
-                                            <span className="col-4 textAlignRight title">&nbsp; 
+                                            <span className="col-7 title">&nbsp; Amount</span>
+                                            <span className="col-5 textAlignRight title">&nbsp; 
                                                 {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
                                             </span>
                                         </div>
                                         <div className="col-8 offset-2">
                                             <span className="col-8 title">&nbsp; Number Of Items</span>
                                             <span className="col-4 textAlignRight title">&nbsp; 
-                                                {vendordata.order_numberOfProducts} 
+                                                {vendordata.vendor_numberOfProducts} 
                                             </span>
                                         </div>
                                       </div>

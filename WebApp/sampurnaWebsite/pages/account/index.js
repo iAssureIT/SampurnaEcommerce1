@@ -27,14 +27,6 @@ class Account extends Component{
         }
     }
     componentDidMount(){
-        var userid = localStorage.getItem('user_ID');
-        this.setState({
-            user_ID : userid,
-            websiteModel : localStorage.getItem('websiteModel')
-        },()=>{
-            this.getUserData();
-        })
-
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
@@ -105,10 +97,7 @@ class Account extends Component{
     }
     render(){
         return(
-            <div className={ "col-12 NoPadding accountMainWrapper "+Style.accountMainWrapper}> {/*
-                <Header /> */} {/* {
-                <Loader type="fullpageloader" />} */} {/*
-                <SmallBanner bannerData={this.state.bannerData}/> */}
+            <div className={ "col-12 NoPadding accountMainWrapper "+Style.accountMainWrapper}> 
                 <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">
                     <div className="modal-content loginModalContent " style={{ 'background': '#fff'}}>
                         <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
@@ -121,7 +110,8 @@ class Account extends Component{
                             </div>
                         </div>
                         <div className="modal-body addressModalBody">
-                            <UserAddress /> </div>
+                            <UserAddress /> 
+                        </div>
                     </div>
                 </div>
                 <div className="col-12">

@@ -33,6 +33,7 @@ class MyAccount extends Component{
                 backgroungImage : "/images/eCommerce/my_account.png",
             },
             addressId :'',
+            order_id : ''
         }
     }
     componentDidMount(){
@@ -112,6 +113,11 @@ class MyAccount extends Component{
     opDone(){
         this.getUserData();
     }
+
+    getOrderId(orderId){
+        this.setState({order_id:orderId})
+    }
+
     render(){
         return(
             // <!-- Demo header-->
@@ -177,14 +183,14 @@ class MyAccount extends Component{
                                 </div>
                                 
                                 <div class="tab-pane fade shadow rounded bg-white p-3" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                                    <MyOrders/>
+                                    <MyOrders getOrderId={this.getOrderId.bind(this)}/>
                                  </div>
 
                                  <div class="tab-pane fade shadow rounded bg-white pb-5" id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings1-tab">
                                     <Wishlist/>
                                  </div>
                                  <div class="tab-pane fade shadow rounded bg-white pb-5" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">
-                                    <OrderDetails />
+                                    {this.state.order_id!==""&&<OrderDetails order_id={this.state.order_id} />}
                                  </div>
                                  
                             </div>

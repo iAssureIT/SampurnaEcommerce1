@@ -45,3 +45,7 @@
 .showDetailsBtn:hover{
 	text-decoration: none;
 }
+.dv-star-rating{
+	font-size: 40px !important;
+	height: 30px;
+}

@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import $                    from 'jquery';
 import axios                from 'axios';
-
-// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-// import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
-import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
-// import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
-import Style                  from './index.module.css';
+import UserAddress          from '../../pages/checkout/UserAddress.js';
+import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
+import Style                from './index.module.css';
 
 class AddressBook extends Component{
     constructor(props) {
@@ -20,19 +15,25 @@ class AddressBook extends Component{
         }
     }
     componentDidMount(){
-        var userid = localStorage.getItem('user_ID');
-        this.setState({
-            user_ID : userid,
-            websiteModel : localStorage.getItem('websiteModel')
-        },()=>{
-            this.getUserData();
-            this.getUserAddresses();
-        })
+        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails){
+            if(userDetails.user_id){
+				this.setState({
+					user_ID :  userDetails.user_id,
+					userLongitude : userDetails.userLatitude,
+					userLongitude : userDetails.userLongitude,
+				},()=>{
+                    this.getUserData();
+                    this.getUserAddresses();
+				})
+            }
+        }
         
     }
     getUserData(){
         // $('.fullpageloader').show();        
-        axios.get('/api/users/'+this.state.user_ID)
+        axios.get('/api/users/get/id/'+this.state.user_ID)
         .then( (res)=>{
             $('.fullpageloader').hide();
             this.setState({
@@ -56,7 +57,7 @@ class AddressBook extends Component{
         });
     }
     getUserAddresses(){
-        axios.get('/api/users/'+ this.state.user_ID)
+        axios.get('/api/users/get/id/'+ this.state.user_ID)
         .then( (res)=>{
             this.setState({
                 deliveryAddresses : res.data.deliveryAddress
@@ -122,11 +123,25 @@ class AddressBook extends Component{
     }
     render(){
         return(      
-            <div className="container-flex "> {/*
-            <Loader type="fullpageloader" /> */}
-            <Address addressId={this.state.addressId} opDone={this.opDone.bind(this)}/>
+            <div className="container-flex "> 
             <div className=" col-12">
-                <Message messageData={this.state.messageData} /> </div>
+            <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">
+                <div className="modal-content loginModalContent " style={{ 'background': '#fff'}}>
+                    <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
+                        <div className="col-4">
+                            < WebsiteLogo /> </div>
+                        <div className="col-7 text-center">
+                            <h6 className="modal-title modalheadingcont">SHIPPING ADDRESS</h6> </div>
+                        <div className="col-1 text-center">
+                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                        </div>
+                    </div>
+                    <div className="modal-body addressModalBody">
+                        <UserAddress /> 
+                    </div>
+                </div>
+            </div>
+            <Message messageData={this.state.messageData} /> </div>
             <h5 className="font-weight-bold">Default Addresses</h5>
             <div className={ "col-12   "+Style.accountDashBoardInnerwrapper}>
                 <div className="row">
@@ -148,7 +163,7 @@ class AddressBook extends Component{
                                         <div data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn mt-2">Add Billing Address</div>
                                     </div> } </div>
                             </div>
-                            <div className="col-12 col-lg-6  NOpaddingRight ">
+                            <div className="col-12 NOpaddingRight ">
                                 <label className="text-center">Additional Address Entries</label> { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
                                 <div key={ 'address'+index} className="col-12 col-md-6 ">
                                     <div className="col-12 ">
@@ -159,7 +174,10 @@ class AddressBook extends Component{
                                                 <br /> */} {/* {address.state}, {address.country} - {address.pincode}
                                                 <br /> */} Pincode : {address.pincode +"."}
                                                 <br /> Contact Number: {address.mobileNumber} </p>
-                                            <div data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn">Edit Address</div> &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn globalCommonBtn deleteAdd" style={{ "fontSize": '15px' }}></i> </div>
+                                                
+                                            <div data-toggle="modal" data-target="#checkoutAddressModal" id={address._id} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn">Edit Address</div> 
+                                                &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn globalCommonBtn deleteAdd" style={{ "fontSize": '15px' }}></i> 
+                                            </div>
                                     </div>
                                 </div> ); } }) :
                                 <p className="text-justify">You have no other address entries in your address book.</p> }

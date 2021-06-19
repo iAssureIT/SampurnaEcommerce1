@@ -112,19 +112,6 @@ class header extends React.Component {
                                 <div className="mtm10">  
                                 <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
                                 <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span></div>
-{/*=======
-        <div className="col-8 col-lg-4 col-sm-8 NoPadding">  
-            <div className="col-12 loginViewWrapper ">
-                <div className="col-12 col-lg-12 row mtm3">
-                {this.state.loggedIn ? 
-                    <li className="dropdown myaccDropdown">
-                        <span className="col-12 NoPadding ">
-                            <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
-                                <div className="mtm10">  
-                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hi {this.state.userData ? this.state.userData.fullName : null}</span></span>
-                                <span className="userEmail">{this.state.userData ? this.state.userData.email : null}</span></div>
->>>>>>> Stashed changes*/}
-                                {/*<span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="loginView ">My Account</span></span> */}
                             </div>
                         </span>
                         <ul className="col-3 dropdown-menu list-DropDownMenu">                                        
@@ -148,8 +135,8 @@ class header extends React.Component {
                                 </div>                            
                             </li>   
 
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-orders"><a>My Orders</a></Link></li>
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/wishlist"><a>My Wishlist</a></Link></li>                               
+                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Orders</a></Link></li>
+                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Wishlist</a></Link></li>                               
                             <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Profile</a></Link></li>
                   
                             <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
@@ -159,14 +146,8 @@ class header extends React.Component {
                     <span className=" col-12 NoPadding signInBlock" >
                         <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
                             <span className="col-12 loginView">Sign in &nbsp;
-                                {/* <i className="fa fa-user"></i> */}
                                 <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
-                            </span> 
-{/*=======
-                    : <span className="" >
-                        <a href="" className="faIcon faLoginIcon col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
-                            <span className="col-12 loginView">Login</span> 
->>>>>>> Stashed changes*/}
+                            </span>
                         </a>          
                     </span> 
                 }

@@ -40,6 +40,7 @@ export default class MyOrders extends Component {
   }
 
   componentDidMount() {
+    console.log("this.props",this.props);
       var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
       var currency = sampurnaWebsiteDetails.preferences.currency;
       var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
@@ -52,42 +53,7 @@ export default class MyOrders extends Component {
       },()=>{
         this.getMyOrders();
         this.getMyUser();
-      })
-    
-    // $.validator.setDefaults({
-    //   debug: true,
-    //   success: "valid"
-    // });
-    // $("#returnForm").validate({
-    //   rules: {
-    //     reasonForReturn: {
-    //       required: true,
-    //     },
-    //     bankname: {
-    //       required: true,
-    //     },
-    //     bankacctno: {
-    //       required: true,
-    //     },
-    //     ifsccode: {
-    //       required: true,
-    //     }
-    //   },
-    //   errorPlacement: function (error, element) {
-    //     if (element.attr("name") === "reasonForReturn") {
-    //       error.insertAfter(".reasonForReturn");
-    //     }
-    //     if (element.attr("name") === "bankname") {
-    //       error.insertAfter("#bankname");
-    //     }
-    //     if (element.attr("name") === "bankacctno") {
-    //       error.insertAfter("#bankacctno");
-    //     }
-    //     if (element.attr("name") === "ifsccode") {
-    //       error.insertAfter("#ifsccode");
-    //     }
-    //   }
-    // });
+    })
   }
   getMyOrders() {
     // $('.fullpageloader').show(); 
@@ -109,7 +75,7 @@ export default class MyOrders extends Component {
       })
   }
   getMyUser() {    
-    axios.get("/api/users/" +this.state.user_ID)
+    axios.get("/api/users/get/id/" +this.state.user_ID)
       .then((response) => {
         this.setState({
           reviewuserData: response.data
@@ -122,94 +88,7 @@ export default class MyOrders extends Component {
   showFeedbackForm() {
     $('#feedbackFormDiv').show();
   }
-  submitReview(event) {
-    $('.fullpageloader').show();
-    event.preventDefault();
-    var rating = $('input[name="ratingReview"]:checked', '.feedbackForm').val();
-    // console.log("rating===",rating);
-    // if(rating < 0 || rating === undefined){
-    //   this.setState({
-    //     reviewStarError: "Please give star rating."
-    //   })
-    // }else{
-      if (this.state.customerReview.length > 0) {
-        if(this.state.rating_ID){
-          var formValues = {
-            "rating_ID" : this.state.rating_ID,
-            "customerID": localStorage.getItem('user_ID'),
-            "customerName": this.state.customerName,
-            "orderID": this.state.orderID,
-            "productID": this.state.productID,
-            // "rating": parseInt(rating),
-            "rating": this.state.ratingReview,
-            "customerReview": this.state.customerReview
-          }
-          
-          axios.patch("/api/customerReview/patch", formValues)
-          .then((response) => {
-            $('.fullpageloader').hide();
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": response.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 3000);
-            var modal = document.getElementById('feedbackProductModal');
-            modal.style.display = "none";
-
-            $('.modal-backdrop').remove();
-          })
-          .catch((error) => {
-          })
-        }else{
-          formValues = {
-            "customerID": this.state.userID,
-            "customerName": this.state.reviewuserData.profile.fullName,
-            "orderID": this.state.orderID,
-            "productID": $(event.currentTarget).data('productid'),
-            "rating": parseInt(rating),
-            "customerReview": $('.feedbackForm textarea').val()
-          }
-          axios.post("/api/customerReview/post", formValues)
-          .then((response) => {
-            $('.fullpageloader').hide();
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": response.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 3000);
-            var modal = document.getElementById('feedbackProductModal');
-            modal.style.display = "none";
-
-            $('.modal-backdrop').remove();
-          })
-          .catch((error) => {
-          })
-        }
-      }else{
-        this.setState({
-          reviewTextError: "Please Enter your feedback."
-        })
-      }
-    //}
-  }
+ 
   returnProduct(event) {
     $('#returnProductModal').show();
 
@@ -247,43 +126,7 @@ export default class MyOrders extends Component {
     //$('.modaltext').html('');
     // $('.modaltext').append(str); 
   }
-  getoneproductdetails(event) {
-    var productID = event.target.id;
-    var customerID = this.state.userID;
-    var orderID = event.target.getAttribute('orderid');
-    this.setState({ orderID: orderID });
-    
-    axios.get("/api/products/get/one/" + productID)
-    .then((response) => {
-      this.setState({
-        oneproductdetails: response.data
-      }, () => {
-      })
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
-    
-    axios.get("/api/customerreview/get/order/list/"+customerID+"/"+orderID+"/"+productID )
-    .then((response) => {
-      if(response.data){
-        this.setState({
-          rating_ID       : response.data._id,
-          customerID      : response.data.customerID,
-          customerName    : response.data.customerName,
-          customerReview  : response.data.customerReview,
-          orderID         : response.data.orderID,
-          productID       : response.data.productID,
-          rating          : response.data.rating,
-          ratingReview    : response.data.rating
-        })
-      }
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
-  }
-
+  
   returnProductAction(event) {
     event.preventDefault();
 
@@ -472,7 +315,7 @@ export default class MyOrders extends Component {
   }
 
   render() {
-    console.log("1. myorder page this.state.orderData=",this.state.orderData);
+    // console.log("1. myorder page this.state.orderData=",this.state.orderData);
     return (
       <div className="col-12">
          <div className="row"> 
@@ -498,6 +341,7 @@ export default class MyOrders extends Component {
                   <div className="col-12">
                     {this.state.orderData && this.state.orderData.length > 0 ? 
                       this.state.orderData.map((singleOrder, index) => {
+                        // console.log("singleOrder=",singleOrder);
                         return(
                           <div className={"col-12 NoPadding orderIdborder " +Style.orderIdborderNew} key={index}>
                             <div className="col-12  NoPadding orderNowrapper mb-4 ">
@@ -525,27 +369,11 @@ export default class MyOrders extends Component {
                                 </div>                        
                               </div> 
                             </div> 
-                            {/* <div className="col-12 totalOrderBlock pb-2">
-                              <div className="row">
-                                <div className="col-6 NoPadding">
-                                  <div className={"col-12 pull-left"}> Total Amount</div>
-                                  <div className={"col-12 pull-left"}> {this.state.currency} &nbsp; {singleOrder.paymentDetails.netPayableAmount}</div>
-                                </div>                       
-                                <div className="col-6 NOpadding">
-                                    <div className="col-4 orderStatus pull-right ">
-                                      {singleOrder.orderStatus=== "Cancelled"?
-                                        <span class="badge badge-danger">{singleOrder.orderStatus}</span>
-                                      :
-                                        <span class="badge badge-primary">{singleOrder.orderStatus}</span>
-                                      }
-                                    </div> 
-                                </div>                        
-                              </div> 
-                            </div>  */}
+                            
                               {
                                 singleOrder && singleOrder.vendorOrders && singleOrder.vendorOrders.length > 0 ?                    
                                 singleOrder.vendorOrders.map((vendordata, index) => {
-                                    // console.log("orderData:",vendordata);
+                                    console.log(" single orderData:",vendordata);
                                     return (
                                       <div className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>
                                         <div className="col-12" >
@@ -557,19 +385,19 @@ export default class MyOrders extends Component {
                                               <div className="row ">   
                                                   <div className="col-12 title NoPadding">
                                                     <div className="row">
-                                                        <span className="col-6 ">&nbsp; Number Of Items </span>
+                                                        <span className="col-4 ">&nbsp; No.Of Items </span>
                                                         <span className="col-1">:</span>
-                                                        <span className="col-5 ">
-                                                            {vendordata.order_numberOfProducts} 5
+                                                        <span className="col-6 ">
+                                                            {vendordata.vendor_numberOfProducts} 
                                                         </span>
                                                     </div>
                                                   </div>             
                                                   <div className="col-12">
                                                       <div className="row">
-                                                        <span className="col-6 ">&nbsp; Amount </span>
+                                                        <span className="col-4 ">&nbsp; Amount </span>
                                                         <span className="col-1">:</span>
-                                                        <span className="col-5 "> 
-                                                            {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
+                                                        <span className="col-6 "> 
+                                                            {this.state.currency} {vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
                                                         </span>
                                                       </div>
                                                   </div>
@@ -598,8 +426,8 @@ export default class MyOrders extends Component {
                                         <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
                                     </div>
                                     <div className="col-7  pull-right orderBtnWrapper">
-                                      <button className=" btn col-6 pull-right ">
-                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-12 pull-right globalCommonBtn col-md-12 showDetailsBtn "}>Show Details</a>
+                                      <button className=" btn col-6 pull-right " onClick={()=>this.props.getOrderId(singleOrder._id)}>
+                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-12 pull-right globalCommonBtn col-md-12 showDetailsBtn "} >Show Details</a>
                                       </button>
                                     </div>
                                   </div>
@@ -639,86 +467,13 @@ export default class MyOrders extends Component {
                       </div>
                     </div> */}
 
-                    {/* feedbackProductModal */}
-
-                    {/* <div className="modal" id="feedbackProductModal" role="dialog">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header feedbackModalHeader">
-                            <img src="/favicon.ico" alt="" />
-                            <h4 className="modal-title modalheadingcont">PRODUCT REVIEW</h4>
-                            <button type="button" className="close modalclosebut" onClick={this.closeModal.bind(this)} data-dismiss="modal">&times;</button>
-                          </div>
-                          <div className="modal-body">
-                            <div className="col-xl-12 col-md-12 col-sm-12 col-xs-12">
-                              <table className="data table table-order-items history" id="my-orders-table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col" className="col id">Product Image</th>
-                                    <th scope="col" className="col id">Product Name</th>
-                                    <th scope="col" className="col date textAlignRight">Price</th>
-                                  </tr>
-                                </thead>
-                                <tbody>{
-                                  this.state.oneproductdetails ?
-                                    <tr>
-                                      <td data-th="Order #" className="col id orderimgsize"><img src={this.state.oneproductdetails.productImage[0] ? this.state.oneproductdetails.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" /></td>
-                                      {this.state.oneproductdetails.productNameRlang?                                      
-                                        <td data-th="Order #" className="col id RegionalFont">{this.state.oneproductdetails.productNameRlang}</td>
-                                      :
-                                        <td data-th="Order #" className="col id">{this.state.oneproductdetails.productName}</td>
-                                      }
-                                      
-                                      <td data-th="Order Total" className="col total textAlignRight"><span><i className={"fa fa-" + this.state.oneproductdetails.currency}> {this.state.oneproductdetails.discountedPrice}</i></span></td>
-                                    </tr>
-                                    :
-                                    null
-                                }
-                                </tbody>
-                              </table>
-                              <form className="feedbackForm col-12" id="">
-                                <div className="col-12 row">
-                                  <fieldset className="ratingReview stars givefeedback ">
-                                    <input type="radio" id="star1" name="ratingReview" checked={this.state.ratingReview === 1 ? true : false} onChange={this.ratingReview.bind(this)} value="1" /><label htmlFor="star1"></label>
-                                    <input type="radio" id="star2" name="ratingReview" checked={this.state.ratingReview === 2 ? true : false} onChange={this.ratingReview.bind(this)} value="2" /><label htmlFor="star2"></label>
-                                    <input type="radio" id="star3" name="ratingReview" checked={this.state.ratingReview === 3 ? true : false} onChange={this.ratingReview.bind(this)} value="3" /><label htmlFor="star3"></label>
-                                    <input type="radio" id="star4" name="ratingReview" checked={this.state.ratingReview === 4 ? true : false} onChange={this.ratingReview.bind(this)} value="4" /><label htmlFor="star4"></label>
-                                    <input type="radio" id="star5" name="ratingReview" checked={this.state.ratingReview === 5 ? true : false} onChange={this.ratingReview.bind(this)} value="5" /><label htmlFor="star5"></label>
-                                  </fieldset>
-                                  <div className="clearfix "></div>
-                                </div>
-                                <label className="error">{this.state.reviewStarError}</label>
-                                <div className="row inputrow">
-                                  <label className="col-12 mt15">Write review</label>
-                                  <div className="col-12 ">
-                                    <textarea rows="5" className="col-12 " onChange={this.handleChangeReview.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
-                                    <label className="error">{this.state.reviewTextError}</label>
-                                  </div>
-                                </div>
-                                <div className="row inputrow">
-                                </div>
-                              </form>
-                            </div>
-
-                          </div>
-                          <div className="modal-footer modalfooterborder ">
-                            <div className="col-12 actionbtn ">
-                              <button className="btn mt15" onClick={this.submitReview.bind(this)} data-productid={this.state.oneproductdetails && this.state.oneproductdetails._id}
-                              >{this.state.rating_ID ? 'Update' :'Submit'}</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                 */}
+                   
                 
                   </div>
                 </div>
                </div> 
-              // </div>
           }
         </div>
-        {/* <Footer /> */}
         </div>
       
     );

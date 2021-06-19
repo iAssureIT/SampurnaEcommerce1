@@ -23,7 +23,11 @@
 .middleText{
 	font-size:11px;
 }
-
+.returnReviewBtn{
+	cursor: pointer;
+	font-size: 12px;
+	text-decoration: underline;
+}
 .orderIdborderNew{
 	background:#ffffff !important;
 	height:auto;

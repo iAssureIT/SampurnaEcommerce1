@@ -28,15 +28,20 @@ class EditAccount extends Component{
         }
     }
     componentDidMount(){
-        var userid = localStorage.getItem('user_ID');
+        var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+        var currency = sampurnaWebsiteDetails.preferences.currency;
+        var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
+        // console.log("userDetails===",userDetails);
         this.setState({
-            user_ID : userid,
-            websiteModel : localStorage.getItem('websiteModel')
+            user_ID : userDetails.user_id,
+            email   : userDetails.email,
+            fullName: userDetails.firstName +" "+userDetails.lastName ,         
+            currency     : currency,
         },()=>{
             // this.getUserData();
             $('.fullpageloader').show();
             // var userid = localStorage.getItem("user_ID");
-            axios.get('/api/users/'+this.state.user_ID)
+            axios.get('/api/users/get/id'+this.state.user_ID)
             .then( (res)=>{
                 $('.fullpageloader').hide();
                 // console.log("response:",res);
