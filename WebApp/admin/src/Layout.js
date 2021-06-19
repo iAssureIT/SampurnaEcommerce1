@@ -60,6 +60,7 @@ import viewOrder                    from './StoreManagement/orders/component/Vie
 import Reports                      from './admin/Reports/Reports.js';
 import CategoryWiseReports          from './admin/categoryWiseReports/Reports.js';
 import Productreview                from './storeAdmin/Productreview/Productreview.js';
+import ViewProductReview            from './storeAdmin/Productreview/ViewProductReview.js';
 
 // import ImageUpload from '../../ImageUpload/ImageUpload.js';
 
@@ -294,7 +295,8 @@ class Layout extends Component  {
 
                                                         <Route path="/category-wise-reports"                            exact strict component={CategoryWiseReports} />
 
-                                                        <Route path="/productreview"                                    exact strict component={Productreview} />
+                                                        <Route path="/product-reviews-&-ratings"                        exact strict component={Productreview} />
+                                                        <Route path="/product-reviews-&-ratings/:review_id"             exact strict component={ViewProductReview} />
 
                                                         {/*CMS*/}
                                                         

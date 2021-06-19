@@ -2,29 +2,33 @@ import React, { Component }   from 'react';
 import axios                  from 'axios';
 import IAssureTable           from "./ProductReviewTable/IAssureTable.jsx";
 import _                      from 'underscore';
+import moment                 from "moment";
 import "./Productreview.css";
 
+var fiveStar = [1, 1, 1, 1, 1];
 
 class Productreview extends Component{
     constructor(props) { 
         super(props);
         this.state = {
-            tableHeading :{
+            tableHeading    : {
                 "productName"       : "Product Name(Product Code)",
+                "vendorName"        : 'Vendor Name',
                 "customerName"      : 'Customer Name',
                 "customerReview"    : 'Customer Review',
+                "reviewDate"        : 'Review Date',
                 "adminComment"      : 'Admin Comment',
                 "rating"            : 'Rating',
             },
-            tableObjects : {
+            tableObjects    : {
                 paginationApply : true,
                 searchApply     : true,
                 deleteMethod    : 'delete',
                 apiLink         : '/api/customerReview',
                 editUrl         : '/add-product/'
             },
-            startRange : 0,
-            limitRange : 10
+            startRange      : 0,
+            limitRange      : 10
         };
         window.scrollTo(0, 0);
     }
@@ -46,9 +50,9 @@ class Productreview extends Component{
 
     componentDidMount() {
         this.getCount();
-        this.getData(this.state.startRange, this.state.limitRange);
-
+        this.getData(this.state.startRange, this.state.limitRange);        
     }
+
     getCount(){
         axios.get('/api/customerReview/get/count')
         .then((response)=>{
@@ -70,23 +74,26 @@ class Productreview extends Component{
         axios.post('/api/customerReview/get/list', data)
         .then((response)=>{
             console.log('res  p', response.data);
-            var tableData = response.data.map((a, i)=>{
-              return{
-                "_id"           : a._id,
-                "productName"       : a.productDetails[0] ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
-                "productImages" : a.productDetails[0] ? a.productDetails[0].productImage : [],
-                "customerName"  : a.customerName,
-                "customerReview": a.customerReview,                
-                "adminComment"  : a.adminComment ? a.adminComment : "-",
-                "orderID"       : a.orderID,
-                "productID"     : a.productID,
-                "rating"        : a.rating,
-                "reviewlist"    : a.reviewlist,
-                "status"        : a.status
-              };
+            var tableData = response.data.map((a, ind)=>{
+                return{
+                    "_id"               : a._id,
+                    "productName"       : a.productDetails[0] && a.productDetails[0].productName ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
+                    "vendorName"        : a.vendorDetails[0] && a.vendorDetails[0].companyName ? a.vendorDetails[0].companyName : "",
+                    "productImages"     : a.productDetails[0] && a.productDetails[0].productImage ? a.productDetails[0].productImage : "",
+                    "customerName"      : a.customerName,
+                    "customerReview"    : a.customerReview, 
+                    "reviewDate"        : moment(a.createdAt).format("DD MMMM YYYY, HH:mm a"),             
+                    "adminComment"      : a.adminComment ? a.adminComment : "-",
+                    "orderID"           : a.orderID,
+                    "productID"         : a.productID,
+                    "rating"            : a.rating,
+                    "status"            : a.status
+                };
             })
             this.setState({
                 tableData : tableData
+            },()=>{
+                console.log("tableData => ",this.state.tableData)
             })
         })
         .catch((error)=>{
@@ -104,14 +111,14 @@ class Productreview extends Component{
         .then((response)=>{
             var tableData = response.data.map((a, i)=>{
               return{
-                "_id"           : a._id,
-                "product"    : a.productDetails[0] ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
-                "customerReview": a.customerReview,
-                "customerName"  : a.customerName,
-                "orderID"       : a.orderID,
-                "productID"     : a.productID,
-                "rating"        : a.rating,
-                "reviewlist"    : a.reviewlist
+                "_id"               : a._id,
+                "product"           : a.productDetails[0] ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
+                "customerReview"    : a.customerReview,
+                "customerName"      : a.customerName,
+                "orderID"           : a.orderID,
+                "productID"         : a.productID,
+                "rating"            : a.rating,
+                "reviewlist"        : a.reviewlist
               };
             })
             this.setState({
@@ -124,7 +131,7 @@ class Productreview extends Component{
     }
     render(){
         return(
-            <div className="container">
+            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <section className="content">
@@ -132,7 +139,7 @@ class Productreview extends Component{
                                 <div className="row">
                                     <div className="box">
                                         <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
-                                              <h4 className="NOpadding-right"> Product Review</h4>
+                                              <h4 className="NOpadding-right"> Product Reviews & Ratings </h4>
                                         </div>                                        
                                         
                                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">

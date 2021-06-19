@@ -246,8 +246,12 @@ export default class AdminDashboard extends Component{
 									<a href="/add-deals" data-id="/add-deals" title="Deals Upload" onClick={this.activeMenu.bind(this)}>
 										<i className="fa fa-circle-o dashr" />Deals Management
 									</a> 
-								</li>   
-							
+								</li>								
+								<li className="noPadLR"> 
+									<a href="/product-reviews-&-ratings" data-id="/product-reviews-&-ratings" title="Product Reviews and Ratings" onClick={this.activeMenu.bind(this)}>
+										<i className="fa fa-circle-o dashr" />Product Reviews & Ratings
+									</a> 
+								</li> 	 						
 							</ul>
 						</li>
 

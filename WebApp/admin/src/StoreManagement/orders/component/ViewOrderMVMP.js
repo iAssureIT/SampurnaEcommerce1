@@ -90,7 +90,7 @@ class viewOrder extends Component{
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 outerbox">
 								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 orderedOn">
 									<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										Ordered on <span className="orderedOnDate">{moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}</span>   
+										Ordered on <span className="orderedOnDate">{moment(this.state.orderData.createdAt).format("DD MMMM YYYY, HH:mm a")}</span>   
 									</div>
 									<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 orderNumberDiv">	
 										Order Number : <span className="orderNumber"> {this.state.orderData.orderID}</span>

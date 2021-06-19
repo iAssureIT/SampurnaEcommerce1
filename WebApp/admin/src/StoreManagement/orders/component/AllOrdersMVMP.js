@@ -33,16 +33,6 @@ class AllOrdersList extends Component{
 						mergedColoums 	: 4,
 						// mergedRows 		: 1
 					},
-					// {
-					// 	heading 		: 'Order Date',
-					// 	mergedColoums 	: 1,
-					// 	mergedRows 		: 1
-					// },
-					// {
-					// 	heading 		: 'Customer',
-					// 	mergedColoums 	: 1,
-					// 	mergedRows 		: 1
-					// },
 					{
 						heading 		: 'Vendor',
 						mergedColoums 	: 4,
@@ -68,8 +58,8 @@ class AllOrdersList extends Component{
 			tableData 			: [],
 			activeStatus 		: ""
 		};
-		this.openChangeStatusModal = this.openChangeStatusModal.bind(this);
-		window.openChangeStatusModal  = this.openChangeStatusModal;
+		this.openChangeStatusModal 		= this.openChangeStatusModal.bind(this);
+		window.openChangeStatusModal  	= this.openChangeStatusModal;
 	}
 
 	/* ======= handleChange() ========== */
@@ -96,18 +86,16 @@ class AllOrdersList extends Component{
 	/* ======= componentDidMount() ========== */
 	async componentDidMount(){
 		
-		// this.getDataCount();
 		this.getAdminPreferences();
 		var orderStatusData 	= await axios.get('/api/orderstatus/get/list');
 		var orderStatusArray 	= orderStatusData.data;
 		this.setState({
 			"orderStatusArray": orderStatusArray,
-		},()=>{
-			console.log("getAllorderStatus response ==>",this.state.orderStatusArray)
-		})
-		var orderStatusParams = this.props.match.params.orderStatus.replace(/-/g, ' ');
-		console.log("orderStatusParams * => ",orderStatusParams);
-		var orderStatus = "";
+		},()=>{})
+
+		var orderStatusParams 	= this.props.match.params.orderStatus.replace(/-/g, ' ');
+		var orderStatus 		= "";
+
 		if(orderStatusArray && orderStatusArray.length > 0){
 			var orderStatusObject = await orderStatusArray.filter(orderStatus => (orderStatus.orderStatus).toLowerCase() === orderStatusParams);
 			if(orderStatusObject && orderStatusObject.length > 0){
@@ -118,14 +106,11 @@ class AllOrdersList extends Component{
 		}else{
 			orderStatus = orderStatusParams;
 		}
-		console.log("orderStatus * => ",orderStatus)
 		this.setState({
 			orderStatus : orderStatus
 		},()=>{
-			console.log(" this.state.orderStatus => ",this.state.orderStatus);
 			this.getData(this.state.startRange,this.state.limitRange);		
 		})
-		// console.log("params => ",this.props.match.params.orderStatus);
 	}
 
 	/* ======= getAllorderStatus() ========== */
@@ -156,38 +141,35 @@ class AllOrdersList extends Component{
 
 	/* ======= openChangeStatusModal() ========== */
 	openChangeStatusModal(id){
-		console.log("id=============>",id)
 		var order_id 		= id.split("-")[0];
 		var vendor_id 		= id.split("-")[1];
 		var order_user_id 	= id.split("-")[2];
-		console.log("id => ",id)
+		
 		this.setState({
 			vendor_id 		: vendor_id,
 			order_id 		: order_id,
 			order_user_id	: order_user_id
 		},()=>{
 			this.getOneOrder(this.state.order_id, this.state.vendor_id);
-		})
-		
+		})		
 	}
 	
 	/* ======= get Single order ========== */
 	getOneOrder(order_id, vendor_id){
 		axios.get('/api/orders/get/one/order/'+order_id)
 		.then((response) => {
-			console.log("get one order response ==>",response.data)
+			// console.log("get one order response ==>",response.data)
 			if (response.data && response.data.vendorOrders && response.data.vendorOrders.length > 0) {
 				var vendorOrder = response.data.vendorOrders.filter(vendorOrder => String(vendorOrder.vendor_id) === String(vendor_id))
-				console.log("vendorOrder => ",vendorOrder)
+				
 				if(vendorOrder[0] && vendorOrder[0].deliveryStatus.length > 0){
 					var activeStatus 		= vendorOrder[0].deliveryStatus[vendorOrder[0].deliveryStatus.length -1].status;
 					var activeStatusObject 	= this.state.orderStatusArray.filter(status => status.orderStatus === activeStatus);
-					console.log("activeStatusObject => ",activeStatusObject);
 					var activeStatusRank  	= 0;
+
 					if(activeStatusObject && activeStatusObject.length > 0){
 						activeStatusRank  	= activeStatusObject[0].statusRank;
-					}					
-					console.log("activeStatus => ",activeStatus);
+					}
 					this.setState({
 						activeStatus 		: activeStatus,
 						activeStatusRank 	: activeStatusRank
@@ -206,7 +188,7 @@ class AllOrdersList extends Component{
 				})
 				.then(okay => {
 					if (okay) {
-							window.location.href = "/login";
+						window.location.href = "/login";
 					}
 				});
 			}
@@ -248,14 +230,14 @@ class AllOrdersList extends Component{
 		  limitRange : limitRange,
 		  status 	 : this.state.orderStatus
 		}
-
 		
-		// axios.post('/api/orders/get/list_orders_by_status',formValues)
-		// .then((response)=>{
-		socket.emit('adminOrtderListValues',formValues);
-		socket.on("adminBookingList", (response)=>{
-		console.log('order tableData', response);		               
-		  	var tableData = response.reverse().map((a, i)=>{                      
+		axios.post('/api/orders/get/list_orders_by_status',formValues)
+		.then((response)=>{
+		// socket.emit('adminOrtderListValues',formValues);
+		// socket.on("adminBookingList", (response)=>{
+		// console.log('order tableData', response);		               
+		  	// var tableData = response.reverse().map((a, i)=>{
+			var tableData = response.data.reverse().map((a, i)=>{                      
 				return{ 
 					_id             : a._id,
 					orderNumber     : a.orderID,
@@ -279,8 +261,6 @@ class AllOrdersList extends Component{
 										? 
 											(a.vendorOrders.map((b)=>{
 												var status = (b.deliveryStatus[b.deliveryStatus.length - 1].status).replace(/\s+/g, '_').toLowerCase()
-												console.log("b.deliveryStatus => ",b.deliveryStatus)
-												console.log("status => ",status)
 												return '<div class="statusDiv ' + status + '">'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
 													? 
 														(b.deliveryStatus[b.deliveryStatus.length - 1].status)
@@ -304,30 +284,24 @@ class AllOrdersList extends Component{
 			})
 			this.setState({
 				tableData : tableData
-			},()=>{
-				console.log("order data => ",this.state.tableData);
-				if(this.state.category_id && this.state.category_id !== "undefined"){
-					this.getSubCategoryData();
-					// this.openSubCategoryModal(this.state.category_id);
-				}
-			})
+			},()=>{})
 		})
-		// .catch((error)=>{
-		// 	console.log('error', error);
-		// 	if(error.message === "Request Failed with Status Code 401"){
-		// 		localStorage.removeItem("userDetails");
-		// 		localStorage.clear();
-		// 		swal({  
-		// 			title : "Your Session is Expired.",                
-		// 			text  : "You need to login again. Click OK to Go to Login Page"
-		// 		})
-		// 		.then(okay => {
-		// 			if (okay) {
-		// 				window.location.href = "/login";
-		// 			}
-		// 		});
-		// 	}
-		// });
+		.catch((error)=>{
+			console.log('error', error);
+			if(error.message === "Request Failed with Status Code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is Expired.",                
+					text  : "You need to login again. Click OK to Go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+		});
 	}
 
 	/*======== openCancelledRemarkModal() ========*/
@@ -344,14 +318,11 @@ class AllOrdersList extends Component{
 
 	/* ======= changeVendorOrderStatus() ========== */
 	async changeVendorOrderStatus(event){		
-		console.log("event => ",event.target.id);		
+		// console.log("event => ",event.target.id);	
 
-		// console.log("activeStatusObject 1 => ",activeStatusObject);
-		// console.log("activeStatusObject 2 => ",this.state.activeStatus);
-		// console.log("activeStatusObject 3 => ",activeStatusRank);
-
-		var nextStatusRank = this.state.activeStatusRank + 1;
+		var nextStatusRank 		= this.state.activeStatusRank + 1;
 		var previousStatusRank 	= 0;
+
 		if(this.state.activeStatusRank === 1){
 			previousStatusRank 	= 0;
 		}else{
@@ -367,17 +338,13 @@ class AllOrdersList extends Component{
 			changeStatusRank 		= previousStatusRank;
 		}else if(event.target.id === "Next"){
 			var nextStatusObject 	= await this.state.orderStatusArray.filter(orderStatus => orderStatus.statusRank === nextStatusRank)
-			console.log("nextStatusObject =>",nextStatusObject)
 			changeStatus 		= nextStatusObject[0].orderStatus;
 			changeStatusRank 	= nextStatusRank;
 		}
 		this.setState({
 			changeStatus 		: changeStatus,
 			changeStatusRank 	: changeStatusRank
-		},()=>{
-			console.log("changeStatus => ", this.state.changeStatus)
-			console.log("changeStatusRank => ", this.state.changeStatusRank)
-		})	
+		},()=>{})	
 
 		
 		var formValues = { 
@@ -470,11 +437,6 @@ class AllOrdersList extends Component{
 												?
 													this.state.orderStatusArray.map((data, index) => {												
 														var statusArrayLength = this.state.orderStatusArray.length;
-														console.log("statusArrayLength => ",statusArrayLength)
-														console.log("this.state.activeStatusRank => ",this.state.activeStatusRank)
-														
-														console.log("this.state.orderStatusArray => ",this.state.orderStatusArray)
-														console.log("data => ",data)
 														return (
 															<li className={"step0 " + 
 																(index === 0 

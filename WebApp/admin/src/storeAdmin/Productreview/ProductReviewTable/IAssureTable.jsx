@@ -481,7 +481,7 @@ class IAssureTable extends Component {
 	       	<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12">	
 		       	{
 		       		this.state.tableObjects.paginationApply === true ?
-			       		<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 NOpadding">
+			       		<div className="col-lg-1 col-md-1 col-sm-1 col-xs-2 NOpadding">
 							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop17 NOpadding">Data Per Page</label>
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
 								<select onChange={this.setLimit.bind(this)} value={this.state.limitRange} id="limitRange" ref="limitRange" name="limitRange" className="col-lg-12 col-md-12 col-sm-6 col-xs-12  noPadding  form-control">
@@ -497,7 +497,7 @@ class IAssureTable extends Component {
 					:
 					null        
 		       	}
-				   <div className="col-lg-4 col-md-4 col-xs-12 col-sm-12 totalDataCount">Total Data : <b>{this.state.dataCount}</b>
+				   <div className="col-lg-4 col-md-4 col-xs-12 col-sm-12 totalDataCount">Total Reviews : <b>{this.state.dataCount}</b>
 					   
 				   </div>
 				{
@@ -598,8 +598,13 @@ class IAssureTable extends Component {
                                                     </td>
 													<td className="textAlignCenter">
 														<span>
-															<i className="fa fa-reply" data-toggle="modal" title="Comment" data-target={"#showCommentModal-"+(value._id)} id={value._id}></i>&nbsp; &nbsp; 
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>}
+															{/* <i className="fa fa-reply" data-toggle="modal" title="Comment" data-target={"#showCommentModal-"+(value._id)} id={value._id}></i>&nbsp; &nbsp;  */}
+															
+															<a href={"/product-reviews-&-ratings/"+value._id} className="" title="View" data-ID={value._id}>
+	                                                            <i className="fa fa-eye" title="View Customer Review" aria-hidden="true"></i>
+	                                                        </a>&nbsp; &nbsp;
+															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete Customer Review" data-target={"#showDeleteModal-"+(value._id)}></i>}
+															{/* <i className="fa fa-eye" title="View Customer Review" id={value._id} ></i>&nbsp; &nbsp;  */}
 														</span>
 														<div className="modal fade" id={"showCommentModal-"+(value._id)} role="dialog">
 	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -631,8 +636,8 @@ class IAssureTable extends Component {
 																	  }
 																  </div>
 																  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 textAlignLeft adminComment">
-																		<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Admin Comments</label>
-																		<textarea rows="5" id="adminComment" value={this.state.adminComment} onChange={this.handleChange.bind(this)} name="adminComment" ref="adminComment" className="col-lg-12 col-md-12 col-sm-12 col-xs-12"></textarea>
+																	<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">Admin Comments</label>
+																	<textarea rows="5" id="adminComment" value={this.state.adminComment} onChange={this.handleChange.bind(this)} name="adminComment" ref="adminComment" className="col-lg-12 col-md-12 col-sm-12 col-xs-12"></textarea>
 																  </div>
 	                                                            </div>
 	                                                            <div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -106,7 +106,7 @@ const vendorCategoryRoutes	    			= require("./api/Ecommerce/vendorCategory/Rout
 const vendorLocationTypeRoutes  			= require("./api/Ecommerce/vendorLocationType/Routes"); 
 const BARoutes				    			= require("./api/Ecommerce/businessAssociate/Routes"); 
 const customerQueryRoutes					= require("./api/Ecommerce/customerQuery/Routes"); 
-const customerReviewRoutes					= require("./api/Ecommerce/customerReview/Routes"); 
+const customerReviewRoutes					= require("./api/Ecommerce/customerReview/RoutesMVMP"); 
 /*========== Franchise Model ===========*/
 const PurchaseEntry       					= require("./api/Ecommerce/PurchaseManagement/routes/PurchaseEntry");
 const FinishedGoodsEntry   					= require("./api/Ecommerce/PurchaseManagement/routes/FinishedGoodsEntry");

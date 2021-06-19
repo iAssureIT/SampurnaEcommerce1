@@ -1,0 +1,93 @@
+Return response for wishlist
+[
+    {areaName: xx, distance:xx, 
+        vendorProducts: [
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+        ]
+    }
+    {areaName: xx, distance:xx, 
+        vendorProducts: [
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+        ]
+    }
+    {areaName: xx, distance:xx, 
+        vendorProducts: [
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+            {vid: xx, VlocId:xx, upc:xx, pId:xx,iId:xx, productName:xxx, origPrice:xx, discountPercent:xx,discountedPrice:xx, imageUrl:xxx}
+        ]
+    }
+]
+
+
+Add to wishlist
+API => http://localhost:3368/api/wishlist/post
+formValues = {
+    "user_ID"             : "60ade5ce4da4d2153ff7a608",
+    "userDelLocation"     : {
+                                "lat"             : "25.206417", 
+                                "long"            : "55.400298",
+                                "delLocation"     : "Internet City, Dubai"
+                        },
+    "vendor_id"           : "609d0c0e7bdc653631fe1b28",
+    "vendorLocation_id"   : "60c4490bf12bbf182939cd1a",
+    "product_ID"         : "60c4c74329aa515d2291f6e3"
+}
+Get User Wishlist
+API => http://localhost:3368/api/wishlist/get/userwishlist
+formValues = {
+
+    "user_ID"             : "60ade5ce4da4d2153ff7a608",
+    "userLat"             : "26.206417", 
+    "userLong"            : "55.400298"
+}
+
+VendorList => Homepage to Cart
+API => http://localhost:3368/api/vendorlist/post/productwise/vendor/list
+formValues = {
+    "startRange" : 0,
+    "limitRange" : 10,
+    "product_ID" : "60c4c74329aa515d2291f6e3",
+    "latitude"   : "25.119869",
+    "longitude"  : "55.386700"
+}
+
+==========================================================================
+Credit Points 
+
+1) Credit Point Master
+
+Order Amount        : |_______________________|
+
+Credit Points       : |_______________________|
+
+Credit Point Value  : |_______________________|
+
+
+
+2) In Order Insert API
+
+await creditPoints();
+await sendNotification();
+
+
+3) creditPoints collection Model
+
+user_id             : objectId
+totalCreditPoints   : Number,
+transactions        : [{
+    order_id            : objectId,
+    orderDate           : Date,
+    totalAmount         : Number,
+    purchaseAmount      : Number,
+    DeliveryCharges     : Number,
+    pointsEarned        : Number,
+    typeOfTransaction   : String
+}]

@@ -1060,7 +1060,7 @@ exports.apply_coupon = (req,res,next)=>{
         
                 }else{ 
                     /*---- Check for Min Puchase amount for Coupon to be applied ----*/
-                    if(order_afterDiscountTotal > isCouponValid.dataObj.minPurchaseAmount){
+                    if(order_afterDiscountTotal >= isCouponValid.dataObj.minPurchaseAmount){
 
                         if ((isCouponValid.dataObj.couponin).toLowerCase() === "percent") {
                             var discountInPercent                           = (order_afterDiscountTotal * isCouponValid.dataObj.couponvalue) / 100;

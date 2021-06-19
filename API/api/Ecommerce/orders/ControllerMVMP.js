@@ -516,7 +516,7 @@ exports.list_orders_by_status = (req, res, next) => {
 
 /** =========== Change Vendor Order Status =========== */
 exports.change_vendor_orders_tatus = (req, res, next) => {
-	console.log("req.body => ",req.body)
+	// console.log("req.body => ",req.body)
 	Orders.updateOne(
 	{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 	{
@@ -906,7 +906,7 @@ exports.fetch_order = (req, res, next) => {
 	.populate('vendorOrders.vendor_id')
 	.exec()
 	.then(async(data) => {
-		console.log('data', data);
+		// console.log('data', data);
 		// for(var i=0;i<data.length;i++){
 			// for(var j=0;j<data[i].vendorOrders.length;j++){
 				// console.log("data[i].vendorOrders",data[i].vendorOrders);
@@ -945,7 +945,7 @@ exports.fetch_order = (req, res, next) => {
 exports.fetch_one_order = (req, res, next) => {
 	Orders.findOne({ _id: req.params.orderID })
   	.then(async(data) => {
-	  	console.log('data', data);
+	  	// console.log('data', data);
 		res.status(200).json(data);
   	})
   	.catch(err => {
@@ -1522,7 +1522,7 @@ exports.list_order_by_user = (req, res, next) => {
 	 });
 };
 exports.cancelOrder = (req, res, next) => {
-  console.log("Order cancelled");
+//   console.log("Order cancelled");
   Orders.updateOne(
 	 { _id: req.body.orderID },
 	 {
@@ -1694,7 +1694,7 @@ exports.get_reports_franchise = (req, res, next) => {
 	 });
 };
 exports.get_reports = (req, res, next) => {
-  console.log("get reports data", req.body.startDate, req.body.endDate);
+//   console.log("get reports data", req.body.startDate, req.body.endDate);
   Orders.find({
 	 createdAt: {
 		$gte: moment(req.body.startDate).tz('Asia/Kolkata').startOf('day').toDate(),
@@ -2528,7 +2528,7 @@ exports.getMonthwiseOrders = (req,res,next)=>{
 	 ])
 	 .exec()
 	 .then(orderDetails=>{
-		console.log("orderDetails",orderDetails);
+		// console.log("orderDetails",orderDetails);
 		  var returnData = []
 		  var totalCost = "" ;
 		  var totalOrders = "" ;

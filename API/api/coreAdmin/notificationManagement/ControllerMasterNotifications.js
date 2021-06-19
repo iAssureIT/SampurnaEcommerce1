@@ -243,9 +243,9 @@ exports.send_notifications = (req, res, next) => {
                     var company = req.body.company_id;
                     var templateName = returnData[i].event;
                     var mode = returnData[i].templateType;
-                    console.log("mode",mode);
+                    console.log("mode", mode);
 
-                    console.log('notification data=>',role,company,templateName,mode,req.body.toUserRole)
+                    console.log('notification data=>',role, company, templateName, mode, req.body.toUserRole)
 
 
                     if(role == 'admin'){

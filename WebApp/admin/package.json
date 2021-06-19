@@ -10,7 +10,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^3.4.1",
     "bootstrap-toggle": "^2.2.2",
-    "browserslist": "^4.6.6",
+    "browserslist": "^4.16.6",
     "caniuse-lite": "^1.0.30000988",
     "chart.js": "^2.9.4",
     "chartjs-plugin-labels": "^1.1.0",
@@ -119,6 +119,6 @@
     ]
   },
   "devDependencies": {
-    "compress-images": "^1.9.5"
+    "compress-images": "^1.9.9"
   }
 }

@@ -114,7 +114,7 @@
     background-color: #ddd;
 }
 
-. .nav>li.disabled>.backcolor:focus {
+.nav>li.disabled>.backcolor:focus {
     color: var(--bunting-color);
     text-decoration: none;
     /* cursor: not-allowed; */
@@ -1157,11 +1157,11 @@ select#gender option[value="others"] {
     width: 50px !important;
     padding: 0;
 }
-{/*.CustomImageUploadBIImg img {
+/*.CustomImageUploadBIImg img {
    height: 9.1em;
     padding: 0;
     width: 100%;
-}*/}
+}*/
 .firstElement{
     margin-left: 8px !important;
 }
