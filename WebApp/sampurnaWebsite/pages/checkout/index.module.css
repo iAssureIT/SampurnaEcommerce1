@@ -2,6 +2,10 @@
 	margin-bottom: 20px;
 }
 
+.ma{
+    margin: auto !important;
+}
+
 .eCommTitle {
     background-color: #033554;
     color: #fff;
@@ -105,4 +109,72 @@
 
 .addressWrapper{
 	height:auto;
+}
+
+.headerH{
+    max-height: 100px !important;
+}
+
+.modalHeader{
+    background-color:#033554;
+    border-bottom:0px !important;
+}
+
+ .close1 {
+    font-size: 24px !important;
+    /*opacity: 1 !important;*/
+    color: #fff;
+    /*border-radius: 3px;*/
+    font-weight: 100;
+    padding: 0px 5px !important;
+    background-color: #033554 !important;
+    /*margin-right: 20px;*/
+    border:1px solid #033554 !important;
+    vertical-align: text-top !important;
+    text-align:top !important;
+    margin-top:0px !important;
+}
+
+.modalT{
+    font-size:12px !important;
+    font-weight:300 !important;
+    margin-top:12px !important;
+}
+
+.formcontrol1 {/*
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;    
+    background-clip: padding-box;*/
+    background-color: #eee;
+    border:none !important;
+    border-bottom: 1px solid #ced4da !important;
+    border-radius: 0px !important;
+   /* -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;*/
+}
+
+.modalBg{
+    background-color:#eee;
+    padding-bottom:50px !important;
+}
+
+.listColor{
+    color:#fff !important;
+    font-size:12px !important;
+    font-weight:200 !important;
+    min-height:300px;
+    height:auto;
+}
+
+.saveBtn{
+    background-color:#033554 !important;
+    color:#fff !important;
 }

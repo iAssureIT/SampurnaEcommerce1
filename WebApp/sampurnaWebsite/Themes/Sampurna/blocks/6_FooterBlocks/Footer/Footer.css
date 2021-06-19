@@ -443,9 +443,7 @@
   text-decoration: none !important;
   transition: 0.3s ease;
 }
-.categortTitle a span:hover{
-  color: var(--color) !important;
-}
+
 .socialMediaIcons .fab{
   border-radius: 100%;
   border:var(--border2px) !important;

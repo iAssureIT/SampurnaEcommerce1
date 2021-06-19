@@ -104,27 +104,27 @@ export default class Footer extends Component {
             <div className="col-6 col-xl-3 col-lg-3 col-md-4 col-sm-6 NoPadding onlineShoppingWrapper">               
                 
                 <div className="col-xl-12 col-md-12 col-sm-12  col-12">
-                    <div className="col-12 FooterTitle NoPadding">Connect with Us</div>
-                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding">
-                        <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fa fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                    
-                        <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fa fa-facebook-f mt15"></i></a></Link></div>
-                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fa fa-youtube mt15" aria-hidden="true"></i></a></Link></div>  
-                        <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fa fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>                          
-                        <div className="socialMediaIcons"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fa fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                   
+                    <div className="col-12 FooterTitle text-right">Connect with Us</div>
+                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 pull-right ">
+                        <div className="socialMediaIcons pull-right"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fa fa-twitter mt15" aria-hidden="true"></i></a></Link></div>
+                        <div className="socialMediaIcons pull-right"><Link href="https://www.linkedin.com"><a  target="_blank"><i className="fa fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
+                        <div className="socialMediaIcons pull-right"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fa fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
+                        <div className="socialMediaIcons pull-right"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fa fa-facebook-f mt15"></i></a></Link></div>                        
+                        <div className="socialMediaIcons pull-right"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fa fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
                     </div>
                 </div>
 
-                <div className={"col-12 col-sm-12 col-lg-12 col-md-12 Nopadding md-mt-5 " +S.mt100}>
+                <div className={"col-12 col-sm-12 col-lg-12 col-md-12 md-mt-5 text-right " +S.mt100}>
                     <div className="col-12 FooterTitle">Payment card</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15">
-                        <div className="payCard1"></div>
-                        <div className="payCard2"></div>                        
+                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 pull-right mt15">
+                        <div className="payCard2 pull-right"></div>                        
+                        <div className="payCard1 pull-right"></div>                        
                     </div>
                 </div>
-
-                <div className="col-12 col-sm-12 col-lg-12 col-md-12 Nopadding mt80">
+ 
+                <div className="col-12 col-sm-12 col-lg-12 col-md-12 mt80 text-right">
                     <div className="col-12 FooterTitle">We are in</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width pr-0">
+                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 float-right width pr-0">
                         <div className="appleCard"></div>
                         <div className="androidCard"></div>                        
                     </div>

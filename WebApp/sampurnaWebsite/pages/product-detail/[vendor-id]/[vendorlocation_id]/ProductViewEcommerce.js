@@ -405,7 +405,7 @@ class ProductViewEcommerce extends Component {
 
 				<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
 				<div className="row">
-					<div className={"col-12 col-lg-2 col-xl-2 col-md-2 col-sm-12 sol-xs-12 FiltersBlock " +Style.FilterBlkBox}>
+					<div className={"col-12 col-lg-3 col-xl-3 col-md-3 col-sm-12 col-xs-12 FiltersBlock " +Style.FilterBlkBox}>
 						< CategoryFilters 
 							categoryData       = {this.state.subCategoryData}
 							vendor_ID          = {this.state.vendor_ID}
@@ -419,7 +419,7 @@ class ProductViewEcommerce extends Component {
 							limitRange         = {this.state.limitRange}
 						/>
 					</div>
-					<div className="col-10 boxBorderInner mobileViewNoPadding mt50 ">
+					<div className="col-12 col-lg-9 col-xl-9 col-md-9 col-sm-12 col-xs-12 boxBorderInner mobileViewNoPadding mt50 ">
 						<div className="row mb-5">
 							<ProductZoom 
 								productData = {this.state.productData}

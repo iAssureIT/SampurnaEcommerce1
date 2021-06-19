@@ -688,20 +688,20 @@ class Checkout extends Component {
                 <Message messageData={this.state.messageData} />
                 <div className="row">
                     {/* <Loader type="fullpageloader" /> */}
-                    <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">  
-                        <div className="modal-content loginModalContent " style={{'background': '#fff'}}>    
-                            <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
-                                <div className="col-4">
+                    <div className="modal col-12 col-sm-12 col-xs-12 col-md-12 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3 checkoutAddressModal NoPadding" id="checkoutAddressModal" role="dialog">  
+                        <div className="modal-content loginModalContent pb-0" style={{'background': '#fff'}}>    
+                            <div className={"modal-header col-12 NoPadding " +Style.modalHeader +" "+Style.headerH}>
+                                <div className="col-12 col-lg-4 col-xl-4 col-md-6 col-xs-12 col-sm-12 ">
                                     < WebsiteLogo />
                                 </div>
-                                <div className="col-7 text-center">
-                                    <h6 className="modal-title modalheadingcont">SHIPPING ADDRESS</h6>
+                                <div className="col-10 col-lg-7 col-xl-7 col-md-5 col-xs-11 col-sm-11 text-right">
+                                    <div className={"modal-title modalheadingcont " +Style.modalT}>SHIPPING ADDRESS</div>
                                 </div>
-                                <div className="col-1 text-center">
-                                    <button type="button" className="close"  data-dismiss="modal">&times;</button> 
+                                <div className="col-2 col-lg-1 col-xl-1 col-md-1 col-xs-12 col-sm-12 text-top">
+                                    <button type="button" className={"text-top " +Style.close1}  data-dismiss="modal">&times;</button> 
                                 </div>
                             </div>                        
-                            <div className="modal-body addressModalBody">
+                            <div className={"modal-body addressModalBody "+Style.modalBg}>
                                 <UserAddress />
                             </div>
                         </div>
@@ -1023,26 +1023,26 @@ class Checkout extends Component {
                                             </div>
                                         </div>
 
-                                        <div className="modal col-12 col-sm-6 offset-3 checkoutAddressModal" id="termsNconditionsmodal" role="dialog">
+                                        <div className="modal col-12 col-sm-12 col-xs-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 offset-3 checkoutAddressModal mt-5 " id="termsNconditionsmodal" role="dialog">
                                             <div className="col-12">
-                                                <div className="modal-content  col-12 NoPadding">
-                                                    <div className="modal-header globalBgColor checkoutAddressModal col-12">
-                                                        <img src="/images/eCommerce/multistoreLogo.png" className="col-3" />
-                                                        <h6 className="modal-title col-8 modalheadingcont text-center">TERMS AND CONDITIONS</h6>
-                                                        <button type="button" className="col-1 close modalclosebut " data-dismiss="modal">&times;</button>
+                                                <div className={"modal-content  col-12 NoPadding " }>
+                                                    <div className={"modal-header globalBgColor checkoutAddressModal col-12 " +Style.modalHeader}>
+                                                        {/*<img src="/images/eCommerce/multistoreLogo.png" className="col-3" />*/}
+                                                        <div className={"modal-title col-10 modalheadingcont text-center underline " +Style.f14B }><u>TERMS AND CONDITIONS</u></div>
+                                                        <button type="button" className="col-2 close modalclosebut " data-dismiss="modal">&times;</button>
                                                     </div>
-                                                    <div className="modal-body col-12 checkoutAddressModal">
-                                                        <ul className="listStyle">
+                                                    <div className={"modal-body col-12 checkoutAddressModal " +Style.modalHeader}>
+                                                        <ul className={"listStyle " +Style.listColor}>
                                                             <li>The price of products is as quoted on the site from time to time.</li>
                                                             <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
                                                             <li>Products marked as 'non-returnable' on the product detail page cannot be returned.</li>
                                                             <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
                                                         </ul>
                                                     </div>
-                                                    <div className="modal-footer checkoutAddressModal col-12">
+                                                    {/*<div className="modal-footer checkoutAddressModal col-12">
                                                         <button type="button" className="btn globaleCommBtn" data-dismiss="modal">Cancel</button>
 
-                                                    </div>
+                                                    </div>*/}
                                                 </div>
                                             </div>
                                         </div>
