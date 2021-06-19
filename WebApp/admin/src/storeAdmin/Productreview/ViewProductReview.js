@@ -108,6 +108,29 @@ class Productreview extends Component{
 		},()=>{});
 	}
 
+
+
+	/*======= changeReviewStatus() =======*/
+	changeReviewStatus(event){
+		console.log("name = ",event.target.id);		
+		if(event.target.id){
+			var formValues = {
+				review_id 		: this.state.review_id,
+				status 			: event.target.id
+			}
+			console.log('status formvalues', formValues);
+			axios.patch('/api/customerReview/change/status', formValues)
+			.then((response)=>{
+				console.log("response.data => ",response.data )
+				swal(response.data.message);
+				this.getReview(this.state.review_id);
+			})
+			.catch((error)=>{
+				console.log('error => ', error);
+			})
+		}
+	}
+
 	/** =========== render() =========== */
 	render(){
 		var fiveStar = [1, 1, 1, 1, 1];
@@ -123,6 +146,12 @@ class Productreview extends Component{
 									</div>
 									<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 reviewPageWrapper">
 										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewActionBtnsWrapper">
+												{console.log(" => ",this.state.status)}
+												<span className={"reviewStatus review-"+ (this.state.status ? this.state.status.toLowerCase() : "")}>{this.state.status}</span>
+												<i className={"fa fa-times-circle reviewActionBtns pull-right " + (this.state.status === "Rejected" ? "rejectedActive" : "")} name="Rejected" id="Rejected" title="Reject Customer Review" onClick={this.changeReviewStatus.bind(this)}></i>
+												<i className={"fa fa-check-circle reviewActionBtns pull-right " + (this.state.status === "Published" ? "publishedActive" : "")} name="Published" id="Published" title="Publish Customer Review" onClick={this.changeReviewStatus.bind(this)}></i>
+											</div>
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewBox">
 												<div className="reviewText col-lg-8 col-md-8 col-sm-12 col-xs-12">
 														<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">

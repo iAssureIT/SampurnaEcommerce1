@@ -2,6 +2,8 @@ const mongoose	        = require("mongoose");
 var ObjectID            = require('mongodb').ObjectID;
 const Wishlists         = require('./Model');
 const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
+const StorePreferences  = require('../../Ecommerce/StorePreferences/Model.js');
+const _                         = require('underscore');  
 const haversine         = require('haversine-distance')
 
 exports.insert_wishlist = (req,res,next)=>{
@@ -150,6 +152,12 @@ exports.get_user_wishlist = (req,res,next)=>{
     .populate("product_ID")
     .then(async(wishdata)=>{
         var returnData = [];
+        var maxKmRadius = await StorePreferences.findOne({},{maxRadius : 1})
+        console.log("maxKmRadius => ",maxKmRadius)
+        var maxDistanceRadius = 0;
+        if(maxKmRadius && maxKmRadius !== undefined){
+            maxDistanceRadius = maxKmRadius.maxRadius;
+        }
         for (var i = 0; i < wishdata.length; i++) {
             var product = {
                 vendor_id           : wishdata[i].vendor_id,
@@ -182,6 +190,7 @@ exports.get_user_wishlist = (req,res,next)=>{
                 var returnDataObject = {
                     areaName            : wishdata[i].userDelLocation.delLocation,
                     distance            : await calcUserDist(req.body.userLat, req.body.userLong, wishdata[i].userDelLocation.lat, wishdata[i].userDelLocation.long),
+                    maxDistanceRadius   : maxDistanceRadius,
                     products            : [product]
                 }
                 returnData.push(returnDataObject);   
@@ -250,7 +259,7 @@ function getAdminPreferences(){
             reject(err)
         });
     });
- }
+}
 
 exports.list_wishlist_with_limits = (req,res,next)=>{
     Wishlists.find()

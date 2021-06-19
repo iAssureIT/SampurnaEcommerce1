@@ -549,7 +549,7 @@ class IAssureTable extends Component {
 										:
 										<th className="umDynamicHeader srpadd textAlignLeft"></th>
 									}
-									<th className="umDynamicHeader srpadd textAlignLeft">Status</th>
+									{/* <th className="umDynamicHeader srpadd textAlignLeft">Status</th> */}
 									<th className="umDynamicHeader srpadd textAlignLeft">Action</th>
 	                            </tr>
 	                        </thead>
@@ -591,11 +591,11 @@ class IAssureTable extends Component {
 															}
 														)
 													}
-                                                    <td className="col-lg-1">
-                                                        <div onClick={this.changeStatusOfProd.bind(this)} data-ID={value._id} className={( value.status === ("Unpublish") ? ("prodStatUnpublish") : (value.status === ("Publish") ? ("prodStatPublish") : ("prodStatDraft")) )} data-status={value.status} >
-                                                            {(value.status === ("Unpublish") ? ("Unpublished") : (value.status === ("Draft") ? ("Draft") : ("Published")))}
+                                                    {/* <td className="col-lg-1">
+                                                        <div className={value.status.toLowerCase()} >
+                                                            {value.status}
                                                         </div>
-                                                    </td>
+                                                    </td> */}
 													<td className="textAlignCenter">
 														<span>
 															{/* <i className="fa fa-reply" data-toggle="modal" title="Comment" data-target={"#showCommentModal-"+(value._id)} id={value._id}></i>&nbsp; &nbsp;  */}

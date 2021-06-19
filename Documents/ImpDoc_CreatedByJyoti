@@ -59,6 +59,21 @@ formValues = {
     "longitude"  : "55.386700"
 }
 
+
+Add Review and Rating
+API => http://localhost:3368/api/customerReview/post
+formValues = {
+    "customer_id"     		: "60ade5ce4da4d2153ff7a608",
+	"customerName"           : "Jyoti Khedkar",
+	"order_id"        		: "60cb0ea49bddd86046cab366",
+	"product_id"      		: "60c1dba86d97cd3ac0b95236",
+	"vendor_id" 			: "608ebab2304a6f338f9c3256",
+	"vendorLocation_id"     : "60a60fb58182d10881cf53ed",
+	"rating"          		: 4,
+	"customerReview"  		: "Good Product",
+	"status"          		: "New"
+}
+
 ==========================================================================
 Credit Points 
 

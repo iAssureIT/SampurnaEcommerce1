@@ -8,7 +8,9 @@ router.post('/post', 							                customerReviewController.insertCusto
 
 router.get('/get/review/:review_id', 						    customerReviewController.get_single_review);
 
-router.patch('/add/comment', 					                checkAuth, customerReviewController.add_admin_or_vendor_comment);
+router.patch('/add/comment', 					                customerReviewController.add_admin_or_vendor_comment);
+
+router.patch('/change/status', 					                customerReviewController.change_review_status);
 
 
 

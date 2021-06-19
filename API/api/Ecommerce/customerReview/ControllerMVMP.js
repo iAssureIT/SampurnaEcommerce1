@@ -36,7 +36,7 @@ exports.insertCustomerReview = (req,res,next)=>{
 
 /*=========== Get Review List ===========*/
 exports.list_review = (req,res,next)=>{
-	console.log("req body get All Reviews => ", req.body)
+	// console.log("req body get All Reviews => ", req.body)
 	 CustomerReview.aggregate([
 	{ $lookup:{
 			from 			: 'products',
@@ -91,7 +91,7 @@ exports.list_review = (req,res,next)=>{
 
 /*=========== Get Single Review ===========*/
 exports.get_single_review = (req,res,next)=>{
-	console.log("req.params.review_id => ",req.params.review_id)
+	// console.log("req.params.review_id => ",req.params.review_id)
 	CustomerReview.findOne({"_id" : ObjectId(req.params.review_id)})
 	.populate("product_id")
 	.populate("vendor_id")
@@ -141,14 +141,14 @@ exports.get_single_review = (req,res,next)=>{
 
 /*=========== Add admin or vendor comment ===========*/
 exports.add_admin_or_vendor_comment = (req, res, next) => {
-	console.log("req.body => ",req.body);
-	console.log("req.body => ",req.body.vendorComment);
+	// console.log("req.body => ",req.body);
+	// console.log("req.body => ",req.body.vendorComment);
 	if(req.body.adminComment && req.body.adminComment !== undefined){
 		var comment = {adminComment : req.body.adminComment}
 	}else if(req.body.vendorComment && req.body.vendorComment !== undefined){
 		var comment = {vendorComment : req.body.vendorComment}
 	}
-	console.log("comment => ",comment);
+	// console.log("comment => ",comment);
 	CustomerReview.updateOne(
 		{ _id: req.body.review_id},
 		{
@@ -160,6 +160,36 @@ exports.add_admin_or_vendor_comment = (req, res, next) => {
 		res.status(200).json({
 			message : 'Comment added successfully.'
 		});
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
+/*=========== Change Review Status ===========*/
+exports.change_review_status = (req, res, next) => {	
+	// console.log("req.body => ",req.body);
+	CustomerReview.updateOne(
+		{ _id: req.body.review_id},
+		{
+			$set: {status : req.body.status}
+		}
+	)
+	.exec()
+	.then(data => {
+		// console.log("data => ",data)
+		if(data.nModified === 1){
+			res.status(200).json({
+				message : 'Review ' + req.body.status + ' successfully.'
+			});
+		}else{
+			res.status(200).json({
+				message : 'Failed to Update Status.'
+			});
+		}		
 	})
 	.catch(err => {
 		console.log(err);
