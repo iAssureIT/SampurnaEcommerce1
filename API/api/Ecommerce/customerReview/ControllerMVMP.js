@@ -229,6 +229,40 @@ exports.single_customer_review_for_product = (req,res,next)=>{
 	});
 };
 
+/*=========== Update Customer Review ===========*/
+exports.updateCustomerReview = (req, res, next) => {
+	console.log('rating', req.body);
+	CustomerReview.updateOne(
+		{ _id: req.body.review_id},
+		{
+			$set: {
+					"rating"            : req.body.rating,
+					"customerReview"    : req.body.customerReview,
+			}
+		}
+	)
+	.exec()
+	.then(data => {
+		console.log("data => ",data)
+		if(data.nModified === 1){
+			res.status(200).json({
+				"message": "Your review updated successfully."
+			});
+		}else{
+			res.status(200).json({
+				"message": "Failed to update your review."
+			});
+		}		
+	})
+	.catch(err => {
+		console.log("Error while updating review");
+		res.status(500).json({
+			error: err
+		});
+	});
+};
+
+
 exports.listCustomerProductReview = (req,res,next)=>{
 	 // console.log('param', req.params);
 	 CustomerReview.findOne({"customerID": ObjectId(req.params.customerID),  "product_id" : ObjectId(req.params.product_id), "orderID": ObjectId(req.params.orderID)})
@@ -347,30 +381,7 @@ exports.delete_review = (req,res,next)=>{
 		  });
 	 });
 };
-exports.updateCustomerReview = (req, res, next) => {
-	 // console.log('rating', req.body);
-	 CustomerReview.updateOne(
-		  { _id: req.body.rating_ID},
-		  {
-				$set: {
-					 "rating"                    : req.body.rating,
-					 "customerReview"           : req.body.customerReview,
-				}
-		  }
-	 )
-	 .exec()
-	 .then(data => {
-		  res.status(200).json({
-				"message": "Your review updated successfully."
-		  });
-	 })
-	 .catch(err => {
-		  console.log(err);
-		  res.status(500).json({
-				error: err
-		  });
-	 });
-};
+
 
 exports.add_admin_comment = (req, res, next) => {
 	 CustomerReview.updateOne(

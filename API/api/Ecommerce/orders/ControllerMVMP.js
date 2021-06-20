@@ -12,6 +12,9 @@ const Products 					= require('../products/Model');
 const Adminpreference 			= require('../adminPreference/Model');
 const StorePreferences  		= require('../StorePreferences/Model.js');
 const OrderCancellationPolicy   = require('../../Ecommerce/OrderCancellationPolicy/Model.js');
+const RewardPointsPolicy 		= require('../RewardPointsPolicy/Model.js');
+const RewardPoints 				= require('../RewardPoints/Model.js');
+const CustomerReview 			= require('../customerReview/ModelMVMP.js');
 
 const Coupon            		= require('../CouponManagement/Model');
 const Allowablepincode 			= require('../allowablePincodes/Model');
@@ -51,7 +54,7 @@ exports.insert_orders = (req, res, next) => {
 			});
 
 			order.save()
-			.then(orderdata => {			         		
+			.then(async(orderdata) => {			         		
 				/*======================== Remove Cart Items =============================*/
 
 				Carts.deleteOne({ "user_ID" : ObjectId(req.body.user_ID) })
@@ -125,10 +128,15 @@ exports.insert_orders = (req, res, next) => {
 							} //for m
 						}//for l
 						if(l >= req.body.vendorOrders.length){
-							res.status(200).json({ 
-								order_id : orderdata._id,
-								message  : 'Order placed successfully' 
-							});
+							processData();
+							async function processData(){
+								var addRewardPoint = await addRewardPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Original Order");
+								console.log("addRewardPoint => ",addRewardPoint)
+								res.status(200).json({ 
+									order_id : orderdata._id,
+									message  : 'Order placed successfully' 
+								});
+							}
 						}
 					}
 				})
@@ -165,6 +173,90 @@ function getNextSequenceOrderId() {
                resolve(1)
             }
             
+        })
+        .catch(err =>{
+            reject(0)
+        });
+    });
+}
+
+function addRewardPoints(order_id, user_id, orderDate, purchaseAmount, shippingCharges, totalAmount, transactionType) {
+    return new Promise((resolve,reject)=>{
+    RewardPoints.findOne({"user_id" : ObjectId(user_id)})
+        .then(async(data)=>{
+			console.log("data => ", data);
+			console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
+			var rewardPolicyData = await RewardPointsPolicy.findOne();
+			console.log("rewardPolicyData => ",rewardPolicyData);
+			var earnedRewardPoints = ((purchaseAmount / rewardPolicyData.purchaseAmount) * rewardPolicyData.rewardPoint);
+			console.log("earnedRewardPoints => ",earnedRewardPoints);
+            if (data && data !== null) { 
+				var totalEarnedPoints = data.totalPoints + earnedRewardPoints;
+				console.log("totalEarnedPoints => ",totalEarnedPoints)
+                RewardPoints.updateOne(
+					{ "_id": ObjectId(data._id)},		
+					{$push: {
+							transactions : {
+								order_id            : order_id,
+								orderDate           : new Date(),
+								purchaseAmount      : purchaseAmount,
+								shippingCharges     : shippingCharges,
+								totalAmount         : totalAmount,
+								earnedPoints        : earnedRewardPoints,
+								typeOfTransaction   : transactionType
+							}
+						},
+						$set:{
+							totalPoints : totalEarnedPoints
+						}	
+					})
+					.exec()
+					.then(data => {
+						if (data.nModified === 1) {
+							resolve({
+								"message"	: "Reward Points added successfully in wallet."
+							});
+						} else {
+							resolve({
+								"message": "Oops, something went wrong reward points not added"
+							});
+						}
+					})
+					.catch(err => {
+						console.log(err);
+						reject({
+							error: err
+						});
+					});
+            }else{
+				const rewardPoints = new RewardPoints({
+					_id 						: new mongoose.Types.ObjectId(),
+					user_id                     : user_id,
+    				totalPoints                 : earnedRewardPoints,
+					transactions 				: {
+													order_id            : order_id,
+													orderDate           : new Date(),
+													purchaseAmount      : purchaseAmount,
+													shippingCharges     : shippingCharges,
+													totalAmount         : totalAmount,
+													earnedPoints        : earnedRewardPoints,
+													typeOfTransaction   : transactionType
+					},		
+					createdAt 					: new Date(),
+					createdBy 					: user_id
+				});
+	
+				rewardPoints.save()
+				.then(async(rewardData) => {
+					console.log("rewardData => ",rewardData)	
+					resolve({
+						"message"	: "Reward Points added successfully in wallet."
+					})
+				})
+				.catch(err =>{
+					reject(0)
+				});
+            }            
         })
         .catch(err =>{
             reject(0)
@@ -906,7 +998,7 @@ exports.fetch_order = (req, res, next) => {
 	.populate('vendorOrders.vendor_id')
 	.exec()
 	.then(async(data) => {
-		// console.log('data', data);
+		console.log('data', data);
 		// for(var i=0;i<data.length;i++){
 			// for(var j=0;j<data[i].vendorOrders.length;j++){
 				// console.log("data[i].vendorOrders",data[i].vendorOrders);
@@ -916,10 +1008,22 @@ exports.fetch_order = (req, res, next) => {
 				}else{
 					var maxDurationForCancelOrder = 0;
 				}
+
 				if(data !== null){
 					for(var j=0;j<data.vendorOrders.length;j++){
 						var vendor = await Entitymaster.findOne({_id:data.vendorOrders[j].vendor_id},{companyName:1,_id:0})
 						data.vendorOrders[j].vendorName = vendor.companyName;
+						// console.log("data.vendorOrders[j] => ",data.vendorOrders[j].products)
+						for (var k = 0; k < data.vendorOrders[j].products.length; k++) {
+							var review = await CustomerReview.findOne({"customer_id" : ObjectId(data.user_ID), "product_id" : ObjectId(data.vendorOrders[j].products[k].product_ID), "order_id" : ObjectId(data._id) })				
+							console.log("review => ",review);
+							console.log("data.user_ID => ",data.user_ID)
+							console.log("data.vendorOrders[j].products.product_ID => ",data.vendorOrders[j].products[k].product_ID)	
+							console.log("data._id => ",data._id)
+							if(review && review !== null){
+								data.vendorOrders[j].products[k].isReview	= true;	
+							}
+						}
 					}
 					if(j>=data.vendorOrders.length){
 						data.maxDurationForCancelOrder = maxDurationForCancelOrder;

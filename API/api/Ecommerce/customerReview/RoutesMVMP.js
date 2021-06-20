@@ -16,10 +16,12 @@ router.get('/get/list/:product_id', 				            customerReviewController.lis
 
 router.post('/get/single/customer/review', 				        customerReviewController.single_customer_review_for_product);
 
+router.patch('/patch/customer/review', 							customerReviewController.updateCustomerReview);
+
+
 
 router.post('/search/post', 					                checkAuth, customerReviewController.searchCustomerReview);
 
-router.patch('/patch', 							                checkAuth, customerReviewController.updateCustomerReview);
 
 router.patch('/admin/review', 					                checkAuth, customerReviewController.add_admin_comment);
 

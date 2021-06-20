@@ -85,6 +85,17 @@ formValues = {
 	"product_id"      		: "60c1dba86d97cd3ac0b95236"
 }
 
+
+Update Customer Review
+
+API => http://localhost:3368/api/customerReview/patch/customer/review
+MethodType => Patch
+formValues = {
+    "review_id"         : "60cefbc80a99012476b1971a",
+    "customerReview"    : "Updated Review",
+    "rating"            : 5
+}
+
 ==========================================================================
 Credit Points 
 

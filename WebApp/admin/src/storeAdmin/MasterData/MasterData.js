@@ -19,6 +19,7 @@ import BannerImages       			from './BannerImages/component/BannerImages.js';
 import DistanceRange       			from './DistanceRange/DistanceRange.js';
 import OrderDeliveryPolicy      	from './OrderDeliveryPolicy/OrderDeliveryPolicy.js';
 import OrderCancellationPolicy      from './OrderCancellationPolicy/OrderCancellationPolicy.js';
+import RewardPointsPolicy      		from './RewardPointsPolicy/RewardPointsPolicy.js';
 
 
 // import '../../coreadmin/companysetting/css/CompanySetting.css';
@@ -132,6 +133,7 @@ import OrderCancellationPolicy      from './OrderCancellationPolicy/OrderCancell
 													{ this.state.showOrderStatus !== "No" ? <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderStatus" data-toggle="tab">Order Status Master</a></li> : null } 
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderDeliveryPolicy" data-toggle="tab">Order Delivery Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderCancellationPolicy" data-toggle="tab">Order Cancellation Policy </a></li>
+													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#RewardPointsPolicy" data-toggle="tab">Reward Points Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#PhotoGallery" data-toggle="tab">Photo Gallery Master</a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#BannerImages" data-toggle="tab">Mobile Banner Images </a></li>
 												</ul>   
@@ -151,7 +153,8 @@ import OrderCancellationPolicy      from './OrderCancellationPolicy/OrderCancell
 												{/* <div className="tab-pane" id="UnitOfMeasurment"><UnitOfMeasurment  editId={this.state.editId}/>  </div>   */}
 												<div className="tab-pane" id="BannerImages"><BannerImages editId={this.state.editId}/>  </div>  
 												<div className="tab-pane" id="OrderDeliveryPolicy"><OrderDeliveryPolicy editId={this.state.editId}/>  </div> 												
-												<div className="tab-pane" id="OrderCancellationPolicy"><OrderCancellationPolicy editId={this.state.editId}/>  </div> 												
+												<div className="tab-pane" id="OrderCancellationPolicy"><OrderCancellationPolicy editId={this.state.editId}/>  </div>												
+												<div className="tab-pane" id="RewardPointsPolicy"><RewardPointsPolicy editId={this.state.editId}/>  </div> 	 												
 											</div> 
 										</div>
 									</div>
