@@ -15,7 +15,6 @@ const OrderCancellationPolicy   = require('../../Ecommerce/OrderCancellationPoli
 const RewardPointsPolicy 		= require('../RewardPointsPolicy/Model.js');
 const RewardPoints 				= require('../RewardPoints/Model.js');
 const CustomerReview 			= require('../customerReview/ModelMVMP.js');
-
 const Coupon            		= require('../CouponManagement/Model');
 const Allowablepincode 			= require('../allowablePincodes/Model');
 const Entitymaster 				= require('../../coreAdmin/entityMaster/ModelEntityMaster.js');
@@ -158,6 +157,7 @@ exports.insert_orders = (req, res, next) => {
 	} //if vendorOrders
 }
 
+/*========== get Next Order Number ==========*/
 function getNextSequenceOrderId() {
     return new Promise((resolve,reject)=>{
     Orders.findOne()    
@@ -180,6 +180,7 @@ function getNextSequenceOrderId() {
     });
 }
 
+/*========== Add Reward Points ==========*/
 function addRewardPoints(order_id, user_id, orderDate, purchaseAmount, shippingCharges, totalAmount, transactionType) {
     return new Promise((resolve,reject)=>{
     RewardPoints.findOne({"user_id" : ObjectId(user_id)})
@@ -298,6 +299,10 @@ exports.cancel_order = (req, res, next) => {
 					order_shippingCharges 		-= (orderdata.vendorOrders[i].vendor_shippingCharges).toFixed(2);
 					order_numberOfProducts 		-= (orderdata.vendorOrders[i].vendor_numberOfProducts).toFixed(2);
 					order_quantityOfProducts 	-= (orderdata.vendorOrders[i].vendor_quantityOfProducts).toFixed(2);
+
+					var vendor_order_afterDiscountTotal = orderdata.vendorOrders[i].vendor_afterDiscountTotal;
+					var vendor_order_shippingCharges 	= orderdata.vendorOrders[i].vendor_shippingCharges;
+					var vendor_netPayableAmount 		= orderdata.vendorOrders[i].vendor_afterDiscountTotal;					
 				}				
 			}
 			if(i >= orderdata.vendorOrders.length){
@@ -402,9 +407,12 @@ exports.cancel_order = (req, res, next) => {
 					}
 				}
 			})
-			.then(updatedata => {
+			.then(async(updatedata) => {
 				console.log("updatedata => ",updatedata);
 				if (updatedata.nModified === 1) {
+					console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
+					var addRewardPoint = await addRewardPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, -vendor_order_afterDiscountTotal, -vendor_order_shippingCharges, -vendor_netPayableAmount, "VendorOrderCancelled");
+					console.log("addRewardPoint => ",addRewardPoint)		
 					res.status(200).json({
 						"message"	: "Order cancelled successfully."
 					});
@@ -444,8 +452,13 @@ exports.cancel_order = (req, res, next) => {
 			}		
 		})
 		.exec()
-		.then(data => {
+		.then(async(data) => {
 			if (data.nModified === 1) {
+				var orderdata 		= await Orders.findOne({_id: ObjectId(req.body.order_id)})
+				console.log("orderdata=> ",orderdata)
+				var addRewardPoint 	= await addRewardPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, - orderdata.paymentDetails.afterDiscountTotal, - orderdata.paymentDetails.shippingCharges, - orderdata.paymentDetails.netPayableAmount, "WholeOrderCancelled");
+				console.log("else addRewardPoint => ",addRewardPoint)
+				
 				res.status(200).json({
 					"message"	: "Order cancelled successfully."
 				});
@@ -480,6 +493,7 @@ function fetchCouponData(coupon_id) {
         })
     })
 }
+
 /**=========== getDistanceWiseShippinCharges() ===========*/
 function getDistanceWiseShippinCharges(){
     return new Promise(function(resolve,reject){
@@ -546,65 +560,65 @@ exports.list_orders_by_status = (req, res, next) => {
 };
 
 /*========== Split VendorWise Orders ==========*/
- 	function addSplitVendorOrders(orderID) {
-		return new Promise(function (resolve, reject) {
-			Orders.findOne({"_id" : ObjectId(orderID)})
-			.exec()
-			.then(data => {
-				// console.log("data => ", data);
-				processData();
-				async function processData(){
-					if (data && data.products && data.products.length > 0) {
-						const uniqueVendorArray = [...new Set(data.products.map(item => String(item.vendor_ID)))];
-						// console.log("uniqueVendorArray => ",uniqueVendorArray);
+function addSplitVendorOrders(orderID) {
+	return new Promise(function (resolve, reject) {
+		Orders.findOne({"_id" : ObjectId(orderID)})
+		.exec()
+		.then(data => {
+			// console.log("data => ", data);
+			processData();
+			async function processData(){
+				if (data && data.products && data.products.length > 0) {
+					const uniqueVendorArray = [...new Set(data.products.map(item => String(item.vendor_ID)))];
+					// console.log("uniqueVendorArray => ",uniqueVendorArray);
 
-						for (var i = 0; i < uniqueVendorArray.length; i++) {
-							// console.log("uniqueVendorArray[i] => ",uniqueVendorArray[i]);
-							var filteredVendorProducts = data.products.filter(function(product){
-							   return String(product.vendor_ID) === String(uniqueVendorArray[i]);
-							});
-							// console.log("filteredVendorProducts => ",filteredVendorProducts);
-							var vendorData = await getVendorData(uniqueVendorArray[i]);
-							// console.log("vendorData => ",vendorData);
-							var formValues = {
-								orderID                   	: data.orderID,
-								order_ID                   	: data._id,
-								vendorOrderID             	: data.orderID + "-" + vendorData.vendorID,
-								user_ID                   	: data.user_ID,
-								emailID                   	: data.emailID,
-								userFullName              	: data.userFullName,
-								userName                  	: data.userName,
-								status                    	: data.status,
-								RESPOSE_CODE              	: data.RESPOSE_CODE,
-								RESPOSE_MESSAGE           	: data.RESPOSE_MESSAGE,
-								REFERENCE_NO              	: data.REFERENCE_NO,
-								products                  	: filteredVendorProducts,
-								returnedProduct           	: data.returnedProduct,
-								paymentMethod             	: data.paymentMethod,
-								shippingtime              	: data.shippingtime,
-								productLength             	: filteredVendorProducts.length,
-								deliveryAddress           	: data.deliveryAddress,
-								deliveryStatus            	: data.deliveryStatus,
-								vendorID 					: vendorData.vendorID,
-								vendor_ID 					: uniqueVendorArray[i],
-								createdBy                 	: data.createdBy,
-								createdAt                 	: new Date()
-							}
-							// console.log("formValues => ",formValues);
-							await axios.post('http://localhost:'+globalVariable.port+'/api/vendororders/post', formValues)
-			            .then((response) => {
-			            //    console.log("response => ",response);
-			            })
-			            .catch(error=>{
-			               console.log("error => ",error);
-			            })
+					for (var i = 0; i < uniqueVendorArray.length; i++) {
+						// console.log("uniqueVendorArray[i] => ",uniqueVendorArray[i]);
+						var filteredVendorProducts = data.products.filter(function(product){
+							return String(product.vendor_ID) === String(uniqueVendorArray[i]);
+						});
+						// console.log("filteredVendorProducts => ",filteredVendorProducts);
+						var vendorData = await getVendorData(uniqueVendorArray[i]);
+						// console.log("vendorData => ",vendorData);
+						var formValues = {
+							orderID                   	: data.orderID,
+							order_ID                   	: data._id,
+							vendorOrderID             	: data.orderID + "-" + vendorData.vendorID,
+							user_ID                   	: data.user_ID,
+							emailID                   	: data.emailID,
+							userFullName              	: data.userFullName,
+							userName                  	: data.userName,
+							status                    	: data.status,
+							RESPOSE_CODE              	: data.RESPOSE_CODE,
+							RESPOSE_MESSAGE           	: data.RESPOSE_MESSAGE,
+							REFERENCE_NO              	: data.REFERENCE_NO,
+							products                  	: filteredVendorProducts,
+							returnedProduct           	: data.returnedProduct,
+							paymentMethod             	: data.paymentMethod,
+							shippingtime              	: data.shippingtime,
+							productLength             	: filteredVendorProducts.length,
+							deliveryAddress           	: data.deliveryAddress,
+							deliveryStatus            	: data.deliveryStatus,
+							vendorID 					: vendorData.vendorID,
+							vendor_ID 					: uniqueVendorArray[i],
+							createdBy                 	: data.createdBy,
+							createdAt                 	: new Date()
 						}
+						// console.log("formValues => ",formValues);
+						await axios.post('http://localhost:'+globalVariable.port+'/api/vendororders/post', formValues)
+					.then((response) => {
+					//    console.log("response => ",response);
+					})
+					.catch(error=>{
+						console.log("error => ",error);
+					})
 					}
 				}
-			  	// resolve(data.length);
-			})
+			}
+			// resolve(data.length);
 		})
-	}
+	})
+}
 
 /** =========== Change Vendor Order Status =========== */
 exports.change_vendor_orders_tatus = (req, res, next) => {
@@ -643,49 +657,49 @@ exports.change_vendor_orders_tatus = (req, res, next) => {
 	});
 }
 
- 	/*========== Return Vendor Id ==========*/
- 	function getVendorData(vendor_ID) {
-		return new Promise(function (resolve, reject) {
-			Entitymaster.findOne({"_id" : ObjectId(vendor_ID)})
-			.exec()
-			.then(data => {
-				// console.log("vendor Id data => ", data);				
-			  	resolve({
-			  		vendorID : data.companyID
-			  	});
-			})
+/*========== Return Vendor Id ==========*/
+function getVendorData(vendor_ID) {
+	return new Promise(function (resolve, reject) {
+		Entitymaster.findOne({"_id" : ObjectId(vendor_ID)})
+		.exec()
+		.then(data => {
+			// console.log("vendor Id data => ", data);				
+			resolve({
+				vendorID : data.companyID
+			});
 		})
+	})
+}
+
+/*========== Return Unique Values from Array of Objests ==========*/
+function onlyUnique(value, index, self) { 
+	return self.indexOf(value) === index;
+}
+
+function findDistance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}else {
+		var radlat1 	= Math.PI * lat1 / 180;
+		var radlat2 	= Math.PI * lat2 / 180;
+		var theta 		= lon1 - lon2;
+		var radtheta 	= Math.PI * theta / 180;
+		var dist 		= Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		
+		if (dist > 1) {
+			dist = 1;
+		}
+
+		dist = Math.acos(dist);
+		dist = dist * 180 / Math.PI;
+		dist = dist * 60 * 1.1515;
+
+		if (unit == "K") { dist = dist * 1.609344 }
+		if (unit == "N") { dist = dist * 0.8684 }
+		// console.log("distance========",dist);
+		return dist;
 	}
-
-	/*========== Return Unique Values from Array of Objests ==========*/
-	function onlyUnique(value, index, self) { 
-    	return self.indexOf(value) === index;
-	}
-
-  	function findDistance(lat1, lon1, lat2, lon2, unit) {
-	 	if ((lat1 == lat2) && (lon1 == lon2)) {
-			return 0;
-	 	}else {
-			var radlat1 	= Math.PI * lat1 / 180;
-			var radlat2 	= Math.PI * lat2 / 180;
-			var theta 		= lon1 - lon2;
-			var radtheta 	= Math.PI * theta / 180;
-			var dist 		= Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-			
-			if (dist > 1) {
-		  		dist = 1;
-			}
-
-			dist = Math.acos(dist);
-			dist = dist * 180 / Math.PI;
-			dist = dist * 60 * 1.1515;
-
-			if (unit == "K") { dist = dist * 1.609344 }
-			if (unit == "N") { dist = dist * 0.8684 }
-			// console.log("distance========",dist);
-			return dist;
-	 	}
-  	}
+}
 
 
 exports.update_order = (req, res, next) => {
@@ -1015,11 +1029,7 @@ exports.fetch_order = (req, res, next) => {
 						data.vendorOrders[j].vendorName = vendor.companyName;
 						// console.log("data.vendorOrders[j] => ",data.vendorOrders[j].products)
 						for (var k = 0; k < data.vendorOrders[j].products.length; k++) {
-							var review = await CustomerReview.findOne({"customer_id" : ObjectId(data.user_ID), "product_id" : ObjectId(data.vendorOrders[j].products[k].product_ID), "order_id" : ObjectId(data._id) })				
-							console.log("review => ",review);
-							console.log("data.user_ID => ",data.user_ID)
-							console.log("data.vendorOrders[j].products.product_ID => ",data.vendorOrders[j].products[k].product_ID)	
-							console.log("data._id => ",data._id)
+							var review = await CustomerReview.findOne({"customer_id" : ObjectId(data.user_ID), "product_id" : ObjectId(data.vendorOrders[j].products[k]._id), "order_id" : ObjectId(data._id) })				
 							if(review && review !== null){
 								data.vendorOrders[j].products[k].isReview	= true;	
 							}

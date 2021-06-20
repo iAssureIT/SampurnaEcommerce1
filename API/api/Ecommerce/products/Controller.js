@@ -3931,11 +3931,24 @@ exports.search_suggestion = async(req,res,next)=>{
     var subCategory = await getSubCat(req.body.searchText);
     var brand       = await getBrand(req.body.searchText);
     var product     = await getProduct(req.body.searchText);
-    // var all         = await getAll(req.body.searchText);
+    var all         = await getAll(req.body.searchText);
     var result      = section.concat(category).concat(subCategory).concat(brand).concat(product);
     // var result      = all;
     result          = result.filter(item => item !== undefined) 
     result          = [...new Set(result)]
+    // var result = [];
+    // result.push({
+    //     type            : "category",
+    //     suggestionArray : [...new Set(category.filter(item => item !== undefined))] 
+    // })
+    // result.push({
+    //     type            : "section",
+    //     suggestionArray : [...new Set(section.filter(item => item !== undefined))] 
+    // })
+    // result.push({
+    //     type            : "brand",
+    //     suggestionArray : [...new Set(brand.filter(item => item !== undefined))] 
+    // })
     console.log("result => ",result);
     res.status(200).json(result);
 }

@@ -96,6 +96,18 @@ formValues = {
     "rating"            : 5
 }
 
+Cancel Order
+
+API => http://localhost:3368/api/orders/cancel/order
+MethodType => Patch
+formValues = {
+    "type"          : "vendororder" or "wholeorder", 
+    "vendor_id"      : "609d0b947bdc653631fe1b27",
+    "order_id"       : "60bf278addce9d22bd4c55fa"
+}
+
+
+
 ==========================================================================
 Credit Points 
 

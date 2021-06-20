@@ -4,14 +4,14 @@ import jQuery                 from 'jquery';
 import axios                  from 'axios';
 import swal                   from 'sweetalert';
 
-class RewardPointsPolicy extends Component {
+class CreditPointsPolicy extends Component {
 	constructor(props) {        
 		super(props);
 		this.state = {
 			"editId"           	    : "",
 			"purchaseAmount" 	    : "",
-			"rewardPoint"           : "",
-			"rewardPointValue"      : ""
+			"creditPoint"           : "",
+			"creditPointValue"      : ""
 		};
 	}
 
@@ -67,15 +67,15 @@ class RewardPointsPolicy extends Component {
 			debug   : true,
 			success : "valid"
 		});
-		$("#RewardPointsPolicyForm").validate({
+		$("#CreditPointsPolicyForm").validate({
 			rules: {
 				purchaseAmount: {
 					required: true,
 				},
-				rewardPoint: {
+				creditPoint: {
 					required: true,
 				},
-				rewardPointValue: {
+				creditPointValue: {
 					required: true,
 				}
 			},
@@ -84,12 +84,12 @@ class RewardPointsPolicy extends Component {
 					error.insertAfter("#purchaseAmount");
 					element.focus();
 				}
-				if (element.attr("name") === "rewardPoint") {
-					error.insertAfter("#rewardPoint");
+				if (element.attr("name") === "creditPoint") {
+					error.insertAfter("#creditPoint");
 					element.focus();
 				}
-				if (element.attr("name") === "rewardPointValue") {
-					error.insertAfter("#rewardPointValue");
+				if (element.attr("name") === "creditPointValue") {
+					error.insertAfter("#creditPointValue");
 					element.focus();
 				}
 			}
@@ -98,19 +98,19 @@ class RewardPointsPolicy extends Component {
 
 	/**=========== componentWillMount() ===========*/
 	componentWillMount() {
-		axios.get("/api/rewardpointspolicy/get")
-		.then(rewardPolicyData =>{
-			if(rewardPolicyData.data){
+		axios.get("/api/creditpointspolicy/get")
+		.then(creditPolicyData =>{
+			if(creditPolicyData.data){
 				this.setState({
-					'editId'            : rewardPolicyData.data[0]._id,
-					'purchaseAmount'    : rewardPolicyData.data[0].purchaseAmount,
-					'rewardPoint' 	    : rewardPolicyData.data[0].rewardPoint,
-					'rewardPointValue'  : rewardPolicyData.data[0].rewardPointValue
+					'editId'            : creditPolicyData.data[0]._id,
+					'purchaseAmount'    : creditPolicyData.data[0].purchaseAmount,
+					'creditPoint' 	    : creditPolicyData.data[0].creditPoint,
+					'creditPointValue'  : creditPolicyData.data[0].creditPointValue
 				})        
 			}
 		})
 		.catch(error=>{
-			console.log("Error : While getting reward points policy => ",error);
+			console.log("Error : While getting credit points policy => ",error);
 			if(error.message === "Request failed with status code 401"){
 				localStorage.removeItem("userDetails");
 				localStorage.clear();
@@ -143,21 +143,21 @@ class RewardPointsPolicy extends Component {
 		event.preventDefault();    
 		var formValues = {
 			'purchaseAmount'    : this.state.purchaseAmount,
-			'rewardPoint'       : this.state.rewardPoint,
-			'rewardPointValue'  : this.state.rewardPointValue
+			'creditPoint'       : this.state.creditPoint,
+			'creditPointValue'  : this.state.creditPointValue
 		}
 		
 		// console.log('formValues', formValues);
-		if($("#RewardPointsPolicyForm").valid()){        
-			axios.post('/api/rewardpointspolicy/post', formValues)
+		if($("#CreditPointsPolicyForm").valid()){        
+			axios.post('/api/creditpointspolicy/post', formValues)
 			.then((response)=>{                
-				// console.log("response post rewardpoints :",response.data.message); 
+				// console.log("response post creditpoints :",response.data.message); 
 				swal({
 					text : response.data.message
 				}) 
 			})
 			.catch((error)=>{
-				console.log("Error while adding reward point policy=> ",error);
+				console.log("Error while adding credit point policy=> ",error);
 				if(error.message === "Request failed with status code 401"){					
 					localStorage.removeItem("userDetails");
 					localStorage.clear();
@@ -187,10 +187,10 @@ class RewardPointsPolicy extends Component {
 									<div className="row">
 										<div className="">
 											<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
-												<h4 className="weighttitle NOpadding-right"> Reward Points Policy </h4>
+												<h4 className="weighttitle NOpadding-right"> Credit Points Policy </h4>
 											</div>								
 											<div className="col-lg-12 col-md-12 marginTopp NOpadding">
-												<form id="RewardPointsPolicyForm" className="">
+												<form id="CreditPointsPolicyForm" className="">
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 															<label>Purchase Amount <i className="redFont">*</i></label>
@@ -208,13 +208,13 @@ class RewardPointsPolicy extends Component {
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Reward Point <i className="redFont">*</i></label>
+															<label>Credit Point <i className="redFont">*</i></label>
 															<div className="input-group">
-																<input className = "form-control" placeholder = "Add reward points on purchase amount" ref = "rewardPoint"
+																<input className = "form-control" placeholder = "Add credit points on purchase amount" ref = "creditPoint"
 																	type 		= "number" 
-																	id 			= "rewardPoint" 
-																	name 		= "rewardPoint"
-																	value	 	= {this.state.rewardPoint} 
+																	id 			= "creditPoint" 
+																	name 		= "creditPoint"
+																	value	 	= {this.state.creditPoint} 
 																	onChange    = {this.handleChange.bind(this)} 
 																/>
 																<span class="input-group-addon addontext"> Point </span>   
@@ -223,13 +223,13 @@ class RewardPointsPolicy extends Component {
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Reward Point Value <i className="redFont">*</i></label>
+															<label>Credit Point Value <i className="redFont">*</i></label>
 															<div className="input-group">
-																<input className = "form-control" ref = "rewardPoint" placeholder = "Add value of each reward point here.."
+																<input className = "form-control" ref = "creditPoint" placeholder = "Add value of each credit point here.."
 																	type 		= "number" 
-																	id 			= "rewardPointValue" 
-																	name 		= "rewardPointValue"
-																	value	 	= {this.state.rewardPointValue} 
+																	id 			= "creditPointValue" 
+																	name 		= "creditPointValue"
+																	value	 	= {this.state.creditPointValue} 
 																	onChange    = {this.handleChange.bind(this)} 
 																/>
 																<span class="input-group-addon addontext"> {this.state.currency} </span>   
@@ -260,5 +260,5 @@ class RewardPointsPolicy extends Component {
 		);
 	} 
 }
-export default RewardPointsPolicy;
+export default CreditPointsPolicy;
 
