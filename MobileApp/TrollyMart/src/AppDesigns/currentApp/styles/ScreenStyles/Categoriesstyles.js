@@ -237,7 +237,7 @@ export default StyleSheet.create({
   },
   prodviewcatsuperparent:{
     flex:1,
-    backgroundColor:'#eee',marginBottom:50
+    backgroundColor:'#fff',marginBottom:50
   },
   flxmg:{
     flexDirection:"row",marginTop:15

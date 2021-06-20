@@ -22,16 +22,14 @@ import {withCustomerToaster}        from '../../redux/AppState.js';
 import { getList,getCartCount } 		              from '../../redux/productList/actions';
 import { getSectionList } 		      from '../../redux/section/actions';
 import { getPreferences } 		      from '../../redux/storeSettings/actions';
-import { SET_SEARCH_CALL,
-        SET_SEARCH_TEXT } 	          from '../../redux/globalSearch/types';
-import { getSearchResult } 	        from '../../redux/globalSearch/actions';
 import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCatList/HorizontalSecCatList.js';
 import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
+import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { Alert } from 'react-native';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
-export const Dashboard = withCustomerToaster((props)=>{
+const Dashboard = withCustomerToaster((props)=>{
   const isFocused             = useIsFocused();
   const dispatch              = useDispatch();
   const {setToast,navigation,productList,wishList,globalSearch,preferences,user_id} = props; 
@@ -39,13 +37,6 @@ export const Dashboard = withCustomerToaster((props)=>{
   const [blocks,setBlocks]    = useState([]);
   const [loading,setLoading]  = useState(true);
   const limit                 = 6;
-  // const store = useSelector(store => ({
-  //   productList     : store.productList,
-  //   wishList        : store.wishDetails.wishList,
-  //   globalSearch    : store.globalSearch,
-  //   location        : store.location,
-  //   preferences     : store.storeSettings.preferences
-  // }));
     useEffect(() => {
         dispatch(getSectionList());
         dispatch(getPreferences());
@@ -93,37 +84,7 @@ export const Dashboard = withCustomerToaster((props)=>{
         </View>
         :
         globalSearch.search ?
-          globalSearch.loading ?
-          <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
-            <Loading/>
-          </View>
-          :
-          <FlatList 
-            keyboardShouldPersistTaps='handled'
-            data={globalSearch.suggestionList.concat(['','','','','','','','','','','','','','','',''])} 
-            // keyExtractor = {(item)=>item}
-            renderItem = {({item}) =>
-              <TouchableOpacity onPress={()=>{
-                  dispatch({type:SET_SEARCH_CALL,payload:false});
-                  dispatch({type:SET_SEARCH_TEXT,payload:item});
-                  dispatch(getSearchResult(item,user_id,10));
-                  Keyboard.dismiss();
-                  }} style={styles.flatList}>
-                  <Highlighter
-                    highlightStyle={{backgroundColor: '#eee'}}
-                    searchWords={[globalSearch.searchText]}
-                    textToHighlight={`${item}`}
-                    style={styles.flatListText}
-                  />
-                  {/* <Text style={styles.flatListText}>{`${item}`}</Text>  */}
-                  {
-                    item && item!=='' ? 
-                    <Icon size={22} name={'external-link'} type='font-awesome' color={"#aaa"} iconStyle={{flex:0.1}} />
-                    :
-                    null
-                  }
-              </TouchableOpacity> }
-        />
+          <SearchSuggetion />
         :
         <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
           <View  style={[styles.formWrapper]}>

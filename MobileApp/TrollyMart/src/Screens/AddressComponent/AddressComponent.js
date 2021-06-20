@@ -74,8 +74,6 @@ export const AddressComponent = withCustomerToaster((props)=>{
 
     const {userDetails,location}= store;
     const {delivery}=route.params;  
-    console.log("location",location);
-  
     useEffect(() => {
       var type = 'GOOGLE';
       axios.get('/api/projectsettings/get/'+type)
@@ -99,7 +97,6 @@ export const AddressComponent = withCustomerToaster((props)=>{
         <React.Fragment>
           <Formik
             onSubmit={(data) => {
-              console.log("data",data);
               const {addressLine1,fromaddress,contactperson,fromarea,fromPincode,fromcity,fromstate,fromcountry,fromlatlong,mobileNumber,addresstype}=data;
               var formValues = {
                 "user_ID"       : userDetails.user_id,
@@ -117,7 +114,6 @@ export const AddressComponent = withCustomerToaster((props)=>{
                 "mobileNumber"  : mobileNumber,
                 "addType"       : addresstype,
               }
-              console.log("formValues",formValues);
               axios.patch('/api/ecommusers/patch/address', formValues)
               .then((response) => {
                 // if(delivery){
@@ -198,7 +194,6 @@ export const AddressComponent = withCustomerToaster((props)=>{
       //   var number      = mobileNumber[1];
       // }
       var ShippingType = [{ value: 'Home', }, { value: 'Office', }, { value: 'Relative', }, { value: 'Friend', }];
-      console.log("values",values);
       const pincodeexistsornot=(pincode,formatted_address,area,city,state,country,latlong)=>{
         axios.get("/api/allowablepincode/checkpincode/" + pincode)
           .then((response) => {
@@ -253,11 +248,9 @@ export const AddressComponent = withCustomerToaster((props)=>{
                       defaultCode={values.countryCode}
                       layout="first"
                       onChangeFormattedText={(text) => {
-                        console.log("text",text);
                         setValue(text);
                         setFieldValue('mobileNumber',text)
                         const checkValid = phoneInput.current?.isValidNumber(text);
-                        console.log("checkValid",checkValid);
                         setValid(checkValid)
                       }}
                       containerStyle= {styles1.containerStyle}
@@ -330,7 +323,6 @@ export const AddressComponent = withCustomerToaster((props)=>{
                           }
                         }
                       }
-                      console.log("details",details);
                       const latlong = details.geometry.location
                       pincodeexistsornot(pincode,details.formatted_address,area,city,state,country,latlong);
                       setFieldValue('fromaddress',details.formatted_address);

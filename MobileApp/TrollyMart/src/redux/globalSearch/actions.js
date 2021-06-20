@@ -2,12 +2,15 @@ import {
     SET_SERACH_LIST, 
     SET_LOADING,
     SET_SEARCH_TEXT,
-    SET_SUGGETION_LIST
+    SET_SUGGETION_LIST,
+    STOP_SCROLL
 } from './types';
+
 import {dispatch} from 'redux';
 import axios from 'axios';
+import { Alert } from 'react-native';
 
-export const getSearchResult = (searchText,user_id,limit) => {
+export const getSearchResult = (searchText,user_id,limit,scroll) => {
     return async (dispatch, getState) => {
         const store = getState();
         dispatch({
@@ -25,10 +28,25 @@ export const getSearchResult = (searchText,user_id,limit) => {
         axios.post("/api/products/get/search/website" ,payload)
         .then((response) => {
             console.log("getSearchResult",response);
-            dispatch({
-                type: SET_SERACH_LIST,
-                payload: response.data,
-            });
+            if(response.data < 10){
+                Alert.alert("STOP SCROLL")
+                dispatch({
+                    type: STOP_SCROLL,
+                    payload: true,
+                });
+            }
+            if(scroll === true){
+                var newList = store.globalSearch.searchList.concat(response.data);
+                dispatch({
+                    type: SET_SERACH_LIST,
+                    payload: newList,
+                });
+            }else{
+                dispatch({
+                    type: SET_SERACH_LIST,
+                    payload: response.data,
+                });
+            }
             dispatch({
                 type: SET_LOADING,
                 payload: false,

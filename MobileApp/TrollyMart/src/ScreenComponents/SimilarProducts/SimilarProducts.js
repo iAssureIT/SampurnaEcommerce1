@@ -113,7 +113,7 @@ export const SimilarProducts =(props)=>{
   }
 
     return (
-      <View style={{paddingHorizontal:10}}>
+      <View style={{marginTop:15}}>
       <Text style={styles.title}>{title}</Text>
         <View style={styles.proddets}>
           {productList && productList.length > 0 ?

@@ -16,15 +16,20 @@ import {withCustomerToaster}from '../../redux/AppState.js';
 import { useSelector }      from 'react-redux';
 import {ProductList}        from'../../ScreenComponents/ProductList/ProductList.js';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 
 export const WishlistComponent  = withCustomerToaster((props)=>{
   const {navigation}=props;
   const store = useSelector(store => ({
-    wishList    : store.wishDetails.wishList,
+    wishList      : store.wishDetails.wishList,
+    globalSearch  : store.globalSearch
   }));
-  const {wishList} = store;
+  const {wishList,globalSearch} = store;
   const [user_id,setUserId] = useState('');
   const [loading,setLoading] = useState(false);
+  useEffect(() => {
+    // getData()
+  },[]); 
 
   
   console.log("wishList",wishList);
@@ -36,7 +41,12 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
           navigate={navigation.navigate}
           openControlPanel={() =>openControlPanel()}
         /> */}
+        
         <View style={styles.addsuperparent}>
+        {
+          globalSearch.search ?
+          <SearchSuggetion />
+          : 
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
                 <View style={{marginTop:15,paddingBottom:60}}>
@@ -59,7 +69,7 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                             userId      = {user_id} 
                             categories  = {[]}
                             loading     = {loading}
-                            disabled    = {parseInt(item.distance) <= 25 ? false :true}
+                            disabled    = {parseInt(item.distance) <= item.maxDistanceRadius ? false :true}
                         />
                         </View>
                       )
@@ -81,6 +91,7 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                 </View>
             </View>
           </ScrollView>
+          }
           <Footer />
         </View>
       </React.Fragment>

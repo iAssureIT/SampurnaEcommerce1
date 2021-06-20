@@ -52,6 +52,7 @@ export const HorizontalSecCatList =(props)=>{
         "showCarousel"            : true,
         "displayItemInCarousel"   : 6
     }
+    console.log("getData formValues",formValues)
     axios.post("/api/sections/get/list",formValues)
       .then((response) => {
         console.log(" setProductList response",response);
@@ -130,19 +131,21 @@ export const HorizontalSecCatList =(props)=>{
   }
 
     return (
-      <View style={{paddingHorizontal:15}}>
-      <Text style={styles.title}>{props.blockTitle}</Text>
-        <View style={styles.proddets}>
-          {productList && productList.length > 0 ?
-            <FlatList
-              horizontal = {true}
-              data={productList}
-              renderItem={item => _renderlist(item)}
-              keyExtractor={item => item._id}
-              // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
-          />:[]} 
-        </View>
-    </View>
+      productList && productList.length > 0 ?
+        <View style={{}}>
+        <Text style={styles.title}>{props.blockTitle}</Text>
+          <View style={styles.proddets}>
+            
+              <FlatList
+                horizontal = {true}
+                data={productList}
+                renderItem={item => _renderlist(item)}
+                keyExtractor={item => item._id}
+                // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
+            />
+          </View>
+      </View>
+      :[]
     );
   }
 

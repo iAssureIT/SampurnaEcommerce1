@@ -100,5 +100,5 @@ const ToastProviderComponent = props => {
 const codePushOptions = {
  checkFrequency: codePush.CheckFrequency.ON_APP_START 
 };
-// export default codePush(codePushOptions)(App);
-export default App;
+export default codePush(codePushOptions)(App);
+// export default App;

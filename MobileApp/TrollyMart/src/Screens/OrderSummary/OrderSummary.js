@@ -226,7 +226,7 @@ import { SafeAreaView }         from 'react-native';
                       />
                     </View>
                   </View>
-                  <Text style={styles.tomorroworder}>Your order will be delivered to you by 4pm to 9pm.</Text>
+                  {/* <Text style={styles.tomorroworder}>Your order will be delivered to you by in 60 Minutes.</Text> */}
                 </View>
               </View>
               <View style={styles.formWrapper}>
@@ -349,9 +349,9 @@ import { SafeAreaView }         from 'react-native';
                                 </View>
                               </View>
                             </View> */}
-                            <View style={{ flex: 1, marginTop: 10 }}>
+                            {/* <View style={{ flex: 1, marginTop: 10 }}>
                               <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                            </View>
+                            </View> */}
                           </View>
                     </View>
                     )

@@ -37,11 +37,9 @@ export const AccountDashboard =(props)=>{
   const getData=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
     .then((data) => {
-      console.log("data",data);
       setUserId(data[1][1]);
       axios.get('/api/ecommusers/'+data[1][1])
       .then((res) => {
-        console.log("res",res);
         var dAddress = res.data.deliveryAddress.length>0 ? res.data.deliveryAddress[0].addressLine1+", "+res.data.deliveryAddress[0].addressLine2 : null;
         // setDetails(res);
         setFullName(res.data.profile.fullName);
@@ -53,7 +51,6 @@ export const AccountDashboard =(props)=>{
         setLoading(false);
       })
       .catch((error) => {
-        console.log("error",error);
         setLoading(false);
         if (error.response.status == 401) {
           setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});

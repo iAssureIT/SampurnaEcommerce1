@@ -8,7 +8,7 @@ import {
   Alert,ActivityIndicator
 } from 'react-native';
 // import { RadioButton } from 'react-native-paper';
-import { Button, Icon}    from "react-native-elements";
+import { Button, Icon,Card}    from "react-native-elements";
 import axios              from "axios";
 import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}             from '../../ScreenComponents/Footer/Footer1.js';
@@ -214,7 +214,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                         </View>
                       </TouchableOpacity>
                       :
-                      <View style={{backgroundColor:"#fefefe",borderRadius:15}} >
+                      <View style={{backgroundColor:"#eee",borderRadius:15}} >
                         <View style={styles.addchkbx}>
                           <View style={[styles.nameofcontact,{paddingHorizontal:14}]}>
                             <Text style={CommonStyles.text}> {item.name}</Text>

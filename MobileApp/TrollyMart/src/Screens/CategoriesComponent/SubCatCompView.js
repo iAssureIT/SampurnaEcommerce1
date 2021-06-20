@@ -11,15 +11,14 @@ import {
 import { 
         Button, 
         Icon, 
-        Rating }              from "react-native-elements";
+        Rating,
+        Avatar }              from "react-native-elements";
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                  from 'axios';
 import AsyncStorage           from '@react-native-async-storage/async-storage';
 import Counter                from "react-native-counters";
-import Modal                  from "react-native-modal";
 import Carousel               from 'react-native-banner-carousel-updated';
 import {SimilarProducts}      from '../../ScreenComponents/SimilarProducts/SimilarProducts.js';
 import {withCustomerToaster}  from '../../redux/AppState.js';
@@ -29,15 +28,15 @@ import {useDispatch }         from 'react-redux';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import { useIsFocused } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
+import { Card } from 'react-native-elements/dist/card/Card';
+import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCatList/HorizontalSecCatList.js';
+
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [countofprod,setCounterProd]        = useState(1);
-  const [wishlisted,setWishListed]          = useState('');
-  const [alreadyincarts,setAlreadyInCarts]  = useState(false);
-  const [alreadyinwishlist,setAlreadyInWishlist] = useState(false);
   const [user_id,setUserId]                = useState('');
   const [productdata,setProductData]        = useState([]);
+  const [productReview,setProductReview]   = useState([]);
   const [number,setNumber]                = useState(1);
-  const [addToCart,setAddToCart]          = useState(false);
   const [loading,setLoading]          = useState(true);
   const dispatch 		= useDispatch();
   const isFocused = useIsFocused();
@@ -55,10 +54,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     .then((data) => {
         setUserId(data[0][1]);
         getProductsView(productID,data[0][1]);
+        getProductReview(productID);
     })
   }
- 
- 
 
   const addToWishList = (productid) => {
     if(user_id){
@@ -86,14 +84,31 @@ export const SubCatCompView = withCustomerToaster((props)=>{
       navigation.navigate('Auth');
       setToast({text: "You need to login first", color: colors.warning});
     }
-    
   }
 
-
   const getProductsView=(productID,user_id)=>{
-    axios.get("/api/Products/get/one/"+ productID+"/"+user_id)
+    axios.get("/api/products/get/one/"+ productID+"/"+user_id)
       .then((response) => {
         setProductData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("error",error);
+        if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
+      })
+  }
+
+  const getProductReview=(productID)=>{
+    axios.get("/api/customerReview/get/list/"+productID)
+      .then((response) => {
+        setProductReview(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -144,30 +159,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     }  
   }
 
-  const toggle=()=>{
-    let isOpen = !isOpen;
-    setOpen(isOpen)
-  }
-
-
-  const openControlPanel = () => {
-    _drawer.open()
-  }
-
-  const renderImage=(image, index)=>{
-    console.log("image",image);
-    
-  }
 
     return (
-      <React.Fragment>
-        {/* <HeaderBar3
-          goBack={navigation.goBack}
-          navigate={navigation.navigate}
-          headerTitle={productdata.productName ? productdata.productName.toUpperCase() :""}
-          toggle={() => toggle()}
-          // openControlPanel={() => openControlPanel()}
-        /> */}
+      <View style={{backgroundColor:"#fff",flex:1}}>
         <View style={styles.prodviewcatsuperparent}>
         {loading ?
           <Loading/>
@@ -188,13 +182,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     {productdata.productImage.map((image, index) => {
                     return (
                       <FastImage
-                      source={{ 
-                        uri: image,
-                        priority: FastImage.priority.high, 
-                        cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
-                      }}
-                      style={styles.saleimg}
-                      resizeMode={FastImage.resizeMode.contain}
+                        source={{ 
+                          uri: image,
+                          priority: FastImage.priority.high, 
+                          cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
+                        }}
+                        style={styles.saleimg}
+                        resizeMode={FastImage.resizeMode.contain}
                     />
                     );
                   })}
@@ -283,129 +277,76 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     }
                   /> 
                 </View>
-                <Rating
-                  showRating
-                  // onFinishRating={this.ratingCompleted}
-                  style={{ paddingVertical: 10 }}
+                <SimilarProducts 
+                  productdata = {productdata} 
+                  user_id     = {user_id} 
+                  title       = {"You May Also Like"}
+                  currency    = {currency}
+                  navigation  = {navigation}
                 />
+
+               <HorizontalSecCatList 
+                  blockTitle          = "All Sub Categories"
+                  section             = {productdata.section_ID}
+                  category            = {productdata.category_ID}
+                  subCategory         = {productdata.subCategory_ID}
+                  showOnlySection     = {false}
+                  showOnlyCategory    = {false}
+                  showOnlyBrand       = {false}
+                  showOnlySubCategory = {true}
+                  navigation          = {navigation}
+                  user_id             = {user_id}
+                />
+                <View>
+                  {productReview && productReview.length >0 ?
+                    productReview.map((item,index)=>{
+                      return(
+                        <Card containerStyle={{backgroundColor:"#fff",marginHorizontal:0}} wrapperStyle={{flexDirection:"row",flex:1}}>
+                          <View style={{flex:0.25,alignItems:'center'}}>
+                          <Avatar
+                            size="small"
+                            overlayContainerStyle={{backgroundColor: '#ddd'}}
+                            rounded
+                            title={item.customerName.charAt(0)}
+                            onPress={() => console.log("Works!")}
+                            activeOpacity={0.7}
+                          />
+                              <Text>{item.customerName.split(' ')[0]}</Text>
+                          </View>  
+                          <View style={{flex:0.75}}>
+                            <View style={{flexDirection:'row'}}>
+                              <Rating
+                                // showRating
+                                startingValue={item.rating}
+                                // onFinishRating={(e)=>setRating(e)}
+                                style={{alignSelf:"flex-start"}}
+                                imageSize={20}
+                                readonly
+                              />
+                              <Text style={[CommonStyles.label,{paddingLeft:5}]}>{item.rating}</Text>
+                            </View>  
+                            <Text style={[CommonStyles.label,{marginTop:5}]}>{item.customerReview}</Text>
+                          </View>  
+                      </Card>
+                      )
+                    })
+                    :
+                    []
+                  }   
+               </View> 
               </View>
             </View>
-            <SimilarProducts 
-              productdata = {productdata} 
-              user_id     = {user_id} 
-              title       = {"You May Also Like"}
-              currency    = {currency}
-              navigation  = {navigation}
-            />
           </ScrollView>
           :
           <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
               <ActivityIndicator size="large" color={colors.theme} />
         </View>
         }
-          <Modal isVisible={wishlisted}
-            onBackdropPress={() => setWishListed(false)}
-            coverScreen={true}
-            hideModalContentWhileAnimating={true}
-            style={{ zIndex: 999 }}
-            animationOutTiming={500}>
-            <View style={styles.modalmainvw}>
-              <View style={{ justifyContent: 'center', }}>
-                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-              </View>
-              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20, }}>
-                Product is added to wishlist.
-                </Text>
-              <View style={styles.yesmodalbtn}>
-                <Button
-                  onPress={() => setWishListed(false)}
-                  titleStyle={styles.modalText}
-                  title="OK"
-                  buttonStyle={styles.button1}
-                  containerStyle={styles.buttonContainer1}
-                />
-              </View>
-            </View>
-          </Modal>
-
-          <Modal isVisible={alreadyinwishlist}
-            onBackdropPress={() => setAlreadyInWishlist(false)}
-            coverScreen={true}
-            hideModalContentWhileAnimating={true}
-            style={{ zIndex: 999 }}
-            animationOutTiming={500}>
-            <View style={styles.modalmainvw}>
-              <View style={{ justifyContent: 'center', }}>
-                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-              </View>
-              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20, }}>
-                Product is remove from wishlist.
-              </Text>
-              <View style={styles.yesmodalbtn}>
-                <Button
-                  onPress={() => setAlreadyInWishlist(false)}
-                  titleStyle={styles.modalText}
-                  title="OK"
-                  buttonStyle={styles.button1}
-                  containerStyle={styles.buttonContainer1}
-                />
-              </View>
-            </View>
-          </Modal>
-          <Modal isVisible={addToCart}
-            onBackdropPress={() => setAddToCart(false)}
-            coverScreen={true}
-            hideModalContentWhileAnimating={true}
-            style={{ paddingHorizontal: '5%', zIndex: 999 }}
-            animationOutTiming={500}>
-            <View style={styles.modalmainvw}>
-              <View style={{ justifyContent: 'center', }}>
-                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-              </View>
-              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
-                Added to cart.
-              </Text>
-
-              <View style={styles.yesmodalbtn}>
-                <Button
-                  onPress={() => setAddToCart(false)}
-                  titleStyle={styles.modalText}
-                  title="OK"
-                  buttonStyle={styles.button1}
-                  containerStyle={styles.buttonContainer1}
-                />
-              </View>
-            </View>
-          </Modal>
-          <Modal isVisible={alreadyincarts}
-            onBackdropPress={() => setAlreadyInCarts(false)}
-            coverScreen={true}
-            hideModalContentWhileAnimating={true}
-            style={{ zIndex: 999 }}
-            animationOutTiming={500}>
-            <View style={styles.modalmainvw}>
-              <View style={{ justifyContent: 'center', }}>
-                <Icon size={50} name='shopping-cart' type='feather' color='#666' style={{}} />
-              </View>
-              <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20, }}>
-                Product is already to Cart.
-              </Text>
-              <View style={styles.yesmodalbtn}>
-                <Button
-                  onPress={() => setAlreadyInCarts(false)}
-                  titleStyle={styles.modalText}
-                  title="OK"
-                  buttonStyle={styles.button1}
-                  containerStyle={styles.buttonContainer1}
-                />
-              </View>
-            </View>
-          </Modal>
         </View>
-        <Footer />
-      </React.Fragment>
-    );
-  })
+      <Footer />
+    </View>
+  );
+})
 
 
 

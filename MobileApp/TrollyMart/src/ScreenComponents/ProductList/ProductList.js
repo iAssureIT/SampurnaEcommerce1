@@ -27,13 +27,11 @@ import FastImage              from 'react-native-fast-image';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
-  console.log("props",props);
-  const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor} = props; 
+  const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor,onEndReachedThreshold,type} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
   const [productsDetails,setProductDetails]= useState([]);
-  const [type,setType]= useState('');
   const [packsizes,setPacksizes]= useState('');
   const [user_id,setUserId]= useState('');
   const [limit,setLimit]= useState(props.limit);
@@ -45,11 +43,12 @@ export const ProductList = withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     stop_scroll     : store.productList.stop_scroll,
+    stop_scroll_search : store.productList.stop_scroll_search,
     location        : store.location,
     userDetails     : store.userDetails
   }));
   const {currency}=store.preferences;
-  const {stop_scroll,userDetails,location}=store;
+  const {stop_scroll,userDetails,location,stop_scroll_search}=store;
   const getData=async()=>{
     for (var i = 0; i < props.newProducts.length; i++) {
       var availableSizes = [];
@@ -72,7 +71,6 @@ export const ProductList = withCustomerToaster((props)=>{
       }
     }
     setProductDetails(props.newProducts);
-    setType(props.type);
     // setLimit(props.limit)
     var data =  await AsyncStorage.multiGet(['user_id', 'token']);
     setUserId(data[0][1]);
@@ -155,7 +153,7 @@ export const ProductList = withCustomerToaster((props)=>{
     var limitRange =limit + 10;
     setLimit(limitRange);
     if(type === "Search"){
-      dispatch(getSearchResult(props.searchText,user_id,limitRange));
+      dispatch(getSearchResult(props.searchText,user_id,limitRange,true));
     }if(type === "vendor_sub_cat"){
         payload.startRange =limit+1;
         payload.limitRange =limitRange;
@@ -186,7 +184,6 @@ export const ProductList = withCustomerToaster((props)=>{
         "vendor_id"          : vendor_id,
         "vendorLocation_id"  : vendorLocation_id,
       }
-      console.log("wishValues",wishValues);
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
           if(type){
@@ -349,10 +346,6 @@ export const ProductList = withCustomerToaster((props)=>{
     )
   }
 
-
-  console.log("productsDetails",productsDetails);
-
-
   return (
     <React.Fragment>
         <View style={styles.maintitle}>
@@ -383,7 +376,7 @@ export const ProductList = withCustomerToaster((props)=>{
           keyExtractor                  = {item => item._id.toString()}
           initialNumToRender            = {6}
           ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-          onEndReachedThreshold          = {0.01}
+          onEndReachedThreshold          = {onEndReachedThreshold}
         //   ListEmptyComponent            = {
         //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
         //     <Image
@@ -393,7 +386,7 @@ export const ProductList = withCustomerToaster((props)=>{
         // }
           onEndReached={() => {
             // console.log("distanceFromEnd",distanceFromEnd);
-            if(limit > 6 && !stop_scroll) {
+            if(limit > 6 && !stop_scroll && !stop_scroll_search) {
               onEnd();
                   //Call pagination function
             }

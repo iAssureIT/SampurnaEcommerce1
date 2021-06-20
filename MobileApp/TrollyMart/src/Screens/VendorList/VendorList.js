@@ -20,7 +20,8 @@ import { ScrollView }           from 'react-native';
 import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
-import {STOP_SCROLL}          from '../../redux/productList/types';
+import {STOP_SCROLL}            from '../../redux/productList/types';
+import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const VendorList = withCustomerToaster((props)=>{
@@ -35,8 +36,9 @@ export const VendorList = withCustomerToaster((props)=>{
     const store = useSelector(store => ({
         location        : store.location,
         userDetails     : store.userDetails,
+        globalSearch    : store.globalSearch
       }));
-    // const {location} =store.location ;
+    const {globalSearch} =store;
     const {navigation} =props;
     useEffect(() => {
         setLoading(true);
@@ -47,7 +49,7 @@ export const VendorList = withCustomerToaster((props)=>{
         dispatch({
             type:STOP_SCROLL,
             payload:false
-          })
+        })
        var formValues =  {
         "startRange" : 0,
         "limitRange" : 10,
@@ -73,9 +75,8 @@ export const VendorList = withCustomerToaster((props)=>{
             "sectionUrl"        : sectionUrl,
             "startRange"        : 0,
             "limitRange"        : 8,
-          } 
+        } 
         dispatch(getCategoryWiseList(payload));
-        
         navigation.navigate('VendorProducts',{vendor:vendor,sectionUrl:sectionUrl,section:section,index:index,vendorLocation_id:vendor.vendorLocation_id});
     }
 
@@ -116,6 +117,9 @@ export const VendorList = withCustomerToaster((props)=>{
                 toggle={() => toggle()}
                 openControlPanel={() => openControlPanel()}
             /> */}
+            {globalSearch.search ?
+            <SearchSuggetion />
+            :
             <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
                 <MenuCarouselSection
                     navigation  = {navigation} 
@@ -164,7 +168,7 @@ export const VendorList = withCustomerToaster((props)=>{
                 {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>
                     </View>*/}
                 </View>
-        </ScrollView>
+        </ScrollView>}
         <Footer/>
         </React.Fragment>
     );

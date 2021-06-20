@@ -21,6 +21,7 @@ import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {STOP_SCROLL}          from '../../redux/productList/types';
+import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const ProductVendorList = withCustomerToaster((props)=>{
@@ -36,9 +37,10 @@ export const ProductVendorList = withCustomerToaster((props)=>{
     const store = useSelector(store => ({
         location        : store.location,
         userDetails     : store.userDetails,
-        preferences     : store.storeSettings.preferences
+        preferences     : store.storeSettings.preferences,
+        globalSearch    : store.globalSearch
       }));
-    // const {location} =store.location ;
+    const {globalSearch} =store ;
     const {navigation} =props;
     useEffect(() => {
         setLoading(true);
@@ -111,6 +113,10 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                 toggle={() => toggle()}
                 openControlPanel={() => openControlPanel()}
             /> */}
+            {
+            globalSearch.search ?
+            <SearchSuggetion />
+            :
             <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
                 <MenuCarouselSection
                     navigation  = {navigation} 
@@ -124,6 +130,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                 {loading ?
                     <Loading />
                     :
+                    
                     vendorList && vendorList.length >0 ?
                     <FlatList
                         data                          = {vendorList}
@@ -159,7 +166,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                 {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>
                     </View>*/}
                 </View>
-        </ScrollView>
+        </ScrollView>}
         <Footer/>
         </React.Fragment>
     );

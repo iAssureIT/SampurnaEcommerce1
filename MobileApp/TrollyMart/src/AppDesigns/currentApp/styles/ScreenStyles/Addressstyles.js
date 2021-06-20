@@ -267,7 +267,7 @@ export default StyleSheet.create({
     borderWidth:1,
   },
   addsuperparent:{
-    flex:1,backgroundColor:'#f1f1f1',
+    flex:1,backgroundColor:'#fff',
   },
   flxdir1:{
     flex:1,flexDirection: "row"
@@ -332,7 +332,7 @@ export default StyleSheet.create({
     marginTop:10,marginBottom:15,
     borderRadius:15,
     minHeight:50,
-    
+    borderWidth:0.5,
   },
   addcmporder:{
     backgroundColor:'#fff',marginTop:10,marginBottom:15,

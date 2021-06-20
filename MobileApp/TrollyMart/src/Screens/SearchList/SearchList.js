@@ -21,21 +21,23 @@ import {withCustomerToaster}    from '../../redux/AppState.js';
 import { connect,useDispatch,useSelector }  from 'react-redux';
 import {ProductList}            from'../../ScreenComponents/ProductList/ProductList.js';
 import { useIsFocused } from "@react-navigation/native";
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 
-export const AllProductList  = withCustomerToaster((props)=>{
+export const SearchList  = withCustomerToaster((props)=>{
   const {navigation,route}=props;
   const {type}=route.params;
   const store = useSelector(store => ({
     productList : store.productList,
+    globalSearch : store.globalSearch
   }));
-  const {productList} = store;
+  console.log("store",store);
+  const {productList,globalSearch} = store;
   const [loading,setLoading] = useState(props.loading);
   const [user_id,setUserId] = useState('');
   const listType = type+"List";
   const isFocused = useIsFocused();
-  useEffect(() => {
-    console.log("store",store);
-  },[props]);
+
   
   const capitalize=(str)=>{
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -44,41 +46,44 @@ export const AllProductList  = withCustomerToaster((props)=>{
     return (
       <React.Fragment>
         <View style={styles.addsuperparent}>
-          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+        {globalSearch.search ?
+            <SearchSuggetion />
+              :<ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <View style={{marginTop:15}}>
-                  {!loading ?
-                    productList.allProductList && productList.allProductList.length > 0 ?
+                <View style={{marginTop:15,paddingHorizontal:15,marginBottom:60}}>
+                {
+                    globalSearch.searchList.length ===0 && productList.loading ?
+                    <Loading />
+                    :
+                   globalSearch.searchList && globalSearch.searchList.length > 0 ?
                       <ProductList 
                         navigate        = {navigation.navigate} 
-                        newProducts     = {productList.allProductList}  
+                        newProducts     = {globalSearch.searchList} 
                         userId          = {user_id} 
                         categories      = {[]}
                         limit           = {props.limit}
-                        type            = {type}
+                        type            = {'Search'}
                         loading         = {productList.loading}
+                        vendorName      = {true}
+                        // onEndReachedThreshold = {0.01}
                     />
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
                       <Image
                         source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
                       />
-                      <Button
+                      {/* <Button
                           onPress={() => navigation.navigate('Dashboard')}
                           // title={"Click Here To Continue Shopping"}
                           title={"Add Products"}
                           buttonStyle={styles.buttonshopping}
                           containerStyle={styles.continueshopping}
-                      /> 
-                    </View>
-                    :
-                    <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                      <ActivityIndicator size="large" color={colors.theme}/>
+                      />  */}
                     </View>
                 }
                 </View>
             </View>
-          </ScrollView>
+          </ScrollView>}
           <Footer />
         </View>
       </React.Fragment>

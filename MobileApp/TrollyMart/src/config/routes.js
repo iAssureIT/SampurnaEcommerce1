@@ -33,6 +33,7 @@ import {SupportSystem}            from '../Screens/Help&Support/SupportSystem.js
 import Stores                     from '../Screens/Stores/Stores.js';
 import StoreDetails               from '../Screens/Stores/StoreDetails.js';
 import {AllProductList}           from '../Screens/AllProductList/AllProductList.js';
+import {SearchList}               from '../Screens/SearchList/SearchList.js';
 import {OrderDetails}             from '../Screens/MyOrders/OrderDetails.js';
 import {AccountDashboard}         from '../Screens/AccountDashboard/AccountDashboard.js';
 import {MyAccount}                from '../Screens/MyAccount/MyAccount.js';
@@ -94,7 +95,8 @@ export const HomeStack = () => (
     <Home.Screen name="Dashboard"                   component={Dashboard}  options={getHeaderConfig("",false)}/>
     <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} options={getHeaderConfig("Dashboard",true)}/>
     <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp}options={getHeaderConfig("Dashboard")} />
-    <Home.Screen name="AllProductList"              component={AllProductList} options={getHeaderConfig("Dashboard")}/>
+    <Home.Screen name="AllProductList"              component={AllProductList} options={getHeaderConfig("Product List",true)}/>
+    <Home.Screen name="SearchList"                  component={SearchList} options={getHeaderConfig("Search List",true)}/>
     <Home.Screen name="SubCatCompView"              component={SubCatCompView} options={getHeaderConfig("Product Details",true)}/>
     <Home.Screen name="CartComponent"               component={CartComponent} options={getHeaderConfig("My Cart",true)}/>
     <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} options={getHeaderConfig("Dashboard")}/>

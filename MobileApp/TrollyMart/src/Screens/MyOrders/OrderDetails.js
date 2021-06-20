@@ -16,20 +16,21 @@ import Loading        from '../../ScreenComponents/Loading/Loading.js';
 import axios          from 'axios';
 import AsyncStorage   from '@react-native-async-storage/async-storage';
 import moment         from 'moment';
-import commonStyles    from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {withCustomerToaster}    from '../../redux/AppState.js';
 import { connect,
   useDispatch,
-  useSelector }                 from 'react-redux';
-import StepIndicator        from 'react-native-step-indicator';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import CountDown from 'react-native-countdown-component';
-import Modal                from "react-native-modal";
-import { useIsFocused }     from "@react-navigation/native";
-import openSocket               from 'socket.io-client';
+  useSelector }        from 'react-redux';
+import StepIndicator   from 'react-native-step-indicator';
+import CommonStyles    from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import CountDown          from 'react-native-countdown-component';
+import Modal              from "react-native-modal";
+import { useIsFocused }   from "@react-navigation/native";
+import openSocket         from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
-import OpenModal from '../Modal/OpenModal.js';
-import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
+import OpenModal            from '../Modal/OpenModal.js';
+import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
     stepIndicatorSize                 : 25,
@@ -70,19 +71,20 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const {orderid}=route.params;
   const isFocused = useIsFocused();
   const [labels,setLabels] = useState([]);
+  const [review_id,setReviewId]= useState();
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
-    userDetails     : store.userDetails
+    userDetails     : store.userDetails,
+    globalSearch    : store.globalSearch
   }));
-  console.log("store",store);
   const {currency}=store.preferences;
+  const {globalSearch}=store;
 
   useEffect(() => {
   
     axios.get('/api/orderstatus/get/list/')
     .then((response) => {
-      console.log("response",response);
       var array = response.data.map(e=>e.orderStatus);
       // delete array[2];
       array.splice(2, 1);
@@ -99,17 +101,17 @@ export const OrderDetails = withCustomerToaster((props)=>{
         setToast({text: 'Something went wrong2.', color: 'red'});
       }  
     });
-    getorderlist(orderid);
+    getSingleOrder(orderid);
 }, [props,isFocused]);
 
  
 
-  const getorderlist=(orderid)=>{
+  const getSingleOrder=(orderid)=>{
     setLoading(true);
     socket.emit('room',orderid);
     socket.emit('signle_order',orderid);
     socket.on('getSingleOrder',(response)=>{
-      console.log("getSingleOrder response",response);
+      console.log("response",response);
     // axios.get('/api/orders/get/one/' + orderid)
     //   .then((response) => {
           setOrder(response);
@@ -137,13 +139,10 @@ export const OrderDetails = withCustomerToaster((props)=>{
       "order_id"    : cancelOrderId,
       // "userid"      : store.userDetails.user_id,
     }
-    console.log("formValues",formValues);
     axios.patch('/api/orders/cancel/order', formValues)
       .then((response) => {
-        console.log("response",response);
         axios.get('/api/orders/get/one/' + cancelOrderId)
           .then((res) => {
-            console.log("res",res);
             setCancelOrderModal(false);
             setOrder(res.data);
             setToast({text: 'Your order has been cancelled.', color: 'green'});
@@ -176,16 +175,12 @@ export const OrderDetails = withCustomerToaster((props)=>{
   }
 
 
-  const toggle=()=>{
-    let isOpen = !isOpen;
-    setOpen(isOpen);
-  }
 
   const cancelButton = (orderDate)=>{
     var min = moment(orderDate).add(order.maxDurationForCancelOrder, 'minutes');
     var duration = moment.duration(min.diff(new Date())).asSeconds();
     if(duration > 0 &&duration < order.maxDurationForCancelOrder*60){
-      setTimeout(function(){getorderlist(orderid) },  Math.abs(duration) *1000);
+      setTimeout(function(){getSingleOrder(orderid) },  Math.abs(duration) *1000);
       return true;
     }else{
       return false;
@@ -207,33 +202,76 @@ const cancelorderbtn = (id,vendor_id) => {
 
 
   const submitReview=()=>{
+    if(review_id){
+      var formValues = {
+        "review_id"           : review_id,
+        "rating"          		: rating,
+        "customerReview"  		: review,
+        // "status"          		: "New"
+      }
+      axios.patch ('/api/customerReview/patch/customer/review',formValues)
+      .then(res=>{
+        setModal(false);
+        setVendorDetails();
+        setProductIndex('');
+        setReview('')
+        setRating(1);
+        setToast({text: res.data.message, color: 'green'});
+        getSingleOrder(orderid)
+      })
+      .catch(err=>{
+        console.log("err",err);
+      })
+    }else{
+      var formValues = {
+        "customer_id"     		: store.userDetails.user_id,
+        "customerName"        : store.userDetails.firstName+" "+store.userDetails.lastName,
+        "order_id"        		: orderid,
+        "product_id"      		: vendorDetails.products[productIndex]._id,
+        "vendor_id" 			    : vendorDetails.vendor_id._id,
+        "vendorLocation_id"   : vendorDetails.vendorLocation_id,
+        "rating"          		: rating,
+        "customerReview"  		: review,
+        "status"          		: "New"
+      }
+      axios.post('/api/customerReview/post',formValues)
+      .then(res=>{
+        setModal(false);
+        setVendorDetails();
+        setProductIndex('');
+        setReview('')
+        setRating(1);
+        setToast({text: res.data.message, color: 'green'});
+        getSingleOrder(orderid)
+      })
+      .catch(err=>{
+        console.log("err",err);
+      })
+    }
+  }
+
+  const getSingleReview=(product_id)=>{
     var formValues = {
       "customer_id"     		: store.userDetails.user_id,
-      "customerName"        : store.userDetails.firstName+" "+store.userDetails.lastName,
       "order_id"        		: orderid,
-      "product_id"      		: vendorDetails.products[productIndex]._id,
-      "vendor_id" 			    : vendorDetails.vendor_id._id,
-      "vendorLocation_id"   : vendorDetails.vendorLocation_id,
-      "rating"          		: rating,
-      "customerReview"  		: "Good Product",
-      "status"          		: "New"
+      "product_id"      		: product_id
     }
-    console.log("formValues",formValues);
-    axios.post('/api/customerReview/post',formValues)
+    axios.post('/api/customerReview/get/single/customer/review',formValues)
     .then(res=>{
       console.log("res",res);
-      setModal(false);
-      setVendorDetails();
-      setProductIndex('');
-      setRating(1);
-      setToast({text: res.data.message, color: 'green'});
+      // setModal(false);
+      // setVendorDetails();
+      // setProductIndex('');
+      setReviewId(res.data._id)
+      setReview(res.data.customerReview)
+      setRating(res.data.rating);
+      // setToast({text: res.data.message, color: 'green'});
     })
     .catch(err=>{
       console.log("err",err);
     })
   }
 
-  console.log('vendorDetails',vendorDetails);
 
     return (
       <React.Fragment>
@@ -246,6 +284,9 @@ const cancelorderbtn = (id,vendor_id) => {
         /> */}
       {loading?
         <Loading/>
+        :
+        globalSearch.search ?
+          <SearchSuggetion />
         :
         <View style={styles.superparent}>
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
@@ -272,7 +313,6 @@ const cancelorderbtn = (id,vendor_id) => {
                     order && order.vendorOrders.length > 0 ?
                     order.vendorOrders.map((vendor,i)=>{
                       var position = 0;
-                      console.log("item.deliveryStatus[item.deliveryStatus.length - 1].status====>",vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status);
                       // if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "New" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Verified") {
                       //   position = 0;
                       // } else if (vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Packed" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status === "Inspection" || vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status ==="Dispatch Approved" ) {
@@ -284,15 +324,12 @@ const cancelorderbtn = (id,vendor_id) => {
                       //   position = 4;
                       // }  
                       var vendorStatus = vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status;
-                      console.log("vendorStatus",vendorStatus);
-                      console.log("labels",labels);
                       if(vendorStatus === "Ready to Dispatch" || vendorStatus === "Processing"){
                         var postion1 = labels.indexOf("Processing");
-                        console.log("postion",postion1);
                       }else{
                         var postion1 = labels.indexOf(vendorStatus)+1;
-                        console.log("postion",postion1);
                       }
+                      
                       
                       return(
                       <View style={styles.prodinfoparent1}>
@@ -353,14 +390,19 @@ const cancelorderbtn = (id,vendor_id) => {
                                           </Text>
                                       </View>}
                                     </View>
-                                    <View style={[styles.flxdir,{alignItems:"center",marginTop:10,flex:1}]}>
+                                    {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
+                                        <View style={[styles.flxdir,{alignItems:"center",marginTop:10,flex:1}]}>
                                         <View style={{flex:.5}}>
                                           <Text style={[styles.ogprice,]}>Return</Text>
                                         </View>  
                                         <View style={{flex:.5}}>
-                                          <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Review</Text>
+                                          {pitem.isReview ?
+                                            <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem._id)}}>Edit Review</Text>
+                                            :
+                                            <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Review</Text>
+                                          } 
                                         </View>  
-                                      </View>
+                                      </View>}
                                   </View>
                                 </View>
                               </View>  
@@ -605,7 +647,7 @@ const cancelorderbtn = (id,vendor_id) => {
                 placeholderTextColor  = {'#bbb'}
                 inputStyle            = {{fontSize: 16}}
                 inputStyle            = {{textAlignVertical: "top"}}
-                autoCapitalize        = 'characters'
+                // autoCapitalize        = 'characters'
                 multiline             = {true}
                 numberOfLines         = {4}
                 value                 = {review}

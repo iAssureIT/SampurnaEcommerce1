@@ -32,14 +32,10 @@ export const AboutUs = (props)=>{
     },[]);
 
 
-    const  openControlPanel = () => {
-        _drawer.open()
-    }
-
+  
     const getData=()=>{
         Axios.get('/api/pages/get/page_block/about-us')
         .then(res=>{
-            console.log("res",res);
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)
         })

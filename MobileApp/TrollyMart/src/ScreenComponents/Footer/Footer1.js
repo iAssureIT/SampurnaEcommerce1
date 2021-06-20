@@ -12,7 +12,6 @@ import { connect,
 import { getWishList } 		                from '../../redux/wishDetails/actions';
 import {withCustomerToaster}              from '../../redux/AppState.js';
 import { useNavigation }                  from '@react-navigation/native';
-import { getSearchResult,getSuggestion } 	from '../../redux/globalSearch/actions';
 import { SET_SEARCH_CALL,
   SET_SEARCH_TEXT,
   SET_SUGGETION_LIST,

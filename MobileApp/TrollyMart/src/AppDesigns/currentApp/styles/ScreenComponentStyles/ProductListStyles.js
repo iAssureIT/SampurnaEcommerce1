@@ -253,6 +253,7 @@ export default StyleSheet.create({
 	   },
 	 
 	sizedrpbtn: {
+		paddingHorizontal:15,
 		flex:0.5,
 		...Platform.select({
 			ios:{

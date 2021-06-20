@@ -149,7 +149,7 @@ export default StyleSheet.create({
     },
     addBtnContainer:{
         // marginTop:15,
-        padding:15
+        paddingVertical:15
         // alignSelf:'fl'
         // alignSelf:'center',
     } 

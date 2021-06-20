@@ -22,6 +22,7 @@ import commonStyles               from '../../AppDesigns/currentApp/styles/Commo
 import AsyncStorage               from '@react-native-async-storage/async-storage';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
+import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 
 export const CartComponent = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
@@ -37,8 +38,9 @@ export const CartComponent = withCustomerToaster((props)=>{
   const [deleteVendor_id,setDeleteVendorId] = useState('');
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
+    globalSearch    : store.globalSearch
   }));
-  
+  const {globalSearch}=store;
   const {currency}=store.preferences;
 
   useEffect(() => {
@@ -215,6 +217,9 @@ const getshippingamount=(startRange, limitRange)=>{
       /> */}
       <View style={{ flex: 1}}>
       { !loading ?
+      globalSearch.search ?
+        <SearchSuggetion />
+        :
         <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
         <View style={{flex:1}}>
           {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?

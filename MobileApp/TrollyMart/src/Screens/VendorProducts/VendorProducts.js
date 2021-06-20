@@ -25,7 +25,10 @@ import { ActivityIndicator }  from 'react-native-paper';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import {STOP_SCROLL,SET_CATEGORY_WISE_LIST}          from '../../redux/productList/types';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
+import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { Dimensions } from 'react-native';
 
+const window = Dimensions.get('window');
 export const VendorProducts = (props)=>{
   const isFocused = useIsFocused();
   const [productImage,setProductImage]=useState([]);
@@ -54,8 +57,9 @@ export const VendorProducts = (props)=>{
     userDetails : store.userDetails,
     brandList   : store.productList.categoryList.brandList,
     payload     : store.productList.searchPayload,
+    globalSearch    : store.globalSearch
   }));
-  const {productList,userDetails,brandList,payload} = store;
+  const {productList,userDetails,brandList,payload,globalSearch} = store;
 
   useEffect(() => {
     getData();
@@ -143,93 +147,97 @@ export const VendorProducts = (props)=>{
         headerTitle = {"Product List"}
         navigate    = {navigation.navigate}
       /> */}
-      <View style={[styles.container]}>
-        <MenuCarouselSection  
-            navigation  = {navigation}   
+      {globalSearch.search ?
+        <SearchSuggetion />
+        :
+        <View style={[styles.container]}>
+          <MenuCarouselSection  
+              navigation  = {navigation}   
+              showImage   = {true} 
+              boxHeight   = {40} 
+              selected    = {section}
+              index       = {index}
+          />
+          <View style={{flexDirection:"row"}}>
+            <View style={{flex:0.1}}/>
+            <View style={{flex:0.9}}>
+              <Text style={CommonStyles.headerText}>{vendor.vendorName}</Text>
+            </View>  
+          {/* <View style={{flex:0.5}}> */}
+            {/* <ButtonGroup
+            onPress={(index) => {
+              if (index === 0) {
+                setIndex(0);
+                toggleSort(true);
+              } else {
+                toggleFilters(true);
+                setIndex(1);
+              }
+            }}
+            selectedIndex={selectedIndex}
+            buttons={buttons}
+            containerStyle={{
+              height: 50,
+              backgroundColor: '#fff',
+              marginTop: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 0,
+              borderWidth:0
+            }}
+            selectedButtonStyle={{backgroundColor: 'transparent'}}
+            selectedTextStyle={{color: '#fa6801'}}
+          /> */}
+          {/* </View> */}
+            <TouchableOpacity style={{flex:0.1}} onPress={()=>setShowFilters(true)}>
+              <Icon name="filter" type="material-community" color={"#333"}  />
+            </TouchableOpacity>
+            <TouchableOpacity style={{flex:0.1}} onPress={()=>toggleSort(true)}>
+              <Icon name="sort" type="material-community" color={"#333"}  />
+            </TouchableOpacity>
+          </View>
+          <CategoryList 
+            navigation  = {navigation}  
             showImage   = {true} 
             boxHeight   = {40} 
-            selected    = {section}
-            index       = {index}
+            setCategory = {setCategory}
+          />
+            {productList.categoryWiseList.length ===0 && productList.loading ?
+            <Loading />
+            : 
+            productList.categoryWiseList && productList.categoryWiseList.length >0 ?
+            <View style={{height:window.height-350}}>
+            {<ProductList 
+                navigate      = {navigation.navigate} 
+                newProducts   = {productList.categoryWiseList}  
+                userId        = {userId}  
+                loading       = {productList.loading}
+                limit         = {10}
+                payload       = {payload}
+                type          = "vendor_sub_cat"
+                vendorLocation_id = {vendorLocation_id}
+                onEndReachedThreshold = {0.01}
+              />}
+              </View>    
+            :
+            <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+              <Text style={CommonStyles.noDataFound}>No Product Found</Text>
+            </View> 
+          } 
+        <SortModal
+          sortOptions={sortOptions}
+          closeModal={() => toggleSort(false)}
+          visible={showSort}
         />
-        <View style={{flexDirection:"row"}}>
-          <View style={{flex:0.1}}/>
-          <View style={{flex:0.9}}>
-            <Text style={CommonStyles.headerText}>Vendor - {vendor.vendorName}</Text>
-          </View>  
-         {/* <View style={{flex:0.5}}> */}
-          {/* <ButtonGroup
-          onPress={(index) => {
-            if (index === 0) {
-              setIndex(0);
-              toggleSort(true);
-            } else {
-              toggleFilters(true);
-              setIndex(1);
-            }
-          }}
-          selectedIndex={selectedIndex}
-          buttons={buttons}
-          containerStyle={{
-            height: 50,
-            backgroundColor: '#fff',
-            marginTop: 0,
-            marginLeft: 0,
-            marginRight: 0,
-            marginBottom: 0,
-            borderWidth:0
-          }}
-          selectedButtonStyle={{backgroundColor: 'transparent'}}
-          selectedTextStyle={{color: '#fa6801'}}
-        /> */}
-        {/* </View> */}
-          <TouchableOpacity style={{flex:0.1}} onPress={()=>setShowFilters(true)}>
-            <Icon name="filter" type="material-community" color={"#333"}  />
-          </TouchableOpacity>
-          <TouchableOpacity style={{flex:0.1}} onPress={()=>toggleSort(true)}>
-            <Icon name="sort" type="material-community" color={"#333"}  />
-          </TouchableOpacity>
-        </View>
-        <CategoryList 
-          navigation  = {navigation}  
-          showImage   = {true} 
-          boxHeight   = {40} 
-          setCategory = {setCategory}
+        <FilterModal
+            filterOptions   = {filterOptions}
+            closeModal      = {() => setShowFilters(false)}
+            visible         = {showFilters}
+            subCategory     = {subCategory}
+            brandsArray     = {brandList && brandList.length > 0 ? brandList.map((a, i)=>{return {label :a,value :a}}): []}
+            sizeArray       = {[]}
         />
-          {productList.categoryWiseList.length ===0 && productList.loading ?
-          <Loading />
-          : 
-          productList.categoryWiseList && productList.categoryWiseList.length >0 ?
-          <View style={{flex:10}}>
-          { <ProductList 
-                  navigate      = {navigation.navigate} 
-                  newProducts   = {productList.categoryWiseList}  
-                  userId        = {userId}  
-                  loading       = {productList.loading}
-                  limit         = {10}
-                  payload       = {payload}
-                  type          = "vendor_sub_cat"
-                  vendorLocation_id = {vendorLocation_id}
-                />}
-            </View>    
-          :
-          <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-            <Text style={CommonStyles.noDataFound}>No Product Found</Text>
-          </View> 
-        } 
-      <SortModal
-        sortOptions={sortOptions}
-        closeModal={() => toggleSort(false)}
-        visible={showSort}
-      />
-      <FilterModal
-          filterOptions   = {filterOptions}
-          closeModal      = {() => setShowFilters(false)}
-          visible         = {showFilters}
-          subCategory     = {subCategory}
-          brandsArray     = {brandList && brandList.length > 0 ? brandList.map((a, i)=>{return {label :a,value :a}}): []}
-          sizeArray       = {[]}
-      />
-     </View>
+      </View>}
      <Footer/>
     </React.Fragment>
   );

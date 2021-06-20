@@ -26,13 +26,13 @@ import {withCustomerToaster}    from '../../redux/AppState.js';
 import CountDown from 'react-native-countdown-component';
 import { connect,
   useDispatch,
-  useSelector }                 from 'react-redux';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import openSocket               from 'socket.io-client';
-import {REACT_APP_BASE_URL} from '@env'
+  useSelector }             from 'react-redux';
+import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import openSocket           from 'socket.io-client';
+import {REACT_APP_BASE_URL} from '@env';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
-
-
 const labels = ["Processing", "Preparing", "On the Way", "Delivered"];
 const customStyles = {
   stepIndicatorSize                 : 25,
@@ -69,47 +69,38 @@ export const MyOrder = withCustomerToaster((props)=>{
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
-    userDetails     : store.userDetails
+    userDetails     : store.userDetails,
+    globalSearch    : store.globalSearch
   }));
   const {currency}=store.preferences;
   const {user_id}=store.userDetails;
+  const {globalSearch}=store;
   useEffect(() => {
     getorderlist();
 }, [props,isFocused]);
 
  const getorderlist=()=>{
   setLoading(true)
- 
-        socket.emit('room',user_id);
-        socket.emit('userOrderList',user_id);
-        socket.on('getUserOrderList',(response)=>{
-          //    axios.get('/api/orders/get/list/' + data[1][1])
-          // .then((response) => {
-          console.log("response",response);
-          setMyOrders(response);
-          setLoading(false);
-        })
-          // .catch((error) => {
-          //   console.log("error",error);
-          //   setLoading(false);
-          //   if (error.response.status == 401) {
-          //     AsyncStorage.removeItem('user_id');
-          //     AsyncStorage.removeItem('token');
-          //     setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-          //     navigation.navigate('Auth')
-          //   }else{
-          //     setToast({text: 'Something went wrong.', color: 'red'});
-          //   }  
-          // });
-  }
-
-  const toggle=()=>{
-    let isOpen = !isOpen;
-    setOpen(isOpen);
-  }
-
-  const openControlPanel = () => {
-   _drawer.open()
+    socket.emit('room',user_id);
+    socket.emit('userOrderList',user_id);
+    socket.on('getUserOrderList',(response)=>{
+      //    axios.get('/api/orders/get/list/' + data[1][1])
+      // .then((response) => {
+      setMyOrders(response);
+      setLoading(false);
+    })
+      // .catch((error) => {
+      //   console.log("error",error);
+      //   setLoading(false);
+      //   if (error.response.status == 401) {
+      //     AsyncStorage.removeItem('user_id');
+      //     AsyncStorage.removeItem('token');
+      //     setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+      //     navigation.navigate('Auth')
+      //   }else{
+      //     setToast({text: 'Something went wrong.', color: 'red'});
+      //   }  
+      // });
   }
 
   const confirmCancelOrderBtn = () => {
@@ -194,7 +185,10 @@ export const MyOrder = withCustomerToaster((props)=>{
             openControlPanel={() => openControlPanel()}
           /> */}
           <View style={styles.superparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+            {globalSearch.search ?
+                <SearchSuggetion />
+              :
+              <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
                 {loading?
                 <Loading/>
@@ -389,7 +383,7 @@ export const MyOrder = withCustomerToaster((props)=>{
                     </View>
                 }
               </View>
-            </ScrollView>
+            </ScrollView>}
           </View>
           <Footer />
           <Modal isVisible={cancelOrderModal}

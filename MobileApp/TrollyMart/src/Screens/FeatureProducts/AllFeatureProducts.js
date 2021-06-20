@@ -68,7 +68,6 @@ import ValidationComponent from 'react-native-form-validator';
           this.setState({
             userId: userId,
           }, () => {
-            console.log('userId', this.state.userId)
             this.wishlisteddata();
           })
       })
