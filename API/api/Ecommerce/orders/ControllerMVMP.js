@@ -12,8 +12,8 @@ const Products 					= require('../products/Model');
 const Adminpreference 			= require('../adminPreference/Model');
 const StorePreferences  		= require('../StorePreferences/Model.js');
 const OrderCancellationPolicy   = require('../../Ecommerce/OrderCancellationPolicy/Model.js');
-const RewardPointsPolicy 		= require('../RewardPointsPolicy/Model.js');
-const RewardPoints 				= require('../RewardPoints/Model.js');
+const CreditPointsPolicy 		= require('../CreditPointsPolicy/Model.js');
+const CreditPoints 				= require('../CreditPoints/Model.js');
 const CustomerReview 			= require('../customerReview/ModelMVMP.js');
 const Coupon            		= require('../CouponManagement/Model');
 const Allowablepincode 			= require('../allowablePincodes/Model');
@@ -129,8 +129,8 @@ exports.insert_orders = (req, res, next) => {
 						if(l >= req.body.vendorOrders.length){
 							processData();
 							async function processData(){
-								var addRewardPoint = await addRewardPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Original Order");
-								console.log("addRewardPoint => ",addRewardPoint)
+								var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Original Order");
+								console.log("addCreditPoint => ",addCreditPoint)
 								res.status(200).json({ 
 									order_id : orderdata._id,
 									message  : 'Order placed successfully' 
@@ -180,21 +180,21 @@ function getNextSequenceOrderId() {
     });
 }
 
-/*========== Add Reward Points ==========*/
-function addRewardPoints(order_id, user_id, orderDate, purchaseAmount, shippingCharges, totalAmount, transactionType) {
+/*========== Add Credit Points ==========*/
+function addCreditPoints(order_id, user_id, orderDate, purchaseAmount, shippingCharges, totalAmount, transactionType) {
     return new Promise((resolve,reject)=>{
-    RewardPoints.findOne({"user_id" : ObjectId(user_id)})
+    	CreditPoints.findOne({"user_id" : ObjectId(user_id)})
         .then(async(data)=>{
 			console.log("data => ", data);
 			console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
-			var rewardPolicyData = await RewardPointsPolicy.findOne();
-			console.log("rewardPolicyData => ",rewardPolicyData);
-			var earnedRewardPoints = ((purchaseAmount / rewardPolicyData.purchaseAmount) * rewardPolicyData.rewardPoint);
-			console.log("earnedRewardPoints => ",earnedRewardPoints);
+			var creditPolicyData = await CreditPointsPolicy.findOne();
+			console.log("creditPolicyData => ",creditPolicyData);
+			var earnedCreditPoints = Math.round(((purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint));
+			console.log("earnedCreditPoints => ",earnedCreditPoints);
             if (data && data !== null) { 
-				var totalEarnedPoints = data.totalPoints + earnedRewardPoints;
+				var totalEarnedPoints = Math.round(data.totalPoints + earnedCreditPoints);
 				console.log("totalEarnedPoints => ",totalEarnedPoints)
-                RewardPoints.updateOne(
+                CreditPoints.updateOne(
 					{ "_id": ObjectId(data._id)},		
 					{$push: {
 							transactions : {
@@ -203,7 +203,7 @@ function addRewardPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
 								purchaseAmount      : purchaseAmount,
 								shippingCharges     : shippingCharges,
 								totalAmount         : totalAmount,
-								earnedPoints        : earnedRewardPoints,
+								earnedPoints        : earnedCreditPoints,
 								typeOfTransaction   : transactionType
 							}
 						},
@@ -215,11 +215,11 @@ function addRewardPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
 					.then(data => {
 						if (data.nModified === 1) {
 							resolve({
-								"message"	: "Reward Points added successfully in wallet."
+								"message"	: "Credit Points added successfully in wallet."
 							});
 						} else {
 							resolve({
-								"message": "Oops, something went wrong reward points not added"
+								"message": "Oops, something went wrong credit points not added"
 							});
 						}
 					})
@@ -230,28 +230,28 @@ function addRewardPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
 						});
 					});
             }else{
-				const rewardPoints = new RewardPoints({
+				const creditPoints = new CreditPoints({
 					_id 						: new mongoose.Types.ObjectId(),
 					user_id                     : user_id,
-    				totalPoints                 : earnedRewardPoints,
+    				totalPoints                 : earnedCreditPoints,
 					transactions 				: {
 													order_id            : order_id,
 													orderDate           : new Date(),
 													purchaseAmount      : purchaseAmount,
 													shippingCharges     : shippingCharges,
 													totalAmount         : totalAmount,
-													earnedPoints        : earnedRewardPoints,
+													earnedPoints        : earnedCreditPoints,
 													typeOfTransaction   : transactionType
 					},		
 					createdAt 					: new Date(),
 					createdBy 					: user_id
 				});
 	
-				rewardPoints.save()
-				.then(async(rewardData) => {
-					console.log("rewardData => ",rewardData)	
+				creditPoints.save()
+				.then(async(creditData) => {
+					console.log("creditData => ",creditData)	
 					resolve({
-						"message"	: "Reward Points added successfully in wallet."
+						"message"	: "Credit Points added successfully in wallet."
 					})
 				})
 				.catch(err =>{
@@ -411,8 +411,8 @@ exports.cancel_order = (req, res, next) => {
 				console.log("updatedata => ",updatedata);
 				if (updatedata.nModified === 1) {
 					console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
-					var addRewardPoint = await addRewardPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, -vendor_order_afterDiscountTotal, -vendor_order_shippingCharges, -vendor_netPayableAmount, "VendorOrderCancelled");
-					console.log("addRewardPoint => ",addRewardPoint)		
+					var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, -vendor_order_afterDiscountTotal, -vendor_order_shippingCharges, -vendor_netPayableAmount, "VendorOrderCancelled");
+					console.log("addCreditPoint => ",addCreditPoint)		
 					res.status(200).json({
 						"message"	: "Order cancelled successfully."
 					});
@@ -456,8 +456,8 @@ exports.cancel_order = (req, res, next) => {
 			if (data.nModified === 1) {
 				var orderdata 		= await Orders.findOne({_id: ObjectId(req.body.order_id)})
 				console.log("orderdata=> ",orderdata)
-				var addRewardPoint 	= await addRewardPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, - orderdata.paymentDetails.afterDiscountTotal, - orderdata.paymentDetails.shippingCharges, - orderdata.paymentDetails.netPayableAmount, "WholeOrderCancelled");
-				console.log("else addRewardPoint => ",addRewardPoint)
+				var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, - orderdata.paymentDetails.afterDiscountTotal, - orderdata.paymentDetails.shippingCharges, - orderdata.paymentDetails.netPayableAmount, "WholeOrderCancelled");
+				console.log("else addCreditPoint => ",addCreditPoint)
 				
 				res.status(200).json({
 					"message"	: "Order cancelled successfully."

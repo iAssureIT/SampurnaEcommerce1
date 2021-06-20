@@ -1,52 +1,52 @@
 const mongoose	                = require("mongoose");
 var ObjectId                    = require('mongodb').ObjectID;
-const RewardPoints              = require('./Model');
+const CreditPoints              = require('./Model');
 
-/*=========== Add Reward Points Policy ===========*/
-exports.add_reward_points = (req, res, next) => {
-	RewardPoints.findOne()
+/*=========== Add Credit Points Policy ===========*/
+exports.add_credit_points = (req, res, next) => {
+	CreditPoints.findOne()
 	.exec()
 	.then(data =>{
 		if(data && data !== null){
-			RewardPoints.updateOne(
+			CreditPoints.updateOne(
 				{ _id : ObjectId(data._id)},  
 				{
 					$set:{
 						"purchaseAmount"        : req.body.purchaseAmount,
-						"rewardPoint"           : req.body.rewardPoint,
-						"rewardPointValue"      : req.body.rewardPointValue
+						"creditPoint"           : req.body.creditPoint,
+						"creditPointValue"      : req.body.creditPointValue
 					}
 				}
 			)
 			.exec()
 			.then(data=>{
 				res.status(200).json({
-					"message": "Reward Point Policy Updated Successfully."
+					"message": "Credit Point Policy Updated Successfully."
 				});
 			})
 			.catch(err =>{
-				console.log("Failed to Update Reward Point Policy");
+				console.log("Failed to Update Credit Point Policy");
 				res.status(500).json({
 					error: err
 				});
 			});
 		}else{    
-			const rewardPoints = new RewardPoints({
+			const creditPoints = new CreditPoints({
 				"_id"                   : mongoose.Types.ObjectId(),      
 				"purchaseAmount"        : req.body.purchaseAmount,
-				"rewardPoint"           : req.body.rewardPoint,
-				"rewardPointValue"      : req.body.rewardPointValue,
+				"creditPoint"           : req.body.creditPoint,
+				"creditPointValue"      : req.body.creditPointValue,
 				"createdAt"             : new Date()
 			});            
-			rewardPoints.save()
-			.then(rewardPoints=>{
+			creditPoints.save()
+			.then(creditPoints=>{
 				res.status(200).json({
-					"message"   : "Reward Point Policy Saved Successfully.",
-					"data"      : rewardPoints
+					"message"   : "Credit Point Policy Saved Successfully.",
+					"data"      : creditPoints
 				});
 			})
 			.catch(err =>{
-				console.log("Failed to Save Reward Point Policy");				
+				console.log("Failed to Save Credit Point Policy");				
 				res.status(500).json({
 					error: err
 				});
@@ -54,16 +54,16 @@ exports.add_reward_points = (req, res, next) => {
 		}
 	})
 	.catch(err =>{
-		console.log("Failed to Find Reward Point Policy");				
+		console.log("Failed to Find Credit Point Policy");				
 		res.status(500).json({
 			error: err
 		});
 	});
 };
 
-/*=========== Get reward points policy data ===========*/
-exports.get_reward_points = (req, res, next) => {
-	RewardPoints.find()
+/*=========== Get credit points policy data ===========*/
+exports.get_credit_points = (req, res, next) => {
+	CreditPoints.find()
 	.exec()
 	.then(data=>{
 		res.status(200).json(data);

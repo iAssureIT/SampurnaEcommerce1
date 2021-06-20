@@ -223,7 +223,7 @@ class CreditPointsPolicy extends Component {
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 fieldWrapper">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-															<label>Credit Point Value <i className="redFont">*</i></label>
+															<label>Redemption value of credit point <i className="redFont">*</i></label>
 															<div className="input-group">
 																<input className = "form-control" ref = "creditPoint" placeholder = "Add value of each credit point here.."
 																	type 		= "number" 
