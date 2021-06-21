@@ -5,7 +5,7 @@
 }
 
 .sectionCategoryBlock img{
-    height: 110px;
+    height: 120px;
     border-radius: 10px;
     width: 100%;
 }
@@ -18,11 +18,11 @@
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: -3px 3px 6px #00000029;
-    border-radius: 11px;
+    border-radius: 4px;
     /*opacity: 0.5;*/
 }
 
-.itemImg img::before {
+/*.itemImg img::before {
      content: "";
     position: absolute;
     top: 0px;
@@ -30,7 +30,7 @@
     bottom: 0px;
     left: 0px;
     background-color: rgba(0,0,0,0.7);
-}
+}*/
 
 .secCateblock{
     text-decoration: none !important;
@@ -40,4 +40,15 @@
 }
 .secCateblock:hover{
     color: lightcoral;
+}
+
+.rowPadding{
+    padding:20px 40px 0px 40px;
+    z-index: -1 !important;
+}
+
+.react-multiple-carousel__arrow--left{
+    position:absolute;
+    left:-10px !important;
+
 }

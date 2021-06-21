@@ -165,7 +165,7 @@ color: #FBBD65!important;
   margin-top: 0px;
 }
 .labelCategory{
-  font-size: 14px !important;
+  font-size: 12px !important;
 }
 @media screen and (max-width: 480px) {
  .card{
@@ -358,9 +358,9 @@ font-weight: bold;
   transition: .4s ease;
 }
 .productWrapper{
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-bottom: 15px !important;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 25px !important;
 }
 .productListWrapper{
   margin-top: 20px;
@@ -372,7 +372,7 @@ font-weight: bold;
 }
 .ProductViewWrapper{
   padding-bottom: 20px;
-  background : #E8E8E8;
+  /*background : #E8E8E8;*/
 }
 .productCaroselBlock{
   /*border: 1px solid #aaa;*/
@@ -665,3 +665,20 @@ background: #fff;
     min-height: 30px;
 }
 
+
+.titleFont{
+  font-size:32px !important;  
+  margin-top:40px !important;
+}
+
+.f14{
+  font-size:14px !important;
+}
+
+.ecommerceTabContent .carouselWraper .rowPadding .react-multi-carousel-item{
+    /*min-width: 4% !important;*/
+} 
+
+.rowPadding{
+    /*/padding:25px 40px 0px 40px !important;*/
+}

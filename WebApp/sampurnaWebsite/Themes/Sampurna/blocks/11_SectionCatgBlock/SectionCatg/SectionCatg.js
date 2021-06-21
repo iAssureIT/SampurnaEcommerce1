@@ -124,11 +124,11 @@ class ShoppingVerticals extends Component {
               </div>
             </div>
           :null}   
-            <div className="col-12">
+            <div className="col-12 rowPadding ">
             { this.state.groupSettings.showCarousel === true?
               this.state.itemList && this.state.itemList.length > 0 ?
               <Carousel 
-                  className=""
+                  className="col-12 sectionCarousel"
                   swipeable={false}
                   draggable={true}
                   showDots={false}
@@ -154,11 +154,11 @@ class ShoppingVerticals extends Component {
                         }
                       }
                       return (
-                      <div className="col-12 sectionCategoryBlock"  key={index}> 
+                      <div className="col-12 sectionCategoryBlock  "  key={index}> 
                           <a href={url} className ="secCateblock"> 
                             <div className="itemImg col-12 NoPadding">
                               <a className="product photo product-item-photo collage" tabIndex="-1" href={url}>
-                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" />
+                                <img src={data.itemImg ? data.itemImg : "/images/eCommerce/notavailable.jpg"} alt="ItemImg" className={"subImg " } />
                               </a>
                               
                                 {/* <Link href={url}>

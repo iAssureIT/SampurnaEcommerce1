@@ -96,7 +96,7 @@ class ShoppingVerticals extends Component {
       this.state.itemList.length>0?
       <div className="col-12 mt20">
         <div className="row">          
-          <div className="col-12 ">
+          <div className="col-12 NoPadding">
             { Array.isArray(this.state.itemList) && this.state.itemList.length>4?
                 <Carousel  
                   className=""
@@ -139,7 +139,7 @@ class ShoppingVerticals extends Component {
                         // console.log("deals data=",data);                   
                         return (
                           <div className={"col-"+XLcol} key={index}>
-                              <div className="col-12">
+                              <div className="col-12 NoPadding">
                                 <div className="productImg col-12 NoPadding">
                                   <a className="product photo product-item-photo collage" tabIndex="-1" href={"/vendor-list/"+data.dealUrl}>
                                     <img src={data.dealImg ? data.dealImg : "/images/eCommerce/notavailable.jpg"} alt="ProductImg" />

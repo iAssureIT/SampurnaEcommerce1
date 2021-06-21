@@ -10,7 +10,7 @@
     color: #fff;
     font-weight:bold !important;
     position:absolute;
-    top:40px;
+    top:25px;
 }
 .categoryName:hover{
     color: lightcoral;
@@ -23,25 +23,19 @@
     display: grid !important;
 }
 
-.react-multi-carousel-item::before {
+.react-multi-carousel-item{
+    border-radius:4px;
+}
+
+
+/*.itemImg img::before {
     content: "";
     position: absolute;
     top: 0px;
     right: 0px;
     bottom: 0px;
     left: 0px;
-    /*background-color: rgba(0,0,0,0.7);*/
+    background-color: rgba(0,0,0,0.7);
     background-color: rgba(0,0,0,1);
 }
-
-
-.itemImg img::before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    /*background-color: rgba(0,0,0,0.7);*/
-    background-color: rgba(0,0,0,1);
-}
+*/

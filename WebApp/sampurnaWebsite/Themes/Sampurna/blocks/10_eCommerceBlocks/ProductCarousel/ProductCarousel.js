@@ -578,25 +578,26 @@ submitCart(event) {
           {this.state.blockSettings.showTitle && this.state.newProducts && this.state.newProducts.length > 0 ?
             <div className="col-12">
               <div className={"col-12 " +Style.productcomponentheading +" " +Style.textCenter}>                
-                <div className={ "col-12 " +Style.title4}>
-                    <h4 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle "+Style.textAlign} data-trans="#blog_1554730795823_title">{this.state.blockTitle}</h4>
+                <div className={ "col-12 mt-4 " +Style.title4}>
+                    <h1 className={"col-12 globalMainTitle  title_inner4 lang_trans globalMainTitle " +Style.titleFont } data-trans="#blog_1554730795823_title">{this.state.blockTitle} <span className={"line "+Style.line}></span></h1>
                     <span className={"hide "+Style.span} id="blog_1554730795823_title"></span>
-                    <div className={"line "+Style.line}><span className={Style.span}></span></div>
+                    {/*/<div className={"line "+Style.line}></div>*/}
+                    {/*<div className={"line "+Style.line}><span className={Style.span}></span></div>*/}
 			        	</div>
               </div>             
             </div>
           : null
           } 
 
-        <div className={"col-12 NoPadding "}>
+        <div className={"col-12 NoPadding mb-5 "}>
           {this.state.newProducts && this.state.newProducts.length > 0 ?
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
               <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
                 <div className={"col-12 "}>                    
                   {this.state.ProductsLoading === false ?                     
-                    <Loader type="carouselloader" productLoaderNo = {4}/>                    
+                    <Loader type="carouselloader" productproductWrapperLoaderNo = {4}/>                    
                   :
-                  <div className={"col-12 " }>               
+                  <div className={"col-12 " +Style.rowPadding}>               
                   { this.state.blockSettings.showCarousel === true?
                   <Carousel  
                     className={Style.customnNavButton +" " +Style.carouselNewWrapper}
@@ -612,7 +613,7 @@ submitCart(event) {
                     customTransition="all .20"
                     transitionDuration={500}
                     removeArrowOnDeviceType={["tablet", "mobile"]}
-                    deviceType={this.props.deviceType}
+                    deviceType={this.props.devproductWrappericeType}
                     itemclassName="carousel-item-padding-10-px">
                     { 
                       Array.isArray(this.state.newProducts) && this.state.newProducts.length > 0 ?
@@ -630,7 +631,7 @@ submitCart(event) {
                             }   
                             var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
                           return (
-                              <div key={index} className={"col-12 " +Style.singleProduct}>                          
+                              <div key={index} className={"col-12 " }>                          
                               <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                                 <div className={"col-12 NoPadding"}>
                                   <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
@@ -853,19 +854,20 @@ submitCart(event) {
                     :' '
                     }
                  </div>
-                  <div className={"col-9 col-sm-12 col-xs-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
+                  <div className={"col-12 col-lg-9 col-xl-9 col-md-12 col-sm-12 col-xs-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className="row">
                       <div className={"col-12 " +Style.rightSidefilter}>
                         <div className ="row">
                         <div className={"col-12 "}>
-                          <div className="col-2 col-xs-6 NoPadding pull-right">     
+                          <div className="col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding pull-right">     
                             <div className="form-group ">
-                                <label className={"labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.labelCategory}>Sort Product By<span className="astrick"></span></label>
+                                <label className={"labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.f14}>Sort Product By<span className="astrick"></span></label>
                                 <Select
                                     value={effect}
                                     onChange={this.sortProducts}
                                     options={sortOptions}
                                     autoFocus = {false}
+                                    className={" " +Style.labelCategory}
                                 />
                             </div> 
                           </div>
