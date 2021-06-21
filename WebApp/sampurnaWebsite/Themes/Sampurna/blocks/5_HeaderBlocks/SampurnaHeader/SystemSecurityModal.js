@@ -19,23 +19,23 @@ import {getForm,updateForm} from '../../../../../redux/actions';
 const { publicRuntimeConfig } = getConfig();
 
 class header extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			pageData:{},
-			Blocks:[],
-			blocks:"",
-			ListOfBlocks : "",
-			pageHead : {
-				pageAuthor		: "",
-				pageDescription	: "",
-				pageWords		: [""],
+    constructor(props) {
+        super(props);
+        this.state = {
+            pageData:{},
+            Blocks:[],
+            blocks:"",
+            ListOfBlocks : "",
+            pageHead : {
+                pageAuthor      : "",
+                pageDescription : "",
+                pageWords       : [""],
             },
             userDetails : [],
             preferencedata : [],
             loggedIn: false,
             userId: '',
-		}; 
+        }; 
     }
     componentDidMount(){        
         const userDetails  =  JSON.parse(localStorage.getItem('userDetails'));
@@ -82,7 +82,7 @@ class header extends React.Component {
         }
       }
     
-	CloseModal() {
+    CloseModal() {
         // $('#loginFormModal').hide(1000);
         this.props.updateFormValue("login");
     }

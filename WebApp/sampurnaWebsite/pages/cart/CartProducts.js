@@ -329,7 +329,7 @@ class CartProducts extends Component{
                                                                             {vendorData.product_ID.productNameRlang?
                                                                                 <div className={"RegionalFont " +Style.productName}>{vendorData.product_ID.productNameRlang}></div>
                                                                             :
-                                                                                <div className={" " +Style.productName}>{vendorData.product_ID.productName}</div>
+                                                                                <div className={" " +Style.productName }>{vendorData.product_ID.productName}</div>
                                                                             }
                                                                         </a>
                                                                     {
