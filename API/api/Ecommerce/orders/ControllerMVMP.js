@@ -191,73 +191,77 @@ function addCreditPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
 			console.log("creditPolicyData => ",creditPolicyData);
 			var earnedCreditPoints = Math.round(((purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint));
 			console.log("earnedCreditPoints => ",earnedCreditPoints);
-            if (data && data !== null) { 
-				var totalEarnedPoints = Math.round(data.totalPoints + earnedCreditPoints);
-				console.log("totalEarnedPoints => ",totalEarnedPoints)
-                CreditPoints.updateOne(
-					{ "_id": ObjectId(data._id)},		
-					{$push: {
-							transactions : {
-								order_id            : order_id,
-								orderDate           : new Date(),
-								purchaseAmount      : purchaseAmount,
-								shippingCharges     : shippingCharges,
-								totalAmount         : totalAmount,
-								earnedPoints        : earnedCreditPoints,
-								typeOfTransaction   : transactionType
+			if(earnedCreditPoints > 0){
+				if (data && data !== null ) { 
+					var totalEarnedPoints = Math.round(data.totalPoints + earnedCreditPoints);
+					console.log("totalEarnedPoints => ",totalEarnedPoints)
+					CreditPoints.updateOne(
+						{ "_id": ObjectId(data._id)},		
+						{$push: {
+								transactions : {
+									order_id            : order_id,
+									orderDate           : new Date(),
+									purchaseAmount      : purchaseAmount,
+									shippingCharges     : shippingCharges,
+									totalAmount         : totalAmount,
+									earnedPoints        : earnedCreditPoints,
+									typeOfTransaction   : transactionType
+								}
+							},
+							$set:{
+								totalPoints : totalEarnedPoints
+							}	
+						})
+						.exec()
+						.then(data => {
+							if (data.nModified === 1) {
+								resolve({
+									"message"	: "Credit Points added successfully in wallet."
+								});
+							} else {
+								resolve({
+									"message": "Oops, something went wrong credit points not added"
+								});
 							}
-						},
-						$set:{
-							totalPoints : totalEarnedPoints
-						}	
-					})
-					.exec()
-					.then(data => {
-						if (data.nModified === 1) {
-							resolve({
-								"message"	: "Credit Points added successfully in wallet."
+						})
+						.catch(err => {
+							console.log(err);
+							reject({
+								error: err
 							});
-						} else {
-							resolve({
-								"message": "Oops, something went wrong credit points not added"
-							});
-						}
-					})
-					.catch(err => {
-						console.log(err);
-						reject({
-							error: err
 						});
+				}else{
+					const creditPoints = new CreditPoints({
+						_id 						: new mongoose.Types.ObjectId(),
+						user_id                     : user_id,
+						totalPoints                 : earnedCreditPoints,
+						transactions 				: {
+														order_id            : order_id,
+														orderDate           : new Date(),
+														purchaseAmount      : purchaseAmount,
+														shippingCharges     : shippingCharges,
+														totalAmount         : totalAmount,
+														earnedPoints        : earnedCreditPoints,
+														typeOfTransaction   : transactionType
+						},		
+						createdAt 					: new Date(),
+						createdBy 					: user_id
 					});
-            }else{
-				const creditPoints = new CreditPoints({
-					_id 						: new mongoose.Types.ObjectId(),
-					user_id                     : user_id,
-    				totalPoints                 : earnedCreditPoints,
-					transactions 				: {
-													order_id            : order_id,
-													orderDate           : new Date(),
-													purchaseAmount      : purchaseAmount,
-													shippingCharges     : shippingCharges,
-													totalAmount         : totalAmount,
-													earnedPoints        : earnedCreditPoints,
-													typeOfTransaction   : transactionType
-					},		
-					createdAt 					: new Date(),
-					createdBy 					: user_id
-				});
-	
-				creditPoints.save()
-				.then(async(creditData) => {
-					console.log("creditData => ",creditData)	
-					resolve({
-						"message"	: "Credit Points added successfully in wallet."
+		
+					creditPoints.save()
+					.then(async(creditData) => {
+						console.log("creditData => ",creditData)	
+						resolve({
+							"message"	: "Credit Points added successfully in wallet."
+						})
 					})
-				})
-				.catch(err =>{
-					reject(0)
-				});
-            }            
+					.catch(err =>{
+						reject(0)
+					});
+				}     
+			}else{
+				resolve("No credit points earned")
+			}      
         })
         .catch(err =>{
             reject(0)
