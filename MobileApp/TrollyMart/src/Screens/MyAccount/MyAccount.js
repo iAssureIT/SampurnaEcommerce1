@@ -60,7 +60,7 @@ export const MyAccount =(props)=>{
                     </TouchableOpacity>
                 </View>   
                 <View style={{flexDirection:"row",justifyContent:'space-between'}}>    
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('AccountDashboard')}>
+                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('RewardsPoint')}>
                         <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/>
                         <Text style={[CommonStyles.label]}>My Rewards</Text>
                     </TouchableOpacity>

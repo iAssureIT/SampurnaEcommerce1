@@ -99,12 +99,12 @@ export default class ConfirmOrderComponent extends React.Component{
                             <Text style={styles.rsprice}>3,140</Text>
                         </View>
                         </View>
-                        <View style={styles.imgvw}>
+                        {/* <View style={styles.imgvw}>
                            <Image
                             style={styles.imgstyle}
                             source= {require("../../AppDesigns/currentApp/images/15.png")}
                           />
-                        </View>
+                        </View> */}
                       </View>
                     <View style={styles.deleveryvw}>
                       <Text style={styles.deleverydate}>Delivery by, Mon Sep 1</Text>

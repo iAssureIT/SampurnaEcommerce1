@@ -134,7 +134,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
               mobileNumber        : userDetails.mobile,
               countryCode         : userDetails.countryCode,
               pincodenotexist     : '',
-              contactperson       : userDetails.fullName,
+              contactperson       : (userDetails.firstName+" "+userDetails.lastName).trim(),
               addresstype         : 'Home',
               addsaved            : false,
               validpincodeaddress : false,
@@ -193,7 +193,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
       //   var countryCode = mobileNumber[0].trim('+');
       //   var number      = mobileNumber[1];
       // }
-      var ShippingType = [{ value: 'Home', }, { value: 'Office', }, { value: 'Relative', }, { value: 'Friend', }];
+      var ShippingType = [{ value: 'Home', }, { value: 'Office', }];
       const pincodeexistsornot=(pincode,formatted_address,area,city,state,country,latlong)=>{
         axios.get("/api/allowablepincode/checkpincode/" + pincode)
           .then((response) => {

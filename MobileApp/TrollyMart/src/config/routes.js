@@ -22,7 +22,7 @@ import {CategoriesComponent}      from'../Screens/CategoriesComponent/Categories
 import {SubCategoriesComp}        from'../Screens/CategoriesComponent/SubCategoriesComp.js';
 import {SubCatCompView}           from'../Screens/CategoriesComponent/SubCatCompView.js';
 import {CartComponent}            from '../Screens/CartComponent/CartComponent.js';
-import ConfirmOrderComponent      from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';
+// import ConfirmOrderComponent      from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';
 import {AddressDefaultComp}       from '../Screens/AddressComponent/AddressDefaultComp.js';
 import {AddressComponent}         from '../Screens/AddressComponent/AddressComponent.js';
 import AddressComponentforaddress from '../Screens/AddressComponent/AddressComponentforaddressmenu.js';
@@ -55,6 +55,7 @@ import {ContactUs}                from '../Screens/ContactUs/ContactUs.js';
 import {FAQ}                      from '../Screens/FAQ/FAQ.js';
 import {TermsAndConditions}               from '../Screens/TermsAndConditions/TermsAndConditions.js';
 import {PrivacyPolicy}               from '../Screens/PrivacyPolicy/PrivacyPolicy.js';
+import {RewardsPoint}               from '../Screens/RewardsPoints/RewardsPoint.js';
 
 
 const Home = createDrawerNavigator();
@@ -99,7 +100,7 @@ export const HomeStack = () => (
     <Home.Screen name="SearchList"                  component={SearchList} options={getHeaderConfig("Search List",true)}/>
     <Home.Screen name="SubCatCompView"              component={SubCatCompView} options={getHeaderConfig("Product Details",true)}/>
     <Home.Screen name="CartComponent"               component={CartComponent} options={getHeaderConfig("My Cart",true)}/>
-    <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} options={getHeaderConfig("Dashboard")}/>
+    {/* <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} options={getHeaderConfig("Dashboard")}/> */}
     <Home.Screen name="AddressDefaultComp"          component={AddressDefaultComp} options={getHeaderConfig("Delivery Addresses",true)}/>
     <Home.Screen name="AddressComponent"            component={AddressComponent} options={getHeaderConfig("Add Address",true)}/>
     <Home.Screen name="AddressComponentforaddress"  component={AddressComponentforaddress} options={getHeaderConfig("Dashboard")}/>
@@ -125,6 +126,7 @@ export const HomeStack = () => (
     <Home.Screen name="ContactUs"                   component={ContactUs} options={getHeaderConfig("Contact Us",true)}/>
     <Home.Screen name="TermsConditions"             component={TermsAndConditions} options={getHeaderConfig("Terms & Conditions",true)}/>
     <Home.Screen name="PrivacyPolicy"             component={PrivacyPolicy} options={getHeaderConfig("Privacy Policy",true)}/>
+    <Home.Screen name="RewardsPoint"             component={RewardsPoint} options={getHeaderConfig("My Rewards",true)}/>
     <Home.Screen name="FAQ"                         component={FAQ} options={getHeaderConfig("Frequently Asked Questions",true)}/>
   </Home.Navigator>
 );

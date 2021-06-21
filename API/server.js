@@ -25,7 +25,7 @@ io.on('connection', (client) => {
     }
 
     client.on('postOrder', (payload) => {
-        console.log("payload",payload);
+        console.log("payload======>",payload);
         axios.post('http://localhost:'+globalVariable.port+'/api/orders/post',payload)
         .then(response=>{
             console.log("response",response);

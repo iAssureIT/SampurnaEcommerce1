@@ -31,6 +31,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
     const sectionUrl = props.route.params?.sectionUrl;
     const index = props.route.params?.index;
     const product_id = props.route.params?.product_id;
+    const [limit,setLimit] = useState(0);
     console.log("index",index);
     const [vendorList,setVendorList] =useState([]);
     const dispatch 		= useDispatch();
@@ -52,6 +53,8 @@ export const ProductVendorList = withCustomerToaster((props)=>{
             type:STOP_SCROLL,
             payload:false
           })
+        var startRange = 0+limit;
+        var limitRange = limit +10;
        var formValues =  {
         "startRange" : 0,
         "limitRange" : 10,
@@ -64,7 +67,12 @@ export const ProductVendorList = withCustomerToaster((props)=>{
         .then(res=>{
             console.log("vendor res",res);
             setLoading(false);
-            setVendorList(res.data)
+            // setLimit(limitRange);
+            // if(vendorList.length > 0){
+            //     setVendorList(vendorList.concat(res.data));
+            // }else{
+                setVendorList(res.data);
+            // }
         })
         .catch(err=>{
             setLoading(false);
@@ -77,7 +85,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
         return (
             <TouchableOpacity  style={{elevation:5}} onPress={()=> navigation.navigate('SubCatCompView', { productID: product_id ,currency:store?.preferences?.currency,vendorLocation_id:item.vendorLocation_id,location:store.location})}>
                 <Card containerStyle={{flex:1,padding:0,marginHorizontal:0}} >
-                    <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',height:120}}>
+                    <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
                         <View style={{flex:1,flexDirection:"row"}}>
                             {/* <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.vendorAddress}</Card.Title> */}
                             <View style={{flex:0.3,justifyContent:'center'}}>
@@ -85,14 +93,17 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                                     {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:80,width:80,borderRadius:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Card.Image> :null}
                                 </View>
                             </View>    
-                            <View style={{flex:0.7}}>
-                                <View style={{flex:1}}>
+                             <View style={{flex:0.7}}>
+                             <View style={{flex:1}}>
                                     <Text style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:20}]}>{item.vendorName}</Text>
                                     <Text style={[CommonStyles.label,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.productName}</Text>
                                     <Text style={[CommonStyles.label,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{store?.preferences?.currency} {item.productPrice}</Text>
                                 </View>
-                                <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:1,marginTop:5}}>
-                                    <Card.Title style={[{color:"#fff",opacity:1,paddingHorizontal:5}]}>Delivery Time : {item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title>
+                                <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:1}}>
+                                <Card.Image source={require("../../AppDesigns/currentApp/images/time.png")} style={{height:100,width:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
+                                    {/* <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:35}]}>{item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title> */}
+                                    <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:40}]}>60 Mins </Card.Title>
+                                </Card.Image>
                                 </View>    
                              </View>
                         </View>

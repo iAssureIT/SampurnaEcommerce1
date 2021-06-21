@@ -150,12 +150,12 @@ export default class MyProductReview extends React.Component{
                 <View style={styles.placeonvw}>
                   <View style={styles.parent}>
                       <View style={styles.imgvw}>
-                        <View style={{flex:0.3,backgroundColor:'#f1f1f1',borderWidth:1,borderColor:'#f1f1f1',height:150,marginRight:10}}>
+                        {/* <View style={{flex:0.3,backgroundColor:'#f1f1f1',borderWidth:1,borderColor:'#f1f1f1',height:150,marginRight:10}}>
                            <Image
                             style={styles.img15}
                             source= {require("../../AppDesigns/currentApp/images/15.png")}
                           />
-                        </View>
+                        </View> */}
                         <View style={styles.flx5}>
                           <Text style={styles.nameproduct}>Women Red Solid Fit and Flare Dress</Text>
                           <Text style={styles.nameproduct}>By Garima Billore</Text>

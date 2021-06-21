@@ -11,7 +11,7 @@ import styles                   from '../../AppDesigns/currentApp/styles/ScreenS
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {Linking}                from 'react-native'
 import Axios                    from 'axios';
-import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
+import { colors }   from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 ;
 
@@ -22,6 +22,7 @@ export const SupportSystem = (props)=>{
     const [companyEmail,setCompanyEmail]    = useState('');
     const [companyPhone,setCompanyPhone]    = useState('');
     const [loading,setLoading]              = useState(true);
+    const [website_url,setWebsiteURL]       = useState('');
     
     useEffect(() => {
         AsyncStorage.multiGet(['token', 'user_id'])
@@ -44,6 +45,7 @@ export const SupportSystem = (props)=>{
             setCompanyName(res.data.companyName);
             setCompanyPhone(res.data.companyPhone);
             setCompanyEmail(res.data.companyEmail);
+            setWebsiteURL(res.data.website)
             setLoading(false)
         })
         .catch(error=>{

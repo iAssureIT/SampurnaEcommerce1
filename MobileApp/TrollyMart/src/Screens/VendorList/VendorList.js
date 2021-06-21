@@ -29,6 +29,7 @@ export const VendorList = withCustomerToaster((props)=>{
     const [value,setValue] =useState('lowestprice');
     const section = props.route.params?.section;
     const sectionUrl = props.route.params?.sectionUrl;
+    const [limit,setLimit] = useState(0);
     const index = props.route.params?.index;
     console.log("index",index);
     const [vendorList,setVendorList] =useState([]);
@@ -50,6 +51,8 @@ export const VendorList = withCustomerToaster((props)=>{
             type:STOP_SCROLL,
             payload:false
         })
+        var startRange = 0+limit;
+        var limitRange = limit +10;
        var formValues =  {
         "startRange" : 0,
         "limitRange" : 10,
@@ -61,7 +64,12 @@ export const VendorList = withCustomerToaster((props)=>{
         axios.post('/api/vendorlist/post/vendor/list',formValues)
         .then(res=>{
             setLoading(false);
-            setVendorList(res.data)
+            // setLimit(limitRange);
+            // if(vendorList.length > 0){
+            //     setVendorList(vendorList.concat(res.data));
+            // }else{
+                setVendorList(res.data);
+            // }
         })
         .catch(err=>{
             setLoading(false);
@@ -88,16 +96,19 @@ export const VendorList = withCustomerToaster((props)=>{
                         <View style={{flex:1,flexDirection:"row"}}>
                             {/* <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.vendorAddress}</Card.Title> */}
                             <View style={{flex:0.3,justifyContent:'center'}}>
-                                <View style={{justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderRadius:100,marginHorizontal:5,height:80,width:80}}>
+                                <View style={{justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderRadius:100,marginHorizontal:15,height:80,width:80}}>
                                     {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:80,width:80,borderRadius:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Card.Image> :null}
                                 </View>
                             </View>    
                             <View style={{flex:0.7}}>
-                                <View style={{flex:.6}}>
+                                <View style={{flex:1}}>
                                     <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:20}]}>{item.vendorName}</Card.Title>
                                 </View>
-                                <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:.6}}>
-                                    <Card.Title style={[{color:"#fff",opacity:1,paddingHorizontal:5}]}>Delivery Time : {item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title>
+                                <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:1}}>
+                                <Card.Image source={require("../../AppDesigns/currentApp/images/time.png")} style={{height:100,width:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
+                                    {/* <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:35}]}>{item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title> */}
+                                    <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:40}]}>60 Mins </Card.Title>
+                                </Card.Image>
                                 </View>    
                              </View>
                         </View>
@@ -144,13 +155,13 @@ export const VendorList = withCustomerToaster((props)=>{
                         // nestedScrollEnabled
                         initialNumToRender            = {6}
                         ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
-                        onEndReachedThreshold         = {0.5}
-                        // onEndReached={({ distanceFromEnd }) => {
-                        //     if(distanceFromEnd >= 0 && limit > 6) {
-                        //     onEnd();
-                        //         //Call pagination function
-                        //     }
-                        // }}
+                        onEndReachedThreshold         = {0.01}
+                        onEndReached={({ distanceFromEnd }) => {
+                            if(distanceFromEnd >= 0 && limit > 6) {
+                                getData();
+                                //Call pagination function
+                            }
+                        }}
                         // onEndReached                  = {()=>{limit > 6 && onEnd()}}
                         // onScroll                      = {()=>{limit > 6 && onEnd()}}       
                         // refreshControl={

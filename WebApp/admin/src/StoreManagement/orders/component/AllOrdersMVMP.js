@@ -231,13 +231,13 @@ class AllOrdersList extends Component{
 		  status 	 : this.state.orderStatus
 		}
 		
-		axios.post('/api/orders/get/list_orders_by_status',formValues)
-		.then((response)=>{
-		// socket.emit('adminOrtderListValues',formValues);
-		// socket.on("adminBookingList", (response)=>{
-		// console.log('order tableData', response);		               
-		  	// var tableData = response.reverse().map((a, i)=>{
-			var tableData = response.data.reverse().map((a, i)=>{                      
+		// axios.post('/api/orders/get/list_orders_by_status',formValues)
+		// .then((response)=>{
+		socket.emit('adminOrtderListValues',formValues);
+		socket.on("adminBookingList", (response)=>{
+		console.log('order tableData', response);		               
+		  	var tableData = response.reverse().map((a, i)=>{
+			// var tableData = response.data.reverse().map((a, i)=>{                      
 				return{ 
 					_id             : a._id,
 					orderNumber     : a.orderID,
@@ -286,22 +286,22 @@ class AllOrdersList extends Component{
 				tableData : tableData
 			},()=>{})
 		})
-		.catch((error)=>{
-			console.log('error', error);
-			if(error.message === "Request Failed with Status Code 401"){
-				localStorage.removeItem("userDetails");
-				localStorage.clear();
-				swal({  
-					title : "Your Session is Expired.",                
-					text  : "You need to login again. Click OK to Go to Login Page"
-				})
-				.then(okay => {
-					if (okay) {
-						window.location.href = "/login";
-					}
-				});
-			}
-		});
+		// .catch((error)=>{
+		// 	console.log('error', error);
+		// 	if(error.message === "Request Failed with Status Code 401"){
+		// 		localStorage.removeItem("userDetails");
+		// 		localStorage.clear();
+		// 		swal({  
+		// 			title : "Your Session is Expired.",                
+		// 			text  : "You need to login again. Click OK to Go to Login Page"
+		// 		})
+		// 		.then(okay => {
+		// 			if (okay) {
+		// 				window.location.href = "/login";
+		// 			}
+		// 		});
+		// 	}
+		// });
 	}
 
 	/*======== openCancelledRemarkModal() ========*/

@@ -91,7 +91,7 @@ export default StyleSheet.create({
   accuserinfo:{
     backgroundColor:'#fff',
     marginTop:0,
-    marginBottom:15,
+    paddingBottom:15,
     marginTop:15
   },
   acdashparent:{

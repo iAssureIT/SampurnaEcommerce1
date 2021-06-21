@@ -89,6 +89,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const getProductsView=(productID,user_id)=>{
     axios.get("/api/products/get/one/"+ productID+"/"+user_id)
       .then((response) => {
+        console.log("response",response)
         setProductData(response.data);
         setLoading(false);
       })
@@ -169,7 +170,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           productdata && productdata.productName  && productdata.discountedPrice ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
             <View style={styles.formWrapper}>
-              <Text numberOfLines={1} style={styles.produrl}></Text>
+              <Text numberOfLines={1} style={[CommonStyles.subHeaderText,{paddingVertical:15}]}>Vendor - {productdata.vendorName}</Text>
               <View style={styles.imgvw}>
                 {productdata.productImage && productdata.productImage.length>0 ?
                  <Carousel
@@ -289,7 +290,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   blockTitle          = "All Sub Categories"
                   section             = {productdata.section_ID}
                   category            = {productdata.category_ID}
-                  subCategory         = {productdata.subCategory_ID}
+                  subCategory         = 'all'
                   showOnlySection     = {false}
                   showOnlyCategory    = {false}
                   showOnlyBrand       = {false}

@@ -38,9 +38,10 @@ import { useNavigation }      from '@react-navigation/native';
 
     const store = useSelector(store => ({
       globalSearch  : store.globalSearch,
-      location      : store.location
+      location      : store.location,
+      cartCount     : store.productList.cartCount,
     }));
-    const {globalSearch,location} = store;
+    const {globalSearch,location,cartCount} = store;
    
     useEffect(() => {
       getData()
@@ -135,9 +136,19 @@ import { useNavigation }      from '@react-navigation/native';
                 <Icon name="bell-o" type="font-awesome"    size={25} color={colors.white} />
                 <Text style={styles.notificationText}>{inAppNotificationsCount}</Text>
                </TouchableOpacity> 
-                <TouchableOpacity onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} style={{marginLeft:20,justiafyContent:"flex-end"}}>
+                {/* <TouchableOpacity onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} style={{marginLeft:20,justiafyContent:"flex-end"}}>
                   <Icon name="phone" type="font-awesome"  size={25} color={colors.white} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                {/* <TouchableOpacity onPress={() => navigation.navigate('CartComponent', { userId: userDetails.user_id })}  style={{marginLeft:20,justiafyContent:"flex-end"}}>
+                <Icon name="shopping-cart" type="feather" size={25} color={colors.white} />
+                <Text style={styles.footerTitle}>My Cart</Text>
+                {
+                  cartCount > 0 ?
+                    <Text style={styles.notificationText}>{cartCount}</Text>
+                  :
+                  null
+                }
+              </TouchableOpacity> */}
 
                 {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate('Stores')}>
                   <Icon size={25} name="store"  type="font-awesome-5" color=colors.theme />

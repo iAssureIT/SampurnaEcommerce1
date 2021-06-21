@@ -33,7 +33,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
   const [checked,setChecked]                = useState('first');
   const [btnLoading,setBtnLoading]          = useState(false);
-  const [paymentmethods,setPaymentMethods]  = useState("cod");
+  const [paymentmethods,setPaymentMethods]  = useState("Cash On Delivery");
   // const [environment,setEnvironment]        = useState(false);
   const [namepayg,setNamePayg]              = useState('');
   const [partnerid,setPartnerId]            = useState('');
@@ -143,7 +143,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         "longitude"     : addData.longitude,
       }
 
-      cartdata.paymentDetails.paymentMethod = paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card";
+      cartdata.paymentDetails.paymentMethod = paymentmethods;
       var orderData = { 
         user_ID 		              : userID,
         userFullName              : userDetails.fullName,
@@ -152,7 +152,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         order_quantityOfProducts	: cartdata.order_quantityOfProducts,
         order_numberOfProducts    :cartdata.order_numberOfProducts,
         deliveryAddress		        : deliveryAddress,
-        paymentMethod             : paymentmethods === 'cod' ? "Cash On Delivery" : "Credit/Debit Card",
+        paymentMethod             : paymentmethods,
         paymentDetails					  : cartdata.paymentDetails,
         customerShippingTime      : shippingtime,
         orderStatus               : "New"
@@ -169,10 +169,10 @@ export const PaymentMethod = withCustomerToaster((props)=>{
             .then((res) => {
               console.log("res",res);
               dispatch(getCartCount(userID))
-              if (paymentmethods === 'cod') {
+              if (paymentmethods === 'Cash On Delivery') {
 
                 navigation.navigate('OrderDetails', { orderid: res.data._id })
-                setPaymentMethods("cod");
+                setPaymentMethods("Cash On Delivery");
                 setBtnLoading(false);
                 // setPaymentMode(true);
                 setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
@@ -256,7 +256,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                         style={styles.radiobtn}
                         value="first"
                         status={checked === 'first' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('first')}
+                        onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}
                       />
                       <Text style={styles.free}>Cash on Delivary</Text>
                     </View>
@@ -264,9 +264,20 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                   <View style={styles.orderbrdr}>
                     <View style={styles.flx3}>
                       <RadioButton
+                        style={styles.radiobtn}
                         value="second"
-                        // disabled
                         status={checked === 'second' ? 'checked' : 'unchecked'}
+                        onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}
+                      />
+                      <Text style={styles.free}>Card on Delivary</Text>
+                    </View>
+                  </View>
+                  <View style={styles.orderbrdr}>
+                    <View style={styles.flx3}>
+                      <RadioButton
+                        value="third"
+                        // disabled
+                        status={checked === 'third' ? 'checked' : 'unchecked'}
                         onPress={() => paymentgateway()}
                       />
                       <Text style={styles.free}>Credit/Debit Card</Text>

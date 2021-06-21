@@ -311,7 +311,7 @@ class BulkProductImageUpload extends Component{
               <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent">
                 <div className="row">
                     <div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
-                          <h4 className="weighttitle NOpadding-right">  Product Image Bulk Upload</h4>
+                          <h4 className="weighttitle NOpadding-right">  </h4>
                     </div>
                      
                     <form className="addRolesInWrap newTemplateForm">

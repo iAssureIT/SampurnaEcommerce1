@@ -284,6 +284,10 @@ import { SafeAreaView }         from 'react-native';
                                             <Text style={styles.ogprice}>( {item.product_ID.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
                                         </View>}
+                                        <View style={[styles.flxdir,styles.padhr15,{flex:1,justifyContent:"flex-end"}]}>
+                                            <Text style={[styles.ogprice]}> Qty : {item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                            </Text>
+                                        </View>
                                       </View>
                                       :
                                       <Text style={styles.totaldata}>SOLD OUT</Text>
