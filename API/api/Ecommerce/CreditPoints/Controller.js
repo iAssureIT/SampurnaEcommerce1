@@ -92,7 +92,7 @@ exports.get_credit_points = (req, res, next) => {
 			}
 			res.status(200).json(returnData);
 		}else{			
-			res.status(200).json(creditpointsdata);
+			res.status(200).json("You haven't earned any credit points yet");
 		}
 	})
 	.catch(err =>{
