@@ -86,6 +86,7 @@ class header extends React.Component {
         // $('#loginFormModal').hide(1000);
         this.props.updateFormValue("login");
     }
+    
     async signOut(event) {
         event.preventDefault();
         var token = localStorage.removeItem("userDetails");
@@ -96,6 +97,7 @@ class header extends React.Component {
           })
         }
         Router.push('/');
+        window.location.reload();
     
     }
    render() {

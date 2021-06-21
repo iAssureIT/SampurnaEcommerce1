@@ -31,7 +31,7 @@ class Header extends React.Component {
 	 async componentDidMount(){
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
-        if(userDetails.user_id){
+        if( userDetails && userDetails.user_id){
             this.setState({user_ID : userDetails.user_id})
         }
         if(sampurnaWebsiteDetails){
@@ -85,7 +85,6 @@ class Header extends React.Component {
                                 </div>                    
                             </div>
                         </nav>
-
                         <DisplayLocation />
                         
                         <div id="locationModal" className="col-12 modal in"  data-keyboard="false" >

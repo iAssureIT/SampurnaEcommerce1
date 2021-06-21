@@ -89,6 +89,7 @@ export default class OrderDetails extends Component {
       return false;
     }
   }
+  
   cancelProduct(event) {
     $('#cancelProductModal').show();
     var status = $(event.target).data('status');

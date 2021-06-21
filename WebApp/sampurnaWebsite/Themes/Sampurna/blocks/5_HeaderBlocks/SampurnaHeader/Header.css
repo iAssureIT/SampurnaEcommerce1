@@ -62,7 +62,7 @@
 }
 .dropDownLevel1 a,
 .dropDownLevel1 .sectionForMobile{
-    color: #222222 !important;
+    color: #222222;
     text-align: left !important;
     padding: 10px 10px !important;
     text-decoration: none;
@@ -735,4 +735,7 @@ li a{
     position: absolute;
     right: 10px;
     z-index: 10;
+}
+.activeSection{
+    color: #f00 !important;
 }
