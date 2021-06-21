@@ -118,9 +118,10 @@ table > tfoot > tr > td:last-of-type {
 .givefeedback:not(:checked) > label, .ratingReview1:not(:checked) > label {
    float: right !important;
 }
-
 .orderimgsize img{
 	height: 70px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
 }
 .orderIdborder{
 	border-top: 1px solid #ccc;
@@ -150,10 +151,6 @@ table > tfoot > tr > td:last-of-type {
 	background: #eee;
 	padding: 15px;
 }
-
-.productnamecss{
-	/*width: 100%;*/
-}
 .astricsign{
 	color: red;
 }
@@ -163,21 +160,16 @@ table > tfoot > tr > td:last-of-type {
 .tabletext{
 text-align:right ! important;
 }
-
-
 .table-caption{
 	font-weight: 600;
 }
 .outerbox{
 	border : 1px solid #ddd;
 	border-radius: 4px;
-    /* padding: 14px 18px; */
     padding-top: 50px;
 	margin:10px 0;
 }
 .orderIdButton{
-	/* width: 196px !important; */
-    /* background-color: #80b435 !important; */
     color: #fff;
     text-align: center;
     padding: 10px 0px;
@@ -221,7 +213,6 @@ text-align:right ! important;
     text-decoration-line: underline;
     cursor: pointer;
     transition: 0.5s ease;
-    /* text-align: right; */
 }
 .cancelOrderbtn:hover{
     color: #f00;

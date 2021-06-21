@@ -4,7 +4,8 @@ import { connect }          from 'react-redux';
 import getConfig            from 'next/config';
 import { withRouter }       from 'next/router'
 import dynamic              from 'next/dynamic';
-import $, { post }            from 'jquery';
+import Link                 from'next/link';
+import $, { post }          from 'jquery';
 import CategoryBlock        from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryBlock.js';
 import Message              from '../../../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
 import ReactImageZoom       from 'react-image-zoom';
@@ -386,6 +387,14 @@ class ProductViewEcommerce extends Component {
 		const props = { width: 400, height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : '/images/eCommerce/notavailable.jpg' };
 		return (
 			<section>
+				<div className={"col-12 pt-2 mt-2 " +Style.productDetailVendorName}> 
+                    <span className="col-6 NoPadding "> 
+                       vendor  - &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+                    </span>
+                    <span className={"col-2 text-right pull-right NoPadding "+Style.chaneVendorBtn }> 
+                        <Link href={"/vendor-list/"+this.state.sectionUrl} className="col-12 NoPadding text-right" >Change Vendor</Link>
+                    </span>
+                  </div>
 				<div className="col-12">
 					{this.state.categoryData && this.state.categoryData.length>0
 					?

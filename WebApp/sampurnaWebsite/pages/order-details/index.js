@@ -78,7 +78,7 @@ export default class OrderDetails extends Component {
       })
   }
   cancelButton = (orderDate)=>{
-    console.log("orderData===",this.state.orderData);
+    // console.log("orderData===",this.state.orderData);
     var min = moment(orderDate).add(this.state.orderData.maxDurationForCancelOrder, 'minutes');
     var duration = moment.duration(min.diff(new Date())).asSeconds();
     if(duration > 0 &&duration < this.state.orderData.maxDurationForCancelOrder*60){
@@ -259,7 +259,7 @@ export default class OrderDetails extends Component {
                                 currency            = {this.state.currency}
                                 user_ID             = {this.state.user_ID}
                                 reviewuserData      = {this.state.reviewuserData}
-                                orderID             = {this.props.orderID}
+                                orderID             = {this.state.orderData._id}
                               />
                               
 

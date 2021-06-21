@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import ProductViewEcommerce from "./ProductViewEcommerce.js";
-import axios       from 'axios';
-import dynamic from 'next/dynamic';
-import Head        from 'next/head'
-import getConfig   from 'next/config';
+import axios                from 'axios';
+import dynamic              from 'next/dynamic';
+import Head                 from 'next/head'
+import getConfig            from 'next/config';
 import Header               from '../../../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
-
 import Style                  from './product_detail.module.css';
 
 const { publicRuntimeConfig } = getConfig();
@@ -34,6 +33,7 @@ class ProductDetailsEcommerce extends Component {
 		return (
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
 				<Header/>
+				
 				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop180  backColorGray">
 					<ProductViewEcommerce productID = { this.state.productID } />
 				</div>

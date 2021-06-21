@@ -48,52 +48,46 @@ class ProductsView extends Component {
     this.setState({rating: nextValue},()=>{
         console.log("Rating value :",this.state.rating);
     });
-    
   }
 
   submitReview(event) {
     event.preventDefault();
-    // console.log("rating===",this.state.rating);
-      if (this.state.customerReview.length > 0) {
-        // if(this.state.rating_ID){
-        //   var formValues = {
-        //     "rating_ID"         : this.state.rating_ID,
-        //     "customer_id"       : this.state.userID,
-        //     "customerName"      : this.state.reviewuserData.profile.fullName,
-        //     "order_id"          : this.state.orderID,
-        //     "product_id"        : $(event.currentTarget).data('productid'),
-        //     "rating"            : parseInt(rating),
-        //     "customerReview"    : $('.feedbackForm textarea').val(),
-        //     "vendorLocation_id" : '',
-        //     "status"            : "New"
-        //   }
-          
-        //   axios.patch("/api/customerReview/patch", formValues)
-        //   .then((response) => {
-        //     // $('.fullpageloader').hide();
-        //     this.setState({
-        //       messageData: {
-        //         "type": "outpage",
-        //         "icon": "fa fa-check-circle",
-        //         "message": response.data.message,
-        //         "class": "success",
-        //         "autoDismiss": true
-        //       }
-        //     })
-        //     setTimeout(() => {
-        //       this.setState({
-        //         messageData: {},
-        //       })
-        //     }, 3000);
-        //     var modal = document.getElementById('feedbackProductModal');
-        //     modal.style.display = "none";
+      if (this.state.customerReview) {
+        if(this.state.rating_ID){
 
-        //     $('.modal-backdrop').remove();
-        //   })
-        //   .catch((error) => {
-        //   })
-        // }else{
-        console.log("reviewuserData====",this.props.reviewuserData);
+          var formValues = {
+            "review_id"         : this.state.rating_ID,
+            "rating"            : this.state.rating,
+            "customerReview"    : $('.feedbackForm textarea').val(),
+          
+          }
+        
+          console.log("formValues=",formValues);
+          axios.patch("/api/customerReview/patch/customer/review", formValues)
+          .then((response) => {
+            this.setState({
+
+              messageData: {
+                "type": "outpage",
+                "icon": "fa fa-check-circle",
+                "message": "Review Updated successfuly",
+                "class": "success",
+                "autoDismiss": true
+              }
+            })
+            setTimeout(() => {
+              this.setState({
+                messageData: {},
+              })
+            }, 3000);
+            var modal = document.getElementByClass('feedBackModal');
+            modal.style.display = "none";
+            $('.modal-backdrop').remove();
+          })
+          .catch((error) => {
+          })
+        }else{
+        // console.log("reviewuserData====",this.props.reviewuserData);
          var formValues = {
             "customer_id"       : this.props.user_ID,
             "customerName"      : this.props.orderData.userFullName,
@@ -101,6 +95,7 @@ class ProductsView extends Component {
             "product_id"        : event.target.getAttribute('productid'),
             "rating"            : this.state.rating,
             "customerReview"    : $('.feedbackForm textarea').val(),
+            "vendor_id"         : this.props.vendorWiseOrderData.vendor_id._id,
             "vendorLocation_id" : event.target.getAttribute('vendorLocationId'),
             "status"            : "New"
           }
@@ -110,6 +105,7 @@ class ProductsView extends Component {
             if(response){
               console.log("review response=",response.data);
               swal(response.data.message);
+
             this.setState({
               messageData: {
                 "type": "outpage",
@@ -124,15 +120,14 @@ class ProductsView extends Component {
                 messageData: {},
               })
             }, 3000);
+            // $("#reviewModal_"+this.state.product_id).modal("hide");
             }
-            var modal = document.getElementById('feedbackProductModal');
+            var modal = document.getElementByClass('feedBackModal');
             modal.style.display = "none";
-
-            $('.modal-backdrop').remove();
           })
           .catch((error) => {
           })
-        
+        }//end else
       }else{
         this.setState({
           reviewTextError: "Please Enter your feedback."
@@ -154,42 +149,42 @@ class ProductsView extends Component {
         );
   }
 
-  getoneproductdetails(event) {
-    var productID = event.target.id;
-    var customerID = this.state.userID;
-    var orderID = event.target.getAttribute('orderid');
+  getSingleProductReview(event) {
+    console.log("getSingleProductdetails==")
+    var productID  = event.target.getAttribute('productId');
+    var customerID = event.target.getAttribute('customerId');
+    var orderID    = event.target.getAttribute('orderId');
     this.setState({ orderID: orderID });
-    
-    axios.get("/api/products/get/one/" + productID)
-    .then((response) => {
-      this.setState({
-        oneproductdetails: response.data
-      }, () => {
+    var formValues = {
+      "customer_id"     		: customerID,
+      "order_id"        		: orderID,
+      "product_id"      		: productID
+    }
+    console.log("formValues=",formValues);
+    if(formValues){
+      axios.post("/api/customerReview/get/single/customer/review",formValues)
+      .then((response) => {
+        if(response.data){
+          console.log("single review==",response.data);
+          this.setState({
+            rating_ID       : response.data._id,
+            customerID      : response.data.customer_id,
+            customerName    : response.data.customerName,
+            customerReview  : response.data.customerReview,
+            orderID         : response.data.order_id,
+            productID       : response.data.productID,
+            rating          : response.data.rating,
+            ratingReview    : response.data.rating
+          })
+        }
       })
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
-    
-    axios.get("/api/customerreview/get/order/list/"+customerID+"/"+orderID+"/"+productID )
-    .then((response) => {
-      if(response.data){
-        this.setState({
-          rating_ID       : response.data._id,
-          customerID      : response.data.customerID,
-          customerName    : response.data.customerName,
-          customerReview  : response.data.customerReview,
-          orderID         : response.data.orderID,
-          productID       : response.data.productID,
-          rating          : response.data.rating,
-          ratingReview    : response.data.rating
-        })
-      }
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
+      .catch((error) => {
+        console.log('error', error);
+      })
+    }
   }
+
+
   returnProduct(event) {
     $('#returnProductModal').show();
     var status = $(event.target).data('status');
@@ -244,6 +239,7 @@ class ProductsView extends Component {
                 <tbody>
                     {
                     this.props.vendorWiseOrderData && this.props.vendorWiseOrderData.products.map((productdata, index) => {
+                          console.log("productdata=",productdata);
                             return (
                                 <tr key={index}>
                                 <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
@@ -293,14 +289,18 @@ class ProductsView extends Component {
                                     }
                                     {this.props.orderStatus === "Delivered"?
                                         <span>
-                                            <div className={" "+Style.returnReviewBtn} productdata={productdata} productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Add Review</div>
-                                            <div className={" "+Style.returnReviewBtn} productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target="#returnProductModal">return</div>
+                                            {productdata.isReview?
+                                              <div className={" "+Style.returnReviewBtn}  productId={productdata._id} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Edit Review</div>
+                                              :
+                                              <div className={" "+Style.returnReviewBtn}  productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Add Review</div>
+                                            }
+                                            <div className={" "+Style.returnReviewBtn}    productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target="#returnProductModal">return</div>
                                         </span>
                                     :null
                                     }
 
                                     {/* Review and Rating */}
-                                    <div className="modal col-6 offset-3 NOpadding mt-4" id={"reviewModal_"+productdata._id} role="dialog">
+                                    <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata._id} role="dialog">
                                         <div className="modal-content " style={{ 'background': '#fff'}}>
                                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                                                 <div className="col-3">
@@ -331,7 +331,6 @@ class ProductsView extends Component {
                                                         value={this.state.rating}
                                                         onStarClick={this.onStarClick.bind(this)}
                                                     /> 
-
                                                     <div className="clearfix "></div>
                                                 </div>
                                                 <label className="error">{this.state.reviewStarError}</label>
@@ -349,7 +348,7 @@ class ProductsView extends Component {
                                             <div className="modal-footer modalfooterborder ">
                                                 <div className="col-12 ">
                                                     <button className="btn btn-primary pull-right mt15" onClick={this.submitReview.bind(this)}  vendorLocationId={this.props.vendorWiseOrderData.vendorLocation_id} productid={productdata && productdata._id}
-                                                    >{this.state.rating_ID ? 'Update' :'Submit'}</button>
+                                                    >{productdata.isReview ? 'Update' :'Submit'}</button>
                                                 </div>
                                             </div>
                                         </div>

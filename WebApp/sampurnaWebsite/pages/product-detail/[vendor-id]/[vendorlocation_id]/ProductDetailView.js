@@ -230,10 +230,8 @@ class ProductDetailView extends Component {
 			$('#decreaseQuantity').css('background-color', '#ccc');
 		}
 	}
-	
-
 	render() {
-		console.log("product wishlistdata  =====",this.props.recentWishlistData);
+		// console.log("product wishlistdata  =====",this.props.recentWishlistData);
         var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass = 'r';
 		var tooltipMsg = '';
