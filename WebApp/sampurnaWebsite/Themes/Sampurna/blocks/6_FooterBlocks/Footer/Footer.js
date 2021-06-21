@@ -106,7 +106,7 @@ export default class Footer extends Component {
                 <div className="col-xl-12 col-md-12 col-sm-12  col-12">
                     <div className="col-12 FooterTitle text-right">Connect with Us</div>
                     <div className="col-12 col-sm-12 col-lg-12 col-md-12 pull-right ">
-                        <div className="socialMediaIcons pull-right"><Link href="https://twitter.com/bookstore"><a  target="_blank"><i className="fa fa-twitter mt15" aria-hidden="true"></i></a></Link></div>
+                        <div className="socialMediaIcons pull-right"><Link href="https://www.twitter.com/bookstore"><a  target="_blank"><i className="fa fa-twitter mt15" aria-hidden="true"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.linkedin.com"><a  target="_blank"><i className="fa fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
                         <div className="socialMediaIcons pull-right"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fa fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
                         <div className="socialMediaIcons pull-right"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fa fa-facebook-f mt15"></i></a></Link></div>                        
