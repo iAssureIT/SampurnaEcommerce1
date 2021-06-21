@@ -8,7 +8,7 @@ const io = require('socket.io')(server);
 
 var adminOrtderListValues = {};
 io.on('connection', (client) => { 
-    console.log("connection established");
+    console.log("connection established",client.id);
     client.on('adminOrtderListValues', (payload) => {
         adminOrtderListValues = payload;
         getAdminOrderList(payload);
@@ -58,7 +58,8 @@ io.on('connection', (client) => {
         axios.patch('http://localhost:'+globalVariable.port+'/api/orders/changevendororderstatus',payload)
         .then(response=>{
             io.sockets.emit('changeStatus', response.data);
-            getUserOrderList(payload.order_user_id)
+            getUserOrderList(payload.order_user_id);
+            getAdminOrderList(adminOrtderListValues);
         })
         .catch(err=>{
             console.log(err)

@@ -7,7 +7,7 @@ import openSocket               from 'socket.io-client';
 import 'jquery-validation';
 import 'bootstrap/js/tab.js';
 
-const  socket = openSocket(process.env.REACT_APP_BASE_URL,{ transports : ['websocket'] });
+const  socket = openSocket(process.env.REACT_APP_BASE_URL,{ transports : ['websocket'] ,upgrade: false});
 console.log("socket",socket);
 
 class AllOrdersList extends Component{
@@ -60,6 +60,7 @@ class AllOrdersList extends Component{
 		};
 		this.openChangeStatusModal 		= this.openChangeStatusModal.bind(this);
 		window.openChangeStatusModal  	= this.openChangeStatusModal;
+		this.changeVendorOrderStatus    = this.changeVendorOrderStatus.bind(this);
 	}
 
 	/* ======= handleChange() ========== */
@@ -361,8 +362,8 @@ class AllOrdersList extends Component{
 				// axios.patch("/api/orders/changevendororderstatus",formValues)
 				// .then((response)=>{ 
 					this.getOneOrder(this.state.order_id, this.state.vendor_id);
-					this.getData(this.state.startRange,this.state.limitRange);
-				// })
+					// this.getData(this.state.startRange,this.state.limitRange);
+				})
 				// .catch((error)=>{
 				// 	console.log('error', error);
 				// 	if(error.message === "Request failed with status code 401"){
@@ -379,7 +380,7 @@ class AllOrdersList extends Component{
 				// 		});
 				// 	}
 				// })
-			})		
+			// })		
 		}
 	}
 
@@ -475,8 +476,8 @@ class AllOrdersList extends Component{
 											</ul>
 										</div>
 										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 actionButtons">
-											<button type="button" className={"btn btn-warning "+ (this.state.activeStatusRank === 1 ? "disabled noClick" : "")} onClick={this.changeVendorOrderStatus.bind(this)} id="Previous">&laquo; Previous</button>
-											<button type="button" className={"btn btn-success "+ (this.state.activeStatusRank === 5 ? "disabled noClick" : "")} onClick={this.changeVendorOrderStatus.bind(this)} id="Next">Next  &raquo;</button>
+											<button type="button" className={"btn btn-warning "+ (this.state.activeStatusRank === 1 ? "disabled noClick" : "")} onClick={this.changeVendorOrderStatus} id="Previous">&laquo; Previous</button>
+											<button type="button" className={"btn btn-success "+ (this.state.activeStatusRank === 5 ? "disabled noClick" : "")} onClick={this.changeVendorOrderStatus} id="Next">Next  &raquo;</button>
 										</div>
 									</div>
 								}

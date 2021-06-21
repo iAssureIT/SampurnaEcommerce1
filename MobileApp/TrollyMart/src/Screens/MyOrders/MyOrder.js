@@ -89,6 +89,7 @@ export const MyOrder = withCustomerToaster((props)=>{
       setMyOrders(response);
       setLoading(false);
     })
+    // socket.off('getUserOrderList');
       // .catch((error) => {
       //   console.log("error",error);
       //   setLoading(false);

@@ -71,6 +71,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const {orderid}=route.params;
   const isFocused = useIsFocused();
   const [labels,setLabels] = useState([]);
+  const [labelsArray,setLabelsArray]= useState([]);
   const [review_id,setReviewId]= useState();
 
   const store = useSelector(store => ({
@@ -86,7 +87,8 @@ export const OrderDetails = withCustomerToaster((props)=>{
     axios.get('/api/orderstatus/get/list/')
     .then((response) => {
       var array = response.data.map(e=>e.orderStatus);
-      // delete array[2];
+      console.log("array",array);
+      setLabelsArray(response.data.map(e=>e.orderStatus));
       array.splice(2, 1);
       setLabels(array);
     })
@@ -111,6 +113,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
     socket.emit('room',orderid);
     socket.emit('signle_order',orderid);
     socket.on('getSingleOrder',(response)=>{
+      // socket.off('getSingleOrder');
       console.log("response",response);
     // axios.get('/api/orders/get/one/' + orderid)
     //   .then((response) => {
@@ -273,6 +276,8 @@ const cancelorderbtn = (id,vendor_id) => {
   }
 
 
+  console.log("array=======>",labelsArray);
+
     return (
       <React.Fragment>
         {/* <HeaderBar3
@@ -324,8 +329,9 @@ const cancelorderbtn = (id,vendor_id) => {
                       //   position = 4;
                       // }  
                       var vendorStatus = vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status;
-                      if(vendorStatus === "Ready to Dispatch" || vendorStatus === "Processing"){
-                        var postion1 = labels.indexOf("Processing");
+                      console.log("vendorStatus",vendorStatus);
+                      if(vendorStatus ===labelsArray[2]){
+                        var postion1 = 2;
                       }else{
                         var postion1 = labels.indexOf(vendorStatus)+1;
                       }
