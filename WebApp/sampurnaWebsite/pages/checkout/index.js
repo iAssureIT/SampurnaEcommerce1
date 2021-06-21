@@ -53,15 +53,12 @@ class Checkout extends Component {
             limitRange  : 10,
             isChecked   : false,
             isCheckedError: [],
-            pinValid      :false,
             user_ID       :'',
             email         : '',
             fullName      : '',
             fields: {},
             errors: {},
             websiteModel:'',
-            taxrate : 0,
-            taxName : '',
             couponAmount : 0.00,
         }
     }
@@ -88,8 +85,7 @@ class Checkout extends Component {
         },()=>{
             this.getAddressWithDistanceLimit();
         })
-        this.gettimes(this.state.startRange, this.state.limitRange);    
-
+        this.gettimes(this.state.startRange, this.state.limitRange);  
         axios.get('/api/users/get/' + this.state.user_ID)
             .then(result => {
                 this.setState({
@@ -98,7 +94,7 @@ class Checkout extends Component {
                 })
             })
             .catch(err => {
-                console.log('Errr', err);
+                console.log('Error /api/users/get', err);
             })
     }
     getAddressWithDistanceLimit(){
@@ -107,11 +103,11 @@ class Checkout extends Component {
             "latitude"      : this.state.latitude,
             "longitude"     : this.state.longitude,
         }
-        console.log("formValues=>",formValues);
+        // console.log("formValues=>",formValues);
         axios.post('/api/ecommusers/myaddresses',formValues)
         .then(response => {
             if(response){
-                console.log("distanceResponse=>",response);
+                // console.log("distanceResponse=>",response);
                 this.setState({
                     "deliveryAddress": response.data.deliveryAddress,
                     // "username": response.data.profile.fullName,
@@ -126,7 +122,7 @@ class Checkout extends Component {
                                     
                     // fields["pincode"] = response.data.profile.pincode;
                     // fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
-                    // fields["paymentmethods"] = 'cod';
+                    fields["paymentmethods"] = 'cod';
                     this.setState({
                         fields
                     });
@@ -134,7 +130,7 @@ class Checkout extends Component {
             }
         })
         .catch((error)=>{
-            console.log("Error while getting user address:",error);
+            console.log("Error while getting getAddressWithDistanceLimit:",error);
         })
 
     }
@@ -143,13 +139,6 @@ class Checkout extends Component {
 		let fields = this.state.fields;
 		let errors = {};
         let formIsValid = true;	
-        console.log("fields[addType]=",fields["addType"]);
-        // if (!fields["addType"]) {
-        //     console.log("fields[addType]=",fields["addType"]);
-        //     formIsValid = false;
-        //     errors["addType"] = "Please select Address type.";
-        // }
-        
         if (!fields["termsNconditions"]) {
             var pattern = this.state.isChecked
             console.log("condition---",fields["termsNconditions"]);
@@ -170,15 +159,18 @@ class Checkout extends Component {
             errors: errors
           });
           console.log("formIsValid=",formIsValid);
+        //   this.props.fetchCartData();
           return formIsValid;
           return true;
         }
         
     getUserAddress() {
         if(this.state.user_ID){
-        axios.get("/api/ecommusers/" +this.state.user_ID)
+        // axios.get("/api/ecommusers/" +this.state.user_ID)
+        console.log("this.state.user_ID==",this.state.user_ID);
+        axios.get('/api/users/get/id/' +this.state.user_ID)
             .then((response) => {
-                // console.log('userData res', response.data.deliveryAddress);
+                console.log('userData res', response.data.deliveryAddress);
                 
                 this.setState({
                     "deliveryAddress": response.data.deliveryAddress,
@@ -187,14 +179,14 @@ class Checkout extends Component {
                     "email": response.data.profile.email
                 },()=>{
                     let fields = this.state.fields;
-                    // fields["username"] = response.data.profile.fullName;
-                    // fields["mobileNumber"] = response.data.profile.mobile;
-                    // fields["email"] = response.data.profile.email;   
+                    fields["username"] = response.data.profile.fullName;
+                    fields["mobileNumber"] = response.data.profile.mobile;
+                    fields["email"] = response.data.profile.email;   
                     fields["addressLine2 "] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addressLine2 :  null;   
                                     
-                    // fields["pincode"] = response.data.profile.pincode;
+                    fields["pincode"] = response.data.profile.pincode;
                     fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
-                    // fields["paymentmethods"] = 'cod';
+                    fields["paymentmethods"] = 'cod';
                     this.setState({
                         fields
                     });
@@ -228,7 +220,6 @@ class Checkout extends Component {
 		this.setState({
 		  fields
 		});
-
     }
 
     checkPincode(pincode) {
@@ -303,29 +294,32 @@ class Checkout extends Component {
         event.preventDefault();        
         var addressValues = {};
         $("html, body").animate({ scrollTop: 450 }, 800);
+        console.log("place order this.state.recentCartData.vendorOrders==",this.state.recentCartData);
         var vendorOrders = this.state.recentCartData.vendorOrders;
-        // console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData);
-        for(var i = 0; i<vendorOrders.length;i++){ 
-            vendorOrders[i].products =[];
-            if(vendorOrders[i].cartItems){
-              for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
-                vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
-                vendorOrders[i].products[j].quantity =vendorOrders[i].cartItems[j].quantity ;
-                vendorOrders[i].deliveryStatus =[];
-                  vendorOrders[i].deliveryStatus.push({
-                    "status"          : "New",
-                    "timestamp"       : new Date(),
-                    "statusUpdatedBy" : this.state.user_ID,
-                    "expDeliveryDate" : new Date(),
-                }) 
-                vendorOrders[i].orderStatus =  "New";
-              } 
-             delete vendorOrders[i].cartItems;
+        console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData);
+        if(this.validateForm()){
+            for(var i = 0; i<vendorOrders.length;i++){ 
+                vendorOrders[i].products =[];
+                if(vendorOrders[i].cartItems){
+                for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
+                    vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
+                    vendorOrders[i].products[j].quantity =vendorOrders[i].cartItems[j].quantity ;
+                    vendorOrders[i].deliveryStatus =[];
+                    vendorOrders[i].deliveryStatus.push({
+                        "status"          : "New",
+                        "timestamp"       : new Date(),
+                        "statusUpdatedBy" : this.state.user_ID,
+                        "expDeliveryDate" : new Date(),
+                    }) 
+                    vendorOrders[i].orderStatus =  "New";
+                } 
+                delete vendorOrders[i].cartItems;
+                }
             }
-          }
+        
 
         var paymentMethod = $("input[name='paymentmethods']:checked").val();
-        console.log("paymentMethod====",paymentMethod);
+        // console.log("paymentMethod====",paymentMethod);
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
         var formValues = {
             "paymentMethod": paymentMethod,
@@ -334,86 +328,81 @@ class Checkout extends Component {
             "fullName" : this.state.fullName
         }
 
-        this.state.recentCartData.paymentDetails.paymentMethod = paymentMethod;
+            this.state.recentCartData.paymentDetails.paymentMethod = paymentMethod;
 
-        console.log("Formvalues===",formValues);
-        for(var i=0;i<this.state.recentCartData.vendorOrders.length;i++){
-            var soldProducts = this.state.recentCartData.vendorOrders[i].products.filter((a, i) => {
-                return a.availableQuantity <= 0;
-            })
-        }
-        if (soldProducts.length > 0) {
-            this.setState({
-                messageData: {
-                    "type": "outpage",
-                    "icon": "fa fa-exclamation-circle",
-                    "message": "&nbsp; Please remove sold out products from cart to proceed to checkout.",
-                    "class": "warning",
-                    "autoDismiss": true
-                }
-            })
-            setTimeout(() => {
-                this.setState({
-                    messageData: {},
+            // console.log("Formvalues===",formValues);
+            for(var i=0;i<this.state.recentCartData.vendorOrders.length;i++){
+                var soldProducts = this.state.recentCartData.vendorOrders[i].products.filter((a, i) => {
+                    return a.availableQuantity <= 0;
                 })
-            }, 6000);
-        } else {
-            if(this.validateForm()){
-                if (this.state.deliveryAddress && this.state.deliveryAddress.length > 0) {
-                var deliveryAddress = this.state.deliveryAddress.filter((a, i) => {
-                    return a._id === checkoutAddess
-                })
-                addressValues = {
-                    "user_ID": this.state.user_ID,
-                    "name": deliveryAddress.length > 0 ? deliveryAddress[0].name : "",
-                    "email": deliveryAddress.length > 0 ? deliveryAddress[0].email : "",
-                    "mobileNumber": deliveryAddress.length > 0 ? deliveryAddress[0].mobileNumber : "",
-                    "addType": deliveryAddress.length > 0 ? deliveryAddress[0].addType : "",
-                    "addressLine1": deliveryAddress.length > 0 ? deliveryAddress[0].addressLine1 : "",
-                    "addressLine2": deliveryAddress.length > 0 ? deliveryAddress[0].addressLine2 : "",
-                    "pincode": deliveryAddress.length > 0 ? deliveryAddress[0].pincode : "",
-                    "area": deliveryAddress.length > 0 ? deliveryAddress[0].area : "",
-                    "city": deliveryAddress.length > 0 ? deliveryAddress[0].city : "",
-                    "district": deliveryAddress.length > 0 ? deliveryAddress[0].district : "",
-                    "stateCode": deliveryAddress.length > 0 ? deliveryAddress[0].stateCode : "",
-                    "state": deliveryAddress.length > 0 ? deliveryAddress[0].state : "",
-                    "countryCode": deliveryAddress.length > 0 ? deliveryAddress[0].countryCode : "",
-                    "country": deliveryAddress.length > 0 ? deliveryAddress[0].country : "",
-                    "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
-                    "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
-                }
-                // console.log("inside if address values====",addressValues);               
-            } else {
-                console.log("inside else new address");
-                addressValues = {
-                    "user_ID": this.state.user_ID,
-                    "name": this.state.username,
-                    "email": this.state.email,
-                    "addressLine1": this.state.addressLine1,
-                    "addressLine2": this.state.addressLine2,
-                    "pincode": this.state.pincode,
-                    "area": this.state.area,
-                    "district": this.state.district,
-                    "city": this.state.city,
-                    "stateCode": this.state.stateCode,
-                    "state": this.state.state,
-                    "countryCode": this.state.countryCode,
-                    "country": this.state.country,
-                    "mobileNumber": this.state.mobileNumber,
-                    "addType": this.state.addType,
-                    "latitude": this.state.latitude,
-                    "longitude": this.state.longitude,
-                }
-                    console.log("addressValues:===",addressValues);
-                   
             }
-                // console.log("address to added to cart =",addressValues);
+            if (soldProducts.length > 0) {
+                this.setState({
+                    messageData: {
+                        "type": "outpage",
+                        "icon": "fa fa-exclamation-circle",
+                        "message": "&nbsp; Please remove sold out products from cart to proceed to checkout.",
+                        "class": "warning",
+                        "autoDismiss": true
+                    }
+                })
+                setTimeout(() => {
+                    this.setState({
+                        messageData: {},
+                    })
+                }, 6000);
+            } else {
                 if(this.validateForm()){
-                console.log("validation true");
+                    if (this.state.deliveryAddress && this.state.deliveryAddress.length > 0) {
+                    var deliveryAddress = this.state.deliveryAddress.filter((a, i) => {
+                        return a._id === checkoutAddess
+                    })
+                    addressValues = {
+                        "user_ID": this.state.user_ID,
+                        "name": deliveryAddress.length > 0 ? deliveryAddress[0].name : "",
+                        "email": deliveryAddress.length > 0 ? deliveryAddress[0].email : "",
+                        "mobileNumber": deliveryAddress.length > 0 ? deliveryAddress[0].mobileNumber : "",
+                        "addType": deliveryAddress.length > 0 ? deliveryAddress[0].addType : "",
+                        "addressLine1": deliveryAddress.length > 0 ? deliveryAddress[0].addressLine1 : "",
+                        "addressLine2": deliveryAddress.length > 0 ? deliveryAddress[0].addressLine2 : "",
+                        "pincode": deliveryAddress.length > 0 ? deliveryAddress[0].pincode : "",
+                        "area": deliveryAddress.length > 0 ? deliveryAddress[0].area : "",
+                        "city": deliveryAddress.length > 0 ? deliveryAddress[0].city : "",
+                        "district": deliveryAddress.length > 0 ? deliveryAddress[0].district : "",
+                        "stateCode": deliveryAddress.length > 0 ? deliveryAddress[0].stateCode : "",
+                        "state": deliveryAddress.length > 0 ? deliveryAddress[0].state : "",
+                        "countryCode": deliveryAddress.length > 0 ? deliveryAddress[0].countryCode : "",
+                        "country": deliveryAddress.length > 0 ? deliveryAddress[0].country : "",
+                        "latitude": deliveryAddress.length > 0 ? deliveryAddress[0].latitude : "",
+                        "longitude": deliveryAddress.length > 0 ? deliveryAddress[0].longitude : "",
+                    }
+                    console.log("inside if address values====",addressValues);               
+                } else {
+                    addressValues = {
+                        "user_ID": this.state.user_ID,
+                        "name": this.state.username,
+                        "email": this.state.email,
+                        "addressLine1": this.state.addressLine1,
+                        "addressLine2": this.state.addressLine2,
+                        "pincode": this.state.pincode,
+                        "area": this.state.area,
+                        "district": this.state.district,
+                        "city": this.state.city,
+                        "stateCode": this.state.stateCode,
+                        "state": this.state.state,
+                        "countryCode": this.state.countryCode,
+                        "country": this.state.country,
+                        "mobileNumber": this.state.mobileNumber,
+                        "addType": this.state.addType,
+                        "latitude": this.state.latitude,
+                        "longitude": this.state.longitude,
+                    }
+                        console.log("addressValues:===",addressValues);
+                    
+                }
                 axios.patch('/api/carts/address', addressValues)
                     .then(async (response) => {
                         console.log("Response After inserting address to cart===",response);
-                        // await this.props.fetchCartData();
                         for(i=0;i<this.state.recentCartData.vendorOrders.length;i++){
                         var cartItems = this.state.recentCartData.vendorOrders[i].products.map((a, i) => {
                             return {
@@ -453,7 +442,7 @@ class Checkout extends Component {
                             vendorOrders              : vendorOrders,
                             paymentDetails            : this.state.recentCartData.paymentDetails,
                             deliveryAddress           : addressValues,
-                           
+                        
                         }
                         console.log("OrdersData===",orderData);
 
@@ -482,7 +471,7 @@ class Checkout extends Component {
                                                 })
                                             }, 3000);
 
-                                           await Router.push('/payment/' + result.data.order_id);
+                                        await Router.push('/payment/' + result.data.order_id);
                                         }
                                     } else {
                                         this.setState({paymethods : true})
@@ -554,11 +543,11 @@ class Checkout extends Component {
                     .catch((error) => {
                         console.log('cart address update error', error);
                     })
-            }else{
-                $("html, body").animate({ scrollTop: 0 }, 800);
             }
         }
-        }
+    } else{
+        $("html, body").animate({ scrollTop: 0 }, 500);
+    }
    
     }
 
@@ -648,6 +637,14 @@ class Checkout extends Component {
             .split(' ')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
+    }
+
+    deleteCoupon(event){
+        event.preventDefault();
+        this.setState({
+            recentCartData: this.props.recentCartData
+        })
+        
     }
 
     applyCoupon(event){
@@ -741,11 +738,10 @@ class Checkout extends Component {
                                         <div className={"col-12 NoPadding " +Style.shippingAddress}>
                                             <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>SHIPPING ADDRESS <span className="required">*</span></div>
                                             <div className={"col-12 pt-4 " +Style.addressWrapper}>
-                                            <div className="errorMsg">{this.state.errors.checkoutAddess}</div>
-                                                
+                                            <div className=" col-12 errorMsg mb-2">{this.state.errors.checkoutAddess}</div>
                                                 {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
                                                     this.state.deliveryAddress.map((data, index) => {
-                                                        console.log("address data ==", data);
+                                                        // console.log("address data ==", data);
                                                         {data.distance >=1
                                                         ?   
                                                             $('.addressList_'+data._id).addClass('addressDesabled')
@@ -822,6 +818,7 @@ class Checkout extends Component {
                                                 {
                                                    this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
                                                         this.state.recentCartData.vendorOrders.map((vendorWiseData, index) => {
+                                                            console.log("ceckout vendorWiseData.products=",vendorWiseData.products);
                                                             return (
                                                                 <div className="col-12 tableRowWrapper" key={'cartData' + index}>
                                                                 <tr  className="col-12">
@@ -966,7 +963,13 @@ class Checkout extends Component {
                                                     <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
                                                     <span className="col-md-6 col-12">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
                                                     <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
-                                                    <span className="col-md-6 col-12">Discounte Coupon :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.couponAmount>0? this.state.couponAmount : 0.00}</span>
+                                                    <span className="col-md-6 col-12">Discounte Coupon :</span>
+                                                    <span className="col-md-6 col-12 textAlignRight">
+                                                        <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount : 0.00}
+                                                        {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0&&
+                                                        <span className="deleteCoupon" onClick={this.deleteCoupon.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
+                                                        }
+                                                    </span>
                                                     
                                                     
                                                     <div className="col-12 mt-5 shippingtimes">
@@ -1085,7 +1088,7 @@ class Checkout extends Component {
     }
 }
 const mapStateToProps = state => (
-    // console.log("state in checkout====",state.data.recentCartData),
+    console.log("state in checkout====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

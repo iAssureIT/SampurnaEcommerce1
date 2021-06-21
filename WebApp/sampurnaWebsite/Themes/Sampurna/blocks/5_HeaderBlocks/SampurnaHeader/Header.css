@@ -724,10 +724,15 @@ li a{
 	margin-top:0px !important;
 }
 .locationBg{
-	background:url("/images/eCommerce/snazzy-image.gif");
+	background:url("/images/eCommerce/locationMapi.jpg");
 	background-size:100% 100%;
 	background-repeat:no-repeat;
 	margin-top:0px !important;
 	/* height:600px !important; */
 	z-index: 1;
+}
+.closeModalBtn{
+    position: absolute;
+    right: 10px;
+    z-index: 10;
 }

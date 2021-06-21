@@ -15,6 +15,7 @@ import Style                  from './index.module.css';
 
 
 class Account extends Component{
+    
     constructor(props) {
         super(props);
         this.state={
@@ -26,6 +27,7 @@ class Account extends Component{
             addressId :'',
         }
     }
+
     componentDidMount(){
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
@@ -48,7 +50,7 @@ class Account extends Component{
             // $('.fullpageloader').hide();
             if(res){
                 if(res){
-                    console.log("address response==",res);
+                    // console.log("address response==",res);
                     this.setState({
                         firstName       : res.data.profile.firstname,
                         lastName        : res.data.profile.lastname,
@@ -68,7 +70,7 @@ class Account extends Component{
                         type            : res.data.deliveryAddress.length > 0 ? res.data.deliveryAddress[0].type : "",
                         profileImage    : res.data.profile.profileImage
                     },()=>{
-                        console.log("this.state.addressLine1=",this.state.addressLine1);
+                        // console.log("this.state.addressLine1=",this.state.addressLine1);
                     })
                 }
                 

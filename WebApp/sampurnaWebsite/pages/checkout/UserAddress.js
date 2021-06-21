@@ -22,7 +22,7 @@ class UserAddress extends Component {
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
-            console.log("userDetails=>",userDetails.user_id);
+            // console.log("userDetails=>",userDetails.user_id);
             this.setState({
                 user_ID   : userDetails.user_id,
             },()=>{
@@ -50,7 +50,7 @@ class UserAddress extends Component {
             .then((response) => {
             if(response){
                 this.setState({
-                    "deliveryAddress": response.data.deliveryAddress,
+                    "deliveryAddress": response.data.deliveryAddress?response.data.deliveryAddress:null,
                     "fullname": response.data.profile.fullName,
                     "mobileNumber": response.data.profile.mobile,
                     "email": response.data.profile.email
@@ -304,7 +304,7 @@ class UserAddress extends Component {
                                 </select>
                             </div>
                             <div className=" checkoutAddressModal col-12 mt-4">
-                                <div className={"col-12 col-lg-6 col-xl-6 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.ma}>
+                                <div className={"col-12 NoPadding " +Style.ma}>
                                     <button type="button" className={"btn globaleCommBtn align-center saveAddressBtn col-12 " +Style.saveBtn} onClick={this.saveAddress.bind(this)}>{this.props.addressId ? 'Update Address' :'Save Address'}</button>
                                 </div>
                             </div>

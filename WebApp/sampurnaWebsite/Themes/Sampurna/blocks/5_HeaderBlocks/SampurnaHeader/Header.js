@@ -31,6 +31,9 @@ class Header extends React.Component {
 	 async componentDidMount(){
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if(userDetails.user_id){
+            this.setState({user_ID : userDetails.user_id})
+        }
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
@@ -58,7 +61,9 @@ class Header extends React.Component {
                                         <div className="col-8 col-lg-3 col-sm-2 systemSecurity"> 
                                             <div className="row">                                  
                                                 < SystemSecurityModal />
-                                                < Wishlist />
+                                                {this.state.user_ID ?
+                                                    < Wishlist />
+                                                :null}
                                                 < MyCart />                                                
                                             </div>
                                         </div>
@@ -81,7 +86,7 @@ class Header extends React.Component {
                         
                         <div id="locationModal" className="col-12 modal in"  data-keyboard="false" >
                             <div className="modal-dialog modal-xl " >
-                                <div className="modal-content " style={{'background': '#fff'}}>                            
+                                <div className="modal-content ">                            
                                     <div className="modal-body">                                          
                                         <div className="modal-header">
                                             <h6 className="modal-title">Your Delivery Location</h6>

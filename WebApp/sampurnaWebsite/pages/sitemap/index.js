@@ -3,8 +3,8 @@ import Link                 from 'next/link';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import axios   from 'axios';
-import Header      from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Header/Header.js';
-import Footer      from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
+import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
+import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Style from './site-map.module.css';
 class SiteMap extends Component{
     constructor(props) {
@@ -53,14 +53,13 @@ class SiteMap extends Component{
                         this.state.sections.map((data, index)=>{
                             if(this.state.sections.length === index + 1){
                                 return(
-                                    <Link href={'/section/'+data.sectionUrl+'/'+data._id} prefetch={false} key={index}>
+                                    <Link href={'/vendor-list/'+data.sectionUrl} prefetch={false} key={index}>
                                         <a className={"siteSec "+Style.siteSec} >{data.section} </a>
                                     </Link>
-                                    // <a className={"siteSec "+Style.siteSec} key={index} href={'/section/'+data.sectionUrl+'/'+data._id}>{data.section} </a>
                                 );
                             }else{
                                 return(
-                                    <Link href={'/section/'+data.sectionUrl+'/'+data._id} prefetch={false} key={index}>
+                                    <Link href={'/vendor-list/'+data.sectionUrl} prefetch={false} key={index}>
                                         <a className={"siteSec "+Style.siteSec} >{data.section} |</a>
                                     </Link>
                                     // <a className={"siteSec "+Style.siteSec} key={index} href={'/section/'+data.sectionUrl+'/'+data._id}>{data.section} | </a>
@@ -84,7 +83,7 @@ class SiteMap extends Component{
                                         data.subCategory.map((datas, i)=>{
                                             if(data.subCategory.length === i + 1){
                                                 return(
-                                                    <Link href={'/subcategory/'+data.section_ID+'/'+data._id+'/'+datas._id} prefetch={false} key={i}>
+                                                    <Link href={'/vendor-list/'+data.sectionUrl} prefetch={false} key={i}>
                                                         <a className={"siteSubCat "+Style.siteSubCat} key={i} href={'/subcategory/'+data.section_ID+'/'+data._id+'/'+datas._id}>{datas.subCategoryTitle}</a>
                                                     </Link>
                                                     // <a className={"siteSubCat "+Style.siteSubCat} key={i} href={'/subcategory/'+data.section_ID+'/'+data._id+'/'+datas._id}>{datas.subCategoryTitle}</a>

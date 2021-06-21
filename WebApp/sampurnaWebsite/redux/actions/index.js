@@ -108,7 +108,7 @@ export function getCartData() {
             }
           })
           .catch((error)=>{ 
-              console.log('fetchcartdata error', error);
+              console.log('fetchcartdata error 1', error);
           })
       }else{
         dispatch(fetchcartdata([]));

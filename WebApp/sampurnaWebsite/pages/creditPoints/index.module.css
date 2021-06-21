@@ -1,0 +1,22 @@
+.creditWrapper{
+    
+    border: solid 1px #033554;
+    height: 200px;
+    border-radius: 20px;
+
+}
+.accountMainWrapper{
+    border: solid 1px #033554;
+    border-radius: 20px;
+}
+.creditHeader{
+    padding: 15px;
+    background: #033554;
+    color: #fff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.creditRow{
+    border-bottom: solid 1px #eee;
+}

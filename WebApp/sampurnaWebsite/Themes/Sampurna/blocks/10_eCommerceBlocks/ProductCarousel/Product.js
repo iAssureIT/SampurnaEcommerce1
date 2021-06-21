@@ -22,10 +22,18 @@ class Product extends Component{
     }
 
     componentDidMount(){
+        console.log("productView props=",this.props);
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
           var user_ID                = userDetails.user_id; 
+        }
+        if(sampurnaWebsiteDetails.deliveryLocation){
+          this.setState({
+            "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.latitude,
+            "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude,
+            "delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
+          })
         }
         if(sampurnaWebsiteDetails.preferences){
           this.setState({
@@ -221,16 +229,21 @@ class Product extends Component{
       event.preventDefault();
       if (this.state.user_ID) {
         var id = event.target.id;
-        const formValues = {
-          "user_ID": this.state.user_ID,
-          "product_ID": id,
-        }
-        // console.log("inside wishlist==",formValues);
+        var formValues = {
+          "user_ID"             : this.state.user_ID,
+          "userDelLocation"     : {
+                                      "lat"             : this.state.userLongitude, 
+                                      "long"            : this.state.userLongitude,
+                                      "delLocation"     : this.state.delLocation,
+                                  },
+          "vendor_id"           : this.props.vendor_ID,
+          "vendorLocation_id"   : this.props.vendorlocation_ID,
+          "product_ID"          : id
+      }
+        
+        console.log("inside wishlist==",formValues);
         axios.post('/api/wishlist/post', formValues)
           .then((response) => {
-            // console.log("wishlist ressponse===",response.data);
-            var previousUrl = window.location.href;
-            localStorage.setItem("previousUrl", previousUrl);
             this.setState({
               messageData: {
                 "type": "outpage",
@@ -252,11 +265,6 @@ class Product extends Component{
           })
       }
       else {
-        var previousUrl = window.location.href;
-        localStorage.setItem("previousUrl",previousUrl);
-        if(this.state.showLoginAs === "modal" ==="modal"){
-          $('#loginFormModal').show();        
-          }else{
           this.setState({
             messageData: {
               "type": "outpage",
@@ -272,7 +280,7 @@ class Product extends Component{
               messageData: {},
             })
           }, 4000);
-        }
+        
       }
     }
   

@@ -88,13 +88,13 @@ export default class Footer extends Component {
                 </div>
                 <div className="col-12 pr-0">
                     <div className="categortTitle"><Link href="/about-us"><a ><span>&nbsp;About Us</span></a></Link></div>
-                    <div className="categortTitle"><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>    
-                    <div className="categortTitle"><Link href="/return-policy"><a ><span>&nbsp;Return Policy</span></a></Link></div>
-                    <div className="categortTitle"><a href="/terms-conditions" target="_blank"><span>Terms and Conditions</span></a></div>
-                    {/* <div className="categortTitle"><a href="/privacypolicy" target="_blank"><span>Privacy Policy</span></a></div> */}      
+                    <div className="categortTitle"><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>   
                     <div className="categortTitle"><Link href="/legal-policy"><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
-                    <div className="categortTitle"><Link href="/faqs"><a ><span>&nbsp;FAQs</span></a></Link></div> 
-                    <div className="categortTitle"><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div> 
+                    <div className="categortTitle"><Link href="/faq"><a ><span>&nbsp;FAQs</span></a></Link></div> 
+                    <div className="categortTitle"><a href="/terms-and-conditions" target="_blank"><span>Terms and Conditions</span></a></div>
+                    <div className="categortTitle"><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div>  
+                    {/* <div className="categortTitle"><Link href="/return-policy"><a ><span>&nbsp;Return Policy</span></a></Link></div> */}
+                    {/* <div className="categortTitle"><a href="/privacypolicy" target="_blank"><span>Privacy Policy</span></a></div> */}   
                     {/* <div className="categortTitle"><Link href="/photo-gallery"><a ><span>&nbsp;Photo Gallery</span></a></Link></div>  */}
                     {/* <div className="categortTitle"><Link href="/blogs"><a ><span>&nbsp;Blogs</span></a></Link></div> */}
                          

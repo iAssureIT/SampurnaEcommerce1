@@ -2,20 +2,12 @@ import React, { Component } from 'react';
 import axios                from 'axios';
 import $                    from 'jquery';
 import moment               from "moment";
-import { FaStar }           from 'react-icons/fa';
-import                      'bootstrap/dist/css/bootstrap.min.css';
-import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
-import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
-import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
-import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
-import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
+// import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
 import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
+import OrderStatusWizard    from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/OrderStatusWizard.js';
 import ProductsView         from './ProductsView.js';
-import Style                  from './index.module.css';
+import Style                from './index.module.css';
 
 export default class OrderDetails extends Component {
   constructor(props) {
@@ -85,90 +77,17 @@ export default class OrderDetails extends Component {
         console.log('Error while getting User data', error);
       })
   }
-  
-  returnProduct(event) {
-    $('#returnProductModal').show();
-    var status = $(event.target).data('status');
-    var id = $(event.target).data('id');
-    var productid = $(event.target).data('productid');
-    var altorderid = $(event.target).data('altorderid');
-    var str = '';
-
-    axios.get("/api/products/get/one/" + productid)
-      .then((response) => {
-        this.setState({
-          oneproductdetails: response.data
-        }, () => {
-        })
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
-    if (status === "Paid") {
-      str = 'Do you want to return order?';
-      $('#returnProductBtn').attr('data-id', id);
-      $('#returnProductBtn').attr('data-productid', productid);
-      $('#returnProductBtn').attr('data-altorderid', altorderid);
-
-      $('.cantreturn').hide();
-      $('.canreturn').show();
-    } else {
-      str = "This order is not delivered yet. You cannot return this order.";
-
-      $('.cantreturn').show();
-      $('.canreturn').hide();
+  cancelButton = (orderDate)=>{
+    console.log("orderData===",this.state.orderData);
+    var min = moment(orderDate).add(this.state.orderData.maxDurationForCancelOrder, 'minutes');
+    var duration = moment.duration(min.diff(new Date())).asSeconds();
+    if(duration > 0 &&duration < this.state.orderData.maxDurationForCancelOrder*60){
+      var that =this;
+      setTimeout(function(){that.getMyOrders()},  Math.abs(duration) *1000);
+      return true;
+    }else{
+      return false;
     }
-
-  }
-  getoneproductdetails(event) {
-    var productID = event.target.id;
-    var customerID = this.state.userID;
-    var orderID = event.target.getAttribute('orderid');
-    this.setState({ orderID: orderID });
-    
-    axios.get("/api/products/get/one/" + productID)
-    .then((response) => {
-      this.setState({
-        oneproductdetails: response.data
-      }, () => {
-      })
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
-    
-    axios.get("/api/customerreview/get/order/list/"+customerID+"/"+orderID+"/"+productID )
-    .then((response) => {
-      if(response.data){
-        this.setState({
-          rating_ID       : response.data._id,
-          customerID      : response.data.customerID,
-          customerName    : response.data.customerName,
-          customerReview  : response.data.customerReview,
-          orderID         : response.data.orderID,
-          productID       : response.data.productID,
-          rating          : response.data.rating,
-          ratingReview    : response.data.rating
-        })
-      }
-    })
-    .catch((error) => {
-      console.log('error', error);
-    })
-  }
-
-  
-  Closepagealert(event) {
-    event.preventDefault();
-    $(".toast-error").html('');
-    $(".toast-success").html('');
-    $(".toast-info").html('');
-    $(".toast-warning").html('');
-    $(".toast-error").removeClass('toast');
-    $(".toast-success").removeClass('toast');
-    $(".toast-info").removeClass('toast');
-    $(".toast-warning").removeClass('toast');
-
   }
   cancelProduct(event) {
     $('#cancelProductModal').show();
@@ -273,7 +192,7 @@ export default class OrderDetails extends Component {
                   <div className="col-12">
                       <h4 className={"table-caption " +Style.mainTitle}>Orders Details</h4>
                   </div>
-                  <div className={"col-12 NoPadding orderIdborder " +Style.orderIdborderNew}>
+                  <div className={"col-12 NoPadding "}>
                     <div className="col-12 NoPadding orderDetailsTop mb-4 ">
                       <div className={"row " +Style.ptb15}>
                         <div className="col-6 ">
@@ -308,22 +227,27 @@ export default class OrderDetails extends Component {
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?                    
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
-                          console.log( " Order details vendordata:",vendordata);
+                          console.log( " Order details this.state.orderData:",this.state.orderData);
                           return (
                             <div key={index} style={{marginBottom:"40px"}} className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>   
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
                                 <div className="row">
                                   <div className="col-7 NOpadding">
                                       <span className="vendorName">{vendordata.vendorName}</span> &nbsp;
-                                  </div> 
+                                  </div>
                                   <div className="col-5 pull-right">
-                                      <div className={"col-12 cancelOrderbtn pull-right " +Style.cancelBtn +" "+Style.rightText} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
-                                  </div>    
+                                    {this.cancelButton(this.state.orderData.createdAt)&&
+                                      <div className="col-12 ">
+                                          <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                      </div>
+                                    }
+                                  </div>
                                 </div>      
                               </div>
                               { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                                <div className="col-12 orderIdborder">
+                                <div className="col-12 statusWizard mt-4 mb-4">
                                     <StepWizard data={vendordata} />
+                                    {/* <OrderStatusWizard data={vendordata} /> */}
                                 </div> :null
                               }
 

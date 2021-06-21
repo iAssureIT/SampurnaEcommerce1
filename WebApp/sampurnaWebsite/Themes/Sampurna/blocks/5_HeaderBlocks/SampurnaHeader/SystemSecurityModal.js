@@ -56,7 +56,7 @@ class header extends React.Component {
         axios.get('/api/users/get/id/' +this.state.userId)
           .then((res) => {
             if(res.data){
-              console.log("user response===",res.data);  
+            //   console.log("user response===",res.data);  
               this.setState({
                 userData : res.data.profile,
                 userName : res.data.profile.firstname,
@@ -138,6 +138,7 @@ class header extends React.Component {
                             <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Orders</a></Link></li>
                             <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Wishlist</a></Link></li>                               
                             <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Profile</a></Link></li>
+                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Credits</a></Link></li>
                   
                             <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                         </ul>

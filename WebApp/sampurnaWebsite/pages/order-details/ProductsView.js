@@ -7,6 +7,7 @@ import StarRatingComponent  from 'react-star-rating-component';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import ProductReview        from './ProductsView.js';
 import ReturnForm           from './ReturnForm.js';
+import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
 import { event } from 'jquery';
@@ -52,9 +53,8 @@ class ProductsView extends Component {
 
   submitReview(event) {
     event.preventDefault();
-    console.log("rating===",this.state.rating);
+    // console.log("rating===",this.state.rating);
       if (this.state.customerReview.length > 0) {
-        
         // if(this.state.rating_ID){
         //   var formValues = {
         //     "rating_ID"         : this.state.rating_ID,
@@ -93,11 +93,10 @@ class ProductsView extends Component {
         //   .catch((error) => {
         //   })
         // }else{
-            console.log("reviewuserData====",this.props.reviewuserData);
+        console.log("reviewuserData====",this.props.reviewuserData);
          var formValues = {
             "customer_id"       : this.props.user_ID,
             "customerName"      : this.props.orderData.userFullName,
-            // "customerName"      : this.props.reviewuserData && this.props.reviewuserData.profile.fullName,
             "order_id"          : this.props.orderData._id,
             "product_id"        : event.target.getAttribute('productid'),
             "rating"            : this.state.rating,
@@ -108,6 +107,9 @@ class ProductsView extends Component {
           console.log("formValues=",formValues);
           axios.post("/api/customerReview/post", formValues)
           .then((response) => {
+            if(response){
+              console.log("review response=",response.data);
+              swal(response.data.message);
             this.setState({
               messageData: {
                 "type": "outpage",
@@ -122,6 +124,7 @@ class ProductsView extends Component {
                 messageData: {},
               })
             }, 3000);
+            }
             var modal = document.getElementById('feedbackProductModal');
             modal.style.display = "none";
 
@@ -137,6 +140,7 @@ class ProductsView extends Component {
       }
     //}
   }
+
   setProductId(event){
       event.preventDefault();
       var productId = event.currentTarget.getAttribute('productId');
@@ -149,6 +153,7 @@ class ProductsView extends Component {
         }
         );
   }
+
   getoneproductdetails(event) {
     var productID = event.target.id;
     var customerID = this.state.userID;
@@ -185,12 +190,46 @@ class ProductsView extends Component {
       console.log('error', error);
     })
   }
+  returnProduct(event) {
+    $('#returnProductModal').show();
+    var status = $(event.target).data('status');
+    var id = $(event.target).data('id');
+    var productid = $(event.target).data('productid');
+    var altorderid = $(event.target).data('altorderid');
+    var str = '';
 
+    axios.get("/api/products/get/one/" + productid)
+      .then((response) => {
+        this.setState({
+          oneproductdetails: response.data
+        }, () => {
+        })
+      })
+      .catch((error) => {
+        console.log('error', error);
+      })
+    if (status === "Paid") {
+      str = 'Do you want to return order?';
+      $('#returnProductBtn').attr('data-id', id);
+      $('#returnProductBtn').attr('data-productid', productid);
+      $('#returnProductBtn').attr('data-altorderid', altorderid);
+
+      $('.cantreturn').hide();
+      $('.canreturn').show();
+    } else {
+      str = "This order is not delivered yet. You cannot return this order.";
+
+      $('.cantreturn').show();
+      $('.canreturn').hide();
+    }
+  }
+    
   render() {
     console.log("productView props  vendorOrders===",this.props);
     return (
           <div className="col-12">
             {/* < ProductReview /> */}
+            <Message messageData={this.state.messageData} />
             
             <table className="table table-borderless orderTable">
                 <thead>
@@ -254,17 +293,17 @@ class ProductsView extends Component {
                                     }
                                     {this.props.orderStatus === "Delivered"?
                                         <span>
-                                            <div className={" "+Style.returnReviewBtn} productdata={productdata} productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target="#reviewModal">Review</div>
+                                            <div className={" "+Style.returnReviewBtn} productdata={productdata} productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Add Review</div>
                                             <div className={" "+Style.returnReviewBtn} productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target="#returnProductModal">return</div>
                                         </span>
                                     :null
                                     }
 
                                     {/* Review and Rating */}
-                                    <div className="modal col-6 offset-3 NOpadding" id="reviewModal" role="dialog">
+                                    <div className="modal col-6 offset-3 NOpadding mt-4" id={"reviewModal_"+productdata._id} role="dialog">
                                         <div className="modal-content " style={{ 'background': '#fff'}}>
                                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
-                                                <div className="col-4">
+                                                <div className="col-3">
                                                     < WebsiteLogo /> </div>
                                                 <div className="col-7 text-center">
                                                     <h6 className="modal-title modalheadingcont">Product Review</h6> </div>
@@ -275,10 +314,10 @@ class ProductsView extends Component {
                                             <div className="modal-body addressModalBody">
                                             <table className="data table table-order-items history" id="my-orders-table">
                                                 <tbody>
-                                                    <tr>
-                                                        <td className=" orderimgsize"><img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" /></td>
+                                                    <tr className="row">
+                                                        <td className="col-3 orderimgsize"><img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" /></td>
                                                         
-                                                        <td className="col-4 ">{productdata.productName}</td>
+                                                        <td className="col-5 ">{productdata.productName}</td>
                                                         
                                                         <td className="col-4 total textAlignRight"><span>{this.props.currency} {productdata.discountedPrice}</span></td>
                                                     </tr>
@@ -297,7 +336,7 @@ class ProductsView extends Component {
                                                 </div>
                                                 <label className="error">{this.state.reviewStarError}</label>
                                                 <div className="row inputrow">
-                                                    <label className="col-12 mt15">Write review</label>
+                                                    <label className="col-12 mt15 text-left">Write review</label>
                                                     <div className="col-12 ">
                                                     <textarea rows="5" className="col-12 " onChange={this.handleChangeReview.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
                                                     <label className="error">{this.state.reviewTextError}</label>

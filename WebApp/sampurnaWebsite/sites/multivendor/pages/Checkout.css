@@ -5,19 +5,23 @@
     word-break: break-all;
     margin-top: 20px;
     margin-bottom: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     border: 1px solid #ddd;
-    height: 936px;
+    /* height: 936px; */
     /* overflow: auto; */
 }
 .saveAddressBtn{
 
 }
+.deleteCoupon i{
+    cursor: pointer;
+    color: #f00;
+}
 .addressDesabled{
     opacity: 0.4;
 }
 .checkoutAddressModalHeader{
-    background-color: #222222;
+    background-color: #033554;
 }
 .addressModalBody{
     padding-top: 0px !important;
@@ -44,8 +48,8 @@
     margin-top: -13px;
 }
 .orderReviewsWrapper{
-    height:650px;
-    overflow:auto;
+    /* height:650px; */
+    /* overflow:auto; */
     margin-bottom: 20px;
 }
 .shippingInput{

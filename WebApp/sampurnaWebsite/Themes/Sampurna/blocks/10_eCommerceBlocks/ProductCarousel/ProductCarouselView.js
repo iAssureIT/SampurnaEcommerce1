@@ -13,15 +13,13 @@ import Style                  from './ProductCarousel.module.css';
 import 'react-multi-carousel/lib/styles.css';
 import {getCartData,getWishlistData, updateCartCount}  from '../../../../../redux/actions/index.js'; 
 
-
 const { publicRuntimeConfig } = getConfig();
 var projectName = publicRuntimeConfig.CURRENT_SITE;
-const productImgHeight = publicRuntimeConfig.IMGHeight;
 
 const responsive = {
   desktop: {
     breakpoint: { max: 10000, min: 1024 },
-    items: 5,
+    items: 4,
     slidesToSlide: 1 // optional, default to 1.
   },
   tablet: {
@@ -119,7 +117,6 @@ class ProductCarouselView extends Component {
         });
       }
     }
-
     var url = window.location.href.split('/');
     // console.log("url===",url);
     if(url[4] !== "undefined"){
@@ -260,7 +257,7 @@ addtowishlist(event) {
 }
 
 render() {
-      // console.log("this.state.newProducts==",this.props.newProducts)
+      console.log("this.props.newProducts==",this.props)
     return (
         <div className={"col-12 " }>        
             <Message messageData={this.state.messageData} />  
@@ -268,21 +265,21 @@ render() {
               <h5>{this.props.blockTitle}</h5>
             </div>
             <Carousel  
-                        className={Style.customnNavButton +" " +Style.carouselNewWrapper}
-                        swipeable={true}
-                        draggable={true}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={false}
-                        autoPlay= {false}
-                        autoPlaySpeed={1000}
-                        keyBoardControl={true}
-                        customTransition="all .20"
-                        transitionDuration={500}
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
-                        deviceType={this.props.deviceType}
-                        itemclassName="carousel-item-padding-10-px">
+                className={Style.customnNavButton +" " +Style.carouselNewWrapper}
+                swipeable={true}
+                draggable={true}
+                showDots={false}
+                responsive={responsive}
+                ssr={true} // means to render carousel on server-side.
+                infinite={false}
+                autoPlay= {false}
+                autoPlaySpeed={1000}
+                keyBoardControl={true}
+                customTransition="all .20"
+                transitionDuration={500}
+                removeArrowOnDeviceType={["tablet", "mobile"]}
+                deviceType={this.props.deviceType}
+                itemclassName="carousel-item-padding-10-px">
                         { 
                         Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
                             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
@@ -311,7 +308,7 @@ render() {
                                         {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
                                         </div>
                                         <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
-                                        <Link href={"/vendorlist/" +data._id}>
+                                        <Link href={"/product-detail/" +data.vendor_ID+"/"+this.props.vendorlocation_ID&&this.props.vendorlocation_ID+"/"+data._id}>
                                         <a className={Style.product_item_photo } tabIndex="-1" >                                      
                                             <Image                                           
                                             src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
@@ -387,30 +384,6 @@ render() {
                                         <div className={"col-12 NoPadding " +Style.NoPadding}>
                                             <div className={"col-12 NoPadding " +Style.NoPadding}>                                  
                                             {
-                                                localStorage.getItem("websiteModel")=== "FranchiseModel"?
-                                                <div className={"col-12 NoPadding " +Style.btnWrap +" " +Style.NoPadding}>                                                                             
-                                                    <div className={"col--6 NoPadding " +Style.selectSizeBox +" " +Style.NoPadding}>                                                                              
-                                                    <select className={"col-12 " +Style.selectdropdown +" " +Style.valid +" " +Style.availablesize +" " +Style.NoPadding} currpro={data._id} id={data._id +"-size"} mainsize={data.size} unit={data.unit} name="size" aria-invalid="false">
-                                                    { Array.isArray(data.availableSizes) && data.availableSizes.map((size, index) => {
-                                                        return( 
-                                                            size === 1000?                                                  
-                                                            <option className="" value={size} key={index}> 1 KG</option>
-                                                            :
-                                                            data.unit === "Box" || data.unit === "Wrap" || data.unit === "Pack" || data.unit==="pounch" ?                                                    
-                                                                <option className={Style.selectedSize} value={size} key={index}>{size} Pack</option>
-                                                                :
-                                                            <option className={Style.selectedSize} value={size} key={index}>{size}&nbsp;{data.unit}</option>                                                        
-                                                        )                                                        
-                                                        })
-                                                    }
-                                                    </select>                                     
-                                                </div>    
-                                                <button type="submit" color={data.color} vendor_name={data.vendor_name} vendor_id={data.vendor_id} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
-                                                    title="Add to Cart" className={"col-6 fa fa-shopping-cart "  }>                                                                         
-                                                    &nbsp;Add
-                                                </button>                          
-                                                </div>
-                                                :
                                                 data.availableQuantity > 0 ?
                                                 <div className="col-12 NoPadding">
                                                     {this.state.user_ID?

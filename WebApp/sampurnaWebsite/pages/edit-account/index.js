@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import $                    from 'jquery';
 import axios                from 'axios';
-// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
-// import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
-import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
-import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import Style                  from './index.module.css';
 
 class EditAccount extends Component{
@@ -31,34 +25,13 @@ class EditAccount extends Component{
         var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
-        // console.log("userDetails===",userDetails);
         this.setState({
             user_ID : userDetails.user_id,
             email   : userDetails.email,
             fullName: userDetails.firstName +" "+userDetails.lastName ,         
             currency     : currency,
         },()=>{
-            // this.getUserData();
-            $('.fullpageloader').show();
-            // var userid = localStorage.getItem("user_ID");
-            axios.get('/api/users/get/id'+this.state.user_ID)
-            .then( (res)=>{
-                $('.fullpageloader').hide();
-                // console.log("response:",res);
-                this.setState({
-                    "firstName"         : res.data.profile.firstname,
-                    "lastName"          : res.data.profile.lastname,
-                    "mobNumber"         : res.data.profile.mobile,
-                    "emailId"           : res.data.profile.email,
-                    "newPassword"       : "",
-                    "oldPassword"       : "",
-                })
-            })
-            .catch((error)=>{
-              console.log("error = ",error);
-              // alert("Something went wrong! Please check Get URL.");
-            });
-    
+            this.getUserData();
         })
         
         // window.scrollTo(0, 0);
@@ -126,31 +99,24 @@ class EditAccount extends Component{
     accountUpdate(event){
         event.preventDefault();
     }
-    // getUserData(){
-    //     $('.fullpageloader').show();
-    //     // var userid = localStorage.getItem("user_ID");
-    //     axios.get('/api/users/'+this.state.user_ID)
-    //     .then( (res)=>{
-    //         $('.fullpageloader').hide();
-    //         // console.log("response:",res);
-    //         this.setState({
-    //             "firstName"         : res.data.profile.firstname,
-    //             "lastName"          : res.data.profile.lastname,
-    //             "mobNumber"         : res.data.profile.mobile,
-    //             "emailId"           : res.data.profile.email,
-    //             "newPassword"       : "",
-    //             "oldPassword"       : "",
-    //         })
-    //     })
-    //     .catch((error)=>{
-    //       console.log("error = ",error);
-    //       // alert("Something went wrong! Please check Get URL.");
-    //     });
-    // }
+    getUserData(){
+        axios.get('/api/users/get/id/'+this.state.user_ID)
+        .then( (res)=>{
+            this.setState({
+                "firstName"         : res.data.profile.firstname,
+                "lastName"          : res.data.profile.lastname,
+                "mobNumber"         : res.data.profile.mobile,
+                "emailId"           : res.data.profile.email,
+                "newPassword"       : "",
+                "oldPassword"       : "",
+            })
+        })
+        .catch((error)=>{
+          console.log("error = ",error);
+        });
+    }
     updateUser(event){
         event.preventDefault();
-        
-        // var userid = localStorage.getItem("user_ID");
         var field = (this.state.changeEmail === true && this.state.changePassword === true? 'all' : (this.state.changeEmail === true ? 'email' : (this.state.changePassword === true? 'password' :"name")));
         
         var formvalues = {
@@ -295,16 +261,11 @@ class EditAccount extends Component{
     }
     render(){
         return(
-            <div className="container-flex"> {/*
-                < Header /> */} {/*
-                < BreadCrumbs /> */}
+            <div className="container-flex"> 
                 <h4 className="font-weight-bold">Account Information</h4>
                 <div className="row">
                     <div className={ " col-12 accountDashBoardInnerwrapper "+Style.accountDashBoardInnerwrapper}>
-                        <Message messageData={this.state.messageData} /> {/*
-                        <div className="col-12 NoPadding"> */} {/*
-                            <div className="container"> */} {/*
-                                <Loader type="fullpageloader" /> */}
+                        <Message messageData={this.state.messageData} />
                                 <div className="row">
                                     <div className=" col-12  ">
                                         <div className="col-12 ">
@@ -377,8 +338,8 @@ class EditAccount extends Component{
                                         </div>
                                     </div>
                                 </div>
-                            </div> {/* </div> */} {/*
-                        <Footer /> */} </div>
+                            </div>
+                         </div>
                 </div>
         )
     }

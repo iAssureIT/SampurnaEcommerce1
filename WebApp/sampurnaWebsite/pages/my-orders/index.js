@@ -40,7 +40,7 @@ export default class MyOrders extends Component {
   }
 
   componentDidMount() {
-    console.log("this.props",this.props);
+    // console.log("this.props",this.props);
       var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
       var currency = sampurnaWebsiteDetails.preferences.currency;
       var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
@@ -60,13 +60,13 @@ export default class MyOrders extends Component {
       axios.get("/api/orders/get/list/" +this.state.user_ID)
       .then((response) => {
         if(response.data){
-          console.log("response.data=>",response.data);
+          // console.log("response.data=>",response.data);
           $('.fullpageloader').hide();
           this.setState({
             orderData: response.data,
             loading: false
           }, () => {
-            console.log("orderData after setstate=>",this.state.orderData);
+            // console.log("orderData after setstate=>",this.state.orderData);
           })
         }
       })
@@ -91,7 +91,6 @@ export default class MyOrders extends Component {
  
   returnProduct(event) {
     $('#returnProductModal').show();
-
     var status = $(event.target).data('status');
     var id = $(event.target).data('id');
     var productid = $(event.target).data('productid');
@@ -177,20 +176,7 @@ export default class MyOrders extends Component {
         })
     }
   }
-  Closepagealert(event) {
-    event.preventDefault();
-    $(".toast-error").html('');
-    $(".toast-success").html('');
-    $(".toast-info").html('');
-    $(".toast-warning").html('');
-    $(".toast-error").removeClass('toast');
-    $(".toast-success").removeClass('toast');
-    $(".toast-info").removeClass('toast');
-    $(".toast-warning").removeClass('toast');
-
-  }
   cancelProduct(event) {
-
     $('#cancelProductModal').show();
     var status = $(event.target).data('status');
     var id = $(event.target).data('id');
@@ -211,6 +197,18 @@ export default class MyOrders extends Component {
     }
     $('#cancelProductModal .modaltext').html('');
     $('#cancelProductModal .modaltext').append(str);
+  }
+
+  cancelButton = (orderDate)=>{
+    var min = moment(orderDate).add(this.state.orderData[0].maxDurationForCancelOrder, 'minutes');
+    var duration = moment.duration(min.diff(new Date())).asSeconds();
+    if(duration > 0 &&duration < this.state.orderData[0].maxDurationForCancelOrder*60){
+      var that =this;
+      setTimeout(function(){that.getMyOrders()},  Math.abs(duration) *1000);
+      return true;
+    }else{
+      return false;
+    }
   }
 
   cancelProductAction(event) {
@@ -373,7 +371,7 @@ export default class MyOrders extends Component {
                               {
                                 singleOrder && singleOrder.vendorOrders && singleOrder.vendorOrders.length > 0 ?                    
                                 singleOrder.vendorOrders.map((vendordata, index) => {
-                                    console.log(" single orderData:",vendordata);
+                                    // console.log(" single orderData:",vendordata);
                                     return (
                                       <div className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>
                                         <div className="col-12" >
@@ -421,10 +419,14 @@ export default class MyOrders extends Component {
                                   </div>
                               }
                               <div className={"col-12 " +Style.vendorRowBottom}> 
-                                  <div className="row">
-                                    <div className="col-5  pull-left ">
-                                        <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
-                                    </div>
+                                    <div className="row">
+                                      <div className="col-5 pull-left">
+                                        {this.cancelButton(singleOrder.createdAt)&&
+                                          <div className="col-12 ">
+                                              <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                          </div>
+                                        }
+                                      </div>
                                     <div className="col-7  pull-right orderBtnWrapper">
                                       <button className=" btn col-6 pull-right " onClick={()=>this.props.getOrderId(singleOrder._id)}>
                                         <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-12 pull-right globalCommonBtn col-md-12 showDetailsBtn "} >Show Details</a>
@@ -466,9 +468,6 @@ export default class MyOrders extends Component {
                         </div>
                       </div>
                     </div> */}
-
-                   
-                
                   </div>
                 </div>
                </div> 

@@ -11,12 +11,12 @@ import ReactImageZoom       from 'react-image-zoom';
 import Carousel             from 'react-multi-carousel';
 import {ntc}                from '../../../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 import ProductZoom          from './ProductZoom.js';
+import ProductReviewList    from './productReviewList.js';
 import ProductCarouselView from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
 import CategoryFilters      from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryFilters.js';
 import {getCartData,getWishlistData, updateCartCount}  from '../../../../redux/actions/index.js'; 
 import 'react-multi-carousel/lib/styles.css';
 import SubCategoryBlock from '../../../../Themes/Sampurna/blocks/StaticBlocks/SubCategoryBlock/SubCategoryBlock.js';
-
 import Style                  from './product_detail.module.css';
 
 
@@ -573,6 +573,13 @@ class ProductViewEcommerce extends Component {
 									subCategoryUrl     = {this.state.subCategoryUrl}
 									categoryUrl        = {this.state.categoryUrl}
 								/>
+						:null
+						}
+						{this.state.productID
+						?
+							< ProductReviewList 
+								productID = {this.state.productID}
+							/>
 						:null
 						}
 

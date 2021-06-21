@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-// import { render } from 'react-dom';
-// import { browserHistory } from 'react-router';
 import $ from 'jquery';
-// import {Link} from 'react-router';
 import moment from 'moment';
-// import "../../../sites/currentSite/common/StepWizard.css";
-
 export default class StepWizard extends Component{
 	constructor(props){
 		super(props);
@@ -15,24 +10,23 @@ export default class StepWizard extends Component{
 	}
 	
 	componentDidMount(){
-		// var pathname = window.location.pathname;
-		//console.log('deliveryStatus',this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status)
+		console.log("stepwizard vendordata==",this.props.data);
 		this.props.data.deliveryStatus.map((data,ind)=>{
 				
-				if (data.status === 'New Order') {
+				if (data.status === 'New') {
 					$('#orderplaceddate'+this.props.data._id).html(moment(data.Date).format('DD/MM/YYYY hh:mm a'))
 				}
-				if (data.status === 'Dispatch') {
+				if (data.status === 'Ready to Dispatch') {
 					$('#dispatchdate'+this.props.data._id).html(moment(data.Date).format('DD/MM/YYYY hh:mm a'))
 				}
-				if (data.status === 'Delivery Initiated') {
+				if (data.status === '"On the Way"') {
 					$('#deliveryinitdate'+this.props.data._id).html(moment(data.Date).format('DD/MM/YYYY hh:mm a'))
 				}
-				if (data.status === 'Delivered & Paid') {
+				if (data.status === 'Delivered') {
 					$('#delivereddate'+this.props.data._id).html(moment(data.Date).format('DD/MM/YYYY hh:mm a'))
 				}
 			})
-		if(this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status ==='New Order' ||
+		if(this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status ==='New' ||
 			this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status ==='Verified' || 
 			this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status === 'Packed' || 
 			this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status === 'Inspection' ||
@@ -60,7 +54,6 @@ export default class StepWizard extends Component{
 
 	render(){
 		return(
-
 			<div className="garmentTWizard col-lg-12 col-md-12 col-sm-12 col-xs-12 backColorGray">
 	            <div className="wizard-inner col-lg-12 col-md-12 col-sm-12 col-xs-12 backColorWhite boxBorder">
 	                <div className="connecting-line"></div>

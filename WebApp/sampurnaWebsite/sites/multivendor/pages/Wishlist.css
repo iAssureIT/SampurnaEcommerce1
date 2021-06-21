@@ -76,3 +76,7 @@
 .colageimg img{
     margin-top: 5px;
 }
+.areaName{
+    margin-bottom: 20px;
+    border-bottom: solid 1px #ddd;
+  }

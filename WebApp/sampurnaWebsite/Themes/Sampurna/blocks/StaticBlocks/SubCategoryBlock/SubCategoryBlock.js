@@ -30,11 +30,10 @@ class SubCategoryBlock extends Component{
         this.state = { 
             categoryData : [],
             vendor_ID    : ''
-            
         }
     }
     render(){
-      console.log("Subcategory Blocks ====",this.props.subCategoryData);
+      // console.log("Subcategory Blocks ====",this.props.subCategoryData);
       return (
         <div className={"container NoPadding " +Style.categoryCarousel}>
             <div className={"col-12 "}>

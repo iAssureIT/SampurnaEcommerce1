@@ -174,17 +174,11 @@ class Productreview extends Component {
   render() {
     return (
     <div>
-     {/* <Header /> */}
       <div className="col-12 ">
         <Message messageData={this.state.messageData} />
-        {/* <SmallBanner bannerData={this.state.bannerData} /> */}
-
         <div className=" container">
           <br />
           <div className="row"> 
-          {/* <div className="col-12 col-md-3  NOpadding">
-            <Sidebar />
-          </div> */}
           <div className="col-12   NOpadding">
             <div className=" col-12">
               {
@@ -219,29 +213,18 @@ class Productreview extends Component {
                                       return <label className="reviewStarIcon"></label>;
                                     })
                                   }
-
                                   </div>
                                   <div className="col-12 textAlignLeft">
                                     <span>By {data.customerName} </span>
-                                    
                                   </div>
                               </div>
                               <div className="col-12 reviewuserimg">
-                                
-                                  {/* <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <div className="row">
-                                      <h5>Review :</h5>
-                                    </div>
-                                  </div> */}
                                   <div className="col-12 topspace8">
                                       <p>{data.customerReview}</p>
                                       <span> {moment(data.createdAt).format('DD-MM-YYYY')}</span>
                                   </div>
-                                  
                               </div>
                               <div className="col-1topspace8">
-                                
-                        
                                 <div className="modal" id="feedbackProductModal" role="dialog">
                                   <div className="modal-dialog">
                                     <div className="modal-content">
@@ -295,7 +278,6 @@ class Productreview extends Component {
                                             </div>
                                           </form>
                                         </div>
-
                                       </div>
                                       <div className="modal-footer modalfooterborder ">
                                         <div className="col-12">
@@ -321,7 +303,6 @@ class Productreview extends Component {
          </div> 
         </div>
       </div>
-      {/* <Footer /> */}
       </div>
     );
   }
