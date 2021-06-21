@@ -169,9 +169,6 @@ body{
   font-size: 11px !important;
   line-height: 12px;
 }
-.swal-button--confirm{
-  background:var(--globalBgColor) !important;
-}
 .globalSignoutBtn{
   background-color: var(--globalSignOutBtnBackColor) !important;
   color: var(--globalSignOutColor) !important;
@@ -604,6 +601,13 @@ body{
     overflow: hidden;
     display: block;
 }
+.swal-modal{
+  border: solid 3px #033554 !important;
+  border-radius: 15px;
+}
+.swal-button--confirm{
+  background: #033554 !important;
+}
 @media only screen and (max-device-width: 480px) {
   .mobileViewNoPadding{
     padding-left: 0px !important;
@@ -634,4 +638,5 @@ body{
       padding-right: 0px !important;
       text-align: justify;
     }
+
   }

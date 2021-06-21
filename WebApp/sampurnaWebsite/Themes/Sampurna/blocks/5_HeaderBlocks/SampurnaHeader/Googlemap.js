@@ -7,7 +7,10 @@ import $, { post }          from 'jquery';
 import jQuery               from 'jquery';
 
 import Style                  from './location.module.css';
-
+const mapStyles = {
+    width: '100%',
+    height: '60%'
+  };
 
 class GoogleMap extends React.Component {
 	constructor(props) {
@@ -16,9 +19,11 @@ class GoogleMap extends React.Component {
             googleapiKey  : "",
             userDetails   : "",
             latLongValues : {},
-            zoom          : 13
+            zoom          : 15,
+            mapOpacity    : 0.5,
          }
     }  
+    
     componentDidUpdate(prevProps, prevState) {
         $('.locationPage').removeClass('locationBg');
         // console.log("prevProps===",prevProps);
@@ -51,6 +56,8 @@ class GoogleMap extends React.Component {
                     bootstrapURLKeys={{ key: this.props.googleapiKey }}
                     defaultCenter={this.props.latLongDetails}
                     defaultZoom={this.state.zoom}
+                    getOpacity = {this.state.mapOpacity}
+                    style={mapStyles}
                     >
                     <Marker
                         lat={this.props.latLongDetails.lat}

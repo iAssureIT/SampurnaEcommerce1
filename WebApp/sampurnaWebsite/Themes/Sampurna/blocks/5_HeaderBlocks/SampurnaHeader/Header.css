@@ -646,14 +646,14 @@ li a{
 }
 .changelocationBtn{
     font-size: 9px !important;
-    padding  : 9px;
+    padding  : 11px;
 }
 .changelocationBtn1{
     font-size: 9px !important;
     padding  : 5px;
 }
 #locationModal .modal-content{
-    /* height: 400px; */
+    height: 600px !important;
 }
 .orText{
     font-size: 12px;
@@ -697,7 +697,6 @@ li a{
 }
 .searchTitle{
     color: #fff;
-
 }
 .headerWrapper .logoBlock{
     margin-top: 0px !important;
@@ -724,12 +723,19 @@ li a{
 	margin-top:0px !important;
 }
 .locationBg{
-	background:url("/images/eCommerce/locationMapi.jpg");
+	background:url("/images/eCommerce/locationMap.jpg");
 	background-size:100% 100%;
 	background-repeat:no-repeat;
 	margin-top:0px !important;
 	/* height:600px !important; */
 	z-index: 1;
+}
+.orText{
+    border-radius: 100%;
+    background: #fff;
+    /* height: 20px; */
+    /* width: 20px; */
+    padding: 10px 14px;
 }
 .closeModalBtn{
     position: absolute;

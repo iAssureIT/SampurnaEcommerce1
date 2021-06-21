@@ -164,20 +164,25 @@ class DeliveryLocationPopup extends React.Component {
                                 "longitude"      : position.coords.longitude,
                             }
                             if(deliveryLocation){
-                                if(that.props.sampurnaWebsiteDetails){
-                                    // console.log("deliveryLocation=",deliveryLocation);
-                                    var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
-                                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                                    // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+                                if(deliveryLocation.country==="United Arab Emirates"){
+                                    if(that.props.sampurnaWebsiteDetails){
+                                        // console.log("deliveryLocation=",deliveryLocation);
+                                        var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
+                                        sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                                        // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+                                    }else{
+                                        var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                                    }
+
+                                    localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
+                                    // console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
+                                    store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                                    // Router.push("/");
+                                    // window.location.reload();
                                 }else{
-                                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                                    swal("Delivery is not possible out of UAE");
                                 }
 
-                                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
-                                // console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
-                                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
-                                // Router.push("/");
-                                // window.location.reload();
                             }
                             that.setState({ address: deliveryLocation.address });                              
                         },
@@ -214,22 +219,24 @@ class DeliveryLocationPopup extends React.Component {
                     "latLong"        : latLongDetails,
                 })
             }
-            if(this.props.sampurnaWebsiteDetails){
-                var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
-                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+            if(deliveryLocation.country==="United Arab Emirates"){
+                if(this.props.sampurnaWebsiteDetails){
+                    var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
+                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                }else{
+                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                }
+                
+                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
+                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
+                $('#locationModal').modal('hide'); 
+                window.location.reload();
+                Router.push('/');
             }else{
-                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                swal("Delivery is not possible out of UAE");
             }
-            
-            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
-            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
-            $('#locationModal').modal('hide'); 
-        }//end if detectCurrentLocation
 
-        // swal("Thank You !! Location saved");
-        window.location.reload();
-        Router.push('/');
-        
+        }//end if detectCurrentLocation
         // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
     }
 
@@ -327,7 +334,7 @@ class DeliveryLocationPopup extends React.Component {
        }
        
     return (
-            <div className={"row locationPage locationBg " +Style.height385+" " +Style.locationBg +" " +Style.locationPage} >
+            <div className={"row locationPage locationBg " +Style.locationBg +" " +Style.locationPage} >
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 AddressListWrapper">
@@ -338,69 +345,72 @@ class DeliveryLocationPopup extends React.Component {
                 }
                 <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
                 <div className="col-12 offset-0 mobileViewNoPadding">
-                    <form className={" col-12 " +Style.deliveryForm}>
+                    <form className={" col-12 col-md-8 offset-2 " +Style.deliveryForm}>
                         <div className="col-12 mt-5 ">
-                            {/* <div className={"col-2 col-sm-12 col-xs-12 col-md-12 " +Style.ma}>
-                                <Websitelogo />
-                            </div> */}
-                            <div className={" col-sm-12 col-lg-8 col-xs-12 col-md-12 " +Style.ma}>
-                                <PlacesAutocomplete 
-                                    value={this.state.address}
-                                    onChange={this.handleChangePlaces}
-                                    onSelect={this.handleSelect}
-                                    highlightFirstSuggestion={true}>
-                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                        <div className="col-12 NoPadding ">
-                                            <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label>
-                                            <input
-                                                {...getInputProps({
-                                                    placeholder: 'Start typing & select location from dropdown suggestions...',
-                                                    className: 'location-search-input form-control',
-                                                    id: "address",
-                                                    name: "address",
-                                                    required: true
-                                                })}
-                                                
-                                            />
-                                            <div className="autocomplete-dropdown-container SearchListContainer">
-                                                {loading && <div>Loading...</div>}
-                                                {suggestions.map(suggestion => {
-                                                    const className = suggestion.active
-                                                        ? 'suggestion-item--active'
-                                                        : 'suggestion-item';
-                                                    const style = suggestion.active
-                                                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                                    return (
-                                                        <div
-                                                            {...getSuggestionItemProps(suggestion, {
-                                                                className,
-                                                                style,
-                                                            })}
-                                                        >
-                                                            <span>{suggestion.description}</span>
-                                                        </div>
-                                                    );
-                                                })}
+                            <div className="row">
+                                <div className={"col-4 mt-5 NoPadding "}>
+                                    <div className="col-12">
+                                        <div className={"row " +Style.ma}>
+                                            <div className=" col-10 NoPadding detectLocationBtn">
+                                                <button type="button" className={"btn pull-center changelocationBtn " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
                                             </div>
+                                            <div className={"text-center NoPadding orText col-2 " +Style.tw +" "+Style.f12}>OR</div>
                                         </div>
-                                        )}
-                                </PlacesAutocomplete>
-                            </div>
-                            <div className={"col-sm-12 col-xs-12 col-md-12 col-lg-8 mt-5 " +Style.ma}>
-                                <div className="col-12">
-                                    <div className={"row " +Style.ma}>
-                                        <div className=" col-4 NoPadding detectLocationBtn">
-                                            <button type="button" className={"btn pull-center changelocationBtn " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
-                                        </div>
-                                        <div className={"text-center mt-2 NoPadding col-4 " +Style.tw +" "+Style.f12}>OR</div>
-
-                                        <button type="button" className={"btn col-4  changelocationBtn pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                     </div>
                                 </div>
+                                <div className={" col-6 mt-5"}>
+                                    <PlacesAutocomplete 
+                                        value={this.state.address}
+                                        onChange={this.handleChangePlaces}
+                                        onSelect={this.handleSelect}
+                                        highlightFirstSuggestion={true}>
+                                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                            <div className="col-12 NoPadding ">
+                                                {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
+                                                <input
+                                                    {...getInputProps({
+                                                        placeholder: 'Start typing & select location from dropdown suggestions...',
+                                                        className: 'location-search-input form-control',
+                                                        id: "address",
+                                                        name: "address",
+                                                        required: true
+                                                    })}
+                                                />
+                                                <div className="autocomplete-dropdown-container SearchListContainer">
+                                                    {loading && <div>Loading...</div>}
+                                                    {suggestions.map(suggestion => {
+                                                        const className = suggestion.active
+                                                            ? 'suggestion-item--active'
+                                                            : 'suggestion-item';
+                                                        const style = suggestion.active
+                                                            ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                            : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                        return (
+                                                            <div
+                                                                {...getSuggestionItemProps(suggestion, {
+                                                                    className,
+                                                                    style,
+                                                                })}
+                                                            >
+                                                                <span>{suggestion.description}</span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                            )}
+                                    </PlacesAutocomplete>
+                                </div>
+                                <div className="col-2 mt-5">
+                                    <button type="button" className={" btn col-12 NoPadding  changelocationBtn pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                </div>
                             </div>
-                            
-                            
+                            {/* <div className={"col-sm-12 col-xs-12 col-md-12 col-lg-8 mt-4 " +Style.ma}>
+                                <div className="col-12">
+                                        <button type="button" className={"btn col-4  changelocationBtn pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                    
+                                </div>
+                            </div> */}
                             <div className="col-12 pull-right mt-2 ">
                             </div>
                         </div>
