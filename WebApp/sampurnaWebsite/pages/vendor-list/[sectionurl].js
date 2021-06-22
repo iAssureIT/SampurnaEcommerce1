@@ -12,7 +12,7 @@ const VendorList = ()=> {
     const [vendorList,setVendorList] = useState([]);
     const [categoryList,setCategoryList] = useState([]);
     const router = useRouter();
-    const {sectionUrl} = router.query
+    const {sectionurl} = router.query
     // console.log("useRouter",router.query);
     useEffect(()=>{
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
@@ -21,7 +21,7 @@ const VendorList = ()=> {
                 var formValues =  {
                     "startRange" : 0,
                     "limitRange" : 10,
-                    "sectionUrl" : sectionUrl,
+                    "sectionUrl" : sectionurl,
                     "latitude"   : sampurnaWebsiteDetails.deliveryLocation.latitude,
                     "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude
                 }
@@ -29,7 +29,7 @@ const VendorList = ()=> {
                 var formValues =  {
                     "startRange" : 0,
                     "limitRange" : 10,
-                    "sectionUrl" : sectionUrl,
+                    "sectionUrl" : sectionurl,
                     "latitude"   : "",
                     "longitude"  : ""
                 }
@@ -46,7 +46,7 @@ const VendorList = ()=> {
 			.catch((error) => {
 				console.log('productwise vendorlist error', error);
 			})
-    },[sectionUrl])
+    },[sectionurl])
         return(
             <section className={ Style.bgGray}>
                 <Header />    
@@ -62,7 +62,7 @@ const VendorList = ()=> {
                                     return(
                                         <div className="col-6" key={index}>
                                             <div className={"col-12 card mt-4 " +Style.vendorCard}>
-                                            <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+sectionUrl} className={+Style.vedorLink}>
+                                            <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+sectionurl} className={+Style.vedorLink}>
                                                 <div className={"row card-body " +Style.cardBody}>
                                                     <div className={ "col-3 NoPadding "+Style.vendorLogo}>
                                                         {vendordata.vendorLogo?
