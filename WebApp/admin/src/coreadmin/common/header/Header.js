@@ -143,10 +143,12 @@ class Header2 extends Component {
 		.then(notifications => {
 			console.log('notifications', notifications)
 			this.setState({
-				inAppNotifications: notifications.data,
-				notifCount: notifications.data.length
+				inAppNotifications 		: notifications.data,
+				inAppNotificationsCount : notifications.data.length
+			},()=>{
+				console.log("inAppNotifications => ",this.state.inAppNotifications)
+				console.log("inAppNotificationsCount => ",this.state.inAppNotificationsCount)
 			});
-
 		})
 		.catch(error => {
 			console.locationog("Error in /api/notifications/get/list/Unread/ = ", error);
@@ -217,8 +219,8 @@ class Header2 extends Component {
 						.then(notifications => {
 
 							this.setState({
-								inAppNotifications: notifications.data,
-								inAppNotificationsCount: notifications.data.length
+								inAppNotifications 		: notifications.data,
+								inAppNotificationsCount : notifications.data.length
 							}, () => {
 								console.log("inAppNotificationsCount ==>", this.state.inAppNotificationsCount)
 							});
@@ -340,7 +342,10 @@ class Header2 extends Component {
 		axios.get('/api/notifications/get/list/Unread/' + user_ID)
 			.then(notifications => {
 				console.log('notifications: ==> ', notifications)
-				this.setState({ inAppNotifications: notifications.data, inAppNotificationsCount: notifications.data.length })
+				this.setState({ 
+					inAppNotifications 		: notifications.data, 
+					inAppNotificationsCount : notifications.data.length 
+				})
 			})
 			.catch(error => {
 				console.log('notifications error: ==> ', error)

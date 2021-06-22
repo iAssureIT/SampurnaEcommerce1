@@ -54,14 +54,18 @@ class Productreview extends Component{
 		.then((response)=>{
 			console.log('response => ', response.data);
 			this.setState({
-					"productName"       : response.data.productName ? (response.data.productName + " " + "(" + response.data.productCode) + ")" : "",
-					"vendorName"        : response.data.vendorName ? response.data.vendorName : "",
-					"productImages"     : response.data.productImage ? response.data.productImage : "",
-					"customerName"      : response.data.customerName,
-					"customerReview"    : response.data.customerReview, 
-					"reviewDate"        : moment(response.data.reviewDate).format("DD MMMM YYYY, HH:mm a"),             
+					"productName"       : response.data.productName ? (response.data.productName + " " + "(" + response.data.productCode) + ")" : "-",
+					"vendorName"        : response.data.vendorName ? response.data.vendorName : "-",
+					"productImages"     : response.data.productImage ? response.data.productImage : "-",
+					"customerName"      : response.data.customerName ? response.data.customerName : "-",
+					"customerEmail" 	: response.data.customerEmail ? response.data.customerEmail : "-",
+					"customerMobile" 	: response.data.customerMobile ? response.data.customerMobile : "-",
+					"customerReview"    : response.data.customerReview ? response.data.customerReview : "-", 
+					"reviewDate"        : response.data.reviewDate ? moment(response.data.reviewDate).format("DD MMMM YYYY, HH:mm a") : "-",             
 					"adminComment"      : response.data.adminComment ? response.data.adminComment : "",
 					"vendorComment"     : response.data.vendorComment ? response.data.vendorComment : "",
+					"vendorContact" 	: response.data.vendorContact && response.data.vendorContact !== "undefined" ? response.data.vendorContact.phone : <span className="noDataAvail"> Contact is not available </span>,
+					"vendorAddress" 	: response.data.vendorLocation && response.data.vendorLocation !== "undefined" ? response.data.vendorLocation.addressLine2 + " " + response.data.vendorLocation.addressLine1 : <span className="noDataAvail"> Address is not available </span>,
 					"order_id"          : response.data.order_id,
 					"product_id"        : response.data.product_id,
 					"rating"            : response.data.rating,
@@ -205,7 +209,7 @@ class Productreview extends Component{
 														<h4 className="NOpadding-right customerDetails-heading"> Review On</h4>
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text">{ moment(this.state.reviewDate).format("DD MMMM YYYY, HH:mm a")} </h4>
+														<h4 className="NOpadding-right customerDetails-text">{this.state.reviewDate} </h4>
 													</div>
 												</div>
 												<div className="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
@@ -214,6 +218,12 @@ class Productreview extends Component{
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 														<h4 className="NOpadding-right customerDetails-text"> {this.state.customerName} </h4>
+													</div>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+														<h4 className="NOpadding-right customerDetails-heading"> Customer Email</h4>
+													</div>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+														<h4 className="NOpadding-right customerDetails-text"> {this.state.customerEmail} </h4>
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 														<h4 className="NOpadding-right customerDetails-heading"> Customer Contact</h4>
@@ -230,10 +240,16 @@ class Productreview extends Component{
 														<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorName} </h4>
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-heading"> Vendor Contact</h4>
+														<h4 className="NOpadding-right customerDetails-heading"> Vendor's Branch Address</h4>
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-														<h4 className="NOpadding-right customerDetails-text"> 9999999999 </h4>
+														<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorAddress} </h4>
+													</div>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+														<h4 className="NOpadding-right customerDetails-heading"> Vendor's Branch Contact</h4>
+													</div>
+													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+														<h4 className="NOpadding-right customerDetails-text"> {this.state.vendorContact} </h4>
 													</div>
 												</div>
 											</div> 

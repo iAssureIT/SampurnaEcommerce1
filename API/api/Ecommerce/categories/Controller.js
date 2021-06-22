@@ -473,14 +473,14 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
 
             Product.find({section_ID : ObjectId(sectiondata._id), vendor_ID : ObjectId(req.params.vendorID), status : "Publish"}, {section_ID : 1, section : 1, category_ID : 1, category : 1,  subCategory_ID : 1, brand : 1})
             .then(productData=>{
-                console.log("productData",productData);
+                // console.log("productData",productData);
                 if(productData && productData.length > 0){
                     processData();
                     async function processData(){   
                         var brandList            = [...new Set(productData.map(product => product.brand))];               
                         var categories           = [...new Set(productData.map(product => String(product.category_ID)).filter(product => product !== 'undefined'))];
                         var subCategories        = [...new Set(productData.map(product => String(product.subCategory_ID)).filter(product => product !== 'undefined'))];
-                        console.log("subCategories",subCategories);
+                        // console.log("subCategories",subCategories);
                         var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
                         res.status(200).json({
                             categoryList    : categoryAndSubcategoryList,
@@ -523,8 +523,8 @@ function getCategoryList(categories){
 
 /**=========== getSubCategoryList() ===========*/
 function getSubCategoryList(categories, subcategories){
-    console.log("categories===>",categories);
-    console.log("subcategories===>",subcategories);
+    // console.log("categories===>",categories);
+    // console.log("subcategories===>",subcategories);
 
     return new Promise(function(resolve,reject){
         Category.find(
@@ -548,10 +548,10 @@ function getSubCategoryList(categories, subcategories){
         )              
         .exec()
         .then(categoryDetails=>{
-            console.log("categoryDetails * => ",categoryDetails);
+            // console.log("categoryDetails * => ",categoryDetails);
             if(categoryDetails && categoryDetails.length > 0){
                 var returnData = categoryDetails.map((a, i)=>{
-                    console.log("a = > " , a)
+                    // console.log("a = > " , a)
                     return {
                         "_id"                   : a._id,
                         "category"              : a.category,
@@ -566,7 +566,7 @@ function getSubCategoryList(categories, subcategories){
                                                         []
                     }
                 })
-                console.log("returnData",returnData);
+                // console.log("returnData",returnData);
                 resolve(returnData.sort((a, b) => a.categoryRank - b.categoryRank));
             }else{
                 resolve([]);

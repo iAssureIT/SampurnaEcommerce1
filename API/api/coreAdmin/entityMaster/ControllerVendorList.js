@@ -9,7 +9,7 @@ var ObjectId 		    = require('mongodb').ObjectID;
 
 
 exports.getVendorList = (req,res,next)=>{
-    console.log("req.body => ", req.body);
+    // console.log("req.body => ", req.body);
     
     Sections.find({"sectionUrl" : req.body.sectionUrl})
     .exec()
@@ -129,14 +129,14 @@ exports.getVendorList = (req,res,next)=>{
 };
 
 exports.getProductWiseVendorList = (req,res,next)=>{
-    console.log("req.body => ", req.body);
+    // console.log("req.body => ", req.body);
     Products.findOne({"_id" : req.body.product_ID})
     .then(productData=>{  
-        console.log("productData => ",productData);
+        // console.log("productData => ",productData);
 
         Products.find({section_ID : productData.section_ID, universalProductCode : productData.universalProductCode} )
         .then(productsData =>{ 
-            console.log("productsData => ",productsData);
+            // console.log("productsData => ",productsData);
             if(productsData && productsData.length > 0){
                 const uniqueVendors = [...new Set(productsData.map(item => item.vendor_ID))];
                 EntityMaster.find({"_id" : {$in : uniqueVendors} }, {locations : 1, companyName : 1, companyLogo : 1})              
@@ -154,7 +154,7 @@ exports.getProductWiseVendorList = (req,res,next)=>{
                                 // console.log("vendorDetails => ",vendorDetails[i])
                                 if(vendorDetails[i].locations && vendorDetails[i].locations.length > 0){
                                     var product = productsData.find(product => String(product.vendor_ID) === String(vendorDetails[i]._id))
-                                    console.log("Product => ", product);
+                                    // console.log("Product => ", product);
                                     
                                     for(var j = 0; j < vendorDetails[i].locations.length; j++){
                                         var vendor_ID           = vendorDetails[i]._id;

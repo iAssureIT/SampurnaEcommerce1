@@ -186,11 +186,11 @@ class viewOrder extends Component{
 																				<td><img className="img orderImg" src={productData.productImage[0] ? productData.productImage[0] : "/images/notavailable.jpg"} /></td>
 																				<td>
 																					<a href={"/productdetails/" + productData}>
-																					{productData.productNameRlang?
+																					{/* {productData.productNameRlang?
 																						<h5 className="RegionalFont">{productData.productNameRlang}</h5>
-																					:
+																					: */}
 																						<h5 className="productName">{productData.productName}</h5>
-																					}
+																					 {/* } */}
 																					</a>
 
 																					{productData.discountedPrice 

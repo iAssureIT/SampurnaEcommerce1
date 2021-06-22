@@ -24,6 +24,7 @@ const FranchiseGoods 			= require('../distributionManagement/Model');
 const axios             		= require('axios');
 var ObjectId 					= require('mongodb').ObjectID;
 var request 					= require('request-promise');
+const { send_notifications } = require("../../coreAdmin/notificationManagement/ControllerMasterNotifications");
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
@@ -55,11 +56,11 @@ exports.insert_orders = (req, res, next) => {
 			order.save()
 			.then(async(orderdata) => {			         		
 				/*======================== Remove Cart Items =============================*/
-
+				// console.log("orderdata => ",orderdata);
 				Carts.deleteOne({ "user_ID" : ObjectId(req.body.user_ID) })
 				.exec()
 				.then(userCartDeleted => {
-					console.log("userCartDeleted => ",userCartDeleted)
+					// console.log("userCartDeleted => ",userCartDeleted)
 
 					//=============================================================
 					//         		Update Product Inventory
@@ -129,8 +130,30 @@ exports.insert_orders = (req, res, next) => {
 						if(l >= req.body.vendorOrders.length){
 							processData();
 							async function processData(){
-								var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Original Order");
-								console.log("addCreditPoint => ",addCreditPoint)
+								// var notification 	= await sendNotification(orderdata.orderID, )
+								var sendData = {
+									"event"			: "NewOrder",
+									"toUser_id"		: req.body.user_ID,
+									"toUserRole"	: "user",
+									// "company_id": vendor_id,
+									// "otherAdminRole":'vendoradmin',
+									
+									"variables" 	: {
+														"userName" 			: orderdata.userFullName,
+														// "userEmailAddress" 	: result.data.corporateName,
+														// "userMobileNum"		: result.data.vendorDetails.profile.mobile,
+														"orderNumber" 		: orderdata.orderID,
+														"deliveryAddress" 	: orderdata.deliveryAddress
+									}
+								}
+								// console.log("sendData=> ",sendData)
+								await axios.post('http://localhost:'+globalVariable.port+'/api/masternotifications/post/sendNotification', sendData)
+								.then((res) => {
+									console.log("res => ",res.data);
+								})
+								.catch((error) => { console.log('notification error: ',error)})
+								var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Original Order");
+								// console.log("addCreditPoint => ",addCreditPoint)
 								res.status(200).json({ 
 									order_id : orderdata._id,
 									message  : 'Order placed successfully' 
@@ -185,16 +208,16 @@ function addCreditPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
     return new Promise((resolve,reject)=>{
     	CreditPoints.findOne({"user_id" : ObjectId(user_id)})
         .then(async(data)=>{
-			console.log("data => ", data);
-			console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
+			// console.log("data => ", data);
+			// console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
 			var creditPolicyData = await CreditPointsPolicy.findOne();
-			console.log("creditPolicyData => ",creditPolicyData);
+			// console.log("creditPolicyData => ",creditPolicyData);
 			var earnedCreditPoints = Math.round(((purchaseAmount / creditPolicyData.purchaseAmount) * creditPolicyData.creditPoint));
-			console.log("earnedCreditPoints => ",earnedCreditPoints);
+			// console.log("earnedCreditPoints => ",earnedCreditPoints);
 			if(earnedCreditPoints > 0){
 				if (data && data !== null ) { 
 					var totalEarnedPoints = Math.round(data.totalPoints + earnedCreditPoints);
-					console.log("totalEarnedPoints => ",totalEarnedPoints)
+					// console.log("totalEarnedPoints => ",totalEarnedPoints)
 					CreditPoints.updateOne(
 						{ "_id": ObjectId(data._id)},		
 						{$push: {
@@ -250,7 +273,7 @@ function addCreditPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
 		
 					creditPoints.save()
 					.then(async(creditData) => {
-						console.log("creditData => ",creditData)	
+						// console.log("creditData => ",creditData)	
 						resolve({
 							"message"	: "Credit Points added successfully in wallet."
 						})
@@ -412,11 +435,11 @@ exports.cancel_order = (req, res, next) => {
 				}
 			})
 			.then(async(updatedata) => {
-				console.log("updatedata => ",updatedata);
+				// console.log("updatedata => ",updatedata);
 				if (updatedata.nModified === 1) {
-					console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
+					// console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
 					var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, -vendor_order_afterDiscountTotal, -vendor_order_shippingCharges, -vendor_netPayableAmount, "VendorOrderCancelled");
-					console.log("addCreditPoint => ",addCreditPoint)		
+					// console.log("addCreditPoint => ",addCreditPoint)		
 					res.status(200).json({
 						"message"	: "Order cancelled successfully."
 					});
@@ -459,9 +482,9 @@ exports.cancel_order = (req, res, next) => {
 		.then(async(data) => {
 			if (data.nModified === 1) {
 				var orderdata 		= await Orders.findOne({_id: ObjectId(req.body.order_id)})
-				console.log("orderdata=> ",orderdata)
+				// console.log("orderdata=> ",orderdata)
 				var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, - orderdata.paymentDetails.afterDiscountTotal, - orderdata.paymentDetails.shippingCharges, - orderdata.paymentDetails.netPayableAmount, "WholeOrderCancelled");
-				console.log("else addCreditPoint => ",addCreditPoint)
+				// console.log("else addCreditPoint => ",addCreditPoint)
 				
 				res.status(200).json({
 					"message"	: "Order cancelled successfully."
@@ -503,10 +526,10 @@ function getDistanceWiseShippinCharges(){
     return new Promise(function(resolve,reject){
         StorePreferences.findOne()
         .then(storePreferences=>{
-            console.log("storePreferences => ",storePreferences)
-            console.log("Condition => ",(storePreferences && storePreferences.serviseChargesByDistance && storePreferences.serviseChargesByDistance.length > 0))
+            // console.log("storePreferences => ",storePreferences)
+            // console.log("Condition => ",(storePreferences && storePreferences.serviseChargesByDistance && storePreferences.serviseChargesByDistance.length > 0))
             if(storePreferences && storePreferences.serviseChargesByDistance){
-                console.log("storePreferences.serviseChargesByDistance => ",storePreferences.serviseChargesByDistance)
+                // console.log("storePreferences.serviseChargesByDistance => ",storePreferences.serviseChargesByDistance)
                 resolve(storePreferences.serviseChargesByDistance);
             }else{
                 resolve([]);
@@ -521,7 +544,7 @@ function getDistanceWiseShippinCharges(){
 
 /*========== List Status Wise Orders ==========*/
 exports.list_orders_by_status = (req, res, next) => {
-	console.log("list_orders_by_status => ",req.body);
+	// console.log("list_orders_by_status => ",req.body);
 	var selector        = {};
 	selector['$and']    = [];
 	if(req.body.status.toLowerCase() !== "all"){       
@@ -538,7 +561,7 @@ exports.list_orders_by_status = (req, res, next) => {
 			} 
 		})
 	}
-	console.log("selector",selector);
+	// console.log("selector",selector);
 	// console.log("selector => ",selector[0].vendorOrders)
 	Orders.find(selector)
 	// aggregate([
@@ -642,7 +665,7 @@ exports.change_vendor_orders_tatus = (req, res, next) => {
 		}
 	})
 	.then(updatedata => {
-		console.log("updatedata => ",updatedata);
+		// console.log("updatedata => ",updatedata);
 		if (updatedata.nModified === 1) {
 			res.status(200).json({
 				"message"	: "Vendor Order Status Updated Successfully."
@@ -1016,7 +1039,7 @@ exports.fetch_order = (req, res, next) => {
 	.populate('vendorOrders.vendor_id')
 	.exec()
 	.then(async(data) => {
-		console.log('data', data);
+		// console.log('data', data);
 		// for(var i=0;i<data.length;i++){
 			// for(var j=0;j<data[i].vendorOrders.length;j++){
 				// console.log("data[i].vendorOrders",data[i].vendorOrders);
@@ -2349,7 +2372,7 @@ exports.list_bill_by_user = (req, res, next) => {
 	 });
 };
 exports.get_orders_with_filters = (req, res, next) => {
-	console.log("req.body => ",req.body)
+	// console.log("req.body => ",req.body)
   let selector = {};
   let status = req.body.status ? req.body.status : '';
   let franchiseID = req.body.franchiseID ? req.body.franchiseID : '';
@@ -2822,10 +2845,10 @@ exports.paymentgatewaycall = (req, res, next) => {
 				  "Content-Type"                : "application/x-www-form-urlencoded",
 			 }
 		} 
-		console.log('paymentdetails ===> ', paymentdetails);
+		// console.log('paymentdetails ===> ', paymentdetails);
 		axios.post(redirecturl,paymentdetails,config)
 			 .then(result => {
-				  console.log('getpaymentgateway Response===> ', result.data);
+				//   console.log('getpaymentgateway Response===> ', result.data);
 				  res.status(200).json({
 					 "message": "Payment gateway Successfully Got URL.",
 					 "result": result.data

@@ -246,41 +246,59 @@ class AllOrdersList extends Component{
 					+ '</div></div>',
 					customer     	: '<div><b>'+ a.userFullName +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
 					totalPrice  	: this.state.currency + " " + a.paymentDetails.netPayableAmount,					
-					vendorName   	: a.vendorOrders 
-										? 
-											(a.vendorOrders.map((b)=>{
-												return '<div>'+b.vendor_id.companyName+'</div>'
-											})).join(' ')
-										: [],
-					vendorPrice   	: a.vendorOrders 
-										? 
-											(a.vendorOrders.map((b)=>{
-												return ('<div>'+ this.state.currency + " " + b.vendor_afterDiscountTotal + '</div>').trim(",")
-											})).join(' ')
-										: [],
-					vendorStatus   	: a.vendorOrders 
-										? 
-											(a.vendorOrders.map((b)=>{
-												var status = (b.deliveryStatus[b.deliveryStatus.length - 1].status).replace(/\s+/g, '_').toLowerCase()
-												return '<div class="statusDiv ' + status + '">'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
-													? 
-														(b.deliveryStatus[b.deliveryStatus.length - 1].status)
+					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
+										?
+											a.vendorOrders.map((vendorOrder, index)=>{
+												return ({
+													vendorName 			: '<div>'+vendorOrder.vendor_id.companyName+'</div>',
+													vendorPrice 		: '<div>'+ this.state.currency + " " + vendorOrder.vendor_afterDiscountTotal + '</div>',
+													vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status).replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
+																						? 
+																							(vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status)
+																						 
+																						: 
+																							'') + '</div>',
+													changeVendorStatus 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + vendorOrder.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + vendorOrder.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>",
+
+												})
+											})
+										:
+											[],
+					// vendorName   	: a.vendorOrders 
+					// 					? 
+					// 						(a.vendorOrders.map((b)=>{
+					// 							return '<div>'+b.vendor_id.companyName+'</div>'
+					// 						})).join(' ')
+					// 					: [],
+					// vendorPrice   	: a.vendorOrders 
+					// 					? 
+					// 						(a.vendorOrders.map((b)=>{
+					// 							return ('<div>'+ this.state.currency + " " + b.vendor_afterDiscountTotal + '</div>').trim(",")
+					// 						})).join(' ')
+					// 					: [],
+					// vendorStatus   	: a.vendorOrders 
+					// 					? 
+					// 						(a.vendorOrders.map((b)=>{
+					// 							var status = (b.deliveryStatus[b.deliveryStatus.length - 1].status).replace(/\s+/g, '_').toLowerCase()
+					// 							return '<div class="statusDiv ' + status + '">'+ ( b.deliveryStatus && b.deliveryStatus.length > 0 
+					// 								? 
+					// 									(b.deliveryStatus[b.deliveryStatus.length - 1].status)
 													 
-													: 
-														'') + '</div>'
-											})).join(' ')
-										: [],
-					changeVendorStatus  : a.vendorOrders 
-										? 
-											(a.vendorOrders.map((b)=>{
-												// url = url.replace(/\s+/g, '-').toLowerCase();
+					// 								: 
+					// 									'') + '</div>'
+					// 						})).join(' ')
+					// 					: [],
+					// changeVendorStatus  : a.vendorOrders 
+					// 					? 
+					// 						(a.vendorOrders.map((b)=>{
+					// 							// url = url.replace(/\s+/g, '-').toLowerCase();
 												
-												return(
-														"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + b.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
+					// 							return(
+					// 									"<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + b.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + b.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>"
 													 
-												)
-											})).join(' ')
-										: []
+					// 							)
+					// 						})).join(' ')
+					// 					: []
 				}
 			})
 			this.setState({

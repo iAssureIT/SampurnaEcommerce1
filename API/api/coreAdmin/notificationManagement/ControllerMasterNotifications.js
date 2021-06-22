@@ -1,5 +1,5 @@
-const mongoose	= require("mongoose");
-const Masternotifications = require('./ModelMasterNotification.js');
+const mongoose	            = require("mongoose");
+const Masternotifications   = require('./ModelMasterNotification.js');
 const Notifications         = require('./ModelNotification.js');
 const User 				    = require('../userManagement/ModelUsers.js');
 const PersonMaster          = require('../personMaster/ModelPersonMaster.js');
@@ -13,86 +13,88 @@ const FailedRecords         = require('../failedRecords/ModelFailedRecords');
 
 exports.create_masternotification = (req,res,next)=>{
 	Masternotifications.findOne({templateType:req.body.templateType,event:req.body.event,role:req.body.role,status:req.body.status,company:req.body.company})
-		.exec()
-		.then(data =>{
-			if(data){
-				return res.status(200).json({
-					message: 'Notification Details already exists'
-				});
-			}else{
-				const masternotifications = new Masternotifications({
-                    _id             : new mongoose.Types.ObjectId(),
-                    templateType    : req.body.templateType,	
-                    event           : req.body.event,    
-                    templateName    : req.body.templateName,    
-                    role            : req.body.role,
-                    company         : req.body.company,
-                    subject         : req.body.subject,
-                    content         : req.body.content,	
-                    status          : req.body.status, 
-                    createdAt       : new Date(),
-                    createdBy       : req.body.createdBy,
+    .exec()
+    .then(data =>{
+        if(data){
+            return res.status(200).json({
+                message: 'Notification Details already exists'
+            });
+        }else{
+            const masternotifications = new Masternotifications({
+                _id             : new mongoose.Types.ObjectId(),
+                templateType    : req.body.templateType,	
+                event           : req.body.event,    
+                templateName    : req.body.templateName,    
+                role            : req.body.role,
+                company         : req.body.company,
+                subject         : req.body.subject,
+                content         : req.body.content,	
+                status          : req.body.status, 
+                createdAt       : new Date(),
+                createdBy       : req.body.createdBy,
+            });
+            masternotifications.save()
+            .then(data=>{
+                res.status(200).json({message: "Notification Details Added",ID:data._id});
+            })
+            .catch(err =>{
+                console.log(err);
+                res.status(500).json({
+                    error: err
                 });
-                masternotifications.save()
-                    .then(data=>{
-                        res.status(200).json({message: "Notification Details Added",ID:data._id});
-                    })
-                    .catch(err =>{
-                        console.log(err);
-                        res.status(500).json({
-                            error: err
-                        });
-                    });
-			}
-		})
-		.catch(err =>{
-			console.log(err);
-			res.status(500).json({
-				error: err
-			});
-		});
+            });
+        }
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
 };
+
 exports.list_masternotification = (req,res,next)=>{
     Masternotifications.find({})
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+    .exec()
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
         });
+    });
 };
 
 exports.list_mode_masternotification = (req,res,next)=>{
     Masternotifications.find({"templateType":req.body.mode,"event":req.body.event})
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+    .exec()
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error: err
         });
+    });
 };
 
 exports.list_type_masternotification = (req,res,next)=>{
     Masternotifications.find({"templateType":req.params.type})
-        .sort({createdAt: -1})
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            res.status(500).json({
-                error: err
-            });
+    .sort({createdAt: -1})
+    .exec()
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
         });
+    });
 };
+
 exports.detail_masternotification = (req,res,next)=>{
     Masternotifications.findOne({_id:req.params.notificationmaster_ID})
     .exec()
@@ -106,6 +108,7 @@ exports.detail_masternotification = (req,res,next)=>{
         });
     });
 };
+
 exports.update_masternotification = (req,res,next)=>{
     Masternotifications.updateOne(
         { _id:req.body.editId},  
@@ -155,6 +158,7 @@ exports.update_status = (req,res,next)=>{
         });
     });
 };
+
 exports.delete_masternotification = (req,res,next)=>{
     Masternotifications.deleteOne({_id:req.params.ID})
         .exec()
@@ -172,6 +176,7 @@ exports.delete_masternotification = (req,res,next)=>{
             });
         });
 };
+
 exports.deleteall_masternotification = (req,res,next)=>{
     Masternotifications.deleteMany({})
         .exec()
@@ -223,29 +228,31 @@ exports.filterTemplate = (req,res,next)=>{
     });
 };
 
-
 exports.send_notifications = (req, res, next) => {
-    Masternotifications.find({event: req.body.event,status:'active'})
-    .sort({createdAt:1})
+    // console.log("notification body => ", req.body)
+    Masternotifications.find({event : req.body.event, status :'active'})
+    .sort({createdAt : 1})
     .exec()
     .then(data=>{
         main();
         async function main(){
-             // console.log('========================================================')
+            // console.log('========================================================')
             var returnData = data
-            console.log('returnData=>',returnData)
+            // console.log('returnData=>',returnData)
             if(returnData && returnData.length > 0){
                 for(var i=0 ; i< returnData.length ; i++){
-                    console.log("Entering for loop for returnData at : ",i)
+                    // console.log("Entering for loop for returnData at : ",i)
                     var role = returnData[i].role;
-                    console.log("role : ",role)
+                    
+                    // console.log("role : ",role)
 
-                    var company = req.body.company_id;
-                    var templateName = returnData[i].event;
-                    var mode = returnData[i].templateType;
-                    console.log("mode", mode);
+                    var company         = req.body.company_id;
+                    var templateName    = returnData[i].event;
+                    var mode            = returnData[i].templateType;
+                    
+                    // console.log("mode", mode);
 
-                    console.log('notification data=>',role, company, templateName, mode, req.body.toUserRole)
+                    // console.log('notification data=>',role, company, templateName, mode, req.body.toUserRole)
 
 
                     if(role == 'admin'){
@@ -253,49 +260,71 @@ exports.send_notifications = (req, res, next) => {
                         var userData = await getAdminUserData();
                         if(userData && userData.length > 0){
                            for(var j=0 ; j<userData.length ; j++){
-                            var userRole = userData[j].role
-                            var checkRole = userRole.includes(role);
-                            if(checkRole){
-                                await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
-                            }
+                                var userRole  = userData[j].role
+                                var checkRole = userRole.includes(role);
+                                if(checkRole){
+                                    await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
+                                }
                            }//j 
+                        //    if(j >= userData.length){
+                        //         res.status(200).json({ message : "Message sent successfully"});
+                        //    }
                         }
                         
                     }else if(role === req.body.toUserRole){
-                        var userData = await getSelfUserData(req.body.toUser_id);
-                        console.log("userData->",userData)
-                        var userRole = userData.role
-                        console.log("userRole->",userRole)
-                        var checkRole = userRole.includes(role);
-                        console.log("checkRole->",checkRole)
+                        // console.log('admin toUserrole==>',role)
+                        var userData    = await getSelfUserData(req.body.toUser_id);
+                        // console.log("userData->",userData)
+                        var userRole    = userData.role
+                        // console.log("userRole->",userRole)
+                        var checkRole   = userRole.includes(role);
+                        // console.log("checkRole->",checkRole)
                         if(checkRole){
-                            await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment)
+                            var a = await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment)
+                            // console.log("a => ",a);
+                            // if(a){
+                            //     res.status(200).json({ message : "Message sent successfully"});
+                            // }
                         }
+                        // else{
+                        //     res.status(200).json({ message : "Failed to sent message successfully"});
+                        // }
+                        
                     }else if(role === req.body.intendedUserRole){
-                         // console.log('manager==>',mode,templateName,company)
-                        var userData = await getIntendedUserData(req.body.intendedUser_id);
-                        var userRole = userData.role
-                        var checkRole = userRole.includes(role);
+                        // console.log('manager==>',mode,templateName,company)
+                        var userData    = await getIntendedUserData(req.body.intendedUser_id);
+                        var userRole    = userData.role
+                        var checkRole   = userRole.includes(role);
                         if(checkRole){
-                            await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment)
+                            var b = await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment)
                         }
+                        // res.status(200).json({ message : "Message sent successfully"});
                     }else if(role === req.body.otherAdminRole && req.body.company_id){
-                         // console.log('corporate==>',mode,templateName,company)
+                        //  console.log('corporate==>',mode,templateName,company)
                         var userData = await getOtherAdminData(req.body.otherAdminRole,req.body.company_id);
                         if(userData && userData.length > 0){
                            for(var j=0 ; j<userData.length ; j++){
-                            var userRole = userData[j].role
-                            var checkRole = userRole.includes(role);
-                            if(checkRole){
-                                await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
-                            }
-                           }//j 
+                            var userRole    = userData[j].role
+                            var checkRole   = userRole.includes(role);
+                                if(checkRole){
+                                    var c = await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
+                                    // console.log("c  => ",c)
+                                }
+                            }//j 
+                            // if(j >= userData.length){
+                            //     res.status(200).json({ message : "Message sent successfully"});
+                            // }
                         }
                     }else{
                         console.log('No data found')
                     }
                     // console.log('***************************************************')
                 }//i
+                if(i >= returnData.length){
+                    res.status(200).json({ message : "Message sent successfully"});
+                }
+            }else{
+                res.status(200).json({ message : "No event available for Place New Order" });
             }//returnData
         }
     })
@@ -305,45 +334,52 @@ exports.send_notifications = (req, res, next) => {
 }
 
 function callTemplates(mode,userData,role,templateName,company,variables,attachment){
-    sub();
+    return new Promise(function (resolve, reject) {
+        sub();
         async function sub(){
-            console.log("mode,userData,role,templateName,company,variables,attachment",mode,userData,role,templateName,company,variables,attachment);
-             // //==============  SEND EMAIL ================
+            // console.log("mode,userData,role,templateName,company,variables,attachment",mode,userData,role,templateName,company,variables,attachment);
+            //==============  SEND EMAIL ================
             if(mode === 'Email'){
-                var toEmail = userData.email;
-                const emailDetails = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
-                const sendMail = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
-                
+                var toEmail         = userData.email;
+                const emailDetails  = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
+                const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
+                resolve(true);
             }else if(mode === 'Notification'){
-                var toUserId = userData.id;
-                const notificationDetails = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
-                const sendNotification = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
-               
+                var toUserId                = userData.id;
+                const notificationDetails   = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
+                const sendNotification      = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
+                resolve(true);
             }else if(mode === 'SMS'){
-                console.log("Inside SMS",company,templateName,userData,role,variables);
-                var toMobile = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
-                const SMSDetails = await getTemplateDetailsSMS(company,templateName,userData.role,variables);
-                var text = SMSDetails.content.replace(/<[^>]+>/g, '');
-                console.log("toMobile",toMobile);
-                const SMS = await sendSMS(toMobile,text); 
-                
+                // console.log("Inside SMS",company,templateName,userData,role,variables);
+                if(userData.mobile){
+                    var toMobile        = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
+                    const SMSDetails    = await getTemplateDetailsSMS(company,templateName,userData.role,variables);
+                    var text            = SMSDetails.content.replace(/<[^>]+>/g, '');
+                    // console.log("toMobile",toMobile);
+                    const SMS           = await sendSMS(toMobile, text);  
+                    // console.log("SMS => ",SMS)  
+                }
+                resolve(true);            
             }// mode == 'SMS'
         }
+    })
 }
 
 function getAdminUserData() {
     return new Promise(function (resolve, reject) {
-        User.find({"roles":"admin"})
+        User.find({"roles" : "admin"})
         .exec()
         .then(data => {
             if(data && data.length>0){
-                var userData = []
+                var userData = [];
+
                 for(var i=0 ; i<data.length ; i++){
+
                     if(data[i].profile){
                         userData.push({email:data[i].profile.email,
-                                id: data[i]._id,
-                                mobile: data[i].profile.mobile,
-                                role:"admin"
+                            id      : data[i]._id,
+                            mobile  : data[i].profile.mobile,
+                            role    : "admin"
                         });
                     }
                 }//i
@@ -353,7 +389,7 @@ function getAdminUserData() {
         .catch(err => {
             console.log(err);
             reject({
-                error: err
+                error : err
             });
         });
 
@@ -361,27 +397,27 @@ function getAdminUserData() {
 }
 
 function getSelfUserData(toUserId) {
-    console.log("toUserId",toUserId);
+    // console.log("toUserId",toUserId);
     return new Promise(function (resolve, reject) {
         User.findOne({ "_id": toUserId })
-            .exec()
-            .then(data => {
-                console.log("data",data)
-                if(data && data.profile){
-                    resolve({email:data.profile.email,
-                            id: data._id,
-                            mobile: data.profile.mobile,
-                            role:data.roles
-                    });
-                }   
-            })
-            .catch(err => {
-                console.log(err);
-                reject({
-                    error: err
+        .exec()
+        .then(data => {
+            // console.log("data",data)
+            if(data && data.profile){
+                resolve({
+                    email       : data.profile.email,
+                    id          : data._id,
+                    mobile      : data.profile.mobile,
+                    role        : data.roles
                 });
+            }   
+        })
+        .catch(err => {
+            console.log(err);
+            reject({
+                error: err
             });
-
+        });    
     });
 }
 
@@ -482,23 +518,31 @@ function getOtherAdminData(role,company_id){
 //     // })
 // }
 function sendSMS(MobileNumber,text){
-    console.log('=====INSIDE SMS======',MobileNumber,text)
+    return new Promise(function (resolve, reject) {
+    // console.log('=====INSIDE SMS======',MobileNumber,text)
         GlobalMaster.findOne({type:'SMS'})
         .exec() 
         .then(data=>{
-            console.log('data.authID,data.authToken,data.sourceMobile: ',data.authToken,data.sourceMobile)
-            var msg91 = require("msg91")(data.authToken, "FIVEBE", "4" );
-            var mobileNo = MobileNumber.split(" ").join("");
-            // console.log("mobileNo IN SMS=====>",MobileNumber.replaceAll("[\\D]", ""));
-            console.log("mobileNo IN SMS=====>",mobileNo);
-            msg91.send(mobileNo, text.toString(), function(err, response){
-                console.log(err);
-                console.log("response IN SMS =====>",response);
-            });
+            // console.log("data => ",data)
+            if(data !== null){
+                // console.log('data.authID,data.authToken,data.sourceMobile: ',data.authToken, data.sourceMobile)
+                var msg91 = require("msg91")(data.authToken, "FIVEBE", "4" );
+                var mobileNo = MobileNumber.split(" ").join("");
+                // console.log("mobileNo IN SMS=====>",MobileNumber.replaceAll("[\\D]", ""));
+                // console.log("mobileNo IN SMS=====>",mobileNo);
+                msg91.send(mobileNo, text.toString(), function(err, response){
+                    // console.log(err);
+                    // console.log("response IN SMS =====>",response);
+                    resolve(true)
+                });
+            }else{
+                resolve("No SMS Data Found")
+            }
         })
         .catch(err =>{
-            console.log('sms error: ',err)
+            reject(err)
         });
+    })
 }
 
 function sendInAppNotification(toUserId,email,event,notificationDetails){
@@ -524,7 +568,7 @@ function sendInAppNotification(toUserId,email,event,notificationDetails){
 }
 
 function sendEmail(toEmail,subject,content,attachment){
-    console.log('====**INSIDE EMAIL**=====',toEmail,subject,content,attachment)
+    // console.log('====**INSIDE EMAIL**=====',toEmail,subject,content,attachment)
     if(attachment == null || attachment == undefined || attachment == ""){
         var attachment = []
     }else{
@@ -831,7 +875,7 @@ function getTemplateDetailsInApp(company, templateName,role,variables) {
 exports.filedetails = (req,res,next)=>{
     // console.log('req------',req,'res',res);
     var finaldata = {};
-    console.log(req.params.fileName)
+    // console.log(req.params.fileName)
     Masternotifications.find( { fileName:req.params.fileName  }
     )
     .exec()
@@ -874,7 +918,7 @@ function getcompany(entityType,company){
        EntityMaster.findOne({companyName : { $regex : company, $options: "i"},entityType : entityType})
         .exec()
         .then(data=>{
-            console.log("company data----",data);
+            // console.log("company data----",data);
             if(data){
                 resolve(data._id);
             }else{
@@ -906,7 +950,7 @@ function getEvent(templateName){
 
 exports.bulkUploadNotification = (req, res, next) => {
     var Notification = req.body.data;
-    console.log("Notification",req.body.data)
+    // console.log("Notification",req.body.data)
     var validData = [];
     var validObjects = [];
     var invalidData = [];
@@ -946,7 +990,7 @@ exports.bulkUploadNotification = (req, res, next) => {
             // }
             var companylist=[];
             var company = await getcompany(Notification[k].entityType,Notification[k].company)
-            console.log("company list",company);
+            // console.log("company list",company);
             if(Notification[k].company != '-' && company){
                 if(company.message === 'COMPANY_NOT_FOUND'){
                     remark += "company not found, ";

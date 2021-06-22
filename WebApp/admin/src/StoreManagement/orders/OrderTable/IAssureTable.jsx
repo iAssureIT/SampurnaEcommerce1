@@ -804,15 +804,16 @@ class IAssureTable extends Component {
 	                        <tbody>
 	                           { this.state.tableData && this.state.tableData.length > 0 ?
 	                           		this.state.tableData.map( 
-										(value, i)=> {		
+										(value, i)=> {	
+											// console.log("value vendors => ",value.vendors);	
 											// console.log("value",value)											
 											return(
 												<tr key={i} className="">
 													{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
 													{
 														Object.entries(value).map( 
-															([key, value1], i)=> {
-																// console.log("value1",value1,$.type(value1));
+															([key, value1], i)=> {															
+																var vendorArrayLength = value.vendors.length;															
 																if($.type(value1) === 'string'){
 																	var regex = new RegExp(/(<([^>]+)>)/ig);
 																	var value2 = value1 ? value1.replace(regex,'') : '';
@@ -840,14 +841,56 @@ class IAssureTable extends Component {
 																var found = Object.keys(this.state.tableHeading).filter((k)=> {
 																  return k === key;
 																});
-																if(found.length > 0){
-																	if(key !== 'id'){
-																		return(<td className={textAlign} key={i}><div className={textAlign} dangerouslySetInnerHTML={{ __html:value1}}></div></td>); 						
+																// console.log("key => ",key)
+																// console.log("found => ",found)
+																if(found.length > 0 || key === 'vendors'){
+																	// console.log("1 ===> ",(key === 'vendors'))
+																	// console.log("2 ===> ",value1)
+																	// console.log("3 ===> ",value)
+																	// console.log("4 ===> ",key)
+
+																	if(key === 'vendors'){
+																		value1.map( 
+																			(vendorvalue, index1)=> {
+																				Object.entries(vendorvalue).map( 
+																					([key2, value2], index2)=> {
+																						
+																						// console.log("vendorvalue => ",index2, " ", vendorvalue);
+																						// console.log("key2 => ",index2, " ", key2);
+																						// console.log("value2 => ",index2, " ", value2);
+
+																						var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
+																							return k1 === key2;
+																						});
+																						// console.log("found1 => ",found1);
+																						if(found1.length > 0){
+																							return (<td className={"textAlign"} key={index2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+																						}
+
+																					})
+																			})
+																	}else if(key !== 'id'){
+																		return(<td rowSpan ={vendorArrayLength} className={textAlign} key={i}><div className={textAlign} dangerouslySetInnerHTML={{ __html:value1}}></div></td>); 						
 																	}
+
 																}
 															}
 														)
 													}
+													{/* {value.vendors && value.vendors.length > 0
+													?
+														value.vendors.map((vendorOrder, index)=>{
+															Object.entries(vendorOrder).map( 
+																([key2, value2], i2)=> {	
+																	console.log("key2 => ",key2);
+																	
+																	return (<td className={"textAlign"} key={i2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+				
+																})
+															})
+													:
+														null
+													} */}
 													{/* <td className="col-lg-1 textAlignCenter">
                                                       <i onClick={this.changeAttribute.bind(this)} data-attribute="featured" data-ID={value._id} data-attributeValue={value.featured} title={ (value.featured === true )? "Disable It" : "Enable It" } className={'fa fa-check-circle prodCheckboxDim ' + ( value.featured === true ? "prodCheckboxDimSelected" : "prodCheckboxDimNotSelected" )} aria-hidden="true"></i>
                                                     </td>

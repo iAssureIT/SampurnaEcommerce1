@@ -208,6 +208,7 @@
 }
 .reviewActionBtns{
     font-size: 30px;
+    color: #bbb;
 }
 .rejectedActive{
     color: #dd4b39;
@@ -250,4 +251,11 @@
 }
 .padding-15-0{
     padding: 0 10px;
+}
+.noDataAvail{
+    color:  red;
+    font-size: 12px;
+}
+.reviewActionIcons{
+    color: #aaa;
 }

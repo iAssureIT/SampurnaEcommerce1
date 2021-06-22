@@ -103,7 +103,7 @@ exports.get_single_review = (req,res,next)=>{
 							  ?
 							  	data.vendor_id.contactPersons.find(contactPerson => contactPerson.branchCode === vendorLocation.branchCode)
 							  :
-							  	{}
+							  	null
 		if(data && data !== undefined){
 			var returnData = {
 				product_id 			: data.product_id._id,
@@ -187,7 +187,7 @@ exports.change_review_status = (req, res, next) => {
 			});
 		}else{
 			res.status(200).json({
-				message : 'Failed to Update Status.'
+				message : 'Review is already '+ req.body.status
 			});
 		}		
 	})

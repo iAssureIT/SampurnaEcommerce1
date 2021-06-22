@@ -1922,7 +1922,7 @@ exports.list_productby_section = (req,res,next)=>{
 };
 exports.list_productby_category = (req,res,next)=>{
     var {categoryID,user_ID} = req.params;
-    console.log("req.params.categoryID",req.params.categoryID);
+    // console.log("req.params.categoryID",req.params.categoryID);
     Products.find({category_ID : categoryID, "status": "Publish"})
     .exec()
     .then(products=>{
@@ -1974,7 +1974,7 @@ exports.list_productby_category = (req,res,next)=>{
 
 
 exports.similar_products = (req,res,next)=>{
-    console.log("req.body",req.body);
+    // console.log("req.body",req.body);
     var {category_ID,user_ID,vendor_ID,section_ID,subCategory_ID,section_ID,product_ID} = req.body;
     if(subCategory_ID){
         var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : category_ID, "subCategory_ID"   : subCategory_ID,"section_ID":section_ID,"_id":{$ne:product_ID}}
@@ -2200,7 +2200,7 @@ exports.list_productby_subcategory = (req,res,next)=>{
 // };
 
 exports.search_product = (req,res,next)=>{
-    console.log("req.body => ",req.body);
+    // console.log("req.body => ",req.body);
     // console.log("req body in se// localStorage.setItem("pincode", response.data.pincode);arch ==>",req.body);
     // console.log("req params in search ==>",req.params);
     Products.find(
@@ -2227,7 +2227,7 @@ exports.search_product = (req,res,next)=>{
     // .limit(parseInt(req.body.limit))
     .exec()
     .then(async(products)=>{
-        console.log("products",products.length);
+        // console.log("products",products.length);
         var userLat         = req.body.userLatitude;
         var userLong        = req.body.userLongitude;
         
@@ -2238,7 +2238,7 @@ exports.search_product = (req,res,next)=>{
             // console.log("uniqueVendors=> ",uniqueVendors);     
             FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
         }
-        console.log("FinalVendorSequence => ", FinalVendorSequence);
+        // console.log("FinalVendorSequence => ", FinalVendorSequence);
         // var grouped = _.groupBy(products.filter((el) => {
         //     return FinalVendorSequence.some((f) => {
         //       return String(f.vendor_ID) === String(el.vendor_ID);
@@ -3949,7 +3949,7 @@ exports.search_suggestion = async(req,res,next)=>{
     //     type            : "brand",
     //     suggestionArray : [...new Set(brand.filter(item => item !== undefined))] 
     // })
-    console.log("result => ",result);
+    // console.log("result => ",result);
     res.status(200).json(result);
 }
 
@@ -3961,7 +3961,7 @@ function getSection(searchText) {
         .limit(10)
         .then(data =>{
             var section = data.map(a=>a.section);
-            console.log("section => ",section)
+            // console.log("section => ",section)
             resolve(section);
         })
         .catch(err =>{
@@ -3976,7 +3976,7 @@ function getCategory(searchText) {
         .limit(10)
         .then(data =>{
             var category = data.map(a=>a.category);
-            console.log("category => ",category)            
+            // console.log("category => ",category)            
             resolve(category);
         })
         .catch(err =>{
@@ -3992,7 +3992,7 @@ function getBrand(searchText) {
         .limit(10)
         .then(data =>{
             var brand = data.map(a=>a.brand);
-            console.log("brand => ",brand)
+            // console.log("brand => ",brand)
             resolve(brand);
         })
         .catch(err =>{
@@ -4008,7 +4008,7 @@ function getProduct(searchText) {
         .then(data =>{
             var productName = data.map(a=>a.productName);
             productName= [...new Set(productName)]
-            console.log("productName => ",productName)
+            // console.log("productName => ",productName)
             resolve(productName);
         })
         .catch(err =>{
@@ -4024,7 +4024,7 @@ function getSubCat(searchText) {
         .limit(10)
         .then(data =>{
             var subCategory = data.map(a=>a.subCategory);
-            console.log("subCategory => ",subCategory)
+            // console.log("subCategory => ",subCategory)
             resolve(subCategory);
         })
         .catch(err =>{
@@ -4056,7 +4056,7 @@ function getAll(searchText) {
         )
         .limit(10)
         .then(data =>{
-            console.log("data => ",data)
+            // console.log("data => ",data)
             var brand       = data.map(a=>a.brand);
             var section     = data.map(a=>a.section);
             var category    = data.map(a=>a.category);
@@ -4080,7 +4080,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 
     main();
     async function main(){
-        console.log("req.body => ",req.body);
+        // console.log("req.body => ",req.body);
         var userLat         = req.body.userLatitude;
         var userLong        = req.body.userLongitude;
         var selector        = {};

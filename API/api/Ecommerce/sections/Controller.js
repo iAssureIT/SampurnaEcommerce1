@@ -414,7 +414,7 @@ exports.update_section_status = (req,res,next)=>{
     )
     .exec()
     .then(data=>{
-        console.log(data);
+        // console.log(data);
         Category.updateMany(
             {section_ID : req.body.item_id},
             { $set : 

@@ -3,17 +3,17 @@ const _                    = require("underscore");
 const DistanceRange        = require('./Model');
 
 exports.insert_distance_range = (req,res,next)=>{
-    console.log("body insert_distance_range => ",req.body);
+    // console.log("body insert_distance_range => ",req.body);
     DistanceRange.find()
     .exec()
     .then(data =>{
         if(data && data.length > 0){
-            console.log("=====> 1")
+            // console.log("=====> 1")
             res.status(200).json({
                 "message" : "Distance Range Already Exists.",
             });
         }else{
-            console.log("=====> 2")
+            // console.log("=====> 2")
             const distanceRange = new DistanceRange({
                 _id          : new mongoose.Types.ObjectId(), 
                 distance     : req.body.fieldValue,
