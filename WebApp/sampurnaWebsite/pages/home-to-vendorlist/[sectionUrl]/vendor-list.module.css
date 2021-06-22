@@ -81,3 +81,19 @@
 .vedorLink{
     cursor: pointer;
 }
+
+.bgHeight{
+    min-height:1000px;
+    height:auto;
+}
+
+.moreBtn{
+    text-align:right;
+    margin-bottom:15px !important;
+}
+
+.blueBTN{
+    color: #fff;
+    background-color: #033554;
+    border-color: #033554;
+}

@@ -384,7 +384,7 @@ export default class MyOrders extends Component {
                                                   <div className="col-12 title NoPadding">
                                                     <div className="row">
                                                         <span className="col-4 ">&nbsp; No.Of Items </span>
-                                                        <span className="col-1">:</span>
+                                                        <span className="col-1">&nbsp;&nbsp;:</span>
                                                         <span className="col-6 ">
                                                             {vendordata.vendor_numberOfProducts} 
                                                         </span>

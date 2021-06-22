@@ -54,11 +54,11 @@ const VendorList = ()=> {
         return(
             <section className={ Style.bgGray}>
                 <Header />    
-                <div className="container">
+                <div className={"container " +Style.bgHeight}>
                     <div className="col-12">
                     <div className={" row " +Style.bgGray}>
                         <div className="col-12">
-                            <div className={"col-12 text-center  mt2 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
+                            <div className={"col-12 text-center  mt-5 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
                         </div>
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{
@@ -101,6 +101,15 @@ const VendorList = ()=> {
                         </div>
                     </div>
                 </div>
+                 { Array.isArray(vendorList) && vendorList.length >10?
+                    <div className="col-12">
+                    <div className={"col-12 " +Style.moreBtn}>
+                        <button className={"btn col-1 " +Style.blueBTN}>More</button>
+                    </div>                      
+                    </div>
+                :
+                    null
+                }
                 < Footer />
             </section>
         )

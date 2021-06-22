@@ -256,26 +256,37 @@ class Login extends Component {
                   />	 */}
                 </div>
                 <div className="col-12">
-                  <h4>SIGN IN</h4>
+                  <h3>SIGN IN</h3>
+                </div>
+              </div>
+              <div className="col-12 textAlignment mt10 ">
+                <div className="col-12 NoPadding loginforgotpass "> 
+                  Don't have an account?&nbsp;&nbsp;                      
+                    <a href='' className="forgotText " onClick={this.openSignUpModal.bind(this)}> Sign Up</a>                    
                 </div>
               </div>
               <form id="login" onSubmit={this.userlogin.bind(this)}>
                 <div className="form-group frmhgt textAlignLeft col-12 NOpadding mt25">
                   <label>Email ID</label><label className="astricsign">*</label>
-                  <input type="email" className="form-control" ref="loginusername" id="loginusername" name="loginusername" placeholder="Email ID"  onChange={this.handleChange.bind(this)}/>
+                  <input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Email ID"  onChange={this.handleChange.bind(this)}/>
                   <span className="text-danger">{this.state.formerrors.emailIDV}</span>
                   <div className="errorMsg">{this.state.errors.loginusername}</div>
                 </div>
 
 
-                <div className="textAlignLeft frmhgt col-12 NOpadding mb25">
+                <div className="textAlignLeft frmhgt col-12 NOpadding ">
                   <label>Password</label><label className="astricsign">*</label>
-                  <input type="password" className="form-control" ref="loginpassword" name="loginpassword" id="loginpassword" placeholder="Password"  onChange={this.handleChange.bind(this)} autoComplete="off"/>
+                  <input type="password" className="form-control formcontrol1" ref="loginpassword" name="loginpassword" id="loginpassword" placeholder="Password"  onChange={this.handleChange.bind(this)} autoComplete="off"/>
                   <div className="showHideSignDiv">
                     <i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
                     <i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
                   </div>
                   <div className="errorMsg">{this.state.errors.loginpassword}</div>
+                </div>
+                <div className="col-12  mb25 pull-right">
+                  <div className="loginforgotpass pull-right">
+                    <a href='' className="col-12 pull-right NoPadding forgotText" onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
+                  </div>
                 </div>
                 {
                   this.state.btnLoading
@@ -292,37 +303,28 @@ class Login extends Component {
                   </div>
                   :
                     <div className="col-12 ">
-                      <input id="logInBtn" type="submit" className="col-12 btn globaleCommBtn" value="Sign In" />
+                      <input id="logInBtn" type="submit" className="col-12 btn signInBtn" value="Sign In" />
                     </div>
                 }
                 <div className="col-12 ">
                   <div className="col-12 mt30 mb25 NoPadding">
-                    <div className="row">
-                      <div className="col-12 col-sm-6 mt10 textAlignment">
-                        <div className="loginforgotpass">
-                          <a href='' className="col-12 NoPadding " onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
-                        </div>
-                      </div>
-                      <div className="col-12 col-sm-6 textAlignment mt10 ">
-                        <div className="row loginforgotpass loginSignupBtn">                        
-                            <a href='' className="col-12 NoPadding " onClick={this.openSignUpModal.bind(this)}>Sign Up</a>                    
-                        </div>
-                      </div>
-                      <div className="col-12 mt-4 ">
+                    <div className="row">                      
+
+                      <div className="col-12 ">
                         <div className="row">
-                          <hr className="col-3"></hr>
+                          <hr className="col-3 whiteClr" ></hr>
                           <span className="col-2 text-center">&nbsp;OR&nbsp;</span>
-                          <hr className="col-3"></hr>
+                          <hr className="col-3 whiteClr"></hr>
                         </div>
                       </div>
                       <div className="col-12 mb-2 mt-4">
-                          <button className="btn btn-primary col-12 NoPadding">Login with Facebook</button>
+                          <button className="btn facebookBtn col-12 NoPadding">Login with Facebook</button>
                       </div>
                       <div className="col-12 mb-2 ">
-                          <button className="btn btn-danger col-12 NoPadding">Login with Google</button>
+                          <button className="btn googleBtn btn-danger col-12 NoPadding">Login with Google</button>
                       </div>
                       <div className="col-12 mb-2">
-                          <button className="btn btn-dark col-12 NoPadding">Login As a Guest</button>
+                          <button className="btn guestBtn col-12 NoPadding">Login As a Guest</button>
                       </div>
                     </div>
                   </div>

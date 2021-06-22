@@ -54,7 +54,7 @@ const VendorList = ()=> {
                     <div className="col-12">
                     <div className={" row " }>
                         <div className="col-12">
-                            <div className={"col-12 text-center  mt2 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
+                            <div className={"col-12 text-center  mt-5 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
                         </div>
                            { Array.isArray(vendorList) && vendorList.length >0?
                                 vendorList.map((vendordata, index)=>{

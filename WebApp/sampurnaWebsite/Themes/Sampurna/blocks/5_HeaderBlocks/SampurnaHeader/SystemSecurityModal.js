@@ -16,6 +16,9 @@ import ResetPassword  from '../../../../../systemSecurity/ResetPassword.js'
 // import {getBlockData} from '../../../../../redux/actions/counterActions';
 import {getForm,updateForm} from '../../../../../redux/actions';
 
+import Style                  from './location.module.css';
+
+
 const { publicRuntimeConfig } = getConfig();
 
 class header extends React.Component {
@@ -155,9 +158,9 @@ class header extends React.Component {
                     </span> 
                 }
                 </div>
-                <div id="loginFormModal" className="modal in"  data-keyboard="false" >
-                    <div className="modal-dialog" >                                        
-                        <div className="modal-content loginModalContent  loginBackImageHeight" style={{'background': '#fff'}}>                            
+                <div id="loginFormModal" className={"modal in " +Style.loginBGImg}  data-keyboard="false" >
+                    <div className="modal-dialog ">                                        
+                        <div className={"modal-content loginModalContent  loginBackImageHeight " +Style.signinBG} style={{'background': '#fff'}}>                            
                             <div className="modal-body">  
                                 <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>                                                           
                                 {this.props.formToShow === "login" ?

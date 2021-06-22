@@ -393,7 +393,7 @@ input[type=number] {
 .loginModalContent{
   position: absolute;
   z-index: 1050 !important;
-  padding-bottom: 40px;
+  /*padding-bottom: 40px;*/
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: 50% !important;
@@ -436,4 +436,77 @@ input[type=number] {
     .signuplink a{
       font-size:10px;
     }
+}
+
+.formcontrol1 {/*
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;    
+    background-clip: padding-box;*/
+    background-color: transparent;
+    color:#fff !important;
+    border:none !important;
+    border-bottom: 1px solid #ced4da !important;
+    border-radius: 0px !important;
+   /* -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;*/
+}
+
+.signInBtn {
+    background-color: #fff !important;
+    color: #033554 !important;
+    border-radius: var(--globaleCommBtnBorderRadius) !important;
+    /*border: var(--globaleCommBtnBorder) !important;*/
+    /*padding: var(--globaleCommBtnPadding)!important;*/
+    -webkit-transition: var(--globalTransition) !important;
+    transition: var(--globalTransition) !important;
+    margin-top: var(--globaleCommBtnMarginTop) !important;
+    font-size: 16px !important;
+    font-weight:bold;
+}
+
+.forgotText{
+  color: #2E92CF !important;
+  font-size:12px !important;
+}
+
+.whiteClr{
+  color:#fff !important;
+}
+
+#loginFormModal hr{
+  border-top: 1px solid #ccc !important;
+}
+
+#loginFormModal input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0px 1000px #033554 inset;
+    -webkit-text-fill-color: #fff;
+}
+
+.facebookBtn{
+  background-color:#3B5998 !important;
+  color:#fff !important;
+  font-size:14px;
+}
+
+.googleBtn{
+  font-size:14px;
+}
+
+.guestBtn{
+  background-color:transparent !important;
+  border:1px solid #fff;
+  color:#fff !important;
+  font-size:14px;
 }
