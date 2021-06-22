@@ -124,7 +124,7 @@ class DeliveryLocationPopup extends React.Component {
                             if(latLongDetails){
                                 that.setState({
                                     latLong   : latLongDetails,
-                                    detectCurrentLocation : true
+                                    // detectCurrentLocation : true
                                 })
                             }
                             var details = response.results[0];
@@ -195,48 +195,57 @@ class DeliveryLocationPopup extends React.Component {
 
     saveLocation(event) {
         event.preventDefault();
-        if(!this.state.detectCurrentLocation){
-            var deliveryLocation = {
-                "address"        : this.state.address,
-                "city"           : this.state.city,
-                "area"           : this.state.area,
-                "district"       : this.state.district,
-                "pincode"        : this.state.pincode,
-                "country"        : this.state.country,
-                "stateCode"      : this.state.stateCode,
-                "countryCode"    : this.state.countryCode,
-                "latitude"       : this.state.latitude,
-                "longitude"      : this.state.longitude,
-                "homeFirstVisit" : false,
-            }
-            if(!deliveryLocation){
-                var latLongDetails = {
-                    lat: this.state.latitude,
-                    lng: this.state.longitude
+        // console.log("inside savelocation");
+        // if(this.state.address){
+        //     // window.location.reload();
+        //     Router.push('/');
+        //     this.setState({})
+        // }else{
+            if(!this.state.detectCurrentLocation){
+                var deliveryLocation = {
+                    "address"        : this.state.address,
+                    "city"           : this.state.city,
+                    "area"           : this.state.area,
+                    "district"       : this.state.district,
+                    "pincode"        : this.state.pincode,
+                    "country"        : this.state.country,
+                    "stateCode"      : this.state.stateCode,
+                    "countryCode"    : this.state.countryCode,
+                    "latitude"       : this.state.latitude,
+                    "longitude"      : this.state.longitude,
+                    "homeFirstVisit" : false,
                 }
-                this.setState({
-                    deliveryLocation : this.state.deliveryLocation,
-                    "latLong"        : latLongDetails,
-                })
-            }
-            if(deliveryLocation.country==="United Arab Emirates"){
-                if(this.props.sampurnaWebsiteDetails){
-                    var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
-                    sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                if(!deliveryLocation){
+                    var latLongDetails = {
+                        lat: this.state.latitude,
+                        lng: this.state.longitude
+                    }
+                    this.setState({
+                        // deliveryLocation : this.state.deliveryLocation,
+                        deliveryLocation : deliveryLocation,
+                        "latLong"        : latLongDetails,
+                    })
+                }
+                console.log("deliveryLocation.country==",deliveryLocation.country);
+                if(deliveryLocation.country==="United Arab Emirates"){
+                    if(this.props.sampurnaWebsiteDetails){
+                        var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
+                        sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                    }else{
+                        var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                    }
+                    
+                    localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
+                    store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
+                    $('#locationModal').modal('hide'); 
+                    window.location.reload();
+                    Router.push('/');
                 }else{
-                    var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+                    swal("Delivery is not possible out of UAE");
                 }
-                
-                localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
-                store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
-                $('#locationModal').modal('hide'); 
-                window.location.reload();
-                Router.push('/');
-            }else{
-                swal("Delivery is not possible out of UAE");
-            }
 
-        }//end if detectCurrentLocation
+            }//end if detectCurrentLocation
+        //}//end else if address is already available dont save
         // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
     }
 
@@ -292,7 +301,7 @@ class DeliveryLocationPopup extends React.Component {
                         countryCode: countryCode,
                     })
 
-                    console.log("setstate on select:", this.state.address);
+                    // console.log("setstate on select:", this.state.address);
 
                    
                 }
@@ -328,9 +337,13 @@ class DeliveryLocationPopup extends React.Component {
        if(this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0){
            var xlCol =  9;
            var offset = 0
+           var xlForm = 12;
+           var formOffset = 0;
        }else{
         var xlCol =  12;
         var offset = 0;
+        var xlForm = 8;
+        var formOffset = 2;
        }
        
     return (
@@ -345,7 +358,7 @@ class DeliveryLocationPopup extends React.Component {
                 }
                 <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
                 <div className="col-12 offset-0 mobileViewNoPadding">
-                    <form className={" col-12 col-md-8 offset-2 " +Style.deliveryForm}>
+                    <form className={" col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
                         <div className="col-12 mt-5 ">
                             <div className="row">
                                 <div className={"col-4 mt-5 NoPadding "}>
@@ -358,7 +371,7 @@ class DeliveryLocationPopup extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={" col-6 mt-5"}>
+                                <div className={" col-6 mt-5 NoPadding"}>
                                     <PlacesAutocomplete 
                                         value={this.state.address}
                                         onChange={this.handleChangePlaces}

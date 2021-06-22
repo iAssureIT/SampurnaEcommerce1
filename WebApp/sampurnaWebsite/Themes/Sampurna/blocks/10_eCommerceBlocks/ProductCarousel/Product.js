@@ -71,7 +71,7 @@ class Product extends Component{
               this.setState({
                 messageData: {},
               })
-            }, 4000);
+            }, 2000);
           })
           .catch((error) => {
             console.log('error', error);
@@ -92,7 +92,7 @@ class Product extends Component{
           this.setState({
             messageData: {},
           })
-        }, 4000);
+        }, 2000);
       } else {
         axios.post('/api/carts/post', formValues)
           .then((response) => {
@@ -109,7 +109,7 @@ class Product extends Component{
               this.setState({ 
                 messageData: {},
               })
-            }, 4000);
+            }, 2000);
             this.props.fetchCartData();
             this.props.updateCartCount();
   
@@ -205,7 +205,7 @@ class Product extends Component{
           this.setState({
             messageData: {},
           })
-        }, 4000);
+        }, 2000);
       }//end else
     }
     }
@@ -257,7 +257,7 @@ class Product extends Component{
               this.setState({
                 messageData: {},
               })
-            }, 4000);
+            }, 2000);
             this.props.getWishlistData();
           })
           .catch((error) => {
@@ -279,7 +279,7 @@ class Product extends Component{
             this.setState({
               messageData: {},
             })
-          }, 4000);
+          }, 2000);
         
       }
     }

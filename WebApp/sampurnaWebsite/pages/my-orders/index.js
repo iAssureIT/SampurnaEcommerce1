@@ -45,15 +45,17 @@ export default class MyOrders extends Component {
       var currency = sampurnaWebsiteDetails.preferences.currency;
       var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
       // console.log("userDetails===",userDetails);
-      this.setState({
-          user_ID : userDetails.user_id,
-          email   : userDetails.email,
-          fullName: userDetails.firstName +" "+userDetails.lastName ,         
-          currency     : currency,
-      },()=>{
-        this.getMyOrders();
-        this.getMyUser();
-    })
+      if(userDetails){
+        this.setState({
+            user_ID : userDetails.user_id,
+            email   : userDetails.email,
+            fullName: userDetails.firstName +" "+userDetails.lastName ,         
+            currency     : currency,
+        },()=>{
+          this.getMyOrders();
+          this.getMyUser();
+        })
+      }
   }
   getMyOrders() {
     // $('.fullpageloader').show(); 
@@ -317,8 +319,6 @@ export default class MyOrders extends Component {
     return (
       <div className="col-12">
          <div className="row"> 
-        {/* <Header /> */}
-       
           <Message messageData={this.state.messageData} />
           {
             this.state.loading ?

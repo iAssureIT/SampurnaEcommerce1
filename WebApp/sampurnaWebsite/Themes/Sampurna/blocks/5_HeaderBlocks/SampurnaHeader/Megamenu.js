@@ -23,14 +23,14 @@ componentDidMount(){
     axios.get("/api/sections/get/get_megamenu_list")
         .then((response)=>{
         if(response.data){
-        console.log("section data===",response.data); 
+        // console.log("section data===",response.data); 
         this.setState({ 
             categoryData : response.data
         },()=>{
             for(let i=0;i<this.state.categoryData.length;i++){
-                console.log("url[4]==",url[4]);
+                // console.log("url[4]==",url[4]);
                 if(url[4]=== this.state.categoryData[i].sectionUrl){
-                    console.log("section match==",url[4],this.state.categoryData[i]._id);
+                    // console.log("section match==",url[4],this.state.categoryData[i]._id);
                     $('.HeaderSection_'+this.state.categoryData[i]._id).addClass('activeSection');
                 }
             }

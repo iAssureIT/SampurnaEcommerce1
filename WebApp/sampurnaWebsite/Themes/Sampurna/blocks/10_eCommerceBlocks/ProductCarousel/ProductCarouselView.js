@@ -260,9 +260,9 @@ render() {
       console.log("this.props.newProducts==",this.props)
     return (
         <div className={"col-12 " }>        
-            <Message messageData={this.state.messageData} />  
+            {/* <Message messageData={this.state.messageData} />   */}
             <div className="col-12 ">
-              <h5>{this.props.blockTitle}</h5>
+              <h5>{this.props.blockTitle && this.props.blockTitle}</h5>
             </div>
             <Carousel  
                 className={Style.customnNavButton +" " +Style.carouselNewWrapper}

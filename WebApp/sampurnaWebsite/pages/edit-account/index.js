@@ -25,15 +25,16 @@ class EditAccount extends Component{
         var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
-        this.setState({
-            user_ID : userDetails.user_id,
-            email   : userDetails.email,
-            fullName: userDetails.firstName +" "+userDetails.lastName ,         
-            currency     : currency,
-        },()=>{
-            this.getUserData();
-        })
-        
+        if(userDetails){
+            this.setState({
+                user_ID : userDetails.user_id,
+                email   : userDetails.email,
+                fullName: userDetails.firstName +" "+userDetails.lastName ,         
+                currency     : currency,
+            },()=>{
+                this.getUserData();
+            })
+        }
         // window.scrollTo(0, 0);
         // $.validator.setDefaults({
         //     debug: true,

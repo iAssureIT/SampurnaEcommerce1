@@ -18,7 +18,7 @@ class Wishlist extends React.Component {
    render(){
         return(  
             <div className="col-2 NoPadding">
-                <Link href="/wishlist">
+                <Link href="/my-account">
                     <a title="wishlistIcon ">
                         <Image
                             src={"/images/eCommerce/wishlist.png"}

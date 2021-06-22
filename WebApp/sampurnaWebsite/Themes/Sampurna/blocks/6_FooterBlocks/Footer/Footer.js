@@ -19,6 +19,19 @@ export default class Footer extends Component {
     }
     
     componentDidMount(){
+        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
+        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
+        if( userDetails && userDetails.user_id){
+            this.setState({user_ID : userDetails.user_id})
+        }
+        if(sampurnaWebsiteDetails){
+            if(sampurnaWebsiteDetails.deliveryLocation){
+                this.setState({deliveryLocation : sampurnaWebsiteDetails.deliveryLocation },()=>{
+                    console.log("deliveryLocation==",this.state.deliveryLocation);
+                })
+            }
+        }
+
         axios.get("/api/sections/get/get_megamenu_list")
             .then((response)=>{ 
                 if(response){
@@ -38,8 +51,8 @@ export default class Footer extends Component {
     render(){
        return(
         <div className="col-12 NoPadding footerWrapper" >
-        <br/>
         {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 footerAnimation" style={{'background' : "url("+footerAnimationImg +")" }}></div> */}
+        {this.state.deliveryLocation?
        <div className="container-fluid">
         <div className="col-12 footer1">
           <div className="row">
@@ -131,10 +144,10 @@ export default class Footer extends Component {
                </div> 
             </div>
             </div>
-            
            </div>             
         </div>
         </div>
+        :null}
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
               <div className={"row " +S.footerBottom}>

@@ -52,23 +52,23 @@ class Wishlist extends Component {
             })
           }
         }
-    await this.props.fetchCartData();
+    // await this.props.fetchCartData();
   }
 
   getWishData() {
+    console.log("inside wishlist");
   var formValues ={
     "user_ID"             : this.state.user_ID,
     "userLat"             : this.state.userLongitude, 
     "userLong"            : this.state.userLongitude
   }
-    // console.log("formValues=",formValues);
+    console.log("formValues=",formValues);
     axios.post('/api/wishlist/get/userwishlist', formValues)    
       .then((response) => {
         if(response){
           console.log('wishlist data', response.data);
           this.setState({
             wishlistData: response.data
-          },()=>{
           })
         }
       })
@@ -119,17 +119,22 @@ class Wishlist extends Component {
               {
                  Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?
                  this.state.wishlistData.map((areaWiseWishlist, index) => {  
+                   console.log("areaWiseWishlist==",areaWiseWishlist);
                    return(
                       <div className="col-12"> 
                           <div className="col-12 areaName mt-4 pb-4">{areaWiseWishlist.areaName}</div>
                           <div className="col-12">
-                                <ProductCarouselView 
-                                    newProducts       = {areaWiseWishlist.products}
-                                    distance          = {areaWiseWishlist.distance}
-                                    maxDistanceRadius = {areaWiseWishlist.maxDistanceRadius}
-                                />
+                                {areaWiseWishlist.products.length>0
+                                ?
+                                  <ProductCarouselView 
+                                      newProducts       = {areaWiseWishlist.products}
+                                      distance          = {areaWiseWishlist.distance}
+                                      maxDistanceRadius = {areaWiseWishlist.maxDistanceRadius}
+                                  />
+                                :
+                                  <div>Loading</div>
+                                }
                           </div>
-
                       </div>
                    )
                  })

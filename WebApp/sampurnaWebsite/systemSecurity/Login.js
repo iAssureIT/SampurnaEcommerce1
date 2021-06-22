@@ -276,21 +276,20 @@ class Login extends Component {
                     <i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
                   </div>
                   <div className="errorMsg">{this.state.errors.loginpassword}</div>
-
                 </div>
                 {
                   this.state.btnLoading
                   ?
                   <div className="col-12 col-lg-3 offset-lg-4 col-md-10 offset-md-1  NoPadding ">
-                  <div align="center" className="cssload-fond">
-                    <div className="cssload-container-general">
-                      <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"> </div></div>
-                      <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_2"> </div></div>
-                      <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_3"> </div></div>
-                      <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_4"> </div></div>
+                    <div align="center" className="cssload-fond">
+                      <div className="cssload-container-general">
+                        <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"> </div></div>
+                        <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_2"> </div></div>
+                        <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_3"> </div></div>
+                        <div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_4"> </div></div>
+                      </div>
                     </div>
                   </div>
-                </div>
                   :
                     <div className="col-12 ">
                       <input id="logInBtn" type="submit" className="col-12 btn globaleCommBtn" value="Sign In" />
@@ -308,6 +307,22 @@ class Login extends Component {
                         <div className="row loginforgotpass loginSignupBtn">                        
                             <a href='' className="col-12 NoPadding " onClick={this.openSignUpModal.bind(this)}>Sign Up</a>                    
                         </div>
+                      </div>
+                      <div className="col-12 mt-4 ">
+                        <div className="row">
+                          <hr className="col-3"></hr>
+                          <span className="col-2 text-center">&nbsp;OR&nbsp;</span>
+                          <hr className="col-3"></hr>
+                        </div>
+                      </div>
+                      <div className="col-12 mb-2 mt-4">
+                          <button className="btn btn-primary col-12 NoPadding">Login with Facebook</button>
+                      </div>
+                      <div className="col-12 mb-2 ">
+                          <button className="btn btn-danger col-12 NoPadding">Login with Google</button>
+                      </div>
+                      <div className="col-12 mb-2">
+                          <button className="btn btn-dark col-12 NoPadding">Login As a Guest</button>
                       </div>
                     </div>
                   </div>

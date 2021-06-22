@@ -60,7 +60,6 @@ class Header extends React.Component {
                                         
                                         <div className="col-8 col-lg-3 col-sm-2 systemSecurity"> 
 
-
                                         {/*<div className="col-8 col-lg-3 col-sm-2 systemSecurity NoPadding"> */}
 
                                             <div className="row">                                  

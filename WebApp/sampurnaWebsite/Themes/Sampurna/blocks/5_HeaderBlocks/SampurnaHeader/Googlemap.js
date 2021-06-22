@@ -51,7 +51,7 @@ class GoogleMap extends React.Component {
         return(  
             <div className={" NoPadding col-12  mt-4 mb-4 " +Style.zindex +" "+Style.height550 +" " +Style.googleMap}>   
                 {this.props.latLongDetails ? 
-                <div style={{ height: '100vh', width: '100%' }}>
+                <div style={{ height: '520px', width: '100%' }}>
                     <GoogleMapReact
                     bootstrapURLKeys={{ key: this.props.googleapiKey }}
                     defaultCenter={this.props.latLongDetails}
