@@ -5,6 +5,12 @@
 	border-top-right-radius: 10px;
 	padding: 10px;
 }
+.orderDetailsTopBlock{
+	/* border-top-left-radius: 10px; */
+	/* border-top-right-radius: 10px; */
+	border-radius: 10px;
+	border:solid 1px #033554;
+}
 .orderDetails{
 	border: solid 1px #ccc;
 	border-radius: 10px;
@@ -12,8 +18,24 @@
 .orderDetails .vendorName{
 	border-bottom: none !important;
 }
+.orderDetailsVendorName{
+	font-size: 20px;
+	font-weight: 700;
+}
+._1hzhf {
+	font-size: 10px;
+}
+._3uApM {
+	display: none !important;
+}
+._53Ji7{
+	padding: 0px !important;
+}
 .statusWizard{
-
+	margin-left: -45px;
 }
 
+.secondaryBtnClass{
+	background: "#ff0";
+}
 

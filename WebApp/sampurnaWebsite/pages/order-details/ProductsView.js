@@ -150,7 +150,7 @@ class ProductsView extends Component {
   }
 
   getSingleProductReview(event) {
-    console.log("getSingleProductdetails==")
+    // console.log("getSingleProductdetails==")
     var productID  = event.target.getAttribute('productId');
     var customerID = event.target.getAttribute('customerId');
     var orderID    = event.target.getAttribute('orderId');
@@ -160,7 +160,7 @@ class ProductsView extends Component {
       "order_id"        		: orderID,
       "product_id"      		: productID
     }
-    console.log("formValues=",formValues);
+    // console.log("formValues=",formValues);
     if(formValues){
       axios.post("/api/customerReview/get/single/customer/review",formValues)
       .then((response) => {
@@ -220,7 +220,7 @@ class ProductsView extends Component {
   }
     
   render() {
-    console.log("productView props  vendorOrders===",this.props);
+    // console.log("productView props  vendorOrders===",this.props);
     return (
           <div className="col-12">
             {/* < ProductReview /> */}
@@ -231,8 +231,8 @@ class ProductsView extends Component {
                     <tr>
                         <th>Products Image</th>
                         <th>Products Name</th>
-                        {/* <th className="textAlignRight">Price</th> */}
-                        <th className="textAlignRight">Quantity</th>
+                        <th className="textAlignLeft">Price</th>
+                        <th className="textAlignCenter">Quantity</th>
                         <th className="textAlignRight">SubTotal</th>
                     </tr>
                 </thead>

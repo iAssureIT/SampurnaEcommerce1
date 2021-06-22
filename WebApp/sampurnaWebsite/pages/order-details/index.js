@@ -2,12 +2,20 @@ import React, { Component } from 'react';
 import axios                from 'axios';
 import $                    from 'jquery';
 import moment               from "moment";
+import StepProgressBar       from 'react-step-progress';
+import 'react-step-progress/dist/index.css';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 // import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
 import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
 import OrderStatusWizard    from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/OrderStatusWizard.js';
 import ProductsView         from './ProductsView.js';
 import Style                from './index.module.css';
+import openSocket               from 'socket.io-client';
+import getConfig            from 'next/config';
+const { publicRuntimeConfig } = getConfig();
+console.log("publicRuntimeConfig",publicRuntimeConfig);
+const  socket = openSocket(publicRuntimeConfig.API_BASE_URL,{ transports : ['websocket'] ,upgrade: false});
+console.log("socket",socket);
 
 export default class OrderDetails extends Component {
   constructor(props) {
@@ -17,6 +25,7 @@ export default class OrderDetails extends Component {
         "orderData": [],
         "orderID": "",
         "userID" : "",
+        labels:[],
         customerReview: "",
         loading: false
       };
@@ -29,7 +38,6 @@ export default class OrderDetails extends Component {
       };
     }
   }
-
   componentDidMount() {
       var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
       var currency = sampurnaWebsiteDetails.preferences.currency;
@@ -43,27 +51,83 @@ export default class OrderDetails extends Component {
       },()=>{
         this.getMyOrders();
         this.getMyUser();
+        // this.getAllorderStatus();
+        var labels=[
+          {
+            label: 'New',
+            name: 'step 1',
+          },
+          {
+            label: 'Processing',
+            name: 'step 2',
+          },
+          {
+            label: 'Ready to Dispatch',
+            name: 'step 2',
+          },
+          {
+            label: 'On the Way',
+            name: 'step 3',
+          },
+          {
+            label: 'Delivered',
+            name: 'step 4',
+          }
+        ]
+        this.setState({labels:labels,labelsArray:labels})
       })
   }
 
   getMyOrders() {
-      axios.get("/api/orders/get/one/" +this.props.order_id)
-      .then((response) => {
-        if(response.data){
-          // console.log("response.data=>",response.data);
-          // $('.fullpageloader').hide();
-          this.setState({
-            orderData: response.data,
-            loading: false
-          }, () => {
-            console.log("orderData after setstate=>",this.state.orderData);
-          })
-        }
+      // axios.get("/api/orders/get/one/" +this.props.order_id)
+      // .then((response) => {
+        socket.emit('room',this.props.order_id);
+        socket.emit('signle_order',this.props.order_id);
+        socket.on('getSingleOrder',(response)=>{
+          if(response){
+            console.log("response.data=>",response);
+            // $('.fullpageloader').hide();
+            this.setState({
+              orderData: response,
+              loading: false
+            }, () => {
+              console.log("orderData after setstate=>",this.state.orderData);
+            })
+          }
       })
-      .catch((error) => {
-        console.log('error', error);
-      })
+      // .catch((error) => {
+      //   console.log('error', error);
+      // })
+
+      
+
   }
+
+
+  getAllorderStatus(){
+		axios.get('/api/orderstatus/get/list')
+		.then((response) => {
+			console.log("getAllorderStatus 402 response ==>",response)
+			this.setState({AllOrderStatus : response.data});
+			// return response.data
+		})
+		.catch((error) => {
+			console.log("Error in orderstatus = ", error);
+			if(error.message === "Request failed with status code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+							window.location.href = "/login";
+					}
+				});
+			}
+		})
+	}
   getMyUser() {    
     axios.get("/api/users/get/id/" +this.state.user_ID)
       .then((response) => {
@@ -178,8 +242,11 @@ export default class OrderDetails extends Component {
       customerReview : ""
     })
   }
+ 
   render() {
     console.log("Order Details props====",this.props );
+
+    
     return (
       <div className="col-12 NoPadding">
         <div className={" " +Style.container1 }>
@@ -193,8 +260,8 @@ export default class OrderDetails extends Component {
                   <div className="col-12">
                       <h4 className={"table-caption " +Style.mainTitle}>Orders Details</h4>
                   </div>
-                  <div className={"col-12 NoPadding "}>
-                    <div className="col-12 NoPadding orderDetailsTop mb-4 ">
+                  <div className={"col-12 NoPadding orderDetailsTopBlock"}>
+                    <div className="col-12 NoPadding orderDetailsTop ">
                       <div className={"row " +Style.ptb15}>
                         <div className="col-6 ">
                             <div className="col-12">{"Order Status : "+(this.state.orderData.orderStatus)}</div>
@@ -228,13 +295,25 @@ export default class OrderDetails extends Component {
                     {
                       this.state.orderData && this.state.orderData.vendorOrders && this.state.orderData.vendorOrders.length > 0 ?                    
                         this.state.orderData.vendorOrders.map((vendordata, index) => {
-                          console.log( " Order details this.state.orderData:",this.state.orderData);
+                          // console.log( " Order details this.state.orderData:",this.state.orderData);
+                          var labels = this.state.labelsArray;
+                          // labels.splice(2, 1);
+                          // console.log("vendordata.orderStatus",vendordata.orderStatus);
+                          // console.log("this.state.labels[2].label",this.state.labels[2].label);
+                          // console.log("this.state.labels",this.state.labels);
+
+                          
+                            var index1 = this.state.labels.map(e=>e.label).indexOf(vendordata.orderStatus);
+                          // if(index1===1){
+                            
+                          // }
+                          console.log("index1",index1)
                           return (
                             <div key={index} style={{marginBottom:"40px"}} className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>   
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
                                 <div className="row">
                                   <div className="col-7 NOpadding">
-                                      <span className="vendorName">{vendordata.vendorName}</span> &nbsp;
+                                      <span className="orderDetailsVendorName">{vendordata.vendorName}</span> &nbsp;
                                   </div>
                                   <div className="col-5 pull-right">
                                     {this.cancelButton(this.state.orderData.createdAt)&&
@@ -246,12 +325,15 @@ export default class OrderDetails extends Component {
                                 </div>      
                               </div>
                               { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                                <div className="col-12 statusWizard mt-4 mb-4">
+                                <div className="col-12 NoPadding statusWizard">
                                     {/* <StepWizard data={vendordata} /> */}
-                                    <OrderStatusWizard data={vendordata} />
+                                    {/* <OrderStatusWizard data={vendordata} /> */}
+                                    <StepProgressBar
+                                      startingStep={index1 === -1 ? 4 : index1}
+                                      steps={labels}
+                                    />
                                 </div> :null
                               }
-
                               <ProductsView 
                                 vendorWiseOrderData = {vendordata}
                                 orderData           = {this.state.orderData}

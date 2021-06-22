@@ -11,8 +11,42 @@ export default class OrderStatusWizard extends Component{
 	
 	componentDidMount(){
 		this.getAllorderStatus();
-
-		
+		this.props.data.deliveryStatus.map((data,ind)=>{
+            if (data.status === 'New Order') {
+                $('#orderplaceddate'+this.props.data._id).html(moment(data.Date).format('DD/MM/YYYY hh:mm a'))
+            }
+            if (data.status === 'Dispatch') {
+                $('#dispatchdate'+this.props.data._id).html(moment(data.Date).format('DD/MM/YYYY hh:mm a'))
+            }
+            if (data.status === 'Delivery Initiated') {
+                $('#deliveryinitdate'+this.props.data._id).html(moment(data.Date).format('DD/MM/YYYY hh:mm a'))
+            }
+            if (data.status === 'Delivered & Paid') {
+                $('#delivereddate'+this.props.data._id).html(moment(data.Date).format('DD/MM/YYYY hh:mm a'))
+            }
+		})
+		if(this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status ==='New Order' ||
+			this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status ==='Verified' || 
+			this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status === 'Packed' || 
+			this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status === 'Inspection' ||
+			this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status === 'Dispatch Approved' ){
+			$('#cartbg'+this.props.data._id).addClass('neworderstatus');
+		}
+		if(this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status ==='Dispatch'){
+			$('#outfrdelivery'+this.props.data._id).addClass('neworderstatus');
+			$('#cartbg'+this.props.data._id).addClass('neworderstatus');			
+		}
+		if(this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status ==='Delivery Initiated'){
+			$('#cartbg'+this.props.data._id).addClass('neworderstatus');
+			$('#outfrdelivery'+this.props.data._id).addClass('neworderstatus');
+			$('#intransit'+this.props.data._id).addClass('neworderstatus');
+		}	
+		if(this.props.data.deliveryStatus[this.props.data.deliveryStatus.length-1].status ==='Delivered & Paid'){
+			$('#cartbg'+this.props.data._id).addClass('neworderstatus');
+			$('#outfrdelivery'+this.props.data._id).addClass('neworderstatus');
+			$('#intransit'+this.props.data._id).addClass('neworderstatus');
+			$('#paid'+this.props.data._id).addClass('neworderstatus');
+		}
 	}
 	/* ======= getAllorderStatus() ========== */
 	getAllorderStatus(){
