@@ -27,7 +27,7 @@ export default class Footer extends Component {
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 this.setState({deliveryLocation : sampurnaWebsiteDetails.deliveryLocation },()=>{
-                    console.log("deliveryLocation==",this.state.deliveryLocation);
+                    // console.log("deliveryLocation==",this.state.deliveryLocation);
                 })
             }
         }

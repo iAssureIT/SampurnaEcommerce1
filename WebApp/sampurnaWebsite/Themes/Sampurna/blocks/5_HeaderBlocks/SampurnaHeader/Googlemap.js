@@ -37,15 +37,10 @@ class GoogleMap extends React.Component {
     }
     componentDidMount(){
         var windowHeight  = window.innerHeight;
-        console.log("windowHeight=",windowHeight);
-        var height        = windowHeight - 460;
-        var marginHeight  = height/2;
-        // console.log("marginHeight===",marginHeight);
-        $('.formShadow').css({
-        'margin-top': (marginHeight),
-        'margin-bottom': (marginHeight)
-        });
-        var user_details           =  JSON.parse(localStorage.getItem('userDetails'));
+        // console.log("windowHeight=",windowHeight);
+        // var mapHeight        = 460;
+       
+        var user_details   =  JSON.parse(localStorage.getItem('userDetails'));
         if(user_details){
             this.setState ({
                 userDetails  : user_details,
@@ -53,10 +48,6 @@ class GoogleMap extends React.Component {
         }
     }  
    render(){
-    //    console.log("latlong props=",this.props);
-    //    console.log("latlong=",this.state.latLong.lng);
-    //    console.log("apikey=",this.props.googleapiKey);
-
         return(  
             <div className={" NoPadding col-12  mt-4 mb-4 " +Style.zindex +" "+Style.height550 +" " +Style.googleMap}>   
                 {this.props.latLongDetails ? 

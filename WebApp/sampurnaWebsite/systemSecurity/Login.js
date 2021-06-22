@@ -245,18 +245,9 @@ class Login extends Component {
             <div className="col-12 NoPadding">
               <div className="col-12 innloginwrap">
                 {/* style={{'background': 'url("../../static/'+publicRuntimeConfig.CURRENT_SITE+'/images/Logo.png")'}} */}
-                <div className=" col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
-                  
-                  {/* <Image 
-                    src={"/images/eCommerce/multistoreLogo.png"}
-                    className={"logoImg"}
-                    height ={50}
-                    width={40}
-                    layout="responsive"
-                  />	 */}
-                </div>
+               
                 <div className="col-12">
-                  <h3>SIGN IN</h3>
+                  <h4>SIGN IN</h4>
                 </div>
               </div>
               <div className="col-12 textAlignment mt10 ">

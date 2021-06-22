@@ -244,9 +244,7 @@ export default class OrderDetails extends Component {
   }
  
   render() {
-    console.log("Order Details props====",this.props );
-
-    
+    // console.log("Order Details props====",this.props );
     return (
       <div className="col-12 NoPadding">
         <div className={" " +Style.container1 }>
@@ -307,7 +305,7 @@ export default class OrderDetails extends Component {
                           // if(index1===1){
                             
                           // }
-                          console.log("index1",index1)
+                          // console.log("index1",index1)
                           return (
                             <div key={index} style={{marginBottom:"40px"}} className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>   
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">

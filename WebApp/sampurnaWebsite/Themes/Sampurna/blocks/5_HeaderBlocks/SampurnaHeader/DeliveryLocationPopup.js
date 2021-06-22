@@ -32,7 +32,7 @@ class DeliveryLocationPopup extends React.Component {
     }
     componentDidMount(){   
         var windowHeight  = window.innerHeight;
-        console.log("windowHeight=",windowHeight);
+        // console.log("windowHeight=",windowHeight);
         var mapBlockheight        = windowHeight - 236;
         $('.locationBg').css({
             'height': (mapBlockheight)
@@ -132,7 +132,7 @@ class DeliveryLocationPopup extends React.Component {
                             if(latLongDetails){
                                 that.setState({
                                     latLong   : latLongDetails,
-                                    // detectCurrentLocation : true
+                                    detectCurrentLocation : true
                                 })
                             }
                             var details = response.results[0];
@@ -171,8 +171,20 @@ class DeliveryLocationPopup extends React.Component {
                                 "latitude"       : position.coords.latitude,
                                 "longitude"      : position.coords.longitude,
                             }
+
                             if(deliveryLocation){
-                                if(deliveryLocation.country==="United Arab Emirates"){
+                                that.setState({
+                                    "address"        : response.results[0].formatted_address,
+                                    "city"           : city,
+                                    "area"           : area,
+                                    "district"       : response.results[0].district,
+                                    "pincode"        : pincode,
+                                    "country"        : country,
+                                    "latitude"       : position.coords.latitude,
+                                    "longitude"      : position.coords.longitude,
+                                });
+                                console.log("deliveryLocation.country===",deliveryLocation.country);
+                                if(deliveryLocation.country === "United Arab Emirates"){
                                     if(that.props.sampurnaWebsiteDetails){
                                         // console.log("deliveryLocation=",deliveryLocation);
                                         var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
@@ -192,7 +204,7 @@ class DeliveryLocationPopup extends React.Component {
                                     // Router.push("/");
                                     // window.location.reload();
                                 }else{
-                                    swal("Delivery is not possible out of UAE");
+                                    swal("Sorry!! Delivery is not possible out of UAE");
                                 }
 
                             }
@@ -207,58 +219,35 @@ class DeliveryLocationPopup extends React.Component {
 
     saveLocation(event) {
         event.preventDefault();
-        // console.log("inside savelocation");
-        // if(this.state.address){
-        //     // window.location.reload();
-        //     Router.push('/');
-        //     this.setState({})
-        // }else{
-            if(!this.state.detectCurrentLocation){
-                var deliveryLocation = {
-                    "address"        : this.state.address,
-                    "city"           : this.state.city,
-                    "area"           : this.state.area,
-                    "district"       : this.state.district,
-                    "pincode"        : this.state.pincode,
-                    "country"        : this.state.country,
-                    "stateCode"      : this.state.stateCode,
-                    "countryCode"    : this.state.countryCode,
-                    "latitude"       : this.state.latitude,
-                    "longitude"      : this.state.longitude,
-                    "homeFirstVisit" : false,
-                }
-                if(!deliveryLocation){
-                    var latLongDetails = {
-                        lat: this.state.latitude,
-                        lng: this.state.longitude
-                    }
-                    this.setState({
-                        // deliveryLocation : this.state.deliveryLocation,
-                        deliveryLocation : deliveryLocation,
-                        "latLong"        : latLongDetails,
-                    })
-                }
-                console.log("deliveryLocation.country==",deliveryLocation.country);
-                if(deliveryLocation.country? deliveryLocation.country:this.state.country === "United Arab Emirates"){
-                    if(this.props.sampurnaWebsiteDetails){
-                        var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
-                        sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                    }else{
-                        var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
-                    }
-                    
-                    localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
-                    store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
-                    $('#locationModal').modal('hide'); 
-                    window.location.reload();
-                    Router.push('/');
-                }else{
-                    swal("Delivery is not possible out of UAE");
-                }
-
-            }//end if detectCurrentLocation
-        //}//end else if address is already available dont save
-        // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
+        var deliveryLocation = {
+            "address"        : this.state.address,
+            "city"           : this.state.city,
+            "area"           : this.state.area,
+            "district"       : this.state.district,
+            "pincode"        : this.state.pincode,
+            "country"        : this.state.country,
+            "stateCode"      : this.state.stateCode,
+            "countryCode"    : this.state.countryCode,
+            "latitude"       : this.state.latitude,
+            "longitude"      : this.state.longitude,
+        }
+        
+        if((this.state.country) === "United Arab Emirates"){     
+            if(this.props.sampurnaWebsiteDetails){
+                var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
+                sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+            }else{
+                var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
+            }
+            
+            localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails));   
+            store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails));
+            $('#locationModal').modal('hide'); 
+            window.location.reload();
+            Router.push('/');
+        }else{
+            swal("Sorry!! Delivery is not possible out of UAE");
+        }
     }
 
     handleChangePlaces = address => {
@@ -322,7 +311,6 @@ class DeliveryLocationPopup extends React.Component {
             geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
                 .then(({ lat, lng }) => {
-                    // console.log("lat = ",lat," long = ",lng);
                     if(lat && lng){
                         var latLongDetails = {
                             lat: lat,
@@ -333,7 +321,7 @@ class DeliveryLocationPopup extends React.Component {
                             latitude : lat,
                             longitude : lng
                         },()=>{
-                            console.log("getting latlong ====",this.state.latlong);
+                            // console.log("getting latlong ====",this.state.latlong);
                         })
                     }
                 })

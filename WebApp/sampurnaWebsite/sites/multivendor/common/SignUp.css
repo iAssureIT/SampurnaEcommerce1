@@ -402,14 +402,17 @@ input[type=number] {
   box-shadow: none !important
 }
 .loginModalContent .close{
-  font-size: 24px !important;
+  font-size: 35px !important;
   opacity: 1 !important;
   color: #fff;
   border-radius: 3px;
   font-weight: 100;
   padding: 0px 5px;
-  background-color: var(--color) !important;
+  /* background-color: var(--color) !important; */
   margin-right: 20px;
+  z-index: 10;
+  position: absolute;
+  right: 0px;
 }
 .subNavBlock{
   margin-top: -90px;
