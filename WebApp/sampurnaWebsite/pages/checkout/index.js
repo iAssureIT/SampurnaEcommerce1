@@ -790,7 +790,7 @@ class Checkout extends Component {
                                                 }
                                             </div>
                                             <div className="col-12 mt2">
-                                                <div className="btn globalCommonBtn col-12" data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
+                                                <div className={"btn col-12 " +Style.addBTN} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
                                             </div>
                                         </div>
                                         :
@@ -943,7 +943,7 @@ class Checkout extends Component {
                                                     </div>
                                                     
                                                 </div>
-                                                <div className={"col-12 mt-2 " +Style.f11N +" "+Style.grey}>------------------<span className={" " +Style.orclass}> OR </span>----------------</div>
+                                                <div className={"col-12 mt-2 " +Style.f11N +" "+Style.grey}><div className={"col-4 NoPadding " +Style.orline}></div><span className={"col-1 " +Style.orclass}>OR</span><div className={"col-4 ml-4 NoPadding " +Style.orline}></div></div>
                                                 <div className="row mt-4 mb-5">
                                                     <label className={" " +Style.f13N}>Credit points  <span className={" " +Style.AEDColor}>  AED 20 </span> available</label>
                                                     <div className={"form-group col-8 NoPadding " +Style.border1}>
@@ -1005,8 +1005,8 @@ class Checkout extends Component {
                                                     </div>
                                                     <div className="col-12 grandTotal mt-4 mb-2">
                                                         <div className={"row " +Style.f13N}>
-                                                            <span className={"col-6 orderTotalText " +Style.f13N +" "+Style.bold}>Grand Total</span>
-                                                            <span className={"col-6 textAlignRight " +Style.f13N +" "+Style.bold}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
+                                                            <span className={"col-6 orderTotalText " +Style.f16 +" "+Style.bold}>Grand Total</span>
+                                                            <span className={"col-6 textAlignRight " +Style.f16 +" "+Style.bold}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
                                                                 {(this.state.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }
                                                             </span>
                                                         </div>
@@ -1026,15 +1026,15 @@ class Checkout extends Component {
                                             </div>
                                         </div>
 
-                                        <div className="modal col-12 col-sm-12 col-xs-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 offset-3 checkoutAddressModal mt-5 " id="termsNconditionsmodal" role="dialog">
-                                            <div className="col-12">
+                                        <div className={"modal col-12 col-sm-12 col-xs-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 offset-3 checkoutAddressModal NoPadding mt-5 " } id="termsNconditionsmodal" role="dialog">
+                                            <div className="col-12 NoPadding ">
                                                 <div className={"modal-content  col-12 NoPadding " }>
                                                     <div className={"modal-header globalBgColor checkoutAddressModal col-12 " +Style.modalHeader}>
                                                         {/*<img src="/images/eCommerce/multistoreLogo.png" className="col-3" />*/}
                                                         <div className={"modal-title col-10 modalheadingcont text-center underline " +Style.f14B }><u>TERMS AND CONDITIONS</u></div>
                                                         <button type="button" className="col-2 close modalclosebut " data-dismiss="modal">&times;</button>
                                                     </div>
-                                                    <div className={"modal-body col-12 checkoutAddressModal " +Style.modalHeader}>
+                                                    <div className={"modal-body col-12 checkoutAddressModal " +Style.modalHeader +" "+Style.modalBodyRadius}>
                                                         <ul className={"listStyle " +Style.listColor}>
                                                             <li>The price of products is as quoted on the site from time to time.</li>
                                                             <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
@@ -1056,7 +1056,7 @@ class Checkout extends Component {
                                     <div className="col-12">
                                     {
                                         !this.state.paymentMethods ?
-                                        <button className={" globaleCommBtn offset-lg-6 col-lg-6 col-xl-3 offset-xl-9 col-md-6 offset-md-6 col-12 " +Style.eCommTitle} onClick={this.placeOrder.bind(this)}>Place Order</button>
+                                        <button className={"btn offset-lg-6 col-lg-6 col-xl-3 offset-xl-9 col-md-6 offset-md-6 col-12 " +Style.eCommTitle +" "+Style.addBTN +" "+Style.f16} onClick={this.placeOrder.bind(this)}><b>Place Order</b></button>
                                         :
                                         <div className="col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" >
                                                 <Loaderspinner

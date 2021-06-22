@@ -46,9 +46,3 @@
     padding:20px 40px 0px 40px;
     z-index: -1 !important;
 }
-
-.react-multiple-carousel__arrow--left{
-    position:absolute;
-    left:-10px !important;
-
-}

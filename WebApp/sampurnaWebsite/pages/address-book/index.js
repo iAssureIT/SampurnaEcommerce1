@@ -182,7 +182,7 @@ class AddressBook extends Component{
                                 </div> ); } }) :
                                 <p className="text-justify">You have no other address entries in your address book.</p> }
                                 <div className="col-12 NOpadding mt25">
-                                    <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className="btn globalCommonBtn addressSaveBtn">Add New Address</div>
+                                    <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className={"btn globalCommonBtn addressSaveBtn " }>Add New Address</div>
                                 </div>
                             </div>
                         </div>

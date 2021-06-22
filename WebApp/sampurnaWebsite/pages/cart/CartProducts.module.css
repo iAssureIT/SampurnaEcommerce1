@@ -49,3 +49,15 @@
     padding: 5px;
     /* height: 170px; */
 }
+
+.checkoutBtn{
+    background-color: #033554 !important;
+    color: var(--globaleCommBtnColor) !important;
+    border-radius: var(--globaleCommBtnBorderRadius) !important;
+    border: #033554 !important;
+    padding: var(--globaleCommBtnPadding)!important;
+    -webkit-transition: var(--globalTransition) !important;
+    transition: var(--globalTransition) !important;
+    margin-top: var(--globaleCommBtnMarginTop) !important;
+    font-size: var(--globaleCommBtnfontSize) !important;
+}

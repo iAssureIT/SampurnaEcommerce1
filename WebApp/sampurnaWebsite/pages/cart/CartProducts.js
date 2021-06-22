@@ -411,12 +411,12 @@ class CartProducts extends Component{
                                                             </tr>
                                                             <tr>
                                                                 <td>You Saved</td>
-                                                                <td className="textAlignRight">&nbsp; 
+                                                                <td className="textAlignRight saving">&nbsp; 
                                                                 <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
                                                             </tr>                                                        
                                                             <tr>
                                                                 <td>Tax</td>  
-                                                                <td className="textAlignRight saving">&nbsp; 
+                                                                <td className="textAlignRight ">&nbsp; 
                                                                     <span> <b>{this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</b></span>
                                                                 </td>
                                                             </tr>
@@ -455,16 +455,16 @@ class CartProducts extends Component{
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right">
                                                         <div className="row">
-                                                            <div className="col-8">Total Savings</div>
-                                                            <div className="col-4 textAlignRight">&nbsp; 
+                                                            <div className="col-7">Total Savings</div>
+                                                            <div className="col-5 textAlignRight saving">&nbsp; 
                                                                 {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00} 
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right">
                                                         <div className="row">
-                                                            <div className="col-8">Total Tax</div>
-                                                            <div className="col-4 textAlignRight">&nbsp; 
+                                                            <div className="col-7">Total Tax</div>
+                                                            <div className="col-5 textAlignRight">&nbsp; 
                                                                 {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00} 
                                                             </div>
                                                         </div>
@@ -496,13 +496,13 @@ class CartProducts extends Component{
                                                 {
                                                     this.props.recentCartData.cartBtnDisabled?
                                                     <div className="col-12 NoPadding">
-                                                        <button onClick={this.proceedToCheckout.bind(this)} className="col-12 btn globaleCommBtn blockcartCheckout disableBtn" disabled>
+                                                        <button onClick={this.proceedToCheckout.bind(this)} className={"col-12 btn  blockcartCheckout disableBtn " +Style.checkoutBtn} disabled>
                                                             PROCEED TO CHECKOUT
                                                         </button>
                                                     </div>
                                                 :
                                                     <div className="col-12 NoPadding">
-                                                        <button  className="col-12 btn globaleCommBtn blockcartCheckout" 
+                                                        <button  className={"col-12 btn checkoutBtn blockcartCheckout " +Style.checkoutBtn}
                                                             onClick={this.proceedToCheckout.bind(this)}>
                                                             PROCEED TO CHECKOUT
                                                         </button> 
