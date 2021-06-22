@@ -14,7 +14,7 @@ constructor(props){
 componentDidMount(){
 
     var url = window.location.href.split('/');
-    console.log("url===",url);
+    // console.log("url===",url);
     if(url[4]===undefined){
       this.setState({
         addToCart :true,

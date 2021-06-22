@@ -47,7 +47,31 @@ export default class OrderStatusWizard extends Component{
 			$('#paid'+this.props.data._id).addClass('neworderstatus');
 		}
 	}
-
+	/* ======= getAllorderStatus() ========== */
+	getAllorderStatus(){
+		axios.get('/api/orderstatus/get/list')
+		.then((response) => {
+			// console.log("getAllorderStatus 402 response ==>",response)
+			
+			return response.data
+		})
+		.catch((error) => {
+			console.log("Error in orderstatus = ", error);
+			if(error.message === "Request failed with status code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is expired.",                
+					text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+							window.location.href = "/login";
+					}
+				});
+			}
+		})
+	}
 	getOneOrder(order_id, vendor_id){
 		axios.get('/api/orders/get/one/order/'+order_id)
 		.then((response) => {
@@ -89,9 +113,10 @@ export default class OrderStatusWizard extends Component{
 	}
 	
 	render(){
+		console.log("wizard status == ",this.props);
 		return(
 			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				{(this.state.activeStatus).toLowerCase() === "cancelled"
+				{this.state.activeStatus && (this.state.activeStatus).toLowerCase() === "cancelled"
 				?
 					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<h3 className="cancelledOrderMsg"> This Order is Cancelled</h3>
@@ -140,10 +165,6 @@ export default class OrderStatusWizard extends Component{
 									null
 								}
 							</ul>
-						</div>
-						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 actionButtons">
-							<button type="button" className={"btn btn-warning "+ (this.state.activeStatusRank === 1 ? "disabled noClick" : "")} onClick={this.changeVendorOrderStatus.bind(this)} id="Previous">&laquo; Previous</button>
-							<button type="button" className={"btn btn-success "+ (this.state.activeStatusRank === 5 ? "disabled noClick" : "")} onClick={this.changeVendorOrderStatus.bind(this)} id="Next">Next  &raquo;</button>
 						</div>
 					</div>
 				}

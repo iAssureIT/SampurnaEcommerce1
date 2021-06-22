@@ -23,13 +23,21 @@ class DeliveryLocationPopup extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-            address : "",
+            address      : "",
             googleapiKey : "",
             detectCurrentLocation : false,
-            userAddress : [],
+            userAddress  : [],
+            country      : "",
 		}; 
     }
     componentDidMount(){   
+        var windowHeight  = window.innerHeight;
+        console.log("windowHeight=",windowHeight);
+        var mapBlockheight        = windowHeight - 236;
+        $('.locationBg').css({
+            'height': (mapBlockheight)
+        });
+
         axios.get("/api/projectSettings/get/GOOGLE",)
          .then((response) => {
               if(response.data){         
@@ -169,6 +177,9 @@ class DeliveryLocationPopup extends React.Component {
                                         // console.log("deliveryLocation=",deliveryLocation);
                                         var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
                                         sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
+                                        // that.setState({
+                                        //     country : deliveryLocation.country
+                                        // })
                                         // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
                                     }else{
                                         var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
@@ -177,6 +188,7 @@ class DeliveryLocationPopup extends React.Component {
                                     localStorage.setItem('sampurnaWebsiteDetails',JSON.stringify(sampurnaWebsiteDetails)); 
                                     // console.log("localstorage sampurnaWebsiteDetails=>",localStorage.getItem('sampurnaWebsiteDetails'));          
                                     store.dispatch(setSampurnaWebsiteDetails(sampurnaWebsiteDetails)); 
+                                    
                                     // Router.push("/");
                                     // window.location.reload();
                                 }else{
@@ -227,7 +239,7 @@ class DeliveryLocationPopup extends React.Component {
                     })
                 }
                 console.log("deliveryLocation.country==",deliveryLocation.country);
-                if(deliveryLocation.country==="United Arab Emirates"){
+                if(deliveryLocation.country? deliveryLocation.country:this.state.country === "United Arab Emirates"){
                     if(this.props.sampurnaWebsiteDetails){
                         var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
                         sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
@@ -365,7 +377,7 @@ class DeliveryLocationPopup extends React.Component {
                                     <div className="col-12">
                                         <div className={"row " +Style.ma}>
                                             <div className=" col-10 NoPadding detectLocationBtn">
-                                                <button type="button" className={"btn pull-center changelocationBtn " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
+                                                <button type="button" className={"btn pull-center " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
                                             </div>
                                             <div className={"text-center NoPadding orText col-2 " +Style.tw +" "+Style.f12}>OR</div>
                                         </div>

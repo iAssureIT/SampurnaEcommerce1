@@ -424,9 +424,9 @@ background: #fff;
   padding: 0px 14px;
   font-weight: bold;
   font-size: 12px;
-  border: 1px solid #80b435;
+  /* border: 1px solid #80b435; */
   border-radius: 5px;
-  color: #80b435;
+  /* color: #80b435; */
   height: 30px;
   background: #fff;
 }
@@ -667,9 +667,8 @@ background: #fff;
 
 
 .titleFont{
-  font-size:25px !important;  
+  font-size:32px !important;  
   margin-top:40px !important;
-  margin-bottom:60px !important;
 }
 
 .f14{

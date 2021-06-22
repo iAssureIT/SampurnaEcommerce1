@@ -36,6 +36,15 @@ class GoogleMap extends React.Component {
         // })
     }
     componentDidMount(){
+        var windowHeight  = window.innerHeight;
+        console.log("windowHeight=",windowHeight);
+        var height        = windowHeight - 460;
+        var marginHeight  = height/2;
+        // console.log("marginHeight===",marginHeight);
+        $('.formShadow').css({
+        'margin-top': (marginHeight),
+        'margin-bottom': (marginHeight)
+        });
         var user_details           =  JSON.parse(localStorage.getItem('userDetails'));
         if(user_details){
             this.setState ({

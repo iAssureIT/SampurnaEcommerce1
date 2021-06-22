@@ -237,11 +237,11 @@ class ProductDetailView extends Component {
 		var tooltipMsg = '';
 		if (x && x.length > 0) {
 			wishClass = '';
-			console.log("wishClass=",wishClass);
+			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Remove from wishlist';
 		} else {
 			wishClass = '-o';
-			console.log("wishClass=",wishClass);
+			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Add To Wishlist';
 		} 
 		return (

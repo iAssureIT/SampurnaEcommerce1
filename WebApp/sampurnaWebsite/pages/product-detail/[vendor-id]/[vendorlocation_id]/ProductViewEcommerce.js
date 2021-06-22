@@ -20,7 +20,6 @@ import 'react-multi-carousel/lib/styles.css';
 import SubCategoryBlock from '../../../../Themes/Sampurna/blocks/StaticBlocks/SubCategoryBlock/SubCategoryBlock.js';
 import Style                  from './product_detail.module.css';
 
-
 const { publicRuntimeConfig } = getConfig();
 class ProductViewEcommerce extends Component {
 	constructor(props) {

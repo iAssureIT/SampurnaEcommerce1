@@ -247,8 +247,8 @@ export default class OrderDetails extends Component {
                               </div>
                               { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                 <div className="col-12 statusWizard mt-4 mb-4">
-                                    <StepWizard data={vendordata} />
-                                    {/* <OrderStatusWizard data={vendordata} /> */}
+                                    {/* <StepWizard data={vendordata} /> */}
+                                    <OrderStatusWizard data={vendordata} />
                                 </div> :null
                               }
 

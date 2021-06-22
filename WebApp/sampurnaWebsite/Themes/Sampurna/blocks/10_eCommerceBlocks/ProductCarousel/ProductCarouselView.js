@@ -284,13 +284,13 @@ render() {
                         Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
                             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
                                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
-                                var wishClass = 'r';
+                                var wishClass = 'o';
                                 var tooltipMsg = '';
                                 if (x && x.length > 0) {
                                 wishClass = '';
                                 tooltipMsg = 'Remove from wishlist';
                                 } else {
-                                wishClass = 'r';
+                                wishClass = 'o';
                                 tooltipMsg = 'Add To Wishlist';
                                 }   
                                 var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
@@ -301,9 +301,9 @@ render() {
                                     <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                                     <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
                                           {  this.state.user_ID?
-                                            <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                                            <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa fa-heart" +wishClass +" wishListIconColor "}></i></button>
                                             :
-                                            <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                                            <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa fa-heart-" +wishClass +" ishListIconColor "}></i></button>
                                           }
                                         {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
                                         </div>

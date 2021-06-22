@@ -1,5 +1,5 @@
 .locationBg{
-	height: 480px;
+	/* height: 480px; */
 }
 
 
@@ -28,8 +28,12 @@
 	background-color:#033554;
 	color:#fff;
 	font-weight:bold;
+	font-size: 9px;
+	padding: 11px;
 }
-
+.locationBTN:hover{
+	color: #fff !important;
+}
 .zindex{
 	position: absolute;
   left: 0px;

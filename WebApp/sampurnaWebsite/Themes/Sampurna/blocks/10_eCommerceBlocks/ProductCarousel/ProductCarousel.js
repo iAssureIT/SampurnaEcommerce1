@@ -35,7 +35,7 @@ const sortOptions = [
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 10000, min: 1024 },
+    breakpoint: { max: 2000, min: 1024 },
     items: 5,
     slidesToSlide: 1 // optional, default to 1.
   },
@@ -120,7 +120,6 @@ class ProductCarousel extends Component {
 		}
   }
   async componentDidMount(){
-
     var formValues = {};
     var subcategoryArray = false;
     var noCategoryUrl   = true;
@@ -402,7 +401,7 @@ submitCart(event) {
         this.setState({
           messageData: {},
         })
-      }, 10000);
+      }, 2000);
     }
   
   }
@@ -424,7 +423,7 @@ submitCart(event) {
             this.setState({
               messageData: {},
             })
-          }, 10000);
+          }, 2000);
           this.props.fetchCartData();
           this.props.updateCartCount();
         })
@@ -468,7 +467,7 @@ submitCart(event) {
             this.setState({
               messageData: {},
             })
-          }, 10000);
+          }, 2000);
           this.props.getWishlistData();
         })
         .catch((error) => {
@@ -493,7 +492,7 @@ submitCart(event) {
           this.setState({
             messageData: {},
           })
-        }, 10000);
+        }, 2000);
       }
     }
   }
