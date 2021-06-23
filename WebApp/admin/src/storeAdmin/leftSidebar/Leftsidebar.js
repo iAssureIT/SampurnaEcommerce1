@@ -283,7 +283,7 @@ export default class AdminDashboard extends Component{
 								)
 							})} 
 							<li className="noPadLR"> 
-								<a href="/orders-list/cancelled" data-id="/orders-list/cancelled" onClick={this.activeMenu.bind(this)} title="Cancelled Orders">
+								<a href="/orders-list/Cancelled" data-id="/orders-list/Cancelled" onClick={this.activeMenu.bind(this)} title="Cancelled Orders">
 									<i className="fa fa-circle-o dashr" />Cancelled Orders
 								</a> 
 							</li>              

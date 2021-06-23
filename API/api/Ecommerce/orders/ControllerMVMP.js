@@ -544,11 +544,12 @@ function getDistanceWiseShippinCharges(){
 
 /*========== List Status Wise Orders ==========*/
 exports.list_orders_by_status = (req, res, next) => {
-	console.log("list_orders_by_status => ",req.body);
+	// console.log("list_orders_by_status => ",req.body);
 	var selector        = {};
 	selector['$and']    = [];
 	if(req.body.status.toLowerCase() !== "all"){       
         /**----------- Find Status wise Orders ------------ */
+		
         selector["$and"].push({
 			vendorOrders : { 
 				$elemMatch: { orderStatus: req.body.status } 
@@ -561,8 +562,8 @@ exports.list_orders_by_status = (req, res, next) => {
 			} 
 		})
 	}
-	console.log("selector",selector);
-	console.log("selector => ",selector[0].vendorOrders)
+	// console.log("selector",selector);
+	// console.log("selector => ",selector[0].vendorOrders)
 	Orders.find(selector)
 	// aggregate([
 	// 	// {$match : { 
@@ -575,7 +576,7 @@ exports.list_orders_by_status = (req, res, next) => {
 	.populate('vendorOrders.vendor_id')
 	.sort({ createdAt: 1 })
 	.then(data => {
-		console.log("allocatedToFranchise===>>>",data);
+		// console.log("allocatedToFranchise===>>>",data);
 		res.status(200).json(data);
 	})
 	.catch(err => {
