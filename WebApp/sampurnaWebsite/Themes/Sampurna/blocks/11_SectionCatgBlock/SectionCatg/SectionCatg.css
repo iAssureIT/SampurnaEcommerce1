@@ -44,5 +44,5 @@
 
 .rowPadding{
     padding:20px 40px 0px 40px;
-    z-index: -1 !important;
+    /*z-index: -1 !important;*/
 }
