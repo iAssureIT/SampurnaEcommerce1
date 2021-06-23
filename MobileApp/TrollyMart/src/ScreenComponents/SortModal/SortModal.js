@@ -17,6 +17,9 @@ import axios from 'axios';
 import {useSelector,useDispatch} from 'react-redux';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
+import {
+  SET_CATEGORY_WISE_LIST,
+} from '../../redux/productList/types';
 // import {getServiceCenterList} from '../../redux/serviceCenter/actions';
 const window = Dimensions.get('window');
 
@@ -64,6 +67,10 @@ export const SortModal = (props) => {
                         payload.scroll        = false;
                         payload.startRange      = 0;
                         payload.limitRange      = 10;
+                        dispatch({
+                          type:SET_CATEGORY_WISE_LIST,
+                          payload:[]
+                        })
                         dispatch(getCategoryWiseList(payload));
                         closeModal();
                     }}>

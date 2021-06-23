@@ -18,10 +18,9 @@ import axios                        from 'axios';
 import {useSelector, useDispatch}   from 'react-redux';
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
-// import {
-//   SET_SEARCH_PAYLOAD,
-//   SET_SEARCH_RESULT,
-// } from '../../redux/serviceCenter/types';
+import {
+  SET_CATEGORY_WISE_LIST,
+} from '../../redux/productList/types';
 // import {Text} from '../../components/Text';
 const window = Dimensions.get('window');
 
@@ -232,6 +231,10 @@ const FilterModal = (props) => {
                 payload.scroll          = false;
                 payload.startRange      = 0;
                 payload.limitRange      = 10;
+                dispatch({
+                  type:SET_CATEGORY_WISE_LIST,
+                  payload:[]
+                })
                 dispatch(getCategoryWiseList(payload));
                 closeModal();
               }}

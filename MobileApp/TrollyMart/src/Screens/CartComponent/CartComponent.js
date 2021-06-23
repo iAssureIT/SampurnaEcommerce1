@@ -353,7 +353,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         null
                         :
                         <View style={{}}>
-                          <Text style={styles.minpurchase}>For vendor {vendor.vendor_id.companyName.toLowerCase()} minimum shopping amount is {currency} {cartData.minOrderAmount}.</Text>
+                          <Text style={styles.minpurchase}>Order total amount should be greater than {currency} {cartData.minOrderAmount}. Please add some more products.</Text>
                           <Text style={[CommonStyles.linkText,{alignSelf:'center'}]} onPress={()=>goToProductList(vendor)}>For continue shopping click here.</Text>
                         </View>
                       }

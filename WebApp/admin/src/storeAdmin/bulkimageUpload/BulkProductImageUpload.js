@@ -5,6 +5,7 @@ import swal                   from 'sweetalert';
 import _                      from 'underscore';
 import S3FileUpload           from 'react-s3';
 import { Alert } from 'bootstrap';
+import Compressor from 'compressorjs';
 class BulkProductImageUpload extends Component{
   constructor(props){
       super(props);
@@ -120,6 +121,10 @@ class BulkProductImageUpload extends Component{
                       var imageLength = 100;
                       var z = 0;
                       for (var i = 0; i<productImage.length; i++) {
+                        var compressed_image = await handleCompressedUpload(productImage[i].fileInfo);
+                        compressed_image.name = compressed_image.name.split(".")[0]+"_small_iamge."+compressed_image.name.split(".")[1];
+
+                        var productSmallImage = await s3upload(compressed_image, config, this);
                         var s3url = await s3upload(productImage[i].fileInfo, config, this);
                         var x = i + 1;
                         var progressLength = (x/productImage.length) * 100;
@@ -128,6 +133,7 @@ class BulkProductImageUpload extends Component{
                         })
                         s3urlArray.push({
                           productImage : s3url,
+                          productSmallImage  :productSmallImage,
                           itemCode : productImage[i].itemCode
                         });
                       }
@@ -146,6 +152,19 @@ class BulkProductImageUpload extends Component{
                       productImageArray : _.flatten(newImages)
                   })
               });
+
+              function handleCompressedUpload (e)  {
+                return new Promise(function(resolve,reject){
+                  new Compressor(e,{
+                    quality: 0.8, // 0.6 can also be used, but its not recommended to go below.
+                    height : 300,
+                    width:220,
+                    success: async (compressedResult) => {
+                      resolve(compressedResult);
+                    },
+                  });
+                });
+              };
 
                 function s3upload(image,configuration){
                     return new Promise(function(resolve,reject){
@@ -218,8 +237,9 @@ class BulkProductImageUpload extends Component{
     event.preventDefault();
     for(var i=0; i<this.state.productImageArray.length; i++){
       var formValue = {
-        productImage  : this.state.productImageArray[i].productImage,
-        itemCode      : this.state.productImageArray[i].itemCode
+        productImage        : this.state.productImageArray[i].productImage,
+        productSmallImage   : this.state.productImageArray[i].productSmallImage,
+        itemCode      :    this.state.productImageArray[i].itemCode
       }
       axios.patch('/api/products/patch/bulkimages/', formValue)
       .then((response)=>{

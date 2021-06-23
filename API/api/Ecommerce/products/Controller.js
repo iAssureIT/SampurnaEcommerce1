@@ -1849,7 +1849,8 @@ exports.upload_photo = (req,res,next)=>{
     });
 };
 exports.upload_photo_product_code = (req,res,next)=>{
-    Products.find({"itemCode" : req.body.itemCode, "productImage": req.body.productImage})
+    console.log("req.body",req.body);
+    Products.find({"itemCode" : req.body.itemCode, "productImage": req.body.productImage,"productSmallImage": req.body.productSmallImage})
     .exec()
     .then(data=>{    
         if(data.length>0){
@@ -1861,7 +1862,8 @@ exports.upload_photo_product_code = (req,res,next)=>{
                 { "itemCode" : req.body.itemCode},
                 {   
                     $push:{                            
-                        "productImage" : req.body.productImage,       
+                        "productImage" : req.body.productImage,   
+                        "productSmallImage" : req.body.productSmallImage    
                     }
                 }
             )

@@ -66,6 +66,7 @@ class VendorList extends Component {
         }
       }
     render() {
+
         return(
             <section className={ Style.bgGray}>
                 <Header />    

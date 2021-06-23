@@ -33,6 +33,7 @@ const productsSchema = mongoose.Schema({
     discountedPrice           : Number,
     availableQuantity         : Number,
     productImage              : Array,
+    productSmallImage         : Array,
     productVideo              : Array,
     productYTubeVideo         : String,
     productVideoType          : String,

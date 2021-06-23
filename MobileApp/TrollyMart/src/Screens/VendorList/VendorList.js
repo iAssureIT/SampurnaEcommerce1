@@ -59,6 +59,7 @@ export const VendorList = withCustomerToaster((props)=>{
         "latitude"   : store.location?.address?.latlong?.lat,
         "longitude"  : store.location?.address?.latlong?.lng
     }
+    console.log("formValues",formValues);
         axios.post('/api/vendorlist/post/vendor/list',formValues)
         .then(res=>{
             setLoading(false);

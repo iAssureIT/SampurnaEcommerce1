@@ -37,7 +37,7 @@ export const MenuCarouselSection = (props)=>{
   const _renderlist = ({ item, index })=>{
     return (
       <View key={index} style={styles.mainrightside}>
-        <TouchableOpacity style={{borderWidth:selected===item.section ? 2:0,borderRadius:10,borderColor:colors.theme}} 
+        <TouchableOpacity style={{borderWidth:selected===item.section ? 2:0,borderRadius:10,borderColor:colors.cartButton}} 
           onPress={()=>{
                 setSelected(item.section);
                 navigation.navigate("VendorList",{
