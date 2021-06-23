@@ -76,26 +76,28 @@ class Checkout extends Component {
         }
         var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
-        this.setState({
-            user_ID : userDetails.user_id,
-            email   : userDetails.email,
-            fullName: userDetails.firstName +" "+userDetails.lastName ,
-            websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
-            currency     : currency,
-        },()=>{
-            this.getAddressWithDistanceLimit();
-        })
-        this.gettimes(this.state.startRange, this.state.limitRange);  
-        axios.get('/api/users/get/' + this.state.user_ID)
-            .then(result => {
-                this.setState({
-                    mobile: result.data.mobile,
-                    email: result.data.email,
+        if(userDetails){
+            this.setState({
+                user_ID : userDetails.user_id,
+                email   : userDetails.email,
+                fullName: userDetails.firstName +" "+userDetails.lastName ,
+                websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
+                currency     : currency,
+            },()=>{
+                this.getAddressWithDistanceLimit();
+                axios.get('/api/users/get/' + this.state.user_ID)
+                .then(result => {
+                    this.setState({
+                        mobile: result.data.mobile,
+                        email: result.data.email,
+                    })
+                })
+                .catch(err => {
+                    console.log('Error /api/users/get', err);
                 })
             })
-            .catch(err => {
-                console.log('Error /api/users/get', err);
-            })
+        }
+        this.gettimes(this.state.startRange, this.state.limitRange); 
     }
     getAddressWithDistanceLimit(){
         var formValues = {
