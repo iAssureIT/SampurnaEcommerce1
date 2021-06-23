@@ -258,12 +258,13 @@ class AllOrdersList extends Component{
 																						 
 																						: 
 																							'') + '</div>',
-													changeVendorStatus 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + vendorOrder.vendor_id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + vendorOrder.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>",
+													changeVendorStatus 	: "<div aria-hidden='true' class='changeVendorStatusBtn' title='Change vendor order status' id='" + a._id + "-" + vendorOrder.vendor_id._id + "'onclick=window.openChangeStatusModal('" + a._id + "-" + vendorOrder.vendor_id._id +"-"+a.user_ID +"') data-toggle='modal' data-target='#changeOrderStatusModal'> Change Status </div>",
 
 												})
 											})
 										:
 											[],
+
 					// vendorName   	: a.vendorOrders 
 					// 					? 
 					// 						(a.vendorOrders.map((b)=>{
@@ -301,6 +302,7 @@ class AllOrdersList extends Component{
 					// 					: []
 				}
 			})
+			console.log("tableData",tableData);
 			this.setState({
 				tableData : tableData
 			},()=>{})

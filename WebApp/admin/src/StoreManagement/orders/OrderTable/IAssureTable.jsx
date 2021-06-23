@@ -803,146 +803,187 @@ class IAssureTable extends Component {
 	                        </thead>
 	                        <tbody>
 	                           { this.state.tableData && this.state.tableData.length > 0 ?
-	                           		this.state.tableData.map( 
-										(value, i)=> {	
-											// console.log("value vendors => ",value.vendors);	
-											// console.log("value",value)											
-											return(
-												<tr key={i} className="">
-													{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
-													{
-														Object.entries(value).map( 
-															([key, value1], i)=> {															
-																var vendorArrayLength = value.vendors.length;															
-																if($.type(value1) === 'string'){
-																	var regex = new RegExp(/(<([^>]+)>)/ig);
-																	var value2 = value1 ? value1.replace(regex,'') : '';
-																	var aN = value2.replace(this.state.reA, "");
-																	if(aN && $.type( aN ) === 'string'){
-																		if(value1.includes('textAlignLeft')){
-																			var textAlign = 'textAlignLeft';
-																		}else if(value1.includes('textAlignRight')){
-																			   var textAlign = 'textAlignRight';
-																		}else{
-																			var textAlign = 'textAlignLeft';
-																		}
-
-																	}else{
-																		var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
-																		if(bN){
-																			var textAlign = 'textAlignRight';
-																		}else{
-																			var textAlign = 'textAlignLeft';
-																		}
-																	}
-																}else{
+	                           		this.state.tableData.map((value, i)=> {	
+										// console.log("value vendors => ",value.vendors);	
+										// console.log("value",value);
+										var vendorArrayLength = value.vendors.length;										
+										return(
+											<tr key={i} className="">
+												{/* <td className="textAlignCenter"><input type="checkbox" ref="userCheckbox" name={value._id} id={value._id} checked={this.state[value._id]} className="userCheckbox" onChange={this.selectedId.bind(this)} /></td>	 */}
+												{Object.entries(value).map(([key, value1], i)=> {						
+													if($.type(value1) === 'string'){
+														var regex = new RegExp(/(<([^>]+)>)/ig);
+														var value2 = value1 ? value1.replace(regex,'') : '';
+														var aN = value2.replace(this.state.reA, "");
+														if(aN && $.type( aN ) === 'string'){
+															if(value1.includes('textAlignLeft')){
+																var textAlign = 'textAlignLeft';
+															}else if(value1.includes('textAlignRight')){
 																	var textAlign = 'textAlignRight';
-																}	
-																var found = Object.keys(this.state.tableHeading).filter((k)=> {
-																  return k === key;
-																});
-																// console.log("key => ",key)
-																// console.log("found => ",found)
-																if(found.length > 0 || key === 'vendors'){
-																	// console.log("1 ===> ",(key === 'vendors'))
-																	// console.log("2 ===> ",value1)
-																	// console.log("3 ===> ",value)
-																	// console.log("4 ===> ",key)
+															}else{
+																var textAlign = 'textAlignLeft';
+															}
 
-																	if(key === 'vendors'){
-																		value1.map( 
-																			(vendorvalue, index1)=> {
-																				Object.entries(vendorvalue).map( 
-																					([key2, value2], index2)=> {
-																						
-																						// console.log("vendorvalue => ",index2, " ", vendorvalue);
-																						// console.log("key2 => ",index2, " ", key2);
-																						// console.log("value2 => ",index2, " ", value2);
+														}else{
+															var bN = value1 ? parseInt(value1.replace(this.state.reN, ""), 10) : '';
+															if(bN){
+																var textAlign = 'textAlignRight';
+															}else{
+																var textAlign = 'textAlignLeft';
+															}
+														}
+													}else{
+														var textAlign = 'textAlignRight';
+													}	
 
-																						var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
-																							return k1 === key2;
-																						});
-																						// console.log("found1 => ",found1);
-																						if(found1.length > 0){
-																							return (<td className={"textAlign"} key={index2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+													var found = Object.keys(this.state.tableHeading).filter((k)=> {
+														return k === key;
+													});
+
+													// console.log("key => ",key)
+													// console.log("found => ",found)
+													if(found.length > 0 || key === 'vendors'){
+														// if(found.length > 0){
+															// console.log("1 ===> ",(key === 'vendors'))
+															// console.log("2 ===> ",value1)
+															// console.log("3 ===> ",value)
+															// console.log("4 ===> ",key)
+														if(key !== 'id'){
+															if(key === 'vendors'){
+																// console.log(" ************* ",value1)
+																return(
+																	<td className={textAlign} colSpan="4">
+																		<table className="table table-striped table-hover">
+																			<tbody>
+																		{value1.map((vendorvalue, index)=> {
+																			// console.log("i => ",i);
+																			
+																				return(
+																					<tr key = {"in-"+index}>
+																						{Object.entries(vendorvalue).map( 
+																							([key2, value2], index)=> {
+																								// console.log("vendorvalue => ",index2, " ", vendorvalue);
+																								// console.log("key2 => ",index2, " ", key2);
+																								// console.log("value2 => ",index2, " ", value2);
+
+																								var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
+																									return k1 === key2;
+																								});
+																								// console.log("found1 => ",found1);
+																								// console.log("000000000 => ",<td className={"textAlign"} key={index2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+																								if(found1.length > 0){
+																									return (<td className={"textAlign"} key={key2} ><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+																								}															
+
+																							})
 																						}
-
-																					})
+																					</tr>
+																				)
+																					// console.log("ad => ",ad)
 																			})
-																	}else if(key !== 'id'){
-																		return(<td rowSpan ={vendorArrayLength} className={textAlign} key={i}><div className={textAlign} dangerouslySetInnerHTML={{ __html:value1}}></div></td>); 						
-																	}
+																		}
+																		</tbody>
+																		</table>
+																	</td>
+																); 						
+																
+																	// else{
+																	// 	return(
+																	// 		<tr>
+																	// 			{Object.entries(vendorvalue).map( 
+																	// 			([key2, value2], index2)=> {
+																	// 				console.log("else vendorvalue => ",index2, " ", vendorvalue);
+																	// 				console.log("else key2 => ",index2, " ", key2);
+																	// 				console.log("else value2 => ",index2, " ", value2);
 
+																	// 				var found1 = Object.keys(this.state.tableHeading).filter((k1)=> {
+																	// 					return k1 === key2;
+																	// 				});
+																	// 				console.log("else found1 => ",found1);
+																	// 				console.log("else 000000000 => ",<td className={"textAlign"} key={"vendor-"+index1+"_"+index2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+																	// 				if(found1.length > 0){
+																	// 					return (<td className={"textAlign"} key={"vendor-"+index1+"_"+index2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+																	// 				}															
+
+																	// 			})}
+																	// 		</tr>
+																	// 	)
+																	// }
+																}else {
+																	// console.log(" ============== ")
+																	return(<td className={textAlign}><div className={textAlign} dangerouslySetInnerHTML={{ __html:value1}}></div></td>); 						
+																	// return(<td className={textAlign} key={i}><div className={textAlign} dangerouslySetInnerHTML={{ __html:value1}}></div></td>); 						
 																}
 															}
-														)
-													}
-													{/* {value.vendors && value.vendors.length > 0
-													?
-														value.vendors.map((vendorOrder, index)=>{
-															Object.entries(vendorOrder).map( 
-																([key2, value2], i2)=> {	
-																	console.log("key2 => ",key2);
-																	
-																	return (<td className={"textAlign"} key={i2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
-				
-																})
+														}
+													})
+												// })
+												}
+												{/* {value.vendors && value.vendors.length > 0
+												?
+													value.vendors.map((vendorOrder, index)=>{
+														Object.entries(vendorOrder).map( 
+															([key2, value2], i2)=> {	
+																console.log("key2 => ",key2);
+																
+																return (<td className={"textAlign"} key={i2}><div className={"textAlign"} dangerouslySetInnerHTML={{ __html:value2}}></div></td>)
+			
 															})
-													:
-														null
-													} */}
-													{/* <td className="col-lg-1 textAlignCenter">
-                                                      <i onClick={this.changeAttribute.bind(this)} data-attribute="featured" data-ID={value._id} data-attributeValue={value.featured} title={ (value.featured === true )? "Disable It" : "Enable It" } className={'fa fa-check-circle prodCheckboxDim ' + ( value.featured === true ? "prodCheckboxDimSelected" : "prodCheckboxDimNotSelected" )} aria-hidden="true"></i>
-                                                    </td>
-                                                    <td className="col-lg-1 textAlignCenter">
-                                                        <i onClick={this.changeAttribute.bind(this)} data-attribute="exclusive" data-ID={value._id} data-attributeValue={value.exclusive} title={( value.exclusive === true ? "Disable It" : "Enable It" )}  className={'fa fa-check-circle prodCheckboxDim ' + ( value.exclusive === true ? "prodCheckboxDimSelected" : "prodCheckboxDimNotSelected" )} aria-hidden="true"></i>
-                                                    </td>
+														})
+												:
+													null
+												} */}
+												{/* <td className="col-lg-1 textAlignCenter">
+													<i onClick={this.changeAttribute.bind(this)} data-attribute="featured" data-ID={value._id} data-attributeValue={value.featured} title={ (value.featured === true )? "Disable It" : "Enable It" } className={'fa fa-check-circle prodCheckboxDim ' + ( value.featured === true ? "prodCheckboxDimSelected" : "prodCheckboxDimNotSelected" )} aria-hidden="true"></i>
+												</td>
+												<td className="col-lg-1 textAlignCenter">
+													<i onClick={this.changeAttribute.bind(this)} data-attribute="exclusive" data-ID={value._id} data-attributeValue={value.exclusive} title={( value.exclusive === true ? "Disable It" : "Enable It" )}  className={'fa fa-check-circle prodCheckboxDim ' + ( value.exclusive === true ? "prodCheckboxDimSelected" : "prodCheckboxDimNotSelected" )} aria-hidden="true"></i>
+												</td>
+												
+												<td className="col-lg-1">
+													<div className={( value.status === ("Unpublish") ? ("prodStatUnpublish") : (value.status === ("Publish") ? ("prodStatPublish") : ("prodStatDraft")) )}>{value.status}</div>
+													{/* <div onClick={this.changeStatusOfProd.bind(this)} data-ID={value._id} className={( value.status === ("Unpublish") ? ("prodStatUnpublish") : (value.status === "Publish" ? "prodStatPublish" : "prodStatDraft") )} data-status={value.status} >
+														{(value.status === ("Unpublish") ? ("Unpublished") : (value.status === ("Draft") ? ("Draft") : ("Published")))}
+													</div> */}
+												{/* </td>  */}
+												<td className="textAlignCenter">
+													<span class="displayInline">
+														<a href={"/viewOrder/"+value._id} className="" title="View" data-ID={value._id}>
+															<i className="fa fa-eye" aria-hidden="true"></i>
+														</a>&nbsp; &nbsp;
+														{/* <i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
+														<i className={"fa fa-image "} id={value._id} name={value.productNameBasic} nameRlang={value.productNameRlang} data-toggle="modal" title="Upload Product Image" data-target={"#productImageModal"} onClick={this.showImageModal.bind(this)}></i>&nbsp; &nbsp;
 													
-                                                    <td className="col-lg-1">
-                                                        <div className={( value.status === ("Unpublish") ? ("prodStatUnpublish") : (value.status === ("Publish") ? ("prodStatPublish") : ("prodStatDraft")) )}>{value.status}</div>
-                                                        {/* <div onClick={this.changeStatusOfProd.bind(this)} data-ID={value._id} className={( value.status === ("Unpublish") ? ("prodStatUnpublish") : (value.status === "Publish" ? "prodStatPublish" : "prodStatDraft") )} data-status={value.status} >
-                                                            {(value.status === ("Unpublish") ? ("Unpublished") : (value.status === ("Draft") ? ("Draft") : ("Published")))}
-                                                        </div> */}
-                                                    {/* </td>  */}
-													<td className="textAlignCenter">
-														<span class="displayInline">
-															<a href={"/viewOrder/"+value._id} className="" title="View" data-ID={value._id}>
-	                                                            <i className="fa fa-eye" aria-hidden="true"></i>
-	                                                        </a>&nbsp; &nbsp;
-															{/* <i className="fa fa-pencil" title="Edit" id={value._id} onClick={this.edit.bind(this)}></i>&nbsp; &nbsp; 
-															<i className={"fa fa-image "} id={value._id} name={value.productNameBasic} nameRlang={value.productNameRlang} data-toggle="modal" title="Upload Product Image" data-target={"#productImageModal"} onClick={this.showImageModal.bind(this)}></i>&nbsp; &nbsp;
-														
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>} */}
-															</span>
-														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
-	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                          <div className="modal-content adminModal-content col-lg-6 col-lg-offset-4 col-md-6 col-md-offset-4 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
-	                                                            <div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                            <div className="adminCloseCircleDiv pull-right  col-lg-1 col-lg-offset-11 col-md-1 col-md-offset-11 col-sm-1 col-sm-offset-11 col-xs-12 NOpadding-left NOpadding-right">
-	                                                              <button type="button" className="adminCloseButton" data-dismiss="modal" data-target={"#showDeleteModal-"+(value._id)}>&times;</button>
-	                                                            </div>
-	                                                           
-	                                                            </div>
-	                                                            <div className="modal-body adminModal-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                              <h4 className="blackLightFont textAlignCenter examDeleteFont col-lg-12 col-md-12 col-sm-12 col-xs-12">Are you sure you want to delete?</h4>
-	                                                            </div>
-	                                                            
-	                                                            <div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	                                                                <button type="button" className="btn adminCancel-btn col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1" data-dismiss="modal">CANCEL</button>
-	                                                              </div>
-	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	                                                                <button onClick={this.delete.bind(this)} id={(value._id).replace(/-/g, "/")} type="button" className="btn examDelete-btn col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-8 col-sm-offset-3 col-xs-10 col-xs-offset-1 floatRight" data-dismiss="modal">DELETE</button>
-	                                                              </div>
-	                                                            </div>
-	                                                          </div>
-	                                                        </div>
-	                                                    </div>
-													</td>
-												</tr>
-											);										
-										}
-									) 	
+														{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete" data-target={"#showDeleteModal-"+(value._id)}></i>} */}
+													</span>
+													<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
+														<div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div className="modal-content adminModal-content col-lg-6 col-lg-offset-4 col-md-6 col-md-offset-4 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
+															<div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div className="adminCloseCircleDiv pull-right  col-lg-1 col-lg-offset-11 col-md-1 col-md-offset-11 col-sm-1 col-sm-offset-11 col-xs-12 NOpadding-left NOpadding-right">
+																<button type="button" className="adminCloseButton" data-dismiss="modal" data-target={"#showDeleteModal-"+(value._id)}>&times;</button>
+															</div>
+															
+															</div>
+															<div className="modal-body adminModal-body col-lg-12 col-md-12 col-sm-12 col-xs-12">
+																<h4 className="blackLightFont textAlignCenter examDeleteFont col-lg-12 col-md-12 col-sm-12 col-xs-12">Are you sure you want to delete?</h4>
+															</div>
+															
+															<div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
+																<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																<button type="button" className="btn adminCancel-btn col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1" data-dismiss="modal">CANCEL</button>
+																</div>
+																<div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+																<button onClick={this.delete.bind(this)} id={(value._id).replace(/-/g, "/")} type="button" className="btn examDelete-btn col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-8 col-sm-offset-3 col-xs-10 col-xs-offset-1 floatRight" data-dismiss="modal">DELETE</button>
+																</div>
+															</div>
+															</div>
+														</div>
+													</div>
+												</td>
+											</tr>
+										);										
+									}) 	
 									:
 									<tr className="trAdmin"><td colSpan={12} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
 								}
