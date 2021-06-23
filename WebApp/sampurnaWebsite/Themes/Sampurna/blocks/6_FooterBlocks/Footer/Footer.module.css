@@ -374,11 +374,11 @@
   padding-top:80px;
 }
 
-.footerBottom{
+/*.footerBottom{
   height: 100px;
   padding-top:45px;
   
-}
+}*/
 
 .text_Center{
 /* text-align:right !important;*/
@@ -401,8 +401,8 @@
 }
 
 .footerBottom {
-    min-height: 150px; 
-    padding-top: 45px;
+    min-height: 170px; 
+    /*padding-top: 45px;*/
 }
 
 .ml0{
@@ -493,6 +493,8 @@
   .aboutusFooterWrapper{
     margin-bottom: 20px;
 }
+
+
 .copyrighttxt p,
 .footernabbar span{
   font-size: 11px !important;
@@ -536,8 +538,19 @@
 }
 }
 
+
+@media only screen and (min-device-width: 900px) {    
+  .logoTop{
+    margin-top: 70px;
+  }
+ }
+
 .footerSection{
   padding-left: 30px ! important;
+}
+
+.ma{
+  margin:auto !important;
 }
 /* .BookStore_logo a{
   float: right ! important;

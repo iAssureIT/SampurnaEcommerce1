@@ -151,19 +151,45 @@ export default class Footer extends Component {
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
               <div className={"row " +S.footerBottom}>
-              <div className="col-12 col-sm-12 col-xl-4 col-lg-4 col-md-4 col-sx-12">
+              <div className={"col-12 col-sm-12 col-xl-3 col-lg-3 col-md-4 col-sx-12 " +S.logoTop}>
                   < Websitelogo />
               </div>
-              
-              <div className="col-12 col-sx-12 col-xl-5 col-lg-6 col-md-8 text_Center">
-                  <div className="footer3Class">
-                      Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
+
+              <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-8 text_Center " }>
+                <div className={"col-12 col-sm-12 col-lg-12 col-md-12 text_Center mt-3 mb-3 " +S.ma}>
+                    <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
+                    <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
+                    <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
+                    <div className="socialMediaIcons"><Link href="https://www.linkedin.com"><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
+                    <div className="socialMediaIcons"><Link href="https://www.twitter.com/bookstore"><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
+                </div> 
+                <div className="col-12 col-sx-12 col-xl-12 col-lg-12 col-md-12 text_Center">
+                      <div className="col-12 text-center footer3Class">
+                          Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
+                      </div>
+                      <div className="col-12 text-center">
+                        <p><i className="fa fa-copyright"></i>2021,Trollymart.com</p>
+                      </div>                      
                   </div>
-                  <div className="col-12 text-center">
-                    <p><i className="fa fa-copyright"></i>2021,Trollymart.com</p>
-                  </div>
-                  
               </div>
+              <div className="col-12 col-sx-12 col-xl-3 col-lg-3 col-md-4 text_Center">
+                  <div className={"col-12 col-sm-12 col-lg-12 col-md-12 md-mt-5 "}>
+                        <div className="col-12 FooterTitle">Payment card</div>
+                        <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15">
+                            <div className="payCard1 "></div>  
+                            <div className="payCard2 "></div>  
+                        </div>
+                    </div>
+     
+                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 mt80">
+                        <div className="col-12 FooterTitle">We are in</div>
+                        <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width pr-0">
+                            <div className="appleCard"></div>
+                            <div className="androidCard"></div>                        
+                        </div>
+                    </div>
+                </div>
+              
                {/* <div className="col-12 col-sm-6 copyrighttxt">
                     <p>Copyright @2021 <i className="fa fa-copyright"></i> <span className="uniColor">Trolly</span><span className="mandaiColor">Mart</span> All Rights Reserved.</p>
                 </div>

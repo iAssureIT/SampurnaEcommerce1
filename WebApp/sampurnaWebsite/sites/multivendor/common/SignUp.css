@@ -489,12 +489,16 @@ input[type=number] {
 }
 
 #loginFormModal input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active  {
+#loginFormModal input:-webkit-autofill:hover, 
+#loginFormModal input:-webkit-autofill:focus, 
+#loginFormModal input:-webkit-autofill:active  {
   transition: background-color 5000s ease-in-out 0s;
     -webkit-box-shadow: 0 0 0px 1000px #033554 inset;
     -webkit-text-fill-color: #fff;
+}
+
+#loginFormModal .form-control:focus {
+  background-color:transparent !important;
 }
 
 .facebookBtn{
