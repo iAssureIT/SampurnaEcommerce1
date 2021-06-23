@@ -92,7 +92,7 @@ export default class Footer extends Component {
                         );
                         })
                     }
-                    <div className={"col-6 col-xl-1 col-lg-1 col-md-4 col-sm-6 aboutusFooterWrapper pr0 pr-0 pl-0 "+S.pr0 }>
+                   {/* <div className={"col-6 col-xl-1 col-lg-1 col-md-4 col-sm-6 aboutusFooterWrapper pr0 pr-0 pl-0 "+S.pr0 }>
                 <div>
                     <div className="col-12 footerSubT pr-0">About Us</div>
                     <div className="col-7 hrLine"></div>
@@ -110,9 +110,9 @@ export default class Footer extends Component {
                     {/* <div className="categortTitle"><Link href="/blogs"><a ><span>&nbsp;Blogs</span></a></Link></div> */}
                          
                                   
-                </div>
-            </div>
-            <div className="col-6 col-xl-3 col-lg-3 col-md-4 col-sm-6 NoPadding onlineShoppingWrapper">  
+              {/*   </div>
+            </div>*/}
+            {/*<div className="col-6 col-xl-3 col-lg-3 col-md-4 col-sm-6 NoPadding onlineShoppingWrapper">  
                 <div className="col-xl-12 col-md-12 col-sm-12  col-12">
                     <div className="col-12 FooterTitle text-right">Connect with Us</div>
                     <div className="col-12 col-sm-12 col-lg-12 col-md-12 pull-right ">
@@ -139,7 +139,7 @@ export default class Footer extends Component {
                         <div className="androidCard"></div>                        
                     </div>
                 </div>
-            </div>
+            </div>*/}
 
                </div> 
             </div>
@@ -156,7 +156,7 @@ export default class Footer extends Component {
               </div>
 
               <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-8 text_Center " }>
-                <div className={"col-12 col-sm-12 col-lg-12 col-md-12 text_Center mt-3 mb-3 " +S.ma}>
+                <div className={"col-12 col-sm-12 col-lg-12 col-md-12 text_Center mt-3 mb-3 " +S.icon}>
                     <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
                     <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
                     <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
@@ -164,6 +164,14 @@ export default class Footer extends Component {
                     <div className="socialMediaIcons"><Link href="https://www.twitter.com/bookstore"><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
                 </div> 
                 <div className="col-12 col-sx-12 col-xl-12 col-lg-12 col-md-12 text_Center">
+                    <div className={"col-12 text-center footer3Class " +S.aboutHeight}>
+                        <div className={" " +S.aboutClass}><Link href="/about-us"><a ><span>&nbsp;About Us</span></a></Link></div>
+                        <div className={" " +S.aboutClass}><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>   
+                        <div className={" " +S.aboutClass}><Link href="/legal-policy"><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
+                        <div className={" " +S.aboutClass}><Link href="/faq"><a ><span>&nbsp;FAQs</span></a></Link></div> 
+                        <div className={" " +S.aboutClass}><a href="/terms-and-conditions" target="_blank"><span>Terms and Conditions</span></a></div>
+                        <div className={" " +S.aboutClass}><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div>  
+                    </div>
                       <div className="col-12 text-center footer3Class">
                           Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                       </div>

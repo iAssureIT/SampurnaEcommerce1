@@ -552,6 +552,27 @@
 .ma{
   margin:auto !important;
 }
+
+.icon{
+  height:60px;
+  content:center;
+  margin-left:30%;
+}
+
+.aboutClass{
+  color:#fff;
+  float: left;
+  margin-right:15px;
+}
+
+.aboutClass a{
+   color:#fff !important;
+}
+
+.aboutHeight{
+  height:50px;
+}
+
 /* .BookStore_logo a{
   float: right ! important;
 }*/
