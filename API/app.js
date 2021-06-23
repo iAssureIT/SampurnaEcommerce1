@@ -19,6 +19,7 @@ const typeMasterRoutes 					= require('./api/cms/TypeMaster/Routes.js');
 const blockTypeMasterRoutes 			= require('./api/cms/BlockTypeMaster/Routes.js');
 const addNewBlockTempMasterRoutes 		= require("./api/cms/AddNewBlockTemplate/routes.js");
 const menubarRoutes                  	= require("./api/cms/routes/menubar.js");
+const MyEmitter = require('events');
 
 
 // console.log("globalVariable.dbname",dbname);
@@ -47,6 +48,14 @@ app.use((req, res, next) => {
 	}
 	next();
 });
+
+
+
+const myEmitter = new MyEmitter();
+// increase the limit
+myEmitter.setMaxListeners(11);
+
+myEmitter.emit('event');
 
 const startupRoutes			   				= require("./api/coreAdmin/userManagementnew/startupRoutes.js");
 

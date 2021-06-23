@@ -244,7 +244,7 @@ class AllOrdersList extends Component{
 					orderNumber     : a.orderID,
 					orderDate       : '<div class=textFloatLeft><div>' + moment(a.createdAt).format("MMMM Do YYYY") + '</div><div>' + moment(a.createdAt).format('h:mm a')
 					+ '</div></div>',
-					customer     	: '<div><b>'+ a.userFullName +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
+					customer     	: '<div><b>'+ a.userFullName ? a.userFullName : (a.deliveryAddress.name ? a.deliveryAddress.name : "Guest User")  +'</b><br/> ' + a.deliveryAddress.addressLine1 + ", " + a.deliveryAddress.addressLine2 + '</div>',
 					totalPrice  	: this.state.currency + " " + a.paymentDetails.netPayableAmount,					
 					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
 										?
