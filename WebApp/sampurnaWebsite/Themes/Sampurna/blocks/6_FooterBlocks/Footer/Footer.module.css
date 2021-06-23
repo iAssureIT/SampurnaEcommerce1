@@ -418,7 +418,7 @@
 }
 
 .mt80{
-  margin-top:80px !important;
+  margin-top:80px;
 }
 .footerLogoImg{
   margin-bottom: 30px;
@@ -539,11 +539,43 @@
 }
 
 
-@media only screen and (min-device-width: 900px) {    
+@media only screen and (min-device-width: 700px) {    
   .logoTop{
-    margin-top: 70px;
+    margin-top: 90px;
   }
+  .aboutClass{
+  color:#fff;
+  float: left;
+  margin-right:15px;
+    }
+
+    .payDiv{
+      text-align:left;
+  display: grid;
+    justify-content: center;
+      }
+
+      .mt80{
+  margin-top:30px;
+     }
+
  }
+
+ @media only screen and (max-device-width: 600px) {    
+   .aboutClass{
+  color:#fff;
+  text-align:center;
+  margin-right:15px;
+}
+
+.payDiv{
+  display: grid;
+    justify-content: center;
+      }
+
+
+}
+
 
 .footerSection{
   padding-left: 30px ! important;
@@ -559,18 +591,12 @@
   margin-left:30%;
 }
 
-.aboutClass{
-  color:#fff;
-  float: left;
-  margin-right:15px;
-}
-
 .aboutClass a{
    color:#fff !important;
 }
 
 .aboutHeight{
-  height:50px;
+  min-height:50px;
 }
 
 /* .BookStore_logo a{

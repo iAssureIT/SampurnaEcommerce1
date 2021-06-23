@@ -151,11 +151,11 @@ export default class Footer extends Component {
         <div className="footer3 col-12">
             <div className="col-12 footer_bottom">
               <div className={"row " +S.footerBottom}>
-              <div className={"col-12 col-sm-12 col-xl-3 col-lg-3 col-md-4 col-sx-12 " +S.logoTop}>
+              <div className={"col-12 col-sm-12 col-xl-3 col-lg-3 col-md-12 col-sx-12 " +S.logoTop}>
                   < Websitelogo />
               </div>
 
-              <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-8 text_Center " }>
+              <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-12 text_Center " }>
                 <div className={"col-12 col-sm-12 col-lg-12 col-md-12 text_Center mt-3 mb-3 " +S.icon}>
                     <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
                     <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
@@ -180,17 +180,17 @@ export default class Footer extends Component {
                       </div>                      
                   </div>
               </div>
-              <div className="col-12 col-sx-12 col-xl-3 col-lg-3 col-md-4 text_Center">
-                  <div className={"col-12 col-sm-12 col-lg-12 col-md-12 md-mt-5 "}>
-                        <div className="col-12 FooterTitle">Payment card</div>
-                        <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15">
+              <div className={"col-12 col-sx-12 col-xl-3 col-lg-3 col-md-12 text_Center " +S.payDiv}>
+                  <div className={"col-12 col-sm-12 col-lg-12 col-md-12 md-mt-5  " +S.aboutHeight}>
+                        <div className="col-12 FooterTitle text-center ">Payment card</div>
+                        <div className={"col-12 col-sm-6 col-lg-12 col-md-12 mt15 " }>
                             <div className="payCard1 "></div>  
                             <div className="payCard2 "></div>  
                         </div>
-                    </div>
+                    </div> 
      
-                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 mt80">
-                        <div className="col-12 FooterTitle">We are in</div>
+                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 mt-3 ">
+                        <div className="col-12 FooterTitle text-center ">We are in</div>
                         <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width pr-0">
                             <div className="appleCard"></div>
                             <div className="androidCard"></div>                        
