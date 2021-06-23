@@ -12,8 +12,8 @@ const VendorList = ()=> {
     const [vendorList,setVendorList] = useState([]);
     const [categoryList,setCategoryList] = useState([]);
     const router = useRouter();
-    const {sectionurl} = router.query
-    // console.log("useRouter",router.query);
+    const {sectionurl} = router.query;
+    console.log("sectionurl",router.query);
     useEffect(()=>{
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
         if(sampurnaWebsiteDetails){
@@ -46,7 +46,8 @@ const VendorList = ()=> {
 			.catch((error) => {
 				console.log('productwise vendorlist error', error);
 			})
-    },[sectionurl])
+    },[])
+
         return(
             <section className={ Style.bgGray}>
                 <Header />    

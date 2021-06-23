@@ -262,7 +262,7 @@ class ProductViewEcommerce extends Component {
 		event.preventDefault();
 		if (this.state.user_ID) {
 			var id = event.target.id;
-			console.log("product id===",id);
+			// console.log("product id===",id);
 			axios.get('/api/products/get/one/' + id)
 				.then((response) => {
 					const formValues =
@@ -370,14 +370,14 @@ class ProductViewEcommerce extends Component {
 	
 	render() {
 		var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
-		var wishClass = 'r';
+		var wishClass = '';
 		var tooltipMsg = '';
 		if (x && x.length > 0) {
-			wishClass = '';
+			wishClass = '-o';
 			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Remove from wishlist';
 		} else {
-			wishClass = '-o';
+			wishClass = '';
 			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Add To Wishlist';
 		} 
@@ -514,7 +514,7 @@ class ProductViewEcommerce extends Component {
 													</div>
 												:
 													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
-														<i className={"far fa-heart"+ wishClass +"heartIcon"}></i>
+														<i className={"far fa-heart"+ wishClass +" heartIcon"}></i>
 													</div>												
 												}
 											</div>	
