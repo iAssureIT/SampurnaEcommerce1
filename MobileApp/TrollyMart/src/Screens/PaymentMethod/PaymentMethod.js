@@ -27,7 +27,6 @@ const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
 export const PaymentMethod = withCustomerToaster((props)=>{
-  console.log(" PaymentMethod props",props)
   const {navigation,route,setToast}=props;
 
   const dispatch = useDispatch();
@@ -44,10 +43,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
   const [mobNumber,setMobileNumber]         = useState('');
 
   const {cartdata,userID,addData,shippingtime} = route.params;
-  console.log("cartdata",cartdata);
-  console.log("route",route);
   const userDetails = useSelector(store => store.userDetails)
-  console.log("userDetails",userDetails);
   useEffect(() => {
     getData();
   }, [props]);
@@ -56,7 +52,6 @@ export const PaymentMethod = withCustomerToaster((props)=>{
     var type = "PG"
     axios.post('/api/projectsettings/getS3Details/' + type)
     .then(result => {
-      console.log("getData result",result);
         // setEnvironment(result.data.environment);
         setNamePayg(result.data.namepayg);
         setPartnerId(result.data.partnerid);
@@ -118,7 +113,6 @@ export const PaymentMethod = withCustomerToaster((props)=>{
       }
     }
     if(i>=vendorOrders.length){
-      console.log("vendorOrders",vendorOrders);
       var value = addData.mobileNumber;
       var mobile = "";
       value = value.replace(/\s/g, '');
@@ -158,16 +152,12 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         orderStatus               : "New"
       }
 
-      console.log("orderData",orderData);
-
       socket.emit('postOrder',orderData);
       socket.on("order", (result)=>{
       // axios.post('/api/orders/post', orderData)
       //   .then((result) => {
-          console.log("orderData==>", result);
           axios.get('/api/orders/get/one/' + result.order_id)
             .then((res) => {
-              console.log("res",res);
               dispatch(getCartCount(userID))
               if (paymentmethods === 'Cash On Delivery') {
 
@@ -190,20 +180,19 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                 }
                 // console.log('paymentdetails in result==>>>', paymentdetails)
                 axios.post('/api/orders/pgcall/post', paymentdetails)
-                    .then((payurl) => {
-                        if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
-                          // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
-                          setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
-                        }
-                        setBtnLoading(false);
-                    })
-                    .catch((error) => {
-                        console.log("return to checkout");
-                        console.log(error);
-                        setBtnLoading(false);
-                    })
+                .then((payurl) => {
+                    if(payurl.data.result.RESPONSE_MESSAGE  === 'SUCCESS'){
+                      // console.log('sendDataToUser in payurl==>>>', payurl.data.result.PAYMENT_URL)
+                      setToast({text: 'Your order is confirmed.Thank you for shopping with us.', color: 'green'});
+                    }
+                    setBtnLoading(false);
+                })
+                .catch((error) => {
+                    console.log("return to checkout");
+                    console.log(error);
+                    setBtnLoading(false);
+                })
             }
-              console.log("orderdetails=====>", res.data);
               // =================== Notification OTP ==================
               var sendData = {
                 "event": "3",
@@ -300,7 +289,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       title={"CONFIRM ORDER"}
                       buttonStyle={styles.button1}
                       containerStyle={styles.buttonContainer1}
-                      // loading={btnLoading}
+                      loading={btnLoading}
                     />
                   </View>
                 </View>

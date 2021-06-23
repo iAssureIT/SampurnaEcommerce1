@@ -386,7 +386,7 @@ export const MyOrder = withCustomerToaster((props)=>{
               </View>
             </ScrollView>}
           </View>
-          <Footer />
+          <Footer selected={"3"}/>
           <Modal isVisible={cancelOrderModal}
             onBackdropPress={() => setCancelOrderModal(false)}
             coverScreen={true}

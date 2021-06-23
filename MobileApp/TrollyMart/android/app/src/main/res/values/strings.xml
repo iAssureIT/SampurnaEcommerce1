@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrollyMart</string>
+    <string name="app_name">Knock Knock</string>
     <string name="facebook_app_id">1092872667868832</string>
       <string moduleConfig="true" name="CodePushDeploymentKey">7dTq5KAQXRUsJ2hoeGx61WEAmtSNxZdEv6nqy</string>
       <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>

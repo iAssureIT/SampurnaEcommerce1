@@ -82,7 +82,6 @@ const window = Dimensions.get('window');
                   countryCode : countryCode,
                   username    : "MOBILE"
                 }
-                console.log("formValues",formValues);
                 axios.post('/api/auth/post/signup/user/otp',formValues)
                 .then((response) => {
                   setLoading(false)
@@ -168,13 +167,10 @@ const window = Dimensions.get('window');
 
   const checkPassword = () => {
       if (values.password && values.confirm_password) {
-        console.log("Inisde1")
         if (values.password === values.confirm_password){
-          console.log("Inisde2");
           setPasswordMatched(true)
           setToast({text: 'Password matched', color: 'green'});
         }else{
-          console.log("Inisde3");
           setPasswordMatched(false)
           setToast({text: 'Password not matched', color: 'red'});
         }

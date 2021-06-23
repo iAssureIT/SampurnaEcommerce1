@@ -28,17 +28,14 @@ export const ForgotPasswordOTP = withCustomerToaster((props) => {
   const {user_id}=route.params;
   // const dispatch = useDispatch();
   
-  console.log("user_id",user_id);
   return (
     <React.Fragment>
       <Formik
         onSubmit={(data) => {
             setLoading(true);
             let { otp } = data;
-            console.log("otp",otp);
             axios.get('/api/auth/get/checkemailotp/usingID/'+user_id+"/"+otp)
             .then(response => {
-                console.log("response",response);
                 setLoading(false);
                 if (response.data.message == 'SUCCESS') {
                    navigation.navigate('ResetPassword',{user_id:user_id});
@@ -88,7 +85,6 @@ const FormBody = (props) => {
     user_id,
     setToast
   } = props;
-  console.log("props",props);
   const [resendLoading, setResendLoading] = useState(false);
   const handleResend = () => {
     setResendLoading(true);
@@ -100,7 +96,6 @@ const FormBody = (props) => {
     }
     axios.patch('/api/auth/patch/setsendemailotpusingID/'+user_id,formValues)
     .then(response => {
-        console.log("response",response)
         setResendLoading(false)
         if(response.data.message == 'OTP_UPDATED') {
           // navigation.navigate('OTPVerification');

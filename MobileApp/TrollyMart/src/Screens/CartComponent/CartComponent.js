@@ -49,7 +49,6 @@ export const CartComponent = withCustomerToaster((props)=>{
 
   const getData=()=>{
     const {userId} = route.params;
-    console.log("userId",userId);
     if(userId){
       setLoading(true);
       getshippingamount(startRange,limitRange);
@@ -78,10 +77,8 @@ const getshippingamount=(startRange, limitRange)=>{
  }
  
   const getCartItems=(userId)=>{
-    console.log("getCartItems",userId);
     axios.get('/api/carts/get/cartproductlist/' + userId)
       .then((response) => {
-        console.log("response.data",response.data)
         setLoading(false);
         if(response.data){
           setCartData(response.data);
@@ -205,7 +202,6 @@ const getshippingamount=(startRange, limitRange)=>{
   if(cartData && cartData.vendorOrders && cartData.vendorOrders.length>0){
   var disabled = cartData.vendorOrders.every(el => el.vendor_afterDiscountTotal >= cartData.minOrderAmount);
   }
-  console.log("disabled")
 
   return (
     <React.Fragment>
@@ -463,7 +459,7 @@ const getshippingamount=(startRange, limitRange)=>{
         <ActivityIndicator size="large" color={colors.theme} />
       </View>}
       
-      <Footer />
+      <Footer selected={"1"} />
 
       <Modal isVisible={removefromcart}
         onBackdropPress={() => setRemoveFromCart(false)}

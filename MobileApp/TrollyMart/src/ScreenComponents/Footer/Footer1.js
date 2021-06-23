@@ -16,6 +16,7 @@ import { SET_SEARCH_CALL,
   SET_SEARCH_TEXT,
   SET_SUGGETION_LIST,
   SET_SERACH_LIST} 	          from '../../redux/globalSearch/types';
+import { colors } from "../../AppDesigns/currentApp/styles/styles.js";
 
 export const Footer =(props)=>{
   const navigation = useNavigation();
@@ -39,15 +40,15 @@ export const Footer =(props)=>{
                 dispatch({type : SET_SEARCH_CALL,    payload  : false});
                 navigation.navigate('Dashboard')}
                } >
-                <Icon name="home" type="feather" size={15} color="#666" />
-                <Text style={styles.footerTitle}>Home</Text>
+                <Icon name="home" type="feather" size={15} color={props.selected && props.selected === "0" ? colors.cartButton :"#aaa"}  />
+                <Text style={[styles.footerTitle,{color:props.selected && props.selected === "0" ? colors.cartButton :"#aaa"}]}>Home</Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.iconOuterWrapper}>
               <TouchableOpacity onPress={() => navigation.navigate('CartComponent', { userId: userDetails.user_id })} >
-                <Icon name="shopping-cart" type="feather" size={15} color="#666" />
-                <Text style={styles.footerTitle}>My Cart</Text>
+                <Icon name="shopping-cart" type="feather" size={15} color={props.selected && props.selected === "1" ? colors.cartButton :"#aaa"}  />
+                <Text  style={[styles.footerTitle,{color:props.selected && props.selected === "1" ? colors.cartButton :"#aaa"}]}>My Cart</Text>
                 {
                   cartCount > 0 ?
                     <Text style={styles.notificationText}>{cartCount}</Text>
@@ -59,14 +60,14 @@ export const Footer =(props)=>{
             </View>
             {userDetails.authService!=="guest" &&<View style={styles.iconOuterWrapper2}>
               <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate('WishlistComponent')}}>
-                <Icon name="heart-o" type="font-awesome" size={18} color="#666" />
-                <Text style={styles.footerTitle}>Wishlist</Text>
+                <Icon name="heart-o" type="font-awesome" size={18} color={props.selected && props.selected === "2" ? colors.cartButton :"#aaa"}  />
+                <Text  style={[styles.footerTitle,{color:props.selected && props.selected === "2" ? colors.cartButton :"#aaa"}]}>Wishlist</Text>
               </TouchableOpacity>
             </View>}
             <View style={styles.iconOuterWrapper2}>
               <TouchableOpacity onPress={() => navigation.navigate('MyOrder')} >
-                <Icon name="shopping-bag" type="feather" size={15} color="#666" />
-                <Text style={styles.footerTitle}>My Orders</Text>
+                <Icon name="shopping-bag" type="feather" size={15} color={props.selected && props.selected === "3" ? colors.cartButton :"#aaa"}  />
+                <Text  style={[styles.footerTitle,{color:props.selected && props.selected === "3" ? colors.cartButton :"#aaa"}]}>My Orders</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -86,7 +86,7 @@ export const Product = withCustomerToaster((props)=>{
               // dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
             } 
             if(props.searchText){
-              dispatch(getSearchResult(props.searchText,user_id,limit));
+              dispatch(getSearchResult(props.searchText,user_id,limit,true));
             } 
         //   }
           setToast({text: response.data.message, color: 'green'});
@@ -100,9 +100,6 @@ export const Product = withCustomerToaster((props)=>{
     }
     
   }
-
-  console.log("product",product);
-
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: product._id ,currency:currency})}>

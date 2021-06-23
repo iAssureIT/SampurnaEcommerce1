@@ -43,7 +43,6 @@ const window = Dimensions.get('window');
 
 
   export const RootLogIn = withCustomerToaster((props)=>{
-    console.log("RootLogIn props",props)
     const [btnLoading, setLoading] = useState(false);
     const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
@@ -51,7 +50,6 @@ const window = Dimensions.get('window');
         <React.Fragment>
           <Formik
             onSubmit={(data) => {
-              console.log("data",data);
               setLoading(true);
               let {username, password} = data;
               const payload = {
@@ -63,7 +61,6 @@ const window = Dimensions.get('window');
               axios
                 .post('/api/auth/post/login/mob_email', payload)
                 .then((res) => {
-                  console.log("res",res);
                   setLoading(false);
                   if(res.data.message === "Login Auth Successful"){
                     if(res.data.passwordreset === false  ){

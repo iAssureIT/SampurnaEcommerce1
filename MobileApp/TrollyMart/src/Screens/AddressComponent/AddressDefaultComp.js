@@ -92,7 +92,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
       user_ID: user_id,
       deliveryAddressID: deliveryAddressID
     }
-    axios.patch('/api/users/delete/address', formValues)
+    axios.patch('/api/ecommusers/delete/address', formValues)
       .then((response) => {
         Alert.alert(
           "Address Deleted",
@@ -105,6 +105,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
         getAddressList();
       })
       .catch((error) => {
+        console.log("error",error);
         if (error.response.status == 401) {
           AsyncStorage.removeItem('user_id');
           AsyncStorage.removeItem('token');

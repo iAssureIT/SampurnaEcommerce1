@@ -51,8 +51,8 @@ import PhoneInput                   from "react-native-phone-number-input";
     fromaddress: Yup.string()
     .required('This field is required'),
    
-    // fromarea: Yup.string()
-    // .required('This field is required'),
+    mobileNumber: Yup.string()
+    .required('This field is required'),
    
     fromstate: Yup.string()
     .required('This field is required'),
@@ -260,8 +260,8 @@ export const AddressComponent = withCustomerToaster((props)=>{
                   <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                 </View>   
                 <FormInput
-                    labelName       = "Flat / Office No"
-                    placeholder     = "Flat / Office No"
+                    labelName       = "Address Line 1"
+                    placeholder     = "Please Enter Address..."
                     onChangeText    = {handleChange('addressLine1')}
                     required        = {true}
                     name            = "addressLine1"
@@ -275,7 +275,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                   />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
                   <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
-                    <Text>Address</Text>{' '}
+                    <Text>Address Line 2</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
                     </Text>

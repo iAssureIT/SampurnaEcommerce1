@@ -78,12 +78,12 @@ export const SubCategoriesComp = (props)=>{
 
       return (
         <React.Fragment>
-          <HeaderBar3
+          {/* <HeaderBar3
             goBack={navigation.goBack}
             headerTitle={"Product List"}
             navigate={navigation.navigate}
             // openControlPanel={() => this.openControlPanel.bind(this)}
-          />
+          /> */}
           <View style={styles.addsuperparent}>
             <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>

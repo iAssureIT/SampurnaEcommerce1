@@ -24,11 +24,9 @@ export const getSearchResult = (searchText,user_id,limit,scroll) => {
             userLatitude      : store.location?.address?.latlong?.lat,
             userLongitude     : store.location?.address?.latlong?.lng
         }
-        console.log("payload",payload)
         axios.post("/api/products/get/search/website" ,payload)
         .then((response) => {
-            console.log("getSearchResult",response);
-            if(response.data < 10){
+            if(response.data <= 10){
                 Alert.alert("STOP SCROLL")
                 dispatch({
                     type: STOP_SCROLL,

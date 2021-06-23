@@ -42,7 +42,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const isFocused = useIsFocused();
   const {navigation,route,setToast} =props;
   const {productID,currency,vendorLocation_id,location}=route.params;
-  console.log("route.params",route.params);
 
   useEffect(() => {
     setLoading(true);
@@ -89,7 +88,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const getProductsView=(productID,user_id)=>{
     axios.get("/api/products/get/one/"+ productID+"/"+user_id)
       .then((response) => {
-        console.log("response",response)
         setProductData(response.data);
         setLoading(false);
       })
@@ -143,7 +141,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
         "userLongitude"     : location?.address?.latlong?.lng,
         "vendorLocation_id" : vendorLocation_id,
       }
-      console.log("formValues",formValues);
       axios
         .post('/api/carts/post', formValues)
         .then((response) => {
@@ -309,7 +306,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                             overlayContainerStyle={{backgroundColor: '#ddd'}}
                             rounded
                             title={item.customerName.charAt(0)}
-                            onPress={() => console.log("Works!")}
                             activeOpacity={0.7}
                           />
                               <Text>{item.customerName.split(' ')[0]}</Text>

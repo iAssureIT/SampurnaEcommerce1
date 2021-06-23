@@ -29,11 +29,10 @@ export const MarketingBlock=(props)=>{
     }
     axios.post('/api/deals/get/list',payload)
     .then((res)=>{
-      console.log("res marketingblock",res)
         setImages(res.data)
     })
     .catch((error)=>{
-      console.log('error1111', error);
+      console.log('error', error);
     })
  }
 

@@ -43,7 +43,7 @@ export const ProductList = withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     stop_scroll     : store.productList.stop_scroll,
-    stop_scroll_search : store.productList.stop_scroll_search,
+    stop_scroll_search : store.globalSearch .stop_scroll_search,
     location        : store.location,
     userDetails     : store.userDetails
   }));
@@ -201,7 +201,7 @@ export const ProductList = withCustomerToaster((props)=>{
               // dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
             } 
             if(props.searchText){
-              dispatch(getSearchResult(props.searchText,user_id,limit));
+              dispatch(getSearchResult(props.searchText,user_id,limit,true));
             } 
           }
           setToast({text: response.data.message, color: 'green'});
@@ -265,12 +265,21 @@ export const ProductList = withCustomerToaster((props)=>{
               {/* {item.brandNameRlang ?
               <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
               :  */}
-              <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>
+              {props.vendorName && 
+                <View style={{justifyContent:'center',alignItems:'center',marginBottom:15}}>
+                  <Text style={styles.brandname}>{item.vendorName}</Text>
+                </View>
+              }
+              {item.brand ?
+                <Text numberOfLines={1} style={[styles.brandname]}>{item.brand}</Text>
+                :
+                null
+              }
               {/* } */}
               {/* {item.brandNameRlang ?
               <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
               : */}
-              <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
+              <Text numberOfLines={1} style={[styles.nameprod]}>{item.productName}</Text>
               {/* }                        */}
             </View>
             <View style={[styles.flx1, styles.prdet]}>

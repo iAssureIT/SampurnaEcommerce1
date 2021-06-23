@@ -31,7 +31,6 @@ export const VendorList = withCustomerToaster((props)=>{
     const sectionUrl = props.route.params?.sectionUrl;
     const [limit,setLimit] = useState(0);
     const index = props.route.params?.index;
-    console.log("index",index);
     const [vendorList,setVendorList] =useState([]);
     const dispatch 		= useDispatch();
     const store = useSelector(store => ({
@@ -60,7 +59,6 @@ export const VendorList = withCustomerToaster((props)=>{
         "latitude"   : store.location?.address?.latlong?.lat,
         "longitude"  : store.location?.address?.latlong?.lng
     }
-    console.log("formValues",formValues);
         axios.post('/api/vendorlist/post/vendor/list',formValues)
         .then(res=>{
             setLoading(false);
@@ -166,8 +164,8 @@ export const VendorList = withCustomerToaster((props)=>{
                         // onScroll                      = {()=>{limit > 6 && onEnd()}}       
                         // refreshControl={
                         //     <RefreshControl
-                        //       refreshing={refresh}
-                        //       onRefresh={() => refreshControl()}
+                        //     //   refreshing={refresh}
+                        //     //   onRefresh={() => refreshControl()}
                         //     />
                         // } 
                     /> 

@@ -18,8 +18,6 @@ const window = Dimensions.get('window');
 const pkg = DeviceInfo.getBundleId();
 export const BottomModal = (props) => {
   const { visible, closeModal,navigation} = props;
-  console.log("props",props)
-
   const openAppSettings = () => {
     if (Platform.OS === 'ios') {
       Linking.openURL('app-settings:')

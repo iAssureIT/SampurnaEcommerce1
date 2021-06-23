@@ -61,7 +61,7 @@ export default class CartComponent extends React.Component {
   getdiscounteddata(startRange, limitRange) {
     axios.get('/api/discount/get/list-with-limits/' + startRange + '/' + limitRange)
         .then((response) => {
-            console.log('tableData = ', response.data[0]);
+            .log('tableData = ', response.data[0]);
             this.setState({
                 discountdata: response.data[0],
                 discounttype: response.data[0].discounttype,
@@ -69,13 +69,11 @@ export default class CartComponent extends React.Component {
                 discountvalue: response.data[0].discountvalue,
 
             },()=>{
-              console.log('discountvalue = ', this.state.discountvalue);
                 var amountofgrandtotal =  this.state.discountdata !== undefined ?
                                             this.state.totaloriginalprice && this.state.discountin === "Percent" ?
                                                     this.state.totaloriginalprice - (this.state.totaloriginalprice * this.state.discountvalue)/ 100
                                                     : this.state.totaloriginalprice - this.state.discountvalue
                                                 : this.state.totaloriginalprice
-            console.log('amountofgrandtotal = ', amountofgrandtotal);
             this.setState({amountofgrandtotal : amountofgrandtotal})
              })
         })
@@ -98,7 +96,6 @@ export default class CartComponent extends React.Component {
     this.setState({ loading: true })
     axios.get('/api/Carts/get/cartproductlist/' + this.state.userId)
       .then((response) => {
-        console.log("response",response);
         this.setState({ loading: false })
         if (response.data.length > 0) {
           this.setState({
@@ -206,7 +203,6 @@ export default class CartComponent extends React.Component {
     })
   }
   onChange(product_ID, number, type) {
-    console.log(product_ID, number, type) // 1, + or -
     const quantity = parseInt(number);
     const formValues = {
       "user_ID": this.state.userId,
@@ -264,7 +260,6 @@ export default class CartComponent extends React.Component {
                                 </View>
                                 <View style={styles.flxmg}>
                                   <TouchableOpacity onPress={() => this.props.navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
-                                    {console.log("cartcomponent item",item)}
                                     {item.productDetail.productNameRlang ?
                                     <Text style={{fontFamily:'aps_dev_priyanka',fontWeight:'Bold',fontSize:20,flexWrap:'wrap'}}>{item.productDetail.productNameRlang}</Text>
                                     : 

@@ -32,7 +32,6 @@ export const ProductVendorList = withCustomerToaster((props)=>{
     const index = props.route.params?.index;
     const product_id = props.route.params?.product_id;
     const [limit,setLimit] = useState(0);
-    console.log("index",index);
     const [vendorList,setVendorList] =useState([]);
     const dispatch 		= useDispatch();
     const store = useSelector(store => ({
@@ -62,10 +61,8 @@ export const ProductVendorList = withCustomerToaster((props)=>{
         "latitude"   : store.location?.address?.latlong?.lat,
         "longitude"  : store.location?.address?.latlong?.lng
     }
-    console.log("formValues",formValues);
         axios.post('/api/vendorlist/post/productwise/vendor/list',formValues)
         .then(res=>{
-            console.log("vendor res",res);
             setLoading(false);
             // setLimit(limitRange);
             // if(vendorList.length > 0){

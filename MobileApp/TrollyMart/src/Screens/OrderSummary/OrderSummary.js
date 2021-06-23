@@ -27,7 +27,6 @@ import { SafeAreaView }         from 'react-native';
 
   export const OrderSummary = withCustomerToaster((props)=>{
     const {navigation,route,setToast}=props;
-    console.log("props",props);
     const [shippingTiming,setShippingTiming]=useState("");
     const [startRange,setStartRange]=useState(0);
     const [limitRange,setLimitRange]=useState(10);
@@ -65,7 +64,6 @@ import { SafeAreaView }         from 'react-native';
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
   }));
-  console.log("store",store);
   const {currency}=store.preferences;
 
   const getData=()=>{
@@ -84,7 +82,6 @@ import { SafeAreaView }         from 'react-native';
   }
 
   const handleTypeChange = (value) => {
-    console.log('getTimes ===> ', value);
     setShippingTiming(value);
   }
 
@@ -109,7 +106,6 @@ import { SafeAreaView }         from 'react-native';
     const getCartData=(userId)=>{
       axios.get('/api/carts/get/cartproductlist/' + userId)
         .then((response) => {
-          console.log("response getCartData",response);
           setCartData(response.data);
           setLoading(false);
         })
@@ -147,7 +143,6 @@ import { SafeAreaView }         from 'react-native';
       }
       axios.patch('/api/carts/put/coupon',payload)
       .then(res=>{
-        console.log("applyCoupen res",res);
           setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data.data);
           setCouponCode('');
@@ -167,7 +162,6 @@ import { SafeAreaView }         from 'react-native';
     navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, shippingtime: shippingTiming})
   }
 
-  console.log("couponCode",couponCode);
     return (
       <React.Fragment>
         {/* <HeaderBar3
@@ -235,7 +229,6 @@ import { SafeAreaView }         from 'react-native';
                 {
                 cartData  && cartData.vendorOrders && cartData.vendorOrders.length>0?
                   cartData.vendorOrders.map((vendor, i) => {
-                    console.log("vendor",vendor);
                     return (
                       <View style={{backgroundColor:"#fff",marginBottom:15}}>
                         <View style={{ flex: 0.6,flexDirection:"row",padding:10 }}>

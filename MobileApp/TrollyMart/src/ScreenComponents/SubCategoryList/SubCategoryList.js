@@ -41,7 +41,6 @@ export const SubCategoryList =(props)=>{
   const getData=()=>{
     axios.get("/api/category/get/list/"+props.sectionUrl+"/"+props.vendor_ID)
       .then((response) => {
-        console.log(" setProductList response",response);
         setProductList(response.data);
       })
       .catch((error) => {

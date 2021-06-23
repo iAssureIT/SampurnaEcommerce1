@@ -28,7 +28,6 @@ import { DrawerActions } from '@react-navigation/native';
 import { useNavigation }      from '@react-navigation/native';
 
   const HeaderBars2=(props)=>{
-    console.log("props",props);
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
     const [user_id,setUserId] = useState('');
@@ -89,7 +88,7 @@ import { useNavigation }      from '@react-navigation/native';
   const updateSearch = () =>{
     useSearchText(searchText);
     dispatch({type:SET_SEARCH_CALL,payload:false});
-    dispatch(getSearchResult(searchText,user_id,10));
+    dispatch(getSearchResult(searchText,user_id,10,true));
     Keyboard.dismiss();
   }
 

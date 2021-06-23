@@ -51,7 +51,6 @@ export const HorizontalProductList =(props)=>{
     } 
     axios.post(props.blockApi,payload)
       .then((response) => {
-        console.log("response",response);
         setProductList(response.data);
       })
       .catch((error) => {

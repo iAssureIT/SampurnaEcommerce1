@@ -34,7 +34,6 @@ export const AllProductList  = withCustomerToaster((props)=>{
   const listType = type+"List";
   const isFocused = useIsFocused();
   useEffect(() => {
-    console.log("store",store);
   },[props]);
   
   const capitalize=(str)=>{

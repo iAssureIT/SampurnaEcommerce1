@@ -89,7 +89,7 @@ export default StyleSheet.create({
         color: '#fff',
         fontSize: 10,
         paddingTop: 2,
-        backgroundColor: colors.theme,
+        backgroundColor: colors.cartButton,
         fontFamily: "Montserrat-SemiBold",
       },
       android: {
@@ -103,7 +103,7 @@ export default StyleSheet.create({
         color: '#fff',
         fontSize: 10,
         paddingTop: 2,
-        backgroundColor: colors.theme,
+        backgroundColor: colors.cartButton,
         fontFamily: "Montserrat-SemiBold",
 
       }

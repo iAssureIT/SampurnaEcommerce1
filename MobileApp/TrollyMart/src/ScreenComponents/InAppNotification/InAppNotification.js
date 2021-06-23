@@ -59,11 +59,11 @@ export default class InAppNotification extends Component {
 
         return (
             <ScrollView keyboardShouldPersistTaps="handled" >
-                <HeaderBar3
+                {/* <HeaderBar3
                     goBack={goBack}
                     headerTitle={'Notifications'}
                     navigate={navigate}
-                    />
+                    /> */}
                 <View style={{ flex: 1, backgroundColor: '#fff', padding: 20 }}>
                     {!this.state.loading?
                       this.state.inAppNotifications && this.state.inAppNotifications.length > 0 ?

@@ -54,7 +54,6 @@ const Dashboard = withCustomerToaster((props)=>{
   const getBlocks=()=>{
     axios.get('/api/pages/get/page_block/homepage')
     .then(res=>{
-      console.log("getBlocks res=>",res);
       setBlocks(res.data.pageBlocks);
       setLoading(false)
     })
@@ -137,6 +136,7 @@ const Dashboard = withCustomerToaster((props)=>{
                   />
                   :
                   item.blockComponentName === "SectionCatg" && !item.block_id?.groupSettings?.showOnlySection?
+                  <View style={{paddingHorizontal:15}}>
                     <HorizontalSecCatList 
                       blockTitle          = {item.block_id?.blockTitle}
                       section             = {item.block_id?.groupSettings.section}
@@ -150,6 +150,7 @@ const Dashboard = withCustomerToaster((props)=>{
                       navigation          = {navigation}
                       user_id             = {user_id}
                     />
+                  </View>  
                     :
                     item.blockComponentName === "ProductCarousel" && item.block_id ?
                     <HorizontalProductList 
@@ -227,7 +228,7 @@ const Dashboard = withCustomerToaster((props)=>{
             }
           </View>  
         </ScrollView>}
-        <Footer/>
+        <Footer selected={"0"}/>
       </View> 
     </React.Fragment>
   );  

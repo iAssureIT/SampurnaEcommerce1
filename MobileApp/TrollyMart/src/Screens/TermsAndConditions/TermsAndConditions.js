@@ -77,7 +77,6 @@ export const TermsAndConditions  = (props)=>{
                         pageBlockes && pageBlockes.length>0?
                             pageBlockes.map((item,index)=>{
                                 const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
-                                console.log("result",item.block_id.fgImage1)
                                 return(
                                     <View style={{flex:1,paddingHorizontal:15}}>
                                         {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}

@@ -29,7 +29,7 @@ StatusBar.setHidden(true);
     localNotificationService.configure(onOpenNotification)
     setTimeout(() => {
       SplashScreen.hide();
-    }, 2000);
+    }, 3000);
     const unSubscribe = store.subscribe(() => {
       setAppToast(store.getState()?.appStateReducer?.toastState);
       setToken(store.getState()?.userReducer?.token || '');

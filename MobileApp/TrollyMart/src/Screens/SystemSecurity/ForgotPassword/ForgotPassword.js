@@ -42,7 +42,6 @@ const window = Dimensions.get('window');
                 let {username} = data;
                 axios.patch('/api/auth/patch/set_send_otp/'+username)
                   .then(response => {
-                      console.log("response",response);
                       setLoading(false);
                         if(response.data.message == 'OTP_UPDATED') {
                           // var sendData = {

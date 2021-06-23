@@ -53,7 +53,6 @@ export default class AllExclusiveProducts extends React.Component {
           this.setState({
             userId: userId,
           }, () => {
-            console.log('userId', this.state.userId)
             this.wishlisteddata();
           })
       })

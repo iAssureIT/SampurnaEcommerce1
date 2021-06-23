@@ -112,7 +112,6 @@ export const VendorProducts = (props)=>{
     payload.scroll          = false;
     payload.startRange      = 0;
     payload.limitRange      = 10;
-    console.log("payload",payload);
     dispatch({
       type : SET_CATEGORY_WISE_LIST,
       payload : []

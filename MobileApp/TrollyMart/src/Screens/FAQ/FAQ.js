@@ -41,7 +41,6 @@ export const FAQ = (props)=>{
     const getData=()=>{
         Axios.get('/api/pages/get/page_block/about-us')
         .then(res=>{
-            console.log("res",res);
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)
         })

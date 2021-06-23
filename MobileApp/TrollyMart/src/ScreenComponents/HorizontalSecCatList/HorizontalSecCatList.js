@@ -52,7 +52,6 @@ export const HorizontalSecCatList =(props)=>{
         "showCarousel"            : true,
         "displayItemInCarousel"   : 6
     }
-    console.log("getData formValues",formValues)
     axios.post("/api/sections/get/list",formValues)
       .then((response) => {
         console.log(" setProductList response",response);
@@ -68,7 +67,7 @@ export const HorizontalSecCatList =(props)=>{
     return (
       <TouchableOpacity style={{width:160,marginRight:10,backgroundColor:"#fff"}} 
           onPress={() =>{
-              navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
+              // navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
               dispatch(getCategoryWiseList(item._id,user_id ? user_id : null,"lowestprice",props.section));
               navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})
             }  

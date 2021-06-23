@@ -95,7 +95,7 @@ export const HomeStack = () => (
   >
     <Home.Screen name="Dashboard"                   component={Dashboard}  options={getHeaderConfig("",false)}/>
     <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} options={getHeaderConfig("Dashboard",true)}/>
-    <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp}options={getHeaderConfig("Dashboard")} />
+    <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp}options={getHeaderConfig("Product List",true)} />
     <Home.Screen name="AllProductList"              component={AllProductList} options={getHeaderConfig("Product List",true)}/>
     <Home.Screen name="SearchList"                  component={SearchList} options={getHeaderConfig("Search List",true)}/>
     <Home.Screen name="SubCatCompView"              component={SubCatCompView} options={getHeaderConfig("Product Details",true)}/>
@@ -118,7 +118,7 @@ export const HomeStack = () => (
     <Home.Screen name="PaymentMethod"               component={PaymentMethod} options={getHeaderConfig("Payment Methods",true)}/>
     <Home.Screen name="Stores"                      component={Stores} options={getHeaderConfig("Dashboard")}/>
     <Home.Screen name="StoreDetails"                component={StoreDetails} options={getHeaderConfig("Dashboard")}/>
-    <Home.Screen name="InAppNotification"           component={InAppNotification} options={getHeaderConfig("Dashboard")}/> 
+    <Home.Screen name="InAppNotification"           component={InAppNotification} options={getHeaderConfig("Notifications",true)}/> 
     <Home.Screen name="VendorList"                  component={VendorList} options={getHeaderConfig("Vendor List",true)}/>
     <Home.Screen name="ProductVendorList"           component={ProductVendorList} options={getHeaderConfig("Vendor List",true)}/>
     <Home.Screen name="VendorProducts"              component={VendorProducts} options={getHeaderConfig("Product List",true)}/>

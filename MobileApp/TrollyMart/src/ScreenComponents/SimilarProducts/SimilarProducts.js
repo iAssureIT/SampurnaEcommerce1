@@ -30,10 +30,8 @@ export const SimilarProducts =(props)=>{
       section_ID     : productdata.section_ID,
       user_ID        : user_id
     }
-    console.log("formValues",formValues);
     axios.post("/api/products/get/similar_products",formValues)
       .then((response) => {
-        console.log("response",response);
         setProductList(response.data);
       })
       .catch((error) => {

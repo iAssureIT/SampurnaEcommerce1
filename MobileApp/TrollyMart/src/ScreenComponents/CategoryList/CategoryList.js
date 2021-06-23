@@ -28,8 +28,7 @@ export const CategoryList = (props)=>{
       props.setCategory(categoryList[0])
       setSelected(categoryList[0]?.category);
     }
-   },[isFocused,categoryList && categoryList.length>0 ?categoryList[0]?.category : '']);
-   console.log("selected",selected);
+   },[categoryList && categoryList.length>0 ?categoryList[0]?.category : '']);
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, i })=>{
     return (

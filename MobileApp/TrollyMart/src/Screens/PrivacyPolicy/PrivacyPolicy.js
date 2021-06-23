@@ -39,7 +39,6 @@ export const PrivacyPolicy  = (props)=>{
     const getData=()=>{
         Axios.get('/api/pages/get/page_block/legal-policy')
         .then(res=>{
-            console.log("res",res);
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)
         })
@@ -77,7 +76,6 @@ export const PrivacyPolicy  = (props)=>{
                         pageBlockes && pageBlockes.length>0?
                             pageBlockes.map((item,index)=>{
                                 const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
-                                console.log("result",item.block_id.fgImage1)
                                 return(
                                     <View style={{flex:1,paddingHorizontal:15}}>
                                         {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}

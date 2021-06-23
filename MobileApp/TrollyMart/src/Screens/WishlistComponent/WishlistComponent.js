@@ -32,7 +32,6 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
   },[]); 
 
   
-  console.log("wishList",wishList);
     return (
       <React.Fragment>
         {/* <HeaderBar3
@@ -92,7 +91,7 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
             </View>
           </ScrollView>
           }
-          <Footer />
+          <Footer selected={"2"} />
         </View>
       </React.Fragment>
     );

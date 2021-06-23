@@ -31,7 +31,6 @@ export const SearchList  = withCustomerToaster((props)=>{
     productList : store.productList,
     globalSearch : store.globalSearch
   }));
-  console.log("store",store);
   const {productList,globalSearch} = store;
   const [loading,setLoading] = useState(props.loading);
   const [user_id,setUserId] = useState('');
@@ -65,7 +64,7 @@ export const SearchList  = withCustomerToaster((props)=>{
                         type            = {'Search'}
                         loading         = {productList.loading}
                         vendorName      = {true}
-                        // onEndReachedThreshold = {0.01}
+                        onEndReachedThreshold = {0.5}
                     />
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>

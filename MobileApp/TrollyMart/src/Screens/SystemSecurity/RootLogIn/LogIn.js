@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
+  Modal,
   Alert
 } from 'react-native';
 import { Icon }             from "react-native-elements";
@@ -34,6 +35,7 @@ import {
   GraphRequestManager,
   LoginManager
 } from 'react-native-fbsdk';
+import { ActivityIndicator } from 'react-native';
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -49,8 +51,8 @@ const window = Dimensions.get('window');
 
 
   export const LogIn = withCustomerToaster((props)=>{
-    console.log("RootLogIn props",props)
     const [btnLoading, setLoading] = useState(false);
+    const [facebookLoading, setFacebookLoading] = useState(false);
     const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
       return (
@@ -65,11 +67,9 @@ const window = Dimensions.get('window');
                 password  : password,
                 role      : "user"
               };
-              console.log()
               axios
                 .post('/api/auth/post/login/mob_email', payload)
                 .then((res) => {
-                  console.log("res",res);
                   setLoading(false);
                   if(res.data.message === "Login Auth Successful"){
                     if(res.data.passwordreset === false  ){
@@ -142,6 +142,7 @@ const window = Dimensions.get('window');
                 btnLoading={btnLoading}
                 navigation={navigation}
                 dispatch={dispatch}
+                setLoading={setLoading}
                 {...formProps}
               />
             )}
@@ -158,6 +159,7 @@ const window = Dimensions.get('window');
       touched,
       btnLoading,
       setFieldValue,
+      setLoading,
       navigation,
       dispatch
     } = props;
@@ -165,6 +167,7 @@ const window = Dimensions.get('window');
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
     const [userInfo,setUserInfo]=useState({});
+    const [googleLoading, setGoogleLoading] = useState(false);
     
   const logoutWithFacebook = () => {
     LoginManager.logOut();
@@ -173,9 +176,9 @@ const window = Dimensions.get('window');
 
   const google_login = async () => {
       try {
+        setLoading(true);
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
-        console.log("userInfo",userInfo);
         await GoogleSignin.revokeAccess();
           var formValues = {
             firstname   : userInfo.user.givenName,
@@ -191,6 +194,7 @@ const window = Dimensions.get('window');
           }
           sign_in(formValues)
         }catch(error){
+          setLoading(false);
           if (error.code === statusCodes.SIGN_IN_CANCELLED) {
             console.log("sign in was cancelled");
             // sign in was cancelled
@@ -223,7 +227,6 @@ const window = Dimensions.get('window');
             console.log('login info has error: ' + error);
           } else {
             setUserInfo(user);  
-            console.log('user:', user);
             var formValues = {
               firstname   : user.first_name,
               lastname    : user.last_name,
@@ -236,7 +239,6 @@ const window = Dimensions.get('window');
               countryCode : "",
               authService : "facebook",
             }
-            console.log("formValues1",formValues);
             sign_in(formValues);
             logoutWithFacebook;
           }
@@ -246,6 +248,7 @@ const window = Dimensions.get('window');
     };
 
     const loginWithFacebook = () => {
+      setLoading(true);
       // Attempt a login using the Facebook login dialog asking for default permissions.
       LoginManager.logInWithPermissions(['public_profile']).then(
         login => {
@@ -259,6 +262,7 @@ const window = Dimensions.get('window');
           }
         },
         error => {
+          setLoading(false);
           console.log('Login fail with error: ' + error);
         },
       );
@@ -266,11 +270,10 @@ const window = Dimensions.get('window');
 
 
     const sign_in=(formValues)=>{
-      console.log("formValues",formValues);
       axios.post('/api/auth/post/signup/social_media',formValues)
       .then((res) => {
         console.log("response",res);
-        // setLoading(false)
+        setLoading(false)
         if(res.data.message === "Login Auth Successful"){
           if(res.data.passwordreset === false  ){
             navigation.navigate('ChangePassword',{user_id:res.data.ID})
@@ -304,7 +307,7 @@ const window = Dimensions.get('window');
       })
       .catch((error) => {
         console.log("error",error);
-        // setLoading(false);
+        setLoading(false);
         setToast({text: 'Something went wrong.', color: 'red'});
       })
     }
@@ -329,10 +332,10 @@ const window = Dimensions.get('window');
         countryCode : "",
         authService : "guest"
       }
+      setLoading(true);
       axios.post('/api/auth/post/signup/guest_login',formValues)
       .then((res) => {
-        console.log("response",res);
-        // setLoading(false)
+        setLoading(false);
         if(res.data.message === "Login Auth Successful"){
           if(res.data.passwordreset === false  ){
             navigation.navigate('ChangePassword',{user_id:res.data.ID})
@@ -366,7 +369,7 @@ const window = Dimensions.get('window');
       })
       .catch((error) => {
         console.log("error",error);
-        // setLoading(false);
+        setLoading(false);
         setToast({text: 'Something went wrong.', color: 'red'});
       })
     }
@@ -425,10 +428,8 @@ const window = Dimensions.get('window');
               title       = {'Login'}
               onPress     = {handleSubmit}
               background  = {true}
-              loading     = {btnLoading}
+              // loading     = {btnLoading}
             />
-           
-       
             <View
               style={[
                 {
@@ -457,7 +458,8 @@ const window = Dimensions.get('window');
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Light}
                 onPress={()=>google_login()}
-                // disabled={this.state.isSigninInProgress} 
+                // loading={googleLoading}
+                // disabled={true} 
                 />
                 <TouchableOpacity
                   onPress={loginWithFacebook}
@@ -491,6 +493,21 @@ const window = Dimensions.get('window');
             </View>
           </View>
         </View>
+        <Modal 
+          animationType="slide"
+          transparent={true}
+          visible={btnLoading}
+        >
+        <View 
+          style={{
+            backgroundColor: 'rgba(0,0,0,0.4)',
+            flex:1,
+            justifyContent:'center',
+            alignItems:'center'
+          }}>
+            <ActivityIndicator color={colors.theme} size={40}/>
+        </View>
+        </Modal>
       </View>
     </ImageBackground>
   );

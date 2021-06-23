@@ -261,7 +261,6 @@ const cancelorderbtn = (id,vendor_id) => {
     }
     axios.post('/api/customerReview/get/single/customer/review',formValues)
     .then(res=>{
-      console.log("res",res);
       // setModal(false);
       // setVendorDetails();
       // setProductIndex('');
@@ -274,9 +273,6 @@ const cancelorderbtn = (id,vendor_id) => {
       console.log("err",err);
     })
   }
-
-
-  console.log("array=======>",labelsArray);
 
     return (
       <React.Fragment>

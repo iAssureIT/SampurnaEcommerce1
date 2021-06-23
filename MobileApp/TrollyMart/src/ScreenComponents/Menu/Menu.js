@@ -21,8 +21,6 @@ export const Menu = (props)=>{
   const [user_id,setUserId]      = useState('');
   const userDetails = useSelector(store => store.userDetails);
 
-  console.log("userDetails",userDetails);
-
   useEffect(() => {
     getData()
   },[props]);

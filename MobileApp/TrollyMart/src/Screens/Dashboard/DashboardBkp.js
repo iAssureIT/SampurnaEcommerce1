@@ -53,7 +53,6 @@ export const Dashboard = withCustomerToaster((props)=>{
     location        : store.location,
     section         : store.section.sections
   }));
-  console.log("store",store);
 
   const {productList,wishList,globalSearch,section} = store;
   useEffect(() => {

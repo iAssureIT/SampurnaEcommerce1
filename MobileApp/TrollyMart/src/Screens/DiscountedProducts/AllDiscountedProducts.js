@@ -46,7 +46,6 @@ export default class AlldiscountedProducts extends React.Component {
           this.setState({
             userId: userId,
           }, () => {
-            console.log('userId', this.state.userId)
             this.wishlisteddata();
           })
       })
@@ -60,7 +59,6 @@ export default class AlldiscountedProducts extends React.Component {
     var productType = 'discounted';
     axios.get("/api/products/get/products/listbytype/"+productType)
           .then((response)=>{
-            console.log("alldiscountedproducts response",response);
             if(response.data){
             for (var i = 0; i < response.data.length; i++) {
               var availableSizes = [];
@@ -124,7 +122,6 @@ export default class AlldiscountedProducts extends React.Component {
       "product_ID": productid,
       "quantity": this.state.packsizes === undefined || "" ? 1 :this.state.packsizes,
     }
-    console.log("formValues addtocart==>", formValues);
     axios
       .post('/api/Carts/post', formValues)
       .then((response) => {

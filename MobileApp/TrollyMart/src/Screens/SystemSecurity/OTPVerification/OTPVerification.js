@@ -58,7 +58,6 @@ export const OTPVerification = withCustomerToaster((props) => {
                       ['user_id', res.data.ID],
                       ['token', res.data.token],
                     ]);
-                    console.log("res=======>",res);
                     axios.defaults.headers.common['Authorization'] = 'Bearer '+ res.data.token;
                     dispatch(
                       setUserDetails({
@@ -131,7 +130,6 @@ const FormBody = (props) => {
     setFieldValue('otp','');
     axios.patch('/api/auth/patch/setsendemailotpusingID/'+user_id)
     .then(response => {
-        console.log("response",response)
         setResendLoading(false)
         if(response.data.message == 'OTP_UPDATED') {
           // navigation.navigate('OTPVerification');
