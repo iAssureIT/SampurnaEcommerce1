@@ -956,14 +956,13 @@ class Checkout extends Component {
                                                 </div>
                                             </div>    
                                             </div>
-
                                             <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 ">
                                                 <div className={"row " +Style.f13N}>
                                                     <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
                                                     <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
                                                     <span className="col-md-6 col-12">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
                                                     <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
-                                                    <span className="col-md-6 col-12">Discounte Coupon :</span>
+                                                    <span className="col-md-6 col-12">Discount Coupon :</span>
                                                     <span className="col-md-6 col-12 textAlignRight">
                                                         <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount : 0.00}
                                                         {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0&&

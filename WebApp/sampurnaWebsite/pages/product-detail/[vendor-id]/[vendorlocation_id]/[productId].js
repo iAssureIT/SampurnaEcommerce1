@@ -33,7 +33,6 @@ class ProductDetailsEcommerce extends Component {
 		return (
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding">
 				<Header/>
-				
 				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop180  backColorGray">
 					<ProductViewEcommerce productID = { this.state.productID } />
 				</div>

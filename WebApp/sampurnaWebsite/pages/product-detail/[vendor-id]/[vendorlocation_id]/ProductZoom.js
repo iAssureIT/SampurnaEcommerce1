@@ -80,32 +80,35 @@ class ProductZoom extends Component {
 		
 	}
 	render() {
-		// console.log("productZoom data  =====",this.props.productData && this.props.productData);
-		if(this.props.productData){
-			// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage.length>0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
+		var myprops={};
+		console.log("productZoom data  =====",this.props.productData);
+		console.log("productZoom image  =====",this.props.productData.productImage);
+		// console.log("productZoom image length  =====",Array.isArray(this.props.productData.productImage).length);
+
+		// console.log("productZoom data  =====",this.props.productData.productImage);
+		// console.log("productZoom data  =====",this.props.productData.productImage);
+		// console.log("productZoom data  =====",this.props.productData.productImage);
+		// console.log("productZoom data  =====",this.props.productData.productImage);
+		if(this.props.productData ){
+			myprops = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
+			// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
 		}
 		
-		const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: '/images/eCommerce/notavailable.jpg' };
+		// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: '/images/eCommerce/notavailable.jpg' };
 		return (
 			<div className="col-12 col-xl-5 col-lg-5 col-md-12 col-sm-12 mt20 mb20 boxBorder mobileViewNoPadding NoPadding">
-				{this.props.productData 
+				{this.props.productData
 				?
 				<div className="col-12 boxBorderInner mobileViewNoPadding ">
 					<div className="row">
 						<div className=" col-12 stickyDiv">
 							<div className="col-12 imageContainer imgCont">
 								<div className="prod-detail-slider prod-detail-filpCommon col-12 ">
-									<div id="react-app" className={"col-8 item productZoomBlock img-responsiveProduct " +Style.ma}>
-										{/* <Image                                           
-											// src={this.props.productData.productImage.length>0? this.props.productData.productImage[0]:"/images/eCommerce/notavailable.jpg"}
-											src={"/images/eCommerce/notavailable.jpg"}
-											alt="ProductImg" 
-											className={"img-responsive prodImgMobileView " }
-											height={400}
-											width={400} 
-											layout={'intrinsic'}
-										/>	 */}
-										<ReactImageZoom {...props} />
+									<div id="react-app" className={"col-12 item productZoomBlock img-responsiveProduct " +Style.zoomImgWrapper}>
+										{this.props.productData ?
+											<ReactImageZoom {...myprops} />
+											:null
+										}					
 									</div> 
 									<div id="" className="col-12 NoPadding mt-3">
 									<Carousel

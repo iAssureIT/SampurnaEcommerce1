@@ -49,10 +49,14 @@
     color: #fff; 
     padding:15px;
     border-radius:5px;
+	cursor: pointer;
     /*border: var(--globaleCommBtnBorder) !important; */
     text-align: center;
 }
-
+.zoomImgWrapper img{
+	height: 300px !important;
+	width: 300px !important;
+}
 .f12{
 	font-size:12px !important;
 }

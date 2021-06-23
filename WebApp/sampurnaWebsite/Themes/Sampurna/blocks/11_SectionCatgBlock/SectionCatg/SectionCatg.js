@@ -116,10 +116,10 @@ class ShoppingVerticals extends Component {
           {this.state.groupSettings.showTitle?
             <div className="col-12">
               <div className="col-12 productcomponentheading text-center">
-                <div className="producttextclass  col-12 NoPadding">
-                  <h4 className="row">
+                <div className="producttextclass  col-12 ">
+                  <h5 className="row">
                     <b>{this.state.blockTitle}</b> 
-                  </h4> 
+                  </h5> 
                 </div>            
               </div>
             </div>

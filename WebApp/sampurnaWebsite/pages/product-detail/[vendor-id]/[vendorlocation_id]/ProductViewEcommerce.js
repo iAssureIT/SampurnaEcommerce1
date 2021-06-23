@@ -33,9 +33,9 @@ class ProductViewEcommerce extends Component {
 			"imgsrc": "",
 			"wishIconClass" : "viewWishList",
 			"wishTooltip"   : "Add to wishlist",
-			"productData"   : 	{
-									"availableQuantity" : 1
-								},
+			// "productData"   : 	{
+			// 						"availableQuantity" : 1
+			// 					},
 			"productID"      : '',
 			"user_ID"        : "",
 			"userLongitude"  : "",
@@ -65,6 +65,7 @@ class ProductViewEcommerce extends Component {
 		  var vendor_ID              = url[4];
 		  var vendorlocation_ID      = url[5];
 		  var productId             = url[6];
+		  console.log("productId==",productId);
 		  this.setState({
 			"vendor_ID"         : vendor_ID,
 			"vendorlocation_ID" : vendorlocation_ID,
@@ -103,7 +104,7 @@ class ProductViewEcommerce extends Component {
 			axios.get(url)
 			.then((response) => {
 				if(response.data){
-					// console.log("product response = ",response.data);
+					console.log("product response = ",response.data);
 					this.setState({
 						// sectionUrl    : response.data.section.replace(' ','-').toLowerCase(),
 						// categoryUrl   : response.data.category.replace(' ','-').toLowerCase(),
@@ -206,6 +207,7 @@ class ProductViewEcommerce extends Component {
 		event.preventDefault();	
 		if(this.state.user_ID){
 			var id = event.target.id;
+			console.log("id ==",id)
 			var availableQuantity = event.target.getAttribute('availableQuantity');
 			const formValues = {
 				"user_ID"    : this.state.user_ID,
@@ -262,7 +264,7 @@ class ProductViewEcommerce extends Component {
 		event.preventDefault();
 		if (this.state.user_ID) {
 			var id = event.target.id;
-			// console.log("product id===",id);
+			console.log("product id===",id);
 			axios.get('/api/products/get/one/' + id)
 				.then((response) => {
 					const formValues =
@@ -272,7 +274,8 @@ class ProductViewEcommerce extends Component {
 					}
 					axios.post('/api/wishlist/post', formValues)
 						.then((response) => {
-							this.getWishData();
+							// this.getWishData();
+							this.props.getWishlistData();
 							// window.fbq('track', 'AddToWishlist');
 							this.setState({
 								messageData: {
@@ -369,6 +372,7 @@ class ProductViewEcommerce extends Component {
 	}
 	
 	render() {
+		console.log("product view eccomerce data  =====",this.props);
 		var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass = '';
 		var tooltipMsg = '';
@@ -382,8 +386,8 @@ class ProductViewEcommerce extends Component {
 			tooltipMsg = 'Add To Wishlist';
 		} 
 	   
-		// console.log("product data  =====",this.state);eCommerce
-		const props = { width: 400, height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : '/images/eCommerce/notavailable.jpg' };
+		
+		// const props = { width: 400, height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : '/images/eCommerce/notavailable.jpg' };
 		return (
 			<section>
 				<div className={"col-12 pt-2 mt-2 " +Style.productDetailVendorName}> 
@@ -429,9 +433,11 @@ class ProductViewEcommerce extends Component {
 					</div>
 					<div className="col-12 col-lg-9 col-xl-9 col-md-9 col-sm-12 col-xs-12 boxBorderInner mobileViewNoPadding mt50 ">
 						<div className="row mb-5">
+							{this.state.productData?
 							<ProductZoom 
 								productData = {this.state.productData}
 							/>
+							:null}
 							<div className="col-12 col-xl-7 col-lg-7 col-md-12 col-sm-12 ">
 
 							<Message messageData={this.state.messageData} />
@@ -510,11 +516,11 @@ class ProductViewEcommerce extends Component {
 											<div className="col-2 col-lg-2 col-xl-2 col-md-3 col-sm-3 col-xs-3 NoPadding mobileViewNoPadding">
 												{this.state.user_ID?
 													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass}>
-														<i className={"far fa-heart"+wishClass +" heartIcon"}></i>
+														<i id={this.state.productData._id} className={"far fa-heart"+wishClass +" heartIcon"}></i>
 													</div>
 												:
 													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
-														<i className={"far fa-heart"+ wishClass +" heartIcon"}></i>
+														<i id={this.state.productData._id} className={"far fa-heart"+ wishClass +" heartIcon"}></i>
 													</div>												
 												}
 											</div>	
