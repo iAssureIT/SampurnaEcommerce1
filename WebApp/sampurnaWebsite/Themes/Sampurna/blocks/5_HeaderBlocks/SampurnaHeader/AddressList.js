@@ -53,7 +53,7 @@ class AddresssList extends React.Component {
                                 }
                                 if(latLong){
                                     console.log("latLong=>",latLong);
-                                    Store.dispatch(setLocations(latLong)) ;
+                                    // Store.dispatch(setLocations(latLong)) ;
                                 }
                             }}
                             latitude={data.latitude} longitude={data.longitude}
@@ -79,7 +79,7 @@ const mapStateToProps = state => (
 
   const mapDispachToProps = state => (
     {
-        setLocations : setLocations
+        // setLocations : setLocations
     });
 export default connect(mapStateToProps)(AddresssList);
 
