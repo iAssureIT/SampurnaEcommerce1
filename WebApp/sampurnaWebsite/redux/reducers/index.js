@@ -1,26 +1,26 @@
 
 
 const initialState = {
-	cartCount	 	   : 0,
-	cartData	 	   : [],
-	cartTotal 		   : 0,
-    recentCartData     : [],
-    recentWishlistData :[],
-    recentCategoryData:[],
-	wishlistCount 	   : 0,
-	featuredProductData: {},
+	cartCount	 	      : 0,
+	cartData	 	      : [],
+	cartTotal 		      : 0,
+    recentCartData        : [],
+    recentWishlistData    :[],
+    recentCategoryData    :[],
+	wishlistCount 	      : 0,
+	featuredProductData   : {},
 	exclusiveProductsData : [],
-	newProductsData    : [],
-	bestSellerData     : [],
-	searchResult       :[],
-	searchCriteria     : [],
-	categoryDetails    :[],
-	formToShow         :"login",
-	deliveryPincode    : '',
-    pincodeStatus      : '',
-    value              : 0,
-    pageData           : [],
-    productApiUrl      :''
+	newProductsData       : [],
+	bestSellerData        : [],
+	searchProducts        :[],
+	searchCriteria        : [],
+	categoryDetails       :[],
+	formToShow            :"login",
+	deliveryPincode       : '',
+    pincodeStatus         : '',
+    value                 : 0,
+    pageData              : [],
+    productApiUrl         :''
 
 }
 const reducer = (state = initialState,action) =>{
@@ -51,9 +51,11 @@ const reducer = (state = initialState,action) =>{
         case "WISHLIST_COUNT" : 
             return {...state, wishlistCount: action.wishlistCount}        
         case "FEATURED_PRODUCT_DATA" : 
-            return {...state, featuredProductData: action.featuredProductData}        
-        case "SEARCH_PRODUCT" :
-            return {...state, searchResult: action.searchResult,searchCriteria:action.searchCriteria}        
+            return {...state, featuredProductData: action.featuredProductData}   
+
+        case "SET_SEARCH_DETAILS" :
+            return {...state, searchProducts :action.setSearchDetails}   
+
         case "GET_CATEGORY_DETAILS" : 
             return {...state, categoryDetails: action.categoryDetails}        
         case "MODAL_DATA" :

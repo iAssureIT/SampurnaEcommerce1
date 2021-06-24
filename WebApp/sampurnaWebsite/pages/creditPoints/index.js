@@ -34,10 +34,12 @@ class CreditPoints extends Component{
         
     }
     getCreditData(){
+        console.log("this.state.user_ID=",this.state.user_ID);
         axios.get('/api/creditpoints/get/'+this.state.user_ID)
         .then( (creditRes)=>{
+            console.log("credit response==",creditRes);
             if(creditRes){
-                console.log("credit response==",creditRes);
+                // console.log("credit response==",creditRes);
                 this.setState({
                     creditdata : creditRes.data
                 },()=>{

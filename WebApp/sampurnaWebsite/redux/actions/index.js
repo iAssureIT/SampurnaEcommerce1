@@ -40,21 +40,21 @@ export const setWishlistData = wishlistdata => ({
   wishlistData: wishlistdata
 });
 
+//set productAPI for productlist page
 export const setProductApiUrl = pageUrl => ({
-  type: 'SET_PRODUCT-APIURL',
+  type   : 'SET_PRODUCT-APIURL',
   pageUrl: pageUrl
 });
  
 export const setSampurnaWebsiteDetails = sampurnaWebsiteDetails => ({
-  type: 'SET_SAMPURNA-WEBSITE-DETAILS',
+  type                  : 'SET_SAMPURNA-WEBSITE-DETAILS',
   sampurnaWebsiteDetails: sampurnaWebsiteDetails
 });
 
-export const setLocations = setLocations => ({
-  type: 'SET_LATLONG',
-  setLocations: setLocations
-});
-
+export const setSearchDetails = setSearchDetails =>({
+  type             : "SET_SEARCH_DETAILS",
+  setSearchDetails : setSearchDetails
+})
 
 export function updateForm(formValue) {
   return {
@@ -62,6 +62,7 @@ export function updateForm(formValue) {
     formToShow: formValue
   }
 }
+
 export function updateCartCount() {
     return dispatch =>{
       var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -160,19 +161,17 @@ export function getCategoryData() {
         })
   }  
 }
-
-export const searchProductAction = (searchCriteria, searchResult )=> ({
-      type: 'SEARCH_PRODUCT',
-      searchCriteria: searchCriteria,
-      searchResult: searchResult
-});
-
 export const getForm = formToShow => ({
   type: 'MODAL_DATA',
   formToShow: formToShow
 });
 
-export const getPincode = deliveryPincode => ({
-  type            : 'PINCODE_DATA',
-  deliveryPincode : deliveryPincode
-});
+// export const searchProductAction = (searchCriteria, searchResult )=> ({
+//   type: 'SEARCH_PRODUCT',
+//   searchCriteria: searchCriteria,
+//   searchResult: searchResult
+// });
+// export const getPincode = deliveryPincode => ({
+//   type            : 'PINCODE_DATA',
+//   deliveryPincode : deliveryPincode
+// });

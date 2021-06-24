@@ -75,12 +75,6 @@
   margin-right: 10px;
   cursor: pointer;
 }
-.mr0{
-  margin-right:0px !important;
-}
-.cartButton1:hover i{
-  color: #1c3481;
-}
 .offerDetails{
   background-color:transparent;
   height: 25px;
@@ -200,10 +194,6 @@ color: #FBBD65!important;
 .card{
   border: 1px solid #f1f2f2;
 }
-/* .productDetails{
-  padding-bottom: 15px;
-  min-height: 110px;
-} */
 .item-top{
   text-align: center;
 }

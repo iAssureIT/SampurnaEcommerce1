@@ -3,74 +3,66 @@ import axios                from 'axios';
 import Link                 from 'next/link'
 import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
-import { components }       from 'react-select';
 import Style                from "./vendor-list.module.css";
-import { useRouter }        from 'next/router';
 
 class VendorList extends Component {
     constructor(props) {
-          super(props);
+        super(props);
               this.state = {
                   "setVendorList":[],
                   "loading"      : true,
               };
       }
-  
       componentDidMount() {
-        var url = window.location.href.split('/');
-        // console.log("sectionurl==",url);
-        const sectionurl = url[4];
-        if(sectionurl){
-            this.setState({
-                "sectionurl" :sectionurl,
-            })
-        }
-        // console.log("sectionurl==",sectionurl);
-        var formValues={};
-        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
-        if(sampurnaWebsiteDetails){
-            // console.log("sampurnaWebsiteDetails===",sampurnaWebsiteDetails.deliveryLocation);
-            if(sampurnaWebsiteDetails.deliveryLocation){
-                formValues =  {
-                    "startRange" : 0,
-                    "limitRange" : 10,
-                    "sectionUrl" : sectionurl,
-                    "latitude"   : sampurnaWebsiteDetails.deliveryLocation.latitude,
-                    "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude
-                }
-            }else{
-                formValues =  {
-                    "startRange" : 0,
-                    "limitRange" : 10,
-                    "sectionUrl" : sectionurl,
-                    "latitude"   : "",
-                    "longitude"  : ""
-                }
-            }
-        }
-        if(formValues){
-            // console.log("formValues===",formValues);
-            axios.post("/api/vendorlist/post/vendor/list",formValues)
-            .then((vendorResponse) => {
-                if(vendorResponse){
-                    // console.log("vendorResponse=>",vendorResponse);
-                    this.setState({
-                        "vendorList" : vendorResponse.data,
-                        "loading"    : false
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log('productwise vendorlist error', error);
-            })
-        }
+        // var url = window.location.href.split('/');
+        // const sectionurl = url[4];
+        // if(sectionurl){
+        //     this.setState({
+        //         "sectionurl" :sectionurl,
+        //     })
+        // }
+        // var formValues={};
+        // var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
+        // if(sampurnaWebsiteDetails){
+        //     if(sampurnaWebsiteDetails.deliveryLocation){
+        //         formValues =  {
+        //             "startRange" : 0,
+        //             "limitRange" : 10,
+        //             "sectionUrl" : sectionurl,
+        //             "latitude"   : sampurnaWebsiteDetails.deliveryLocation.latitude,
+        //             "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude
+        //         }
+        //     }else{
+        //         formValues =  {
+        //             "startRange" : 0,
+        //             "limitRange" : 10,
+        //             "sectionUrl" : sectionurl,
+        //             "latitude"   : "",
+        //             "longitude"  : ""
+        //         }
+        //     }
+        // }
+        // if(formValues){
+        //     axios.post("/api/vendorlist/post/vendor/list",formValues)
+        //     .then((vendorResponse) => {
+        //         if(vendorResponse){
+        //             this.setState({
+        //                 "vendorList" : vendorResponse.data,
+        //                 "loading"    : false
+        //             });
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log('productwise vendorlist error', error);
+        //     })
+        // }
       }
     render() {
 
         return(
             <section className={ Style.bgGray}>
                 <Header />    
-                <div className={"container " +Style.bgHeight}>
+                {/* <div className={"container " +Style.bgHeight}>
                     {!this.state.loading
                     ?
                     <div className="col-12">
@@ -81,7 +73,6 @@ class VendorList extends Component {
                                 </div>
                                 { Array.isArray(this.state.vendorList) && this.state.vendorList.length >0?
                                         this.state.vendorList.map((vendordata, index)=>{
-                                            // console.log("vendorList===",vendorList);
                                             return(
                                                 <div className="col-6" key={index}>
                                                     <div className={"col-12 card mt-4 " +Style.vendorCard}>
@@ -96,7 +87,6 @@ class VendorList extends Component {
                                                             <div className={"col-9 "}>
                                                                 <div className={"col-12 " +Style.vendorName}>{vendordata.vendorName}</div>
                                                                 <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
-                                                                    {/* <span className={Style.delTime}>{vendordata.expectedDiliveryTime>0?vendordata.expectedDiliveryTime:0} &nbsp;min</span> */}
                                                                     <span className={Style.delTime}>60 &nbsp;min</span>
                                                                     <img src="/images/eCommerce/time.png" className={"img "+Style.timeImg}></img>
                                                                 </div>
@@ -134,8 +124,9 @@ class VendorList extends Component {
                         <img src="/images/eCommerce/loader.gif" className="col-12 "></img>
                     </div>
                     }           
-                </div>
+                </div> */}
                 < Footer />
+                <h1>Vendor list page</h1>
             </section>
         )
     }

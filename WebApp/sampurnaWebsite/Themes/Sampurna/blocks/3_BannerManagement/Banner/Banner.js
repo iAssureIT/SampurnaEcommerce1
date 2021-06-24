@@ -285,15 +285,13 @@ export default class Banner extends React.Component {
                                   </div>                                  
                                   <div className={"col-6 col-xl-5 col-xs-12 pull-right " +Style.blockTitle}>                               
                                     {data.FgImage?
-                                    <img className={"img img-responsive " +Style.FgImg} src={data.FgImage!==""?data.FgImage:null} alt="banner" />	
+                                    <img className={"img img-responsive " +Style.FgImg} 
+                                      src={data.FgImage!==""?data.FgImage:null}
+                                      layout={'intrinsic'} 
+                                      alt="banner" />	
                                     :null
                                     }
-                                    {/* <Image
-                                      src={data.FgImage!==""?data.FgImage:null}
-                                      className={"img img-responsive"+Style.FgImg}
-                                      height ={300}
-                                      width={300}
-                                    />	 */}
+                                  
                                   </div>	                                  
                                 </div>	
                                 :

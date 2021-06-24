@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import 'bootstrap/dist/css/bootstrap.css';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {setBlockData ,setProductApiUrl} from '../../../../../redux/actions/index.js';
