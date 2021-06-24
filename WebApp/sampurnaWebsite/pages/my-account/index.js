@@ -120,7 +120,7 @@ class MyAccount extends Component{
                     </header>
                     <div className="col-12">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12 ">
                                 {/* <!-- Tabs nav --> */}
                                 <div class={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <a class="nav-link mb-4 p-3  shadow active rounded"  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
@@ -154,7 +154,7 @@ class MyAccount extends Component{
                                 </div>
                             </div>
                 
-                            <div class={"col-md-9 myAccountSideWrapper "+S.myAccountSideWrapper}>
+                            <div class={"col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 col-12 myAccountSideWrapper "+S.myAccountSideWrapper}>
                                 {/* <!-- Tabs content --> */}
                                 <div class="tab-content" id="v-pills-tabContent">
                                     <div class="tab-pane fade shadow rounded bg-white show active pb-5" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">

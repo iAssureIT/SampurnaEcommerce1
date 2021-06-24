@@ -181,8 +181,8 @@
 .productPrize{
     white-space: nowrap;
     color: #333 !important;
-    font-weight: 900;
-    font-size: 15px;
+    /*font-weight: 900;*/
+    font-size: 13px;
 }
 .couponCode{
     color: #999;
@@ -191,7 +191,7 @@
     cursor: pointer;
 }
 .price{
-    font-size: 15px;   
+    font-size: 13px;   
 }
 .orderTotalText{
     font-size: 17px !important;

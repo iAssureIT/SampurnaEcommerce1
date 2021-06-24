@@ -175,13 +175,20 @@ text-align:right ! important;
     padding: 10px 0px;
 }
 .orderfootertag span{
-	color : #878787
+	color : #000;
+    font-weight: bold;
 }
 .orderfootertag2{
 	float: right;
 }
+
+.currencyColor{
+    color: #878787 !important;
+}
+
 .orderfootertag2 span{
-	color : #878787
+	color : #000;
+    font-weight: bold;
 }
 .productname{
 	word-break: break-word;

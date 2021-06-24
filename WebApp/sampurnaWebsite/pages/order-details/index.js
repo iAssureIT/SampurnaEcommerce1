@@ -307,7 +307,7 @@ export default class OrderDetails extends Component {
                           // }
                           // console.log("index1",index1)
                           return (
-                            <div key={index} style={{marginBottom:"40px"}} className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>   
+                            <div key={index} style={{marginBottom:"0px"}} className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>   
                               <div className="col-12 NOpadding vendorNameBlock pt-4 pb-4">
                                 <div className="row">
                                   <div className="col-7 NOpadding">
@@ -323,7 +323,7 @@ export default class OrderDetails extends Component {
                                 </div>      
                               </div>
                               { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
-                                <div className="col-12 NoPadding statusWizard">
+                                <div className="col-12 NoPadding ">
                                     {/* <StepWizard data={vendordata} /> */}
                                     {/* <OrderStatusWizard data={vendordata} /> */}
                                     <StepProgressBar
@@ -336,21 +336,21 @@ export default class OrderDetails extends Component {
                                 vendorWiseOrderData = {vendordata}
                                 orderData           = {this.state.orderData}
                                 orderStatus         = {vendordata.orderStatus}
-                                currency            = {this.state.currency}
+                                currency            = <span className="currencyColor">{this.state.currency}</span>
                                 user_ID             = {this.state.user_ID}
                                 reviewuserData      = {this.state.reviewuserData}
                                 orderID             = {this.state.orderData._id}
                               />
                               
 
-                              <div className="col-12 orderbodyborder">
+                              <div className="col-12 ">
                                 <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
                                   <div className="row ">                                      
                                       <div className="col-12 NOpadding">
                                         <div className="col-8 offset-2">
                                             <span className="col-7 title">&nbsp; Amount</span>
                                             <span className="col-5 textAlignRight title">&nbsp; 
-                                                {this.state.currency} &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
+                                                <span className="currencyColor">{this.state.currency}</span> &nbsp;{vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
                                             </span>
                                         </div>
                                         <div className="col-8 offset-2">
@@ -363,13 +363,13 @@ export default class OrderDetails extends Component {
                                   </div>
                                 </div>
                               </div>
-                              <div className="col-12 orderfooterborder">
+                              <div className="col-12 ">
                                 <div className="row">
                                   <div className="col-6">
-                                    <p className="orderfootertag"><span>Ordered On: </span>{moment(vendordata.createdAt).format("DD MMMM YYYY")} </p>
+                                    <p className="orderfootertag"><span>Ordered On &nbsp;&nbsp;: </span>&nbsp;&nbsp;{moment(vendordata.createdAt).format("DD MMMM YYYY")} </p>
                                   </div>
                                   <div className="col-6">
-                                    <p className="orderfootertag2"><span>Ordered Total: </span> <i className="fa fa-inr"></i>&nbsp;{vendordata.vendor_afterDiscountTotal} </p>
+                                    <p className="orderfootertag2"><span>Ordered Total &nbsp;&nbsp;: </span>&nbsp;&nbsp;<span className="currencyColor">{this.state.currency}</span>&nbsp;<b>{vendordata.vendor_afterDiscountTotal}</b> </p>
                                   </div>
                                 </div> 
                               </div>
