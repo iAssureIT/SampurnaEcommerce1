@@ -7,7 +7,7 @@ exports.get_credit_points = (req, res, next) => {
 	CreditPoints.findOne({user_id : ObjectId(req.params.customer_id)})
 	.populate('transactions.order_id', 'orderID')
 	.then(creditpointsdata=>{
-		console.log("creditpointsdata => ",creditpointsdata)
+		// console.log("creditpointsdata => ",creditpointsdata)
 		if(creditpointsdata !== null){
 			var returnData = {
 				_id 			: creditpointsdata._id,
@@ -15,17 +15,19 @@ exports.get_credit_points = (req, res, next) => {
 				totalPoints 	: creditpointsdata.totalPoints,
 				transactions 	: creditpointsdata.transactions && creditpointsdata.transactions.length > 0
 									? 
-										(creditpointsdata.transactions.map((a, i)=>{				
-											return {
-												_id                 : a._id,
-												order_id    		: a.order_id._id,
-												orderID    			: a.order_id.orderID,
-												orderDate     		: a.orderDate,
-												purchaseAmount    	: a.purchaseAmount,
-												shippingCharges     : a.shippingCharges,
-												totalAmount         : a.totalAmount,
-												earnedPoints 		: a.earnedPoints,
-												typeOfTransaction 	: a.typeOfTransaction
+										(creditpointsdata.transactions.map((a, i)=>{	
+											if(a.order_id !== null){			
+												return {
+													_id                 : a._id,
+													order_id    		: a.order_id._id,
+													orderID    			: a.order_id.orderID,
+													orderDate     		: a.orderDate,
+													purchaseAmount    	: a.purchaseAmount,
+													shippingCharges     : a.shippingCharges,
+													totalAmount         : a.totalAmount,
+													earnedPoints 		: a.earnedPoints,
+													typeOfTransaction 	: a.typeOfTransaction
+												}
 											}																				
 										}))
 									:
