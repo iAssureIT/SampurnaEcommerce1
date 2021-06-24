@@ -1,7 +1,8 @@
 const express 	                    = require("express");
 const router 	                    = express.Router();
 const checkAuth                     = require('../middlerware/check-auth.js');
-const MasternotificationController  = require('./ControllerMasterNotifications.js');
+const MasternotificationController  = require('./ControllerMasterNotificationsNew.js');
+// const MasternotificationController  = require('./ControllerMasterNotifications.js');
 
 router.post('/post',                        MasternotificationController.create_masternotification);
 

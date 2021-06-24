@@ -517,12 +517,13 @@ class CreateTemplateNew extends Component {
 
       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
         <section className="content">   
-          <div className="pageContent col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
+          <div className="pageContent col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div  className="box-header with-border box-headerPadding  col-lg-12 col-md-12 col-sm-12 col-xs-12 mrgTp12">
               <h4 className="weighttitle col-lg-9 col-md-9 col-xs-11 col-sm-11">Create Template</h4>
-              <ul className="nav tabNav nav-pills col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right">
+              
+			  <ul className="nav tabNav nav-pills col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right">
                 <li className="active col-lg-5 col-md-5 col-xs-5 col-sm-5 NOpadding text-center"><a data-toggle="pill" className="bulkBtn btnRadius" href="#manual">Manual</a></li>
-                <li className="col-lg-6 col-md-6 col-xs-6 col-sm-6 NOpadding  text-center"><a data-toggle="pill" className="bulkBtn btnRadius" href="#bulk">Bulk Upload</a></li>
+                <li className="col-lg-6 col-md-6 col-xs-6 col-sm-6 NOpadding text-center disabledButton"><a data-toggle="pill" className="bulkBtn btnRadius" href="#bulk">Bulk Upload</a></li>
               </ul>
             </div>
             
@@ -545,8 +546,8 @@ class CreateTemplateNew extends Component {
                   </div>
                 </div>
                 <div id="manual" className="tab-pane fade in active col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding"style={{marginTop:"25px"}}>
-                   <div className="col-md-12 NOpadding rowPadding">
-					<div className="col-md-3">
+                   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding rowPadding">
+					<div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 						<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Event <sup className="astrick">*</sup></label>
 			            <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-select" id="packagetype" >
                          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -565,7 +566,7 @@ class CreateTemplateNew extends Component {
 			            </select>   
 					</div>
 				</div>
-					<div className="col-md-3">
+					<div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 						<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Role<sup className="astrick">*</sup></label>
 			            <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-select" id="packagetype" >
 	                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -584,7 +585,7 @@ class CreateTemplateNew extends Component {
 				            </select>
 						</div>
 					</div>
-					<div className="col-md-3">
+					<div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 						<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Status<sup className="astrick">*</sup></label>
 			            <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-select" id="packagetype" >
                          <span class="input-group-addon"><i class="fa fa-file"></i></span>
@@ -595,7 +596,7 @@ class CreateTemplateNew extends Component {
 				            </select>
 						</div>
 					</div>
-					<div className="col-md-3">
+					<div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
 						<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Company</label>
 			            <div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-select" id="packagetype" >
                          <span class="input-group-addon"><i class="fa fa-building"></i></span>
@@ -616,15 +617,17 @@ class CreateTemplateNew extends Component {
 				   </div>
 				</div>
 				<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
-					<ul className="nav  nav_pills billingNav col-lg-12 col-md-12 col-sm-12 col-xs-12 mrgTp12 NOpadding" id="navContent">
-					  <li className="active col-lg-4 col-md-4 col-sm-12 col-xs-12" value="Email" onClick={this.selectType.bind(this,"Email")}><a data-toggle="pill" href="#email" className="TabName1 btnRadius TabStyle">Email</a></li>
-					  <li className=" col-lg-4 col-md-4 col-sm-12 col-xs-12" value="Notification" onClick={this.selectType.bind(this,"Notification")}><a data-toggle="pill" href="#notification" className="TabName1 btnRadius TabStyle">Notification</a></li>
-					  <li className="col-lg-4 col-md-4 col-sm-12 col-xs-12" value="SMS" onClick={this.selectType.bind(this,"SMS")}><a data-toggle="pill" href="#sms" className="TabName1 btnRadius TabStyle">SMS</a></li>
-					</ul>
+					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<ul className="nav  nav_pills billingNav col-lg-12 col-md-12 col-sm-12 col-xs-12 mrgTp12 NOpadding" id="navContent">
+							<li className="active col-lg-4 col-md-4 col-sm-12 col-xs-12 NOpadding disabledButton" value="Email" onClick={this.selectType.bind(this,"Email")}><a data-toggle="pill" href="#email" className="TabName1 btnRadius TabStyle">Email</a></li>
+							<li className=" col-lg-4 col-md-4 col-sm-12 col-xs-12 NOpadding disabledButton" value="Notification" onClick={this.selectType.bind(this,"Notification")}><a data-toggle="pill" href="#notification" className="TabName1 btnRadius TabStyle">Notification</a></li>
+							<li className="col-lg-4 col-md-4 col-sm-12 col-xs-12 NOpadding disabledButton" value="SMS" onClick={this.selectType.bind(this,"SMS")}><a data-toggle="pill" href="#sms" className="TabName1 btnRadius TabStyle">SMS</a></li>
+						</ul>
+					</div>
 
-					<div className="tab-content ">
+					<div className="tab-content">
 					  <div id="email" className="tab-pane fade in active">
-					    <div className="rowPadding subjectRow paddLeft0 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					    <div className="rowPadding subjectRow paddLeft0 col-lg-9 col-md-8 col-sm-12 col-xs-12 NOpadding">
 							<div className="form-group">
 								<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 labelform">Subject <span className="astrick">*</span></label>
 								<div className="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12 " id="packagetype" >
@@ -634,12 +637,13 @@ class CreateTemplateNew extends Component {
 								</div>
 						</div>
 
-						<div className="NOpadding rowPadding col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right">
-							<button className="btn-default btn-sm btnToken  col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding" id="showEmailTokens" dataid="EmailTokens" onClick={this.showToken.bind(this)}>Show Available Tokens</button>
+						<div className="srowPadding col-lg-3 col-md-4 col-sm-12 col-xs-12 pull-right">
+							<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 labelform"></label>
+							<button className="btn-default btn-sm btnToken disabledButton  col-lg-2 col-md-2 col-sm-12 col-xs-12 NOpadding" id="showEmailTokens" dataid="EmailTokens" onClick={this.showToken.bind(this)}>Show Available Tokens</button>
 						</div>
 
 						<div className=" rowPadding col-lg-12 col-md-12 col-sm-12 col-xs-12 showTokens" id="EmailTokens">
-							{this.state.tokens ? this.state.tokens : "No Tokens Added Yet"}
+							{this.state.tokens ? this.state.tokens : "No tokens added yet, please add tokens !"}
 						</div>
 
 						<div className="NOpadding rowPadding col-lg-12 col-md-12 col-sm-12 col-xs-12">

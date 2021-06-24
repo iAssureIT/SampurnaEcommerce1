@@ -7,6 +7,7 @@ exports.get_credit_points = (req, res, next) => {
 	CreditPoints.findOne({user_id : ObjectId(req.params.customer_id)})
 	.populate('transactions.order_id', 'orderID')
 	.then(creditpointsdata=>{
+		console.log("creditpointsdata => ",creditpointsdata)
 		if(creditpointsdata !== null){
 			var returnData = {
 				_id 			: creditpointsdata._id,

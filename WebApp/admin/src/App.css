@@ -804,3 +804,16 @@ button, input, select, textarea{
 .textTransformUppercase{
 text-transform: capitalize;
 }
+
+/* Global CSS for Trollymart*/
+.activeButton{    
+  color: #fff;
+  background-color: #337ab7;
+  text-align: center;
+}
+.disabledButton{
+  background-color: #fff;
+  color: #333;
+  text-align: center;
+  border: 1px solid #ddd;
+}

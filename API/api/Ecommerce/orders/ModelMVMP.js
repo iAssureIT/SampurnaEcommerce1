@@ -12,7 +12,7 @@ const orderSchema = mongoose.Schema({
     franchiseCustId           : { type: mongoose.Schema.Types.ObjectId, ref: 'franchisecustomers' },
     allocatedToFranchise      : { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
 
-    paymentDetails            :{
+    paymentDetails            : {
         beforeDiscountTotal       : Number,
         discountAmount            : Number,
         afterDiscountTotal        : Number,

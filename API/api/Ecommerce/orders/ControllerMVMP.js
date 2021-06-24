@@ -24,7 +24,7 @@ const FranchiseGoods 			= require('../distributionManagement/Model');
 const axios             		= require('axios');
 var ObjectId 					= require('mongodb').ObjectID;
 var request 					= require('request-promise');
-const { send_notifications } = require("../../coreAdmin/notificationManagement/ControllerMasterNotifications");
+const sendNotification 			= require("../../coreAdmin/notificationManagement/SendNotification.js");
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
@@ -130,30 +130,52 @@ exports.insert_orders = (req, res, next) => {
 						if(l >= req.body.vendorOrders.length){
 							processData();
 							async function processData(){
-								// var notification 	= await sendNotification(orderdata.orderID, )
-								var sendData = {
+								//send Notification, email, sms to customer
+								var userData 	 = await User.findOne({"_id" : ObjectId(req.body.user_ID)},{maxServiceCharges : 1}); 
+								console.log("userData => ",userData)
+								var userNotificationValues = {
 									"event"			: "NewOrder",
 									"toUser_id"		: req.body.user_ID,
-									"toUserRole"	: "user",
-									// "company_id": vendor_id,
-									// "otherAdminRole":'vendoradmin',
-									
+									"toUserRole"	: "user",								
 									"variables" 	: {
-														"userName" 			: orderdata.userFullName,
-														// "userEmailAddress" 	: result.data.corporateName,
-														// "userMobileNum"		: result.data.vendorDetails.profile.mobile,
-														"orderNumber" 		: orderdata.orderID,
-														"deliveryAddress" 	: orderdata.deliveryAddress
+														"customerName" 			: userData.profile.fullName,
+														"customerEmail" 		: userData.profile.email,
+														"customerContactNumber"	: userData.profile.mobile,
+														"orderDeliveryLocation" : orderdata.orderID,
+														"deliveryAddress" 		: orderdata.deliveryAddress
 									}
-								}
-								// console.log("sendData=> ",sendData)
-								await axios.post('http://localhost:'+globalVariable.port+'/api/masternotifications/post/sendNotification', sendData)
-								.then((res) => {
-									console.log("res => ",res.data);
-								})
-								.catch((error) => { console.log('notification error: ',error)})
+								}								
+								// var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+								// console.log("send_notification_to_user => ",send_notification_to_user);
+								
+								//send Notification, email, sms to admin
+								// var adminNotificationValues = {
+								// 	"event"			: "NewOrder",
+								// 	// "toUser_id"		: req.body.user_ID,
+								// 	"toUserRole"	: "admin",								
+								// 	"variables" 	: {
+								// 						"customerName" 			: userData.profile.fullName,
+								// 						"customerEmail" 		: userData.profile.email,
+								// 						"customerContactNumber"	: userData.profile.mobile,
+								// 						"orderDeliveryLocation" : orderdata.orderID,
+								// 						"deliveryAddress" 		: orderdata.deliveryAddress
+								// 	}
+								// }
+								// var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+								// console.log("send_notification_to_admin => ",send_notification_to_admin);
+
+								//send Notification, email, sms to vendor
+								// var vendorOrders = orderdata.vendorOrders;
+								// console.log("vendorOrdes => ", vendorOrders);
+								// for(var i=0; i<vendorOrders.length ; i++){
+								// 	var vendor_id 			= vendorOrders[i].vendor_id;
+								// 	var vendorLocation_id 	= vendorOrders[i].vendorLocation_id;
+								// 	var vendorDetails 		= await Entitymaster.findOne({"_id" : ObjectId(vendor_id)},{maxServiceCharges : 1}); 
+								// }
+
+								// Add credit points earned on purchase
 								var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Original Order");
-								// console.log("addCreditPoint => ",addCreditPoint)
+								
 								res.status(200).json({ 
 									order_id : orderdata._id,
 									message  : 'Order placed successfully' 
