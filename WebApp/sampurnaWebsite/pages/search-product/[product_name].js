@@ -14,19 +14,20 @@ class SearchProduct extends Component {
   constructor(props){
     super(props);
     this.state={
-      productSettings    : {          
+      productSettings       : {          
         displayAssurenceIcon: false,
-        displayBrand: true,
-        displayCategory: false,
-        displayFeature: "size",
-        displayRating: false,
-        displaySection: false,
-        displaySubCategory: false,
-        displayWishlist: true,
+        displayBrand        : true,
+        displayCategory     : false,
+        displayFeature      : "size",
+        displayRating       : false,
+        displayVendorName   : true,
+        displaySection      : false,
+        displaySubCategory  : false,
+        displayWishlist     : true,
     },
-    blockSettings      : {
-      blockTitle         : "Fruits",
-      blockApi           : "/api/products/get/list/lowestprice",
+    blockSettings        : {
+      blockTitle         : "",
+      blockApi           : "",
       noOfProductPerLGRow: 4,
       noOfProductPerMDRow: 4,
       noOfProductPerSMRow: 4,
@@ -37,19 +38,37 @@ class SearchProduct extends Component {
     }, 
     }
   }
+  componentDidMount(){
+    var url = window.location.href.split('/');
+    // console.log("url==",url[4]);
+    if(url){
+        this.setState({"searchProduct": url[4]})
+    }
+    var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
+        var userDetails        =  JSON.parse(localStorage.getItem('userDetails'));
+        if( userDetails && userDetails.user_id){
+            this.setState({user_ID : userDetails.user_id})
+        }
+        if(sampurnaWebsiteDetails){
+            if(sampurnaWebsiteDetails.deliveryLocation){
+                var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
+            }
+        }
+  }
   render(){
-      console.log("serach props===",this.props);
-      console.log("searchData=",this.props.searchData);
-      console.log("data searchData=",this.props.searchData.data);
+      // console.log("serach props===",this.props);
+      // console.log("searchData=",this.props.searchData);
+      // console.log("data searchData=",this.props.searchData.data);
       return (
         <div className="row">
           < Header />
           {/* <Message messageData={this.state.messageData} />  */}
-          <div className={" container " +Style.mobileViewPadding +" "+Style.productWrapper}> 
+          <div className={" container mt-5 "+Style.searchProductWrapper}> 
             <div className="row">
+              <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results for " +"'"+this.state.searchProduct +"'"}</div>
               { Array.isArray(this.props.searchData.data) && this.props.searchData.data.length > 0 ?
                 Array.isArray(this.props.searchData.data) && this.props.searchData.data.map((data, index) => { 
-                  console.log("data===",data);               
+                  // console.log("data===",data);               
                   return (
                     <div className={" col-3 " +Style.mobileViewPadding }  key={index}> 
                       {data
@@ -57,6 +76,10 @@ class SearchProduct extends Component {
                         < SingleProduct 
                           data = {data} 
                           productSettings = {this.state.productSettings}
+                          userLatitude    = {this.state.latitude}
+                          userLongitude   = {this.state.longitude}
+                          user_ID         = {this.state.user_ID}
+                          // vendorlocation_ID = ''
                         />
                       :
                         null
@@ -64,7 +87,9 @@ class SearchProduct extends Component {
                     </div>                            
                   );
                 })
-                :<div className ="text-center">Opps... Sorry... No Products Available</div>
+                :<div className =" col-12 mb-5 text-center">
+                    <h6>Opps... Sorry... No Products Available. Please search your product</h6>
+                </div>
               }
             </div>
           </div>

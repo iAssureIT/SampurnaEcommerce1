@@ -16,7 +16,6 @@ class SingleProduct extends Component{
             newProducts : [],
             wishList    : [],
             blockSettings : [],
-            
         }
     }
 
@@ -49,7 +48,6 @@ class SingleProduct extends Component{
               this.props.getWishlistData();
           }); 
         }
-
     }
 
     addCart(formValues, quantityAdded, availableQuantity) {
@@ -123,47 +121,11 @@ class SingleProduct extends Component{
     submitCart(event) {
       console.log("lat long",this.props.userLongitude,this.props.userLatitude,this.props.vendorlocation_ID);
       if(this.state.user_ID){
-      var id = event.target.id;
-      var vendor_id
-      if(this.state.websiteModel === "FranchiseModel"){
-        var selectedSize = $('#'+id+"-size").val();      
-        var size = event.target.getAttribute('mainsize');      
-        var unit = event.target.getAttribute('unit');      
-      }    
-      var availableQuantity = event.target.getAttribute('availablequantity');
-      var currProId = event.target.getAttribute('currpro');
-
-      var quantityAdded=0;
-      var formValues ={};
-      if(this.state.websiteModel === "FranchiseModel"){
-        if(selectedSize === size){
-           var quantity = 1;
-           var totalWeight = selectedSize +" "+unit
-           formValues = {
-            "user_ID": this.state.user_ID,
-            "product_ID": event.target.id,
-            "quantity": 1,  
-            "selectedSize" : selectedSize,
-            "size"         : size,
-            "totalWeight"  : totalWeight,  
-            "vendorName" : event.target.getAttribute('vendor_name'),
-            "vendor_ID"  : event.target.getAttribute('vendor_id'),      
-          }
-        }else{
-          quantity    = selectedSize/size;
-          totalWeight = size*quantity +" "+unit;
-          formValues = {
-            "user_ID"           : this.state.user_ID,
-            "product_ID"        : event.target.id,
-            "vendor_ID"         : "",
-            "quantity"          : quantity,
-            "selectedSize"      : selectedSize,
-            "size"              : size,
-            "totalWeight"       : totalWeight,
-          }
-        }
-      }else{      
-        formValues = {
+        var id = event.target.id;
+        var availableQuantity = event.target.getAttribute('availablequantity');
+        var currProId = event.target.getAttribute('currpro');
+        var quantityAdded=0;
+        var formValues = {
           "user_ID"           : this.state.user_ID,
           "product_ID"        : event.target.id,
           "quantity"          : 1,   
@@ -174,12 +136,9 @@ class SingleProduct extends Component{
           "vendor_ID"         : this.props.vendor_ID,     
         }   
         // console.log("formValues=",formValues);   
-      }
-  
+
       this.addCart(formValues, quantityAdded, availableQuantity);
-      this.setState({
-        ['sizeCollage' + currProId]: false
-      })
+      
     }else{
       if(this.state.showLoginAs === "modal"){
         $('#loginFormModal').show();       
@@ -188,7 +147,6 @@ class SingleProduct extends Component{
           messageData: {
             "type": "outpage",
             "icon": "fa fa-exclamation-circle",
-            // "message": "Need To Sign In, Please <a href='/login'>Sign In</a> First.",
             "message" : "Need To Sign In, Please <a data-toggle=modal data-target=#loginFormModal>Sign In</a> First.",   
             "class": "danger",
             "autoDismiss": true
@@ -278,7 +236,7 @@ class SingleProduct extends Component{
   
 
     render(){
-      console.log("single productView props=",this.props.data);
+    //   console.log("single productView props=",this.props.data);
       { var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.props.data._id) : [];                              
         var wishClass = 'r';
         var tooltipMsg = '';
@@ -294,130 +252,134 @@ class SingleProduct extends Component{
 
       return (
         <div className="row">
-                 <div className={" col-12" +Style.mobileViewPadding +" "+Style.productWrapper} > 
-                  <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
-                    <div className={"col-12 NoPadding"}>
-                      <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
-                      <div className={"col-12 NoPadding " +Style.wishlistBtn}>
-                          {this.props.productSettings.displayWishlist === true?
-                              this.state.user_ID?
-                              <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
-                              :
-                              <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
-                          :null
-                          }
-                          {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)} % </div> : null}
-                        </div>
-                        <div className={styleMedia.ImgWrapper}>
-                        <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id}>
-                        <a className={Style.product_item_photo } tabIndex="-1" >
-                          <img                                           
-                            src={this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
-                            src={this.props.data.productSmallImage && this.props.data.productSmallImage.length>0 ? this.props.data.productSmallImage[0] : "/images/eCommerce/notavailable.jpg"}
-                            alt="ProductImg" 
-                            className={"img-responsive " +Style.NoAvailableImg }
-                            height={150}
-                            width={180} 
-                            layout={'intrinsic'}
-                          />
-                        </a>
-                        </Link>
-                        </div>
-                      </div>
-                      <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
-                        <div className={"col-12 " +Style.innerDiv}>
-                          {this.props.productSettings.displayBrand === true ?
-                            this.props.data.brandNameRlang?
-                            <div className={"col-12 globalProduct_brand RegionalFont1"} title={this.props.data.brandNameRlang}>{this.props.data.brandNameRlang}</div>
+            <div className={" col-12 " +Style.mobileViewPadding +" "+Style.productWrapper} > 
+                <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
+                <div className={"col-12 NoPadding"}>
+                    <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
+                    <div className={"col-12 NoPadding " +Style.wishlistBtn}>
+                        {this.props.productSettings.displayWishlist === true?
+                            this.state.user_ID?
+                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                             :
-                              <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={this.props.data.brand}>{this.props.data.brand}</div>
-
-                          :null
-                          }                                        
-                          
-                          {this.props.productSettings.displaySection === true ?
-                            <div className={"col-12 globalProductItemName"} title={this.props.data.section}>{this.props.data.section}</div>
-                          :null
-                          }
-                          {this.props.productSettings.displayCategory === true ?
-                            <div className={"col-12 globalProduct_brand"} title={this.props.data.category}>{this.props.data.category}</div>
-                          :null
-                          }
-                          {/* {this.props.data.productNameRlang?
-                            <div className={"col-12 globalProductItemName  RegionalFont " } title={this.props.data.productNameRlang}>
-                                <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{this.props.data.productNameRlang} </span>&nbsp;                                        
-                            </div>:null
-                          } */}
-
-                          <div className={"col-12 globalProductItemName  " } title={this.props.data.productName}>
-                            <span className={ Style.ellipsis +" " +Style.globalProdName}>{this.props.data.productName} </span>&nbsp;
-                          </div>
-
-                          <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
-                            {
-                              this.state.websiteModel === "FranchiseModel"?                                  
-                                this.props.data.discountPercent ?    
-                                <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
-                                  <span className={Style.price}><span className={Style.oldprice}>
-                                  {this.state.currency}&nbsp;{this.props.data.originalPrice} </span>&nbsp; {this.state.currency} {this.props.data.discountedPrice}</span>    
-                                </div>   
-                                :
-                                  <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>
-                                    <span className={Style.price}>{this.state.currency} &nbsp;{this.props.data.originalPrice} {this.props.data.size? "/ " +this.props.data.size:null}&nbsp;<span className={Style.ProSize}>{this.props.data.size?this.props.data.unit:null}</span></span> &nbsp;                                       
-                                  </div>
-
-                              :                                    
-                                this.props.data.discountPercent ?
-                                <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                  <span className={Style.price}><span className={Style.oldprice }>&nbsp;{this.state.currency} &nbsp;{this.props.data.originalPrice}&nbsp;</span>&nbsp;
-                                  {this.state.currency} &nbsp;{(this.props.data.discountedPrice).toFixed(2)} 
-                                  </span>
-                                </div>
-                                :  
-                                <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                  <span className={Style.price}>
-                                    {this.state.currency} &nbsp;{(this.props.data.originalPrice).toFixed(2)} </span> &nbsp;                                      
-                                </div> 
-                            }
-                          </div>
-                          {this.props.productSettings.displayRating === true ?
-                            <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
-                                <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding " +Style.NoPadding} onMouseOver={this.showRatingBlock.bind(this)} >
-                                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.showRating}> 4 <i className="fas fa-star"></i></div>                                        
-                                </span>                                
-                                <span className={"col-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
-                                {this.props.productSettings.displayAssuranceIcon === true ?
-                                  <span className={"col-4 NoPadding " +Style.NoPadding +" " +Style.assurenceIcon}>
-                                    <img loading="lazy" className={"col-12 NoPadding " +Style.NoPadding} src="/images/assured.png" alt="Assured Img" />                                      </span>
-                                :null
-                                }
-                            </div>
-                            :null
-                          }                              
-                          <div className={"col-12 NoPadding " +Style.NoPadding}>
-                            <div className={"col-12 NoPadding " +Style.NoPadding}>  
-                               { this.props.data.availableQuantity > 0 ?
-                                  <div className={"col-12 " +Style.NoPadding}>
-                                  {this.state.user_ID?
-                                  <button type="submit" vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} id={this.props.data._id} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
-                                      &nbsp;Add To Cart
-                                  </button>
-                                  :
-                                  <button type="submit" id={this.props.data._id} vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
-                                      &nbsp;Add To Cart
-                                  </button>
-                                  }     
-                                  </div>                                           
-                                  :
-                                  <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
-                                }
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                        :null
+                        }
+                        {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)} % </div> : null}
                     </div>
-                  </div>
-              </div>                            
+                    <div className={styleMedia.ImgWrapper}>
+                    <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id}>
+                    <a className={Style.product_item_photo } tabIndex="-1" >
+                        <img                                           
+                        src={this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
+                        src={this.props.data.productSmallImage && this.props.data.productSmallImage.length>0 ? this.props.data.productSmallImage[0] : "/images/eCommerce/notavailable.jpg"}
+                        alt="ProductImg" 
+                        className={"img-responsive " +Style.NoAvailableImg }
+                        height={150}
+                        width={180} 
+                        layout={'intrinsic'}
+                        />
+                    </a>
+                    </Link>
+                    </div>
+                    </div>
+                    <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
+                    <div className={"col-12 " +Style.innerDiv}>
+                        {this.props.productSettings.displayVendorName === true 
+                        ?
+                            <div className={"col-12 " +Style.ellipsis +" " +Style.globalProduct_vendor} title={this.props.data.vendorName}>{this.props.data.vendorName}</div>
+                        :   null
+                        }    
+                        {this.props.productSettings.displayBrand === true ?
+                        this.props.data.brandNameRlang?
+                        <div className={"col-12 globalProduct_brand RegionalFont1"} title={this.props.data.brandNameRlang}>{this.props.data.brandNameRlang}</div>
+                        :
+                            <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={this.props.data.brand}>{this.props.data.brand}</div>
+
+                        :null
+                        } 
+                        {this.props.productSettings.displaySection === true ?
+                        <div className={"col-12 globalProductItemName"} title={this.props.data.section}>{this.props.data.section}</div>
+                        :null
+                        }
+                        {this.props.productSettings.displayCategory === true ?
+                        <div className={"col-12 globalProduct_brand"} title={this.props.data.category}>{this.props.data.category}</div>
+                        :null
+                        }
+                        {/* {this.props.data.productNameRlang?
+                        <div className={"col-12 globalProductItemName  RegionalFont " } title={this.props.data.productNameRlang}>
+                            <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{this.props.data.productNameRlang} </span>&nbsp;                                        
+                        </div>:null
+                        } */}
+
+                        <div className={"col-12 globalProductItemName  " } title={this.props.data.productName}>
+                        <span className={ Style.ellipsis +" " +Style.globalProdName}>{this.props.data.productName} </span>&nbsp;
+                        </div>
+
+                        <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
+                        {
+                            this.state.websiteModel === "FranchiseModel"?                                  
+                            this.props.data.discountPercent ?    
+                            <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
+                                <span className={Style.price}><span className={Style.oldprice}>
+                                {this.state.currency}&nbsp;{this.props.data.originalPrice} </span>&nbsp; {this.state.currency} {this.props.data.discountedPrice}</span>    
+                            </div>   
+                            :
+                                <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>
+                                <span className={Style.price}>{this.state.currency} &nbsp;{this.props.data.originalPrice} {this.props.data.size? "/ " +this.props.data.size:null}&nbsp;<span className={Style.ProSize}>{this.props.data.size?this.props.data.unit:null}</span></span> &nbsp;                                       
+                                </div>
+
+                            :                                    
+                            this.props.data.discountPercent ?
+                            <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
+                                <span className={Style.price}><span className={Style.oldprice }>&nbsp;{this.state.currency} &nbsp;{this.props.data.originalPrice}&nbsp;</span>&nbsp;
+                                {this.state.currency} &nbsp;{(this.props.data.discountedPrice).toFixed(2)} 
+                                </span>
+                            </div>
+                            :  
+                            <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
+                                <span className={Style.price}>
+                                {this.state.currency} &nbsp;{(this.props.data.originalPrice).toFixed(2)} </span> &nbsp;                                      
+                            </div> 
+                        }
+                        </div>
+                        {this.props.productSettings.displayRating === true ?
+                        <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
+                            <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding " +Style.NoPadding} onMouseOver={this.showRatingBlock.bind(this)} >
+                                <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.showRating}> 4 <i className="fas fa-star"></i></div>                                        
+                            </span>                                
+                            <span className={"col-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
+                            {this.props.productSettings.displayAssuranceIcon === true ?
+                                <span className={"col-4 NoPadding " +Style.NoPadding +" " +Style.assurenceIcon}>
+                                <img loading="lazy" className={"col-12 NoPadding " +Style.NoPadding} src="/images/assured.png" alt="Assured Img" />                                      </span>
+                            :null
+                            }
+                        </div>
+                        :null
+                        }                              
+                        <div className={"col-12 NoPadding " +Style.NoPadding}>
+                        <div className={"col-12 NoPadding " +Style.NoPadding}>  
+                            { this.props.data.availableQuantity > 0 ?
+                                <div className={"col-12 " +Style.NoPadding}>
+                                {this.state.user_ID?
+                                <button type="submit" vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} id={this.props.data._id} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                    &nbsp;Add To Cart
+                                </button>
+                                :
+                                <button type="submit" id={this.props.data._id} vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                    &nbsp;Add To Cart
+                                </button>
+                                }     
+                                </div>                                           
+                                :
+                                <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
+                            }
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>                            
         </div>
      ) 
     }

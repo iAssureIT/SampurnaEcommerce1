@@ -8,12 +8,12 @@ import { components }       from 'react-select';
 import Style                from "./vendor-list.module.css";
 import { useRouter }        from 'next/router';
 
-const VendorList = ()=> {
+const MyVendorList = ()=> {
     const [vendorList,setVendorList] = useState([]);
     const [categoryList,setCategoryList] = useState([]);
     const router = useRouter();
     const {sectionurl} = router.query;
-    console.log("sectionurl",router.query);
+    // console.log("sectionurl",router.query);
     useEffect(()=>{
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
         if(sampurnaWebsiteDetails){
@@ -110,4 +110,4 @@ const VendorList = ()=> {
         )
 }
 
-export default VendorList;
+export default MyVendorList;

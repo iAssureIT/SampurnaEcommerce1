@@ -34,10 +34,10 @@ class CreditPoints extends Component{
         
     }
     getCreditData(){
-        console.log("this.state.user_ID=",this.state.user_ID);
+        // console.log("this.state.user_ID=",this.state.user_ID);
         axios.get('/api/creditpoints/get/'+this.state.user_ID)
         .then( (creditRes)=>{
-            console.log("credit response==",creditRes);
+            // console.log("credit response==",creditRes);
             if(creditRes){
                 // console.log("credit response==",creditRes);
                 this.setState({
@@ -61,7 +61,7 @@ class CreditPoints extends Component{
                             <div className="col-6 text-right">{this.state.currency}&nbsp;{this.state.creditdata&&this.state.creditdata.totalPoints}</div>
                         </div>
                     </div>
-                    {this.state.creditdata && this.state.creditdata.transactions.length>0
+                    {this.state.creditdata && this.state.creditdata.transactions && this.state.creditdata.transactions.length>0
                     ?
                     <div className="col-12">
                     <table className="table table-borderless orderTable">

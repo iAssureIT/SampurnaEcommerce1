@@ -70,7 +70,7 @@ class Searchbar extends React.Component {
             .then((searchProductRes)=>{
                 if(searchProductRes){
                     store.dispatch(setSearchDetails(searchProductRes)) ;
-                    Router.push('/search-product');
+                    Router.push('/search-product/'+this.state.searchText);
                 }
             })
             .catch((error)=>{

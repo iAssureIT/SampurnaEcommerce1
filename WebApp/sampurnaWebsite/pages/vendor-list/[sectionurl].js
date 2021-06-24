@@ -15,56 +15,55 @@ class VendorList extends Component {
       }
 
       componentDidMount() {
-        // var url = window.location.href.split('/');
-        // const sectionurl = url[4];
-        // if(sectionurl){
-        //     this.setState({
-        //         "sectionurl" :sectionurl,
-        //     })
-        // }
-        // var formValues={};
-        // var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
-        // if(sampurnaWebsiteDetails){
-        //     if(sampurnaWebsiteDetails.deliveryLocation){
-        //         formValues =  {
-        //             "startRange" : 0,
-        //             "limitRange" : 10,
-        //             "sectionUrl" : sectionurl,
-        //             "latitude"   : sampurnaWebsiteDetails.deliveryLocation.latitude,
-        //             "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude
-        //         }
-        //     }else{
-        //         formValues =  {
-        //             "startRange" : 0,
-        //             "limitRange" : 10,
-        //             "sectionUrl" : sectionurl,
-        //             "latitude"   : "",
-        //             "longitude"  : ""
-        //         }
-        //     }
-        // }
-        // if(formValues){
-        //     axios.post("/api/vendorlist/post/vendor/list",formValues)
-        //     .then((vendorResponse) => {
-        //         if(vendorResponse){
-        //             this.setState({
-        //                 "vendorList" : vendorResponse.data,
-        //                 "loading"    : false
-        //             });
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log('productwise vendorlist error', error);
-        //     })
-        // }
+        var url = window.location.href.split('/');
+        const sectionurl = url[4];
+        if(sectionurl){
+            this.setState({
+                "sectionurl" :sectionurl,
+            })
+        }
+        var formValues={};
+        var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
+        if(sampurnaWebsiteDetails){
+            if(sampurnaWebsiteDetails.deliveryLocation){
+                formValues =  {
+                    "startRange" : 0,
+                    "limitRange" : 10,
+                    "sectionUrl" : sectionurl,
+                    "latitude"   : sampurnaWebsiteDetails.deliveryLocation.latitude,
+                    "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude
+                }
+            }else{
+                formValues =  {
+                    "startRange" : 0,
+                    "limitRange" : 10,
+                    "sectionUrl" : sectionurl,
+                    "latitude"   : "",
+                    "longitude"  : ""
+                }
+            }
+        }
+        if(formValues){
+            axios.post("/api/vendorlist/post/vendor/list",formValues)
+            .then((vendorResponse) => {
+                if(vendorResponse){
+                    this.setState({
+                        "vendorList" : vendorResponse.data,
+                        "loading"    : false
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log('productwise vendorlist error', error);
+            })
+        }
       }
     render() {
         return(
             <div className={ Style.bgGray}>
                 <Header /> 
-                <h1>Vendor list page</h1>
-
-                {/* <div className={"container " +Style.bgHeight}>
+                {/* <h1>Vendor list page</h1> */}
+                <div className={"container " +Style.bgHeight}>
                     {!this.state.loading
                     ?
                     <div className="col-12">
@@ -126,7 +125,7 @@ class VendorList extends Component {
                         <img src="/images/eCommerce/loader.gif" className="col-12 "></img>
                     </div>
                     }           
-                </div> */}
+                </div>
                 <Footer />
             </div>
         )
