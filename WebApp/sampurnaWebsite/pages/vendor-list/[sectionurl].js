@@ -60,8 +60,10 @@ class VendorList extends Component {
     render() {
 
         return(
-            <section className={ Style.bgGray}>
-                <Header />    
+            <div className={ Style.bgGray}>
+                <Header /> 
+                <h1>Vendor list page</h1>
+
                 {/* <div className={"container " +Style.bgHeight}>
                     {!this.state.loading
                     ?
@@ -125,9 +127,8 @@ class VendorList extends Component {
                     </div>
                     }           
                 </div> */}
-                < Footer />
-                <h1>Vendor list page</h1>
-            </section>
+                <Footer />
+            </div>
         )
     }
 }
