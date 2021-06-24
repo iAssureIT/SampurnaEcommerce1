@@ -5,7 +5,7 @@ import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Sa
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Style                from "./vendor-list.module.css";
 
-class VendorList extends Component {
+class MyVendorList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -132,4 +132,4 @@ class VendorList extends Component {
         )
     }
 }
-export default VendorList;
+export default MyVendorList;

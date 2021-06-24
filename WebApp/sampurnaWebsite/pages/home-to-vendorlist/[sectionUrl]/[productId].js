@@ -8,7 +8,7 @@ import { components }       from 'react-select';
 import Style                from "./vendor-list.module.css";
 import { useRouter }        from 'next/router';
 
-const VendorList = ()=> {
+const HomeToVendorList = ()=> {
     const [vendorList,setVendorList] = useState([]);;
     const [categoryList,setCategoryList] = useState([]);
 
@@ -115,4 +115,4 @@ const VendorList = ()=> {
         )
 }
 
-export default VendorList;
+export default HomeToVendorList;

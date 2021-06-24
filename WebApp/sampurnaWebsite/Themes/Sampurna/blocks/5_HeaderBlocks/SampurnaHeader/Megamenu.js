@@ -54,7 +54,7 @@ render(){
                             <a className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
                         </Link>  */}
                         
-                        <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
+                        <a href={"/vendorlist/"+sectionDetails.sectionUrl} className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
                         
                     </li> 
                     );
