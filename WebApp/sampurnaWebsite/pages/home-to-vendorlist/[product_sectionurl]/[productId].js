@@ -13,7 +13,7 @@ const HomeToVendorList = ()=> {
     const [categoryList,setCategoryList] = useState([]);
 
     const router = useRouter();
-    const {sectionUrl} = router.query;
+    const {product_sectionurl} = router.query;
     const {productId} = router.query;
     useEffect(()=>{
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));  
@@ -22,7 +22,7 @@ const HomeToVendorList = ()=> {
                 var formValues =  {
                     "startRange" : 0,
                     "limitRange" : 10,
-                    "sectionUrl" : sectionUrl,
+                    "sectionUrl" : product_sectionurl,
                     "latitude"   : sampurnaWebsiteDetails.deliveryLocation.latitude,
                     "longitude"  : sampurnaWebsiteDetails.deliveryLocation.longitude,
                     "product_ID"  : productId,
@@ -31,7 +31,7 @@ const HomeToVendorList = ()=> {
                 var formValues =  {
                     "startRange" : 0,
                     "limitRange" : 10,
-                    "sectionUrl" : sectionUrl,
+                    "sectionUrl" : product_sectionurl,
                     "latitude"   : "",
                     "longitude"  : "",
                     "product_ID"  : productId,

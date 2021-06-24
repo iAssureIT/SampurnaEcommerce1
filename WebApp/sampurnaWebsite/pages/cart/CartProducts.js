@@ -320,14 +320,14 @@ class CartProducts extends Component{
                                                             <div className="col-12">
                                                                 <div className={"row mb-4 " +Style.bbBox}>
                                                                     <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-2 col-xl-2 ForMobile">
-                                                                        <a href={"/product-detail/" + vendorData.product_ID.productUrl + "/" +vendorData.product_ID}>
+                                                                        <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
                                                                             <img className="img  cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
                                                                         </a>
                                                                     </div>
                                                                     <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail">
-                                                                        <a href={"/product-detail/" + vendorData.product_ID.productUrl + "/" +vendorData.product_ID}>
+                                                                        <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
                                                                             {vendorData.product_ID.productNameRlang?
-                                                                                <div className={"RegionalFont " +Style.productName}>{vendorData.product_ID.productNameRlang}></div>
+                                                                                <div className={"RegionalFont " +Style.productName}>{vendorData.product_ID.productNameRlang}</div>
                                                                             :
                                                                                 <div className={" " +Style.productName }>{vendorData.product_ID.productName}</div>
                                                                             }
@@ -335,8 +335,8 @@ class CartProducts extends Component{
                                                                     {
                                                                         vendorData.product_ID.discountPercent  ?
                                                                             <div className="col-12 NoPadding">
-                                                                                <span className="cartOldprice"><i className="fa fa-inr cartOldprice"></i>{vendorData.product_ID.originalPrice}</span> &nbsp; &nbsp;
-                                                                                <span className="cartPrice"><i className="fa fa-inr"></i>{vendorData.product_ID.discountedPrice}</span> &nbsp; &nbsp;
+                                                                                <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice}</span> &nbsp; &nbsp;
+                                                                                <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice}</span> &nbsp; &nbsp;
                                                                                 <span className="cartDiscountPercent">( {Math.floor(vendorData.product_ID.discountPercent)}% Off )</span>
                                                                             </div>
                                                                             :
@@ -346,9 +346,9 @@ class CartProducts extends Component{
                                                                             </div>
                                                                     }
 
-                                                                    <div className=" NoPadding">
+                                                                    {/* <div className=" NoPadding">
                                                                         <button productid={vendorData.product_ID._id} id={vendorData._id} onClick={this.moveWishlist.bind(this)} className=" btn wishlistBtn">Move To Wishlist</button>
-                                                                    </div>
+                                                                    </div> */}
                                                                     </div> 
 
                                                                     <div className="nowrap col-12 col-sm-12 col-sx-12 col-md-4 col-lg-3 col-xl-2 mb-3 ">                                                         

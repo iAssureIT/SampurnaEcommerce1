@@ -21,7 +21,7 @@ class Payment extends Component {
     var pageUrl = window.location.pathname;
     let a = pageUrl ? pageUrl.split('/') : "";
     const urlParam =a[2];
-    console.log("urlParam",urlParam);
+    // console.log("urlParam",urlParam);
     if(urlParam){
       this.setState({
         orderID : urlParam
@@ -84,10 +84,10 @@ class Payment extends Component {
                       <div className="box-content">
                         {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.name} <br />
                         {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.addressLine2} - &nbsp;
-                        {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.addressLine1} &nbsp; - &nbsp; 
-                        {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.pincode}. <br />                  
-                        {/* {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.district + ', ' + this.state.orderData.deliveryAddress.state + ', ' + this.state.orderData.deliveryAddress.pincode} <br />
-                        {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.country} <br /> */}
+                        {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.addressLine1} &nbsp; <br/>
+                        {/* {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.pincode}. <br />                   */}
+                        {/* {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.district + ', ' + this.state.orderData.deliveryAddress.state + ', ' + this.state.orderData.deliveryAddress.pincode} <br />*/}
+                        {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.country} <br /> 
                       </div>
                     </div>
                     <div className="col-xl-4 col-md-4 col-12 col-sm-12 col-xs-12 col-12 mb50">
@@ -96,7 +96,7 @@ class Payment extends Component {
                       </strong>
                       <div className="box-content">
                         {
-                          this.state.orderData.paymentDetails.paymentMethod
+                          this.state.orderData.paymentDetails.paymentMethod === "cod"? "Cash on Delivery" : this.state.orderData.paymentDetails.paymentMethod
                         }
                       </div>
                     </div>
