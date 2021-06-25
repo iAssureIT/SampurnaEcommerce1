@@ -418,7 +418,8 @@ input[type=number] {
   margin-top: -90px;
 }
 .innloginwrap{
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  margin-top: 40px
 }
 
 @media only screen and (max-device-width: 480px) {

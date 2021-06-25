@@ -86,7 +86,7 @@ class VendorList extends Component {
                                                                 null}
                                                             </div>   
                                                             <div className={"col-9 "}>
-                                                                <div className={"col-12 " +Style.vendorName}>{vendordata.vendorName}</div>
+                                                                <div className={"col-12 NoPadding " +Style.vendorName}>{vendordata.vendorName}</div>
                                                                 <div className={"col-12 text-right NoPadding " +Style.deliveryTime}>
                                                                     <span className={Style.delTime}>60 &nbsp;min</span>
                                                                     <img src="/images/eCommerce/time.png" className={"img "+Style.timeImg}></img>

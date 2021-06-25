@@ -11,6 +11,7 @@
     font-weight:bold !important;
     position:absolute;
     top:25px;
+    z-index: 1000;
 }
 .categoryName:hover{
     color: lightcoral;
@@ -28,14 +29,34 @@
 }
 
 
-/*.itemImg img::before {
+.itemImg::after {
     content: "";
     position: absolute;
     top: 0px;
     right: 0px;
     bottom: 0px;
     left: 0px;
-    background-color: rgba(0,0,0,0.7);
-    background-color: rgba(0,0,0,1);
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 8px !important;
+    /*background-color: rgba(0,0,0,1);*/
 }
-*/
+
+.itemImg{
+    /*/height: 120px;*/
+    background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  border-radius: 8px !important;
+}
+
+
+.NoAvailableImg{
+  width: 100%;
+  background-image: url("/images/eCommerce/productloader.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 120px;
+}

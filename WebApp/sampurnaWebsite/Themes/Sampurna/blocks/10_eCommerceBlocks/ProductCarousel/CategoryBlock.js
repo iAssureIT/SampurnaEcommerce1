@@ -76,7 +76,8 @@ class CategoryBlock extends Component{
                           <Link href={url} className ={"col-12 "}> 
                             <a className ={"col-12 " +Style.categoryBlock}>
                               <div className={"itemImg col-12 NoPadding " +Style.categoryPhoto +" "+Style.itemImg}>
-                                  <Image                                           
+                                  <Image    
+                                    id="prodImg"                                       
                                     src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.jpg"}
                                     alt="ProductImg" 
                                     className={"img-responsive " +Style.NoAvailableImg }
