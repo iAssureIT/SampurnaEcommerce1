@@ -51,7 +51,6 @@ export default class Footer extends Component {
     render(){
        return(
         <div className="col-12 NoPadding footerWrapper" >
-        {/* <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 footerAnimation" style={{'background' : "url("+footerAnimationImg +")" }}></div> */}
         {this.state.deliveryLocation?
        <div className="container-fluid">
         <div className="col-12 footer1">
@@ -68,18 +67,20 @@ export default class Footer extends Component {
                             index<10? 
                             <div className="col-6 col-xl-2 col-lg-2 col-md-4 col-sm-6 footerSection" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
-                                    <Link href={"vendor-list/"+data.sectionUrl}>
+                                    <Link href={"vendor-list/"+data.sectionUrl} passHref={true}>
                                         <a className="sectionurl footerSubT" ><span>{data.section}</span></a>
                                     </Link>
+                                    {/* <a href={"vendor-list/"+data.sectionUrl} className="sectionurl footerSubT" ><span>{data.section}</span></a> */}
                                 {
                                     data.categorylist.map((cateoryDetails,catindex)=>{            
                                         return(
                                         catindex<8?  
                                             <div key={catindex} className="">                                   
                                                 <div className="categortTitle">
-                                                    <Link href={"vendor-list/"+data.sectionUrl}>
+                                                    <Link href={""+data.sectionUrl} passHref={true}>
                                                         <a><span className="f9">{cateoryDetails.category}</span></a>
                                                     </Link>
+                                                     {/* <a href={""+data.sectionUrl}><span className="f9">{cateoryDetails.category}</span></a> */}
                                                 </div>
                                             </div>
                                         :null
@@ -92,54 +93,6 @@ export default class Footer extends Component {
                         );
                         })
                     }
-                   {/* <div className={"col-6 col-xl-1 col-lg-1 col-md-4 col-sm-6 aboutusFooterWrapper pr0 pr-0 pl-0 "+S.pr0 }>
-                <div>
-                    <div className="col-12 footerSubT pr-0">About Us</div>
-                    <div className="col-7 hrLine"></div>
-                </div>
-                <div className="col-12 pr-0">
-                    <div className="categortTitle"><Link href="/about-us"><a ><span>&nbsp;About Us</span></a></Link></div>
-                    <div className="categortTitle"><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>   
-                    <div className="categortTitle"><Link href="/legal-policy"><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
-                    <div className="categortTitle"><Link href="/faq"><a ><span>&nbsp;FAQs</span></a></Link></div> 
-                    <div className="categortTitle"><a href="/terms-and-conditions" target="_blank"><span>Terms and Conditions</span></a></div>
-                    <div className="categortTitle"><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div>  
-                    {/* <div className="categortTitle"><Link href="/return-policy"><a ><span>&nbsp;Return Policy</span></a></Link></div> */}
-                    {/* <div className="categortTitle"><a href="/privacypolicy" target="_blank"><span>Privacy Policy</span></a></div> */}   
-                    {/* <div className="categortTitle"><Link href="/photo-gallery"><a ><span>&nbsp;Photo Gallery</span></a></Link></div>  */}
-                    {/* <div className="categortTitle"><Link href="/blogs"><a ><span>&nbsp;Blogs</span></a></Link></div> */}
-                         
-                                  
-              {/*   </div>
-            </div>*/}
-            {/*<div className="col-6 col-xl-3 col-lg-3 col-md-4 col-sm-6 NoPadding onlineShoppingWrapper">  
-                <div className="col-xl-12 col-md-12 col-sm-12  col-12">
-                    <div className="col-12 FooterTitle text-right">Connect with Us</div>
-                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 pull-right ">
-                        <div className="socialMediaIcons pull-right"><Link href="https://www.twitter.com/bookstore"><a  target="_blank"><i className="fa fa-twitter mt15" aria-hidden="true"></i></a></Link></div>
-                        <div className="socialMediaIcons pull-right"><Link href="https://www.linkedin.com"><a  target="_blank"><i className="fa fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
-                        <div className="socialMediaIcons pull-right"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fa fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
-                        <div className="socialMediaIcons pull-right"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fa fa-facebook-f mt15"></i></a></Link></div>                        
-                        <div className="socialMediaIcons pull-right"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fa fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
-                    </div>
-                </div>
-
-                <div className={"col-12 col-sm-12 col-lg-12 col-md-12 md-mt-5 text-right " +S.mt100}>
-                    <div className="col-12 FooterTitle">Payment card</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 pull-right mt15">
-                        <div className="payCard2 pull-right"></div>                        
-                        <div className="payCard1 pull-right"></div>                        
-                    </div>
-                </div>
- 
-                <div className="col-12 col-sm-12 col-lg-12 col-md-12 mt80 text-right">
-                    <div className="col-12 FooterTitle">We are in</div>
-                    <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 float-right width pr-0">
-                        <div className="appleCard"></div>
-                        <div className="androidCard"></div>                        
-                    </div>
-                </div>
-            </div>*/}
 
                </div> 
             </div>
@@ -157,19 +110,19 @@ export default class Footer extends Component {
 
               <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-12 text_Center " }>
                 <div className={"col-12 col-sm-12 col-lg-12 col-md-12 text_Center mt-3 mb-3 " +S.icon}>
-                    <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore"><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
-                    <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore"><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
-                    <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag"><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
-                    <div className="socialMediaIcons"><Link href="https://www.linkedin.com"><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
-                    <div className="socialMediaIcons"><Link href="https://www.twitter.com/bookstore"><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
+                    <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore" passHref={true}><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
+                    <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore" passHref={true}><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
+                    <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag" passHref={true}><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
+                    <div className="socialMediaIcons"><Link href="https://www.linkedin.com" passHref={true}><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
+                    <div className="socialMediaIcons"><Link href="https://www.twitter.com/bookstore" passHref={true}><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
                 </div> 
                 <div className="col-12 col-sx-12 col-xl-12 col-lg-12 col-md-12 text_Center">
                     <div className={"col-12 text-center footer3Class " +S.aboutHeight}>
-                        <div className={" " +S.aboutClass}><Link href="/about-us"><a ><span>&nbsp;About Us</span></a></Link></div>
-                        <div className={" " +S.aboutClass}><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>   
-                        <div className={" " +S.aboutClass}><Link href="/privacy-policy"><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
-                        <div className={" " +S.aboutClass}><Link href="/faq"><a ><span>&nbsp;FAQs</span></a></Link></div> 
-                        <div className={" " +S.aboutClass}><a href="/terms-and-conditions" target="_blank"><span>Terms and Conditions</span></a></div>
+                        <div className={" " +S.aboutClass}><Link href="/about-us" passHref={true}><a ><span>&nbsp;About Us</span></a></Link></div>
+                        <div className={" " +S.aboutClass}><Link href="/contact-us" passHref={true}><a ><span>&nbsp;Contact Us</span></a></Link></div>   
+                        <div className={" " +S.aboutClass}><Link href="/privacy-policy" passHref={true}><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
+                        <div className={" " +S.aboutClass}><Link href="/faq" passHref={true}><a ><span>&nbsp;FAQs</span></a></Link></div> 
+                        <div className={" " +S.aboutClass}><Link href="/terms-and-conditions" passHref={true}><a><span>Terms and Conditions</span></a></Link></div>
                         <div className={" " +S.aboutClass}><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div>  
                     </div>
                       <div className="col-12 text-center footer3Class">
