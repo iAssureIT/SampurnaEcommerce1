@@ -46,8 +46,14 @@ export default function App({pageData}) {
                                           <div className="col-2">
                                               <Websitelogo />
                                           </div>  
-                                          <div className="ml-4 mr-4 col-7 text-center searchTitle"> <h2>Search Your Location</h2></div>
-                                          {/* <SearchBar /> */}
+                                          <div className="ml-4 mr-4 col-6 text-center searchTitle"> <h5>Search Your Location</h5></div>
+                                          <div className=" col-3 NoPadding signInBlock" >
+                                              <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
+                                                  <span className="col-12 loginView">Sign in &nbsp;
+                                                      <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
+                                                  </span>
+                                              </a>          
+                                          </div> 
                                     </div>
                                 </div>                                                    
                             </div>
@@ -58,6 +64,46 @@ export default function App({pageData}) {
 
               < DeliveryLocationPopup />
 
+              {/* <div id="loginFormModal" className={"modal in " +Style.loginBGImg}  data-keyboard="false" >
+                    <div className="modal-dialog ">                                        
+                        <div className={"modal-content loginModalContent  loginBackImageHeight " +Style.signinBG} style={{'background': '#fff'}}>                            
+                            <div className="modal-body">  
+                                <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>                                                           
+                                {this.props.formToShow === "login" ?
+                                    <div className="col-12 NoPadding loginForm mobileViewNoPadding">
+                                        <Login />
+                                    </div>  
+                                : null
+                                }  
+                                {this.props.formToShow === "signUp" ?
+                                    <div className="col-12 signupForm mobileViewNoPadding">
+                                        <SignUp />
+                                    </div>  
+                                : null
+                                } 
+                                {this.props.formToShow === "forgotPassword" ?
+                                    <div className="col-12 loginForm NoPadding mobileViewNoPadding">
+                                        <ForgotPassword />
+                                    </div>  
+                                : null
+                                }  
+                                {this.props.formToShow === "confirmOtp" ?
+                                    <div className="col-12 loginForm NoPadding mobileViewNoPadding">
+                                        <ConfirmOtp />
+                                    </div>  
+                                : null
+                                } 
+                                {this.props.formToShow === "resetPassword" ?
+                                    <div className="col-12 NoPadding loginForm mobileViewNoPadding">
+                                        <ResetPassword />
+                                    </div>  
+                                : null
+                                }                                                                
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+ */}
               <div className="row"> 
                   <Footer />
               </div>

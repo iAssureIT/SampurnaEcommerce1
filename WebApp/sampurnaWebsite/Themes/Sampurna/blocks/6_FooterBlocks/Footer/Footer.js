@@ -77,7 +77,7 @@ export default class Footer extends Component {
                                         catindex<8?  
                                             <div key={catindex} className="">                                   
                                                 <div className="categortTitle">
-                                                    <Link href={""+data.sectionUrl}>
+                                                    <Link href={"vendor-list/"+data.sectionUrl}>
                                                         <a><span className="f9">{cateoryDetails.category}</span></a>
                                                     </Link>
                                                 </div>
@@ -167,7 +167,7 @@ export default class Footer extends Component {
                     <div className={"col-12 text-center footer3Class " +S.aboutHeight}>
                         <div className={" " +S.aboutClass}><Link href="/about-us"><a ><span>&nbsp;About Us</span></a></Link></div>
                         <div className={" " +S.aboutClass}><Link href="/contact-us"><a ><span>&nbsp;Contact Us</span></a></Link></div>   
-                        <div className={" " +S.aboutClass}><Link href="/legal-policy"><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
+                        <div className={" " +S.aboutClass}><Link href="/privacy-policy"><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
                         <div className={" " +S.aboutClass}><Link href="/faq"><a ><span>&nbsp;FAQs</span></a></Link></div> 
                         <div className={" " +S.aboutClass}><a href="/terms-and-conditions" target="_blank"><span>Terms and Conditions</span></a></div>
                         <div className={" " +S.aboutClass}><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div>  

@@ -5,7 +5,6 @@ import {setBlockData} from '../redux/actions/index.js';
 import MasterPage     from '../MasterPage/MasterPage.js'
 import store          from '../redux/store.js'
 import getConfig      from 'next/config';
-import 'bootstrap/dist/css/bootstrap.css';
 const { publicRuntimeConfig } = getConfig();
 
 axios.defaults.baseURL = publicRuntimeConfig.API_BASE_URL;
@@ -27,10 +26,11 @@ function Home({pageData}) {
 
 export async function getServerSideProps({query}){
   // console.log("pageurl query===",query)
-  const urlParam = query.pageurl ? query.pageurl : 'home-page'
+  const urlParam = query.pageurl ? query.pageurl : 'homepage'
   try{
     const res = await axios.get("api/pages/get/page_block/"+urlParam)
     const pageData = await res.data;
+    console.log("pageData=",pageData);
     return {
       props:{
         pageData

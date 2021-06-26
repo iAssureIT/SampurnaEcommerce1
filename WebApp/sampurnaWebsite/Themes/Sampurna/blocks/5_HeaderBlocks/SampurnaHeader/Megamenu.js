@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Link  from 'next/link';
+// import Link  from 'next/link';
 import $, { post }            from 'jquery';
 
 class Megamenu extends React.Component{
@@ -12,7 +12,6 @@ constructor(props){
     }
 }
 componentDidMount(){
-
     var url = window.location.href.split('/');
     // console.log("url===",url);
     if(url[4]===undefined){
@@ -20,6 +19,7 @@ componentDidMount(){
         addToCart :true,
       })
     }
+    
     axios.get("/api/sections/get/get_megamenu_list")
         .then((response)=>{
         if(response.data){
@@ -50,11 +50,11 @@ render(){
                  Array.isArray(this.state.categoryData) && this.state.categoryData.map((sectionDetails,sectionindex)=>{  
                     return( 
                     <li key={sectionindex.toString()} className="nav-item dropdown dropDownLevel1">
-                        <Link href={"/vendor-list/"+sectionDetails.sectionUrl}>
+                        {/* <Link href={"/vendor-list/"+sectionDetails.sectionUrl} passHref={true}>
                             <a className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
-                        </Link> 
+                        </Link>  */}
                         
-                        {/* <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a> */}
+                        <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
                         
                     </li> 
                     );

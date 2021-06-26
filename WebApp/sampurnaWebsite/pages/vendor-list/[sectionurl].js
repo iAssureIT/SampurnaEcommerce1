@@ -15,6 +15,7 @@ class VendorList extends Component {
       }
 
       componentDidMount() {
+        //   console.log("inside vendor-list");
         var url = window.location.href.split('/');
         const sectionurl = url[4];
         if(sectionurl){
@@ -47,6 +48,7 @@ class VendorList extends Component {
             axios.post("/api/vendorlist/post/vendor/list",formValues)
             .then((vendorResponse) => {
                 if(vendorResponse){
+                    console.log("vendorResponse===",vendorResponse);
                     this.setState({
                         "vendorList" : vendorResponse.data,
                         "loading"    : false
