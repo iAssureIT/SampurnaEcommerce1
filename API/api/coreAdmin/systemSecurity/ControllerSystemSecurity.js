@@ -8,6 +8,8 @@ const Role = require('../rolesManagement/ModelRoles.js');
 const globalVariable = require("../../../nodemon.js");
 const GlobalMaster        = require('../projectSettings/ModelProjectSettings.js');
 const nodeMailer            = require('nodemailer');
+const moment 					= require('moment-timezone');
+const sendNotification 			= require("../../coreAdmin/notificationManagement/SendNotification.js");
 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
@@ -16,7 +18,7 @@ function getRandomInt(min, max) {
 };
 
 exports.user_signup_user = (req, res, next) => {
-	// console.log("<><><><><><><><><><><>",req.body);
+	console.log("<><><><><><><><><><><>",req.body);
 	var username = "EMAIL";
 	if(req.body.username){
 		if(req.body.username === "EMAIL"){
@@ -27,19 +29,22 @@ exports.user_signup_user = (req, res, next) => {
 	}
 	if(username==="EMAIL"){
 		if(req.body.email && req.body.pwd && req.body.role){
-			var emailId = req.body.email;
-			var role_lower = String(req.body.role).toLowerCase();
-			// console.log("role ", role_lower);
+			var emailId  	= req.body.email;
+			var role_lower 	= String(req.body.role).toLowerCase();
+			console.log("role ", role_lower);
+
 			if (role_lower && emailId) {
 				Role.findOne({ role: role_lower })
 					.exec()
 					.then(role => {
-						// console.log("role",role);
-						if (role) {
+						console.log("role",role);
 
+						if (role && role !== null) {
 							User.find({ "username": emailId.toLowerCase() })
 								.exec()
 								.then(user => {
+									console.log("user => ",user)
+									console.log("user length => ",user.length)
 									if (user.length > 0) {
 										return res.status(200).json({
 											message: 'Email Id already exist.'
@@ -54,10 +59,10 @@ exports.user_signup_user = (req, res, next) => {
 											} else {
 												const user = new User({
 													_id: new mongoose.Types.ObjectId(),
-													createdAt: new Date,
-													services: {
-														password: {
-															bcrypt: hash
+													createdAt 		: new Date,
+													services 		: {
+														password	: {
+															bcrypt 	: hash
 
 														},
 													},
@@ -88,10 +93,49 @@ exports.user_signup_user = (req, res, next) => {
 													user.profile.fullName = req.body.fullName;
 												}
 												user.save()
-													.then(result => {
+													.then(async(result) => {
+														console.log("result => ",result)
+														console.log("condition => ",user.roles.includes("admin"))
+														if(!user.roles.includes("admin")){
+															//send Notification, email, sms to customer
+															var userNotificationValues = {
+																"event"			: "Signup",
+																"toUser_id"		: result._id,
+																"toUserRole"	: role_lower,								
+																"variables" 	: {
+																					"userRole" 			: role_lower.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																					"firstName" 		: result.profile.firstName,
+																					"lastName" 			: result.profile.lastName,
+																					"fullName" 			: result.profile.fullName,
+																					"emailId" 			: result.profile.email,
+																					"mobileNumber"		: result.profile.mobile,
+																					"loginID" 			: result.username,
+																					"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+																}
+															}
+															var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+															console.log("send_notification_to_user => ",send_notification_to_user)
+															//send Notification, email, sms to admin
+															var adminNotificationValues = {
+																"event"			: "SignUp",
+																// "toUser_id"		: req.body.user_ID,
+																"toUserRole"	: "admin",								
+																"variables" 	: {
+																					"firstName" 		: result.profile.firstName,
+																					"lastName" 			: result.profile.lastName,
+																					"fullName" 			: result.profile.fullName,
+																					"emailId" 			: result.profile.email,
+																					"mobileNumber"		: result.profile.mobile,
+																					"loginID" 			: result.username,
+																					"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+																}
+															}
+															var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+															console.log("send_notification_to_admin => ",send_notification_to_admin)
+														}
 														res.status(200).json({
-															message: 'USER_CREATED',
-															ID: result._id,
+															message : 'USER_CREATED',
+															ID 		: result._id,
 														})
 
 													})
@@ -183,8 +227,46 @@ exports.user_signup_user = (req, res, next) => {
 													user.profile.fullName = req.body.fullName;
 												}
 												user.save()
-												.then(result => {
+												.then(async(result) => {
 													if(result) {
+														if(!user.roles.includes("admin")){
+															//send Notification, email, sms to customer
+															var userNotificationValues = {
+																"event"			: "Signup",
+																"toUser_id"		: result._id,
+																"toUserRole"	: role_lower,								
+																"variables" 	: {
+																					"userRole" 			: role_lower.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																					"firstName" 		: result.profile.firstName,
+																					"lastName" 			: result.profile.lastName,
+																					"fullName" 			: result.profile.fullName,
+																					"emailId" 			: result.profile.email,
+																					"mobileNumber"		: result.profile.mobile,
+																					"loginID" 			: result.username,
+																					"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+																}
+															}
+															var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+															// console.log("send_notification_to_user => ",send_notification_to_user)
+															
+															//send Notification, email, sms to admin
+															var adminNotificationValues = {
+																"event"			: "SignUp",
+																// "toUser_id"		: req.body.user_ID,
+																"toUserRole"	: "admin",								
+																"variables" 	: {
+																					"firstName" 		: result.profile.firstName,
+																					"lastName" 			: result.profile.lastName,
+																					"fullName" 			: result.profile.fullName,
+																					"emailId" 			: result.profile.email,
+																					"mobileNumber"		: result.profile.mobile,
+																					"loginID" 			: result.username,
+																					"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+																}
+															}
+															var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+															// console.log("send_notification_to_admin => ",send_notification_to_admin)
+														}
 														res.status(200).json({ message: "USER_CREATED", ID: result._id })
 													}else {
 														res.status(200).json({ message: "USER_NOT_CREATED" })
@@ -295,8 +377,8 @@ exports.user_signup_user_otp = (req, res, next) => {
 														user.profile.fullName = req.body.fullName;
 													}
 													user.save()
-														.then(result => {
-															if (result) {
+														.then(async(result) => {
+															if (result && result !== null) {
 																// request({
 																// 	"method": "POST",
 																// 	"url": "http://localhost:" + globalVariable.port + "/send-email",
@@ -311,6 +393,44 @@ exports.user_signup_user_otp = (req, res, next) => {
 																// 	}
 																// })
 																// .then(source => {
+
+																	//send Notification, email, sms to customer																	
+																	var userNotificationValues = {
+																		"event"			: "SignUp",
+																		"toUser_id"		: result._id,
+																		"toUserRole"	: role_lower,								
+																		"variables" 	: {
+																							"userRole" 			: role_lower.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																							"firstName" 		: result.profile.firstName,
+																							"lastName" 			: result.profile.lastName,
+																							"fullName" 			: result.profile.fullName,
+																							"emailId" 			: result.profile.email,
+																							"mobileNumber"		: result.profile.mobile,
+																							"loginID" 			: result.username,
+																							"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+																							"OTP" 				: result.otpEmail
+																		}
+																	}
+																	var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+																	// console.log("send_notification_to_user => ",send_notification_to_user)
+																	
+																	//send Notification, email, sms to admin
+																	var adminNotificationValues = {
+																		"event"			: "SignUp",
+																		// "toUser_id"		: req.body.user_ID,
+																		"toUserRole"	: "admin",								
+																		"variables" 	: {
+																							"firstName" 		: result.profile.firstName,
+																							"lastName" 			: result.profile.lastName,
+																							"fullName" 			: result.profile.fullName,
+																							"emailId" 			: result.profile.email,
+																							"mobileNumber"		: result.profile.mobile,
+																							"loginID" 			: result.username,
+																							"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+																		}
+																	}
+																	var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+																	
 																	res.status(200).json({ message: "USER_CREATED", ID: result._id,result })
 																// })
 																// .catch(err => {
@@ -417,8 +537,46 @@ exports.user_signup_user_otp = (req, res, next) => {
 														user.profile.fullName = req.body.fullName;
 													}
 													user.save()
-														.then(result => {
+														.then(async(result) => {
 															if(result) {
+																//send Notification, email, sms to customer																	
+																var userNotificationValues = {
+																	"event"			: "SignUp",
+																	"toUser_id"		: result._id,
+																	"toUserRole"	: role_lower,								
+																	"variables" 	: {
+																						"userType" 			: role_lower.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																						"firstName" 		: result.profile.firstName,
+																						"lastName" 			: result.profile.lastName,
+																						"fullName" 			: result.profile.fullName,
+																						"emailId" 			: result.profile.email,
+																						"mobileNumber"		: result.profile.mobile,
+																						"loginID" 			: result.username,
+																						"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+																						"OTP" 				: result.otpMobile
+																	}
+																}
+																var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+																// console.log("send_notification_to_user => ",send_notification_to_user)
+																
+																//send Notification, email, sms to admin
+																var adminNotificationValues = {
+																	"event"			: "SignUp",
+																	// "toUser_id"		: req.body.user_ID,
+																	"toUserRole"	: "admin",								
+																	"variables" 	: {
+																						"userType" 			: role_lower.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																						"firstName" 		: result.profile.firstName,
+																						"lastName" 			: result.profile.lastName,
+																						"fullName" 			: result.profile.fullName,
+																						"emailId" 			: result.profile.email,
+																						"mobileNumber"		: result.profile.mobile,
+																						"loginID" 			: result.username,
+																						"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+																	}
+																}
+																var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+
 																res.status(200).json({ message: "USER_CREATED", ID: result._id, result:result })
 															}else {
 																res.status(200).json({ message: "USER_NOT_CREATED" })

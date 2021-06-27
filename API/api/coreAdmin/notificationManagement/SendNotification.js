@@ -1,12 +1,13 @@
 const globalVariable    = require("../../../nodemon.js");
 const axios             = require('axios');
 
+
 function send_notification_function(formValues){    
     // console.log("formValues => ", formValues);
     return new Promise((resolve,reject)=>{
         axios.post('http://localhost:'+globalVariable.port+'/api/masternotifications/post/sendNotification', formValues)
         .then((res) => {
-            console.log("res => ",res.data)
+            // console.log("res => ",res.data)
             resolve(res.data);
         })
         .catch((error) => {
@@ -21,11 +22,12 @@ module.exports = { send_notification_function };
 
 /**============ FormValues for SendNotification =============
     formValues = {    
-        "event"			    : 'NewOrder',       /------ Event Name from Event Template Name Mapping ------/
-        "toUser_id"		    : req.body.user_id, /------ _id (form users collection) of user to whom you want to send notification / mail /sms ------/
-        "toUserRole"	    : 'user',           /------ Role of user ------/
-        "company_id"        : vendor_id,        /------ _id (from entitymasters collection) of entity (vendor / ba / corporate) ------/
-        "otherAdminRole"    : 'vendoradmin',    /------ particular role from the above selected compony you want to send notification / mail /sms ------/
+        "event"			    : 'NewOrder',                               /------ Event Name from Event Template Name Mapping ------/
+        "toUser_id"		    : req.body.user_id,                         /------ _id (form users collection) of user to whom you want to send notification / mail /sms ------/
+        "toUserRole"	    : 'user',                                   /------ Role of user ------/
+        "toMobileNumber"    : orderdata.deliveryAddress.mobileNumber    /------ Mobile Number to which you want to send SMS other than mobile number present in user details ------/
+        "company_id"        : vendor_id,                                /------ _id (from entitymasters collection) of entity (vendor / ba / corporate) ------/
+        "otherAdminRole"    : 'vendoradmin',                            /------ particular role from the above selected compony you want to send notification / mail /sms ------/
         "variables" 	    : {
                                 "userName" 			: orderdata.userFullName,                       ============|
                                 "userEmailAddress" 	: result.data.corporateName,                                |
@@ -35,3 +37,4 @@ module.exports = { send_notification_function };
         }								                                                            ============|
     }
  */
+

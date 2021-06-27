@@ -10,8 +10,10 @@ exports.create_projectSettings = (req, res, next) => {
             listRequiredFields  = "Keys, secret, bucket and region";
             break;
         case 'SMS'      :
-            conditionQuery      = req.body.authID && req.body.authToken && req.body.sourceMobile;
-            listRequiredFields  = "authID and authToken and sourceMobile";
+            // conditionQuery      = req.body.authID && req.body.authToken && req.body.sourceMobile;
+            // listRequiredFields  = "authID and authToken and sourceMobile";
+            conditionQuery      = req.body.authID && req.body.authToken && req.body.origin;
+            listRequiredFields  = "authID and authToken and origin";
             break; 
         case 'EMAIL'      :
             conditionQuery      = req.body.user && req.body.password && req.body.port && req.body.emailHost && req.body.projectName;
@@ -57,7 +59,8 @@ exports.create_projectSettings = (req, res, next) => {
 
                     authID          : req.body.authID,
                     authToken       : req.body.authToken,
-                    sourceMobile    : req.body.sourceMobile,
+                    // sourceMobile    : req.body.sourceMobile,
+                    origin          : req.body.origin,
 
                     user           : req.body.user,
                     password       : req.body.password,
@@ -144,8 +147,10 @@ exports.patch_projectsettings = (req, res, next)=>{
             listRequiredFields  = "Keys, secret, bucket and region";
             break;
         case 'SMS'      :
-            conditionQuery      = req.body.authID && req.body.authToken && req.body.sourceMobile;
-            listRequiredFields  = "authID and authToken";
+            // conditionQuery      = req.body.authID && req.body.authToken && req.body.sourceMobile;
+            // listRequiredFields  = "authID and authToken";
+            conditionQuery      = req.body.authID && req.body.authToken && req.body.origin;
+            listRequiredFields  = "authID and authToken, and origin";
             break; 
         case 'EMAIL'      :
             conditionQuery      = req.body.user && req.body.password && req.body.port && req.body.emailHost && req.body.projectName;
@@ -167,7 +172,8 @@ exports.patch_projectsettings = (req, res, next)=>{
                                                 "googleapikey" : req.body.googleapikey,
                                                 "authID"          : req.body.authID,
                                                 "authToken"       : req.body.authToken,
-                                                "sourceMobile"    : req.body.sourceMobile,
+                                                // "sourceMobile"    : req.body.sourceMobile,
+                                                "origin"    : req.body.origin,
                                                 "key"         : req.body.key,
                                                 "secret"      : req.body.secret,
                                                 "bucket"      : req.body.bucket,

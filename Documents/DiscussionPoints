@@ -1,0 +1,67 @@
+===================== Discussion Points (26/06/2021) =====================
+
+1. Vendor Master
+
+- Add vendor with area name (i.e same vendor with different location should consider as a different vendor)
+- Only one location for each vendor 
+- Add emailId (to recieve order related emails) field in vendor's Basic Info
+- Add mobileNumber (to receive order related SMS) field in vendor's Basic Info
+
+
+2. Deals Management
+
+- Add facility in deals table to apply deal(add button to enable deal)
+- Add vendor group name dropdown
+- Add vendor name dropdown
+- Add product brand dropdown
+
+3. Product Inventory Management
+
+- Product bulk update
+- Filewise summary report
+- Filewise detailed report
+- Product all stock report
+- On click of particular product detailed stock update log activity
+
+4. Search suggestion
+
+- Search suggestions sorted by Sections, Categories, SubCategories and Brands
+- Search result sorted by Sections, Categories, SubCategories and Brands
+
+5. customer Reviews
+
+- Customer review added by customer (status -> New)  send to admin for approval
+- Customer reciew approved by Admin (status -> Approved)
+- Approved review edited by customer again (status -> Updated) send to admin for approval
+- Customer review approved by admin (status -> Approved)
+
+6. Credit Points
+
+* Transaction types
+- Earned credit point on shopping (method -> add, color -> green)
+- Vendor Order Cancelled (method -> minus, color -> red)
+- Whole order cancelled (method -> minus, color -> red)
+- Product returned (method -> minusco, color -> red)
+- Credit points used (method > minus, color -> blue)
+
+* Credit Points Policy
+
+- Add number of days to expire credit Points
+- If credit points policy changes calculate total credit points value by current point rate
+
+* Order 
+
+- Add new field creditPointsUsed and creditPointsValue in Order's Model.js
+- start using credits points ascending order by createdAt
+
+
+
+
+
+
+
+
+
+
+
+

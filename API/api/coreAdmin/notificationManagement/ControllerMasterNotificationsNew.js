@@ -9,6 +9,7 @@ const nodeMailer            = require('nodemailer');
 const GlobalMaster          = require('../projectSettings/ModelProjectSettings.js');
 const plivo                 = require('plivo');
 const FailedRecords         = require('../failedRecords/ModelFailedRecords');
+const { response } = require("express");
 
 /**=========== create master notification ===========*/
 exports.create_masternotification = (req,res,next)=>{
@@ -281,7 +282,7 @@ exports.send_notifications = (req, res, next) => {
                         }
                         
                     }else if(role === req.body.toUserRole){
-                        // console.log('admin toUserrole==>',role)
+                        console.log('admin toUserrole==>',role)
                         var userData    = await getSelfUserData(req.body.toUser_id);
                         // console.log("userData->",userData)
                         var userRole    = userData.role
@@ -289,7 +290,7 @@ exports.send_notifications = (req, res, next) => {
                         var checkRole   = userRole.includes(role);
                         // console.log("checkRole->",checkRole)
                         if(checkRole){
-                            var a = await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment)
+                            var a = await callTemplates(mode,userData,role,templateName,company,req.body.variables,req.body.attachment, req.body.toMobileNumber)
                             // console.log("a => ",a);
                             // if(a){
                             //     res.status(200).json({ message : "Message sent successfully"});
@@ -333,7 +334,7 @@ exports.send_notifications = (req, res, next) => {
                     res.status(200).json({ message : "Message sent successfully"});
                 }
             }else{
-                res.status(200).json({ message : "No event available for Place New Order" });
+                res.status(200).json({ message : "No event available for this event" });
             }//returnData
         }
     })
@@ -343,34 +344,53 @@ exports.send_notifications = (req, res, next) => {
 }
 
 /**=========== call Template ===========*/
-function callTemplates(mode, userData, role, templateName, company, variables, attachment){
+function callTemplates(mode, userData, role, templateName, company, variables, attachment, toMobileNumber){
     return new Promise(function (resolve, reject) {
         sub();
         async function sub(){
             // console.log("mode,userData,role,templateName,company,variables,attachment",mode,userData,role,templateName,company,variables,attachment);
-            //==============  SEND EMAIL ================
             if(mode === 'Email'){
+                //==============  Send Email ================
                 var toEmail         = userData.email;
                 const emailDetails  = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
                 const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
-                resolve(true);
+                resolve(sendMail);
+
             }else if(mode === 'Notification'){
+                //==============  Send InApp Notification ================
                 var toUserId                = userData.id;
                 const notificationDetails   = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
                 const sendNotification      = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
-                resolve(true);
+                resolve(sendNotification);
+
             }else if(mode === 'SMS'){
+                //==============  Send SMS ================
                 // console.log("Inside SMS",company,templateName,userData,role,variables);
-                if(userData.mobile){
+                console.log("toMobileNumber => ",toMobileNumber);
+                if(toMobileNumber && toMobileNumber !== undefined){
+                    // var toMobile        = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
+                    var toMobile        = toMobileNumber.replace(/[|&;$%@"<>()-+-,]/g, "");
+                    console.log("if toMobile => ",toMobile);
+                    const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
+                    var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                    const sms           = await sendSMS(toMobile, textMsg);
+                    resolve(sms);   
+                    console.log("SMS if => ",SMS)  
+                    resolve(true);            
+                }else if(userData.mobile){
                     var toMobile        = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
-                    const SMSDetails    = await getTemplateDetailsSMS(company,templateName,userData.role,variables);
-                    var text            = SMSDetails.content.replace(/<[^>]+>/g, '');
-                    // console.log("toMobile",toMobile);
-                    const SMS           = await sendSMS(toMobile, text);  
-                    // console.log("SMS => ",SMS)  
+                    console.log("else if toMobile => ",toMobile);
+                    const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
+                    var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                    console.log("toMobile",toMobile);
+                    const sms           = await sendSMS(toMobile, textMsg);
+                    resolve(sms);   
+                    console.log("SMS else if => ",SMS)  
+                    resolve(true); 
+                }else{
+                    resolve(false)
                 }
-                resolve(true);            
-            }// mode == 'SMS'
+            }
         }
     })
 }
@@ -534,30 +554,69 @@ function getOtherAdminData(role,company_id){
 // }
 
 /**=========== Send SMS ===========*/
-function sendSMS(MobileNumber,text){
+// function sendSMS(MobileNumber,text){
+//     return new Promise(function (resolve, reject) {
+//     // console.log('=====INSIDE SMS======',MobileNumber,text)
+//         GlobalMaster.findOne({type : 'SMS'})
+//         .exec() 
+//         .then(data=>{
+//             // console.log("data => ",data)
+//             if(data !== null){
+//                 // console.log('data.authID,data.authToken,data.sourceMobile: ',data.authToken, data.sourceMobile)
+//                 // var msg91 = require("msg91")(data.authToken, "FIVEBE", "4" );
+//                 // var mobileNo = MobileNumber.split(" ").join("");
+//                 // // console.log("mobileNo IN SMS=====>",MobileNumber.replaceAll("[\\D]", ""));
+//                 // // console.log("mobileNo IN SMS=====>",mobileNo);
+//                 // msg91.send(mobileNo, text.toString(), function(err, response){
+//                     // console.log(err);
+//                     // console.log("response IN SMS =====>",response);
+//                     resolve(true)
+//                 // });
+//             }else{
+//                 resolve("No SMS Data Found")
+//             }
+//         })
+//         .catch(err =>{
+//             reject(err)
+//         });
+//     })
+// }
+
+function sendSMS(mobileNumber, textMsg){
     return new Promise(function (resolve, reject) {
-    // console.log('=====INSIDE SMS======',MobileNumber,text)
-        GlobalMaster.findOne({type : 'SMS'})
+        GlobalMaster.findOne({type:'SMS'})
         .exec() 
         .then(data=>{
             // console.log("data => ",data)
             if(data !== null){
-                // console.log('data.authID,data.authToken,data.sourceMobile: ',data.authToken, data.sourceMobile)
-                // var msg91 = require("msg91")(data.authToken, "FIVEBE", "4" );
-                // var mobileNo = MobileNumber.split(" ").join("");
-                // // console.log("mobileNo IN SMS=====>",MobileNumber.replaceAll("[\\D]", ""));
-                // // console.log("mobileNo IN SMS=====>",mobileNo);
-                // msg91.send(mobileNo, text.toString(), function(err, response){
-                    // console.log(err);
-                    // console.log("response IN SMS =====>",response);
-                    resolve(true)
+                var smsFormValues = {
+                    origin          : data.origin,
+                    destination     : mobileNumber,
+                    message         : textMsg
+                }
+                console.log("smsFormValues=> ",smsFormValues)
+                // var smsglobal = require('smsglobal')(data.authID, data.authToken);
+                
+                // smsglobal.sms.send(smsFormValues, function (error, response) {
+                //     if(response.statusCode === 200 && response.status === "OK"){
+                //         console.log("SMS response => ",response);
+                //         resolve(true);
+                //     }else{
+                //         console.log("SMS error => ",error.data.errors.origin.errors);
+                //         resolve(false);
+                //     }
+                //     resolve(true);
                 // });
+
+
             }else{
-                resolve("No SMS Data Found")
+                console.log("SMS Gateway Details Not Found");
+                resolve(false)
             }
         })
         .catch(err =>{
-            reject(err)
+            console.log("Error while finding SMS Gateway Details => ",err);
+            resolve(false)
         });
     })
 }
@@ -578,64 +637,79 @@ function sendInAppNotification(toUserId, email, event, notificationDetails){
 
         InAppNotification.save()
         .then(data=>{
-            resolve(data);
+            if(data && data !== null){
+                resolve(true);
+            }else{
+                console.log("Unable to Save InApp Notifications")
+                resolve(false);
+            }            
         })
         .catch(err =>{
-            reject(err);
+            console.log("Error While Saving InApp Notifications => ",err)
+            reject(false);
         });
     })
 }
 
 /**=========== Function to send Email ===========*/
 function sendEmail(toEmail,subject,content,attachment){
-    // console.log('====**INSIDE EMAIL**=====',toEmail,subject,content,attachment)
-    if(attachment === null || attachment === undefined || attachment === ""){
-        var attachment = []
-    }else{
-        var attachment = [attachment]
-    }
-    // async function main() { 
-    GlobalMaster.findOne({type : 'EMAIL'})
-    .exec() 
-    .then(data=>{
-        const senderEmail       = data.user;
-        const senderEmailPwd    = data.password;
+    console.log('====**INSIDE EMAIL**=====',toEmail, subject, content, attachment)
+    return new Promise(function (resolve, reject) {
+        if(attachment === null || attachment === undefined || attachment === ""){
+            var attachment = []
+        }else{
+            var attachment = [attachment]
+        }
+        // async function main() { 
+        GlobalMaster.findOne({type : 'EMAIL'})
+        .exec() 
+        .then(data=>{
+            const senderEmail       = data.user;
+            const senderEmailPwd    = data.password;
 
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodeMailer.createTransport({
-                            host    : data.emailHost,
-                            port    : data.port,
-                            // secure  : false, // true for 465, false for other ports
-                            auth    : {
-                                        user    : senderEmail, 
-                                        pass    : senderEmailPwd 
-                            }
-                        });
+            // create reusable transporter object using the default SMTP transport
+            let transporter = nodeMailer.createTransport({
+                                host    : data.emailHost,
+                                port    : data.port,
+                                // secure  : false, // true for 465, false for other ports
+                                auth    : {
+                                            user    : senderEmail, 
+                                            pass    : senderEmailPwd 
+                                }
+                            });
 
-        // send mail with defined transport object
-        var mailOptions = {
-            from        : data.projectName+'" Admin" <' + senderEmail + '>', // sender address
-            to          : toEmail, // list of receiver
-            subject     : subject, // Subject line
-            html        : "<pre>" + content + "</pre>", // html body
-            attachments : attachment,
-        };
+            // send mail with defined transport object
+            var mailOptions = {
+                from        : data.projectName+'" Admin" <' + senderEmail + '>', // sender address
+                to          : toEmail, // list of receiver
+                subject     : subject, // Subject line
+                html        : "<pre>" + content + "</pre>", // html body
+                attachments : attachment,
+            };
 
-        let info =  transporter.sendMail(mailOptions, (error, info) => {
-            // console.log("Message sent: %s", error,info);
+            let info =  transporter.sendMail(mailOptions, (error, info) => {
+                console.log("Message sent: %s", error, "-", info);
+                if(error === null){
+                    resolve(true)
+                }else{
+                    console.log("Error While sending email => ",error)
+                    resolve(false)
+                }
+            });
+                
+            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+            // console.log("Message sent: %s", info.messageId);
+            // Preview only available when sending through an Ethereal account
+            // console.log("Preview URL: %s", nodeMailer.getTestMessageUrl(info));
+            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou... 
+        })
+        .catch(err =>{
+            console.log('Error while finding email gateway details => ',err)
+            resolve(false)
         });
-            
-        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-        // console.log("Message sent: %s", info.messageId);
-        // Preview only available when sending through an Ethereal account
-        // console.log("Preview URL: %s", nodeMailer.getTestMessageUrl(info));
-        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou... 
-    })
-    .catch(err =>{
-        console.log('mail error=>',err)
-    });
-    // main().catch(err=>{console.log('mail error=>',err)});      
-    // }   
+        // main().catch(err=>{console.log('mail error=>',err)});      
+        // } 
+    })  
 }
 
 /**=========== get Template Details ===========*/

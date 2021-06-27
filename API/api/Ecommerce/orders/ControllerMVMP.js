@@ -130,38 +130,40 @@ exports.insert_orders = (req, res, next) => {
 						if(l >= req.body.vendorOrders.length){
 							processData();
 							async function processData(){
+
 								//send Notification, email, sms to customer
-								var userData 	 = await User.findOne({"_id" : ObjectId(req.body.user_ID)},{maxServiceCharges : 1}); 
+								var userData 	 = await User.findOne({"_id" : ObjectId(req.body.user_ID)}); 
 								console.log("userData => ",userData)
 								var userNotificationValues = {
-									"event"			: "NewOrder",
-									"toUser_id"		: req.body.user_ID,
-									"toUserRole"	: "user",								
-									"variables" 	: {
-														"customerName" 			: userData.profile.fullName,
-														"customerEmail" 		: userData.profile.email,
-														"customerContactNumber"	: userData.profile.mobile,
-														"orderDeliveryLocation" : orderdata.orderID,
-														"deliveryAddress" 		: orderdata.deliveryAddress
+									"event"				: "NewOrder",
+									"toUser_id"			: req.body.user_ID,
+									"toUserRole"		: "user",
+									"toMobileNumber"	: orderdata.deliveryAddress.mobileNumber,								
+									"variables" 		: {
+															"customerName" 			: userData.profile.fullName,
+															"customerEmail" 		: userData.profile.email,
+															"mobileNumber"			: orderdata.deliveryAddress.mobileNumber,
+															"orderID"  				: orderdata.orderID,
+															"deliveryAddress" 		: orderdata.deliveryAddress
 									}
 								}								
-								// var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+								var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
 								// console.log("send_notification_to_user => ",send_notification_to_user);
 								
 								//send Notification, email, sms to admin
-								// var adminNotificationValues = {
-								// 	"event"			: "NewOrder",
-								// 	// "toUser_id"		: req.body.user_ID,
-								// 	"toUserRole"	: "admin",								
-								// 	"variables" 	: {
-								// 						"customerName" 			: userData.profile.fullName,
-								// 						"customerEmail" 		: userData.profile.email,
-								// 						"customerContactNumber"	: userData.profile.mobile,
-								// 						"orderDeliveryLocation" : orderdata.orderID,
-								// 						"deliveryAddress" 		: orderdata.deliveryAddress
-								// 	}
-								// }
-								// var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+								var adminNotificationValues = {
+									"event"			: "NewOrder",
+									// "toUser_id"		: req.body.user_ID,
+									"toUserRole"	: "admin",								
+									"variables" 	: {
+														"customerName" 			: userData.profile.fullName,
+														"customerEmail" 		: userData.profile.email,
+														"mobileNumber"			: orderdata.deliveryAddress.mobileNumber,
+														"orderID"  				: orderdata.orderID,
+														"deliveryAddress" 		: orderdata.deliveryAddress
+									}
+								}
+								var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
 								// console.log("send_notification_to_admin => ",send_notification_to_admin);
 
 								//send Notification, email, sms to vendor

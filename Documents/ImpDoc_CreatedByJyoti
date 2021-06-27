@@ -155,3 +155,18 @@ transactions        : [{
     pointsEarned        : Number,
     typeOfTransaction   : String
 }]
+
+
+------------------------ Notification  Management -------------------------------
+
+Event => Place Order
+
+Customer    - Mail, SMS, inApp Notification
+Admin       - Mail, SMS, inApp Notification
+Vendor      - 
+
+Event => SignUp
+
+Customer    - Mail, SMS, inApp Notification
+Admin       - Mail, SMS, inApp Notification
+Vendor      - 

@@ -13,7 +13,8 @@ class CompanySMSGateway extends Component {
     this.state = {
       authID    : "", 
       authToken : "", 
-      sourceMobile : "", 
+      // sourceMobile : "", 
+      origin : "", 
       smsid   : "",  
       SMSDetails:"" 
     };
@@ -39,7 +40,10 @@ class CompanySMSGateway extends Component {
       authToken: {
         required: true,
       },
-      sourceMobile: {
+      // sourceMobile: {
+      //   required: true,
+      // },
+      origin: {
         required: true,
       },
       
@@ -54,7 +58,8 @@ class CompanySMSGateway extends Component {
             smsid : response.data._id,
             authID : response.data.authID,
             authToken : response.data.authToken,
-            sourceMobile : response.data.sourceMobile,
+            // sourceMobile : response.data.sourceMobile,
+            origin : response.data.or,
           });
       })
       .catch((error) => {
@@ -103,7 +108,8 @@ class CompanySMSGateway extends Component {
                   smsid : response.data._id,
                   authID : response.data.authID,
                   authToken : response.data.authToken,
-                  sourceMobile : response.data.sourceMobile,
+                  // sourceMobile : response.data.sourceMobile,
+                  origin : response.data.origin,
                 });
             })
             .catch((error) => {
@@ -128,7 +134,8 @@ class CompanySMSGateway extends Component {
         var formvalue ={
           authID    : this.state.authID, 
           authToken : this.state.authToken, 
-          sourceMobile : this.state.sourceMobile, 
+          // sourceMobile : this.state.sourceMobile, 
+          origin : this.state.origin, 
           type      : 'SMS',
           createdBy : localStorage.getItem("user_ID")
         }
@@ -176,7 +183,8 @@ class CompanySMSGateway extends Component {
       var formvalues ={
         authID    : this.state.authID, 
         authToken : this.state.authToken, 
-        sourceMobile : this.state.sourceMobile, 
+        // sourceMobile : this.state.sourceMobile, 
+        origin : this.state.origin, 
         type      : 'SMS',
         createdBy : localStorage.getItem("user_ID")
       }
@@ -225,7 +233,8 @@ class CompanySMSGateway extends Component {
             smsid : response.data._id,
             authID : response.data.authID,
             authToken : response.data.authToken,
-            sourceMobile : response.data.sourceMobile,
+            // sourceMobile : response.data.sourceMobile,
+            origin : response.data.origin,
           });
       })
       .catch((error) => {
@@ -275,12 +284,20 @@ class CompanySMSGateway extends Component {
               </div>
               
               <div className="form-margin col-lg-6 col-md-6 col-xs-12 col-sm-12  valid_box ">
-                <label className="labelform">Source Mobile <span className="requiredsign">*</span></label>
+                <label className="labelform">Origin <span className="requiredsign">*</span></label>
+                <input type="text"
+                  className="form-control UMname has-content"
+                  id="origin" ref="origin" name="origin" placeholder="Origin" 
+                  value={this.state.origin} onChange={this.handleChange} /> 
+              </div>
+              
+              {/* <div className="form-margin col-lg-6 col-md-6 col-xs-12 col-sm-12  valid_box ">
+                <label className="labelform">Source Mobile <span className="requiredsign">*</span></label> */}
                {/*} <input type="text" style={{ textTransform: 'capitalize' }}
                   className="form-control UMname has-content"
                   id="sourceMobile" ref="sourceMobile" name="sourceMobile" placeholder="Source Mobile" 
                   value={this.state.sourceMobile} onChange={this.handleChange} /> */}
-                  <PhoneInput
+                  {/* <PhoneInput
                     country={'in'}
                     value={this.state.sourceMobile}
                     name="sourceMobile"
@@ -290,7 +307,7 @@ class CompanySMSGateway extends Component {
                     }}
                     onChange={this.handleChangeMobile.bind(this)}
                   />
-              </div>
+              </div> */}
               
               <div className=" col-lg-12 col-md-12 col-xs-12 col-sm-12 ">
                 {
