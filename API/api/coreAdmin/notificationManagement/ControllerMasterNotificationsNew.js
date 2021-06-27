@@ -598,7 +598,8 @@ function sendSMS(mobileNumber, textMsg){
                 var smsglobal = require('smsglobal')(data.authID, data.authToken);
                 
                 smsglobal.sms.send(smsFormValues, function (error, response) {
-                    if(response.statusCode === 200 && response.status === "OK"){
+                    console.log("SMS response 1 => ",response);
+                    if(response && response.statusCode && response.statusCode === 200 && response.status === "OK"){
                         console.log("SMS response => ",response);
                         resolve(true);
                     }else{
