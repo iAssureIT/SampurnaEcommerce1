@@ -595,18 +595,18 @@ function sendSMS(mobileNumber, textMsg){
                     message         : textMsg
                 }
                 console.log("smsFormValues=> ",smsFormValues)
-                // var smsglobal = require('smsglobal')(data.authID, data.authToken);
+                var smsglobal = require('smsglobal')(data.authID, data.authToken);
                 
-                // smsglobal.sms.send(smsFormValues, function (error, response) {
-                //     if(response.statusCode === 200 && response.status === "OK"){
-                //         console.log("SMS response => ",response);
-                //         resolve(true);
-                //     }else{
-                //         console.log("SMS error => ",error.data.errors.origin.errors);
-                //         resolve(false);
-                //     }
-                //     resolve(true);
-                // });
+                smsglobal.sms.send(smsFormValues, function (error, response) {
+                    if(response.statusCode === 200 && response.status === "OK"){
+                        console.log("SMS response => ",response);
+                        resolve(true);
+                    }else{
+                        console.log("SMS error => ",error.data.errors.origin.errors);
+                        resolve(false);
+                    }
+                    resolve(true);
+                });
 
 
             }else{
