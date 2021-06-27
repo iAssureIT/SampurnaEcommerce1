@@ -375,7 +375,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
                     const sms           = await sendSMS(toMobile, textMsg);
                     resolve(sms);   
-                    console.log("SMS if => ",SMS)  
+                    console.log("SMS if => ",sms)  
                     resolve(true);            
                 }else if(userData.mobile){
                     var toMobile        = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
@@ -385,7 +385,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     console.log("toMobile",toMobile);
                     const sms           = await sendSMS(toMobile, textMsg);
                     resolve(sms);   
-                    console.log("SMS else if => ",SMS)  
+                    console.log("SMS else if => ",sms)  
                     resolve(true); 
                 }else{
                     resolve(false)
