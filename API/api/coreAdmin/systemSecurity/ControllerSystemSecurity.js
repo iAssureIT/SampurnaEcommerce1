@@ -398,9 +398,9 @@ exports.user_signup_user_otp = (req, res, next) => {
 																	var userNotificationValues = {
 																		"event"			: "SignUp",
 																		"toUser_id"		: result._id,
-																		"toUserRole"	: role_lower,								
+																		"toUserRole"	: userRole,								
 																		"variables" 	: {
-																							"userRole" 			: role_lower.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																							"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
 																							"firstName" 		: result.profile.firstName,
 																							"lastName" 			: result.profile.lastName,
 																							"fullName" 			: result.profile.fullName,
@@ -420,6 +420,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																		// "toUser_id"		: req.body.user_ID,
 																		"toUserRole"	: "admin",								
 																		"variables" 	: {
+																							"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
 																							"firstName" 		: result.profile.firstName,
 																							"lastName" 			: result.profile.lastName,
 																							"fullName" 			: result.profile.fullName,
@@ -545,7 +546,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																	"toUser_id"		: result._id,
 																	"toUserRole"	: role_lower,								
 																	"variables" 	: {
-																						"userType" 			: role_lower.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																						"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
 																						"firstName" 		: result.profile.firstName,
 																						"lastName" 			: result.profile.lastName,
 																						"fullName" 			: result.profile.fullName,
@@ -565,7 +566,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																	// "toUser_id"		: req.body.user_ID,
 																	"toUserRole"	: "admin",								
 																	"variables" 	: {
-																						"userType" 			: role_lower.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
+																						"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
 																						"firstName" 		: result.profile.firstName,
 																						"lastName" 			: result.profile.lastName,
 																						"fullName" 			: result.profile.fullName,
