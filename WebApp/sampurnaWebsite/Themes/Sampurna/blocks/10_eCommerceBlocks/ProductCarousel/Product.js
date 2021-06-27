@@ -8,6 +8,7 @@ import Style                  from './ProductCarousel.module.css';
 import { connect }            from 'react-redux';
 import store                  from '../../../../../redux/store.js'; 
 import useRouter              from 'next/router';
+import SingleProduct          from '../../StaticBlocks/SingleProduct/SingleProduct.js';
 import {updateCartCount,getCartData,getWishlistData}  from '../../../../../redux/actions/index.js'; 
 
 class Product extends Component{
@@ -22,7 +23,7 @@ class Product extends Component{
     }
 
     componentDidMount(){
-        console.log("productView props=",this.props);
+        // console.log("productView props=",this.props);
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
@@ -125,21 +126,8 @@ class Product extends Component{
       console.log("lat long",this.props.userLongitude,this.props.userLatitude,this.props.vendorlocation_ID);
       if(this.state.user_ID){
       var id = event.target.id;
-      var vendor_id
-      if(this.state.websiteModel === "FranchiseModel"){
-        var selectedSize = $('#'+id+"-size").val();      
-        var size = event.target.getAttribute('mainsize');      
-        var unit = event.target.getAttribute('unit');      
-      }    
       var availableQuantity = event.target.getAttribute('availablequantity');
       var currProId = event.target.getAttribute('currpro');
-      // if(this.props.recentCartData && this.props.recentCartData.vendorOrders){
-      //   for(let i=0;i<this.props.recentCartData.vendorOrders.length;i++){
-      //     var recentCartData = this.props.recentCartData.vendorOrders.length > 0 ? this.props.recentCartData.vendorOrders[i].cartItems : [];
-      //     var productCartData = recentCartData.filter((a) => a.product_ID === id);
-      //     var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
-      //   }
-      // }
       var quantityAdded=0;
       var formValues ={};
       if(this.state.websiteModel === "FranchiseModel"){
@@ -292,14 +280,12 @@ class Product extends Component{
       var MDCol = 12/this.props.blockSettings.noOfProductPerMDRow;
       var SMCol = 12/this.props.blockSettings.noOfProductPerSMRow;
       var XSCol = 12/this.props.blockSettings.noOfProductPerXSRow;
-      // console.log("XSCol==",XSCol);
       return (
         <div className="row">
           <Message messageData={this.state.messageData} /> 
            { Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
-              // console.log("data._id=",data._id) 
-                // var x = this.props.wishList && this.props.wishList.length > 0 ? this.props.wishList.filter((abc) => abc.product_ID === data._id) : [];
+             
                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];                              
                 var wishClass = 'r';
                 var tooltipMsg = '';
@@ -313,6 +299,25 @@ class Product extends Component{
                 var categoryUrl = (data.category?data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
               return (
                 <div className={" col-sm-"+LGCol+" col-"+XSCol +" " +Style.mobileViewPadding +" "+Style.productWrapper}   key={index}> 
+                  {/* <div className={" col-12 " +Style.mobileViewPadding }  key={index}> 
+                    {data
+                    ?
+                      < SingleProduct 
+                        data = {data} 
+                        productSettings    = {this.props.productSettings}
+                        blockSettings      = {this.props.blockSettings}
+                        userLatitude       = {this.props.userLatitude}
+                        userLongitude      = {this.props.userLongitude}
+                        user_ID            = {this.state.user_ID}
+                        vendor_ID          = {this.props.vendor_ID}
+                        vendorlocation_ID  = {this.props.vendorlocation_ID}
+                      />
+                    :
+                      null
+                    }
+                  </div>   */}
+
+
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
@@ -327,11 +332,9 @@ class Product extends Component{
                           {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
                         </div>
                         <div className={styleMedia.ImgWrapper}>
-                        {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
                         <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+data._id}>
                         <a className={Style.product_item_photo } tabIndex="-1" >
-                          <img                                           
-                            // src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
+                          <img 
                             src={data.productSmallImage && data.productSmallImage.length>0 ? data.productSmallImage[0] : "/images/eCommerce/notavailable.jpg"}
                             alt="ProductImg" 
                             className={"img-responsive " +Style.NoAvailableImg }
@@ -362,12 +365,6 @@ class Product extends Component{
                             <div className={"col-12 globalProduct_brand"} title={data.category}>{data.category}</div>
                           :null
                           }
-                          {/* {data.productNameRlang?
-                            <div className={"col-12 globalProductItemName  RegionalFont " } title={data.productNameRlang}>
-                                <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>&nbsp;                                        
-                            </div>:null
-                          } */}
-
                           <div className={"col-12 globalProductItemName  " } title={data.productName}>
                             <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;
                           </div>
@@ -389,14 +386,12 @@ class Product extends Component{
                                 data.discountPercent ?
                                 <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
                                   <span className={Style.price}><span className={Style.oldprice }>&nbsp;{this.state.currency} &nbsp;{data.originalPrice}&nbsp;</span>&nbsp;
-                                  {/* <i className="fa fa-inr"></i> */}
                                   {this.state.currency} &nbsp;{(data.discountedPrice).toFixed(2)} 
                                   </span>
                                 </div>
                                 :  
                                 <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
                                   <span className={Style.price}>
-                                    {/* <i className="fas fa-rupee-sign"></i> */}
                                     {this.state.currency} &nbsp;{(data.originalPrice).toFixed(2)} </span> &nbsp;                                      
                                 </div> 
                             }
@@ -405,10 +400,7 @@ class Product extends Component{
                             <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
                                 <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding " +Style.NoPadding} onMouseOver={this.showRatingBlock.bind(this)} >
                                     <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.showRating}> 4 <i className="fas fa-star"></i></div>                                        
-                                </span>  
-                                {/* <div className="col-12 NoPadding ratingBlock">
-                                    <RatingBlock />
-                                </div>                                   */}
+                                </span>                                   
                                 <span className={"col-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
                                 {this.props.productSettings.displayAssuranceIcon === true ?
                                   <span className={"col-4 NoPadding " +Style.NoPadding +" " +Style.assurenceIcon}>
@@ -420,31 +412,7 @@ class Product extends Component{
                           }                              
                           <div className={"col-12 NoPadding " +Style.NoPadding}>
                             <div className={"col-12 NoPadding " +Style.NoPadding}>                                  
-                              {
-                                this.state.websiteModel === "FranchiseModel"?
-                                <div className={"col-12 NoPadding " +Style.btnWrap +" " +Style.NoPadding}>                                                                             
-                                    <div className={"col--6 NoPadding " +Style.selectSizeBox +" " +Style.NoPadding}>                                                                              
-                                    <select className={"col-12 " +Style.selectdropdown +" " +Style.valid +" " +Style.availablesize +" " +Style.NoPadding} currpro={data._id} id={data._id +"-size"} mainsize={data.size} unit={data.unit} name="size" aria-invalid="false">
-                                      { Array.isArray(data.availableSizes) && data.availableSizes.map((size, index) => {
-                                          return( 
-                                              size === 1000?                                                  
-                                              <option className="" value={size} key={index}> 1 KG</option>
-                                              :
-                                              data.unit === "Box" || data.unit === "Wrap" || data.unit === "Pack" || data.unit==="pounch" ?                                                    
-                                                <option className={Style.selectedSize} value={size} key={index}>{size} Pack</option>
-                                                  :
-                                              <option className={Style.selectedSize} value={size} key={index}>{size}&nbsp;{data.unit}</option>                                                        
-                                          )                                                        
-                                        })
-                                      }
-                                    </select>                                     
-                                  </div>    
-                                  <button type="submit" color={data.color} id={data._id} vendor_name={data.vendorName} vendor_id={data.vendor_ID} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
-                                    title="Add to Cart" className={"col-6 fa fa-shopping-cart "  }>                                                                         
-                                    &nbsp;Add
-                                  </button>                          
-                                </div>
-                                :
+                              { 
                                 data.availableQuantity > 0 ?
                                   <div className={"col-12 " +Style.NoPadding}>
                                   {this.state.user_ID?
@@ -466,7 +434,7 @@ class Product extends Component{
                       </div>
                     </div>
                   </div>
-              </div>                            
+                </div>                            
               );
             
             })

@@ -183,12 +183,12 @@ class Payment extends Component {
                                                   </thead>
                                                   <tbody>
                                                   {   vendorWiseData && vendorWiseData.products && vendorWiseData.products.map((productdata, index) => {
-                                                        // console.log("invoice productdata=>",productdata);
+                                                        console.log("invoice vendorWiseData=>",vendorWiseData);
                                                         return(
                                                             <tr key={index}>
                                                                 <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
                                                                 <td>
-                                                                    <a href={"/productdetails/" + productdata}>
+                                                                    <a href={"/product-detail/" +vendorWiseData.vendorLocation_id+"/"+vendorWiseData.vendor_id._id+"/"+productdata._id}>
                                                                     {productdata.productNameRlang?
                                                                         <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
                                                                     :

@@ -154,31 +154,6 @@ class SignUp extends Component {
 		});
 		return formIsValid;
 	  }
-	userSignupWithOtp(event){
-		event.preventDefault();
-		var formValues = {
-			firstname   : this.state.firstname,
-			lastname    : this.state.lastname,
-			mobNumber   : (this.state.mobNumber).replace("-", ""),
-			pincode     : "",
-			email       : this.state.signupEmail,
-			pwd         : this.state.signupPassword,
-			role        : 'user',
-			status      : 'unverified',
-			countryCode : "uae",
-			username    : "MOBILE",
-		}
-		axios.post('/api/auth/post/signup/user/otp',formValues)
-		.then((signupResponse) =>{
-			if(signupResponse){
-				console.log("signupResponse=",signupResponse);
-				this.props.updateFormValue("signupotp");
-			}
-		})
-		.catch((error)=>{
-			console.log("getting error while signup user",error);
-		})
-	}
 
 	usersignup(event) {
 		event.preventDefault();
@@ -196,12 +171,15 @@ class SignUp extends Component {
 				"emailSubject": "Email Verification",
 				"emailContent": "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
 			}
+			
+			// document.getElementById("signUpBtn").innerHTML = 'Please Wait...';
 			document.getElementById("signUpBtn").innerHTML = 
 			this.setState({ btnLoading: true });
 			var passwordVar = this.refs.signupPassword.value;
 			var signupConfirmPasswordVar = this.refs.signupConfirmPassword.value;
 				if(this.validateForm()){
 				return (passwordVar.length >= 6) ?
+				
 					(true,
 						axios.post('/api/auth/post/signup/user', auth)
 							.then((response) => {
@@ -387,109 +365,118 @@ class SignUp extends Component {
 	}
 	render() {		
 		return (
-			<div className="col-12 NoPadding">
-				<div className="col-12 innloginwrap">
-					<h3>Sign Up</h3>
-				</div>
-
-				<div className="col-12 NoPadding mb-3 loginforgotpass signuplink mt-5">
-					<label>Already have an account?</label> &nbsp; <a href='' className="forgotText " onClick={this.openSignInModal.bind(this)}>Sign In </a>
-						<div id="loginFormModal" className="modal in">
-						<div className="modal-dialog">
-							<div className="modal-content loginModalContent">                            
-								<div className="modal-body">   
-								<button type="button" className="close"  data-dismiss="modal" aria-hidden="true" >&times;</button>                                                            
-									<div className="col-lg-12 col-md-12 loginForm">
-									</div>                                                                   
-								</div>
-							</div>
+			// <div style={{ 'height': window.innerHeight + 'px', 'width': window.innerWidth + 'px','background' : "url("+signInBackgroundImg +")" }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper">
+					<div className="col-12 NoPadding">
+						<div className="col-12 innloginwrap">
+							<h3>Sign Up</h3>
 						</div>
-					</div> 
-				</div>
 
-				<form id="signUpUser" className="row">
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
-						<label>First Name</label><label className="astricsign">*</label>
-						<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="" onChange={this.handleChange} data-text="firstNameV" />
-						<div className="errorMsg">{this.state.errors.firstname}</div>
-
-					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
-						<label>Last Name</label><label className="astricsign">*</label>
-						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="" onChange={this.handleChange} data-text="lastNameV" />
-						<div className="errorMsg">{this.state.errors.lastname}</div>
-					</div>
-
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
-						{/* <label>Mobile Number</label><label className="astricsign">*</label>   */}
-						<PhoneInput
-						country={'uae'} 
-						value={this.state.mobNumber}
-						name="mobNumber"
-						className="col-12 formcontrol1"
-						inputProps={{
-							name: 'mobNumber',
-							required: true
-						}}
-						onChange={mobNumber => { this.setState({ mobNumber }) }}
-					/>                       
-						{/* <input maxLength="10" placeholder="" type="text" ref="mobNumber" name="mobNumber" id="mobNumber" value={this.state.mobNumber} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control formcontrol1" />                                      */}
-						<div className="errorMsg">{this.state.errors.mobNumber}</div>
-					</div>
-
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
-						<label>Email ID</label>
-						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="" onChange={this.handleChange} data-text="emailIDV" />
-						<label className="checkUserExistsError">User already exists!!!</label>
-						<div className="errorMsg">{this.state.errors.signupEmail}</div>
-					</div>
-					
-					{/*<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
-						<label>Pincode</label><label className="astricsign">*</label>
-						<input minLength="6" maxLength="6" type="number" className="form-control formcontrol1" id="pincode" ref="pincode" placeholder="" name="pincode" onChange={this.handleChange} />
-						<div className="errorMsg">{this.state.errors.pincode}</div>
-					</div>*/}
-
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
-						<label>Create Password</label><label className="astricsign">*</label>
-						<input minLength="6" type="password" className="form-control formcontrol1" id="signupPassword" ref="signupPassword" placeholder="" name="signupPassword" onChange={this.handleChange} autoComplete="off" />
-						<div className="showHideSignDiv">
-							<i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignUpPass.bind(this)}></i>
-							<i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignUpPass.bind(this)} style={{display:'none'}}></i>
-						</div>
-						<div className="errorMsg">{this.state.errors.signupPassword}</div>
-
-					</div>
-					<div className="form-group frmhgt1 textAlignLeft col-12 col-lg-6 mt15">
-						<label>Confirm Password</label><label className="astricsign">*</label>
-						<input minLength="6" type="password" className="form-control formcontrol1" id="signupConfirmPassword" ref="signupConfirmPassword" placeholder="" name="signupConfirmPassword" onChange={this.handleChange} autoComplete="off"/>
-						<div className="showHideSignDiv1">
-							<i className="fa fa-eye showConfirmPwd showEyeupSign" aria-hidden="true" onClick={this.showConfirmPass.bind(this)}></i>
-							<i className="fa fa-eye-slash hideConfirmPwd hideEyeSignup " aria-hidden="true" onClick={this.hideConfirmPass.bind(this)} style={{display:'none'}}></i>
-						</div>
-						<div className="errorMsg">{this.state.errors.signupConfirmPassword}</div>
-					</div>
-					{
-						this.state.btnLoading
-							?
-							<div className="col-12 col-lg-3 offset-lg-4 col-md-10 offset-md-1 NOpaddingRight ">
-								<div align="center" className="cssload-fond">
-									<div className="cssload-container-general">
-										<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"> </div></div>
-										<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_2"> </div></div>
-										<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_3"> </div></div>
-										<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_4"> </div></div>
+						<div className="col-12 NoPadding mb-3 loginforgotpass signuplink mt-5">
+							<label>Already have an account?</label> &nbsp; <a href='' className="forgotText " onClick={this.openSignInModal.bind(this)}>Sign In </a>
+								<div id="loginFormModal" className="modal in">
+								<div className="modal-dialog">
+									<div className="modal-content loginModalContent">                            
+										<div className="modal-body">   
+										<button type="button" className="close"  data-dismiss="modal" aria-hidden="true" >&times;</button>                                                            
+											<div className="col-lg-12 col-md-12 loginForm">
+											</div>                                                                   
+										</div>
 									</div>
 								</div>
+							</div> 
+						</div>
+
+						<form id="signUpUser" className="row">
+							<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
+								<label>First Name</label><label className="astricsign">*</label>
+								<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="" onChange={this.handleChange} data-text="firstNameV" />
+								<div className="errorMsg">{this.state.errors.firstname}</div>
+
 							</div>
-							:
-							<div className="col-12 mb-5 mt15">
-							<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn signInBtn">Sign Up</button>
+							<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
+								<label>Last Name</label><label className="astricsign">*</label>
+								<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="" onChange={this.handleChange} data-text="lastNameV" />
+								<div className="errorMsg">{this.state.errors.lastname}</div>
 							</div>
-					}
-					
-				</form>
-			</div>
+
+							<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+								<label>Mobile Number</label><label className="astricsign">*</label>  
+								<PhoneInput
+								country={'uae'}
+								value={this.state.mobNumber}
+								name="mobNumber"
+								className="col-12 formcontrol1"
+								inputProps={{
+									name: 'mobNumber',
+									required: true
+								}}
+								onChange={mobNumber => { this.setState({ mobNumber }) }}
+							    />    
+                                <PhoneInput
+                                    international={false}
+                                    defaultCountry="RU"
+                                    value={value}
+                                    onChange={setValue}/>  
+                                                     
+                                {/* <input maxLength="10" placeholder="" type="text" ref="mobNumber" name="mobNumber" id="mobNumber" value={this.state.mobNumber} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control formcontrol1" />                                      */}
+								<div className="errorMsg">{this.state.errors.mobNumber}</div>
+							</div>
+
+							<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+								<label>Email ID</label>
+								<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="" onChange={this.handleChange} data-text="emailIDV" />
+								<label className="checkUserExistsError">User already exists!!!</label>
+								<div className="errorMsg">{this.state.errors.signupEmail}</div>
+							</div>
+							
+							{/*<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+								<label>Pincode</label><label className="astricsign">*</label>
+								<input minLength="6" maxLength="6" type="number" className="form-control formcontrol1" id="pincode" ref="pincode" placeholder="" name="pincode" onChange={this.handleChange} />
+								<div className="errorMsg">{this.state.errors.pincode}</div>
+							</div>*/}
+
+							<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+								<label>Create Password</label><label className="astricsign">*</label>
+								<input minLength="6" type="password" className="form-control formcontrol1" id="signupPassword" ref="signupPassword" placeholder="" name="signupPassword" onChange={this.handleChange} autoComplete="off" />
+								<div className="showHideSignDiv">
+									<i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignUpPass.bind(this)}></i>
+									<i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignUpPass.bind(this)} style={{display:'none'}}></i>
+								</div>
+								<div className="errorMsg">{this.state.errors.signupPassword}</div>
+
+							</div>
+							<div className="form-group frmhgt1 textAlignLeft col-12 col-lg-6 mt15">
+								<label>Confirm Password</label><label className="astricsign">*</label>
+								<input minLength="6" type="password" className="form-control formcontrol1" id="signupConfirmPassword" ref="signupConfirmPassword" placeholder="" name="signupConfirmPassword" onChange={this.handleChange} autoComplete="off"/>
+								<div className="showHideSignDiv1">
+									<i className="fa fa-eye showConfirmPwd showEyeupSign" aria-hidden="true" onClick={this.showConfirmPass.bind(this)}></i>
+									<i className="fa fa-eye-slash hideConfirmPwd hideEyeSignup " aria-hidden="true" onClick={this.hideConfirmPass.bind(this)} style={{display:'none'}}></i>
+								</div>
+								<div className="errorMsg">{this.state.errors.signupConfirmPassword}</div>
+							</div>
+							{
+								this.state.btnLoading
+									?
+									<div className="col-12 col-lg-3 offset-lg-4 col-md-10 offset-md-1 NOpaddingRight ">
+										<div align="center" className="cssload-fond">
+											<div className="cssload-container-general">
+												<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_1"> </div></div>
+												<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_2"> </div></div>
+												<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_3"> </div></div>
+												<div className="cssload-internal"><div className="cssload-ballcolor cssload-ball_4"> </div></div>
+											</div>
+										</div>
+									</div>
+									:
+									<div className="col-12 mb-5 mt15">
+									<button id="signUpBtn" onClick={this.usersignup.bind(this)} className="col-12  btn signInBtn">Sign Up</button>
+								    </div>
+							}
+							
+						</form>
+					</div>
+			
+			
 		);
 	}
 }

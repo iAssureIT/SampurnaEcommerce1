@@ -33,9 +33,6 @@ class ProductViewEcommerce extends Component {
 			"imgsrc": "",
 			"wishIconClass" : "viewWishList",
 			"wishTooltip"   : "Add to wishlist",
-			// "productData"   : 	{
-			// 						"availableQuantity" : 1
-			// 					},
 			"productID"      : '',
 			"user_ID"        : "",
 			"userLongitude"  : "",
@@ -55,6 +52,7 @@ class ProductViewEcommerce extends Component {
 					user_ID :  userDetails.user_id,
 					userLongitude : userDetails.userLatitude,
 					userLongitude : userDetails.userLongitude,
+					"delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
 				},()=>{
 				})
             }
@@ -65,7 +63,7 @@ class ProductViewEcommerce extends Component {
 		  var vendor_ID              = url[4];
 		  var vendorlocation_ID      = url[5];
 		  var productId             = url[6];
-		  console.log("productId==",productId);
+		//   console.log("productId==",productId);
 		  this.setState({
 			"vendor_ID"         : vendor_ID,
 			"vendorlocation_ID" : vendorlocation_ID,
@@ -184,25 +182,6 @@ class ProductViewEcommerce extends Component {
 			})
 		}
 	}
-	
-	getWishData(){
-		axios.get("/api/wishlist/get/one/productwish/"+this.state.user_ID+"/" + this.state.productID)
-		.then((response) => {
-			// console.log("response====",response.data);
-			if(response.data){
-			this.setState({
-				wishIconClass : response.data ? "viewWishListActive" : "viewWishList",
-				wishTooltip   : response.data ? "Remove from wishlist" : "Add to wishlist",
-			},()=>{
-				// console.log("wishIconClass===",this.state.wishIconClass);
-			})
-			}
-		})
-		.catch((error) => {
-			console.log('error', error);
-		})
-	}
-	
 	addtocart(event) {
 		event.preventDefault();	
 		if(this.state.user_ID){
@@ -267,38 +246,45 @@ class ProductViewEcommerce extends Component {
 			console.log("product id===",id);
 			axios.get('/api/products/get/one/' + id)
 				.then((response) => {
-					const formValues =
-					{
-						"user_ID": this.state.user_ID,
-						"product_ID": response.data._id,
-					}
-					axios.post('/api/wishlist/post', formValues)
-						.then((response) => {
-							// this.getWishData();
-							this.props.getWishlistData();
-							// window.fbq('track', 'AddToWishlist');
-							this.setState({
-								messageData: {
-									"type": "outpage",
-									"icon": "fa fa-check-circle",
-									"message": "&nbsp; " + response.data.message,
-									"class": "success",
-									"autoDismiss": true
-								}
-							})
-							setTimeout(() => {
+					const formValues = {
+						"user_ID"             : this.state.user_ID,
+						"userDelLocation"     : {
+													"lat"             : this.state.userLongitude, 
+													"long"            : this.state.userLongitude,
+													"delLocation"     : this.state.delLocation,
+												},
+						"vendor_id"           : this.state.vendor_ID,
+						"vendorLocation_id"   : this.state.vendorlocation_ID,
+						"product_ID"          : id
+					  }
+					if(formValues){
+						axios.post('/api/wishlist/post', formValues)
+							.then((response) => {
+								this.props.getWishlistData();
 								this.setState({
-									messageData: {},
+									messageData: {
+										"type": "outpage",
+										"icon": "fa fa-check-circle",
+										"message": "&nbsp; " + response.data.message,
+										"class": "success",
+										"autoDismiss": true
+									}
 								})
-							}, 3000);
-						})
-						.catch((error) => {
-							console.log('error', error);
-						})
+								setTimeout(() => {
+									this.setState({
+										messageData: {},
+									})
+								}, 3000);
+							})
+							.catch((error) => {
+								console.log('error', error);
+							})
+					}
 				})
 				.catch((error) => {
 					console.log('error', error);
 				})
+				
 		} else {
 			  if(this.state.websiteModel && this.state.showLoginAs === 'modal'){
 				$('#loginFormModal').show();
@@ -372,16 +358,16 @@ class ProductViewEcommerce extends Component {
 	}
 	
 	render() {
-		console.log("product view eccomerce data  =====",this.props);
+		// console.log("product view eccomerce data  =====",this.props);
 		var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass = '';
 		var tooltipMsg = '';
 		if (x && x.length > 0) {
-			wishClass = '-o';
+			wishClass = '';
 			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Remove from wishlist';
 		} else {
-			wishClass = '';
+			wishClass = 'r';
 			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Add To Wishlist';
 		} 
@@ -452,22 +438,20 @@ class ProductViewEcommerce extends Component {
 									</div>
 									:
 									<div className={"col-12 globalProductItemName NoPadding NoPadding" } title={this.state.productData.productName}>
-										{/* <span className={ "ellipsis globalProdName"}>{this.state.productData.productName} </span>&nbsp; */}
 										<div ><span className={" " +Style.productNameClassNew}> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> </div>
 									</div>
 								}
-								{this.state.productData.brandNameRlang?
+								{/* {this.state.productData.brandNameRlang?
 									<div className={"col-12 globalProduct_brand RegionalFont mt-2 NoPadding " +Style.brandName} title={this.state.productData.brandNameRlang}>{this.state.productData.brandNameRlang}</div>
 									:
 									<div className={"col-12 globalProduct_brand NoPadding mt-2 "  +Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
-								}
+								} */}
 
 									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
 								{                                  
 									this.state.productData.discountPercent ?
 									<div className="col-12 NoPadding priceWrapper">
 									<span className={" " +Style.f12}>Price : <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;
-									{/* <i className="fa fa-inr"></i> */}
 									<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
 									</span>
 									</div>
@@ -516,11 +500,11 @@ class ProductViewEcommerce extends Component {
 											<div className="col-2 col-lg-2 col-xl-2 col-md-3 col-sm-3 col-xs-3 NoPadding mobileViewNoPadding">
 												{this.state.user_ID?
 													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass}>
-														<i id={this.state.productData._id} className={"far fa-heart"+wishClass +" heartIcon"}></i>
+														<i id={this.state.productData._id} className={"fa"+wishClass +" " +"fa-heart" +" heartIcon"}></i>
 													</div>
 												:
 													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
-														<i id={this.state.productData._id} className={"far fa-heart"+ wishClass +" heartIcon"}></i>
+														<i id={this.state.productData._id} className={"fa"+wishClass +"fa-heart"+ wishClass +" heartIcon"}></i>
 													</div>												
 												}
 											</div>	

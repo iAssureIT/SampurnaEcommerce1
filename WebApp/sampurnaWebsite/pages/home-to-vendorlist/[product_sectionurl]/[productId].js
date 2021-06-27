@@ -38,12 +38,12 @@ const HomeToVendorList = ()=> {
                 }
             }
         }
-        console.log("vendor list FormValues=>",formValues);
+        // console.log("vendor list FormValues=>",formValues);
         // console.log("productID=",productId);
         axios.post("api/vendorlist/post/productwise/vendor/list",formValues)
 			.then((vendorResponse) => {
                 if(vendorResponse){
-                    console.log("vendorResponse=>",vendorResponse);
+                    // console.log("vendorResponse=>",vendorResponse);
                     setVendorList(vendorResponse.data)
                 }
 			})
@@ -116,3 +116,32 @@ const HomeToVendorList = ()=> {
 }
 
 export default HomeToVendorList;
+
+
+// export async function getStaticPaths() {
+//     console.log("getStatic path");
+//     const paths = ["/home-to-vendorlist/[product_sectionurl]/[productid]"];
+//     return { paths, fallback: true };
+// }
+  
+// export async function getStaticProps({ query, params }) {
+//     console.log("query==",query);
+//     const { product_sectionurl } = query || params;
+//     const { productid } = query || params;
+//     const formValues ={
+//                     "startRange" : 0,
+//                     "limitRange" : 10,
+//                     "sectionUrl" : product_sectionurl,
+//                     "latitude"   : "",
+//                     "longitude"  : "",
+//                     "product_ID"  : productId,
+//     }
+//     const res = await fetch("api/vendorlist/post/productwise/vendor/list" + formValues);
+//     const postData = await res.json();
+  
+//     return {
+//       props: {
+//         postData,
+//       },
+//     };
+//   }

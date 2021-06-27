@@ -38,8 +38,8 @@ class Wishlist extends Component {
           userLongitude : sampurnaWebsiteDetails.deliveryLocation.latitude,
           userLongitude : sampurnaWebsiteDetails.deliveryLocation.longitude,
       },()=>{
-        console.log("userLongitude=",this.state.userLongitude);
-        console.log("userLongitude=",this.state.userLongitude);
+        // console.log("userLongitude=",this.state.userLongitude);
+        // console.log("userLongitude=",this.state.userLongitude);
       })
     }    
     var userDetails     =  JSON.parse(localStorage.getItem('userDetails'));
@@ -56,13 +56,14 @@ class Wishlist extends Component {
   }
 
   getWishData() {
-    console.log("inside wishlist");
+    // console.log("inside wishlist");
   var formValues ={
     "user_ID"             : this.state.user_ID,
     "userLat"             : this.state.userLongitude, 
     "userLong"            : this.state.userLongitude
   }
     console.log("formValues=",formValues);
+
     axios.post('/api/wishlist/get/userwishlist', formValues)    
       .then((response) => {
         if(response){
@@ -77,37 +78,37 @@ class Wishlist extends Component {
       })
   }
 
-  removefromwishlist(event) {
-    event.preventDefault();
-    var id = event.target.id;
-    console.log("id", id);
-    axios.delete('/api/wishlist/delete/' + id)
-      .then((response) => {
-        window.scrollTo(0, 0);
-        console.log('response', response);
-        this.setState({
-          products: []
-        })
-        this.getData();
-        this.setState({
-          messageData: {
-            "type": "outpage",
-            "icon": "fa fa-check-circle",
-            "message": response.data.message,
-            "class": "success",
-            "autoDismiss": true
-          }
-        })
-        setTimeout(() => {
-          this.setState({
-            messageData: {},
-          })
-        }, 3000);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
-  }
+  // removefromwishlist(event) {
+  //   event.preventDefault();
+  //   var id = event.target.id;
+  //   console.log("id", id);
+  //   axios.delete('/api/wishlist/delete/' + id)
+  //     .then((response) => {
+  //       window.scrollTo(0, 0);
+  //       console.log('response', response);
+  //       this.setState({
+  //         products: []
+  //       })
+  //       this.getData();
+  //       this.setState({
+  //         messageData: {
+  //           "type": "outpage",
+  //           "icon": "fa fa-check-circle",
+  //           "message": response.data.message,
+  //           "class": "success",
+  //           "autoDismiss": true
+  //         }
+  //       })
+  //       setTimeout(() => {
+  //         this.setState({
+  //           messageData: {},
+  //         })
+  //       }, 3000);
+  //     })
+  //     .catch((error) => {
+  //       console.log('error', error);
+  //     })
+  // }
 
   render() {
     return (
@@ -139,7 +140,7 @@ class Wishlist extends Component {
                    )
                  })
                  :
-                 <div>Wishlist data not available</div>
+                 <div className="col-12 mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  Wishlist is empty </div>
               }
             </div>          
           </div>
@@ -150,13 +151,14 @@ class Wishlist extends Component {
 }
 
 const mapStateToProps = state => (
-    // console.log("state in wishlist====",state.data),
     {
       recentCartData: state.data.recentCartData,
+      userWishlistData  : state.data.userWishlistData,
     } 
 );
 const mapDispatchToProps = {
     fetchCartData: getCartData, 
+    // fetchWishlist: getWishlist,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);

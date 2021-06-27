@@ -118,11 +118,25 @@ export function getCartData() {
   }  
 }
 
-export function setCartData(data) {
-	return dispatch =>{
-    dispatch(fetchcartdata(data));
-  }  
-}
+//getWishlist new
+// export function getWishlist(data){
+//   axios.post('/api/wishlist/get/userwishlist', formValues)    
+//   .then((response) => {
+//     if(response){
+//       console.log('wishlist data', response.data);
+//       dispatch(setWishlistData(response.data));
+//     }
+//   })
+//   .catch((error) => {
+//     console.log('error', error);
+//   })
+// }
+
+// export function setCartData(data) {
+// 	return dispatch =>{
+//     dispatch(fetchcartdata(data));
+//   }  
+// }
 
 
 export function getWishlistData() {

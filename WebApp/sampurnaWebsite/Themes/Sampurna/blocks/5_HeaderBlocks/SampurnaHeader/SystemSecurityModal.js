@@ -7,12 +7,13 @@ import Head      from 'next/head';
 import Router    from 'next/router';
 import Link      from 'next/link';
 import swal      from 'sweetalert';
-
-import Login     from '../../../../../systemSecurity/Login.js';
-import SignUp    from '../../../../../systemSecurity/SignUp.js';
+import Login          from '../../../../../systemSecurity/Login.js';
+import SignUp         from '../../../../../systemSecurity/SignUp.js';
 import ForgotPassword from '../../../../../systemSecurity/ForgotPassword';
 import ConfirmOtp     from '../../../../../systemSecurity/ConfirmOtp.js';
-import ResetPassword  from '../../../../../systemSecurity/ResetPassword.js'
+import ResetPassword  from '../../../../../systemSecurity/ResetPassword.js';
+import SignUpOTP      from '../../../../../systemSecurity/SignUpOTP.js';
+
 // import {getBlockData} from '../../../../../redux/actions/counterActions';
 import {getForm,updateForm} from '../../../../../redux/actions';
 
@@ -105,14 +106,12 @@ class header extends React.Component {
     }
    render() {
     return (
-
         <div className="col-8 col-sm-6 NoPadding">  
             <div className="col-12 loginViewWrapper ">
                 <div className="col-12 col-lg-12 row">
                 {this.state.loggedIn ? 
                     <li className="dropdown myaccDropdown">
                         <span className="col-12 NoPadding ">
-
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
                                 <div className="mtm10">  
                                 <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
@@ -172,6 +171,12 @@ class header extends React.Component {
                                 {this.props.formToShow === "signUp" ?
                                     <div className="col-12 signupForm mobileViewNoPadding">
                                         <SignUp />
+                                    </div>  
+                                : null
+                                } 
+                                {this.props.formToShow === "signupotp" ?
+                                    <div className="col-12 NoPadding loginForm mobileViewNoPadding">
+                                        <SignUpOTP />
                                     </div>  
                                 : null
                                 } 

@@ -233,14 +233,14 @@ class ProductDetailView extends Component {
 	render() {
 		// console.log("product wishlistdata  =====",this.props.recentWishlistData);
         var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
-		var wishClass = 'r';
+		var wishClass = '';
 		var tooltipMsg = '';
 		if (x && x.length > 0) {
 			wishClass = '';
 			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Remove from wishlist';
 		} else {
-			wishClass = '-o';
+			wishClass = 'r';
 			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Add To Wishlist';
 		} 
@@ -270,15 +270,13 @@ class ProductDetailView extends Component {
 								{                                  
 									this.state.productData.discountPercent ?
 									<div className="col-12 NoPadding priceWrapper">
-									<span className="price"><span className="">&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</span>&nbsp;
-									{/* <i className="fa fa-inr"></i> */}
-									{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)} 
+										<span className="price"><span className="">&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</span>&nbsp;
+										{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)} 
 									</span>
 									</div>
 									:  
 									<div className={"col-12 NoPadding  priceWrapper NoPadding"}>
 									<span className="price">
-										{/* <i className="fas fa-rupee-sign"></i> */}
 										{this.state.currency} &nbsp;{this.state.productData.originalPrice? (this.state.productData.originalPrice).toFixed(2):0} </span> &nbsp;                                      
 									</div> 
 								}
@@ -317,11 +315,11 @@ class ProductDetailView extends Component {
 											<div className="col-2 col-sm-3  mobileViewNoPadding">
 												{this.state.user_ID?
 													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn "+this.state.wishIconClass}>
-														<i className={"fa fa-heart"+wishClass +" heartIcon"}></i>
+														<i className={"fa abc fa-heart"+wishClass +" " +" heartIcon"}></i>
 													</div>
 												:
 													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 globaleCommLargeBtn "+this.state.wishIconClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
-														<i className={"fa fa-heart"+ wishClass +"heartIcon"}></i>
+														<i className={"fa abc fa-heart"+wishClass +" " +"heartIcon"}></i>
 													</div>												
 												}
 											</div>	

@@ -25,7 +25,7 @@ function Home({pageData}) {
 }
 
 export async function getServerSideProps({query}){
-  // console.log("pageurl query===",query)
+  console.log("pageurl query===",query)
   const urlParam = query.pageurl ? query.pageurl : 'homepage'
   try{
     const res = await axios.get("api/pages/get/page_block/"+urlParam)

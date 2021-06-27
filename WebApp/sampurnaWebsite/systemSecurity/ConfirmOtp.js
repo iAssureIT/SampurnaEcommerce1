@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
 import $ from "jquery";
-// import jQuery from 'jquery';
 import axios from 'axios';
 import Image from 'next/image';
 import { connect } from 'react-redux';
@@ -31,20 +30,6 @@ class ConfirmOtp extends Component {
     let fields = this.state.fields;
     let errors = {};
     let formIsValid = true;
-
-    // if (!fields["emailotp"]) {
-    //   formIsValid = false;
-    //   errors["emailotp"] = "Please enter a valid OTP.";
-    // }
-    // if (typeof fields["emailotp"] !== "undefined") {
-    //   //regular expression for email validation
-    //   var pattern = new RegExp(/^[1-9][0-9]{3}$/)
-    //   if (!pattern.test(fields["emailotp"])) {
-    //     formIsValid = false;
-    //     errors["emailotp"] = "Please enter a valid OTP";
-    //   }
-    // }
-
     this.setState({
       errors: errors
     });
@@ -64,14 +49,6 @@ class ConfirmOtp extends Component {
           if (response.data.message === 'SUCCESS') {
             this.props.updateFormValue("resetPassword");	
             swal('OTP Verified Successfully.');
-            // var url = localStorage.getItem('previousUrl');
-            // if (url === 'forgotpassword') {
-            //   localStorage.removeItem("previousUrl");
-            //   this.props.history.push('/reset-pwd/' + this.props.match.params.userID);
-            // } else {
-            //   localStorage.removeItem("previousUrl");
-            //   this.props.history.push('/login');
-            // }
           } else {
             swal('Please enter valid OTP.');
           }
@@ -80,7 +57,6 @@ class ConfirmOtp extends Component {
           swal(error.response.data.message);
         })
     }
-
   }
   inputEffect(event) {
     event.preventDefault();
@@ -91,7 +67,6 @@ class ConfirmOtp extends Component {
     }
   }
   resendOtp(event) {
-    // const userid = this.props.match.params.userID;
     var userid = localStorage.getItem('userID');
     // if ($("#OTPMobMail").valid()) {
     document.getElementById("resendOtpBtn").innerHTML = 'Please wait...';
@@ -167,21 +142,9 @@ class ConfirmOtp extends Component {
     var resendOtp = "";
 
     return (
-      // <div style={{ 'height': window.innerHeight + 'px', 'width': window.innerWidth + 'px' }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper">
-      //   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
-      //   </div>
         <div className="col-12 NoPadding">
           <div className="col-12 mobileViewNoPadding">
             <div className="col-12 mobileViewNoPadding">
-              {/* <div className="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-8 offset-sm-2 col-xs-8 offset-xs-2 siteLogo NoPadding">
-                  <Image 
-                      src={"/images/eCommerce/multistoreLogo.png"}
-                      className={"logoImg"}
-                      height ={60}
-                      width={200}
-                      layout="responsive"
-                  />	
-              </div> */}
               <div className="col-12 innloginwrap mb25">
                 <h4>Confirm OTP</h4>
               </div>
@@ -230,7 +193,6 @@ class ConfirmOtp extends Component {
             </div>
           </div>
         </div>
-      // </div>
     );
   }
 }
@@ -238,7 +200,6 @@ class ConfirmOtp extends Component {
 const mapStateToProps = (state) => {
 	return {
 	  formToShow     : state.formToShow,
-  
 	}
   }
   

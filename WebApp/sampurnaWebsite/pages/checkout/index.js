@@ -1096,7 +1096,6 @@ const mapStateToProps = state => (
 );
 const mapDispatchToProps = {
     fetchCartData: getCartData, 
-    // setCartData  : setCartData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

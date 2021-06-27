@@ -165,7 +165,7 @@ class ProductsView extends Component {
       axios.post("/api/customerReview/get/single/customer/review",formValues)
       .then((response) => {
         if(response.data){
-          console.log("single review==",response.data);
+          // console.log("single review==",response.data);
           this.setState({
             rating_ID       : response.data._id,
             customerID      : response.data.customer_id,

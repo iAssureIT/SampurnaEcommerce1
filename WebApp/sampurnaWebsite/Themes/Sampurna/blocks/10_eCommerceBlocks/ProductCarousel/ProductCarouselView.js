@@ -9,6 +9,7 @@ import store                  from '../../../../../redux/store.js';
 import Message                from '../../StaticBlocks/Message/Message.js';
 import Select                 from 'react-select';
 import getConfig              from 'next/config';
+import SingleProduct          from '../../StaticBlocks/SingleProduct/SingleProduct.js';
 import Style                  from './ProductCarousel.module.css';
 import 'react-multi-carousel/lib/styles.css';
 import {getCartData,getWishlistData, updateCartCount}  from '../../../../../redux/actions/index.js'; 
@@ -295,118 +296,136 @@ render() {
                                 }   
                                 var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
                             return (
-                                <div key={index} className={"col-12 " }>                          
-                                <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
-                                    <div className={"col-12 NoPadding"}>
-                                    <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
-                                    <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
-                                          {  this.state.user_ID?
-                                            <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa fa-heart" +wishClass +" wishListIconColor "}></i></button>
-                                            :
-                                            <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa fa-heart-" +wishClass +" ishListIconColor "}></i></button>
-                                          }
-                                        {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
-                                        </div>
-                                        <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
-                                        <Link href={"/product-detail/" +data.vendor_ID+"/"+this.props.vendorlocation_ID&&this.props.vendorlocation_ID+"/"+data._id}>
-                                        <a className={Style.product_item_photo } tabIndex="-1" >                                      
-                                            <Image                                           
-                                            src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
-                                            alt="ProductImg" 
-                                            className={"img-responsive " +Style.NoAvailableImg }
-                                            height={200}
-                                            width={265} 
-                                            layout={'intrinsic'}
-                                            />
-                                        </a>
-                                        </Link>
-                                        </div>
-                                    </div>
-                                    <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
-                                        <div className={"col-12 " +Style.innerDiv}>
-                                            <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={data.brand}>{data.brand}</div>
-                                        {this.state.productSettings.displaySection === true ?
-                                            <div className={"col-12 globalProductItemName"} title={data.section}>{data.section}</div>
-                                        :null
-                                        }
-                                        {this.state.productSettings.displayCategory === true ?
-                                            <div className={"col-12 globalProduct_brand"} title={data.category}>{data.category}</div>
-                                        :null
-                                        }
-                                        {data.productNameRlang?
-                                        <div className={"col-12 globalProductItemName RegionalFont " } title={data.productNameRlang}>
-                                            <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>&nbsp;                                        
-                                        </div>
-                                        :
-                                        <div className={"col-12 globalProductItemName  " } title={data.productName}>
-                                        <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;</div>
-                                        }
-                                        <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
-                                            {
-                                            localStorage.getItem("websiteModel")=== "FranchiseModel"?                                  
-                                                data.discountPercent ?    
-                                                <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
-                                                <span className={Style.price}><span className={Style.oldprice}><i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice}</span>    
-                                                </div>   
-                                                :
-                                                <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>
-                                                    <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} {data.size? "/ " +data.size:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                       
-                                                </div>
+                              <div className={" col-12 " +Style.mobileViewPadding }  key={index}> 
+                                {data
+                                ?
+                                  < SingleProduct 
+                                    data               = {data} 
+                                    productSettings    = {this.state.productSettings}
+                                    blockSettings      = {this.state.blockSettings}
+                                    userLatitude       = {this.props.userLatitude}
+                                    userLongitude      = {this.props.userLongitude}
+                                    user_ID            = {this.props.user_ID}
+                                    vendor_ID          = {this.props.vendor_ID}
+                                    vendorlocation_ID  = {this.props.vendorlocation_ID}
+                                  />
+                                :
+                                  null
+                                }
+                              </div>  
+                            //     <div key={index} className={"col-12 " }>                          
+                            //     <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
+                            //         <div className={"col-12 NoPadding"}>
+                            //         <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
+                            //         <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
+                            //               {  this.state.user_ID?
+                            //                 <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa fa-heart" +wishClass +" wishListIconColor "}></i></button>
+                            //                 :
+                            //                 <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa fa-heart-" +wishClass +" ishListIconColor "}></i></button>
+                            //               }
+                            //             {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
+                            //             </div>
+                            //             <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
+                            //             <Link href={"/product-detail/" +data.vendor_ID+"/"+this.props.vendorlocation_ID&&this.props.vendorlocation_ID+"/"+data._id}>
+                            //             <a className={Style.product_item_photo } tabIndex="-1" >                                      
+                            //                 <Image                                           
+                            //                 src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
+                            //                 alt="ProductImg" 
+                            //                 className={"img-responsive " +Style.NoAvailableImg }
+                            //                 height={200}
+                            //                 width={265} 
+                            //                 layout={'intrinsic'}
+                            //                 />
+                            //             </a>
+                            //             </Link>
+                            //             </div>
+                            //         </div>
+                            //         <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
+                            //             <div className={"col-12 " +Style.innerDiv}>
+                            //                 <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={data.brand}>{data.brand}</div>
+                            //             {this.state.productSettings.displaySection === true ?
+                            //                 <div className={"col-12 globalProductItemName"} title={data.section}>{data.section}</div>
+                            //             :null
+                            //             }
+                            //             {this.state.productSettings.displayCategory === true ?
+                            //                 <div className={"col-12 globalProduct_brand"} title={data.category}>{data.category}</div>
+                            //             :null
+                            //             }
+                            //             {data.productNameRlang?
+                            //             <div className={"col-12 globalProductItemName RegionalFont " } title={data.productNameRlang}>
+                            //                 <span className={"RegionalFont " +Style.ellipsis +" " +Style.globalProdName}>{data.productNameRlang} </span>&nbsp;                                        
+                            //             </div>
+                            //             :
+                            //             <div className={"col-12 globalProductItemName  " } title={data.productName}>
+                            //             <span className={ Style.ellipsis +" " +Style.globalProdName}>{data.productName} </span>&nbsp;</div>
+                            //             }
+                            //             <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  +Style.NoPadding}>
+                            //                 {
+                            //                 localStorage.getItem("websiteModel")=== "FranchiseModel"?                                  
+                            //                     data.discountPercent ?    
+                            //                     <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>  
+                            //                     <span className={Style.price}><span className={Style.oldprice}><i className="fas fa-rupee-sign "></i>&nbsp;{data.originalPrice} </span>&nbsp; <i className="fas fa-rupee-sign"></i> {data.discountedPrice}</span>    
+                            //                     </div>   
+                            //                     :
+                            //                     <div className={"col-12  " +Style.priceWrapper +" " +Style.NoPadding}>
+                            //                         <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} {data.size? "/ " +data.size:null}&nbsp;<span className={Style.ProSize}>{data.size?data.unit:null}</span></span> &nbsp;                                       
+                            //                     </div>
             
-                                            :                                    
-                                                data.discountPercent ?
-                                                <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                                <span className={Style.price}><span className={Style.oldprice }>&nbsp;
-                                                {this.state.currency}&nbsp;{(data.originalPrice).toFixed(2)}&nbsp;</span>&nbsp;
-                                                {this.state.currency}&nbsp;{(data.discountedPrice).toFixed(2)} 
-                                                </span>
-                                                </div>
-                                                :  
-                                                <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
-                                                <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} </span> &nbsp;                                      
-                                                </div> 
-                                            }
-                                        </div>
-                                        {this.state.productSettings.displayRating === true ?
-                                            <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
-                                                <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding " +Style.NoPadding} onMouseOver={this.showRatingBlock.bind(this)} >
-                                                    <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.showRating}> 4 <i className="fas fa-star"></i></div>                                        
-                                                </span>                                  
-                                                <span className={"col-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
-                                                {this.state.productSettings.displayAssuranceIcon === true ?
-                                                <span className={"col-4 NoPadding " +Style.NoPadding +" " +Style.assurenceIcon}>
-                                                    <img loading="lazy" className={"col-12 NoPadding " +Style.NoPadding} src="/images/assured.png" alt="Assured Img" />                                      </span>
-                                                :null
-                                                }
-                                            </div>
-                                            :null
-                                        }                              
-                                        <div className={"col-12 NoPadding " +Style.NoPadding}>
-                                            <div className={"col-12 NoPadding " +Style.NoPadding}>                                  
-                                            {
-                                                data.availableQuantity > 0 ?
-                                                <div className="col-12 NoPadding">
-                                                    {this.state.user_ID?
-                                                    <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 NoPadding  fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
-                                                        &nbsp;Add To Cart
-                                                    </button>
-                                                    :
-                                                    <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
-                                                        &nbsp;Add To Cart
-                                                    </button>
-                                                    }     
-                                                </div>                                           
-                                                :
-                                                <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
-                                            }
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>                            
-                            );
+                            //                 :                                    
+                            //                     data.discountPercent ?
+                            //                     <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
+                            //                     <span className={Style.price}><span className={Style.oldprice }>&nbsp;
+                            //                     {this.state.currency}&nbsp;{(data.originalPrice).toFixed(2)}&nbsp;</span>&nbsp;
+                            //                     {this.state.currency}&nbsp;{(data.discountedPrice).toFixed(2)} 
+                            //                     </span>
+                            //                     </div>
+                            //                     :  
+                            //                     <div className={"col-12 NoPadding " +Style.priceWrapper +" " +Style.NoPadding}>
+                            //                     <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} </span> &nbsp;                                      
+                            //                     </div> 
+                            //                 }
+                            //             </div>
+                            //             {this.state.productSettings.displayRating === true ?
+                            //                 <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
+                            //                     <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding " +Style.NoPadding} onMouseOver={this.showRatingBlock.bind(this)} >
+                            //                         <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.showRating}> 4 <i className="fas fa-star"></i></div>                                        
+                            //                     </span>                                  
+                            //                     <span className={"col-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
+                            //                     {this.state.productSettings.displayAssuranceIcon === true ?
+                            //                     <span className={"col-4 NoPadding " +Style.NoPadding +" " +Style.assurenceIcon}>
+                            //                         <img loading="lazy" className={"col-12 NoPadding " +Style.NoPadding} src="/images/assured.png" alt="Assured Img" />                                      </span>
+                            //                     :null
+                            //                     }
+                            //                 </div>
+                            //                 :null
+                            //             }                              
+                            //             <div className={"col-12 NoPadding " +Style.NoPadding}>
+                            //                 <div className={"col-12 NoPadding " +Style.NoPadding}>                                  
+                            //                 {
+                            //                     data.availableQuantity > 0 ?
+                            //                     <div className="col-12 NoPadding">
+                            //                         {this.state.user_ID?
+                            //                         <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 NoPadding  fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                            //                             &nbsp;Add To Cart
+                            //                         </button>
+                            //                         :
+                            //                         <button type="submit" id={data._id} vendor_name={data.vendor_name} vendor_id={data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                            //                             &nbsp;Add To Cart
+                            //                         </button>
+                            //                         }     
+                            //                     </div>                                           
+                            //                     :
+                            //                     <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
+                            //                 }
+                            //                 </div>
+                            //             </div>
+                            //             </div>
+                            //         </div>
+                            //         </div>
+                            //     </div>
+                            // </div>                            
+                           
+                           );
                             
                             })
                             :''

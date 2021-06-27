@@ -31,6 +31,7 @@ export async function getServerSideProps({query}){
   const urlParam = query.sectionUrl ? query.sectionUrl : 'product-list'
   const res = await axios.get("api/pages/get/page_block/product-list")
   const pageData = await res.data;
+  console.log("pageData==",pageData);
   return {
     props:{
       pageData,

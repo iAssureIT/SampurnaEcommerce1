@@ -42,7 +42,9 @@ class SearchProduct extends Component {
     var url = window.location.href.split('/');
     // console.log("url==",url[4]);
     if(url){
-        this.setState({"searchProduct": url[4]})
+        this.setState({"searchProduct": url[4]},()=>{
+          console.log("searchProduct=",this.state.searchProduct);
+        })
     }
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails        =  JSON.parse(localStorage.getItem('userDetails'));
@@ -65,33 +67,38 @@ class SearchProduct extends Component {
           {/* <Message messageData={this.state.messageData} />  */}
           <div className={" container mt-5 "+Style.searchProductWrapper}> 
             <div className="row">
-              <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results for " +"'"+this.state.searchProduct +"'"}</div>
-              { Array.isArray(this.props.searchData.data) && this.props.searchData.data.length > 0 ?
-                Array.isArray(this.props.searchData.data) && this.props.searchData.data.map((data, index) => { 
-                  // console.log("data===",data);               
-                  return (
-                    <div className={" col-3 " +Style.mobileViewPadding }  key={index}> 
-                      {data
-                      ?
-                        < SingleProduct 
-                          data = {data} 
-                          productSettings = {this.state.productSettings}
-                          userLatitude    = {this.state.latitude}
-                          userLongitude   = {this.state.longitude}
-                          user_ID         = {this.state.user_ID}
-                          // vendorlocation_ID = ''
-                        />
-                      :
-                        null
-                      }
-                    </div>                            
-                  );
-                })
-                :<div className =" col-12 mb-5 text-center">
+              {this.props.searchData.data ?
+                <div className="row">
+                  <div className="col-12 text-center mb-5">{ this.props.searchData.data.length +" Results for " +"'"+this.state.searchProduct +"'"}</div>
+                  { Array.isArray(this.props.searchData.data) && this.props.searchData.data.length > 0 ?
+                    Array.isArray(this.props.searchData.data) && this.props.searchData.data.map((data, index) => {            
+                      return (
+                        <div className={" col-3 "}  key={index}> 
+                          {data
+                          ?
+                            < SingleProduct 
+                              data = {data} 
+                              productSettings = {this.state.productSettings}
+                              userLatitude    = {this.state.latitude}
+                              userLongitude   = {this.state.longitude}
+                              user_ID         = {this.state.user_ID}
+                              // vendorlocation_ID = ''
+                            />
+                          :
+                            null
+                          }
+                        </div>                            
+                      );
+                    })
+                  :null}
+                </div>
+              :
+                <div className =" col-12 mb-5 text-center">
                     <h6>Opps... Sorry... No Products Available. Please search your product</h6>
                 </div>
               }
             </div>
+            
           </div>
           <Footer />
         </div>

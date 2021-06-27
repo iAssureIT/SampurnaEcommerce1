@@ -33,7 +33,7 @@ class CategoryFilters extends Component{
     constructor(props) {
         super(props);
         this.props = { 
-            // categoryData : [],
+            categoryData : [],
             // vendor_ID    : ''
             
         }

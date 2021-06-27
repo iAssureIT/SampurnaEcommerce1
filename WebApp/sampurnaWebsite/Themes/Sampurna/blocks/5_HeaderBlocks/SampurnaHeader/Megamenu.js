@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Link  from 'next/link';
+// import { useRouter } from 'next/router'
 import $, { post }            from 'jquery';
+
+// const router = useRouter()
 
 class Megamenu extends React.Component{
 constructor(props){
@@ -11,6 +14,7 @@ constructor(props){
         categoryData : [],
     }
 }
+
 componentDidMount(){
     var url = window.location.href.split('/');
     // console.log("url===",url);
@@ -49,7 +53,8 @@ render(){
                  Array.isArray(this.state.categoryData) && this.state.categoryData.map((sectionDetails,sectionindex)=>{  
                     return( 
                     <li key={sectionindex.toString()} className="nav-item dropdown dropDownLevel1">
-                        <Link href={"/vendor-list/"+sectionDetails.sectionUrl} passHref={true}>
+
+                        <Link className={"HeaderSection_"+sectionDetails._id} href={"/vendor-list/[sectionurl]"}  as={"/vendor-list/"+sectionDetails.sectionUrl} passHref={true}>
                             <a className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
                         </Link> 
                         

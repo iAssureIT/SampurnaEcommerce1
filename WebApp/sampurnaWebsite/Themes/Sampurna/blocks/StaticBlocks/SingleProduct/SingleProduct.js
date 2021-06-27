@@ -20,7 +20,7 @@ class SingleProduct extends Component{
     }
 
     componentDidMount(){
-        console.log("single productView props=",this.props);
+        // console.log("single productView props=",this.props);
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
@@ -51,31 +51,7 @@ class SingleProduct extends Component{
     }
 
     addCart(formValues, quantityAdded, availableQuantity) {
-      if(this.state.webSiteModel === 'FranchiseModel'){
-        axios.post('/api/carts/post', formValues)
-          .then((response) => {
-            this.props.fetchCartData();
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": "&nbsp; " + response.this.props.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 2000);
-          })
-          .catch((error) => {
-            console.log('error', error);
-          })
-      }else{
       if (quantityAdded >= availableQuantity) {
-      
         this.setState({
           messageData: {
             "type": "outpage",
@@ -90,14 +66,14 @@ class SingleProduct extends Component{
             messageData: {},
           })
         }, 2000);
-      } else {
+     
         axios.post('/api/carts/post', formValues)
           .then((response) => {
             this.setState({
               messageData: {
                 "type": "outpage",
                 "icon": "fa fa-check-circle",
-                "message": "&nbsp; " + response.this.props.data.message,
+                "message": "&nbsp; " + response.data.message,
                 "class": "success",
                 "autoDismiss": true
               }
@@ -114,12 +90,10 @@ class SingleProduct extends Component{
           .catch((error) => {
             console.log('error', error);
           })
-      }
-    }//end else websiteModel
     }
+  }
   
     submitCart(event) {
-      console.log("lat long",this.props.userLongitude,this.props.userLatitude,this.props.vendorlocation_ID);
       if(this.state.user_ID){
         var id = event.target.id;
         var availableQuantity = event.target.getAttribute('availablequantity');
@@ -135,7 +109,7 @@ class SingleProduct extends Component{
           "vendorName"        : event.target.getAttribute('vendor_name'),
           "vendor_ID"         : this.props.vendor_ID,     
         }   
-        // console.log("formValues=",formValues);   
+        console.log("formValues=",formValues);   
 
       this.addCart(formValues, quantityAdded, availableQuantity);
       
@@ -160,22 +134,7 @@ class SingleProduct extends Component{
       }//end else
     }
     }
-    getWishlistData() {
-      axios.get('/api/wishlist/get/wishlistdata/' + this.state.user_ID)    
-        .then((response) => {
-          if(response){
-            // console.log("wislist response====",response.data);
-            this.setState({
-              wishList: response.data
-            },()=>{
-                  // console.log("2.My Wislist products ====",this.state.wishList);
-            })
-          }        
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
-    }
+  
     addtowishlist(event) {
       event.preventDefault();
       if (this.state.user_ID) {
@@ -199,7 +158,7 @@ class SingleProduct extends Component{
               messageData: {
                 "type": "outpage",
                 "icon": "fa fa-check-circle",
-                "message": "&nbsp; " + response.this.props.data.message,
+                "message": "&nbsp; " + response.data.message,
                 "class": "success",
                 "autoDismiss": true
               }
@@ -210,6 +169,12 @@ class SingleProduct extends Component{
               })
             }, 2000);
             this.props.getWishlistData();
+            // if(this.props.blockType === "wishlist"){
+            //     this.getWishListData();
+            // }else{
+            //   this.props.getWishlistData();
+            // }
+            
           })
           .catch((error) => {
             console.log('error', error);
@@ -230,13 +195,33 @@ class SingleProduct extends Component{
               messageData: {},
             })
           }, 2000);
-        
       }
     }
+    getWishListData() {
+      // console.log("inside wishlist");
+    var formValues ={
+      "user_ID"             : this.state.user_ID,
+      "userLat"             : this.state.userLongitude, 
+      "userLong"            : this.state.userLongitude
+    }
+      console.log("formValues=",formValues);
   
+      axios.post('/api/wishlist/get/userwishlist', formValues)    
+        .then((response) => {
+          if(response){
+            console.log('wishlist data', response.data);
+            this.setState({
+              wishlistData: response.data
+            })
+          }
+        })
+        .catch((error) => {
+          console.log('error', error);
+        })
+    }
 
     render(){
-    //   console.log("single productView props=",this.props.data);
+      // console.log("single productView props=",this.props);
       { var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.props.data._id) : [];                              
         var wishClass = 'r';
         var tooltipMsg = '';
@@ -245,13 +230,17 @@ class SingleProduct extends Component{
           tooltipMsg = 'Remove from wishlist';
         } else {
           wishClass = 'r';
+          // console.log("wishClass==",wishClass);
           tooltipMsg = 'Add To Wishlist';
         }   
         var categoryUrl = (this.props.data.category?this.props.data.category:"").replace(/\s+/g, '-').toLowerCase();;                    
         }
 
       return (
-        <div className="row">
+        <div className="row cbdftx">
+            {/* <div className="col-12">
+              <Message messageData={this.state.messageData} />  
+            </div> */}
             <div className={" col-12 " +Style.mobileViewPadding +" "+Style.productWrapper} > 
                 <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                 <div className={"col-12 NoPadding"}>
@@ -260,6 +249,10 @@ class SingleProduct extends Component{
                         {this.props.productSettings.displayWishlist === true?
                             this.state.user_ID?
                             <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                              // this.props.data.isWish?
+                              //   <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa fa-heart wishListIconColor "}></i></button>
+                              //   :
+                              //   <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"far fa-heart wishListIconColor "}></i></button>
                             :
                             <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                         :null

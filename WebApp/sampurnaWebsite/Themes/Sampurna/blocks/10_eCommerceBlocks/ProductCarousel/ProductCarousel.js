@@ -436,10 +436,6 @@ submitCart(event) {
     event.preventDefault();
     if (this.state.user_ID) {
       var id = event.target.id;
-      // const formValues = {
-      //   "user_ID": this.state.user_ID,
-      //   "product_ID": id,
-      // }
          var formValues = {
             "user_ID"             : this.state.user_ID,
             "userDelLocation"     : {
@@ -450,7 +446,7 @@ submitCart(event) {
             "vendor_id"           : this.state.vendor_id,
             "vendorLocation_id"   : this.state.vendorLocation_id,
             "product_ID"          : id
-        }
+          }
         
       axios.post('/api/wishlist/post', formValues)
         .then((response) => {
@@ -874,6 +870,7 @@ submitCart(event) {
                         </div>
                       </div>
                     </div> 
+
                     <div className="col-12">
                         {this.state.newProducts.length>=1?
                           <Product newProducts={this.state.newProducts}
@@ -890,7 +887,8 @@ submitCart(event) {
                             <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
                         </div>
                         }
-                      </div>
+                    </div>
+                    
                     </div>                  
                   </div>                    
                   :

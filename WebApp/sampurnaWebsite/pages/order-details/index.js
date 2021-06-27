@@ -336,7 +336,7 @@ export default class OrderDetails extends Component {
                                 vendorWiseOrderData = {vendordata}
                                 orderData           = {this.state.orderData}
                                 orderStatus         = {vendordata.orderStatus}
-                                currency            = <span className="currencyColor">{this.state.currency}</span>
+                                currency            = {this.state.currency}
                                 user_ID             = {this.state.user_ID}
                                 reviewuserData      = {this.state.reviewuserData}
                                 orderID             = {this.state.orderData._id}

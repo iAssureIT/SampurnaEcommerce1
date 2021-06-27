@@ -21,13 +21,13 @@ function Home({pageData,productApi}) {
 }
 
 export async function getServerSideProps({query}){  
-  // console.log("query",query)
+  console.log("Subcategory query",query)
   // var productApi = "/api/products/get/listbysubcategory/"+query.subcategoryUrl;
   var productApi = "/api/products/get/list/lowestprice";
   const urlParam = query.categoryUrl ? query.categoryUrl : 'product-list'
   const res = await axios.get("api/pages/get/page_block/product-list")
   const pageData = await res.data;
-  // console.log("Pagedata--------",pageData);
+  console.log("Pagedata--------",pageData);
   return {
     props:{
       pageData,
