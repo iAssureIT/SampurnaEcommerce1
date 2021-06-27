@@ -125,8 +125,8 @@ class AddressBook extends Component{
         return(      
             <div className="container-flex "> 
             <div className=" col-12">
-            <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">
-                <div className="modal-content loginModalContent " style={{ 'background': '#fff'}}>
+            <div className="modal col-4 offset-4 " id="checkoutAddressModal" role="dialog">
+                <div className="modal-content-center  loginModalContent " style={{ 'background': '#fff'}}>
                     <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                         <div className="col-4">
                             < WebsiteLogo /> </div>
@@ -136,7 +136,7 @@ class AddressBook extends Component{
                             <button type="button" className="close" data-dismiss="modal">&times;</button>
                         </div>
                     </div>
-                    <div className="modal-body addressModalBody">
+                    <div className="modal-body  addressModalBody">
                         <UserAddress /> 
                     </div>
                 </div>
@@ -147,16 +147,16 @@ class AddressBook extends Component{
                 <div className="row">
                     <div className="col-12 pt-4 ">
                         <div className="row">
-                            <div className="col-12 col-lg-6">
+                            <div className="col-12 col-lg-6 py-4">
                                 <div className="col-12"> { this.state.addressLine1 ?
                                     <div className="row">
-                                        <label>Default Shipping / Billing Address</label>
+                                        <label className="font-weight-bold">Default Shipping / Billing Address</label>
                                         <p> {this.state.name}
                                             <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {this.state.addressLine1} - {this.state.pincode}.
                                             <br /> {/* {this.state.city},
                                             <br /> */} {/* {this.state.state}, {this.state.country} - {this.state.pincode}
                                             <br /> */} Contact Number: {this.state.mobileNumber} </p>
-                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn mt-2">Change Billing Address</div> {/* <i id={this.state.deliveryAddressID} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn anasBtn deleteAdd"></i> */} </div> :
+                                        <div data-toggle="modal" data-target="#checkoutAddressModal" id={this.state.deliveryAddressID} onClick={this.getAddressId.bind(this)} className="btn globalCommonBtn ">Change Billing Address</div> {/* <i id={this.state.deliveryAddressID} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn anasBtn deleteAdd"></i> */} </div> :
                                     <div className="col-12">
                                         <label>Default Billing Address</label>
                                         <p>You have not set a default billing address.</p>
@@ -164,10 +164,14 @@ class AddressBook extends Component{
                                     </div> } </div>
                             </div>
                             <div className="col-12 NOpaddingRight ">
-                                <label className="text-center">Additional Address Entries</label> { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
-                                <div key={ 'address'+index} className="col-12 col-md-6 ">
+                            <label className="text-center font-weight-bold">Additional Address Entries</label>
+                                <div className="row">
+                                 { this.state.deliveryAddresses && this.state.deliveryAddresses.length > 1 ? this.state.deliveryAddresses.map((address , index)=>{ if(index !== 0){ return(
+                                
+                                <div key={ 'address'+index} className="col-12 col-md-6 mx-auto py-3">
+                                <div className="row">
                                     <div className="col-12 ">
-                                        <div className="row">
+                                        
                                             <p> {address.name}
                                                 <br /> {this.state.addressLine2 ? this.state.addressLine2+", " : null} {address.addressLine1}
                                                 <br /> {/* {this.state.city},
@@ -179,11 +183,15 @@ class AddressBook extends Component{
                                                 &nbsp; <i id={address._id} onClick={this.deleteAddress.bind(this)} className="fa fa-trash btn globalCommonBtn deleteAdd" style={{ "fontSize": '15px' }}></i> 
                                             </div>
                                     </div>
-                                </div> ); } }) :
+                                </div>
+                                
+                                 ); } }) :
                                 <p className="text-justify">You have no other address entries in your address book.</p> }
-                                <div className="col-12 NOpadding mt25">
+                                <div className="col-12 NOpadding py-4">
                                     <div data-toggle="modal" data-target="#checkoutAddressModal" id="" className={"btn globalCommonBtn addressSaveBtn " }>Add New Address</div>
                                 </div>
+                            </div>
+
                             </div>
                         </div>
                     </div>

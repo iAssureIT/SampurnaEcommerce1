@@ -18,7 +18,7 @@ import Wishlist             from  '../../pages/wishlist/index.js'
 import Productreview        from '../../pages/productreview/index.js'
 import OrderDetails         from '../../pages/order-details/index.js';
 import CreditPoints         from '../../pages/creditPoints/index.js';
-import S                from './index.module.css';
+import S                    from './index.module.css';
 
 
 
