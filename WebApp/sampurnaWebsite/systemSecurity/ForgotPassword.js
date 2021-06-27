@@ -153,7 +153,7 @@ class ForgotPassword extends Component {
                                             </div>
                                             :
                                             <div className="col-xl-12 col-md-12 col-sm-12 col-12 mt15 forgotPassBtn">
-                                                <button id="sendlink" type="button"  onClick={this.sendLink.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  btn loginBtn globaleCommBtn waves-effect">Send OTP</button>                                                
+                                                <button id="sendlink" type="button"  onClick={this.sendLink.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  btn loginBtn signInBtn waves-effect">Send OTP</button>                                                
                                             </div>
                                     }
                                     {/* <div className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-xs-12 mt25 mb25">

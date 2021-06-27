@@ -154,147 +154,47 @@ class SignUp extends Component {
 		});
 		return formIsValid;
 	  }
+	  
 	userSignupWithOtp(event){
-		event.preventDefault();
-		var formValues = {
-			firstname   : this.state.firstname,
-			lastname    : this.state.lastname,
-			mobNumber   : (this.state.mobNumber).replace("-", ""),
-			pincode     : "",
-			email       : this.state.signupEmail,
-			pwd         : this.state.signupPassword,
-			role        : 'user',
-			status      : 'unverified',
-			countryCode : "uae",
-			username    : "MOBILE",
-		}
-		axios.post('/api/auth/post/signup/user/otp',formValues)
-		.then((signupResponse) =>{
-			if(signupResponse){
-				console.log("signupResponse=",signupResponse);
-				this.props.updateFormValue("signupotp");
+	event.preventDefault();
+		// if(this.validateForm()){
+			var formValues = {
+				firstname   : this.state.firstname,
+				lastname    : this.state.lastname,
+				mobNumber   : (this.state.mobNumber).replace("-", ""),
+				pincode     : "",
+				email       : this.state.signupEmail,
+				pwd         : this.state.signupPassword,
+				role        : 'user',
+				status      : 'unverified',
+				countryCode : "uae",
+				username    : "MOBILE",
 			}
-		})
-		.catch((error)=>{
-			console.log("getting error while signup user",error);
-		})
-	}
-
-	usersignup(event) {
-		event.preventDefault();
-		if(this.validateForm()){
-			var auth = {
-				firstname: this.state.firstname,
-				lastname: this.state.lastname,
-				mobNumber: (this.state.mobNumber).replace("-", ""),
-				pincode: this.state.pincode,
-				email: this.state.signupEmail,
-				username: this.state.signupEmail,
-				pwd: this.state.signupPassword,
-				role: 'user',
-				status: 'active',
-				"emailSubject": "Email Verification",
-				"emailContent": "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
-			}
-			document.getElementById("signUpBtn").innerHTML = 
-			this.setState({ btnLoading: true });
-			var passwordVar = this.refs.signupPassword.value;
-			var signupConfirmPasswordVar = this.refs.signupConfirmPassword.value;
-				if(this.validateForm()){
-				return (passwordVar.length >= 6) ?
-					(true,
-						axios.post('/api/auth/post/signup/user', auth)
-							.then((response) => {
-								if (response.data.message === 'USER_CREATED') {
-									var auth = {
-										email: this.state.signupEmail,
-										password: this.state.signupPassword,
-										role: "user"
-									}
-									axios.post('/api/auth/post/login', auth)
-										.then((response) => {
-											this.setState({ btnLoading: false });
-											if (response) {
-												var sendData = {
-													"event": "Sign Up",
-													"toUser_id": response.data.userDetails.user_id,
-													"toUserRole":"user",
-													"variables": {
-													"Username" : response.data.userDetails.firstName,
-													}
-												}
-													axios.post('/api/masternotifications/post/sendNotification', sendData)
-													.then((res) => {
-														// console.log('sendDataToUser in result==>>>', res.data)
-													})
-													.catch((error) => { console.log('notification error: ',error)})
-													
-												var userDetails = {
-													firstname	: response.data.userDetails.firstName,
-													lastname	: response.data.userDetails.lastName,
-													email		: response.data.userDetails.email,
-													mobNumber   : response.data.userDetails.mobile,
-													pincode		: response.data.userDetails.pincode,
-													user_id		: response.data.userDetails.user_id,
-													roles		: response.data.userDetails.roles,
-													token		: response.data.userDetails.token,
-												}
-													localStorage.setItem('userDetails', JSON.stringify(userDetails));
-													swal('Congratulations! You have been successfully Login, Now you can place your order.')
-													window.location.reload();
-											}
-
-										})
-										.catch((error) => {
-											console.log("Error:", error);
-										})
-									this.setState({
-										loggedIn: true
-									})
-
-								} else {
-									this.setState({ btnLoading: false });
-									swal(response.data.message);
-								}
-							})
-							.catch((error) => {
-								console.log("Signup Error :", error);
-							})
-					)
-					:
-					(
-						document.getElementById("signUpBtn").innerHTML = 'Sign Up',
-
-						swal("Password should be at least 6 Characters Long, Please try again or create an Account.")
-					)
-
-			} else {
-				this.setState({ btnLoading: false });
-				swal("Passwords does not match, Please Try Again.");
-			}
-		//}
-	   }
-	} 
-
-	checkUserExists(event) {
-		if (event.target.value !== '') {
-			axios.get('/get/checkUserExists/' + event.target.value)
-				.then((response) => {
-					if (response.data.length > 0) {
-						$(".checkUserExistsError").show();
-						$('.button3').attr('disabled', 'disabled');
-						this.setState({ checkUserExists: 1 })
-					} else {
-						$(".checkUserExistsError").hide();
-						$('.button3').removeAttr('disabled');
-						this.setState({ checkUserExists: 0 })
+			axios.post('/api/auth/post/signup/user/otp',formValues)
+			.then((signupResponse) =>{
+				if(signupResponse){
+					console.log("signupResponse=",signupResponse);
+					var userDetails = {
+						firstname	: signupResponse.data.result.profile.firstname,
+						lastname	: signupResponse.data.result.profile.lastname,
+						email		: signupResponse.data.result.profile.email,
+						mobNumber   : signupResponse.data.result.profile.mobile,
+						pincode		: signupResponse.data.result.profile.pincode,
+						// user_id		: signupResponse.data.ID,
+						userId      : signupResponse.data.ID,
+						roles		: signupResponse.data.result.roles[0],
 					}
-				})
-				.catch(function (error) {
-				})
-		} else {
-			$(".checkUserExistsError").hide();
-		}
+					console.log("userDetails===",userDetails);
+
+					localStorage.setItem('userDetails', JSON.stringify(userDetails));
+					swal(signupResponse.data.message);
+					this.props.updateFormValue("signupotp");
+				}
+			})
+			.catch((error)=>{
+				console.log("getting error while signup user",error);
+			})
+		//}
 	}
 
 	handleChange(event){
@@ -342,8 +242,7 @@ class SignUp extends Component {
 		$(".modalbg").css("display", "none");
 	}
 	componentDidMount() {
-		//this.validation();
-		$(".checkUserExistsError").hide();
+
 	}
 	//password show hide working
 	showSignUpPass() { 
@@ -423,7 +322,7 @@ class SignUp extends Component {
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
 						{/* <label>Mobile Number</label><label className="astricsign">*</label>   */}
 						<PhoneInput
-						country={'uae'} 
+						country={'ae'} 
 						value={this.state.mobNumber}
 						name="mobNumber"
 						className="col-12 formcontrol1"
@@ -440,7 +339,7 @@ class SignUp extends Component {
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
 						<label>Email ID</label>
 						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="" onChange={this.handleChange} data-text="emailIDV" />
-						<label className="checkUserExistsError">User already exists!!!</label>
+						{/* <label className="checkUserExistsError">User already exists!!!</label> */}
 						<div className="errorMsg">{this.state.errors.signupEmail}</div>
 					</div>
 					

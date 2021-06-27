@@ -49,7 +49,7 @@ class GoogleMap extends React.Component {
     }  
    render(){
         return(  
-            <div className={" NoPadding col-12  mt-4 mb-4 " +Style.zindex +" "+Style.height550 +" " +Style.googleMap}>   
+            <div className={" NoPadding googlemap col-12  mt-4 mb-4 " +Style.zindex +" "+Style.height550 +" " +Style.googleMap}>   
                 {this.props.latLongDetails ? 
                 <div style={{ height: '520px', width: '100%' }}>
                     <GoogleMapReact

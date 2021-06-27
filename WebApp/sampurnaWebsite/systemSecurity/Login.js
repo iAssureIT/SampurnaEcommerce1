@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Link, location } from 'react-router-dom';
-import 'font-awesome/css/font-awesome.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import swal from 'sweetalert';
-import validator from 'validator';
-import getConfig from 'next/config';
-import { connect } from 'react-redux';
+import React, { Component }   from 'react';
+import { Route, location }    from 'react-router-dom';
+import swal                   from 'sweetalert';
+import validator              from 'validator';
+import getConfig              from 'next/config';
+import { connect }            from 'react-redux';
+import dynamic                from 'next/dynamic';
+import Image                  from 'next/image';
+import $                      from 'jquery';
+import jQuery                 from 'jquery';
+import axios                  from 'axios';
+import SignUp                 from './SignUp.js';
+import Facebooklogin          from './Facebooklogin.js';
+import Googlelogin            from './Googlelogin.js'
+import LoginAsGuest           from './LoginAsGuest.js';
 import { bindActionCreators } from  'redux';
-import dynamic from 'next/dynamic';
-import Image   from 'next/image';
-import $ from 'jquery';
-import jQuery from 'jquery';
-import axios from 'axios';
-import {getForm,updateForm} from '../redux/actions';
-import SignUp from './SignUp.js';
+import {getForm,updateForm}   from '../redux/actions';
 
 const { publicRuntimeConfig } = getConfig();
+
 class Login extends Component {
 
   constructor() {
@@ -37,6 +39,7 @@ class Login extends Component {
       errors: {}
     }
   }
+
   componentDidMount() {
     $(".hidePwd").css('display','none');
   }
@@ -47,7 +50,6 @@ class Login extends Component {
     this.setState({
       fields
     });
-
   }
 
   userlogin(event) {
@@ -64,8 +66,7 @@ class Login extends Component {
 
     if (this.validateForm()) {
       // document.getElementById("logInBtn").value = 'Please Wait...';
-      document.getElementById("logInBtn").value =
-        this.setState({ btnLoading: true });
+      document.getElementById("logInBtn").value = this.setState({ btnLoading: true });
       axios.post('/api/auth/post/login', auth)
         .then((response) => {
           // console.log("preference.data, ===> ",response.data.userDetails);
@@ -83,25 +84,8 @@ class Login extends Component {
               token: response.data.userDetails.token,
             }
             // console.log("response.data.data, ===> ",response.data);
-            document.getElementById("logInBtn").value = 'Sign In';
-            // localStorage.setItem("token", response.data.token);
-            // localStorage.setItem("user_ID", response.data.ID);
-            // localStorage.setItem("roles", response.data.roles);            
+            document.getElementById("logInBtn").value = 'Sign In';           
             localStorage.setItem('userDetails', JSON.stringify(userDetails));
-              // axios.get("/api/adminPreference/get")
-              //     .then(preference =>{
-              //       var websiteModel = preference.data[0].websiteModel;
-              //       var showLoginAs = preference.data[0].showLoginAs;
-              //       var preferencedata = preference.data[0];
-              //       // console.log("preference.data, ===> ",preferencedata);
-              //       localStorage.setItem("websiteModel",websiteModel);
-              //       localStorage.setItem("showLoginAs",showLoginAs);
-              //       localStorage.setItem("preferencedata",preferencedata);
-              //     })
-              //     .catch(error=>{
-              //         console.log("Error in getting adminPreference ===> ", error);
-              //     }) 
-
             this.setState({
               loggedIn: true
             }, () => {
@@ -151,9 +135,6 @@ class Login extends Component {
             text: "Please enter valid Email ID and Password"
           })
           this.setState({ btnLoading: false });
-          // document.getElementById("logInBtn").value = 'Sign In';
-          // if (localStorage !== null) {
-          // }
         });
     }
   }
@@ -192,14 +173,11 @@ class Login extends Component {
     $("#loginFormModal").css("display", "none");
     $('.modal-backdrop').remove();
     $("#signUpFormModal").show();
-   
   }
+
   openSignUpModal(event){
       event.preventDefault();
-      this.props.updateFormValue("signUp");
-      // $("#pageOpacity").show();
-      // $('#loginFormModal').show();
-      
+      this.props.updateFormValue("signUp");    
   }
   openForgotPasswordModal(event){
     event.preventDefault();
@@ -222,17 +200,7 @@ class Login extends Component {
     $('.hidePwd').toggleClass('hidePwd1');
     return $('#loginpassword').attr('type', 'password');
   }
-  Closepagealert(event) {
-    event.preventDefault();
-    $(".toast-error").html('');
-    $(".toast-success").html('');
-    $(".toast-info").html('');
-    $(".toast-warning").html('');
-    $(".toast-error").removeClass('toast');
-    $(".toast-success").removeClass('toast');
-    $(".toast-info").removeClass('toast');
-    $(".toast-warning").removeClass('toast');
-  }
+
   render() {
     // console.log('local userDetails')
     return (
@@ -247,7 +215,7 @@ class Login extends Component {
                 {/* style={{'background': 'url("../../static/'+publicRuntimeConfig.CURRENT_SITE+'/images/Logo.png")'}} */}
                
                 <div className="col-12">
-                  <h4>SIGN IN</h4>
+                  <h5>SIGN IN</h5>
                 </div>
               </div>
               <div className="col-12 textAlignment mt10 ">
@@ -301,21 +269,23 @@ class Login extends Component {
                   <div className="col-12 mt30 mb25 NoPadding">
                     <div className="row">                      
 
-                      <div className="col-12 ">
+                      <div className="col-12 mt-2 mb-2 ">
                         <div className="row">
                           <hr className="col-3 whiteClr" ></hr>
                           <span className="col-2 text-center">&nbsp;OR&nbsp;</span>
                           <hr className="col-3 whiteClr"></hr>
                         </div>
                       </div>
-                      <div className="col-12 mb-2 mt-4">
-                          <button className="btn facebookBtn col-12 NoPadding">Login with Facebook</button>
+                      <div className="col-12 facebookLoginBtn mb-2 mt-2">
+                          {/* <button className="btn facebookBtn col-12 NoPadding">Login with Facebook</button> */}
+                          < Facebooklogin />
                       </div>
-                      <div className="col-12 mb-2 ">
-                          <button className="btn googleBtn btn-danger col-12 NoPadding">Login with Google</button>
+                      <div className="col-12 mb-2 googleLoginBtn ">
+                          {/* <button className="btn googleBtn btn-danger col-12 NoPadding">Login with Google</button> */}
+                          < Googlelogin />
                       </div>
                       <div className="col-12 mb-2">
-                          <button className="btn guestBtn col-12 NoPadding">Login As a Guest</button>
+                          <LoginAsGuest />
                       </div>
                     </div>
                   </div>
