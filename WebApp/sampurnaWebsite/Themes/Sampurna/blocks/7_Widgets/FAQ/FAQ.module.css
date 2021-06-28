@@ -18,6 +18,7 @@
 }
 .faqRepeatedBlockQuestion{
     font-size: 16px;
+    margin-left: 30px !important;
 }
 .faqRepeatedBlockAnswer{
     font-size: 16px;
@@ -37,6 +38,11 @@
 
 .card{
     border: none;
+}
+.plusIconWrapper{
+    position: absolute;
+    margin-left: 0%;
+    margin-top: -16px!important;
 }
 .card i{
     margin-top: -15px;

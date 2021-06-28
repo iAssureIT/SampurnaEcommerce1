@@ -182,7 +182,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header card_header "+S.card_header} role="tab" id="heading1">
 													<a data-toggle="collapse" data-parent="#accordionEx" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[0] ? this.state.blocks.repeatedBlocks[0].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 													
 												</div>
@@ -197,7 +197,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading2">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse2" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading2" data-parent="#accordionEx">
@@ -211,7 +211,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading3">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[2] ? this.state.blocks.repeatedBlocks[2].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse3" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading3" data-parent="#accordionEx">
@@ -225,7 +225,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading4">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse4" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading4" data-parent="#accordionEx">
@@ -239,7 +239,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading5">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[4] ? this.state.blocks.repeatedBlocks[4].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse5" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading5" data-parent="#accordionEx">
@@ -259,7 +259,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading6">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse6" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading6" data-parent="#accordionEx">
@@ -273,7 +273,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading7">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[6] ? this.state.blocks.repeatedBlocks[6].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse7" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading7" data-parent="#accordionEx">
@@ -287,7 +287,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading8">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[7] ? this.state.blocks.repeatedBlocks[7].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse8" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading8" data-parent="#accordionEx">
@@ -301,7 +301,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading9">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[8] ? this.state.blocks.repeatedBlocks[8].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse9" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading9" data-parent="#accordionEx">
@@ -315,7 +315,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading10">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[9] ? this.state.blocks.repeatedBlocks[9].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse10" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading10" data-parent="#accordionEx">
@@ -341,7 +341,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading11">
 													<a data-toggle="collapse" data-parent="#accordionEx" href="#collapse11" aria-expanded="true" aria-controls="collapse11">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[10] ? this.state.blocks.repeatedBlocks[10].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse11" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading11" data-parent="#accordionEx">
@@ -355,7 +355,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading12">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[11] ? this.state.blocks.repeatedBlocks[11].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse12" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading12" data-parent="#accordionEx">
@@ -369,7 +369,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading13">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse13" aria-expanded="false" aria-controls="collapse13">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[12] ? this.state.blocks.repeatedBlocks[12].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse13" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading13" data-parent="#accordionEx">
@@ -383,7 +383,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading14">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse14" aria-expanded="false" aria-controls="collapse14">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[13] ? this.state.blocks.repeatedBlocks[13].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse14" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading14" data-parent="#accordionEx">
@@ -397,7 +397,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading15">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse15" aria-expanded="false" aria-controls="collapse15">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[14] ? this.state.blocks.repeatedBlocks[14].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse15" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading15" data-parent="#accordionEx">
@@ -418,7 +418,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading16">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse16" aria-expanded="false" aria-controls="collapse16">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[15] ? this.state.blocks.repeatedBlocks[15].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse16" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading16" data-parent="#accordionEx">
@@ -432,7 +432,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading17">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse17" aria-expanded="false" aria-controls="collapse17">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[16] ? this.state.blocks.repeatedBlocks[16].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse17" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading17" data-parent="#accordionEx">
@@ -446,7 +446,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading18">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[17] ? this.state.blocks.repeatedBlocks[17].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse18" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading18" data-parent="#accordionEx">
@@ -460,7 +460,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading19">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse19" aria-expanded="false" aria-controls="collapse19">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[18] ? this.state.blocks.repeatedBlocks[18].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse19" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading19" data-parent="#accordionEx">
@@ -474,7 +474,7 @@ export default class FAQ extends Component{
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading20">
 													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse20" aria-expanded="false" aria-controls="collapse20">
 														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[19] ? this.state.blocks.repeatedBlocks[19].Title : ""}}></h6>
-														<i class="fas fa-plus   pull-right"></i>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
 												<div id="collapse20" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading20" data-parent="#accordionEx">
