@@ -3,9 +3,18 @@ import { colors } from '../styles.js';
 export default StyleSheet.create({
 	container:{
 		flex:1,
-		paddingHorizontal:15,
+		// paddingHorizontal:15,
 		paddingVertical:5,
-		backgroundColor:"#fff"
+		backgroundColor:"#fff",
+	},
+	block1:{
+		// position:"absolute",
+		top:0,
+		left:0,
+		right:0,
+		height:180,
+		backgroundColor:"#fff",
+		justifyContent:"center"
 	},
 	regionalProductName:{
 		fontFamily:'aps_dev_priyanka',
@@ -127,7 +136,8 @@ export default StyleSheet.create({
 		flex:1,
 		// minHeight:Dimensions.get('window').height,
 		flexDirection: 'row',
-		marginBottom:55
+		marginBottom:55,
+		paddingHorizontal:5,
 		// backgroundColor:"#ff0"
 	},
 	nameprod: {

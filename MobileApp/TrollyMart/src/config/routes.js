@@ -49,20 +49,14 @@ import {ProductVendorList}        from '../Screens/VendorList/ProductVendorList.
 import {VendorProducts}           from '../Screens/VendorProducts/VendorProducts.js';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import  HeaderBar2                 from '../ScreenComponents/HeaderBar2/HeaderBar2.js';
-import Drawer                     from 'react-native-drawer';
+// import Drawer                     from 'react-native-drawer';
 import {AboutUs}                  from '../Screens/AboutUs/AboutUs.js';
 import {ContactUs}                from '../Screens/ContactUs/ContactUs.js';
 import {FAQ}                      from '../Screens/FAQ/FAQ.js';
 import {TermsAndConditions}               from '../Screens/TermsAndConditions/TermsAndConditions.js';
 import {PrivacyPolicy}               from '../Screens/PrivacyPolicy/PrivacyPolicy.js';
 import {RewardsPoint}               from '../Screens/RewardsPoints/RewardsPoint.js';
-
-
-const Home = createDrawerNavigator();
-const TransitionScreenOptions = {
-  ...TransitionPresets.ModalTransition, // This is where the transition happens
-};
-
+import {Footer}                 from '../ScreenComponents/Footer/Footer.js';
 
 const horizontalAnimation = {
   gestureDirection: 'horizontal-inverted',
@@ -82,55 +76,6 @@ const horizontalAnimation = {
   },
 };
 
-export const HomeStack = () => (
-
-  
-  <Home.Navigator 
-    headerMode            = "none"
-    // mode="modal"
-    initialRouteName ="Dashboard"
-    screenOptions={horizontalAnimation}
-    
-    drawerContent   = { (props) =>  <Drawer><Menu { ...props } /></Drawer>}
-  >
-    <Home.Screen name="Dashboard"                   component={Dashboard}  options={getHeaderConfig("",false)}/>
-    <Home.Screen name="CategoriesComponent"         component={CategoriesComponent} options={getHeaderConfig("Dashboard",true)}/>
-    <Home.Screen name="SubCategoriesComp"           component={SubCategoriesComp}options={getHeaderConfig("Product List",true)} />
-    <Home.Screen name="AllProductList"              component={AllProductList} options={getHeaderConfig("Product List",true)}/>
-    <Home.Screen name="SearchList"                  component={SearchList} options={getHeaderConfig("Search List",true)}/>
-    <Home.Screen name="SubCatCompView"              component={SubCatCompView} options={getHeaderConfig("Product Details",true)}/>
-    <Home.Screen name="CartComponent"               component={CartComponent} options={getHeaderConfig("My Cart",true)}/>
-    {/* <Home.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} options={getHeaderConfig("Dashboard")}/> */}
-    <Home.Screen name="AddressDefaultComp"          component={AddressDefaultComp} options={getHeaderConfig("Delivery Addresses",true)}/>
-    <Home.Screen name="AddressComponent"            component={AddressComponent} options={getHeaderConfig("Add Address",true)}/>
-    <Home.Screen name="AddressComponentforaddress"  component={AddressComponentforaddress} options={getHeaderConfig("Dashboard")}/>
-    <Home.Screen name="AddressMenu"                 component={AddressMenu} options={getHeaderConfig("Dashboard")}/>
-    <Home.Screen name="WishlistComponent"           component={WishlistComponent} options={getHeaderConfig("My Wishlist",true)}/>
-    <Home.Screen name="MyOrder"                     component={MyOrder} options={getHeaderConfig("My Orders",true)}/>
-    <Home.Screen name="OrderDetails"                component={OrderDetails} options={getHeaderConfig("Orders Details",true)}/>
-    <Home.Screen name="AccountDashboard"            component={AccountDashboard} options={getHeaderConfig("Account Dashboard",true)}/>
-    <Home.Screen name="ResetPwd"                    component={ResetPwd} options={getHeaderConfig("Reset Password",true)}/>
-    <Home.Screen name="AccountInformation"          component={AccountInformation} options={getHeaderConfig("Account Information",true)}/>
-    <Home.Screen name="MyAccount"                   component={MyAccount} options={getHeaderConfig("My Account",true)}/>
-    <Home.Screen name="MyProductReview"             component={MyProductReview} options={getHeaderConfig("Dashboard")}/>
-    <Home.Screen name="SupportSystem"               component={SupportSystem} options={getHeaderConfig("Help & Support",true)}/>
-    <Home.Screen name="OrderSummary"                component={OrderSummary} options={getHeaderConfig("Order Summary",true)}/>
-    <Home.Screen name="PaymentMethod"               component={PaymentMethod} options={getHeaderConfig("Payment Methods",true)}/>
-    <Home.Screen name="Stores"                      component={Stores} options={getHeaderConfig("Dashboard")}/>
-    <Home.Screen name="StoreDetails"                component={StoreDetails} options={getHeaderConfig("Dashboard")}/>
-    <Home.Screen name="InAppNotification"           component={InAppNotification} options={getHeaderConfig("Notifications",true)}/> 
-    <Home.Screen name="VendorList"                  component={VendorList} options={getHeaderConfig("Vendor List",true)}/>
-    <Home.Screen name="ProductVendorList"           component={ProductVendorList} options={getHeaderConfig("Vendor List",true)}/>
-    <Home.Screen name="VendorProducts"              component={VendorProducts} options={getHeaderConfig("Product List",true)}/>
-    <Home.Screen name="AboutUs"                     component={AboutUs} options={getHeaderConfig("About Us",true)}/>
-    <Home.Screen name="ContactUs"                   component={ContactUs} options={getHeaderConfig("Contact Us",true)}/>
-    <Home.Screen name="TermsConditions"             component={TermsAndConditions} options={getHeaderConfig("Terms & Conditions",true)}/>
-    <Home.Screen name="PrivacyPolicy"             component={PrivacyPolicy} options={getHeaderConfig("Privacy Policy",true)}/>
-    <Home.Screen name="RewardsPoint"             component={RewardsPoint} options={getHeaderConfig("My Rewards",true)}/>
-    <Home.Screen name="FAQ"                         component={FAQ} options={getHeaderConfig("Frequently Asked Questions",true)}/>
-  </Home.Navigator>
-);
-
 const getHeaderConfig = (title,backBtn) => {
   return {
     headerShown: true,
@@ -139,6 +84,59 @@ const getHeaderConfig = (title,backBtn) => {
     header: (props) => <HeaderBar2  headerTitle={title} backBtn={backBtn} />,
   };
 };
+
+const Tab = createBottomTabNavigator();
+export const BottomNavScreen = () => (
+  <Tab.Navigator 
+  initialRouteName ="Dashboard"
+  screenOptions={horizontalAnimation}
+  tabBar={props => <Footer {...props} />}
+  tabBarOptions={{
+    style: {
+      height: 40,
+      margin:0,
+      padding:0
+   }
+  }}
+    // drawerContent   = { (props) =>  <Drawer  options={{ swipeEnabled: false }}><Menu { ...props } /></Drawer>}
+  >
+    <Tab.Screen name="Dashboard"                   component={Dashboard}  options={getHeaderConfig("",false)}/>
+    <Tab.Screen name="MyAccount"                   component={MyAccount} options={getHeaderConfig("My Account",true)}/>
+    <Tab.Screen name="CartComponent"               component={CartComponent} options={getHeaderConfig("My Cart",true)}/>
+    <Tab.Screen name="WishlistComponent"           component={WishlistComponent} options={getHeaderConfig("My Wishlist",true)}/>
+    <Tab.Screen name="InAppNotification"           component={InAppNotification} options={getHeaderConfig("Notifications",true)}/> 
+    <Tab.Screen name="CategoriesComponent"         component={CategoriesComponent} options={getHeaderConfig("Dashboard",true)}/>
+    <Tab.Screen name="SubCategoriesComp"           component={SubCategoriesComp}options={getHeaderConfig("Product List",true)} />
+    <Tab.Screen name="AllProductList"              component={AllProductList} options={getHeaderConfig("Product List",true)}/>
+    <Tab.Screen name="SearchList"                  component={SearchList} options={getHeaderConfig("Search List",true)}/>
+    <Tab.Screen name="SubCatCompView"              component={SubCatCompView} options={getHeaderConfig("Product Details",true)}/>
+    {/* <Tab.Screen name="ConfirmOrderComponent"       component={ConfirmOrderComponent} options={getHeaderConfig("Dashboard")}/> */}
+    <Tab.Screen name="AddressDefaultComp"          component={AddressDefaultComp} options={getHeaderConfig("Delivery Addresses",true)}/>
+    <Tab.Screen name="AddressComponent"            component={AddressComponent} options={getHeaderConfig("Add Address",true)}/>
+    <Tab.Screen name="AddressComponentforaddress"  component={AddressComponentforaddress} options={getHeaderConfig("Dashboard")}/>
+    <Tab.Screen name="AddressMenu"                 component={AddressMenu} options={getHeaderConfig("Dashboard")}/>
+    <Tab.Screen name="MyOrder"                     component={MyOrder} options={getHeaderConfig("My Orders",true)}/>
+    <Tab.Screen name="OrderDetails"                component={OrderDetails} options={getHeaderConfig("Orders Details",true)}/>
+    <Tab.Screen name="AccountDashboard"            component={AccountDashboard} options={getHeaderConfig("Account Dashboard",true)}/>
+    <Tab.Screen name="ResetPwd"                    component={ResetPwd} options={getHeaderConfig("Reset Password",true)}/>
+    <Tab.Screen name="AccountInformation"          component={AccountInformation} options={getHeaderConfig("Account Information",true)}/>
+    <Tab.Screen name="MyProductReview"             component={MyProductReview} options={getHeaderConfig("Dashboard")}/>
+    <Tab.Screen name="SupportSystem"               component={SupportSystem} options={getHeaderConfig("Help & Support",true)}/>
+    <Tab.Screen name="OrderSummary"                component={OrderSummary} options={getHeaderConfig("Order Summary",true)}/>
+    <Tab.Screen name="PaymentMethod"               component={PaymentMethod} options={getHeaderConfig("Payment Methods",true)}/>
+    <Tab.Screen name="Stores"                      component={Stores} options={getHeaderConfig("Dashboard")}/>
+    <Tab.Screen name="StoreDetails"                component={StoreDetails} options={getHeaderConfig("Dashboard")}/>
+    <Tab.Screen name="VendorList"                  component={VendorList} options={getHeaderConfig("Vendor List",true)}/>
+    <Tab.Screen name="ProductVendorList"           component={ProductVendorList} options={getHeaderConfig("Vendor List",true)}/>
+    <Tab.Screen name="VendorProducts"              component={VendorProducts} options={getHeaderConfig("Product List",true)}/>
+    <Tab.Screen name="AboutUs"                     component={AboutUs} options={getHeaderConfig("About Us",true)}/>
+    <Tab.Screen name="ContactUs"                   component={ContactUs} options={getHeaderConfig("Contact Us",true)}/>
+    <Tab.Screen name="TermsConditions"             component={TermsAndConditions} options={getHeaderConfig("Terms & Conditions",true)}/>
+    <Tab.Screen name="PrivacyPolicy"             component={PrivacyPolicy} options={getHeaderConfig("Privacy Policy",true)}/>
+    <Tab.Screen name="RewardsPoint"             component={RewardsPoint} options={getHeaderConfig("My Rewards",true)}/>
+    <Tab.Screen name="FAQ"                         component={FAQ} options={getHeaderConfig("Frequently Asked Questions",true)}/>
+  </Tab.Navigator>
+);
 
 const RegisterRoutes = createStackNavigator();
 export const RegisterStack = () => (
@@ -166,19 +164,28 @@ export const LocationScreen = () => (
 
 const App = createStackNavigator();
 const AppStack = () => (
-  <App.Navigator headerMode="none">
-      <App.Screen name="App"              component={HomeStack} />
-      <App.Screen name="Auth"             component={RegisterStack} />
-      <App.Screen name="LocationMain"     component={LocationScreen} />
+  <App.Navigator>
+    <App.Screen name="App" component={BottomNavScreen} 
+      options={{
+        headerShown: true,
+        headerTitleAlign: "left",
+        header: props => <HeaderBar2  {...props} />,
+      }} />
+      <App.Screen name="Auth"             component={RegisterStack} options={{headerShown: false}}/>
+      <App.Screen name="LocationMain"     component={LocationScreen} options={{headerShown: false}} />
   </App.Navigator>
 );
 
 const Auth = createStackNavigator();
 const AuthStack = () => (
   <Auth.Navigator headerMode="none">
-      <Auth.Screen name="Auth"          component={RegisterStack} />
-      <Auth.Screen name="App"           component={HomeStack} />
-      <Auth.Screen name="LocationMain"  component={LocationScreen} />
+      <Auth.Screen name="Auth"          component={RegisterStack} options={{
+        headerShown: true,
+        headerTitleAlign: "left",
+        header: (props) => <HeaderBar2  {...props} />,
+      }} />
+      <Auth.Screen name="App"           component={BottomNavScreen} options={{headerShown: false}}/>
+      <Auth.Screen name="LocationMain"  component={LocationScreen} options={{headerShown: false}}/>
   </Auth.Navigator>
 );
 
@@ -186,44 +193,15 @@ const AuthStack = () => (
 const LocationMain = createStackNavigator();
 const LocationStack = () => (
       <LocationMain.Navigator headerMode="none">
-      <LocationMain.Screen name="LocationMain"  component={LocationScreen} />
-      <LocationMain.Screen name="App"           component={HomeStack} />
-      <LocationMain.Screen name="Auth"          component={RegisterStack} />
+      <LocationMain.Screen name="LocationMain"  component={LocationScreen} options={{
+        headerShown: true,
+        headerTitleAlign: "left",
+        header: (props) => <HeaderBar2  {...props} />,
+      }} />
+      <LocationMain.Screen name="App"           component={BottomNavScreen} options={{headerShown: false}}/>
+      <LocationMain.Screen name="Auth"          component={RegisterStack} options={{headerShown: false}} />
   </LocationMain.Navigator>
 );
-
-
-const Tab = createBottomTabNavigator();
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen name="CartComponent" component={CartComponent} />
-      <Tab.Screen name="WishlistComponent" component={WishlistComponent} />
-      <Tab.Screen name="MyOrder" component={MyOrder} />
-    </Tab.Navigator>
-  );
-}
-
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 50,
-    mass: 3,
-    overshootClamping: false,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
-
-const closeConfig = {
-  animation: 'timing',
-  config: {
-   duration:500,
-   easing:Easing.linear,
-  },
-};
 
 export const AppContainer = () => {
   return (

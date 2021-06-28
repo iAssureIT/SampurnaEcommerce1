@@ -9,7 +9,7 @@ import {
 import { Button, Icon,}       from "react-native-elements";
 import Modal                  from "react-native-modal";
 import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
 import axios                  from 'axios';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
@@ -99,6 +99,8 @@ export const PaymentMethod = withCustomerToaster((props)=>{
       if(vendorOrders[i].cartItems){
         for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
           vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
+          vendorOrders[i].products[j].product_ID = vendorOrders[i].cartItems[j].product_ID._id ;
+          delete vendorOrders[i].products[j]['_id']; 
           vendorOrders[i].products[j].quantity =vendorOrders[i].cartItems[j].quantity ;
           vendorOrders[i].deliveryStatus =[];
             vendorOrders[i].deliveryStatus.push({
@@ -151,7 +153,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         customerShippingTime      : shippingtime,
         orderStatus               : "New"
       }
-
+      console.log("orderData",orderData);
       socket.emit('postOrder',orderData);
       socket.on("order", (result)=>{
       // axios.post('/api/orders/post', orderData)
@@ -295,7 +297,6 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                 </View>
               </View>
             </ScrollView>
-            <Footer />
           </View>
         </React.Fragment>
       );

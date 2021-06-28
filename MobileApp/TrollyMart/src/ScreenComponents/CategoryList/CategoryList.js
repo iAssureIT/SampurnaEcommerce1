@@ -33,13 +33,13 @@ export const CategoryList = (props)=>{
   const _renderlist = ({ item, i })=>{
     return (
       <View key={i} style={styles.mainrightside}>
-        <TouchableOpacity style={{borderWidth:selected===item.category ? 2:0,borderRadius:10,borderColor:colors.cartButton }} onPress={()=>{props.setCategory(item);setSelected(item.category)}}>
-          {showImage ?
-              <ImageBackground  source={item.sectionImage ? {uri : item.sectionImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{opacity:0.6}}>
+        <TouchableOpacity style={{borderWidth:selected===item.category ? 2:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{props.setCategory(item);setSelected(item.category)}}>
+          {!showImage ?
+            <ImageBackground  source={item.sectionImage ? {uri : item.sectionImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{opacity:0.6}}>
               <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
             </ImageBackground>
             :
-            <View style={{borderBottomWidth:selected===item.section? 1:0}}>
+            <View style={[styles.sectionImages,{height:boxHeight}]}>
               <Text style={[styles.sectionTitle,selected===item.category ? {color:"#333"}: {color:"#666"}]}>{item.category}</Text>
             </View>  
           }

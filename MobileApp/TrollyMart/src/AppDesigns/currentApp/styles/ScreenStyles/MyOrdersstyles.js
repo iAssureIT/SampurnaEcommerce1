@@ -103,7 +103,7 @@ export default StyleSheet.create({
   },
   superparent:{
     flex:1,
-    backgroundColor:'#f1f1f1',
+    // backgroundColor:'#fff',
   },
   placeonvw:{
     flex:1,marginBottom:"30%"

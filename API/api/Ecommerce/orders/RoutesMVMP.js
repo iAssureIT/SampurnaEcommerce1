@@ -120,4 +120,8 @@ router.delete('/get/deleteAllOrders', 															checkAuth, orderController.
 
 //code by madhuri ghute end
 
+
+//Code By Rushikesh For Driver App
+router.post('/get/nearest_vendor_orders',                                                        orderController.nearest_vendor_orders)
+
 module.exports = router; 

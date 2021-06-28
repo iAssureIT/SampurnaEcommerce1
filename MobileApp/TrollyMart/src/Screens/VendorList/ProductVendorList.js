@@ -17,7 +17,7 @@ import { ActivityIndicator }    from 'react-native-paper';
 import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {MenuCarouselSection}    from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import { ScrollView }           from 'react-native';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {STOP_SCROLL}          from '../../redux/productList/types';
@@ -113,7 +113,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
 
 
     return (
-        <React.Fragment>
+        <View style={{flex:1,backgroundColor:"#fff"}}>
             {/* <HeaderBar3
                 goBack={navigation.goBack}
                 navigate={navigation.navigate}
@@ -131,7 +131,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                     type        = {value}
                     showImage   = {true}
                     selected    = {section}
-                    boxHeight   = {60}
+                    boxHeight   = {40}
                     index       = {index}
                 />
                 <View style={styles.proddets}>
@@ -174,8 +174,8 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                 {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>
                     </View>*/}
                 </View>
-        </ScrollView>}
-        <Footer/>
-        </React.Fragment>
+            </ScrollView>}
+           
+        </View>
     );
 })

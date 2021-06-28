@@ -11,7 +11,7 @@ import { Button,}     from "react-native-elements";
 import axios          from "axios";
 import {Menu}         from '../../ScreenComponents/Menu/Menu.js';
 import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}       from '../../ScreenComponents/Footer/Footer.js';
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
 import {colors}       from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading        from '../../ScreenComponents/Loading/Loading.js';
@@ -50,6 +50,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
             setCreditPoints(res.data);
       })
       .catch((error) => {
+        console.log("error",error)
         setLoading(false);
         if (error.response.status == 401) {
           setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
@@ -101,11 +102,12 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                 </View>
                 {creditPoints.transactions && creditPoints.transactions.length > 0 ?
                 creditPoints.transactions.map((item,index)=>{
+                  if(item!==null){
                     return(
                         <View style={[styles.padhr18,{flex:1}]}> 
                             <View style={styles.accusermobinfo}>
                               <View style={{flex:.25}}>
-                                <Text style={[styles.accusermob]}>{item.orderID}</Text>
+                                <Text style={[styles.accusermob]}>{item.orderID ? item.orderID:""}</Text>
                               </View>  
                               <View style={{flex:.25}}>
                                 <Text style={[styles.accusermob]}>{moment(item.orderDate).format('MM-DD-YYYY')}</Text>
@@ -119,6 +121,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                             </View>
                         </View>
                     )
+                  }
                 })
                     
                 :
@@ -127,7 +130,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
             </View>
             </View>}
           </ScrollView>}
-            <Footer/>
+           
         </View>
       </React.Fragment>
     );  

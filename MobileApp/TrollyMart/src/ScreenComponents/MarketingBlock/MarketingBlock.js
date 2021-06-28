@@ -12,7 +12,7 @@ import Carousel         from 'react-native-banner-carousel-updated';
 import axios            from 'axios';
 import { useNavigation } from  '@react-navigation/native';
 
-const width = Dimensions.get('window').width;
+const width = Dimensions.get('window').width-10;
 
 export const MarketingBlock=(props)=>{
   const [images,setImages]=useState([]);
@@ -50,7 +50,8 @@ export const MarketingBlock=(props)=>{
     return (
       <TouchableOpacity onPress={()=>redirectPage(item)} key={index}>
         <ImageBackground 
-          style={{ width:"100%", height: 180,}} 
+          style={{ width:"100%", height: 150}} 
+          imageStyle={{borderRadius:15}}
           source={image}
           resizeMode={"stretch"}
         >
@@ -61,7 +62,7 @@ export const MarketingBlock=(props)=>{
 
   return (
     images && images.length >0 ?<SafeAreaView>
-        <View style={[styles.bannerWrapper,{marginTop:15,marginBottom:15}]}>
+        <View style={[styles.bannerWrapper]}>
             <Carousel
                 autoplay        = {true}
                 autoplayTimeout = {10000}

@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {Icon,Image}                  from "react-native-elements";
 import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}                   from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {Linking}                from 'react-native'
@@ -59,7 +59,7 @@ export const AboutUs = (props)=>{
         );
     } else {
         return (
-            <React.Fragment>
+            <View style={{flex:1,backgroundColor:"#fff"}}>
             {/* <HeaderBar3
                 goBack={navigation.goBack}
                 navigate={navigation.navigate}
@@ -89,8 +89,7 @@ export const AboutUs = (props)=>{
                     }
                 </ScrollView>
             </View>
-            <Footer />
-            </React.Fragment>
+            </View>
         );
     }
 }

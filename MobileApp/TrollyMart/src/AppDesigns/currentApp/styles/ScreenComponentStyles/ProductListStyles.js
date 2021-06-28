@@ -10,7 +10,15 @@ export default StyleSheet.create({
 		fontSize:17,
 		color:'#777'
 	  },
-	
+	  container:{
+		  position:'absolute',
+		  top:0,
+		  left:0,
+		  right:0,
+		  height:200,
+		  elevation:4,
+		  zIndex:100
+	  },
 	menuWrapper: {
 		marginTop: 20,
 		flexDirection: 'row',
@@ -27,8 +35,6 @@ export default StyleSheet.create({
 	title: {
 		fontFamily: "Montserrat-SemiBold",
 		fontSize: 16,
-		
-		marginBottom: 12,
 	},
 	titleviewall: {
 		fontFamily: "Montserrat-Regular",
@@ -113,10 +119,15 @@ export default StyleSheet.create({
 		padding: 3,
 	},
 	productContainer: {
-		width:"47.5%",
-		paddingVertical:5,
-		backgroundColor:"#fff"
-		// padding:5
+		width:"42.5%",
+		// paddingVertical:5,
+		backgroundColor:"#fff",
+		marginBottom:15,
+		borderRadius:15,
+		// shadowColor: "#000",
+		elevation: 5,
+		borderColor:colors.cartButton,
+		borderWidth:0.5,
 	},
 	proddets: {
 		flex:1,
@@ -234,11 +245,12 @@ export default StyleSheet.create({
 	},
 	protxt: {
 		alignItems: "center",
-		marginTop:10
+		padding:5
 	},
 	prdet: {
 		flex:1,
-		marginTop: 5, alignItems: "center",
+		alignItems: "center",
+		marginBottom:5,
 	},
 	// addtocartbtn: {
 	// 	marginBottom: 20,
@@ -430,7 +442,8 @@ export default StyleSheet.create({
 	},
 	flx5: {
 		flex: 0.5,
-		borderWidth: 1, borderColor: '#ccc',
+		borderColor: '#ccc',
+		// paddingBottom:15,
 	},
 	viewalltxt: {
 		flex: 0.5,
@@ -442,6 +455,8 @@ export default StyleSheet.create({
 		width:"100%",
 		alignSelf:'center',
 		backgroundColor:"#eee",
+		borderTopRightRadius:15,
+		borderTopLeftRadius:15,
 			// borderWidth: 1, borderBottomColor: '#ccc',
 	},
 	noprod: {

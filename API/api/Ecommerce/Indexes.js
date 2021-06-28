@@ -48,6 +48,6 @@ db.coupen.createIndex({enddate : 1});
 //===========  Orders 	==============
 db.orders.createIndex({orderID : 1});
 db.orders.createIndex({user_ID : 1});
-db.orders.createIndex({paymentDetails.disocuntCoupon_id : 1});
-db.orders.createIndex({paymentDetails.disocuntCoupon_id : 1});
+db.orders.createIndex({"paymentDetails.disocuntCoupon_id" : 1});
+db.orders.createIndex({"paymentDetails.disocuntCoupon_id" : 1});
 

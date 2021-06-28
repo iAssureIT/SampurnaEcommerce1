@@ -28,6 +28,7 @@ import { DrawerActions } from '@react-navigation/native';
 import { useNavigation }      from '@react-navigation/native';
 
   const HeaderBars2=(props)=>{
+    console.log("props",props);
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
     const [user_id,setUserId] = useState('');
@@ -94,70 +95,13 @@ import { useNavigation }      from '@react-navigation/native';
 
     return (
       <View style={styles.header2main}>
-        <Header
-          statusBarProps={{ barStyle: 'light-content' }}
-          backgroundColor={colors.theme}
-          placement="left"
-          leftContainerStyle={styles.leftside}
-          centerContainerStyle={styles.center}
-          rightContainerStyle={styles.rightside}
-          leftComponent={
-            <View style={styles.flxdir}>
-                {props.backBtn ?
-                  <TouchableOpacity onPress={()=> navigation.goBack()}>
-                  <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
-                    <Icon size={30} name='keyboard-arrow-left' type='MaterialIcons' color='#fff' />
-                  </View>
-                </TouchableOpacity>
-                :
-                <TouchableOpacity  onPress={()=> navigation.dispatch(DrawerActions.toggleDrawer())}>
-                  <Icon size={25} name='bars' type='font-awesome' color={colors.white} />
-                </TouchableOpacity>
-              }
-            </View>
-            
-          }
-          centerComponent={
-              props.headerTitle && props.headerTitle!=="" ?
-                <View style={{width:200}}>
-                  <Text style={[{fontSize:18,color:'#fff',fontFamily:"Montserrat-SemiBold",textAlign:'center',alignSelf:'center'}]}>{props.headerTitle}</Text>
-                </View>  
-                :
-                <Image
-                  resizeMode="contain"
-                  source={require("../../AppDesigns/currentApp/images/Logo.png")}
-                  style={styles.whitename}
-                />
-          }
-          rightComponent={
-              <View style={styles.notificationbell}>
-               <TouchableOpacity style={styles.bellIcon} onPress={()=> navigation.navigate('InAppNotification')}>
-                <Icon name="bell-o" type="font-awesome"    size={25} color={colors.white} />
-                <Text style={styles.notificationText}>{inAppNotificationsCount}</Text>
-               </TouchableOpacity> 
-                {/* <TouchableOpacity onPress={()=>{Linking.openURL('tel:+91 90280 79487');}} style={{marginLeft:20,justiafyContent:"flex-end"}}>
-                  <Icon name="phone" type="font-awesome"  size={25} color={colors.white} />
-                </TouchableOpacity> */}
-                {/* <TouchableOpacity onPress={() => navigation.navigate('CartComponent', { userId: userDetails.user_id })}  style={{marginLeft:20,justiafyContent:"flex-end"}}>
-                <Icon name="shopping-cart" type="feather" size={25} color={colors.white} />
-                <Text style={styles.footerTitle}>My Cart</Text>
-                {
-                  cartCount > 0 ?
-                    <Text style={styles.notificationText}>{cartCount}</Text>
-                  :
-                  null
-                }
-              </TouchableOpacity> */}
-
-                {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate('Stores')}>
-                  <Icon size={25} name="store"  type="font-awesome-5" color=colors.theme />
-                </TouchableOpacity> */}
-              </View>
-          }
-          containerStyle={styles.container}
-        />
+          {props?.scene?.route?.state && props?.scene?.route?.state?.index !==0  && <TouchableOpacity onPress={()=> navigation.goBack()}>
+          <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
+            <Icon size={25} name='arrow-left' type='material-community' color='#fff' />
+          </View>
+        </TouchableOpacity>}
         <View style={styles.searchvw}>
-          {(globalSearch.search || globalSearch.searchList.length >0) && <Icon size={30} name='keyboard-arrow-left' type='MaterialIcons' color={"#fff"} onPress={()=>  {
+          {(globalSearch.search || globalSearch.searchList.length >0) && <Icon size={30} name='keyboard-arrow-left' type='MaterialIcons' color={"#fff"} iconStyle={{flex:0.5}} onPress={()=>  {
               dispatch({type : SET_SUGGETION_LIST, payload  : []});
               dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
               dispatch({type : SET_SERACH_LIST,    payload  : []});
@@ -166,8 +110,8 @@ import { useNavigation }      from '@react-navigation/native';
               Keyboard.dismiss();
           } }/>}
           <SearchBar
-            placeholder         = 'Search for Product, Brands and More'
-            containerStyle      = {[styles.searchContainer,(globalSearch.search || globalSearch.searchList.length >0)?styles.flex09:styles.flex1]}
+            placeholder         = 'Search items...'
+            containerStyle      = {[styles.searchContainer,(globalSearch.search || globalSearch.searchList.length >0)?{flex:6}:{flex:65}]}
             inputContainerStyle = {styles.searchInputContainer}
             inputStyle          = {styles.searchInput}
             onChangeText        = {(searchText)=>getKeywords(searchText)}
@@ -175,12 +119,20 @@ import { useNavigation }      from '@react-navigation/native';
             value               = {searchText}
             onSubmitEditing     = {()=>updateSearch()}
             returnKeyType       = 'search'
+            onClear              ={()=>{ 
+              dispatch({type : SET_SUGGETION_LIST, payload  : []});
+              dispatch({type : SET_SEARCH_TEXT,    payload  : ''});
+              dispatch({type : SET_SERACH_LIST,    payload  : []});
+              dispatch({type:SET_SEARCH_CALL,payload:false});
+              useSearchText('');
+              Keyboard.dismiss();
+            }}
           />
           
         </View>
           <TouchableOpacity style={styles.location} onPress={()=>navigation.navigate('LocationMain')}>
-              <Icon name="crosshairs-gps" type="material-community" size={20} color={colors.black} iconStyle={{}}/>
-              <Text numberOfLines={1} style={{flex:.98,color:colors.black}}>{location?.address.addressLine2}</Text>
+              <Icon name="map-marker" type="material-community" size={11} color={colors.black} iconStyle={{marginTop:2.5}}/>
+              <Text numberOfLines={2} style={{flex:.98,color:colors.textLight,fontSize:11}}>{location?.address.addressLine2}</Text>
           </TouchableOpacity>
       </View>
     );

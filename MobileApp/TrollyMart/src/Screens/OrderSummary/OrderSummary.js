@@ -12,7 +12,7 @@ import { Button, Icon,Input }   from "react-native-elements";
 import Modal                    from "react-native-modal";
 import axios                    from "axios";
 import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import Notification             from '../../ScreenComponents/Notification/Notification.js'
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/OrderSummaryStyles.js';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
@@ -23,6 +23,7 @@ import { connect,
   import commonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
   import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { SafeAreaView }         from 'react-native';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -51,6 +52,7 @@ import { SafeAreaView }         from 'react-native';
     const [subtotalitems,setSubTotalItems] = useState('');
     const [subtotal,setSubTotal] = useState('');
     const [couponCode,setCouponCode] = useState('');
+    const [creditPointsUsed,setRedeemPoints] = useState(0);
     const [coupenPrice,setCoupenPrice] = useState(0);
     const [totalPrice,setTotalPrice] =useState(0);
     // const [currency,setCurrency] = useState('');
@@ -106,6 +108,7 @@ import { SafeAreaView }         from 'react-native';
     const getCartData=(userId)=>{
       axios.get('/api/carts/get/cartproductlist/' + userId)
         .then((response) => {
+          console.log("response",response.data);
           setCartData(response.data);
           setLoading(false);
         })
@@ -155,6 +158,28 @@ import { SafeAreaView }         from 'react-native';
       setCouponCode('');
       setToast({text: "Coupen already applied", color:colors.warning});
     }  
+  }
+
+  const redeemPoints=()=>{
+    // if(creditPointsUsed === 0){
+      var payload={
+          "user_ID"     : user_id,
+          "creditPointsUsed"  : creditPointsUsed
+      }
+      console.log("payload",payload);
+      axios.patch('/api/carts/redeem/creditpoints',payload)
+      .then(res=>{
+        console.log("res",res);
+          // setToast({text: res.data.message, color:res.data.message === "Reee Applied Successfully!" ? 'green':colors.warning});
+          setCartData(res.data);
+          setRedeemPoints('');
+          // setCouponCode('');
+      })
+      .catch(err=>{
+        setRedeemPoints('');
+        console.log("err",err);
+      })
+    // } 
   }
   
  
@@ -441,6 +466,50 @@ import { SafeAreaView }         from 'react-native';
                       <Text style={[styles.totaldata,{color:"red",alignSelf:"flex-end",paddingBottom:5}]} onPress={()=>getCartData(user_id)}>Remove Coupon</Text>
                       </SafeAreaView>
                     }
+                    <Text style={[CommonStyles.label,{alignSelf:'center'}]}>OR</Text>
+                     {cartData.paymentDetails.afterDiscountCouponAmount === 0 || cartData.paymentDetails.creditPointsValue === 0?
+                     <View style={{marginTop:15}}>
+                        <Text style={[CommonStyles.label]}>Store Credit AED 100 Available</Text>
+                        <View style={{flex:1,flexDirection:"row",height:50}}>
+                          <View style={{flex:.7}}>
+                            <Input
+                              placeholder           = "20 AED"
+                              onChangeText          = {(text)=>setRedeemPoints(text)}
+                              autoCapitalize        = "none"
+                              keyboardType          = "email-address"
+                              inputContainerStyle   = {styles.containerStyle}
+                              containerStyle        = {{paddingHorizontal:0}}
+                              placeholderTextColor  = {'#bbb'}
+                              inputStyle            = {{fontSize: 16}}
+                              inputStyle            = {{textAlignVertical: "top"}}
+                              autoCapitalize        = 'characters'
+                              value                 = {creditPointsUsed}
+                            />
+                          </View>  
+                          <View style={{flex:.3}}>
+                            <FormButton 
+                              onPress    = {()=>redeemPoints()}
+                              title       = {'Apply'}
+                              background  = {true}
+                            /> 
+                          </View>  
+                        </View>
+                      </View>  
+                      :
+                      <SafeAreaView>
+                      <View style={styles.flxdata}>
+                        <View style={{ flex: 0.6 }}>
+                          <Text style={styles.totaldata}>Discount Coupon Amount  </Text>
+                        </View> 
+                        <View style={{ flex: 0.4 }}>
+                          <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                             <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <Text style={[styles.totaldata,{color:"red",alignSelf:"flex-end",paddingBottom:5}]} onPress={()=>getCartData(user_id)}>Remove Coupon</Text>
+                      </SafeAreaView>
+                    }
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Total Delivery Charges </Text>
@@ -488,7 +557,7 @@ import { SafeAreaView }         from 'react-native';
             </View>
           </View>
         </ScrollView>
-        <Footer />
+       
       </View>
     </React.Fragment>
   );

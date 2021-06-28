@@ -164,7 +164,7 @@
 //                 </View>
                 
 //               </ScrollView>
-//               <Footer/>
+//              
 //             </View>
 //           </SideMenu>
 //         </Drawer>

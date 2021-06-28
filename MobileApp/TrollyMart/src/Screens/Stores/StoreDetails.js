@@ -5,7 +5,7 @@ import {
     View,
 } from 'react-native';
 import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/StoreDetails.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import axios from 'axios';
@@ -83,7 +83,7 @@ export default class StoreDetails extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-                <Footer />
+               
             </React.Fragment>
         );
     }

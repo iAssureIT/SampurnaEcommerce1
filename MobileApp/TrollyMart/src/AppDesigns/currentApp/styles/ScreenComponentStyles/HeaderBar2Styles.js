@@ -12,17 +12,18 @@ export default StyleSheet.create({
     // marginTop:20,
     height: 40,
     width:120,
+    justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "space-between"
     // alignSelf:'center'
   },
 
   searchvw: {
+    flex:.65,
     marginBottom: 10,
+    marginTop:10,
     height: 40,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
-    justifyContent: "center",
-    alignItems: "center",
-    justifyContent: "space-between"
+    paddingRight: 10,
   },
 
   notificationText: {
@@ -99,7 +100,10 @@ export default StyleSheet.create({
   },
 
   header2main: {
+    justifyContent:'center',
+    alignItems:'center',
     backgroundColor: colors.theme,
+    flexDirection:"row",
   },
 
   leftside: {
@@ -154,13 +158,16 @@ export default StyleSheet.create({
   searchInput: {
     fontSize: 13,
     fontFamily: "Montserrat-Regular",
+    backgroundColor:'#fff'
   },
 
   location:{
-    height:30,
-    backgroundColor:colors.lightGrey,
-    alignItems:"center",
-    paddingHorizontal:5,
+    flex:.3,
+    height:40,
+    padding:5,
+    backgroundColor:colors.white,
+    borderRadius:5,
+    // paddingHorizontal:5,
     flexDirection:"row",
     justifyContent:"space-between",
   }

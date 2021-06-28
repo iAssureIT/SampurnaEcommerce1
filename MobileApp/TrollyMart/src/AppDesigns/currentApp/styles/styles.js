@@ -43,6 +43,8 @@ export const colors = {
   red         : "#DC1919",
   darkGrey    : "#707070",
   cartButton  : "#033554",
+  footerColor : "#fff",
+  footerText  : "#033554",
   heartIcon   : "#DC1919",
   color8    : "#131313",
   color9    : "#B7B7B7",

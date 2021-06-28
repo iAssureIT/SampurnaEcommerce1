@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Button,Icon}            from "react-native-elements";
 import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}             from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}             from '../../ScreenComponents/Footer/Footer.js';
 import styles               from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
 import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
 ;
@@ -91,7 +91,6 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
             </View>
           </ScrollView>
           }
-          <Footer selected={"2"} />
         </View>
       </React.Fragment>
     );

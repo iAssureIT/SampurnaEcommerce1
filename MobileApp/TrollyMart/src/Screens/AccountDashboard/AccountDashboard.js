@@ -11,7 +11,7 @@ import { Button,}     from "react-native-elements";
 import axios          from "axios";
 import {Menu}         from '../../ScreenComponents/Menu/Menu.js';
 import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}       from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}       from '../../ScreenComponents/Footer/Footer.js';
 import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
 import {colors}       from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading        from '../../ScreenComponents/Loading/Loading.js';
@@ -140,7 +140,6 @@ export const AccountDashboard =(props)=>{
             </View>
             </View>
           </ScrollView>}
-            <Footer/>
         </View>
       </React.Fragment>
     );  

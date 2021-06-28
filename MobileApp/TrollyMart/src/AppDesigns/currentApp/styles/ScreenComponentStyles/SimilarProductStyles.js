@@ -70,9 +70,11 @@ export default StyleSheet.create({
 		marginTop: 30,	
 	},
     subcatimg: {
-		height:150,
+		height:120,
 		width:"100%",
-		backgroundColor:"#eee"
+		backgroundColor:"#eee",
+		elevation:5,
+		borderRadius:15
 	},
     nameprod: {
 		fontSize: 12, 

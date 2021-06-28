@@ -8,7 +8,7 @@ import {
 import {Button,Icon}              from "react-native-elements";
 import Modal                      from "react-native-modal";
 import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}                   from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
 import styles                     from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
 import {colors}                   from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                      from 'axios';
@@ -211,7 +211,7 @@ const getshippingamount=(startRange, limitRange)=>{
         navigate={navigation.navigate}
         openControlPanel={() => openControlPanel}
       /> */}
-      <View style={{ flex: 1}}>
+      <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
       { !loading ?
       globalSearch.search ?
         <SearchSuggetion />
@@ -459,7 +459,6 @@ const getshippingamount=(startRange, limitRange)=>{
         <ActivityIndicator size="large" color={colors.theme} />
       </View>}
       
-      <Footer selected={"1"} />
 
       <Modal isVisible={removefromcart}
         onBackdropPress={() => setRemoveFromCart(false)}

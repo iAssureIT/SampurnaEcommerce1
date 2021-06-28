@@ -15,7 +15,7 @@ import {BannerComponent}            from '../../ScreenComponents/BannerComponent
 import {MarketingBlock}             from '../../ScreenComponents/MarketingBlock/MarketingBlock.js';
 import {MenuCarouselSection}        from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
-import {Footer}                     from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
 import Loading                      from '../../ScreenComponents/Loading/Loading.js';
 import {withCustomerToaster}        from '../../redux/AppState.js';
@@ -107,7 +107,7 @@ const Dashboard = withCustomerToaster((props)=>{
                 <Text style={value === "lowestlocation" ? styles.tabText : styles.tabText1}>Lowest Location</Text>
               </TouchableOpacity>
             </View>  */}
-            <View  style={[styles.formWrapper,{paddingVertical:5,marginTop:10}]}> 
+            <View  style={[styles.formWrapper]}> 
               {globalSearch.searchText ?
                 null
               :
@@ -136,7 +136,7 @@ const Dashboard = withCustomerToaster((props)=>{
                   />
                   :
                   item.blockComponentName === "SectionCatg" && !item.block_id?.groupSettings?.showOnlySection?
-                  <View style={{paddingHorizontal:15}}>
+                  <View style={{paddingHorizontal:5}}>
                     <HorizontalSecCatList 
                       blockTitle          = {item.block_id?.blockTitle}
                       section             = {item.block_id?.groupSettings.section}
@@ -169,66 +169,8 @@ const Dashboard = withCustomerToaster((props)=>{
               :
               null
             } 
-            {globalSearch.searchText ?
-              <View style={{paddingHorizontal:15}}>
-                <ProductList 
-                    navigate    = {navigation.navigate} 
-                    title       = {'Search Products'}  
-                    newProducts = {globalSearch.searchList} 
-                    searchText     = {globalSearch.searchText}
-                    userId         = {user_id} 
-                    limit          = {20}
-                    loading        = {productList.loading}
-                  />
-              </View>    
-            :
-            <View>
-              {/* {productList.featuredList && productList.featuredList && productList.featuredList.length > 0 ? 
-                <ProductList 
-                  navigate    = {navigation.navigate} 
-                  title       = {'Featured Products'}  
-                  newProducts = {productList.featuredList} 
-                  type        = {'featured'} 
-                  route       = {'AllProductList'}  
-                  wishList    = {wishList} 
-                  userId      = {user_id} 
-                  limit       = {6}
-                  loading     = {productList.loading}
-                  />
-                : null} */}
-                
-              {/* {productList.exclusiveList && productList.exclusiveList.length > 0  ? 
-                <ProductList 
-                  navigate    = {navigation.navigate} 
-                  title       = {'Exclusive Products'}  
-                  newProducts = {productList.exclusiveList} 
-                  type        = {'exclusive'} 
-                  route       = {'AllProductList'}  
-                  wishList    = {wishList} 
-                  userId      = {user_id} 
-                  limit       = {6}
-                  loading     = {productList.loading}
-                />
-                : null} */}
-
-              {/* {productList.discountedList && productList.discountedList.length > 0  ? 
-                <ProductList 
-                  navigate    = {navigation.navigate} 
-                  title       = {'Discounted Products'}  
-                  newProducts = {productList.discountedList} 
-                  type        = {'discounted'} 
-                  route       = {'AllProductList'}  
-                  wishList    = {wishList} 
-                  userId      = {user_id} 
-                  limit       = {6}
-                  loading     = {productList.loading}
-                  />
-                : null} */}
-              </View>  
-            }
           </View>  
         </ScrollView>}
-        <Footer selected={"0"}/>
       </View> 
     </React.Fragment>
   );  

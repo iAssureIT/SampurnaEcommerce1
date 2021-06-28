@@ -389,8 +389,8 @@ const window = Dimensions.get('window');
             
             <View style={commonStyles.formWrapper}>
             <FormInput
-              labelName       = "Email Id/Mobile No"
-              placeholder     = "Enter Email Id / Mobile No"
+              labelName       = "Mobile No / Email Id"
+              placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"

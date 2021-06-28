@@ -25,7 +25,7 @@ import StepIndicator from 'react-native-step-indicator';
 import Menu from '../../ScreenComponents/Menu/Menu.js';
 import HeaderBar3 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
-import Footer from '../../ScreenComponents/Footer/Footer1.js';
+import Footer from '../../ScreenComponents/Footer/Footer.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/ProductReviewstyles.js';
 import {colors} from '../../AppDesigns/currentApp/styles/styles.js';
@@ -187,7 +187,6 @@ export default class MyProductReview extends React.Component{
     
               </ScrollView>
             </View>
-            <Footer/>
           </SideMenu>
         </Drawer>
       );  

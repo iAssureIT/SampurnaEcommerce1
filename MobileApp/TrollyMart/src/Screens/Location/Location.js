@@ -225,125 +225,123 @@ export const Location = withCustomerToaster((props)=>{
 
     return (
         <View style={{flex:1}}>
-            <HeaderBar3
-            goBack={navigation.goBack}
-            navigate={navigation.navigate}
-            headerTitle={"Location"}
-            toggle={() => toggle()}
-            openControlPanel={() => openControlPanel()}
-          />
-          <GooglePlacesAutocomplete
-            ref={ref}
-            placeholder='Search for area street name...'
-            onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                for (var i = 0; i < details.address_components.length; i++) {
-                    for (var b = 0; b < details.address_components[i].types.length; b++) {
-                        switch (details.address_components[i].types[b]) {
-                        case 'sublocality_level_2':
-                            var address = details.address_components[i].long_name;
-                            break;
-                        case 'sublocality_level_1':
-                            var area = details.address_components[i].long_name;
-                            break;
-                        case 'locality':
-                            var city = details.address_components[i].long_name;
-                            break;
-                        case 'administrative_area_level_1':
-                            var state = details.address_components[i].long_name;
-                            break;
-                        case 'country':
-                            var country = details.address_components[i].long_name;
-                            break;
-                        case 'postal_code':
-                            var pincode = details.address_components[i].long_name;
-                            break;
+        <View style={{flexDirection:'row',padding:10,paddingVertical:15}}>
+            <TouchableOpacity style={{justifyContent:'center',height:45,paddingRight:5}} onPress={()=> navigation.goBack()}>
+                <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+            </TouchableOpacity>   
+            <GooglePlacesAutocomplete
+                ref={ref}
+                placeholder='Search for area street name...'
+                onPress={(data, details = null) => {
+                    // 'details' is provided when fetchDetails = true
+                    for (var i = 0; i < details.address_components.length; i++) {
+                        for (var b = 0; b < details.address_components[i].types.length; b++) {
+                            switch (details.address_components[i].types[b]) {
+                            case 'sublocality_level_2':
+                                var address = details.address_components[i].long_name;
+                                break;
+                            case 'sublocality_level_1':
+                                var area = details.address_components[i].long_name;
+                                break;
+                            case 'locality':
+                                var city = details.address_components[i].long_name;
+                                break;
+                            case 'administrative_area_level_1':
+                                var state = details.address_components[i].long_name;
+                                break;
+                            case 'country':
+                                var country = details.address_components[i].long_name;
+                                break;
+                            case 'postal_code':
+                                var pincode = details.address_components[i].long_name;
+                                break;
+                            }
                         }
                     }
-                }
-                var address = {
-                    'addressLine2'      : details.formatted_address,
-                    'area'              : area,
-                    'city'              : city,
-                    'state'             : state,
-                    'country'           : country,
-                    'pincode'           : pincode,
-                    'latlong'           : details.geometry.location
-                }
-                setAddress(address);
-                setCoords({"latitude": details.geometry.location.lat,"longitude":details.geometry.location.lng});
-                ref.current?.setAddressText(details.formatted_address);
-                setRegion({
-                    latitude: details.geometry.location.lat,
-                    longitude: details.geometry.location.lng,
-                    latitudeDelta: details.geometry.location.lat * 0.0001,
-                    longitudeDelta: details.geometry.location.lng * 0.0001 
-                })
-            }}
-            GoogleReverseGeocodingQuery
-            query={{key: googleapikey,language: 'en',components: 'country:ae',}}
-            listViewDisplayed={true}
-            currentLocation={true}
-            renderDescription={row => row.description || row.formatted_address || row.name}
-            currentLocationLabel='Current Location'
-            nearbyPlacesAPI="GoogleReverseGeocoding"
-            textInputProps={{ 
-                selection:selection,
-                onSelectionChange : ({ nativeEvent: { selection, text } }) => {setSelection(selection)},
-                clearButtonMode: 'never',
-            }}
+                    var address = {
+                        'addressLine2'      : details.formatted_address,
+                        'area'              : area,
+                        'city'              : city,
+                        'state'             : state,
+                        'country'           : country,
+                        'pincode'           : pincode,
+                        'latlong'           : details.geometry.location
+                    }
+                    setAddress(address);
+                    setCoords({"latitude": details.geometry.location.lat,"longitude":details.geometry.location.lng});
+                    ref.current?.setAddressText(details.formatted_address);
+                    setRegion({
+                        latitude: details.geometry.location.lat,
+                        longitude: details.geometry.location.lng,
+                        latitudeDelta: details.geometry.location.lat * 0.0001,
+                        longitudeDelta: details.geometry.location.lng * 0.0001 
+                    })
+                }}
+                GoogleReverseGeocodingQuery
+                query={{key: googleapikey,language: 'en',components: 'country:ae',}}
+                listViewDisplayed={true}
+                currentLocation={true}
+                renderDescription={row => row.description || row.formatted_address || row.name}
+                currentLocationLabel='Current Location'
+                nearbyPlacesAPI="GoogleReverseGeocoding"
+                textInputProps={{ 
+                    selection:selection,
+                    onSelectionChange : ({ nativeEvent: { selection, text } }) => {setSelection(selection)},
+                    clearButtonMode: 'never',
+                }}
 
-            renderLeftButton={() => (
-                <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}
+                renderLeftButton={() => (
+                    <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}
+                        onPress={() => {
+                            ref.current?.clear(address);
+                            ref.current?.setAddressText('');
+                        }}
+                    >
+                    <Icon name="crosshairs-gps" type='material-community' size={15} style={styles.fabButton}/>
+                </View>
+                )}
+
+                renderRightButton={() => (
+                    <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}
                     onPress={() => {
                         ref.current?.clear(address);
-                        ref.current?.setAddressText('');
                     }}
                 >
-                <Icon name="crosshairs-gps" type='material-community' size={15} style={styles.fabButton}/>
-            </View>
-            )}
-
-            renderRightButton={() => (
-                <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}
-                onPress={() => {
-                    ref.current?.clear(address);
+                    <Icon name="close" type='material-community' size={15} style={styles.fabButton}
+                        onPress={() => {ref.current?.clear(address)}}
+                    />
+                </View>
+                )}
+                styles={{
+                    textInputContainer: {
+                        backgroundColor: 'rgba(0,0,0,0)',
+                        borderRadius:0,
+                        zIndex:10,
+                        position:'absolute',
+                        flex:1
+                    },
+                    textInput:{
+                        borderRadius:0, 
+                        backgroundColor: '#fff',
+                    },
+                    listView:{
+                        position: 'absolute',
+                        zIndex: 9999,
+                        top: 59,
+                        paddingHorizontal:15
+                    } ,
+                    row:{
+                        backgroundColor: 'white'
+                    },
                 }}
-            >
-                <Icon name="close" type='material-community' size={15} style={styles.fabButton}
-                    onPress={() => {ref.current?.clear(address)}}
-                />
-            </View>
-            )}
-            styles={{
-                textInputContainer: {
-                    backgroundColor: 'rgba(0,0,0,0)',
-                    borderRadius:0,
-                    padding:15,
-                    zIndex:10,
-                    position:'absolute',
-                },
-                textInput:{
-                    borderRadius:0, 
-                    backgroundColor: '#fff',
-                },
-                listView:{
-                    position: 'absolute',
-                    zIndex: 9999,
-                    top: 59,
-                    paddingHorizontal:15
-                } ,
-                row:{
-                    backgroundColor: 'white'
-                },
-            }}
-            returnKeyType='search'
-            enableHighAccuracyLocation={true}
-            enablePoweredByContainer={false}
-            listViewDisplayed={false}
-            fetchDetails={true}
-            isRowScrollable={true}
-        />
+                returnKeyType='search'
+                enableHighAccuracyLocation={true}
+                enablePoweredByContainer={false}
+                listViewDisplayed={false}
+                fetchDetails={true}
+                isRowScrollable={true}
+            />
+        </View>    
         <View style={{width:window.width,position:'absolute',zIndex:9999,marginTop:window.height-160,backgroundColor:"#fff",minHeight:160,padding:15}}>
             <Text style={{fontFamily:"Montserrat-Regular",marginBottom:5}}>Delivery Location</Text>
             <View style={{flexDirection:"row",justifyContent:"space-between",height:60,paddingVertical:5}}>

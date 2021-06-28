@@ -60,7 +60,7 @@ export const HorizontalProductList =(props)=>{
  
   const _renderlist = ({ item, index })=>{
     return (
-      <View key={index}  style={[styles.productContainer,{width:window.width-215,marginRight:15}]} >
+      <View key={index}  style={[styles.productContainer,{width:window.width-220,marginRight:20,marginVertical:5}]} >
         <TouchableWithoutFeedback  onPress={()=>{navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section,product_id:item._id})}}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
@@ -96,16 +96,16 @@ export const HorizontalProductList =(props)=>{
               }
             </View>
             <View style={[styles.flx1, styles.protxt]}>
-              {item.brandNameRlang ?
+              {/* {item.brandNameRlang ?
               <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
-              : 
-              <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>
-              }
-              {item.brandNameRlang ?
+              :  */}
+                {item.brand ? <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>:null}  
+              {/* } */}
+              {/* {item.brandNameRlang ?
               <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
-              :
+              : */}
               <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
-              }                       
+              {/* }                        */}
             </View>
             <View style={[styles.flx1, styles.prdet]}>
               <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
@@ -179,9 +179,11 @@ export const HorizontalProductList =(props)=>{
     )
   }
 
+  console.log("productList",productList);
+
     return (
-      <View style={{paddingHorizontal:15,paddingVertical:15}}>
-      <Text style={styles.title}>{props.blockTitle}</Text>
+      <View style={{marginHorizontal:5}}>
+      <Text style={[CommonStyles.headerText,{alignSelf:'flex-start'}]}>{props.blockTitle}</Text>
         {productList && productList.length > 0 ?
           <FlatList
             horizontal          = {true}
@@ -189,20 +191,9 @@ export const HorizontalProductList =(props)=>{
             renderItem          = {item => _renderlist(item)}
             initialNumToRender  = {6}
             keyExtractor        = {item => item._id.toString()}
-            // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
+            style={{}}
+            showsHorizontalScrollIndicator={false}
         />
-        // <ProductList 
-        //   horizontal  = {true}
-        //   navigate    = {navigation.navigate} 
-        //   // title       = {'Exclusive Products'}  
-        //   newProducts = {productList} 
-        //   // type        = {'exclusive'} 
-        //   route       = {'VendorList'}  
-        //   // wishList    = {wishList} 
-        //   userId      = {user_id} 
-        //   limit       = {6}
-        //   // loading     = {productList.loading}
-        // />
         :
           <Loading 
             type={'HList'}

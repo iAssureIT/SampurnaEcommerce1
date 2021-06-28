@@ -10,7 +10,7 @@ import { Button, Icon, } from "react-native-elements";
 import Modal from "react-native-modal";
 import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 // import Footer from '../../ScreenComponents/Footer/Footer.js';
-import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer.js';
 import Notification from '../../ScreenComponents/Notification/Notification.js'
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.js';
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
@@ -461,7 +461,6 @@ export default class CartComponent extends React.Component {
               </View>
             </View>
           </ScrollView>
-          <Footer />
           <Modal isVisible={this.state.removefromcart}
             onBackdropPress={() => this.setState({ removefromcart: false })}
             coverScreen={true}

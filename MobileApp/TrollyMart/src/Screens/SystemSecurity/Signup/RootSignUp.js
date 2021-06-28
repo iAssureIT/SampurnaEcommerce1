@@ -46,6 +46,7 @@ const window = Dimensions.get('window');
     ),
     mobileNumber: Yup.string()
     .required('This field is required'),
+    
     email_id: Yup.string()
       .test(
         'email validation test',
@@ -253,6 +254,7 @@ const window = Dimensions.get('window');
                           const checkValid = phoneInput.current?.isValidNumber(text);
                           const callingCode = phoneInput.current?.getCallingCode(text);
                           const countryCode = phoneInput.current?.getCountryCode(text);
+                          console.log("callingCode",callingCode);
                           var mobileNumber = text;
                           setValue(text);
                           setFieldValue('mobileNumber',mobileNumber)

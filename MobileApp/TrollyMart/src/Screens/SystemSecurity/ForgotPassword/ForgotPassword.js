@@ -120,8 +120,8 @@ const window = Dimensions.get('window');
                 <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
             <View style={commonStyles.formWrapper}>
             <FormInput
-              labelName       = "Email Id/Mobile No"
-              placeholder     = "Email Id/Mobile No"
+              labelName       = "Mobile No / Email Id"
+              placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"

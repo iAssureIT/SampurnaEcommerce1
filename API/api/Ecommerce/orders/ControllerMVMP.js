@@ -25,6 +25,8 @@ const axios             		= require('axios');
 var ObjectId 					= require('mongodb').ObjectID;
 var request 					= require('request-promise');
 const sendNotification 			= require("../../coreAdmin/notificationManagement/SendNotification.js");
+const haversine         = require('haversine-distance')
+const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
@@ -3071,3 +3073,174 @@ exports.deleteAllOrders = (req, res, next) => {
 		});
 	 });
 };
+
+
+exports.nearest_vendor_orders= (req, res, next) => {
+	const {status,latitude,longitude}=req.body;
+	Orders.aggregate([
+		{$match:{"vendorOrders.orderStatus":status}},
+		{ "$unwind": "$vendorOrders"},
+		{
+			"$lookup": {
+			  "from": "entitymasters",
+			  "as": "vendorDetails",
+			  "localField": "vendorOrders.vendor_id",
+			  "foreignField": "_id"
+			}
+		 },
+		 { "$unwind": "$vendorDetails"},
+		{
+			"$project": {
+			  	"_id": 1,
+				"orderID":1,
+				"user_ID":1,
+				"userName":1,
+				"customerShippingTime":1,
+				"vendorOrders.products":1,
+				"vendorOrders.vendor_id":1,
+				"vendorOrders.vendorLocation_id":1,
+				"vendorOrders.vendor_numberOfProducts":1,
+				"vendorOrders.vendor_afterDiscountTotal":1,
+				"vendorOrders.vendor_shippingCharges":1,
+				"deliveryAddress":1,
+				"vendorDetails.companyName":1,
+				"vendorDetails.companyLogo":1,
+				"vendorDetails.locations":1,
+				"vendorDetails.createdAt":1,
+				"vendorDetails.contactPersons":1
+			}
+		}	
+	])
+	.exec()
+	.then(async(data) => {
+		console.log("data",data);
+		var vendorLocations = [];
+		for(var i = 0; i < data.length; i++){
+			if(data[i].vendorDetails && data[i].vendorDetails.locations){
+				for(var j = 0; j < data[i].vendorDetails.locations.length; j++){
+					var vendor_ID           = data[i].vendorDetails._id;
+					var vendorLogo          = data[i].vendorDetails.companyLogo[0];
+					var vendorName          = data[i].vendorDetails.companyName;
+					var address             = data[i].vendorDetails.locations[j].addressLine1;
+					var vendorLocation_id   = data[i].vendorDetails.locations[j]._id;
+					var vendorLat           = data[i].vendorDetails.locations[j].latitude;
+					var vendorLong          = data[i].vendorDetails.locations[j].longitude;
+					
+					if(latitude !== "" && longitude !== undefined && latitude !== "" && longitude !== undefined){
+						var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
+					}
+					data[i].vendorDetails.locations = {
+														"vendorName"            : vendorName, 
+														"vendorLocation_id"     : vendorLocation_id,
+														"vendorDistance"        : vendorDist ? vendorDist.toFixed(2) : '',
+														"expectedReachedTime"  : (parseInt((60/20) * vendorDist))
+													};
+					// console.log("vendorLocations => ",vendorDetails[i].locationsj);
+					// vendorLocations.push(data[i].vendorDetails.locationsj);
+				}
+			}
+		}
+		if(i >= data.length){
+			var distanceLimit = await getDistanceLimit();
+			// console.log("distanceLimit=>",distanceLimit)
+			// console.log("vendorLocations=>",vendorLocations)
+			if(vendorLocations && vendorLocations.length > 0){
+				const key = 'vendor_ID';
+				if(latitude && longitude){
+					if(distanceLimit){
+						var FinalVendorLocations = [...new Map(vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
+						// console.log("FinalVendorLocations 1 =>",FinalVendorLocations)
+					}else{                                            
+						var FinalVendorLocations = [...new Map(vendorLocations.sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
+						// console.log("FinalVendorLocations 2 =>",FinalVendorLocations)
+					}
+				}else{
+					var FinalVendorLocations = [...new Map(vendorLocations.sort((a, b) => a.vendorName.localeCompare(b.vendorName)).map(item =>[item[key], item])).values()];
+					// console.log("FinalVendorLocations 3 =>",FinalVendorLocations)
+				}
+				res.status(200).json(FinalVendorLocations);
+			}                            
+		res.status(200).json(data);
+		}
+		
+	})
+	.catch(err => {
+	   console.log(err);
+	   res.status(500).json({
+		 error: err
+	   });
+	});
+};
+
+
+/**=========== calcUserVendorDist() ===========*/
+function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
+    return new Promise(function(resolve,reject){
+        processDistance()
+
+        async function processDistance(){
+            //First point User Location
+            var userLocation = { lat: userLat, lng: userLong }
+
+            //Second point Vendor Location
+            var vendorLocation = { lat: vendorLat, lng: vendorLong }        
+            
+            //Distance in meters (default)
+            var distance_m = haversine(userLocation, vendorLocation);
+
+            //Distance in miles
+            var distance_miles = distance_m * 0.00062137119;
+
+            //Distance in kilometers
+            var distance_km = distance_m /1000; 
+            
+            //get unit of distance
+            var unitOfDistance = await getAdminPreferences();
+            if(unitOfDistance.toLowerCase() === "mile"){
+                resolve(distance_miles);
+            }else{
+                resolve(distance_km);
+            }            
+        }
+    });
+}
+
+
+/**=========== getAdminPreferences() ===========*/
+function getAdminPreferences(){
+    return new Promise(function(resolve,reject){
+        AdminPreferences.findOne()
+        .exec()
+        .then(adminPreferences=>{
+            if(adminPreferences !== null){
+                resolve(adminPreferences.unitOfDistance);
+            }else{
+                resolve(adminPreferences);
+            }            
+        })
+        .catch(err =>{
+            console.log("Error while fetching admin preferences => ",err);
+            reject(err)
+        });
+    });
+ }
+
+
+ /**=========== getDistanceLimit() ===========*/
+function getDistanceLimit(){
+    return new Promise(function(resolve,reject){
+        StorePreferences.findOne({},{"maxRadius" : 1})
+        .exec()
+        .then(storePreferences=>{
+            if(storePreferences && storePreferences.maxRadius){
+                resolve(parseInt(storePreferences.maxRadius));
+            }else{
+                resolve(0);
+            }            
+        })
+        .catch(err =>{
+            console.log("Error => ",err);
+            reject(err)
+        });
+    });
+ }

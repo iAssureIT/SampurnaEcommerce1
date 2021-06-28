@@ -17,7 +17,7 @@ import { ActivityIndicator }    from 'react-native-paper';
 import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {MenuCarouselSection}    from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import { ScrollView }           from 'react-native';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {STOP_SCROLL}            from '../../redux/productList/types';
@@ -90,7 +90,7 @@ export const VendorList = withCustomerToaster((props)=>{
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity  style={{elevation:5}} onPress={()=>goToProductList(item)}>
-                <Card containerStyle={{flex:1,padding:0,marginHorizontal:0}} >
+                <Card containerStyle={{flex:1,padding:0,marginHorizontal:0,borderRadius:5}} >
                     <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',height:100}}>
                         <View style={{flex:1,flexDirection:"row"}}>
                             {/* <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.vendorAddress}</Card.Title> */}
@@ -119,7 +119,7 @@ export const VendorList = withCustomerToaster((props)=>{
 
 
     return (
-        <React.Fragment>
+        <View style={{flex:1,backgroundColor:"#fff"}}>
             {/* <HeaderBar3
                 goBack={navigation.goBack}
                 navigate={navigation.navigate}
@@ -136,7 +136,7 @@ export const VendorList = withCustomerToaster((props)=>{
                     type        = {value}
                     showImage   = {true}
                     selected    = {section}
-                    boxHeight   = {60}
+                    boxHeight   = {40}
                     index       = {index}
                 />
                 <View style={styles.proddets}>
@@ -179,7 +179,7 @@ export const VendorList = withCustomerToaster((props)=>{
                     </View>*/}
                 </View>
         </ScrollView>}
-        <Footer/>
-        </React.Fragment>
+        
+        </View>
     );
 })

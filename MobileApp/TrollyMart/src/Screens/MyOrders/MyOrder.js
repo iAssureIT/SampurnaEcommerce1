@@ -13,7 +13,7 @@ import { Button, Icon,Card} from "react-native-elements";
 import StepIndicator        from 'react-native-step-indicator';
 import {Menu}               from '../../ScreenComponents/Menu/Menu.js';
 import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}             from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}             from '../../ScreenComponents/Footer/Footer.js';
 import styles               from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading              from '../../ScreenComponents/Loading/Loading.js';
@@ -386,7 +386,6 @@ export const MyOrder = withCustomerToaster((props)=>{
               </View>
             </ScrollView>}
           </View>
-          <Footer selected={"3"}/>
           <Modal isVisible={cancelOrderModal}
             onBackdropPress={() => setCancelOrderModal(false)}
             coverScreen={true}

@@ -47,6 +47,7 @@
 
 // ========================= InLIne scroll ====================
 import { StyleSheet} from 'react-native';
+import { colors } from 'react-native-elements';
 export default StyleSheet.create({
 	menuWrapper:{
 		marginTop:20,
@@ -63,11 +64,8 @@ export default StyleSheet.create({
 		paddingHorizontal:15,
 		justifyContent:"center",
 		alignItems:"center",
-		borderRadius: 8 ,
+		borderRadius: 5,
 		overflow: "hidden",
-		borderWidth: 1,
-		borderColor: '#999',
-		backgroundColor: 'rgb(0,0,0)'
 	},
 	proddets: {
 		flexDirection: 'row',
@@ -116,8 +114,6 @@ export default StyleSheet.create({
 	},
 	sectionTitle:{
 		textAlign: 'center',
-		fontWeight: 'bold',
-		fontSize: 15,
 		// marginTop: 30,	
 	}
 }); 

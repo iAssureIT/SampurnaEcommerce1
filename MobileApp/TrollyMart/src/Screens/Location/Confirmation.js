@@ -15,7 +15,7 @@ import Geocoder                     from 'react-native-geocoding';
 import Geolocation                  from 'react-native-geolocation-service';
 import axios                        from "axios";
 import {BottomModal}                from '../../ScreenComponents/BottomModal/BottomModal';
-
+import {colors, Icon}                       from 'react-native-elements'
 const window = Dimensions.get('window');
 navigator.geolocation = require('react-native-geolocation-service');
 
@@ -73,6 +73,11 @@ export const Confirmation = withCustomerToaster((props)=>{
     return (
         <View>
             <View style={{height:window.height, justifyContent:"flex-end",backgroundColor:"#fff"}}>
+                <View style={{alignItems:"flex-start",paddingTop:15,paddingLeft:15}}>
+                  <TouchableOpacity onPress={()=> navigation.goBack()}>
+                    <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
+                  </TouchableOpacity>   
+                </View>  
                 <View style={{flex:.7,justifyContent:"center",alignItems:"center",paddingHorizontal:15}}>
                     <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/>
                     <Text style={{color:"#333",fontFamily:"Montserrat-Bold",fontSize:18,alignSelf:"center"}}>Delivery Location</Text>

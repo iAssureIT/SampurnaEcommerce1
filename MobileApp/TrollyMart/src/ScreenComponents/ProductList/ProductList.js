@@ -27,6 +27,7 @@ import FastImage              from 'react-native-fast-image';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
+  console.log("props",props);
   const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor,onEndReachedThreshold,type} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -220,15 +221,15 @@ export const ProductList = withCustomerToaster((props)=>{
     availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
     const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
     return (
-      <View key={index}  style={[styles.productContainer,index%2===1&&{marginLeft:'5%'}]} >
+      <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
         <TouchableOpacity  disabled={props.disabled}onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location})}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
               {
-                item.productImage && item.productImage.length > 0 ?
+                item.productSmallImage && item.productSmallImage.length > 0 ?
                   <FastImage
                     source={{ 
-                      uri: item.productImage[0],
+                      uri: item.productSmallImage[0],
                       priority: FastImage.priority.high, 
                       cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
                     }}
@@ -377,7 +378,7 @@ export const ProductList = withCustomerToaster((props)=>{
         <FlatList
           data                          = {productsDetails}
           showsVerticalScrollIndicator  = {false}
-          // contentContainerStyle         ={{paddingHorizontal:15}}
+          contentContainerStyle         ={{paddingVertical:15,marginTop:180,paddingBottom:230}}
           renderItem                    = {_renderlist} 
           nestedScrollEnabled           = {true}
           numColumns                    = {2}
@@ -386,6 +387,7 @@ export const ProductList = withCustomerToaster((props)=>{
           initialNumToRender            = {6}
           ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
           onEndReachedThreshold          = {onEndReachedThreshold}
+          onScroll={(e)=>props.onScroll(e)}
         //   ListEmptyComponent            = {
         //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
         //     <Image
@@ -400,9 +402,9 @@ export const ProductList = withCustomerToaster((props)=>{
                   //Call pagination function
             }
           }}
-          getItemLayout={(data, index) => (
-            {length: 500, offset: 500 * index, index}
-          )}
+          // getItemLayout={(data, index) => (
+          //   {length: 500, offset: 500 * index, index}
+          // )}
           /> 
       </React.Fragment>
     );
