@@ -8,6 +8,7 @@ const EventTokenMaster      = require('../EventTokenMaster/ModelEventTokenMaster
 const nodeMailer            = require('nodemailer');
 const GlobalMaster          = require('../projectSettings/ModelProjectSettings.js');
 const plivo                 = require('plivo');
+var ObjectId                = require('mongodb').ObjectID;
 const FailedRecords         = require('../failedRecords/ModelFailedRecords');
 const { response } = require("express");
 
@@ -281,7 +282,7 @@ exports.send_notifications = (req, res, next) => {
                         //    }
                         }
                         
-                    }else if(role === req.body.toUserRole){
+                    }else if(role === req.body.toUserRole && req.body.toUser_id){
                         console.log('admin toUserrole==>',role)
                         var userData    = await getSelfUserData(req.body.toUser_id);
                         // console.log("userData->",userData)
@@ -316,6 +317,7 @@ exports.send_notifications = (req, res, next) => {
                            for(var j=0 ; j<userData.length ; j++){
                             var userRole    = userData[j].role
                             var checkRole   = userRole.includes(role);
+                            console.log("checkRole => ",checkRole)
                                 if(checkRole){
                                     var c = await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
                                     // console.log("c  => ",c)
@@ -492,7 +494,7 @@ function getOtherAdminData(role,company_id){
         .exec()
         .then(result => {
             if(result.companyID){
-                User.find({ "profile.companyID": result.companyID, "roles":role})
+                User.find({ "profile.companyID": result.companyID, "roles":role, recieveNotifications : true})
                 .exec()
                 .then(data => {
                     if(data && data.length>0){
@@ -625,7 +627,7 @@ function sendSMS(mobileNumber, textMsg){
 /**=========== Send inApp Notification ===========*/
 function sendInAppNotification(toUserId, email, event, notificationDetails){
     return new Promise(function (resolve, reject) {
-        const InAppNotification = new Notifications({
+        const inAppNotification = new Notifications({
             _id                     : new mongoose.Types.ObjectId(),
             masternotificationId    : notificationDetails.id,
             toMailId                : email,
@@ -636,7 +638,7 @@ function sendInAppNotification(toUserId, email, event, notificationDetails){
             createdAt               : new Date()
         });
 
-        InAppNotification.save()
+        inAppNotification.save()
         .then(data=>{
             if(data && data !== null){
                 resolve(true);

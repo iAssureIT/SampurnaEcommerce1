@@ -100,7 +100,8 @@ const userSchema = mongoose.Schema({
 						status					: String,
 						createdOn 				: String,
 					},
-	roles       : [String],
+	roles       	: [String],
+	recieveNotifications    : Boolean,
 	deliveryAddress : [
 		
 		{

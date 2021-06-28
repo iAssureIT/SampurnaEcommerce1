@@ -88,7 +88,8 @@ exports.user_signup_user = (req, res, next) => {
 														createdAt: new Date(),
 													},
 													deliveryAddress : [],
-													roles: [role_lower]
+													roles: [role_lower],
+													recieveNotifications : req.body.recieveNotifications
 												});
 												if (!req.body.firstname) {
 													user.profile.fullName = req.body.fullName;

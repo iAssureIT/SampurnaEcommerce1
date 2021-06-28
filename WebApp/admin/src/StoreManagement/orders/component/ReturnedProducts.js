@@ -18,7 +18,7 @@ export default class ReturnProducts extends Component{
 		this.state = {
 			"returnedProducts" : [] 
 		}
-		this.getOrders = this.getOrders.bind(this);
+		// this.getReturnedProducts = this.getReturnedProducts.bind(this);
 	}
 	 
 	componentDidMount(){
@@ -26,7 +26,7 @@ export default class ReturnProducts extends Component{
 		var token       = userDetails.token;
 		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 
-		this.getOrders();
+		this.getReturnedProducts();
 		$('.showmore').click(function () {
 			console.log('this',$(this));
 
@@ -50,29 +50,29 @@ export default class ReturnProducts extends Component{
 		}
 		});
 	}    
-	getOrders(){
-			axios.get("/api/returnedProducts/get/list")
-						.then((response)=>{
-								this.setState({
-									returnedProducts: response.data
-								});
-						})
-						.catch((error)=>{
-								console.log('error', error);
-								if(error.message === "Request failed with status code 401"){
-									var userDetails =  localStorage.removeItem("userDetails");
-									localStorage.clear();
-									swal({  
-											title : "Your Session is expired.",                
-											text : "You need to login again. Click OK to go to Login Page"
-									})
-									.then(okay => {
-									if (okay) {
-											window.location.href = "/login";
-									}
-									});
-								}
-						})
+	getReturnedProducts(){
+		axios.get("/api/returnedProducts/get/list")
+		.then((response)=>{
+				this.setState({
+					returnedProducts: response.data
+				});
+		})
+		.catch((error)=>{
+				console.log('error', error);
+				if(error.message === "Request failed with status code 401"){
+					var userDetails =  localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({  
+							title : "Your Session is expired.",                
+							text : "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+					if (okay) {
+							window.location.href = "/login";
+					}
+					});
+				}
+		})
 	}
 	returnApproveModal(event){
 		$('#returnApprove').show();
@@ -87,7 +87,7 @@ export default class ReturnProducts extends Component{
 		axios.patch('/api/returnedProducts/returnStatusUpdate',formValues)
 					.then((response)=>{
 						console.log('response', response);
-						this.getOrders();
+						this.getReturnedProducts();
 						swal({
 									title : response.data.message,
 								});
@@ -128,7 +128,7 @@ export default class ReturnProducts extends Component{
 			axios.patch('/api/returnedProducts/returnPickeupInitiated',formValues)
 					.then((response)=>{
 						console.log('response', response);
-						this.getOrders();
+						this.getReturnedProducts();
 						swal({
 									title : response.data.message,
 								});
@@ -168,7 +168,7 @@ export default class ReturnProducts extends Component{
 		axios.patch('/api/returnedProducts/returnStatusUpdate',formValues)
 					.then((response)=>{
 						console.log('response', response);
-						this.getOrders();
+						this.getReturnedProducts();
 						swal({
 									title : response.data.message,
 								});
@@ -207,7 +207,7 @@ export default class ReturnProducts extends Component{
 		axios.patch('/api/returnedProducts/returnStatusUpdate',formValues)
 					.then((response)=>{
 						console.log('response', response);
-						this.getOrders();
+						this.getReturnedProducts();
 						swal({
 									title : response.data.message,
 								});

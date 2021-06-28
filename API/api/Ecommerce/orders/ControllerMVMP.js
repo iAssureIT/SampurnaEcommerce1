@@ -7,7 +7,7 @@ const Masternotifications 		= require('../../coreAdmin/notificationManagement/Mo
 const User 						= require('../../coreAdmin/userManagementnew/ModelUsers.js');
 const ProductInventory 			= require('../ProductInventory/Model.js');
 const BusinessAssociate 		= require('../businessAssociate/Model');
-const ReturnedProducts 			= require('../ReturnedProducts/Model');
+const ReturnedProducts 			= require('../ReturnedProducts/ModelMVMP');
 const Products 					= require('../products/Model');
 const Adminpreference 			= require('../adminPreference/Model');
 const StorePreferences  		= require('../StorePreferences/Model.js');
@@ -235,7 +235,7 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 	return new Promise((resolve,reject)=>{
 		CreditPoints.findOne({"user_id" : ObjectId(user_id)})
 		.then(async(data)=>{
-			// console.log("data => ", data);
+
 			// console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
 			var creditPolicyData = await CreditPointsPolicy.findOne();
 			// console.log("creditPolicyData => ",creditPolicyData);
@@ -250,7 +250,7 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 						{$push: {
 								transactions : {
 									order_id            : order_id,
-									transactionDate           : new Date(),
+									transactionDate     : new Date(),
 									purchaseAmount      : purchaseAmount,
 									shippingCharges     : shippingCharges,
 									totalAmount         : totalAmount,
@@ -263,8 +263,9 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 							}	
 						})
 						.exec()
-						.then(data => {
-							if (data.nModified === 1) {
+						.then(updateddata => {
+							console.log("Data => ",updateddata)
+							if (updateddata.nModified === 1) {
 								resolve({
 									"message"	: "Credit Points added successfully in wallet."
 								});
@@ -287,7 +288,7 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 						totalPoints                 : earnedCreditPoints,
 						transactions 				: {
 														order_id            : order_id,
-														transactionDate           : new Date(),
+														transactionDate     : new Date(),
 														purchaseAmount      : purchaseAmount,
 														shippingCharges     : shippingCharges,
 														totalAmount         : totalAmount,
@@ -670,6 +671,157 @@ exports.list_orders_by_status = (req, res, next) => {
 		});
 	});
 };
+
+/**============ Return Product ===========*/
+exports.returnProduct = (req, res, next) => {
+	console.log("Return Products body => ", req.body);
+  	Orders.updateOne(
+		{'_id' : ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id},
+		{$set:
+			{
+				'vendorOrders.$[outer].products.$[inner].productStatus' : 'Returned',
+				'vendorOrders.$[outer].products.$[inner].returnedDate'	: new Date(),
+			}
+		},
+		{arrayFilters: [
+			{ 'outer.vendor_id' : req.body.vendor_id}, 
+			{ 'inner.product_ID': req.body.product_id }
+		]}
+	)
+	.exec()
+	.then(data => {
+		if (data.nModified == 1) {
+			Orders.findOne({ "_id": ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id, 'vendorOrders.products.product_ID' : req.body.product_id })
+			.exec()
+			.then(orderdata => {
+				console.log("orderdata => ",orderdata);
+				var vendor = orderdata.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) === String(req.body.vendor_id));
+				console.log("vendor",vendor);
+				if(vendor && vendor.length > 0 && vendor[0].products && vendor[0].products.length > 0){
+					console.log("vendor[0].products => ",vendor[0].products);
+					// console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);
+					if(vendor[0].products.length > 0){
+						var returnedProduct  = vendor[0].products.filter(product => String(product.product_ID) === String(req.body.product_id));
+					}else{
+						var returnedProduct  = [];
+					}
+					console.log("returnedProduct => ",returnedProduct);
+					console.log("orderdata.orderID => ",orderdata.orderID);
+					if(returnedProduct && returnedProduct.length > 0){
+						const returnedproducts = new ReturnedProducts({
+							_id 					: new mongoose.Types.ObjectId(),
+							order_id                : req.body.order_id,
+							orderID                	: orderdata.orderID,
+							user_id                 : req.body.user_id,
+							vendor_id 				: req.body.vendor_id,
+							vendorLocation_id 		: req.body.vendorLocation_id,
+							product_id              : req.body.product_id,
+							reasonForReturn         : req.body.reasonForReturn,
+							originalPrice           : returnedProduct[0].originalPrice,
+							discountPercent         : returnedProduct[0].discountPercent,
+							discountedPrice         : returnedProduct[0].discountedPrice,
+							productQuantity 		: returnedProduct[0].quantity,
+							modeOfPayment           : orderdata.paymentDetails.paymentMethod,
+							dateOfPurchase          : orderdata.createdAt,
+							dateOfReturn            : new Date(),
+							returnStatus 			: "New",
+							returnStatusLog 		: [{
+														status 	: "New",
+														date 	: new Date()
+							}],
+							// refund 				: [{
+							// 						bankName 		: req.body.bankname,
+							// 						bankAccountNo 	: req.body.bankacctno,
+							// 						IFSCCode 		: req.body.ifsccode,
+							// 						amount 			: orderdata.products[0].discountedPrice
+							// }],
+							createdBy 			: req.body.user_id,
+							createdAt 			: new Date()
+						})
+						returnedproducts.save()
+						.then(async(returndata) => {
+							var isOrderAvailable = await CreditPoints.findOne({"user_id" : ObjectId(req.body.user_id), "transactions.order_id" : ObjectId(req.body.order_id)});
+							
+							if(isOrderAvailable !== null){
+								await addCreditPoints(req.body.order_id, req.body.user_id, (returndata.discountedPrice * returndata.productQuantity), 0, (returndata.discountedPrice * returndata.productQuantity), "ReturnProduct", "minus");
+
+								var userData 	 = await User.findOne({"_id" : ObjectId(req.body.user_id)}); 
+								
+								//send Notification, email, sms to admin
+								var adminNotificationValues = {
+									"event"			: "ProductReturn",
+									// "toUser_id"		: req.body.user_ID,
+									"toUserRole"	: "admin",								
+									"variables" 	: {
+														"customerName" 			: userData.profile.fullName,
+														"customerEmail" 		: userData.profile.email,
+														"mobileNumber"			: userData.profile.mobile,
+														"orderID"  				: orderdata.orderID,
+														"product" 				: returnedProduct[0].productName + "-" + (returnedProduct[0].itemCode),
+														"orderDate"  			: moment(orderdata.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+														"returnDate"  			: moment(new Date()).format('MMMM Do YYYY, h:mm:ss a'),
+														"deliveryAddress" 		: orderdata.deliveryAddress
+									}
+								}
+								var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+
+								//send Notification, email, sms to vendor
+								var vendorNotificationValues = {
+									"event"			: "ProductReturn",
+									// "toUser_id"		: req.body.user_ID,
+									"toUserRole"	: "vendor",
+									"company_id"	: req.body.vendor_id,	
+									"otherAdminRole"	: "vendor",								
+									"variables" 	: {
+														"customerName" 			: userData.profile.fullName,
+														"customerEmail" 		: userData.profile.email,
+														"mobileNumber"			: userData.profile.mobile,
+														"orderID"  				: orderdata.orderID,
+														"product" 				: returnedProduct[0].productName + "-" + (returnedProduct[0].itemCode),
+														"orderDate"  			: moment(orderdata.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
+														"returnDate"  			: moment(new Date()).format('MMMM Do YYYY, h:mm:ss a'),
+														"deliveryAddress" 		: orderdata.deliveryAddress
+									}
+								}
+								var send_notification_to_vendor = await sendNotification.send_notification_function(vendorNotificationValues);
+							}
+							res.status(200).json({ 
+								message : "Product is returned. Return process will start soon!" 
+							});
+						})
+						.catch(err => {
+							res.status(500).json({ 
+								message 	: "Failed to return product." ,
+								error 		: err 
+							});
+						});
+					}
+				}else{
+					console.log("No vendor found")
+				}
+			})
+			.catch(err => {
+				console.log("Error While finding order => ",err)
+				res.status(500).json({
+					message : "Error While finding order",
+					error 	: err 
+				});
+			});
+		} else {
+			res.status(200).json({
+				"message": "Failed to return product"
+			});
+		}
+	})
+	.catch(err => {
+		console.log("Error while returning product => ", err);
+		res.status(500).json({
+			message : "Error while returning product",
+			error 	: err
+		});
+	});
+}
+
 
 /*========== Split VendorWise Orders ==========*/
 function addSplitVendorOrders(orderID) {
@@ -1783,113 +1935,6 @@ exports.cancelOrder = (req, res, next) => {
 		  error: err
 		});
 	 });
-}
-
-/**============ Return Product ===========*/
-exports.returnProduct = (req, res, next) => {
-	console.log("Return Products body => ", req.body);
-  	Orders.updateOne(
-		{'_id' : ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id},
-		{$set:
-			{
-				'vendorOrders.$[outer].products.$[inner].productStatus' : 'Returned',
-				'vendorOrders.$[outer].products.$[inner].returnedDate'	: new Date(),
-			}
-		},
-		{arrayFilters: [
-			{ 'outer.vendor_id' : req.body.vendor_id}, 
-			{ 'inner._id': req.body.product_id }
-		]}
-	)
-	.exec()
-	.then(data => {
-	console.log(data);
-		if (data.nModified == 1) {
-
-			Orders.findOne({ "_id": ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id, 'vendorOrders.products._id' : req.body.product_id })
-			.exec()
-			.then(orders => {
-				var vendor = orders.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) === String(req.body.vendor_id));
-				console.log("vendor",vendor);
-				if(vendor && vendor.length > 0 && vendor[0].products && vendor[0].products.length > 0){
-					// console.log("vendor[0].vendor_quantityOfProducts => ",vendor[0].vendor_quantityOfProducts);
-					// console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);
-					if(vendor[0].products.length > 1){
-						var returnedProduct  = vendor[0].products.filter(product => String(product._id) === String(req.body.product_id));
-					}else{
-						var returnedProduct  = [];
-					}
-					console.log("returnedProduct => ",returnedProduct);
-					if(returnedProduct && returnedProduct.length > 0){
-						const returnedproducts = new ReturnedProducts({
-							_id 				: new mongoose.Types.ObjectId(),
-							order_id                : req.body.order_id,
-							orderID                	: orders.orderID,
-							user_id                 : req.body.user_id,
-							vendor_id 				: req.body.vendor_id,
-							vendorLocatoin_id 		: vendorLocatoin_id,
-							product_id              : req.body.product_id,
-							productCode 			: String,
-							itemCode                : String ,
-							reasonForReturn         : String, 
-							adminComment 			: String,
-							vendorComment 			: String,     
-							originalPrice           : Number,
-							discountPercent         : Number,
-							discountedPrice         : Number,
-							modeOfPayment           : String, 
-							dateOfPurchase          : Date,
-							dateOfReturn            : Date,
-
-							
-							originalPrice 		: orders.originalPrice,
-							discountedPrice 	: orders.discountedPrice,
-							discountPercent 	: orders.discountPercent,
-							dateofPurchase 		: orders.createdAt,
-							reasonForReturn 	: req.body.reasonForReturn,
-							modeofPayment 		: orders.paymentMethod,
-							dateofReturn 		: new Date(),
-							returnStatus 		: [{
-													status 	: "Return Approval Pending",
-													date 	: new Date()
-							}],
-							refund 				: [{
-													bankName 		: req.body.bankname,
-													bankAccountNo 	: req.body.bankacctno,
-													IFSCCode 		: req.body.ifsccode,
-													amount 			: orders.products[0].discountedPrice
-							}],
-							createdBy 			: req.body.userid,
-							createdAt 			: new Date()
-						})
-						returnedproducts.save()
-						.then(data => {
-							res.status(200).json({ "message": "Product is returned. Return process will start soon!" });
-						})
-						.catch(err => {
-							res.status(500).json({ error: err });
-						});
-					}
-				}else{
-					console.log("No vendor found")
-				}
-			})
-			.catch(err => {
-				res.status(500).json({ error: err });
-			});
-
-		} else {
-			res.status(401).json({
-				"message": "Product Not Found"
-			});
-		}
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(500).json({
-			error: err
-		});
-	});
 }
 
 exports.get_reports_count = (req, res, next) => {

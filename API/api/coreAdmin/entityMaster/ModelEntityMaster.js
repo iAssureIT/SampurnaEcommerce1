@@ -72,6 +72,7 @@ const entitySchema = mongoose.Schema({
                                     createUser                : Boolean,
                                     addEmployee               : Boolean,
                                     role                      : String,
+                                    recieveNotifications      : Boolean,
                                     address                   : [{
                                                                 addressLine1    : String,
                                                                 addressLine2    : String,

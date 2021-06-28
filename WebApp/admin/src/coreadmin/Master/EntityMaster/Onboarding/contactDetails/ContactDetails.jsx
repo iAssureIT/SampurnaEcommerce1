@@ -1643,6 +1643,7 @@ class ContactDetails extends Component {
 			'openFormIcon'              : false,
 			'bookingApprovalRequired' 	: "No",
 			'createUser' 				: false,
+			'recieveNotifications' 		: false, 
 			'showBookingApprovalRequired' : true,
 			'branchCode'  				:"",
 			'department'  				:"",
@@ -1896,6 +1897,10 @@ class ContactDetails extends Component {
 		$.validator.addMethod("depRegx", function (value, element, arg) {
 			return arg !== value;
 		}, "Role is mandatory");
+		
+		$.validator.addMethod("noteRegx", function (value, element, arg) {
+			return arg !== value;
+		}, "Role is mandatory");
 		/*$.validator.addMethod("desRegx", function (value, element, arg) {
 			return arg !== value;
 		}, "Please enter valid designation");
@@ -1940,6 +1945,10 @@ class ContactDetails extends Component {
 				role: {
 					required: true,
 					depRegx: ""
+				},
+				recieveNotifications: {
+					required: true,
+					noteRegx: ""
 				},/*
 				designation: {
 					required: true,
@@ -1995,6 +2004,10 @@ class ContactDetails extends Component {
 
 				if (element.attr("name") === "role") {
 					error.insertAfter("#role");
+				}
+
+				if (element.attr("name") === "recieveNotifications") {
+					error.insertAfter("#recieveNotifications");
 				}
 				if (element.attr("name") === "department") {
 					error.insertAfter("#department");
@@ -2251,6 +2264,7 @@ class ContactDetails extends Component {
 					'preApprovedRides'          : this.state.bookingApprovalRequired ? this.state.preApprovedRides : "",
 					'preApprovedKilometer'      : this.state.bookingApprovalRequired ? this.state.preApprovedKilometer : "",
 					'createUser'        		: this.state.createUser,
+					'recieveNotifications'      : this.state.recieveNotifications,
 					'role' 						: this.state.urlParam == "Ba" ? "Ba" : this.state.createUser ? this.state.role : "",
                     'addEmployee'       		: this.state.addEmployee,
 				}
@@ -2362,6 +2376,7 @@ class ContactDetails extends Component {
 			"designation": this.state.designation,
 			"cityName": this.state.cityName,
 			"states": this.state.states,
+			"recieveNotifications": this.state.recieveNotifications,
 			"companyID": this.state.companyID,
 			"company_ID": this.props.match.params.entityID,
 			"companyName": this.state.companyName,
@@ -2492,6 +2507,7 @@ class ContactDetails extends Component {
 						'employeeID'        		: '',
 						'bookingApprovalRequired' 	: "No",
 						'createUser' 				: false,
+						'recieveNotifications' 		: false,
 						'addEmployee'				: false,
 						'approvingAuthorityId1' 		: '',
 						'approvingAuthorityId2' 		: '',
@@ -2587,6 +2603,7 @@ class ContactDetails extends Component {
 					'preApprovedRides'          : this.state.bookingApprovalRequired === "Yes"  ? this.state.preApprovedRides : "",
 					'preApprovedAmount'          : this.state.bookingApprovalRequired === "Yes"  ? this.state.preApprovedAmount : "",
 					'createUser'        		: this.state.createUser,
+				    'recieveNotifications'      : this.state.recieveNotifications,
 				    'role' 						: this.state.createUser ? this.state.role : "", 
                     'addEmployee'       		: this.state.addEmployee,
                     address: this.state.addressLine1 !=="" ? [{
@@ -2675,6 +2692,7 @@ class ContactDetails extends Component {
 			companyID			: this.state.companyID,
 			email					: this.state.email,
 			companyName			: this.state.companyName,
+			recieveNotifications			: this.state.recieveNotifications,
 			pwd						: "Welcome@123",
 			role					: [this.state.role],
       // "status": this.state.role !=="corporateadmin" || this.state.role !=="vendoradmin" ? "blocked" :"active",
@@ -2826,6 +2844,7 @@ class ContactDetails extends Component {
 				'role'        				: '',
 				'bookingApprovalRequired' 	: "No",
 				'createUser' 				: false,
+				'recieveNotifications' 		: false,
 				'addEmployee'				: false,
 				'approvingAuthorityId1' 		: '',
 				'approvingAuthorityId2' 		: '',
@@ -2918,6 +2937,7 @@ class ContactDetails extends Component {
 
 						'role'        				: contactDetails[0].role,
 						'createUser'        		: contactDetails[0].createUser,
+						'recieveNotifications'        		: contactDetails[0].recieveNotifications,
 						'addEmployee'       		: contactDetails[0].addEmployee,
 						'userID' 					: contactDetails[0].userID,
 						'personID' 					: contactDetails[0].personID,
@@ -2985,6 +3005,7 @@ class ContactDetails extends Component {
 					'altPhone'          : '',
 					'email'             : '',
 					'createUser' 		: false,
+					'recieveNotifications' 		: false,
 					'employeeID'        : '',
 					'role'				: '',
 					'branchCode'        		: '',
@@ -3147,6 +3168,14 @@ class ContactDetails extends Component {
 		event.preventDefault();
 		this.setState({
 			createUser : val,
+			//rolesArray : this.props.roles
+		})
+	}
+	recieveNotifications(val,event) {
+		console.log("val => ",val)
+		event.preventDefault();
+		this.setState({
+			recieveNotifications : val,
 			//rolesArray : this.props.roles
 		})
 	}
@@ -3435,7 +3464,31 @@ class ContactDetails extends Component {
 						                                        </div>
 					                                        :
 					                                        	null
-					                                    	}																	
+					                                    	}
+															{
+															this.state.createUser 
+															? 
+															<div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+																<label className="labelform col-lg-12 col-md-12 col-sm-12 col-xs-12">Recieve Notifications</label>
+																{console.log("this.state.recieveNotifications => ",this.state.recieveNotifications)}
+																<div className="btn-group btn-group-toggle" data-toggle="buttons">
+																	<label className={this.state.recieveNotifications === true ? "btn toggleButton customToggleButtonPermission btn-secondary active":"btn toggleButton customToggleButtonPermission btn-secondary"} value={true} onClick={this.recieveNotifications.bind(this,true)}>
+																	<input type="radio"
+																		name="notifications" 
+																		id="yess"
+																		value={true}
+																		autoComplete="off"
+																		checked
+																		/>Yes
+																	</label>
+																	<label className={this.state.recieveNotifications === false ? "btn toggleButton customToggleButtonPermission btn-secondary active":"btn toggleButton customToggleButtonPermission btn-secondary"} value={false} onClick={this.recieveNotifications.bind(this,false)} >
+																		<input type="radio" name="notifications" id="noo"  value="no" autoComplete="off" /> No
+																	</label>
+																</div>
+															</div>
+															:
+															 null
+															}																	
 														</div>															
 												
 														<div className="col-lg-7 col-md-7 col-sm-7 col-xs-7 contactSubmit pull-right">

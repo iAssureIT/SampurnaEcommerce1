@@ -235,6 +235,7 @@ exports.singleEntity = (req,res,next)=>{
                         designation              : data.contactPersons[k].designation,
                         address                  : data.contactPersons[k].address,
                         createUser               : data.contactPersons[k].createUser,
+                        recieveNotifications     : data.contactPersons[k].recieveNotifications,
                         approvingAuthorityId1    : data.contactPersons[k].approvingAuthorityId1,
                         approvingAuthorityId2    : data.contactPersons[k].approvingAuthorityId2,
                         approvingAuthorityId3    : data.contactPersons[k].approvingAuthorityId3,
@@ -834,6 +835,7 @@ exports.updateSingleContact = (req,res,next)=>{
                           'contactPersons.$.address'            : contactdetails.address,
                           'contactPersons.$.role'               : contactdetails.role,
                           'contactPersons.$.createUser'         : contactdetails.createUser,
+                          'contactPersons.$.recieveNotifications'         : contactdetails.recieveNotifications,
                           'contactPersons.$.bookingApprovalRequired'    : contactdetails.bookingApprovalRequired,
                           'contactPersons.$.approvingAuthorityId1'      : contactdetails.approvingAuthorityId1,
                           'contactPersons.$.approvingAuthorityId2'      : contactdetails.approvingAuthorityId2,
@@ -1718,6 +1720,7 @@ exports.bulkUploadEntity = (req, res, next) => {
                                     role                    : [  entity[k].role != '-'  ? entity[k].role : null],
                                     status                    : 'blocked',
                                     entityType              : entity[k].entityType,
+                                    recieveNotifications    : entity[k].recieveNotifications,
                                     // "status"                :  entity[k].role1 ==="corporateadmin" || entity[k].role1 ==="vendoradmin" || entity[k].role1 === "admin" ? "active" :"blocked",
                                     "emailSubject"  : "Email Verification",
                                     "emailContent"  : "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
@@ -1822,6 +1825,7 @@ exports.bulkUploadEntity = (req, res, next) => {
                         // designation               : entity[k].Designation,
                         employeeID                : entity[k].employeeID,
                         role                      : entity[k].role,
+                        recieveNotifications    : entity[k].recieveNotifications,
                         createUser                : entity[k].loginCredential && entity[k].loginCredential != '-' && (entity[k].loginCredential).toLowerCase() === 'yes' ? true : false,
                     }
 

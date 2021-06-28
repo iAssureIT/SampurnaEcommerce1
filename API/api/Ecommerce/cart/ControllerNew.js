@@ -401,6 +401,8 @@ exports.list_cart_product = (req,res,next)=>{
                                                                     : 
                                                                         (order_shippingCharges).toFixed(2);
                 data.paymentDetails.afterDiscountCouponAmount   = 0;
+                data.paymentDetails.creditPointsUsed            = 0;
+                data.paymentDetails.creditPointValue            = 0;
                 data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
                                                                                                                     ? maxServiceCharges > order_shippingCharges 
                                                                                                                         ? 
