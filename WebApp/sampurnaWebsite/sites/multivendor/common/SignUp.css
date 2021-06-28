@@ -428,7 +428,7 @@ input[type=number] {
   list-style-type: none;  
 }
 
-li::before{
+.loginLine li::before{
   content: '';
    display: inline-block;
    height: 15px;
