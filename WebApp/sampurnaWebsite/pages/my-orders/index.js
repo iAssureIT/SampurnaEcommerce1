@@ -324,13 +324,7 @@ export default class MyOrders extends Component {
             this.state.loading ?
               <div className="col-12 loaderHeight"><Loader type="fullpageloader" /></div> 
               :
-              // <div className="col-12 NOpadding">
-              //   <br />
-               <div className="row"> 
-                {/* <div className="col-12 col-xl-3 col-md-3 col-sm-3 myOrderSidebar ">
-                  <Sidebar />
-                </div> */}
-
+               <div className="col-12"> 
                 <div className="col-12 col-xl-12 col-md-12 col-sm-12 pr-0">
                   <div className="col-12">
                       <h4 className={"table-caption py-3 "}>My Orders</h4>

@@ -64,7 +64,7 @@ class MasterPage extends React.Component {
 	}
 
    render() {
-    console.log("this.props.pageData==",this.props.pageData);
+    // console.log("this.props.pageData==",this.props.pageData);
     return (	
 		<div className="col-12 NoPadding">
 			<div className="col-12 NoPadding masterPageWrapper">

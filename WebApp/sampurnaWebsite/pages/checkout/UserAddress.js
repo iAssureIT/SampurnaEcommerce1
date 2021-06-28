@@ -253,7 +253,7 @@ class UserAddress extends Component {
             <Message messageData={this.state.messageData} />
                 <div className="row">
                     <form id="modalAddressForm" className="col-12 ">
-                        <div className="col-12 NOpadding">
+                        <div className="col-12 NoPadding">
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Full Name <span className="required">*</span></label>
                                 <input type="text" maxLength="40" ref="fullname" name="fullname" id="fullname" value={this.state.fullname} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />

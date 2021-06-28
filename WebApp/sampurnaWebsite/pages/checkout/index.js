@@ -28,38 +28,39 @@ class Checkout extends Component {
         super(props);
         this.state = {
             cart: [],
-            totalCartPrice: '',
-            productData: {},
-            productCartData: [],
-            vatPercent: 0,
-            companyInfo: "",
-            cartProduct: "",
-            shippingCharges: 0,
-            quantityAdded: 0,
-            totalIndPrice: 0,
-            addressId: "",
-            bannerData: {
-                title: "ORDER SUMMARY",
-                breadcrumb: 'Order Summary',
+            totalCartPrice  : '',
+            productData     : {},
+            productCartData : [],
+            vatPercent      : 0,
+            companyInfo     : "",
+            cartProduct     : "",
+            shippingCharges : 0,
+            quantityAdded   : 0,
+            totalIndPrice   : 0,
+            addressId       : "",
+            bannerData      : {
+                title          : "ORDER SUMMARY",
+                breadcrumb     : 'Order Summary',
                 backgroungImage: 'images/eCommerce/checkout.png',
             },
-            deliveryAddress: [],
-            pincodeExists: true,
-            paymentmethods: "cod",
-            paymethods: false,
-            addressLine1: "",
-            addType     : '',
-            startRange  : 0,
-            limitRange  : 10,
-            isChecked   : false,
-            isCheckedError: [],
-            user_ID       :'',
-            email         : '',
-            fullName      : '',
-            fields: {},
-            errors: {},
-            websiteModel:'',
-            couponAmount : 0.00,
+            deliveryAddress   : [],
+            pincodeExists     : true,
+            paymentmethods    : "cod",
+            paymethods        : false,
+            addressLine1      : "",
+            addType           : '',
+            startRange        : 0,
+            limitRange        : 10,
+            isChecked         : false,
+            isCheckedError    : [],
+            user_ID           :'',
+            email             : '',
+            fullName          : '',
+            fields            : {},
+            errors            : {},
+            websiteModel      :'',
+            couponAmount      : 0.00,
+            creaditPointError : "",
         }
     }
     async componentDidMount() {
@@ -84,6 +85,7 @@ class Checkout extends Component {
                 websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
                 currency     : currency,
             },()=>{
+                this.getCreditData();
                 this.getAddressWithDistanceLimit();
                 axios.get('/api/users/get/' + this.state.user_ID)
                 .then(result => {
@@ -165,7 +167,24 @@ class Checkout extends Component {
           return formIsValid;
           return true;
         }
-        
+        getCreditData(){
+            // console.log("this.state.user_ID=",this.state.user_ID);
+            axios.get('/api/creditpoints/get/'+this.state.user_ID)
+            .then( (creditRes)=>{
+                // console.log("credit response==",creditRes);
+                if(creditRes){
+                    console.log("credit response==",creditRes);
+                    this.setState({
+                        creditdata : creditRes.data
+                    },()=>{
+                        console.log("creditdata=",this.state.creditdata);
+                    })
+                }
+            })
+            .catch((error)=>{
+              console.log("account page getCredit error = ",error);
+            });
+        }
     getUserAddress() {
         if(this.state.user_ID){
         // axios.get("/api/ecommusers/" +this.state.user_ID)
@@ -305,6 +324,8 @@ class Checkout extends Component {
                 if(vendorOrders[i].cartItems){
                 for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
                     vendorOrders[i].products[j] = {...vendorOrders[i].cartItems[j].product_ID} ;
+                    vendorOrders[i].products[j].product_ID = vendorOrders[i].cartItems[j].product_ID._id ;
+                    delete vendorOrders[i].products[j]['_id'];
                     vendorOrders[i].products[j].quantity =vendorOrders[i].cartItems[j].quantity ;
                     vendorOrders[i].deliveryStatus =[];
                     vendorOrders[i].deliveryStatus.push({
@@ -556,7 +577,7 @@ class Checkout extends Component {
     selectedTimings(event) {
         var selectedValue = event.target.value;
         var keywordSelectedValue = selectedValue.split('$')[0];
-        console.log("keywordSelectedValue==>",keywordSelectedValue);
+        // console.log("keywordSelectedValue==>",keywordSelectedValue);
         axios.get('/api/time/get/one/' + keywordSelectedValue)
             .then((response) => {
                 var shippingtime = response.data.fromtime + "-" + response.data.totime;
@@ -677,6 +698,42 @@ class Checkout extends Component {
                 this.setState({coupenCode  : ''})
                 console.log("err",err);
             }) 
+    }
+    applyCreditPoint(event){
+        event.preventDefault();
+        var creaditPoint = this.refs.creaditPoint.value;
+        console.log("creaditPoint===",creaditPoint);
+        var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        var userId = userDetails.user_id;
+            const formValues ={
+                "user_ID"           : userId,
+                "creditPointsUsed"  : creaditPoint
+            }
+
+            console.log("formValues==",formValues);
+            if(creaditPoint >= 0){
+                axios.post('/api/carts/redeem/creditpoints',formValues)
+                .then(AfterCreditResponse=>{
+                    if(AfterCreditResponse.data){
+                        console.log("AfterCreditResponse=>",AfterCreditResponse.data);
+
+                        this.setState({
+                            applyCreditPoint : 0,
+                            recentCartData:AfterCreditResponse.data.data,
+                        })
+                        swal(AfterCreditResponse.data.message);
+                        // swal({text: couponResponse.data.message, color:couponResponse.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
+                    }
+                })
+                .catch(err=>{
+                    // this.setState({creditAmount  : ''})
+                    console.log("err",err);
+                }) 
+            }else{
+                this.setState({
+                    creaditPointError : "Please enter your credit points"
+                })
+            }
     }
 
     render() {
@@ -820,7 +877,7 @@ class Checkout extends Component {
                                                 {
                                                    this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
                                                         this.state.recentCartData.vendorOrders.map((vendorWiseData, index) => {
-                                                            console.log("ceckout vendorWiseData.products=",vendorWiseData.products);
+                                                            // console.log("ceckout vendorWiseData.products=",vendorWiseData.products);
                                                             return (
                                                                 <div className="col-12 tableRowWrapper" key={'cartData' + index}>
                                                                 <tr  className="col-12">
@@ -947,12 +1004,16 @@ class Checkout extends Component {
                                                 </div>
                                                 <div className={"col-12 mt-2 " +Style.f11N +" "+Style.grey}><div className={"col-4 NoPadding " +Style.orline}></div><span className={"col-1 " +Style.orclass}>OR</span><div className={"col-4 ml-4 NoPadding " +Style.orline}></div></div>
                                                 <div className="row mt-4 mb-5">
-                                                    <label className={" " +Style.f13N}>Credit points  <span className={" " +Style.AEDColor}>  AED 20 </span> available</label>
+                                                    {this.state.creditdata !== "You haven't earned any credit points yet"?
+                                                        <label className={" " +Style.f13N}>Credit points  <span className={" " +Style.AEDColor}>  {this.state.currency}&nbsp; {this.state.creditdata} </span> available</label>
+                                                    :
+                                                    <label className={" " +Style.f13N}>"You haven't earned any credit points yet"</label>
+                                                    }
                                                     <div className={"form-group col-8 NoPadding " +Style.border1}>
-                                                        <input type="text" className={"form-control couponCode " +Style.border1} ref="creaditPoint" id="creaditPoint" name="creaditPoint" placeholder="20" />
+                                                        <input type="text" className={"form-control couponCode " +Style.border1} ref="creaditPoint" id="creaditPoint" name="creaditPoint" value={this.state.creaditPoint}placeholder="" />
                                                     </div>
                                                     <div className="col-4 NoPadding">
-                                                        <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>
+                                                        <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCreditPoint.bind(this)}>Apply</button>
                                                     </div>
                                                     
                                                 </div>

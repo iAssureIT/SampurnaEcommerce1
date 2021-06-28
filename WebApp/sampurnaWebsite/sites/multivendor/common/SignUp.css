@@ -391,9 +391,9 @@ input[type=number] {
   display: inline-block !important;
 }
 .otpInputBox input{
-  width: 40px !important;
+  width: 50px !important;
   height: 60px !important;
-  margin-left: 20px !important;
+  margin-left: 15px !important;
 }
 .otpBtns{
   padding: 10px;

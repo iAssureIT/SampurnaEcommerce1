@@ -95,6 +95,7 @@ class SignUpOTP extends Component {
               </div>
               <div className="col-8 offset-2 mt-5">
                   <button className="col-5 btn-secondary  pull-left otpBtns" onClick={this.resendOTP.bind(this)}> Resend OTP</button>
+                  {/* <div className="col-1"></div> */}
                   <button className="col-5 btn-secondary pull-right otpBtns" onClick={this.verifyOTP.bind(this)}> Verify OTP</button>
               </div>
         </div>
