@@ -8,7 +8,7 @@ const Carts         = require('../cart/Model');
 const EntityMaster  =  require('../../coreAdmin/entityMaster/ModelEntityMaster');
 var   ObjectId        = require('mongodb').ObjectID;
 const franchisegoods = require('../distributionManagement/Model');
-const ReturnedProducts      = require('../returnedProducts/Model');
+const ReturnedProducts      = require('../ReturnedProducts/Model');
 const FranchiseCustomers      = require('./CustomerModal');
 
 exports.list_products_by_category = (req,res,next)=>{

@@ -41,7 +41,7 @@
 - Earned credit point on shopping (method -> add, color -> green)
 - Vendor Order Cancelled (method -> minus, color -> red)
 - Whole order cancelled (method -> minus, color -> red)
-- Product returned (method -> minusco, color -> red)
+- Product returned (method -> minus, color -> red)
 - Credit points used (method > minus, color -> blue)
 
 * Credit Points Policy

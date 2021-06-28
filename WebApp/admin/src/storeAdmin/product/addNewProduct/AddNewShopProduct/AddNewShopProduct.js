@@ -32,13 +32,14 @@ class AddNewShopProduct extends Component {
 				taxInclude 				: true,
 				color 					: '',
 				editId 					: this.props.match.params ? this.props.match.params.productID : '',
-				section 					: 'Select Section',
+				section 				: 'Select Section',
 				startRange    			: 0,
 				limitRange    			: 100,
 				taxRateArr    			: [],
 				taxName       			: 0,
-				universalProductCode : '',
-				shortDescription 		: '' 	
+				universalProductCode 	: '',
+				shortDescription 		: '',
+				productReturnable 		: '' 	
 	 		};
 
 	 		this.handleChange  	= this.handleChange.bind(this);
@@ -270,6 +271,10 @@ class AddNewShopProduct extends Component {
 		  	category : {
 			 	required 		: true,
 			 	valueNotEquals : "Select Category"
+		  	},
+		  	productReturnable : {
+			 	required 		: true,
+			 	valueNotEquals : "Select type"
 		  	},
 		  // brand: {
 		  //   // required: true,
@@ -606,6 +611,7 @@ class AddNewShopProduct extends Component {
 			 content: response.data.featureList,
 			 productDetails: response.data.productDetails,
 			 shortDescription: response.data.shortDescription,
+			 productReturnable: response.data.productReturnable,
 			 addrows: response.data.attributes.length > 0 ? response.data.attributes : [1],
 			 discountPercent: response.data.discountPercent,
 			 discountedPrice: response.data.discountedPrice === response.data.originalPrice ? "" : response.data.discountedPrice,
@@ -706,6 +712,7 @@ class AddNewShopProduct extends Component {
 		"productUrl"  : this.refs.productUrl.value,
 		"productDetails"  : this.state.productDetails,
 		"shortDescription": this.state.shortDescription ? this.refs.shortDescription.value : '',
+		"productReturnable": this.state.productReturnable ,
 		
 		"taxInclude"  : this.state.taxInclude,
 		"taxRate"     : this.state.taxRate,
@@ -771,6 +778,7 @@ class AddNewShopProduct extends Component {
 					 productUrl: "",
 					 productDetails: "",
 					 shortDescription: "",
+					 productReturnable: "",
 					 taxInclude : true,
 					 taxRate : "",
 					 originalPrice: "",
@@ -920,6 +928,7 @@ class AddNewShopProduct extends Component {
 		"productUrl"        : this.refs.productUrl.value,
 		"productDetails"    : this.state.productDetails,
 		"shortDescription"  : this.state.shortDescription ? this.state.shortDescription : '',
+		"productReturnable"  : this.state.productReturnable,
 		"featureList"       : this.state.content,
 		"attributes"        : productDimentionArray,
 		"taxId"             : this.state.taxId,
@@ -965,6 +974,7 @@ class AddNewShopProduct extends Component {
 				  taxInclude : "",
 				  taxRate : "",
 				  shortDescription: "",
+				  productReturnable: "",
 				  size: "",
 				  universalProductCode: "",
 				  color: "",
@@ -1497,6 +1507,16 @@ class AddNewShopProduct extends Component {
 												</label>
 											 </div>
 										  </div>
+										  <div className="mt addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">
+												<div className=" col-lg-2 col-md-2 col-sm-12 col-xs-12 ">
+													<label>Is product returnable ?</label>
+													<select className="form-control selectdropdown" ref="productReturnable" id="productReturnable" name="productReturnable" value={this.state.productReturnable} onChange={this.handleChange.bind(this)}>
+														<option value="" disabled>Select Type</option>
+														<option value="returnable">returnable </option>
+														<option value="non-returnable">non-returnable</option>
+													</select>
+												</div>
+											</div>
 										  <div className="mt addNewProductWrap col-lg-12 col-md-12 col-sm-12 col-xs-12 add-new-productCol">
 											 <div className=" col-lg-2 col-md-2 col-sm-12 col-xs-12   ">
 												<label>Features</label>

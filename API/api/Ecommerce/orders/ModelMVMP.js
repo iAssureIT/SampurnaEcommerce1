@@ -21,6 +21,8 @@ const orderSchema = mongoose.Schema({
         discountCouponAmount      : Number,
         afterDiscountCouponAmount : Number,
         couponCancelMessage       : String,
+        creditPointsUsed          : Number,
+        creditPointsValue         : Number,
         taxAmount                 : Number,
         shippingCharges           : Number,
         netPayableAmount          : Number,  //NetPayableAmount = afterDiscountCouponAmount + taxAmount + shippingCharges
@@ -72,8 +74,8 @@ const orderSchema = mongoose.Schema({
                     "subCategory_ID"    : String,
                     "subCategory"       : String,
                     "productStatus"     : String,
-                    "isReview"          : Boolean,
-                    "returnedDate"      : Date
+                    "returnedDate"      : Date,
+                    "isReview"          : Boolean
                 }
             ],
             orderStatus               : String,  //new,verified,packing,inspection,dispatched,delivered,cancelled

@@ -42,6 +42,8 @@ const cartSchema = mongoose.Schema({
         discountCouponPercent     : Number,
         discountCouponAmount      : Number,
         afterDiscountCouponAmount : Number,
+        creditPointsUsed          : Number,
+        creditPointsValue         : Number,
         taxAmount                 : Number,
         shippingCharges           : Number,
         netPayableAmount          : Number,  //NetPayableAmount = afterDiscountCouponAmount + taxAmount + shippingCharges

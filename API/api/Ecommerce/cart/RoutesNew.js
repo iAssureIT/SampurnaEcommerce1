@@ -18,6 +18,8 @@ router.patch('/address', 						cartController.add_address_to_cart);
 
 router.patch('/put/coupon', 				    cartController.apply_coupon);
 
+router.patch('/redeem/creditpoints', 		    cartController.apply_credit_points);
+
 /*=============================================================================*/
 
 router.get('/get/list/:user_ID', 				cartController.list_cart);

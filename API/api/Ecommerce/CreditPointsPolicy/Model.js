@@ -5,6 +5,7 @@ const creditPointsPolicySchema = mongoose.Schema({
     purchaseAmount              : Number,
     creditPoint                 : Number,
     creditPointValue            : Number,
+    expiryLimitInDays           : Number,
     createdAt                   : Date
 });
 

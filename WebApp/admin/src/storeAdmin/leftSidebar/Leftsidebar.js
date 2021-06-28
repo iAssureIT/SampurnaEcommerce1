@@ -251,7 +251,12 @@ export default class AdminDashboard extends Component{
 									<a href="/product-reviews-&-ratings" data-id="/product-reviews-&-ratings" title="Product Reviews and Ratings" onClick={this.activeMenu.bind(this)}>
 										<i className="fa fa-circle-o dashr" />Product Reviews & Ratings
 									</a> 
-								</li> 	 						
+								</li>								
+								<li className="noPadLR"> 
+									<a href="/returned-products" data-id="/returned-products" title="Returned Product" onClick={this.activeMenu.bind(this)}>
+										<i className="fa fa-circle-o dashr" />Returned Products
+									</a> 
+								</li> 	  	 						
 							</ul>
 						</li>
 

@@ -123,6 +123,16 @@ MethodType  => Get
 Params      => customer_id
 
 
+Redeem Credit Points
+
+API         => http://localhost:3368/api/carts/redeem/creditpoints
+MethodType  => Post
+formValues  = {
+    "user_ID"           : "60ade5ce4da4d2153ff7a608",
+    "creditPointsUsed"  : 20
+}
+
+
 ==========================================================================
 Credit Points 
 

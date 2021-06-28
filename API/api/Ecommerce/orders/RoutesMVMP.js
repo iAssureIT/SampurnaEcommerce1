@@ -9,6 +9,8 @@ router.post('/post', 																			orderController.insert_orders);
 router.patch('/changevendororderstatus', 													    orderController.change_vendor_orders_tatus);
 
 router.post('/get/list_orders_by_status', 													    orderController.list_orders_by_status);
+ 
+router.patch('/patch/returnproduct', 															orderController.returnProduct);
 
 router.post('/pgcall/post', 																	orderController.paymentgatewaycall);
 
@@ -54,7 +56,7 @@ router.get('/get/listbyba/:ba_ID', 																checkAuth, orderController.li
 
 router.patch('/get/cancelOrder', 																orderController.cancelOrder);
  
-router.patch('/get/returnOrder', 																checkAuth, orderController.returnOrder);
+// router.patch('/get/returnOrder', 																checkAuth, orderController.returnOrder);
 
 router.post('/get/report-count', 																checkAuth, orderController.get_reports_count);
 

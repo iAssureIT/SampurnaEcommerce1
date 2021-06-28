@@ -38,15 +38,15 @@ import BulkProductImageUpload       from './storeAdmin/bulkimageUpload/BulkProdu
 import FileWiseProductList          from './StoreManagement/product/fileproductList/component/fileproductList.js';
 
 import AllOrdersList                from './StoreManagement/orders/component/AllOrdersMVMP.js';
-import NewOrdersList                from './StoreManagement/orders/component/NewOrdersList.js';
-import VerifiedOrdersList           from './StoreManagement/orders/component/VerifiedOrdersList.js';
-import PackedOrdersList             from './StoreManagement/orders/component/PackedOrdersList.js';
-import InspectedOrdersList          from './StoreManagement/orders/component/InspectedOrdersList.js';
-import ApprovedOrdersList           from './StoreManagement/orders/component/ApprovedOrdersList.js';
-import DispatchedOrdersList         from './StoreManagement/orders/component/DispatchedOrdersList.js';
-import DeliveryInitiatedOrders      from './StoreManagement/orders/component/DeliveryInitiatedOrders.js';
-import DeliveredOrders              from './StoreManagement/orders/component/DeliveredOrders.js';
-import ReturnProducts               from './StoreManagement/orders/component/ReturnProducts.js';
+// import NewOrdersList                from './StoreManagement/orders/component/NewOrdersList.js';
+// import VerifiedOrdersList           from './StoreManagement/orders/component/VerifiedOrdersList.js';
+// import PackedOrdersList             from './StoreManagement/orders/component/PackedOrdersList.js';
+// import InspectedOrdersList          from './StoreManagement/orders/component/InspectedOrdersList.js';
+// import ApprovedOrdersList           from './StoreManagement/orders/component/ApprovedOrdersList.js';
+// import DispatchedOrdersList         from './StoreManagement/orders/component/DispatchedOrdersList.js';
+// import DeliveryInitiatedOrders      from './StoreManagement/orders/component/DeliveryInitiatedOrders.js';
+// import DeliveredOrders              from './StoreManagement/orders/component/DeliveredOrders.js';
+import ReturnedProducts               from './StoreManagement/orders/component/ReturnedProducts.js';
 
 import DiscountManagement           from './storeAdmin/DiscountManagement/DiscountManagement.js';
 import CouponManagement             from './storeAdmin/CouponManagement/CouponManagementNew.js';
@@ -59,8 +59,8 @@ import viewOrder                    from './StoreManagement/orders/component/Vie
 //================== Reports ===============//
 import Reports                      from './admin/Reports/Reports.js';
 import CategoryWiseReports          from './admin/categoryWiseReports/Reports.js';
-import Productreview                from './storeAdmin/Productreview/Productreview.js';
-import ViewProductReview            from './storeAdmin/Productreview/ViewProductReview.js';
+import Productreview                from './storeAdmin/ProductReview/ProductReview.js';
+import ViewProductReview            from './storeAdmin/ProductReview/ViewProductReview.js';
 
 // import ImageUpload from '../../ImageUpload/ImageUpload.js';
 
@@ -260,15 +260,15 @@ class Layout extends Component  {
                                                         { /*Order List*/}
                                                         {/* <Route path="/allorders"                                        exact strict component={AllOrdersList} /> */}
                                                         <Route path="/orders-list/:orderStatus"                           exact strict component={AllOrdersList} />
-                                                        <Route path="/new-orders-list"                                  exact strict component={NewOrdersList} />
+                                                        {/* <Route path="/new-orders-list"                                  exact strict component={NewOrdersList} />
                                                         <Route path="/verified-orders-list"                             exact strict component={VerifiedOrdersList} />
                                                         <Route path="/packed-orders-list"                               exact strict component={PackedOrdersList} />
                                                         <Route path="/inspected-orders-list"                            exact strict component={InspectedOrdersList} />
                                                         <Route path="/approved-orders-list"                             exact strict component={ApprovedOrdersList} />
                                                         <Route path="/dispatched-orders-list"                           exact strict component={DispatchedOrdersList} />
                                                         <Route path="/delivery-initiated-orders"                        exact strict component={DeliveryInitiatedOrders} />
-                                                        <Route path="/delivered-orders-list"                            exact strict component={DeliveredOrders} />
-                                                        <Route path="/returned-products"                                exact strict component={ReturnProducts} />
+                                                        <Route path="/delivered-orders-list"                            exact strict component={DeliveredOrders} /> */}
+                                                        <Route path="/returned-products"                                exact strict component={ReturnedProducts} />
 
                                                         <Route path="/viewOrder/:orderID"                               exact strict component={viewOrder} />
 
@@ -297,6 +297,7 @@ class Layout extends Component  {
 
                                                         <Route path="/product-reviews-&-ratings"                        exact strict component={Productreview} />
                                                         <Route path="/product-reviews-&-ratings/:review_id"             exact strict component={ViewProductReview} />
+                                                        <Route path="/returned-products"                                exact strict component={ReturnedProducts} />
 
                                                         {/*CMS*/}
                                                         

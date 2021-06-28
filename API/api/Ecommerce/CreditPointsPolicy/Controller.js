@@ -14,7 +14,8 @@ exports.insert_credit_points_policy = (req, res, next) => {
 					$set:{
 						"purchaseAmount"        : req.body.purchaseAmount,
 						"creditPoint"           : req.body.creditPoint,
-						"creditPointValue"      : req.body.creditPointValue
+						"creditPointValue"      : req.body.creditPointValue,
+						"expiryLimitInDays"     : req.body.expiryLimitInDays
 					}
 				}
 			)
@@ -36,6 +37,7 @@ exports.insert_credit_points_policy = (req, res, next) => {
 				"purchaseAmount"        : req.body.purchaseAmount,
 				"creditPoint"           : req.body.creditPoint,
 				"creditPointValue"      : req.body.creditPointValue,
+				"expiryLimitInDays"     : req.body.expiryLimitInDays,
 				"createdAt"             : new Date()
 			});            
 			creditPointsPolicy.save()

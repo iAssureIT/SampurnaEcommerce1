@@ -7,7 +7,7 @@ const Masternotifications 		= require('../../coreAdmin/notificationManagement/Mo
 const User 						= require('../../coreAdmin/userManagementnew/ModelUsers.js');
 const ProductInventory 			= require('../ProductInventory/Model.js');
 const BusinessAssociate 		= require('../businessAssociate/Model');
-const ReturnedProducts 			= require('../returnedProducts/Model');
+const ReturnedProducts 			= require('../ReturnedProducts/Model');
 const Products 					= require('../products/Model');
 const Adminpreference 			= require('../adminPreference/Model');
 const StorePreferences  		= require('../StorePreferences/Model.js');
@@ -176,7 +176,10 @@ exports.insert_orders = (req, res, next) => {
 								// }
 
 								// Add credit points earned on purchase
-								var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Original Order");
+								if(orderdata.paymentDetails.creditPointsUsed && orderdata.paymentDetails.creditPointsValue){
+									var useCreditPoint 	= await useCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "CreditPointsUsed", orderdata.paymentDetails.creditPointsUsed);
+								}
+								var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "OriginalOrder", "add");
 								
 								res.status(200).json({ 
 									order_id : orderdata._id,
@@ -206,32 +209,32 @@ exports.insert_orders = (req, res, next) => {
 
 /*========== get Next Order Number ==========*/
 function getNextSequenceOrderId() {
-    return new Promise((resolve,reject)=>{
-    Orders.findOne()    
-        .sort({orderID : -1})   
-        .exec()
-        .then(data=>{
+	return new Promise((resolve,reject)=>{
+	Orders.findOne()    
+		.sort({orderID : -1})   
+		.exec()
+		.then(data=>{
 			// console.log("data => ", data);
-            if (data) { 
-                var sequenceOrderNumber = data.orderID;
-                sequenceOrderNumber = sequenceOrderNumber + 1;
-                resolve(sequenceOrderNumber) 
-            }else{
-               resolve(1)
-            }
-            
-        })
-        .catch(err =>{
-            reject(0)
-        });
-    });
+			if (data) { 
+				var sequenceOrderNumber = data.orderID;
+				sequenceOrderNumber = sequenceOrderNumber + 1;
+				resolve(sequenceOrderNumber) 
+			}else{
+			   resolve(1)
+			}
+			
+		})
+		.catch(err =>{
+			reject(0)
+		});
+	});
 }
 
 /*========== Add Credit Points ==========*/
-function addCreditPoints(order_id, user_id, orderDate, purchaseAmount, shippingCharges, totalAmount, transactionType) {
-    return new Promise((resolve,reject)=>{
-    	CreditPoints.findOne({"user_id" : ObjectId(user_id)})
-        .then(async(data)=>{
+function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, totalAmount, transactionType, method) {
+	return new Promise((resolve,reject)=>{
+		CreditPoints.findOne({"user_id" : ObjectId(user_id)})
+		.then(async(data)=>{
 			// console.log("data => ", data);
 			// console.log("data vars => ", order_id, " ", user_id, " ", orderDate, " ", purchaseAmount, " ", shippingCharges, " ", totalAmount, " ", transactionType, " ",);
 			var creditPolicyData = await CreditPointsPolicy.findOne();
@@ -247,11 +250,11 @@ function addCreditPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
 						{$push: {
 								transactions : {
 									order_id            : order_id,
-									orderDate           : new Date(),
+									transactionDate           : new Date(),
 									purchaseAmount      : purchaseAmount,
 									shippingCharges     : shippingCharges,
 									totalAmount         : totalAmount,
-									earnedPoints        : earnedCreditPoints,
+									earnedPoints        : (method === "minus" ? "-" : "") + earnedCreditPoints,
 									typeOfTransaction   : transactionType
 								}
 							},
@@ -284,7 +287,7 @@ function addCreditPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
 						totalPoints                 : earnedCreditPoints,
 						transactions 				: {
 														order_id            : order_id,
-														orderDate           : new Date(),
+														transactionDate           : new Date(),
 														purchaseAmount      : purchaseAmount,
 														shippingCharges     : shippingCharges,
 														totalAmount         : totalAmount,
@@ -309,11 +312,68 @@ function addCreditPoints(order_id, user_id, orderDate, purchaseAmount, shippingC
 			}else{
 				resolve("No credit points earned")
 			}      
-        })
-        .catch(err =>{
-            reject(0)
-        });
-    });
+		})
+		.catch(err =>{
+			reject(0)
+		});
+	});
+}
+
+
+/*========== Use Credit Points ==========*/
+function useCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, totalAmount, transactionType, usedCreditPoints) {
+	return new Promise((resolve,reject)=>{
+		CreditPoints.findOne({"user_id" : ObjectId(user_id)})
+		.then(async(data)=>{
+			console.log("data => ", data);
+			
+			if(data !== null){
+				if (data && data !== null ) { 
+					var totalEarnedPoints = Math.round(data.totalPoints + (-usedCreditPoints));
+					// console.log("totalEarnedPoints => ",totalEarnedPoints)
+					CreditPoints.updateOne(
+						{ "_id": ObjectId(data._id)},		
+						{$push: {
+								transactions : {
+									order_id            : order_id,
+									transactionDate     : new Date(),
+									purchaseAmount      : purchaseAmount,
+									shippingCharges     : shippingCharges,
+									totalAmount         : totalAmount,
+									earnedPoints        : -usedCreditPoints,
+									typeOfTransaction   : transactionType
+								}
+							},
+							$set:{
+								totalPoints : totalEarnedPoints
+							}	
+						})
+						.then(updateddata => {
+							if (updateddata.nModified === 1) {
+								resolve({
+									"message"	: "Credit Points Redeemed successfully."
+								});
+							} else {
+								resolve({
+									"message": "Oops, something went wrong while redumption of credit points"
+								});
+							}
+						})
+						.catch(err => {
+							console.log(err);
+							reject({
+								error: err
+							});
+						});
+				}  
+			}else{
+				resolve("No credit points available for redumption")
+			}      
+		})
+		.catch(err =>{
+			reject(0)
+		});
+	});
 }
 
 /**=========== Cancel Order  ===========*/
@@ -323,21 +383,21 @@ exports.cancel_order = (req, res, next) => {
 		Orders.findOne({ _id: ObjectId(req.body.order_id)})
 		.then(async(orderdata) => {			
 			var order_beforeDiscountTotal   = orderdata.paymentDetails.beforeDiscountTotal;
-            var order_afterDiscountTotal    = orderdata.paymentDetails.afterDiscountTotal;
-            var order_discountAmount        = orderdata.paymentDetails.discountAmount;
-            var order_taxAmount             = orderdata.paymentDetails.taxAmount;
+			var order_afterDiscountTotal    = orderdata.paymentDetails.afterDiscountTotal;
+			var order_discountAmount        = orderdata.paymentDetails.discountAmount;
+			var order_taxAmount             = orderdata.paymentDetails.taxAmount;
 			var order_numberOfProducts 		= orderdata.order_numberOfProducts;
 			var order_quantityOfProducts 	= orderdata.order_quantityOfProducts;
 			var afterDiscountCouponAmount 	= orderdata.paymentDetails.afterDiscountCouponAmount;
-            var order_shippingCharges       = 0;
-            var maxServiceCharges           = 0; 
+			var order_shippingCharges       = 0;
+			var maxServiceCharges           = 0; 
 			var netPayableAmount 			= 0;
 			var couponCancelMessage 		= "";
 			
 			var maxServiceChargesData   = await StorePreferences.findOne({},{maxServiceCharges : 1});            
-            if(maxServiceChargesData !== null){
+			if(maxServiceChargesData !== null){
 				maxServiceCharges = maxServiceChargesData.maxServiceCharges;
-            }
+			}
 			
 			for (var i = 0; i < orderdata.vendorOrders.length; i++) {				
 				order_shippingCharges = order_shippingCharges + orderdata.vendorOrders[i].vendor_shippingCharges;
@@ -358,7 +418,7 @@ exports.cancel_order = (req, res, next) => {
 			}
 			if(i >= orderdata.vendorOrders.length){
 				/*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
-                order_shippingCharges     = (maxServiceCharges && maxServiceCharges > 0 
+				order_shippingCharges     = (maxServiceCharges && maxServiceCharges > 0 
 											? 
 												maxServiceCharges > order_shippingCharges 
 												? 
@@ -462,7 +522,7 @@ exports.cancel_order = (req, res, next) => {
 				// console.log("updatedata => ",updatedata);
 				if (updatedata.nModified === 1) {
 					// console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
-					var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, -vendor_order_afterDiscountTotal, -vendor_order_shippingCharges, -vendor_netPayableAmount, "VendorOrderCancelled");
+					var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, vendor_order_afterDiscountTotal, vendor_order_shippingCharges, vendor_netPayableAmount, "VendorOrderCancelled", "minus");
 					// console.log("addCreditPoint => ",addCreditPoint)		
 					res.status(200).json({
 						"message"	: "Order cancelled successfully."
@@ -507,7 +567,7 @@ exports.cancel_order = (req, res, next) => {
 			if (data.nModified === 1) {
 				var orderdata 		= await Orders.findOne({_id: ObjectId(req.body.order_id)})
 				// console.log("orderdata=> ",orderdata)
-				var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.createdAt, - orderdata.paymentDetails.afterDiscountTotal, - orderdata.paymentDetails.shippingCharges, - orderdata.paymentDetails.netPayableAmount, "WholeOrderCancelled");
+				var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "WholeOrderCancelled", "minus");
 				// console.log("else addCreditPoint => ",addCreditPoint)
 				
 				res.status(200).json({
@@ -530,40 +590,40 @@ exports.cancel_order = (req, res, next) => {
 
 /*========== Fetch Coupon Data ==========*/
 function fetchCouponData(coupon_id) {     
-    return new Promise(function (resolve, reject) {
-        Coupon.findOne({"_id" : ObjectId(coupon_id)})
-        .then(coupondata => {
-            if(coupondata !== null){  
-                resolve({code: "SUCCESS", dataObj: coupondata});                
-            }else{
-                resolve({code: "FAILED", message: "Such Coupon Code Doesn't exist!"});
-            }
-        })
-        .catch(error=>{
-            reject({code: "FAILED", message: "Some error in finding Coupon"});
-        })
-    })
+	return new Promise(function (resolve, reject) {
+		Coupon.findOne({"_id" : ObjectId(coupon_id)})
+		.then(coupondata => {
+			if(coupondata !== null){  
+				resolve({code: "SUCCESS", dataObj: coupondata});                
+			}else{
+				resolve({code: "FAILED", message: "Such Coupon Code Doesn't exist!"});
+			}
+		})
+		.catch(error=>{
+			reject({code: "FAILED", message: "Some error in finding Coupon"});
+		})
+	})
 }
 
 /**=========== getDistanceWiseShippinCharges() ===========*/
 function getDistanceWiseShippinCharges(){
-    return new Promise(function(resolve,reject){
-        StorePreferences.findOne()
-        .then(storePreferences=>{
-            // console.log("storePreferences => ",storePreferences)
-            // console.log("Condition => ",(storePreferences && storePreferences.serviseChargesByDistance && storePreferences.serviseChargesByDistance.length > 0))
-            if(storePreferences && storePreferences.serviseChargesByDistance){
-                // console.log("storePreferences.serviseChargesByDistance => ",storePreferences.serviseChargesByDistance)
-                resolve(storePreferences.serviseChargesByDistance);
-            }else{
-                resolve([]);
-            }            
-        })
-        .catch(err =>{
-            console.log("Error => ",err);
-            reject(err)
-        });
-    });
+	return new Promise(function(resolve,reject){
+		StorePreferences.findOne()
+		.then(storePreferences=>{
+			// console.log("storePreferences => ",storePreferences)
+			// console.log("Condition => ",(storePreferences && storePreferences.serviseChargesByDistance && storePreferences.serviseChargesByDistance.length > 0))
+			if(storePreferences && storePreferences.serviseChargesByDistance){
+				// console.log("storePreferences.serviseChargesByDistance => ",storePreferences.serviseChargesByDistance)
+				resolve(storePreferences.serviseChargesByDistance);
+			}else{
+				resolve([]);
+			}            
+		})
+		.catch(err =>{
+			console.log("Error => ",err);
+			reject(err)
+		});
+	});
 }
 
 /*========== List Status Wise Orders ==========*/
@@ -572,9 +632,9 @@ exports.list_orders_by_status = (req, res, next) => {
 	var selector        = {};
 	selector['$and']    = [];
 	if(req.body.status.toLowerCase() !== "all"){       
-        /**----------- Find Status wise Orders ------------ */
+		/**----------- Find Status wise Orders ------------ */
 		
-        selector["$and"].push({
+		selector["$and"].push({
 			vendorOrders : { 
 				$elemMatch: { orderStatus: req.body.status } 
 			} 
@@ -1069,7 +1129,7 @@ exports.fetch_order = (req, res, next) => {
 			// for(var j=0;j<data[i].vendorOrders.length;j++){
 				// console.log("data[i].vendorOrders",data[i].vendorOrders);
 				var maxDurationForCancelOrderData = await OrderCancellationPolicy.findOne({},{maxDurationForCancelOrder : 1})
-    			if(maxDurationForCancelOrderData !== null && maxDurationForCancelOrderData.maxDurationForCancelOrder > 0){
+				if(maxDurationForCancelOrderData !== null && maxDurationForCancelOrderData.maxDurationForCancelOrder > 0){
 					var maxDurationForCancelOrder = maxDurationForCancelOrderData.maxDurationForCancelOrder;
 				}else{
 					var maxDurationForCancelOrder = 0;
@@ -1725,85 +1785,113 @@ exports.cancelOrder = (req, res, next) => {
 	 });
 }
 
-exports.returnOrder = (req, res, next) => {
-  // console.log(req.body.orderID)
-  // console.log(req.body.productID)
-  /*Orders.findOne(
-		  { _id : req.body.orderID, "products.product_ID":req.body.productID}
-		  )
-		  .exec()
-				.then(data=>{
-				  console.log(data);
-				})*/
-  Orders.updateOne(
-	 { _id: ObjectId(req.body.orderID), "products.product_ID": ObjectId(req.body.productID) },
-	 {
-		$set:
-		{
-		  'products.$.status': 'Returned',
-		  'products.$.returnedDate': new Date(),
-		}
-	 }
-  )
-	 .exec()
-	 .then(data => {
-		// console.log(data);
+/**============ Return Product ===========*/
+exports.returnProduct = (req, res, next) => {
+	console.log("Return Products body => ", req.body);
+  	Orders.updateOne(
+		{'_id' : ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id},
+		{$set:
+			{
+				'vendorOrders.$[outer].products.$[inner].productStatus' : 'Returned',
+				'vendorOrders.$[outer].products.$[inner].returnedDate'	: new Date(),
+			}
+		},
+		{arrayFilters: [
+			{ 'outer.vendor_id' : req.body.vendor_id}, 
+			{ 'inner._id': req.body.product_id }
+		]}
+	)
+	.exec()
+	.then(data => {
+	console.log(data);
 		if (data.nModified == 1) {
 
-		  Orders.findOne({ _id: req.body.orderID, "products.product_ID": req.body.productID })
-			 .exec()
-			 .then(orders => {
-				const returnedproducts = new ReturnedProducts({
-				  _id: new mongoose.Types.ObjectId(),
-				  orderID: req.body.orderID,
-				  altOrderID: req.body.altorderid,
-				  user_ID: req.body.userid,
-				  product_ID: req.body.productID,
-				  reasonForReturn: req.body.reasonForReturn,
-				  originalPrice: orders.originalPrice,
-				  discountedPrice: orders.discountedPrice,
-				  discountPercent: orders.discountPercent,
-				  dateofPurchase: orders.createdAt,
-				  modeofPayment: orders.paymentMethod,
-				  dateofReturn: new Date(),
-				  returnStatus: [{
-					 status: "Return Approval Pending",
-					 date: new Date()
-				  }],
-				  refund: [{
-					 bankName: req.body.bankname,
-					 bankAccountNo: req.body.bankacctno,
-					 IFSCCode: req.body.ifsccode,
-					 amount: orders.products[0].discountedPrice
-				  }],
-				  createdBy: req.body.userid,
-				  createdAt: new Date()
-				})
-				returnedproducts.save()
-				  .then(data => {
-					 res.status(200).json({ "message": "Product is returned. Return process will start soon!" });
-				  })
-				  .catch(err => {
-					 res.status(500).json({ error: err });
-				  });
-			 })
-			 .catch(err => {
+			Orders.findOne({ "_id": ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id, 'vendorOrders.products._id' : req.body.product_id })
+			.exec()
+			.then(orders => {
+				var vendor = orders.vendorOrders.filter(vendorObject => String(vendorObject.vendor_id) === String(req.body.vendor_id));
+				console.log("vendor",vendor);
+				if(vendor && vendor.length > 0 && vendor[0].products && vendor[0].products.length > 0){
+					// console.log("vendor[0].vendor_quantityOfProducts => ",vendor[0].vendor_quantityOfProducts);
+					// console.log("vendor[0].vendor_numberOfProducts => ",vendor[0].vendor_numberOfProducts);
+					if(vendor[0].products.length > 1){
+						var returnedProduct  = vendor[0].products.filter(product => String(product._id) === String(req.body.product_id));
+					}else{
+						var returnedProduct  = [];
+					}
+					console.log("returnedProduct => ",returnedProduct);
+					if(returnedProduct && returnedProduct.length > 0){
+						const returnedproducts = new ReturnedProducts({
+							_id 				: new mongoose.Types.ObjectId(),
+							order_id                : req.body.order_id,
+							orderID                	: orders.orderID,
+							user_id                 : req.body.user_id,
+							vendor_id 				: req.body.vendor_id,
+							vendorLocatoin_id 		: vendorLocatoin_id,
+							product_id              : req.body.product_id,
+							productCode 			: String,
+							itemCode                : String ,
+							reasonForReturn         : String, 
+							adminComment 			: String,
+							vendorComment 			: String,     
+							originalPrice           : Number,
+							discountPercent         : Number,
+							discountedPrice         : Number,
+							modeOfPayment           : String, 
+							dateOfPurchase          : Date,
+							dateOfReturn            : Date,
+
+							
+							originalPrice 		: orders.originalPrice,
+							discountedPrice 	: orders.discountedPrice,
+							discountPercent 	: orders.discountPercent,
+							dateofPurchase 		: orders.createdAt,
+							reasonForReturn 	: req.body.reasonForReturn,
+							modeofPayment 		: orders.paymentMethod,
+							dateofReturn 		: new Date(),
+							returnStatus 		: [{
+													status 	: "Return Approval Pending",
+													date 	: new Date()
+							}],
+							refund 				: [{
+													bankName 		: req.body.bankname,
+													bankAccountNo 	: req.body.bankacctno,
+													IFSCCode 		: req.body.ifsccode,
+													amount 			: orders.products[0].discountedPrice
+							}],
+							createdBy 			: req.body.userid,
+							createdAt 			: new Date()
+						})
+						returnedproducts.save()
+						.then(data => {
+							res.status(200).json({ "message": "Product is returned. Return process will start soon!" });
+						})
+						.catch(err => {
+							res.status(500).json({ error: err });
+						});
+					}
+				}else{
+					console.log("No vendor found")
+				}
+			})
+			.catch(err => {
 				res.status(500).json({ error: err });
-			 });
+			});
 
 		} else {
-		  res.status(401).json({
-			 "message": "Product Not Found"
-		  });
+			res.status(401).json({
+				"message": "Product Not Found"
+			});
 		}
-	 })
-	 .catch(err => {
+	})
+	.catch(err => {
 		console.log(err);
 		res.status(500).json({
-		  error: err
+			error: err
 		});
-	 });
+	});
 }
+
 exports.get_reports_count = (req, res, next) => {
 
   Orders.find({

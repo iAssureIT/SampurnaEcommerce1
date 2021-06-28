@@ -23,6 +23,7 @@ const productsSchema = mongoose.Schema({
     productUrl                : String,
     productDetails            : String,
     shortDescription          : String,
+    productReturnable         : String,
     featureList               : String,
     currency                  : String,
     size                      : String,

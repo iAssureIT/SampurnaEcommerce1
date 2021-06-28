@@ -8,6 +8,7 @@ const Wishlists                 = require('../wishlist/Model');
 const EntityMaster              = require('../../coreAdmin/entityMaster/ModelEntityMaster');
 const AdminPreferences          = require('../../Ecommerce/adminPreference/Model.js');
 const StorePreferences          = require('../../Ecommerce/StorePreferences/Model.js');
+const CreditPointsPolicy 		= require('../CreditPointsPolicy/Model');
 const _                         = require('underscore');  
 const moment 	                = require('moment-timezone');
 const haversine                 = require('haversine-distance')  
@@ -15,7 +16,7 @@ const haversine                 = require('haversine-distance')
 
 /**=========== Add Cart Products ===========*/
 exports.insert_cartid = (req,res,next)=>{
-    // console.log("req.body===",req.body);
+    // console.log("req.body ===> ",req.body);
     Carts.findOne({"user_ID": req.body.user_ID})
     .exec()
     .then(async(cartData) =>{        
@@ -267,7 +268,7 @@ exports.insert_cartid = (req,res,next)=>{
             }
         }else{
             // console.log("When some No cart data available") 
-            // console.log("vendorCartItem => ",vendorCartItem);        
+            console.log("vendorCartItem => ",vendorCartItem);        
             
             const cartDetails = new Carts({
                 _id                         : new mongoose.Types.ObjectId(),
@@ -968,14 +969,14 @@ exports.count_cart = (req,res,next)=>{
     });
 };
 
-
 /**=========== Apply Coupon On Cart ===========*/
 exports.apply_coupon = (req,res,next)=>{    
-    // console.log("req.body => ",req.body);
+    console.log("req.body => ",req.body);
     Carts.findOne({user_ID : ObjectId(req.body.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
     .then(data=>{   
+        console.log("data => ",data);
         processCouponData(data);
         async function processCouponData(data){
             var errMessage              = "";  
@@ -1127,6 +1128,135 @@ exports.apply_coupon = (req,res,next)=>{
         res.status(500).json({
             error   : err,
             message : "Error While finding Cart Details"
+        });
+    });
+};
+
+/**=========== Apply Credit Points ===========*/
+exports.apply_credit_points = (req,res,next)=>{    
+    console.log("req.params.user_ID == ",req.body);
+    Carts.findOne({user_ID:ObjectId(req.body.user_ID)})
+    .populate('vendorOrders.cartItems.product_ID')
+    .populate('vendorOrders.vendor_id')
+    .exec()
+    .then(async(data)=>{
+        if(data && data !== null){
+            // console.log("data => ",data)
+            var vendorOrders                = data.vendorOrders;
+            var order_beforeDiscountTotal   = 0;
+            var order_afterDiscountTotal    = 0;
+            var order_discountAmount        = 0;
+            var order_taxAmount             = 0;
+            var order_shippingCharges       = 0;
+            var maxServiceCharges           = 0;
+            
+            var wish                        = await Wishlists.find({user_ID:req.body.user_ID});
+            var maxServiceChargesData       = await StorePreferences.findOne({},{maxServiceCharges : 1});
+            var minOrderAmountData          = await StorePreferences.findOne({},{minOrderValue : 1})
+            
+            var creditPointsPolicy          = await CreditPointsPolicy.findOne();   
+            if(creditPointsPolicy !== null && creditPointsPolicy.expiryLimitInDays){
+                var creditPointValue	= creditPointsPolicy.creditPointValue;
+            }
+
+            
+            if(minOrderAmountData !== null && minOrderAmountData.minOrderValue > 0){
+                var minOrderAmount = minOrderAmountData.minOrderValue;
+            }else{
+                var minOrderAmount = 0;
+            }
+            
+            if(maxServiceChargesData !== null){
+                maxServiceCharges = maxServiceChargesData.maxServiceCharges;
+            }
+            for(var i = 0; i<vendorOrders.length;i++){    
+                var vendor_beforeDiscountTotal  = 0;
+                var vendor_afterDiscountTotal   = 0;
+                var vendor_discountAmount       = 0;
+                var vendor_taxAmount            = 0;
+                var vendor_shippingCharges      = 0; 
+                
+                var vendorShippingCharges = await getVendorWiseShippingCharges(vendorOrders[i].vendor_id._id, vendorOrders[i].vendorLocation_id, data.userDelLocation);
+                
+                if (vendorShippingCharges.code === "SUCCESS") {
+                    vendor_shippingCharges = vendorShippingCharges.serviceCharges;
+                }                    
+                
+                for(var j = 0; j < vendorOrders[i].cartItems.length;j++){
+                    vendor_beforeDiscountTotal +=(vendorOrders[i].cartItems[j].product_ID.originalPrice * vendorOrders[i].cartItems[j].quantity);
+                    if(vendorOrders[i].cartItems[j].product_ID.discountPercent !==0){
+                        vendor_discountAmount +=((data.vendorOrders[i].cartItems[j].product_ID.originalPrice -data.vendorOrders[i].cartItems[j].product_ID.discountedPrice)* vendorOrders[i].cartItems[j].quantity);
+                    }
+                    vendor_afterDiscountTotal+=(vendorOrders[i].cartItems[j].product_ID.discountedPrice * vendorOrders[i].cartItems[j].quantity);
+                    if(vendorOrders[i].cartItems[j].product_ID.taxRate !==0 && !vendorOrders[i].cartItems[j].product_ID.taxInclude){
+                        vendor_taxAmount += (vendorOrders[i].cartItems[j].product_ID.taxRate * vendorOrders[i].cartItems[j].quantity);
+                    }    
+                    data.vendorOrders[i].cartItems[j].product_ID.isWish = false;
+                    if(wish.length > 0){
+                        for(var k=0; k<wish.length; k++){
+                            // console.log("String(wish[k].product_ID)",String(wish[k].product_ID));
+                            // console.log("String(data.vendorOrders[i].cartItems[j].product_ID._id)",String(data.vendorOrders[i].cartItems[j].product_ID._id));
+                            if(String(wish[k].product_ID) === String(data.vendorOrders[i].cartItems[j].product_ID._id)){
+                                data.vendorOrders[i].cartItems[j].product_ID.isWish = true;
+                                break;
+                            }
+                        } 
+                    }     
+                }
+                if(j>=vendorOrders[i].cartItems.length){
+                    data.vendorOrders[i].vendor_beforeDiscountTotal = (vendor_beforeDiscountTotal).toFixed(2);
+                    data.vendorOrders[i].vendor_afterDiscountTotal  = (vendor_afterDiscountTotal).toFixed(2);
+                    data.vendorOrders[i].vendor_discountAmount      = (vendor_discountAmount).toFixed(2);
+                    data.vendorOrders[i].vendor_taxAmount           = (vendor_taxAmount).toFixed(2);
+                    data.vendorOrders[i].vendor_shippingCharges     = (vendor_shippingCharges).toFixed(2);
+                    // data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount + vendor_shippingCharges).toFixed(2);
+                    data.vendorOrders[i].vendor_netPayableAmount    = (vendor_afterDiscountTotal + vendor_taxAmount).toFixed(2);
+
+                    order_beforeDiscountTotal   += vendor_beforeDiscountTotal;
+                    order_afterDiscountTotal    += vendor_afterDiscountTotal;
+                    order_discountAmount        += vendor_discountAmount;
+                    order_taxAmount             += vendor_taxAmount;
+                    order_shippingCharges       += vendor_shippingCharges;
+                }
+            }
+            if(i>=vendorOrders.length){
+                data.paymentDetails.beforeDiscountTotal         = (order_beforeDiscountTotal).toFixed(2);
+                data.paymentDetails.afterDiscountTotal          = (order_afterDiscountTotal).toFixed(2);
+                data.paymentDetails.discountAmount              = (order_discountAmount).toFixed(2);
+                data.paymentDetails.taxAmount                   = (order_taxAmount).toFixed(2);
+                /*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
+                data.paymentDetails.shippingCharges             = maxServiceCharges && maxServiceCharges > 0 
+                                                                    ? maxServiceCharges > order_shippingCharges 
+                                                                        ? 
+                                                                            (order_shippingCharges).toFixed(2) 
+                                                                        : 
+                                                                            maxServiceCharges 
+                                                                    : 
+                                                                        (order_shippingCharges).toFixed(2);
+                data.paymentDetails.afterDiscountCouponAmount   = 0;
+                data.paymentDetails.creditPointsUsed            = req.body.creditPointsUsed;
+                data.paymentDetails.creditPointsValue           = (req.body.creditPointsUsed * creditPointValue).toFixed(2);
+                data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
+                                                                                                                    ? maxServiceCharges > order_shippingCharges 
+                                                                                                                        ? 
+                                                                                                                            (order_shippingCharges)
+                                                                                                                        : 
+                                                                                                                            maxServiceCharges 
+                                                                                                                    : 
+                                                                                                                        (order_shippingCharges)
+                                                                                                                ) - (req.body.creditPointsUsed * creditPointValue)).toFixed(2);
+                data.minOrderAmount                             = minOrderAmount;
+            }
+            // console.log("data",data);
+            res.status(200).json(data);
+        }else{
+            res.status(200).json(data);
+        }    
+    })
+    .catch(err =>{
+        console.log("err",err);
+        res.status(500).json({
+            error: err
         });
     });
 };
