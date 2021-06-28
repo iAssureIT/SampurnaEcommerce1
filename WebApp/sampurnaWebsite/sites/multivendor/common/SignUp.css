@@ -276,6 +276,7 @@ input[type=number] {
   padding: 0px 5px;
   /* background-color: var(--color) !important; */
   margin-right: 20px;
+  margin-top: 20px;
   z-index: 10;
   position: absolute;
   right: 0px;
@@ -421,3 +422,24 @@ input[type=number] {
   text-align: center !important;
   border-radius: 5px !important;
 }
+
+.loginLine li{
+  margin-bottom: 15px;
+  list-style-type: none;  
+}
+
+li::before{
+  content: '';
+   display: inline-block;
+   height: 15px;
+   width: 15px;
+  background-image: url('/images/eCommerce/loginPoint.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+   margin-left: -35px;
+}
+
+/*.loginUl ul{
+  list-style-image: url('/images/eCommerce/loginPoint.png');
+}*/

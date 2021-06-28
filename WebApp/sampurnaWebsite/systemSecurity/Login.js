@@ -215,10 +215,10 @@ class Login extends Component {
                 {/* style={{'background': 'url("../../static/'+publicRuntimeConfig.CURRENT_SITE+'/images/Logo.png")'}} */}
                
                 <div className="col-12">
-                  <h5>SIGN IN</h5>
+                  <h3>SIGN IN</h3>
                 </div>
               </div>
-              <div className="col-12 textAlignment mt10 ">
+              <div className="col-12 textAlignment mb-4 mt10 ">
                 <div className="col-12 NoPadding loginforgotpass "> 
                   Don't have an account?&nbsp;&nbsp;                      
                     <a href='' className="forgotText " onClick={this.openSignUpModal.bind(this)}> Sign Up</a>                    

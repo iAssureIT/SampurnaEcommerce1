@@ -166,10 +166,21 @@ class header extends React.Component {
                                 <div className="row"> 
                                     <div className="col-7 pb-4 modalImgBlock">
                                         <div className="col-6 offset-3 mt-5">
-                                            <Websitelogo />
+                                            <Websitelogo />                                            
+                                        </div>
+                                        <div className="col-10 NoPadding offset-1 mt-3">
+                                            <h6 className="mb-4 ">Benefits of taking membership...</h6>
+                                            <div className="loginUl">
+                                                <ul class="loginLine pull-left">
+                                                    <li>Instruction 1 - The email is sent instantly but may be delayed by your firewall setup, so if you haven't received it after 5-10 minutes, refresh your email application and check your spam and junk mail folders</li>
+                                                    <li>Instruction 2 - You must enter your 'Area of Practice' on the Continuing Education Center to finish your account activation and access the site as a registered user (select Physician, Nurse, etc.)</li>
+                                                    <li>Instruction 3 - After logging in, return to the course page where you would like to register  if you are not automatically redirected there</li>
+                                                    <li>Instruction 4 - The email is sent instantly but may be delayed by your firewall setup, so if you haven't received it after 5-10 minutes, refresh your email application and check your spam and junk mail folders</li>                                                    
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>   
-                                    <div className="col-5 modalForm">                                                      
+                                    <div className="col-5 pt-2 modalForm">                                                      
                                         {this.props.formToShow === "login" ?
                                             <div className="col-12 NoPadding loginForm mobileViewNoPadding">
                                                 <Login />
