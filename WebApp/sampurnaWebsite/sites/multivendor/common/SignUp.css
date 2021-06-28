@@ -288,6 +288,11 @@ input[type=number] {
   margin-top: 40px
 }
 
+.f14B{
+  font-size: 14px;
+  font-weight: bold;
+}
+
 @media only screen and (max-device-width: 480px) {
     
     .loginforgotpass label,
