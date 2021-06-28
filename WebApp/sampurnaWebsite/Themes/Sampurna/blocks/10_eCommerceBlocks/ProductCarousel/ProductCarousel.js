@@ -615,13 +615,13 @@ submitCart(event) {
                         Array.isArray(this.state.newProducts) && this.state.newProducts.map((data, index) => {  
                             // var x = this.state.wishList && this.state.wishList.length > 0 ? this.state.wishList.filter((abc) => abc.product_ID === data._id) : [];
                             var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
-                            var wishClass = 'r';
+                            var wishClass = '';
                             var tooltipMsg = '';
                             if (x && x.length > 0) {
                               wishClass = '';
                               tooltipMsg = 'Remove from wishlist';
                             } else {
-                              wishClass = '-o';
+                              wishClass = 'r';
                               tooltipMsg = 'Add To Wishlist';
                             }   
                             var categoryUrl = data.category?(data.category).replace(/\s+/g, '-').toLowerCase():null;                  
