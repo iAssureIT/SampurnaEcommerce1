@@ -135,7 +135,7 @@ export default class Footer extends Component {
               </div>
               <div className={"col-12 col-sx-12 col-xl-3 col-lg-3 col-md-12 text_Center " +S.payDiv}>
                   <div className={"col-12 col-sm-12 col-lg-12 col-md-12 md-mt-5  " +S.aboutHeight}>
-                        <div className="col-12 FooterTitle text-center ">Payment card</div>
+                        <div className="col-12 FooterTitle ">Payment card</div>
                         <div className={"col-12 col-sm-6 col-lg-12 col-md-12 mt15 " }>
                             <div className="payCard1 "></div>  
                             <div className="payCard2 "></div>  
@@ -143,7 +143,7 @@ export default class Footer extends Component {
                     </div> 
      
                     <div className="col-12 col-sm-12 col-lg-12 col-md-12 mt-3 ">
-                        <div className="col-12 FooterTitle text-center ">We are in</div>
+                        <div className="col-12 FooterTitle ">We are in</div>
                         <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width pr-0">
                             <div className="appleCard"></div>
                             <div className="androidCard"></div>                        

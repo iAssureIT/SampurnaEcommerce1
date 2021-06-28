@@ -358,21 +358,23 @@ class DeliveryLocationPopup extends React.Component {
                 }
                 <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
                 <div className="col-12 offset-0 mobileViewNoPadding">
-                    <form className={" col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
+                    <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
                         <div className="col-12 mt-5 ">
                             <div className="row">
                                 <div className={"col-4 mt-5 NoPadding "}>
                                     <div className="col-12">
                                         <div className={"row " +Style.ma}>
-                                            <div className=" col-10 NoPadding detectLocationBtn">
+                                            <div className=" col-9 NoPadding detectLocationBtn">
                                                 <button type="button" className={"btn pull-center mt-1 " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
                                             </div>
-                                            <div className={"text-center NoPadding orText1 col-2 mt-2 " +Style.tw +" "+Style.f12}>
-                                                <span className={"mt-1 " +Style.MapOr}>OR</span></div>
+                                            <div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}><div className={"col-2 NoPadding " +Style.orline}></div><span className={"col-8 " +Style.MapOr}>OR</span><div className={"col-2 NoPadding " +Style.orline}></div></div>
+
+                                            {/*<div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}>
+                                                <div className="col-1 " id="line"><hr /></div><span className={"col-8 " +Style.MapOr}>OR</span><div className="col-1 " id="line"><hr /></div></div>*/}
                                         </div>
                                     </div>
                                 </div>
-                                <div className={" col-6 mt-5 NoPadding"}>
+                                <div className={" col-7 mt-5 NoPadding"}>
                                     <PlacesAutocomplete 
                                         value={this.state.address}
                                         onChange={this.handleChangePlaces}
@@ -383,13 +385,14 @@ class DeliveryLocationPopup extends React.Component {
                                                 {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
                                                 <input
                                                     {...getInputProps({
-                                                        placeholder: 'Start typing & select location from dropdown suggestions...',
+                                                        placeholder: 'Search your Location',
                                                         className: 'location-search-input form-control',
                                                         id: "address",
                                                         name: "address",
                                                         required: true
                                                     })}
                                                 />
+                                                <span className={" " +Style.search}><i className="fa fa-search " aria-hidden="true"></i></span>
                                                 <div className="autocomplete-dropdown-container SearchListContainer">
                                                     {loading && <div>Loading...</div>}
                                                     {suggestions.map(suggestion => {
@@ -415,9 +418,12 @@ class DeliveryLocationPopup extends React.Component {
                                             )}
                                     </PlacesAutocomplete>
                                 </div>
-                                <div className="col-2 mt-5">
-                                    <button type="button" className={" btn col-12 NoPadding  changelocationBtn pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                <div className="col-12 NoPadding">
+                                    <div className="col-2 offset-9 mt-3 NoPadding ">
+                                        <button type="button" className={" btn col-12 NoPadding  changelocationBtn pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                    </div>
                                 </div>
+                                
                             </div>
                             {/* <div className={"col-sm-12 col-xs-12 col-md-12 col-lg-8 mt-4 " +Style.ma}>
                                 <div className="col-12">

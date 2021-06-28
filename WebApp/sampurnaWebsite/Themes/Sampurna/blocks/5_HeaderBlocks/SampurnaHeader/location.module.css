@@ -1,5 +1,5 @@
 .locationBg{
-	/* height: 480px; */
+	height: 550px !important; 
 }
 
 
@@ -45,6 +45,8 @@
 }
 .deliveryForm{
 	z-index: 4 !important;
+	vertical-align: middle !important;
+	margin-top: 12%;
 }
 .googleMap{
 	background-color: rgba(0,0,0,0.3) !important;   
@@ -70,4 +72,28 @@
 .modal-dialog {
     max-width: 1000px !important;
     margin: 1.75rem auto;
+}
+
+.MapOr{
+	height: 100%;
+	width: 50%;
+	border-radius: 100%;
+	background-color: #fff;
+	padding: 5px;
+	float:left;
+	margin: 0px 8%;
+	margin-top: -2%;
+}
+
+.orline{
+    border-bottom:1px solid #ccc !important;
+    float:left;
+    margin-top: 10px !important;
+}
+
+.search{
+	position: absolute;
+	top: 20%;
+    right: 5%;
+    color: #999;
 }

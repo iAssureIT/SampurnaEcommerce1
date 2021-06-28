@@ -463,7 +463,7 @@ body{
 
 .globalMainTitle{
   font-size:var(--globalMainTitleFontSize) !important;
-  text-transform: uppercase !important;
+  /*text-transform: uppercase !important;*/
   font-weight: bold !important;
   margin-top: 30px;
   margin-bottom: 20px;

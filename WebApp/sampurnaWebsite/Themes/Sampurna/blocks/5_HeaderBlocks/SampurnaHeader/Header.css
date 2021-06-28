@@ -651,6 +651,7 @@ li a{
 .changelocationBtn1{
     font-size: 9px !important;
     padding  : 5px;
+    float: right;
 }
 #locationModal .modal-content{
     height: 600px !important;

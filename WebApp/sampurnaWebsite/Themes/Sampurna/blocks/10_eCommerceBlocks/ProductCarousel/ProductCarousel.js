@@ -765,7 +765,7 @@ submitCart(event) {
                     <span className="col-6 NoPadding "> 
                        vendor  - &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
                     </span>
-                    <span className={"col-2 text-right pull-right NoPadding "+Style.chaneVendorBtn }> 
+                    <span className={"col-2 text-right pull-right "+Style.chaneVendorBtn }> 
                         <Link href={"/vendor-list/"+this.state.sectionUrl} className="col-12 NoPadding text-right" >Change Vendor</Link>
                     </span>
                   </div>

@@ -388,6 +388,7 @@ background: #fff;
 }
 .chaneVendorBtn{
   text-decoration: underline;
+  float: right;
 }
 .availablesize {
   padding: 0 10px!important;
