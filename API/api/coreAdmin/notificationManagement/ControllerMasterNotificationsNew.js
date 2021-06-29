@@ -439,7 +439,7 @@ function getSelfUserData(toUserId) {
         User.findOne({ "_id": toUserId })
         .exec()
         .then(data => {
-            // console.log("data",data)
+            console.log("data => ",data)
             if(data && data.profile){
                 resolve({
                     email       : data.profile.email,
