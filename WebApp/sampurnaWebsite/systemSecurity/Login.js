@@ -60,26 +60,24 @@ class Login extends Component {
       password: this.refs.loginpassword.value,
       role: "user"
     }
-    console.log("payload===",payload);
-    if (this.validateForm()) {
-      // document.getElementById("logInBtn").value = 'Please Wait...';
+    console.log("inside user login");
       document.getElementById("logInBtn").value = this.setState({ btnLoading: true });
-      // axios.post('/api/auth/post/login', auth)
       axios.post('/api/auth/post/login/mob_email', payload)
         .then((response) => {
           console.log("login response=",response);
           if (response.data.ID) {
             this.setState({ btnLoading: false });
             var userDetails = {
-              firstName: response.data.userDetails.firstName,
-              lastName: response.data.userDetails.lastName,
-              companyID : parseInt(response.data.userDetails.companyID),
-              email: response.data.userDetails.email,
-              phone: response.data.userDetails.phone,
-              pincode: response.data.userDetails.pincode,
-              user_id: response.data.userDetails.user_id,
-              roles: response.data.userDetails.roles,
-              token: response.data.userDetails.token,
+              firstName   : response.data.userDetails.firstName,
+              lastName    : response.data.userDetails.lastName,
+              companyID   : parseInt(response.data.userDetails.companyID),
+              email       : response.data.userDetails.email,
+              phone       : response.data.userDetails.phone,
+              pincode     : response.data.userDetails.pincode,
+              user_id     : response.data.userDetails.user_id,
+              roles       : response.data.userDetails.roles,
+              token       : response.data.userDetails.token,
+              authService : "",
             }
             // console.log("response.data.data, ===> ",response.data);
             document.getElementById("logInBtn").value = 'Sign In';           
@@ -88,7 +86,7 @@ class Login extends Component {
               loggedIn: true
             }, () => {
               // this.props.history.push('/')
-              swal("Thank You", "You have been successfuly logged In");
+              swal("Thank You", "You have been successfuly logged in");
               window.location.reload();
             })
           } else if (response.data.message === "USER_BLOCK") {
@@ -134,7 +132,7 @@ class Login extends Component {
           })
           this.setState({ btnLoading: false });
         });
-    }
+    //}
   }
 
   validateForm() {
@@ -200,20 +198,14 @@ class Login extends Component {
   }
 
   render() {
-    // console.log('local userDetails')
-    return (
-      // <div id="loginFormModal" style={{ 'height': window.innerHeight + 'px', 'width': window.innerWidth + 'px','background' : "url("+signInBackgroundImg +")" }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 LoginWrapper">
-        // <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 innloginwrap">
-        // </div>    
+    return ( 
         <div id="loginFormModal"  className="col-12 LoginWrapper mobileViewNoPadding">    
         <div className="col-12 mobileViewNoPadding">
           <div className="col-12 NoPadding ">
             <div className="col-12 NoPadding">
               <div className="col-12 innloginwrap">
-                {/* style={{'background': 'url("../../static/'+publicRuntimeConfig.CURRENT_SITE+'/images/Logo.png")'}} */}
-               
                 <div className="col-12">
-                  <h3>SIGN IN</h3>
+                  <h5>SIGN IN</h5>
                 </div>
               </div>
               <div className="col-12 textAlignment mb-4 mt10 ">
@@ -222,16 +214,15 @@ class Login extends Component {
                     <a href='' className="forgotText " onClick={this.openSignUpModal.bind(this)}> Sign Up</a>                    
                 </div>
               </div>
-              <form id="login" onSubmit={this.userlogin.bind(this)}>
+              <form id="login">
                 <div className="form-group frmhgt textAlignLeft col-12 NOpadding mt25">
-                  <label>Phone Number / Email ID</label><label className="astricsign">*</label>
-                  <input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Email ID"  onChange={this.handleChange.bind(this)}/>
+                  <input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Phone Number / Email ID"  onChange={this.handleChange.bind(this)}/>
                   <span className="text-danger">{this.state.formerrors.emailIDV}</span>
                   <div className="errorMsg">{this.state.errors.loginusername}</div>
                 </div>
 
                 <div className="textAlignLeft frmhgt col-12 NOpadding ">
-                  <label>Password</label><label className="astricsign">*</label>
+                  {/* <label>Password</label><label className="astricsign">*</label> */}
                   <input type="password" className="form-control formcontrol1" ref="loginpassword" name="loginpassword" id="loginpassword" placeholder="Password"  onChange={this.handleChange.bind(this)} autoComplete="off"/>
                   <div className="showHideSignDiv">
                     <i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
@@ -240,8 +231,8 @@ class Login extends Component {
                   <div className="errorMsg">{this.state.errors.loginpassword}</div>
                 </div>
 
-                <div className="col-12  mb25 pull-right">
-                  <div className="loginforgotpass pull-right">
+                <div className="col-12  mb25 text-right">
+                  <div className="loginforgotpass">
                     <a href='' className="col-12 pull-right NoPadding forgotText" onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
                   </div>
                 </div>
@@ -259,8 +250,8 @@ class Login extends Component {
                     </div>
                   </div>
                   :
-                    <div className="col-12 ">
-                      <input id="logInBtn" type="submit" className="col-12 btn signInBtn" value="Sign In" />
+                    <div className="col-12 mb-2 mt-2 ">
+                      <input id="logInBtn" type="button" className="col-12 btn signInBtn" value="Sign In" onClick={this.userlogin.bind(this)} />
                     </div>
                 }
                 <div className="col-12 ">
@@ -275,11 +266,9 @@ class Login extends Component {
                         </div>
                       </div>
                       <div className="col-12 facebookLoginBtn mb-2 mt-2">
-                          {/* <button className="btn facebookBtn col-12 NoPadding">Login with Facebook</button> */}
                           < Facebooklogin />
                       </div>
                       <div className="col-12 mb-2 googleLoginBtn ">
-                          {/* <button className="btn googleBtn btn-danger col-12 NoPadding">Login with Google</button> */}
                           < Googlelogin />
                       </div>
                       <div className="col-12 mb-2">

@@ -1,13 +1,9 @@
 .locationBg{
 	height: 550px !important; 
 }
-
-
 .googleMap{
 	border-bottom-left-radius: 20px !important;
 	border-bottom-right-radius: 20px !important;
-	
-
 }
 
 .height385{
@@ -38,9 +34,9 @@
 	color: #fff !important;
 }
 .zindex{
-	position: absolute;
+  position: absolute;
   left: 0px;
-  top: -71px;
+  top: -190px;
   z-index: 0;
 }
 .deliveryForm{
@@ -51,7 +47,6 @@
 .googleMap{
 	background-color: rgba(0,0,0,0.3) !important;   
 }
-
 .formcontrol1 {
     background-color: #eee;
     border:none !important;

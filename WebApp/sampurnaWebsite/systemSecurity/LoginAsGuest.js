@@ -20,13 +20,33 @@ componentDidMount() {
         }
 }
 
-CustomerloginAsGuest(event){
+getRandomInt=(min, max)=>{
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+customerloginAsGuest(event){
     event.preventDefault();
+    var formValues = {
+        firstname   : "",
+        lastname    : "",
+        mobNumber   : "",
+        pincode     : "",
+        email       : "",
+        pwd         : "guest"+this.getRandomInt(1000, 9999),
+        role        : 'user',
+        status      : 'active',
+        countryCode : "",
+        authService : "guest"
+      }
     console.log("inside guest login=");
-    axios.post("/api/auth/post/signup/guest_login")
+    axios.post("/api/auth/post/signup/guest_login",formValues)
     .then((guestResponse)=>{
         if(guestResponse){
             console.log("guestResponse==",guestResponse.data);
+            swal("Thank You", "You have been successfuly logged in as guest");
+            window.location.reload();
         }
     })
     .catch((error)=>{
@@ -71,7 +91,7 @@ CustomerloginAsGuest(event){
   render() {
     return (
         <div className="col-12 NoPadding">
-              <button className="btn guestBtn col-12 NoPadding" onclick={this.CustomerloginAsGuest.bind(this)}>Login As a Guest</button>
+              <button className="btn guestBtn col-12 NoPadding" onClick={this.customerloginAsGuest.bind(this)}>Login As a Guest</button>
         </div>
     );
   }

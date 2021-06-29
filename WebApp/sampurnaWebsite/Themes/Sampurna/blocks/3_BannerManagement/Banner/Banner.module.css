@@ -100,6 +100,12 @@
       float:left !important;
       text-align:left;
   }
+  .swiper-pagination-bullet{
+      height: 10px !important;
+      width: 10px !important;
+      background:  transparent !important;
+      border: solid 1px #aaa;
+  }
   @media only screen and (max-device-width: 480px) {
     .titleWrapper{
         margin-top: -90px;

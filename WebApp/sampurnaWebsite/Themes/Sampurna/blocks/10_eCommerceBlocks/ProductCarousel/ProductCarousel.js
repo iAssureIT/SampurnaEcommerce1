@@ -403,8 +403,8 @@ submitCart(event) {
         })
       }, 2000);
     }
-  
   }
+  
   addCart(formValues, quantityAdded, availableQuantity) {
       // console.log("formValues==",formValues);
       axios.post('/api/carts/post', formValues)

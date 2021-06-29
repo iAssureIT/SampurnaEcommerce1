@@ -169,6 +169,7 @@ class SignUp extends Component {
 				status      : 'unverified',
 				countryCode : "uae",
 				username    : "MOBILE",
+				authService : "",
 			}
 			axios.post('/api/auth/post/signup/user/otp',formValues)
 			.then((signupResponse) =>{
@@ -181,13 +182,14 @@ class SignUp extends Component {
 						mobNumber   : signupResponse.data.result.profile.mobile,
 						pincode		: signupResponse.data.result.profile.pincode,
 						// user_id		: signupResponse.data.ID,
+						authService : "",
 						userId      : signupResponse.data.ID,
 						roles		: signupResponse.data.result.roles[0],
 					}
 					console.log("userDetails===",userDetails);
 
 					localStorage.setItem('userDetails', JSON.stringify(userDetails));
-					swal(signupResponse.data.message);
+					swal("Thank you!! Your account created successfuly. Please Check your SMS, We have sent verification code on your mobile number.");
 					this.props.updateFormValue("signupotp");
 				}
 			})
@@ -288,7 +290,7 @@ class SignUp extends Component {
 		return (
 			<div className="col-12 NoPadding">
 				<div className="col-12 innloginwrap">
-					<h3>Sign Up</h3>
+					<h5>Sign Up</h5>
 				</div>
 
 				<div className="col-12 NoPadding mb-3 loginforgotpass signuplink mt-5">
@@ -324,13 +326,18 @@ class SignUp extends Component {
 						<PhoneInput
 						country={'ae'} 
 						value={this.state.mobNumber}
-						name="mobNumber"
-						className="col-12 formcontrol1"
+						disabled={false}
+						disableDropdown={false}
+						enableAreaCodes={false}
+						// name="phone"
+						// className="col-12 formcontrol1"
+						// autoFormat={true}
+						// enableAreaCodes={true}
 						inputProps={{
 							name: 'mobNumber',
 							required: true
 						}}
-						onChange={mobNumber => { this.setState({ mobNumber }) }}
+						onChange={mobNumber => { this.setState({ mobNumber },console.log("react-phone-input-2=",mobNumber)) }}
 					/>                       
 						{/* <input maxLength="10" placeholder="" type="text" ref="mobNumber" name="mobNumber" id="mobNumber" value={this.state.mobNumber} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control formcontrol1" />                                      */}
 						<div className="errorMsg">{this.state.errors.mobNumber}</div>
