@@ -285,7 +285,7 @@ exports.send_notifications = (req, res, next) => {
                     }else if(role === req.body.toUserRole && req.body.toUser_id){
                         console.log('admin toUserrole==>',role)
                         var userData    = await getSelfUserData(req.body.toUser_id);
-                        // console.log("userData->",userData)
+                        console.log("userData->",userData)
                         var userRole    = userData.role
                         // console.log("userRole->",userRole)
                         var checkRole   = userRole.includes(role);
