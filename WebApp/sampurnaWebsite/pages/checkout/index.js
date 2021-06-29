@@ -81,7 +81,7 @@ class Checkout extends Component {
             this.setState({
                 user_ID : userDetails.user_id,
                 email   : userDetails.email,
-                fullName: userDetails.firstName +" "+userDetails.lastName ,
+                fullName: userDetails.firstname +" "+userDetails.lastname ,
                 websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
                 currency     : currency,
             },()=>{
@@ -172,10 +172,10 @@ class Checkout extends Component {
             axios.get('/api/creditpoints/get/'+this.state.user_ID)
             .then( (creditRes)=>{
                 // console.log("credit response==",creditRes);
-                if(creditRes){
-                    console.log("credit response==",creditRes);
+                if(creditRes.data){
+                    console.log("credit response==",creditRes.data);
                     this.setState({
-                        creditdata : creditRes.data
+                        creditdata : creditRes.data.totalPoints
                     },()=>{
                         console.log("creditdata=",this.state.creditdata);
                     })
@@ -712,17 +712,19 @@ class Checkout extends Component {
 
             console.log("formValues==",formValues);
             if(creaditPoint >= 0){
-                axios.post('/api/carts/redeem/creditpoints',formValues)
+                axios.patch('/api/carts/redeem/creditpoints',formValues)
                 .then(AfterCreditResponse=>{
                     if(AfterCreditResponse.data){
                         console.log("AfterCreditResponse=>",AfterCreditResponse.data);
 
                         this.setState({
                             applyCreditPoint : 0,
-                            recentCartData:AfterCreditResponse.data.data,
+                            recentCartData:AfterCreditResponse.data,
+                            // myData:AfterCreditResponse.data,
+                        },()=>{
+                            console.log("myData=",this.state.myData);
                         })
-                        swal(AfterCreditResponse.data.message);
-                        // swal({text: couponResponse.data.message, color:couponResponse.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
+                        
                     }
                 })
                 .catch(err=>{
@@ -1015,6 +1017,7 @@ class Checkout extends Component {
                                                     <div className="col-4 NoPadding">
                                                         <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCreditPoint.bind(this)}>Apply</button>
                                                     </div>
+                                                    <div className="col-12 error">{this.state.creaditPointError}</div>
                                                     
                                                 </div>
                                             </div>    

@@ -26,6 +26,7 @@ class CreditPoints extends Component{
 					user_ID :  userDetails.user_id,
 					userLongitude : userDetails.userLatitude,
 					userLongitude : userDetails.userLongitude,
+                    currency      : sampurnaWebsiteDetails.preferences.currency,
 				},()=>{
                     this.getCreditData();
 				})
@@ -58,7 +59,11 @@ class CreditPoints extends Component{
                     <div className={"col-12 "+Style.creditHeader}>
                         <div className="row">
                             <div className="col-6 text-left">Total Points</div>
-                            <div className="col-6 text-right">{this.state.currency}&nbsp;{this.state.creditdata&&this.state.creditdata.totalPoints}</div>
+                            <div className="col-6 text-right">{this.state.creditdata&&this.state.creditdata.totalPoints}&nbsp; points</div>
+                        </div>
+                        <div className="row">
+                            <div className="col-6 text-left">Currunt Balance</div>
+                            <div className="col-6 text-right">{this.state.currency}&nbsp;{this.state.creditdata&&this.state.creditdata.totalPoinsValue}&nbsp;</div>
                         </div>
                     </div>
                     {this.state.creditdata && this.state.creditdata.transactions && this.state.creditdata.transactions.length>0
@@ -67,10 +72,9 @@ class CreditPoints extends Component{
                     <table className="table table-borderless orderTable">
                         <thead>
                             <tr>
-                                <th className="">Order ID</th>
-                                <th className="">Start Date</th>
-                                <th className="">End Date</th>
-                                <th className="">Credit Points</th>
+                                <th className="text-center">Transaction Date</th>
+                                <th className="text-center">Transaction Details</th>
+                                <th className="text-center">Credit Points</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,16 +82,15 @@ class CreditPoints extends Component{
                             {this.state.creditdata.transactions.map((data,index)=>{
                                 return(
                                     <tr>
-                                        {/* <div className={"col-12 pb-4 pt-4 " +Style.creditRow}>
-                                            <div className="row">
-                                                <div className="col-4">{data.orderID}</div>
-                                                <div className="col-4">{data.earnedPoints}</div>
-                                            </div>
-                                        </div> */}
-                                        <td className="">{data.orderID}</td>
-                                        <td className="">{moment(data.orderDate).format('MM/DD/YYYY')}</td>
-                                        <td className="">{moment(data.orderDate).format('MM/DD/YYYY')}</td>
-                                        <td className="">{data.earnedPoints}</td>
+                                        <td className="text-center">{moment(data.transactionDate).format('MM/DD/YYYY')}</td>
+                                        <td className="text-center">
+                                            
+                                            <div ><b>{data.typeOfTransaction}</b></div>
+                                            <div >Order ID - {data.orderID}</div>
+                                            <div >Expiry Date - {moment(data.expiryDate).format('MM/DD/YYYY')}</div>
+                                        </td>
+                                        
+                                        <td className="text-center">{data.earnedPoints}</td>
                                     </tr>
                                 )}
                                 )

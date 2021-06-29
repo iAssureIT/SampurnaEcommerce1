@@ -266,6 +266,9 @@ input[type=number] {
 #loginFormModal .form-control{
   height: 42px !important;
   border-radius: 0px !important;
+  border-bottom: solid 1px #ccc !important;
+  border: none;
+  background: transparent !important;
 }
 /* login modal css */
 .loginModalContent{

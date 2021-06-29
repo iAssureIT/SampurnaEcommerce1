@@ -9,6 +9,7 @@ import Image                  from 'next/image';
 import $                      from 'jquery';
 import jQuery                 from 'jquery';
 import axios                  from 'axios';
+import PhoneInput 			      from 'react-phone-input-2';
 import SignUp                 from './SignUp.js';
 import Facebooklogin          from './Facebooklogin.js';
 import Googlelogin            from './Googlelogin.js'
@@ -54,22 +55,19 @@ class Login extends Component {
 
   userlogin(event) {
     event.preventDefault();
-    var auth = {
-      email: this.refs.loginusername.value,
+    var payload = {
+      username: this.refs.loginusername.value,
       password: this.refs.loginpassword.value,
       role: "user"
     }
-
-    // var email = validator.isEmail(this.refs.loginusername.value); //=> true
-    // var pwd = !validator.isEmpty(this.refs.loginpassword.value); //=> true
-    //  console.log("email",this.validateForm());
-
+    console.log("payload===",payload);
     if (this.validateForm()) {
       // document.getElementById("logInBtn").value = 'Please Wait...';
       document.getElementById("logInBtn").value = this.setState({ btnLoading: true });
-      axios.post('/api/auth/post/login', auth)
+      // axios.post('/api/auth/post/login', auth)
+      axios.post('/api/auth/post/login/mob_email', payload)
         .then((response) => {
-          // console.log("preference.data, ===> ",response.data.userDetails);
+          console.log("login response=",response);
           if (response.data.ID) {
             this.setState({ btnLoading: false });
             var userDetails = {
@@ -226,12 +224,11 @@ class Login extends Component {
               </div>
               <form id="login" onSubmit={this.userlogin.bind(this)}>
                 <div className="form-group frmhgt textAlignLeft col-12 NOpadding mt25">
-                  <label>Email ID</label><label className="astricsign">*</label>
+                  <label>Phone Number / Email ID</label><label className="astricsign">*</label>
                   <input type="email" className="form-control formcontrol1" ref="loginusername" id="loginusername" name="loginusername" placeholder="Email ID"  onChange={this.handleChange.bind(this)}/>
                   <span className="text-danger">{this.state.formerrors.emailIDV}</span>
                   <div className="errorMsg">{this.state.errors.loginusername}</div>
                 </div>
-
 
                 <div className="textAlignLeft frmhgt col-12 NOpadding ">
                   <label>Password</label><label className="astricsign">*</label>
@@ -242,6 +239,7 @@ class Login extends Component {
                   </div>
                   <div className="errorMsg">{this.state.errors.loginpassword}</div>
                 </div>
+
                 <div className="col-12  mb25 pull-right">
                   <div className="loginforgotpass pull-right">
                     <a href='' className="col-12 pull-right NoPadding forgotText" onClick={this.openForgotPasswordModal.bind(this)}>Forgot Password?</a>
