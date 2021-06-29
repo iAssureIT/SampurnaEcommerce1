@@ -414,7 +414,7 @@ function getAdminUserData() {
                         userData.push({email:data[i].profile.email,
                             id          : data[i]._id,
                             mobile      : data[i].profile.mobile,
-                            isdCode     : data.profile.isdCode,
+                            isdCode     : data[i].profile.isdCode,
                             role        : "admin"
                         });
                     }
@@ -509,7 +509,7 @@ function getOtherAdminData(role,company_id){
                                 userData.push({email:data[i].profile.email,
                                         id          : data[i]._id,
                                         mobile      : data[i].profile.mobile,
-                                        isdCode     : data.profile.isdCode,
+                                        isdCode     : data[i].profile.isdCode,
                                         role        : data[i].roles
                                 });
                             }
