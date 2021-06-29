@@ -440,6 +440,7 @@ function getSelfUserData(toUserId) {
         .exec()
         .then(data => {
             console.log("data => ",data)
+            console.log("data => ",data.profile.isdCode)
             if(data && data.profile){
                 resolve({
                     email       : data.profile.email,
