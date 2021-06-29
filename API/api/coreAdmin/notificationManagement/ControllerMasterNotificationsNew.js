@@ -380,7 +380,9 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     console.log("SMS if => ",sms)  
                     resolve(true);            
                 }else if(userData.mobile){
-                    var toMobile        = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
+                    var isdCode         = userData.isdCode ? userData.isdCode : "";
+                    console.log("isdCode => ",isdCode)
+                    var toMobile        = isdCode + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
                     console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
@@ -388,7 +390,7 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     const sms           = await sendSMS(toMobile, textMsg);
                     resolve(sms);   
                     console.log("SMS else if => ",sms)  
-                    resolve(true); 
+                    // resolve(true); 
                 }else{
                     resolve(false)
                 }
@@ -410,9 +412,10 @@ function getAdminUserData() {
 
                     if(data[i].profile){
                         userData.push({email:data[i].profile.email,
-                            id      : data[i]._id,
-                            mobile  : data[i].profile.mobile,
-                            role    : "admin"
+                            id          : data[i]._id,
+                            mobile      : data[i].profile.mobile,
+                            isdCode     : data.profile.isdCode,
+                            role        : "admin"
                         });
                     }
                 }//i
@@ -442,7 +445,8 @@ function getSelfUserData(toUserId) {
                     email       : data.profile.email,
                     id          : data._id,
                     mobile      : data.profile.mobile,
-                    role        : data.roles
+                    isdCode     : data.profile.isdCode,
+                    role        : data.roles,
                 });
             }   
         })
@@ -467,9 +471,10 @@ function getIntendedUserData(toUserId) {
             .then(data => {
                 if(data && data.profile){
                 resolve({email:data.profile.email,
-                        id: data._id,
-                        mobile: data.profile.mobile,
-                        role:data.roles
+                        id          : data._id,
+                        mobile      : data.profile.mobile,
+                        isdCode     : data.profile.isdCode,
+                        role        : data.roles
                 });
                 }
             })
@@ -502,9 +507,10 @@ function getOtherAdminData(role,company_id){
                         for(var i=0 ; i<data.length ; i++){
                             if(data[i].profile){
                                 userData.push({email:data[i].profile.email,
-                                        id: data[i]._id,
-                                        mobile: data[i].profile.mobile,
-                                        role:data[i].roles
+                                        id          : data[i]._id,
+                                        mobile      : data[i].profile.mobile,
+                                        isdCode     : data.profile.isdCode,
+                                        role        : data[i].roles
                                 });
                             }
                         }//i
@@ -597,19 +603,19 @@ function sendSMS(mobileNumber, textMsg){
                     message         : textMsg
                 }
                 console.log("smsFormValues=> ",smsFormValues)
-                // var smsglobal = require('smsglobal')(data.authID, data.authToken);
+                var smsglobal = require('smsglobal')(data.authID, data.authToken);
                 
-                // smsglobal.sms.send(smsFormValues, function (error, response) {
-                //     console.log("SMS response 1 => ",response);
-                //     if(response && response.statusCode && response.statusCode === 200 && response.status === "OK"){
-                //         console.log("SMS response => ",response);
-                //         resolve(true);
-                //     }else{
-                //         console.log("SMS error => ",error.data.errors.origin.errors);
-                //         resolve(false);
-                //     }
-                    resolve(true);
-                // });
+                smsglobal.sms.send(smsFormValues, function (error, response) {
+                    console.log("SMS response 1 => ",response);
+                    if(response && response.statusCode && response.statusCode === 200 && response.status === "OK"){
+                        console.log("SMS response => ",response);
+                        resolve(true);
+                    }else{
+                        console.log("SMS error => ",error.data.errors.origin.errors);
+                        resolve(false);
+                    }
+                    // resolve(true);
+                });
 
 
             }else{

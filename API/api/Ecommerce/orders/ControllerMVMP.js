@@ -681,7 +681,7 @@ exports.returnProduct = (req, res, next) => {
 		{'_id' : ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id},
 		{$set:
 			{
-				'vendorOrders.$[outer].products.$[inner].productStatus' : 'Returned',
+				'vendorOrders.$[outer].products.$[inner].productStatus' : "Return Requested",
 				'vendorOrders.$[outer].products.$[inner].returnedDate'	: new Date(),
 			}
 		},

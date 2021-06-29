@@ -137,12 +137,15 @@ Return Product
 API         => http://localhost:3368/api/orders/patch/returnproduct
 MethodType  => Patch
 formValues  =  {
-    "user_id"           : "60ade5ce4da4d2153ff7a608",
-    "order_id"          : "60d96e03fe94183c3741329c",
-    "product_id"        : "60c1dba86d97cd3ac0b95216",
-    "vendor_id"         : "609d0b947bdc653631fe1b27",
-    "vendorLocation_id" : "60a60f0d8182d10881cf53eb",
-    "reasonForReturn"   : "return product"
+    "user_id"               : "60ade5ce4da4d2153ff7a608",
+    "order_id"              : "60d96e03fe94183c3741329c",
+    "product_id"            : "60c1dba86d97cd3ac0b95216",
+    "vendor_id"             : "609d0b947bdc653631fe1b27",
+    "vendorLocation_id"     : "60a60f0d8182d10881cf53eb",
+    "reasonForReturn"       : "return product",
+    "customerComment"       : "customer Comment", 
+    "refund"                : "source/credit"
+    "returnProductImages"   : []
 }
 
 
