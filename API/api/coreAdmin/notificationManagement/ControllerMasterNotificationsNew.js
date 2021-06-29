@@ -315,9 +315,9 @@ exports.send_notifications = (req, res, next) => {
                         var userData = await getOtherAdminData(req.body.otherAdminRole,req.body.company_id);
                         if(userData && userData.length > 0){
                            for(var j=0 ; j<userData.length ; j++){
-                            var userRole    = userData[j].role
-                            var checkRole   = userRole.includes(role);
-                            console.log("checkRole => ",checkRole)
+                                var userRole    = userData[j].role
+                                var checkRole   = userRole.includes(role);
+                                console.log("checkRole => ",checkRole)
                                 if(checkRole){
                                     var c = await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
                                     // console.log("c  => ",c)

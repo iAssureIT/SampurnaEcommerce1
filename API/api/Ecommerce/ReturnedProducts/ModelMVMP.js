@@ -11,6 +11,9 @@ const returnedProductSchema = mongoose.Schema({
 	productCode 			: String,
 	itemCode                : String ,
 	reasonForReturn         : String, 
+	customerComment 		: String,
+	refund 					: String,
+	returnProductImages 	: Array,
 	adminComment 			: String,
 	vendorComment 			: String,     
 	originalPrice           : Number,
@@ -26,7 +29,7 @@ const returnedProductSchema = mongoose.Schema({
 								status 	: String,
 								date 	: Date
 							}],
-	refund                  : [{
+	refundDetails           : [{
 								bankName        : String,
 								bankAccountNo   : String,
 								IFSCCode        : String,

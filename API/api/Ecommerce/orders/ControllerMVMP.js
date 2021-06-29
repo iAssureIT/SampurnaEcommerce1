@@ -178,10 +178,10 @@ exports.insert_orders = (req, res, next) => {
 								// }
 
 								// Add credit points earned on purchase
-								if(orderdata.paymentDetails.creditPointsUsed && orderdata.paymentDetails.creditPointsValue){
-									var useCreditPoint 	= await useCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "CreditPointsUsed", orderdata.paymentDetails.creditPointsUsed);
+								if(orderdata.paymentDetails.creditPointsUsed && orderdata.paymentDetails.creditPointsValueUsed){
+									var useCreditPoint 	= await useCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Credit Points Used", orderdata.paymentDetails.creditPointsUsed);
 								}
-								var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "OriginalOrder", "add");
+								var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Original Order", "add");
 								
 								res.status(200).json({ 
 									order_id : orderdata._id,
@@ -525,7 +525,7 @@ exports.cancel_order = (req, res, next) => {
 				// console.log("updatedata => ",updatedata);
 				if (updatedata.nModified === 1) {
 					// console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
-					var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, vendor_order_afterDiscountTotal, vendor_order_shippingCharges, vendor_netPayableAmount, "VendorOrderCancelled", "minus");
+					var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, vendor_order_afterDiscountTotal, vendor_order_shippingCharges, vendor_netPayableAmount, "Vendor Order Cancelled", "minus");
 					// console.log("addCreditPoint => ",addCreditPoint)		
 					res.status(200).json({
 						"message"	: "Order cancelled successfully."
@@ -570,7 +570,7 @@ exports.cancel_order = (req, res, next) => {
 			if (data.nModified === 1) {
 				var orderdata 		= await Orders.findOne({_id: ObjectId(req.body.order_id)})
 				// console.log("orderdata=> ",orderdata)
-				var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "WholeOrderCancelled", "minus");
+				var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Whole Order Cancelled", "minus");
 				// console.log("else addCreditPoint => ",addCreditPoint)
 				
 				res.status(200).json({
@@ -719,6 +719,9 @@ exports.returnProduct = (req, res, next) => {
 							vendorLocation_id 		: req.body.vendorLocation_id,
 							product_id              : req.body.product_id,
 							reasonForReturn         : req.body.reasonForReturn,
+							customerComment 		: req.body.customerComment,
+							refund 					: req.body.refund,
+							returnProductImages 	: req.body.returnProductImages,
 							originalPrice           : returnedProduct[0].originalPrice,
 							discountPercent         : returnedProduct[0].discountPercent,
 							discountedPrice         : returnedProduct[0].discountedPrice,
@@ -726,9 +729,9 @@ exports.returnProduct = (req, res, next) => {
 							modeOfPayment           : orderdata.paymentDetails.paymentMethod,
 							dateOfPurchase          : orderdata.createdAt,
 							dateOfReturn            : new Date(),
-							returnStatus 			: "New",
+							returnStatus 			: "Return Requested",
 							returnStatusLog 		: [{
-														status 	: "New",
+														status 	: "Return Requested",
 														date 	: new Date()
 							}],
 							// refund 				: [{
@@ -745,7 +748,7 @@ exports.returnProduct = (req, res, next) => {
 							var isOrderAvailable = await CreditPoints.findOne({"user_id" : ObjectId(req.body.user_id), "transactions.order_id" : ObjectId(req.body.order_id)});
 							
 							if(isOrderAvailable !== null){
-								await addCreditPoints(req.body.order_id, req.body.user_id, (returndata.discountedPrice * returndata.productQuantity), 0, (returndata.discountedPrice * returndata.productQuantity), "ReturnProduct", "minus");
+								await addCreditPoints(req.body.order_id, req.body.user_id, (returndata.discountedPrice * returndata.productQuantity), 0, (returndata.discountedPrice * returndata.productQuantity), "Return Product", "minus");
 
 								var userData 	 = await User.findOne({"_id" : ObjectId(req.body.user_id)}); 
 								
@@ -792,6 +795,7 @@ exports.returnProduct = (req, res, next) => {
 							});
 						})
 						.catch(err => {
+							console.log("err => ",err);
 							res.status(500).json({ 
 								message 	: "Failed to return product." ,
 								error 		: err 

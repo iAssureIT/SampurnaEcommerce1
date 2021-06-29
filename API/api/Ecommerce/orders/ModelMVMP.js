@@ -22,7 +22,7 @@ const orderSchema = mongoose.Schema({
         afterDiscountCouponAmount : Number,
         couponCancelMessage       : String,
         creditPointsUsed          : Number,
-        creditPointsValue         : Number,
+        creditPointsValueUsed     : Number,
         taxAmount                 : Number,
         shippingCharges           : Number,
         netPayableAmount          : Number,  //NetPayableAmount = afterDiscountCouponAmount + taxAmount + shippingCharges

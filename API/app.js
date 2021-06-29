@@ -104,6 +104,7 @@ const storePreference     					= require("./api/Ecommerce/StorePreferences/Route
 const orderCancellationPolicyRoutes			= require("./api/Ecommerce/OrderCancellationPolicy/Routes");
 const creditPointsRoutes					= require("./api/Ecommerce/CreditPoints/Routes");
 const creditPointsPolicyRoutes				= require("./api/Ecommerce/CreditPointsPolicy/Routes");
+const returnPolicyRoutes					= require("./api/Ecommerce/ReturnPolicy/Routes");
 const unitOfMeasurment    					= require("./api/Ecommerce/departmentMaster/RoutesUnitofmeasurment");
 const orderStatus    						= require("./api/Ecommerce/orderStatusMaster/Routes");
 const BannerImages         					= require("./api/Ecommerce/BannerImages/Routes.js");
@@ -170,6 +171,7 @@ app.use("/api/preference", 					taxSetting);
 app.use("/api/adminpreference", 			adminPreference);
 app.use("/api/storepreference", 			storePreference);
 app.use("/api/ordercancellationpolicy", 	orderCancellationPolicyRoutes);
+app.use("/api/returnpolicy", 				returnPolicyRoutes);
 app.use("/api/creditpoints", 				creditPointsRoutes);
 app.use("/api/creditpointspolicy", 			creditPointsPolicyRoutes);
 app.use("/api/sections", 					SectionRoutes);

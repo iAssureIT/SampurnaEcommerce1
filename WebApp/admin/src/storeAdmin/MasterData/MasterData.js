@@ -20,6 +20,7 @@ import DistanceRange       			from './DistanceRange/DistanceRange.js';
 import OrderDeliveryPolicy      	from './OrderDeliveryPolicy/OrderDeliveryPolicy.js';
 import OrderCancellationPolicy      from './OrderCancellationPolicy/OrderCancellationPolicy.js';
 import CreditPointsPolicy      		from './CreditPointsPolicy/CreditPointsPolicy.js';
+import ReturnProductPolicy      	from './ReturnProductPolicy/ReturnProductPolicy.js';
 
 
 // import '../../coreadmin/companysetting/css/CompanySetting.css';
@@ -134,6 +135,7 @@ import CreditPointsPolicy      		from './CreditPointsPolicy/CreditPointsPolicy.j
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderDeliveryPolicy" data-toggle="tab">Order Delivery Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderCancellationPolicy" data-toggle="tab">Order Cancellation Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#CreditPointsPolicy" data-toggle="tab">Credit Points Policy </a></li>
+													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#ReturnProductPolicy" data-toggle="tab">Return Product Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#PhotoGallery" data-toggle="tab">Photo Gallery Master</a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#BannerImages" data-toggle="tab">Mobile Banner Images </a></li>
 												</ul>   
@@ -154,7 +156,8 @@ import CreditPointsPolicy      		from './CreditPointsPolicy/CreditPointsPolicy.j
 												<div className="tab-pane" id="BannerImages"><BannerImages editId={this.state.editId}/>  </div>  
 												<div className="tab-pane" id="OrderDeliveryPolicy"><OrderDeliveryPolicy editId={this.state.editId}/>  </div> 												
 												<div className="tab-pane" id="OrderCancellationPolicy"><OrderCancellationPolicy editId={this.state.editId}/>  </div>												
-												<div className="tab-pane" id="CreditPointsPolicy"><CreditPointsPolicy editId={this.state.editId}/>  </div> 	 												
+												<div className="tab-pane" id="CreditPointsPolicy"><CreditPointsPolicy editId={this.state.editId}/>  </div>
+												<div className="tab-pane" id="ReturnProductPolicy"><ReturnProductPolicy editId={this.state.editId}/>  </div> 	 												
 											</div> 
 										</div>
 									</div>

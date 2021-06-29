@@ -1183,14 +1183,14 @@ exports.apply_credit_points = (req,res,next)=>{
             var creditPointsPolicy          = await CreditPointsPolicy.findOne();   
             if(creditPointsPolicy !== null && creditPointsPolicy.expiryLimitInDays){
                 var creditPointValue	= creditPointsPolicy.creditPointValue;
+                var creditPoint         = creditPointsPolicy.creditPoint;
             }
 
             var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.body.user_ID)});
             if(creditPointsData && creditPointsData !== null){
-                var creditPolicyData = await CreditPointsPolicy.findOne();
 
                 data.totalCreditPoints 		    = creditPointsData.totalPoints;
-                data.totalCreditPointsValue 	= (creditPointsData.totalPoints * creditPolicyData.creditPointValue).toFixed(2);
+                data.totalCreditPointsValue 	= (creditPointsData.totalPoints * creditPointsPolicy.creditPointValue).toFixed(2);
             }else{
                 data.totalCreditPoints 		    = 0;
                 data.totalCreditPointsValue 	= 0;
@@ -1270,8 +1270,8 @@ exports.apply_credit_points = (req,res,next)=>{
                                                                     : 
                                                                         (order_shippingCharges).toFixed(2);
                 data.paymentDetails.afterDiscountCouponAmount   = 0;
-                data.paymentDetails.creditPointsUsed            = req.body.creditPointsUsed;
-                data.paymentDetails.creditPointsValue           = (req.body.creditPointsUsed * creditPointValue).toFixed(2);
+                data.paymentDetails.creditPointsUsed            = Math.round((req.body.creditPointsValueUsed * creditPoint)/creditPointValue);
+                data.paymentDetails.creditPointsValueUsed       = (req.body.creditPointsValueUsed).toFixed(2);
                 data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
                                                                                                                     ? maxServiceCharges > order_shippingCharges 
                                                                                                                         ? 
