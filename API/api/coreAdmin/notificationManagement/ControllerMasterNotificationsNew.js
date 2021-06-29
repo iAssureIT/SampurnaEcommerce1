@@ -611,7 +611,7 @@ function sendSMS(mobileNumber, textMsg){
                         console.log("SMS response => ",response);
                         resolve(true);
                     }else{
-                        console.log("SMS error => ",error.data.errors.origin.errors);
+                        // console.log("SMS error => ",error.data.errors.origin.errors);
                         resolve(false);
                     }
                     // resolve(true);
