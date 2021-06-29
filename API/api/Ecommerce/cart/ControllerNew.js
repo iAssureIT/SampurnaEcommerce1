@@ -9,6 +9,7 @@ const EntityMaster              = require('../../coreAdmin/entityMaster/ModelEnt
 const AdminPreferences          = require('../../Ecommerce/adminPreference/Model.js');
 const StorePreferences          = require('../../Ecommerce/StorePreferences/Model.js');
 const CreditPointsPolicy 		= require('../CreditPointsPolicy/Model');
+const CreditPoints 		        = require('../CreditPoints/Model');
 const _                         = require('underscore');  
 const moment 	                = require('moment-timezone');
 const haversine                 = require('haversine-distance')  
@@ -324,9 +325,12 @@ exports.list_cart_product = (req,res,next)=>{
             var order_shippingCharges       = 0;
             var maxServiceCharges           = 0;
             
-            var wish                            = await Wishlists.find({user_ID:req.params.user_ID});
-            var maxServiceChargesData           = await StorePreferences.findOne({},{maxServiceCharges : 1});
-            var minOrderAmountData              = await StorePreferences.findOne({},{minOrderValue : 1})
+            var wish                        = await Wishlists.find({user_ID:req.params.user_ID});
+            var maxServiceChargesData       = await StorePreferences.findOne({},{maxServiceCharges : 1});
+            var minOrderAmountData          = await StorePreferences.findOne({},{minOrderValue : 1});
+            var creditPointsData            = await CreditPoints.findOne({user_id : ObjectId(req.params.user_ID)});
+			// console.log("creditPointsData => ",creditPointsData);
+
             if(minOrderAmountData !== null && minOrderAmountData.minOrderValue > 0){
                 var minOrderAmount = minOrderAmountData.minOrderValue;
             }else{
@@ -413,6 +417,15 @@ exports.list_cart_product = (req,res,next)=>{
                                                                                                                         (order_shippingCharges)
                                                                                                                 )).toFixed(2);
                 data.minOrderAmount                             = minOrderAmount;
+                if(creditPointsData && creditPointsData !== null){
+                    var creditPolicyData = await CreditPointsPolicy.findOne();
+
+					data.totalCreditPoints 		    = creditPointsData.totalPoints;
+					data.totalCreditPointsValue 	= (creditPointsData.totalPoints * creditPolicyData.creditPointValue).toFixed(2);
+				}else{
+					data.totalCreditPoints 		    = 0;
+					data.totalCreditPointsValue 	= 0;
+				}                
             }
             // console.log("data",data);
             res.status(200).json(data);
@@ -989,6 +1002,17 @@ exports.apply_coupon = (req,res,next)=>{
                 maxServiceCharges = maxServiceChargesData.maxServiceCharges;
             }
 
+            var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.body.user_ID)});
+            if(creditPointsData && creditPointsData !== null){
+                var creditPolicyData = await CreditPointsPolicy.findOne();
+
+                data.totalCreditPoints 		    = creditPointsData.totalPoints;
+                data.totalCreditPointsValue 	= (creditPointsData.totalPoints * creditPolicyData.creditPointValue).toFixed(2);
+            }else{
+                data.totalCreditPoints 		    = 0;
+                data.totalCreditPointsValue 	= 0;
+            } 
+
             var vendorOrders                = data.vendorOrders;
             var order_beforeDiscountTotal   = 0;
             var order_afterDiscountTotal    = 0;
@@ -1161,6 +1185,16 @@ exports.apply_credit_points = (req,res,next)=>{
                 var creditPointValue	= creditPointsPolicy.creditPointValue;
             }
 
+            var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.body.user_ID)});
+            if(creditPointsData && creditPointsData !== null){
+                var creditPolicyData = await CreditPointsPolicy.findOne();
+
+                data.totalCreditPoints 		    = creditPointsData.totalPoints;
+                data.totalCreditPointsValue 	= (creditPointsData.totalPoints * creditPolicyData.creditPointValue).toFixed(2);
+            }else{
+                data.totalCreditPoints 		    = 0;
+                data.totalCreditPointsValue 	= 0;
+            } 
             
             if(minOrderAmountData !== null && minOrderAmountData.minOrderValue > 0){
                 var minOrderAmount = minOrderAmountData.minOrderValue;

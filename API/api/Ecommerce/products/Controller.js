@@ -2231,33 +2231,28 @@ exports.search_product = (req,res,next)=>{
             }
         )
     // .limit(parseInt(req.body.limit))
-    .exec()
+    .populate("vendor_ID")
     .then(async(products)=>{
-        // console.log("products",products.length);
+        // console.log("products",products);
         var userLat         = req.body.userLatitude;
         var userLong        = req.body.userLongitude;
         
-        var FinalVendorSequence = [];
-        if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
-            const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID)))];
-            
-            // console.log("uniqueVendors=> ",uniqueVendors);     
-            FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
-        }
-        // console.log("FinalVendorSequence => ", FinalVendorSequence);
-        // var grouped = _.groupBy(products.filter((el) => {
-        //     return FinalVendorSequence.some((f) => {
-        //       return String(f.vendor_ID) === String(el.vendor_ID);
-        //     })
-        //   }), function(product) {
-        //     return product.vendor_ID;
-        //   });
-        // console.log("grouped => ",grouped);
-        // var sortProduct = products.sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)
-        // console.log("sortProduct => ",sortProduct)
         if(products){
+            var FinalVendorSequence = [];
+            if(userLat !== "" && userLat !== undefined && userLong !== "" && userLong !== undefined){
+                const uniqueVendors = [...new Set(products.map(item => String(item.vendor_ID._id)))];
+                
+                // console.log("uniqueVendors=> ",uniqueVendors);     
+                FinalVendorSequence = await getVendorSequence(uniqueVendors, userLat, userLong)          
+            }
             for (let k = 0; k < products.length; k++) {
                 products[k] = {...products[k]._doc, isWish:false};
+                products[k].vendorLocation_id = await products[k].vendor_ID.locations && products[k].vendor_ID.locations.length > 0 
+                                                ? 
+                                                    products[k].vendor_ID.locations[0]._id 
+                                                : 
+                                                    "";
+                products[k].vendor_ID = products[k].vendor_ID._id;                               
             }
             if(req.body.user_id && req.body.user_id!=='null'){
                 Wishlists.find({user_ID:req.body.user_id})
@@ -2277,7 +2272,7 @@ exports.search_product = (req,res,next)=>{
                                 ? 
                                     products.filter((product) => {
                                         return FinalVendorSequence.some((vendor) => {
-                                        return String(vendor.vendor_ID) === String(product.vendor_ID);
+                                        return String(vendor.vendor_ID) === String(product.vendor_ID._id);
                                         })
                                     }).sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)
                                 : 
@@ -2290,7 +2285,7 @@ exports.search_product = (req,res,next)=>{
                             ? 
                                 products.filter((product) => {
                                     return FinalVendorSequence.some((vendor) => {
-                                    return String(vendor.vendor_ID) === String(product.vendor_ID);
+                                    return String(vendor.vendor_ID) === String(product.vendor_ID._id);
                                     })
                                 }).sort((a, b) => (String(a.universalProductCode) <=  String(b.universalProductCode)) ? 1 : -1)
                             : 
@@ -2310,7 +2305,7 @@ exports.search_product = (req,res,next)=>{
                     ? 
                         products.filter((product) => {
                             return FinalVendorSequence.some((vendor) => {
-                            return String(vendor.vendor_ID) === String(product.vendor_ID);
+                            return String(vendor.vendor_ID) === String(product.vendor_ID._id);
                             })
                         }).sort((a, b) => (String(a.vendor_ID) <=  String(b.vendor_ID)) ? 1 : -1)
                     : 

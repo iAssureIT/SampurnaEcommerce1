@@ -52,6 +52,8 @@ const cartSchema = mongoose.Schema({
     },
     order_numberOfProducts    : Number, //Sum of all number of products in all vendors
     order_quantityOfProducts  : Number, //Sum of total quantity of items in each vendor
+    totalCreditPoints         : Number,
+    totalCreditPointsValue    : Number,
     deliveryAddress           : {
         "name"            : String,
         "email"           : String,

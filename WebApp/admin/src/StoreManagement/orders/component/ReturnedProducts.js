@@ -53,6 +53,7 @@ export default class ReturnProducts extends Component{
 	getReturnedProducts(){
 		axios.get("/api/returnedProducts/get/list")
 		.then((response)=>{
+			console.log("response return products => ",response.data)
 				this.setState({
 					returnedProducts: response.data
 				});
@@ -89,8 +90,8 @@ export default class ReturnProducts extends Component{
 						console.log('response', response);
 						this.getReturnedProducts();
 						swal({
-									title : response.data.message,
-								});
+							title : response.data.message,
+						});
 
 						
 						$('#returnApprove').hide();
@@ -235,18 +236,27 @@ export default class ReturnProducts extends Component{
 		
 		return(
 			<div className="">
-				{
-					this.state.returnedProducts.length > 0 ? 
+				{this.state.returnedProducts.length > 0 ? 
 					this.state.returnedProducts.map((data,index)=>{
-						var returnApprovalPending = 0, returnApproved = 0, returnApprovedOn, pickupInitiated = 0, pickupInitiatedOn,
-						productPickedUp = 0,productPickedUpOn, productArrived, productAccepted, productAcceptedOn;
+
+						console.log("data =>=>=> ",data)
+						var returnApprovalPending 	= 0, 
+						returnApproved 				= 0, 
+						returnApprovedOn, 
+						pickupInitiated 			= 0, 
+						pickupInitiatedOn,
+						productPickedUp 			= 0,
+						productPickedUpOn, 
+						productArrived, 
+						productAccepted, 
+						productAcceptedOn;
 
 						return (
 							<div>
-								{
-									data.productsArray.length > 0 ?
+								{data.productsArray.length > 0 
+								?
 									<div className="row" key={index}>
-									<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  parentDiv">
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  parentDiv">
 											<div className="col-lg-12 bgwhite">
 												<div className="col-lg-12 orderpagebox">
 													<div className="row">
@@ -254,7 +264,7 @@ export default class ReturnProducts extends Component{
 															<div className="orderButton">Order-ID : <b>{data._id}</b></div>
 														</div>
 														<div className="col-lg-4 pull-right">
-																<p><span style={{marginTop:"15px"}}>Ordered On { moment(data.createdAt).format("DD/MM/YYYY hh:mm a") }</span>&nbsp;</p>
+															<p><span style={{marginTop:"15px"}}>Ordered On { moment(data.createdAt).format("DD/MM/YYYY hh:mm a") }</span>&nbsp;</p>
 														</div>
 														<div className="col-lg-12">
 															<div className="col-lg-2 mtop10">
@@ -265,12 +275,12 @@ export default class ReturnProducts extends Component{
 															</div>
 
 															<div className="col-lg-2 mtop10">
-															<label>Original Price:</label>
-															<p className={"fa fa-" + data.productsArray[0].currency}> {data.productsArray[0].originalPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </p>
+																<label>Original Price:</label>
+																<p className={"fa fa-" + data.productsArray[0].currency}> {data.productsArray[0].originalPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </p>
 															</div>
 															<div className="col-lg-2 mtop10">
-															<label>Discounted Price:</label>
-															<p className={"fa fa-" + data.productsArray[0].currency}> {data.productsArray[0].discountedPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </p>
+																<label>Discounted Price:</label>
+																<p className={"fa fa-" + data.productsArray[0].currency}> {data.productsArray[0].discountedPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </p>
 															</div>
 															<div className="col-lg-6">
 																<h4>Reason For Return: </h4>
@@ -278,8 +288,7 @@ export default class ReturnProducts extends Component{
 															</div>
 
 															<div className="col-lg-4 mtop10">
-															{
-																data.returnStatus.filter(function (status) { 
+															{data.returnStatus.filter(function (status) { 
 																
 																if(status.status === "Return Approved"){
 																	returnApproved = 1;
@@ -495,10 +504,7 @@ export default class ReturnProducts extends Component{
 						</div>
 					</div>
 				</div>
-				
-
 			</div>
-			);
-		
+		);
 	}
 }

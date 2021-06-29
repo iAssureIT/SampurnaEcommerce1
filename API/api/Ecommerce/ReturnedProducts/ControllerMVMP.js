@@ -8,7 +8,7 @@ exports.get_returned_products = (req,res,next)=>{
 		{ $lookup:
 			{
 				from 			: 'products',
-				localField 		: 'product_ID',
+				localField 		: 'product_id',
 				foreignField 	: '_id',
 				as 				: 'productsArray'
 			} 

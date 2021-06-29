@@ -1879,6 +1879,9 @@ exports.list_order_by_user = (req, res, next) => {
 		}
 
 		for(var i=0;i<data.length;i++){
+			var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(req.params.userID), 'transactions.order_id' : ObjectId(data[i]._id), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
+			// console.log("creditPointsData => ",creditPointsData)
+			
 			for(var j=0;j<data[i].vendorOrders.length;j++){
 				var vendor = await Entitymaster.findOne({_id:data[i].vendorOrders[j].vendor_id},{companyName:1,_id:0})
 				if(vendor && vendor.companyName){
@@ -1887,10 +1890,18 @@ exports.list_order_by_user = (req, res, next) => {
 			}
 			if(j >= data[i].vendorOrders.length){
 				data[i].maxDurationForCancelOrder = maxDurationForCancelOrder;
+				if(creditPointsData && creditPointsData !== null && creditPointsData.transactions && creditPointsData.transactions.length > 0){
+					var creditPolicyData = await CreditPointsPolicy.findOne();
+
+					data[i].creditPoints 		= creditPointsData.transactions[0].earnedPoints;
+					data[i].creditPointsValue 	= (creditPointsData.transactions[0].earnedPoints * creditPolicyData.creditPointValue).toFixed(2);
+				}else{
+					data[i].creditPoints 		= 0;
+					data[i].creditPointsValue 	= 0;
+				}
 			}
 		}
-		if(i>=data.length){
-			
+		if(i>=data.length){			
 			res.status(200).json(data);
 		}
 	 })
