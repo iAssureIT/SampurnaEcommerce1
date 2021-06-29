@@ -20,7 +20,7 @@ class SingleProduct extends Component{
     }
 
     componentDidMount(){
-        // console.log("single productView props=",this.props);
+        console.log("single productView props=",this.props);
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
@@ -66,7 +66,7 @@ class SingleProduct extends Component{
             messageData: {},
           })
         }, 2000);
-     
+      }else{
         axios.post('/api/carts/post', formValues)
           .then((response) => {
             this.setState({
@@ -98,7 +98,11 @@ class SingleProduct extends Component{
         var id = event.target.id;
         var availableQuantity = event.target.getAttribute('availablequantity');
         var currProId = event.target.getAttribute('currpro');
-        var quantityAdded=0;
+        var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
+        var productCartData = recentCartData.filter((a) => a.product_ID === id);
+        var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
+        console.log("quantityAdded===",quantityAdded,availableQuantity);
+        // var quantityAdded=1;
         var formValues = {
           "user_ID"           : this.state.user_ID,
           "product_ID"        : event.target.id,
@@ -197,6 +201,7 @@ class SingleProduct extends Component{
           }, 2000);
       }
     }
+    
     getWishListData() {
       // console.log("inside wishlist");
     var formValues ={
@@ -238,9 +243,9 @@ class SingleProduct extends Component{
 
       return (
         <div className="row cbdftx">
-            {/* <div className="col-12">
+            <div className="col-12">
               <Message messageData={this.state.messageData} />  
-            </div> */}
+            </div>
             <div className={" col-12 " +Style.mobileViewPadding +" "+Style.productWrapper} > 
                 <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                 <div className={"col-12 NoPadding"}>

@@ -62,9 +62,13 @@
 }
 
 .AEDColor{
-    color:#DC1919;
+    color:#aaa;
+    font-size: 10px;
 }
-
+.deleteCredit{
+    color: #f00;
+    cursor: pointer;
+}
 .orclass{
     color:#333;
     font-size:13px;

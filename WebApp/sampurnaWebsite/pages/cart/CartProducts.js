@@ -9,6 +9,7 @@ import  store                 from '../../redux/store.js';
 import Message                from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import OrderSummury           from './OrderSummury.js';
 import Style                  from './CartProducts.module.css';
+import ReactTooltip           from 'react-tooltip';
 
 // import {ntc} from '../../ntc/ntc.js';
 // import { size } from 'underscore';
@@ -472,13 +473,13 @@ class CartProducts extends Component{
                                                     <div className="col-12 totalAmounts mb-2 pull-right">
                                                         <div className="row">
                                                             <div className="col-8">Total Delivery Charges 
-                                                            
-                                                            {/* <a tabindex="0" class="" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="Delivery charge details">
-                                                                <i className="fa fa-info-circle infoCircle"></i>
-                                                            </a> */}
                                                             </div>
                                                             <div className="col-4 textAlignRight">&nbsp; 
                                                                 {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
+                                                                {/* <a tabindex="0" class="" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="Delivery charge details">
+                                                                    <i className="fa fa-info-circle infoCircle"></i>
+                                                                </a> */}
+                                                                <ReactTooltip />
                                                             </div>
                                                         </div>
                                                     </div>

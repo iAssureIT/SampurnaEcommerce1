@@ -608,6 +608,13 @@ body{
 .swal-button--confirm{
   background: #033554 !important;
 }
+.ellipsis{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  font-size: 14px;
+}
 @media only screen and (max-device-width: 480px) {
   .mobileViewNoPadding{
     padding-left: 0px !important;

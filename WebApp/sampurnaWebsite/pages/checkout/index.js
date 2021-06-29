@@ -19,8 +19,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-au
 import moment               from 'moment';
 import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
-
-import Style                  from './index.module.css';
+import Style                from './index.module.css';
 
 
 class Checkout extends Component {
@@ -174,11 +173,18 @@ class Checkout extends Component {
                 // console.log("credit response==",creditRes);
                 if(creditRes.data){
                     console.log("credit response==",creditRes.data);
-                    this.setState({
-                        creditdata : creditRes.data.totalPoints
-                    },()=>{
-                        console.log("creditdata=",this.state.creditdata);
-                    })
+                    if(creditRes.data === "You haven't earned any credit points yet"){
+                        this.setState({
+                            creditdata : creditRes.data
+                        })
+                    }else{
+                        this.setState({
+                            creditdataTotalPoints : creditRes.data.totalPoints>0?creditRes.data.totalPoints:0,
+                            creditdataValue       : creditRes.data.totalPoinsValue>0?creditRes.data.totalPoinsValue:0
+                        },()=>{
+                            console.log("creditdata=",this.state.totalPoints);
+                        })
+                    }
                 }
             })
             .catch((error)=>{
@@ -667,7 +673,12 @@ class Checkout extends Component {
         this.setState({
             recentCartData: this.props.recentCartData
         })
-        
+    }
+    deleteCredit(event){
+        event.preventDefault();
+        this.setState({
+            recentCartData: this.props.recentCartData
+        })
     }
 
     applyCoupon(event){
@@ -689,7 +700,11 @@ class Checkout extends Component {
                     this.setState({
                         couponAmount : this.state.recentCartData.paymentDetails.afterDiscountCouponAmount,
                         recentCartData:couponResponse.data.data,
+                    },()=>{
+                        console.log("recentCartData==",this.state.recentCartData);
                     })
+                    // $('.coponWrapper').hide();
+                    $('.couponCreditWrapper').hide();
                     swal(couponResponse.data.message);
                     // swal({text: couponResponse.data.message, color:couponResponse.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
                 }
@@ -699,6 +714,10 @@ class Checkout extends Component {
                 console.log("err",err);
             }) 
     }
+    // getCreditAmount(event){
+    //     event.preventDefault();
+
+    // }
     applyCreditPoint(event){
         event.preventDefault();
         var creaditPoint = this.refs.creaditPoint.value;
@@ -721,9 +740,11 @@ class Checkout extends Component {
                             applyCreditPoint : 0,
                             recentCartData:AfterCreditResponse.data,
                             // myData:AfterCreditResponse.data,
+                            
                         },()=>{
-                            console.log("myData=",this.state.myData);
+                            console.log("recentCartData=",this.state.recentCartData);
                         })
+                        $('.couponCreditWrapper').hide();
                         
                     }
                 })
@@ -975,7 +996,6 @@ class Checkout extends Component {
                                                                         </div>                                                                        
                                                                     </td>
                                                                 </tr>
-                                                                
                                                             </div>
                                                                 
                                                                 
@@ -993,21 +1013,20 @@ class Checkout extends Component {
                                         <div className="col-12">
                                             <div className="row">
                                             <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 ">
-                                            <div className="col-12 col-lg-11 col-xl-9 col-md-10 col-sm-12 col-xs-12 mb-2 mt-2">
-                                                <div className="row mt-5 ">
-                                                <label className={" " +Style.f13N}>Enter Discount Coupon Here</label>
+                                            <div className="col-12 col-lg-11 col-xl-9 col-md-10 col-sm-12 col-xs-12 mb-2 mt-2 couponCreditWrapper">
+                                                <div className="row mt-5 couponWrapper ">
+                                                    <label className={" " +Style.f13N}>Enter Discount Coupon Here</label>
                                                     <div className={"form-group col-8 NoPadding " +Style.border1}>                                                        
                                                         <input type="text" className={"form-control couponCode " +Style.border1} ref="couponCode" id="couponCode" label="Supriya" name="couponCode" placeholder="Enter Discount Coupon Here..." />
                                                     </div>
                                                     <div className="col-4 NoPadding">
                                                         <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>
                                                     </div>
-                                                    
                                                 </div>
                                                 <div className={"col-12 mt-2 " +Style.f11N +" "+Style.grey}><div className={"col-4 NoPadding " +Style.orline}></div><span className={"col-1 " +Style.orclass}>OR</span><div className={"col-4 ml-4 NoPadding " +Style.orline}></div></div>
-                                                <div className="row mt-4 mb-5">
-                                                    {this.state.creditdata !== "You haven't earned any credit points yet"?
-                                                        <label className={" " +Style.f13N}>Credit points  <span className={" " +Style.AEDColor}>  {this.state.currency}&nbsp; {this.state.creditdata} </span> available</label>
+                                                <div className="row mt-4 mb-5 creditWrapper">
+                                                    {this.state.creditdataTotalPoints > 0?
+                                                        <label className={" " +Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " +Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
                                                     :
                                                     <label className={" " +Style.f13N}>"You haven't earned any credit points yet"</label>
                                                     }
@@ -1024,17 +1043,24 @@ class Checkout extends Component {
                                             </div>
                                             <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 ">
                                                 <div className={"row " +Style.f13N}>
-                                                    <span className="col-md-6 col-12">Final Total Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
-                                                    <span className="col-md-6 col-12">Total Saving Amount :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
-                                                    <span className="col-md-6 col-12">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
-                                                    <span className="col-md-6 col-12">Total Tax :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
-                                                    <span className="col-md-6 col-12">Discount Coupon :</span>
-                                                    <span className="col-md-6 col-12 textAlignRight">
+                                                    <span className="col-6 mb-1">Final Total Amount :</span><span className="col-6 mb-1 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
+                                                    <span className="col-6 mb-1">Total Saving Amount :</span><span className="col-6 mb-1 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
+                                                    <span className="col-6 mb-1">Total Tax :</span><span className="col-6 mb-1 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
+                                                    <span className="col-6 mb-1">Discount Coupon :</span>
+                                                    <span className="col-6 mb-1 textAlignRight">
                                                         <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount : 0.00}
                                                         {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0&&
                                                         <span className="deleteCoupon" onClick={this.deleteCoupon.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                         }
                                                     </span>
+                                                    <span className="col-6 mb-1">Total Credit Points :</span>
+                                                    <span className="col-6 mb-1 textAlignRight">
+                                                        <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.creditPointsValue>0? this.state.recentCartData.paymentDetails.creditPointsValue : 0.00}
+                                                        {this.state.recentCartData.paymentDetails.creditPointsValue>0&&
+                                                        <span className={Style.deleteCredit} onClick={this.deleteCredit.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
+                                                        }
+                                                    </span>
+                                                    <span className="col-6 mb-1">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
                                                     
                                                     
                                                     <div className="col-12 mt-5 shippingtimes">
@@ -1082,7 +1108,6 @@ class Checkout extends Component {
                                         </div> 
                                         :null
                                         } 
-
                                         <div className="col-12">
                                             <div className="col-12">
                                                 <div className="row">
@@ -1153,7 +1178,7 @@ class Checkout extends Component {
     }
 }
 const mapStateToProps = state => (
-    console.log("state in checkout====",state.data.recentCartData),
+    // console.log("state in checkout====",state.data.recentCartData),
     {
       recentCartData: state.data.recentCartData,
     } 

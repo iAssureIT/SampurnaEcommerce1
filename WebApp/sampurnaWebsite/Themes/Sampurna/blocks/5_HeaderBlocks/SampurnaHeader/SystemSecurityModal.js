@@ -49,9 +49,11 @@ class header extends React.Component {
             this.setState({
                 loggedIn    : true,
                 userDetails : userDetails,
-                userId      : userDetails.user_id
+                userId      : userDetails.user_id,
+                authService : userDetails.authService
             },()=>{
                 this.getUserData();
+                // console.log("authService==",this.state.authService);
             })
         }
         
@@ -115,38 +117,56 @@ class header extends React.Component {
                         <span className="col-12 NoPadding ">
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
                                 <div className="mtm10">  
-                                <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
-                                <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span></div>
+                                    {this.state.authService === "guest" && this.state.userId ?
+                                        <span>
+                                            <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hello Guest!</span></span>
+                                            <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span>
+                                        </span>
+                                    :
+                                    <span>
+                                        <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
+                                        <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span>
+                                    </span>
+                                    }
+                                </div>
                             </div>
                         </span>
-                        <ul className="col-3 dropdown-menu list-DropDownMenu">                                        
-                            <li className="col-12 NOpadding">                            
-                                <div className="row">
-                                    <div className="col-2">
-                                    <div className="shortnamebk">
-                                        <div className="">                                                    
-                                            <div className="userinfo">{this.state.firstname}{this.state.lastname}</div>
+                        <ul className="col-3 dropdown-menu list-DropDownMenu">   
+                        {this.state.authService!=="guest"?    
+                            <div className="col-12 NoPadding">                                 
+                                <li className="col-12 NoPadding">                            
+                                    <div className="row">
+                                        <div className="col-2">
+                                        <div className="shortnamebk">
+                                            <div className="">                                                    
+                                                <div className="userinfo">{this.state.firstname}{this.state.lastname}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    </div>
-                                    <div className="col-10">
-                                    <div className="col-12">
-                                        <div className="userinfotext"><span >{this.state.userData ? this.state.userData.fullName : null}</span></div>
-                                    </div>
-                                    <div className="col-12">
-                                        <div className="useremail"><span>{this.state.userData ? this.state.userData.email : null}</span></div>
-                                    </div>
-                                    </div>
-                                </div>                            
-                            </li>   
-
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Orders</a></Link></li>
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Wishlist</a></Link></li>                               
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Profile</a></Link></li>
-                            <li className="col-12 NOpadding myAccMenu"><Link href="/my-account"><a>My Credits</a></Link></li>
-                  
-                            <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
-                        </ul>
+                                        </div>
+                                        <div className="col-10">
+                                        <div className="col-12">
+                                            <div className="userinfotext"><span >{this.state.userData ? this.state.userData.fullName : null}</span></div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="useremail"><span>{this.state.userData ? this.state.userData.email : null}</span></div>
+                                        </div>
+                                        </div>
+                                    </div>                            
+                                </li>   
+                                
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"><Link href="/my-account"><a>My Orders</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"><Link href="/my-account"><a>My Wishlist</a></Link></li>                               
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"><Link href="/my-account"><a>My Profile</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"><Link href="/my-account"><a>My Credits</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
+                            </div>
+                        :
+                            <div className="col-12 NoPaddind">
+                                <li className="col-12 NOpadding myAccMenuGuest text-center"><Link href="/my-account"><a>My Orders</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true">Sign In</li>
+                            </div>
+                        }
+                            </ul>
                     </li>
                     : 
                     <span className=" col-12 NoPadding signInBlock" >

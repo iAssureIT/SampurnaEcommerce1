@@ -129,9 +129,6 @@ class UserAddress extends Component {
                     }, 3000);
                         swal(response.data);
                         this.props.opDone();
-                        // $(".checkoutAddressModal").hide();                    
-                        // $(".checkoutAddressModal").css({display: 'none'});                    
-                        // $(".modal-backdrop").hide();
                         window.location.reload();
                     })
                     .catch((error)=>{
@@ -167,9 +164,7 @@ class UserAddress extends Component {
             }
         }
         
-    edit(deliveryAddressID){        
-        // var deliveryAddressID = this.props.match.params.deliveryAddressID;
-        // console.log('deliveryAddressID', deliveryAddressID);
+    edit(deliveryAddressID){     
         if(this.state.userID){  
             axios.get('/api/ecommusers/'+this.state.userID)
             .then((response)=>{            
@@ -235,8 +230,8 @@ class UserAddress extends Component {
     }
     cancel(){
         this.setState({
-            "fullname"            : '',
-            "addressLine1"         : '',
+            "fullname"        : '',
+            "addressLine1"    : '',
             "addressLine2"    : '',
             "pincode"         : '',
             "district"        : '',
@@ -247,6 +242,7 @@ class UserAddress extends Component {
             "addType"         : '',
         });
     }
+    
     render() {  
         return (
             <div className="addressModal col-12 checkoutAddressModal">  

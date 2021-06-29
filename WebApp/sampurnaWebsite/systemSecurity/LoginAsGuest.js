@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
-import $ from "jquery";
 import axios from 'axios';
-import Image from 'next/image';
 
 class LoginAsGuest extends Component {
   constructor(props) {
@@ -14,10 +12,7 @@ class LoginAsGuest extends Component {
 
 componentDidMount() {
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
-        if(userDetails){
-          var userID                = userDetails.user_id; 
-        }
+    
 }
 
 getRandomInt=(min, max)=>{
@@ -40,11 +35,22 @@ customerloginAsGuest(event){
         countryCode : "",
         authService : "guest"
       }
-    console.log("inside guest login=");
     axios.post("/api/auth/post/signup/guest_login",formValues)
     .then((guestResponse)=>{
         if(guestResponse){
             console.log("guestResponse==",guestResponse.data);
+            var userDetails = {
+                firstname	: guestResponse.data.userDetails.firstName,
+                lastname	: guestResponse.data.userDetails.lastName,
+                email		: guestResponse.data.userDetails.email,
+                mobNumber   : guestResponse.data.userDetails.mobile,
+                pincode		: guestResponse.data.userDetails.pincode,
+                user_id		: guestResponse.data.userDetails.user_id,
+                roles		: guestResponse.data.userDetails.roles,
+                token		: guestResponse.data.userDetails.token,
+                authService : guestResponse.data.authService,
+            }
+            localStorage.setItem('userDetails', JSON.stringify(userDetails));
             swal("Thank You", "You have been successfuly logged in as guest");
             window.location.reload();
         }
@@ -52,43 +58,9 @@ customerloginAsGuest(event){
     .catch((error)=>{
         console.log("Error while guest login=",error);
     })
-
 }
 
-  verifyOTP(event){
-    event.preventDefault();
-    var userDetails     =  JSON.parse(localStorage.getItem('userDetails'));
-    if(userDetails){
-        const mobileOTP = this.state.otp;
-        console.log("mobileOTP=",mobileOTP);
-        console.log("verifyOTP userDetails===",userDetails);
-        axios.get("/api/auth/get/checkmobileotp/usingID/"+userDetails.userId+"/"+mobileOTP)
-        .then((verifyOtpResponse)=>{
-            if(verifyOtpResponse){
-                console.log("verifyOtpResponse==",verifyOtpResponse);
-                var userDetails = {
-                    firstname	: verifyOtpResponse.data.userDetails.firstName,
-                    lastname	: verifyOtpResponse.data.userDetails.lastName,
-                    email		: verifyOtpResponse.data.userDetails.email,
-                    mobNumber   : verifyOtpResponse.data.userDetails.mobile,
-                    pincode		: verifyOtpResponse.data.userDetails.pincode,
-                    user_id		: verifyOtpResponse.data.userDetails.user_id,
-                    roles		: verifyOtpResponse.data.userDetails.roles,
-                    token		: verifyOtpResponse.data.userDetails.token,
-                }
-                    localStorage.setItem('userDetails', JSON.stringify(userDetails));
-                    swal('Congratulations! You have been successfully Login, Now you can place your order.')
-                    window.location.reload();
-            }
-        })
-        .catch((error)=>{
-            console.log("error while resending otp==",error);
-        })
-    }
-
-  }
-
-  render() {
+render() {
     return (
         <div className="col-12 NoPadding">
               <button className="btn guestBtn col-12 NoPadding" onClick={this.customerloginAsGuest.bind(this)}>Login As a Guest</button>
@@ -97,4 +69,4 @@ customerloginAsGuest(event){
   }
 }
 
-  export default LoginAsGuest;
+export default LoginAsGuest;

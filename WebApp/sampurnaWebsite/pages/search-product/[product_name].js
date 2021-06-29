@@ -54,11 +54,14 @@ class SearchProduct extends Component {
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
                 var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
+                this.setState({
+                  deliveryLocation : sampurnaWebsiteDetails.deliveryLocation,
+                },()=>{console.log("deliveryLocation=",this.state.deliveryLocation)})
             }
         }
   }
   render(){
-      // console.log("serach props===",this.props);
+      console.log("serach props===",this.props);
       // console.log("searchData=",this.props.searchData);
       // console.log("data searchData=",this.props.searchData.data);
       return (
@@ -78,11 +81,12 @@ class SearchProduct extends Component {
                           ?
                             < SingleProduct 
                               data = {data} 
-                              productSettings = {this.state.productSettings}
-                              userLatitude    = {this.state.latitude}
-                              userLongitude   = {this.state.longitude}
-                              user_ID         = {this.state.user_ID}
-                              // vendorlocation_ID = ''
+                              productSettings   = {this.state.productSettings}
+                              userLatitude      = {this.state.deliveryLocation.latitude}
+                              userLongitude     = {this.state.deliveryLocation.longitude}
+                              user_ID           = {this.state.user_ID}
+                              vendor_ID         = {data.vendor_ID}
+                              vendorlocation_ID = {data.vendorLocation_id}
                             />
                           :
                             null

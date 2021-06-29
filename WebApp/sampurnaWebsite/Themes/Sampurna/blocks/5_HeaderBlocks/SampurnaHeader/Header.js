@@ -32,7 +32,10 @@ class Header extends React.Component {
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if( userDetails && userDetails.user_id){
-            this.setState({user_ID : userDetails.user_id})
+            this.setState({
+                user_ID : userDetails.user_id,
+                authService : userDetails.authService
+            })
         }
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
@@ -63,7 +66,7 @@ class Header extends React.Component {
 
                                             <div className="row">                                  
                                                 < SystemSecurityModal />
-                                                {this.state.user_ID ?
+                                                {this.state.user_ID && this.state.authService!=="guest"?
                                                     < Wishlist />
                                                 :null}
                                                 < MyCart />                                                

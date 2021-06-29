@@ -375,6 +375,8 @@ ul:hover > .dropDownLevel3 {
     left: -44px !important;
     margin-top: 13px !important;
     border-radius: 5px !important;
+    border: none !important;
+    z-index: 1001 !important;
 }
 .signInBlock{
     border-radius: 5px;
@@ -394,6 +396,22 @@ ul:hover > .dropDownLevel3 {
     line-height:2;
     border-top:1px solid #ccc;
     padding:5px 5px;
+}
+.myAccMenuATag a{
+    color: #000 !important;
+    text-decoration: none !important;
+    text-align: center;
+
+}
+.myAccMenuGuest{
+    font-size: 14px;
+    line-height:2;
+    padding:5px 5px;
+    color: #000 !important;
+}
+.myAccMenuGuest a{
+    text-decoration: none !important;
+    color: #000 !important;
 }
 .beforeLogin{
     margin-top: 10px;
