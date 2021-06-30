@@ -51,7 +51,7 @@ export default class ReturnProducts extends Component{
 		});
 	}    
 	getReturnedProducts(){
-		axios.get("/api/returnedProducts/get/list")
+		axios.get("/api/returnedproducts/get/list")
 		.then((response)=>{
 			console.log("response return products => ",response.data)
 				this.setState({
@@ -92,7 +92,6 @@ export default class ReturnProducts extends Component{
 						swal({
 							title : response.data.message,
 						});
-
 						
 						$('#returnApprove').hide();
 						$('.modal-backdrop').remove();

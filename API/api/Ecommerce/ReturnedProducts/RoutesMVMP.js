@@ -6,7 +6,7 @@ const returnedProductsController = require('./ControllerMVMP');
 
 // router.post('/post', 						    checkAuth, returnedProductsController.add_returned_product);
 
-router.get('/get/list', 						checkAuth, returnedProductsController.get_returned_products);
+router.get('/get/list', 						returnedProductsController.get_returned_products);
 
 router.patch('/returnStatusUpdate', 		    checkAuth, returnedProductsController.returnStatusUpdate);
 

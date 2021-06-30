@@ -380,9 +380,9 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     console.log("SMS if => ",sms)  
                     resolve(true);            
                 }else if(userData.mobile){
-                    var mobileCode1         = userData.mobileCode1 ? userData.mobileCode1 : "";
-                    console.log("mobileCode1 => ",mobileCode1)
-                    var toMobile        = mobileCode1 + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
+                    var isdCode         = userData.isdCode ? userData.isdCode : "";
+                    console.log("isdCode => ",isdCode)
+                    var toMobile        = isdCode + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
                     console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
@@ -414,7 +414,7 @@ function getAdminUserData() {
                         userData.push({email:data[i].profile.email,
                             id          : data[i]._id,
                             mobile      : data[i].profile.mobile,
-                            mobileCode1     : data[i].profile.mobileCode1,
+                            isdCode     : data[i].profile.isdCode,
                             role        : "admin"
                         });
                     }
@@ -440,7 +440,7 @@ function getSelfUserData(toUserId) {
         .exec()
         .then(async(data) => {
             console.log("data => ",data)
-            console.log("isd => ",data.profile.mobileCode1)
+            console.log("isd => ",data.profile.isdCode)
             console.log("mobile => ",data.profile.mobile)
             if(data && data.profile){
                 var profile = data.profile;
@@ -451,7 +451,7 @@ function getSelfUserData(toUserId) {
                 //     email       : data.profile.email,
                 //     id          : data._id,
                 //     mobile      : data.profile.mobile,
-                //     mobileCode1 : data.profile.mobileCode1,
+                //     isdCode : data.profile.isdCode,
                 //     role        : data.roles,
                 // });
             }   
@@ -479,7 +479,7 @@ function getIntendedUserData(toUserId) {
                 resolve({email:data.profile.email,
                         id          : data._id,
                         mobile      : data.profile.mobile,
-                        mobileCode1     : data.profile.mobileCode1,
+                        isdCode     : data.profile.isdCode,
                         role        : data.roles
                 });
                 }
@@ -515,7 +515,7 @@ function getOtherAdminData(role,company_id){
                                 userData.push({email:data[i].profile.email,
                                         id          : data[i]._id,
                                         mobile      : data[i].profile.mobile,
-                                        mobileCode1     : data[i].profile.mobileCode1,
+                                        isdCode     : data[i].profile.isdCode,
                                         role        : data[i].roles
                                 });
                             }

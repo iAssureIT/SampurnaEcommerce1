@@ -13,13 +13,14 @@ exports.get_returned_products = (req,res,next)=>{
 				as 				: 'productsArray'
 			} 
 		},
-		{$sort: 
-			{
-				"productsArray.createdAt": -1
-			}
-		}
+		// {$sort: 
+		// 	{
+		// 		"productsArray.createdAt": -1
+		// 	}
+		// }
 	])
 	.then(data=>{
+		console.log("data = > ",data)
 		res.status(200).json(data);
 	})
 	.catch(err =>{
