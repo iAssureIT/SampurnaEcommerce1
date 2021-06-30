@@ -92,7 +92,7 @@ const userSchema = mongoose.Schema({
 						otpMobile	  			: String,
 						pincode	  				: String,
 						countryCode             : String,
-						isdCode  				: String,
+						mobileCode1  			: Number,
 						mobileVerified			: Boolean,
 						email 					: String,
 						otpEmail	  			: String,

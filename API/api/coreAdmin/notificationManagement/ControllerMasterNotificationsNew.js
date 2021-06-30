@@ -1,7 +1,7 @@
 const mongoose	            = require("mongoose");
 const Masternotifications   = require('./ModelMasterNotification.js');
 const Notifications         = require('./ModelNotification.js');
-const User 				    = require('../userManagement/ModelUsers.js');
+const User 				    = require('../userManagementnew/ModelUsers.js');
 const PersonMaster          = require('../personMaster/ModelPersonMaster.js');
 const EntityMaster          = require('../entityMaster/ModelEntityMaster.js');
 const EventTokenMaster      = require('../EventTokenMaster/ModelEventTokenMaster.js');
@@ -380,9 +380,9 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                     console.log("SMS if => ",sms)  
                     resolve(true);            
                 }else if(userData.mobile){
-                    var isdCode         = userData.isdCode ? userData.isdCode : "";
-                    console.log("isdCode => ",isdCode)
-                    var toMobile        = isdCode + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
+                    var mobileCode1         = userData.mobileCode1 ? userData.mobileCode1 : "";
+                    console.log("mobileCode1 => ",mobileCode1)
+                    var toMobile        = mobileCode1 + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
                     console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
                     var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
@@ -414,7 +414,7 @@ function getAdminUserData() {
                         userData.push({email:data[i].profile.email,
                             id          : data[i]._id,
                             mobile      : data[i].profile.mobile,
-                            isdCode     : data[i].profile.isdCode,
+                            mobileCode1     : data[i].profile.mobileCode1,
                             role        : "admin"
                         });
                     }
@@ -438,17 +438,22 @@ function getSelfUserData(toUserId) {
     return new Promise(function (resolve, reject) {
         User.findOne({ "_id": toUserId })
         .exec()
-        .then(data => {
+        .then(async(data) => {
             console.log("data => ",data)
-            console.log("data => ",data.profile.isdCode)
+            console.log("isd => ",data.profile.mobileCode1)
+            console.log("mobile => ",data.profile.mobile)
             if(data && data.profile){
-                resolve({
-                    email       : data.profile.email,
-                    id          : data._id,
-                    mobile      : data.profile.mobile,
-                    isdCode     : data.profile.isdCode,
-                    role        : data.roles,
-                });
+                var profile = data.profile;
+                profile.id = await data._id;
+                profile.role = await data.roles;
+                resolve(profile);
+                // resolve({
+                //     email       : data.profile.email,
+                //     id          : data._id,
+                //     mobile      : data.profile.mobile,
+                //     mobileCode1 : data.profile.mobileCode1,
+                //     role        : data.roles,
+                // });
             }   
         })
         .catch(err => {
@@ -474,7 +479,7 @@ function getIntendedUserData(toUserId) {
                 resolve({email:data.profile.email,
                         id          : data._id,
                         mobile      : data.profile.mobile,
-                        isdCode     : data.profile.isdCode,
+                        mobileCode1     : data.profile.mobileCode1,
                         role        : data.roles
                 });
                 }
@@ -510,7 +515,7 @@ function getOtherAdminData(role,company_id){
                                 userData.push({email:data[i].profile.email,
                                         id          : data[i]._id,
                                         mobile      : data[i].profile.mobile,
-                                        isdCode     : data[i].profile.isdCode,
+                                        mobileCode1     : data[i].profile.mobileCode1,
                                         role        : data[i].roles
                                 });
                             }

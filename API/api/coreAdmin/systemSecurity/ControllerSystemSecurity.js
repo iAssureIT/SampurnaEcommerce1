@@ -370,7 +370,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 															createdAt: new Date(),
 															otpEmail: emailOTP,
 															countryCode : req.body.countryCode,
-															isdCode : req.body.isdCode,
+															mobileCode1 : req.body.mobileCode1,
 															status: req.body.status ? req.body.status : "Inactive",
 															createdBy: req.body.createdBy,
 														},
@@ -531,7 +531,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 															pincode: req.body.pincode,
 															companyName: req.body.companyName,
 															countryCode : req.body.countryCode,
-															isdCode : req.body.isdCode,
+															mobileCode1 : req.body.mobileCode1,
 															createdAt: new Date(),
 															otpMobile: mobileOTP,
 															status: req.body.status ? req.body.status : "Inactive",
@@ -547,7 +547,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 															if(result) {
 																//send Notification, email, sms to customer																	
 																var userNotificationValues = {
-																	"event"			: "SignUp",
+																	"event"			: "Signup",
 																	"toUser_id"		: result._id,
 																	"toUserRole"	: userRole,								
 																	"variables" 	: {
@@ -567,7 +567,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																
 																//send Notification, email, sms to admin
 																var adminNotificationValues = {
-																	"event"			: "SignUp",
+																	"event"			: "Signup",
 																	// "toUser_id"		: req.body.user_ID,
 																	"toUserRole"	: "admin",								
 																	"variables" 	: {
