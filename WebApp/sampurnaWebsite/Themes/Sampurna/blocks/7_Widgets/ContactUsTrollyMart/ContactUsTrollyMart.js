@@ -110,7 +110,7 @@ export default class ContactUsTrollyMart extends Component{
                     required: true
                 },
 				mobile: {
-                	regxMessage: /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/,
+                	regxMessage:/^[0-9-+()]*$/,
                     required: true
                 },
                 
@@ -224,25 +224,25 @@ export default class ContactUsTrollyMart extends Component{
 												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="email" name="email" type="email" id="email" data-text="clientEmail" ref="email" required value={this.state.email} onChange={this.handleChange.bind(this)} /> </div>
 											<div className="form-group mt-5">
 												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone</label>
-												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="number" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} /> </div>
+												<input maxLength="10" className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="text" maxLength="10" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} /> </div>
 											<div className="form-group mt-5">
 												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
 												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} /> </div>
 											<div className={ "col-lg-12 pb-lg-5 pb-0 "}>
-												<button type="button" className={ " shadow-none btn btn-default pull-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+												<button type="button" className={ " shadow-none btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
 											</div>
 										</form> {/* </div> */} </div>
 							</div>
 							<div className={ "col-lg-4  mt-5 mt-lg-0 contactusFormWrapperRightSide "+S.contactusFormWrapperRightSide}>
 								<h3 className={ "col-lg-12 pt-lg-5 mt-lg-5  mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
-								<div className={ "col-lg-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone"}></i>&nbsp;&nbsp;&nbsp;
+								<div className={ "col-lg-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone-alt"}></i>&nbsp;&nbsp;&nbsp;
 									<label>+971 000 000 000</label>
 								</div>
-								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope-o"}></i>&nbsp;&nbsp;&nbsp;
+								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>&nbsp;&nbsp;&nbsp;
 									<label>hello@trollymaet.com</label>
 								</div>
 								<div className={ "hero "+S.hero}>
-									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""><i className="fa fa-instagram"></i></a> <a href=""><i className="fa fa-facebook-f"></i></a> <a href=""><i className="fa fa-youtube"></i></a> <a href=""><i className="fa fa-linkedin"></i></a> <a href=""><i className="fa fa-twitter"></i></a> </div>
+									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""><i className="fab fa-instagram"></i></a> <a href=""><i className="fab fa-facebook-f"></i></a> <a href=""><i className="fab fa-youtube"></i></a> <a href=""><i className="fab fa-linkedin"></i></a> <a href=""><i className="fab fa-twitter"></i></a> </div>
 								</div>
 							</div>
 						</div>

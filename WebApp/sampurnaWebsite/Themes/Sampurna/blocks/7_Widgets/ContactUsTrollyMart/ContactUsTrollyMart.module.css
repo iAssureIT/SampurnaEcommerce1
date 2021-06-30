@@ -13,7 +13,7 @@
   background-size: 100% 100% !important;;
 }
 .contactUsTrollyMainWrapper{
-  min-height:900px !important;;
+  min-height:1000px !important;;
   /* background-color: brown; */
 }
 
@@ -117,8 +117,8 @@
 }
 
 .social_links a {
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
   text-align: center;
   text-decoration: none;
   color: #033554;
@@ -133,13 +133,17 @@
   font-size: 14px;
 }
 
-.social_links a .fa {
-  top: 5px !important;
+.social_links a .fab {
+  margin-top: 7px !important;
+  text-align:center ;
   line-height: 80px;
   position: relative;
   z-index: 10;
   transition: color 0.5s;
   color: black;
+}
+.social_links i{
+  margin-top: 6px;
 }
 .contactUsTrollyMainWrapper input[type='number']::-webkit-inner-spin-button, 
 .contactUsTrollyMainWrapper input[type='number']::-webkit-outer-spin-button { 
