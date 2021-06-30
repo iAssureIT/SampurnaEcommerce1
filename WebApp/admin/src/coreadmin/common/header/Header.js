@@ -503,8 +503,7 @@ class Header2 extends Component {
 													{/*console.log("userImage 366",this.state.userImage)*/}
 
 													<img src={this.state.userImage ? this.state.userImage : "/images/person.png"} className="userIcon" />
-													<label className="mailtext">&nbsp;&nbsp;&nbsp;{this.state.fullname ? this.state.fullname : "UniMandai Admin"}</label>
-													{/* <label className="mailtext">&nbsp;&nbsp;&nbsp;UniMandai Admin</label> */}
+													<label className="mailtext">&nbsp;&nbsp;&nbsp;{this.state.fullname ? this.state.fullname : "No User"}</label>													
 												</span>
 												<span className="textAlignCenter" style={{ "marginTop": "4px" }}>
 												</span>
@@ -530,7 +529,7 @@ class Header2 extends Component {
 														<button type="button" className="profilebtn">Profile</button>
 													</a>
 												</span> &nbsp;
-                        <span className="pull-right">
+                        						<span className="pull-right">
 													<a className="profileTitle btnpadd" href="/login">
 														<button type="button" className="logoutbtn" onClick={this.logout.bind(this)}>Sign Out</button>
 													</a>
