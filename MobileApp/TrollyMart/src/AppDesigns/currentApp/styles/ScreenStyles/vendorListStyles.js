@@ -7,6 +7,21 @@ export default StyleSheet.create({
 		paddingVertical:5,
 		backgroundColor:"#fff",
 	},
+	
+	logoBox:{
+		position:"absolute",
+		backgroundColor:"#fff",
+		top:23,
+		left:0,
+		zIndex:999,
+	},
+
+	timeText:{
+		position:'absolute',
+		top:30,
+		right:0,
+	},
+
 	block1:{
 		// position:"absolute",
 		top:0,

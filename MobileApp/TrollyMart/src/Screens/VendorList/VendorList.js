@@ -90,30 +90,30 @@ export const VendorList = withCustomerToaster((props)=>{
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity  style={{elevation:5}} onPress={()=>goToProductList(item)}>                
-                        <View style={{flexDirection:"row",flex:1}}>
-                            <View style={{flex:0.2,justifyContent:'center'}}>
+                        <View style={{flexDirection:"row",flex:1,justifyContent:"flex-end",paddingBottom:5}}>
+                            <View style={[styles.logoBox,{flex:0.2,justifyContent:'center'}]}>
                                 <View style={{justifyContent:"center",alignItems:"center",borderWidth:0.5, borderColor:  '#033554', backgroundColor:"#fff",borderRadius:100,marginHorizontal:15,height:54,width:54}}>
-                                    {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:54,width:54,borderRadius:100,borderWidth:0.5, borderColor:  '#033554'}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Card.Image> :null}
+                                    {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:54,width:54,borderRadius:100,borderWidth:0.5,borderColor:  '#033554'}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Card.Image> :null}
                                 </View>
                             </View>
-                            <Card containerStyle={{flex:0.9,padding:0,marginHorizontal:0,borderRadius:7,elevation: 5,height:65}} >
+                            <View style={{flex:0.9,alignSelf:"flex-end",padding:0,marginHorizontal:0,borderRadius:7,elevation: 5,height:65,zIndex:0,marginTop:15}} >
                                 {/* <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)',height:100}}> */}
                                 {/* <Card.Image style={{backgroundColor: '#fff',height:65,borderRadius:7}}></Card.Image> */}
                                     <View style={{flex:1,flexDirection:"row"}}>
                                         {/* <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.vendorAddress}</Card.Title> */}
                                         <View style={{flex:1}}>
                                             <View style={{flex:1}}>
-                                                <Card.Title style={[CommonStyles.headerText,{color:"#000",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:17,height:30}]}>{item.vendorName}</Card.Title>
+                                                <Card.Title style={[CommonStyles.headerText,{color:"#000",opacity:1,paddingHorizontal:5,fontSize:17,height:30}]}>{item.vendorName}</Card.Title>
                                             </View>
-                                            <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:1,height:26,width:50}}>
+                                            <View style={[styles.timeText,{justifyContent:"flex-end",alignItems:"flex-end",height:26,width:50}]}>
                                             <Card.Image source={require("../../AppDesigns/currentApp/images/Time.png")} style={{height:26,width:50}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
                                                 {/* <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:35}]}>{item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title> */}
-                                                <Card.Title style={[{color:"#000",opacity:1,marginTop:10,marginRight:0,fontSize:9,height:11,width:35}]}>60 Mins </Card.Title>
+                                                <Card.Title style={[{color:"#000",opacity:1,marginTop:10,marginRight:20,fontSize:9,height:11,width:35}]}>60 Mins </Card.Title>
                                             </Card.Image>
                                             </View>    
                                         </View>
                                     </View> 
-                                </Card>   
+                                </View>   
                             </View>          
             </TouchableOpacity>        
         )
