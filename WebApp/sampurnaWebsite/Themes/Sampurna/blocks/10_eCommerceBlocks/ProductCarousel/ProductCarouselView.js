@@ -261,7 +261,7 @@ render() {
       console.log("this.props.newProducts==",this.props)
     return (
         <div className={"col-12 " }>        
-            {/* <Message messageData={this.state.messageData} />   */}
+            <Message messageData={this.state.messageData} />  
             <div className="col-12 ">
               <h5>{this.props.blockTitle && this.props.blockTitle}</h5>
             </div>
@@ -285,6 +285,7 @@ render() {
                         Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
                             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
                                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
+                              //  console.log("data===",data);
                                 var wishClass = 'o';
                                 var tooltipMsg = '';
                                 if (x && x.length > 0) {
@@ -301,13 +302,15 @@ render() {
                                 ?
                                   < SingleProduct 
                                     data               = {data} 
+                                    distance           = {this.props.distance}
+                                    maxDistanceRadius  = {this.props.maxDistanceRadius}
                                     productSettings    = {this.state.productSettings}
                                     blockSettings      = {this.state.blockSettings}
-                                    userLatitude       = {this.props.userLatitude}
-                                    userLongitude      = {this.props.userLongitude}
-                                    user_ID            = {this.props.user_ID}
-                                    vendor_ID          = {this.props.vendor_ID}
-                                    vendorlocation_ID  = {this.props.vendorlocation_ID}
+                                    userLatitude       = {this.state.userLatitude}
+                                    userLongitude      = {this.state.userLongitude}
+                                    user_ID            = {this.state.user_ID}
+                                    vendor_ID          = {data.vendor_id}
+                                    vendorlocation_ID  = {data.vendorLocation_id}
                                   />
                                 :
                                   null
@@ -340,6 +343,7 @@ render() {
                             //             </Link>
                             //             </div>
                             //         </div>
+
                             //         <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
                             //             <div className={"col-12 " +Style.innerDiv}>
                             //                 <div className={"col-12 globalProduct_brand " +Style.ellipsis} title={data.brand}>{data.brand}</div>
@@ -384,21 +388,7 @@ render() {
                             //                     <span className={Style.price}>{this.state.currency}&nbsp;{data.originalPrice} </span> &nbsp;                                      
                             //                     </div> 
                             //                 }
-                            //             </div>
-                            //             {this.state.productSettings.displayRating === true ?
-                            //                 <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.displayRating +Style.customePadding}>
-                            //                     <span id="productRating" className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 NoPadding " +Style.NoPadding} onMouseOver={this.showRatingBlock.bind(this)} >
-                            //                         <div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.showRating}> 4 <i className="fas fa-star"></i></div>                                        
-                            //                     </span>                                  
-                            //                     <span className={"col-5 " +Style.customePadding}>(&nbsp;162 &nbsp;)</span>
-                            //                     {this.state.productSettings.displayAssuranceIcon === true ?
-                            //                     <span className={"col-4 NoPadding " +Style.NoPadding +" " +Style.assurenceIcon}>
-                            //                         <img loading="lazy" className={"col-12 NoPadding " +Style.NoPadding} src="/images/assured.png" alt="Assured Img" />                                      </span>
-                            //                     :null
-                            //                     }
-                            //                 </div>
-                            //                 :null
-                            //             }                              
+                            //             </div>                           
                             //             <div className={"col-12 NoPadding " +Style.NoPadding}>
                             //                 <div className={"col-12 NoPadding " +Style.NoPadding}>                                  
                             //                 {
@@ -421,6 +411,7 @@ render() {
                             //             </div>
                             //             </div>
                             //         </div>
+                                   
                             //         </div>
                             //     </div>
                             // </div>                            

@@ -32,10 +32,10 @@
 .itemImg::after {
     content: "";
     position: absolute;
-    top: 0px;
+    top: -1px;
     right: 0px;
     bottom: 0px;
-    left: 0px;
+    left: -1px;
     background-color: rgba(0,0,0,0.4);
     border-radius: 8px !important;
     /*background-color: rgba(0,0,0,1);*/
@@ -47,7 +47,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  border-radius: 8px !important;
+  /* border-radius: 8px !important; */
 }
 
 

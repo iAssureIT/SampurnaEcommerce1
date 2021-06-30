@@ -82,19 +82,12 @@ class ProductZoom extends Component {
 	render() {
 		var myprops={};
 		console.log("productZoom data  =====",this.props.productData);
-		console.log("productZoom image  =====",this.props.productData.productImage);
-		// console.log("productZoom image length  =====",Array.isArray(this.props.productData.productImage).length);
-
-		// console.log("productZoom data  =====",this.props.productData.productImage);
-		// console.log("productZoom data  =====",this.props.productData.productImage);
-		// console.log("productZoom data  =====",this.props.productData.productImage);
-		// console.log("productZoom data  =====",this.props.productData.productImage);
+		// console.log("productZoom image  =====",this.props.productData.productImage);
+		
 		if(this.props.productData ){
 			myprops = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
 			// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
 		}
-		
-		// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: '/images/eCommerce/notavailable.jpg' };
 		return (
 			<div className="col-12 col-xl-5 col-lg-5 col-md-12 col-sm-12 mt20 mb20 boxBorder mobileViewNoPadding NoPadding">
 				{this.props.productData
@@ -104,6 +97,7 @@ class ProductZoom extends Component {
 						<div className=" col-12 stickyDiv">
 							<div className="col-12 imageContainer imgCont">
 								<div className="prod-detail-slider prod-detail-filpCommon col-12 ">
+									{this.props.productData.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discountBadge}>{Math.floor(this.props.productData.discountPercent)} % </div> : null}
 									<div id="react-app" className={"col-12 item productZoomBlock img-responsiveProduct " +Style.zoomImgWrapper}>
 										{this.props.productData ?
 											<ReactImageZoom {...myprops} />

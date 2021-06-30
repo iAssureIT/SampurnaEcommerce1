@@ -191,7 +191,7 @@ class header extends React.Component {
                                         <div className="col-10 NoPadding offset-1 mt-3">
                                             <h6 className="mb-4 ">Benefits of taking membership...</h6>
                                             <div className="loginUl">
-                                                <ul class="loginLine pull-left">
+                                                <ul className="loginLine pull-left">
                                                     <li>Instruction 1 - The email is sent instantly but may be delayed by your firewall setup, so if you haven't received it after 5-10 minutes, refresh your email application and check your spam and junk mail folders</li>
                                                     <li>Instruction 2 - You must enter your 'Area of Practice' on the Continuing Education Center to finish your account activation and access the site as a registered user (select Physician, Nurse, etc.)</li>
                                                     <li>Instruction 3 - After logging in, return to the course page where you would like to register  if you are not automatically redirected there</li>

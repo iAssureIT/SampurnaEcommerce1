@@ -38,13 +38,19 @@ class CategoryFilters extends Component{
             
         }
     }
+
     componentDidMount(){
-      
+      var url = window.location.href.split('/');
+      console.log("url[8]===",url[8]);
+      if(url[8] === undefined){
+        console.log("sucategory===",url[8]);
+        $('.panel-title_0').addClass('activeSubCategory');
+      }
     }
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.subCategoryUrl){
-      $('.panel-title').addClass('activeSubCategory');
-    }
+    // if(this.props.subCategoryUrl){
+    //   $('.panel-title').addClass('activeSubCategory');
+    // }
   }
 
     // static getDerivedStateFromProps(nextProps, prevState) {
@@ -72,16 +78,16 @@ class CategoryFilters extends Component{
               return(
                 <div key={index} className="panelCategory paneldefault ">
                   {this.props.subCategoryUrl === subcategory.subCategoryUrl?
-                    <div className={"panel-heading " +Style.activeSubCategory +" "+Style.panelHeading}>
-                        <h4  className="panel-title"> 
+                    <div className={"panel-heading panel-title_"+index +" " +Style.panelHeading}>
+                        <h4  className={"panel-title panel-title_"+index} > 
                           <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
                               <a >{subcategory.subCategoryTitle}</a>
                           </Link>
                         </h4>
                     </div>
                   :
-                  <div className={"panel-heading "+Style.panelHeading}>
-                      <h4  className="panel-title"> 
+                  <div className={"panel-heading panel-title_"+index +" "+Style.panelHeading}>
+                      <h4  className={"panel-title "}> 
                         <Link href={"/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+subcategory.subCategoryUrl}> 
                             <a >{subcategory.subCategoryTitle}</a>
                         </Link>

@@ -24,7 +24,10 @@ componentDidMount() {
           var userID                = userDetails.user_id; 
         }
 }
-responseFacebook = (response) => {
+facebookResponse = (response) => {
+  console.log(response);
+}
+responseFacebook1 = (response) => {
   console.log("response facebook =",response);
   if(response && response.userID){
     this.setState({
@@ -34,73 +37,41 @@ responseFacebook = (response) => {
       "email"      : response.email,
       "picture"    : response.data.picture.data.url,
     })
+    var userDetails = {
+      firstname	: response.name,
+      lastname	: verifyOtpResponse.data.userDetails.lastName,
+      email		  : response.email,
+      mobNumber : "",
+      user_id		: response.userID,
+      roles		  : "user",
+      token		  : response.token,
+  }
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
+      swal('Congratulations! You have been successfully Login, Now you can place your order.')
   }
 }
-componentClicked = ()=>{
-  console.log("clicked");
+responseFacebook(response) {
+  console.log(response);
 }
-
-  verifyOTP(event){
-    event.preventDefault();
-    var userDetails     =  JSON.parse(localStorage.getItem('userDetails'));
-    if(userDetails){
-        const mobileOTP = this.state.otp;
-        console.log("mobileOTP=",mobileOTP);
-        console.log("verifyOTP userDetails===",userDetails);
-        axios.get("/api/auth/get/checkmobileotp/usingID/"+userDetails.userId+"/"+mobileOTP)
-        .then((verifyOtpResponse)=>{
-            if(verifyOtpResponse){
-                console.log("verifyOtpResponse==",verifyOtpResponse);
-                var userDetails = {
-                    firstname	: verifyOtpResponse.data.userDetails.firstName,
-                    lastname	: verifyOtpResponse.data.userDetails.lastName,
-                    email		: verifyOtpResponse.data.userDetails.email,
-                    mobNumber   : verifyOtpResponse.data.userDetails.mobile,
-                    pincode		: verifyOtpResponse.data.userDetails.pincode,
-                    user_id		: verifyOtpResponse.data.userDetails.user_id,
-                    roles		: verifyOtpResponse.data.userDetails.roles,
-                    token		: verifyOtpResponse.data.userDetails.token,
-                }
-                    localStorage.setItem('userDetails', JSON.stringify(userDetails));
-                    swal('Congratulations! You have been successfully Login, Now you can place your order.')
-                    window.location.reload();
-            }
-        })
-        .catch((error)=>{
-            console.log("error while resending otp==",error);
-        })
-    }
-
-  }
-
-  render() {
+render() {
     return (
             <div className="col-12 NoPadding">
-              <FacebookLogin
+              {/* <FacebookLogin
                   appId="507698857234444"
                   autoLoad={true}
                   fields="name,email,picture"
-                  onClick={this.componentClicked}
-                  callback={this.responseFacebook}
+                  onClick={this.responseFacebook}
+                  callback={this.facebookResponse}
                   language="en_US"
-              />
+              /> */}
+                <FacebookLogin
+                  appId="507698857234444"
+                  autoLoad={true}
+                  fields="name,email,picture"
+                  scope="public_profile,user_friends,user_actions.books"
+                  callback={this.responseFacebook}
+                />
             </div>
-      // <div className="col-12 NoPadding">
-      //     {this.state.isloggedIn?
-      //       <div className="col-12 NoPadding">
-      //         <FacebookLogin
-      //             appId="507698857234444"
-      //             autoLoad={true}
-      //             fields="name,email,picture"
-      //             onClick={this.componentClicked}
-      //             callback={this.responseFacebook}
-      //             language="en_US"
-      //         />
-      //       </div>
-      //     :
-      //     <div className="col-12 NoPadding"></div>
-      //     }
-      //   </div>
     );
   }
 }

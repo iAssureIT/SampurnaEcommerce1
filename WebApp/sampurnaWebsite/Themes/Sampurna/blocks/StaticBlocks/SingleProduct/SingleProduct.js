@@ -20,7 +20,7 @@ class SingleProduct extends Component{
     }
 
     componentDidMount(){
-        console.log("single productView props=",this.props);
+        // console.log("single productView props=",this.props);
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
@@ -242,10 +242,11 @@ class SingleProduct extends Component{
         }
 
       return (
-        <div className="row cbdftx">
-            <div className="col-12">
+        <div className="row">
+            {/* <div className="col-12">
               <Message messageData={this.state.messageData} />  
-            </div>
+            </div> */}
+            <Message messageData={this.state.messageData} /> 
             <div className={" col-12 " +Style.mobileViewPadding +" "+Style.productWrapper} > 
                 <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                 <div className={"col-12 NoPadding"}>
@@ -265,11 +266,11 @@ class SingleProduct extends Component{
                         {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)} % </div> : null}
                     </div>
                     <div className={styleMedia.ImgWrapper}>
-                    <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id}>
-                    <a className={Style.product_item_photo } tabIndex="-1" >
+                    <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }>
+                    {/* <a className={Style.product_item_photo } tabIndex="-1" > */}
                         <img                                           
                         src={this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
-                        src={this.props.data.productSmallImage && this.props.data.productSmallImage.length>0 ? this.props.data.productSmallImage[0] : "/images/eCommerce/notavailable.jpg"}
+                        // src={this.props.data.productSmallImage && this.props.data.productSmallImage.length>0 ? this.props.data.productSmallImage[0] : "/images/eCommerce/notavailable.jpg"}
                         alt="ProductImg" 
                         className={"img-responsive " +Style.NoAvailableImg }
                         height={150}
@@ -277,7 +278,7 @@ class SingleProduct extends Component{
                         layout={'intrinsic'}
                         />
                     </a>
-                    </Link>
+                    {/* </Link> */}
                     </div>
                     </div>
                     <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
@@ -359,9 +360,14 @@ class SingleProduct extends Component{
                             { this.props.data.availableQuantity > 0 ?
                                 <div className={"col-12 " +Style.NoPadding}>
                                 {this.state.user_ID?
-                                <button type="submit" vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} id={this.props.data._id} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
-                                    &nbsp;Add To Cart
-                                </button>
+                                  this.props.distance > this.props.maxDistanceRadius?
+                                    <button type="submit" vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} id={this.props.data._id} disabled className={"col-12 fa fa-shopping-cart disableBtn globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                        &nbsp;Add To Cart
+                                    </button>
+                                  :
+                                    <button type="submit" vendor_name={this.props.data.vendorName}  vendor_id={this.props.data.vendor_ID} id={this.props.data._id} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                        &nbsp;Add To Cart
+                                    </button>
                                 :
                                 <button type="submit" id={this.props.data._id} vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
                                     &nbsp;Add To Cart

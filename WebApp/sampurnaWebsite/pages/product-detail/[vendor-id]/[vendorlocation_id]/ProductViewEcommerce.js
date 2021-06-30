@@ -358,7 +358,7 @@ class ProductViewEcommerce extends Component {
 	}
 	
 	render() {
-		// console.log("product view eccomerce data  =====",this.props);
+		console.log("product view eccomerce data  =====",this.state.productData);
 		var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass = '';
 		var tooltipMsg = '';
@@ -371,18 +371,17 @@ class ProductViewEcommerce extends Component {
 			// console.log("wishClass=",wishClass);
 			tooltipMsg = 'Add To Wishlist';
 		} 
-	   
-		
-		// const props = { width: 400, height: 350, zoomWidth: 750, offset: { vertical: 0, horizontal: 30 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:500px;width:750px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.state.selectedImage ? this.state.selectedImage : '/images/eCommerce/notavailable.jpg' };
 		return (
 			<section>
 				<div className={"col-12 pt-2 mt-2 " +Style.productDetailVendorName}> 
-                    <span className="col-6 NoPadding "> 
-                       vendor  - &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
-                    </span>
-                    <span className={"col-2 text-right pull-right NoPadding "+Style.chaneVendorBtn }> 
-                        <Link href={"/vendor-list/"+this.state.sectionUrl} className="col-12 NoPadding text-right" >Change Vendor</Link>
-                    </span>
+					<div className="row">
+						<span className="col-10  "> 
+						vendor  - &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+						</span>
+						<span className={"col-2 text-right pull-right  "+Style.chaneVendorBtn }> 
+							<Link href={"/vendor-list/"+this.state.sectionUrl} className="col-12 NoPadding text-right" >Change Vendor</Link>
+						</span>
+					</div>
                   </div>
 				<div className="col-12">
 					{this.state.categoryData && this.state.categoryData.length>0
@@ -441,11 +440,11 @@ class ProductViewEcommerce extends Component {
 										<div ><span className={" " +Style.productNameClassNew}> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> </div>
 									</div>
 								}
-								{/* {this.state.productData.brandNameRlang?
-									<div className={"col-12 globalProduct_brand RegionalFont mt-2 NoPadding " +Style.brandName} title={this.state.productData.brandNameRlang}>{this.state.productData.brandNameRlang}</div>
+								{!this.state.productData.brandNameRlang?
+									<div className={"col-12 globalProduct_brand RegionalFont mt-2 NoPadding " +Style.brandName} title={this.state.productData.brandNameRlang}>Brand : {this.state.productData.brandNameRlang}</div>
 									:
 									<div className={"col-12 globalProduct_brand NoPadding mt-2 "  +Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
-								} */}
+								}
 
 									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
 								{                                  
@@ -458,7 +457,6 @@ class ProductViewEcommerce extends Component {
 									:  
 									<div className={"col-12 NoPadding  priceWrapper NoPadding"}>
 									<span className="price">
-										{/* <i className="fas fa-rupee-sign"></i> */}
 										{this.state.currency} &nbsp;{this.state.productData.originalPrice? (this.state.productData.originalPrice).toFixed(2):0} </span> &nbsp;                                      
 									</div> 
 								}
@@ -532,6 +530,31 @@ class ProductViewEcommerce extends Component {
 													</div>
 												}
 											</div>								
+											{this.state.productData.productReturnable === "returnable"?
+											<div className={"col-12 NoPadding mt-4"}>
+												<div className="row ">
+													<div className="col-1 mt-2">
+														<i class="fa fa-undo "></i>
+													</div>
+													<div className="col-10">
+														<div className="col-12">FREE RETURNS</div>
+														<div className="col-12">Get free returns on eligible items</div>
+													</div>
+												</div>
+											</div>
+											:
+											<div className={"col-12 NoPadding mt-4"}>
+												<div className="row ">
+													<div className="col-1 mt-2">
+														<i class="fa fa-undo "></i>
+													</div>
+													<div className="col-10">
+														<div className="col-12">NO RETURNS</div>
+														<div className="col-12">Sorry, This product is non returnable</div>
+													</div>
+												</div>
+											</div>
+											}
 											</div>										
 											</form>
 										</div>

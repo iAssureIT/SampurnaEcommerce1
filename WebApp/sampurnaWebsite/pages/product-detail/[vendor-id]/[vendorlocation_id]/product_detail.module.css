@@ -61,7 +61,21 @@
 .f12{
 	font-size:12px !important;
 }
-
+.discountBadge{
+	position: absolute;
+	background-image: url("/images/eCommerce/OfferTag.png");
+	background-size: cover ;
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+	color: var(--whiteColor) !important;
+	padding-top: 10px;
+	width: 60px;
+	height: 70px;
+	z-index: 100;
+	font-size: 14px;
+	font-weight: 700;
+	margin-top: 0px;
+  }
 .wishBTN {
     background-color: #033554;
     color: #fff; 

@@ -23,19 +23,18 @@ class MyCart extends React.Component {
                 this.props.updateCartCount();
             })
         }
-
     }
    render(){
         return(  
             <div className="col-3 NoPadding">
             {this.state.userID?
                 <a href="/cart" className="row cartHeader">  
-                        <div className="col-6 ml-4">
+                        <div className="col-6 ml-4 NoPadding">
                             <Image
                             src={"/images/eCommerce/cart.png"}
                             className={"rotateImg" }
-                            height ={65}
-                            width={65}
+                            height ={60}
+                            width={100}
                             layout={'intrinsic'}
                         />
                         </div>
@@ -46,12 +45,12 @@ class MyCart extends React.Component {
                 </a>
                 :
                 <a href="" className="row cartHeader" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
-                        <div className="col-6 ml-4">
+                        <div className="col-6 NoPadding ml-4">
                             <Image
                             src={"/images/eCommerce/cart.png"}
                             className={"rotateImg" }
-                            height ={65}
-                            width={65}
+                            height ={60}
+                            width={100}
                             layout={'intrinsic'}
                         />
                         </div>

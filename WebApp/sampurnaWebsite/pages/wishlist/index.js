@@ -6,7 +6,7 @@ import { connect }          from 'react-redux';
 import {getCartData}        from '../../redux/actions/index.js'; 
 import  store               from '../../redux/store.js'; 
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
-import ProductCarouselView  from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView';
+import ProductCarouselView  from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
 import Style                from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
 
 class Wishlist extends Component {
@@ -32,6 +32,7 @@ class Wishlist extends Component {
   }
 
   async componentDidMount() {
+    console.log("inside wishlist");
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
     if(sampurnaWebsiteDetails.deliveryLocation){
       this.setState({
@@ -118,22 +119,25 @@ class Wishlist extends Component {
           <div className="row">
             <div className={"col-12"}>
               {
-                 Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?
+                Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?
                  this.state.wishlistData.map((areaWiseWishlist, index) => {  
                    console.log("areaWiseWishlist==",areaWiseWishlist);
                    return(
-                      <div className="col-12"> 
+                      <div className="col-12" key={index}> 
                           <div className="col-12 areaName mt-4 pb-4">{areaWiseWishlist.areaName}</div>
                           <div className="col-12">
-                                {areaWiseWishlist.products.length>0
+                              {/* <div>abc</div> */}
+                                {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?
                                   <ProductCarouselView 
                                       newProducts       = {areaWiseWishlist.products}
                                       distance          = {areaWiseWishlist.distance}
                                       maxDistanceRadius = {areaWiseWishlist.maxDistanceRadius}
                                   />
+                                  // <div>abc</div>
                                 :
-                                  <div>Loading</div>
+                                  // null
+                                  <div>abc</div>
                                 }
                           </div>
                       </div>

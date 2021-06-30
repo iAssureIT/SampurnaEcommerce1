@@ -85,7 +85,7 @@ const HomeToVendorList = ()=> {
                                                             </div>
                                                         </div>
                                                     </div> 
-                                                </ Link >
+                                            </ Link >
                                             </div>
                                         </div>
                                     )

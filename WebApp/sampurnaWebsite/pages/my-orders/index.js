@@ -367,7 +367,7 @@ export default class MyOrders extends Component {
                                 singleOrder.vendorOrders.map((vendordata, index) => {
                                     // console.log(" single orderData:",vendordata);
                                     return (
-                                      <div className={"col-12 vendorwiseOrderHistory " +Style.vendorRow}>
+                                      <div className={"col-12 vendorwiseOrderHistory " +Style.vendorRow} key={index}>
                                         <div className="col-12" >
                                         <div key={index} className={"row "}>
                                           <div className={"col-4 NoPadding "}>

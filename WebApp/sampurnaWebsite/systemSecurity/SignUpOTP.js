@@ -83,7 +83,8 @@ class SignUpOTP extends Component {
               <div className="col-12 innloginwrap mb25">
                 <h4>Confirm OTP</h4>
               </div>
-              <div className="col-8 offset-2 mt-5">
+              <div className="col-10 offset-1 mt-5">
+                <div className="row">
                 <OtpInput
                     className="otpInputBox"
                     value={this.state.otp}
@@ -92,11 +93,13 @@ class SignUpOTP extends Component {
                     separator={<span></span>}
                     // inputStyle={none}
                 />
+                </div>
               </div>
-              <div className="col-8 offset-2 mt-5">
-                  <button className="col-5 btn-secondary  pull-left otpBtns" onClick={this.resendOTP.bind(this)}> Resend OTP</button>
-                  {/* <div className="col-1"></div> */}
-                  <button className="col-5 btn-secondary pull-right otpBtns" onClick={this.verifyOTP.bind(this)}> Verify OTP</button>
+              <div className="col-10 offset-1 mt-5">
+                <div className="row">
+                  <div className="col-5 otpBtns text-center mr-2" onClick={this.resendOTP.bind(this)}> Resend OTP</div>
+                  <div className="col-5 otpBtns text-center ml-2" onClick={this.verifyOTP.bind(this)}> Verify OTP</div>
+                </div>
               </div>
         </div>
     );

@@ -38,17 +38,21 @@ class CategoryBlock extends Component{
         }
     }
 
-    //static getDerivedStateFromProps(nextProps, prevState) {
-      // console.log("props--",nextProps);
-      //if (nextProps.newProducts) {
-        // return ({ 
-        //   categoryData: nextProps.categoryData,
-        //   vendor_ID   : nextProps.vendor_ID,
-        // }) // <- this is setState equivalent
-      //}
-      //return null
-    //}
+    componentDidMount(){
 
+      var url = window.location.href.split('/');
+      
+      if(url[7]){
+        this.setState({
+          sectedCategory  : url[7],
+        })
+      }
+
+      if(url[7] === undefined){
+        console.log("sucategory===",url[8]);
+        $('.category_'+0).addClass('activeCategory')
+      }
+    }
     render(){
       // console.log("props category ====",this.props.categoryData);
       return (
@@ -71,11 +75,18 @@ class CategoryBlock extends Component{
                   containerClass="carousel-container">
                     {this.props.categoryData && this.props.categoryData.map((categorydata, index) => {
                       var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+categorydata.categoryUrl;
+                      // console.log("categorydata.categoryUrl===",categorydata.categoryUrl,this.state.sectedCategory,index);
+                      {this.state.sectedCategory && this.state.sectedCategory === categorydata.categoryUrl
+                        ?
+                          $('.category_'+index).addClass('activeCategory')
+                        : null
+                          // $('.category_'+0).addClass('activeCategory')
+                      }
                       return (
-                      <div className="col-12 productsCategoryBlock "  key={index}> 
+                      <div className={"col-12 productsCategoryBlock "}  key={index}> 
                           <Link href={url} className ={"col-12 "}> 
                             <a className ={"col-12 " +Style.categoryBlock}>
-                              <div className={"itemImg col-12 NoPadding " +Style.categoryPhoto +" "+Style.itemImg}>
+                              <div className={"itemImg col-12 NoPadding category_"+index +" " +Style.categoryPhoto +" "+Style.itemImg}>
                                   <Image    
                                     id="prodImg"                                       
                                     src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.jpg"}

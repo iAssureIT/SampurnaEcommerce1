@@ -36,6 +36,9 @@ componentDidMount(){
                 if(url[4]=== this.state.categoryData[i].sectionUrl){
                     // console.log("section match==",url[4],this.state.categoryData[i]._id);
                     $('.HeaderSection_'+this.state.categoryData[i]._id).addClass('activeSection');
+                }else if(url[6]=== this.state.categoryData[i].sectionUrl){
+                    // console.log("section match==",url[4],this.state.categoryData[i]._id);
+                    $('.HeaderSection_'+this.state.categoryData[i]._id).addClass('activeSection');
                 }
             }
         })
@@ -54,11 +57,11 @@ render(){
                     return( 
                     <li key={sectionindex.toString()} className="nav-item dropdown dropDownLevel1">
 
-                        <Link className={"HeaderSection_"+sectionDetails._id} href={"/vendor-list/[sectionurl]"}  as={"/vendor-list/"+sectionDetails.sectionUrl} passHref={true}>
+                        {/* <Link className={"HeaderSection_"+sectionDetails._id} href={"/vendor-list/[sectionurl]"}  as={"/vendor-list/"+sectionDetails.sectionUrl} passHref={true}>
                             <a className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
-                        </Link> 
+                        </Link>  */}
                         
-                        {/* <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a> */}
+                        <a href={"/vendor-list/"+sectionDetails.sectionUrl} className={"HeaderSection_"+sectionDetails._id}>{sectionDetails.section}&nbsp;</a>
                         
                     </li> 
                     );

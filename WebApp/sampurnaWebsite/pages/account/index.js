@@ -150,10 +150,10 @@ class Account extends Component{
                     </div>
                     <div className={ "col-12 addressBookMainWrapper container "+Style.addressBookMainWrapper}>
                         <h6 className="font-weight-bold">Address Book</h6>
-                        <div class="row">
-                            <div class="col-12 col-lg-6">
-                                <div class={ "box "+Style.box}> {/*
-                                    <p>class="col-xs-12 col-sm-6"</P> */}
+                        <div className="row">
+                            <div className="col-12 col-lg-6">
+                                <div className={ "box "+Style.box}> {/*
+                                    <p>className="col-xs-12 col-sm-6"</P> */}
                                     <div className="col-12 pt-2">
                                         <div className="col-12 container font-weight-bold  accountDivHeader">Default Billing Address</div>
                                     </div> { this.state.addressLine1 ?
@@ -176,9 +176,9 @@ class Account extends Component{
                                         </div>
                                     </div> } </div>
                             </div>
-                            <div class="col-12 col-lg-6">
-                                <div class={ "box pb-3 "+Style.box}> {/*
-                                    <p>class="col-xs-12 col-sm-6"</P> */}
+                            <div className="col-12 col-lg-6">
+                                <div className={ "box pb-3 "+Style.box}> {/*
+                                    <p>className="col-xs-12 col-sm-6"</P> */}
                                     <div className="col-12 pt-2">
                                         <div className="col-12 accountDivHeader">Default Shipping Address</div>
                                     </div> { this.state.addressLine1 ?

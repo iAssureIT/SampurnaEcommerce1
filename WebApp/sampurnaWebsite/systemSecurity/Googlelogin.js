@@ -7,6 +7,18 @@ import { GoogleLogin } from 'react-google-login';
 
 const responseGoogle = (response) => {
     console.log(response);
+    var userDetails = {
+      firstname	: verifyOtpResponse.data.userDetails.firstName,
+      lastname	: verifyOtpResponse.data.userDetails.lastName,
+      email		: verifyOtpResponse.data.userDetails.email,
+      mobNumber   : verifyOtpResponse.data.userDetails.mobile,
+      pincode		: verifyOtpResponse.data.userDetails.pincode,
+      user_id		: verifyOtpResponse.data.userDetails.user_id,
+      roles		: verifyOtpResponse.data.userDetails.roles,
+      token		: verifyOtpResponse.data.userDetails.token,
+  }
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
+      swal('Congratulations! You have been successfully Login, Now you can place your order.')
 }
 
 class Googlelogin extends Component {
@@ -28,41 +40,7 @@ componentDidMount() {
 componentClicked(){
 
 }
-
-  verifyOTP(event){
-    event.preventDefault();
-    var userDetails     =  JSON.parse(localStorage.getItem('userDetails'));
-    if(userDetails){
-        const mobileOTP = this.state.otp;
-        console.log("mobileOTP=",mobileOTP);
-        console.log("verifyOTP userDetails===",userDetails);
-        axios.get("/api/auth/get/checkmobileotp/usingID/"+userDetails.userId+"/"+mobileOTP)
-        .then((verifyOtpResponse)=>{
-            if(verifyOtpResponse){
-                console.log("verifyOtpResponse==",verifyOtpResponse);
-                var userDetails = {
-                    firstname	: verifyOtpResponse.data.userDetails.firstName,
-                    lastname	: verifyOtpResponse.data.userDetails.lastName,
-                    email		: verifyOtpResponse.data.userDetails.email,
-                    mobNumber   : verifyOtpResponse.data.userDetails.mobile,
-                    pincode		: verifyOtpResponse.data.userDetails.pincode,
-                    user_id		: verifyOtpResponse.data.userDetails.user_id,
-                    roles		: verifyOtpResponse.data.userDetails.roles,
-                    token		: verifyOtpResponse.data.userDetails.token,
-                }
-                    localStorage.setItem('userDetails', JSON.stringify(userDetails));
-                    swal('Congratulations! You have been successfully Login, Now you can place your order.')
-                    window.location.reload();
-            }
-        })
-        .catch((error)=>{
-            console.log("error while resending otp==",error);
-        })
-    }
-
-  }
-
-  render() {
+render() {
     return (
         <div className="col-12 NoPadding">
               <GoogleLogin
@@ -72,6 +50,8 @@ componentClicked(){
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
+                isSignedIn={true}
+                // onLogoutSuccess={logout}
                 
             />
         </div>

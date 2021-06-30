@@ -266,7 +266,10 @@ class ProductDetailView extends Component {
 										<div ><span className="productNameClassNew"> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> </div>
 									</div>
 								}
-									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
+								<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
+									<div className="col-12 NoPadding brandName">Brand : {this.state.productData.brand}</div> 
+								</div>
+								<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
 								{                                  
 									this.state.productData.discountPercent ?
 									<div className="col-12 NoPadding priceWrapper">

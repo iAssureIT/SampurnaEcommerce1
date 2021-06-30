@@ -204,11 +204,11 @@
     border-radius: 15px;
   }
   .productBlock {
-    /* border: 1px solid #637070; */
+    border: 1px solid #ddd;
     border-radius: 15px;
     margin-top: 5px;
     margin-bottom: 5px;
-  background: #fff;
+    background: #fff;
     /* height: 300px; */
   }
   .productDetailVendorName{

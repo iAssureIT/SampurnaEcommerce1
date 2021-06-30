@@ -414,10 +414,13 @@ body{
   margin-bottom: 0px;
   font-weight: 600 !important;
 }
-
+.disableBtn{
+  cursor:not-allowed !important;
+  opacity: 0.4 !important;
+}
 .globalAddToCartBtn:hover{
-  background-color: transparent !important;
-  color: #222222 !important;
+  /* background-color: transparent !important; */
+  /* color: #222222 !important; */
 }
 .globalAddToCartBtn a{
   color: #fff;
@@ -614,6 +617,17 @@ body{
   overflow: hidden;
   display: block;
   font-size: 14px;
+}
+.activeCategory{
+   border: solid 4px #033554 !important;
+   /* z-index: 10 !important; */
+   border-radius: 10px;
+}
+.activeSubCategory{
+  background: #033554 !important;
+}
+.activeSubCategory a{
+  color: #fff !important;
 }
 @media only screen and (max-device-width: 480px) {
   .mobileViewNoPadding{

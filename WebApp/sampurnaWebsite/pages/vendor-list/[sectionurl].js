@@ -95,7 +95,7 @@ class VendorList extends Component {
                                                                 </div>
                                                             </div>
                                                         </div> 
-                                                        </ Link >
+                                                    </ Link >
                                                     </div>
                                                 </div>
                                             )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ 					from "jquery";
 import PhoneInput 			from 'react-phone-input-2';
+// import PhoneInput           from 'react-phone-number-input'
 import swal 				from 'sweetalert';
 import axios 				from 'axios';
 import { connect } 			from 'react-redux';
@@ -51,8 +52,6 @@ class SignUp extends Component {
 		let fields = this.state.fields;
 		let errors = {};
 		let formIsValid = true;
-		// console.log(fields["firstname"]);
-
 		if (!fields["firstname"]) {
 		  formIsValid = false;
 		  errors["firstname"] = "This field is required.";
@@ -65,7 +64,6 @@ class SignUp extends Component {
 			errors["firstname"] = "Name should only contain letters.";
 		  }else{
 			errors["firstname"] = "";
-
 		  }
 		}
 		
@@ -74,7 +72,6 @@ class SignUp extends Component {
 			errors["lastname"] = "This field is required.";
 		}
 		if (typeof fields["lastname"] !== "undefined") {
-			//regular expression for email validation
 			var pattern = new RegExp(/^[A-Za-z]*$/)
 			if (!pattern.test(fields["lastname"])) {
 			  formIsValid = false;
@@ -83,43 +80,43 @@ class SignUp extends Component {
 		}
 
 
-		if (!fields["signupEmail"]) {
-			formIsValid = false;
-			errors["signupEmail"] = "Please enter your email.";
-		  }
-		  if (typeof fields["signupEmail"] !== "undefined") {
-			//regular expression for email validation
-			var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-			if (!pattern.test(fields["signupEmail"])) {
-			  formIsValid = false;
-			  errors["signupEmail"] = "Please enter valid email.";
-			}
-		  }
+		// if (!fields["signupEmail"]) {
+		// 	formIsValid = false;
+		// 	errors["signupEmail"] = "Please enter your email.";
+		//   }
+		//   if (typeof fields["signupEmail"] !== "undefined") {
+		// 	//regular expression for email validation
+		// 	var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
+		// 	if (!pattern.test(fields["signupEmail"])) {
+		// 	  formIsValid = false;
+		// 	  errors["signupEmail"] = "Please enter valid email.";
+		// 	}
+		//   }
 	  
-		if (!fields["mobNumber"]) {
-			formIsValid = false;
-			errors["mobNumber"] = "This field is required.";
-		}
-		if (typeof fields["mobNumber"] !== "undefined") {
-			//regular expression for email validation
-			var pattern = new RegExp(/^([7-9][0-9]{9})$/)
-			if (!pattern.test(fields["mobNumber"])) {
-			  formIsValid = false;
-			  errors["mobNumber"] = "Please enter valid mobile number.";
-			}
-		}
+		// if (!fields["mobNumber"]) {
+		// 	formIsValid = false;
+		// 	errors["mobNumber"] = "This field is required.";
+		// }
+		// if (typeof fields["mobNumber"] !== "undefined") {
+		// 	//regular expression for email validation
+		// 	var pattern = new RegExp(/^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/)
+		// 	if (!pattern.test(fields["mobNumber"])) {
+		// 	  formIsValid = false;
+		// 	  errors["mobNumber"] = "Please enter valid mobile number.";
+		// 	}
+		// }
 
-		if (!fields["pincode"]) {
-			formIsValid = false;
-			errors["pincode"] = "This field is required.";
-		}
-		if (typeof fields["pincode"] !== "undefined") {
-			var pattern = new RegExp(/^[1-9][0-9]{5}$/);
-			if (!pattern.test(fields["pincode"])) {
-			  formIsValid = false;
-			  errors["pincode"] = "Please enter 6 digit pincode.";
-			}
-		}
+		// if (!fields["pincode"]) {
+		// 	formIsValid = false;
+		// 	errors["pincode"] = "This field is required.";
+		// }
+		// if (typeof fields["pincode"] !== "undefined") {
+		// 	var pattern = new RegExp(/^[1-9][0-9]{5}$/);
+		// 	if (!pattern.test(fields["pincode"])) {
+		// 	  formIsValid = false;
+		// 	  errors["pincode"] = "Please enter 6 digit pincode.";
+		// 	}
+		// }
 
 		if (!fields["signupPassword"]) {
 		  formIsValid = false;
@@ -157,11 +154,11 @@ class SignUp extends Component {
 	  
 	userSignupWithOtp(event){
 	event.preventDefault();
-		// if(this.validateForm()){
+		if(this.validateForm()){
 			var formValues = {
 				firstname   : this.state.firstname,
 				lastname    : this.state.lastname,
-				mobNumber   : (this.state.mobNumber).replace("-", ""),
+				mobNumber   : (this.state.mobNumber).split("971")[1],
 				pincode     : "",
 				email       : this.state.signupEmail,
 				pwd         : this.state.signupPassword,
@@ -170,7 +167,9 @@ class SignUp extends Component {
 				countryCode : "uae",
 				username    : "MOBILE",
 				authService : "",
+				isdCode     : "971",
 			}
+			console.log("formValues==",formValues);
 			axios.post('/api/auth/post/signup/user/otp',formValues)
 			.then((signupResponse) =>{
 				if(signupResponse){
@@ -186,7 +185,7 @@ class SignUp extends Component {
 						userId      : signupResponse.data.ID,
 						roles		: signupResponse.data.result.roles[0],
 					}
-					console.log("userDetails===",userDetails);
+					// console.log("userDetails===",userDetails);
 
 					localStorage.setItem('userDetails', JSON.stringify(userDetails));
 					swal("Thank you!! Your account created successfuly. Please Check your SMS, We have sent verification code on your mobile number.");
@@ -196,7 +195,7 @@ class SignUp extends Component {
 			.catch((error)=>{
 				console.log("getting error while signup user",error);
 			})
-		//}
+		}
 	}
 
 	handleChange(event){
@@ -283,7 +282,7 @@ class SignUp extends Component {
 	openSignInModal(event){
 		event.preventDefault();
 		this.props.updateFormValue("login");
-		$("#pageOpacity").show();
+		// $("#pageOpacity").show();
       	$('#loginFormModal').show();	
 	}
 	render() {		
@@ -326,21 +325,32 @@ class SignUp extends Component {
 						<PhoneInput
 						country={'ae'} 
 						value={this.state.mobNumber}
-						disabled={false}
-						disableDropdown={false}
-						enableAreaCodes={false}
-						// name="phone"
-						// className="col-12 formcontrol1"
-						// autoFormat={true}
-						// enableAreaCodes={true}
 						inputProps={{
 							name: 'mobNumber',
 							required: true
 						}}
-						onChange={mobNumber => { this.setState({ mobNumber },console.log("react-phone-input-2=",mobNumber)) }}
-					/>                       
-						{/* <input maxLength="10" placeholder="" type="text" ref="mobNumber" name="mobNumber" id="mobNumber" value={this.state.mobNumber} onChange={this.handleChange.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control formcontrol1" />                                      */}
-						<div className="errorMsg">{this.state.errors.mobNumber}</div>
+						// disabled={false}
+						// disableDropdown={false}
+						// enableAreaCodes={false}
+						// name="phone"
+						// className="col-12 formcontrol1"
+						// autoFormat={true}
+						// enableAreaCodes={true}
+						// withCountryCallingCode={false}
+						onChange={mobNumber => { 
+							this.setState({ mobNumber }
+								,console.log("react-phone-input-2=",mobNumber)) 
+								// this.setState({
+								// 	mobNumber : this.state.mobNumber,
+								// }); 
+								// let fields = this.state.fields;
+								// fields["mobNumber"] = this.state.mobNumber;
+								// this.setState({
+								// fields
+								// });
+						}}
+					/>    
+					{/* <div className="errorMsg">{this.state.errors.mobNumber}</div>  */}
 					</div>
 
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">

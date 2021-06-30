@@ -81,7 +81,7 @@ class CreditPoints extends Component{
 
                             {this.state.creditdata.transactions.map((data,index)=>{
                                 return(
-                                    <tr>
+                                    <tr key={index}>
                                         <td className="text-center">{moment(data.transactionDate).format('MM/DD/YYYY')}</td>
                                         <td className="text-center">
                                             
