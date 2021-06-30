@@ -486,6 +486,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 		if(req.body.mobNumber && req.body.pwd && req.body.role) {
 			var mobNumber = req.body.mobNumber;
 			var userRole = (req.body.role).toLowerCase();
+			console.log("userRole 1 => ",userRole);
 			if (userRole && mobNumber) {
 				Role.findOne({ role: userRole })
 					.exec()
@@ -545,21 +546,22 @@ exports.user_signup_user_otp = (req, res, next) => {
 													user.save()
 														.then(async(result) => {
 															if(result) {
-																//send Notification, email, sms to customer																	
+																//send Notification, email, sms to customer	
+																console.log("userRole2  => ",userRole);																
 																var userNotificationValues = {
 																	"event"			: "SignUp",
 																	"toUser_id"		: result._id,
 																	"toUserRole"	: userRole,								
 																	"variables" 	: {
-																						"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
-																						"firstName" 		: result.profile.firstName,
-																						"lastName" 			: result.profile.lastName,
+																						"userType" 			: userRole,
+																						"firstName" 		: result.profile.firstname,
+																						"lastName" 			: result.profile.lastname,
 																						"fullName" 			: result.profile.fullName,
 																						"emailId" 			: result.profile.email,
 																						"mobileNumber"		: result.profile.mobile,
 																						"loginID" 			: result.username,
 																						"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a'),
-																						"OTP" 				: result.otpMobile
+																						"OTP" 				: result.profile.otpMobile
 																	}
 																}
 																var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
@@ -571,9 +573,9 @@ exports.user_signup_user_otp = (req, res, next) => {
 																	// "toUser_id"		: req.body.user_ID,
 																	"toUserRole"	: "admin",								
 																	"variables" 	: {
-																						"userType" 			: userRole.replace(/([a-z])([A-Z][a-z])/g, "$1 $2").charAt(0).toUpperCase(),
-																						"firstName" 		: result.profile.firstName,
-																						"lastName" 			: result.profile.lastName,
+																						"userType" 			: userRole,
+																						"firstName" 		: result.profile.firstname,
+																						"lastName" 			: result.profile.lastname,
 																						"fullName" 			: result.profile.fullName,
 																						"emailId" 			: result.profile.email,
 																						"mobileNumber"		: result.profile.mobile,

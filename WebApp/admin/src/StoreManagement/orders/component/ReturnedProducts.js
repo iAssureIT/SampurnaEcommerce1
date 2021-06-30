@@ -6,6 +6,7 @@ import $ 					from "jquery";
 import moment 				from "moment";
 import AdminOrdersList 		from './AdminOrdersList.js';
 import swal         		from 'sweetalert';
+import IAssureTable           from "../ReturnProductTable/IAssureTable.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 import 'bootstrap/js/tab.js';
@@ -16,17 +17,36 @@ export default class ReturnProducts extends Component{
 	constructor(props) {
 	 super(props);
 		this.state = {
-			"returnedProducts" : [] 
+			"returnedProducts" : [],
+			tableHeading    : {
+				"orderId" 			: "Order Id",
+                "productName"       : "Product Name(Product Code)",
+                "vendorName"        : 'Vendor Name',
+                "customerName"      : 'Customer Name',
+                "reasonOfReturn"    : 'Reason of Return',
+                "OrderDate"        	: 'OrderedoOn',
+                "returnRequestedOn" : 'Return Requested On',
+                "approveOrReject"   : 'Approve/Reject',
+                "status"            : 'Status'
+            },
+            tableObjects    : {
+                paginationApply : true,
+                searchApply     : true,
+                deleteMethod    : 'delete',
+                apiLink         : '/api/returnedproducts',
+            },
+            startRange      : 0,
+            limitRange      : 10
 		}
 		// this.getReturnedProducts = this.getReturnedProducts.bind(this);
 	}
 	 
 	componentDidMount(){
-		var userDetails   = JSON.parse(localStorage.getItem("userDetails"));
+		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
 		var token       = userDetails.token;
 		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
-
-		this.getReturnedProducts();
+		this.getData();
+		// this.getReturnedProducts();
 		$('.showmore').click(function () {
 			console.log('this',$(this));
 
@@ -50,13 +70,38 @@ export default class ReturnProducts extends Component{
 		}
 		});
 	}    
-	getReturnedProducts(){
+	getData(){
 		axios.get("/api/returnedproducts/get/list")
 		.then((response)=>{
 			console.log("response return products => ",response.data)
-				this.setState({
-					returnedProducts: response.data
-				});
+			var tableData = response.data.map((a, ind)=>{
+				if(a.productDetails && a.productDetails.length > 0){
+					return{
+						"_id"               : a._id,
+						"orderId" 			: a.productID,
+						"productName"       : a.productDetails[0] && a.productDetails[0].productName ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
+						"vendorName"        : a.vendorDetails[0] && a.vendorDetails[0].companyName ? a.vendorDetails[0].companyName : "",
+						"productImages"     : a.productDetails[0] && a.productDetails[0].productImage ? a.productDetails[0].productImage : "",
+						"customerName"      : a.customerName,
+						"customerReview"    : a.customerReview, 
+						"returnRequestedOn"        : moment(a.createdAt).format("DD MMMM YYYY, HH:mm a"),             
+						"adminComment"      : a.adminComment ? a.adminComment : "-",
+						"orderID"           : a.orderID,
+						"productID"         : a.productID,
+						"reasonOfReturn"    : a.reasonOfReturn,
+						"OrderDate"        	: 'OrderedoOn',
+						"approveOrReject"   : "<div class='publishOrReject'><i class='fa fa-times-circle reviewActionBtns padding-15-0 " + (a.status === 'Rejected' ? 'rejectedActive' : '') +  "'name='Rejected' id='Rejected' title='Reject Customer Review' onclick=window.changeReviewStatus('"+ a._id + "-" + "Rejected" +"')></i>"+
+												"<i class='fa fa-check-circle reviewActionBtns padding-15-0 " + (a.status === 'Published' ? 'publishedActive' : '') + "'name='Published' id='Published' title='Publish Customer Review' onClick=window.changeReviewStatus('"+ a._id + "-" + "Published" +"')></i></div>",
+						"status"            : "<div class='reviewStatusSpan review-" + a.status.toLowerCase() + "'>" + a.status + "</div>",
+						
+					};
+				}
+            })
+            this.setState({
+                tableData : tableData
+            },()=>{
+                console.log("tableData => ",this.state.tableData)
+            })
 		})
 		.catch((error)=>{
 				console.log('error', error);
@@ -88,7 +133,7 @@ export default class ReturnProducts extends Component{
 		axios.patch('/api/returnedProducts/returnStatusUpdate',formValues)
 					.then((response)=>{
 						console.log('response', response);
-						this.getReturnedProducts();
+						this.getData();
 						swal({
 							title : response.data.message,
 						});
@@ -231,176 +276,10 @@ export default class ReturnProducts extends Component{
 								}
 					})
 	}
-	render(){
-		
+	render(){		
 		return(
 			<div className="">
-				{this.state.returnedProducts.length > 0 ? 
-					this.state.returnedProducts.map((data,index)=>{
-
-						console.log("data =>=>=> ",data)
-						var returnApprovalPending 	= 0, 
-						returnApproved 				= 0, 
-						returnApprovedOn, 
-						pickupInitiated 			= 0, 
-						pickupInitiatedOn,
-						productPickedUp 			= 0,
-						productPickedUpOn, 
-						productArrived, 
-						productAccepted, 
-						productAcceptedOn;
-
-						return (
-							<div>
-								{data.productsArray.length > 0 
-								?
-									<div className="row" key={index}>
-										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  parentDiv">
-											<div className="col-lg-12 bgwhite">
-												<div className="col-lg-12 orderpagebox">
-													<div className="row">
-														<div className="col-lg-8">
-															<div className="orderButton">Order-ID : <b>{data.orderID}</b></div>
-														</div>
-														<div className="col-lg-4 pull-right">
-															<p><span style={{marginTop:"15px"}}>Ordered On { moment(data.createdAt).format("DD/MM/YYYY hh:mm a") }</span>&nbsp;</p>
-														</div>
-														<div className="col-lg-12">
-															<div className="col-lg-2 mtop10">
-																<img className="itemImg" src={data.productsArray[0].productImage[0]} />
-															</div>
-															<div className="col-lg-6 mtop10">
-																<h4>{data.productsArray[0]['productName']}</h4>
-															</div>
-
-															<div className="col-lg-2 mtop10">
-																<label>Original Price:</label>
-																<p className={"fa fa-" + data.productsArray[0].currency}> {data.productsArray[0].originalPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </p>
-															</div>
-															<div className="col-lg-2 mtop10">
-																<label>Discounted Price:</label>
-																<p className={"fa fa-" + data.productsArray[0].currency}> {data.productsArray[0].discountedPrice.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </p>
-															</div>
-															<div className="col-lg-6">
-																<h4>Reason For Return: </h4>
-																<p>{data.reasonForReturn}</p>
-															</div>
-
-															<div className="col-lg-4 mtop10">
-															{data.returnStatusLog && data.returnStatusLog.length > 0
-															?
-															data.returnStatusLog.filter(function (status) { 
-																
-																if(status.status === "Return Approved"){
-																	returnApproved = 1;
-																	returnApprovedOn = moment(status.date).format("DD/MM/YYYY hh:mm a");
-																}
-																else if(status.status === "Return Pickup Initiated"){
-																	pickupInitiated = 1;
-																	pickupInitiatedOn = moment(status.date).format("DD/MM/YYYY hh:mm a");;
-																}
-																else if(status.status === "Return Pickedup"){
-																	productPickedUp = 1;
-																	productPickedUpOn = moment(status.date).format("DD/MM/YYYY hh:mm a");;
-																}
-																else if(status.status === "Return Accepted"){
-																	productAccepted = 1;
-																	productAcceptedOn = moment(status.date).format("DD/MM/YYYY hh:mm a");;
-																}
-																
-																
-																}) 
-															:
-															 null 
-															}
-																&nbsp;
-																{ returnApproved !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.returnApproveModal.bind(this)} data-target="#returnApprove" id={data._id} >Approve</button> : "" }
-																{ returnApproved ==1 && pickupInitiated !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.addpickupdetails.bind(this)} data-target="#pickupdetailsModal" id={data._id} >Add Pickup Details</button> : "" }
-																{ returnApproved ==1 && pickupInitiated ==1 && productPickedUp !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.openpickupproduct.bind(this)} data-target="#pickupproductModal" id={data._id} >Pickup Product </button> : ""}
-																{ returnApproved ==1 && pickupInitiated ==1 && productPickedUp && productAccepted !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.openproductApproval.bind(this)} data-target="#approveProductModal" id={data._id} >Accept Product </button> : ""}
-																
-															</div>
-															{
-																returnApproved ==1 && 
-																<div className="col-lg-4 mtop10">
-																	<a className="btn btn-warning showmore" data-toggle="collapse" href={"#multiCollapseExample"+index} role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Show More</a>
-																</div>
-															}
-															
-															<div className="collapse multi-collapse" id={"multiCollapseExample"+index}>
-																
-																{
-																	returnApproved ==1 && 
-																	<div className="col-lg-12">
-																	<hr className="hrline" />
-																		<h4>Return Product Approved: </h4>
-																		<p><label>Pickup Approved on:</label>{returnApprovedOn}</p>
-																	</div>
-																}
-																{
-																	pickupInitiated ==1 && 
-																	<div className="col-lg-12">
-																	<hr className="hrline" />
-																		<h4>Return Product PickUp Initiated: </h4>
-																		<p><label>Pickup Initiated on:</label>{pickupInitiatedOn}</p>
-																	</div>
-																}  
-																
-																{
-																	productPickedUp ==1 && 
-																	<div className="col-lg-12">
-																		<hr className="hrline" />
-																			<h4>Return Product Picked Up: </h4>
-																			<p><label>Picked up by:</label>{data.pickedupBy}</p>
-																			<p><label>Picked up On:</label>{productPickedUpOn}</p>
-																	</div>
-																}
-																{
-																	productArrived === 1 && 
-																	<div className="col-lg-12">
-																	<hr className="hrline" />
-																		<h4>Return Product Arrived: </h4>
-																		<p><label>Arrived On:</label></p>
-																	</div>
-																}
-																{ productAccepted === 1 && 
-																	<div>
-																	<div className="col-lg-12">
-																	<hr className="hrline" />
-																		<h4>Return Product Verification: </h4>
-																		<p><label>Accepted On:</label>{productAcceptedOn}</p>
-																	</div>
-																	<div className="col-lg-12 mtop10">
-																		<hr className="hrline" />
-																		<h4>Account Details: </h4>
-																		<p><label>Bank Name: </label>&nbsp;{data.refund[0].bankName}</p>
-																		<p><label>Bank Account No.: </label>&nbsp;{data.refund[0].bankAccountNo}</p>
-																		<p><label>Bank IFSC Code: </label>&nbsp;{data.refund[0].IFSCCode}</p>
-																		<p><label>Amount: </label>&nbsp;<i className={"fa fa-" + data.productsArray[0].currency}></i>{data.refund[0].amount}</p>
-																	</div>
-																	</div>
-																} 
-																
-																	
-															</div>
-													 
-															
-														</div>
-														
-													</div>
-												</div>
-											</div>
-									</div>
-								</div>
-
-									: null
-								}
-								
-								
-							</div>
-							);
-					}) 
-					: 
+				<div>
 					<section className="content">
 						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  pageContent">
 							<div className="row">
@@ -410,11 +289,23 @@ export default class ReturnProducts extends Component{
 									</div>
 								</div>
 							</div>
-							<div className="text-center"><img src="/images/noproducts.jpeg" style={{marginTop:"5%"}}/></div>
-						</div>
-					</section>
-				}  
-				
+				{/* {this.state.returnedProducts.length > 0 
+				?  */}
+					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<IAssureTable 
+							tableHeading    = {this.state.tableHeading}
+							twoLevelHeader  = {this.state.twoLevelHeader} 
+							dataCount       = {this.state.dataCount}
+							tableData       = {this.state.tableData}
+							getData         = {this.getData.bind(this)}
+							tableObjects    = {this.state.tableObjects}
+							// getSearchText   = {this.getSearchText.bind(this)}
+						/>
+					</div>
+				{/* : 					
+					<div className="text-center"><img src="/images/noproducts.jpeg" style={{marginTop:"5%"}}/></div>						
+				}   */}
+				</div>
 				<br />
 				<div className="modal" id="returnApprove" role="dialog">
 					<div className="modal-dialog">
@@ -506,6 +397,9 @@ export default class ReturnProducts extends Component{
 							</div>
 						</div>
 					</div>
+				</div>
+				
+				</section>
 				</div>
 			</div>
 		);

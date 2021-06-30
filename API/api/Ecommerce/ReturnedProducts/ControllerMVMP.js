@@ -10,7 +10,7 @@ exports.get_returned_products = (req,res,next)=>{
 				from 			: 'products',
 				localField 		: 'product_id',
 				foreignField 	: '_id',
-				as 				: 'productsArray'
+				as 				: 'productDetails'
 			} 
 		},
 		// {$sort: 
