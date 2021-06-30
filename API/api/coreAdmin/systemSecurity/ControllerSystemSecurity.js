@@ -547,7 +547,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 															if(result) {
 																//send Notification, email, sms to customer																	
 																var userNotificationValues = {
-																	"event"			: "Signup",
+																	"event"			: "SignUp",
 																	"toUser_id"		: result._id,
 																	"toUserRole"	: userRole,								
 																	"variables" 	: {
@@ -567,7 +567,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																
 																//send Notification, email, sms to admin
 																var adminNotificationValues = {
-																	"event"			: "Signup",
+																	"event"			: "SignUp",
 																	// "toUser_id"		: req.body.user_ID,
 																	"toUserRole"	: "admin",								
 																	"variables" 	: {

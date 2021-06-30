@@ -260,7 +260,7 @@ export default class ReturnProducts extends Component{
 												<div className="col-lg-12 orderpagebox">
 													<div className="row">
 														<div className="col-lg-8">
-															<div className="orderButton">Order-ID : <b>{data._id}</b></div>
+															<div className="orderButton">Order-ID : <b>{data.orderID}</b></div>
 														</div>
 														<div className="col-lg-4 pull-right">
 															<p><span style={{marginTop:"15px"}}>Ordered On { moment(data.createdAt).format("DD/MM/YYYY hh:mm a") }</span>&nbsp;</p>
@@ -287,7 +287,9 @@ export default class ReturnProducts extends Component{
 															</div>
 
 															<div className="col-lg-4 mtop10">
-															{data.returnStatus.filter(function (status) { 
+															{data.returnStatusLog && data.returnStatusLog.length > 0
+															?
+															data.returnStatusLog.filter(function (status) { 
 																
 																if(status.status === "Return Approved"){
 																	returnApproved = 1;
@@ -307,7 +309,9 @@ export default class ReturnProducts extends Component{
 																}
 																
 																
-																})  
+																}) 
+															:
+															 null 
 															}
 																&nbsp;
 																{ returnApproved !== 1 ? <button className="btn btn-warning" data-toggle="modal" onClick={this.returnApproveModal.bind(this)} data-target="#returnApprove" id={data._id} >Approve</button> : "" }
