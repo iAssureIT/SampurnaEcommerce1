@@ -70,7 +70,7 @@ const window = Dimensions.get('window');
             onSubmit={(data) => {
               if(password_matched){
                 setLoading(true);
-                let {firstName, lastName,mobileNumber,email_id,password,countryCode} = data;
+                let {firstName, lastName,mobileNumber,email_id,password,countryCode,callingCode} = data;
                 var formValues = {
                   firstname   : firstName,
                   lastname    : lastName,
@@ -81,8 +81,10 @@ const window = Dimensions.get('window');
                   role        : 'user',
                   status      : 'unverified',
                   countryCode : countryCode,
-                  username    : "MOBILE"
+                  username    : "MOBILE",
+                  isdCode     : callingCode
                 }
+                console.log("formValues",formValues);
                 axios.post('/api/auth/post/signup/user/otp',formValues)
                 .then((response) => {
                   setLoading(false)
@@ -127,7 +129,8 @@ const window = Dimensions.get('window');
               email_id          : '',
               password          : '',
               confirm_password  : '',
-              countryCode       : ''
+              countryCode       : '',
+              callingCode       : ''
             }}>
             {(formProps) => (
               <FormBody
@@ -259,6 +262,7 @@ const window = Dimensions.get('window');
                           setValue(text);
                           setFieldValue('mobileNumber',mobileNumber)
                           setFieldValue('countryCode',countryCode)
+                          setFieldValue('callingCode',callingCode)
                           setValid(checkValid);
                         }}
                         containerStyle= {styles1.containerStyle}

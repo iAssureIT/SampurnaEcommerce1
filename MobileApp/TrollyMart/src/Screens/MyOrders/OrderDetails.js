@@ -6,30 +6,29 @@ import {
   Image,
   TouchableOpacity,
   TextInput
-}                     from 'react-native';
+}                       from 'react-native';
 import { Icon, Card,Button,Rating,Input } from "react-native-elements";
-import {HeaderBar3}   from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}       from '../../ScreenComponents/Footer/Footer.js';
-import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
-import { colors }     from '../../AppDesigns/currentApp/styles/styles.js';
-import Loading        from '../../ScreenComponents/Loading/Loading.js';
-import axios          from 'axios';
-import AsyncStorage   from '@react-native-async-storage/async-storage';
-import moment         from 'moment';
+import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
+import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
+import Loading          from '../../ScreenComponents/Loading/Loading.js';
+import axios            from 'axios';
+import AsyncStorage     from '@react-native-async-storage/async-storage';
+import moment           from 'moment';
 import {withCustomerToaster}    from '../../redux/AppState.js';
 import { connect,
   useDispatch,
-  useSelector }        from 'react-redux';
-import StepIndicator   from 'react-native-step-indicator';
-import CommonStyles    from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import CountDown          from 'react-native-countdown-component';
-import Modal              from "react-native-modal";
-import { useIsFocused }   from "@react-navigation/native";
-import openSocket         from 'socket.io-client';
+  useSelector }             from 'react-redux';
+import StepIndicator        from 'react-native-step-indicator';
+import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import CountDown            from 'react-native-countdown-component';
+import Modal                from "react-native-modal";
+import { useIsFocused }     from "@react-navigation/native";
+import openSocket           from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
-import OpenModal            from '../Modal/OpenModal.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { Dropdown }             from 'react-native-material-dropdown-v2';
+import { RadioButton }        from 'react-native-paper';
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
@@ -64,6 +63,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [cancelVendorId,setCancelVendorId]=useState('');
   const [loading,setLoading]=useState(true);
   const [modal,setModal]=useState(false);
+  const [returnModal,setReturnModal]=useState(false);
   const [vendorDetails,setVendorDetails]=useState();
   const [rating,setRating] = useState(1);
   const [review,setReview] = useState('');
@@ -73,6 +73,12 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [labels,setLabels] = useState([]);
   const [labelsArray,setLabelsArray]= useState([]);
   const [review_id,setReviewId]= useState();
+  const [getReasons,setGetReasons]=useState([]);
+  const [reason,setReason]=useState('');
+  const [checked,setChecked]                = useState('first');
+  const [comment, setComment] = useState('')
+  const [refund, setRefund] = useState('')
+  const [returnProductImages, setReturnProductImages] = useState([])
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -104,7 +110,35 @@ export const OrderDetails = withCustomerToaster((props)=>{
       }  
     });
     getSingleOrder(orderid);
+    getReasons_func()
 }, [props,isFocused]);
+
+const getReasons_func=()=>{
+  setGetReasons([
+    {label: "Defective Product",value: "Defective Product"},
+    {label: "Defective Product",value: "Defective Product"},
+    {label: "Defective Product",value: "Defective Product"},
+    {label: "Defective Product",value: "Defective Product"},
+    {label: "Defective Product",value: "Defective Product"},
+    {label: "Defective Product",value: "Defective Product"},
+    {label: "Defective Product",value: "Defective Product"},
+  ])
+  // axios.get('/api/time/get/list-with-limits/' + startRange + '/' + limitRange)
+  //   .then((response) => {
+  //     var array = response.data.map((a, i) => { return { label: a.fromtime + " - " + a.totime, value: a.fromtime + "-" + a.totime } })
+  //     setGetTimes(array);
+  //   })
+  //   .catch((error) => {
+  //     if (error.response.status == 401) {
+  //       AsyncStorage.removeItem('user_id');
+  //       AsyncStorage.removeItem('token');
+  //       setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+  //       navigation.navigate('Auth')
+  //     }else{
+  //       setToast({text: 'Something went wrong.', color: 'red'});
+  //     }  
+  //   });
+}
 
  
 
@@ -230,7 +264,7 @@ const cancelorderbtn = (id,vendor_id) => {
         "customer_id"     		: store.userDetails.user_id,
         "customerName"        : store.userDetails.firstName+" "+store.userDetails.lastName,
         "order_id"        		: orderid,
-        "product_id"      		: vendorDetails.products[productIndex]._id,
+        "product_id"      		: vendorDetails.products[productIndex].product_ID,
         "vendor_id" 			    : vendorDetails.vendor_id._id,
         "vendorLocation_id"   : vendorDetails.vendorLocation_id,
         "rating"          		: rating,
@@ -251,6 +285,38 @@ const cancelorderbtn = (id,vendor_id) => {
         console.log("err",err);
       })
     }
+  }
+
+
+  const submitReturn=()=>{
+      var formValues = {
+        "user_id"     		    : store.userDetails.user_id,
+        "order_id"        		: orderid,
+        "product_id"      		: vendorDetails.products[productIndex].product_ID,
+        "vendor_id" 			    : vendorDetails.vendor_id._id,
+        "vendorLocation_id"   : vendorDetails.vendorLocation_id,
+        "reasonForReturn"     : reason,
+        "customerComment"  		: comment,
+        "refund"              : refund,
+        "returnProductImages" : returnProductImages
+      }
+      console.log("formValues",formValues);
+      axios.patch('/api/orders/patch/returnproduct',formValues)
+      .then(res=>{
+        console.log("res",res);
+        setReturnModal(false);
+        setVendorDetails();
+        setProductIndex('');
+        setRefund('');
+        setComment('');
+        setReason('');
+        setReturnProductImages([])
+        setToast({text: res.data.message, color: 'green'});
+        getSingleOrder(orderid)
+      })
+      .catch(err=>{
+        console.log("err",err);
+      })
   }
 
   const getSingleReview=(product_id)=>{
@@ -394,17 +460,22 @@ const cancelorderbtn = (id,vendor_id) => {
                                     </View>
                                     {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
                                         <View style={[styles.flxdir,{alignItems:"center",marginTop:10,flex:1}]}>
-                                        <View style={{flex:.5}}>
-                                          <Text style={[styles.ogprice,]}>Return</Text>
-                                        </View>  
-                                        <View style={{flex:.5}}>
-                                          {pitem.isReview ?
-                                            <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem._id)}}>Edit Review</Text>
-                                            :
-                                            <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Review</Text>
-                                          } 
-                                        </View>  
-                                      </View>}
+                                        {pitem.productStatus ==="Returned" ?
+                                         <View style={{flex:.5}}>
+                                         <Text style={[styles.ogprice,]}>Return Initiated</Text>
+                                       </View>
+                                       :
+                                      <View style={{flex:.5}}>
+                                        <Text style={[styles.ogprice,]} onPress={()=>{setReturnModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Return</Text>
+                                      </View>}  
+                                      <View style={{flex:.5}}>
+                                        {pitem.isReview ?
+                                          <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index);getSingleReview(pitem._id)}}>Edit Review</Text>
+                                          :
+                                          <Text style={[styles.ogprice,{alignSelf:'flex-end'}]} onPress={()=>{setModal(true);setVendorDetails(vendor);setProductIndex(index)}}>Review</Text>
+                                        } 
+                                      </View>  
+                                    </View>}
                                   </View>
                                 </View>
                               </View>  
@@ -659,6 +730,121 @@ const cancelorderbtn = (id,vendor_id) => {
                 title       = {'Submit'}
                 background  = {true}
               /> 
+          </View>
+        </Modal>
+
+        <Modal isVisible={returnModal}
+          onBackdropPress={() => setReturnModal(false)}
+          coverScreen={true}
+          hideModalContentWhileAnimating={true}
+          style={{ zIndex: 999 }}
+          animationOutTiming={500}>
+          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+          {vendorDetails&&<Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
+              <View style={{flex:0.3}}>
+                { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
+                  style={styles.img15}
+                  source={{ uri: vendorDetails.products[productIndex].productImage[0] }}
+                  resizeMode="contain"
+                />:
+                <Image
+                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                  style={styles.img15}
+                />
+              }
+              </View>
+              <View style={{flex:0.7,paddingHorizontal:5}}>
+                <Text style={styles.prodinfo}>{vendorDetails.products[productIndex].productName}</Text>
+                <View style={styles.flx4}>
+                  <View style={[styles.flx1, styles.prdet]}>
+                    <View style={[styles.flxdir]}>
+                      <View style={[styles.flxdir]}>
+                        <Text style={styles.ogprice}>{currency} </Text>
+                        {vendorDetails.products[productIndex].discountPercent > 0 &&<Text style={styles.discountpricecut}>{(vendorDetails.products[productIndex].originalPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}</Text>}
+                      </View>
+                      <View style={[styles.flxdir,{alignItems:"center"}]}>
+                          <Text style={styles.ogprice}> {(vendorDetails.products[productIndex].discountedPrice * vendorDetails.products[productIndex].quantity).toFixed(2)}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          </Text>
+                      </View>
+                      {vendorDetails.products[productIndex].discountPercent > 0 &&<View style={[styles.flxdir,{alignItems:"center"}]}>
+                          <Text style={styles.ogprice}>( {vendorDetails.products[productIndex].discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          </Text>
+                      </View>}
+                    </View>
+                  </View>
+                </View>
+              </View>  
+            </Card>}
+               <View style={[styles.confirmbtn, styles.marginBottom20]}>
+                 {/* <Text>Reason for Return</Text> */}
+              <View style={[styles.inputWrapper]}>
+                <View style={styles.inputTextWrapper}>
+                  <Dropdown
+                  underlineColorAndroid ='transparent'
+                    placeholder         = {"Reason for Return..."}
+                    onChangeText        = {(value) => setReason(value)}
+                    data                = {getReasons}
+                    value               = {reason}
+                    containerStyle      = {styles.ddContainer}
+                    dropdownOffset      = {{ top: 0, left: 0 }}
+                    itemTextStyle       = {styles.ddItemText}
+                    inputContainerStyle = {styles.ddInputContainer}
+                    labelHeight         = {10}
+                    tintColor           = {'#FF8800'}
+                    labelFontSize       = {15}
+                    fontSize            = {15}
+                    baseColor           = {'#666'}
+                    textColor           = {'#333'}
+                    labelTextStyle      = {{ left: 5 }}
+                    style               = {styles.ddStyle}
+                    disabledLineType    = 'none'
+                  />
+                </View>
+              </View>
+              {/* <Text style={styles.tomorroworder}>Your order will be delivered to you by in 60 Minutes.</Text> */}
+            </View>
+              <Input
+                label   = "Comment"   
+                // placeholder           = "Leave a review..."
+                onChangeText          = {(text)=>setComment(text)}
+                autoCapitalize        = "none"
+                keyboardType          = "email-address"
+                inputContainerStyle   = {styles.containerStyle}
+                containerStyle        = {{paddingHorizontal:0}}
+                placeholderTextColor  = {'#bbb'}
+                inputStyle            = {{fontSize: 16}}
+                inputStyle            = {{textAlignVertical: "top"}}
+                // autoCapitalize        = 'characters'
+                multiline             = {true}
+                numberOfLines         = {4}
+                value                 = {comment}
+              />
+              <View style={{paddingVertical:15}}>
+                <Text style={CommonStyles.label}>Refunded To:</Text>
+                <View style={{flexDirection:'row',alignItems:'center'}}>
+                  <RadioButton
+                    style={styles.radiobtn}
+                    value="first"
+                    status={checked === 'first' ? 'checked' : 'unchecked'}
+                    onPress={() => {setChecked('first');setRefund('source')}}
+                  />
+                  <Text style={styles.free}>The Source (Valid for card payments only)</Text>
+                </View>
+                <View style={{flexDirection:'row',alignItems:'center'}}>
+                  <RadioButton
+                    style={styles.radiobtn}
+                    value="second"
+                    status={checked === 'second' ? 'checked' : 'unchecked'}
+                    onPress={() => {setChecked('second');setRefund('credit')}}
+                  />
+                  <Text style={styles.free}>Add to Credit Points</Text>
+                </View>
+              </View>
+             <FormButton 
+                onPress    = {()=>submitReturn()}
+                title       = {'Submit'}
+                background  = {true}
+              />
           </View>
         </Modal>
       </React.Fragment>

@@ -38,7 +38,7 @@ export const colors = {
 
   white       : "#FFFFFF",
   theme       : "#222222",
-  lightGrey   : "#E8E8E8",
+  lightGrey   : "#EEEEEE",
   black       : "#000000",
   red         : "#DC1919",
   darkGrey    : "#707070",
@@ -46,7 +46,8 @@ export const colors = {
   footerColor : "#fff",
   footerText  : "#033554",
   heartIcon   : "#DC1919",
-  color8    : "#131313",
+
+  
   color9    : "#B7B7B7",
   color10   : "#000000A3",
   color1    : "#00000029",

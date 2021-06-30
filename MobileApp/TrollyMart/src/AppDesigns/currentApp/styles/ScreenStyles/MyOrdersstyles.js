@@ -168,10 +168,6 @@ export default StyleSheet.create({
   flx7:{
     flex:0.6,
   },
-  flx3:{
-    flex:0.3,
-    
-  },
   ordercancelstatus:{
     flex:1,
     flexDirection:'row',
@@ -460,5 +456,60 @@ export default StyleSheet.create({
     borderColor:"#ccc",
     paddingHorizontal: 0,
     // height:43,
+  },
+
+
+
+
+  confirmbtn:{
+    marginTop:15,
+    // flex:0.5
+  },
+  marginBottom20:{
+    marginBottom: 20
+  },
+  inputWrapper : {
+    width:'100%',
+    // marginLeft:10,
+    // borderColor:'#666',
+    borderColor:colors.theme,
+    borderWidth:1,
+    flexDirection:'row',
+    borderRadius: 5,
+  },
+  inputTextWrapper : {
+    width:'88%'
+  },
+  ddContainer:{
+    backgroundColor:'transparent',
+    // paddingLeft:4
+    // fontFamily:"Montserrat-Regular"
+  },
+  ddItemText:{
+    fontFamily:"Montserrat-Regular"
+  },
+  ddInputContainer:{
+    borderBottomColor: 'transparent',
+    borderWidth: 0,
+  },
+  ddLabelText:{
+    backgroundColor:'#fff',
+    top:0,
+    // left:5,
+    fontFamily:"Montserrat-Regular",
+    fontSize:15,
+    paddingHorizontal:2,
+  },
+  ddStyle:{
+    fontFamily:"Montserrat-Regular",
+    backgroundColor:"#fff",
+    height:50,
+  },
+  orderbrdr:{
+    flex:1,flexDirection:"row",
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    paddingBottom:15,
+    borderStyle: 'dotted',
   },
 })

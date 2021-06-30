@@ -77,6 +77,7 @@
     "react-native-tab-view": "^3.0.1",
     "react-native-textinput-effects": "^0.6.1",
     "react-native-vector-icons": "^8.1.0",
+    "react-native-walkthrough-tooltip": "^1.2.0",
     "react-native-webview": "^11.6.4",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",

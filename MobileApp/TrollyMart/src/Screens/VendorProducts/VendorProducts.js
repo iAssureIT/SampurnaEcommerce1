@@ -24,11 +24,12 @@ import {STOP_SCROLL,SET_CATEGORY_WISE_LIST}          from '../../redux/productLi
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { Dimensions } from 'react-native';
+import { colors } from '../../AppDesigns/currentApp/styles/styles';
 const scrollY = new Animated.Value(0);
-const diffClamp= Animated.diffClamp(scrollY,0,250)
+const diffClamp= Animated.diffClamp(scrollY,0,200)
 const translateY = diffClamp.interpolate({
-  inputRange:[0,180],
-  outputRange:[0,-180]
+  inputRange:[0,200],
+  outputRange:[0,-200]
 })
 const window = Dimensions.get('window');
 export const VendorProducts = (props)=>{
@@ -161,6 +162,9 @@ const onScroll=(e)=>{
             }}
           >
            <View style={[styles.block1]}>
+            <View style={{backgroundColor:colors.lightGrey,paddingVertical:5}}>
+                <Text style={[CommonStyles.label,{paddingHorizontal:5}]}>{vendor.vendorName}</Text>
+            </View>  
             <MenuCarouselSection  
                 navigation  = {navigation}   
                 showImage   = {true} 
@@ -168,51 +172,22 @@ const onScroll=(e)=>{
                 selected    = {section}
                 index       = {index}
             />
-            <View style={{flexDirection:"row"}}>
-              <View style={{flex:0.1}}/>
-              <View style={{flex:0.9}}>
-                <Text style={CommonStyles.headerText}>{vendor.vendorName}</Text>
-              </View>  
-            {/* <View style={{flex:0.5}}> */}
-              {/* <ButtonGroup
-              onPress={(index) => {
-                if (index === 0) {
-                  setIndex(0);
-                  toggleSort(true);
-                } else {
-                  toggleFilters(true);
-                  setIndex(1);
-                }
-              }}
-              selectedIndex={selectedIndex}
-              buttons={buttons}
-              containerStyle={{
-                height: 50,
-                backgroundColor: '#fff',
-                marginTop: 0,
-                marginLeft: 0,
-                marginRight: 0,
-                marginBottom: 0,
-                borderWidth:0
-              }}
-              selectedButtonStyle={{backgroundColor: 'transparent'}}
-              selectedTextStyle={{color: '#fa6801'}}
-            /> */}
-            {/* </View> */}
-            <TouchableOpacity style={{flex:0.1}} onPress={()=>setShowFilters(true)}>
-                <Icon name="filter" type="material-community" color={"#333"}  />
-              </TouchableOpacity>
-              <TouchableOpacity style={{flex:0.1}} onPress={()=>toggleSort(true)}>
-                <Icon name="sort" type="material-community" color={"#333"}  />
-              </TouchableOpacity>
-            </View>
+           
             <CategoryList 
               navigation  = {navigation}  
               showImage   = {true} 
               boxHeight   = {40} 
               setCategory = {setCategory}
             />
+            <View style={{flexDirection:"row",justifyContent:"flex-end"}}>
+                <TouchableOpacity style={{flex:0.1}} onPress={()=>setShowFilters(true)}>
+                  <Icon name="filter" type="material-community" color={"#333"}  />
+              </TouchableOpacity>
+              <TouchableOpacity style={{flex:0.1}} onPress={()=>toggleSort(true)}>
+                <Icon name="sort" type="material-community" color={"#333"}  />
+              </TouchableOpacity>
             </View>
+           </View>
           </Animated.View>  
             {productList.categoryWiseList.length ===0 && productList.loading ?
            <View style={{marginTop:400}}>
@@ -231,6 +206,8 @@ const onScroll=(e)=>{
                   vendorLocation_id = {vendorLocation_id}
                   onEndReachedThreshold = {0.01}
                   onScroll       = {onScroll}
+                  marginTop      = {180}
+                  paddingBottom   = {230}
                 />
             :
             <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>

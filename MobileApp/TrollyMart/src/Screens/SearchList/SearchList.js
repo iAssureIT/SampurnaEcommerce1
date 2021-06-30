@@ -25,6 +25,7 @@ import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchS
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 
 export const SearchList  = withCustomerToaster((props)=>{
+  console.log("props",props);
   const {navigation,route}=props;
   const {type}=route.params;
   const store = useSelector(store => ({
@@ -49,7 +50,7 @@ export const SearchList  = withCustomerToaster((props)=>{
             <SearchSuggetion />
               :<ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
               <View style={styles.formWrapper}>
-                <View style={{marginTop:15,paddingHorizontal:15,marginBottom:60}}>
+                <View style={{marginTop:15,marginBottom:60}}>
                 {
                     globalSearch.searchList.length ===0 && productList.loading ?
                     <Loading />
@@ -65,6 +66,8 @@ export const SearchList  = withCustomerToaster((props)=>{
                         loading         = {productList.loading}
                         vendorName      = {true}
                         onEndReachedThreshold = {0.5}
+                        marginTop       = {0}
+                        paddingBottom   = {0}
                     />
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>

@@ -84,7 +84,7 @@ export const ProductList = withCustomerToaster((props)=>{
     setPacksizes(result[0].size)
   }
 
-  const addToCart=(productid,vendor_ID,vendorName)=>{
+  const addToCart=(productid,vendor_ID)=>{
     if(user_id){
       const formValues = {
         "user_ID"           : user_id,
@@ -341,7 +341,17 @@ export const ProductList = withCustomerToaster((props)=>{
               : null */}
             <View style={styles.sizedrpbtn}>
               <Button
-                  onPress={() => item.vendor_ID ? addToCart(item._id,item.vendor_ID,item.vendorName) : addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)}
+                  onPress={() => vendorLocation_id ?
+                      item.vendor_ID ? 
+                       addToCart(item._id,item.vendor_ID) 
+                        : 
+                        addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
+                    :
+                    item.vendor_ID ? 
+                      addToCartWish(item._id,item.vendor_ID,item.vendorLocation_id,item.vendorName)
+                      :
+                      addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
+                  }
                   titleStyle={CommonStyles.addBtnText}
                   title="ADD TO CART"
                   buttonStyle={CommonStyles.addBtnStyle}
@@ -378,7 +388,7 @@ export const ProductList = withCustomerToaster((props)=>{
         <FlatList
           data                          = {productsDetails}
           showsVerticalScrollIndicator  = {false}
-          contentContainerStyle         ={{paddingVertical:15,marginTop:180,paddingBottom:230}}
+          contentContainerStyle         ={{paddingVertical:15,marginTop:props.marginTop,paddingBottom:props.paddingBottom}}
           renderItem                    = {_renderlist} 
           nestedScrollEnabled           = {true}
           numColumns                    = {2}

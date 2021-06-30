@@ -12,7 +12,7 @@ export default StyleSheet.create({
 		top:0,
 		left:0,
 		right:0,
-		height:180,
+		height:200,
 		backgroundColor:"#fff",
 		justifyContent:"center"
 	},

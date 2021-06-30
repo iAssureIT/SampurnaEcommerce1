@@ -15,8 +15,6 @@ import { Header,
         Icon, 
         SearchBar }             from "react-native-elements";
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
-import {HeaderBar3}             from '../HeaderBar3/HeaderBar3.js';
-import {Footer}                 from '../Footer/Footer.js';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                    from 'axios';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
@@ -65,7 +63,7 @@ export const HorizontalSecCatList =(props)=>{
 
   const _renderlist = ({ item, index })=>{
     return (
-      <TouchableOpacity style={{width:120,marginRight:10,backgroundColor:"#fff"}} 
+      <TouchableOpacity style={{width:160,marginRight:10,backgroundColor:"#fff"}} 
           onPress={() =>{
               // navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
               dispatch(getCategoryWiseList(item._id,user_id ? user_id : null,"lowestprice",props.section));

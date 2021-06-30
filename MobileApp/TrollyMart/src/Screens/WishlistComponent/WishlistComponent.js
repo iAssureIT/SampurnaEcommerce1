@@ -69,6 +69,8 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                             categories  = {[]}
                             loading     = {loading}
                             disabled    = {parseInt(item.distance) <= item.maxDistanceRadius ? false :true}
+                            marginTop   = {0}
+                            paddingBottom  = {0}
                         />
                         </View>
                       )
