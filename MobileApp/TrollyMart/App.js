@@ -14,6 +14,7 @@ import {localNotificationService} from './src/LocalNotificationService';
 import {fcmService} from './src/FCMService';
 import {REACT_APP_BASE_URL} from '@env'
 // axios.defaults.baseURL = 'https://devapi.knock-knockeshop.com';
+// axios.defaults.baseURL = 'https://192.168.43.213:3366';
 console.log("REACT_APP_BASE_URL",REACT_APP_BASE_URL);
 axios.defaults.baseURL = REACT_APP_BASE_URL;
 // console.log("axios.defaults.baseURL ",axios.defaults.baseURL);
