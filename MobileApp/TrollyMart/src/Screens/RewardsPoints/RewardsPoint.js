@@ -7,15 +7,15 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Button,}     from "react-native-elements";
-import axios          from "axios";
-import {Menu}         from '../../ScreenComponents/Menu/Menu.js';
+import { Button,Card}       from "react-native-elements";
+import axios            from "axios";
+import {Menu}           from '../../ScreenComponents/Menu/Menu.js';
 import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}       from '../../ScreenComponents/Footer/Footer.js';
-import styles         from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
-import {colors}       from '../../AppDesigns/currentApp/styles/styles.js';
-import Loading        from '../../ScreenComponents/Loading/Loading.js';
-import AsyncStorage   from '@react-native-async-storage/async-storage';
+import {Footer}         from '../../ScreenComponents/Footer/Footer.js';
+import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
+import {colors}         from '../../AppDesigns/currentApp/styles/styles.js';
+import Loading          from '../../ScreenComponents/Loading/Loading.js';
+import AsyncStorage     from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector }        from 'react-redux';
 import moment      from 'moment';
@@ -82,9 +82,10 @@ export const RewardsPoint =withCustomerToaster((props)=>{
             {creditPoints&&<View style={styles.acdashparent}>
               <View style={styles.accuserinfo}>
                 <View style={[styles.padhr15,{backgroundColor:colors.cartButton}]}>
-                  <Text style={[CommonStyles.headerText,{color:"#fff"}]}>Total Points :  {creditPoints.totalPoints}</Text>
+                  <Text style={[CommonStyles.headerText,{color:"#fff"}]}>Total Credit Points :  {creditPoints.totalPoints}</Text>
+                  <Text style={[CommonStyles.headerText,{color:"#fff"}]}>Current Balance :  {creditPoints.totalPoinsValue} {currency}</Text>
                 </View>
-                <View style={[styles.padhr18,{flex:1}]}> 
+                {/* <View style={[styles.padhr18,{flex:1}]}> 
                     <View style={styles.accusermobinfo}>
                       <View style={{flex:.25}}>
                         <Text style={[CommonStyles.label]}>Order ID</Text>
@@ -99,27 +100,26 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                         <Text style={[CommonStyles.label,{alignSelf:"flex-end"}]}>Points</Text>
                         </View>   
                     </View>
-                </View>
+                </View> */}
                 {creditPoints.transactions && creditPoints.transactions.length > 0 ?
                 creditPoints.transactions.map((item,index)=>{
                   if(item!==null){
                     return(
-                        <View style={[styles.padhr18,{flex:1}]}> 
+                        <Card style={[styles.padhr18,{flex:1}]}> 
                             <View style={styles.accusermobinfo}>
-                              <View style={{flex:.25}}>
+                            <View style={{flex:.3}}>
+                                <Text style={[styles.accusermob]}>{moment(item.orderDate).format('MM-DD-YYYY')}</Text>
+                              </View> 
+                              <View style={{flex:.5,paddingHorizontal:5}}>
+                               <Text style={[styles.accusermob]}>{item.typeOfTransaction ? item.typeOfTransaction:""}</Text>
                                 <Text style={[styles.accusermob]}>{item.orderID ? item.orderID:""}</Text>
+                                <Text style={[styles.accusermob]}>{moment(item.expiryDate).format('MM-DD-YYYY')}</Text>
                               </View>  
-                              <View style={{flex:.25}}>
-                                <Text style={[styles.accusermob]}>{moment(item.orderDate).format('MM-DD-YYYY')}</Text>
-                              </View>   
-                              <View style={{flex:.25}}>
-                                <Text style={[styles.accusermob]}>{moment(item.orderDate).format('MM-DD-YYYY')}</Text>
-                              </View>    
-                              <View style={{flex:.25}}>
+                              <View style={{flex:.2}}>
                                 <Text style={[styles.accusermob,{alignSelf:"flex-end"}]}>{item.earnedPoints}</Text>
                                 </View>   
                             </View>
-                        </View>
+                        </Card>
                     )
                   }
                 })

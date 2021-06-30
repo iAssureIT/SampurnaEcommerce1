@@ -20,7 +20,7 @@ export const getS3Details = () => {
         type: SET_S3_DETAILS,
         payload: {
           bucket: response.data.bucket,
-          keyPrefix: 'ticketImages',
+          keyPrefix: 'devImages',
           region: response.data.region,
           accessKey: response.data.key,
           secretKey: response.data.secret,

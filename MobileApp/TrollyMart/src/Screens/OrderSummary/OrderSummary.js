@@ -52,7 +52,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
     const [subtotalitems,setSubTotalItems] = useState('');
     const [subtotal,setSubTotal] = useState('');
     const [couponCode,setCouponCode] = useState('');
-    const [creditPointsUsed,setRedeemPoints] = useState(0);
+    const [creditPointsUsed,setRedeemPoints] = useState('');
     const [coupenPrice,setCoupenPrice] = useState(0);
     const [totalPrice,setTotalPrice] =useState(0);
     // const [currency,setCurrency] = useState('');
@@ -164,7 +164,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
     // if(creditPointsUsed === 0){
       var payload={
           "user_ID"     : user_id,
-          "creditPointsUsed"  : creditPointsUsed
+          "creditPointsUsed"  : parseFloat(creditPointsUsed)
       }
       console.log("payload",payload);
       axios.patch('/api/carts/redeem/creditpoints',payload)
@@ -172,14 +172,29 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
         console.log("res",res);
           // setToast({text: res.data.message, color:res.data.message === "Reee Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data);
-          setRedeemPoints('');
+          setRedeemPoints(0);
           // setCouponCode('');
       })
       .catch(err=>{
-        setRedeemPoints('');
+        setRedeemPoints(0);
         console.log("err",err);
       })
     // } 
+  }
+
+  const onCheckLimit = (value) => {
+    const parsedQty = Number.parseFloat(value);
+    if (Number.isNaN(parsedQty)) {
+      setRedeemPoints('') //setter for state
+    } else if (parsedQty > cartData.totalCreditPointsValue) {
+       if(cartData.totalCreditPointsValue > cartData.paymentDetails.afterDiscountTotal){
+        setRedeemPoints(cartData.paymentDetails.afterDiscountTotal)
+       }else{
+         setRedeemPoints(cartData.totalCreditPointsValue)
+       }
+    } else {
+      setRedeemPoints(value)
+    }
   }
   
  
@@ -264,7 +279,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                           <View key={index}>
                             <View key={index} style={styles.proddetails}>
                               <View style={styles.flxdir}>
-                                <View style={styles.flxpd}>
+                                <View style={[styles.flxpd]}>
                                   <TouchableOpacity onPress={() => navigation.navigate('SubCatCompView', { productID: item.product_ID })}>
                                     {item.product_ID.productImage.length > 0 ?
                                       <Image
@@ -278,6 +293,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                                       />
                                     }
                                   </TouchableOpacity>
+                                  
                                 </View>
                                 <View style={styles.flxmg}>
                                   <TouchableOpacity onPress={() => navigation.navigate('', { productID: item.product_ID })}>
@@ -302,14 +318,16 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                                             <Text style={styles.ogprice}>( {item.product_ID.discountPercent} % OFF) <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                                             </Text>
                                         </View>}
-                                        <View style={[styles.flxdir,styles.padhr15,{flex:1,justifyContent:"flex-end"}]}>
-                                            <Text style={[styles.ogprice]}> Qty : {item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                                            </Text>
-                                        </View>
+                                      
                                       </View>
                                       :
                                       <Text style={styles.totaldata}>SOLD OUT</Text>
                                     }
+                                   <View style={[styles.flxdir,{alignItems:"center"}]}>
+                                      <Text style={[styles.ogprice]}>Qty : {item.quantity}<Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                                      </Text>
+                                  </View>
+                                      
                                   </View>
                               </View>
                             </View>
@@ -461,12 +479,13 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                     {cartData.paymentDetails.afterDiscountCouponAmount === 0 && cartData.paymentDetails.creditPointsUsed === 0&& <Text style={[CommonStyles.label,{alignSelf:'center'}]}>OR</Text>}
                      {cartData.paymentDetails.afterDiscountCouponAmount === 0 && cartData.paymentDetails.creditPointsUsed === 0?
                      <View style={{marginTop:15}}>
-                        <Text style={[CommonStyles.label]}>Store Credit AED 100 Available</Text>
+                        <Text style={[CommonStyles.label]}>Credit Points Available {cartData.totalCreditPoints} Points.</Text>
+                        <Text style={[CommonStyles.textLight]}>Total Balanace Available {cartData.totalCreditPointsValue} {currency}.</Text>
                         <View style={{flex:1,flexDirection:"row",height:50}}>
                           <View style={{flex:.7}}>
                             <Input
-                              placeholder           = "20 AED"
-                              onChangeText          = {(text)=>setRedeemPoints(text)}
+                              placeholder           = "Enter credit points..."
+                              onChangeText          = {(text)=>onCheckLimit(text)}
                               autoCapitalize        = "none"
                               keyboardType          = "email-address"
                               inputContainerStyle   = {styles.containerStyle}
@@ -475,7 +494,8 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                               inputStyle            = {{fontSize: 16}}
                               inputStyle            = {{textAlignVertical: "top"}}
                               autoCapitalize        = 'characters'
-                              value                 = {creditPointsUsed}
+                              value                 = {creditPointsUsed.toString()}
+                              keyboardType          = 'numeric'
                             />
                           </View>  
                           <View style={{flex:.3}}>

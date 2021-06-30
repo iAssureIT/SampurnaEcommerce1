@@ -97,7 +97,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                                     <Text style={[CommonStyles.label,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{store?.preferences?.currency} {item.productPrice}</Text>
                                 </View>
                                 <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:1}}>
-                                <Card.Image source={require("../../AppDesigns/currentApp/images/time.png")} style={{height:100,width:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
+                                <Card.Image source={require("../../AppDesigns/currentApp/images/Time.png")} style={{height:100,width:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
                                     {/* <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:35}]}>{item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title> */}
                                     <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:40}]}>60 Mins </Card.Title>
                                 </Card.Image>

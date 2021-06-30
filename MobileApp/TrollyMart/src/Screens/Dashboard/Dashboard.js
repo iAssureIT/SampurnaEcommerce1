@@ -20,6 +20,7 @@ import styles                       from '../../AppDesigns/currentApp/styles/Scr
 import Loading                      from '../../ScreenComponents/Loading/Loading.js';
 import {withCustomerToaster}        from '../../redux/AppState.js';
 import { getList,getCartCount } 		              from '../../redux/productList/actions';
+import { getS3Details } 		       from '../../redux/s3Details/actions';
 import { getSectionList } 		      from '../../redux/section/actions';
 import { getPreferences } 		      from '../../redux/storeSettings/actions';
 import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCatList/HorizontalSecCatList.js';
@@ -40,6 +41,7 @@ const Dashboard = withCustomerToaster((props)=>{
     useEffect(() => {
         dispatch(getSectionList());
         dispatch(getPreferences());
+        dispatch(getS3Details());
         getBlocks();
     },[]);
 

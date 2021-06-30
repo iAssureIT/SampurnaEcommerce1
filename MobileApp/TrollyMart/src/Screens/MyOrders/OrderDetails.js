@@ -5,7 +5,8 @@ import {
   View,
   Image,
   TouchableOpacity,
-  TextInput
+  ActivityIndicator,
+  TextInput,
 }                       from 'react-native';
 import { Icon, Card,Button,Rating,Input } from "react-native-elements";
 import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
@@ -29,6 +30,9 @@ import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import { Dropdown }             from 'react-native-material-dropdown-v2';
 import { RadioButton }        from 'react-native-paper';
+import ImagePicker              		from 'react-native-image-crop-picker';
+import {PERMISSIONS, request, RESULTS} 	from 'react-native-permissions';
+import { RNS3 }                 		from 'react-native-aws3';
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
@@ -77,16 +81,19 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [reason,setReason]=useState('');
   const [checked,setChecked]                = useState('first');
   const [comment, setComment] = useState('')
-  const [refund, setRefund] = useState('')
-  const [returnProductImages, setReturnProductImages] = useState([])
+  const [refund, setRefund] = useState('source')
+  const [returnProductImages, setReturnProductImages] = useState([]);
+  const [reviewProductImages, setReviewProductImages] = useState([]);
+  const [imageLoading,setImageLoading] = useState([]);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     userDetails     : store.userDetails,
-    globalSearch    : store.globalSearch
+    globalSearch    : store.globalSearch,
+    s3Details       : store.s3Details.data
   }));
   const {currency}=store.preferences;
-  const {globalSearch}=store;
+  const {globalSearch,s3Details}=store;
 
   useEffect(() => {
   
@@ -264,11 +271,12 @@ const cancelorderbtn = (id,vendor_id) => {
         "customer_id"     		: store.userDetails.user_id,
         "customerName"        : store.userDetails.firstName+" "+store.userDetails.lastName,
         "order_id"        		: orderid,
-        "product_id"      		: vendorDetails.products[productIndex].product_ID,
+        "product_id"      		: vendorDetails.products[productIndex]._id,
         "vendor_id" 			    : vendorDetails.vendor_id._id,
         "vendorLocation_id"   : vendorDetails.vendorLocation_id,
         "rating"          		: rating,
         "customerReview"  		: review,
+        "reviewProductImages" : reviewProductImages,
         "status"          		: "New"
       }
       axios.post('/api/customerReview/post',formValues)
@@ -276,6 +284,7 @@ const cancelorderbtn = (id,vendor_id) => {
         setModal(false);
         setVendorDetails();
         setProductIndex('');
+        setReviewProductImages([]);
         setReview('')
         setRating(1);
         setToast({text: res.data.message, color: 'green'});
@@ -289,6 +298,7 @@ const cancelorderbtn = (id,vendor_id) => {
 
 
   const submitReturn=()=>{
+    if(reason!=='' && comment!==''&&refund!==''&&returnProductImages.length>0){
       var formValues = {
         "user_id"     		    : store.userDetails.user_id,
         "order_id"        		: orderid,
@@ -317,6 +327,9 @@ const cancelorderbtn = (id,vendor_id) => {
       .catch(err=>{
         console.log("err",err);
       })
+    }else{
+      setToast({text: "All fields are mandetory", color: colors.red});
+    } 
   }
 
   const getSingleReview=(product_id)=>{
@@ -333,12 +346,103 @@ const cancelorderbtn = (id,vendor_id) => {
       setReviewId(res.data._id)
       setReview(res.data.customerReview)
       setRating(res.data.rating);
+      setReviewProductImages([])
       // setToast({text: res.data.message, color: 'green'});
     })
     .catch(err=>{
       console.log("err",err);
     })
   }
+
+
+
+  const chooseFromLibrary = (props,state) => {
+    console.log("props",props);
+    var openType = props === 'openCamera' ? ImagePicker.openCamera : ImagePicker.openPicker;
+    request(
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.PHOTO_LIBRARY
+        : PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+    )
+      .then(result => {
+        switch (result) {
+          case RESULTS.GRANTED:
+            openType({
+              multiple      : true,
+              waitAnimationEnd: false,
+              includeExif: true,
+              forceJpg: true,
+            }).then(response => {
+            setImageLoading(true);
+              response =  props === 'openCamera' ? [response] : response;
+              for (var i = 0; i<response.length; i++) {
+                  if(response[i].path){
+              const file = {
+                uri  : response[i].path,
+                name : response[i].path.split('/').pop().split('#')[0].split('?')[0],
+                type : 'image/jpeg',
+              }
+                  if(file) {
+                      var fileName = file.name; 
+                      var ext = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2); 
+                      if(ext=="jpg" || ext=="png" || ext=="jpeg" || ext=="JPG" || ext=="PNG" || ext=="JPEG"){  
+                        if(file){
+                          RNS3
+                          .put(file,s3Details)
+                          .then((Data)=>{
+                            console.log("Data",Data);
+                            console.log("state",state);
+                            if(state === "Return"){
+                              setReturnProductImages([
+                                ...returnProductImages,
+                                Data.body.postResponse.location,
+                              ]);
+                            }else if(state === "Review"){
+                              setReviewProductImages([
+                                ...reviewProductImages,
+                                Data.body.postResponse.location,
+                              ]);
+                            }
+                          setImageLoading(false);
+                          })
+                          .catch((error)=>{
+                            setToast({text: 'Something went wrong.', color: 'red'});
+                            setImageLoading(false);
+                          });
+                        }else{       
+                            setToast({text: 'File not uploaded.', color: 'red'});
+                            setImageLoading(false);
+                          }
+                      }else{
+                          setToast({text: 'Only Upload  images format (jpg,png,jpeg).', color: 'red'});
+                          setImageLoading(false);
+                      }
+                  }
+               }    
+             }       
+             });
+            break;
+            case RESULTS.UNAVAILABLE:
+          console.log(
+            'This feature is not available (on this device / in this context)',
+          );
+          break;
+        case RESULTS.DENIED:
+          console.log(
+            'The permission has not been requested / is denied but requestable',
+          );
+          break;
+          case RESULTS.BLOCKED:
+          console.log('The permission is denied and not requestable anymore');
+          break;
+        }
+      })
+      .catch(error => {
+        console.log("err",error)
+        setImageLoading(false);
+      setToast({text: 'Something went wrong.', color: 'red'});
+      });
+  };
 
     return (
       <React.Fragment>
@@ -460,9 +564,9 @@ const cancelorderbtn = (id,vendor_id) => {
                                     </View>
                                     {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
                                         <View style={[styles.flxdir,{alignItems:"center",marginTop:10,flex:1}]}>
-                                        {pitem.productStatus ==="Returned" ?
+                                        {pitem.productStatus ==="Return Requested" ?
                                          <View style={{flex:.5}}>
-                                         <Text style={[styles.ogprice,]}>Return Initiated</Text>
+                                         <Text style={[styles.ogprice,]}>{pitem.productStatus}</Text>
                                        </View>
                                        :
                                       <View style={{flex:.5}}>
@@ -667,7 +771,7 @@ const cancelorderbtn = (id,vendor_id) => {
           hideModalContentWhileAnimating={true}
           style={{ paddingHorizontal: '5%', zIndex: 999 }}
           animationOutTiming={500}>
-          <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
+          <View style={{ backgroundColor: "#fff",borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10, borderWidth: 2, borderColor: colors.theme }}>
           {vendorDetails&&<Card containerStyle={styles.prodorders} wrapperStyle={{flexDirection:"row",flex:1}}>
               <View style={{flex:0.3}}>
                 { vendorDetails.products[productIndex].productImage && vendorDetails.products[productIndex].productImage[0] ?<Image
@@ -725,6 +829,27 @@ const cancelorderbtn = (id,vendor_id) => {
                 numberOfLines         = {4}
                 value                 = {review}
               />
+              <View style={{flexDirection:'row',justifyContent:"flex-end",marginBottom:15}}>
+                <Icon name="plus" size={15}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Review')}/>
+                <Icon name="image" size={15}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Review')}/>
+              </View>
+              <View style={{flexDirection:"row",marginBottom:15}}>
+                {
+                  reviewProductImages && reviewProductImages.length > 0 ?
+                  reviewProductImages.map((item,index)=>{
+                    return(
+                      <Image
+                        source={{uri:item}}
+                        resizeMode="cover"
+                        style={{height:50,width:50,marginRight:15,backgroundColor:"#f1f1f1"}}
+                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
+                      />
+                    )
+                  })
+                  :
+                  null
+                }
+               </View> 
              <FormButton 
                 onPress    = {()=>submitReview()}
                 title       = {'Submit'}
@@ -776,7 +901,7 @@ const cancelorderbtn = (id,vendor_id) => {
               </View>  
             </Card>}
                <View style={[styles.confirmbtn, styles.marginBottom20]}>
-                 {/* <Text>Reason for Return</Text> */}
+              <Text style={[CommonStyles.errorText,{marginBottom:15}]}>All fields are madetory</Text>
               <View style={[styles.inputWrapper]}>
                 <View style={styles.inputTextWrapper}>
                   <Dropdown
@@ -803,6 +928,7 @@ const cancelorderbtn = (id,vendor_id) => {
               </View>
               {/* <Text style={styles.tomorroworder}>Your order will be delivered to you by in 60 Minutes.</Text> */}
             </View>
+              
               <Input
                 label   = "Comment"   
                 // placeholder           = "Leave a review..."
@@ -819,6 +945,27 @@ const cancelorderbtn = (id,vendor_id) => {
                 numberOfLines         = {4}
                 value                 = {comment}
               />
+              <View style={{flexDirection:'row',justifyContent:"flex-end"}}>
+                <Icon name="plus" size={15}  type="font-awesome" iconStyle={{paddingHorizontal:5}}  onPress={() => chooseFromLibrary('openCamera','Return')}/>
+                <Icon name="image" size={15}  type="font-awesome" onPress={() => chooseFromLibrary('openPicker','Return')}/>
+              </View>
+              <View style={{flexDirection:"row"}}>
+                {
+                  returnProductImages && returnProductImages.length > 0 ?
+                  returnProductImages.map((item,index)=>{
+                    return(
+                      <Image
+                        source={{uri:item}}
+                        resizeMode="cover"
+                        style={{height:50,width:50,marginRight:15,backgroundColor:"#f1f1f1"}}
+                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
+                      />
+                    )
+                  })
+                  :
+                  null
+                }
+               </View> 
               <View style={{paddingVertical:15}}>
                 <Text style={CommonStyles.label}>Refunded To:</Text>
                 <View style={{flexDirection:'row',alignItems:'center'}}>

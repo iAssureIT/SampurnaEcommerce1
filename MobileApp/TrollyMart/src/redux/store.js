@@ -12,6 +12,7 @@ import globalSearch           from './globalSearch';
 import location               from './location';
 import section                from './section';
 import storeSettings                from './storeSettings';
+import s3Details              from './s3Details';
 const appReducer = combineReducers({
   userDetails,
   productList,
@@ -20,6 +21,7 @@ const appReducer = combineReducers({
   location,
   section,
   storeSettings,
+  s3Details,
   appStateReducer: AppStateReducer,
 });
 

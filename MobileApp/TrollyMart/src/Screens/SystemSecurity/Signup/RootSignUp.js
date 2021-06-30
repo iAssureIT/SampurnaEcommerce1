@@ -84,7 +84,7 @@ const window = Dimensions.get('window');
                   username    : "MOBILE",
                   isdCode     : callingCode
                 }
-                console.log("formValues",formValues);
+                console.log("formValues",formValues); 
                 axios.post('/api/auth/post/signup/user/otp',formValues)
                 .then((response) => {
                   setLoading(false)

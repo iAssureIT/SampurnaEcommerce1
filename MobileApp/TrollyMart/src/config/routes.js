@@ -178,13 +178,13 @@ const AppStack = () => (
 
 const Auth = createStackNavigator();
 const AuthStack = () => (
-  <Auth.Navigator headerMode="none">
-      <Auth.Screen name="Auth"          component={RegisterStack} options={{
+  <Auth.Navigator >
+      <Auth.Screen name="Auth"          component={RegisterStack}  options={{headerShown: false}}/>
+      <Auth.Screen name="App"           component={BottomNavScreen} options={{
         headerShown: true,
         headerTitleAlign: "left",
         header: (props) => <HeaderBar2  {...props} />,
       }} />
-      <Auth.Screen name="App"           component={BottomNavScreen} options={{headerShown: false}}/>
       <Auth.Screen name="LocationMain"  component={LocationScreen} options={{headerShown: false}}/>
   </Auth.Navigator>
 );
@@ -192,13 +192,13 @@ const AuthStack = () => (
 
 const LocationMain = createStackNavigator();
 const LocationStack = () => (
-      <LocationMain.Navigator headerMode="none">
-      <LocationMain.Screen name="LocationMain"  component={LocationScreen} options={{
+      <LocationMain.Navigator >
+      <LocationMain.Screen name="LocationMain"  component={LocationScreen}   options={{headerShown: false}}/>
+      <LocationMain.Screen name="App"           component={BottomNavScreen} options={{
         headerShown: true,
         headerTitleAlign: "left",
         header: (props) => <HeaderBar2  {...props} />,
-      }} />
-      <LocationMain.Screen name="App"           component={BottomNavScreen} options={{headerShown: false}}/>
+      }}/>
       <LocationMain.Screen name="Auth"          component={RegisterStack} options={{headerShown: false}} />
   </LocationMain.Navigator>
 );
