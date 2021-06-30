@@ -26,10 +26,10 @@ import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/Sea
 import { Dimensions } from 'react-native';
 import { colors } from '../../AppDesigns/currentApp/styles/styles';
 const scrollY = new Animated.Value(0);
-const diffClamp= Animated.diffClamp(scrollY,0,200)
+const diffClamp= Animated.diffClamp(scrollY,0,180)
 const translateY = diffClamp.interpolate({
-  inputRange:[0,200],
-  outputRange:[0,-200]
+  inputRange:[0,180],
+  outputRange:[0,-180]
 })
 const window = Dimensions.get('window');
 export const VendorProducts = (props)=>{
@@ -162,7 +162,7 @@ const onScroll=(e)=>{
             }}
           >
            <View style={[styles.block1]}>
-            <View style={{backgroundColor:colors.lightGrey,paddingVertical:5}}>
+            <View style={{backgroundColor:colors.lightGrey,paddingVertical:2}}>
                 <Text style={[CommonStyles.label,{paddingHorizontal:5}]}>{vendor.vendorName}</Text>
             </View>  
             <MenuCarouselSection  
@@ -176,15 +176,15 @@ const onScroll=(e)=>{
             <CategoryList 
               navigation  = {navigation}  
               showImage   = {true} 
-              boxHeight   = {40} 
+              boxHeight   = {30} 
               setCategory = {setCategory}
             />
             <View style={{flexDirection:"row",justifyContent:"flex-end"}}>
-                <TouchableOpacity style={{flex:0.1}} onPress={()=>setShowFilters(true)}>
-                  <Icon name="filter" type="material-community" color={"#333"}  />
+                <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>
+                  <Icon name="filter" type="material-community" color={"#333"} size={20} />
               </TouchableOpacity>
-              <TouchableOpacity style={{flex:0.1}} onPress={()=>toggleSort(true)}>
-                <Icon name="sort" type="material-community" color={"#333"}  />
+              <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>toggleSort(true)}>
+                <Icon name="sort" type="material-community" color={"#333"} size={20} />
               </TouchableOpacity>
             </View>
            </View>
@@ -207,7 +207,7 @@ const onScroll=(e)=>{
                   onEndReachedThreshold = {0.01}
                   onScroll       = {onScroll}
                   marginTop      = {180}
-                  paddingBottom   = {230}
+                  paddingBottom  = {250}
                 />
             :
             <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>

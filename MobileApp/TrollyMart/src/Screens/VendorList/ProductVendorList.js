@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList, Alert,SafeAreaView,RefreshControl
+  TouchableOpacity, Image, FlatList, Alert,SafeAreaView,RefreshControl,ImageBackground
 } from 'react-native';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
@@ -80,34 +80,25 @@ export const ProductVendorList = withCustomerToaster((props)=>{
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity  style={{elevation:5}} onPress={()=> navigation.navigate('SubCatCompView', { productID: product_id ,currency:store?.preferences?.currency,vendorLocation_id:item.vendorLocation_id,location:store.location})}>
-                <Card containerStyle={{flex:1,padding:0,marginHorizontal:0}} >
-                    <Card.Image source={require("../../AppDesigns/currentApp/images/sm4.jpeg")} style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
-                        <View style={{flex:1,flexDirection:"row"}}>
-                            {/* <Card.Title style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.vendorAddress}</Card.Title> */}
-                            <View style={{flex:0.3,justifyContent:'center'}}>
-                                <View style={{justifyContent:"center",alignItems:"center",backgroundColor:"#fff",borderRadius:100,marginHorizontal:5,height:80,width:80}}>
-                                    {item.vendorLogo ? <Card.Image source={{uri:item.vendorLogo}} style={{height:80,width:80,borderRadius:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></Card.Image> :null}
-                                </View>
-                            </View>    
-                             <View style={{flex:0.7}}>
-                             <View style={{flex:1}}>
-                                    <Text style={[CommonStyles.headerText,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5,fontSize:20}]}>{item.vendorName}</Text>
-                                    <Text style={[CommonStyles.label,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{item.productName}</Text>
-                                    <Text style={[CommonStyles.label,{color:"#fff",opacity:1,alignSelf:"flex-start",paddingHorizontal:5}]}>{store?.preferences?.currency} {item.productPrice}</Text>
-                                </View>
-                                <View style={{justifyContent:"flex-end",alignItems:"flex-end",flex:1}}>
-                                <Card.Image source={require("../../AppDesigns/currentApp/images/Time.png")} style={{height:100,width:100}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
-                                    {/* <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:35}]}>{item.expectedDiliveryTime ? item.expectedDiliveryTime +" Min" : "60 Min"}</Card.Title> */}
-                                    <Card.Title style={[{color:"#fff",opacity:1,marginTop:45,marginRight:40}]}>60 Mins </Card.Title>
-                                </Card.Image>
-                                </View>    
-                             </View>
-                        </View>
-                         
-                    </Card.Image>    
-                </Card>
-            </TouchableOpacity>        
+            <TouchableOpacity style={{paddingHorizontal:15,paddingLeft:30,marginBottom:5}} onPress={()=> navigation.navigate('SubCatCompView', { productID: product_id ,currency:store?.preferences?.currency,vendorLocation_id:item.vendorLocation_id,location:store.location})} activeOpacity={1}>                  
+            <Card containerStyle={{padding:0,borderRadius:7,height:100,marginRight:0,elevation:5}} wrapperStyle={{alignItems:'center',flexDirection:'row'}}>
+                <View style={styles.logoBox1}>
+                    {item.vendorLogo ? <ImageBackground source={{uri:item.vendorLogo}} style={{height:80,width:80}} imageStyle={{borderRadius:100,borderWidth:0.5,borderColor:  '#033554'}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></ImageBackground> :null}
+                </View>
+                    <View style={{flex:1,height:100,justifyContent:'center',paddingLeft:60}}>
+                        <Text style={[CommonStyles.subHeaderText,{color:"#000",alignSelf:"flex-start"}]}>{item.vendorName}</Text >
+                        <Text numberOfLines={2} style={[CommonStyles.text,{color:"#000"}]}>{item.productName}</Text>
+                        <Text style={[CommonStyles.text,{color:"#000"}]}>{store?.preferences?.currency} {item.productPrice.toFixed()}</Text>
+                    </View> 
+                    <ImageBackground 
+                        source={require("../../AppDesigns/currentApp/images/Time.png")} 
+                        style={{height:20,justifyContent:"center",alignSelf:"flex-end",marginBottom:5}} 
+                        resizeMode="contain" 
+                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
+                        <Text style={[{color:"#000",opacity:1,marginRight:25,fontSize:10}]}>60 Mins </Text>
+                    </ImageBackground>
+            </Card>   
+        </TouchableOpacity>   
         )
     }
 

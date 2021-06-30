@@ -9,16 +9,25 @@ export default StyleSheet.create({
 	},
 	
 	logoBox:{
+		flex:0.2,
 		position:"absolute",
 		backgroundColor:"#fff",
-		top:23,
-		left:0,
-		zIndex:999,
+		// height:80,
+		// width:80,
+		left:-25,
+	},
+	logoBox1:{
+		flex:0.2,
+		position:"absolute",
+		backgroundColor:"#fff",
+		// height:80,
+		// width:80,
+		left:-35,
 	},
 
 	timeText:{
 		position:'absolute',
-		top:30,
+		top:10,
 		right:0,
 	},
 
@@ -27,9 +36,10 @@ export default StyleSheet.create({
 		top:0,
 		left:0,
 		right:0,
-		height:200,
+		height:180,
 		backgroundColor:"#fff",
-		justifyContent:"center"
+		justifyContent:"center",
+		elevation:5
 	},
 	regionalProductName:{
 		fontFamily:'aps_dev_priyanka',

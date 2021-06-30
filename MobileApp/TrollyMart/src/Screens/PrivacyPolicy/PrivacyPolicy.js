@@ -37,7 +37,7 @@ export const PrivacyPolicy  = (props)=>{
     }
 
     const getData=()=>{
-        Axios.get('/api/pages/get/page_block/legal-policy')
+        Axios.get('/api/pages/get/page_block/privacy-policy')
         .then(res=>{
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)

@@ -136,7 +136,7 @@ export default StyleSheet.create({
 		// backgroundColor:"#ff0"
 	},
 	nameprod: {
-		fontSize: 15, fontFamily: "Montserrat-SemiBold", color: '#666'
+		fontSize: 12, fontFamily: "Montserrat-Bold", color: '#666'
 	},
 	urlprod: {
 		flex: 1, fontSize: 13, flexWrap: "wrap", fontFamily: "Montserrat-Regular", color: '#666', paddingVertical: 5
@@ -244,8 +244,7 @@ export default StyleSheet.create({
 		fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#fff', marginTop: 0,
 	},
 	protxt: {
-		alignItems: "center",
-		padding:5
+		paddingHorizontal:5
 	},
 	prdet: {
 		flex:1,
@@ -411,10 +410,10 @@ export default StyleSheet.create({
 		textDecorationLine: 'line-through', fontSize: 12, fontFamily: "Montserrat-Regular",
 	},
 	ogprice: {
-		fontSize: 14, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
+		fontSize: 12, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
 	},
 	discountpricecut: {
-		fontSize: 14, fontFamily: "Montserrat-SemiBold",
+		fontSize: 12, fontFamily: "Montserrat-SemiBold",
 		textDecorationLine: 'line-through',
 
 	},
@@ -451,10 +450,9 @@ export default StyleSheet.create({
 		
 	},
 	subcatimg: {
-		height:130,
-		width:"100%",
+		height:150,
+		width:150,
 		alignSelf:'center',
-		backgroundColor:"#eee",
 		borderTopRightRadius:15,
 		borderTopLeftRadius:15,
 			// borderWidth: 1, borderBottomColor: '#ccc',

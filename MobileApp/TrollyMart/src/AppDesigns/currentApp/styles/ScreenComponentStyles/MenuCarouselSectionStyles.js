@@ -73,7 +73,6 @@ export default StyleSheet.create({
 	},
 	categoryContainer: {
 		flexDirection: 'row',
-		height:60,
 		// marginBottom: '1%',
 	},
 	imageMenuWraper:{	

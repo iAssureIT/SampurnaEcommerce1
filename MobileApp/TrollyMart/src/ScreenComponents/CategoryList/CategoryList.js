@@ -32,7 +32,7 @@ export const CategoryList = (props)=>{
   const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, i })=>{
     return (
-      <View key={i} style={styles.mainrightside}>
+      <View key={i} style={[styles.mainrightside]}>
         <TouchableOpacity style={{borderWidth:selected===item.category ? 2:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{props.setCategory(item);setSelected(item.category)}}>
           {!showImage ?
             <ImageBackground  source={item.sectionImage ? {uri : item.sectionImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{opacity:0.6}}>

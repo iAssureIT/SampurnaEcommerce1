@@ -224,7 +224,6 @@ export const ProductList = withCustomerToaster((props)=>{
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
         <TouchableOpacity  disabled={props.disabled}onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location})}>
           <View style={styles.flx5}>
-            <View style={styles.flx1}>
               {
                 item.productSmallImage && item.productSmallImage.length > 0 ?
                   <FastImage
@@ -237,17 +236,18 @@ export const ProductList = withCustomerToaster((props)=>{
                     PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
                     style={styles.subcatimg}
                     // resizeMode="stretch"
-                    resizeMode={FastImage.resizeMode.stretch}
-                  >{item.discountPercent && item.discountPercent >0?
-                      <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
-                          <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
-                          <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
-                        </ImageBackground> :null
-                    }    
+                    resizeMode={FastImage.resizeMode.contain}
+                  >   
+                  {item.discountPercent && item.discountPercent >0?
+                    <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
+                      <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
+                      <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
+                    </ImageBackground> :null
+                  } 
                   </FastImage>
                   :
                   <Image
-                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                    source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                     style={styles.subcatimg}
                   />
               }
@@ -255,13 +255,27 @@ export const ProductList = withCustomerToaster((props)=>{
                   <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
 
                 </TouchableOpacity>}
-              {
+              {/* {
                 item.discountPercent > 0 ?
                   <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
                   :
                   null
+              } */}
+            <TouchableOpacity 
+                onPress={() => vendorLocation_id ?
+                  item.vendor_ID ? 
+                  addToCart(item._id,item.vendor_ID) 
+                    : 
+                    addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
+                :
+                item.vendor_ID ? 
+                  addToCartWish(item._id,item.vendor_ID,item.vendorLocation_id,item.vendorName)
+                  :
+                  addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
               }
-            </View>
+              style={{height:30,width:30,alignSelf:"flex-end",borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',borderColor:colors.cartButton}}>
+                <Icon name="plus" type="material-community" size={25} color={colors.cartButton}/>
+            </TouchableOpacity>  
             <View style={[styles.flx1, styles.protxt]}>
               {/* {item.brandNameRlang ?
               <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
@@ -280,7 +294,7 @@ export const ProductList = withCustomerToaster((props)=>{
               {/* {item.brandNameRlang ?
               <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
               : */}
-              <Text numberOfLines={1} style={[styles.nameprod]}>{item.productName}</Text>
+              <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
               {/* }                        */}
             </View>
             <View style={[styles.flx1, styles.prdet]}>
@@ -340,7 +354,7 @@ export const ProductList = withCustomerToaster((props)=>{
                   </View>
               : null */}
             <View style={styles.sizedrpbtn}>
-              <Button
+              {/* <Button
                   onPress={() => vendorLocation_id ?
                       item.vendor_ID ? 
                        addToCart(item._id,item.vendor_ID) 
@@ -357,7 +371,7 @@ export const ProductList = withCustomerToaster((props)=>{
                   buttonStyle={CommonStyles.addBtnStyle}
                   containerStyle={CommonStyles.addBtnContainer}
                   disabled={props.disabled}
-                />
+                /> */}
               </View>
             </View>
           </View>
