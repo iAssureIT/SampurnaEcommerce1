@@ -135,7 +135,7 @@ class Account extends Component{
                                             <button className="btn globalCommonBtn col-12 col-sm-7 " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp; </div>
                                     </div>
                                 </div>
-                                <div className="col-12 col-lg-6 col-md-12">
+                                {/* <div className="col-12 col-lg-6 col-md-12">
                                     <div className="col-12 accountDivHeader">Newsletters</div>
                                     <div className="col-12 mt-3">
                                         <div className={ "col-12  "+Style.accUserDetails}>
@@ -144,7 +144,7 @@ class Account extends Component{
                                             <button className="btn globalCommonBtn col-12 col-sm-7 "><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
