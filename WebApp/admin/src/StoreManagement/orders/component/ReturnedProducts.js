@@ -19,13 +19,13 @@ export default class ReturnProducts extends Component{
 		this.state = {
 			"returnedProducts" : [],
 			tableHeading    : {
-				"orderId" 			: "Order Id",
+				"orderID" 			: "Order Id",
                 "productName"       : "Product Name(Product Code)",
                 "vendorName"        : 'Vendor Name',
                 "customerName"      : 'Customer Name',
                 "reasonOfReturn"    : 'Reason of Return',
-                "OrderDate"        	: 'OrderedoOn',
-                "returnRequestedOn" : 'Return Requested On',
+                "OrderDate"        	: 'Ordered on',
+                "returnRequestedOn" : 'Return Requested on',
                 "approveOrReject"   : 'Approve/Reject',
                 "status"            : 'Status'
             },
@@ -75,24 +75,22 @@ export default class ReturnProducts extends Component{
 		.then((response)=>{
 			console.log("response return products => ",response.data)
 			var tableData = response.data.map((a, ind)=>{
+				console.log("condition => ",(a.productDetails && a.productDetails.length > 0));
 				if(a.productDetails && a.productDetails.length > 0){
 					return{
 						"_id"               : a._id,
-						"orderId" 			: a.productID,
+						"orderID"           : a.orderID,
 						"productName"       : a.productDetails[0] && a.productDetails[0].productName ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
 						"vendorName"        : a.vendorDetails[0] && a.vendorDetails[0].companyName ? a.vendorDetails[0].companyName : "",
 						"productImages"     : a.productDetails[0] && a.productDetails[0].productImage ? a.productDetails[0].productImage : "",
 						"customerName"      : a.customerName,
-						"customerReview"    : a.customerReview, 
-						"returnRequestedOn"        : moment(a.createdAt).format("DD MMMM YYYY, HH:mm a"),             
-						"adminComment"      : a.adminComment ? a.adminComment : "-",
-						"orderID"           : a.orderID,
-						"productID"         : a.productID,
-						"reasonOfReturn"    : a.reasonOfReturn,
-						"OrderDate"        	: 'OrderedoOn',
+						"reasonOfReturn"    : a.reasonForReturn,
+						"OrderDate"        	: moment(a.dateOfPurchase).format("DD MMMM YYYY, HH:mm a"),
+						"returnRequestedOn" : moment(a.createdAt).format("DD MMMM YYYY, HH:mm a"),             
+						// "productID"         : a.productID,
 						"approveOrReject"   : "<div class='publishOrReject'><i class='fa fa-times-circle reviewActionBtns padding-15-0 " + (a.status === 'Rejected' ? 'rejectedActive' : '') +  "'name='Rejected' id='Rejected' title='Reject Customer Review' onclick=window.changeReviewStatus('"+ a._id + "-" + "Rejected" +"')></i>"+
-												"<i class='fa fa-check-circle reviewActionBtns padding-15-0 " + (a.status === 'Published' ? 'publishedActive' : '') + "'name='Published' id='Published' title='Publish Customer Review' onClick=window.changeReviewStatus('"+ a._id + "-" + "Published" +"')></i></div>",
-						"status"            : "<div class='reviewStatusSpan review-" + a.status.toLowerCase() + "'>" + a.status + "</div>",
+												"<i class='fa fa-check-circle reviewActionBtns padding-15-0 " + (a.returnStatus === 'Published' ? 'publishedActive' : '') + "'name='Published' id='Published' title='Publish Customer Review' onClick=window.changeReviewStatus('"+ a._id + "-" + "Published" +"')></i></div>",
+						"status"            : "<div class='reviewStatusSpan review-" + a.returnStatus.toLowerCase() + "'>" + a.returnStatus + "</div>",
 						
 					};
 				}

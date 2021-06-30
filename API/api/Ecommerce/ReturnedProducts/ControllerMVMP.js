@@ -13,6 +13,13 @@ exports.get_returned_products = (req,res,next)=>{
 				as 				: 'productDetails'
 			} 
 		},
+		{ $lookup : {
+			from 				: 'entitymasters',
+			localField 			: 'vendor_id',
+			foreignField 		: '_id',
+			as 					: 'vendorDetails'
+		}
+	},	
 		// {$sort: 
 		// 	{
 		// 		"productsArray.createdAt": -1
