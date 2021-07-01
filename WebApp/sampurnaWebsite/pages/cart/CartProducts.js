@@ -279,7 +279,7 @@ class CartProducts extends Component{
     }
 
     render(){
-        console.log("this.props.recentCartData===",this.props.recentCartData.cartBtnDisabled);
+        console.log("this.props.recentCartData===",this.props.recentCartData);
         return(            
             <div className="container-fluid">
             <div className="col-12 cartHeight">
@@ -466,17 +466,26 @@ class CartProducts extends Component{
                                                                
                                                                 {/* <a href="#" data-toggle="tooltip" title={<Tooltip/>}><i className="fa fa-info-circle infoCircle"></i></a> */}
                                                                 
-                                                                <button data-tip data-for="vendorTooltip">
-                                                                    <i className="fa fa-info-circle infoCircle"></i>
-                                                                </button>
-                                                               {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
-                                                                    return(
-                                                                        <ReactTooltip id="vendorTooltip" place="left" effect="solid">
-                                                                            <div className="">{vendorWiseCartData.vendor_shippingCharges}</div>
-                                                                        </ReactTooltip>
-                                                                    )
-                                                                    })
-                                                                }
+                                                                <a data-tip data-for="vendorTooltip">
+                                                                    &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
+                                                                </a>
+                                                                <ReactTooltip id="vendorTooltip" className={"pb-2 pt-2" +Style.tooltipWrapper} place="left" effect="solid">
+                                                                {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
+                                                                    // console.log("this.props.recentCartData.vendorOrders.length===",this.props.recentCartData.vendorOrders.length);
+                                                                        return(
+                                                                            <div className={"row mb-2 text-left font-weight-bold " +Style.tooltipVendorCharges}>
+                                                                                <div className={"col-12 text-left " +Style.vendorNameTooltip}>{vendorWiseCartData.vendorName}</div>
+                                                                                <div className="col-12 ">
+                                                                                    <span className="col-5 text-left NoPadding">Delivery Charges </span> 
+                                                                                    <span className="col-1">:</span>
+                                                                                    <span className="col-6 text-right NoPadding">{vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        )
+                                                                        })
+                                                                    }
+                                                                    <div className="col-12 text-left NoPadding font-weight-bold">Total Delivery Charges : {this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
+                                                                </ReactTooltip>
                                                                 <div>
                                                                 
 

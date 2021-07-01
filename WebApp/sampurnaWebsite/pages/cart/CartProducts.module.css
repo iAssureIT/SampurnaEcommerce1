@@ -28,7 +28,6 @@
     border-radius: 4px;
     margin-bottom: 10px;
 }
-
 .bbBox{
 	border-bottom:1px solid #ccc;
 	padding-bottom:15px !important;
@@ -60,4 +59,14 @@
     transition: var(--globalTransition) !important;
     margin-top: var(--globaleCommBtnMarginTop) !important;
     font-size: var(--globaleCommBtnfontSize) !important;
+}
+.infoCircle{
+    color: #999 !important;
+}
+.vendorNameTooltip{
+    font-size: 18px;
+}
+.tooltipWrapper{
+    border-radius: 10px !important;
+    font-weight: 500 !important;
 }

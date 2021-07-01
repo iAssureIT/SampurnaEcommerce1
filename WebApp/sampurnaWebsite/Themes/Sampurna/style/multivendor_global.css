@@ -125,6 +125,7 @@
 body{
   font-family: 'Montserrat-Medium' !important;
   overflow-x: hidden !important;
+  /* background: #F8F0F3; */
   /* font-family: "Philosopher-Regular" !important; */
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
