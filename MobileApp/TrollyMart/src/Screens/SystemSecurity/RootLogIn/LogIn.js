@@ -499,6 +499,7 @@ const window = Dimensions.get('window');
                   // loading     = {btnLoading}
               />
             </View>
+            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold",color:"#aaa"}}>V 0.0.1</Text>
           </View>
         </View>
         <Modal 

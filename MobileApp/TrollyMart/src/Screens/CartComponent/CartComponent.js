@@ -242,7 +242,7 @@ const getshippingamount=(startRange, limitRange)=>{
                                 :
                                 <Image
                                   style={styles.imgwdht}
-                                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                  source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                                 />
                               }
                             </TouchableOpacity>

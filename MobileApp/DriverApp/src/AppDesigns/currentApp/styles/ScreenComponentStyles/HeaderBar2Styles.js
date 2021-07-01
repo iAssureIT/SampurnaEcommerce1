@@ -163,5 +163,53 @@ export default StyleSheet.create({
     paddingHorizontal:5,
     flexDirection:"row",
     justifyContent:"space-between",
-  }
+  },
+  tabWrap:{
+    width:120,
+    flexDirection: 'row',
+    height:35,
+    alignSelf:"flex-end"
+  },
+  activeTabView:{
+    flex:0.5,
+    padding: 5,
+    justifyContent:'center',
+    alignItems:"center",
+    backgroundColor: colors.cartButton,
+    elevation: 6,
+  },
+  
+  tabView:{
+    flex:0.5,
+    padding: 5,
+    justifyContent:'center',
+    alignItems:"center",
+    backgroundColor: colors.lightGrey,
+    elevation: 6,
+  },
+  
+  tabBorder:{
+    borderRightWidth:1,
+    borderColor: colors.primary,
+  },
+  tabText:{
+    fontSize: 12,
+    color: colors.white,
+    fontFamily: 'Roboto-Regular',
+    marginLeft: 5
+  },
+  tabText1:{
+    fontSize: 12,
+    color: colors.black,
+    fontFamily: 'Roboto-Regular',
+    marginLeft: 5
+  },
+  borderRadiusLeft:{
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+  borderRadiusRight:{
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+  },
 });

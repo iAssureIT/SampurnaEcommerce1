@@ -538,7 +538,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                   resizeMode="contain"
                                 />:
                                 <Image
-                                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                                  source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                                   style={styles.img15}
                                 />
                               }
@@ -780,7 +780,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   resizeMode="contain"
                 />:
                 <Image
-                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                  source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                   style={styles.img15}
                 />
               }
@@ -873,7 +873,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   resizeMode="contain"
                 />:
                 <Image
-                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                  source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                   style={styles.img15}
                 />
               }

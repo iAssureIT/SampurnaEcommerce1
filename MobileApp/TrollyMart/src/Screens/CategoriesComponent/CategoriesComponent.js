@@ -133,7 +133,7 @@ export const CategoriesComponent=(props)=>{
               />
             :
               <Image
-                source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                 style={styles.subcatimgbig}
               />
           }
