@@ -187,7 +187,7 @@ const window = Dimensions.get('window');
 
   return (
       //  <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-        <ScrollView style={{flex:1}}>
+        <ScrollView style={{flex:1,backgroundColor:"#fff"}}>
           <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
               <View style={{}}>
                 <View style={styles.boxOpacity}>
@@ -334,19 +334,20 @@ const window = Dimensions.get('window');
                     }
                     secureTextEntry={!showPassword}
                   />
+                  <View style={{paddingVertical:15}}>
                   <FormButton
                     title       = {'Sign Up'}
                     onPress     = {handleSubmit}
                     background  = {true}
                     loading     = {btnLoading}
                   />
+                </View>  
                  <View
                     style={[
                       {
                         flexDirection   : 'row',
                         alignItems      : 'center',
                         justifyContent  : 'center',
-                        marginTop       : '3%',
                         marginBottom    : 25,
                         paddingHorizontal:15
                       },

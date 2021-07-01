@@ -377,8 +377,7 @@ const window = Dimensions.get('window');
 
     return (
       // <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-      <ScrollView style={{flex:1}}>
-      <View style={{flex:.7}}>
+      <ScrollView style={{flex:1,backgroundColor:"#fff"}}>
           <View style={styles.boxOpacity}>
               <View style={styles.syslogo}>
                   <Image
@@ -394,7 +393,7 @@ const window = Dimensions.get('window');
             
             <View style={commonStyles.formWrapper}>
             <FormInput
-              style={[styles.inputBoxStyle]}
+              // style={[styles.inputBoxStyle]}
               labelName       = "Mobile No / Email Id"
               // placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
@@ -419,7 +418,7 @@ const window = Dimensions.get('window');
               iconType      = {'material-community'}
               rightIcon ={
                 <TouchableOpacity
-                  style={{paddingHorizontal: '5%'}}
+                  style={{paddingRight: '5%'}}
                   onPress={() => togglePassword(!showPassword)}>
                   {showPassword ? (
                     <Icon name="eye-with-line" type="entypo" size={18} />
@@ -433,7 +432,7 @@ const window = Dimensions.get('window');
             <View style={{flexDirection:"row",paddingHorizontal:15,paddingBottom:20,}}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:1,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                <Text style={[{position:'absolute',top:-30},commonStyles.linkText]}>Forgot Password?</Text>
+                <Text style={[commonStyles.linkText]}>Forgot Password?</Text>
               </TouchableOpacity>
             </View>
             <FormButton
@@ -517,7 +516,6 @@ const window = Dimensions.get('window');
             <ActivityIndicator color={colors.theme} size={40}/>
         </View>
         </Modal>
-      </View>
       </ScrollView>
     // </ImageBackground>
   );
