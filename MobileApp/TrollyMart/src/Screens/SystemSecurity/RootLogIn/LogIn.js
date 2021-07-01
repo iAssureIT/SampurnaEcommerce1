@@ -5,6 +5,7 @@ import {
   Dimensions,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
   Image,
   Modal,
   Alert
@@ -375,8 +376,9 @@ const window = Dimensions.get('window');
     }
 
     return (
-      <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-      <View style={{paddingHorizontal:20}}>
+      // <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
+      <ScrollView style={{flex:1}}>
+      <View style={{flex:.7}}>
           <View style={styles.boxOpacity}>
               <View style={styles.syslogo}>
                   <Image
@@ -385,31 +387,35 @@ const window = Dimensions.get('window');
                   style={styles.syslogoimg}
                   />
               </View>
-              <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
+              <View style={styles.textTitleWrapper}>
+                <Text style={{fontSize:10,color:"#bbb"}}>Welcome to</Text>
+                <Text style={{fontSize:15,fontWeight:'bold',color:"#000000"}}>Knock Knock</Text>
+              </View>
             
             <View style={commonStyles.formWrapper}>
             <FormInput
+              style={[styles.inputBoxStyle]}
               labelName       = "Mobile No / Email Id"
-              placeholder     = "Enter Mobile No / Email Id..."
+              // placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"
               errors          = {errors}
               touched         = {touched}
-              iconName        = {'email'}
+              // iconName        = {'email'}
               iconType        = {'material-community'}
               autoCapitalize  = "none"
               keyboardType    = "email-address"
             />
             <FormInput
               labelName     = "Password"
-              placeholder   = "Enter Password"
+              // placeholder   = "Enter Password"
               onChangeText  = {handleChange('password')}
               errors        = {errors}
               name          = "password"
               required      = {true}
               touched       = {touched}
-              iconName      = {'lock'}
+              // iconName      = {'lock'}
               iconType      = {'material-community'}
               rightIcon ={
                 <TouchableOpacity
@@ -424,6 +430,12 @@ const window = Dimensions.get('window');
               }
               secureTextEntry={!showPassword}
             />
+            <View style={{flexDirection:"row",paddingHorizontal:15,paddingBottom:20,}}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:1,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                <Text style={[{position:'absolute',top:-30},commonStyles.linkText]}>Forgot Password?</Text>
+              </TouchableOpacity>
+            </View>
             <FormButton
               title       = {'Login'}
               onPress     = {handleSubmit}
@@ -442,19 +454,15 @@ const window = Dimensions.get('window');
               ]}>
                 <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('Signup')} style={{flex:.5,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={commonStyles.linkText}>Sign Up</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:0.5,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                  <Text style={commonStyles.linkText}>Forgot Password</Text>
-                </TouchableOpacity>
+                  onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={{fontSize:10}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10}]}> Sign Up</Text></Text>                  
+                </TouchableOpacity>                
                 </View>
             </View>
-           <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
+           <Text style={{paddingVertical:10,alignSelf:"center",fontSize:9,fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",flexDirection:'row'}}>
               <GoogleSigninButton
-                style={{ width: 60, height: 60,marginRight:15}}
+                style={{ width: 41, height: 41,borderRadius:100,marginRight:15}}
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Light}
                 onPress={()=>google_login()}
@@ -464,11 +472,12 @@ const window = Dimensions.get('window');
                 <TouchableOpacity
                   onPress={loginWithFacebook}
                   style={{
-                    backgroundColor: '#fff',
+                    backgroundColor:"#4267B2",
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 50, 
-                    height: 50,
+                    width: 40, 
+                    height: 40,
+                    borderRadius:100,
                     shadowColor: "#000",
                     shadowOffset: {
                       width: 0,
@@ -478,10 +487,10 @@ const window = Dimensions.get('window');
                     shadowRadius: 3.84,
                     elevation: 5,
                   }}>
-                  <Icon name='facebook' type='font-awesome' size={25} color="#4267B2"/>
+                  <Icon name='facebook' type='font-awesome' size={36} color="#fff"/>
                 </TouchableOpacity>
             </View>
-            <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
+            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
                 <FormButton
                   title       = {'Continue As a Guest'}
@@ -509,6 +518,7 @@ const window = Dimensions.get('window');
         </View>
         </Modal>
       </View>
-    </ImageBackground>
+      </ScrollView>
+    // </ImageBackground>
   );
 };

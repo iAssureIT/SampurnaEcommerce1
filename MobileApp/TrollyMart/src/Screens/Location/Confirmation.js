@@ -1,5 +1,5 @@
 import React,{ useState,useEffect,useRef}from 'react';
-import {View,Dimensions,Image,Modal,TouchableOpacity,StyleSheet,SafeAreaView,Text,Platform}            from 'react-native';
+import {View,Dimensions,ImageBackground,Image,Modal,TouchableOpacity,StyleSheet,SafeAreaView,Text,Platform}            from 'react-native';
 import {withCustomerToaster}        from '../../redux/AppState.js';
 import { request,
     check,
@@ -72,21 +72,21 @@ export const Confirmation = withCustomerToaster((props)=>{
     console.log("userDetails",userDetails);
     return (
         <View>
-            <View style={{height:window.height, justifyContent:"flex-end",backgroundColor:"#fff"}}>
+            <ImageBackground source={require("../../AppDesigns/currentApp/images/LocationBg.jpg")} style={{height:window.height, justifyContent:"flex-end"}}>
                 <View style={{alignItems:"flex-start",paddingTop:15,paddingLeft:15}}>
                   <TouchableOpacity onPress={()=> navigation.goBack()}>
                     <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
                   </TouchableOpacity>   
                 </View>  
-                <View style={{flex:.7,justifyContent:"center",alignItems:"center",paddingHorizontal:15}}>
-                    <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/>
-                    <Text style={{color:"#333",fontFamily:"Montserrat-Bold",fontSize:18,alignSelf:"center"}}>Delivery Location</Text>
-                    <Text>Set your delivery location to browse stores around you.</Text>
+                <View style={{flex:.7,justifyContent:"flex-end",paddingHorizontal:40,paddingBottom:20}}>
+                    {/* <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/> */}
+                    <Text style={{color:"#000000",fontFamily:"Montserrat-Bold",fontSize:12}}>Delivery Location</Text>
+                    <Text style={{color:"#EF4D4D",fontSize:9}}>Set your delivery location to browse stores around you.</Text>
                 </View>    
                 <View style={{flex:.3}}>
                     <View style={{paddingHorizontal:30,marginBottom:15}}>
                     <FormButton
-                        title       = {'Detect My Location'}
+                        title       = {'Current Location'}
                         onPress     = {()=>getPermission()}
                         background  = {true}
                         // icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
@@ -95,7 +95,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                     </View>  
                     <View style={{paddingHorizontal:30,marginBottom:15}}>
                       <FormButton
-                          title       = {'Set Location Manually'}
+                          title       = {'Set Your Location'}
                           onPress     = {()=>navigation.navigate('Location',{type:'Manual'})}
                           background  = {true}
                           // icon        = {{name: "crosshairs-gps",type : 'material-community',size: 18,color: "white"}}
@@ -116,7 +116,7 @@ export const Confirmation = withCustomerToaster((props)=>{
                       null
                     } 
                 </View>   
-            </View>
+            </ImageBackground>
             <BottomModal
                 closeModal={() => toggleModal(false)}
                 visible={showModal}

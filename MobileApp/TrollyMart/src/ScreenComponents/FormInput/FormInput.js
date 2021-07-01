@@ -10,10 +10,10 @@ export const FormInput = props => {
   return (
     <Input
       placeholderTextColor={'#bbb'}
-      inputStyle={{fontSize: 16}}
+      inputStyle={[styles.inputPlace,{fontSize: 12}]}
       errorMessage={touched[name] && errors[name] ? errors[name] : ''}
       label={
-        <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,}}>
+        <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,}}>
           <Text>{props.labelName}</Text>{' '}
           <Text style={{color: 'red', fontSize: 12}}>
             {props.required && '*'}
@@ -32,16 +32,23 @@ export const FormInput = props => {
 
 const styles = StyleSheet.create({
   containerStyle:{
-    borderWidth:1,
+    // borderWidth:1,
     borderRadius:5,
+    height:35,
+    marginBottom:20,
     // marginVertical:5,
-    borderColor:"#ccc",
+    // borderColor:"#ccc",
     paddingHorizontal:0,
     
   },
+
+  inputPlace:{
+    
+  },
+
   leftIconContainerStyle:{
-    borderRightWidth:1,
-    borderColor:"#ccc",
+    // borderRightWidth:1,
+    // borderColor:"#ccc",
     paddingLeft:15,
     paddingRight:15,
     margin:0,

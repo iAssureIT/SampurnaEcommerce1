@@ -17,8 +17,12 @@ export default StyleSheet.create({
         marginBottom: 20
     },
 
+    inputBoxStyle:{
+        paddingHorizontal: 15,
+    },
+
     textTitleWrapper:{
-        paddingHorizontal: 15, marginTop: 15, marginBottom:15
+        paddingHorizontal: 30, marginTop: 15, marginBottom:40
     },
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
@@ -37,10 +41,28 @@ export default StyleSheet.create({
         shadowRadius: 2,
         elevation: 8,
     },
+
+    signupTitle:{
+        fontSize:22,
+        marginHorizontal:25,
+        fontWeight:'bold',
+        color:"#000000",
+        position:'absolute',
+        top:-40,
+    },
+
+    syslogo1:{
+        flexDirection: 'row', alignItems: "center",justifyContent:"center", marginHorizontal:20,height:180
+    },
+    syslogoimg1:{
+        width: '50%',
+        height:100,
+    },
     syslogo:{
-        flexDirection: 'row', alignItems: 'center', justifyContent: 'center' 
+        flexDirection: 'row', alignItems: "flex-start", marginHorizontal:20,height:200
     },
     syslogoimg:{
-        width: '50%',height:80
+        width: '50%',
+        height:150
     },
 });

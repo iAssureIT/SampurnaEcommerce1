@@ -186,40 +186,41 @@ const window = Dimensions.get('window');
   } 
 
   return (
-       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-          <ScrollView contentContainerStyle={[commonStyles.container]} keyboardShouldPersistTaps="always" >
-              <View style={{paddingHorizontal:20,marginVertical:20}}>
+      //  <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
+        <ScrollView style={{flex:1}}>
+          <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
+              <View style={{}}>
                 <View style={styles.boxOpacity}>
-                  <View style={styles.syslogo}>
+                  <View style={styles.syslogo1}>
                       <Image
                       resizeMode="contain"
                       source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
-                      style={styles.syslogoimg}
+                      style={styles.syslogoimg1}
                       />
                   </View>
-                      <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign Up</Text></View>
+                      <View style={{marginBottom:30,}}><Text style={styles.signupTitle}>Create a account..!</Text></View>
                   <View style={commonStyles.formWrapper}>
                   <FormInput
                     labelName       = "First Name"
-                    placeholder     = "First Name"
+                    // placeholder     = "First Name"
                     onChangeText    = {handleChange('firstName')}
                     required        = {true}
                     name            = "firstName"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'user-circle-o'}
+                    // iconName        = {'user-circle-o'}
                     iconType        = {'font-awesome'}
                     // autoCapitalize  = "none"
                   />
                   <FormInput
                     labelName       = "Last Name"
-                    placeholder     = "Last Name"
+                    // placeholder     = "Last Name"
                     onChangeText    = {handleChange('lastName')}
                     required        = {true}
                     name            = "lastName"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'user-circle-o'}
+                    // iconName        = {'user-circle-o'}
                     iconType        = {'font-awesome'}
                     // autoCapitalize  = "none"
                   />
@@ -273,13 +274,13 @@ const window = Dimensions.get('window');
                   </View>       
                   <FormInput
                     labelName       = "Email Id"
-                    placeholder     = "Email Id"
+                    // placeholder     = "Email Id"
                     onChangeText    = {handleChange('email_id')}
                     required        = {false}
                     name            = "email_id"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'email'}
+                    // iconName        = {'email'}
                     iconType        = {'material-community'}
                     autoCapitalize  = "none"
                     keyboardType    = "email-address"
@@ -287,14 +288,14 @@ const window = Dimensions.get('window');
                  
                   <FormInput
                     labelName     = "Password"
-                    placeholder   = "Password"
+                    // placeholder   = "Password"
                     onChangeText  = {handleChange("password")}
                     onBlur        = {checkPassword}
                     errors        = {errors}
                     name          = "password"
                     required      = {true}
                     touched       = {touched}
-                    iconName      = {'lock'}
+                    // iconName      = {'lock'}
                     iconType      = {'material-community'}
                     rightIcon ={
                       <TouchableOpacity
@@ -311,14 +312,14 @@ const window = Dimensions.get('window');
                   />
                   <FormInput
                     labelName     = "Confirm Password"
-                    placeholder   = "Confirm Password"
+                    // placeholder   = "Confirm Password"
                     onChangeText  = {handleChange('confirm_password')}
                     onBlur        = {checkPassword}
                     errors        = {errors}
                     name          = "confirm_password"
                     required      = {true}
                     touched       = {touched}
-                    iconName      = {'lock'}
+                    // iconName      = {'lock'}
                     iconType      = {'material-community'}
                     rightIcon ={
                       <TouchableOpacity
@@ -352,15 +353,16 @@ const window = Dimensions.get('window');
                     ]}>
                       <TouchableOpacity
                         onPress={() => navigation.navigate('LogIn')} style={{flexDirection:"row"}}>
-                          <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} />
+                          {/* <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} /> */}
                         <Text style={commonStyles.linkText}>Sign In</Text>
                       </TouchableOpacity>
                   </View>
                 </View>
               </View>
             </View>
+        </View>
         </ScrollView>
-    </ImageBackground>
+    // </ImageBackground>
   );
 };
 

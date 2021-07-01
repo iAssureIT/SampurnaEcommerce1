@@ -7,7 +7,7 @@ const window = Dimensions.get('window');
 export default StyleSheet.create({
     // Screen Container
     container:{
-        minHeight:'100%',
+        // minHeight:'100%',
         width: window.width,
         justifyContent:"center"
     },
@@ -122,8 +122,8 @@ export default StyleSheet.create({
         fontSize: 13, fontFamily: 'Montserrat-Regular',color:"#333"
     },
     linkText:{
-        color: colors.textLight,
-        fontSize: 15,
+        color: colors.cartButton,
+        fontSize: 10,
         fontFamily:"Montserrat-SemiBold",
         textDecorationLine: 'underline'
     },
@@ -146,6 +146,10 @@ export default StyleSheet.create({
     addBtnText:{
         fontFamily:"Montserrat-Regular",
         fontSize  : 12
+    },
+
+    formWrapper:{
+        paddingHorizontal:20,
     },
     addBtnContainer:{
         // marginTop:15,

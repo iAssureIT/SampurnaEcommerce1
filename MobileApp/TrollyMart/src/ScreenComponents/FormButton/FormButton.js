@@ -22,8 +22,9 @@ const styles = StyleSheet.create({
     // marginVertical:15,
   },
   buttonStyle:{
-    backgroundColor:colors.theme,
-    // borderRadius:100,
+    backgroundColor:"#033554",
+    // backgroundColor:colors.theme,
+    borderRadius:8,
   },
    buttonStyle1:{
     backgroundColor:colors.white,
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     color:colors.theme,
   },
   titleStyle:{
-    fontSize:18,
+    fontSize:12,
     color:colors.white
   },
   titleStyle1:{
