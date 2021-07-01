@@ -90,6 +90,8 @@ class Payment extends Component {
                 </div>
                 <div className={"col-8 "+Style.paymentRightSideWrapper}>
                 <img src="" className="float-right mt-3" alt="Trollymart Logo" />
+                <img src="/images/eCommerce/Face.png" className={" m-auto "+Style.paymentBgWrapper} alt="Trollymart Logo" />
+
 
                 <div className="col-12 mt-5 pt-5">
                 
@@ -136,7 +138,7 @@ class Payment extends Component {
                  
               
 
-                <div className="backtoMyOrdersDiv col-12 mb-3 mt-5 text-center">
+                <div className="backtoMyOrdersDiv col-12 mb-3 mt-5 pt-3 text-center">
                   <Link href="/my-account">
                       <a><i className="fa fa-arrow-circle-left"></i> Go Back To My Orders</a>
                   </Link>

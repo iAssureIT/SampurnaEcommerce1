@@ -18,6 +18,17 @@
     background-color:#fff;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
+    /* background-image: url("/images/eCommerce/Face.png");
+    background-size:100% 100%;
+    background-repeat: no-repeat; */
+}
+.paymentBgWrapper{
+    position: absolute;
+    /* margin: auto; */
+    height: 250px;
+    top: 100px;
+    left: 140px;
+    /* margin-top: 54px; */
 }
 
 .paymentAlertWrapper i{

@@ -422,8 +422,8 @@ export default class MyOrders extends Component {
                                         }
                                       </div>
                                     <div className="col-7  pull-right orderBtnWrapper">
-                                      <button className=" btn col-6 pull-right " onClick={()=>this.props.getOrderId(singleOrder._id)}>
-                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-12 pull-right globalCommonBtn col-md-12 showDetailsBtn "} >Show Details</a>
+                                      <button className=" btn col-6 float-right " onClick={()=>this.props.getOrderId(singleOrder._id)}>
+                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-12 float-right globalCommonBtn col-md-12 showDetailsBtn "} >Show Details</a>
                                       </button>
                                     </div>
                                   </div>

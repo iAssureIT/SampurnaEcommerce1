@@ -242,7 +242,7 @@ export default class ContactUsTrollyMart extends Component{
 									<label>hello@trollymaet.com</label>
 								</div>
 								<div className={ "hero "+S.hero}>
-									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""><i className="fab fa-instagram"></i></a> <a href=""><i className="fab fa-facebook-f"></i></a> <a href=""><i className="fab fa-youtube"></i></a> <a href=""><i className="fab fa-linkedin"></i></a> <a href=""><i className="fab fa-twitter"></i></a> </div>
+									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""><i className="fab fa-instagram"></i></a> <a href=""><i className="fab fa-facebook-f"></i></a> <a href=""><i className="fab fa-youtube"></i></a> <a href=""><i className="fab fa-linkedin-in"></i></a> <a href=""><i className="fab fa-twitter"></i></a> </div>
 								</div>
 							</div>
 						</div>

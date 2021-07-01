@@ -40,13 +40,17 @@ class header extends React.Component {
             preferencedata : [],
             loggedIn: false,
             userId: '',
+            currentUrl:''
         }; 
     }
     componentDidMount(){        
+        let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
+
         const userDetails  =  JSON.parse(localStorage.getItem('userDetails'));
         
         if(userDetails && userDetails.user_id){
             this.setState({
+                currentUrl:defaultUrl,
                 loggedIn    : true,
                 userDetails : userDetails,
                 userId      : userDetails.user_id,
@@ -54,6 +58,7 @@ class header extends React.Component {
             },()=>{
                 this.getUserData();
                 // console.log("authService==",this.state.authService);
+                 console.log("61",this.state.currentUrl)
             })
         }
         
@@ -107,6 +112,7 @@ class header extends React.Component {
         window.location.reload();
     
     }
+    
    render() {
     return (
         <div className="col-8 col-sm-6 NoPadding">  
@@ -154,15 +160,15 @@ class header extends React.Component {
                                     </div>                            
                                 </li>   
                                 
-                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"><Link href="/my-account"><a>My Orders</a></Link></li>
-                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"><Link href="/my-account"><a>My Wishlist</a></Link></li>                               
-                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"><Link href="/my-account"><a>My Profile</a></Link></li>
-                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"><Link href="/my-account"><a>My Credits</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account#v-pills-settings-tab"><a>My Orders</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account#v-pills-settings1-tab"><a>My Wishlist</a></Link></li>                               
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag" ><Link href="/my-account"><a>My Profile</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag"onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account#v-pills-settings3-tab"><a>My Credits</a></Link></li>
                                 <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                             </div>
                         :
                             <div className="col-12 NoPaddind">
-                                <li className="col-12 NOpadding myAccMenuGuest text-center"><Link href="/my-account"><a>My Orders</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenuGuest text-center"><Link href="/my-account#v-pills-settings-tab"><a>My Orders</a></Link></li>
                                 <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true">Sign In</li>
                             </div>
                         }

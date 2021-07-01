@@ -8,27 +8,32 @@ class Wishlist extends React.Component {
 	constructor(props) {
 		super(props);
 		 this.state = {
-             
+            currentUrl:''
          }
     }    
     componentDidMount(){
-
+        let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
+        this.setState({
+            currentUrl:defaultUrl,
+            
+        })
     }
 
    render(){
         return(  
             <div className="col-2 NoPadding">
-                <Link href="/my-account">
-                    <a title="wishlistIcon ">
+              <li  onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account#v-pills-settings1-tab">
+                     <a title="wishlistIcon ">
                         <Image
-                            src={"/images/eCommerce/wishlist.png"}
-                            className={" hidden-x rotateImg" }
-                            height ={25}
-                            width={30}
-                            layout={'intrinsic'}
+                        src={"/images/eCommerce/wishlist.png"}
+                        className={" hidden-x rotateImg" }
+                        height ={25}
+                        width={30}
+                        layout={'intrinsic'}
                         />
                     </a>
-                </Link>
+                   </Link>
+             </li>                               
             </div>
         );        
     }
