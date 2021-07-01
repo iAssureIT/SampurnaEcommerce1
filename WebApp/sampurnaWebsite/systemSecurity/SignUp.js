@@ -174,22 +174,29 @@ class SignUp extends Component {
 			.then((signupResponse) =>{
 				if(signupResponse){
 					console.log("signupResponse=",signupResponse);
-					var userDetails = {
-						firstname	: signupResponse.data.result.profile.firstname,
-						lastname	: signupResponse.data.result.profile.lastname,
-						email		: signupResponse.data.result.profile.email,
-						mobNumber   : signupResponse.data.result.profile.mobile,
-						pincode		: signupResponse.data.result.profile.pincode,
-						// user_id		: signupResponse.data.ID,
-						authService : "",
-						userId      : signupResponse.data.ID,
-						roles		: signupResponse.data.result.roles[0],
+					
+					if(signupResponse.data.result){
+						var userDetails = {
+							firstname	: signupResponse.data.result.profile.firstname,
+							lastname	: signupResponse.data.result.profile.lastname,
+							email		: signupResponse.data.result.profile.email,
+							mobNumber   : signupResponse.data.result.profile.mobile,
+							pincode		: signupResponse.data.result.profile.pincode,
+							// user_id		: signupResponse.data.ID,
+							authService : "",
+							userId      : signupResponse.data.ID,
+							roles		: signupResponse.data.result.roles[0],
+						}
+						localStorage.setItem('userDetails', JSON.stringify(userDetails));
+						swal("Thank you!! Your account created successfuly. Please Check your SMS, We have sent verification code on your mobile number.");
+						this.props.updateFormValue("signupotp");
+					}else{
+						swal(signupResponse.data.message);
 					}
+
 					// console.log("userDetails===",userDetails);
 
-					localStorage.setItem('userDetails', JSON.stringify(userDetails));
-					swal("Thank you!! Your account created successfuly. Please Check your SMS, We have sent verification code on your mobile number.");
-					this.props.updateFormValue("signupotp");
+					
 				}
 			})
 			.catch((error)=>{

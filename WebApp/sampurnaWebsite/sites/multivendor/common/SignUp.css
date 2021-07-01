@@ -282,7 +282,7 @@ input[type=number] {
   border:0px !important;
   height: auto;
   box-shadow: none !important;
-  margin-top: 28px;
+  margin-top: 0px;
   box-shadow: 5px 10px #eee;
 }
 .loginModalContent .close{

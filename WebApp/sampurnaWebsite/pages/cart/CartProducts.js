@@ -10,10 +10,8 @@ import Message                from '../../Themes/Sampurna/blocks/StaticBlocks/Me
 import OrderSummury           from './OrderSummury.js';
 import Style                  from './CartProducts.module.css';
 import ReactTooltip           from 'react-tooltip';
+import Tooltip                from './Tooltip.js';
 
-// import {ntc} from '../../ntc/ntc.js';
-// import { size } from 'underscore';
-// import Loader from "../../common/loader/Loader.js";
 class CartProducts extends Component{
     constructor(props) {
         super(props);
@@ -68,16 +66,12 @@ class CartProducts extends Component{
                     this.setState({
                         CheckoutBtn : false
                     },()=>{
-                        console.log("CheckoutBtn===",this.state.CheckoutBtn)
+                        // console.log("CheckoutBtn===",this.state.CheckoutBtn)
                     })
                 }
                 break;
             }
         }
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-        // ReactTooltip.rebuild();
     }
 
     Removefromcart(event){
@@ -301,131 +295,131 @@ class CartProducts extends Component{
                                     <div className="col-12">
                                     {    
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
-                                        console.log("vendorWiseCartData==",vendorWiseCartData);
-                                        return(  
-                                            <div className={"row " +Style.singleRow} key={index}>
-                                                <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8 ">
-                                                    <div className={"col-12 " +Style.singleVendorBox}>
-                                                    <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
-                                                    { vendorWiseCartData.cartItems.map((vendorData, index)=>{
-                                                        // console.log("vendorData=>",vendorData);
-                                                    return(
-                                                        <div key={index}>
-                                                            <div className="col-12">
-                                                                <div className={"row mb-4 " +Style.bbBox}>
-                                                                    <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-2 col-xl-2 ForMobile">
-                                                                        <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
-                                                                            <img className="img  cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail">
-                                                                        <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
-                                                                            {vendorData.product_ID.productNameRlang?
-                                                                                <div className={"RegionalFont " +Style.productName}>{vendorData.product_ID.productNameRlang}</div>
-                                                                            :
-                                                                                <div className={" " +Style.productName }>{vendorData.product_ID.productName}</div>
-                                                                            }
-                                                                        </a>
-                                                                    {
-                                                                        vendorData.product_ID.discountPercent  ?
-                                                                            <div className="col-12 NoPadding">
-                                                                                <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice}</span> &nbsp; &nbsp;
-                                                                                <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice}</span> &nbsp; &nbsp;
-                                                                                <span className="cartDiscountPercent">( {Math.floor(vendorData.product_ID.discountPercent)}% Off )</span>
-                                                                            </div>
-                                                                            :
-                                                                            <div className="col-12 NoPadding">
-                                                                                <span className="price">
-                                                                                {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice}</span>
-                                                                            </div>
-                                                                    }
-
-                                                                    {/* <div className=" NoPadding">
-                                                                        <button productid={vendorData.product_ID._id} id={vendorData._id} onClick={this.moveWishlist.bind(this)} className=" btn wishlistBtn">Move To Wishlist</button>
-                                                                    </div> */}
-                                                                    </div> 
-
-                                                                    <div className="nowrap col-12 col-sm-12 col-sx-12 col-md-4 col-lg-3 col-xl-2 mb-3 ">                                                         
-                                                                    {
-                                                                        vendorData.product_ID.availableQuantity > 0 ?
-                                                                        <div className="quantityWrapper">
-                                                                            <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
-                                                                                onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
-                                                                            <span className="inputQuantity">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
-                                                                            <span className="plusQuantity fa fa-plus" vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
-                                                                                onClick={this.cartquantityincrease.bind(this)}></span><br/>   
-                                                                            { this.state.websiteModel === 'FranchiseModel'?                                                                 
-                                                                                <span className ="productUnit" id={vendorData.product_ID._id}> Of {vendorData.product_ID.size}&nbsp;<span className="CapsUnit">{vendorData.product_ID.unit}</span></span>
-                                                                            :null
-                                                                            }
+                                        // console.log("vendorWiseCartData==",vendorWiseCartData);
+                                            return(  
+                                                <div className={"row " +Style.singleRow} key={index}>
+                                                    <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8 ">
+                                                        <div className={"col-12 " +Style.singleVendorBox}>
+                                                        <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
+                                                        { vendorWiseCartData.cartItems.map((vendorData, index)=>{
+                                                        return(
+                                                            <div key={index}>
+                                                                <div className="col-12">
+                                                                    <div className={"row mb-4 " +Style.bbBox}>
+                                                                        <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-2 col-xl-2 ForMobile">
+                                                                            <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
+                                                                                <img className="img  cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
+                                                                            </a>
                                                                         </div>
-                                                                        :
-                                                                        <span className="sold textAlignCenter">SOLD OUT</span>
-                                                                    }
-                                                                    </div>  
-                                                                    <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3">
-                                                                    {
-                                                                        vendorData.product_ID.availableQuantity > 0 ?
-                                                                            <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice * vendorData.quantity :vendorData.product_ID.originalPrice * vendorData.quantity}</span>
-                                                                        :
-                                                                        <span>-</span>
-                                                                    }    
-                                                                    </div>
-                                                                    <div className="col-6 col-sm-12 col-sx-12 col-md-4 col-lg-1 col-xl-1 text-right  ">
-                                                                        <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorWiseCartData.vendor_id._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
-                                                                    </div>
-                                                                </div> 
+                                                                        <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail">
+                                                                            <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
+                                                                                {vendorData.product_ID.productNameRlang?
+                                                                                    <div className={"RegionalFont " +Style.productName}>{vendorData.product_ID.productNameRlang}</div>
+                                                                                :
+                                                                                    <div className={" " +Style.productName }>{vendorData.product_ID.productName}</div>
+                                                                                }
+                                                                            </a>
+                                                                        {
+                                                                            vendorData.product_ID.discountPercent  ?
+                                                                                <div className="col-12 NoPadding">
+                                                                                    <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice}</span> &nbsp; &nbsp;
+                                                                                    <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice}</span> &nbsp; &nbsp;
+                                                                                    <span className="cartDiscountPercent">( {Math.floor(vendorData.product_ID.discountPercent)}% Off )</span>
+                                                                                </div>
+                                                                                :
+                                                                                <div className="col-12 NoPadding">
+                                                                                    <span className="price">
+                                                                                    {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice}</span>
+                                                                                </div>
+                                                                        }
+
+                                                                        {/* <div className=" NoPadding">
+                                                                            <button productid={vendorData.product_ID._id} id={vendorData._id} onClick={this.moveWishlist.bind(this)} className=" btn wishlistBtn">Move To Wishlist</button>
+                                                                        </div> */}
+
+                                                                        </div> 
+
+                                                                        <div className="nowrap col-12 col-sm-12 col-sx-12 col-md-4 col-lg-3 col-xl-2 mb-3 ">                                                         
+                                                                        {
+                                                                            vendorData.product_ID.availableQuantity > 0 ?
+                                                                            <div className="quantityWrapper">
+                                                                                <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
+                                                                                    onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
+                                                                                <span className="inputQuantity">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
+                                                                                <span className="plusQuantity fa fa-plus" vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
+                                                                                    onClick={this.cartquantityincrease.bind(this)}></span><br/>   
+                                                                                { this.state.websiteModel === 'FranchiseModel'?                                                                 
+                                                                                    <span className ="productUnit" id={vendorData.product_ID._id}> Of {vendorData.product_ID.size}&nbsp;<span className="CapsUnit">{vendorData.product_ID.unit}</span></span>
+                                                                                :null
+                                                                                }
+                                                                            </div>
+                                                                            :
+                                                                            <span className="sold textAlignCenter">SOLD OUT</span>
+                                                                        }
+                                                                        </div>  
+                                                                        <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3">
+                                                                        {
+                                                                            vendorData.product_ID.availableQuantity > 0 ?
+                                                                                <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice * vendorData.quantity :vendorData.product_ID.originalPrice * vendorData.quantity}</span>
+                                                                            :
+                                                                            <span>-</span>
+                                                                        }    
+                                                                        </div>
+                                                                        <div className="col-6 col-sm-12 col-sx-12 col-md-4 col-lg-1 col-xl-1 text-right  ">
+                                                                            <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorWiseCartData.vendor_id._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
+                                                                        </div>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>    
+                                                        );
+                                                        })
+                                                    }
+                                                    </div>
+                                                    {
+                                                    vendorWiseCartData.vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ?
+                                                            <div className="col-12"> 
+                                                                <div className="col-12 vendorWarning">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
+                                                                <div className="col-12 text-center">
+                                                                    <a href={"/products/"+vendorWiseCartData.vendor_id._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"} className="vendorShoppinglink">To continue shopping click here</a>
+                                                                </div>
                                                             </div>
-                                                        </div>    
-                                                    );
-                                                    })
-                                                }
-                                                </div>
-                                                {
-                                                   vendorWiseCartData.vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ?
-                                                        <div className="col-12"> 
-                                                            <div className="col-12 vendorWarning">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
-                                                            <div className="col-12 text-center">
-                                                                <a href={"/products/"+vendorWiseCartData.vendor_id._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"} className="vendorShoppinglink">To continue shopping click here</a>
-                                                            </div>
-                                                        </div>
-                                                    :null
-                                                }
-                                                </div>
+                                                        :null
+                                                    }
+                                                    </div>
+                                                    
+                                                    <div className={"col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 vendorWiseSummury pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
+                                                        <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
+                                                            {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
+                                                        <table className="table table-responsive summaryTable">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Sub Total</td>
+                                                                    <td className="textAlignRight">&nbsp; 
+                                                                    <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>You Saved</td>
+                                                                    <td className="textAlignRight saving">&nbsp; 
+                                                                    <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
+                                                                </tr>                                                        
+                                                                <tr>
+                                                                    <td>Tax</td>  
+                                                                    <td className="textAlignRight ">&nbsp; 
+                                                                        <span> <b>{this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</b></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td className="cartTotal"> <b>Totals</b> </td>
+                                                                    <td className="textAlignRight cartTotal">&nbsp; 
+                                                                    <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_netPayableAmount}</b>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 
-                                                <div className={"col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 vendorWiseSummury pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
-                                                    <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
-                                                        {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
-                                                    <table className="table table-responsive summaryTable">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Sub Total</td>
-                                                                <td className="textAlignRight">&nbsp; 
-                                                                <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>You Saved</td>
-                                                                <td className="textAlignRight saving">&nbsp; 
-                                                                <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
-                                                            </tr>                                                        
-                                                            <tr>
-                                                                <td>Tax</td>  
-                                                                <td className="textAlignRight ">&nbsp; 
-                                                                    <span> <b>{this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</b></span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className="cartTotal"> <b>Totals</b> </td>
-                                                                <td className="textAlignRight cartTotal">&nbsp; 
-                                                                <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_netPayableAmount}</b>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
                                                 </div>
-                                            
-                                            </div>
-                                        ) //end return   
+                                            ) //end return   
                                         })// end fechcartData map
                                     }
                                     </div>
@@ -470,9 +464,21 @@ class CartProducts extends Component{
                                                             <div className="col-4 textAlignRight">&nbsp; 
                                                                 {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
                                                                
-                                                                <a href="#" data-toggle="tooltip" title="Delivery Charges total"><i className="fa fa-info-circle infoCircle"></i></a>
-
+                                                                {/* <a href="#" data-toggle="tooltip" title={<Tooltip/>}><i className="fa fa-info-circle infoCircle"></i></a> */}
+                                                                
+                                                                <button data-tip data-for="vendorTooltip">
+                                                                    <i className="fa fa-info-circle infoCircle"></i>
+                                                                </button>
+                                                               {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
+                                                                    return(
+                                                                        <ReactTooltip id="vendorTooltip" place="left" effect="solid">
+                                                                            <div className="">{vendorWiseCartData.vendor_shippingCharges}</div>
+                                                                        </ReactTooltip>
+                                                                    )
+                                                                    })
+                                                                }
                                                                 <div>
+                                                                
 
                                                                 </div>
                                                             </div>

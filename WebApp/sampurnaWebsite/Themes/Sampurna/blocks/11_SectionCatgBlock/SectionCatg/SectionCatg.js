@@ -128,7 +128,7 @@ class ShoppingVerticals extends Component {
             { this.state.groupSettings.showCarousel === true?
               this.state.itemList && this.state.itemList.length > 0 ?
               <Carousel 
-                  className="col-12 sectionCarousel"
+                  className=" sectionCarousel"
                   swipeable={false}
                   draggable={true}
                   showDots={false}
