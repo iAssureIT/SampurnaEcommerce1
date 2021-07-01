@@ -35,7 +35,8 @@ class SearchProduct extends Component {
       showCarousel       : true,
       totalProducts      : 12,
       leftSideFilters    : false
-    }, 
+    },
+    deliveryLocation     : {}, 
     }
   }
   componentDidMount(){
@@ -43,7 +44,7 @@ class SearchProduct extends Component {
     // console.log("url==",url[4]);
     if(url){
         this.setState({"searchProduct": url[4]},()=>{
-          console.log("searchProduct=",this.state.searchProduct);
+          // console.log("searchProduct=",this.state.searchProduct);
         })
     }
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
@@ -61,7 +62,7 @@ class SearchProduct extends Component {
         }
   }
   render(){
-      console.log("serach props===",this.props);
+      // console.log("serach props===",this.props);
       // console.log("searchData=",this.props.searchData);
       // console.log("data searchData=",this.props.searchData.data);
       return (

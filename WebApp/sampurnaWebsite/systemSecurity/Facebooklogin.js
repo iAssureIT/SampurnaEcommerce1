@@ -37,6 +37,7 @@ responseFacebook1 = (response) => {
       "email"      : response.email,
       "picture"    : response.data.picture.data.url,
     })
+
     var userDetails = {
       firstname	: response.name,
       lastname	: verifyOtpResponse.data.userDetails.lastName,
@@ -45,7 +46,8 @@ responseFacebook1 = (response) => {
       user_id		: response.userID,
       roles		  : "user",
       token		  : response.token,
-  }
+    }
+
       localStorage.setItem('userDetails', JSON.stringify(userDetails));
       swal('Congratulations! You have been successfully Login, Now you can place your order.')
   }
@@ -66,7 +68,7 @@ render() {
               /> */}
                 <FacebookLogin
                   appId="507698857234444"
-                  autoLoad={true}
+                  // autoLoad={true}
                   fields="name,email,picture"
                   scope="public_profile,user_friends,user_actions.books"
                   callback={this.responseFacebook}

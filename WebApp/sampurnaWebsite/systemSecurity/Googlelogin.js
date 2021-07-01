@@ -7,18 +7,18 @@ import { GoogleLogin } from 'react-google-login';
 
 const responseGoogle = (response) => {
     console.log(response);
-    var userDetails = {
-      firstname	: verifyOtpResponse.data.userDetails.firstName,
-      lastname	: verifyOtpResponse.data.userDetails.lastName,
-      email		: verifyOtpResponse.data.userDetails.email,
-      mobNumber   : verifyOtpResponse.data.userDetails.mobile,
-      pincode		: verifyOtpResponse.data.userDetails.pincode,
-      user_id		: verifyOtpResponse.data.userDetails.user_id,
-      roles		: verifyOtpResponse.data.userDetails.roles,
-      token		: verifyOtpResponse.data.userDetails.token,
-  }
-      localStorage.setItem('userDetails', JSON.stringify(userDetails));
-      swal('Congratulations! You have been successfully Login, Now you can place your order.')
+    // var userDetails = {
+    //   firstname	: response.data.userDetails.firstName,
+    //   lastname	: response.data.userDetails.lastName,
+    //   email		  : response.data.userDetails.email,
+    //   mobNumber : response.data.userDetails.mobile,
+    //   pincode		: response.data.userDetails.pincode,
+    //   user_id		: response.data.userDetails.user_id,
+    //   roles		  : response.data.userDetails.roles,
+    //   token		  : response.data.userDetails.token,
+    // }
+      // localStorage.setItem('userDetails', JSON.stringify(userDetails));
+      // swal('Congratulations! You have been successfully Login, Now you can place your order.')
 }
 
 class Googlelogin extends Component {
@@ -45,14 +45,12 @@ render() {
         <div className="col-12 NoPadding">
               <GoogleLogin
                 clientId="289838416253-abo3h9t3cktstph4mp30vliol7d3ene5.apps.googleusercontent.com"
-                // clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                 buttonText="Login"
                 onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                // onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
                 // onLogoutSuccess={logout}
-                
             />
         </div>
     );

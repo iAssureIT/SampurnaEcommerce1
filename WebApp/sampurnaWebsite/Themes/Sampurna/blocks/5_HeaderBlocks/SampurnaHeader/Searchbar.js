@@ -55,7 +55,7 @@ class Searchbar extends React.Component {
           }    
       }
       getRelatedSearches(event){
-          console.log("inside getRelatedSearches");
+        //   console.log("inside getRelatedSearches");
         event.preventDefault();
         var formValues = {
             "searchstr"         : this.state.searchText,

@@ -35,6 +35,7 @@ class MyAccount extends Component{
             order_id : ''
         }
     }
+
     componentDidMount(){
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
@@ -50,7 +51,6 @@ class MyAccount extends Component{
 				})
             }
         }
-        
     }
     getUserData(){
         axios.get('/api/users/get/id/'+this.state.user_ID)
@@ -88,6 +88,7 @@ class MyAccount extends Component{
           console.log("account page getuser error = ",error);
         });
     }
+
     editUser(event){
         event.preventDefault();
         Router.push('/edit-account');

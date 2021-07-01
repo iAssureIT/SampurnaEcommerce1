@@ -74,6 +74,10 @@ class CartProducts extends Component{
                 break;
             }
         }
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+        // ReactTooltip.rebuild();
     }
 
     Removefromcart(event){
@@ -185,17 +189,6 @@ class CartProducts extends Component{
             }
         }        
         
-    }
-    Closepagealert(event){
-        event.preventDefault();
-        $(".toast-error").html('');
-        $(".toast-success").html('');
-        $(".toast-info").html('');
-        $(".toast-warning").html('');
-        $(".toast-error").removeClass('toast');
-        $(".toast-success").removeClass('toast');
-        $(".toast-info").removeClass('toast');
-        $(".toast-warning").removeClass('toast');
     }
 
     cartquantitydecrease(event){
@@ -476,10 +469,12 @@ class CartProducts extends Component{
                                                             </div>
                                                             <div className="col-4 textAlignRight">&nbsp; 
                                                                 {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
-                                                                {/* <a tabindex="0" class="" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="Delivery charge details">
-                                                                    <i className="fa fa-info-circle infoCircle"></i>
-                                                                </a> */}
-                                                                <ReactTooltip />
+                                                               
+                                                                <a href="#" data-toggle="tooltip" title="Delivery Charges total"><i className="fa fa-info-circle infoCircle"></i></a>
+
+                                                                <div>
+
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -10,9 +10,10 @@
 
 .vendorLogoImg{
     border-radius: 100% !important;
-    height: 100%;
-    width: 100% !important;
-    border: solid 2px #ccc
+    height: 110px;
+    width: 110px !important;
+    margin-top: -10px;
+    /* border: solid 2px #ccc */
 }
 .vendorCard::before {
     content: "";
@@ -66,9 +67,9 @@
     right: 50px;
 }
 .vendorLogo{
-    height: 100%;
+    /* height: 100%; */
     border-radius:100%;
-    border:solid 1px #ccc;
+    /* border:solid 1px #ccc; */
     border-radius: 100%;
     /* background-image: url("/images/eCommerce/loader.gif"); */
     background-position: 100%;

@@ -39,12 +39,13 @@ class SiteMap extends Component{
             console.log('error', error);
         })
     }
+    
     render(){
         return(
             <div className="col-12 NoPadding">
             <Header/>
             <div className="container">
-            <div className={"col-12 pageTitle "+Style.pageTitle}><h2>Sitemap</h2></div>
+            <div className={"col-12 pageTitle mt-4 "+Style.pageTitle}><h2>Sitemap</h2></div>
 
             <div className={"col-12 sitemappWrapper "+Style.sitemappWrapper}>
                 <h4 className={"subTitles "+Style.subTitles}>Sections</h4>
@@ -71,29 +72,30 @@ class SiteMap extends Component{
                     }
                 </p>
 
-                <h4 className={"subTitles "+Style.subTitles}>Categories</h4>
+                <h5 className={"subTitles "+Style.subTitles}>Categories</h5>
                 <div>
                     {this.state.categories && this.state.categories.length>0?
                         this.state.categories.map((data, index)=>{
+                            // console.log("category data ===",data);
                             return(
                                 <div key={index}>
-                                    <h4 className={"siteCat "+Style.siteCat}><a key={index} href={'/category/'+data.categoryUrl}>{data.category} </a></h4>
+                                    <h4 className={"siteCat "+Style.siteCat}><a key={index} href={'/vendor-list/'+data.section.replace(' ','-')}>{data.category} </a></h4>
                                     <p>
                                     {data.subCategory && data.subCategory.length>0?
                                         data.subCategory.map((datas, i)=>{
                                             if(data.subCategory.length === i + 1){
                                                 return(
-                                                    <Link href={'/vendor-list/'+data.sectionUrl} prefetch={false} key={i}>
-                                                        <a className={"siteSubCat "+Style.siteSubCat} key={i} href={'/subcategory/'+data.section_ID+'/'+data._id+'/'+datas._id}>{datas.subCategoryTitle}</a>
+                                                    <Link href={'/vendor-list/'+data.section.replace(' ','-')} prefetch={false} key={i}>
+                                                        <a className={"siteSubCat "+Style.siteSubCat} key={i} >{datas.subCategoryTitle}</a>
                                                     </Link>
                                                     // <a className={"siteSubCat "+Style.siteSubCat} key={i} href={'/subcategory/'+data.section_ID+'/'+data._id+'/'+datas._id}>{datas.subCategoryTitle}</a>
                                                 );
                                             }else{
                                                 return(
-                                                    <Link href={'/subcategory/'+data.section_ID+'/'+data._id+'/'+datas._id} prefetch={false} key={i}>
-                                                        <a className={"siteSubCat "+Style.siteSubCat} key={i} href={'/subcategory/'+data.section_ID+'/'+data._id+'/'+datas._id}>{datas.subCategoryTitle} | </a>
+                                                    <Link href={'/vendor-list/'+data.section.replace(' ','-')} prefetch={false} key={i}>
+                                                        <a className={"siteSubCat "+Style.siteSubCat} key={i} >{datas.subCategoryTitle} | </a>
                                                     </Link>
-                                                    // <a className={"siteSubCat "+Style.siteSubCat} key={i} href={'/subcategory/'+data.section_ID+'/'+data._id+'/'+datas._id}>{datas.subCategoryTitle} | </a>
+                                                    // <a className={"siteSubCat "+Style.siteSubCat} key={i} href={'/vendor-list/'+data.sectionUrl}>{datas.subCategoryTitle} | </a>
                                                 );
                                             }
                                         })
