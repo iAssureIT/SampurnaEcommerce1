@@ -112,7 +112,18 @@ export default StyleSheet.create({
 		position: 'absolute',
 		// bottom: "5%",
 		top: 5, 
-		left: "80%"
+		left: "80%",
+		zIndex:1,
+	},
+	disCountLabel: {
+		position: 'absolute',
+		height:40,
+		left: "5%",
+		width:40,
+		zIndex:1,
+		// bottom: "5%",
+		// top: 5, 
+		// left: "80%"
 	},
 	width160: { 
 		width: 180,
@@ -244,12 +255,14 @@ export default StyleSheet.create({
 		fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#fff', marginTop: 0,
 	},
 	protxt: {
-		paddingHorizontal:5
+		paddingHorizontal:5,
+		// alignItems:'center'
 	},
 	prdet: {
 		flex:1,
-		alignItems: "center",
-		marginBottom:5,
+		// alignItems: "center",
+		marginBottom:15,
+		marginLeft:5
 	},
 	// addtocartbtn: {
 	// 	marginBottom: 20,
@@ -450,8 +463,9 @@ export default StyleSheet.create({
 		
 	},
 	subcatimg: {
-		height:150,
-		width:150,
+		marginTop:30,
+		height:120,
+		width:120,
 		alignSelf:'center',
 		borderTopRightRadius:15,
 		borderTopLeftRadius:15,

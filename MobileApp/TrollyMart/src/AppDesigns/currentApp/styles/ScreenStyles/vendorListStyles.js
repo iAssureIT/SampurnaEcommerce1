@@ -36,7 +36,7 @@ export default StyleSheet.create({
 		top:0,
 		left:0,
 		right:0,
-		height:180,
+		height:155,
 		backgroundColor:"#fff",
 		justifyContent:"center",
 		elevation:5

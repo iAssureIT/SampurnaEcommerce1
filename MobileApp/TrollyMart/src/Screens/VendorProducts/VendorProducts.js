@@ -26,11 +26,12 @@ import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/Sea
 import { Dimensions } from 'react-native';
 import { colors } from '../../AppDesigns/currentApp/styles/styles';
 const scrollY = new Animated.Value(0);
-const diffClamp= Animated.diffClamp(scrollY,0,180)
+const diffClamp= Animated.diffClamp(scrollY,0,120)
 const translateY = diffClamp.interpolate({
-  inputRange:[0,180],
-  outputRange:[0,-180]
+  inputRange:[0,120],
+  outputRange:[0,-120]
 })
+console.log("diffClamp",diffClamp);
 const window = Dimensions.get('window');
 export const VendorProducts = (props)=>{
   const isFocused = useIsFocused();
@@ -162,9 +163,9 @@ const onScroll=(e)=>{
             }}
           >
            <View style={[styles.block1]}>
-            <View style={{backgroundColor:colors.lightGrey,paddingVertical:2}}>
+            {/* <View style={{backgroundColor:colors.lightGrey,paddingVertical:2}}>
                 <Text style={[CommonStyles.label,{paddingHorizontal:5}]}>{vendor.vendorName}</Text>
-            </View>  
+            </View>   */}
             <MenuCarouselSection  
                 navigation  = {navigation}   
                 showImage   = {true} 
@@ -179,13 +180,18 @@ const onScroll=(e)=>{
               boxHeight   = {30} 
               setCategory = {setCategory}
             />
-            <View style={{flexDirection:"row",justifyContent:"flex-end"}}>
+            <View style={{flexDirection:"row",marginTop:5,alignItems:'center'}}>
+              <View style={{paddingVertical:2,flex:0.7}}>
+                  <Text numberOfLines={1} style={[CommonStyles.label,{paddingHorizontal:5}]}>{vendor.vendorName}</Text>
+              </View> 
+              <View style={{justifyContent:"flex-end",flexDirection:'row',flex:0.3}}>
                 <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>
-                  <Icon name="filter" type="material-community" color={"#333"} size={20} />
-              </TouchableOpacity>
-              <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>toggleSort(true)}>
-                <Icon name="sort" type="material-community" color={"#333"} size={20} />
-              </TouchableOpacity>
+                    <Icon name="filter" type="material-community" color={"#333"} size={20} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>toggleSort(true)}>
+                  <Icon name="sort" type="material-community" color={"#333"} size={20} />
+                </TouchableOpacity>
+              </View>  
             </View>
            </View>
           </Animated.View>  
@@ -206,7 +212,7 @@ const onScroll=(e)=>{
                   vendorLocation_id = {vendorLocation_id}
                   onEndReachedThreshold = {0.01}
                   onScroll       = {onScroll}
-                  marginTop      = {180}
+                  marginTop      = {150}
                   paddingBottom  = {250}
                 />
             :

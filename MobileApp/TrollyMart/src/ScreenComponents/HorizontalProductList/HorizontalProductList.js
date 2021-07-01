@@ -19,6 +19,7 @@ import { useNavigation }    from '@react-navigation/native';
 import Loading              from '../Loading/Loading.js';
 import {useSelector,
   useDispatch }         from 'react-redux';
+import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import FastImage              from 'react-native-fast-image';
 
 export const HorizontalProductList =(props)=>{
@@ -64,114 +65,62 @@ export const HorizontalProductList =(props)=>{
         <TouchableWithoutFeedback  onPress={()=>{navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section,product_id:item._id})}}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
-              {
-                item.productImage && item.productImage.length > 0 ?
-                  <FastImage
-                    source={{ uri: item.productImage[0] }}
-                    style={styles.subcatimg}
-                    resizeMode={FastImage.resizeMode.stretch}
-                  >
+            {item.discountPercent && item.discountPercent >0?
+                <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
                     {item.discountPercent && item.discountPercent >0?
-                      <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
-                          <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
-                          <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
-                       </ImageBackground> :null
-                    }    
+                    <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
+                      <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
+                      <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
+                    </ImageBackground> :null
+                  } 
+                  </ImageBackground> :null
+              }   
+              {
+                item.productSmallImage && item.productSmallImage.length > 0 ?
+                  <FastImage
+                    source={{ 
+                      uri: item.productSmallImage[0],
+                      priority: FastImage.priority.high, 
+                      cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
+                    }}
+                    PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
+                    style={styles.subcatimg}
+                    resizeMode={FastImage.resizeMode.contain}
+                  >
+                    
                   </FastImage>
                   :
                   <Image
-                    source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
+                    source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                     style={styles.subcatimg}
                   />
               }
-                {/* <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,index)} >
-                  <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
-
-                </TouchableOpacity> */}
-              {
-                item.discountPercent > 0 ?
-                  <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
-                  :
-                  null
-              }
             </View>
             <View style={[styles.flx1, styles.protxt]}>
-              {/* {item.brandNameRlang ?
-              <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
-              :  */}
-                {item.brand ? <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.brand}</Text>:null}  
-              {/* } */}
-              {/* {item.brandNameRlang ?
-              <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
-              : */}
-              <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]}>{item.productName}</Text>
-              {/* }                        */}
+            {item.brand ?
+                <Text numberOfLines={1} style={[styles.brandname]}>{item.brand}</Text>
+                :
+                null
+              }
+              <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
             </View>
             <View style={[styles.flx1, styles.prdet]}>
-              <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
                 <View style={[styles.flxdir]}>
-                  {/* <Icon
-                    name={item.currency}
-                    type="font-awesome"
-                    size={13}
-                    color="#333"
-                    iconStyle={{ marginTop: 5, marginRight: 3 }}
-                  /> */}
-                  <Text style={styles.ogprice}>{currency} </Text>
-                 {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice} - </Text>:null}
-                </View>
-                <View style={[styles.flxdir,{alignItems:"center"}]}>
-                  {/* <Icon
-                    name={item.currency}
-                    type="font-awesome"
-                    size={13}
-                    color="#333"
-                    iconStyle={{ marginTop: 5}}
-                  /> */}
-                  {item.discountPercent > 0 ?
-                        <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                        </Text>
-                      :
-                      <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
-                    }
+                  <View style={[styles.flxdir]}>
+                    <Text style={styles.ogprice}>{currency} </Text>
+                    {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice}</Text>:null}
+                  </View>
+                  <View style={[styles.flxdir,{alignItems:"center"}]}>
+                    {item.discountPercent > 0 ?
+                          <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          </Text>
+                        :
+                        <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                      }
+                  </View>
                 </View>
               </View>
-            </View>
             <View style={styles.addtocartbtn}>
-              {/*availablessiz && availablessiz.length > 0 ? 
-                  <View style={styles.inputTextWrapper}>
-                  <Dropdown
-                      onChangeText    = {(value) => handleTypeChange(value, availablessiz)}
-                      data            = {availablessiz}
-                      value           = {packsizes}
-                      containerStyle  = {styles.ddContainer}
-                      inputContainerStyle = {styles.ddInputContainer}
-                      // dropdownPosition={- 5}
-                      baseColor       = {'white'}
-                      labelFontSize   ={10}
-                      rippleCentered  ={true}
-                      dropdownOffset  = {{ top:0, left: 0, bottom: 0 }}
-                      itemTextStyle   = {styles.ddItemText}
-                      disabledLineType= 'none'
-                      underlineColor  = 'transparent'
-                      style           = {{height:30,
-                                          backgroundColor:"#fff",
-                                          borderWidth:1,
-                                          borderColor:colors.theme,
-                                          borderRadius:5
-                                        }}
-                    /> 
-                  </View>
-              : null */}
-            {/* <View style={styles.sizedrpbtn}>
-              <Button
-                  onPress={()=>{navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})}}
-                  titleStyle={CommonStyles.addBtnText}
-                  title="ADD TO CART"
-                  buttonStyle={CommonStyles.addBtnStyle}
-                  containerStyle={CommonStyles.addBtnContainer}
-                />
-              </View> */}
             </View>
           </View>
         </TouchableWithoutFeedback>

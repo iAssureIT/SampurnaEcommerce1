@@ -222,8 +222,18 @@ export const ProductList = withCustomerToaster((props)=>{
     const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
     return (
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
-        <TouchableOpacity  disabled={props.disabled}onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location})}>
+        <TouchableOpacity  disabled={props.disabled} onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location})}>
           <View style={styles.flx5}>
+              {item.discountPercent && item.discountPercent >0?
+                  <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
+                    <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
+                    <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
+                  </ImageBackground> :null
+                } 
+              {userDetails.authService!=="guest" &&
+              <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} >
+                <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
+              </TouchableOpacity>}
               {
                 item.productSmallImage && item.productSmallImage.length > 0 ?
                   <FastImage
@@ -238,12 +248,7 @@ export const ProductList = withCustomerToaster((props)=>{
                     // resizeMode="stretch"
                     resizeMode={FastImage.resizeMode.contain}
                   >   
-                  {item.discountPercent && item.discountPercent >0?
-                    <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
-                      <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
-                      <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
-                    </ImageBackground> :null
-                  } 
+                  
                   </FastImage>
                   :
                   <Image
@@ -251,108 +256,60 @@ export const ProductList = withCustomerToaster((props)=>{
                     style={styles.subcatimg}
                   />
               }
-                {userDetails.authService!=="guest" &&<TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} >
-                  <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
-
-                </TouchableOpacity>}
-              {/* {
-                item.discountPercent > 0 ?
-                  <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
-                  :
-                  null
-              } */}
-            <TouchableOpacity 
-                onPress={() => vendorLocation_id ?
-                  item.vendor_ID ? 
-                  addToCart(item._id,item.vendor_ID) 
-                    : 
-                    addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
-                :
-                item.vendor_ID ? 
-                  addToCartWish(item._id,item.vendor_ID,item.vendorLocation_id,item.vendorName)
-                  :
-                  addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
-              }
-              style={{height:30,width:30,alignSelf:"flex-end",borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',borderColor:colors.cartButton}}>
-                <Icon name="plus" type="material-community" size={25} color={colors.cartButton}/>
-            </TouchableOpacity>  
-            <View style={[styles.flx1, styles.protxt]}>
-              {/* {item.brandNameRlang ?
-              <Text numberOfLines={1} style={[styles.brandname, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalBrandName}>{item.brandNameRlang}</Text>
-              :  */}
-              {props.vendorName && 
-                <View style={{justifyContent:'center',alignItems:'center',marginBottom:15}}>
-                  <Text style={styles.brandname}>{item.vendorName}</Text>
-                </View>
-              }
-              {item.brand ?
-                <Text numberOfLines={1} style={[styles.brandname]}>{item.brand}</Text>
-                :
-                null
-              }
-              {/* } */}
-              {/* {item.brandNameRlang ?
-              <Text numberOfLines={1} style={[styles.nameprod, (index % 2 == 0 ? {} : { marginLeft: 12 })]} style={styles.regionalProductName}>{item.productNameRlang}</Text>
-              : */}
-              <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
-              {/* }                        */}
-            </View>
-            <View style={[styles.flx1, styles.prdet]}>
-              <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
-                <View style={[styles.flxdir]}>
-                  {/* <Icon
-                    name={item.currency}
-                    type="font-awesome"
-                    size={13}
-                    color="#333"
-                    iconStyle={{ marginTop: 5, marginRight: 3 }}
-                  /> */}
-                  <Text style={styles.ogprice}>{currency} </Text>
-                  {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice} - </Text>:null}
-                </View>
-                <View style={[styles.flxdir,{alignItems:"center"}]}>
-                  {/* <Icon
-                    name={item.currency}
-                    type="font-awesome"
-                    size={13}
-                    color="#333"
-                    iconStyle={{ marginTop: 5}}
-                  /> */}
-                  {item.discountPercent > 0 ?
-                        <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                        </Text>
-                      :
-                      <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
-                    }
-                </View>
-              </View>
-            </View>
-            <View style={styles.addtocartbtn}>
-              {/*availablessiz && availablessiz.length > 0 ? 
-                  <View style={styles.inputTextWrapper}>
-                  <Dropdown
-                      onChangeText    = {(value) => handleTypeChange(value, availablessiz)}
-                      data            = {availablessiz}
-                      value           = {packsizes}
-                      containerStyle  = {styles.ddContainer}
-                      inputContainerStyle = {styles.ddInputContainer}
-                      // dropdownPosition={- 5}
-                      baseColor       = {'white'}
-                      labelFontSize   ={10}
-                      rippleCentered  ={true}
-                      dropdownOffset  = {{ top:0, left: 0, bottom: 0 }}
-                      itemTextStyle   = {styles.ddItemText}
-                      disabledLineType= 'none'
-                      underlineColor  = 'transparent'
-                      style           = {{height:30,
-                                          backgroundColor:"#fff",
-                                          borderWidth:1,
-                                          borderColor:colors.theme,
-                                          borderRadius:5
-                                        }}
-                    /> 
+          
+                <View style={[styles.flx1, styles.protxt]}>
+                  {props.vendorName && 
+                    <View style={{justifyContent:'center',alignItems:'center',marginBottom:15}}>
+                      <Text style={styles.brandname}>{item.vendorName}</Text>
+                    </View>
+                  }
+                  <View style={{flexDirection:'row',flex:1}}>
+                    <View style={{flex:.8}}>
+                      {item.brand ?
+                    
+                        <Text numberOfLines={1} style={[styles.brandname]}>{item.brand}</Text>
+                        :
+                       null
+                      }
+                    </View>
+                    <View style={{flex:.2}}>
+                      <TouchableOpacity 
+                        onPress={() => vendorLocation_id ?
+                          item.vendor_ID ? 
+                          addToCart(item._id,item.vendor_ID) 
+                            : 
+                            addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
+                        :
+                        item.vendor_ID ? 
+                          addToCartWish(item._id,item.vendor_ID,item.vendorLocation_id,item.vendorName)
+                          :
+                          addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
+                      }
+                      style={{height:25,width:25,borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:colors.cartButton}}>
+                        <Icon name="plus" type="material-community" size={20} color={colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/>
+                      </TouchableOpacity>  
+                    </View>  
                   </View>
-              : null */}
+                  <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
+                  {/* }                        */}
+                </View>
+                <View style={[styles.flx1, styles.prdet]}>
+                  <View style={[styles.flxdir]}>
+                    <View style={[styles.flxdir]}>
+                      <Text style={styles.ogprice}>{currency} </Text>
+                      {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice}</Text>:null}
+                    </View>
+                    <View style={[styles.flxdir,{alignItems:"center"}]}>
+                      {item.discountPercent > 0 ?
+                            <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                            </Text>
+                          :
+                          <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                        }
+                    </View>
+                  </View>
+                </View>
+            <View style={styles.addtocartbtn}>
             <View style={styles.sizedrpbtn}>
               {/* <Button
                   onPress={() => vendorLocation_id ?
