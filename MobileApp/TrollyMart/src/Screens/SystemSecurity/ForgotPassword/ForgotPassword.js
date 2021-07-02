@@ -107,9 +107,9 @@ const window = Dimensions.get('window');
     const [image, setImage] = useState({profile_photo: '', image: ''});
     
   return (
-      <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-      <View style={{paddingHorizontal:20}}>
-          <View style={styles.boxOpacity}>
+      // <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
+      <View style={{flex:1}}>
+          <View style={[styles.boxOpacity,{minHeight:'100%'}]}>
                 <View style={styles.syslogo}>
                     <Image
                     resizeMode="contain"
@@ -117,17 +117,17 @@ const window = Dimensions.get('window');
                     style={styles.syslogoimg}
                     />
                 </View>
-                <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
+                <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Forgot Password</Text></View>
             <View style={commonStyles.formWrapper}>
             <FormInput
               labelName       = "Mobile No / Email Id"
-              placeholder     = "Enter Mobile No / Email Id..."
+              // placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"
               errors          = {errors}
               touched         = {touched}
-              iconName        = {'email'}
+              // iconName        = {'email'}
               iconType        = {'material-community'}
               autoCapitalize  = "none"
               keyboardType    = "email-address"
@@ -154,7 +154,7 @@ const window = Dimensions.get('window');
                   <Text style={commonStyles.linkText}>Sign Up</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('RootLogIn')}  style={{flex:0.5,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                  onPress={() => navigation.navigate('LogIn')}  style={{flex:0.5,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
                   <Text style={commonStyles.linkText}>Sign In</Text>
                 </TouchableOpacity>
                 </View>
@@ -162,6 +162,6 @@ const window = Dimensions.get('window');
           </View>
         </View>
       </View>
-    </ImageBackground>
+    // </ImageBackground>
   );
 };

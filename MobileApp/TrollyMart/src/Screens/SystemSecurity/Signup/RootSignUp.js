@@ -369,10 +369,12 @@ const window = Dimensions.get('window');
 
 const styles1 = StyleSheet.create({
   containerStyle:{
-     borderWidth:1,
-     borderRadius:5,
+    //  borderWidth:1,
+    //  borderRadius:5,
      width:"100%",
-     borderColor:"#ccc",
+    //  borderColor:"#ccc",
+    borderBottomWidth:1,
+    borderBottomColor:"#ccc",
      backgroundColor:"#fff"
    },
    textInputStyle:{

@@ -10,6 +10,17 @@ export default StyleSheet.create({
 		fontSize:17,
 		color:'#777'
 	  },
+
+	  brandname:{
+		fontSize:15,
+		color:'#ccc'
+	  },
+
+	  productName:{
+		fontSize:14,
+		color:'#000'
+	  },
+
 	  container:{
 		  position:'absolute',
 		  top:0,
@@ -147,7 +158,7 @@ export default StyleSheet.create({
 		// backgroundColor:"#ff0"
 	},
 	nameprod: {
-		fontSize: 12, fontFamily: "Montserrat-Bold", color: '#666'
+		fontSize: 14, fontFamily: "Montserrat-SemiBold", color: '#000'
 	},
 	urlprod: {
 		flex: 1, fontSize: 13, flexWrap: "wrap", fontFamily: "Montserrat-Regular", color: '#666', paddingVertical: 5
@@ -352,8 +363,12 @@ export default StyleSheet.create({
 		fontSize: 17, fontFamily: "Montserrat-SemiBold",
 		alignItems: "center", flexDirection: 'row'
 	},
+	flxdir12: {
+		flexDirection: 'row',
+		marginTop:5,
+	},
 	flxdir: {
-		flexDirection: 'row'
+		flexDirection: 'row',
 	},
 	flxdirview: {
 		flexDirection: 'row',
@@ -422,12 +437,18 @@ export default StyleSheet.create({
 	originalprice: {
 		textDecorationLine: 'line-through', fontSize: 12, fontFamily: "Montserrat-Regular",
 	},
+	disprice:{
+		fontSize: 14, fontFamily: "Montserrat-SemiBold", marginHorizontal: 5, color: '#ccc', alignItems: 'center',
+	},
 	ogprice: {
-		fontSize: 12, fontFamily: "Montserrat-SemiBold", marginLeft: 2, color: '#333', alignItems: 'center',
+		fontSize: 14, fontFamily: "Montserrat-Bold", marginLeft: 4, color: '#000', alignItems: 'center',
 	},
 	discountpricecut: {
-		fontSize: 12, fontFamily: "Montserrat-SemiBold",
+		fontSize: 14, fontFamily: "Montserrat-SemiBold",
 		textDecorationLine: 'line-through',
+		textDecorationColor: '#EF4D4D',
+		color:'#ccc',
+		marginHorizontal: 2,
 
 	},
 	packofnos: {

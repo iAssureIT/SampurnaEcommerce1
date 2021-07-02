@@ -51,7 +51,7 @@ export const MarketingBlock=(props)=>{
       <TouchableOpacity onPress={()=>redirectPage(item)} key={index}>
         <ImageBackground 
           style={{ width:"100%", height: 150}} 
-          imageStyle={{borderRadius:15}}
+          imageStyle={{borderRadius:8}}
           source={image}
           resizeMode={"stretch"}
         >

@@ -182,7 +182,7 @@ const onScroll=(e)=>{
             />
             <View style={{flexDirection:"row",marginTop:5,alignItems:'center'}}>
               <View style={{paddingVertical:2,flex:0.7}}>
-                  <Text numberOfLines={1} style={[CommonStyles.label,{paddingHorizontal:5}]}>{vendor.vendorName}</Text>
+                  <Text numberOfLines={1} style={[CommonStyles.label,{paddingHorizontal:5,fontWeight:"bold"}]}>{vendor.vendorName}</Text>
               </View> 
               <View style={{justifyContent:"flex-end",flexDirection:'row',flex:0.3}}>
                 <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>

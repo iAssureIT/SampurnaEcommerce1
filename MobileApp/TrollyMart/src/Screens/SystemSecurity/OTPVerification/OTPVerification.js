@@ -149,16 +149,16 @@ const FormBody = (props) => {
   }
 
   return (
-    <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyle.container} resizeMode="cover" >
-      <View style={{paddingHorizontal:20}}>
-          <View style={styles.boxOpacity}>
+    // <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyle.container} resizeMode="cover" >
+      <View style={{flex:1,paddingHorizontal:20}}>
+          <View style={[styles.boxOpacity,{flex:1}]}>
           <Image
-            style={{height: 120, width: 150, alignSelf: 'center'}}
+            style={{height: 220, width: 150, alignSelf: 'center'}}
             source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
             resizeMode="contain"
           />
            <View style={styles.textTitleWrapper}><Text style={commonStyle.headerText}>OTP Verification</Text></View>
-           <View style={styles.textTitleWrapper}><Text style={{ fontSize: 17, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View>
+           <View style={styles.textTitleWrapper}><Text style={{ fontSize: 15, fontFamily: 'Montserrat-Regular',alignSelf:'center' }}>Please Enter Verification Code</Text></View>
          <OTPInputView
             style={{width: '60%', height: 100,alignSelf:"center"}}
             pinCount={4}
@@ -184,7 +184,7 @@ const FormBody = (props) => {
                 <FormButton
                     title       = {'Resend OTP'}
                     onPress     = {handleResend}
-                    background  = {resendLoading}
+                    // background  = {resendLoading}
                     loading     = {resendLoading}
                 />
              </View>   
@@ -205,6 +205,6 @@ const FormBody = (props) => {
           </View>
         </View>
       </View>
-    </ImageBackground>
+    // </ImageBackground>
   );
 };

@@ -232,7 +232,7 @@ export const ProductList = withCustomerToaster((props)=>{
                 } 
               {userDetails.authService!=="guest" &&
               <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} >
-                <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.theme} />
+                <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.heartIcon} />
               </TouchableOpacity>}
               {
                 item.productSmallImage && item.productSmallImage.length > 0 ?
@@ -259,7 +259,7 @@ export const ProductList = withCustomerToaster((props)=>{
           
                 <View style={[styles.flx1, styles.protxt]}>
                   {props.vendorName && 
-                    <View style={{justifyContent:'center',alignItems:'center',marginBottom:15}}>
+                    <View style={{justifyContent:'flex-start',alignItems:'flex-start',marginBottom:15}}>
                       <Text style={styles.brandname}>{item.vendorName}</Text>
                     </View>
                   }
@@ -267,7 +267,7 @@ export const ProductList = withCustomerToaster((props)=>{
                     <View style={{flex:.8}}>
                       {item.brand ?
                     
-                        <Text numberOfLines={1} style={[styles.brandname]}>{item.brand}</Text>
+                        <Text numberOfLines={1} style={[styles.productName]}>{item.brand}</Text>
                         :
                        null
                       }
@@ -295,13 +295,13 @@ export const ProductList = withCustomerToaster((props)=>{
                 </View>
                 <View style={[styles.flx1, styles.prdet]}>
                   <View style={[styles.flxdir]}>
-                    <View style={[styles.flxdir]}>
+                    <View style={[styles.flxdir,{marginTop:5}]}>
                       <Text style={styles.ogprice}>{currency} </Text>
                       {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice}</Text>:null}
                     </View>
-                    <View style={[styles.flxdir,{alignItems:"center"}]}>
+                    <View style={[styles.flxdir12]}>
                       {item.discountPercent > 0 ?
-                            <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                            <Text style={styles.disprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
                             </Text>
                           :
                           <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>

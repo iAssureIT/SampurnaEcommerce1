@@ -8,8 +8,8 @@ export const FormButton = props => {
     <Button
       title           = {title}
       containerStyle  = {styles.containerStyle}  
-      buttonStyle     = {background ? styles.buttonStyle : styles.buttonStyle1}
-      titleStyle      = {background ? styles.titleStyle : styles.titleStyle1}
+      buttonStyle     = {background ? styles.buttonStyle : styles.buttonStyle2}
+      titleStyle      = {background ? styles.titleStyle : styles.titleStyle2}
       {...rest}
     />
   );
@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
     borderColor:colors.theme,
     color:colors.theme,
   },
+  buttonStyle2:{
+    backgroundColor:"#033554",
+    // backgroundColor:colors.theme,
+    borderRadius:4,
+  },
   titleStyle:{
     fontSize:12,
     color:colors.white
@@ -40,6 +45,10 @@ const styles = StyleSheet.create({
   titleStyle1:{
     fontSize:18,
     color:colors.theme
+  },
+  titleStyle2:{
+    fontSize:12,
+    color:colors.white
   }
   
 });
