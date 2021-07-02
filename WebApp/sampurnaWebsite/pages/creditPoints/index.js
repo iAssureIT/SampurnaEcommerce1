@@ -55,7 +55,7 @@ class CreditPoints extends Component{
     render(){
         return(
             <div className={ "col-10 offset-1 NoPadding accountMainWrapper pb-4 "+Style.accountMainWrapper}> 
-                <div className={"col-12 NoPadding mt-4"+Style.creditWrapper}>
+                <div className={"col-12 NoPadding pt-5 "+Style.creditWrapper}>
                     <div className={"col-12 "+Style.creditHeader}>
                         <div className="row">
                             <div className="col-6 text-left">Total Points</div>
@@ -68,7 +68,7 @@ class CreditPoints extends Component{
                     </div>
                     {this.state.creditdata && this.state.creditdata.transactions && this.state.creditdata.transactions.length>0
                     ?
-                    <div className="col-12">
+                    <div className={"col-12 "+Style.creditHeaderBottom}>
                     <table className="table table-borderless orderTable">
                         <thead>
                             <tr>

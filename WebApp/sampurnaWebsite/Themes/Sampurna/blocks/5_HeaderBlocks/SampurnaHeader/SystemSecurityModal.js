@@ -122,22 +122,22 @@ class header extends React.Component {
                     <li className="dropdown myaccDropdown">
                         <span className="col-12 NoPadding ">
                             <div className="faIcon faLoginIcon col-12 mt-2 NoPadding"> 
-                                <div className="mtm10">  
+                                <div className="mtm10 my-auto">  
                                     {this.state.authService === "guest" && this.state.userId ?
-                                        <span>
-                                            <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hello Guest!</span></span>
+                                        <span className="my-auto">
+                                            <span style={{float: "right"}} className="faIcon col-12 NoPadding pb-1"><span className="userName ">Hello Guest!</span></span>
                                             <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span>
                                         </span>
                                     :
-                                    <span>
-                                        <span style={{float: "right"}} className="faIcon col-12 NoPadding"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
+                                    <span className="my-auto">
+                                        <span style={{float: "right"}} className="faIcon col-12 NoPadding pb-1"><span className="userName ">Hello&nbsp; {this.state.userName}!</span></span>
                                         <span className="userEmail">My Account <i className="fa fa-angle-down"></i></span>
                                     </span>
                                     }
                                 </div>
                             </div>
                         </span>
-                        <ul className="col-3 dropdown-menu list-DropDownMenu">   
+                        <ul className="col-3 dropdown-menu mt-5 list-DropDownMenu">   
                         {this.state.authService!=="guest"?    
                             <div className="col-12 NoPadding">                                 
                                 <li className="col-12 NoPadding">                            
@@ -162,7 +162,7 @@ class header extends React.Component {
                                 
                                 <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account#v-pills-settings-tab"><a>My Orders</a></Link></li>
                                 <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account#v-pills-settings1-tab"><a>My Wishlist</a></Link></li>                               
-                                <li className="col-12 NOpadding myAccMenu myAccMenuATag" ><Link href="/my-account"><a>My Profile</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenu myAccMenuATag" onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account"><a>My Profile</a></Link></li>
                                 <li className="col-12 NOpadding myAccMenu myAccMenuATag"onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account#v-pills-settings3-tab"><a>My Credits</a></Link></li>
                                 <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                             </div>

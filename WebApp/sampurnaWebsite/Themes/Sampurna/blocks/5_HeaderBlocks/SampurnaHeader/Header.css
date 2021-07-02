@@ -19,6 +19,7 @@
 }
 
 .userEmail{
+    padding-bottom: 13px;
     font-size:13px;
     color:#fff;
     line-height:1 !important;
@@ -373,10 +374,11 @@ ul:hover > .dropDownLevel3 {
 .list-DropDownMenu{
     min-width: 200px !important;
     left: -44px !important;
-    margin-top: 13px !important;
+    margin-top: 28px !important;
     border-radius: 5px !important;
     border: none !important;
     z-index: 1001 !important;
+    
 }
 .signInBlock{
     border-radius: 5px;

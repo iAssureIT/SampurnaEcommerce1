@@ -21,8 +21,9 @@ class Wishlist extends React.Component {
 
    render(){
         return(  
-            <div className="col-2 NoPadding">
-              <li  onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}><Link href="/my-account#v-pills-settings1-tab">
+            <div className="col-2 NoPadding mr-3 my-auto">
+              <li  onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}>
+                  <Link href="/my-account#v-pills-settings1-tab">
                      <a title="wishlistIcon ">
                         <Image
                         src={"/images/eCommerce/wishlist.png"}

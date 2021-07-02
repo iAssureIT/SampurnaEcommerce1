@@ -246,7 +246,7 @@ export default class OrderDetails extends Component {
   render() {
     // console.log("Order Details props====",this.props );
     return (
-      <div className="col-12 NoPadding">
+      <div className={"col-12 NoPadding "+Style.orderDetailMainWrapper}>
         <div className={" " +Style.container1 }>
           <Message messageData={this.state.messageData} />
           {

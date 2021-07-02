@@ -16,6 +16,10 @@
 	font-size:11px !important;
 }
 
+.orderDetailMainWrapper{
+	margin-top: -510px!important;
+}
+
 .vendorRow{
 	padding:10px;
 }

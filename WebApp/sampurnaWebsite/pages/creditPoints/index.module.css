@@ -1,12 +1,13 @@
 .creditWrapper{
     
-    border: solid 1px #033554;
-    height: 200px;
+    /* border: solid 1px #033554; */
+    height: 440px;
     border-radius: 20px;
+    
 
 }
 .accountMainWrapper{
-    border: solid 1px #033554;
+    /* border: solid 1px #033554; */
     border-radius: 20px;
 }
 .creditHeader{
@@ -15,8 +16,15 @@
     color: #fff;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    
 }
 
 .creditRow{
     border-bottom: solid 1px #eee;
+    
+}
+.creditHeaderBottom{
+    border: solid 1px #033554;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }

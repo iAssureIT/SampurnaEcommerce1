@@ -111,7 +111,7 @@ class Payment extends Component {
                           <div className="row">
                            <span className="col-6">Email :</span> 
                             <p className="col-6 text-right invoiceOrderTotal"> 
-                           abc@gmail.com
+                               {this.state.email}
                             </p>
                           </div>
                     </div>
@@ -139,7 +139,7 @@ class Payment extends Component {
               
 
                 <div className="backtoMyOrdersDiv col-12 mb-3 mt-5 pt-3 text-center">
-                  <Link href="/my-account">
+                  <Link href="/my-account#v-pills-settings-tab">
                       <a><i className="fa fa-arrow-circle-left"></i> Go Back To My Orders</a>
                   </Link>
                 </div>
