@@ -68,8 +68,8 @@ class Payment extends Component {
               <div className="row">
                 <div className={"col-4 "+Style.paymentLeftSideWrapper}>
                 <div className={"alert text-center mt-2 "+Style.paymentAlertWrapper}>
-                  <i className="fa fa-check"></i> <br/>
-                   <h6>Thank you your order has been received.</h6> 
+                  <i className="fa fa-exclamation-triangle"></i> <br/>
+                   <h6 className="mt-2">Payment Failed.</h6> 
                 </div>
                 <div className={"mx-4 "+Style.paymentAlertWrapper}>
                   <h6>Receipt From
@@ -90,7 +90,7 @@ class Payment extends Component {
                 </div>
                 <div className={"col-8 "+Style.paymentRightSideWrapper}>
                 <img src="/images/eCommerce/trollymart-black.png" className={"float-right mt-3 "+Style.paymentLogoWrapper} alt="Trollymart Logo" />
-                <img src="/images/eCommerce/Face.png" className={" m-auto "+Style.paymentBgWrapper} alt="Trollymart Logo" />
+                <img src="/images/eCommerce/warning.png" className={" m-auto "+Style.paymentBgWrapper} alt="Trollymart Logo" />
 
 
                 <div className="col-12 mt-5 pt-5">
