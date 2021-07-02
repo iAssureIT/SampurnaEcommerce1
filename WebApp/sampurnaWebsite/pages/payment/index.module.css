@@ -30,6 +30,9 @@
     left: 140px;
     /* margin-top: 54px; */
 }
+.paymentLogoWrapper{
+    height:35px;
+}
 
 .paymentAlertWrapper i{
     font-size:40px;

@@ -89,7 +89,7 @@ class Payment extends Component {
                 </div>
                 </div>
                 <div className={"col-8 "+Style.paymentRightSideWrapper}>
-                <img src="" className="float-right mt-3" alt="Trollymart Logo" />
+                <img src="/images/eCommerce/trollymart-black.png" className={"float-right mt-3 "+Style.paymentLogoWrapper} alt="Trollymart Logo" />
                 <img src="/images/eCommerce/Face.png" className={" m-auto "+Style.paymentBgWrapper} alt="Trollymart Logo" />
 
 
