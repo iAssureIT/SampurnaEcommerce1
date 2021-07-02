@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 function Home({pageData}) {
   return (
     //   <HomeToVendorList pageData = {pageData} />
-
       <ul>
       {sectionData.map((sectionData) => {
         return (

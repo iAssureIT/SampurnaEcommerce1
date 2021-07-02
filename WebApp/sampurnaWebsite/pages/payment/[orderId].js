@@ -30,7 +30,7 @@ class Payment extends Component {
         if(this.state.orderID){
           await axios.get("/api/orders/get/one/" + this.state.orderID)
           .then((response) => {
-            // console.log('orderData response', response.data)
+            console.log('orderData response', response.data)
             this.setState({
               orderData: response.data
             })
@@ -58,12 +58,12 @@ class Payment extends Component {
   render() {
     // console.log("this.state.orderData.vendorOrders===",this.state.orderData);
     return (
-      <div>
+      <div className="col-12 ">
+        <div className="row">
         <Header />
-        {/* <BreadCrumbs /> */}
+        {this.state.orderData?
           <div className="container h-100 mb-5">
             <div className="col-12 col-xl-12 col-sm-12 col-xs-12  NOpadding h-100">
-
             <div className={"col-xl-10 offset-xl-1 col-md-10 offset-md-1 col-sm-12 col-xs-12 col-12  mt-5 m-b-5 "+Style.paymentMainWrapper}>
               <div className="row">
                 <div className={"col-4 "+Style.paymentLeftSideWrapper}>
@@ -76,22 +76,21 @@ class Payment extends Component {
                   <h6 className="mx-4 mt-2">Trollymart</h6></h6><hr/>
                 </div>
                 <div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
-                  <i className="fa fa-lock"></i>&nbsp;&nbsp;Amount <br/><hr/>
+                  <i className="fa fa-lock"></i>&nbsp;&nbsp;Amount : {this.state.currency}&nbsp;{this.state.orderData.paymentDetails? this.state.orderData.paymentDetails.netPayableAmount:null} <br/><hr/>
                 </div>
                 <div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
                   <i className="fa fa-calendar"></i>&nbsp;&nbsp;Date <br/>
                   <p className="mt-2 mx-3">{moment(this.state.orderData.createdAt).format("DD MMMM")}  | OrderID -  {this.state.orderData.orderID}    {this.state.orderData.shippingtime?<span className="pull-right hidden-xs">Shipping Time : {this.state.orderData.shippingtime}</span>:null}</p><hr/>
 
                 </div>
-                <div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
+                {/* <div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
                   <i className="fa fa-clipboard"></i>&nbsp;&nbsp;Confirmation No <br/>
                   <p className="mt-2 mx-3">12345678989784554</p>
-                </div>
+                </div> */}
                 </div>
                 <div className={"col-8 "+Style.paymentRightSideWrapper}>
                 <img src="/images/eCommerce/trollymart-black.png" className={"float-right mt-3 "+Style.paymentLogoWrapper} alt="Trollymart Logo" />
                 <img src="/images/eCommerce/Face.png" className={" m-auto "+Style.paymentBgWrapper} alt="Trollymart Logo" />
-
 
                 <div className="col-12 mt-5 pt-5">
                 
@@ -100,9 +99,9 @@ class Payment extends Component {
                 <div className="row">
                   <div className="col-12 mb-3 ">
                           <div className="row">
-                           <span className="col-6">Order No :</span> 
+                           <span className="col-6">Order No : </span> 
                             <p className="col-6 text-right invoiceOrderTotal"> 
-                           123456
+                              {this.state.orderData.orderID} 
                             </p>
                           </div>
                     </div>
@@ -130,13 +129,10 @@ class Payment extends Component {
                     <div className="row">
                           <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12  "><span>Total : </span></div>
                           <div className="col-xl-6 col-md-6 col-12 col-sm-12 col-xs-12  NOpadding text-right">
-                            <span className="invoiceOrderTotal"><i className={"fa fa-" + this.state.orderData.currency}></i> {(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)}AED</span>
+                            <span className="invoiceOrderTotal"><i className={"fa fa-" + this.state.orderData.currency}> </i> {(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2)} &nbsp;{this.state.currency}&nbsp;</span>
                           </div>
                         </div>  
                     </div>
-                  
-                 
-              
 
                 <div className="backtoMyOrdersDiv col-12 mb-3 mt-5 pt-3 text-center">
                   <Link href="/my-account#v-pills-settings-tab">
@@ -155,15 +151,12 @@ class Payment extends Component {
                 </div>
               </div>
            </div>
-
-
-
-
-
-            
             </div>
           </div>
-          <Footer />
+        :null  
+        }
+        <Footer />
+        </div>
         </div>
     );
   }

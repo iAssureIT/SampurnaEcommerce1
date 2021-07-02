@@ -203,6 +203,10 @@
     /* height: 310px; */
     border-radius: 15px;
   }
+  .mobileViewPadding{
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+  }
   .productBlock {
     border: 1px solid #ddd;
     border-radius: 15px;
