@@ -1,7 +1,7 @@
-import React 		          from 'react';
-import axios 		          from 'axios';
+import React                  from 'react';
+import axios                  from 'axios';
 import Link                   from 'next/link';
-import swal 		          from 'sweetalert';
+import swal                   from 'sweetalert';
 import Image                  from 'next/image';
 import Router                 from 'next/router'; 
 import { connect }            from 'react-redux';
@@ -17,10 +17,10 @@ import Wishlist               from './Wishlist.js';
 import {setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 
 class Header extends React.Component {
-	constructor(props) {
-		super(props);
-		 this.state = {
-            multilevelMenuData : {},	
+    constructor(props) {
+        super(props);
+         this.state = {
+            multilevelMenuData : {},    
             multilevelMenuData : [],  
             userID             : "", 
             userLocation       : true,  
@@ -28,7 +28,7 @@ class Header extends React.Component {
             deliveryLocation   : "-"
          }
     }    
-	 async componentDidMount(){
+     async componentDidMount(){
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if( userDetails && userDetails.user_id){

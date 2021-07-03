@@ -742,15 +742,15 @@ li a{
     font-size: 13px;
 }
 .locationPage{
-	margin-top:0px !important;
+    margin-top:0px !important;
 }
 .locationBg{
-	background:url("/images/eCommerce/locationMap.jpg");
-	background-size:100% 100%;
-	background-repeat:no-repeat;
-	margin-top:0px !important;
-	/* height:600px !important; */
-	z-index: 1;
+    background:url("/images/eCommerce/locationMap.jpg");
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    margin-top:0px !important;
+    /* height:600px !important; */
+    z-index: 1;
 }
 .orText{
     border-radius: 100%;
