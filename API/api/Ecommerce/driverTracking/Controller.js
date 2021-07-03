@@ -8,6 +8,7 @@ var request = require('request-promise');
 
 //Write By Rushikesh
 exports.addActivity = (req, res, next) => {
+    console.log("moment(req.body.currentDate).format",moment(req.body.currentDate).format("YYYY-MM-DD"))
 	DriverTracking.findOne({_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")})
     .exec()
     .then(tracking => {
