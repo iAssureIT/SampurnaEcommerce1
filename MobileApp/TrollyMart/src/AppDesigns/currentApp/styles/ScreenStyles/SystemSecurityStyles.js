@@ -22,7 +22,7 @@ export default StyleSheet.create({
     },
 
     textTitleWrapper:{
-        paddingHorizontal: 30, marginTop: 15, marginBottom:40
+        paddingHorizontal: 30, marginTop: 10, marginBottom:40
     },
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,

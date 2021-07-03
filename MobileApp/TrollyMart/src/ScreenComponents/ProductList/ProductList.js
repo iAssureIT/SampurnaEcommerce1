@@ -231,7 +231,7 @@ export const ProductList = withCustomerToaster((props)=>{
                   </ImageBackground> :null
                 } 
               {userDetails.authService!=="guest" &&
-              <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} >
+              <TouchableOpacity style={[styles.textWrapper, styles.wishlisthrt]} onPress={() => addToWishList(item._id,item.vendor_ID,index)} >
                 <Icon size={22} name={item.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={item.isWish ? colors.heartIcon: colors.heartIcon} />
               </TouchableOpacity>}
               {
@@ -257,7 +257,7 @@ export const ProductList = withCustomerToaster((props)=>{
                   />
               }
           
-                <View style={[styles.flx1, styles.protxt]}>
+                <View style={[styles.textWrapper, styles.protxt]}>
                   {props.vendorName && 
                     <View style={{justifyContent:'flex-start',alignItems:'flex-start',marginBottom:15}}>
                       <Text style={styles.brandname}>{item.vendorName}</Text>
@@ -293,9 +293,9 @@ export const ProductList = withCustomerToaster((props)=>{
                   <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
                   {/* }                        */}
                 </View>
-                <View style={[styles.flx1, styles.prdet]}>
+                <View style={[styles.textWrapper, styles.prdet]}>
                   <View style={[styles.flxdir,{justifyContent:'flex-start',alignContent:'flex-start'}]}>
-                    <View style={[styles.flxdir,{marginTop:5}]}>
+                    <View style={[styles.flxdir]}>
                       <Text style={styles.ogprice}>{currency} </Text>
                       {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice}</Text>:null}
                     </View>

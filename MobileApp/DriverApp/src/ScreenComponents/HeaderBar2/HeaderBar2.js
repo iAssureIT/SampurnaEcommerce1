@@ -39,8 +39,9 @@ import Geolocation                  from 'react-native-geolocation-service';
       globalSearch  : store.globalSearch,
       location      : store.location,
       cartCount     : store.productList.cartCount,
+      userDetails   : store.userDetails
     }));
-    const {globalSearch,location,cartCount} = store;
+    const {globalSearch,location,cartCount,userDetails} = store;
    
     useEffect(() => {
       getData()
@@ -73,13 +74,52 @@ import Geolocation                  from 'react-native-geolocation-service';
 
   const setOnOff=(val)=>{
     console.log("val",val);
-    if(val==="online"){
-       interval = setInterval(() => {
-        getCurrentPosition();
-      }, 15000);
-    }else if(val==="offline"){
-      clearInterval(interval);
-    }
+    request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+    .then(result => {
+      switch (result) {
+        case RESULTS.GRANTED:
+            Geolocation.getCurrentPosition(
+                (position) => {
+                  const {latitude,longitude} = position.coords;
+                  var payload = {
+                    user_id       : userDetails.user_id,
+                    currentDate   : new Date(),
+                    onlineActivities    : {
+                          activity    : val, 
+                          timestamp   : new Date() , 
+                          lat         : latitude, 
+                          long        : latitude
+                      },
+                  }
+                  console.log("payload",payload);
+                  axios.post('/api/drivertracking/post/add_tracking',payload)
+                  if(val==="online"){
+                    interval = setInterval(() => {
+                      getCurrentPosition();
+                    }, 15000);
+                  }else if(val==="offline"){
+                    clearInterval(interval);
+                  }
+                },
+                (error) => {
+                  // See error code charts below.
+                  console.log(error.code, error.message);
+                },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+            );
+          break;
+        }
+      })
+      .catch(error => {
+        if (error.response.status == 401) {
+            AsyncStorage.removeItem('user_id');
+            AsyncStorage.removeItem('token');
+            setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+            navigation.navigate('Auth')
+          }else{
+            setToast({text: 'Something went wrong.', color: 'red'});
+          }  
+      });
   }
 
   const getCurrentPosition = ()=>{
@@ -97,9 +137,19 @@ import Geolocation                  from 'react-native-geolocation-service';
             Geolocation.getCurrentPosition(
                 (position) => {
                     console.log("position",position);
-                    axios.post('/api/')
+                  const {latitude,longitude} = position.coords;
+                    var payload = {
+                      user_id       : userDetails.user_id,
+                      currentDate   : new Date(),
+                      currentLocations    : {
+                            timestamp   : new Date() , 
+                            lat         : latitude, 
+                            long        : latitude
+                        },
+                    }
+                    axios.post('/api/drivertracking/post/start_racking',payload)
                     .then(res=>{
-
+                        console.log("res",res);
                     })
                     .catch(err=>{
                       console.log("err",err)

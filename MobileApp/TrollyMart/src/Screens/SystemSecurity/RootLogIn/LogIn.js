@@ -487,7 +487,12 @@ const window = Dimensions.get('window');
                     elevation: 5,
                     marginRight:15
                   }}>
-                  <Icon name='google' type='font-awesome' size={36} color="#EA4335"/>
+                  <Image
+                    resizeMode="contain"
+                    source={require("../../../AppDesigns/currentApp/images/google.png")}
+                    style={{height:"100%",width:"100%"}}
+                  />
+                  {/* <Icon name='google' type='font-awesome' size={36} color="#EA4335"/> */}
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={loginWithFacebook}

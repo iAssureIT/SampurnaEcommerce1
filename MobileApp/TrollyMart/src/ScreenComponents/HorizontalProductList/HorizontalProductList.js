@@ -61,7 +61,7 @@ export const HorizontalProductList =(props)=>{
  
   const _renderlist = ({ item, index })=>{
     return (
-      <View key={index}  style={[styles.productContainer,{width:window.width-220,marginRight:20,marginVertical:5}]} >
+      <View key={index}  style={[styles.productContainer,{width:window.width-220,marginRight:20}]} >
         <TouchableWithoutFeedback  onPress={()=>{navigation.navigate("ProductVendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section,product_id:item._id})}}>
           <View style={styles.flx5}>
             <View style={styles.flx1}>
@@ -120,8 +120,6 @@ export const HorizontalProductList =(props)=>{
                   </View>
                 </View>
               </View>
-            <View style={styles.addtocartbtn}>
-            </View>
           </View>
         </TouchableWithoutFeedback>
       </View>

@@ -141,7 +141,7 @@ export default StyleSheet.create({
   },
 
   searchInputContainer: {
-    backgroundColor: colors.white,
+    backgroundColor: "#E7E7E7",
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderLeftWidth: 1,
@@ -158,14 +158,14 @@ export default StyleSheet.create({
   searchInput: {
     fontSize: 13,
     fontFamily: "Montserrat-Regular",
-    backgroundColor:'#fff'
+    backgroundColor:'#E7E7E7'
   },
 
   location:{
     flex:.3,
     height:40,
     padding:5,
-    backgroundColor:colors.white,
+    backgroundColor:'#E7E7E7',
     borderRadius:5,
     // paddingHorizontal:5,
     flexDirection:"row",

@@ -271,8 +271,9 @@ export default StyleSheet.create({
 	},
 	prdet: {
 		flex:1,
+		marginTop:5,
 		// alignItems: "center",
-		marginBottom:15,
+		marginBottom:10,
 		marginLeft:5
 	},
 	// addtocartbtn: {
@@ -314,6 +315,9 @@ export default StyleSheet.create({
 		backgroundColor:"#fff",
 		marginBottom:15
 		// height:30,
+	  },
+	  textWrapper:{
+		marginBottom:0
 	  },
 	  marginBottom20:{
 		marginBottom: 20
@@ -365,7 +369,6 @@ export default StyleSheet.create({
 	},
 	flxdir12: {
 		flexDirection: 'row',
-		marginTop:5,
 	},
 	flxdir: {
 		flexDirection: 'row',
