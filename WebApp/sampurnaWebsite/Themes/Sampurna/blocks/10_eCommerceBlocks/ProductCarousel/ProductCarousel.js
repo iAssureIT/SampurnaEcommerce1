@@ -309,7 +309,7 @@ class ProductCarousel extends Component {
               productApiUrl : productApiUrl,
             })
         }
-
+        // console.log("getProductLIst formvalues===",this.state.productApiUrl,formValues);
         this.getProductList(productApiUrl,formValues);
        
       });
@@ -324,28 +324,33 @@ class ProductCarousel extends Component {
     })
   }//end if blockid
 }
-
+showMoreProduct(event){
+  event.preventDefault();
+  var formValues = {
+    "vendor_ID"      : this.state.vendor_ID,
+    "sectionUrl"     : this.state.sectionUrl,
+    "categoryUrl"    : this.state.categoryUrl,
+    "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+    "userLatitude"   : this.state.userLatitude,
+    "userLongitude"  : this.state.userLongitude,
+    "startRange"     : this.state.startRange,
+    "limitRange"     : this.state.limitRange + 25,
+  }
+  const productApiUrl = this.state.productApiUrl;
+  console.log("showMore formValues===",formValues,productApiUrl)
+  this.getProductList(productApiUrl,formValues);
+}
 getProductList(productApiUrl,formValues){
     // console.log("getProductList productApiUrl=>",productApiUrl ,formValues);
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      // console.log("response.data in product carousel===",response.data);       
-      if(this.state.websiteModel === "FranchiseModel"){
-        for(var i=0;i<response.data.length;i++){       
-            var availableSizes = [];         
-            if(response.data[i].size){              
-              availableSizes.push(response.data[i].size*1);
-              availableSizes.push(response.data[i].size*2);
-              availableSizes.push(response.data[i].size*4); 
-              response.data[i].availableSizes = availableSizes;           
-            }
-        }
-      } 
+    
       this.setState({
-        newProducts     : response.data,                          
+        // newProducts     : response.data,   
+        newProducts     : response.data.concat(this.state.newProducts),                         
       },()=>{
-        // console.log("newProducts=>",this.state.newProducts);
+        console.log("newProducts=>",this.state.newProducts.length);
         if(this.state.newProducts.length>0){
           this.setState({
             ProductsLoading : true,
@@ -525,6 +530,7 @@ submitCart(event) {
       "brand"          : '' 
     }
     if(this.state.productApiUrl && formValues){
+      // conssole.log("getProductLIst formvalues===",this.state.productApiUrl,formValues);
       this.getProductList(this.state.productApiUrl,formValues);
       $("html, body").animate({ scrollTop: 200 }, 500);
     }//end productApiUrl
@@ -888,6 +894,11 @@ submitCart(event) {
                             <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
                         </div>
                         }
+                        <div className="col-12">
+                          <div className="row">
+                            <button className="btn btn-secondary col-2 offset-10 pull-right" onClick={this.showMoreProduct.bind(this)}>Show more</button>
+                          </div>
+                        </div>
                     </div>
                     
                     </div>                  

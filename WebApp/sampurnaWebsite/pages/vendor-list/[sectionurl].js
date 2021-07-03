@@ -13,9 +13,8 @@ class VendorList extends Component {
             "vendorList"   :[],
         };
       }
-
+      
       componentDidMount() {
-        //   console.log("inside vendor-list");
         var url = window.location.href.split('/');
         const sectionurl = url[4];
         if(sectionurl){
@@ -64,7 +63,6 @@ class VendorList extends Component {
         return(
             <div className={ Style.bgGray}>
                 <Header /> 
-                {/* <h1>Vendor list page</h1> */}
                 <div className={"container " +Style.bgHeight}>
                     {!this.state.loading
                     ?

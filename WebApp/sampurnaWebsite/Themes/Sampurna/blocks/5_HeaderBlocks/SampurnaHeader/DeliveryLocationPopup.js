@@ -231,7 +231,7 @@ class DeliveryLocationPopup extends React.Component {
             "latitude"       : this.state.latitude,
             "longitude"      : this.state.longitude,
         }
-        
+        console.log("this.state.country===",this.state.country);
         if((this.state.country) === "United Arab Emirates"){     
             if(this.props.sampurnaWebsiteDetails){
                 var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
