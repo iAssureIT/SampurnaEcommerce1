@@ -85,6 +85,7 @@ const vendorListRoutes			    		= require("./api/coreAdmin/entityMaster/RoutesVen
 // const EventTokenRoutes					= require("./coreAdmin/EventTokenMaster/RoutesEventTokenMaster.js");
 
 /*========== eCommerce Operations ===========*/
+const driverTrackingRoutes    				= require("./api/Ecommerce/driverTracking/Routes");
 const eCommUsersRoutes    					= require("./api/Ecommerce/eCommSystemSecurity/Routes");
 const productsRoutes						= require("./api/Ecommerce/products/Routes"); 
 const categoryRoutes						= require("./api/Ecommerce/categories/Routes");
@@ -184,6 +185,7 @@ app.use("/api/orderstatus",					orderStatus);
 app.use("/api/discount",					DiscountManagement);
 app.use("/api/coupon",						CouponManagement);
 app.use("/api/EventToken", 					EventTokenRoutes);
+app.use("/api/drivertracking", 					driverTrackingRoutes);
 //=========== Franchisemaster ==============
 app.use("/api/purchaseentry", 				PurchaseEntry);
 app.use("/api/finishedGoodsEntry", 			FinishedGoodsEntry);
