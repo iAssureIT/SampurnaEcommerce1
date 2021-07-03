@@ -3128,19 +3128,13 @@ exports.nearest_vendor_orders= (req, res, next) => {
 				"orderID":1,
 				"user_ID":1,
 				"userName":1,
-				"customerShippingTime":1,
-				"vendorOrders.products":1,
 				"vendorOrders.vendor_id":1,
 				"vendorOrders.vendorLocation_id":1,
-				"vendorOrders.vendor_numberOfProducts":1,
-				"vendorOrders.vendor_afterDiscountTotal":1,
-				"vendorOrders.vendor_shippingCharges":1,
 				"deliveryAddress":1,
 				"vendorDetails.companyName":1,
 				"vendorDetails.companyLogo":1,
 				"vendorDetails.locations":1,
 				"vendorDetails.createdAt":1,
-				"vendorDetails.contactPersons":1
 			}
 		}	
 	])
@@ -3158,17 +3152,19 @@ exports.nearest_vendor_orders= (req, res, next) => {
 					var vendorLocation_id   = data[i].vendorDetails.locations[j]._id;
 					var vendorLat           = data[i].vendorDetails.locations[j].latitude;
 					var vendorLong          = data[i].vendorDetails.locations[j].longitude;
+					var custLat            	= data[i].deliveryAddress.latitude;
+					var custLng            	= data[i].deliveryAddress.longitude;
 					
 					if(latitude !== "" && longitude !== undefined && latitude !== "" && longitude !== undefined){
 						var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
+						var vendorToCustDist = await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
 					}
-					data[i].vendorDetails.locations = {
-														"vendorName"            : vendorName, 
-														"vendorLocation_id"     : vendorLocation_id,
-														"vendorDistance"        : vendorDist ? vendorDist.toFixed(2) : '',
-														"expectedReachedTime"  : (parseInt((60/20) * vendorDist))
-													};
-					// console.log("vendorLocations => ",vendorDetails[i].locationsj);
+					data[i].vendorDetails.locations[j].vendorName =vendorName;
+					data[i].vendorDetails.locations[j].vendorLocation_id =vendorLocation_id;
+					data[i].vendorDetails.locations[j].vendorDist =vendorDist ? vendorDist.toFixed(2) : '';
+					data[i].vendorDetails.locations[j].vendorToCustDist =vendorToCustDist ? vendorToCustDist.toFixed(2) : '';
+					data[i].vendorDetails.locations[j].expectedReachedTime =(parseInt((60/20) * vendorDist));
+					console.log("vendorLocations => ",data[i].vendorDetails.locations);
 					// vendorLocations.push(data[i].vendorDetails.locationsj);
 				}
 			}
