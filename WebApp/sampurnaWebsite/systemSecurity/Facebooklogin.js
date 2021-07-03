@@ -70,7 +70,7 @@ render() {
                   appId="507698857234444"
                   // autoLoad={true}
                   fields="name,email,picture"
-                  scope="public_profile,user_friends,user_actions.books"
+                  scope="public_profile,email"
                   callback={this.responseFacebook}
                 />
             </div>

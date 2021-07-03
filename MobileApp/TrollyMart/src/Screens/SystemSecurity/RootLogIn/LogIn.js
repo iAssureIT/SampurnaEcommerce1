@@ -460,14 +460,35 @@ const window = Dimensions.get('window');
             </View>
            <Text style={{paddingVertical:10,alignSelf:"center",fontSize:9,fontFamily:"Montserrat-Bold"}}>OR</Text>
             <View style={{alignItems:"center",justifyContent:"center",flexDirection:'row'}}>
-              <GoogleSigninButton
+              {/* <GoogleSigninButton
                 style={{ width: 41, height: 41,borderRadius:100,marginRight:15}}
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Light}
                 onPress={()=>google_login()}
                 // loading={googleLoading}
                 // disabled={true} 
-                />
+                /> */}
+                <TouchableOpacity
+                 onPress={()=>google_login()}
+                  style={{
+                    backgroundColor:"#fff",
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 40, 
+                    height: 40,
+                    borderRadius:100,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5,
+                    marginRight:15
+                  }}>
+                  <Icon name='google' type='font-awesome' size={36} color="#EA4335"/>
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={loginWithFacebook}
                   style={{

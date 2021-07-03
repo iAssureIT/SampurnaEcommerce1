@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { GoogleLogin } from 'react-google-login';
 
 const responseGoogle = (response) => {
-    console.log(response);
+    console.log(`response`,response);
     // var userDetails = {
     //   firstname	: response.data.userDetails.firstName,
     //   lastname	: response.data.userDetails.lastName,

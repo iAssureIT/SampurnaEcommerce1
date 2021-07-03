@@ -97,6 +97,13 @@ import Geolocation                  from 'react-native-geolocation-service';
             Geolocation.getCurrentPosition(
                 (position) => {
                     console.log("position",position);
+                    axios.post('/api/')
+                    .then(res=>{
+
+                    })
+                    .catch(err=>{
+                      console.log("err",err)
+                    })
                 },
                 (error) => {
                   // See error code charts below.

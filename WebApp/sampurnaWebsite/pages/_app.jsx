@@ -82,6 +82,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>  
+        <meta name="google-site-verification" content="S4EQiZdQjD1RPwW1XC994P0eEuR0rc0gv5uC-GKBpdQ" />
       </Head>
       {
         initMap ?

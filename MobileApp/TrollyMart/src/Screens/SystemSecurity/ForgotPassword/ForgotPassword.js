@@ -108,8 +108,8 @@ const window = Dimensions.get('window');
     
   return (
       // <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-      <View style={{flex:1}}>
-          <View style={[styles.boxOpacity,{minHeight:'100%'}]}>
+      <View style={{flex:1,justifyContent:'center',backgroundColor:"#fff"}}>
+          <View style={[styles.boxOpacity]}>
                 <View style={styles.syslogo}>
                     <Image
                     resizeMode="contain"

@@ -27,10 +27,10 @@ export default StyleSheet.create({
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
         backgroundColor:'#fff',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 8,
+        // shadowOffset: { width: 0, height: 2 },
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        // elevation: 8,
     },
     boxOpacity1:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,backgroundColor:colors.inputBackgroundColor,

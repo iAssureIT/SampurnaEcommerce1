@@ -125,7 +125,7 @@ export default StyleSheet.create({
         color: colors.cartButton,
         fontSize: 10,
         fontFamily:"Montserrat-SemiBold",
-        textDecorationLine: 'underline'
+        // textDecorationLine: 'underline'
     },
     linkLightText:{
         color: colors.textLight,
