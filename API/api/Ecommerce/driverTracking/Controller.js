@@ -8,7 +8,7 @@ var request = require('request-promise');
 
 //Write By Rushikesh
 exports.addActivity = (req, res, next) => {
-	DriverTracking.findOne({_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYT-MM-DD")})
+	DriverTracking.findOne({_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")})
     .exec()
     .then(tracking => {
         if(tracking){
@@ -36,7 +36,7 @@ exports.addActivity = (req, res, next) => {
                 _id                 :   new mongoose.Types.ObjectId(),  
                 "user_Id"           :   req.body.user_Id,
                 "currentDate"       :   new Date(),
-                "currentDateStr"    :   moment().format("YYYT-MM-DD"),
+                "currentDateStr"    :   moment().format("YYYY-MM-DD"),
                 "onlineActivities"  :   req.body.onlineActivities
             });
             tracking.save()
@@ -64,7 +64,7 @@ exports.addActivity = (req, res, next) => {
 
 exports.startTracking = (req, res, next) => {
     DriverTracking.updateOne(
-        {_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYT-MM-DD")},
+        {_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")},
         {
             $push:{
                 currentLocations : req.body.currentLocations,
