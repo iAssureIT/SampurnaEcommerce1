@@ -10,13 +10,13 @@ var request = require('request-promise');
 exports.addActivity = (req, res, next) => {
     console.log("moment(req.body.currentDate).format",moment(req.body.currentDate).format("YYYY-MM-DD"));
     console.log("req.body",req.body);
-	DriverTracking.findOne({_id:req.body.user_id, currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")})
+	DriverTracking.findOne({user_id:ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")})
     .exec()
     .then(tracking => {
         console.log("tracking",tracking);
         if(tracking){
             DriverTracking.updateOne(
-                {_id: req.body.user_id},
+                {user_id: ObjectID(req.body.user_id)},
                 {
                     $push:{
                         onlineActivities : req.body.onlineActivities,
@@ -68,7 +68,7 @@ exports.addActivity = (req, res, next) => {
 exports.startTracking = (req, res, next) => {
     console.log("req.body",req.body);
     DriverTracking.updateOne(
-        {_id: req.body.user_id, currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")},
+        {user_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")},
         {
             $push:{
                 currentLocations : req.body.currentLocations,
