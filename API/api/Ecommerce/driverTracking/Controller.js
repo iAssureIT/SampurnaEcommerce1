@@ -37,7 +37,7 @@ exports.addActivity = (req, res, next) => {
         }else{
             const tracking = new DriverTracking({
                 _id                 :   new mongoose.Types.ObjectId(),  
-                "user_Id"           :   req.body.user_Id,
+                "user_id"           :   req.body.user_id,
                 "currentDate"       :   new Date(),
                 "currentDateStr"    :   moment().format("YYYY-MM-DD"),
                 "onlineActivities"  :   req.body.onlineActivities
