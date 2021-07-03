@@ -6,6 +6,8 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+
 class ShoppingVerticals extends Component {
   constructor(props) {
     super(props);
@@ -117,8 +119,8 @@ class ShoppingVerticals extends Component {
             <div className="col-12">
               <div className="col-12 productcomponentheading text-center">
                 <div className="producttextclass  col-12 ">
-                  <h5 className="row">
-                    <b>{this.state.blockTitle}</b> 
+                  <h5 className="row mb-3">
+                    <b className={"titleFont " }>{this.state.blockTitle}<span className={"line " }></span></b> 
                   </h5> 
                 </div>            
               </div>

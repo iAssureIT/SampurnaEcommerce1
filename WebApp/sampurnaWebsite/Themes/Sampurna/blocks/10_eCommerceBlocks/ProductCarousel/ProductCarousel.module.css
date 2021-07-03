@@ -303,13 +303,15 @@ font-weight: bold;
 .price{
   font-size: 14px;
   font-weight: 600;
-  color: #555 !important;
+  /*color: #DC1919 !important;  */
+  color: #000 !important;
   height: 30px;
 }
 .oldprice{
   font-size: 12px;
   color: #aaa !important;
   text-decoration: line-through;
+  text-decoration-color: #DC1919;
 }
 .product_brand{
   color: #555;
@@ -592,14 +594,15 @@ background: #fff;
 }
 
 .line {
-  position: relative;
+  position: absolute;
   height: 2px;
-  width:150px;
-  background-color: #ff4157;
-  margin:0 auto;
-  margin-bottom: 45px;
+  width:100%;
+  background-color: #000;
+  /*background-color: #ff4157;*/
+  /*margin:0 auto;*/
+  /*margin-bottom: 45px;*/
   bottom: 0;
-  top : 0;
+  top : 30;
 }
 
 .title4 .line .span{
@@ -660,7 +663,7 @@ background: #fff;
 
 
 .titleFont{
-  font-size:22px !important;  
+  font-size:36px !important;  
   margin-top:40px !important;
   margin-bottom:60px !important;
 }
