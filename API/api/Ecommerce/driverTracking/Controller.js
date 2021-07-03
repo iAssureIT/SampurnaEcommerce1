@@ -8,8 +8,8 @@ var request = require('request-promise');
 
 //Write By Rushikesh
 exports.addActivity = (req, res, next) => {
-    console.log("moment(req.body.currentDate).format",moment(req.body.currentDate).format("YYYY-MM-DD"))
-	DriverTracking.findOne({_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")})
+    console.log("moment(req.body.currentDate).format",moment(req.body.currentDate).format("YYYY-MM-DD").toString())
+	DriverTracking.findOne({_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD").toString()})
     .exec()
     .then(tracking => {
         if(tracking){
@@ -65,7 +65,7 @@ exports.addActivity = (req, res, next) => {
 
 exports.startTracking = (req, res, next) => {
     DriverTracking.updateOne(
-        {_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD")},
+        {_id: ObjectID(req.body.user_id), currentDateStr:moment(req.body.currentDate).format("YYYY-MM-DD").toString()},
         {
             $push:{
                 currentLocations : req.body.currentLocations,
