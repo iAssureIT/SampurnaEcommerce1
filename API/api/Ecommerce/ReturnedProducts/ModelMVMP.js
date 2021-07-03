@@ -26,8 +26,9 @@ const returnedProductSchema = mongoose.Schema({
 	pickedupBy              : String, 
 	returnStatus 			: String, 
 	returnStatusLog         : [{
-								status 	: String,
-								date 	: Date
+								status 		: String,
+								statusBy 	: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+								date 		: Date
 							}],
 	refundDetails           : [{
 								bankName        : String,

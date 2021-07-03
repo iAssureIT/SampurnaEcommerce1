@@ -18,8 +18,6 @@ router.post('/get/single/customer/review', 				        customerReviewController.
 
 router.patch('/patch/customer/review', 							customerReviewController.updateCustomerReview);
 
-
-
 router.post('/search/post', 					                checkAuth, customerReviewController.searchCustomerReview);
 
 

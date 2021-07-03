@@ -47,6 +47,7 @@ import AllOrdersList                from './StoreManagement/orders/component/All
 // import DeliveryInitiatedOrders      from './StoreManagement/orders/component/DeliveryInitiatedOrders.js';
 // import DeliveredOrders              from './StoreManagement/orders/component/DeliveredOrders.js';
 import ReturnedProducts               from './StoreManagement/orders/component/ReturnedProducts.js';
+import ViewReturnedProduct           from './StoreManagement/orders/component/ViewReturnedProduct.js';
 
 import DiscountManagement           from './storeAdmin/DiscountManagement/DiscountManagement.js';
 import CouponManagement             from './storeAdmin/CouponManagement/CouponManagementNew.js';
@@ -269,6 +270,7 @@ class Layout extends Component  {
                                                         <Route path="/delivery-initiated-orders"                        exact strict component={DeliveryInitiatedOrders} />
                                                         <Route path="/delivered-orders-list"                            exact strict component={DeliveredOrders} /> */}
                                                         <Route path="/returned-products"                                exact strict component={ReturnedProducts} />
+                                                        <Route path="/returned-product/:return_id"                     exact strict component={ViewReturnedProduct} />
 
                                                         <Route path="/viewOrder/:orderID"                               exact strict component={viewOrder} />
 

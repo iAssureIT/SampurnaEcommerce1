@@ -704,3 +704,12 @@
     font-size: 9px;
 }
 }
+
+.actionBtns{
+    border: 1px solid #ccc;
+    background: #fafafa;
+    padding: 5px 10px;
+    font-size: 12px !important;
+    font-weight: 700;
+    color: #666;
+}

@@ -1,14 +1,14 @@
 import React, { Component }   from 'react';
 import axios                  from 'axios';
-import IAssureTable           from "./ProductReviewTable/IAssureTable.jsx";
+// import IAssureTable           from "./ProductReviewTable/IAssureTable.jsx";
 import _                      from 'underscore';
 import moment                 from "moment";
 import swal                   from 'sweetalert';
 import CKEditor 	          from "react-ckeditor-component";
-import "./Productreview.css";
+// import "./Productreview.css";
 
 
-class Productreview extends Component{
+class ReturnedProductView extends Component{
 	constructor(props) { 
 		super(props);
 		this.state = {
@@ -25,16 +25,12 @@ class Productreview extends Component{
 		// this.getData(this.state.startRange, this.state.limitRange);
 		
 		this.setState({
-			review_id   : this.props.match.params.review_id,
-			roles       : roles
+			return_id   : this.props.match.params.return_id,
+			roles       : roles,
+            user_id     : userDetails.user_id
 		},()=>{
-			this.getReview(this.state.review_id);
+			this.getReturnedProduct(this.state.return_id);
 		})
-	}
-
-	/** =========== componentWillReceiveProps() =========== */
-	componentWillReceiveProps(nextProps) {
-		  
 	}
 
 	/** =========== handleChange() =========== */
@@ -47,30 +43,30 @@ class Productreview extends Component{
 		});
 	}
 
-	/** =========== getReview() =========== */
-	getReview(review_id){
-		console.log(" ===> ",review_id)
-		axios.get('/api/customerReview/get/review/'+review_id)
+	/** =========== getReturnedProduct() =========== */
+	getReturnedProduct(return_id){
+		console.log(" ===> ",return_id)
+		axios.get('/api/returnedproducts/get/product/'+return_id)
 		.then((response)=>{
 			console.log('response => ', response.data);
 			this.setState({
-					"productName"       	: response.data.productName ? (response.data.productName + " " + "(" + response.data.productCode) + ")" : "-",
-					"vendorName"        	: response.data.vendorName ? response.data.vendorName : "-",
-					"productImages"     	: response.data.productImage ? response.data.productImage : "-",
-					"customerName"      	: response.data.customerName ? response.data.customerName : "-",
-					"customerEmail" 		: response.data.customerEmail ? response.data.customerEmail : "-",
-					"customerMobile" 		: response.data.customerMobile ? response.data.customerMobile : "-",
-					"customerReview"    	: response.data.customerReview ? response.data.customerReview : "-", 
-					"reviewProductImages"   : response.data.reviewProductImages && response.data.reviewProductImages !== "undefined" &&  response.data.reviewProductImages.length > 0 ? response.data.reviewProductImages : ["/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg"],
-					"reviewDate"        	: response.data.reviewDate ? moment(response.data.reviewDate).format("DD MMMM YYYY, HH:mm a") : "-",             
-					"adminComment"      	: response.data.adminComment ? response.data.adminComment : "",
-					"vendorComment"     	: response.data.vendorComment ? response.data.vendorComment : "",
-					"vendorContact" 		: response.data.vendorContact && response.data.vendorContact !== "undefined" ? response.data.vendorContact.phone : <span className="noDataAvail"> Contact is not available </span>,
-					"vendorAddress" 		: response.data.vendorLocation && response.data.vendorLocation !== "undefined" ? response.data.vendorLocation.addressLine2 + " " + response.data.vendorLocation.addressLine1 : <span className="noDataAvail"> Address is not available </span>,
-					"order_id"          	: response.data.order_id,
-					"product_id"        	: response.data.product_id,
-					"rating"            	: response.data.rating,
-					"status"            	: response.data.status
+					"productName"           : response.data.productName ? (response.data.productName + " " + "(" + response.data.productCode) + ")" : "-",
+					"vendorName"            : response.data.vendorName ? response.data.vendorName : "-",
+					"reviewProductImages" 	: response.data.reviewProductImages ? response.data.reviewProductImages : ["/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg", "/images/notavailable.jpg"],
+					"customerName"          : response.data.customerName ? response.data.customerName : "-",
+					"customerEmail" 	    : response.data.customerEmail ? response.data.customerEmail : "-",
+					"customerMobile" 	    : response.data.customerMobile ? response.data.customerMobile : "-",
+					"customerComment"       : response.data.customerComment ? response.data.customerComment : "-", 
+					"reasonForReturn"       : response.data.reasonForReturn ? response.data.reasonForReturn : "-", 
+					"dateOfPurchase"        : response.data.dateOfPurchase ? moment(response.data.dateOfPurchase).format("DD MMMM YYYY, HH:mm a") : "-", 
+                    "dateOfReturnRequested" : response.data.dateOfReturnRequested ? moment(response.data.dateOfReturnRequested).format("DD MMMM YYYY, HH:mm a") : "-",                         
+					"adminComment"          : response.data.adminComment ? response.data.adminComment : "",
+					"vendorComment"         : response.data.vendorComment ? response.data.vendorComment : "",
+					"vendorContact" 	    : response.data.vendorContact && response.data.vendorContact !== "undefined" ? response.data.vendorContact.phone : <span className="noDataAvail"> Contact is not available </span>,
+					"vendorAddress" 	    : response.data.vendorLocation && response.data.vendorLocation !== "undefined" ? response.data.vendorLocation.addressLine2 + " " + response.data.vendorLocation.addressLine1 : <span className="noDataAvail"> Address is not available </span>,
+					"order_id"              : response.data.order_id,
+					"product_id"            : response.data.product_id,
+					"returnStatus"          : response.data.returnStatus
 			},()=>{
 				if(this.state.adminComment && this.state.adminComment !== "undefined"){
 					this.setState({
@@ -84,17 +80,17 @@ class Productreview extends Component{
 		})
 	}
 
-	/** =========== submitReview() =========== */
-	submitReview(event){
+	/** =========== submitComment() =========== */
+	submitComment(event){
 		var formValues = {
-			review_id 		: event.target.id,
+			return_id 		: event.target.id,
 			adminComment 	: this.state.adminComment
 		}
 		// console.log('adminComment', formValues);
-		axios.patch('/api/customerReview/add/comment', formValues)
+		axios.patch('/api/returnedproducts/add/comment', formValues)
 		.then((response)=>{
 			swal(response.data.message);
-			this.getReview(this.state.review_id);
+			this.getReturnedProduct(this.state.return_id);
 			this.setState({
 				adminComment : ""
 			})
@@ -115,20 +111,21 @@ class Productreview extends Component{
 
 
 
-	/*======= changeReviewStatus() =======*/
-	changeReviewStatus(event){
+	/*======= changeReturnStatus() =======*/
+	changeReturnStatus(event){
 		console.log("name = ",event.target.id);		
 		if(event.target.id){
 			var formValues = {
-				review_id 		: this.state.review_id,
-				status 			: event.target.id
+				return_id 		: this.state.return_id,
+				returnStatus    : event.target.id,
+                user_id         : this.state.user_id
 			}
 			console.log('status formvalues', formValues);
-			axios.patch('/api/customerReview/change/status', formValues)
+			axios.patch('/api/returnedproducts/change/status', formValues)
 			.then((response)=>{
 				console.log("response.data => ",response.data )
 				swal(response.data.message);
-				this.getReview(this.state.review_id);
+				this.getReturnedProduct(this.state.return_id);
 			})
 			.catch((error)=>{
 				console.log('error => ', error);
@@ -147,69 +144,38 @@ class Productreview extends Component{
 							<div className="row">
 								<div className="box">
 									<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12">
-										<h4 className="NOpadding-right"> Product Review </h4>
+										<h4 className="NOpadding-right"> Returned Product </h4>
 									</div>
 									<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 reviewPageWrapper">
 										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewActionBtnsWrapper">
-												{console.log(" => ",this.state.status)}
-												<span className={"reviewStatus review-"+ (this.state.status ? this.state.status.toLowerCase() : "")}>{this.state.status}</span>
-												<button className={"actionBtns pull-right " + (this.state.status === "Rejected" ? "activeAction" : "")} name="Rejected" id="Rejected" title="Reject Customer Review" onClick={this.changeReviewStatus.bind(this)}>Reject</button>
-												<button className={"actionBtns pull-right " + (this.state.status === "Published" ? "activeAction" : "")} name="Published" id="Published" title="Publish Customer Review" onClick={this.changeReviewStatus.bind(this)}>Publish</button>
+												<span className={"reviewStatus "+ (this.state.returnStatus ? this.state.returnStatus.replace(/\s+/g, '_').toLowerCase() : "")}>{this.state.returnStatus}</span>
+												<button className={"actionBtns pull-right " + (this.state.returnStatus === "Return Request Rejected" ? "activeAction" : "")} name="Rejected" id="Return Request Rejected" title="Reject Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Reject</button>
+												<button className={"actionBtns pull-right " + (this.state.returnStatus === "Return Request Approved" ? "activeAction" : "")} name="Approved" id="Return Request Approved" title="Approve Customer's Return Request" onClick={this.changeReturnStatus.bind(this)}>Approve</button>
 											</div>
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviewBox">
 												<div className="reviewText col-lg-8 col-md-8 col-sm-12 col-xs-12">
 														<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding">
-															<h4 className="NOpadding-right reviewText-heading"> Review </h4>
+															<h4 className="NOpadding-right reviewText-heading"> {this.state.reasonForReturn} </h4>
 														</div> 
 														<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right reviewText-content">
-															{this.state.customerReview}
-														</div> 
-														{console.log("reviewProductImages => ",this.setState.reviewProductImages)}
+															{this.state.customerComment}
+														</div>                                                    
+												</div>
+												<div className="reviewStars col-lg-4 col-md-4 col-sm-12 col-xs-12">
 														{this.state.reviewProductImages && this.state.reviewProductImages.length > 0
 														?
-															this.state.reviewProductImages.map((a, i)=>{
+															this.state.reviewProductImages.map((a, i)=>{																
 																return(
-																	<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 productImgDiv">
+																	<div key={i} className='productImgDiv'> 
 																		<img src={a} class='img-responsive' /> 
-																	</div>  
+																	</div>
+																		// <i  className={"fa fa-star ratingStars " + star}></i>
 																);
 															})
 														:
 															null
 														}
-														                                                  
-												</div>
-												<div className="reviewStars col-lg-4 col-md-4 col-sm-12 col-xs-12">
-														{
-															fiveStar.map((a, i)=>{
-																if(i < this.state.rating){
-																		var star = 'activestar';                                                        
-																}else{
-																		var star = 'deactivestar'
-																}
-																return(
-																		<i key={i} className={"fa fa-star ratingStars " + star}></i>
-																);
-															})
-														}
-														<h4 className="NOpadding-right rating-text"> 
-														{
-															4 < 2
-															?
-																"Very Bad"
-															:
-																(4 > 1 && 4 < 4)
-																?
-																		"Average"
-																:
-																		4 === 4 
-																		?
-																			"Good"
-																		:
-																			"Excellent"
-														}
-														</h4>
 												</div>
 											</div>
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerDetails">
@@ -281,7 +247,7 @@ class Productreview extends Component{
 														</textarea>
 													</div>
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
-														<button onClick={this.submitReview.bind(this)} id={this.state.review_id} type="button" className="btn submitComment-btn pull-right">SUBMIT</button>
+														<button onClick={this.submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">SUBMIT</button>
 													</div>
 												</div>
 											:
@@ -318,7 +284,7 @@ class Productreview extends Component{
 														</div>
 												</div>
 												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 submitCommentBtnDiv">
-														<button onClick={this.submitReview.bind(this)} id={this.state.review_id} type="button" className="btn submitComment-btn pull-right">{this.state.submitType === "update" ? "UPDATE" : "SUBMIT"}</button>
+														<button onClick={this.submitComment.bind(this)} id={this.state.return_id} type="button" className="btn submitComment-btn pull-right">{this.state.submitType === "update" ? "UPDATE" : "SUBMIT"}</button>
 												</div>
 											</div>
 										</div>
@@ -332,5 +298,5 @@ class Productreview extends Component{
 		);
 	}
 }
-export default Productreview ;
+export default ReturnedProductView ;
 

@@ -322,7 +322,6 @@ function addCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, tot
 	});
 }
 
-
 /*========== Use Credit Points ==========*/
 function useCreditPoints(order_id, user_id, purchaseAmount, shippingCharges, totalAmount, transactionType, usedCreditPoints) {
 	return new Promise((resolve,reject)=>{
@@ -745,10 +744,10 @@ exports.returnProduct = (req, res, next) => {
 						})
 						returnedproducts.save()
 						.then(async(returndata) => {
-							var isOrderAvailable = await CreditPoints.findOne({"user_id" : ObjectId(req.body.user_id), "transactions.order_id" : ObjectId(req.body.order_id)});
+							// var isOrderCreditAvailable = await CreditPoints.findOne({"user_id" : ObjectId(req.body.user_id), "transactions.order_id" : ObjectId(req.body.order_id)});
 							
-							if(isOrderAvailable !== null){
-								await addCreditPoints(req.body.order_id, req.body.user_id, (returndata.discountedPrice * returndata.productQuantity), 0, (returndata.discountedPrice * returndata.productQuantity), "Return Product", "minus");
+							// if(isOrderCreditAvailable !== null){
+							// 	await addCreditPoints(req.body.order_id, req.body.user_id, (returndata.discountedPrice * returndata.productQuantity), 0, (returndata.discountedPrice * returndata.productQuantity), "Return Product Credit", "minus");
 
 								var userData 	 = await User.findOne({"_id" : ObjectId(req.body.user_id)}); 
 								
@@ -789,10 +788,10 @@ exports.returnProduct = (req, res, next) => {
 									}
 								}
 								var send_notification_to_vendor = await sendNotification.send_notification_function(vendorNotificationValues);
-							}
-							res.status(200).json({ 
-								message : "Product is returned. Return process will start soon!" 
-							});
+							// }
+								res.status(200).json({ 
+									message : "Return requested ! We will get back to you soon" 
+								});
 						})
 						.catch(err => {
 							console.log("err => ",err);
@@ -1277,6 +1276,7 @@ exports.count_order = (req, res, next) => {
 		});
 	 });
 };
+
 exports.fetch_order = (req, res, next) => {
   	Orders.findOne({ _id: req.params.orderID }).sort({ createdAt: -1 })
 	.populate('vendorOrders.vendor_id')
@@ -1306,8 +1306,25 @@ exports.fetch_order = (req, res, next) => {
 						}
 					}
 					if(j>=data.vendorOrders.length){
-						data.maxDurationForCancelOrder = maxDurationForCancelOrder;
-						res.status(200).json(data);
+						var returnData = data;
+						returnData.maxDurationForCancelOrder = maxDurationForCancelOrder;
+						var creditPointsData = await CreditPoints.findOne({user_id : ObjectId(returnData.user_ID), 'transactions.order_id' : ObjectId(req.params.orderID), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
+						
+						if(creditPointsData && creditPointsData !== null && creditPointsData.transactions && creditPointsData.transactions.length > 0){
+							var creditPolicyData = await CreditPointsPolicy.findOne();
+		
+							returnData.paymentDetails.creditPointsEarned 		= creditPointsData.transactions[0].earnedPoints;
+							returnData.paymentDetails.creditPointsValueEarned 	= (creditPointsData.transactions[0].earnedPoints * creditPolicyData.creditPointValue).toFixed(2);
+							
+							res.status(200).json(returnData);
+						}else{
+							returnData.paymentDetails.creditPointsEarned 		= 0;
+							returnData.paymentDetails.creditPointsValueEarned 	= 0;
+							
+							res.status(200).json(returnData);
+						}
+						// console.log("data => ",data)
+						
 					}
 				}else{
 					res.status(200).json(data);
@@ -1853,24 +1870,24 @@ exports.list_order_by_user = (req, res, next) => {
   /*Orders.find({
 		"user_ID": ObjectId(req.params.userID)
 	 })*/
-  Orders.aggregate([{
-	 $lookup:
-	 {
-		from: 'returnedproducts',
-		localField: '_id',
-		foreignField: 'orderID',
-		as: 'returnProducts'
-	 }
-  },
-  {
-	 $sort: {
-		"createdAt": -1
-	 }
-  },
-  {
-	 $match: { "user_ID": ObjectId(req.params.userID) }
-  }
-  ])
+	Orders.aggregate([
+		{$lookup:
+			{
+				from 			: 'returnedproducts',
+				localField 		: '_id',
+				foreignField 	: 'orderID',
+				as 				: 'returnProducts'
+			}
+		},
+		{$sort: 
+			{
+				"createdAt": -1
+			}
+		},
+		{
+			$match: { "user_ID": ObjectId(req.params.userID) }
+		}
+	])
 	 .exec()
 	 .then(async(data) => {
 		// console.log('data', data);
@@ -1897,25 +1914,26 @@ exports.list_order_by_user = (req, res, next) => {
 				if(creditPointsData && creditPointsData !== null && creditPointsData.transactions && creditPointsData.transactions.length > 0){
 					var creditPolicyData = await CreditPointsPolicy.findOne();
 
-					data[i].creditPoints 		= creditPointsData.transactions[0].earnedPoints;
-					data[i].creditPointsValue 	= (creditPointsData.transactions[0].earnedPoints * creditPolicyData.creditPointValue).toFixed(2);
+					data[i].paymentDetails.creditPointsEarned 	= creditPointsData.transactions[0].earnedPoints;
+					data[i].paymentDetails.creditPointsValueEarned 	= (creditPointsData.transactions[0].earnedPoints * creditPolicyData.creditPointValue).toFixed(2);
 				}else{
-					data[i].creditPoints 		= 0;
-					data[i].creditPointsValue 	= 0;
+					data[i].paymentDetails.creditPointsEarned 		= 0;
+					data[i].paymentDetails.creditPointsValueEarned 	= 0;
 				}
 			}
 		}
 		if(i>=data.length){			
 			res.status(200).json(data);
 		}
-	 })
-	 .catch(err => {
+	})
+	.catch(err => {
 		console.log(err);
 		res.status(500).json({
-		  error: err
+		  	error: err
 		});
-	 });
+	});
 };
+
 exports.cancelOrder = (req, res, next) => {
 //   console.log("Order cancelled");
   Orders.updateOne(

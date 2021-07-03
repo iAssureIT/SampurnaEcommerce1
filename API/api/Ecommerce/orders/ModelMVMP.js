@@ -21,6 +21,8 @@ const orderSchema = mongoose.Schema({
         discountCouponAmount      : Number,
         afterDiscountCouponAmount : Number,
         couponCancelMessage       : String,
+        creditPointsEarned        : Number,
+        creditPointsValueEarned   : Number,
         creditPointsUsed          : Number,
         creditPointsValueUsed     : Number,
         taxAmount                 : Number,

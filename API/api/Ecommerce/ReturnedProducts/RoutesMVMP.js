@@ -6,9 +6,13 @@ const returnedProductsController = require('./ControllerMVMP');
 
 // router.post('/post', 						    checkAuth, returnedProductsController.add_returned_product);
 
-router.get('/get/list', 						returnedProductsController.get_returned_products);
+router.post('/get/list', 						returnedProductsController.get_returned_products);
 
-router.patch('/returnStatusUpdate', 		    checkAuth, returnedProductsController.returnStatusUpdate);
+router.get('/get/product/:return_id', 			returnedProductsController.get_single_returned_product);
+
+router.patch('/change/status', 		            checkAuth, returnedProductsController.return_status_update);
+
+router.patch('/add/comment', 					returnedProductsController.add_admin_or_vendor_comment);
 
 router.patch('/returnPickeupInitiated', 	    checkAuth, returnedProductsController.returnPickeupInitiated);
 

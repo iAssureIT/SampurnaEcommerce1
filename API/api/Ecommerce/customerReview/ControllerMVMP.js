@@ -17,6 +17,7 @@ exports.insertCustomerReview = (req,res,next)=>{
 		vendorLocation_id 	: req.body.vendorLocation_id,
 		rating          		: req.body.rating,
 		customerReview  		: req.body.customerReview,
+		reviewProductImages 	: req.body.reviewProductImages,
 		status          		: 'New',
 		createdAt       		: new Date()
 	});
@@ -123,6 +124,7 @@ exports.get_single_review = (req,res,next)=>{
 				customerEmail 		: data.customer_id.profile.email,
 				customerMobile 		: data.customer_id.profile.mobile,
 				customerReview      : data.customerReview,
+				reviewProductImages : data.reviewProductImages,
 				rating 				: data.rating,
 				status 				: data.status
 			}

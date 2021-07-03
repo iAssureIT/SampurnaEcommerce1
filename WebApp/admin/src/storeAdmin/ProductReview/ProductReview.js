@@ -18,7 +18,7 @@ class Productreview extends Component{
                 "customerReview"    : 'Customer Review',
                 "reviewDate"        : 'Review Date',
                 "adminComment"      : 'Admin Comment',
-                "publishOrReject"   : 'Publish/Reject',
+                // "publishOrReject"   : 'Publish/Reject',
                 "status"            : 'Status',
                 "rating"            : 'Rating',
             },
@@ -68,12 +68,12 @@ class Productreview extends Component{
 
     /**=========== getData() ===========*/
     getData(startRange, limitRange){
-        var data = {
+        var formValues = {
             startRange : startRange,
             limitRange : limitRange
         }
         this.getCount();
-        axios.post('/api/customerReview/get/list', data)
+        axios.post('/api/customerReview/get/list', formValues)
         .then((response)=>{
             console.log('res  p', response.data);
             var tableData = response.data.map((a, ind)=>{
@@ -88,8 +88,8 @@ class Productreview extends Component{
                     "adminComment"      : a.adminComment ? a.adminComment : "-",
                     "orderID"           : a.orderID,
                     "productID"         : a.productID,
-                    "publishOrReject"   : "<div class='publishOrReject'><i class='fa fa-times-circle reviewActionBtns padding-15-0 " + (a.status === 'Rejected' ? 'rejectedActive' : '') +  "'name='Rejected' id='Rejected' title='Reject Customer Review' onclick=window.changeReviewStatus('"+ a._id + "-" + "Rejected" +"')></i>"+
-                                            "<i class='fa fa-check-circle reviewActionBtns padding-15-0 " + (a.status === 'Published' ? 'publishedActive' : '') + "'name='Published' id='Published' title='Publish Customer Review' onClick=window.changeReviewStatus('"+ a._id + "-" + "Published" +"')></i></div>",
+                    // "publishOrReject"   : "<div class='publishOrReject'><i class='fa fa-times-circle reviewActionBtns padding-15-0 " + (a.status === 'Rejected' ? 'rejectedActive' : '') +  "'name='Rejected' id='Rejected' title='Reject Customer Review' onclick=window.changeReviewStatus('"+ a._id + "-" + "Rejected" +"')></i>"+
+                    //                         "<i class='fa fa-check-circle reviewActionBtns padding-15-0 " + (a.status === 'Published' ? 'publishedActive' : '') + "'name='Published' id='Published' title='Publish Customer Review' onClick=window.changeReviewStatus('"+ a._id + "-" + "Published" +"')></i></div>",
                     "status"            : "<div class='reviewStatusSpan review-" + a.status.toLowerCase() + "'>" + a.status + "</div>",
                     "rating"            : a.rating,
                 };

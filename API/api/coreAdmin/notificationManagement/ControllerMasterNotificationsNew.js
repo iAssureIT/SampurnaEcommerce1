@@ -313,6 +313,7 @@ exports.send_notifications = (req, res, next) => {
                     }else if(role === req.body.otherAdminRole && req.body.company_id){
                         //  console.log('corporate==>',mode,templateName,company)
                         var userData = await getOtherAdminData(req.body.otherAdminRole,req.body.company_id);
+                        console.log("userData => ",userData)
                         if(userData && userData.length > 0){
                            for(var j=0 ; j<userData.length ; j++){
                                 var userRole    = userData[j].role
@@ -320,7 +321,7 @@ exports.send_notifications = (req, res, next) => {
                                 console.log("checkRole => ",checkRole)
                                 if(checkRole){
                                     var c = await callTemplates(mode,userData[j],role,templateName,company,req.body.variables,req.body.attachment)
-                                    // console.log("c  => ",c)
+                                    console.log("c  => ",c)
                                 }
                             }//j 
                             // if(j >= userData.length){
@@ -504,23 +505,28 @@ function getOtherAdminData(role,company_id){
         EntityMaster.findOne({'_id':company_id})
         .exec()
         .then(result => {
+            console.log("result => ",result)
             if(result.companyID){
                 User.find({ "profile.companyID": result.companyID, "roles":role, recieveNotifications : true})
                 .exec()
                 .then(data => {
+                    console.log("data => ",data)
                     if(data && data.length>0){
                         var userData = []
                         for(var i=0 ; i<data.length ; i++){
                             if(data[i].profile){
-                                userData.push({email:data[i].profile.email,
-                                        id          : data[i]._id,
-                                        mobile      : data[i].profile.mobile,
-                                        isdCode     : data[i].profile.isdCode,
-                                        role        : data[i].roles
+                                userData.push({
+                                    email       : data[i].profile.email,
+                                    id          : data[i]._id,
+                                    mobile      : data[i].profile.mobile,
+                                    isdCode     : data[i].profile.isdCode,
+                                    role        : data[i].roles
                                 });
                             }
                         }//i
-                        resolve(userData)
+                        if(i >= data.length){
+                            resolve(userData)
+                        }
                     }
                 })
                 .catch(err => {

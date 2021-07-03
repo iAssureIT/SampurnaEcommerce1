@@ -600,13 +600,13 @@ class IAssureTable extends Component {
 														<span>
 															{/* <i className="fa fa-reply" data-toggle="modal" title="Comment" data-target={"#showCommentModal-"+(value._id)} id={value._id}></i>&nbsp; &nbsp;  */}
 															
-															<a href={"/product-reviews-&-ratings/"+value._id} className="" title="View" data-ID={value._id}>
+															<a href={"/returned-product/"+value._id} className="" title="View" data-ID={value._id}>
 	                                                            <i className="fa fa-eye" title="View Customer Review" aria-hidden="true"></i>
 	                                                        </a>&nbsp; &nbsp;
-															{this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete Customer Review" data-target={"#showDeleteModal-"+(value._id)}></i>}
+															{/* {this.props.editId && this.props.editId === value._id? null :<i className={"fa fa-trash redFont "+value._id} id={value._id+'-Delete'} data-toggle="modal" title="Delete Customer Review" data-target={"#showDeleteModal-"+(value._id)}></i>} */}
 															{/* <i className="fa fa-eye" title="View Customer Review" id={value._id} ></i>&nbsp; &nbsp;  */}
 														</span>
-														<div className="modal fade" id={"showCommentModal-"+(value._id)} role="dialog">
+														{/* <div className="modal fade" id={"showCommentModal-"+(value._id)} role="dialog">
 	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	                                                          <div className="modal-content adminModal-content col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
 	                                                            <div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -650,7 +650,7 @@ class IAssureTable extends Component {
 	                                                            </div>
 	                                                          </div>
 	                                                        </div>
-	                                                    </div>
+	                                                    </div> */}
 
 
 														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
@@ -683,7 +683,7 @@ class IAssureTable extends Component {
 										}
 									) 	
 									:
-									<tr className="trAdmin"><td colSpan={11} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
+									<tr className="trAdmin"><td colSpan={12} className="noTempData textAlignCenter">No Record Found!</td></tr>               		
 								}
 	                    	</tbody>
 	                    </table>

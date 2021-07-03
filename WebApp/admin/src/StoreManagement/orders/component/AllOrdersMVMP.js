@@ -237,7 +237,7 @@ class AllOrdersList extends Component{
 		socket.emit('adminOrtderListValues',formValues);
 		socket.on("adminBookingList", (response)=>{
 		console.log('order tableData', response);		               
-		  	var tableData = response.reverse().map((a, i)=>{
+		  	var tableData = response.map((a, i)=>{
 			// var tableData = response.data.reverse().map((a, i)=>{                      
 				return{ 
 					_id             : a._id,
@@ -252,7 +252,7 @@ class AllOrdersList extends Component{
 												return ({
 													vendorName 			: '<div>'+vendorOrder.vendor_id.companyName+'</div>',
 													vendorPrice 		: '<div>'+ this.state.currency + " " + vendorOrder.vendor_afterDiscountTotal + '</div>',
-													vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status).replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
+													vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 ? vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
 																						? 
 																							(vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status)
 																						 
