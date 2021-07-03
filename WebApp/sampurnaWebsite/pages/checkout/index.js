@@ -786,7 +786,9 @@ class Checkout extends Component {
                         </div>
                     </div>
 
-                    <SmallBanner bannerData={this.state.bannerData} />
+                    {/*<SmallBanner bannerData={this.state.bannerData} />*/}
+
+                    <div className={"col-12 " +Style.cartTitle}>Order Summary</div>
 
                     {this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length>0?
                     <div className="container-fluid">

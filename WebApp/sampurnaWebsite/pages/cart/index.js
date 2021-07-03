@@ -11,6 +11,7 @@ import CartProducts         from './CartProducts.js';
 import {setBlockData ,setProductApiUrl,getCartData} from '../../redux/actions/index.js';
 import store                from '../../redux/store.js';
 
+import Style                from'./CartProducts.module.css';
 const { publicRuntimeConfig } = getConfig();
 const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
 class Cart extends Component{
@@ -41,7 +42,8 @@ class Cart extends Component{
             <Header/>
             <div className="col-12">
                 <div className="row">                    
-                    <SmallBanner bannerData={this.state.bannerData}/>
+                    {/*<SmallBanner bannerData={this.state.bannerData}/>*/}
+                    <div className={"col-12 " +Style.cartTitle}>Shopping Cart</div>
                     <CartProducts />
                     { this.props.pageDatapop.pageBlocks && this.props.pageDatapop.pageBlocks.length > 0 ?
 						          this.props.pageDatapop.pageBlocks.map((result, index)=>{                      

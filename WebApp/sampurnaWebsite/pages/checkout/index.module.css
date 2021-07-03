@@ -217,3 +217,10 @@
   .modal-content {
     border-radius:3px !important;
   }
+
+  .cartTitle{
+    font-size: 36px;
+    margin-left: 15px;
+    margin-top: 15px;
+    font-weight: bold;
+}
