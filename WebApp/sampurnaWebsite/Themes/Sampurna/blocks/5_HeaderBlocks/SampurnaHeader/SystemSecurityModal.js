@@ -185,7 +185,7 @@ class header extends React.Component {
                 }
                 </div>
                 <div id="loginFormModal" className={"modal in " +Style.loginBGImg}  data-keyboard="false" >
-                    <div className="modal-dialog modal-xl">                                        
+                    <div className="modal-dialog modal-lg">                                        
                         <div className={"modal-content loginModalContent  loginBackImageHeight " +Style.signinBG} style={{'background': '#fff'}}>                            
                             <div className="modal-body LoginModalBody">  
                                 <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>  

@@ -16,6 +16,26 @@ import MyCart                 from './MyCart.js';
 import Wishlist               from './Wishlist.js';
 import {setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faGithubAlt,
+  faGoogle,
+  faFacebook,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+
+import {faSearch} from '@fortawesome/free-regular-svg-icons';
+
+library.add(
+  faGithubAlt,
+  faGoogle,
+  faFacebook,
+  faTwitter,
+  
+);
+
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -57,6 +77,8 @@ class Header extends React.Component {
                                         <div className="col-2">
                                             <Websitelogo />
                                         </div>
+
+                                        {/* <FontAwesomeIcon  icon={faGoogle} style={{width:"20px",color:"#fff"}}  /> */}
 
                                         <SearchBar />
                                         

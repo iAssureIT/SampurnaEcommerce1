@@ -15,17 +15,16 @@ class Facebooklogin extends Component {
             "picture" : "",
         }
 }
-
 responseFacebook(response){
   if(response){
     console.log('response==',response);
     var formValues = {
-      // firstname   : response.profileObj.name.split(' ')[0],
-      // lastname    : response.profileObj.name.split(' ')[1],
+      firstname   : response.name.split(' ')[0],
+      lastname    : response.name.split(' ')[1],
       mobNumber   : "",
       pincode     : "",
-      // email       : response.profileObj.email,
-      // pwd         : response.profileObj.email,
+      email       : response.email,
+      pwd         : response.email,
       role        : 'user',
       status      : 'active',
       countryCode : "",

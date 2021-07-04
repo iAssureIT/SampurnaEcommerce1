@@ -8,6 +8,18 @@ import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
 import { setSearchDetails }     from '../../../../../redux/actions/index.js'; 
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faGoogle,
+} from '@fortawesome/free-brands-svg-icons';
+
+import {faSearch} from '@fortawesome/free-regular-svg-icons';
+
+library.add(
+  faGoogle,
+);
+
 class Searchbar extends React.Component {
 	constructor(props) {
 		super(props);
@@ -88,7 +100,11 @@ class Searchbar extends React.Component {
                         list="datalist"
                         onChange={this.searchProducts.bind(this)} 
                         className="form-control tableSearch col-11" ref="tableSearch" id="tableSearch" name="tableSearch" />
-                        <div className="searchIcon" onClick={this.getRelatedSearches.bind(this)}><i className="fa fa-search"></i></div>
+                        <div className="searchIcon" onClick={this.getRelatedSearches.bind(this)}>
+                            <i className="fa fa-search"></i>
+                            {/* <FontAwesomeIcon icon={['fas', 'f0ac']} style={{width:"20px",color:"#fff"}} /> */}
+                            {/* <FontAwesomeIcon  icon={faGoogle} style={{width:"20px",color:"#fff"}}  /> */}
+                        </div>
 
                         <datalist id="datalist" className="col-12" onClick={this.getRelatedSearches.bind(this)}>
                             {Array.isArray(this.state.relatedSearches) && 

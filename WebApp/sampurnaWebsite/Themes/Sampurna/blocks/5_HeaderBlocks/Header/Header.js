@@ -6,14 +6,11 @@ import swal 		  from 'sweetalert';
 import Image          from 'next/image';
 import Router from 'next/router'; 
 
-import { connect }         from 'react-redux';
-import { getCartData,getWishlistData,setProductApiUrl }     from '../../../../../redux/actions/index.js'; 
-import  store              from '../../../../../redux/store.js'; 
-
 // import {withRouter} from 'react-router-dom'; 
 import parse, { domToReact } from 'html-react-parser';
 import Megamenu            from './Megamenu.js';
 import SystemSecurityModal from './SystemSecurityModal.js';
+
 
 
 class Header extends React.Component {
@@ -67,6 +64,7 @@ class Header extends React.Component {
                                         />
                                     </a>
                                 </Link>
+                                
                                 </div>
 
                                 <div className="rightNavbar ml-4 mr-4 col-12 col-sm-6 NoPadding">                                

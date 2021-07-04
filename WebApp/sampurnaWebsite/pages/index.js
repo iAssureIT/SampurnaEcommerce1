@@ -8,9 +8,31 @@ import SearchBar                       from '../Themes/Sampurna/blocks/5_HeaderB
 import Footer                          from '../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import GoogleMap                       from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Googlemap.js';
 
-export const config = {
-    unstable_runtimeJS : false
-}
+
+// import {config, library } from '@fortawesome/fontawesome-svg-core';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {faCode, faHighlighter } from '@fortawesome/free-solid-svg-icon';
+// library.add(faCode);
+// import { faUserGraduate } from '@fortawesome/pro-light-svg-icons';
+// import { faImages } from '@fortawesome/pro-solid-svg-icons';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faGithubAlt,
+  faGoogle,
+  faFacebook,
+  faTwitter
+} from '@fortawesome/free-brands-svg-icons';
+
+library.add(
+  faGithubAlt,
+  faGoogle,
+  faFacebook,
+  faTwitter
+);
+
+
 
 export default function App({pageData}) {
   const [sampurnaWebsiteDetails,setSampurnaWebsiteDetails]   = useState({});
@@ -63,47 +85,6 @@ export default function App({pageData}) {
               </div> 
 
               < DeliveryLocationPopup />
-
-              {/* <div id="loginFormModal" className={"modal in " +Style.loginBGImg}  data-keyboard="false" >
-                    <div className="modal-dialog ">                                        
-                        <div className={"modal-content loginModalContent  loginBackImageHeight " +Style.signinBG} style={{'background': '#fff'}}>                            
-                            <div className="modal-body">  
-                                <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>                                                           
-                                {this.props.formToShow === "login" ?
-                                    <div className="col-12 NoPadding loginForm mobileViewNoPadding">
-                                        <Login />
-                                    </div>  
-                                : null
-                                }  
-                                {this.props.formToShow === "signUp" ?
-                                    <div className="col-12 signupForm mobileViewNoPadding">
-                                        <SignUp />
-                                    </div>  
-                                : null
-                                } 
-                                {this.props.formToShow === "forgotPassword" ?
-                                    <div className="col-12 loginForm NoPadding mobileViewNoPadding">
-                                        <ForgotPassword />
-                                    </div>  
-                                : null
-                                }  
-                                {this.props.formToShow === "confirmOtp" ?
-                                    <div className="col-12 loginForm NoPadding mobileViewNoPadding">
-                                        <ConfirmOtp />
-                                    </div>  
-                                : null
-                                } 
-                                {this.props.formToShow === "resetPassword" ?
-                                    <div className="col-12 NoPadding loginForm mobileViewNoPadding">
-                                        <ResetPassword />
-                                    </div>  
-                                : null
-                                }                                                                
-                            </div>
-                        </div>
-                    </div>
-                </div>  
- */}
               <div className="row"> 
                   <Footer />
               </div>
