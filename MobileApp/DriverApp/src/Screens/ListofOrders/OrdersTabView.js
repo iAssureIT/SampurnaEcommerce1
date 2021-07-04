@@ -23,7 +23,7 @@ export default function BookingsTabView() {
       return <ListOfOrders status={"Ready to Dispatch"} />;
     }
     if (props.route.key == 'second' && index == 1){
-      return <ListOfOrders status={"Approved"} />;
+      return <ListOfOrders status={"Allocated"} />;
     }
     if (props.route.key == 'third' && index == 2){
       return <ListOfOrders status={"On the Way"} />;

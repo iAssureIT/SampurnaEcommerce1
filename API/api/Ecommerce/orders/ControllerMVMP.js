@@ -27,6 +27,7 @@ var request 					= require('request-promise');
 const sendNotification 			= require("../../coreAdmin/notificationManagement/SendNotification.js");
 const haversine         = require('haversine-distance')
 const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
+const DriverTracking 		= require('../driverTracking/Model.js')
 
 /*========== Insert Orders ==========*/
 exports.insert_orders = (req, res, next) => {
@@ -3208,6 +3209,18 @@ exports.nearest_vendor_orders= (req, res, next) => {
 					var custLat            	= data[i].deliveryAddress.latitude;
 					var custLng            	= data[i].deliveryAddress.longitude;
 					
+					// var latitude = await DriverTracking.findOne({user_id:ObjectID(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")})
+					var data = await DriverTracking.aggregate([
+						{
+							$match:{user_id:ObjectId(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")}
+						},{
+							$project:{
+								// currentLocations:1,
+								recent :{$arrayElemAt:["$.currentLocations",-1]}
+							}
+						}
+					])
+					console.log("data",data);
 					if(latitude !== "" && longitude !== undefined && latitude !== "" && longitude !== undefined){
 						var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
 						var vendorToCustDist = await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);

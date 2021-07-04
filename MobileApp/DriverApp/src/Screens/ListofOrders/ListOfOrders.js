@@ -63,7 +63,15 @@ export const ListOfOrders =(props)=> {
             paddingVertical: 20,
             }}
         >
-            Approved
+            {
+               props.status === "Ready to Dispatch"?
+                "Approved"
+                :
+              props.status === "Approved" ?
+                 "On the Way"
+                 :
+                "Delivered"
+            }
         </Text>
         </View>
     );
@@ -73,18 +81,24 @@ export const ListOfOrders =(props)=> {
         var payload = {
             order_id        : order_id,
             vendor_id       : vendor_id,
-            changeStatus    : "On the Way",
             userid          : store.userDetails.user_id
         }
+        if(props.status === "Ready to Dispatch"){
+             payload.changeStatus   = "On the Way";
+        }else if(props.status === "Approved"){
+            payload.changeStatus   = "On the Way";
+        }else if(props.status === "On the Way"){
+            payload.changeStatus   = "Delivered";
+        }    
         console.log("payload",payload);
-      axios.patch('/api/orders/changevendororderstatus',payload)
-      .then(res=>{
-          console.log("res",res);
-        getList();
-      })
-      .catch(err=>{
-          console.log("err",err);
-      })
+        axios.patch('/api/orders/changevendororderstatus',payload)
+        .then(res=>{
+            console.log("res",res);
+            getList();
+        })
+        .catch(err=>{
+            console.log("err",err);
+        })
     };
     const swipeFromRightOpen = () => {
     //   alert('Swipe from right');
@@ -93,10 +107,10 @@ export const ListOfOrders =(props)=> {
         return (
             <Card containerStyle={{padding:0}}>
             <Swipeable
-                renderLeftActions={LeftSwipeActions}
+                renderLeftActions={props.status !== "Delivered"&&LeftSwipeActions}
                 // renderRightActions={rightSwipeActions}
                 // onSwipeableRightOpen={swipeFromRightOpen}
-                onSwipeableLeftOpen={()=>swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id,)}
+                onSwipeableLeftOpen={()=>props.status !== "Delivered"&&swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id,)}
             >
                 {/* <View
                 style={{
@@ -138,11 +152,15 @@ export const ListOfOrders =(props)=> {
 
     return (
         <>
-            <FlatList
+           {orderList  && orderList.length >0?<FlatList
             data={orderList}
             keyExtractor={(item) => item.id}
             renderItem={_renderlist} 
                 />
+            :
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <Text>No Order Found</Text>
+            </View>}
         </>
     );
 
