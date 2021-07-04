@@ -63,9 +63,10 @@ export default StyleSheet.create({
     // borderWidth:1,borderBottomColor:'#ccc',
   },
   discountpricecut: {
-		fontSize: 14, fontFamily: "Montserrat-SemiBold",
 		textDecorationLine: 'line-through',
-
+    fontSize:18,
+    fontFamily:"Montserrat-Bold",
+    color : "#aaa",
 	},
   subcatimgbig:{
     height:180,
@@ -250,6 +251,16 @@ export default StyleSheet.create({
     fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333',
     alignItems : "center",marginBottom:10,
   },
+  disCountLabel: {
+		position: 'absolute',
+		height:40,
+		left: "5%",
+		width:40,
+		zIndex:1,
+		// bottom: "5%",
+		// top: 5, 
+		// left: "80%"
+	},
   productname:{
     fontSize:20,
     fontFamily:"Montserrat-SemiBold",

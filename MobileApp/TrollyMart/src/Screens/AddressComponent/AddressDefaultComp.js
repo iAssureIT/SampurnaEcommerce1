@@ -165,7 +165,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
           navigate={navigation.navigate}
         /> */}
         <View style={styles.addsuperparent}>
-          <ScrollView contentContainerStyle={styles.container} style={{marginBottom:50}} keyboardShouldPersistTaps="handled" >
+          <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
             <View style={styles.padhr15}>
                <View style={styles.addcmpbtn}>
                {!disabled &&<Button
@@ -304,7 +304,6 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
               </View>}
             </View>
           </ScrollView>
-          {!disabled &&<Footer />}
         </View>
       </React.Fragment>
     );

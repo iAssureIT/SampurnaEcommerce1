@@ -219,19 +219,18 @@ export const AddressComponent = withCustomerToaster((props)=>{
           // openControlPanel={() => openControlPanel()}
         /> */}
         <View style={styles.addsuperparent}>
-          <ScrollView contentContainerStyle={{}} keyboardShouldPersistTaps="handled" >
-            <View style={styles.formWrapper}>
+            <ScrollView style={styles.formWrapper} keyboardShouldPersistTaps="handled">
               <View style={{ backgroundColor: '#fff', paddingVertical: 20, paddingHorizontal: 15, marginTop: 15, marginBottom: "5%" }}>
               <FormInput
                 labelName       = "Contact Person Name"
-                placeholder     = "Contact Person Name"
+                // placeholder     = "Contact Person Name"
                 onChangeText    = {handleChange('contactperson')}
                 required        = {true}
                 name            = "contactperson"
                 errors          = {errors}
                 touched         = {touched}
-                iconName        = {'user-circle-o'}
-                iconType        = {'font-awesome'}
+                // iconName        = {'user-circle-o'}
+                // iconType        = {'font-awesome'}
                 autoCapitalize  = "none"
                 value           = {values.contactperson}
               />
@@ -261,7 +260,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                 </View>   
                 <FormInput
                     labelName       = "Address Line 1"
-                    placeholder     = "Please Enter Address..."
+                    // placeholder     = "Please Enter Address..."
                     onChangeText    = {handleChange('addressLine1')}
                     required        = {true}
                     name            = "addressLine1"
@@ -274,7 +273,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     // disabled        = {deliveuuuuuuuuuyyry}       
                   />
                 <View style={[styles.formInputView, styles.marginBottom20]}>
-                  <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
+                  <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,paddingVertical:2}}>
                     <Text>Address Line 2</Text>{' '}
                     <Text style={{color: 'red', fontSize: 12}}>
                     *
@@ -348,19 +347,22 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     styles={{
                       textInputContainer: {
                         backgroundColor: 'rgba(0,0,0,0)',
-                        borderWidth: 1,
+                        borderBottomWidth: 1,
                         borderColor:"#ccc",
                         borderRadius:5,
+                        
                       },
                       textInput: {
-                        height :45,
+                        height: 40,
+                        color: '#333',
+                        fontSize: 16,
                       },
                     }}/>
               </View>
                <View>
                <FormInput
                     labelName       = "Area"
-                    placeholder     = "Area"
+                    // placeholder     = "Area"
                     onChangeText    = {handleChange('fromarea')}
                     required        = {false}
                     name            = "fromarea"
@@ -374,7 +376,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                   />
                 <FormInput
                     labelName       = "City"
-                    placeholder     = "City"
+                    // placeholder     = "City"
                     onChangeText    = {handleChange('fromcity')}
                     required        = {true}
                     value           = {values.fromcity}
@@ -388,7 +390,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                   />
                    <FormInput
                     labelName       = "Emirate"
-                    placeholder     = "Emirate"
+                    // placeholder     = "Emirate"
                     onChangeText    = {handleChange('fromstate')}
                     required        = {true}
                     value           = {values.fromstate}
@@ -402,7 +404,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                   />
                    <FormInput
                     labelName       = "Country"
-                    placeholder     = "Country"
+                    // placeholder     = "Country"
                     onChangeText    = {handleChange('fromcountry')}
                     required        = {true}
                     value           = {values.fromcountry}
@@ -416,7 +418,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                   />
                   <FormInput
                     labelName       = "Postal code"
-                    placeholder     = "Postal Code"
+                    // placeholder     = "Postal Code"
                     onChangeText    = {handleChange('fromPincode')}
                     required        = {false}
                     name            = "fromPincode"
@@ -437,10 +439,9 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     labelHeight         = {10}
                     tintColor           = {colors.button}
                     labelFontSize       = {sizes.label}
-                    fontSize            = {15}
                     baseColor           = {'#666'} 
                     textColor           = {'#333'}
-                    labelTextStyle      = {styles.ddLabelText}
+                    itemTextStyle       = {styles.ddLabelText}
                     style               = {styles.ddStyle}
                     data                = {ShippingType}
                     value               = {values.addresstype}
@@ -456,7 +457,6 @@ export const AddressComponent = withCustomerToaster((props)=>{
                     loading     = {btnLoading}
                   />
               </View>
-            </View>
           </ScrollView>
           {/* */}
         </View>
@@ -466,10 +466,12 @@ export const AddressComponent = withCustomerToaster((props)=>{
 
   const styles1 = StyleSheet.create({
     containerStyle:{
-       borderWidth:1,
-       borderRadius:5,
+      //  borderWidth:1,
+      //  borderRadius:5,
        width:"100%",
-       borderColor:"#ccc",
+      //  borderColor:"#ccc",
+      borderBottomWidth:1,
+      borderBottomColor:"#ccc",
        backgroundColor:"#fff"
      },
      textInputStyle:{

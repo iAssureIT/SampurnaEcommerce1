@@ -6,7 +6,7 @@ import {ScrollView,
         Keyboard}                   from 'react-native';
 import {Icon }                      from "react-native-elements";
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
-import {useDispatch,connect }   from 'react-redux';
+import {useDispatch,connect,useSelector }   from 'react-redux';
 import axios                        from "axios";
 import { useIsFocused }             from "@react-navigation/native";
 import Highlighter                  from 'react-native-highlight-words';
@@ -44,6 +44,10 @@ const Dashboard = withCustomerToaster((props)=>{
         dispatch(getS3Details());
         getBlocks();
     },[]);
+    const store = useSelector(store => ({
+      userDetails : store.userDetails,
+      location : store.location,
+    }));
 
     // useEffect(() => {
     //   if(isFocused){
@@ -128,6 +132,18 @@ const Dashboard = withCustomerToaster((props)=>{
             :
             blocks && blocks.length > 0 ?
               blocks.map((item,index)=>{
+                var payload ={
+                  "vendorID"          : '',
+                  "sectionUrl"        :item.block_id?.blockSettings?.section!=="all" ? item.block_id?.blockSettings?.section?.replace(/\s/g, '-').toLowerCase() : 'all',
+                  "categoryUrl"       : item.block_id?.blockSettings?.category!=="all" ? item.block_id?.blockSettings?.category?.replace(/\s/g, '-').toLowerCase() : 'all',
+                  "subCategoryUrl"    : item.block_id?.blockSettings?.subCategory!=="all" ? item.block_id?.blockSettings?.subCategory?.replace(/\s/g, '-').toLowerCase() : 'all',
+                  // "subCategoryUrl"    : e.subCategory[0]?.subCategoryUrl,
+                  "startRange"        : 0,
+                  "limitRange"        : 20,
+                  "user_id"           : store.userDetails.user_id,
+                  "userLatitude"      : store.location?.address?.latlong?.lat,
+                  "userLongitude"     : store.location?.address?.latlong?.lng,
+                } 
                   return(
                     item.blockComponentName === "DealsBlock" ?
                     <MarketingBlock  
@@ -158,10 +174,10 @@ const Dashboard = withCustomerToaster((props)=>{
                     <HorizontalProductList 
                       blockTitle   = {item.block_id?.blockTitle}
                       blockApi     = {item.block_id?.blockSettings.blockApi}
-                      section      = {item.block_id?.blockSettings.section}
-                      category     = {item.block_id?.blockSettings.category}
-                      subCategory  = {item.block_id?.blockSettings.subCategory}
+                      payload      = {payload}
                       currency     = {preferences.currency}
+                      addToCart   = {false}
+                      setToast    = {setToast}
                     />
                   :
                   null  

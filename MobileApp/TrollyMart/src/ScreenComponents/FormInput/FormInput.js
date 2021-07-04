@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet} from 'react-native';
-import {Input, Button, Icon} from 'react-native-elements';
+import {Input, Button, Icon, colors} from 'react-native-elements';
 import {
   Text,
   
@@ -10,7 +10,6 @@ export const FormInput = props => {
   return (
     <Input
       placeholderTextColor={'#bbb'}
-      inputStyle={[styles.inputPlace]}
       errorMessage={touched[name] && errors[name] ? errors[name] : ''}
       label={
         <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,}}>
@@ -25,7 +24,7 @@ export const FormInput = props => {
       inputContainerStyle= {styles.containerStyle}
       // leftIconContainerStyle={styles.leftIconContainerStyle}
       errorStyle={{ color: 'red' ,margin:0}}
-      inputStyle={{textAlignVertical: "top"}}
+      inputStyle={styles.inputPlace}
     />
   );
 };
@@ -43,8 +42,10 @@ const styles = StyleSheet.create({
   },
 
   inputPlace:{
-    fontSize:8,
-    fontFamily:'Montserrat-SemiBold'
+    fontSize:14,
+    fontFamily:'Montserrat-Medium',
+    textAlignVertical: "top",
+    color:"#333"
   },
 
   leftIconContainerStyle:{

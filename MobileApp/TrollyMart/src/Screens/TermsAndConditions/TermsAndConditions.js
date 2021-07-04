@@ -18,7 +18,7 @@ import HTML from 'react-native-render-html';
 export const TermsAndConditions  = (props)=>{
     const {navigation}=props;
     const [user_id,setUserId]               = useState('');
-    const [pageBlockes,setPageBlocks]       = useState([])
+    const [pageBlockes,setPageBlocks]       = useState([]);
     const [loading,setLoading]              = useState(true);
     
     useEffect(() => {

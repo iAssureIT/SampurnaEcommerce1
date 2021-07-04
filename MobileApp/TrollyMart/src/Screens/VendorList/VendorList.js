@@ -103,7 +103,7 @@ export const VendorList = withCustomerToaster((props)=>{
                         style={{height:20,justifyContent:"center",alignSelf:"flex-end",marginBottom:5}} 
                         resizeMode="contain" 
                         PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
-                        <Text style={[{color:"#000",opacity:1,marginRight:25,fontSize:10}]}>60 Mins </Text>
+                            <Text style={[{color:"#000",opacity:1,marginRight:25,fontSize:10}]}>60 Mins </Text>
                     </ImageBackground>
                 </Card>   
             </TouchableOpacity>        

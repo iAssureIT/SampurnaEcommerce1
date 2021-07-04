@@ -14,21 +14,21 @@ import { Header,
         Button, 
         Icon, 
         SearchBar }             from "react-native-elements";
-import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
+import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HorizontalSecCatList.js';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                    from 'axios';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 import Counter                  from "react-native-counters";
 import Modal                    from "react-native-modal";
 import Carousel                 from 'react-native-banner-carousel-updated';
-import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import CommonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js'
 import { useNavigation }        from '@react-navigation/native';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { connect,useDispatch,useSelector }      from 'react-redux';
 
 export const HorizontalSecCatList =(props)=>{
   const {user_id,navigation} =props;
-  // const BannerWidth = Dimensions.get('window').width-100;
+  const window = Dimensions.get('window');
   const [productList,setProductList]=useState([]);
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const dispatch = useDispatch();
@@ -63,7 +63,7 @@ export const HorizontalSecCatList =(props)=>{
 
   const _renderlist = ({ item, index })=>{
     return (
-      <TouchableOpacity style={{width:160,marginRight:10,backgroundColor:"#fff"}} 
+      <TouchableOpacity  style={[styles.productContainer,{width:window.width-220,marginRight:20}]} 
           onPress={() =>{
               // navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
               dispatch(getCategoryWiseList(item._id,user_id ? user_id : null,"lowestprice",props.section));
@@ -76,12 +76,13 @@ export const HorizontalSecCatList =(props)=>{
                 <Image
                   source = {{ uri: item.itemImg }}
                   style={styles.subcatimg}
-                  resizeMode="stretch"
+                  resizeMode="cover"
                 />
                 :
                 <Image
                   source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                   style={styles.subcatimg}
+                  resizeMode="cover"
                 />
             }
             {
@@ -129,19 +130,16 @@ export const HorizontalSecCatList =(props)=>{
 
     return (
       productList && productList.length > 0 ?
-        <View style={{}}>
-        <Text style={styles.title}>{props.blockTitle}</Text>
-          <View style={styles.proddets}>
-            
-              <FlatList
-                horizontal = {true}
-                data={productList}
-                renderItem={item => _renderlist(item)}
-                keyExtractor={item => item._id}
-                // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
-            />
-          </View>
-      </View>
+        <View style={{marginHorizontal:5}}>
+          <Text style={CommonStyles.headerText,{fontSize: 17, fontFamily: 'Montserrat-SemiBold',paddingVertical:5,color:"#333"}}>{props.blockTitle}</Text>
+            <FlatList
+              horizontal = {true}
+              data={productList}
+              renderItem={item => _renderlist(item)}
+              keyExtractor={item => item._id}
+              // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
+          />
+        </View>
       :[]
     );
   }

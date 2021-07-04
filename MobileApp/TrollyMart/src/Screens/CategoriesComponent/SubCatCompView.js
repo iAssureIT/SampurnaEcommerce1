@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Image,ActivityIndicator,
+  ImageBackground,
   Dimensions
 } from 'react-native';
 import { 
@@ -30,7 +31,7 @@ import { useIsFocused } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import { Card } from 'react-native-elements/dist/card/Card';
 import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCatList/HorizontalSecCatList.js';
-
+import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [countofprod,setCounterProd]        = useState(1);
   const [user_id,setUserId]                = useState('');
@@ -88,6 +89,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const getProductsView=(productID,user_id)=>{
     axios.get("/api/products/get/one/"+ productID+"/"+user_id)
       .then((response) => {
+        console.log("productdata response",response);
         setProductData(response.data);
         setLoading(false);
       })
@@ -169,6 +171,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
             <View style={styles.formWrapper}>
               <Text numberOfLines={1} style={[CommonStyles.subHeaderText,{paddingVertical:15}]}>Vendor - {productdata.vendorName}</Text>
               <View style={styles.imgvw}>
+              {productdata.discountPercent && productdata.discountPercent >0?
+                  <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
+                    <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{productdata.discountPercent}%</Text>
+                    <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
+                  </ImageBackground> :null
+                } 
                 {productdata.productImage && productdata.productImage.length>0 ?
                  <Carousel
                     autoplay={true}
@@ -177,6 +185,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     index={0}
                     pageSize={370}
                     >
+                     
                     {productdata.productImage.map((image, index) => {
                     return (
                       <FastImage
@@ -204,24 +213,24 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   </TouchableOpacity>
                 <View style={styles.prodnameview}>
                   {/* (i % 2 == 0 ? {} : { marginLeft: 12 } */}
-                  {productdata.brandNameRlang && productdata.brandNameRlang!=="" ?
+                  {/* {productdata.brandNameRlang && productdata.brandNameRlang!=="" ?
                     <Text numberOfLines={1} style={[styles.brandname]} style={styles.regionalBrandName}>{productdata.brandNameRlang}</Text>
-                    : 
-                    <Text numberOfLines={1} style={[styles.brandname]}>{productdata.brand}</Text>
-                  }
-                  {productdata.productNameRlang && productdata.productNameRlang !==""?
+                    :  */}
+                    <Text  style={[styles.brandname]}>{productdata.brand}</Text>
+                  {/* } */}
+                  {/* {productdata.productNameRlang && productdata.productNameRlang !==""?
                     <Text numberOfLines={1} style={[styles.nameprod]} style={styles.regionalProductName}>{productdata.productNameRlang}</Text>
-                    :
-                    <Text numberOfLines={1} style={[styles.nameprod]}>{productdata.productName}</Text>
-                  }
+                    : */}
+                    <Text style={[styles.nameprod]}>{productdata.productName}</Text>
+                  {/* } */}
                   {/* <Text numberOfLines={1} style={styles.brandname}>{brand}</Text>
                   <Text numberOfLines={1} style={styles.productname}>{productName}</Text>
                   <Text numberOfLines={1} style={styles.shortDescription}>{shortDescription}</Text> */}
                 </View>
                 <View style={styles.flxdirview}>
                   <Text style={styles.proddetprice}>{currency} </Text>
-                  {/* <Text style={styles.rupeetxt}> {discountedPrice}</Text> */}
-                  <Text style={styles.proddetprice}>{productdata.discountedPrice.toFixed(2)}  {productdata.size ? <Text style={styles.packofnos}> - {productdata.size}  {productdata.unit}</Text> : null}</Text>
+                  <Text style={styles.discountpricecut}> {productdata.originalPrice.toFixed()}</Text>
+                  <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}  {productdata.size ? <Text style={styles.packofnos}> - {productdata.size}  {productdata.unit}</Text> : null}</Text>
                 </View>
               </View>
               <View style={styles.orderstatus}>
@@ -275,13 +284,28 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     }
                   /> 
                 </View>
-                <SimilarProducts 
+                <HorizontalProductList 
+                    blockTitle   = {"You May Also Like"}
+                    blockApi     = {"/api/products/get/similar_products"}
+                    payload      = {{
+                      product_ID      : productdata._id,
+                      vendor_ID       : productdata.vendor_ID,
+                      category_ID     : productdata.category_ID,
+                      section_ID      : productdata.section_ID,
+                      user_ID         : user_id,
+                      vendorLocation_id : vendorLocation_id
+                    }}
+                    currency    = {currency}
+                    addToCart   = {true}
+                    setToast    = {setToast}
+                  />
+                {/* <SimilarProducts 
                   productdata = {productdata} 
                   user_id     = {user_id} 
                   title       = {"You May Also Like"}
                   currency    = {currency}
                   navigation  = {navigation}
-                />
+                /> */}
 
                <HorizontalSecCatList 
                   blockTitle          = "All Sub Categories"

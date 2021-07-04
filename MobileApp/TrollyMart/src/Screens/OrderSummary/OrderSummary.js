@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,ActivityIndicator,
+  Linking
 } from 'react-native';
 import { Dropdown }             from 'react-native-material-dropdown-v2';
 import { Button, Icon,Input,Tooltip }   from "react-native-elements";
@@ -24,6 +25,8 @@ import { connect,
   import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 import { SafeAreaView }         from 'react-native';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { RadioButton }        from 'react-native-paper';
+import HTML from 'react-native-render-html';
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -58,6 +61,10 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
     // const [currency,setCurrency] = useState('');
     const [totaloriginalprice, setOrignalPrice] = useState(0);
     const [saving,setTotalSaving] =useState(0);
+    const [checked,setChecked] = useState(false);
+    const [modal,setModal] = useState(false);
+    const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
+    const [pageBlockes,setPageBlocks]       = useState([]);
     useEffect(() => {
       getData();
   }, [props]);
@@ -78,7 +85,7 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
     setAddDataPincode(addData.pincode);
     setAddDataMobileNumber(addData.mobileNumber);
     setAddDataState(addData.state);
-    
+    getTerms();
     getCartData(user_id);
     getTimes_func(startRange, limitRange);
   }
@@ -104,6 +111,24 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
         }  
       });
   }
+
+  const getTerms=()=>{
+    axios.get('/api/pages/get/page_block/terms-and-conditions')
+    .then(res=>{
+        console.log("res",res);
+        setPageBlocks(res.data.pageBlocks)
+    })
+    .catch(error=>{
+        if (error.response.status == 401) {
+            AsyncStorage.removeItem('user_id');
+            AsyncStorage.removeItem('token');
+            setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+            navigation.navigate('Auth')
+          }else{
+            setToast({text: 'Something went wrong.', color: 'red'});
+          }  
+    })
+}
 
     const getCartData=(userId)=>{
       axios.get('/api/carts/get/cartproductlist/' + userId)
@@ -201,6 +226,29 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
   const paymentMethodsPage=()=>{
     navigation.navigate('PaymentMethod', { cartdata: cartData, addData: addData, userID: user_id, shippingtime: shippingTiming})
   }
+
+  const tooltipClone = React.cloneElement(
+    <View style={{width:"100%"}}>
+    { cartData.vendorOrders && cartData.vendorOrders.length > 0&&
+    cartData.vendorOrders.map((vendor, i) => {
+        return (
+          <View style={{paddingVertical:5}}>
+              <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
+              <View style={{flexDirection:"row"}}>
+                <Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
+                <Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
+              </View>  
+          </View> 
+        )
+    })  
+    }
+    <View style={{marginTop:30,flexDirection:'row'}}>
+      <Text style={[commonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
+      <Text style={[commonStyles.label,{color:"#fff"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text>
+    </View>  
+    </View>,
+    { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
+  )
 
     return (
       <React.Fragment>
@@ -532,30 +580,12 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                       </View>
                     </View>
                     <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
-                      <Tooltip 
+                    <Tooltip 
                       containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                      height={70 * cartData.vendorOrders.length}
+                      width={300} 
+                      height={tooltipSize.h + 30}
                       backgroundColor={colors.theme}
-                      width={300}
-                      popover={
-                        <View style={{width:"100%"}}>
-                        {cartData.vendorOrders.map((vendor, i) => {
-                            return (
-                              <View style={{paddingVertical:5}}>
-                                  <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
-                                  <View style={{flexDirection:"row"}}>
-                                    <Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
-                                    <Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
-                                  </View>  
-                              </View> 
-                            )
-                        })  
-                        }
-                        <View style={{marginTop:30,flexDirection:'row'}}>
-                          <Text style={[commonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
-                          <Text style={[commonStyles.label,{color:"#fff"}]}>{cartData.paymentDetails.shippingCharges} {currency}</Text>
-                        </View>  
-                      </View>}>
+                      popover={tooltipClone}>
                         <Icon name="info-circle" type={"font-awesome"} size={11} />
                       </Tooltip>
                     </View>  
@@ -571,15 +601,26 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                           </View>
                         </View>
                       </View>
+                      
                       <View style={styles.margTp20}>
-                      <TouchableOpacity >
-                        <Button
-                          onPress={() => paymentMethodsPage()}
-                          title={"PROCEED TO BUY"}
-                          buttonStyle={styles.button1}
-                          containerStyle={styles.buttonContainer1}
-                        />
-                      </TouchableOpacity>
+                        <View style={{flexDirection:'row',alignItems:'center'}}>
+                          <RadioButton
+                            style={styles.radiobtn}
+                            value="first"
+                            status={checked ? 'checked' : 'unchecked'}
+                            onPress={() => {setChecked(true)}}
+                          />
+                          <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12}]}  onPress={()=>setModal(true)}>Terms & conditions</Text></Text>
+                        </View>
+                        <TouchableOpacity >
+                          <Button
+                            onPress={() => paymentMethodsPage()}
+                            title={"PROCEED TO BUY"}
+                            buttonStyle={styles.button1}
+                            containerStyle={styles.buttonContainer1}
+                            disabled={!checked}
+                          />
+                        </TouchableOpacity>
                     </View>
                     <View style={{ flex: 1, marginBottom: 30 }}>
                       <Text style={styles.securetxt}>Safe & Secure Payments | 100% Authentic Products</Text>
@@ -599,6 +640,36 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
         </ScrollView>
        
       </View>
+      <Modal isVisible={modal}
+          onBackdropPress={() => setModal(false)}
+          onRequestClose={() => setModal(false)}
+          coverScreen={true}
+          hideModalContentWhileAnimating={true}
+          style={{ zIndex: 999 }}
+          animationOutTiming={500}>
+          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10}}>
+          <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                {
+                    pageBlockes && pageBlockes.length>0?
+                        pageBlockes.map((item,index)=>{
+                            const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
+                            return(
+                                <View style={{flex:1,paddingHorizontal:15}}>
+                                    {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                    {item.block_id.fgImage1 &&<Image
+                                        source={{uri:item.block_id.fgImage1}}
+                                        style={{height:200,width:"100%"}}
+                                        resizeMode={"stretch"}
+                                    />}
+                                </View>                                    
+                            )
+                        })
+                    :
+                    []
+                }
+            </ScrollView>
+          </View>
+        </Modal>
     </React.Fragment>
   );
 })

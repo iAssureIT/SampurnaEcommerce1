@@ -271,7 +271,7 @@ export default StyleSheet.create({
 	},
 	prdet: {
 		flex:1,
-		marginTop:5,
+		marginTop:3,
 		// alignItems: "center",
 		marginBottom:10,
 		marginLeft:5

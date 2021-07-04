@@ -52,7 +52,6 @@ export const VendorProducts = (props)=>{
   const filterOptions = [
     "Sub Category",
     "Brand",
-    "Size",
   ];
 
   const store = useSelector(store => ({
@@ -231,7 +230,7 @@ const onScroll=(e)=>{
             visible         = {showFilters}
             subCategory     = {subCategory}
             brandsArray     = {brandList && brandList.length > 0 ? brandList.map((a, i)=>{return {label :a,value :a}}): []}
-            sizeArray       = {[]}
+            // sizeArray       = {[]}
         />
       </View>}
     </View>

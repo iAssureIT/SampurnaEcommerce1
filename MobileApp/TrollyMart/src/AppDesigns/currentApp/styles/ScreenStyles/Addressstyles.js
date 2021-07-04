@@ -255,19 +255,20 @@ export default StyleSheet.create({
   ddLabelText:{
     backgroundColor:'#fff',
     top:0,
-    // left:5,
+    left:-15,
     fontFamily:"Montserrat-Regular",
     fontSize:15,
-    paddingHorizontal:2
+    // paddingHorizontal:2
   },
   ddStyle:{
     fontFamily:"Montserrat-Regular",
-    borderColor:"#eee",
+    borderColor:"#ccc",
     backgroundColor:"#fff",
-    borderWidth:1,
+    borderBottomWidth:1,
   },
   addsuperparent:{
-    flex:1,backgroundColor:'#fff',
+    flex:1,
+    marginBottom:55
   },
   flxdir1:{
     flex:1,flexDirection: "row"

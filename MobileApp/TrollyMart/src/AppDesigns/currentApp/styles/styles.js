@@ -63,7 +63,7 @@ export const colors = {
 
 export const sizes = {
   title : 10,
-  label : 13,
+  label : 12,
 }
 
 export const projectName = "bookstore";

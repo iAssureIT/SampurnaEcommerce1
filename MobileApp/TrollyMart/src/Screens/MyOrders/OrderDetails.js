@@ -33,6 +33,7 @@ import { RadioButton }        from 'react-native-paper';
 import ImagePicker              		from 'react-native-image-crop-picker';
 import {PERMISSIONS, request, RESULTS} 	from 'react-native-permissions';
 import { RNS3 }                 		from 'react-native-aws3';
+import HTML from 'react-native-render-html';
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
@@ -79,12 +80,15 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [review_id,setReviewId]= useState();
   const [getReasons,setGetReasons]=useState([]);
   const [reason,setReason]=useState('');
-  const [checked,setChecked]                = useState('first');
+  const [checked,setChecked]= useState('first');
+  const [checkedTerms,setTermsChecked]   = useState(false);
   const [comment, setComment] = useState('')
   const [refund, setRefund] = useState('source')
   const [returnProductImages, setReturnProductImages] = useState([]);
   const [reviewProductImages, setReviewProductImages] = useState([]);
   const [imageLoading,setImageLoading] = useState([]);
+  const [modalTerms,setTermsModal] = useState(false);
+  const [pageBlockes,setPageBlocks]       = useState([]);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -117,36 +121,47 @@ export const OrderDetails = withCustomerToaster((props)=>{
       }  
     });
     getSingleOrder(orderid);
-    getReasons_func()
+    getReasons_func();
+    getTerms();
 }, [props,isFocused]);
 
 const getReasons_func=()=>{
-  setGetReasons([
-    {label: "Defective Product",value: "Defective Product"},
-    {label: "Defective Product",value: "Defective Product"},
-    {label: "Defective Product",value: "Defective Product"},
-    {label: "Defective Product",value: "Defective Product"},
-    {label: "Defective Product",value: "Defective Product"},
-    {label: "Defective Product",value: "Defective Product"},
-    {label: "Defective Product",value: "Defective Product"},
-  ])
-  // axios.get('/api/time/get/list-with-limits/' + startRange + '/' + limitRange)
-  //   .then((response) => {
-  //     var array = response.data.map((a, i) => { return { label: a.fromtime + " - " + a.totime, value: a.fromtime + "-" + a.totime } })
-  //     setGetTimes(array);
-  //   })
-  //   .catch((error) => {
-  //     if (error.response.status == 401) {
-  //       AsyncStorage.removeItem('user_id');
-  //       AsyncStorage.removeItem('token');
-  //       setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
-  //       navigation.navigate('Auth')
-  //     }else{
-  //       setToast({text: 'Something went wrong.', color: 'red'});
-  //     }  
-  //   });
+  axios.get('/api/returnreasons/get/list')
+    .then((response) => {
+      console.log("getReasons_func",response);
+      var array = response.data.map((a, i) => { return { label: a.reasonOfReturn, value: a.reasonOfReturn } })
+      setGetReasons(array);
+    })
+    .catch((error) => {
+      if (error.response.status == 401) {
+        AsyncStorage.removeItem('user_id');
+        AsyncStorage.removeItem('token');
+        setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+        navigation.navigate('Auth')
+      }else{
+        setToast({text: 'Something went wrong.', color: 'red'});
+      }  
+    });
 }
 
+
+const getTerms=()=>{
+  axios.get('/api/pages/get/page_block/terms-and-conditions')
+  .then(res=>{
+      console.log("res",res);
+      setPageBlocks(res.data.pageBlocks)
+  })
+  .catch(error=>{
+      if (error.response.status == 401) {
+          AsyncStorage.removeItem('user_id');
+          AsyncStorage.removeItem('token');
+          setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+          navigation.navigate('Auth')
+        }else{
+          setToast({text: 'Something went wrong.', color: 'red'});
+        }  
+  })
+}
  
 
   const getSingleOrder=(orderid)=>{
@@ -346,7 +361,7 @@ const cancelorderbtn = (id,vendor_id) => {
       setReviewId(res.data._id)
       setReview(res.data.customerReview)
       setRating(res.data.rating);
-      setReviewProductImages([])
+      setReviewProductImages(res.data.reviewProductImages)
       // setToast({text: res.data.message, color: 'green'});
     })
     .catch(err=>{
@@ -767,6 +782,7 @@ const cancelorderbtn = (id,vendor_id) => {
         </Modal>
         <Modal isVisible={modal}
           onBackdropPress={() => setModal(false)}
+          onRequestClose={() => setModal(false)}
           coverScreen={true}
           hideModalContentWhileAnimating={true}
           style={{ paddingHorizontal: '5%', zIndex: 999 }}
@@ -850,6 +866,7 @@ const cancelorderbtn = (id,vendor_id) => {
                   null
                 }
                </View> 
+               
              <FormButton 
                 onPress    = {()=>submitReview()}
                 title       = {'Submit'}
@@ -860,6 +877,7 @@ const cancelorderbtn = (id,vendor_id) => {
 
         <Modal isVisible={returnModal}
           onBackdropPress={() => setReturnModal(false)}
+          onRequestClose={() => setReturnModal(false)}
           coverScreen={true}
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999 }}
@@ -987,11 +1005,50 @@ const cancelorderbtn = (id,vendor_id) => {
                   <Text style={styles.free}>Add to Credit Points</Text>
                 </View>
               </View>
+              <View style={{flexDirection:'row',alignItems:'center',paddingVertical:5}}>
+                <RadioButton
+                  style={styles.radiobtn}
+                  value={checked}
+                  status={checkedTerms ? 'checked' : 'unchecked'}
+                  onPress={() => {setTermsChecked(true)}}
+                />
+                <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12}]}  onPress={()=>setTermsModal(true)}>Terms & conditions</Text></Text>
+              </View>
              <FormButton 
                 onPress    = {()=>submitReturn()}
                 title       = {'Submit'}
                 background  = {true}
               />
+          </View>
+        </Modal>
+        <Modal isVisible={modalTerms}
+          onBackdropPress={() => setTermsModal(false)}
+          onRequestClose={() => setTermsModal(false)}
+          coverScreen={true}
+          hideModalContentWhileAnimating={true}
+          style={{ zIndex: 999 }}
+          animationOutTiming={500}>
+          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10}}>
+          <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                {
+                    pageBlockes && pageBlockes.length>0?
+                        pageBlockes.map((item,index)=>{
+                            const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
+                            return(
+                                <View style={{flex:1,paddingHorizontal:15}}>
+                                    {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                    {item.block_id.fgImage1 &&<Image
+                                        source={{uri:item.block_id.fgImage1}}
+                                        style={{height:200,width:"100%"}}
+                                        resizeMode={"stretch"}
+                                    />}
+                                </View>                                    
+                            )
+                        })
+                    :
+                    []
+                }
+            </ScrollView>
           </View>
         </Modal>
       </React.Fragment>

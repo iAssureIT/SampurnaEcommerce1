@@ -36,12 +36,15 @@ export const CartComponent = withCustomerToaster((props)=>{
   const [minvalueshipping,setMinValueShipping] = useState('');
   const [cartitemid,setCartItemId] = useState('');
   const [deleteVendor_id,setDeleteVendorId] = useState('');
+  const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
     globalSearch    : store.globalSearch
   }));
   const {globalSearch}=store;
   const {currency}=store.preferences;
+
+
 
   useEffect(() => {
     getData()
@@ -203,6 +206,30 @@ const getshippingamount=(startRange, limitRange)=>{
   if(cartData && cartData.vendorOrders && cartData.vendorOrders.length>0){
   var disabled = cartData.vendorOrders.every(el => el.vendor_afterDiscountTotal >= cartData.minOrderAmount);
   }
+
+
+  const tooltipClone = React.cloneElement(
+    <View style={{width:"100%"}}>
+    { cartData.vendorOrders && cartData.vendorOrders.length > 0&&
+    cartData.vendorOrders.map((vendor, i) => {
+        return (
+          <View style={{paddingVertical:5}}>
+              <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
+              <View style={{flexDirection:"row"}}>
+                <Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
+                <Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
+              </View>  
+          </View> 
+        )
+    })  
+    }
+    <View style={{marginTop:30,flexDirection:'row'}}>
+      <Text style={[commonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
+      <Text style={[commonStyles.label,{color:"#fff"}]}>{cartData?.paymentDetails?.shippingCharges} {currency}</Text>
+    </View>  
+    </View>,
+    { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
+  )
 
   return (
     <React.Fragment>
@@ -432,28 +459,10 @@ const getshippingamount=(startRange, limitRange)=>{
                     <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
                       containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                      height={70 * cartData.vendorOrders.length}
+                      width={300} 
+                      height={tooltipSize.h + 30}
                       backgroundColor={colors.theme}
-                      width={300}
-                      popover={
-                        <View style={{width:"100%"}}>
-                        {cartData.vendorOrders.map((vendor, i) => {
-                            return (
-                              <View style={{paddingVertical:5}}>
-                                  <Text style={[commonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
-                                  <View style={{flexDirection:"row"}}>
-                                    <Text style={[commonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
-                                    <Text style={[commonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
-                                  </View>  
-                              </View> 
-                            )
-                        })  
-                        }
-                        <View style={{marginTop:30,flexDirection:'row'}}>
-                          <Text style={[commonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
-                          <Text style={[commonStyles.label,{color:"#fff"}]}>{cartData.paymentDetails.shippingCharges} {currency}</Text>
-                        </View>  
-                      </View>}>
+                      popover={tooltipClone}>
                         <Icon name="info-circle" type={"font-awesome"} size={11} />
                       </Tooltip>
                     </View>  

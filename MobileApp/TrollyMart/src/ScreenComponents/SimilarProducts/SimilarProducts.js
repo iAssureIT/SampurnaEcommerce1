@@ -3,12 +3,16 @@ import {
   Text,
   View,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  ImageBackground,
+  ActivityIndicator,
   Image,
   FlatList
 } from 'react-native';
-import styles             from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
+import styles                from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/ProductListStyles.js';
 import axios              from 'axios';
 import FastImage         from 'react-native-fast-image';
+import { colors } from '../../AppDesigns/currentApp/styles/styles';
 
 export const SimilarProducts =(props)=>{
   const {user_id,title,currency,navigation,productdata} =props;
@@ -38,57 +42,68 @@ export const SimilarProducts =(props)=>{
 
   const _renderlist = ({ item, index })=>{
       return (
-        <TouchableOpacity style={{width:150,marginRight:10,height:230,backgroundColor:"#fff",borderWidth:1}} onPress={() => navigation.navigate('SubCatCompView',{productID: item._id })}>
-              <View style={styles.flx1}>
+           <View key={index}  style={[styles.productContainer,{width:window.width-220,marginRight:20}]} >
+        <TouchableWithoutFeedback   onPress={() => navigation.navigate('SubCatCompView',{productID: item._id })}>
+          <View style={styles.flx5}>
+            <View style={styles.flx1}>
+            {item.discountPercent && item.discountPercent >0?
+                <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
+                    {item.discountPercent && item.discountPercent >0?
+                    <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={{height:40,width:40}}>
+                      <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{item.discountPercent}%</Text>
+                      <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
+                    </ImageBackground> :null
+                  } 
+                  </ImageBackground> :null
+              }   
               {
-                item.productImage && item.productImage.length > 0 ?
+                item.productSmallImage && item.productSmallImage.length > 0 ?
                   <FastImage
                     source={{ 
-                      uri: item.productImage[0],
-                      priority: FastImage.priority.high,
-                      cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable), 
-                      preload :FastImage.preload([
-                        {
-                            uri: 'https://miro.medium.com/max/1158/1*9EBHIOzhE1XfMYoKz1JcsQ.gif',
-                        },
-                      ])
+                      uri: item.productSmallImage[0],
+                      priority: FastImage.priority.high, 
+                      cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
                     }}
+                    PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
                     style={styles.subcatimg}
-                    resizeMode="stretch"
-                  />
+                    resizeMode={FastImage.resizeMode.contain}
+                  >
+                    
+                  </FastImage>
                   :
-                  <FastImage
+                  <Image
                     source={require("../../AppDesigns/currentApp/images/notavailable.png")}
                     style={styles.subcatimg}
                   />
               }
-              {
-                item.discountPercent > 0 ?
-                  <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
-                  :
-                  null
-              }
-              <View style={[styles.flx1, styles.protxt]}>
-                <Text numberOfLines={2} style={styles.nameprod}>{item.productName}</Text>
-              </View>
-              <View style={[styles.flx1, styles.prdet]}>
-              <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
-                <View style={[styles.flxdir]}>
-                    <Text style={styles.ogprice}>{currency} </Text>
-                  <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
-                </View>
-                <View style={[styles.flxdir,{alignItems:"center"}]}>
-                  {item.discountPercent > 0 ?
-                        <Text style={styles.ogprice}> - {item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                        </Text>
-                      :
-                      <Text style={styles.ogprice}> - {item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
-                    }
-                </View>
-              </View>
             </View>
+            <View style={[styles.flx1, styles.protxt]}>
+            {item.brand ?
+                <Text numberOfLines={1} style={[styles.brandname]}>{item.brand}</Text>
+                :
+                null
+              }
+              <Text numberOfLines={2} style={[styles.nameprod]}>{item.productName}</Text>
+            </View>
+            <View style={[styles.flx1, styles.prdet]}>
+                <View style={[styles.flxdir]}>
+                  <View style={[styles.flxdir]}>
+                    <Text style={styles.ogprice}>{currency} </Text>
+                    {item.discountPercent && item.discountPercent >0?<Text style={styles.discountpricecut}>{item.originalPrice}</Text>:null}
+                  </View>
+                  <View style={[styles.flxdir,{alignItems:"center"}]}>
+                    {item.discountPercent > 0 ?
+                          <Text style={styles.ogprice}>{item.discountedPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
+                          </Text>
+                        :
+                        <Text style={styles.ogprice}>{item.originalPrice.toFixed(2)} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
+                      }
+                  </View>
+                </View>
               </View>
-        </TouchableOpacity>  
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     )
   }
 
