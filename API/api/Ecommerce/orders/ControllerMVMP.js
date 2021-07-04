@@ -3216,11 +3216,12 @@ exports.nearest_vendor_orders= (req, res, next) => {
 						},{
 							$project:{
 								// currentLocations:1,
-								recent :{$arrayElemAt:["$currentLocations",-1]}
+								lat :{$arrayElemAt:["$currentLocations.lat",-1]},
+								lng :{$arrayElemAt:["$currentLocations.lat",-1]}
 							}
 						}
 					])
-					console.log("data",location);
+					console.log("location",location);
 					if(latitude !== "" && longitude !== undefined && latitude !== "" && longitude !== undefined){
 						var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
 						var vendorToCustDist = await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
