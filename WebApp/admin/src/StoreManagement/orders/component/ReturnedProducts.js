@@ -82,10 +82,10 @@ export default class ReturnProducts extends Component{
 						"_id"               : a._id,
 						"orderID"           : a.orderID,
 						"productImage"     : a.productDetails[0] && a.productDetails[0].productImage && a.productDetails[0].productImage.length > 0 
-						? 
-						"<div class='prodImg'> <img src='"+ a.productDetails[0].productImage + "' class='img-responsive' /></div>"
-						: 
-						"<div class='productImgDiv'> <img src='/images/notavailable.jpg' class='img-responsive' /> </div>",
+											? 
+												"<div class='productImgDiv'> <img src='"+ a.productDetails[0].productImage[0] + "' class='img-responsive' /></div>"
+											: 
+												"<div class='productImgDiv'> <img src='/images/notavailable.jpg' class='img-responsive' /> </div>",
 						"productName"       : a.productDetails[0] && a.productDetails[0].productName ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
 						"vendorName"        : a.vendorDetails[0] && a.vendorDetails[0].companyName ? a.vendorDetails[0].companyName : "",
 						"customerName"      : a.userDetails[0] && a.userDetails[0].profile.fullName ? a.userDetails[0].profile.fullName : "-",
