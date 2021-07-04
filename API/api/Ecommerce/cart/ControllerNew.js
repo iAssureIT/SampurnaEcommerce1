@@ -1160,7 +1160,7 @@ exports.apply_coupon = (req,res,next)=>{
 
 /**=========== Apply Credit Points ===========*/
 exports.apply_credit_points = (req,res,next)=>{    
-    console.log("req.params.user_ID == ",req.body);
+    console.log("req.body == ",req.body);
     Carts.findOne({user_ID:ObjectId(req.body.user_ID)})
     .populate('vendorOrders.cartItems.product_ID')
     .populate('vendorOrders.vendor_id')
@@ -1282,8 +1282,19 @@ exports.apply_credit_points = (req,res,next)=>{
                                                                                                                         (order_shippingCharges)
                                                                                                                 ) - (req.body.creditPointsValueUsed)).toFixed(2);
                 data.minOrderAmount                             = minOrderAmount;
+
+                console.log("order_afterDiscountTotal  => ",order_afterDiscountTotal );
+                console.log("order_taxAmount  => ",order_taxAmount );
+                console.log("creditPointsValueUsed  => ",req.body.creditPointsValueUsed );
+                // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
+                // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
+                // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
+                // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
+                // console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
+                console.log("data.paymentDetails.creditPointsUsed  => ",data.paymentDetails.creditPointsUsed );
+                console.log("data.paymentDetails.creditPointsValueUsed => ",data.paymentDetails.creditPointsValueUsed);
             }
-            // console.log("data",data);
+            console.log("data",data);
             res.status(200).json(data);
         }else{
             res.status(200).json(data);
