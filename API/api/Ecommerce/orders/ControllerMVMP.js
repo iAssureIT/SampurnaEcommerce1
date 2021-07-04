@@ -3143,7 +3143,7 @@ exports.deleteAllOrders = (req, res, next) => {
 
 
 exports.nearest_vendor_orders= (req, res, next) => {
-	const {status,latitude,longitude}=req.body;
+	const {status}=req.body;
 	Orders.aggregate([
 		{$match:{"vendorOrders.orderStatus":status}},
 		{ "$unwind": "$vendorOrders"},
@@ -3196,6 +3196,19 @@ exports.nearest_vendor_orders= (req, res, next) => {
 	.then(async(data) => {
 		console.log("data",data);
 		var vendorLocations = [];
+		var location = await DriverTracking.aggregate([
+			{
+				$match:{user_id:ObjectId(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")}
+			},{
+				$project:{
+					// currentLocations:1,
+					lat :{$arrayElemAt:["$currentLocations.lat",-1]},
+					lng :{$arrayElemAt:["$currentLocations.lat",-1]}
+				}
+			}
+		])
+		var latitude = location[0].lat;
+		var longitude = location[0].lng;
 		for(var i = 0; i < data.length; i++){
 			if(data[i].vendorDetails && data[i].vendorDetails.locations){
 				for(var j = 0; j < data[i].vendorDetails.locations.length; j++){
@@ -3210,18 +3223,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 					var custLng            	= data[i].deliveryAddress.longitude;
 					
 					// var latitude = await DriverTracking.findOne({user_id:ObjectID(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")})
-					var location = await DriverTracking.aggregate([
-						{
-							$match:{user_id:ObjectId(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")}
-						},{
-							$project:{
-								// currentLocations:1,
-								lat :{$arrayElemAt:["$currentLocations.lat",-1]},
-								lng :{$arrayElemAt:["$currentLocations.lat",-1]}
-							}
-						}
-					])
-					console.log("location",location);
+					;
 					if(latitude !== "" && longitude !== undefined && latitude !== "" && longitude !== undefined){
 						var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
 						var vendorToCustDist = await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
@@ -3231,7 +3233,6 @@ exports.nearest_vendor_orders= (req, res, next) => {
 					data[i].vendorDetails.locations[j].vendorDist =vendorDist ? vendorDist.toFixed(2) : '';
 					data[i].vendorDetails.locations[j].vendorToCustDist =vendorToCustDist ? vendorToCustDist.toFixed(2) : '';
 					data[i].vendorDetails.locations[j].expectedReachedTime =(parseInt((60/20) * vendorDist));
-					console.log("vendorLocations => ",data[i].vendorDetails.locations);
 					// vendorLocations.push(data[i].vendorDetails.locationsj);
 				}
 			}
