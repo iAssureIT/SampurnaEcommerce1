@@ -79,22 +79,35 @@ export default class OrderDetails extends Component {
   }
 
   getMyOrders() {
+
       // axios.get("/api/orders/get/one/" +this.props.order_id)
       // .then((response) => {
+      //   if(response){
+      //     console.log("socket response.data=>",response);
+      //     this.setState({
+      //       orderData: response.data,
+      //       loading: false
+      //     }, () => {
+      //       console.log("orderDetails orderData after setstate=>",this.state.orderData);
+      //     })
+      //   }
+      // })
+
         socket.emit('room',this.props.order_id);
         socket.emit('signle_order',this.props.order_id);
         socket.on('getSingleOrder',(response)=>{
           if(response){
-            console.log("response.data=>",response);
+            console.log("socket response.data=>",response);
             // $('.fullpageloader').hide();
             this.setState({
               orderData: response,
               loading: false
             }, () => {
-              console.log("orderData after setstate=>",this.state.orderData);
+              console.log("orderDetails orderData after setstate=>",this.state.orderData);
             })
           }
       })
+
       // .catch((error) => {
       //   console.log('error', error);
       // })
@@ -107,7 +120,7 @@ export default class OrderDetails extends Component {
   getAllorderStatus(){
 		axios.get('/api/orderstatus/get/list')
 		.then((response) => {
-			console.log("getAllorderStatus 402 response ==>",response)
+			// console.log("getAllorderStatus 402 response ==>",response)
 			this.setState({AllOrderStatus : response.data});
 			// return response.data
 		})
@@ -244,7 +257,10 @@ export default class OrderDetails extends Component {
   }
  
   render() {
-    // console.log("Order Details props====",this.props );
+    if(this.state.orderData){
+      // console.log("Order Details data====",this.state.orderData );
+    }
+    
     return (
       <div className={"col-12 NoPadding "+Style.orderDetailMainWrapper}>
         <div className={" " +Style.container1 }>
@@ -265,6 +281,11 @@ export default class OrderDetails extends Component {
                             <div className="col-12">{"Order Status : "+(this.state.orderData.orderStatus)}</div>
                             <div className="col-12">{"Order ID : "+(this.state.orderData.orderID)}</div>
                             <div className="col-12">{"Total amount : "+(this.state.orderData.orderID)}</div>
+                            <div className="col-12">
+                              {/* <Link href="/my-account#v-pills-settings-tab"> */}
+                                {"Credit Points Available : "+this.state.orderData.creditPoints +" ( "+this.state.currency+" "+this.state.orderData.creditPointsValue +" )"}
+                              {/* </Link> */}
+                            </div>
                         </div>                       
                         <div className={"col-6 " +Style.rightside}>
                             <div className="row">
@@ -332,6 +353,7 @@ export default class OrderDetails extends Component {
                                     />
                                 </div> :null
                               }
+
                               <ProductsView 
                                 vendorWiseOrderData = {vendordata}
                                 orderData           = {this.state.orderData}
@@ -342,7 +364,6 @@ export default class OrderDetails extends Component {
                                 orderID             = {this.state.orderData._id}
                               />
                               
-
                               <div className="col-12 ">
                                 <div  className="col-12 NOpadding" style={{marginBottom:"20px"}} key={index}>
                                   <div className="row ">                                      

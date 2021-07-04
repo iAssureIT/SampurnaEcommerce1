@@ -3,6 +3,7 @@ import axios                from 'axios';
 import $                    from 'jquery';
 import moment               from 'moment';
 import Link                 from 'next/link';
+// import S3FileUpload         from 'react-s3';
 import StarRatingComponent  from 'react-star-rating-component';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import ProductReview        from './ProductsView.js';
@@ -32,7 +33,6 @@ class ProductsView extends Component {
       reviewTextError : event.target.value ? "" : "Please Enter your feedback."
     })
   }
-
   ratingReview(event){
     console.log("event.target.value---",event.target.value);
     this.setState({
@@ -148,7 +148,114 @@ class ProductsView extends Component {
         }
         );
   }
+  handleChangeReturn(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+      returnTextError : event.target.value ? "" : "Please write your comment."
+    })
+  }
+  handleRefundPayment(){
+    this.setState({
+      [event.target.name]: event.target.value,
+      refundTextError : event.target.value ? "" : "Please select your Refund source."
+    })
+  }
+  uploadImage(event){
+    event.preventDefault();
+    var returnProductImage = "";
+    if (event.currentTarget.files && event.currentTarget.files[0]) {
+        // for(var i=0; i<event.currentTarget.files.length; i++){
+            var file = event.currentTarget.files[0];
+            if (file) {
+                var fileName  = file.name; 
+                var ext = fileName.split('.').pop();  
+                if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
+                    if (file) {
+                        var objTitle = { fileInfo :file }
+                        returnProductImage = objTitle ;
+                        
+                    }else{          
+                        swal("Images not uploaded");  
+                    }//file
+                }else{ 
+                    swal("Allowed images formats are (jpg,png,jpeg)");   
+                }//file types
+            }//file
+        if(event.currentTarget.files){
+            this.setState({
+              returnProductImage : returnProductImage
+            });  
+            main().then(formValues=>{
+                this.setState({
+                  returnProductImage : formValues.returnProductImage
+                })
+            });
+            async function main(){
+                var config = await getConfig();
+                // console.log("line 429 config = ",config);
+                var s3url = await s3upload(returnProductImage.fileInfo, config, this);
 
+                const formValues = {
+                  "returnProductImage"    : s3url,
+                  // "status"           : "New"
+                };
+  
+                return Promise.resolve(formValues);
+            }
+            function s3upload(image,configuration){
+                return new Promise(function(resolve,reject){
+                    S3FileUpload
+                        .uploadFile(image,configuration)
+                        .then((Data)=>{
+                            resolve(Data.location);
+                        })
+                        .catch((error)=>{
+                            console.log("Image upload error=",error);
+                        })
+                })
+            }   
+
+            function getConfig(){
+                return new Promise(function(resolve,reject){
+                    axios
+                        .get('/api/projectSettings/get/S3')
+                        .then((response)=>{
+                            const config = {
+                                bucketName      : response.data.bucket,
+                                dirName         : process.env.ENVIRONMENT,
+                                region          : response.data.region,
+                                accessKeyId     : response.data.key,
+                                secretAccessKey : response.data.secret,
+                            }
+                            resolve(config);                           
+                        })
+                        .catch(function(error){
+                            console.log(error);
+                        })
+    
+                })
+            }        
+        }
+    }
+  }
+
+  deleteImage(event){
+    // console.log('delete');
+    
+    var id = event.target.id;
+    var productImageArray = this.state.productImageArray;
+    // console.log('productImage', productImageArray, id);
+    if(productImageArray && productImageArray > 0) {
+    productImageArray.splice(productImageArray.findIndex(v => v == id), 1);
+    this.setState({
+        sectionImage : "",
+        productImageArray: productImageArray
+    },()=>{
+        // console.log('subcatgArr', this.state.subcatgArr);
+    });
+  }
+
+}
   getSingleProductReview(event) {
     // console.log("getSingleProductdetails==")
     var productID  = event.target.getAttribute('productId');
@@ -183,7 +290,6 @@ class ProductsView extends Component {
       })
     }
   }
-
 
   returnProduct(event) {
     $('#returnProductModal').show();
@@ -220,7 +326,7 @@ class ProductsView extends Component {
   }
     
   render() {
-    // console.log("productView props  vendorOrders===",this.props);
+    console.log("productView props  vendorOrders===",this.props);
     return (
           <div className="col-12">
             {/* < ProductReview /> */}
@@ -239,12 +345,12 @@ class ProductsView extends Component {
                 <tbody>
                     {
                     this.props.vendorWiseOrderData && this.props.vendorWiseOrderData.products.map((productdata, index) => {
-                          console.log("productdata=",productdata);
+                          // console.log("productdata=",productdata);
                             return (
                                 <tr key={index}>
                                 <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
                                 <td>
-                                    <a href={"/productdetails/" + productdata}>
+                                    <a href={"/product-detail/" +this.props.vendorWiseOrderData.vendor_id._id+"/"+this.props.vendorWiseOrderData.vendorLocation_id+"/"+productdata._id}>
                                     {productdata.productNameRlang?
                                         <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
                                     :
@@ -294,35 +400,44 @@ class ProductsView extends Component {
                                               :
                                               <div className={" "+Style.returnReviewBtn}  productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Add Review</div>
                                             }
-                                            <div className={" "+Style.returnReviewBtn}    productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target="#returnProductModal">return</div>
+                                            {productdata.productReturnable === "returnable" ?
+                                              <div className={" "+Style.returnReviewBtn}    productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target="#returnModal">return</div>
+                                            :
+                                              <div className={" "+Style.returnReviewBtn}    productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_"+productdata._id}>return</div>
+                                            }
                                         </span>
                                     :null
                                     }
 
                                     {/* Review and Rating */}
                                     <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata._id} role="dialog">
-                                        <div className="modal-content " style={{ 'background': '#fff'}}>
+                                        <div className="modal-content modalContent " style={{ 'background': '#fff'}}>
                                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
-                                                <div className="col-3">
-                                                    < WebsiteLogo /> </div>
-                                                <div className="col-7 text-center">
-                                                    <h6 className="modal-title modalheadingcont">Product Review</h6> </div>
-                                                <div className="col-1 text-center">
-                                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                              <div className="col-12">
+                                                <div className="row">
+                                                    <div className="col-5 mt-2">
+                                                        < WebsiteLogo /> 
+                                                    </div>
+                                                    <div className="col-6 text-center">
+                                                        <h6 className="modal-title modalheadingcont"> Product Review</h6>
+                                                    </div>
+                                                    <div className="col-1 text-center">
+                                                        <button type="button" className="close closeModal" data-dismiss="modal">&times;</button>
+                                                    </div>
                                                 </div>
+                                              </div>
                                             </div>
                                             <div className="modal-body addressModalBody">
-                                            <table className="data table table-order-items history" id="my-orders-table">
-                                                <tbody>
-                                                    <tr className="row">
-                                                        <td className="col-3 orderimgsize"><img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" /></td>
-                                                        
-                                                        <td className="col-5 ">{productdata.productName}</td>
-                                                        
-                                                        <td className="col-4 total textAlignRight"><span>{this.props.currency} {productdata.discountedPrice}</span></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div className="col-12 mt-4 ">
+                                                <div className="row">
+                                                  <div className="col-3 orderimgsize">
+                                                    <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" />
+                                                  </div>
+                                                  <div className="col-5 ">{productdata.productName}</div>
+                                                  <div className="col-4 total textAlignRight">{this.props.currency} {productdata.discountedPrice}</div>
+                                                </div>
+                                            </div>
+
                                             <form className="feedbackForm col-12">
                                                 <div className="col-12 row">
                                                     <StarRatingComponent 
@@ -354,8 +469,90 @@ class ProductsView extends Component {
                                         </div>
                                     </div>
 
+                                    {/* Return product */}
+                                    <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"returnModal_"+productdata._id} role="dialog">
+                                        <div className="modal-content modalContent " style={{ 'background': '#fff'}}>
+                                            <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
+                                            <div className="col-12">
+                                              <div className="row">
+                                                <div className="col-5 mt-4">
+                                                    < WebsiteLogo /> 
+                                                </div>
+                                                <div className="col-6 text-center">
+                                                    <h6 className="modal-title modalheadingcont">Return Product</h6>
+                                                </div>
+                                                <div className="col-1 text-center">
+                                                    <button type="button" className="close closeModal" data-dismiss="modal">&times;</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            </div>
+                                            <div className="modal-body addressModalBody">
+                                              <div className="col-12 mt-4 ">
+                                                <div className="row">
+                                                  <div className="col-3 orderimgsize">
+                                                    <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" />
+                                                  </div>
+                                                  <div className="col-5 ">{productdata.productName}</div>
+                                                  <div className="col-4 total textAlignRight">{this.props.currency} {productdata.discountedPrice}</div>
+                                                </div>
+                                              </div>
+                                              <form className="feedbackForm col-12">
+                                                  <div className="col-12 row">
+                                                      <div className="clearfix "></div>
+                                                  </div>
+                                                  <label className="error">{this.state.reviewStarError}</label>
+                                                  <div className="row inputrow">
+                                                      <label className="col-12 mt-4 text-left">Comment</label>
+                                                      <div className="col-12 ">
+                                                      <textarea rows="5" className="col-12 " onChange={this.handleChangeReturn.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
+                                                      <label className="error">{this.state.reviewTextError}</label>
+                                                      </div>
+                                                  </div>
+                                                  <div className="ReturnImg">                                                                  
+                                                      <input type="file" onChange={this.uploadImage.bind(this)} title="upload product Image" className="" accept=".jpg,.jpeg,.png" />
+                                                  </div>
+                                                  {
+                                                    this.state.returnProductImage ? 
+                                                    <div className="row">
+                                                      <div className="col-lg-4 productImgCol">
+                                                        <div className="prodImage">
+                                                          <div className="prodImageInner">
+                                                              <span className="prodImageCross" title="Delete" data-imageUrl={this.state.returnProductImage} onClick={this.deleteImage.bind(this)} >x</span>
+                                                          </div>
+                                                          <img title="view Image" alt="Please wait..." data-imageurl={this.state.returnProductImage ? this.state.returnProductImage : "/images/notavailable.jpg"} className="img-responsive" />
+                                                        </div>    
+                                                      </div>
+                                                    </div>
+                                                    :
+                                                    null
+                                                  }
 
-
+                                                  <div className={"col-12 NoPadding text-left "}>
+                                                      <div className={"col-12 mt-2 mb-2 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>Refund to <span className="required">*</span></div>
+                                                      <div className={"col-12 " +Style.f14}>
+                                                          <input name="paymentRefundSource" type="radio" value="source" className="webModelInput codRadio col-2 col-md-1"
+                                                              checked={this.state.paymentRefundSource === "source"} onClick={this.handleRefundPayment.bind(this)} />
+                                                          <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>The Source( valid for card payment only)</span>
+                                                      </div>
+                                                      <div className={"col-12 paymentInput " +Style.f14}>
+                                                          <input name="paymentRefundSource" type="radio" value="card" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentRefundSource === "credit"} onClick={this.handleRefundPayment.bind(this)} />
+                                                          <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Add To Credit Points</span>
+                                                      </div>
+                                                      <div className="errorMsg col-11 ml-2">{this.state.refundTextError}</div>
+                                                  </div>
+                                              </form>
+                                            </div>
+                                            <div className="modal-footer modalfooterborder ">
+                                                <div className="col-12 ">
+                                                {!productdata.status?
+                                                    <button className="btn btn-primary pull-right mt15" onClick={this.submitReview.bind(this)}  vendorLocationId={this.props.vendorWiseOrderData.vendorLocation_id} productid={productdata && productdata._id}
+                                                    >Submit</button>
+                                                    :null}
+                                                </div>
+                                            </div>
+                                      </div>
+                                    </div>
                                 </td>
                             </tr>
                             );
@@ -363,8 +560,6 @@ class ProductsView extends Component {
                     }
                 </tbody>
             </table>
-            
-            
         </div>
     );
   }

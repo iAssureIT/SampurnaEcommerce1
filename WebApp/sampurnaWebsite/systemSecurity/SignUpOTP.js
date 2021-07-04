@@ -20,20 +20,20 @@ class SignUpOTP extends Component {
   handleChange = (otp) => this.setState({ otp });
 
   componentDidMount() {
-    var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
+      var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
           var userID                = userDetails.user_id; 
+          this.setState({
+            userId  : userDetails.userId,
+            phone   : userDetails.phone,
+          })
         }
   }
 
   resendOTP(event){
     event.preventDefault();
-    var userDetails     =  JSON.parse(localStorage.getItem('userDetails'));
-    if(userDetails){
-        console.log("userDetails===",userDetails);
-        const mobile = userDetails.mobile;
-        axios.patch("/api/auth/patch/set_send_otp/"+mobile)
+        axios.patch("/api/auth/patch/set_send_otp/"+this.state.phone)
         .then((otpResponse)=>{
             if(otpResponse){
                 console.log("otpResponse==",otpResponse);
@@ -42,40 +42,35 @@ class SignUpOTP extends Component {
         .catch((error)=>{
             console.log("error while resending otp==",error);
         })
-    }
+    
   }
 
   verifyOTP(event){
     event.preventDefault();
-    var userDetails     =  JSON.parse(localStorage.getItem('userDetails'));
-    if(userDetails){
-        const mobileOTP = this.state.otp;
-        console.log("mobileOTP=",mobileOTP);
-        console.log("verifyOTP userDetails===",userDetails);
-        axios.get("/api/auth/get/checkmobileotp/usingID/"+userDetails.userId+"/"+mobileOTP)
+        axios.get("/api/auth/get/checkmobileotp/usingID/"+this.state.userId+"/"+this.state.otp)
         .then((verifyOtpResponse)=>{
             if(verifyOtpResponse){
                 console.log("verifyOtpResponse==",verifyOtpResponse);
                 var userDetails = {
                     firstname	: verifyOtpResponse.data.userDetails.firstName,
                     lastname	: verifyOtpResponse.data.userDetails.lastName,
-                    email		: verifyOtpResponse.data.userDetails.email,
-                    mobNumber   : verifyOtpResponse.data.userDetails.mobile,
+                    email		  : verifyOtpResponse.data.userDetails.email,
+                    mobNumber : verifyOtpResponse.data.userDetails.mobile,
                     pincode		: verifyOtpResponse.data.userDetails.pincode,
                     user_id		: verifyOtpResponse.data.userDetails.user_id,
-                    roles		: verifyOtpResponse.data.userDetails.roles,
-                    token		: verifyOtpResponse.data.userDetails.token,
+                    roles		  : verifyOtpResponse.data.userDetails.roles,
+                    token		  : verifyOtpResponse.data.userDetails.token,
+                    authService : "",
                 }
                     localStorage.setItem('userDetails', JSON.stringify(userDetails));
-                    swal('Congratulations! You have been successfully Login, Now you can place your order.')
-                    window.location.reload();
+                    swal({text:'Congratulations! You have been successfuly Login, Now you can place your order.'}).then(function(){
+                      window.location.reload();
+                    });
             }
         })
         .catch((error)=>{
             console.log("error while resending otp==",error);
         })
-    }
-
   }
   render() {
     return (
@@ -91,7 +86,6 @@ class SignUpOTP extends Component {
                     onChange={this.handleChange}
                     numInputs={4}
                     separator={<span></span>}
-                    // inputStyle={none}
                 />
                 </div>
               </div>

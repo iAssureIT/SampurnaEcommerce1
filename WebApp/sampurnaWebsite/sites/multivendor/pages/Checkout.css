@@ -22,6 +22,8 @@
 }
 .checkoutAddressModalHeader{
     background-color: #033554;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
 }
 .addressModalBody{
     padding-top: 0px !important;
@@ -37,6 +39,12 @@
 }
 .discountValue span, .faPercent{
     color: #f00 !important;
+}
+.modalContent{
+    border-radius: 10px !important;
+}
+.closeModal{
+    color: #fff !important;
 }
 .addressWrapper{
     height: 560px;

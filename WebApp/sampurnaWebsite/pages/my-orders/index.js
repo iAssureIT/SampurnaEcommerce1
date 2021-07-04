@@ -62,13 +62,13 @@ export default class MyOrders extends Component {
       axios.get("/api/orders/get/list/" +this.state.user_ID)
       .then((response) => {
         if(response.data){
-          // console.log("response.data=>",response.data);
+          console.log("response.data=>",response.data);
           $('.fullpageloader').hide();
           this.setState({
             orderData: response.data,
             loading: false
           }, () => {
-            // console.log("orderData after setstate=>",this.state.orderData);
+            console.log("myOrder orderData after setstate=>",this.state.orderData);
           })
         }
       })
@@ -342,6 +342,11 @@ export default class MyOrders extends Component {
                                     <div className="col-12"><b>{singleOrder.orderStatus}</b></div>
                                     <div className="col-12">{"Order ID : "+(singleOrder.orderID)}</div>
                                     <div className="col-12"><b>{"Total amount : "+this.state.currency +" " +(singleOrder.paymentDetails.netPayableAmount)}</b></div>
+                                    <div className="col-12">
+                                      {/* <Link href="/my-account#v-pills-settings-tab"> */}
+                                        {"Credit Points Available : "+singleOrder.creditPoints +" ( "+this.state.currency+" "+singleOrder.creditPointsValue +" )"}
+                                      {/* </Link> */}
+                                    </div>
                                 </div>                       
                                 <div className={"col-6 " +Style.rightside}>
                                     <div className="row">

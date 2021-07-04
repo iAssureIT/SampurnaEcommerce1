@@ -44,7 +44,7 @@ class CreditPoints extends Component{
                 this.setState({
                     creditdata : creditRes.data
                 },()=>{
-                    console.log("creditdata=",this.state.creditdata);
+                    // console.log("creditdata=",this.state.creditdata);
                 })
             }
         })

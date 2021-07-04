@@ -3,7 +3,6 @@ import swal from 'sweetalert';
 import $ from "jquery";
 import axios from 'axios';
 import Image from 'next/image';
-
 import FacebookLogin from 'react-facebook-login';
 
 class Facebooklogin extends Component {
@@ -17,55 +16,53 @@ class Facebooklogin extends Component {
         }
 }
 
-componentDidMount() {
-    var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-        var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
-        if(userDetails){
-          var userID                = userDetails.user_id; 
-        }
-}
-facebookResponse = (response) => {
-  console.log(response);
-}
-responseFacebook1 = (response) => {
-  console.log("response facebook =",response);
-  if(response && response.userID){
-    this.setState({
-      "isloggedIn" : true ,
-      "userID"     : response.userID,
-      "name"       : response.name,
-      "email"      : response.email,
-      "picture"    : response.data.picture.data.url,
-    })
-
-    var userDetails = {
-      firstname	: response.name,
-      lastname	: verifyOtpResponse.data.userDetails.lastName,
-      email		  : response.email,
-      mobNumber : "",
-      user_id		: response.userID,
-      roles		  : "user",
-      token		  : response.token,
+responseFacebook(response){
+  if(response){
+    console.log('response==',response.profileObj);
+    var formValues = {
+      firstname   : response.profileObj.name.split(' ')[0],
+      lastname    : response.profileObj.name.split(' ')[1],
+      mobNumber   : "",
+      pincode     : "",
+      email       : response.profileObj.email,
+      pwd         : response.profileObj.email,
+      role        : 'user',
+      status      : 'active',
+      countryCode : "",
+      authService : "facebook"
     }
-
-      localStorage.setItem('userDetails', JSON.stringify(userDetails));
-      swal('Congratulations! You have been successfully Login, Now you can place your order.')
+    axios.post('/api/auth/post/signup/social_media',formValues)
+    .then((signupResponse)=>{
+      console.log("signup===",signupResponse);
+      if(signupResponse?.data){
+        var userDetails = {
+          firstname   : signupResponse.data.userDetails.firstName,
+          lastname    : signupResponse.data.userDetails.lastName,
+          companyID   : parseInt(signupResponse.data.userDetails.companyID),
+          email       : signupResponse.data.userDetails.email,
+          mobNumber   : signupResponse.data.userDetails.phone,
+          pincode     : signupResponse.data.userDetails.pincode,
+          user_id     : signupResponse.data.userDetails.user_id,
+          roles       : signupResponse.data.userDetails.roles,
+          token       : signupResponse.data.userDetails.token,
+          authService : signupResponse.data.authService,
+        }
+        localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        swal({text:'Congratulations! You have been successfully Login, Now you can place your order.'})
+        .then(function(){
+          window.location.reload();
+        });
+    }
+    })
+    .catch((error)=>{
+        console.log("error===",error);
+    })
   }
 }
-responseFacebook(response) {
-  console.log(response);
-}
+
 render() {
     return (
             <div className="col-12 NoPadding">
-              {/* <FacebookLogin
-                  appId="507698857234444"
-                  autoLoad={true}
-                  fields="name,email,picture"
-                  onClick={this.responseFacebook}
-                  callback={this.facebookResponse}
-                  language="en_US"
-              /> */}
                 <FacebookLogin
                   appId="507698857234444"
                   // autoLoad={true}

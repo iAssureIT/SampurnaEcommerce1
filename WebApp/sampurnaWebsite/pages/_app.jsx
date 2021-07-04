@@ -18,6 +18,14 @@ import 'nprogress/nprogress.css'; //styles of nprogress
 import '../Themes/Sampurna/style/multivendor_global.css';
 import '../Themes/Sampurna/style/stdBlockStyle.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { config, library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+
+config.autoAddCss = false;
+library.add(fas, fab);
+
 const { publicRuntimeConfig } = getConfig();
 axios.defaults.baseURL = publicRuntimeConfig.API_BASE_URL;
 const current_site = publicRuntimeConfig.CURRENT_SITE;

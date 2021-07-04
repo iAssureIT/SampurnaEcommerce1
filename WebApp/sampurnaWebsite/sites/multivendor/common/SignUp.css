@@ -424,6 +424,7 @@ input[type=number] {
   background: #fff !important;
   color: #033554 !important;
   font-weight: bold !important;
+  cursor: pointer;
 }
 
 /* facebook login */

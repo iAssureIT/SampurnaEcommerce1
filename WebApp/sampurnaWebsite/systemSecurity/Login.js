@@ -61,78 +61,66 @@ class Login extends Component {
       role: "user"
     }
     console.log("inside user login");
-      document.getElementById("logInBtn").value = this.setState({ btnLoading: true });
       axios.post('/api/auth/post/login/mob_email', payload)
         .then((response) => {
-          console.log("login response=",response);
-          if (response.data.ID) {
-            this.setState({ btnLoading: false });
-            var userDetails = {
-              firstName   : response.data.userDetails.firstName,
-              lastName    : response.data.userDetails.lastName,
-              companyID   : parseInt(response.data.userDetails.companyID),
-              email       : response.data.userDetails.email,
-              phone       : response.data.userDetails.phone,
-              pincode     : response.data.userDetails.pincode,
-              user_id     : response.data.userDetails.user_id,
-              roles       : response.data.userDetails.roles,
-              token       : response.data.userDetails.token,
-              authService : "",
-            }
-            // console.log("response.data.data, ===> ",response.data);
-            document.getElementById("logInBtn").value = 'Sign In';           
-            localStorage.setItem('userDetails', JSON.stringify(userDetails));
-            this.setState({
-              loggedIn: true
-            }, () => {
-              // this.props.history.push('/')
-              swal("Thank You", "You have been successfuly logged in");
-              window.location.reload();
-            })
-          } else if (response.data.message === "USER_BLOCK") {
-            swal({
-              text: "You are blocked by admin. Please contact Admin."
-            });
-            document.getElementById("logInBtn").value = 'Sign In';
-          } else if (response.data.message === "NOT_REGISTER") {
-            swal({
-              text: "This Email ID is not registered. Please try again."
-            });
-            document.getElementById("logInBtn").value = 'Sign In';
-          } else if (response.data.message === "INVALID_PASSWORD") {
-            swal({
-              text: "You have entered wrong password. Please try again."
-            });
-            document.getElementById("logInBtn").value = 'Sign In';
-          } else if (response.data.message === "USER_UNVERIFIED") {
-            swal({
-              text: "You have not verified your account. Please verify your account."
-            })
-              .then((value) => {
-                var emailText = {
-                  "emailSubject": "Email Verification",
-                  "emailContent": "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
-                }
-                axios.patch('/api/auth/patch/setsendemailotpusingEmail/' + this.refs.loginusername.value, emailText)
-                  .then((response) => {
-                    swal("We send you a Verification Code to your registered email. Please verify your account.");
-                    this.props.history.push("/confirm-otp/" + response.data.userID);
-                  })
-                  .catch((error) => {
-                    swal(" Failed to sent OTP");
-                  })
+          if(response.data){
+            console.log("login response=",response);
+            if (response.data.ID) {
+              var userDetails = {
+                firstName   : response.data.userDetails.firstName,
+                lastName    : response.data.userDetails.lastName,
+                companyID   : parseInt(response.data.userDetails.companyID),
+                email       : response.data.userDetails.email,
+                phone       : response.data.userDetails.phone,
+                pincode     : response.data.userDetails.pincode,
+                user_id     : response.data.userDetails.user_id,
+                roles       : response.data.userDetails.roles,
+                token       : response.data.userDetails.token,
+                authService : "",
+              }        
+              localStorage.setItem('userDetails', JSON.stringify(userDetails));
+              this.setState({
+                loggedIn: true
+              }, () => {
+                swal({text:'Thank You, You have been successfully logged in.'}).then(function(){
+                  window.location.reload();
+                });
+                
+              })
+            } else if (response.data.message === "USER_BLOCK") {
+              swal({
+                text: "You are blocked by admin. Please contact Admin."
               });
-            document.getElementById("logInBtn").value = 'Sign In';
+              document.getElementById("logInBtn").value = 'Sign In';
+            } else if (response.data.message === "NOT_REGISTER") {
+              swal({
+                text: "This Email ID is not registered. Please try again."
+              });
+              document.getElementById("logInBtn").value = 'Sign In';
+            } else if (response.data.message === "INVALID_PASSWORD") {
+              swal({
+                text: "You have entered wrong password. Please try again."
+              });
+              document.getElementById("logInBtn").value = 'Sign In';
+            } else if (response.data.message === "USER_UNVERIFIED") {
+              swal({
+                text: "You have not verified your account. Please verify your account."
+              })
+                .then((value) => {
+                  var emailText = {
+                    "emailSubject": "Email Verification",
+                    "emailContent": "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
+                  }
+                });
+            }
           }
         })
         .catch((error) => {
-          console.log("error", error);
+          console.log("error while login user=", error);
           swal({
             text: "Please enter valid Email ID and Password"
           })
-          this.setState({ btnLoading: false });
         });
-    //}
   }
 
   validateForm() {

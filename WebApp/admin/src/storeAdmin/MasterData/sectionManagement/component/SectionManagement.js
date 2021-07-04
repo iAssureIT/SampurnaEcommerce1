@@ -522,12 +522,12 @@ class SectionManagement extends Component {
                                         this.state.sectionImage ?
                                         null
                                         :
-                                        
                                         <div className="divideCatgRows categoryImgWrapper">
                                             {/* <label>Category Image</label>                                                                     */}
                                             <input type="file" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" />
                                         </div>
                                       }
+                                      
                                       {
                                         this.state.sectionImage ? 
                                         <div className="row">

@@ -118,9 +118,11 @@ table > tfoot > tr > td:last-of-type {
 .givefeedback:not(:checked) > label, .ratingReview1:not(:checked) > label {
    float: right !important;
 }
+
 .orderimgsize img{
-	height: 70px;
-    border: solid 1px #ccc;
+	height: 80px;
+    width: 100%;
+    border: solid 2px #033554;
     border-radius: 5px;
 }
 .orderIdborder{

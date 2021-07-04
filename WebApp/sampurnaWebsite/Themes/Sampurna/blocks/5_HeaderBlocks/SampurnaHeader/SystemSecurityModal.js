@@ -102,15 +102,15 @@ class header extends React.Component {
     async signOut(event) {
         event.preventDefault();
         var token = localStorage.removeItem("userDetails");
-        swal("Thank You.","You have been logged out Successfully!");
+        swal({text:'Thank You. You have been logged out Successfully!'}).then(function(){
+            Router.push('/');
+            window.location.reload();
+          });
         if (token !== null) {
           this.setState({
             loggedIn: false
           })
         }
-        Router.push('/');
-        window.location.reload();
-    
     }
     
    render() {
@@ -167,7 +167,7 @@ class header extends React.Component {
                                 <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN"  onClick={this.signOut.bind(this)}><Link href="/"><a style={{color:"#fff"}}>Sign Out</a></Link></li>
                             </div>
                         :
-                            <div className="col-12 NoPaddind">
+                            <div className="col-12 NoPadding">
                                 <li className="col-12 NOpadding myAccMenuGuest text-center"><Link href="/my-account#v-pills-settings-tab"><a>My Orders</a></Link></li>
                                 <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true">Sign In</li>
                             </div>

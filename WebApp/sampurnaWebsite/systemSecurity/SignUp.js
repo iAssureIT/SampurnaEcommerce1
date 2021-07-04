@@ -174,29 +174,22 @@ class SignUp extends Component {
 			.then((signupResponse) =>{
 				if(signupResponse){
 					console.log("signupResponse=",signupResponse);
-					
 					if(signupResponse.data.result){
 						var userDetails = {
 							firstname	: signupResponse.data.result.profile.firstname,
 							lastname	: signupResponse.data.result.profile.lastname,
 							email		: signupResponse.data.result.profile.email,
 							mobNumber   : signupResponse.data.result.profile.mobile,
-							pincode		: signupResponse.data.result.profile.pincode,
-							// user_id		: signupResponse.data.ID,
 							authService : "",
 							userId      : signupResponse.data.ID,
 							roles		: signupResponse.data.result.roles[0],
 						}
 						localStorage.setItem('userDetails', JSON.stringify(userDetails));
-						swal("Thank you!! Your account created successfuly. Please Check your SMS, We have sent verification code on your mobile number.");
+						swal("Thank you!! Your account created Successfully. Please Check your SMS, We have sent verification code on your mobile number.");
 						this.props.updateFormValue("signupotp");
 					}else{
 						swal(signupResponse.data.message);
 					}
-
-					// console.log("userDetails===",userDetails);
-
-					
 				}
 			})
 			.catch((error)=>{
@@ -345,8 +338,8 @@ class SignUp extends Component {
 						// enableAreaCodes={true}
 						// withCountryCallingCode={false}
 						onChange={mobNumber => { 
-							this.setState({ mobNumber }
-								,console.log("react-phone-input-2=",mobNumber)) 
+							this.setState({ mobNumber })
+								
 								// this.setState({
 								// 	mobNumber : this.state.mobNumber,
 								// }); 

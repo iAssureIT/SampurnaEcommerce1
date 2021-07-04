@@ -40,10 +40,10 @@ customerloginAsGuest(event){
         if(guestResponse){
             console.log("guestResponse==",guestResponse.data);
             var userDetails = {
-                firstname	: guestResponse.data.userDetails.firstName,
-                lastname	: guestResponse.data.userDetails.lastName,
+                firstName	: guestResponse.data.userDetails.firstName,
+                lastName	: guestResponse.data.userDetails.lastName,
                 email		: guestResponse.data.userDetails.email,
-                mobNumber   : guestResponse.data.userDetails.mobile,
+                phone       : guestResponse.data.userDetails.mobile,
                 pincode		: guestResponse.data.userDetails.pincode,
                 user_id		: guestResponse.data.userDetails.user_id,
                 roles		: guestResponse.data.userDetails.roles,
@@ -51,8 +51,10 @@ customerloginAsGuest(event){
                 authService : guestResponse.data.authService,
             }
             localStorage.setItem('userDetails', JSON.stringify(userDetails));
-            swal("Thank You", "You have been successfuly logged in as guest");
+            swal({text:'Congratulations! You have been successfully logged in as guest, Now you can place your order.'})
+            .then(function(){
             window.location.reload();
+            });
         }
     })
     .catch((error)=>{
