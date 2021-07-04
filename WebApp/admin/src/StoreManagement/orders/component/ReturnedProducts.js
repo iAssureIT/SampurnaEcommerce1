@@ -76,7 +76,7 @@ export default class ReturnProducts extends Component{
 			console.log("response return products => ",response.data)
 			var tableData = response.data.map((a, ind)=>{
 				console.log("condition => ",(a.productDetails && a.productDetails.length > 0));
-				if(a.productDetails && a.productDetails.length > 0){
+				// if(a.productDetails && a.productDetails.length > 0){
 					console.log("a => ",a)
 					return{
 						"_id"               : a._id,
@@ -98,8 +98,9 @@ export default class ReturnProducts extends Component{
 						"status"            : "<div class='reviewStatusSpan " + a.returnStatus.replace(/\s+/g, '_').toLowerCase() + "'>" + a.returnStatus + "</div>",
 						
 					};
-				}
+				// }
             })
+			console.log("tabledata => ",tableData)
             this.setState({
                 tableData : tableData
             },()=>{
@@ -107,20 +108,20 @@ export default class ReturnProducts extends Component{
             })
 		})
 		.catch((error)=>{
-				console.log('error', error);
-				if(error.message === "Request failed with status code 401"){
-					var userDetails =  localStorage.removeItem("userDetails");
-					localStorage.clear();
-					swal({  
-							title : "Your Session is expired.",                
-							text : "You need to login again. Click OK to go to Login Page"
-					})
-					.then(okay => {
-					if (okay) {
-							window.location.href = "/login";
-					}
-					});
+			console.log('error', error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+						title : "Your Session is expired.",                
+						text : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+				if (okay) {
+						window.location.href = "/login";
 				}
+				});
+			}
 		})
 	}
 			

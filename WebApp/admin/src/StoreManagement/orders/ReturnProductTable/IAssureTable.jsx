@@ -531,7 +531,7 @@ class IAssureTable extends Component {
 	                            </tr>
 	                            <tr className="">
 	                            <th className="umDynamicHeader srpadd textAlignLeft">Sr.No.</th>
-		                            { this.state.tableHeading ?
+		                            { this.state.tableHeading && this.state.tableHeading !== null ?
 										Object.entries(this.state.tableHeading).map( 
 											([key, value], i)=> {
 													// if(key === 'actions'){

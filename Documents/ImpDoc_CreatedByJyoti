@@ -148,6 +148,10 @@ formValues  =  {
     "returnProductImages"   : []
 }
 
+Get Return Reasons
+
+API => http://localhost:3368/api/returnreasons/get/list
+MethodType  => Get
 
 ==========================================================================
 Credit Points 
@@ -200,3 +204,11 @@ Vendor      -
 
 what happen when admin or vendor rejects the customer request of product return.
 because we minus product cost from order and we are not accepting customer's return request 
+
+
+
+Reporting System
+Product Review and Rating
+Credit Points
+Return Product
+Cancel Order
