@@ -10,7 +10,6 @@ import Message                from '../../Themes/Sampurna/blocks/StaticBlocks/Me
 import OrderSummury           from './OrderSummury.js';
 import Style                  from './CartProducts.module.css';
 import ReactTooltip           from 'react-tooltip';
-import Tooltip                from './Tooltip.js';
 
 class CartProducts extends Component{
     constructor(props) {
@@ -463,8 +462,6 @@ class CartProducts extends Component{
                                                             </div>
                                                             <div className="col-4 textAlignRight">&nbsp; 
                                                                 {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
-                                                               
-                                                                {/* <a href="#" data-toggle="tooltip" title={<Tooltip/>}><i className="fa fa-info-circle infoCircle"></i></a> */}
                                                                 
                                                                 <a data-tip data-for="vendorTooltip">
                                                                     &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>

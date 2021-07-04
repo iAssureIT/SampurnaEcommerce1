@@ -8,7 +8,6 @@ import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/Sa
 import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
-// import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
 import UserAddress          from './UserAddress.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
 import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
@@ -20,7 +19,7 @@ import moment               from 'moment';
 import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
-
+import ReactTooltip         from 'react-tooltip';
 
 class Checkout extends Component {
     constructor(props) {
@@ -672,13 +671,18 @@ class Checkout extends Component {
         event.preventDefault();
         this.setState({
             recentCartData: this.props.recentCartData
+        },()=>{
+            $('.couponCreditWrapper').show(500);
         })
     }
     deleteCredit(event){
         event.preventDefault();
         this.setState({
             recentCartData: this.props.recentCartData
+        },()=>{
+            $('.couponCreditWrapper').show(500);
         })
+        
     }
 
     applyCoupon(event){
@@ -702,7 +706,7 @@ class Checkout extends Component {
                     })
 
                     if(couponResponse.data.message === "Coupon Applied Successfully!"){
-                        $('.couponCreditWrapper').hide();
+                        $('.couponCreditWrapper').hide(500);
                     }
                     swal(couponResponse.data.message);
                     
@@ -716,14 +720,14 @@ class Checkout extends Component {
     applyCreditPoint(event){
         event.preventDefault();
         var creaditPointValueEnter = this.refs.creaditPoint.value;
-        console.log("my creaditPoint===",creaditPointValueEnter);
+        // console.log("my creaditPoint===",creaditPointValueEnter);
         var userDetails = JSON.parse(localStorage.getItem('userDetails'));
         var userId = userDetails.user_id;
             const formValues ={
                 "user_ID"           : userId,
                 creditPointsValueUsed  : creaditPointValueEnter
             }
-            console.log("formValues==",formValues);
+            // console.log("formValues==",formValues);
 
             if(creaditPointValueEnter <= this.state.creditdataValue){
                 axios.patch('/api/carts/redeem/creditpoints',formValues)
@@ -758,6 +762,7 @@ class Checkout extends Component {
     }
 
     render() {
+        // console.log("this.state.recentCartData===",this.props.recentCartData);
         return (
             <div className="col-12 NoPadding">
             < Header/>
@@ -904,7 +909,7 @@ class Checkout extends Component {
                                                             return (
                                                                 <div className="col-12 tableRowWrapper" key={'cartData' + index}>
                                                                 <tr  className="col-12">
-                                                                    <td colspan="5">
+                                                                    <td colSpan="5">
                                                                         <table className="table ">
                                                                         <thead>
                                                                             <tr>
@@ -1055,12 +1060,32 @@ class Checkout extends Component {
                                                     </span>
                                                     <span className="col-6 mb-1">Total Credit Points :</span>
                                                     <span className="col-6 mb-1 textAlignRight">
-                                                        <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.creditPointsValue>0? this.state.recentCartData.paymentDetails.creditPointsValue : 0.00}
-                                                        {this.state.recentCartData.paymentDetails.creditPointsValue>0&&
+                                                        <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.creditPointsValueUsed>0? this.state.recentCartData.paymentDetails.creditPointsValueUsed : 0.00}
+                                                        {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 &&
                                                         <span className={Style.deleteCredit} onClick={this.deleteCredit.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                         }
                                                     </span>
-                                                    <span className="col-6 mb-1">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
+                                                    <span className="col-6 mb-1">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }
+                                                    <a data-tip data-for="vendorTooltip">
+                                                        &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
+                                                    </a>
+                                                    <ReactTooltip id="vendorTooltip" className={"pb-2 pt-2" +Style.tooltipWrapper} place="left" effect="solid">
+                                                    {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
+                                                        return(
+                                                            <div className={"row mb-2 text-left font-weight-bold " +Style.tooltipVendorCharges}>
+                                                                <div className={"col-12 text-left " +Style.vendorNameTooltip}>{vendorWiseCartData.vendorName}</div>
+                                                                <div className="col-12 ">
+                                                                    <span className="col-5 text-left NoPadding">Delivery Charges </span> 
+                                                                    <span className="col-1">:</span>
+                                                                    <span className="col-6 text-right NoPadding">{vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</span>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                        })
+                                                    }
+                                                        <div className="col-12 text-left NoPadding font-weight-bold">Total Delivery Charges : {this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
+                                                    </ReactTooltip>
+                                                    </span>
                                                     
                                                     
                                                     <div className="col-12 mt-5 shippingtimes">
