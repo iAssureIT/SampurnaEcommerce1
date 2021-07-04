@@ -46,7 +46,7 @@ import {Location}                 from '../Screens/Location/Location.js';
 import {Confirmation}             from '../Screens/Location/Confirmation.js';
 import {VendorList}               from '../Screens/VendorList/VendorList.js';
 import {ProductVendorList}        from '../Screens/VendorList/ProductVendorList.js';
-import {VendorProducts}           from '../Screens/VendorProducts/VendorProducts.js';
+import VendorProducts           from '../Screens/VendorProducts/VendorProducts.js';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import  HeaderBar2                 from '../ScreenComponents/HeaderBar2/HeaderBar2.js';
 // import Drawer                     from 'react-native-drawer';

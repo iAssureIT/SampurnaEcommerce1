@@ -63,7 +63,6 @@ export const HorizontalProductList =(props)=>{
         "userLongitude"     : store.location?.address?.latlong?.lng,
         "vendorLocation_id" : props.payload.vendorLocation_id,
       }
-      console.log("formValues",formValues);
       axios
         .post('/api/carts/post', formValues)
         .then((response) => {
@@ -164,8 +163,6 @@ export const HorizontalProductList =(props)=>{
       </View>
     )
   }
-
-  console.log("productList",productList);
 
     return (
       <View style={{marginHorizontal:5}}>

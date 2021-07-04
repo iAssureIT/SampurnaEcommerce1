@@ -11,6 +11,9 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Header, Icon, Card, Button }       from 'react-native-elements';
 import axios from 'axios';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles';
+import {
+    useDispatch,
+    useSelector }           from 'react-redux';
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
   { id: '2', text: 'Learn React' },
@@ -22,6 +25,10 @@ export const ListOfOrders =(props)=> {
     useEffect(() => {
         getList()
     },[]);
+
+    const store = useSelector(store => ({
+        userDetails     : store.userDetails,
+      }));
 
     const getList =()=>{
         var payload={
@@ -60,31 +67,23 @@ export const ListOfOrders =(props)=> {
         </View>
     );
     };
-    const rightSwipeActions = () => {
-    return (
-        <View
-        style={{
-            backgroundColor: '#ff8303',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-        }}
-        >
-        <Text
-            style={{
-            color: '#1b1a17',
-            paddingHorizontal: 10,
-            fontWeight: '600',
-            paddingHorizontal: 30,
-            paddingVertical: 20,
-            }}
-        >
-            Reject
-        </Text>
-        </View>
-    );
-    };
-    const swipeFromLeftOpen = () => {
-      alert('Swipe from left');
+  
+    const swipeFromLeftOpen = (order_id,vendor_id) => {
+        var payload = {
+            order_id        : order_id,
+            vendor_id       : vendor_id,
+            changeStatus    : "On the Way",
+            userid          : store.userDetails.user_id
+        }
+        console.log("payload",payload);
+      axios.patch('/api/orders/changevendororderstatus',payload)
+      .then(res=>{
+          console.log("res",res);
+        getList();
+      })
+      .catch(err=>{
+          console.log("err",err);
+      })
     };
     const swipeFromRightOpen = () => {
     //   alert('Swipe from right');
@@ -96,7 +95,7 @@ export const ListOfOrders =(props)=> {
                 renderLeftActions={LeftSwipeActions}
                 // renderRightActions={rightSwipeActions}
                 // onSwipeableRightOpen={swipeFromRightOpen}
-                onSwipeableLeftOpen={swipeFromLeftOpen}
+                onSwipeableLeftOpen={()=>swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id,)}
             >
                 {/* <View
                 style={{

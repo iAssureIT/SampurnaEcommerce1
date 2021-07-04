@@ -45,7 +45,7 @@ export const SubCategoriesComp = (props)=>{
 
   useEffect(() => {
     getData();
- },[props,isFocused]);
+ },[props]);
  
 
  const getData=()=>{

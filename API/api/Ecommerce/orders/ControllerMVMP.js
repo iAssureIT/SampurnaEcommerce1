@@ -3163,6 +3163,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 				"userName":1,
 				"vendorOrders.vendor_id":1,
 				"vendorOrders.vendorLocation_id":1,
+				"vendorOrders.orderStatus":1,
 				"deliveryAddress":1,
 				"vendorDetails.companyName":1,
 				"vendorDetails.companyLogo":1,

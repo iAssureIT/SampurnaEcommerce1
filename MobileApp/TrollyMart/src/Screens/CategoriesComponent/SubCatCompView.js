@@ -25,13 +25,15 @@ import {SimilarProducts}      from '../../ScreenComponents/SimilarProducts/Simil
 import {withCustomerToaster}  from '../../redux/AppState.js';
 import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {getCartCount}         from '../../redux/productList/actions';
-import {useDispatch }         from 'react-redux';
+import {useDispatch,useSelector } from 'react-redux';
 import Loading from '../../ScreenComponents/Loading/Loading.js';
 import { useIsFocused } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import { Card } from 'react-native-elements/dist/card/Card';
 import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCatList/HorizontalSecCatList.js';
 import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
+import { getCategoryWiseList }  from '../../redux/productList/actions.js';
+import { SET_CATEGORY_LIST }  from '../../redux/productList/types.js';
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [countofprod,setCounterProd]        = useState(1);
   const [user_id,setUserId]                = useState('');
@@ -42,7 +44,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const dispatch 		= useDispatch();
   const isFocused = useIsFocused();
   const {navigation,route,setToast} =props;
-  const {productID,currency,vendorLocation_id,location}=route.params;
+  const {productID,currency,vendorLocation_id,location,index}=route.params;
+
+
+  const store = useSelector(store => ({
+    productList : store.productList,
+  }));
+  const {productList,userDetails,brandList,payload,globalSearch} = store;
 
   useEffect(() => {
     setLoading(true);
@@ -58,7 +66,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     })
   }
 
-  const addToWishList = (productid) => {
+  const addToWishList = (productid,vendor_ID,sectionUrl) => {
     if(user_id){
       const wishValues = {
         "user_ID": user_id,
@@ -68,6 +76,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
         .then((response) => {
           getProductsView(productID,user_id);
           setToast({text: response.data.message, color: 'green'});
+          var payload ={
+            "vendor_ID"         : vendor_ID,
+            "sectionUrl"        : sectionUrl,
+            "startRange"        : 0,
+            "limitRange"        : 8,
+          } 
+          dispatch(getCategoryWiseList(payload));
         })
         .catch((error) => {
           console.log("error",error);
@@ -208,8 +223,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   />
                 }
                   <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
-                        onPress={() =>addToWishList(productID)} >
-                    <Icon size={25} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
+                        onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
+                    <Icon size={25} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.red} />
                   </TouchableOpacity>
                 <View style={styles.prodnameview}>
                   {/* (i % 2 == 0 ? {} : { marginLeft: 12 } */}

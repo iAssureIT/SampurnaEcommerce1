@@ -20,13 +20,13 @@ export default function BookingsTabView() {
  
   const renderScene = ( props ) => {
     if (props.route.key == 'first' && index == 0){ 
-      return <ListOfOrders status={"Ready To Dispatch"} />;
+      return <ListOfOrders status={"Ready to Dispatch"} />;
     }
     if (props.route.key == 'second' && index == 1){
       return <ListOfOrders status={"Approved"} />;
     }
     if (props.route.key == 'third' && index == 2){
-      return <ListOfOrders status={"On The Way"} />;
+      return <ListOfOrders status={"On the Way"} />;
     } 
     if (props.route.key == 'fourth' && index == 3){
       return <ListOfOrders  status={"Delivered"}/>;

@@ -90,6 +90,7 @@ export const getCartCount = (user_id) => {
 
 
 export const getCategoryWiseList = (payload) => {
+    console.log("payload",payload);
     return async (dispatch, getState) => {
         dispatch({
             type: SET_LOADING,
@@ -114,6 +115,7 @@ export const getCategoryWiseList = (payload) => {
         }
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{
+                console.log("getCategoryWiseList",response);
                 if(payload.scroll && payload.scroll === true){
                     var newList = store.productList.categoryWiseList.concat(response.data);
                     dispatch({

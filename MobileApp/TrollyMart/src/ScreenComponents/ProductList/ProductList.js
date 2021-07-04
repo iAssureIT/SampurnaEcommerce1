@@ -27,7 +27,6 @@ import FastImage              from 'react-native-fast-image';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
-  console.log("props",props);
   const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor,onEndReachedThreshold,type} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -39,7 +38,8 @@ export const ProductList = withCustomerToaster((props)=>{
   // FastImage.preload = (sources: Source[]) =>FastImageViewNativeModule.preload(sources);
   useEffect(() => {
     getData();
-  },[props.limit,props.newProducts]);
+  },[]);
+  console.log("props.newProducts",props.newProducts);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -187,24 +187,23 @@ export const ProductList = withCustomerToaster((props)=>{
       }
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
-          if(type){
-            productsDetails[index].isWish =true;
-          }else{
-            dispatch(getWishList(user_id));
-            if(category_ID){
-              var payload ={
-                "sectionID"         : section_id,
-                "categoryID"        : "",
-                "subcategoryID"     : "",
-                "limit"             : "",
-              } 
-              dispatch(getCategoryWiseList(payload));
-              // dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
-            } 
-            if(props.searchText){
-              dispatch(getSearchResult(props.searchText,user_id,limit,true));
-            } 
-          }
+          // if(type){
+            productsDetails[index].isWish =!productsDetails[index].isWish;
+          // }else{
+          //   if(category_ID){
+          //     var payload ={
+          //       "sectionID"         : section_id,
+          //       "categoryID"        : "",
+          //       "subcategoryID"     : "",
+          //       "limit"             : "",
+          //     } 
+          //     dispatch(getCategoryWiseList(payload));
+          //     // dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
+          //   } 
+          //   if(props.searchText){
+          //     dispatch(getSearchResult(props.searchText,user_id,limit,true));
+          //   } 
+          // }
           setToast({text: response.data.message, color: 'green'});
         })
         .catch((error) => {
@@ -222,7 +221,7 @@ export const ProductList = withCustomerToaster((props)=>{
     const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
     return (
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
-        <TouchableOpacity  disabled={props.disabled} onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location})}>
+        <TouchableOpacity  disabled={props.disabled} onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location,index: index})}>
           <View style={styles.flx5}>
               {item.discountPercent && item.discountPercent >0?
                   <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
