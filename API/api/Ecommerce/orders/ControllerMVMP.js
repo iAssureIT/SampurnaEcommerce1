@@ -3155,6 +3155,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 			}
 		 },
 		 { "$unwind": "$vendorDetails"},
+		 {$match:{"vendorOrders.orderStatus":status}},
 		{
 			"$project": {
 			  	"_id": 1,
@@ -3172,7 +3173,25 @@ exports.nearest_vendor_orders= (req, res, next) => {
 			}
 		}	
 	])
-	.exec()
+	// Orders.find({"vendorOrders.orderStatus":status},
+		
+	// 	{
+			
+	// 			"_id": 1,
+	// 			"orderID":1,
+	// 			"user_ID":1,
+	// 			"userName":1,
+	// 			"vendorOrders.$":1,
+	// 			// "vendorOrders.$.vendor_id":1,
+	// 			// "vendorOrders.$.vendorLocation_id":1,
+	// 			// "vendorOrders.$.orderStatus":1,
+	// 			// "vendorOrders.$.vendorName":1,
+	// 			// "vendorOrders.$.orderStatus":1,
+	// 			"deliveryAddress":1,
+	// 	}	
+	// )
+	// .populate('vendorOrders.vendor_id')
+	// .exec()
 	.then(async(data) => {
 		console.log("data",data);
 		var vendorLocations = [];

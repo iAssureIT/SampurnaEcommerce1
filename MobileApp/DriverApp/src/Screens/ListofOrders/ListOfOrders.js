@@ -36,6 +36,7 @@ export const ListOfOrders =(props)=> {
             "latitude":25.2143,
             "longitude":55.4284
         }
+        console.log("payload",payload);
         axios.post('/api/orders/get/nearest_vendor_orders',payload)
         .then(res=>{
             console.log("res",res);
