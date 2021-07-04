@@ -3210,17 +3210,17 @@ exports.nearest_vendor_orders= (req, res, next) => {
 					var custLng            	= data[i].deliveryAddress.longitude;
 					
 					// var latitude = await DriverTracking.findOne({user_id:ObjectID(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")})
-					var data = await DriverTracking.aggregate([
+					var location = await DriverTracking.aggregate([
 						{
 							$match:{user_id:ObjectId(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")}
 						},{
 							$project:{
 								// currentLocations:1,
-								recent :{$arrayElemAt:["$.currentLocations",-1]}
+								recent :{$arrayElemAt:["$currentLocations",-1]}
 							}
 						}
 					])
-					console.log("data",data);
+					console.log("data",location);
 					if(latitude !== "" && longitude !== undefined && latitude !== "" && longitude !== undefined){
 						var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
 						var vendorToCustDist = await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
