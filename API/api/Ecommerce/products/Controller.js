@@ -1549,17 +1549,14 @@ exports.fetch_product = (req,res,next)=>{
     .then(product=>{
         if(product){
             product.isWish = false;
-            console.log("product",product);
-            console.log("user_ID",user_ID);
             if(user_ID && user_ID!=='null'){
                 Wishlists.find({user_ID:user_ID})
                 .then(wish=>{
-                    console.log("wish",wish);
                     if(wish.length > 0){
                         for(var i=0; i<wish.length; i++){
                             if(String(wish[i].product_ID) === String(product._id)){
                                 product.isWish = true;
-                                break;
+                                // break;
                             }
                         }   
                         if(i >= wish.length){
