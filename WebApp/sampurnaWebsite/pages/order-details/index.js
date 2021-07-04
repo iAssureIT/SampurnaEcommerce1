@@ -283,7 +283,9 @@ export default class OrderDetails extends Component {
                             <div className="col-12">{"Total amount : "+(this.state.orderData.orderID)}</div>
                             <div className="col-12">
                               {/* <Link href="/my-account#v-pills-settings-tab"> */}
-                                {"Credit Points Available : "+this.state.orderData.creditPoints +" ( "+this.state.currency+" "+this.state.orderData.creditPointsValue +" )"}
+                              {this.state.orderData && this.state.orderData.paymentDetails &&
+                                "Credit Points Earned : "+this.state.orderData.paymentDetails.creditPointsEarned +" ( "+this.state.currency+" "+this.state.orderData.paymentDetails.creditPointsValueEarned +" )"
+                              }
                               {/* </Link> */}
                             </div>
                         </div>                       

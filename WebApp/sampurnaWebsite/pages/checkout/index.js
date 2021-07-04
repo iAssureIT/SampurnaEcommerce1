@@ -426,12 +426,12 @@ class Checkout extends Component {
                         "latitude": this.state.latitude,
                         "longitude": this.state.longitude,
                     }
-                        console.log("addressValues:===",addressValues);
+                        // console.log("addressValues:===",addressValues);
                     
                 }
                 axios.patch('/api/carts/address', addressValues)
                     .then(async (response) => {
-                        console.log("Response After inserting address to cart===",response);
+                        // console.log("Response After inserting address to cart===",response);
                         for(i=0;i<this.state.recentCartData.vendorOrders.length;i++){
                         var cartItems = this.state.recentCartData.vendorOrders[i].products.map((a, i) => {
                             return {
@@ -473,13 +473,13 @@ class Checkout extends Component {
                             deliveryAddress           : addressValues,
                         
                         }
-                        console.log("OrdersData===",orderData);
+                        // console.log("OrdersData===",orderData);
 
                         if (this.state.isChecked) {                            
                             axios.post('/api/orders/post', orderData)
                                 .then(async( result) => {
                                     if(result.data && result.data.order_id){
-                                        console.log("Order response ===",result.data);
+                                        // console.log("Order response ===",result.data);
                                         if (this.state.paymentmethods === 'cod') {
                                             this.setState({paymethods : true})
                                             // $('.fullpageloader').show();
@@ -691,22 +691,21 @@ class Checkout extends Component {
                 "user_ID"     : userId,
                 "couponCode"  : couponCode
             }
-            // console.log("payload==",payload);
             axios.patch('/api/carts/put/coupon',payload)
             .then(couponResponse=>{
                 if(couponResponse.data){
-                    // console.log("couponResponse=>",couponResponse.data);
-
                     this.setState({
                         couponAmount : this.state.recentCartData.paymentDetails.afterDiscountCouponAmount,
                         recentCartData:couponResponse.data.data,
                     },()=>{
                         console.log("recentCartData==",this.state.recentCartData);
                     })
-                    // $('.coponWrapper').hide();
-                    $('.couponCreditWrapper').hide();
+
+                    if(couponResponse.data.message === "Coupon Applied Successfully!"){
+                        $('.couponCreditWrapper').hide();
+                    }
                     swal(couponResponse.data.message);
-                    // swal({text: couponResponse.data.message, color:couponResponse.data.message === "Coupon Applied Successfully...!" ? 'green':colors.warning});
+                    
                 }
             })
             .catch(err=>{
@@ -714,27 +713,23 @@ class Checkout extends Component {
                 console.log("err",err);
             }) 
     }
-    // getCreditAmount(event){
-    //     event.preventDefault();
-
-    // }
     applyCreditPoint(event){
         event.preventDefault();
-        var creaditPoint = this.refs.creaditPoint.value;
-        console.log("creaditPoint===",creaditPoint);
+        var creaditPointValueEnter = this.refs.creaditPoint.value;
+        console.log("my creaditPoint===",creaditPointValueEnter);
         var userDetails = JSON.parse(localStorage.getItem('userDetails'));
         var userId = userDetails.user_id;
             const formValues ={
                 "user_ID"           : userId,
-                "creditPointsUsed"  : creaditPoint
+                creditPointsValueUsed  : creaditPointValueEnter
             }
-
             console.log("formValues==",formValues);
-            if(creaditPoint >= 0){
+
+            if(creaditPointValueEnter <= this.state.creditdataValue){
                 axios.patch('/api/carts/redeem/creditpoints',formValues)
                 .then(AfterCreditResponse=>{
                     if(AfterCreditResponse.data){
-                        console.log("AfterCreditResponse=>",AfterCreditResponse.data);
+                        // console.log("AfterCreditResponse=>",AfterCreditResponse.data);
 
                         this.setState({
                             applyCreditPoint : 0,
@@ -744,8 +739,11 @@ class Checkout extends Component {
                         },()=>{
                             console.log("recentCartData=",this.state.recentCartData);
                         })
+                        swal('Credit point apply successfully');
                         $('.couponCreditWrapper').hide();
-                        
+                        // if(AfterCreditResponse.data.message === "Credit Applied Successfully!"){
+                        //     $('.couponCreditWrapper').hide();
+                        // }
                     }
                 })
                 .catch(err=>{
@@ -754,7 +752,7 @@ class Checkout extends Component {
                 }) 
             }else{
                 this.setState({
-                    creaditPointError : "Please enter your credit points"
+                    creaditPointError : "Please enter credit Amount less than or equal to your credit wallet amount"
                 })
             }
     }
@@ -1038,7 +1036,7 @@ class Checkout extends Component {
                                                     <div className="col-4 NoPadding">
                                                         <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCreditPoint.bind(this)}>Apply</button>
                                                     </div>
-                                                    <div className="col-12 error">{this.state.creaditPointError}</div>
+                                                    <div className={Style.errorMsg +" col-12 "}>{this.state.creaditPointError}</div>
                                                     
                                                 </div>
                                             </div>    

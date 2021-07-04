@@ -224,3 +224,8 @@
     margin-top: 15px;
     font-weight: bold;
 }
+
+.errorMsg{
+    font-size: 10px;
+    color: #f00;
+}

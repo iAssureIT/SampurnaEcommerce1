@@ -73,7 +73,7 @@ class Payment extends Component {
                 </div>
                 <div className={"mx-4 "+Style.paymentAlertWrapper}>
                   <h6>Receipt From
-                  <h6 className="mx-4 mt-2">Trollymart</h6></h6><hr/>
+                  <h6 className="mx-4 mt-2">Knock Knock</h6></h6><hr/>
                 </div>
                 <div className={"mx-4 mt-2 "+Style.paymentLockWrapper}>
                   <i className="fa fa-lock"></i>&nbsp;&nbsp;Amount : {this.state.currency}&nbsp;{this.state.orderData.paymentDetails? this.state.orderData.paymentDetails.netPayableAmount:null} <br/><hr/>

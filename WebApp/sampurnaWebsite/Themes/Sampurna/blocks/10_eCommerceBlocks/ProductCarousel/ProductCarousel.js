@@ -636,7 +636,8 @@ submitCart(event) {
                               <div className={"col-12 NoPadding " +Style.productCaroselBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                                 <div className={"col-12 NoPadding"}>
                                   <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
-                                  <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
+                                    
+                                  {/* <div className={"col-lg-12 NoPadding " +Style.wishlistBtn}>
                                       {this.state.productSettings.displayWishlist === true?
                                           this.state.user_ID?
                                           <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +" fa-heart"+wishClass +" wishListIconColor "}></i></button>
@@ -645,7 +646,8 @@ submitCart(event) {
                                       :null
                                       }
                                       {data.discountPercent ? <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
-                                    </div>
+                                  </div> */}
+
                                     <div className= {"col-12 NoPadding " +Style.ImgWrapper}>
                                       {/* <Link href={`/productDetail/${encodeURIComponent(categoryUrl)}/${encodeURIComponent(data.productUrl)}/${encodeURIComponent(data._id)}`}> */}
                                       <Link href={"/home-to-vendorlist/"+data.section.replace(" ","-").toLowerCase()+"/" +data._id}>

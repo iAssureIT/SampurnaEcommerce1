@@ -67,3 +67,10 @@
 .rightText{
 	text-align:right;
 }
+
+
+
+.ReturnImg{
+	height: 100px;
+	border: solid 1px #ddd;
+}

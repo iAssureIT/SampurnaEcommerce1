@@ -315,7 +315,7 @@ export default class MyOrders extends Component {
   }
 
   render() {
-    // console.log("1. myorder page this.state.orderData=",this.state.orderData);
+    console.log("1. myorder page this.state.orderData=",this.state.orderData);
     return (
       <div className="col-12">
          <div className="row"> 
@@ -344,7 +344,7 @@ export default class MyOrders extends Component {
                                     <div className="col-12"><b>{"Total amount : "+this.state.currency +" " +(singleOrder.paymentDetails.netPayableAmount)}</b></div>
                                     <div className="col-12">
                                       {/* <Link href="/my-account#v-pills-settings-tab"> */}
-                                        {"Credit Points Available : "+singleOrder.creditPoints +" ( "+this.state.currency+" "+singleOrder.creditPointsValue +" )"}
+                                        {"Credit Points Available : "+singleOrder.paymentDetails.creditPointsEarned +" ( "+this.state.currency+" "+singleOrder.paymentDetails.creditPointsValueEarned +" )"}
                                       {/* </Link> */}
                                     </div>
                                 </div>                       

@@ -46,7 +46,6 @@ class DisplayLocation extends React.Component {
               this.props.sampurnaWebsiteDetails.deliveryLocation
               ?
                 <span className="row">
-                  
                   <span className="col-10  deliveryAddress"> 
                   <i className="fa fa-globe"></i> &nbsp; <b>
                   {/* <div className="col-1"><FontAwesomeIcon  icon={['fas', 'fa-globe']} /></div> */}

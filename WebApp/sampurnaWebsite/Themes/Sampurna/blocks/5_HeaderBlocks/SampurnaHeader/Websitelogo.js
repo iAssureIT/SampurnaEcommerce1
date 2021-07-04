@@ -32,20 +32,9 @@ class WebsiteLogo extends React.Component {
    render(){
         return(  
             <div className="col-12 mr-6 mt-2 logoBlock ">
-                {/* <Link href="/">
-                    <a title="navbar-brand Sitelogo ">
-                        <Image
-                            src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/multistoreLogo.png"}
-                            className={"logoImg hidden-x"}
-                            height ={40}
-                            width={170}
-                            layout={'intrinsic'}
-                        />
-                    </a>
-                </Link> */}
                 <a href="/" title="navbar-brand Sitelogo ">
                     <Image
-                        src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/loading.gif"}
+                        src={this.state.CompanyLogo ? this.state.CompanyLogo : "/images/eCommerce/TrollyLogo.png"}
                         className={"logoImg hidden-x"}
                         height ={40}
                         width={170}

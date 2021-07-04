@@ -12,6 +12,7 @@ import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
 import { event } from 'jquery';
+
 class ProductsView extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +21,29 @@ class ProductsView extends Component {
         "rating"    : 1,
         "rating_ID" : '',
         "user_ID"   : '',
+        "paymentRefundSource" : "source"
       }
   }
 
   componentDidMount() {
-   
+    this.getReturnReasons();
+  }
+
+  getReturnReasons(){
+    console.log("inside getReturnReasons");
+    axios.get('/api/returnreasons/get/list')
+    .then((reasonsResponse)=>{
+        console.log("reasonsResponse==",reasonsResponse);
+        if(reasonsResponse){
+
+            this.setState({
+              returnReasons : reasonsResponse.data
+            })
+        }
+    })
+    .catch((error)=>{
+        console.log("error while getting return resons=",error);
+    })
   }
 
   handleChangeReview(event) {
@@ -34,7 +53,7 @@ class ProductsView extends Component {
     })
   }
   ratingReview(event){
-    console.log("event.target.value---",event.target.value);
+    // console.log("event.target.value---",event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
       reviewStarError : event.target.value ? "" : "Please give star rating."
@@ -59,7 +78,6 @@ class ProductsView extends Component {
             "review_id"         : this.state.rating_ID,
             "rating"            : this.state.rating,
             "customerReview"    : $('.feedbackForm textarea').val(),
-          
           }
         
           console.log("formValues=",formValues);
@@ -87,7 +105,6 @@ class ProductsView extends Component {
           .catch((error) => {
           })
         }else{
-        // console.log("reviewuserData====",this.props.reviewuserData);
          var formValues = {
             "customer_id"       : this.props.user_ID,
             "customerName"      : this.props.orderData.userFullName,
@@ -103,24 +120,11 @@ class ProductsView extends Component {
           axios.post("/api/customerReview/post", formValues)
           .then((response) => {
             if(response){
-              console.log("review response=",response.data);
-              swal(response.data.message);
-
-            this.setState({
-              messageData: {
-                "type": "outpage",
-                "icon": "fa fa-check-circle",
-                "message": response.data.message,
-                "class": "success",
-                "autoDismiss": true
-              }
-            })
-            setTimeout(() => {
-              this.setState({
-                messageData: {},
-              })
-            }, 3000);
-            // $("#reviewModal_"+this.state.product_id).modal("hide");
+              // console.log("review response=",response.data);
+              // swal(response.data.message);
+              swal({text:response.data.message}).then(function(){
+                window.location.reload();
+              });
             }
             var modal = document.getElementByClass('feedBackModal');
             modal.style.display = "none";
@@ -148,18 +152,25 @@ class ProductsView extends Component {
         }
         );
   }
+
   handleChangeReturn(event) {
     this.setState({
       [event.target.name]: event.target.value,
       returnTextError : event.target.value ? "" : "Please write your comment."
     })
   }
-  handleRefundPayment(){
+
+  handleRefundPayment(event){
+    event.preventDefault();
+    console.log("paymentRefundSource name ===",event.target.name);
+    console.log("paymentRefundSource value ===",event.target.value);
+    // console.log("handleRefundPayment==",event.target.value==="source")
     this.setState({
       [event.target.name]: event.target.value,
-      refundTextError : event.target.value ? "" : "Please select your Refund source."
+      refundToError : event.target.value ? "" : "Please select your Refund source."
     })
   }
+
   uploadImage(event){
     event.preventDefault();
     var returnProductImage = "";
@@ -291,47 +302,66 @@ class ProductsView extends Component {
     }
   }
 
-  returnProduct(event) {
-    $('#returnProductModal').show();
-    var status = $(event.target).data('status');
-    var id = $(event.target).data('id');
-    var productid = $(event.target).data('productid');
-    var altorderid = $(event.target).data('altorderid');
-    var str = '';
+  selecteReason(event){
+    event.preventDefault();
+    axios.get('/api/returnreasons/get/list')
+    .then((reasonsResponse)=>{
+        if(reasonsResponse){
+          console.log("reasonsResponse=",reasonsResponse.data);
+            this.setState({
+              returnReasons : reasonsResponse.data
+            },()=>{
+              var reasonForReturn = event.target.value;
+              this.setState({
+                reasonForReturn : reasonForReturn
+              })
+            })
+        }
+    })
+    .catch((error)=>{
+        console.log("error while getting return resons=",error);
+    })
+    
+  }
 
-    axios.get("/api/products/get/one/" + productid)
+  returnProduct(event) {
+    event.preventDefault();
+    var productID  = event.target.getAttribute('productId');
+    var formValues  =  {
+      "user_id"               : this.props.user_ID,
+      "order_id"              : this.props.orderID,
+      "product_id"            : productID,
+      "vendor_id"             : this.props.vendorWiseOrderData.vendor_id._id,
+      "vendorLocation_id"     : this.props.vendorWiseOrderData.vendorLocation_id,
+      "reasonForReturn"       : this.state.reasonForReturn,
+      "customerComment"       : this.state.customerReturnComment, 
+      "refund"                : this.state.paymentRefundSource,
+      "returnProductImages"   : []
+    }
+
+    // console.log("formValues=",formValues);
+
+    if(formValues){
+      axios.patch("/api/orders/patch/returnproduct",formValues)
       .then((response) => {
-        this.setState({
-          oneproductdetails: response.data
-        }, () => {
-        })
+        if(response.data){
+          // console.log("single review==",response.data);
+          swal({text:response.data.message}).then(function(){
+            window.location.reload();
+          });
+        }
       })
       .catch((error) => {
         console.log('error', error);
       })
-    if (status === "Paid") {
-      str = 'Do you want to return order?';
-      $('#returnProductBtn').attr('data-id', id);
-      $('#returnProductBtn').attr('data-productid', productid);
-      $('#returnProductBtn').attr('data-altorderid', altorderid);
-
-      $('.cantreturn').hide();
-      $('.canreturn').show();
-    } else {
-      str = "This order is not delivered yet. You cannot return this order.";
-
-      $('.cantreturn').show();
-      $('.canreturn').hide();
     }
   }
     
   render() {
-    console.log("productView props  vendorOrders===",this.props);
+    console.log("productdetails this.props ===",this.props);
     return (
           <div className="col-12">
-            {/* < ProductReview /> */}
             <Message messageData={this.state.messageData} />
-            
             <table className="table table-borderless orderTable">
                 <thead>
                     <tr>
@@ -351,11 +381,11 @@ class ProductsView extends Component {
                                 <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
                                 <td>
                                     <a href={"/product-detail/" +this.props.vendorWiseOrderData.vendor_id._id+"/"+this.props.vendorWiseOrderData.vendorLocation_id+"/"+productdata._id}>
-                                    {productdata.productNameRlang?
-                                        <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
-                                    :
-                                        <h5 className="productName">{productdata.productName}</h5>
-                                    }
+                                      {productdata.productNameRlang?
+                                          <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
+                                      :
+                                          <h5 className="productName">{productdata.productName}</h5>
+                                      }
                                     </a>
 
                                     {productdata.discountPercent ?
@@ -374,8 +404,6 @@ class ProductsView extends Component {
                                 </td>
                                 <td className="textAlignLeft">
                                     {
-                                        
-                                      // <span className="productPrize textAlignRight"><i className={"fa fa-" + productdata.currency}></i> &nbsp;{parseInt(productdata.discountedPrice).toFixed(2)}</span>
                                       <span className="productPrize textAlignRight">{this.props.currency}&nbsp;{productdata.discountedPrice}</span>
                                             
                                     }
@@ -393,6 +421,7 @@ class ProductsView extends Component {
                                           &nbsp;{productdata.discountedPrice}
                                       </span>
                                     }
+
                                     {this.props.orderStatus === "Delivered"?
                                         <span>
                                             {productdata.isReview?
@@ -400,8 +429,9 @@ class ProductsView extends Component {
                                               :
                                               <div className={" "+Style.returnReviewBtn}  productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Add Review</div>
                                             }
-                                            {productdata.productReturnable === "returnable" ?
-                                              <div className={" "+Style.returnReviewBtn}    productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target="#returnModal">return</div>
+                                            {/* {productdata.productReturnable === "returnable"  && productdata.productStatus? */}
+                                            { productdata.productStatus?
+                                              <div className={" "+Style.returnReviewBtn}    productId={productdata._id} >{productdata.productStatus}</div>
                                             :
                                               <div className={" "+Style.returnReviewBtn}    productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_"+productdata._id}>return</div>
                                             }
@@ -419,7 +449,7 @@ class ProductsView extends Component {
                                                         < WebsiteLogo /> 
                                                     </div>
                                                     <div className="col-6 text-center">
-                                                        <h6 className="modal-title modalheadingcont"> Product Review</h6>
+                                                        <h6 className="modal-title mt-2 modalheadingcont"> Product Review</h6>
                                                     </div>
                                                     <div className="col-1 text-center">
                                                         <button type="button" className="close closeModal" data-dismiss="modal">&times;</button>
@@ -479,7 +509,7 @@ class ProductsView extends Component {
                                                     < WebsiteLogo /> 
                                                 </div>
                                                 <div className="col-6 text-center">
-                                                    <h6 className="modal-title modalheadingcont">Return Product</h6>
+                                                    <h6 className="modal-title mt-2x modalheadingcont">Return Product</h6>
                                                 </div>
                                                 <div className="col-1 text-center">
                                                     <button type="button" className="close closeModal" data-dismiss="modal">&times;</button>
@@ -501,52 +531,82 @@ class ProductsView extends Component {
                                                   <div className="col-12 row">
                                                       <div className="clearfix "></div>
                                                   </div>
+                                                  <label className="col-12 mt-4 text-left">Please Select Reasons </label>
+                                                  <select onChange={this.selecteReason.bind(this)} className={"col-12 mt-4 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
+                                                      <option name="reasonOfReturn"  selected="true">-- Select --</option>
+                                                      {
+                                                          this.state.returnReasons && this.state.returnReasons.length > 0 ?
+                                                              this.state.returnReasons.map((data, index) => {
+                                                                  return (
+                                                                      <option key={index} value={data._id}>{data.reasonOfReturn}</option>
+                                                                  );
+                                                              })
+                                                              :
+                                                              <option value='user'>No Reasons available</option>
+                                                      }
+                                                  </select>
                                                   <label className="error">{this.state.reviewStarError}</label>
                                                   <div className="row inputrow">
                                                       <label className="col-12 mt-4 text-left">Comment</label>
                                                       <div className="col-12 ">
-                                                      <textarea rows="5" className="col-12 " onChange={this.handleChangeReturn.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
-                                                      <label className="error">{this.state.reviewTextError}</label>
+                                                      <textarea rows="5" className="col-12 " onChange={this.handleChangeReturn.bind(this)} value={ this.state.customerReturnComment} name="customerReturnComment"></textarea>
+                                                      <label className="error">{this.state.returnTextError}</label>
                                                       </div>
                                                   </div>
-                                                  <div className="ReturnImg">                                                                  
-                                                      <input type="file" onChange={this.uploadImage.bind(this)} title="upload product Image" className="" accept=".jpg,.jpeg,.png" />
-                                                  </div>
-                                                  {
-                                                    this.state.returnProductImage ? 
-                                                    <div className="row">
-                                                      <div className="col-lg-4 productImgCol">
-                                                        <div className="prodImage">
-                                                          <div className="prodImageInner">
-                                                              <span className="prodImageCross" title="Delete" data-imageUrl={this.state.returnProductImage} onClick={this.deleteImage.bind(this)} >x</span>
-                                                          </div>
-                                                          <img title="view Image" alt="Please wait..." data-imageurl={this.state.returnProductImage ? this.state.returnProductImage : "/images/notavailable.jpg"} className="img-responsive" />
-                                                        </div>    
-                                                      </div>
-                                                    </div>
-                                                    :
-                                                    null
-                                                  }
 
+                                                  <div className={"col-12 " +Style.ReturnImg}>   
+                                                    <div className="row">
+                                                      <div className=" col-4 mt-2">                                                               
+                                                        <input type="file" onChange={this.uploadImage.bind(this)} title="upload product Image"  accept=".jpg,.jpeg,.png" />
+                                                      </div>
+                                                      {
+                                                        this.state.returnProductImage ? 
+                                                          <div className="col-lg-12 productImgCol">
+                                                            <div className="prodImage">
+                                                              <div className="prodImageInner">
+                                                                  <span className="prodImageCross" title="Delete" data-imageUrl={this.state.returnProductImage} onClick={this.deleteImage.bind(this)} >x</span>
+                                                              </div>
+                                                              <img title="view Image" alt="Please wait..." data-imageurl={this.state.returnProductImage ? this.state.returnProductImage : "/images/notavailable.jpg"} className="img-responsive" />
+                                                            </div>    
+                                                          </div>
+                                                        :
+                                                        null
+                                                      }
+                                                    </div>
+                                                  </div>
+                                                  
                                                   <div className={"col-12 NoPadding text-left "}>
                                                       <div className={"col-12 mt-2 mb-2 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>Refund to <span className="required">*</span></div>
-                                                      <div className={"col-12 " +Style.f14}>
-                                                          <input name="paymentRefundSource" type="radio" value="source" className="webModelInput codRadio col-2 col-md-1"
-                                                              checked={this.state.paymentRefundSource === "source"} onClick={this.handleRefundPayment.bind(this)} />
-                                                          <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>The Source( valid for card payment only)</span>
+                                                      <div className="form-check">
+                                                        <label className="form-check-label">
+                                                          <input type="radio" className="form-check-input webModelInput codRadio" name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source" 
+                                                          checked={this.state.paymentRefundSource === "source"} 
+                                                          onClick={this.handleRefundPayment.bind(this)}
+                                                          />The Source( valid for card payment only)
+                                                        </label>
                                                       </div>
-                                                      <div className={"col-12 paymentInput " +Style.f14}>
-                                                          <input name="paymentRefundSource" type="radio" value="card" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentRefundSource === "credit"} onClick={this.handleRefundPayment.bind(this)} />
-                                                          <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Add To Credit Points</span>
+                                                      <div className="form-check" >
+                                                        <label className="form-check-label" for="radio1">
+                                                          <input type="radio" className="form-check-input webModelInput codRadio" name="paymentRefundSource" type="radio" id="paymentRefundSource" value="credit" 
+                                                          checked={this.state.paymentRefundSource === "credit"} 
+                                                          onChange={this.handleRefundPayment.bind(this)}
+                                                          />Add To Credit Points
+                                                        </label>
                                                       </div>
-                                                      <div className="errorMsg col-11 ml-2">{this.state.refundTextError}</div>
+                                                      
+                                                      <div className="errorMsg col-11 ml-2">{this.state.refundToError}</div>
                                                   </div>
                                               </form>
                                             </div>
                                             <div className="modal-footer modalfooterborder ">
                                                 <div className="col-12 ">
                                                 {!productdata.status?
-                                                    <button className="btn btn-primary pull-right mt15" onClick={this.submitReview.bind(this)}  vendorLocationId={this.props.vendorWiseOrderData.vendorLocation_id} productid={productdata && productdata._id}
+                                                    <button className="btn btn-primary pull-right mt15" 
+                                                    onClick   = {this.returnProduct.bind(this)}  
+                                                    productid = {productdata && productdata.product_ID}
+                                                    vendor_id = {this.props.vendorWiseOrderData.vendor_id}
+                                                    orderId   = {this.props.orderID}
+                                                    vendorLocationId = {this.props.vendorWiseOrderData.vendorLocation_id} 
                                                     >Submit</button>
                                                     :null}
                                                 </div>
