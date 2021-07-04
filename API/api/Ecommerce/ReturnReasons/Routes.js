@@ -16,6 +16,8 @@ router.get('/get/one/:fieldID', 				checkAuth, reasonsOfReturn.fetchSingleUnitOf
 
 router.get('/search/:str', 					    checkAuth, reasonsOfReturn.searchUnitOfMeasurment);
 
-router.patch('/patch', 							checkAuth, reasonsOfReturn.updateUnitOfMeasurment);
+router.patch('/patch', 							checkAuth, reasonsOfReturn.updateReasonsOfReturn);
+
+router.delete('/delete/:fieldID', 			   reasonsOfReturn.deleteReasonsOfReturn);
 
 module.exports = router;

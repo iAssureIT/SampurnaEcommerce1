@@ -95,7 +95,7 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
             {
                 $set:{
                     discountPercent           : dealInPercentage,
-                    discountedPrice           : productResponse.originalPrice - dealInPercentage*productResponse.originalPrice/100,
+                    discountedPrice           : (productResponse.originalPrice - dealInPercentage * productResponse.originalPrice / 100).toFixed(2),
                 }
             }
         )
@@ -125,7 +125,7 @@ var updateProductData = async(productResponse,dealInPercentage,updateAllProducts
             {
                 $set:{
                     discountPercent           : dealInPercentage,
-                    discountedPrice           : productResponse.originalPrice - productResponse.originalPrice*dealInPercentage/100,
+                    discountedPrice           : (productResponse.originalPrice - productResponse.originalPrice * dealInPercentage / 100).toFixed(2),
                 }
             }
         )

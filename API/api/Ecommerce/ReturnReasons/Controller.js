@@ -125,39 +125,39 @@ exports.searchUnitOfMeasurment = (req, res, next)=>{
 		}); 
 };
 
-exports.updateUnitOfMeasurment = (req, res, next)=>{
+exports.updateReasonsOfReturn = (req, res, next)=>{
 	ReturnReasons.updateOne(
-			{ _id:req.body.fieldID },  
+		{ _id:req.body.fieldID },  
+		{
+			$set:   {  'reasonOfReturn'       : req.body.fieldValue  }
+		}
+	)
+	.exec()
+	.then(data=>{
+		if(data.nModified == 1){
+			ReturnReasons.updateOne(
+			{ _id:req.body.fieldID},
 			{
-				$set:   {  'unitOfMeasurment'       : req.body.fieldValue  }
-			}
-		)
-		.exec()
-		.then(data=>{
-			if(data.nModified == 1){
-				ReturnReasons.updateOne(
-				{ _id:req.body.fieldID},
-				{
-					$push:  { 'updateLog' : [{  updatedAt      : new Date(),
-												updatedBy      : req.body.updatedBy 
-											}] 
-							}
-				})
-				.exec()
-				.then(data=>{
-					res.status(200).json({ updated : true });
-				})
-			}else{
-				res.status(200).json({ updated : false });
-			}
-		})
-		.catch(err =>{
-			console.log(err);
-			res.status(500).json({ error: err });
-		});
+				$push:  { 'updateLog' : [{  updatedAt      : new Date(),
+											updatedBy      : req.body.updatedBy 
+										}] 
+						}
+			})
+			.exec()
+			.then(data=>{
+				res.status(200).json({ updated : true });
+			})
+		}else{
+			res.status(200).json({ updated : false });
+		}
+	})
+	.catch(err =>{
+		console.log(err);
+		res.status(500).json({ error: err });
+	});
 };
 
-exports.deleteUnitOfMeasurment = (req, res, next)=>{
+exports.deleteReasonsOfReturn = (req, res, next)=>{
 	ReturnReasons.deleteOne({_id: req.params.fieldID})
 		.exec()
 		.then(data=>{

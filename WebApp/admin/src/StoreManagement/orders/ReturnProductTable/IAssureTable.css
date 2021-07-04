@@ -57,6 +57,11 @@
   width: 100px;
   float: left;
   padding: 10px;
+  text-align: center;
+  text-align: -webkit-center;
+}
+.productImgDiv img{
+  height: 100%;
 }
 .return_requested{
   color: #004085;

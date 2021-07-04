@@ -77,6 +77,14 @@ class ReturnReasonsMaster extends Component {
 		});
 	}
 
+	componentDidUpdate(prevProps) {
+		if(this.props.editId !== this.state.editId){
+		  this.setState({editId : this.props.editId},
+						()=>{
+						  //console.log("global componentDidUpdate editId = ",this.state.editId);
+						});
+		}
+	  }
 	/**=========== render() ===========*/
 	render() {
 		return (
@@ -89,6 +97,7 @@ class ReturnReasonsMaster extends Component {
 							tableObjects 	= {this.state.tableObjects}
 							editId  		= {this.state.editId}
 							history 		= {this.props.history}
+							tableDnd 		= {true}
 							masterFieldForm = {true}
 							tableName  		= {this.state.tableName}
 						/>

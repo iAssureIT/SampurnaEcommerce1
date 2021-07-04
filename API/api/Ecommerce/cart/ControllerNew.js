@@ -1271,7 +1271,7 @@ exports.apply_credit_points = (req,res,next)=>{
                                                                         (order_shippingCharges).toFixed(2);
                 data.paymentDetails.afterDiscountCouponAmount   = 0;
                 data.paymentDetails.creditPointsUsed            = Math.round((req.body.creditPointsValueUsed * creditPoint)/creditPointValue);
-                data.paymentDetails.creditPointsValueUsed       = (req.body.creditPointsValueUsed).toFixed(2);
+                data.paymentDetails.creditPointsValueUsed       = parseInt(req.body.creditPointsValueUsed).toFixed(2);
                 data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
                                                                                                                     ? maxServiceCharges > order_shippingCharges 
                                                                                                                         ? 
@@ -1280,7 +1280,7 @@ exports.apply_credit_points = (req,res,next)=>{
                                                                                                                             maxServiceCharges 
                                                                                                                     : 
                                                                                                                         (order_shippingCharges)
-                                                                                                                ) - (req.body.creditPointsUsed * creditPointValue)).toFixed(2);
+                                                                                                                ) - (req.body.creditPointsValueUsed)).toFixed(2);
                 data.minOrderAmount                             = minOrderAmount;
             }
             // console.log("data",data);

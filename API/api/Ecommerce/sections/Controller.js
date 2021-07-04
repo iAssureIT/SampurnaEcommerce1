@@ -42,16 +42,16 @@ exports.insert_section = (req,res,next)=>{
 };        
 
 exports.get_sections = (req,res,next)=>{
-    Sections.find()       
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            res.status(500).json({
-                error: err
-            });
+    Sections.find({status : "Published"}) 
+    .sort({"sectionRank" : 1})
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error : err
         });
+    });
 };
 
 exports.get_single_section = (req,res,next)=>{
@@ -191,24 +191,24 @@ exports.get_sections_with_limits = (req,res,next)=>{
 exports.get_megamenu_list = (req,res,next)=>{
    
     Sections.aggregate([
-    { $lookup:
-        {
-         from: 'categories',
-         localField: '_id',
-         foreignField: 'section_ID',
-         as: 'categorylist'
+        {$match : 
+            {
+                status : "Published"
+            }
+        },
+        { $lookup :
+            {
+                from           : 'categories',
+                localField     : '_id',
+                foreignField   : 'section_ID',
+                as             : 'categorylist'
+            }
+        },
+        {$sort: {
+                "sectionRank": 1
+            }
         }
-    },
-    {
-        // $sort: {
-        //   "categorylist.createdAt": -1
-        // }
-        $sort: {
-            "sectionRank": 1
-          }
-    }
     ])
-    .exec()
     .then(data=>{
         res.status(200).json(data);
     })
