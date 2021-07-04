@@ -78,26 +78,30 @@ exports.insert_orders = (req, res, next) => {
 								// console.log("req.body.vendorOrders[l].products[m].productCode => ", req.body.vendorOrders[l].products[m].productCode)
 								// console.log("req.body.vendorOrders[l].products[m].itemCode => ", req.body.vendorOrders[l].products[m].itemCode)
 
-								ProductInventory
-								.findOne(
-									{ 
-										vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
-										productCode 		 : req.body.vendorOrders[l].products[m].productCode,
-										itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
-									},
-								)
-								.then(productInventoryData=>{
+								// ProductInventory
+								// .findOne(
+								// 	{ 
+								// 		vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
+								// 		productCode 		 : req.body.vendorOrders[l].products[m].productCode,
+								// 		itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
+								// 	},
+								// )
+								// .then(productInventoryData=>{
 									// console.log("Product Inventory data = ",productInventoryData);
 									// res.status(200);
 									// console.log("productInventoryData._id = ",productInventoryData._id);
 									// console.log("productInventoryData.currentQuantity = ",productInventoryData.currentQuantity);
-									var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
+									// var newQuantity = parseInt(productInventoryData.currentQuantity) - parseInt(productQuantity);
 									// console.log("newQuantity = ",newQuantity);
 
 									ProductInventory.updateOne(
-										{ _id : ObjectId(productInventoryData._id) },
-										{ $set :{
-												currentQuantity   : newQuantity
+										{ 
+											vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
+											productCode 		 : req.body.vendorOrders[l].products[m].productCode,
+											itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
+										},
+										{ $inc :{
+												currentQuantity   : productQuantity
 											},
 											$push : {								
 												updateLog       : {
@@ -109,7 +113,7 @@ exports.insert_orders = (req, res, next) => {
 										}
 									)		 
 									.then(inventoryupdateData=>{
-										// console.log("inventoryupdateData = ",inventoryupdateData);
+										console.log("inventoryupdateData = ",inventoryupdateData);
 										// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
 									})
 									.catch(err =>{
@@ -119,14 +123,14 @@ exports.insert_orders = (req, res, next) => {
 										// 	message : 'Error While Updating Inventory'
 										// });
 									}); 							
-								})
-								.catch(err =>{
-									console.log("Error Finding Inventory Data")
-									// res.status(500).json({
-									// 	error : error,
-									// 	message : 'Error Finding Inventory Data'
-									// });
-								}); 
+								// })
+								// .catch(err =>{
+								// 	console.log("Error Finding Inventory Data")
+								// 	// res.status(500).json({
+								// 	// 	error : error,
+								// 	// 	message : 'Error Finding Inventory Data'
+								// 	// });
+								// }); 
 							} //for m
 						}//for l
 						if(l >= req.body.vendorOrders.length){
@@ -526,6 +530,35 @@ exports.cancel_order = (req, res, next) => {
 					// console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
 					var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, vendor_order_afterDiscountTotal, vendor_order_shippingCharges, vendor_netPayableAmount, "Vendor Order Cancelled", "minus");
 					// console.log("addCreditPoint => ",addCreditPoint)		
+					// ProductInventory.updateOne(
+					// 	{ 
+					// 		vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
+					// 		productCode 		 : req.body.vendorOrders[l].products[m].productCode,
+					// 		itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
+					// 	},
+					// 	{ $inc :{
+					// 			currentQuantity   : productQuantity
+					// 		},
+					// 		$push : {								
+					// 			updateLog       : {
+					// 				date        : new Date(),
+					// 				updatedBy   : ObjectId(req.body.user_ID),
+					// 				// order_id    : ObjectId(orderdata._id),
+					// 			}
+					// 		}
+					// 	}
+					// )		 
+					// .then(inventoryupdateData=>{
+					// 	console.log("inventoryupdateData = ",inventoryupdateData);
+					// 	// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
+					// })
+					// .catch(err =>{
+					// 	console.log("Error While Updating Inventory")
+					// 	// res.status(500).json({
+					// 	// 	error 	: err,
+					// 	// 	message : 'Error While Updating Inventory'
+					// 	// });
+					// });
 					res.status(200).json({
 						"message"	: "Order cancelled successfully."
 					});
@@ -719,7 +752,7 @@ exports.returnProduct = (req, res, next) => {
 							product_id              : req.body.product_id,
 							reasonForReturn         : req.body.reasonForReturn,
 							customerComment 		: req.body.customerComment,
-							refund 					: req.body.refund,
+							refundMode 				: req.body.refund,
 							returnProductImages 	: req.body.returnProductImages,
 							originalPrice           : returnedProduct[0].originalPrice,
 							discountPercent         : returnedProduct[0].discountPercent,

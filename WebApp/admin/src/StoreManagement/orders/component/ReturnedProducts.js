@@ -77,6 +77,7 @@ export default class ReturnProducts extends Component{
 			var tableData = response.data.map((a, ind)=>{
 				console.log("condition => ",(a.productDetails && a.productDetails.length > 0));
 				if(a.productDetails && a.productDetails.length > 0){
+					console.log("a => ",a)
 					return{
 						"_id"               : a._id,
 						"orderID"           : a.orderID,

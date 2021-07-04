@@ -190,19 +190,19 @@ class Department extends Component {
               history={this.props.history}
               tableDnd = {true}
               masterFieldForm = {true}
-              bulkRequired={true}
+              // bulkRequired={true}
               url="/api/unitofmeasurmentmaster/bulkUploadDepartment" 
               data={{ "createdBy" : localStorage.getItem("user_ID"),  }} 
-              uploadedData={this.uploadedData} 
-              fileurl="/BulkUploadTemplates/UnitOfMeasurement.xlsx"
-              getFileDetails={this.getFileDetails.bind(this)}
-              fileDetails={this.state.fileDetails}
-              goodRecordsHeading ={this.state.goodRecordsHeading}
-              failedtableHeading={this.state.failedtableHeading}
-              failedRecordsTable ={this.state.failedRecordsTable}
-              failedRecordsCount={this.state.failedRecordsCount}
-              goodRecordsTable={this.state.goodRecordsTable}
-              goodDataCount={this.state.goodDataCount}
+              // uploadedData={this.uploadedData} 
+              // fileurl="/BulkUploadTemplates/UnitOfMeasurement.xlsx"
+              // getFileDetails={this.getFileDetails.bind(this)}
+              // fileDetails={this.state.fileDetails}
+              // goodRecordsHeading ={this.state.goodRecordsHeading}
+              // failedtableHeading={this.state.failedtableHeading}
+              // failedRecordsTable ={this.state.failedRecordsTable}
+              // failedRecordsCount={this.state.failedRecordsCount}
+              // goodRecordsTable={this.state.goodRecordsTable}
+              // goodDataCount={this.state.goodDataCount}
               tableName = {this.state.tableName}
               />
           </div>

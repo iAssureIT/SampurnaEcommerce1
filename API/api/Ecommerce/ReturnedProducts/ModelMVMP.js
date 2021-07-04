@@ -12,7 +12,6 @@ const returnedProductSchema = mongoose.Schema({
 	itemCode                : String ,
 	reasonForReturn         : String, 
 	customerComment 		: String,
-	refund 					: String,
 	returnProductImages 	: Array,
 	adminComment 			: String,
 	vendorComment 			: String,     
@@ -26,10 +25,11 @@ const returnedProductSchema = mongoose.Schema({
 	pickedupBy              : String, 
 	returnStatus 			: String, 
 	returnStatusLog         : [{
-								status 		: String,
-								statusBy 	: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
-								date 		: Date
-							}],
+		status 		: String,
+		statusBy 	: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+		date 		: Date
+	}],
+	refundMode 				: String,
 	refundDetails           : [{
 								bankName        : String,
 								bankAccountNo   : String,

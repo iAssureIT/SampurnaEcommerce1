@@ -13,6 +13,7 @@ import TaxName            			from './TaxName/TaxName.js';
 import TaxRate            			from './TaxRate/TaxRate.js';
 // import UnitOfMeasurment   		from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
 import UnitOfMeasurment   			from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
+import ReturnReasonsMaster   		from './ReturnReasonsMaster/ReturnReasonsMaster.js';
 import PhotoGallery       			from './Gallery/component/Gallery.js';
 import OrderStatus   				from './orderStatusManagement/OrderStatusMaster.js';
 import BannerImages       			from './BannerImages/component/BannerImages.js';
@@ -131,12 +132,13 @@ import ReturnProductPolicy      	from './ReturnProductPolicy/ReturnProductPolicy
 													{/* <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#distanceRange" data-toggle="tab">Distance Range</a></li> */}
 													{/* <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#ShippingManagement" data-toggle="tab">Shipping Master </a></li> */}
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#TimeManagement" data-toggle="tab">Time Master </a></li>
-													{ this.state.showOrderStatus !== "No" ? <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderStatus" data-toggle="tab">Order Status Master</a></li> : null } 
+													{ this.state.showOrderStatus !== "No" ? <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderStatus" data-toggle="tab">Order Status Master</a></li> : null }													
+													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#ReturnReasonsMaster" data-toggle="tab">Return Reason's Master</a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderDeliveryPolicy" data-toggle="tab">Order Delivery Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderCancellationPolicy" data-toggle="tab">Order Cancellation Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#CreditPointsPolicy" data-toggle="tab">Credit Points Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#ReturnProductPolicy" data-toggle="tab">Return Product Policy </a></li>
-													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#PhotoGallery" data-toggle="tab">Photo Gallery Master</a></li>
+													{/* <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#PhotoGallery" data-toggle="tab">Photo Gallery Master</a></li> */}
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#BannerImages" data-toggle="tab">Mobile Banner Images </a></li>
 												</ul>   
 											</div>                      
@@ -147,9 +149,10 @@ import ReturnProductPolicy      	from './ReturnProductPolicy/ReturnProductPolicy
 												{/* <div className="tab-pane" id="distanceRange">  		<DistanceRange   		editId={this.state.editId}/>  </div>   */}
 												{/* <div className="tab-pane" id="ShippingManagement"> <ShippingManagement 	editId={this.state.editId}/>  </div>   */}
 												<div className="tab-pane" id="TimeManagement">    	<TimeManagement     	editId={this.state.editId}/>  </div>  
-												<div className="tab-pane" id="PhotoGallery">      	<PhotoGallery       	editId={this.state.editId}/>  </div>  
+												{/* <div className="tab-pane" id="PhotoGallery">      	<PhotoGallery       	editId={this.state.editId}/>  </div>   */}
 												{/* {console.log("this.state.websiteModel",this.state.websiteModel)} */}
 												{ this.state.showOrderStatus !== "No" ?<div className="tab-pane" id="OrderStatus"><OrderStatus editId={this.state.editId}/></div>  :null}
+												<div className="tab-pane" id="ReturnReasonsMaster"><ReturnReasonsMaster editId={this.state.editId}/></div>
 												{/* <div className="tab-pane" id="TaxName">         <TaxName           editId={this.state.editId}/>  </div>
 												<div className="tab-pane" id="TaxRate">         <TaxRate           editId={this.state.editId}/>  </div> */}
 												{/* <div className="tab-pane" id="UnitOfMeasurment"><UnitOfMeasurment  editId={this.state.editId}/>  </div>   */}

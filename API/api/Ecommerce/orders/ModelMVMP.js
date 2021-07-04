@@ -51,6 +51,8 @@ const orderSchema = mongoose.Schema({
             products            : [
                 {
                     "product_ID"        : { type: mongoose.Schema.Types.ObjectId, ref: 'products' },
+                    "productCode"       : String,
+                    "itemCode"          : String,
                     "productName"       : String,
                     "productNameRlang"  : String,
                     "originalPrice"     : Number,
