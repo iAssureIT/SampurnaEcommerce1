@@ -9,78 +9,34 @@ import {
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Header, Icon, Card, Button }       from 'react-native-elements';
+import axios from 'axios';
+import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles';
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
   { id: '2', text: 'Learn React' },
   { id: '3', text: 'Learn TypeScript' },
 ];
 
-export const ListOfOrders =()=> {
+export const ListOfOrders =(props)=> {
     const [orderList,setOrderList] = useState([]);
     useEffect(() => {
         getList()
     },[]);
 
     const getList =()=>{
-
-        setOrderList([
-            {
-                vendorName       : "Lulu HyperMarket",
-                vendorAddress    : "Silicon Oasis",
-                vendorDistance   : "0.5 KM",
-                customerAddress    : "Silicon Oasis",
-                customerDistance   : "0.2 KM"
-            },
-            {
-                vendorName       : "Cjoitaram",
-                vendorAddress    : "Silicon Oasis",
-                vendorDistance   : "1 KM",
-                customerAddress    : "Silicon Oasis",
-                customerDistance   : "1.2 KM"
-            },
-            {
-                vendorName       : "Almaya",
-                vendorAddress    : "Silicon Oasis",
-                vendorDistance   : "1.2 KM",
-                customerAddress    : "Silicon Oasis",
-                customerDistance   : "3.2 KM"
-            },
-            {
-                vendorName       : "Almadina",
-                vendorAddress    : "Silicon Oasis",
-                vendorDistance   : "2.3 KM",
-                customerAddress    : "Silicon Oasis",
-                customerDistance   : "3.2 KM"
-            },
-            {
-                vendorName       : "Lulu HyperMarket",
-                vendorAddress    : "Silicon Oasis",
-                vendorDistance   : "2.5 KM",
-                customerAddress    : "Silicon Oasis",
-                customerDistance   : "4.2 KM"
-            },
-            {
-                vendorName       : "Cjoitaram",
-                vendorAddress    : "Silicon Oasis",
-                vendorDistance   : "2.8 KM",
-                customerAddress    : "Silicon Oasis",
-                customerDistance   : "2.2 KM"
-            },
-            {
-                vendorName       : "Almaya",
-                vendorAddress    : "Silicon Oasis",
-                vendorDistance   : "3.2 KM",
-                customerAddress    : "Silicon Oasis",
-                customerDistance   : "2.2 KM"
-            },
-            {
-                vendorName       : "Almadina",
-                vendorAddress    : "Silicon Oasis",
-                vendorDistance   : "4.2 KM",
-                customerAddress    : "Silicon Oasis",
-                customerDistance   : "3.2 KM"
-            }
-        ])
+        var payload={
+            "status" : props.status,
+            "latitude":25.2143,
+            "longitude":55.4284
+        }
+        axios.post('/api/orders/get/nearest_vendor_orders',payload)
+        .then(res=>{
+            console.log("res",res);
+            setOrderList(res.data)
+        })
+        .catch(err=>{
+            console.log("err",err);
+        })
     }
 
 
@@ -128,7 +84,7 @@ export const ListOfOrders =()=> {
     );
     };
     const swipeFromLeftOpen = () => {
-    //   alert('Swipe from left');
+      alert('Swipe from left');
     };
     const swipeFromRightOpen = () => {
     //   alert('Swipe from right');
@@ -138,8 +94,8 @@ export const ListOfOrders =()=> {
             <Card containerStyle={{padding:0}}>
             <Swipeable
                 renderLeftActions={LeftSwipeActions}
-                renderRightActions={rightSwipeActions}
-                onSwipeableRightOpen={swipeFromRightOpen}
+                // renderRightActions={rightSwipeActions}
+                // onSwipeableRightOpen={swipeFromRightOpen}
                 onSwipeableLeftOpen={swipeFromLeftOpen}
             >
                 {/* <View
@@ -158,17 +114,20 @@ export const ListOfOrders =()=> {
                     paddingHorizontal: 30,
                     paddingVertical: 20,
                     backgroundColor: 'white',
+                    height:160
                 }}
                 >
-                    <View style={{flexDirection:"row",justifyContent:"space-between"}} >
+                <View style={{flexDirection:"row",justifyContent:"space-between"}} >
                     <View style={{flex:0.49,borderRightWidth:1}}>
-                        <Text>{item.vendorName}</Text>
-                        <Text>{item.vendorAddress}</Text>
-                        <Text>{item.vendorDistance}</Text>
+                        <Text style={CommonStyles.label}>Vendor</Text>
+                        <Text>{item.vendorDetails.companyName}</Text>
+                        <Text>{item.vendorDetails.locations[0].addressLine2}</Text>
+                        <Text style={[CommonStyles.label]}>{item.vendorDetails.locations[0].vendorDist} Km</Text>
                     </View>
                     <View style={{flex:0.49}}>
-                        <Text>{item.customerAddress}</Text>
-                        <Text>{item.customerDistance}</Text>
+                        <Text style={CommonStyles.label}>Delivery</Text>
+                        <Text>{item.deliveryAddress.addressLine1+", "+item.deliveryAddress.addressLine2}</Text>
+                         <Text style={[CommonStyles.label]}>{item.vendorDetails.locations[0].vendorToCustDist} Km</Text>
                     </View>   
                     </View>       
                 </View>

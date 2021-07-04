@@ -58,12 +58,14 @@ export const MenuCarouselSection = (props)=>{
               });
           }}>
           {showImage ?
-              <Image 
+              item.sectionImage?<Image 
                 onPress={()=>navigation.navigate('VendorList',{section_id:item._id})} 
                 source={item.sectionImage ? {uri : item.sectionImage}:noImage} 
                 style={[styles.sectionImages,{height:boxHeight}]} 
                 resizeMode={'cover'}
-              />
+              />:
+              <View style={[styles.sectionImages,{height:boxHeight,backgroundColor:"#f1f1f1"}]} >
+            </View> 
             :
             <View style={{borderBottomWidth:selected===item.section? 1:0}}>
               <Text style={[styles.sectionTitle,selected===item.section ? {color:"#333"}: {color:"#666"}]}>{item.section}</Text>

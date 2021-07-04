@@ -20,16 +20,16 @@ export default function BookingsTabView() {
  
   const renderScene = ( props ) => {
     if (props.route.key == 'first' && index == 0){ 
-      return <ListOfOrders status={"Trip Allocated To Driver"} />;
+      return <ListOfOrders status={"Ready To Dispatch"} />;
     }
     if (props.route.key == 'second' && index == 1){
-      return <ListOfOrders status={"Running"} />;
+      return <ListOfOrders status={"Approved"} />;
     }
     if (props.route.key == 'third' && index == 2){
-      return <ListOfOrders status={"Trip Completed"} />;
+      return <ListOfOrders status={"On The Way"} />;
     } 
     if (props.route.key == 'fourth' && index == 3){
-      return <ListOfOrders  status={"Cancelled"}/>;
+      return <ListOfOrders  status={"Delivered"}/>;
     }
   };
   const getTabBarIcon = (props) => {
@@ -44,7 +44,7 @@ export default function BookingsTabView() {
       indicatorStyle={{ backgroundColor: '#333' }}
       style={styles.tabviews}
       scrollEnabled    = {true}
-      // tabStyle={{width:100}}
+      tabStyle={{width:100}}
       renderIcon={ props => getTabBarIcon(props)}
       renderLabel={({ route, focused, color }) => (
         <Text style={CommonStyles.normalText}>

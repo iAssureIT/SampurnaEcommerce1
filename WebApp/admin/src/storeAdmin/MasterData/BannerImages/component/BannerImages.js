@@ -146,7 +146,7 @@ class BannerImages extends Component{
               if (file) {
                   var fileName  = file.name; 
                   var ext = fileName.split('.').pop();  
-                  if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
+                  if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG" || ext==="gif" || ext==="GIF"){
                       if (file) {
                           var objTitle = { fileInfo :file }
                           bannerimages = objTitle ;                          
@@ -281,7 +281,7 @@ class BannerImages extends Component{
                                         :                                        
                                         <div className="divideCatgRows categoryImgWrapper">
                                             <label>Banner Image</label>                                                                    
-                                            <input type="file" id="bannerimages" name="bannerimages" onChange={this.uploadImage.bind(this)} title="" multiple className="" accept=".jpg,.jpeg,.png" required/>
+                                            <input type="file" id="bannerimages" name="bannerimages" onChange={this.uploadImage.bind(this)} title="" multiple className="" accept=".jpg,.jpeg,.png,.gif" required/>
                                         </div>
                                       }
                                       {
