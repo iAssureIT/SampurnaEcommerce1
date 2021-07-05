@@ -193,7 +193,7 @@ class ForgotPassword extends Component {
                                     </div>
                                 </div>
                                 <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 mt25 mb25 pull-right NOpadding">
-                                    <button id="sendlink" className="btn resetBtn col-lg-12 col-md-12 col-sm-12 col-xs-12" onClick={this.sendLink.bind(this)}>Send OTP >></button>
+                                    <button id="sendlink" className="btn resetBtn col-lg-12 col-md-12 col-sm-12 col-xs-12" onClick={this.sendLink.bind(this)}>Send OTP </button>
                                 </div>
                                 
 

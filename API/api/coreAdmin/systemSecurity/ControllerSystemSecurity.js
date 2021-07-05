@@ -789,21 +789,21 @@ exports.check_username_EmailOTP = (req, res, next) => {
 						}
 					}
 				)
-					.exec()
-					.then(data => {
-						if (data.nModified === 1) {
-							res.status(200).json({ message: "SUCCESS" });
-						} else {
-							res.status(200).json({ message: "SUCCESS_OTP_NOT_RESET" });
-						}
-					})
-					.catch(err => {
-						console.log('user error ', err);
-						res.status(500).json({
-							message: "Failed to update Email OTP",
-							error: err
-						});
-					})
+				.exec()
+				.then(data => {
+					if (data.nModified === 1) {
+						res.status(200).json({ message: "SUCCESS" });
+					} else {
+						res.status(200).json({ message: "SUCCESS_OTP_NOT_RESET" });
+					}
+				})
+				.catch(err => {
+					console.log('user error ', err);
+					res.status(500).json({
+						message: "Failed to update Email OTP",
+						error: err
+					});
+				})
 			} else {
 				res.status(200).json({ message: "FAILED" });
 			}
@@ -1389,54 +1389,54 @@ exports.user_update_password_withoutotp_ID = (req, res, next) => {
 
 exports.user_update_password_withoutotp_username = (req, res, next) => {
 	User.findOne({ username: req.params.username })
-		.exec()
-		.then(user => {
-			// console.log("user ", user);
-			if (user) {
-				bcrypt.hash(req.body.pwd, 10, (err, hash) => {
-					User.updateOne(
-						{ username: req.params.username },
-						{
-							$set: {
-								services: {
-									password: {
-										bcrypt: hash
-									},
+	.exec()
+	.then(user => {
+		// console.log("user ", user);
+		if (user) {
+			bcrypt.hash(req.body.pwd, 10, (err, hash) => {
+				User.updateOne(
+					{ username: req.params.username },
+					{
+						$set: {
+							services: {
+								password: {
+									bcrypt: hash
 								},
-							}
+							},
 						}
-					)
-						.exec()
-						.then(data => {
-							if (data.nModified == 1) {
-								res.status(200).json("PASSWORD_RESET");
-							} else {
-								res.status(401).json("PASSWORD_NOT_RESET");
-							}
-						})
-						.catch(err => {
-							console.log(err);
-							res.status(500).json({
-								error: err
-							});
+					}
+				)
+					.exec()
+					.then(data => {
+						if (data.nModified == 1) {
+							res.status(200).json("PASSWORD_RESET");
+						} else {
+							res.status(401).json("PASSWORD_NOT_RESET");
+						}
+					})
+					.catch(err => {
+						console.log(err);
+						res.status(500).json({
+							error: err
 						});
-				});
-			} else {
-				res.status(404).json("User Not Found");
-			}
-		})
-		.catch(err => {
-			// console.log('update user status error ',err);
-			res.status(500).json({
-				error: err
+					});
 			});
+		} else {
+			res.status(404).json("User Not Found");
+		}
+	})
+	.catch(err => {
+		// console.log('update user status error ',err);
+		res.status(500).json({
+			error: err
 		});
+	});
 };
 
 exports.user_update_password_with_emailOTP_ID = (req, res, next) => {
 	User.findOne({
-		"_id": req.params.ID,
-		"profile.otpEmail": req.body.emailOTP
+		"_id" 				: req.params.ID,
+		"profile.otpEmail" 	: req.body.emailOTP
 	})
 		.exec()
 		.then(user => {
@@ -1454,20 +1454,20 @@ exports.user_update_password_with_emailOTP_ID = (req, res, next) => {
 							}
 						}
 					)
-						.exec()
-						.then(data => {
-							if (data.nModified == 1) {
-								res.status(200).json("PASSWORD_RESET");
-							} else {
-								res.status(401).json("PASSWORD_NOT_RESET");
-							}
-						})
-						.catch(err => {
-							console.log(err);
-							res.status(500).json({
-								error: err
-							});
+					.exec()
+					.then(data => {
+						if (data.nModified == 1) {
+							res.status(200).json("PASSWORD_RESET");
+						} else {
+							res.status(401).json("PASSWORD_NOT_RESET");
+						}
+					})
+					.catch(err => {
+						console.log(err);
+						res.status(500).json({
+							error: err
 						});
+					});
 				});
 			} else {
 				res.status(404).json({ message: "User Not Found or Otp Didnt match" });
@@ -1578,7 +1578,7 @@ exports.set_send_emailotp_usingID = (req, res, next) => {
 
 
 
-
+/**===========  ===========*/
 exports.set_send_mobileotp_usingID = (req, res, next) => {
 	User.findOne({ _id: req.params.ID})
 	.then(user => {

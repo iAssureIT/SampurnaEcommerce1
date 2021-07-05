@@ -619,11 +619,14 @@ function sendSMS(mobileNumber, textMsg){
                 
                 smsglobal.sms.send(smsFormValues, function (error, response) {
                     console.log("SMS response 1 => ",response);
-                    if(response && response.statusCode && response.statusCode === 200 && response.status === "OK"){
+                    if(response && response !== undefined && response.statusCode && response.statusCode === 200 && response.status === "OK"){
                         console.log("SMS response => ",response);
                         resolve(true);
                     }else{
-                        console.log("SMS error => ",error.data.errors.origin.errors);
+                        console.log("error => ",error);
+                        if(error && error !== undefined && error.data && error.data !== undefined){
+                            console.log("SMS error => ",error.data.errors.origin.errors);
+                        }
                         resolve(false);
                     }
                     // resolve(true);
