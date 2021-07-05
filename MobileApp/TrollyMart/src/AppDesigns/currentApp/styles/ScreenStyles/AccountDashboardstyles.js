@@ -33,13 +33,13 @@ export default StyleSheet.create({
     marginTop:15
   },
   acceditbtn:{
-    flex:1, flexDirection:'row',marginTop:15
+    flexDirection:'row',marginTop:15
   },
   profileparent:{
-    flex:1,backgroundColor:'#f1f1f1'
+    flex:1,backgroundColor:'#f1f1f1',padding:15
   },
-  profilfileds:{
-    backgroundColor:'#fff',marginTop:0,marginBottom:15,marginTop:15
+  container:{
+    backgroundColor:'#fff',marginTop:0,marginBottom:15
   },
   profiltitle:{
     fontSize:13,fontFamily:"Montserrat-SemiBold",

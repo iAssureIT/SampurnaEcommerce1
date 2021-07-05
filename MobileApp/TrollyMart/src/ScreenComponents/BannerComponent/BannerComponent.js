@@ -23,7 +23,7 @@ export const BannerComponent=()=>{
       setBannerImages(res.data)
     })
     .catch((error)=>{
-      console.log('error', error);
+      // console.log('error', error);
     })
 }
 

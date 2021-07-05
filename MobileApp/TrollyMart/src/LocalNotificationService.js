@@ -8,11 +8,11 @@ class LocalNotificationService {
     configure = (onOpenNotification) => {
         PushNotification.configure({
             onRegister: function (token) {
-                console.log("[LocalNotificationService] onRegister:", token.token);
+                // console.log("[LocalNotificationService] onRegister:", token.token);
                 AsyncStorage.setItem('notification_token', token.token);
             },
             onNotification: function (notification) {
-                console.log("[LocalNotificationService] onNotification:", notification);
+                // console.log("[LocalNotificationService] onNotification:", notification);
                 if (!notification?.data) {
                     return
                 }
@@ -103,7 +103,7 @@ class LocalNotificationService {
     }
 
     removeDeliveredNotificationByID = (notificationId) => {
-        console.log("[LocalNotificationService] removeDeliveredNotificationByID: ", notificationId);
+        // console.log("[LocalNotificationService] removeDeliveredNotificationByID: ", notificationId);
         PushNotification.cancelLocalNotifications({id: `${notificationId}`})
     }
 }

@@ -603,9 +603,6 @@ const getCartItems=(userId)=>{
                           </View>
                         </View>
                       </View>
-                      <View style={{ flex: 1, marginTop: 10 }}>
-                        <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                      </View>
                       <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
                         <View style={{flex:.7}}>
                           <Input
@@ -642,11 +639,6 @@ const getCartItems=(userId)=>{
                               buttonStyle    = {styles.button1}
                               containerStyle = {styles.buttonContainer1}
                             />
-                            <View style={styles.flxdata}>
-                              <View style={{ flex: 1 }}>
-                                <Text style={styles.purchasep}>100% Purchase Protection | <Text style={styles.freshnsecuretxt}>Secure Payment </Text></Text>
-                              </View>
-                            </View>
                           </View>
                           :
                           <View>

@@ -29,7 +29,7 @@ export const OTPVerification = withCustomerToaster((props) => {
   const {setToast,navigation,route} = props; //setToast function bhetta
   const {userID}=route.params;
   const dispatch = useDispatch();
-  console.log("user_id",userID);
+  // console.log("user_id",userID);
   return (
     <React.Fragment>
       <Formik

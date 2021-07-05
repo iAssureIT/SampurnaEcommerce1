@@ -25,7 +25,7 @@ import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchS
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 
 export const SearchList  = withCustomerToaster((props)=>{
-  console.log("props",props);
+  // console.log("props",props);
   const {navigation,route}=props;
   const {type}=route.params;
   const store = useSelector(store => ({

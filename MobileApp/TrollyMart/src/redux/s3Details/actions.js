@@ -33,7 +33,7 @@ export const getS3Details = () => {
       });
       })
       .catch(err => {
-        console.log('err', err);
+        // console.log('err', err);
         dispatch({
           type: SET_LOADING,
           payload: false,

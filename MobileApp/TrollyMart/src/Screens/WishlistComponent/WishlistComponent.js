@@ -17,30 +17,26 @@ import { useSelector }      from 'react-redux';
 import {ProductList}        from'../../ScreenComponents/ProductList/ProductList.js';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 
 export const WishlistComponent  = withCustomerToaster((props)=>{
   const {navigation}=props;
   const store = useSelector(store => ({
     wishList      : store.wishDetails.wishList,
-    globalSearch  : store.globalSearch
+    globalSearch  : store.globalSearch,
+    loading        : store.wishDetails.loading
   }));
-  const {wishList,globalSearch} = store;
+  const {wishList,globalSearch,loading} = store;
   const [user_id,setUserId] = useState('');
-  const [loading,setLoading] = useState(false);
   useEffect(() => {
     // getData()
   },[]); 
 
+  console.log("wishList",wishList);
+  console.log("loading",loading);
   
     return (
       <React.Fragment>
-        {/* <HeaderBar3
-          goBack={navigation.goBack}
-          headerTitle={'My Wishlist'}
-          navigate={navigation.navigate}
-          openControlPanel={() =>openControlPanel()}
-        /> */}
-        
         <View style={styles.addsuperparent}>
         {
           globalSearch.search ?
@@ -71,6 +67,7 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                             disabled    = {parseInt(item.distance) <= item.maxDistanceRadius ? false :true}
                             marginTop   = {0}
                             paddingBottom  = {0}
+                            type           = {'wishlist'}
                         />
                         </View>
                       )
@@ -80,13 +77,14 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                       <Image
                         source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
                       />
-                      <Button
-                          onPress={() => navigation.navigate('Dashboard')}
-                          // title={"Click Here To Continue Shopping"}
-                          title={"Add Products"}
-                          buttonStyle={styles.buttonshopping}
-                          containerStyle={styles.continueshopping}
-                      /> 
+                      <View style={{}}>
+                        <FormButton
+                            onPress={() => navigation.navigate('Dashboard')}
+                            // title={"Click Here To Continue Shopping"}
+                            title={"Add Products"}
+                            background={true}
+                        /> 
+                    </View> 
                     </View>
                 }
                 </View>

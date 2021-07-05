@@ -18,6 +18,7 @@ import Geocoder                     from 'react-native-geocoding';
 import {FormButton}                 from '../../ScreenComponents/FormButton/FormButton';
 import { SET_USER_ADDRESS}          from '../../redux/location/types';
 import { connect,useDispatch,useSelector }      from 'react-redux';
+import { getWishList } 		    from '../../redux/wishDetails/actions';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const window = Dimensions.get('window');
@@ -36,9 +37,10 @@ export const Location = withCustomerToaster((props)=>{
     const mapStyle = [];
     const ref = useRef();
     const store = useSelector(store => ({
-        location      : store.location
+        location      : store.location,
+        userDetails : store.userDetails
       }));
-      const {location} = store;
+      const {location,userDetails} = store;
     useEffect(async() => {
         axios.get('/api/projectsettings/get/GOOGLE')
         .then(async(response) => {
@@ -220,6 +222,9 @@ export const Location = withCustomerToaster((props)=>{
             type: SET_USER_ADDRESS,
             payload:address
         })
+        if(userDetails && userDetails.user_id){
+            dispatch(getWishList(userDetails.user_id))
+        }    
         navigation.navigate('App');
     }  
 

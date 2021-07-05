@@ -125,12 +125,12 @@ export const HorizontalProductList =(props)=>{
             <View style={[styles.flx1, styles.protxt]}>
               <View style={{flexDirection:'row',flex:1}}>
                   <View style={{flex:.8}}>
-                    {item.brand ?
+                    {/* {item.brand ?
                   
                       <Text numberOfLines={1} style={[styles.productName]}>{item.brand}</Text>
                       :
                       null
-                    }
+                    } */}
                   </View>
                   {props.addToCart &&<View style={{flex:.2}}>
                     <TouchableOpacity 

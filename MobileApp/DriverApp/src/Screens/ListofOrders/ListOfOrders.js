@@ -33,8 +33,7 @@ export const ListOfOrders =(props)=> {
     const getList =()=>{
         var payload={
             "status" : props.status,
-            "latitude":25.2143,
-            "longitude":55.4284
+            "user_id" : store.userDetails.user_id
         }
         console.log("payload",payload);
         axios.post('/api/orders/get/nearest_vendor_orders',payload)

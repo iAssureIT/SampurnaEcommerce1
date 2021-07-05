@@ -73,7 +73,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
         })
         .catch(err=>{
             setLoading(false);
-            console.log("err",err)
+            // console.log("err",err)
         })
     }
 

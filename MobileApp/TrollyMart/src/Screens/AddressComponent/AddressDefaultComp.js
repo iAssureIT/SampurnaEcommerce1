@@ -10,8 +10,6 @@ import {
 // import { RadioButton } from 'react-native-paper';
 import { Button, Icon,Card}    from "react-native-elements";
 import axios              from "axios";
-import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}             from '../../ScreenComponents/Footer/Footer.js';
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading            from '../../ScreenComponents/Loading/Loading.js';
@@ -23,6 +21,7 @@ import {setToast,
   withCustomerToaster}        from '../../redux/AppState.js';
   import { SET_USER_ADDRESS}          from '../../redux/location/types';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 // export default class AddressDefaultComp extends React.Component {
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
@@ -168,13 +167,23 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
             <View style={styles.padhr15}>
                <View style={styles.addcmpbtn}>
-               {!disabled &&<Button
+               {/* <Button
                     onPress={() => navigation.navigate('AddressComponent',{"delivery":delivery})}
                     title={"ADD NEW ADDRESS"}
                     buttonStyle={styles.button1}
                     containerStyle={styles.buttonContainer1}
                     titleStyle={styles.buttonTextEDIT}
-                  />}
+                  /> */}
+               {!disabled &&
+                  <FormButton
+                    title          = {"PROCEED TO CHECKOUT"}
+                    onPress={() => navigation.navigate('AddressComponent',{"delivery":delivery})}
+                    title={"ADD NEW ADDRESS"}
+                    background  = {true}
+                    // loading     = {btnLoading}
+                    // disabled       = {!disabled}
+                  />
+                  }
               </View>
               {deliveryAddress ?
                 deliveryAddress.length > 0 ?
@@ -257,50 +266,18 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
                 </View>
               }
               {delivery && <View style={styles.continuebtn}>
-                {
-                  addressid!=='' ?
-                    <TouchableOpacity >
-                      <Button
-                        onPress={() => navigation.navigate('OrderSummary', { addData: adddata, user_id: user_id })}
-                        title={"CONTINUE"}
-                        buttonStyle={styles.button1}
-                        containerStyle={styles.buttonContainer1}
-                        titleStyle={styles.buttonTextEDIT}
-                      />
-                    </TouchableOpacity>
-                    :
-                    <TouchableOpacity >
-                      <Button
-                        title={"CONTINUE"}
-                        buttonStyle={styles.buttondis}
-                        containerStyle={styles.buttonContainer1}
-                        titleStyle={styles.buttonTextEDIT}
-                      />
-                    </TouchableOpacity>
-                }
+                    <FormButton
+                      onPress={() => navigation.navigate('OrderSummary', { addData: adddata, user_id: user_id })}
+                      title={"CONTINUE"}
+                      disabled={addressid===''?true:false}
+                    />
               </View>}
                 {disabled && <View style={styles.continuebtn}>
-                {
-                  addressid!=='' ?
-                    <TouchableOpacity >
-                      <Button
-                        onPress={() => navigation.navigate('App')}
-                        title={"CONTINUE"}
-                        buttonStyle={styles.button1}
-                        containerStyle={styles.buttonContainer1}
-                        titleStyle={styles.buttonTextEDIT}
-                      />
-                    </TouchableOpacity>
-                    :
-                    <TouchableOpacity >
-                      <Button
-                        title={"CONTINUE"}
-                        buttonStyle={styles.buttondis}
-                        containerStyle={styles.buttonContainer1}
-                        titleStyle={styles.buttonTextEDIT}
-                      />
-                    </TouchableOpacity>
-                }
+                 <FormButton
+                    onPress={() => navigation.navigate('App')}
+                    title={"CONTINUE"}
+                    disabled={addressid===''?true:false}
+                  />
               </View>}
             </View>
           </ScrollView>

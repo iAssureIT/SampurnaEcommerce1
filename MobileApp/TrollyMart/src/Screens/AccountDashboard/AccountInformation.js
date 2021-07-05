@@ -7,16 +7,10 @@ import {
   Alert,
   Dimensions,StyleSheet
 } from 'react-native';
-import { TextField }      from 'react-native-material-textfield';
-import { Button, }        from "react-native-elements";
 import axios              from "axios";
-import {Menu}             from '../../ScreenComponents/Menu/Menu.js';
-import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}           from '../../ScreenComponents/Footer/Footer.js';
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
 import { colors, sizes }  from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading            from '../../ScreenComponents/Loading/Loading.js';
-import Modal              from "react-native-modal";
 import AsyncStorage       from '@react-native-async-storage/async-storage';
 import PhoneInput           from "react-native-phone-number-input";
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
@@ -26,44 +20,28 @@ import {emailValidator,specialCharacterValidator,mobileValidator}     from '../.
 import {Formik}             from 'formik';
 import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
+import { CheckBox,Icon}     from "react-native-elements";
+import { useIsFocused } from "@react-navigation/native";
 
 const window = Dimensions.get('window');
-  const LoginSchema = Yup.object().shape({
-    firstName: Yup.string()
-    .required('This field is required')
-    .test(
-      'special character test',
-      'This field cannot contain only special characters or numbers',
-      specialCharacterValidator,
-    ),
-    lastName: Yup.string()
-    .required('This field is required')
-    .test(
-      'special character test',
-      'This field cannot contain only special characters or numbers',
-      specialCharacterValidator,
-    ),
-    mobileNumber: Yup.string()
-    .required('This field is required'),
-    email_id: Yup.string()
-      .test(
-        'email validation test',
-        'Enter a valid email address',
-        emailValidator,
-      ),
-  });
+
 
 
 
 export const AccountInformation=withCustomerToaster((props)=>{
+  const isFocused = useIsFocused();
   const [loading, setLoading] = useState(true);
   const [btnLoading, setBtnLoading] = useState(false);
   const {setToast,navigation} = props; //setToast function bhetta
   const [userDetails , setUserDetails]=useState();
   const [user_id,setUserId]=useState('');
+  const [checkedMobNo,setCheckedMobNo] = useState(false);
+  const [checkedEmailId,setCheckedEmailId] = useState(false);
   useEffect(() => {
     getData();
-  },[props]);
+    setCheckedMobNo(false);
+    setCheckedEmailId(false)
+  },[props,isFocused]);
 
   const getData=async()=>{
     axios.get('/api/ecommusers/' + await AsyncStorage.getItem('user_id'))
@@ -88,35 +66,131 @@ export const AccountInformation=withCustomerToaster((props)=>{
   if(userDetails){
     return (
       <React.Fragment>
-        <Formik
+       {isFocused && <Formik
           onSubmit={(data) => {
               setBtnLoading(true);
-              let {firstName, lastName,mobileNumber,email_id} = data;
+              let {firstName, lastName,mobileNumber,email_id,current_password} = data;
               var formValues = {
-                firstname   : firstName,
-                lastname    : lastName,
-                mobNumber   : mobileNumber,
-                email       : email_id,
+                firstname         : firstName,
+                lastname          : lastName,
+                mobNumber         : mobileNumber,
+                email             : email_id,
+                current_password  : current_password,
+                otp               : '',
               }
-              axios.patch('/api/users/patch/' + user_id, formValues)
-              .then((response) => {
-                setBtnLoading(false);
-                setToast({text: 'Your profile is updated!', color: 'green'});
-                // this.setState({profileupdated:true});
-              })
-              .catch((error) => {
-                console.log("error",error);
-                setBtnLoading(false);
-                setToast({text: 'Something went wrong.', color: 'red'});
-              })
+              console.log("formValues",formValues);
+              // axios.patch('/api/users/patch/' + user_id, formValues)
+              // .then((response) => {
+              //   setBtnLoading(false);
+              //   setToast({text: 'Your profile is updated!', color: 'green'});
+              //   // this.setState({profileupdated:true});
+              // })
+              // .catch((error) => {
+              //   console.log("error",error);
+              //   setBtnLoading(false);
+              //   setToast({text: 'Something went wrong.', color: 'red'});
+              // })
           }}
-          validationSchema={LoginSchema}
+          validationSchema={
+              checkedEmailId && checkedMobNo ?
+              Yup.object().shape({
+                firstName: Yup.string()
+                .required('This field is required')
+                .test(
+                  'special character test',
+                  'This field cannot contain only special characters or numbers',
+                  specialCharacterValidator,
+                ),
+                lastName: Yup.string()
+                .required('This field is required')
+                .test(
+                  'special character test',
+                  'This field cannot contain only special characters or numbers',
+                  specialCharacterValidator,
+                ),
+                mobileNumber: Yup.string()
+                .required('This field is required'),
+                email_id: Yup.string()
+                .required('This field is required')
+                  .test(
+                    'email validation test',
+                    'Enter a valid email address',
+                    emailValidator,
+                  ),
+                  current_password: Yup.string()
+                .required('This field is required')
+                })
+                :
+                checkedMobNo ?
+                Yup.object().shape({
+                firstName: Yup.string()
+                .required('This field is required')
+                .test(
+                  'special character test',
+                  'This field cannot contain only special characters or numbers',
+                  specialCharacterValidator,
+                ),
+                lastName: Yup.string()
+                .required('This field is required')
+                .test(
+                  'special character test',
+                  'This field cannot contain only special characters or numbers',
+                  specialCharacterValidator,
+                ),
+                mobileNumber: Yup.string()
+                .required('This field is required'),
+              })
+              :
+                checkedEmailId ?
+                Yup.object().shape({
+                  firstName: Yup.string()
+                  .required('This field is required')
+                  .test(
+                    'special character test',
+                    'This field cannot contain only special characters or numbers',
+                    specialCharacterValidator,
+                  ),
+                  lastName: Yup.string()
+                  .required('This field is required')
+                  .test(
+                    'special character test',
+                    'This field cannot contain only special characters or numbers',
+                    specialCharacterValidator,
+                  ),
+                  email_id: Yup.string()
+                  .required('This field is required')
+                    .test(
+                      'email validation test',
+                      'Enter a valid email address',
+                      emailValidator,
+                    ),
+                  current_password: Yup.string()
+                  .required('This field is required')
+                  })
+                :
+                Yup.object().shape({
+                  firstName: Yup.string()
+                  .required('This field is required')
+                  .test(
+                    'special character test',
+                    'This field cannot contain only special characters or numbers',
+                    specialCharacterValidator,
+                  ),
+                  lastName: Yup.string()
+                  .required('This field is required')
+                  .test(
+                    'special character test',
+                    'This field cannot contain only special characters or numbers',
+                    specialCharacterValidator,
+                  ),
+                })
+          }
           initialValues={{
             firstName         : userDetails && userDetails.firstname? userDetails.firstname:'',
             lastName          : userDetails && userDetails.lastname? userDetails.lastname:'',
             mobileNumber      : userDetails && userDetails.mobile? userDetails.mobile:'',
             email_id          : userDetails && userDetails.email ?userDetails.email:'',
-            countryCode       : userDetails.countryCode,
+            current_password  : '',
           }}>
           {(formProps) => (
             <FormBody
@@ -124,10 +198,14 @@ export const AccountInformation=withCustomerToaster((props)=>{
               btnLoading={btnLoading}
               navigation={navigation}
               setToast =   {setToast}
+              checkedMobNo={checkedMobNo}
+              setCheckedMobNo={setCheckedMobNo}
+              checkedEmailId={checkedEmailId}
+              setCheckedEmailId={setCheckedEmailId}
               {...formProps}
             />
           )}
-        </Formik>
+        </Formik>}
       </React.Fragment>
     );}else{
       return <Loading/>
@@ -146,6 +224,10 @@ export const AccountInformation=withCustomerToaster((props)=>{
       values,
       btnLoading,
       setToast,
+      checkedMobNo,
+      setCheckedMobNo,
+      checkedEmailId,
+      setCheckedEmailId
     } = props;
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
@@ -155,6 +237,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
     const [valid, setValid] = useState(false);
     const [countryCode, setCountryCode] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
+
+    const [showCurrentPassword, toggleCurrentPassword] = useState(false);
     const phoneInput = useRef(null);
     if (loading) {
       return (
@@ -163,26 +247,14 @@ export const AccountInformation=withCustomerToaster((props)=>{
     } else {
       return (
         <React.Fragment>
-          {/* <HeaderBar3
-            goBack={navigation.goBack}
-            headerTitle={'Account Information'}
-            navigate={navigation.navigate}
-            toggle={() => this.toggle.bind(this)}
-            openControlPanel={() => this.openControlPanel.bind(this)}
-          /> */}
           <View style={styles.profileparent}>
-            <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
+            <View style={{flex:1,backgroundColor:"#fff"}}>
+            <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                 <View style={{ paddingHorizontal: 15, marginBottom: 30 }}>
-                  {/* <View style={styles.profileparent}>
-                        <Text style={styles.profiltitle}>Profile Details : </Text>                
-                      </View> */}
-                  <View style={{ flex: 1, borderWidth: 1, borderColor: '#f1f1f1', backgroundColor: '#ccc', paddingVertical: 15, marginTop: 10 }}>
+                  <View style={{ borderWidth: 1, borderColor: '#f1f1f1', backgroundColor: '#ccc', paddingVertical: 15, marginTop: 10 }}>
                     <Text style={{ fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#333', paddingHorizontal: 15 }}>Profile Details : </Text>
                   </View>
-                  <View style={styles.profilfileds}>
-
                     <View style={styles.marTp15}>
-                      <View style={styles.padhr15}>
                       <View style={commonStyles.formWrapper}>
                         <FormInput
                           labelName       = "First Name"
@@ -192,8 +264,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           name            = "firstName"
                           errors          = {errors}
                           touched         = {touched}
-                          iconName        = {'user-circle-o'}
-                          iconType        = {'font-awesome'}
+                          // iconName        = {'user-circle-o'}
+                          // iconType        = {'font-awesome'}
                           value           = {values.firstName} 
                           // autoCapitalize  = "none"
                         />
@@ -205,12 +277,18 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           name            = "lastName"
                           errors          = {errors}
                           touched         = {touched}
-                          iconName        = {'user-circle-o'}
-                          iconType        = {'font-awesome'}
+                          // iconName        = {'user-circle-o'}
+                          // iconType        = {'font-awesome'}
                           value           = {values.lastName} 
                           // autoCapitalize  = "none"
                         />
-                        <View style={{marginHorizontal:10,marginVertical:5}}>
+
+                        <CheckBox
+                          title='Change Mobile No'
+                          checked={checkedMobNo}
+                          onPress={() => setCheckedMobNo(!checkedMobNo)}
+                        />
+                        {checkedMobNo && <View style={{marginHorizontal:10,marginVertical:5}}>
                         <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
                             <Text>Phone Number</Text>{' '}
                             <Text style={{color: 'red', fontSize: 12}}>
@@ -239,7 +317,15 @@ export const AccountInformation=withCustomerToaster((props)=>{
                               textInputStyle={styles1.textInputStyle}
                             />
                           <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
-                        </View>       
+                        </View> }
+                        <CheckBox
+                          title='Change Email Id'
+                          checked={checkedEmailId}
+                          onPress={() => setCheckedEmailId(!checkedEmailId)}
+                        />
+                              
+                        {checkedEmailId &&
+                        <>
                         <FormInput
                           labelName       = "Email Id"
                           placeholder     = "Email Id"
@@ -248,12 +334,35 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           name            = "email_id"
                           errors          = {errors}
                           touched         = {touched}
-                          iconName        = {'email'}
-                          iconType        = {'material-community'}
+                          // iconName        = {'email'}
+                          // iconType        = {'material-community'}
                           autoCapitalize  = "none"
                           keyboardType    = "email-address"
                           value           = {values.email_id}
                         />
+                        <FormInput
+                          labelName     = "Current Password"
+                          // placeholder   = "Password"
+                          onChangeText  = {handleChange('current_password')}
+                          errors        = {errors}
+                          name          = "current_password"
+                          required      = {true}
+                          touched       = {touched}
+                          // iconName      = {'lock'}
+                          // iconType      = {'font-awesome'}
+                          rightIcon={
+                              <TouchableOpacity  style={{paddingHorizontal:'5%'}} onPress={() => toggleCurrentPassword(!showCurrentPassword)}>
+                                {showCurrentPassword ? (
+                                  <Icon name="eye" type="entypo" size={18} />
+                                ) : (
+                                  <Icon name="eye-with-line" type="entypo" size={18} />
+                                )}
+                              </TouchableOpacity>
+                            }
+                          secureTextEntry={!showCurrentPassword}
+                        />
+                        </>
+                        }
                         <FormButton
                           title       = {'Update Profile'}
                           onPress     = {handleSubmit}
@@ -263,43 +372,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
                       </View>
                     </View>
                   </View>
-                </View>
-                {/* <View style={{ marginBottom: "15%" }}>
-                  <TouchableOpacity>
-                    <Button
-                      onPress={() => this.updateprofile()}
-                      title={"UPDATE PROFILE"}
-                      buttonStyle={styles.button1}
-                      titleStyle={styles.buttonTextEDIT}
-                      containerStyle={styles.buttonContainerEDIT}
-                    />
-                  </TouchableOpacity>
-                </View> */}
-              </View>
             </ScrollView>
-            {/* <Modal isVisible={profileupdated}
-              onBackdropPress={() => this.setState({ profileupdated: false })}
-              coverScreen={true}
-              hideModalContentWhileAnimating={true}
-              style={{ paddingHorizontal: '5%', zIndex: 999 }}
-              animationOutTiming={500}>
-              <View style={{ backgroundColor: "#fff", alignItems: 'center', borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10,borderWidth:2,borderColor:colors.theme }}>
-                <Text style={{ fontFamily: 'Montserrat-Regular', fontSize: 16, textAlign: 'center', justifyContent: 'center', marginTop: 20 }}>
-                  Your profile is updated!
-                </Text>
-                <View style={styles.yesmodalbtn}>
-                  <TouchableOpacity>
-                    <Button
-                      onPress={() => this.props.navigation.navigate('AccountDashboard')}
-                      titleStyle={styles.buttonText1}
-                      title="OK"
-                      buttonStyle={styles.button1}
-                      containerStyle={styles.buttonContainer2}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </Modal> */}
+          </View>
           </View>
         </React.Fragment>
       );

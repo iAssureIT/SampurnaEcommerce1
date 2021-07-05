@@ -21,7 +21,7 @@ import {withCustomerToaster}    from '../../redux/AppState.js';
 import { connect,useDispatch,useSelector }  from 'react-redux';
 import {ProductList}            from'../../ScreenComponents/ProductList/ProductList.js';
 import { useIsFocused } from "@react-navigation/native";
-
+import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 export const AllProductList  = withCustomerToaster((props)=>{
   const {navigation,route}=props;
   const {type}=route.params;
@@ -62,12 +62,12 @@ export const AllProductList  = withCustomerToaster((props)=>{
                       <Image
                         source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
                       />
-                      <Button
+
+                      <FormButton
                           onPress={() => navigation.navigate('Dashboard')}
                           // title={"Click Here To Continue Shopping"}
                           title={"Add Products"}
-                          buttonStyle={styles.buttonshopping}
-                          containerStyle={styles.continueshopping}
+                          background={true}
                       /> 
                     </View>
                     :

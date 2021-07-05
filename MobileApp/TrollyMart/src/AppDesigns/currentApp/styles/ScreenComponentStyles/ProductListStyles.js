@@ -141,6 +141,7 @@ export default StyleSheet.create({
 		padding: 3,
 	},
 	productContainer: {
+		// height :350,
 		width:"42.5%",
 		// paddingVertical:5,
 		backgroundColor:"#fff",

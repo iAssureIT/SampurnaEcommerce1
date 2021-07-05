@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   TextInput,
 }                       from 'react-native';
-import { Icon, Card,Button,Rating,Input } from "react-native-elements";
+import { Icon, Card,Button,Rating,Input,Tooltip } from "react-native-elements";
 import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import { colors }       from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading          from '../../ScreenComponents/Loading/Loading.js';
@@ -34,7 +34,6 @@ import ImagePicker              		from 'react-native-image-crop-picker';
 import {PERMISSIONS, request, RESULTS} 	from 'react-native-permissions';
 import { RNS3 }                 		from 'react-native-aws3';
 import HTML from 'react-native-render-html';
-
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
   const customStyles = {
     stepIndicatorSize                 : 25,
@@ -89,6 +88,7 @@ export const OrderDetails = withCustomerToaster((props)=>{
   const [imageLoading,setImageLoading] = useState([]);
   const [modalTerms,setTermsModal] = useState(false);
   const [pageBlockes,setPageBlocks]       = useState([]);
+  const [tooltipSize, setTooltipSize] = useState({ w: 500, h: 500 })
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -286,7 +286,7 @@ const cancelorderbtn = (id,vendor_id) => {
         "customer_id"     		: store.userDetails.user_id,
         "customerName"        : store.userDetails.firstName+" "+store.userDetails.lastName,
         "order_id"        		: orderid,
-        "product_id"      		: vendorDetails.products[productIndex]._id,
+        "product_id"      		: vendorDetails.products[productIndex].product_ID,
         "vendor_id" 			    : vendorDetails.vendor_id._id,
         "vendorLocation_id"   : vendorDetails.vendorLocation_id,
         "rating"          		: rating,
@@ -325,7 +325,7 @@ const cancelorderbtn = (id,vendor_id) => {
         "refund"              : refund,
         "returnProductImages" : returnProductImages
       }
-      console.log("formValues",formValues);
+      // console.log("formValues",formValues);
       axios.patch('/api/orders/patch/returnproduct',formValues)
       .then(res=>{
         console.log("res",res);
@@ -405,8 +405,8 @@ const cancelorderbtn = (id,vendor_id) => {
                           RNS3
                           .put(file,s3Details)
                           .then((Data)=>{
-                            console.log("Data",Data);
-                            console.log("state",state);
+                            // console.log("Data",Data);
+                            // console.log("state",state);
                             if(state === "Return"){
                               setReturnProductImages([
                                 ...returnProductImages,
@@ -458,6 +458,30 @@ const cancelorderbtn = (id,vendor_id) => {
       setToast({text: 'Something went wrong.', color: 'red'});
       });
   };
+
+
+  const tooltipClone = React.cloneElement(
+    <View style={{width:"100%"}}>
+    { order.vendorOrders && order.vendorOrders.length > 0&&
+    order.vendorOrders.map((vendor, i) => {
+        return (
+          <View style={{paddingVertical:5}}>
+              <Text style={[CommonStyles.label,{color:"#fff"}]}>{vendor.vendor_id.companyName}</Text>
+              <View style={{flexDirection:"row"}}>
+                <Text style={[CommonStyles.text,{color:"#fff"}]}>Delivery Charges : </Text>
+                <Text style={[CommonStyles.text,{color:"#fff",alignSelf:"flex-end"}]}>{vendor.vendor_shippingCharges} {currency}</Text>
+              </View>  
+          </View> 
+        )
+    })  
+    }
+    <View style={{marginTop:30,flexDirection:'row'}}>
+      <Text style={[CommonStyles.label,{color:"#fff"}]}>Total Delivey Charges :</Text>
+      <Text style={[CommonStyles.label,{color:"#fff"}]}>{order?.paymentDetails?.shippingCharges} {currency}</Text>
+    </View>  
+    </View>,
+    { onLayout: (e) => setTooltipSize({ w: e.nativeEvent.layout.width, h: e.nativeEvent.layout.height }) }
+  )
 
     return (
       <React.Fragment>
@@ -579,7 +603,7 @@ const cancelorderbtn = (id,vendor_id) => {
                                     </View>
                                     {labels.indexOf(vendor.deliveryStatus[vendor.deliveryStatus.length - 1].status) >= 3 &&
                                         <View style={[styles.flxdir,{alignItems:"center",marginTop:10,flex:1}]}>
-                                        {pitem.productStatus ==="Return Requested" ?
+                                        {pitem.productStatus?
                                          <View style={{flex:.5}}>
                                          <Text style={[styles.ogprice,]}>{pitem.productStatus}</Text>
                                        </View>
@@ -607,7 +631,7 @@ const cancelorderbtn = (id,vendor_id) => {
                               <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendorName}</Text>
                               <Text style={styles.totaldata}>Total</Text>
                             </View>
-                            <View style={{ flex: 0.4 }}>
+                            <View style={{ flex: 0.35 }}>
                               <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                                 <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                               </View>
@@ -617,7 +641,7 @@ const cancelorderbtn = (id,vendor_id) => {
                             <View style={{ flex: 0.6 }}>
                               <Text style={styles.totaldata}>You Saved </Text>
                             </View> 
-                            <View style={{ flex: 0.4 }}>
+                            <View style={{ flex: 0.35 }}>
                               <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                                 <Text style={styles.totalpriceincart}> - </Text>
                             <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
@@ -628,7 +652,7 @@ const cancelorderbtn = (id,vendor_id) => {
                             <View style={{ flex: 0.6 }}>
                               <Text style={styles.totaldata}>Delivery Charges </Text>
                             </View> 
-                            <View style={{ flex: 0.4 }}>
+                            <View style={{ flex: 0.35 }}>
                               <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_shippingCharges}</Text>
                               </View>
@@ -662,7 +686,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Final Total Amount </Text>
                       </View>
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountTotal.toFixed(2)}</Text>
                         </View>
@@ -672,7 +696,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Total Savings </Text>
                       </View> 
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}> - </Text>
                           <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.discountAmount.toFixed(2)}</Text>
@@ -683,7 +707,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Total Tax  </Text>
                       </View> 
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                       <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.taxAmount.toFixed(2)}</Text>
                         </View>
@@ -693,7 +717,7 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Discount Coupon Amount </Text>
                       </View> 
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                       <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.afterDiscountCouponAmount.toFixed(2)}</Text>
                         </View>
@@ -703,18 +727,28 @@ const cancelorderbtn = (id,vendor_id) => {
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Total Delivery Charges </Text>
                       </View> 
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                       <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.shippingCharges.toFixed(2)}</Text>
                         </View>
                       </View>
+                      <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
+                      <Tooltip 
+                        containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
+                        width={300} 
+                        height={tooltipSize.h + 30}
+                        backgroundColor={colors.theme}
+                        popover={tooltipClone}>
+                          <Icon name="info-circle" type={"font-awesome"} size={11} />
+                        </Tooltip>
+                    </View>  
                     </View>
                     <View style={{borderWidth:0.5,marginVertical:5,borderColor:"#ddd"}} />
                     <View style={styles.flxdata}>
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Grand Total</Text>
                       </View>
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}>{currency} {order.paymentDetails && order.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                         </View>

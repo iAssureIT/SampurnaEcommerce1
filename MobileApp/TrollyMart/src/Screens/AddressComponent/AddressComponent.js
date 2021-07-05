@@ -11,18 +11,11 @@ import {
 } from 'react-native';
 import { Dropdown }                 from 'react-native-material-dropdown-v2';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { TextField }                from 'react-native-material-textfield';
-import { Button, Icon}              from "react-native-elements";
-import {HeaderBar3}                   from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}                       from '../../ScreenComponents/Footer/Footer.js';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors, sizes }            from '../../AppDesigns/currentApp/styles/styles.js';
-import Loading                      from '../../ScreenComponents/Loading/Loading.js';
 import axios                        from "axios";
-import Modal                        from "react-native-modal";
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
-import {setToast, 
-        withCustomerToaster}        from '../../redux/AppState.js';
+import {withCustomerToaster}        from '../../redux/AppState.js';
 import {FormInput}                  from '../../ScreenComponents/FormInput/FormInput';
 import { connect,
         useDispatch,
@@ -35,6 +28,7 @@ import {emailValidator,
 import {Formik}                     from 'formik';
 import {FormButton}                 from '../../ScreenComponents/FormButton/FormButton';
 import PhoneInput                   from "react-native-phone-number-input";
+import { useIsFocused }     from "@react-navigation/native";
 
   const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
@@ -61,8 +55,9 @@ import PhoneInput                   from "react-native-phone-number-input";
     .required('This field is required')
   });
 
-export const AddressComponent = withCustomerToaster((props)=>{
+ const AddressComponent = withCustomerToaster((props)=>{
   const [btnLoading, setLoading] = useState(false);
+  const isFocused = useIsFocused();
     const {setToast,navigation,route} = props; //setToast function bhetta
     const dispatch = useDispatch();
     
@@ -73,6 +68,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
     }));
 
     const {userDetails,location}= store;
+    console.log("store",store);
     const {delivery}=route.params;  
     useEffect(() => {
       var type = 'GOOGLE';
@@ -91,11 +87,11 @@ export const AddressComponent = withCustomerToaster((props)=>{
           setToast({text: 'Something went wrong.', color: 'red'});
         }  
       })
-    },[props]);
+    },[]);
 
       return (
         <React.Fragment>
-          <Formik
+          {isFocused ?<Formik
             onSubmit={(data) => {
               const {addressLine1,fromaddress,contactperson,fromarea,fromPincode,fromcity,fromstate,fromcountry,fromlatlong,mobileNumber,addresstype}=data;
               var formValues = {
@@ -158,7 +154,7 @@ export const AddressComponent = withCustomerToaster((props)=>{
                 {...formProps}
               />
             )}
-          </Formik>
+          </Formik>: null}
         </React.Fragment>
       );
     });
@@ -177,13 +173,8 @@ export const AddressComponent = withCustomerToaster((props)=>{
         googleapikey,
         delivery
       } = props;
-      const [openModal, setModal] = useState(false);
-      const [showPassword, togglePassword] = useState(false);
-      const [image, setImage] = useState({profile_photo: '', image: ''});
       const [value, setValue] = useState("");
-      const [formattedValue, setFormattedValue] = useState("");
       const [valid, setValid] = useState(false);
-      const [showMessage, setShowMessage] = useState(false);
       const phoneInput = useRef(null);
       const ref = useRef();
       const [selection,setSelection] = useState({start:0,end:0});
@@ -212,12 +203,6 @@ export const AddressComponent = withCustomerToaster((props)=>{
   
     return (
       <React.Fragment>
-        {/* <HeaderBar3
-          goBack={navigation.goBack}
-          headerTitle={delivery ? "Delivery Address": 'Add Delivery Address'}
-          navigate={navigation.navigate}
-          // openControlPanel={() => openControlPanel()}
-        /> */}
         <View style={styles.addsuperparent}>
             <ScrollView style={styles.formWrapper} keyboardShouldPersistTaps="handled">
               <View style={{ backgroundColor: '#fff', paddingVertical: 20, paddingHorizontal: 15, marginTop: 15, marginBottom: "5%" }}>
@@ -463,6 +448,22 @@ export const AddressComponent = withCustomerToaster((props)=>{
       </React.Fragment>
     );
   }
+
+  const mapStateToProps = (store)=>{
+    return {
+      userDetails : store.userDetails,
+      location    : store.location
+    }
+  };
+  
+  
+  const mapDispatchToProps = (dispatch)=>{
+    return {
+    }
+  };
+  
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(AddressComponent);
 
   const styles1 = StyleSheet.create({
     containerStyle:{

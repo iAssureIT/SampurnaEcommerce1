@@ -30,7 +30,7 @@ const translateY = diffClamp.interpolate({
   inputRange:[0,120],
   outputRange:[0,-120]
 })
-console.log("diffClamp",diffClamp);
+// console.log("diffClamp",diffClamp);
 const window = Dimensions.get('window');
 const VendorProducts = (props)=>{
   const isFocused = useIsFocused();
@@ -57,7 +57,7 @@ const VendorProducts = (props)=>{
 
   useEffect(() => {
     getData();
- },[props]);
+ },[props,isFocused]);
  
  const getData= async ()=>{
     var user_id = await  AsyncStorage.getItem('user_id') 
@@ -82,7 +82,7 @@ const VendorProducts = (props)=>{
           productList.categoryWiseList[i].availableSizes = availableSizes;
         }
       }
-      console.log("productList.categoryWiseList",productList.categoryWiseList);
+      // console.log("productList.categoryWiseList",productList.categoryWiseList);
       setProductDetails(productList.categoryWiseList);
   }
 
@@ -172,7 +172,7 @@ const onScroll=(e)=>{
             />
             <View style={{flexDirection:"row",marginTop:5,alignItems:'center'}}>
               <View style={{paddingVertical:2,flex:0.7}}>
-                  <Text numberOfLines={1} style={[CommonStyles.label,{paddingHorizontal:5,fontWeight:"bold"}]}>{vendor.vendorName} {isFocused ? 'focused' : 'unfocused'}</Text>
+                  <Text numberOfLines={1} style={[CommonStyles.label,{paddingHorizontal:5,fontWeight:"bold"}]}>{vendor.vendorName}</Text>
               </View> 
               <View style={{justifyContent:"flex-end",flexDirection:'row',flex:0.3}}>
                 <TouchableOpacity style={{width:26,height:24,elevation:1,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:0.5,borderColor:"#f1f1f1"}} onPress={()=>setShowFilters(true)}>
@@ -191,7 +191,7 @@ const onScroll=(e)=>{
            </View> 
             : 
             productList.categoryWiseList && productList.categoryWiseList.length >0 ?
-              <ProductList 
+            isFocused && <ProductList 
                   navigate      = {navigation.navigate} 
                   newProducts   = {productList.categoryWiseList}  
                   userId        = {userId}  

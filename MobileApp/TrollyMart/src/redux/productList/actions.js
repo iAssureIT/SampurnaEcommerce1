@@ -61,7 +61,7 @@ export const getList = (productType,user_id,limit) => {
                 type: SET_LOADING,
                 payload: false,
             });
-            console.log("error getList",error);
+            // console.log("error getList",error);
         })
     };
 };
@@ -73,14 +73,14 @@ export const getCartCount = (user_id) => {
         const store = getState();
         axios.get("/api/carts/get/count/" + user_id)
         .then((response)=>{
-            console.log("response",response);
+            // console.log("response",response);
             dispatch({
                 type: SET_CART_COUNT,
                 payload: response.data,
             });
         })
         .catch((error)=>{
-            console.log("error getList",error);
+            // console.log("error getList",error);
         })
     };
 };
@@ -90,7 +90,7 @@ export const getCartCount = (user_id) => {
 
 
 export const getCategoryWiseList = (payload) => {
-    console.log("payload",payload);
+    // console.log("payload",payload);
     return async (dispatch, getState) => {
         dispatch({
             type: SET_LOADING,
@@ -115,7 +115,7 @@ export const getCategoryWiseList = (payload) => {
         }
             axios.post("/api/products/get/list/lowestprice",payload)
             .then((response)=>{
-                console.log("getCategoryWiseList",response);
+                // console.log("getCategoryWiseList",response);
                 if(payload.scroll && payload.scroll === true){
                     var newList = store.productList.categoryWiseList.concat(response.data);
                     dispatch({
@@ -146,7 +146,7 @@ export const getCategoryWiseList = (payload) => {
                 }
             })
             .catch((error)=>{
-                console.log("error getList1",error);
+                // console.log("error getList1",error);
             })
     };
 };

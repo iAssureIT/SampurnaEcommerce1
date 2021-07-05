@@ -22,6 +22,7 @@ import { connect,
 import {getCartCount } 		              from '../../redux/productList/actions';
 import openSocket               from 'socket.io-client';
 import {REACT_APP_BASE_URL} from '@env'
+import {FormButton}           from '../../ScreenComponents/FormButton/FormButton';
 
 const  socket = openSocket(REACT_APP_BASE_URL,{ transports : ['websocket'] });
 // import {AppEventsLogger} from 'react-native-fbsdk';    
@@ -153,7 +154,6 @@ export const PaymentMethod = withCustomerToaster((props)=>{
         customerShippingTime      : shippingtime,
         orderStatus               : "New"
       }
-      console.log("orderData",orderData);
       socket.emit('postOrder',orderData);
       socket.on("order", (result)=>{
       // axios.post('/api/orders/post', orderData)
@@ -161,7 +161,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
           axios.get('/api/orders/get/one/' + result.order_id)
             .then((res) => {
               dispatch(getCartCount(userID))
-              if (paymentmethods === 'Cash On Delivery') {
+              if (paymentmethods === 'Cash On Delivery' || paymentmethods === 'Card On Delivery') {
 
                 navigation.navigate('OrderDetails', { orderid: res.data._id })
                 setPaymentMethods("Cash On Delivery");
@@ -190,7 +190,6 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                     setBtnLoading(false);
                 })
                 .catch((error) => {
-                    console.log("return to checkout");
                     console.log(error);
                     setBtnLoading(false);
                 })
@@ -285,12 +284,13 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       <Text style={styles.free}>Net Banking</Text>
                     </View>
                   </View> */}
-                  <View style={styles.margTp20}>
-                    <Button
+                  <View style={{padding:15}}>
+                    <FormButton
                       onPress={() => continuepage()}
                       title={"CONFIRM ORDER"}
-                      buttonStyle={styles.button1}
-                      containerStyle={styles.buttonContainer1}
+                      background  = {true}
+                      // buttonStyle={styles.button1}
+                      // containerStyle={styles.buttonContainer1}
                       loading={btnLoading}
                     />
                   </View>

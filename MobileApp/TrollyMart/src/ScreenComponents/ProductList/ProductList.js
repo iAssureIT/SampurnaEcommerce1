@@ -38,7 +38,7 @@ export const ProductList = withCustomerToaster((props)=>{
   // FastImage.preload = (sources: Source[]) =>FastImageViewNativeModule.preload(sources);
   useEffect(() => {
     getData();
-  },[]);
+  },[props.limit,props.newProducts,isFocused]);
   console.log("props.newProducts",props.newProducts);
 
   const store = useSelector(store => ({
@@ -187,23 +187,26 @@ export const ProductList = withCustomerToaster((props)=>{
       }
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
-          // if(type){
+          if(type){
             productsDetails[index].isWish =!productsDetails[index].isWish;
-          // }else{
-          //   if(category_ID){
-          //     var payload ={
-          //       "sectionID"         : section_id,
-          //       "categoryID"        : "",
-          //       "subcategoryID"     : "",
-          //       "limit"             : "",
-          //     } 
-          //     dispatch(getCategoryWiseList(payload));
-          //     // dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
-          //   } 
-          //   if(props.searchText){
-          //     dispatch(getSearchResult(props.searchText,user_id,limit,true));
-          //   } 
-          // }
+            if(type === 'wishlist'){
+              dispatch(getWishList(user_id));
+            }
+          }else{
+            if(category_ID){
+              var payload ={
+                "sectionID"         : section_id,
+                "categoryID"        : "",
+                "subcategoryID"     : "",
+                "limit"             : "",
+              } 
+              dispatch(getCategoryWiseList(payload));
+              // dispatch(getCategoryWiseList(category_ID,user_id ? user_id : null,list_type,section_id));
+            } 
+            if(props.searchText){
+              dispatch(getSearchResult(props.searchText,user_id,limit,true));
+            } 
+          }
           setToast({text: response.data.message, color: 'green'});
         })
         .catch((error) => {
@@ -273,6 +276,7 @@ export const ProductList = withCustomerToaster((props)=>{
                     </View>
                     <View style={{flex:.2}}>
                       <TouchableOpacity 
+                      disabled={props.disabled}
                         onPress={() => vendorLocation_id ?
                           item.vendor_ID ? 
                           addToCart(item._id,item.vendor_ID) 
@@ -284,8 +288,8 @@ export const ProductList = withCustomerToaster((props)=>{
                           :
                           addToCartWish(item._id,item.vendor_id,item.vendorLocation_id,item.vendorName)
                       }
-                      style={{height:25,width:25,borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:colors.cartButton}}>
-                        <Icon name="plus" type="material-community" size={20} color={colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/>
+                      style={{height:25,width:25,borderWidth:1,borderRadius:100,marginRight:15,justifyContent:'center',alignItems:"center",borderColor:props.disabled ? colors.textLight : colors.cartButton}}>
+                        <Icon name="plus" type="material-community" size={20} color={props.disabled ? colors.textLight : colors.cartButton} iconStyle={{alignSelf:'flex-end'}}/>
                       </TouchableOpacity>  
                     </View>  
                   </View>
@@ -383,7 +387,7 @@ export const ProductList = withCustomerToaster((props)=>{
             }
           }}
           // getItemLayout={(data, index) => (
-          //   {length: 500, offset: 500 * index, index}
+          //   {length:200, offset: 200 * index, index}
           // )}
           /> 
       </React.Fragment>

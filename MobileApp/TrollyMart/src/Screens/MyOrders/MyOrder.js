@@ -77,6 +77,13 @@ export const MyOrder = withCustomerToaster((props)=>{
   const {globalSearch}=store;
   useEffect(() => {
     getorderlist();
+    socket.on('getUserOrderList',(response)=>{
+      console.log("response",response);
+      //    axios.get('/api/orders/get/list/' + data[1][1])
+      // .then((response) => {
+      setMyOrders(response);
+      setLoading(false);
+    })
 }, [props,isFocused]);
 
  const getorderlist=()=>{
@@ -84,6 +91,7 @@ export const MyOrder = withCustomerToaster((props)=>{
     socket.emit('room',user_id);
     socket.emit('userOrderList',user_id);
     socket.on('getUserOrderList',(response)=>{
+      console.log("response",response);
       //    axios.get('/api/orders/get/list/' + data[1][1])
       // .then((response) => {
       setMyOrders(response);

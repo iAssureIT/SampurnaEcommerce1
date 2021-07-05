@@ -16,6 +16,7 @@ import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Cartstyles.j
 import { colors } from '../../AppDesigns/currentApp/styles/styles.js';
 import axios from 'axios';
 import Counter from "react-native-counters";
+import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 
 export default class CartComponent extends React.Component {
   constructor(props) {
@@ -340,12 +341,12 @@ export default class CartComponent extends React.Component {
                         <Image
                           source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
                         />
-                        <Button
-                              onPress={() => this.props.navigation.navigate('Dashboard')}
-                              title={"Add Products"}
-                              buttonStyle={styles.buttonshopping}
-                              containerStyle={styles.continueshopping}
-                        />
+                       <FormButton
+                          onPress={() => navigation.navigate('Dashboard')}
+                          // title={"Click Here To Continue Shopping"}
+                          title={"Add Products"}
+                          background={true}
+                      /> 
                       </View>
                     :
                     <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
@@ -427,9 +428,6 @@ export default class CartComponent extends React.Component {
                           </View>
                         </View>
                       </View>
-                      <View style={{ flex: 1, marginTop: 10 }}>
-                        <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                      </View>
                       <View>
                         {this.state.minvalueshipping <= this.state.totaloriginalprice ?
                           <View>
@@ -439,11 +437,6 @@ export default class CartComponent extends React.Component {
                               buttonStyle={styles.button1}
                               containerStyle={styles.buttonContainer1}
                             />
-                            <View style={styles.flxdata}>
-                              <View style={{ flex: 1 }}>
-                                <Text style={styles.purchasep}>100% Purchase Protection | <Text style={styles.freshnsecuretxt}>Secure Payment </Text></Text>
-                              </View>
-                            </View>
                           </View>
                           :
                           <View>

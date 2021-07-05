@@ -69,7 +69,6 @@ import HTML from 'react-native-render-html';
       getData();
   }, [props]);
 
-
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
   }));
@@ -115,7 +114,6 @@ import HTML from 'react-native-render-html';
   const getTerms=()=>{
     axios.get('/api/pages/get/page_block/terms-and-conditions')
     .then(res=>{
-        console.log("res",res);
         setPageBlocks(res.data.pageBlocks)
     })
     .catch(error=>{
@@ -133,7 +131,7 @@ import HTML from 'react-native-render-html';
     const getCartData=(userId)=>{
       axios.get('/api/carts/get/cartproductlist/' + userId)
         .then((response) => {
-          console.log("response",response.data);
+          // console.log("response",response.data);
           setCartData(response.data);
           setLoading(false);
         })
@@ -171,6 +169,7 @@ import HTML from 'react-native-render-html';
       }
       axios.patch('/api/carts/put/coupon',payload)
       .then(res=>{
+        console.log("res",res);
           setToast({text: res.data.message, color:res.data.message === "Coupon Applied Successfully!" ? 'green':colors.warning});
           setCartData(res.data.data);
           setCouponCode('');
@@ -189,9 +188,9 @@ import HTML from 'react-native-render-html';
     // if(creditPointsUsed === 0){
       var payload={
           "user_ID"     : user_id,
-          "creditPointsUsed"  : parseFloat(creditPointsUsed)
+          "creditPointsValueUsed"  : parseFloat(creditPointsUsed)
       }
-      console.log("payload",payload);
+      // console.log("payload",payload);
       axios.patch('/api/carts/redeem/creditpoints',payload)
       .then(res=>{
         console.log("res",res);
@@ -272,14 +271,15 @@ import HTML from 'react-native-render-html';
                     <Text style={styles.mobilenum}>{addDataMobileNumber}</Text>
                   </View>
                   <View style={styles.confirmbtn}>
-                    <TouchableOpacity >
-                      <Button
-                        onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
-                        title={"Change or Add Address"}
-                        buttonStyle={styles.button1}
-                        containerStyle={styles.buttonContainer1}
-                      />
-                    </TouchableOpacity>
+                    <View style={{paddingVertical:15}}>
+                       <FormButton
+                          title={"Change or Add Address"}
+                          onPress={() => navigation.navigate('AddressDefaultComp', {user_id,"delivery":true})}
+                          background  = {true}
+                          // loading     = {btnLoading}
+                          // disabled       = {!disabled}
+                        />
+                    </View>
                   </View>
                 </View>
 
@@ -438,9 +438,7 @@ import HTML from 'react-native-render-html';
                         </View>
                       </View>
                     </View>
-                    {/* <View style={{ flex: 1, marginTop: 10 }}>
-                      <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                    </View> */}
+                   
                     <View>
                     </View>
                      </View>
@@ -484,10 +482,11 @@ import HTML from 'react-native-render-html';
                       </View>
                     </View>
                   </View>
-                    {cartData.paymentDetails.afterDiscountCouponAmount === 0 && cartData.paymentDetails.creditPointsUsed === 0?
+                    {cartData.paymentDetails.afterDiscountCouponAmount === 0 &&  cartData.paymentDetails.creditPointsUsed === 0?
                       <View style={{flex:1,flexDirection:"row",marginTop:15,height:50}}>
                         <View style={{flex:.7}}>
                           <Input
+                            // label                 = "Enter promotional code"
                             placeholder           = "Enter promotional code"
                             onChangeText          = {(text)=>setCouponCode(text)}
                             autoCapitalize        = "none"
@@ -501,7 +500,8 @@ import HTML from 'react-native-render-html';
                             value                 = {couponCode}
                           />
                         </View>  
-                        <View style={{flex:.3}}>
+                        <View style={{flex:.3,marginTop:10}}>
+                        
                           <FormButton 
                             onPress    = {()=>applyCoupen()}
                             title       = {'Apply'}
@@ -532,7 +532,7 @@ import HTML from 'react-native-render-html';
                         <View style={{flex:1,flexDirection:"row",height:50}}>
                           <View style={{flex:.7}}>
                             <Input
-                              placeholder           = "Enter credit points..."
+                              placeholder           = "Enter credit value..."
                               onChangeText          = {(text)=>onCheckLimit(text)}
                               autoCapitalize        = "none"
                               keyboardType          = "email-address"
@@ -546,7 +546,7 @@ import HTML from 'react-native-render-html';
                               keyboardType          = 'numeric'
                             />
                           </View>  
-                          <View style={{flex:.3}}>
+                          <View style={{flex:.3,marginTop:10}}>
                             <FormButton 
                               onPress    = {()=>redeemPoints()}
                               title       = {'Apply'}
@@ -559,15 +559,15 @@ import HTML from 'react-native-render-html';
                       cartData.paymentDetails.creditPointsUsed > 0 &&<SafeAreaView>
                       <View style={styles.flxdata}>
                         <View style={{ flex: 0.6 }}>
-                          <Text style={styles.totaldata}>Redeem Points  </Text>
+                          <Text style={styles.totaldata}>Redeem Value  </Text>
                         </View> 
-                        <View style={{ flex: 0.4 }}>
+                        <View style={{ flex: 0.35 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                             <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.creditPointsUsed.toFixed(2)}</Text>
+                             <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.creditPointsValueUsed.toFixed(2)}</Text>
                           </View>
                         </View>
                       </View>
-                      <Text style={[styles.totaldata,{color:"red",alignSelf:"flex-end",paddingBottom:5}]} onPress={()=>getCartData(user_id)}>Remove Points</Text>
+                      <Text style={[styles.totaldata,{color:"red",alignSelf:"flex-end",paddingBottom:5}]} onPress={()=>getCartData(user_id)}>Remove Value</Text>
                       </SafeAreaView>
                     }
                      <View style={styles.flxdata}>
@@ -595,7 +595,7 @@ import HTML from 'react-native-render-html';
                         <View style={{ flex: 0.6 }}>
                           <Text style={styles.totaldata}>Grand Total</Text>
                         </View>
-                        <View style={{ flex: 0.4 }}>
+                        <View style={{ flex: 0.35 }}>
                           <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                             <Text style={styles.totalpriceincart}>{currency} {cartData.paymentDetails.netPayableAmount && cartData.paymentDetails.netPayableAmount.toFixed(2)}</Text>
                           </View>
@@ -612,22 +612,16 @@ import HTML from 'react-native-render-html';
                           />
                           <Text style={styles.free}>I agree to <Text style={[CommonStyles.linkText,{fontSize:12}]}  onPress={()=>setModal(true)}>Terms & conditions</Text></Text>
                         </View>
-                        <TouchableOpacity >
-                          <Button
+                        <View >
+                          <FormButton
+                            title          = {"PROCEED TO BUY"}
                             onPress={() => paymentMethodsPage()}
-                            title={"PROCEED TO BUY"}
-                            buttonStyle={styles.button1}
-                            containerStyle={styles.buttonContainer1}
-                            disabled={!checked}
+                            background  = {true}
+                            // loading     = {btnLoading}
+                            // disabled       = {!disabled}
                           />
-                        </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={{ flex: 1, marginBottom: 30 }}>
-                      <Text style={styles.securetxt}>Safe & Secure Payments | 100% Authentic Products</Text>
-                    </View>
-                      {/* <View style={{ flex: 1, marginTop: 10,justifyContent:"center" }}>
-                        <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                      </View> */}
                     <View>
                   </View>
                 </View>
@@ -638,7 +632,6 @@ import HTML from 'react-native-render-html';
             </View>
           </View>
         </ScrollView>
-       
       </View>
       <Modal isVisible={modal}
           onBackdropPress={() => setModal(false)}
@@ -647,7 +640,10 @@ import HTML from 'react-native-render-html';
           hideModalContentWhileAnimating={true}
           style={{ zIndex: 999 }}
           animationOutTiming={500}>
-          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10}}>
+          <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingBottom: 30, paddingHorizontal: 10}}>
+          <TouchableOpacity style={{flexDirection:"row",justifyContent:"flex-end"}} onPress={()=>setModal(false)}>
+                <Icon name="close" type="material-community" size={20} color={colors.red} />
+            </TouchableOpacity>  
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                 {
                     pageBlockes && pageBlockes.length>0?

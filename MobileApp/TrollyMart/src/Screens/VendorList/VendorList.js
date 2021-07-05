@@ -1,11 +1,11 @@
 import React ,{useState,useEffect} from 'react';
 import {
   Text, View, 
-  TouchableOpacity, Image, FlatList, Alert,SafeAreaView,RefreshControl
+  TouchableOpacity,
+  FlatList,
 } from 'react-native';
-// import DropDownPicker from 'react-native-dropdown-picker';
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
-import { Card }   from "react-native-elements";
+import { Card }                 from "react-native-elements";
 import axios                    from 'axios';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
 import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
@@ -14,20 +14,17 @@ import {
         useDispatch,
         useSelector }           from 'react-redux';
 import { ActivityIndicator }    from 'react-native-paper';
-import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {MenuCarouselSection}    from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import { ScrollView }           from 'react-native';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {STOP_SCROLL}            from '../../redux/productList/types';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
-import { ImageBackground } from 'react-native';
+import { ImageBackground }      from 'react-native';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 export const VendorList = withCustomerToaster((props)=>{
     const [loading,setLoading] =useState(true);
-    const [value,setValue] =useState('lowestprice');
     const section = props.route.params?.section;
     const sectionUrl = props.route.params?.sectionUrl;
     const [limit,setLimit] = useState(0);
@@ -41,6 +38,7 @@ export const VendorList = withCustomerToaster((props)=>{
       }));
     const {globalSearch} =store;
     const {navigation} =props;
+
     useEffect(() => {
         setLoading(true);
         getData();
@@ -54,13 +52,12 @@ export const VendorList = withCustomerToaster((props)=>{
         var startRange = 0+limit;
         var limitRange = limit +10;
        var formValues =  {
-        "startRange" : 0,
-        "limitRange" : 10,
-        "sectionUrl" : sectionUrl,
-        "latitude"   : store.location?.address?.latlong?.lat,
-        "longitude"  : store.location?.address?.latlong?.lng
-    }
-    console.log("formValues",formValues);
+            "startRange" : 0,
+            "limitRange" : 10,
+            "sectionUrl" : sectionUrl,
+            "latitude"   : store.location?.address?.latlong?.lat,
+            "longitude"  : store.location?.address?.latlong?.lng
+        }
         axios.post('/api/vendorlist/post/vendor/list',formValues)
         .then(res=>{
             setLoading(false);
@@ -73,7 +70,7 @@ export const VendorList = withCustomerToaster((props)=>{
         })
         .catch(err=>{
             setLoading(false);
-            console.log("err",err)
+            // console.log("err",err)
         })
     }
 
@@ -113,20 +110,12 @@ export const VendorList = withCustomerToaster((props)=>{
 
     return (
         <View style={{flex:1,backgroundColor:"#fff"}}>
-            {/* <HeaderBar3
-                goBack={navigation.goBack}
-                navigate={navigation.navigate}
-                headerTitle={"Vendor List"}
-                toggle={() => toggle()}
-                openControlPanel={() => openControlPanel()}
-            /> */}
             {globalSearch.search ?
             <SearchSuggetion />
             :
-            <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
+            <View style={[styles.container]} keyboardShouldPersistTaps="handled" >
                 <MenuCarouselSection
                     navigation  = {navigation} 
-                    type        = {value}
                     showImage   = {true}
                     selected    = {section}
                     boxHeight   = {40}
@@ -142,20 +131,20 @@ export const VendorList = withCustomerToaster((props)=>{
                         showsVerticalScrollIndicator  = {false}
                         renderItem                    = {_renderlist} 
                         nestedScrollEnabled           = {true}
-                        // numColumns                    = {2}
-                        //   keyExtractor                  = {item => item._id.toString()}
-                        // nestedScrollEnabled
+                        // keyExtractor                  = {item => item._id.toString()}
                         initialNumToRender            = {6}
                         ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
                         onEndReachedThreshold         = {0.01}
                         onEndReached={({ distanceFromEnd }) => {
                             if(distanceFromEnd >= 0 && limit > 6) {
                                 getData();
-                                //Call pagination function
                             }
                         }}
-                        // onEndReached                  = {()=>{limit > 6 && onEnd()}}
-                        // onScroll                      = {()=>{limit > 6 && onEnd()}}       
+                        getItemLayout={(data, index) => ({
+                            length: 65, 
+                            offset: 65 * index, 
+                        index
+                        })}
                         // refreshControl={
                         //     <RefreshControl
                         //     //   refreshing={refresh}
@@ -168,11 +157,8 @@ export const VendorList = withCustomerToaster((props)=>{
                         <Text style={CommonStyles.noDataFound}>No Vendor Found</Text>
                     </View>    
             }
-                {/* <View style={{height:100,backgroundColor:"#ff0",flex:.5}}>
-                    </View>*/}
-                </View>
-        </ScrollView>}
-        
+             </View>
+        </View>}
         </View>
     );
 })

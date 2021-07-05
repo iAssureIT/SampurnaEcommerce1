@@ -322,7 +322,6 @@ export default StyleSheet.create({
     backgroundColor:'#fff',
     marginTop:10,marginBottom:15,
     borderRadius:15,
-    
   },
   addcmporder:{
     backgroundColor:'#fff',marginTop:10,marginBottom:15,

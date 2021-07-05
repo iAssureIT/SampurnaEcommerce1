@@ -23,6 +23,7 @@ import AsyncStorage               from '@react-native-async-storage/async-storag
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 
 export const CartComponent = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
@@ -346,7 +347,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata}>Sub Total</Text>
                       </View>
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_beforeDiscountTotal && vendor.vendor_beforeDiscountTotal.toFixed(2)}</Text>
                         </View>
@@ -356,7 +357,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>You Saved </Text>
                       </View> 
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}> - </Text>
                       <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_discountAmount > 1 ? vendor.vendor_discountAmount.toFixed(2) : 0.00}</Text>
@@ -368,7 +369,7 @@ const getshippingamount=(startRange, limitRange)=>{
                         {/* <Text numberOfLines={1} style={styles.totaldata}>{vendor.vendor_id.companyName} </Text> */}
                         <Text style={styles.totaldata}>Total Amount</Text>
                       </View>
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                           <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_afterDiscountTotal && vendor.vendor_afterDiscountTotal.toFixed(2)}</Text>
                         </View>
@@ -378,7 +379,7 @@ const getshippingamount=(startRange, limitRange)=>{
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>VAT</Text>
                       </View> 
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                       <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_taxAmount.toFixed(2)}</Text>
                         </View>
@@ -389,15 +390,12 @@ const getshippingamount=(startRange, limitRange)=>{
                       <View style={{ flex: 0.6 }}>
                         <Text style={styles.totaldata}>Totals</Text>
                       </View> 
-                      <View style={{ flex: 0.4 }}>
+                      <View style={{ flex: 0.35 }}>
                         <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
                       <Text style={styles.totalpriceincart}>{currency} {vendor.vendor_netPayableAmount.toFixed(2)}</Text>
                         </View>
                       </View>
                     </View>
-                    {/* <View style={{ flex: 1, marginTop: 10 }}>
-                      <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                    </View> */}
                     <View>
                       {cartData.minOrderAmount <= vendor.vendor_afterDiscountTotal ?
                         null
@@ -478,24 +476,25 @@ const getshippingamount=(startRange, limitRange)=>{
                       </View>
                     </View>
                   </View>
-                  <View style={{ flex: 1, marginTop: 10 }}>
-                    <Text style={styles.totalsubtxt}>Part of your order qualifies for Free Delivery </Text>
-                  </View>
                   <View>
-                      <View>
-                        <Button
+                  <View style={{paddingVertical:15}}>
+                      {/* <View>
+                        <FormButton
                           onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
                           title          = {"PROCEED TO CHECKOUT"}
                           buttonStyle    = {styles.button1}
                           containerStyle = {styles.buttonContainer1}
                           disabled       = {!disabled}
                         />
-                        <View style={styles.flxdata}>
-                          <View style={{ flex: 1 }}>
-                            <Text style={styles.purchasep}>100% Purchase Protection | <Text style={styles.freshnsecuretxt}>Secure Payment </Text></Text>
-                          </View>
-                        </View>
-                      </View>
+                      </View> */}
+                      <FormButton
+                           title          = {"PROCEED TO CHECKOUT"}
+                          onPress        = {() => navigation.navigate('AddressDefaultComp', {user_id:userId,"delivery":true})}
+                          background  = {true}
+                          // loading     = {btnLoading}
+                          disabled       = {!disabled}
+                        />
+                    </View>
                   </View>
                 </View>
           </View>
@@ -504,12 +503,14 @@ const getshippingamount=(startRange, limitRange)=>{
             <Image
               source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
             />
-            <Button
+            <View style={{}}>
+              <FormButton
                   onPress={() => navigation.navigate('Dashboard')}
+                  // title={"Click Here To Continue Shopping"}
                   title={"Add Products"}
-                  buttonStyle={styles.buttonshopping}
-                  containerStyle={styles.continueshopping}
-            />
+                  background={true}
+              /> 
+           </View>   
           </View>   
         }
         </View>

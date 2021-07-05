@@ -20,7 +20,7 @@ export const getWishList= (user_id) => {
         "userLat"             : store.location?.address?.latlong?.lat, 
         "userLong"            : store.location?.address?.latlong?.lng
     }
-    console.log("payload",payload);
+    // console.log("payload",payload);
         axios.post('/api/wishlist/get/userwishlist',payload)
         .then((response)=>{
             console.log("response",response);
@@ -30,9 +30,13 @@ export const getWishList= (user_id) => {
                     wishList : response.data
                 },
             });
+            dispatch({
+                type: SET_LOADING,
+                payload: false,
+            });
         })
         .catch((error)=>{
-            console.log("error getWishList",error);
+            // console.log("error getWishList",error);
             // setToast({text: 'Something went wrong.', color: 'red'});
         })
     };

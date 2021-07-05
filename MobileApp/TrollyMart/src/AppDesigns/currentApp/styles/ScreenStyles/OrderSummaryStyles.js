@@ -605,7 +605,7 @@ superparent:{
   
     },
     containerStyle:{
-      borderWidth:1,
+      borderBottomWidth:1,
       borderRadius:3,
       // marginVertical:5,
       borderColor:"#ccc",

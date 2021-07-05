@@ -1,7 +1,6 @@
 import React, { useState,useEffect,useRef } from 'react';
 import {Text,View,
       TouchableOpacity,
-      Dimensions,
       Image,
       FlatList
     }                           from 'react-native';
@@ -13,8 +12,8 @@ import { colors }               from '../../AppDesigns/currentApp/styles/styles.
 import { ScrollView }           from "react-native-gesture-handler";
 import {SET_CATEGORY_LIST,
        SET_CATEGORY_WISE_LIST}  from '../../redux/productList/types';
-import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-
+import commonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {useRoute} from '@react-navigation/native';
 
 export const MenuCarouselSection = (props)=>{
   const {navigation,showImage,boxHeight}=props;
@@ -22,20 +21,19 @@ export const MenuCarouselSection = (props)=>{
   const [selected,setSelected]=useState();
   const dispatch 		= useDispatch();
   const refContainer = useRef(0);
-  const [index,setIndex]=useState(0);
+  const route = useRoute();
+  console.log("route.name",route.name);
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
   const section = useSelector(store => store.section.sections)
   useEffect(() => {
    setSelected(props.selected);
-   if(props.index){
-    setIndex(props.index)
-   }
-   
   },[props.selected,props.index]);
-  if(refContainer.current){
-    refContainer.current.scrollToIndex({ animated: true, index: props.index });
-  }   
-  const xOffset = new Animated.Value(0); 
+
+  // if(refContainer.current){
+  //   refContainer.current.scrollToIndex({ animated: true, index: props.index });
+  // }   
+  
+  // const xOffset = new Animated.Value(0); 
   const _renderlist = ({ item, index })=>{
     return (
       <View key={index} style={styles.mainrightside}>
@@ -43,23 +41,24 @@ export const MenuCarouselSection = (props)=>{
           onPress={()=>{
               setSelected(item.section);
               navigation.navigate("VendorList",{
-                  sectionUrl  : item.sectionUrl,
-                  section     : item.section,
-                  type        : props.type,
-                  index       : index
-              });  
-              dispatch({
-                type     : SET_CATEGORY_LIST,
-                payload  : [],
-              });
-              dispatch({
-                type     : SET_CATEGORY_WISE_LIST,
-                payload  : [],
-              });
+                sectionUrl  : item.sectionUrl,
+                section     : item.section,
+                type        : props.type,
+                index       : index
+            });  
+            if(route.name === "VendorList"){
+                dispatch({
+                  type     : SET_CATEGORY_LIST,
+                  payload  : [],
+                });
+                dispatch({
+                  type     : SET_CATEGORY_WISE_LIST,
+                  payload  : [],
+                });
+            }
           }}>
           {showImage ?
               item.sectionImage?<Image 
-                onPress={()=>navigation.navigate('VendorList',{section_id:item._id})} 
                 source={item.sectionImage ? {uri : item.sectionImage}:noImage} 
                 style={[styles.sectionImages,{height:boxHeight}]} 
                 resizeMode={'cover'}
@@ -78,7 +77,6 @@ export const MenuCarouselSection = (props)=>{
   }
   return (
     <View>
-      {/* <Text style={styles.title}>List of Sections</Text> */}
         <View style={styles.proddets}>
           {section && section.length > 0 ?
             <FlatList
@@ -91,11 +89,13 @@ export const MenuCarouselSection = (props)=>{
               renderItem={item => _renderlist(item)}
               keyExtractor={(item, index) => item._id.toString()}
               showsHorizontalScrollIndicator={false}
-              ref={(node) => scroll = node}
+              // ref={(node) => scroll = node}
               // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
-              // getItemLayout={(data, index) => (
-              //   {length: 500, offset: 500 * index, index}
-              // )}
+              getItemLayout={(data, index) => ({
+                  length: boxHeight, 
+                  offset: boxHeight * index, 
+                  index
+                })}
           />:[]} 
         </View>
     </View>

@@ -54,17 +54,17 @@ io.on('connection', (client) => {
         })
     }
 
-    client.on('changevendororderstatus', (payload) => {
-        axios.patch('http://localhost:'+globalVariable.port+'/api/orders/changevendororderstatus',payload)
-        .then(response=>{
-            io.sockets.emit('changeStatus', response.data);
-            getUserOrderList(payload.order_user_id);
-            getAdminOrderList(adminOrtderListValues);
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-    });
+    // client.on('changevendororderstatus', (payload) => {
+    //     axios.patch('http://localhost:'+globalVariable.port+'/api/orders/changevendororderstatus',payload)
+    //     .then(response=>{
+    //         io.sockets.emit('changeStatus', response.data);
+    //         getUserOrderList(payload.order_user_id);
+    //         getAdminOrderList(adminOrtderListValues);
+    //     })
+    //     .catch(err=>{
+    //         console.log(err)
+    //     })
+    // });
 
     client.on('changevendororderstatus', (payload) => {
         axios.patch('http://localhost:'+globalVariable.port+'/api/orders/changevendororderstatus',payload)
@@ -72,6 +72,7 @@ io.on('connection', (client) => {
             io.sockets.emit('changeStatus', response.data);
             getUserOrderList(payload.order_user_id);
             getSingleOrder(payload.order_id);
+            getAdminOrderList(adminOrtderListValues);
         })
         .catch(err=>{
             console.log(err)

@@ -17,7 +17,7 @@ export const FormButton = props => {
 
 const styles = StyleSheet.create({
   containerStyle:{
-    width :'95%',
+    width :'100%',
     alignSelf:"center",
     // marginVertical:15,
   },

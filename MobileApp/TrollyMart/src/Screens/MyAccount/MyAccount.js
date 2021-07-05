@@ -22,10 +22,13 @@ import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { connect,
     useDispatch,
     useSelector }    from 'react-redux';
+import {USER_LOGOUT} from '../../redux/store';
+
 
 // export default class AccountDashboard extends React.Component{
 export const MyAccount =(props)=>{
   const {navigation}=props;
+  const dispatch = useDispatch();
   const store = useSelector(store => ({
     userDetails  : store.userDetails,
   }));
@@ -35,8 +38,10 @@ export const MyAccount =(props)=>{
     AsyncStorage.removeItem('user_id');
     AsyncStorage.removeItem('token');
     AsyncStorage.removeItem('location');
+    dispatch({type: USER_LOGOUT});
     // navigation.closeDrawer();
     navigation.navigate('Auth');
+    
   };
   
   return (

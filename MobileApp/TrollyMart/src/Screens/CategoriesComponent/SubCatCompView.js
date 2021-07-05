@@ -44,13 +44,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const dispatch 		= useDispatch();
   const isFocused = useIsFocused();
   const {navigation,route,setToast} =props;
-  const {productID,currency,vendorLocation_id,location,index}=route.params;
+  const {productID,currency,vendorLocation_id,index}=route.params;
 
 
   const store = useSelector(store => ({
-    productList : store.productList,
+    location:store.location
   }));
-  const {productList,userDetails,brandList,payload,globalSearch} = store;
+  const {location} = store;
 
   useEffect(() => {
     setLoading(true);
@@ -71,6 +71,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
       const wishValues = {
         "user_ID": user_id,
         "product_ID": productid,
+        "userDelLocation"   : {
+          "lat"               : location?.address?.latlong?.lat, 
+          "long"              : location?.address?.latlong?.lng,
+          "delLocation"       : location?.address?.addressLine2
+        },
+        "vendor_id"          : vendor_ID,
+        "vendorLocation_id"  : vendorLocation_id,
       }
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
@@ -124,6 +131,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const getProductReview=(productID)=>{
     axios.get("/api/customerReview/get/list/"+productID)
       .then((response) => {
+        console.log("response",response);
+        console.log("response",response);
         setProductReview(response.data);
         setLoading(false);
       })

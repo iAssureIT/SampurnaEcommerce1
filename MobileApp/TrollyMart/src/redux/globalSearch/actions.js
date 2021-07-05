@@ -51,7 +51,7 @@ export const getSearchResult = (searchText,user_id,limit,scroll) => {
             });
         })
         .catch((error) => {
-            console.log("error",error);
+            // console.log("error",error);
             dispatch({
                 type: SET_LOADING,
                 payload: false,
@@ -75,7 +75,7 @@ export const getSuggestion = (payload) => {
             });
         })
         .catch((error) => {
-            console.log("error",error);
+            // console.log("error",error);
             dispatch({
                 type: SET_LOADING,
                 payload: false,

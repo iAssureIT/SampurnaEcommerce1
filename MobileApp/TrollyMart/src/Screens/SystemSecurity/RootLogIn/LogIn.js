@@ -128,7 +128,7 @@ const window = Dimensions.get('window');
                   }
                 })
                 .catch((error) => {
-                  console.log("error",error);
+                  // console.log("error",error);
                   setLoading(false);
                   setToast({text: 'Something went wrong.', color: 'red'});
                 });
@@ -307,7 +307,7 @@ const window = Dimensions.get('window');
         }
       })
       .catch((error) => {
-        console.log("error",error);
+        // console.log("error",error);
         setLoading(false);
         setToast({text: 'Something went wrong.', color: 'red'});
       })
@@ -369,7 +369,7 @@ const window = Dimensions.get('window');
         }
       })
       .catch((error) => {
-        console.log("error",error);
+        // console.log("error",error);
         setLoading(false);
         setToast({text: 'Something went wrong.', color: 'red'});
       })

@@ -46,7 +46,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
       setLoading(false);
       axios.get('/api/creditpoints/get/'+data[1][1])
       .then((res) => {
-            console.log("res",res)
+            // console.log("res",res)
             setCreditPoints(res.data);
       })
       .catch((error) => {

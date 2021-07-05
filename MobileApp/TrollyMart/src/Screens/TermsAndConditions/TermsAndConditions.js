@@ -39,7 +39,7 @@ export const TermsAndConditions  = (props)=>{
     const getData=()=>{
         Axios.get('/api/pages/get/page_block/terms-and-conditions')
         .then(res=>{
-            console.log("res",res);
+            // console.log("res",res);
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)
         })

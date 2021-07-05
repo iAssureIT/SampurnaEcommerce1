@@ -24,7 +24,7 @@ import {SubCatCompView}           from'../Screens/CategoriesComponent/SubCatComp
 import {CartComponent}            from '../Screens/CartComponent/CartComponent.js';
 // import ConfirmOrderComponent      from '../Screens/ConfirmOrderComponent/ConfirmOrderComponent.js';
 import {AddressDefaultComp}       from '../Screens/AddressComponent/AddressDefaultComp.js';
-import {AddressComponent}         from '../Screens/AddressComponent/AddressComponent.js';
+import AddressComponent         from '../Screens/AddressComponent/AddressComponent.js';
 import AddressComponentforaddress from '../Screens/AddressComponent/AddressComponentforaddressmenu.js';
 import AddressMenu                from'../Screens/AddressComponent/AddressMenu.js';
 import {WishlistComponent}        from'../Screens/WishlistComponent/WishlistComponent.js';
@@ -38,7 +38,7 @@ import {OrderDetails}             from '../Screens/MyOrders/OrderDetails.js';
 import {AccountDashboard}         from '../Screens/AccountDashboard/AccountDashboard.js';
 import {MyAccount}                from '../Screens/MyAccount/MyAccount.js';
 import {AccountInformation}       from'../Screens/AccountDashboard/AccountInformation.js';
-import ResetPwd                   from'../Screens/AccountDashboard/ResetPwd.js';
+import {ResetPwd}                   from'../Screens/AccountDashboard/ResetPwd.js';
 import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
 import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
 import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';

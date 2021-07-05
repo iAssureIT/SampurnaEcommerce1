@@ -84,7 +84,7 @@ const window = Dimensions.get('window');
                   username    : "MOBILE",
                   isdCode     : callingCode
                 }
-                console.log("formValues",formValues); 
+                // console.log("formValues",formValues); 
                 axios.post('/api/auth/post/signup/user/otp',formValues)
                 .then((response) => {
                   setLoading(false)
@@ -112,7 +112,7 @@ const window = Dimensions.get('window');
                   }
                 })
                 .catch((error) => {
-                  console.log("error",error);
+                  // console.log("error",error);
                   setLoading(false);
                   setToast({text: 'Something went wrong.', color: 'red'});
                 })
@@ -180,10 +180,6 @@ const window = Dimensions.get('window');
         }
       }
   }
-
-  const getCountryCode=(e)=>{
-      console.log("e",e);
-  } 
 
   return (
       //  <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
@@ -258,7 +254,7 @@ const window = Dimensions.get('window');
                           const checkValid = phoneInput.current?.isValidNumber(text);
                           const callingCode = phoneInput.current?.getCallingCode(text);
                           const countryCode = phoneInput.current?.getCountryCode(text);
-                          console.log("callingCode",callingCode);
+                          // console.log("callingCode",callingCode);
                           var mobileNumber = text;
                           setValue(text);
                           setFieldValue('mobileNumber',mobileNumber)

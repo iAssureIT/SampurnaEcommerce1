@@ -28,7 +28,7 @@ import { DrawerActions } from '@react-navigation/native';
 import { useNavigation }      from '@react-navigation/native';
 
   const HeaderBars2=(props)=>{
-    console.log("props",props);
+    // console.log("props",props);
     const [searchText,useSearchText] = useState('');
     const [inAppNotificationsCount,setInAppNotifyCount] = useState(0);
     const [user_id,setUserId] = useState('');
