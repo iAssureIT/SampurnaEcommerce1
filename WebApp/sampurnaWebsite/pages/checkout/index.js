@@ -792,7 +792,6 @@ class Checkout extends Component {
                     {/*<SmallBanner bannerData={this.state.bannerData} />*/}
 
                     <div className={"col-12 " +Style.cartTitle}>Order Summary</div>
-
                     {this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length>0?
                     <div className="container-fluid">
                         <form className="col-12 " id="checkout">
@@ -802,19 +801,16 @@ class Checkout extends Component {
                                     <div className={"col-12 NoPadding " +Style.paymentMethod}>
                                         <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>PAYMENT METHOD <span className="required">*</span></div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
-                                            {/* <input name="payMethod" ref="payMethod" type="radio" value={this.state.payMethod} className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" checked="true" /> */}
                                             <input name="paymentmethods" type="radio" value="cod" className="webModelInput codRadio col-2 col-md-1"
                                                 checked={this.state.paymentmethods === "cod"} onClick={this.handleChange.bind(this)} />
                                             <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Cash On Delivery</span>
                                         </div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
-                                            {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
                                             <input name="paymentmethods" type="radio" value="onlinePayment" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "onlinePayment"} onClick={this.handleChange.bind(this)} />
                                             <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Credit / Debit Card</span>
                                         </div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
-                                            {/* <input value={this.state.payMethod} onChange={this.creditndebit}  name="payMethod" type="radio" value="Credit Card Direct Post" className="col-lg-1 col-md-1 col-sm-2 col-xs-2 codRadio" /> */}
-                                            <input name="paymentmethods" type="radio" value="cardOnDelivery" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "cardOnDel"} onClick={this.handleChange.bind(this)} />
+                                            <input name="paymentmethods" type="radio" value="cardOnDelivery" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "cardOnDelivery"} onClick={this.handleChange.bind(this)} />
                                             <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Card On Delivery</span>
                                         </div>
                                         <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
@@ -850,7 +846,6 @@ class Checkout extends Component {
                                                                         })
 
                                                                         let fields = this.state.fields;
-                                                                        console.log("event.target.value===",e.target.value);
                                                                         fields[e.target.name] = "checkoutAddess";
                                                                         this.setState({
                                                                         fields
@@ -863,12 +858,6 @@ class Checkout extends Component {
                                                                     <span className={" " +Style.checkoutADDCss}>{data.addressLine2}, {data.addressLine1},
                                                                     Mobile: {data.mobileNumber}</span></div>
                                                                 </div>
-                                                                {/* { data.distance >=1?
-                                                                    <div className="errorMsg col-12">
-                                                                        <div className="errorMsg col-12">This address is out of delivery.</div>
-                                                                    </div>
-                                                                 :null
-                                                                 }  */}
                                                             </div>
                                                         );
                                                     })

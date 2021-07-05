@@ -250,11 +250,12 @@ class ProductDetailView extends Component {
                 {this.state.productData?
 							<div className="col-12">
 								<div className="row">
-								{this.state.productData.brandNameRlang?
+								{/* {this.state.productData.brandNameRlang?
 									<div className={"col-12 globalProduct_brand RegionalFont NoPadding productDetailsMB "} title={this.state.productData.brandNameRlang}>{this.state.productData.brandNameRlang}</div>
 									:
 									<div className={"col-12 globalProduct_brand NoPadding productDetailsMB"} title={this.state.productData.brand}>{this.state.productData.brand}</div>
-								}
+								} */}
+								<div className={"col-12 globalProduct_brand NoPadding productDetailsMB"} title={this.state.productData.brand}>{this.state.productData.brand}</div>
 								{this.state.productData.productNameRlang?
 									<div className={"col-12 globalProductItemName NoPadding productDetailsMB" } title={this.state.productData.productNameRlang}>
 										<span className={" RegionalFont ellipsis globalProdName productNameClassNew"}>{this.state.productData.productNameRlang} </span>&nbsp;    

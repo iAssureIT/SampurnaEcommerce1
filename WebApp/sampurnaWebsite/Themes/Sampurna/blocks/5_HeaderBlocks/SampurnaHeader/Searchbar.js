@@ -14,8 +14,6 @@ import {
   faGoogle,
 } from '@fortawesome/free-brands-svg-icons';
 
-import {faSearch} from '@fortawesome/free-regular-svg-icons';
-
 library.add(
   faGoogle,
 );

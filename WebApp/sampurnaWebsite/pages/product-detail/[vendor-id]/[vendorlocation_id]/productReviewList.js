@@ -92,7 +92,7 @@ class ProductreviewList extends Component {
                 this.state.reviewData && this.state.reviewData.length > 0 ?
                   this.state.reviewData.map((data, index) => {
 
-                    console.log("data==",data);
+                    // console.log("data==",data);
                     return (
                       <div key={index} className="col-12 reviewBox">
                         <div className="row">
@@ -121,8 +121,8 @@ class ProductreviewList extends Component {
                       </div>
                     );
                   })
-                  :
-                  <div className="col-12 mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Reviews Yet</div>
+                  :null
+                  // <div className="col-12 mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  No Reviews Yet</div>
               }
          </div> 
         </div>

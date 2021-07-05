@@ -425,7 +425,7 @@ class ProductsView extends Component {
                                     {this.props.orderStatus === "Delivered"?
                                         <span>
                                             {productdata.isReview?
-                                              <div className={" "+Style.returnReviewBtn}  productId={productdata._id} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Edit Review</div>
+                                              <div className={" "+Style.returnReviewBtn}  productId={productdata._id} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata.product_ID}>Edit Review</div>
                                               :
                                               <div className={" "+Style.returnReviewBtn}  productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Add Review</div>
                                             }

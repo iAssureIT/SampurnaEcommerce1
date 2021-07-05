@@ -2,20 +2,12 @@ import React, { Component } from 'react';
 import axios                from 'axios';
 import $, { data, event }                    from 'jquery';
 import moment               from "moment";
-import { FaStar }           from 'react-icons/fa';
 import                      'bootstrap/dist/css/bootstrap.min.css';
-// import Header               from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Header.js';
-// import Footer               from '../../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import SmallBanner          from '../../Themes/Sampurna/blocks/StaticBlocks/SmallBanner/SmallBanner.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
-// import Sidebar              from '../../Themes/Sampurna/blocks/StaticBlocks/Sidebar/Sidebar.js';
-import Address              from '../../Themes/Sampurna/blocks/StaticBlocks/Address/Address.js';
-import BreadCrumbs          from '../../Themes/Sampurna/blocks/StaticBlocks/BreadCrumbs/BreadCrumbs.js';
 import ReturnStatus         from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/ReturnStatus.jsx';
 import StepWizard           from '../../Themes/Sampurna/blocks/StaticBlocks/Wizard/StepWizard.jsx';
-// import Countdown            from "react-countdown";
-
 import Style                  from './index.module.css';
 
 export default class MyOrders extends Component {
@@ -229,55 +221,72 @@ export default class MyOrders extends Component {
     }
     if(formValues){
     // console.log("formValues=",formValues);
-    axios.patch('/api/orders/cancel/order', formValues)
-      .then((response) => {
-        // console.log("cancel order response:",this.state.orderData);
-        $('.fullpageloader').hide();
-        this.getMyOrders();
-        const el = document.createElement('div')
-        el.innerHTML = "<a href='/CancellationPolicy' style='color:blue !important'>View Cancellation Policy</a>"
-        
-        axios.get('/api/orders/get/one/' +orderId)
-        .then((res) => {                                    
-            // =================== Notification OTP ==================
-        if(res){
-          var sendData = {
-            "event": "4",
-            "toUser_id": this.state.user_ID,
-            "toUserRole": "user",
-            "variables": {
-                "Username": res.data.userFullName,
-                "orderId": res.data.orderID,
-                "orderdate": moment(res.data.createdAt).format('DD-MMM-YY LT'),
-            }
-          }        
-        // console.log('sendDataToUser==>', sendData)
-        axios.post('/api/masternotifications/post/sendNotification', sendData)
-        .then((res) => { })
-        .catch((error) => { console.log('notification error: ', error) })
-      }
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure that you want to cancelled order?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: true,
     })
 
-      // =================== Notification ==================
-
-        this.setState({
-          messageData: {
-            "type": "outpage",
-            "icon": "fa fa-exclamation-circle",
-            "message": "Your order is cancelled. Refund will be made as per Cancellation Policy",
-            "class": "warning",
-            "autoDismiss": true
-          }
+    .then(willDelete => {
+      if (willDelete) {
+        axios.patch('/api/orders/cancel/order', formValues)
+        .then((response) => {
+          // console.log("cancel order response:",this.state.orderData);
+          $('.fullpageloader').hide();
+          this.getMyOrders();
+          const el = document.createElement('div')
+          el.innerHTML = "<a href='/CancellationPolicy' style='color:blue !important'>View Cancellation Policy</a>"
+          
+          axios.get('/api/orders/get/one/' +orderId)
+          .then((res) => {                                    
+              // =================== Notification OTP ==================
+                if(res){
+                  var sendData = {
+                    "event": "4",
+                      "toUser_id": this.state.user_ID,
+                      "toUserRole": "user",
+                      "variables": {
+                          "Username": res.data.userFullName,
+                          "orderId": res.data.orderID,
+                          "orderdate": moment(res.data.createdAt).format('DD-MMM-YY LT'),
+                      }
+                    }        
+                  // console.log('sendDataToUser==>', sendData)
+                  axios.post('/api/masternotifications/post/sendNotification', sendData)
+                  .then((res) => { })
+                  .catch((error) => { console.log('notification error: ', error) })
+                }
+            })
+   
+        // =================== Notification ==================
+        // this.setState({
+        //     messageData: {
+        //       "type": "outpage",
+        //       "icon": "fa fa-exclamation-circle",
+        //       "message": "Your order is cancelled. Refund will be made as per Cancellation Policy",
+        //       "class": "warning",
+        //       "autoDismiss": true
+        //     }
+        //   })
+        //   setTimeout(() => {
+        //     this.setState({
+        //       messageData: {},
+        //     })
+        //   }, 3000);
+  
         })
-        setTimeout(() => {
-          this.setState({
-            messageData: {},
-          })
-        }, 3000);
+        .catch((error) => {
+            console.log("erroe while cancelling order=",error);
+        })
 
-      })
-      .catch((error) => {
-      })
+        swal("Cancelled!", "Your order cancelled successfully!", "success");
+
+      }else{
+        swal("Your order is safe!");
+      }
+    });
     }
   }
   handleChange(event) {
@@ -420,7 +429,7 @@ export default class MyOrders extends Component {
                               <div className={"col-12 " +Style.vendorRowBottom}> 
                                     <div className="row">
                                       <div className="col-5 pull-left">
-                                        {this.cancelButton(singleOrder.createdAt)&&
+                                        {this.cancelButton(singleOrder.createdAt)&& singleOrder.orderStatus === "New" &&
                                           <div className="col-12 ">
                                               <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
                                           </div>

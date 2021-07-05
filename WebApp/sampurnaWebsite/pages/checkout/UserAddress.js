@@ -127,9 +127,10 @@ class UserAddress extends Component {
                             messageData   : {},
                         })
                     }, 3000);
-                        swal(response.data);
-                        this.props.opDone();
-                        window.location.reload();
+                        // swal(response.data);
+                        swal({text:response.data}).then(function(){
+                            window.location.reload();
+                          });
                     })
                     .catch((error)=>{
                         console.log('Address error===', error)
@@ -196,16 +197,6 @@ class UserAddress extends Component {
             });
         }
     }
-
-    // static getDerivedStateFromProps(nextProps, state) {
-    //     console.log("nextProps====",nextProps,state);
-    //     console.log("nextProps====",nextProps.addressId);
-    //     // if(nextProps.addressId){
-    //     //       edit(nextProps.addressId);            
-    //     // }
-    //     return null;
-    // }
-    
 
     handleChange(event) {
         this.setState({
