@@ -169,11 +169,11 @@ class SignUp extends Component {
 				authService : "",
 				isdCode     : "971",
 			}
-			console.log("formValues==",formValues);
+			// console.log("formValues==",formValues);
 			axios.post('/api/auth/post/signup/user/otp',formValues)
 			.then((signupResponse) =>{
 				if(signupResponse){
-					console.log("signupResponse=",signupResponse);
+					// console.log("signupResponse=",signupResponse);
 					if(signupResponse.data.result){
 						var userDetails = {
 							firstname	: signupResponse.data.result.profile.firstname,

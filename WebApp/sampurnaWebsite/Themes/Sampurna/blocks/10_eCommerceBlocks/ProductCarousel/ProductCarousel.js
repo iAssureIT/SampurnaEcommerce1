@@ -97,7 +97,7 @@ class ProductCarousel extends Component {
       userLatitude : "",
       userLatitude : "",
       startRange   : 0,
-      limitRange   : 28,
+      limitRange   : 10,
       vendor_ID    : "",
       categoryUrl  : "",
       brandArray   : [],
@@ -218,7 +218,7 @@ class ProductCarousel extends Component {
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
-              // console.log("categoryUrl=",this.state.categoryUrl); 
+              console.log("categoryResponse====",categoryResponse.data); 
                 for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
                   // console.log("categoryResponse.data.categoryList[i].categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,"===",this.state.categoryUrl);
                     if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
@@ -324,6 +324,7 @@ class ProductCarousel extends Component {
     })
   }//end if blockid
 }
+
 showMoreProduct(event){
   event.preventDefault();
   var formValues = {
@@ -334,10 +335,11 @@ showMoreProduct(event){
     "userLatitude"   : this.state.userLatitude,
     "userLongitude"  : this.state.userLongitude,
     "startRange"     : this.state.startRange,
-    "limitRange"     : this.state.limitRange + 25,
+    "limitRange"     : this.state.limitRange + 28,
   }
+
   const productApiUrl = this.state.productApiUrl;
-  console.log("showMore formValues===",formValues,productApiUrl)
+  // console.log("showMore formValues===",formValues,productApiUrl)
   this.getProductList(productApiUrl,formValues);
 }
 getProductList(productApiUrl,formValues){
@@ -345,12 +347,12 @@ getProductList(productApiUrl,formValues){
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-    
+      console.log("response.data===",response.data);
       this.setState({
-        // newProducts     : response.data,   
-        newProducts     : response.data.concat(this.state.newProducts),                         
+        newProducts     : response.data,   
+        // newProducts     : response.data.concat(this.state.newProducts),                         
       },()=>{
-        console.log("newProducts=>",this.state.newProducts.length);
+        // console.log("newProducts=>",this.state.newProducts.length);
         if(this.state.newProducts.length>0){
           this.setState({
             ProductsLoading : true,
@@ -558,6 +560,7 @@ submitCart(event) {
         "sortProductBy"  : '',
         "brand"          : this.state.brandArray 
       }  
+      console.log("formValues=",formValues);
         $("html, body").animate({ scrollTop: 0 }, 800);
         this.getProductList(this.state.productApiUrl,formValues);
     })
@@ -898,7 +901,8 @@ submitCart(event) {
                         }
                         <div className="col-12">
                           <div className="row">
-                            <button className="btn btn-secondary col-2 offset-10 pull-right" onClick={this.showMoreProduct.bind(this)}>Show more</button>
+                            
+                            <button className="btn btn-secondary col-2 offset-5 pull-right" onClick={this.showMoreProduct.bind(this)}>See more</button>
                           </div>
                         </div>
                     </div>

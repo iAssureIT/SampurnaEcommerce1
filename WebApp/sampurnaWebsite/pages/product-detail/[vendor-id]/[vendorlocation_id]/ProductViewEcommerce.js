@@ -13,19 +13,20 @@ import Carousel             from 'react-multi-carousel';
 import {ntc}                from '../../../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 import ProductZoom          from './ProductZoom.js';
 import ProductReviewList    from './productReviewList.js';
-import ProductCarouselView from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
+import ProductCarouselView  from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
 import CategoryFilters      from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/CategoryFilters.js';
 import {getCartData,getWishlistData, updateCartCount}  from '../../../../redux/actions/index.js'; 
 import 'react-multi-carousel/lib/styles.css';
-import SubCategoryBlock from '../../../../Themes/Sampurna/blocks/StaticBlocks/SubCategoryBlock/SubCategoryBlock.js';
-import Style                  from './product_detail.module.css';
+import SubCategoryBlock     from '../../../../Themes/Sampurna/blocks/StaticBlocks/SubCategoryBlock/SubCategoryBlock.js';
+import Style                from './product_detail.module.css';
+import style                from '../../../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
 
 const { publicRuntimeConfig } = getConfig();
 class ProductViewEcommerce extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {		
-			"productData": [],
+			"productData": {},
 			"subImgArray": [],
 			"totalQuanity": 1,
 			"quanityLimit": 5,
@@ -46,7 +47,14 @@ class ProductViewEcommerce extends Component {
 	async componentDidMount(){
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
-        if(userDetails){
+        if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
+			this.setState({
+				websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
+				showLoginAs  : sampurnaWebsiteDetails.preferences.showLoginAs,
+				currency     : sampurnaWebsiteDetails.preferences.currency,
+			})
+		}
+		if(userDetails){
             if(userDetails.user_id){
 				this.setState({
 					user_ID :  userDetails.user_id,
@@ -63,14 +71,15 @@ class ProductViewEcommerce extends Component {
 		  var vendor_ID              = url[4];
 		  var vendorlocation_ID      = url[5];
 		  var productId             = url[6];
-		//   console.log("productId==",productId);
+		  console.log("productId==",productId);
 		  this.setState({
 			"vendor_ID"         : vendor_ID,
 			"vendorlocation_ID" : vendorlocation_ID,
 			"productID"         : productId,
-		  },()=>{
+		  },async()=>{
+			  console.log("productID===",this.state.productID);
 			if(this.state.vendor_ID){
-				axios.get('/api/entitymaster/get/one/'+this.state.vendor_ID)    
+				await axios.get('/api/entitymaster/get/one/'+this.state.vendor_ID)    
 				.then((vendorResponse)=>{
 					if(vendorResponse){
 					// console.log("vendorResponse===",vendorResponse);
@@ -83,63 +92,68 @@ class ProductViewEcommerce extends Component {
 				console.log("error in get vendor=",error);
 				})
 			}
-			})
-		}
-		if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
-			this.setState({
-				websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
-				showLoginAs  : sampurnaWebsiteDetails.preferences.showLoginAs,
-				currency     : sampurnaWebsiteDetails.preferences.currency,
-			})
-		}
-		if(productId){
-			if(this.state.user_ID!==""){
-				var url = "/api/products/get/one/" + productId +"/" +this.state.user_ID;
-			}else{
-				var url = "/api/products/get/one/" + productId +"/" +null;
+			if(this.state.productID){
+				if(this.state.user_ID !== ""){
+					var url = "/api/products/get/one/" + this.state.productID +"/" +this.state.user_ID;
+				}else{
+					var url = "/api/products/get/one/" + this.state.productID +"/" +null;
+				}
+				console.log("url",url);	
+				this.getProductDetails(url);		
 			}
-			console.log("url",url);
-			axios.get(url)
+			})
+		}
+		
+	}
+
+	getProductDetails(url){
+		axios.get(url)
 			.then((response) => {
 				if(response.data){
 					console.log("product response = ",response.data);
-					this.setState({
-						// sectionUrl    : response.data.section.replace(' ','-').toLowerCase(),
-						// categoryUrl   : response.data.category.replace(' ','-').toLowerCase(),
+					this.setState({						
+						productData   : response.data,
 						sectionUrl    : response.data.section.split(' ').join('-').toLowerCase(),
 						categoryUrl   : response.data.category.split(' ').join('-').toLowerCase(),
 						section_ID    : response.data.section_ID,
 						category_ID   : response.data.category_ID,
 						subCategoryUrl: response.data.subCategory ? response.data.subCategory.replace(' ','-').toLowerCase():"",
-						productData   : response.data,
-						selectedImage : response.data.productImage[0],
+						selectedImage : response.data.productImage && response.data.productImage.lenth > 0 ? response.data.productImage[0] : "",
 						quanityLimit  : response.data.availableQuantity,
 						selectedColor : response.data.color,
 						selectedSize  : response.data.size,
 						websiteModel  : this.state.websiteModel
 					},async()=>{
 						// console.log("api data=",this.state.sectionUrl,this.state.vendor_ID);
+						
 						await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
 						.then((categoryResponse)=>{
 							if(categoryResponse.data){    
 							this.setState({
 								categoryData     : categoryResponse.data.categoryList,  
 								brandData        : categoryResponse.data.brandList, 
+							},()=>{
+								// console.log("categoryData object==",this.state.categoryData);
+								// console.log("brandData object==",this.state.brandData);
 							}); 
 							// console.log("categoryUrl=",this.state.categoryUrl); 
 							// console.log("categoryResponse=",categoryResponse.data.categoryList);
-								for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
-									if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
-									var subCategoryData = categoryResponse.data.categoryList[i].subCategory?categoryResponse.data.categoryList[i].subCategory:[];
-									if(subCategoryData){
-										this.setState({
-											subCategoryData  : subCategoryData
-										},()=>{
-											console.log("subCategoryData==",subCategoryData);
-										});
+								
+									for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
+										// console.log("categoryResponse.data.categoryList[i].categoryUrl===",categoryResponse.data.categoryList[i].categoryUrl);
+										// console.log("this.state.categoryUrl===",this.state.categoryUrl);
+										if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
+										var subCategoryData = categoryResponse.data.categoryList[i].subCategory?categoryResponse.data.categoryList[i].subCategory:[];
+										if(subCategoryData){
+											this.setState({
+												subCategoryData  : subCategoryData,
+												brandData        : this.state.brandData
+											},()=>{
+												// console.log("subCategoryData==",subCategoryData);
+											});
+										}
+										break;
 									}
-									break;
-								}
 								}
 							}
 						})
@@ -170,17 +184,12 @@ class ProductViewEcommerce extends Component {
 									console.log("error while getting similar product=",error);
 							})
 						}
-
-						
-
-
 					})
 				}
 			})
 			.catch((error) => {
 				console.log('error', error);
 			})
-		}
 	}
 	addtocart(event) {
 		event.preventDefault();	
@@ -357,18 +366,46 @@ class ProductViewEcommerce extends Component {
 		}
 	}
 	
+	getBrandWiseData(event){
+		// console.log("brand value ==",event.target.value);
+		var brandArray = this.state.brandArray;
+		if(event.target.value !== "undefined"){
+		  var brandValue = event.target.value;
+		  brandArray.push(brandValue);
+		}
+		this.setState({
+		  brandArray : brandArray
+		},()=>{
+		  // console.log("brandArray => ",this.state.brandArray);
+		  var formValues = {
+			"vendor_ID"      : this.state.vendor_ID, 
+			"sectionUrl"     : this.state.sectionUrl,
+			"categoryUrl"    : this.state.categoryUrl,
+			"subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+			"userLatitude"   : this.state.userLatitude,
+			"userLongitude"  : this.state.userLongitude,
+			"startRange"     : 0,
+			"limitRange"     : 28,
+			"sortProductBy"  : '',
+			"brand"          : this.state.brandArray 
+		  }  
+			$("html, body").animate({ scrollTop: 0 }, 800);
+			this.getProductList(this.state.productApiUrl,formValues);
+		})
+	  }
+	
 	render() {
-		console.log("product view eccomerce data  =====",this.state.productData);
+		// console.log("product view eccomerce data  =====",this.state.productData);
 		var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass = '';
 		var tooltipMsg = '';
 		if (x && x.length > 0) {
 			wishClass = '';
-			// console.log("wishClass=",wishClass);
+			// console.log("wishclassName=",wishClass);
 			tooltipMsg = 'Remove from wishlist';
 		} else {
 			wishClass = 'r';
-			// console.log("wishClass=",wishClass);
+			// console.log("wishclassName=",wishClass);
 			tooltipMsg = 'Add To Wishlist';
 		} 
 		return (
@@ -402,7 +439,8 @@ class ProductViewEcommerce extends Component {
 
 				<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
 				<div className="row">
-					<div className={"col-12 col-lg-3 col-xl-3 col-md-3 col-sm-12 col-xs-12 FiltersBlock " +Style.FilterBlkBox}>
+					<div className={"col-12 col-lg-3 col-xl-3 col-md-3 col-sm-12 col-xs-12 mt-2 FiltersBlock " +Style.FilterBlkBox}>
+						{ this.state.subCategoryData && this.state.subCategoryData.length>0?
 						< CategoryFilters 
 							categoryData       = {this.state.subCategoryData}
 							vendor_ID          = {this.state.vendor_ID}
@@ -415,7 +453,43 @@ class ProductViewEcommerce extends Component {
 							startRange         = {this.state.startRange}
 							limitRange         = {this.state.limitRange}
 						/>
+						:
+							<div className="col-12 pt-4"> No SubCategory available</div>
+						}
+
+						{this.state.brandData && this.state.brandData.length>0?  
+							<div className="panel-group" >     
+								{this.state.brandData.length && this.state.brandData[0].brand!=' '>0?                 
+								<div className={style.categoryFilterTitle}> Brand </div>  
+								:null}
+								{
+								this.state.brandData && this.state.brandData.length > 0
+								?
+									this.state.brandData.map((brand,index)=>{
+									var i = index+1;
+									if(brand === ""){
+										return true;
+									}else{
+										return(
+										<div className="col-12 noPadding panelCategory paneldefault" key={index}>
+											<div className={"row panel-heading "+style.panelHeading}>
+												<div className={"NoPadding centreDetailContainerEcommerce "+style.brandInput}>
+													<input className="" type="checkbox" name="brands[]" className={style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
+												</div>
+												<span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
+											</div>                              
+										</div>
+										)
+									}
+									})   
+								:
+									null
+								}
+							</div>  
+						:' '
+						}
 					</div>
+
 					<div className="col-12 col-lg-9 col-xl-9 col-md-9 col-sm-12 col-xs-12 boxBorderInner mobileViewNoPadding mt50 ">
 						<div className="row mb-5">
 							{this.state.productData?
@@ -440,27 +514,27 @@ class ProductViewEcommerce extends Component {
 										<div ><span className={" " +Style.productNameClassNew}> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> </div>
 									</div>
 								}
-								{!this.state.productData.brandNameRlang?
+								{/* {!this.state.productData.brandNameRlang?
 									<div className={"col-12 globalProduct_brand RegionalFont mt-2 NoPadding " +Style.brandName} title={this.state.productData.brandNameRlang}>Brand : {this.state.productData.brandNameRlang}</div>
 									:
 									<div className={"col-12 globalProduct_brand NoPadding mt-2 "  +Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
-								}
-
+								} */}
+									<div className={"col-12 globalProduct_brand NoPadding mt-2 "  +Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
 									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
-								{                                  
-									this.state.productData.discountPercent ?
-									<div className="col-12 NoPadding priceWrapper">
-									<span className={" " +Style.f12}>Price : <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;
-									<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
-									</span>
+										{                                  
+											this.state.productData.discountPercent ?
+											<div className="col-12 NoPadding priceWrapper">
+												<span className={" " +Style.f12}>Price : <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;
+												<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
+												</span>
+											</div>
+											:  
+											<div className={"col-12 NoPadding  priceWrapper NoPadding"}>
+											<span className="price">
+												{this.state.currency} &nbsp;{this.state.productData.originalPrice? (this.state.productData.originalPrice).toFixed(2):0} </span> &nbsp;                                      
+											</div> 
+										}
 									</div>
-									:  
-									<div className={"col-12 NoPadding  priceWrapper NoPadding"}>
-									<span className="price">
-										{this.state.currency} &nbsp;{this.state.productData.originalPrice? (this.state.productData.originalPrice).toFixed(2):0} </span> &nbsp;                                      
-									</div> 
-								}
-							</div>
 									<div className="col-12 adCart mobileViewNoPadding">
 										<div className="row spc">
 											<form id="productView" className="col-12 NOpadding">
@@ -534,7 +608,7 @@ class ProductViewEcommerce extends Component {
 											<div className={"col-12 NoPadding mt-4"}>
 												<div className="row ">
 													<div className="col-1 mt-2">
-														<i class="fa fa-undo "></i>
+														<i className="fa fa-undo "></i>
 													</div>
 													<div className="col-10">
 														<div className="col-12">FREE RETURNS</div>
@@ -546,7 +620,7 @@ class ProductViewEcommerce extends Component {
 											<div className={"col-12 NoPadding mt-4"}>
 												<div className="row ">
 													<div className="col-1 mt-2">
-														<i class="fa fa-undo "></i>
+														<i className="fa fa-undo "></i>
 													</div>
 													<div className="col-10">
 														<div className="col-12">NO RETURNS</div>
@@ -602,9 +676,7 @@ class ProductViewEcommerce extends Component {
 								productID = {this.state.productID}
 							/>
 						:null
-						}
-
-							
+						}	
 					</div>
 			</div>
 			</div>

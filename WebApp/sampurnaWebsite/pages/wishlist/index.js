@@ -32,7 +32,6 @@ class Wishlist extends Component {
   }
 
   async componentDidMount() {
-    console.log("inside wishlist");
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
     if(sampurnaWebsiteDetails.deliveryLocation){
       this.setState({
@@ -121,7 +120,7 @@ class Wishlist extends Component {
               {
                 Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?
                  this.state.wishlistData.map((areaWiseWishlist, index) => {  
-                   console.log("areaWiseWishlist==",areaWiseWishlist);
+                  //  console.log("areaWiseWishlist==",areaWiseWishlist);
                    return(
                       <div className="col-12" key={index}> 
                           <div className="col-12 areaName mt-4 pb-4">{areaWiseWishlist.areaName}</div>

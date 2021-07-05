@@ -258,12 +258,12 @@ addtowishlist(event) {
 }
 
 render() {
-      console.log("this.props.newProducts==",this.props)
+      console.log("ProductCarouselView this.props.newProducts==",this.props)
     return (
         <div className={"col-12 " }>        
             <Message messageData={this.state.messageData} />  
             <div className="col-12 ">
-              <h5>{this.props.blockTitle && this.props.blockTitle}</h5>
+                <h5>{this.props.blockTitle && this.props.blockTitle}</h5>
             </div>
             <Carousel  
                 className={Style.customnNavButton +" " +Style.carouselNewWrapper}
@@ -309,8 +309,10 @@ render() {
                                     userLatitude       = {this.state.userLatitude}
                                     userLongitude      = {this.state.userLongitude}
                                     user_ID            = {this.state.user_ID}
-                                    vendor_ID          = {data.vendor_id}
-                                    vendorlocation_ID  = {data.vendorLocation_id}
+                                    vendor_ID          = {this.props.vendor_ID}
+                                    vendorlocation_ID  = {this.props.vendorlocation_ID}
+                                    // vendor_ID          = {data.vendor_ID}
+                                    // vendorlocation_ID  = {data.vendorLocation_id}
                                   />
                                 :
                                   null

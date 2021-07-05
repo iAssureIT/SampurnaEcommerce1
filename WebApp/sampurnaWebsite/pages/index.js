@@ -8,7 +8,6 @@ import SearchBar                       from '../Themes/Sampurna/blocks/5_HeaderB
 import Footer                          from '../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import GoogleMap                       from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Googlemap.js';
 
-
 // import {config, library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {faCode, faHighlighter } from '@fortawesome/free-solid-svg-icon';

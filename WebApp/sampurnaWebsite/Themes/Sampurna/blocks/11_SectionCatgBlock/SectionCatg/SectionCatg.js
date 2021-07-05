@@ -12,11 +12,11 @@ class ShoppingVerticals extends Component {
   constructor(props) {
     super(props);
     this.state = {      
-      productType        : props.type,
-      itemList           : [
+      productType             : props.type,
+      itemList                : [
       ],
-      Productsloading    : true,
-      blockTitle         : "Shopping Verticals",      
+      Productsloading         : true,
+      blockTitle              : "Shopping Verticals",      
       groupSettings : {
         blockApi 		          : '',
         showCarousel          : true, 
@@ -137,7 +137,7 @@ class ShoppingVerticals extends Component {
                   responsive={responsive}
                   ssr={true} // means to render carousel on server-side.
                   infinite={true}
-                  autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  autoPlay={false}
                   autoPlaySpeed={3000}
                   keyBoardControl={true}
                   customTransition="all .20"

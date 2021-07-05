@@ -54,13 +54,13 @@ export default class MyOrders extends Component {
       axios.get("/api/orders/get/list/" +this.state.user_ID)
       .then((response) => {
         if(response.data){
-          console.log("response.data=>",response.data);
+          // console.log("response.data=>",response.data);
           $('.fullpageloader').hide();
           this.setState({
             orderData: response.data,
             loading: false
           }, () => {
-            console.log("myOrder orderData after setstate=>",this.state.orderData);
+            // console.log("myOrder orderData after setstate=>",this.state.orderData);
           })
         }
       })
@@ -324,7 +324,7 @@ export default class MyOrders extends Component {
   }
 
   render() {
-    console.log("1. myorder page this.state.orderData=",this.state.orderData);
+    // console.log("1. myorder page this.state.orderData=",this.state.orderData);
     return (
       <div className="col-12">
          <div className="row"> 

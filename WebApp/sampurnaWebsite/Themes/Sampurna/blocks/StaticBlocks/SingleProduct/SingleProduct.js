@@ -269,7 +269,7 @@ class SingleProduct extends Component{
                     <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }>
                     {/* <a className={Style.product_item_photo } tabIndex="-1" > */}
                         <img                                           
-                        src={this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
+                        src={Array.isArray(this.props.data.productImage) && this.props.data.productImage > 0 && this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                         // src={this.props.data.productSmallImage && this.props.data.productSmallImage.length>0 ? this.props.data.productSmallImage[0] : "/images/eCommerce/notavailable.jpg"}
                         alt="ProductImg" 
                         className={"img-responsive " +Style.NoAvailableImg }

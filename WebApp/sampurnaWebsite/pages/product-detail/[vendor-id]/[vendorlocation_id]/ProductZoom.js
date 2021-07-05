@@ -81,7 +81,7 @@ class ProductZoom extends Component {
 	}
 	render() {
 		var myprops={};
-		console.log("productZoom data  =====",this.props.productData);
+		// console.log("productZoom data  =====",this.props.productData);
 		// console.log("productZoom image  =====",this.props.productData.productImage);
 		
 		if(this.props.productData ){

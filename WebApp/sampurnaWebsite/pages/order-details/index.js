@@ -12,10 +12,10 @@ import ProductsView         from './ProductsView.js';
 import Style                from './index.module.css';
 import openSocket               from 'socket.io-client';
 import getConfig            from 'next/config';
+
 const { publicRuntimeConfig } = getConfig();
-console.log("publicRuntimeConfig",publicRuntimeConfig);
 const  socket = openSocket(publicRuntimeConfig.API_BASE_URL,{ transports : ['websocket'] ,upgrade: false});
-console.log("socket",socket);
+// console.log("socket",socket);
 
 export default class OrderDetails extends Component {
   constructor(props) {

@@ -178,10 +178,10 @@ class Checkout extends Component {
                         })
                     }else{
                         this.setState({
-                            creditdataTotalPoints : creditRes.data.totalPoints>0?creditRes.data.totalPoints:0,
-                            creditdataValue       : creditRes.data.totalPoinsValue>0?creditRes.data.totalPoinsValue:0
+                            creditdataTotalPoints : creditRes.data.totalPoints > 0 ? creditRes.data.totalPoints : 0,
+                            creditdataValue       : creditRes.data.totalPointsValue > 0 ? creditRes.data.totalPointsValue : 0
                         },()=>{
-                            console.log("creditdata=",this.state.totalPoints);
+                            console.log("creditdata=",this.state.creditdataTotalPoints);
                         })
                     }
                 }
@@ -472,13 +472,13 @@ class Checkout extends Component {
                             deliveryAddress           : addressValues,
                         
                         }
-                        // console.log("OrdersData===",orderData);
+                        console.log("OrdersData===",orderData);
 
                         if (this.state.isChecked) {                            
                             axios.post('/api/orders/post', orderData)
                                 .then(async( result) => {
                                     if(result.data && result.data.order_id){
-                                        // console.log("Order response ===",result.data);
+                                        console.log("Order response ===",result.data);
                                         if (this.state.paymentmethods === 'cod') {
                                             this.setState({paymethods : true})
                                             // $('.fullpageloader').show();

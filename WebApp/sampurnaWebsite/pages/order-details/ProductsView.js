@@ -30,10 +30,10 @@ class ProductsView extends Component {
   }
 
   getReturnReasons(){
-    console.log("inside getReturnReasons");
+    // console.log("inside getReturnReasons");
     axios.get('/api/returnreasons/get/list')
     .then((reasonsResponse)=>{
-        console.log("reasonsResponse==",reasonsResponse);
+        // console.log("reasonsResponse==",reasonsResponse);
         if(reasonsResponse){
 
             this.setState({
@@ -162,9 +162,8 @@ class ProductsView extends Component {
 
   handleRefundPayment(event){
     event.preventDefault();
-    console.log("paymentRefundSource name ===",event.target.name);
-    console.log("paymentRefundSource value ===",event.target.value);
-    // console.log("handleRefundPayment==",event.target.value==="source")
+    // console.log("paymentRefundSource name ===",event.target.name);
+    // console.log("paymentRefundSource value ===",event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
       refundToError : event.target.value ? "" : "Please select your Refund source."
@@ -307,7 +306,7 @@ class ProductsView extends Component {
     axios.get('/api/returnreasons/get/list')
     .then((reasonsResponse)=>{
         if(reasonsResponse){
-          console.log("reasonsResponse=",reasonsResponse.data);
+          // console.log("reasonsResponse=",reasonsResponse.data);
             this.setState({
               returnReasons : reasonsResponse.data
             },()=>{
@@ -358,7 +357,7 @@ class ProductsView extends Component {
   }
     
   render() {
-    console.log("productdetails this.props ===",this.props);
+    // console.log("productdetails this.props ===",this.props);
     return (
           <div className="col-12">
             <Message messageData={this.state.messageData} />

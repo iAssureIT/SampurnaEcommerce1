@@ -38,68 +38,6 @@ class EditAccount extends Component{
                 this.getUserData();
             })
         }
-       
-        // window.scrollTo(0, 0);
-        // $.validator.setDefaults({
-        //     debug: true,
-        //     success: "valid"
-        // });
-        // $.validator.addMethod("regxmobNumber", function (value, element, regexpr) {
-        //     return regexpr.test(value);
-        // }, "Please enter valid mobile number.");
-        // $("#editAccount").validate({
-        //     rules: {
-        //         firstName: {
-        //             required: true,
-        //         },
-        //         lastName: {
-        //             required: true,
-        //         },
-        //         mobNumber: {
-        //             required: true,
-        //             regxmobNumber: /^([7-9][0-9]{9})$/,
-        //         },
-        //         emailId:{
-        //             required : true,
-        //         },
-        //         oldPassword: {
-        //             required: true,
-        //         },
-        //         newPassword: {
-        //             required: true,
-        //         },
-        //         newPassword2: {
-        //             required: true,
-        //             equalTo : ".newPassword"
-        //         },
-        //     },
-        //     messages:{
-        //         newPassword2:"Password do not match"
-        //     },
-        //     errorPlacement: function(error, element) {
-        //         if (element.attr("name") === "firstName"){
-        //             error.insertAfter("#firstName");
-        //         }
-        //         if (element.attr("name") === "lastName"){
-        //             error.insertAfter("#lastName");
-        //         }
-        //         if (element.attr("name") === "mobNumber") {
-        //             error.insertAfter("#mobNumber");
-        //         }
-        //         if (element.attr("name") === "emailId"){
-        //             error.insertAfter("#emailId");
-        //         }
-        //         if (element.attr("name") === "oldPassword"){
-        //             error.insertAfter("#oldPassword");
-        //         }         
-        //         if (element.attr("name") === "newPassword"){
-        //             error.insertAfter("#newPassword");
-        //         }         
-        //         if (element.attr("name") === "newPassword2"){
-        //             error.insertAfter("#newPassword2");
-        //         }     
-        //     }
-        // });
     }
     accountUpdate(event){
         event.preventDefault();
@@ -135,7 +73,7 @@ class EditAccount extends Component{
             "changeEmail"   : this.state.changeEmail,
             "changePassword": this.state.changePassword
         }
-       // if($('#editAccount').valid()){
+       if($('#editAccount').valid()){
             // $('.fullpageloader').show();
             
             axios.patch('/api/users/userdetails/'+this.state.user_ID, formvalues)
@@ -176,20 +114,8 @@ class EditAccount extends Component{
                     })
                 }, 3000);
             });
-       // }
+       }
     }
-  Closepagealert(event){
-    event.preventDefault();
-    $(".toast-error").html('');
-    $(".toast-success").html('');
-    $(".toast-info").html('');
-    $(".toast-warning").html('');
-    $(".toast-error").removeClass('toast');
-    $(".toast-success").removeClass('toast');
-    $(".toast-info").removeClass('toast');
-    $(".toast-warning").removeClass('toast');
-
-  }
 
     changeEmail(event){
         this.setState({
@@ -201,11 +127,13 @@ class EditAccount extends Component{
             changePassword : event.target.checked
         })
     }
+
     onChange(event){
         this.setState({
             [event.target.name] : event.target.value
         })
     }
+
     handleChange(event){
         var fieldValue=event.currentTarget.value;
         var fieldKey=event.currentTarget.name;
@@ -213,64 +141,7 @@ class EditAccount extends Component{
           [fieldKey]:fieldValue
         });    
     }
-    // showSignPass() {
-    //     $(".hidePwd").css('display','block');
-    //     $(".showPwd").css('display','none');
-    
-    //     $('.showPwd').toggleClass('showPwd1');
-    //     $('.hidePwd').toggleClass('hidePwd1');
-    //     return $('#newPass').attr('type', 'text');
-    //   }
-
-    showSignPass(){
-        $(".hidePwd").css('display','none');
-        $(".showPwd").css('display','block'); 
-        
-        $('.showPwd').toggleClass('showPwd1');
-        $('.hidePwd').toggleClass('hidePwd1');
-        return $('#newPass').attr('type', 'text');
-    }
-    hideSignPass(){
-        $(".hidePwd").css('display','none');
-        $(".showPwd").css('display','block');
-        
-        $('.showPwd').toggleClass('showPwd1');
-        $('.hidePwd').toggleClass('hidePwd1');
-        return $('#newPass').attr('type', 'password');
-    }
-    showConfirmPass(){
-        $(".hidePwd2").css('display','block');
-        $(".showPwd2").css('display','none');
-        
-        $('.showPwd2').toggleClass('showPwd3');
-        $('.hidePwd2').toggleClass('hidePwd3');
-        return $('#newPass2').attr('type', 'text');
-    }
-    hideConfirmPass(){
-        $(".hidePwd2").css('display','none');
-        $(".showPwd2").css('display','block');
-        
-        $('.showPwd2').toggleClass('showPwd3');
-        $('.hidePwd2').toggleClass('hidePwd3');
-        return $('#newPass2').attr('type', 'password');
-    }
-    
-    showCurrentPass(){
-        $(".hidePwd4").css('display','block');
-        $(".showPwd4").css('display','none');
-        
-        $('.showPwd4').toggleClass('showPwd5');
-        $('.hidePwd4').toggleClass('hidePwd5');
-        return $('#oldPass').attr('type', 'text');
-    }
-    hideCurrentPass(){
-        $(".hidePwd4").css('display','none');
-        $(".showPwd4").css('display','block'); 
-        
-        $('.showPwd4').toggleClass('showPwd5');
-        $('.hidePwd4').toggleClass('hidePwd5');
-        return $('#oldPass').attr('type', 'password');
-    }
+  
     showPassFun=(event)=>{
         event.preventDefault();
         var passwordToggle = document.getElementById("newPassword2");

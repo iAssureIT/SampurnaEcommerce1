@@ -33,7 +33,7 @@ class SubCategoryBlock extends Component{
         }
     }
     render(){
-      // console.log("Subcategory Blocks ====",this.props.subCategoryData);
+      console.log("Subcategory Blocks ====",this.props.subCategoryData);
       return (
         <div className={"container NoPadding " +Style.categoryCarousel}>
             <div className={"col-12 "}>
@@ -56,7 +56,7 @@ class SubCategoryBlock extends Component{
                   deviceType={this.props.deviceType}  
                   containerClass="carousel-container">
                     {this.props.subCategoryData && this.props.subCategoryData.map((categorydata, index) => {
-                      var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+this.props.categoryUrl/categorydata.subCategoryUrl;
+                      var url = "/products/"+this.props.vendor_ID+"/"+this.props.vendorlocation_ID +"/"+this.props.sectionUrl+"/"+this.props.categoryUrl+"/"+categorydata.subCategoryUrl;
                       return (
                       <div className={"col-12 productsCategoryBlock " +Style.outerBox}  key={index}> 
                           <Link href={url} className ={"col-12 "}> 
