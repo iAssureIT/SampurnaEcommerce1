@@ -16,7 +16,6 @@ import MyCart                 from './MyCart.js';
 import Wishlist               from './Wishlist.js';
 import {setSampurnaWebsiteDetails }     from '../../../../../redux/actions/index.js'; 
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -25,8 +24,6 @@ import {
   faFacebook,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
-
-import {faSearch} from '@fortawesome/free-regular-svg-icons';
 
 library.add(
   faGithubAlt,
