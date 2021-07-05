@@ -313,6 +313,30 @@ exports.return_status_update = (req, res, next) => {
 						// console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
 						// console.log("returnProductData.order_id => ",returnProductData.order_id);
 						// console.log("returnProductData.user_id => ",returnProductData.user_id);
+						await Orders.updateOne(
+							{'_id' : ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id},
+							{$set:
+								{
+									'vendorOrders.$[outer].products.$[inner].productStatus' : "Return Requested",
+									'vendorOrders.$[outer].products.$[inner].returnedDate'	: new Date(),
+								}
+							},
+							{arrayFilters: [
+								{ 'outer.vendor_id' : req.body.vendor_id}, 
+								{ 'inner.product_ID': req.body.product_id }
+							]}
+						)
+						.exec()
+						.then(updateorderdata => {
+							console.log("updateorderdata => ",updateorderdata);
+						})
+						.catch(err =>{
+							console.log("Error While Updating Return Product Status")
+							// res.status(500).json({
+							// 	error 	: err,
+							// 	message : 'Error While Updating Inventory'
+							// });
+						}); 
 						if(req.body.returnStatus === "Return Request Approved"){
 							var isOrderCreditAvailable = await CreditPoints.findOne({user_id : ObjectId(returnProductData.user_id), 'transactions.order_id' : ObjectId(returnProductData.order_id), "transactions.typeOfTransaction" : "Original Order"},{'transactions.$' : 1});
 							// var isOrderCreditAvailable = await CreditPoints.findOne({"user_id" : ObjectId(returnProductData.user_id), "transactions.order_id" : ObjectId(returnProductData.order_id), "transactions.order_id" });

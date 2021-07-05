@@ -1333,7 +1333,7 @@ exports.fetch_order = (req, res, next) => {
 						data.vendorOrders[j].vendorName = vendor.companyName;
 						// console.log("data.vendorOrders[j] => ",data.vendorOrders[j].products)
 						for (var k = 0; k < data.vendorOrders[j].products.length; k++) {
-							var review = await CustomerReview.findOne({"customer_id" : ObjectId(data.user_ID), "product_id" : ObjectId(data.vendorOrders[j].products[k]._id), "order_id" : ObjectId(data._id) })				
+							var review = await CustomerReview.findOne({"customer_id" : ObjectId(data.user_ID), "product_id" : ObjectId(data.vendorOrders[j].products[k].product_ID), "order_id" : ObjectId(data._id) })				
 							if(review && review !== null){
 								data.vendorOrders[j].products[k].isReview	= true;	
 							}

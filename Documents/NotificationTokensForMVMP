@@ -8,10 +8,14 @@
 [orderAmount], 
 [vendorContactPerson]
 
-=========== ===========
-=========== ===========
-=========== ===========
-=========== ===========
+=========== Event => SignUp ===========
+
+=========== Event => OrderStatusChange ===========
+Proessing 
+On the Way
+Delivered
+=========== Event => ReturnProduct ===========
+=========== Event => OrderCancel ===========
 =========== ===========
 =========== ===========
 =========== ===========

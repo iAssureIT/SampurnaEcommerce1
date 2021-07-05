@@ -406,7 +406,7 @@ exports.list_cart_product = (req,res,next)=>{
                                                                         (order_shippingCharges).toFixed(2);
                 data.paymentDetails.afterDiscountCouponAmount   = 0;
                 data.paymentDetails.creditPointsUsed            = 0;
-                data.paymentDetails.creditPointValue            = 0;
+                data.paymentDetails.creditPointsValueUsed       = (0).toFixed(2);
                 data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
                                                                                                                     ? maxServiceCharges > order_shippingCharges 
                                                                                                                         ? 
@@ -1061,10 +1061,12 @@ exports.apply_coupon = (req,res,next)=>{
                 }
             }
             if(i>=vendorOrders.length){
-                data.paymentDetails.beforeDiscountTotal = (order_beforeDiscountTotal).toFixed(2);
-                data.paymentDetails.afterDiscountTotal  = (order_afterDiscountTotal).toFixed(2);
-                data.paymentDetails.discountAmount      = (order_discountAmount).toFixed(2);
-                data.paymentDetails.taxAmount           = (order_taxAmount).toFixed(2);
+                data.paymentDetails.beforeDiscountTotal     = (order_beforeDiscountTotal).toFixed(2);
+                data.paymentDetails.afterDiscountTotal      = (order_afterDiscountTotal).toFixed(2);
+                data.paymentDetails.discountAmount          = (order_discountAmount).toFixed(2);
+                data.paymentDetails.taxAmount               = (order_taxAmount).toFixed(2);
+                data.paymentDetails.creditPointsUsed        = 0;
+                data.paymentDetails.creditPointsValueUsed   = (0).toFixed(2);
                 /*----------- Apply Shipping charges not greter than max Shipping Charges -----------*/
                 data.paymentDetails.shippingCharges             = maxServiceCharges && maxServiceCharges > 0 
                                                                     ? maxServiceCharges > order_shippingCharges 
@@ -1271,7 +1273,7 @@ exports.apply_credit_points = (req,res,next)=>{
                                                                         (order_shippingCharges).toFixed(2);
                 data.paymentDetails.afterDiscountCouponAmount   = 0;
                 data.paymentDetails.creditPointsUsed            = Math.round((req.body.creditPointsValueUsed * creditPoint)/creditPointValue);
-                data.paymentDetails.creditPointsValueUsed       = parseInt(req.body.creditPointsValueUsed).toFixed(2);
+                data.paymentDetails.creditPointsValueUsed       = (req.body.creditPointsValueUsed).toFixed(2);
                 data.paymentDetails.netPayableAmount            = (order_afterDiscountTotal + order_taxAmount + (maxServiceCharges && maxServiceCharges > 0 
                                                                                                                     ? maxServiceCharges > order_shippingCharges 
                                                                                                                         ? 
