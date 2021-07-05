@@ -6,9 +6,33 @@ import validate                   from "jquery-validation";
 import Swal					      from 'sweetalert2';
 import Link                   from 'next/link';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFacebookF,
+  faTwitter,
+  faInstagram,
+  faYoutube,
+  faLinkedinIn,
+  faPaperPlane
+  
+} from '@fortawesome/free-brands-svg-icons';
 
+library.add(
+	faPhoneAlt,
+	faEnvelope,
+	faFacebookF,
+	faTwitter,
+	faInstagram,
+	faYoutube,
+	faLinkedinIn,
+	faPaperPlane
+  
+  );
 
 import S 					      from './ContactUsTrollyMart.module.css';
+import { faEnvelope,  faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 
 export default class ContactUsTrollyMart extends Component{
@@ -44,7 +68,9 @@ export default class ContactUsTrollyMart extends Component{
 	  	this.dynamicvalidation();
 
     	
-
+		  $('button').click(function(){
+			$(this).animate({height:'1000'})
+		})
 		
 
 		{
@@ -201,6 +227,7 @@ export default class ContactUsTrollyMart extends Component{
 			mobile  : ""
 		});
 	}
+	
 
 	render(){
 		console.log("state ===", this.state.name,  + " |" + this.state.email  + "|" + this.state.message )
@@ -229,20 +256,20 @@ export default class ContactUsTrollyMart extends Component{
 												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
 												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} /> </div>
 											<div className={ "col-lg-12 pb-lg-5 pb-0 "}>
-												<button type="button" className={ " shadow-none btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
+												<button type="button" className={ " shadow-none btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<FontAwesomeIcon  icon={faPaperPlane} style={{width:"12px",color:"#033554"}}  /></button>
 											</div>
 										</form> {/* </div> */} </div>
 							</div>
 							<div className={ "col-lg-4  mt-5 mt-lg-0 contactusFormWrapperRightSide "+S.contactusFormWrapperRightSide}>
 								<h3 className={ "col-lg-12 pt-lg-5 mt-lg-5  mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
-								<div className={ "col-lg-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone-alt"}></i>&nbsp;&nbsp;&nbsp;
+								<div className={ "col-lg-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}> <FontAwesomeIcon  icon={faPhoneAlt} style={{width:"20px",color:"#fff"}}  />&nbsp;&nbsp;&nbsp;
 									<label>+971 000 000 000</label>
 								</div>
-								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>&nbsp;&nbsp;&nbsp;
+								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}> <FontAwesomeIcon  icon={faEnvelope} style={{width:"20px",color:"#fff"}}  />&nbsp;&nbsp;&nbsp;
 									<label>hello@trollymaet.com</label>
 								</div>
 								<div className={ "hero "+S.hero}>
-									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""><i className="fab fa-instagram"></i></a> <a href=""><i className="fab fa-facebook-f"></i></a> <a href=""><i className="fab fa-youtube"></i></a> <a href=""><i className="fab fa-linkedin-in"></i></a> <a href=""><i className="fab fa-twitter"></i></a> </div>
+									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""> <FontAwesomeIcon  icon={faInstagram} style={{width:"18px",color:"#033554"}}  /></a> <a href=""><FontAwesomeIcon  icon={faFacebookF} style={{width:"12px",color:"#033554"}}  /></a> <a href=""><FontAwesomeIcon  icon={faYoutube} style={{width:"20px",color:"#033554"}}  /></a> <a href=""><FontAwesomeIcon  icon={faLinkedinIn} style={{width:"12px",color:"#033554"}}  /></a> <a href=""><FontAwesomeIcon  icon={faTwitter} style={{width:"16px",color:"#033554"}}  /></a> </div>
 								</div>
 							</div>
 						</div>

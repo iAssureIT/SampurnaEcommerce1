@@ -13,7 +13,9 @@
   background-size: 100% 100% !important;;
 }
 .contactUsTrollyMainWrapper{
-  min-height:1000px !important;;
+  min-height:800px !important;
+  height: auto;
+  margin-bottom: 100px;
   /* background-color: brown; */
 }
 
@@ -63,7 +65,7 @@
   width: 82px !important;;
   border-bottom-right-radius: 1px !important;
   border-radius: 10px;
-  background-color: #E88686;
+  background-color: #033554;
   outline:none;
   border: none;
   color:#fff;
@@ -78,7 +80,7 @@
   width: 82px !important;;
   border-bottom-right-radius: 1px !important;
   border-radius: 10px;
-  background-color: #E88686;
+  background-color: #033554;
   outline:none;
   border: none;
   color: #fff;
