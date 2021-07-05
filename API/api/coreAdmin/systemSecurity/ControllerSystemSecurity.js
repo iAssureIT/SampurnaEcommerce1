@@ -583,7 +583,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																						"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
 																	}
 																}
-																// var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+																var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
 
 																res.status(200).json({ message: "USER_CREATED", ID: result._id, result:result })
 															}else {
