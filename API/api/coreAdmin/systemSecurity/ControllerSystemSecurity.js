@@ -583,7 +583,7 @@ exports.user_signup_user_otp = (req, res, next) => {
 																						"signupDate" 		: moment(result.createdAt).format('MMMM Do YYYY, h:mm:ss a')
 																	}
 																}
-																var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
+																// var send_notification_to_admin = await sendNotification.send_notification_function(adminNotificationValues);
 
 																res.status(200).json({ message: "USER_CREATED", ID: result._id, result:result })
 															}else {
@@ -1305,8 +1305,8 @@ exports.user_login_with_companyID = (req, res, next) => {
 };
 
 exports.logouthistory = (req, res, next) => {
-	// console.log("Logout Body",req.body);
-	// var emailId = req.body.emailId;
+	console.log("Logout Body",req.body);
+	var emailId = req.body.emailId;
 	User.findOne({ _id: req.body.user_ID })
 		.exec()
 		.then(user => {

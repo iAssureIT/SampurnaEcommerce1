@@ -11,15 +11,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Header.css';
 
-class Header2 extends Component {
+class Header extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			loggedIn: false,
-			showNotification: false,
-			inAppNotifications: [],
-			inAppNotificationsCount: 0
-
+			loggedIn 				: false,
+			showNotification 		: false,
+			inAppNotifications 		: [],
+			inAppNotificationsCount : 0
 		}
 	}
 	// componentDidMount(){
@@ -80,14 +79,12 @@ class Header2 extends Component {
 	// 
 	componentDidMount() {
 		if (!$('body').hasClass('adminLte')) {
-			var adminLte = document.createElement("script");
-			adminLte.type = "text/javascript";
-			adminLte.src = "/js/adminLte.js";
+			var adminLte  	= document.createElement("script");
+			adminLte.type 	= "text/javascript";
+			adminLte.src 	= "/js/adminLte.js";
 			$("body").append(adminLte);
 		}
 		$("html,body").scrollTop(0);
-		// const userDetails = localStorage.getItem("userDetails");
-		// const parsedData =  JSON.parse(userDetails);
 
 		var userDetails 	= JSON.parse(localStorage.getItem("userDetails"));
 		var token  			= userDetails.token;
@@ -97,22 +94,22 @@ class Header2 extends Component {
 		axios.get('/api/users/get/' + userDetails.user_id)
 		.then((res) => {
 			this.setState({
-				userImage: res.data.image
+				userImage : res.data.image
 			});
 		})
 		.catch((error) => {
 			console.log("error => ",error);
 		})
+
 		this.userdata();
 
 		axios.get("/api/entitymaster/get/appCompany")
 		.then((response) => {
 			console.log("/api/entitymaster/get/appCompany response.data = ", response.data);
-			if (response.data.length > 0) {
-				
+			if (response.data.length > 0) {				
 				this.setState({
-					entityList: response.data,
-					entityID: response.data[0]._id
+					entityList 	: response.data,
+					entityID 	: response.data[0]._id
 				}, () => {
 					this.getCompanyData(this.state.entityID)
 				})
@@ -137,6 +134,7 @@ class Header2 extends Component {
 				});
 			}
 		})
+
 		//======= Notification Unread Count ==========
 		console.log('notifications/get /list userdetail id ==>', userDetails)
 		axios.get('/api/notifications/get/list/Unread/' + userDetails.user_id)
@@ -155,43 +153,42 @@ class Header2 extends Component {
 		})
 		.catch(error => {
 			console.log("Error in /api/notifications/get/list/Unread/ = ", error);
-		});
-		
+		});		
 	}
 
 	getCompanyData(entityID) {
 		axios.get("/api/entitymaster/get/one/" + entityID)
-			.then((response) => {
-				console.log(" /api/entitymaster/get/one/ response.data = ", response.data);
-				this.setState({
-					corporateInfo: response.data[0],
-					locations: response.data[0].locations,
-					contacts: response.data[0].contactData,
+		.then((response) => {
+			console.log(" /api/entitymaster/get/one/ response.data = ", response.data);
+			this.setState({
+				corporateInfo 	: response.data[0],
+				locations 		: response.data[0].locations,
+				contacts 		: response.data[0].contactData,
+			})
+		})
+		.catch((error) => {
+			console.log("Error in /api/entitymaster/get/one/ = ", error);
+			// console.log("error => ",error);
+			if (error.message === "Request failed with status code 401") {
+				var userDetails = localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({
+					title: "Your Session is expired.",
+					text: "You need to login again. Click OK to go to Login Page"
 				})
-			})
-			.catch((error) => {
-				console.log("Error in /api/entitymaster/get/one/ = ", error);
-				// console.log("error => ",error);
-				if (error.message === "Request failed with status code 401") {
-					var userDetails = localStorage.removeItem("userDetails");
-					localStorage.clear();
-					swal({
-						title: "Your Session is expired.",
-						text: "You need to login again. Click OK to go to Login Page"
-					})
-						.then(okay => {
-							if (okay) {
-								window.location.href = "/login";
-							}
-						});
-				}
-			})
+					.then(okay => {
+						if (okay) {
+							window.location.href = "/login";
+						}
+					});
+			}
+		})
 	}
 
 	userdata() {
 		//======= User Details ==========
 		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
-		var Token = userDetails.token;
+		var Token  		= userDetails.token;
 		console.log("userDetails => ",userDetails);
 
 		if (Token) {
@@ -200,73 +197,71 @@ class Header2 extends Component {
 			console.log("userData.userDetails===>",userDetails.companyID)
 
 			axios.get('/api/entitymaster/get/companyName/1')
-				.then(companyDetails => {
-					console.log("companyDetails = ", companyDetails.data);
-					this.setState({
-						user_ID 		: userDetails.user_id,
-						email 			: userDetails.email,
-						profileImage 	: userDetails.image,
-						fullname 		: userDetails.firstName + ' ' + userDetails.lastName,
-						companyID 		: userDetails.companyID,
-						companyName 	: companyDetails.data.companyName,
-					}, () => {
-						console.log("this.state.fullname = ", this.state.fullname);
-					});
-
-					// ======= Notification Unread Count ==========
-					// axios.get('/api/notifications/get/list/Unread/'+userDetails.user_id)
-					axios.get('/api/notifications/get/list/Unread/' + userDetails.user_id)
-						.then(notifications => {
-
-							this.setState({
-								inAppNotifications 		: notifications.data,
-								inAppNotificationsCount : notifications.data.length
-							}, () => {
-								console.log("inAppNotificationsCount ==>", this.state.inAppNotificationsCount)
-							});
-
-						})
-						.catch(error => {
-							console.log("Error in /api/notifications/get/list/Unread/ = ", error);
-						})
-
-				})
-				.catch(error => {
-					console.log("Error  = ", error);
-					// console.log("error => ",error);
-					if (error.message === "Request failed with status code 401") {
-						var userDetails = localStorage.removeItem("userDetails");
-						localStorage.clear();
-						swal({
-							title: "Your Session is expired.",
-							text: "You need to login again. Click OK to go to Login Page"
-						})
-							.then(okay => {
-								if (okay) {
-									window.location.href = "/login";
-								}
-							});
-					}
+			.then(companyDetails => {
+				console.log("companyDetails = ", companyDetails.data);
+				this.setState({
+					user_ID 		: userDetails.user_id,
+					email 			: userDetails.email,
+					profileImage 	: userDetails.image,
+					fullname 		: userDetails.firstName + ' ' + userDetails.lastName,
+					companyID 		: userDetails.companyID,
+					companyName 	: companyDetails.data.companyName,
+				}, () => {
+					console.log("this.state.fullname = ", this.state.fullname);
 				});
 
+				// ======= Notification Unread Count ==========
+				// axios.get('/api/notifications/get/list/Unread/'+userDetails.user_id)
+				axios.get('/api/notifications/get/list/Unread/' + userDetails.user_id)
+				.then(notifications => {
+					this.setState({
+						inAppNotifications 		: notifications.data,
+						inAppNotificationsCount : notifications.data.length
+					}, () => {
+						console.log("inAppNotificationsCount ==>", this.state.inAppNotificationsCount)
+					});
+				})
+				.catch(error => {
+					console.log("Error in /api/notifications/get/list/Unread/ = ", error);
+				})
+			})
+			.catch(error => {
+				console.log("Error  = ", error);
+				// console.log("error => ",error);
+				if (error.message === "Request failed with status code 401") {
+					var userDetails = localStorage.removeItem("userDetails");
+					localStorage.clear();
+					swal({
+						title 	: "Your Session is expired.",
+						text 	: "You need to login again. Click OK to go to Login Page"
+					})
+					.then(okay => {
+						if (okay) {
+							window.location.href = "/login";
+						}
+					});
+				}
+			});
 		} else {
 			this.props.history.push("/login");
 		}
 	}
+
 	componentWillReceiveProps(nextProps) {
 		this.userdata();
 		const user_ID = localStorage.getItem("user_ID");
 		axios.get('/api/notifications/get/list/Unread/' + user_ID)
-			.then(notifications => {
-				console.log("notifications ==> ", notifications)
-				this.setState({
-					inAppNotifications: notifications.data,
-					inAppNotificationsCount: notifications.data.length
-				})
+		.then(notifications => {
+			console.log("notifications ==> ", notifications)
+			this.setState({
+				inAppNotifications: notifications.data,
+				inAppNotificationsCount: notifications.data.length
 			})
-			.catch(error => {
-			})
+		})
+		.catch(error => {
+		})
 	}
+
 	componentWillUnmount() {
 		$("script[src='/js/adminLte.js']").remove();
 		$("link[href='/css/dashboard.css']").remove();
@@ -313,21 +308,21 @@ class Header2 extends Component {
 		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
 		var loginTokensLastID = localStorage.getItem('loginTokensLastID');
-		axios.post('/api/users/post/logout', { "emailId": userDetails.email, "token": userDetails.token, user_ID: userDetails.user_id })
-			.then(notifications => {
-				console.log(" Logout response => ",notifications.data);
-				if (userDetails.token !== null) {
-					this.setState({
-						loggedIn: false
-					}, () => {
-						localStorage.clear();
-						window.location = "/login";
-					})
-				}
-			})
-			.catch(error => {
-				console.log('logout error: ==> ', error)
-			})
+		axios.post('/api/auth/post/logout', { "emailId": userDetails.email, "token": userDetails.token, user_ID: userDetails.user_id })
+		.then(notifications => {
+			console.log(" Logout response => ",notifications.data);
+			if (userDetails.token !== null) {
+				this.setState({
+					loggedIn: false
+				}, () => {
+					localStorage.clear();
+					window.location = "/login";
+				})
+			}
+		})
+		.catch(error => {
+			console.log('logout error: ==> ', error)
+		})
 
 	}
 	LogoutSectionHover(event) {
@@ -340,32 +335,35 @@ class Header2 extends Component {
 		const user_ID = localStorage.getItem("user_ID");
 		console.log('user_ID   => ', user_ID)
 		axios.get('/api/notifications/get/list/Unread/' + user_ID)
-			.then(notifications => {
-				console.log('notifications: ==> ', notifications)
-				this.setState({ 
-					inAppNotifications 		: notifications.data, 
-					inAppNotificationsCount : notifications.data.length 
-				})
+		.then(notifications => {
+			console.log('notifications: ==> ', notifications)
+			this.setState({ 
+				inAppNotifications 		: notifications.data, 
+				inAppNotificationsCount : notifications.data.length 
 			})
-			.catch(error => {
-				console.log('notifications error: ==> ', error)
-			})
+		})
+		.catch(error => {
+			console.log('notifications error: ==> ', error)
+		})
 	}
+
 	viewAll(id, event) {
 		console.log("inside view all ", id)
 		$('.bellnotification').toggle();
 		axios.put('/api/notifications/put/' + id)
-			.then((res) => {
-				this.props.history.push("/ViewAllNotification");
-			})
-			.catch((err) => {
-				console.log(err)
-			})
+		.then((res) => {
+			this.props.history.push("/ViewAllNotification");
+		})
+		.catch((err) => {
+			console.log(err)
+		})
 	}
+
 	showDropdown(event) {
 		$("#showhide").addClass("showhim");
 		$("#showhidearrow").addClass("showhim");
 	}
+
 	hideDropdown(event) {
 		$("#showhide").removeClass("showhim");
 		$("#showhidearrow").removeClass("showhim");
@@ -373,12 +371,11 @@ class Header2 extends Component {
 
 	render() {
 		return (
-			<div className="">
+			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<header className="main-header newMain-header">
 					<a href="javascript:void(0)" className="logo logoOne">
 						<span className="logo-mini">
 							<a href="/">
-								{/*console.log("corporateInfo",this.state.corporateInfo)*/}
 								{this.state.corporateInfo ?
 									<img className="shortlogo strong" src={this.state.corporateInfo.companyLogo && this.state.corporateInfo.companyLogo.length > 0 ? this.state.corporateInfo.companyLogo[0] : "/images/noImagePreview.png"} ></img>
 									:
@@ -395,7 +392,7 @@ class Header2 extends Component {
 							<a href="javascript:void(0)" className="sidebar-toggle marginTop11 marginLeft12" data-toggle="push-menu" role="button">
 								<span className="sr-only">
 									Toggle navigation
-                  </span>
+                  				</span>
 							</a>
 						</div>
 						<div className="col-lg-6 col-md-8 col-sm-8 col-xs-8 padd0 pull-right">
@@ -412,15 +409,16 @@ class Header2 extends Component {
 											<div className="msgnotification col-lg-12 col-md-12 " >
 												<div className="user-notification col-lg-11 col-md-6" >
 													Notifications
-                            </div>
+                            					</div>
 												<div className="user-closernoti col-lg-1 col-md-6" >
 													<p className="text-center closeMr" style={{ "cursor": "pointer" }} onClick={this.bellNotification.bind(this)} title="Close">
 														X
-                              </p>
+                              						</p>
 												</div>
 											</div>
 											<div className="profiledetails">
-												{this.state.inAppNotifications && this.state.inAppNotifications.length > 0 ?
+												{this.state.inAppNotifications && this.state.inAppNotifications.length > 0 
+												?
 													this.state.inAppNotifications.map((data, index) => {
 														// console.log("notifications data ==> ",data)
 														return (
@@ -429,7 +427,7 @@ class Header2 extends Component {
 															</div>
 														)
 													})
-													:
+												:
 													<div >
 														<div>
 															<p>You have no notifications</p>
@@ -440,62 +438,6 @@ class Header2 extends Component {
 											</div>
 										</div>
 									</div>
-									{/* <div className="col-lg-2 col-md-2 col-sm-6 col-xs-6 pull-right bellicon hover" style={{ "cursor": "pointer" }} onClick={this.bellNotification.bind(this)}>
-                        <div className="notification">
-                          { 
-                            this.state.inAppNotificationsCount > 0 ?
-                              this.state.inAppNotificationsCount < 9 ?
-                                <span className="badge"> 
-                                  {this.state.inAppNotificationsCount}
-                                </span>
-                              :
-                                <span className="badge"> 
-                                  9
-                                <i className="fa fa-plus font-size: 3px font-weight:lighter"  aria-hidden="true"></i>
-                                </span>
-                              :
-                              null  
-                          }
-                          <img src="../images/bell-2.png" className="img" />
-                        </div>
-                      </div> 
-                       <div className="arrow-up bellnotification"></div>
-                      <div className="col-lg-12 col-md-12  bellnotification">
-                        <div className="msgnotification col-lg-12 col-md-12 " >
-                             <div className="user-notification col-lg-11 col-md-6" >
-                              Notifications
-                            </div>
-                            <div className="user-closernoti col-lg-1 col-md-6" >
-                              <p className="text-center" style={{ "cursor": "pointer" }} onClick={this.bellNotification.bind(this)} title="Close">
-                                X
-                              </p>
-                            </div>
-                        </div>
-                        <div className="profiledetails user-footer">
-                        {/* {
-                          this.state.inAppNotifications ?
-                          this.state.inAppNotifications.length > 0 ?
-                            this.state.inAppNotifications.map((data, index) => {
-                              
-                               return (
-                                  <div className="msgborderbtm" key={index}>
-                                      <div dangerouslySetInnerHTML={{__html: data.notifMessage}} />
-                                  </div>
-                               )
-                            })
-                            
-                            :
-                            <div >
-                                <div>
-                                    <p>You have no notifications</p>
-                                </div>
-
-                            </div>
-                        :
-                          null
-                          }    
-                        </div>
-                      </div> */}
 									<div className="col-lg-9 col-md-7 col-sm-9 col-xs-12  hover logoutAct pull-right">
 										<div className="row hover" onClick={this.LogoutSectionHover.bind(this)}>
 											<span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 colorboxbefore hoverText onHoverEffect ">
@@ -511,7 +453,6 @@ class Header2 extends Component {
 										</div>
 										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 user-footer showme NOpadding">
 											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 nopadding " >
-
 												<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12  headerImageContainer padd0 ">
 													<p className="pull-right fntC1" style={{ "cursor": "pointer" }} title="Close" onClick={this.LogoutSectionHover.bind(this)}>X</p><br />
 													<div className=" marLeft " style={{ "backgroundImage": `url(` + (this.state.userImage ? this.state.userImage : "/images/person.png") + `)`, "height": "40%", "backgroundSize": "41% 100%", "background-repeat": "no-repeat" }}></div>
@@ -550,5 +491,4 @@ class Header2 extends Component {
 	}
 }
 
-
-export default withRouter(Header2);
+export default withRouter(Header);
