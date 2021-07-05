@@ -26,7 +26,7 @@ class MyCart extends React.Component {
     }
    render(){
         return(  
-            <div className="col-3 NoPadding">
+            <div className="col-12 NoPadding">
             {this.state.userID?
                 <a href="/cart" className="row cartHeader">  
                         <div className="col-6 ml-4 NoPadding">

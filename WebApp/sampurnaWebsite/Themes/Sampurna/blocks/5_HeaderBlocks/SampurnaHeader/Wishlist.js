@@ -21,13 +21,13 @@ class Wishlist extends React.Component {
 
    render(){
         return(  
-            <div className="col-2 NoPadding mr-3 my-auto">
+            <div className="col-12 NoPadding my-auto">
               <li  onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}>
                   <Link href="/my-account#v-pills-settings1-tab">
-                     <a title="wishlistIcon ">
+                     <a title="wishlistIcon " className="leftf ">
                         <Image
                         src={"/images/eCommerce/wishlist.png"}
-                        className={" hidden-x rotateImg" }
+                        className={" hidden-x rotateImg " }
                         height ={25}
                         width={30}
                         layout={'intrinsic'}

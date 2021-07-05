@@ -517,7 +517,8 @@
 }
 
 .footerSection{
-  padding-left: 30px ! important;
+  padding-left: 15px ! important;
+  margin-bottom: 30px;
 }
 
 .pl0{

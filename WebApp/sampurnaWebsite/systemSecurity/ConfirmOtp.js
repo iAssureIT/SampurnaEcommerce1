@@ -143,14 +143,14 @@ class ConfirmOtp extends Component {
 
     return (
         <div className="col-12 NoPadding">
-          <div className="col-12 mobileViewNoPadding">
+          <div className="col-12 NoPadding mobileViewNoPadding">
             <div className="col-12 mobileViewNoPadding">
-              <div className="col-12 innloginwrap mb25">
-                <h4>Confirm OTP</h4>
+              <div className="col-12 innloginwrap1 text-justify ">
+                <h4 className="blueText signinText ml-4 ">Confirm OTP</h4>
               </div>
               {
                 this.state.showMessage === false ?
-                  <div className="col-12">
+                  <div className="col-12 blueText">
                     <p>We've sent you an OTP to your registered Email ID.</p>
                     <div className="">
                       <span> Please enter your OTP below.<br /></span>
@@ -160,22 +160,22 @@ class ConfirmOtp extends Component {
                         <br />
                         <div className="input-group " id="emailotp">
                           <input type="text" className="form-control" ref="emailotp" name="emailotp" placeholder="Enter OTP" onBlur={this.inputEffect.bind(this)} aria-describedby="basic-addon1" maxLength="4" pattern="(0|[0-9]*)" required />
-                          <span className="input-group-addon glyphi-custommm"><i className="fa fa-key" aria-hidden="true"></i></span>
+                          <span className="input-group-addon glyphi-custommm"><i className="fa fa-key key" aria-hidden="true"></i></span>
                         </div>
                         <div className="errorMsg">{this.state.errors.emailotp}</div>
                       </div>
                       <div className="loginforgotpass mt25">
-                        <label>Found your Password?</label>&nbsp;<a href="" onClick={this.openSignInModal.bind(this)} className="" >Sign In <b>&#8702;</b></a>
+                        <label>Found your Password?</label>&nbsp;<a href="" onClick={this.openSignInModal.bind(this)} className="forgotText" >Sign In <b>&#8702;</b></a>
                       </div>
                       <div className="mt30 col-12 mb25 ">
                         <div className="row">
-                          <div className="col-xs-12 col-sm-7">
-                            <div id="resendOtpBtn" onClick={this.resendOtp.bind(this)} className="col-12 btn globaleCommBtn  systemsecBtn">
+                          <div className="col-xs-12 NoPadding col-sm-6">
+                            <div id="resendOtpBtn" onClick={this.resendOtp.bind(this)} className="col-12 btn mt10 guestBtn">
                                 Resend OTP
                             </div>
                           </div>
-                          <div className="col-xs-12 col-sm-5">
-                            <button type="submit" onClick={this.confirmOTP.bind(this)} className="col-12 btn loginBtn globaleCommBtn systemsecBtn">Submit</button>
+                          <div className="col-xs-12 pr-0 col-sm-6">
+                            <button type="submit" onClick={this.confirmOTP.bind(this)} className="col-12 btn signInBtn">Submit</button>
                           </div>
                         </div>
                       </div>

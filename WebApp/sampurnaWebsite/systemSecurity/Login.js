@@ -187,17 +187,17 @@ class Login extends Component {
 
   render() {
     return ( 
-        <div id="loginFormModal"  className="col-12 LoginWrapper mobileViewNoPadding">    
+        <div id="loginFormModal"  className="col-12 NoPadding LoginWrapper mobileViewNoPadding">    
         <div className="col-12 mobileViewNoPadding">
           <div className="col-12 NoPadding ">
             <div className="col-12 NoPadding">
               <div className="col-12 innloginwrap">
                 <div className="col-12">
-                  <h5>SIGN IN</h5>
+                  <h5 className="blueText signinText">SIGN IN</h5>
                 </div>
               </div>
-              <div className="col-12 textAlignment mb-4 mt10 ">
-                <div className="col-12 NoPadding loginforgotpass "> 
+              <div className="col-12 textAlignment ">
+                <div className="col-12 NoPadding blueText loginforgotpass "> 
                   Don't have an account?&nbsp;&nbsp;                      
                     <a href='' className="forgotText " onClick={this.openSignUpModal.bind(this)}> Sign Up</a>                    
                 </div>
@@ -243,13 +243,13 @@ class Login extends Component {
                     </div>
                 }
                 <div className="col-12 ">
-                  <div className="col-12 mt30 mb25 NoPadding">
+                  <div className="col-12 NoPadding">
                     <div className="row">                      
 
-                      <div className="col-12 mt-2 mb-2 ">
+                      <div className="col-12 ">
                         <div className="row">
                           <hr className="col-3 whiteClr" ></hr>
-                          <span className="col-2 text-center">&nbsp;OR&nbsp;</span>
+                          <span className="col-2 blueText mt-2 text-center">&nbsp;OR&nbsp;</span>
                           <hr className="col-3 whiteClr"></hr>
                         </div>
                       </div>

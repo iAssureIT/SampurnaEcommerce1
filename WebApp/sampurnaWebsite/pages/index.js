@@ -68,8 +68,8 @@ export default function App({pageData}) {
                                           <div className="col-2">
                                               <Websitelogo />
                                           </div>  
-                                          <div className="ml-4 mr-4 col-6 text-center searchTitle"> <h5>Search Your Location</h5></div>
-                                          <div className=" col-3 NoPadding signInBlock" >
+                                          <div className="col-9 text-center searchTitle"></div>
+                                          <div className=" col-1 NoPadding signInBlock" >
                                               <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true"> 
                                                   <span className="col-12 loginView">Sign in &nbsp;
                                                       <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>

@@ -289,10 +289,10 @@ class SignUp extends Component {
 		return (
 			<div className="col-12 NoPadding">
 				<div className="col-12 innloginwrap">
-					<h5>Sign Up</h5>
+					<h5 className="blueText signinText">Sign Up</h5>
 				</div>
 
-				<div className="col-12 NoPadding mb-3 loginforgotpass signuplink mt-5">
+				<div className="col-12 NoPadding mb-3 blueText loginforgotpass signuplink mt-5">
 					<label>Already have an account?</label> &nbsp; <a href='' className="forgotText " onClick={this.openSignInModal.bind(this)}>Sign In </a>
 						<div id="loginFormModal" className="modal in">
 						<div className="modal-dialog">
@@ -309,13 +309,13 @@ class SignUp extends Component {
 
 				<form id="signUpUser" className="row">
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
-						<label>First Name</label><label className="astricsign">*</label>
+						<label className="blueText">First Name</label><label className="astricsign">*</label>
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="" onChange={this.handleChange} data-text="firstNameV" />
 						<div className="errorMsg">{this.state.errors.firstname}</div>
 
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
-						<label>Last Name</label><label className="astricsign">*</label>
+						<label className="blueText">Last Name</label><label className="astricsign">*</label>
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="" onChange={this.handleChange} data-text="lastNameV" />
 						<div className="errorMsg">{this.state.errors.lastname}</div>
 					</div>
@@ -354,7 +354,7 @@ class SignUp extends Component {
 					</div>
 
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
-						<label>Email ID</label>
+						<label className="blueText">Email ID</label>
 						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="" onChange={this.handleChange} data-text="emailIDV" />
 						{/* <label className="checkUserExistsError">User already exists!!!</label> */}
 						<div className="errorMsg">{this.state.errors.signupEmail}</div>
@@ -367,7 +367,7 @@ class SignUp extends Component {
 					</div>*/}
 
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
-						<label>Create Password</label><label className="astricsign">*</label>
+						<label className="blueText">Create Password</label><label className="astricsign">*</label>
 						<input minLength="6" type="password" className="form-control formcontrol1" id="signupPassword" ref="signupPassword" placeholder="" name="signupPassword" onChange={this.handleChange} autoComplete="off" />
 						<div className="showHideSignDiv">
 							<i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignUpPass.bind(this)}></i>
@@ -376,8 +376,8 @@ class SignUp extends Component {
 						<div className="errorMsg">{this.state.errors.signupPassword}</div>
 
 					</div>
-					<div className="form-group frmhgt1 textAlignLeft col-12 col-lg-6 mt15">
-						<label>Confirm Password</label><label className="astricsign">*</label>
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+						<label className="blueText">Confirm Password</label><label className="astricsign">*</label>
 						<input minLength="6" type="password" className="form-control formcontrol1" id="signupConfirmPassword" ref="signupConfirmPassword" placeholder="" name="signupConfirmPassword" onChange={this.handleChange} autoComplete="off"/>
 						<div className="showHideSignDiv1">
 							<i className="fa fa-eye showConfirmPwd showEyeupSign" aria-hidden="true" onClick={this.showConfirmPass.bind(this)}></i>
@@ -399,7 +399,7 @@ class SignUp extends Component {
 								</div>
 							</div>
 							:
-							<div className="col-12 mb-5 mt15">
+							<div className="col-12 mb-3 mt-5">
 							<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn signInBtn">Sign Up</button>
 							</div>
 					}

@@ -115,9 +115,9 @@ class header extends React.Component {
     
    render() {
     return (
-        <div className="col-8 col-sm-6 NoPadding">  
-            <div className="col-12 loginViewWrapper ">
-                <div className="col-12 col-lg-12 row">
+        <div className="col-12 NoPadding">  
+            <div className="col-12 NoPadding loginViewWrapper ">
+                <div className="col-12 col-lg-12 NoPadding">
                 {this.state.loggedIn ? 
                     <li className="dropdown myaccDropdown">
                         <span className="col-12 NoPadding ">
@@ -206,7 +206,7 @@ class header extends React.Component {
                                             </div>
                                         </div>
                                     </div>   
-                                    <div className="col-5 pt-2 modalForm">                                                      
+                                    <div className="col-5 pl-0 pt-2 modalForm">                                                      
                                         {this.props.formToShow === "login" ?
                                             <div className="col-12 NoPadding loginForm mobileViewNoPadding">
                                                 <Login />

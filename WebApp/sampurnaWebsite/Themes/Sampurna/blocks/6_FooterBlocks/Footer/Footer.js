@@ -57,7 +57,7 @@ export default class Footer extends Component {
           <div className="row">
             <div className="col-12 col-md-12 col-lg-12 categoryFooterWrapper">
                 <div className="col-12  NoPadding">
-                    <div className="col-12  FooterTitle">Online Shopping</div>
+                    <div className="col-12 NoPadding  FooterTitle">Online Shopping</div>
                     <div className="col-xl-3 col-md-3 col-12 hrLine"></div>
                 </div>
                 <div className="col-12  NoPadding">
@@ -68,7 +68,7 @@ export default class Footer extends Component {
                             <div className="col-6 col-xl-2 col-lg-2 col-md-4 col-sm-6 footerSection" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
                                     <Link href={"vendor-list/"+data.sectionUrl} passHref={true}>
-                                        <a className="sectionurl footerSubT" ><span>{data.section}</span></a>
+                                        <a className="sectionurl footerSubT " ><span>{data.section}</span></a>
                                     </Link>
                                     {/* <a href={"vendor-list/"+data.sectionUrl} className="sectionurl footerSubT" ><span>{data.section}</span></a> */}
                                 {

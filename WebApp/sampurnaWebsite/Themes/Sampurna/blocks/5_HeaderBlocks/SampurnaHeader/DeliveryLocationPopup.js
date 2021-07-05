@@ -347,7 +347,9 @@ class DeliveryLocationPopup extends React.Component {
        }
        
     return (
-            <div className={"row locationPage locationBg " +Style.locationBg +" " +Style.locationPage} >
+        <div className={"row locationPage locationBg " +Style.locationBg +" "+Style.locationPage} >
+            <div className={"col-12  " +Style.gLocationMap}>
+
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 AddressListWrapper">
@@ -365,7 +367,7 @@ class DeliveryLocationPopup extends React.Component {
                                     <div className="col-12">
                                         <div className={"row " +Style.ma}>
                                             <div className=" col-9 NoPadding detectLocationBtn">
-                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}>Deliver to my Current Location</button>
+                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}><i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
                                             </div>
                                             <div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}><div className={"col-2 NoPadding " +Style.orline}></div><span className={"col-8 " +Style.MapOr}>OR</span><div className={"col-2 NoPadding " +Style.orline}></div></div>
 
@@ -386,7 +388,7 @@ class DeliveryLocationPopup extends React.Component {
                                                 <input
                                                     {...getInputProps({
                                                         placeholder: 'Search your Location',
-                                                        className: 'location-search-input form-control',
+                                                        className: 'location-search-input mt-2 form-control',
                                                         id: "address",
                                                         name: "address",
                                                         required: true
@@ -420,7 +422,7 @@ class DeliveryLocationPopup extends React.Component {
                                 </div>
                                 <div className="col-12 NoPadding">
                                     <div className="col-2 offset-9 mt-3 NoPadding ">
-                                        <button type="button" className={" btn col-12 NoPadding  changelocationBtn pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                        <button type="button" className={" btn col-12 NoPadding pull-right " +Style.locationBTN } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                     </div>
                                 </div>
                                 
@@ -445,7 +447,7 @@ class DeliveryLocationPopup extends React.Component {
                 </div>                                                     
             </div>
             </div>
-        
+        </div>
     );
   }
 }
