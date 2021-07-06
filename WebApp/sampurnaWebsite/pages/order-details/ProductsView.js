@@ -361,7 +361,7 @@ class ProductsView extends Component {
     return (
           <div className="col-12">
             <Message messageData={this.state.messageData} />
-            <table className="table table-borderless orderTable">
+            <table className={"table table-borderless orderTable " +Style.table}>
                 <thead>
                     <tr>
                         <th>Products Image</th>
@@ -389,12 +389,12 @@ class ProductsView extends Component {
 
                                     {productdata.discountPercent ?
                                         <div className="col-12 NoPadding">
-                                            <span className="cartOldprice">{this.props.currency} &nbsp;{productdata.originalPrice}</span>&nbsp;
-                                        <span className="cartPrice">{this.props.currency}&nbsp;{productdata.discountedPrice}</span> &nbsp; &nbsp;
+                                            <span className="cartOldprice">{this.props.currency} &nbsp;{productdata.originalPrice}</span>&nbsp;&nbsp;&nbsp;
+                                        <span className="cartPrice">{this.props.currency}&nbsp;{productdata.discountedPrice}</span> &nbsp;
                                         <span className="cartDiscountPercent">( {Math.floor(productdata.discountPercent)}% Off ) </span>
                                         </div>
                                         :
-                                        <span className="price">{this.props.currency}&nbsp;{productdata.originalPrice}</span>
+                                        <span className="price">{this.props.currency}&nbsp;&nbsp;&nbsp;{productdata.originalPrice}</span>
                                     }
                                     <div>
                                         {productdata.color ? <span className="cartColor">Color : <span style={{ backgroundColor: productdata.color, padding: '0px 5px' }}>&nbsp;</span>  </span> : null}

@@ -10,7 +10,11 @@
 	/* border-top-right-radius: 10px; */
 	padding-bottom: 30px !important;
 	border-radius: 10px;
-	border:solid 1px #033554;
+	/*border:solid 1px #033554;*/
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: -3px 3px 6px #00000029;
+	border-radius: 19px;
+	opacity: 1;
 }
 .orderDetails{
 	border: solid 1px #ccc;

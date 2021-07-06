@@ -655,7 +655,8 @@ li a{
 .DisplayLocation{
     background-color: #fff;
     /*padding: 10px 15px;*/
-    border-bottom: solid 1px #ccc; 
+    /*border-bottom: solid 1px #ccc; */
+    margin-top: 5px;
 }
 .deliveryAddress{
     font-size: 12px;
@@ -675,6 +676,7 @@ li a{
     background-image: linear-gradient(to left, #cccccc, #d9d9d9, #e5e5e5, #f2f2f2, #ffffff);
     border: 1px solid #aaa;
     float: right;
+    border-radius: 4px;
 }
 
 .leftf{

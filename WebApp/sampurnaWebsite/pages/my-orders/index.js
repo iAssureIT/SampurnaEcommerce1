@@ -336,7 +336,7 @@ export default class MyOrders extends Component {
                <div className="col-12"> 
                 <div className="col-12 col-xl-12 col-md-12 col-sm-12 pr-0">
                   <div className="col-12">
-                      <h4 className={"table-caption py-3 "}>My Orders</h4>
+                      <h4 className={"table-caption "}>My Orders</h4>
                   </div>
 
                   <div className="col-12">
@@ -388,25 +388,25 @@ export default class MyOrders extends Component {
                                               <span className=""><b>{vendordata.vendorName}</b></span> &nbsp;
                                           </div>           
                                           <div className={"col-6 " +Style.middleText}>
-                                              <div className="row ">   
-                                                  <div className="col-12 title NoPadding">
-                                                    <div className="row">
-                                                        <span className="col-4 ">&nbsp; No.Of Items </span>
-                                                        <span className="col-1">&nbsp;&nbsp;:</span>
-                                                        <span className="col-6 ">
-                                                            {vendordata.vendor_numberOfProducts} 
-                                                        </span>
-                                                    </div>
-                                                  </div>             
+                                              <div className="row ">                                                           
                                                   <div className="col-12">
                                                       <div className="row">
-                                                        <span className="col-4 ">&nbsp; Amount </span>
+                                                        <span className="col-4 ">Amount </span>
                                                         <span className="col-1">:</span>
                                                         <span className="col-6 "> 
                                                             {this.state.currency} {vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
                                                         </span>
                                                       </div>
                                                   </div>
+                                                  <div className="col-12 title NoPadding">
+                                                    <div className="row">
+                                                        <span className="col-4 ">No.Of Items </span>
+                                                        <span className="col-1">&nbsp;&nbsp;:</span>
+                                                        <span className="col-6 ">
+                                                            {vendordata.vendor_numberOfProducts} 
+                                                        </span>
+                                                    </div>
+                                                  </div>       
                                               </div>
                                           </div>
 
@@ -437,7 +437,7 @@ export default class MyOrders extends Component {
                                       </div>
                                     <div className="col-7  pull-right orderBtnWrapper">
                                       <button className=" btn col-6 float-right " onClick={()=>this.props.getOrderId(singleOrder._id)}>
-                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-12 float-right globalCommonBtn col-md-12 showDetailsBtn "} >Show Details</a>
+                                        <a id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false" className={"col-9 float-right showDetailsBtn "} >Show Details</a>
                                       </button>
                                     </div>
                                   </div>

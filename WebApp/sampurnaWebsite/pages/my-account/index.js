@@ -168,7 +168,7 @@ class MyAccount extends Component{
                                     <AddressBook/>
                                     </div>
                                     
-                                    <div className={this.state.url1==="#v-pills-settings-tab"?"tab-pane fade shadow rounded bg-white p-3 show active":"tab-pane fade shadow rounded bg-white p-3"}id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                    <div className={this.state.url1==="#v-pills-settings-tab"?"tab-pane bg-white  show active":"tab-pane bg-white "}id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                                         <MyOrders getOrderId={this.getOrderId.bind(this)}/>
                                     </div>
 
@@ -178,7 +178,7 @@ class MyAccount extends Component{
                                     <div className={this.state.url1==="#v-pills-settings3-tab"?"tab-pane fade shadow rounded bg-white pb-5 show active":"b-pane fade shadow rounded bg-white pb-5"} id="v-pills-settings3" role="tabpanel" aria-labelledby="v-pills-settings3-tab">
                                         <CreditPoints />
                                     </div>
-                                    <div className="tab-pane fade shadow rounded bg-white pb-5" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">
+                                    <div className="tab-pane bg-white pb-5" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings2-tab">
                                         {this.state.order_id!==""&&<OrderDetails order_id={this.state.order_id} />}
                                     </div>
                                     

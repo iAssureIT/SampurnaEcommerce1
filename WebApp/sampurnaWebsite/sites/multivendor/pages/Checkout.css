@@ -140,7 +140,8 @@
     vertical-align: middle !important;
 }
 .orderTable>thead>tr>th{
-    border-bottom: 1px solid #fff;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ccc;
 }
 .crossOrder{
     cursor: pointer;
@@ -183,7 +184,7 @@
     text-align: right !important;
 }
 .productName{
-    font-weight: 500 !important;
+    font-weight: 700 !important;
     color: #333 !important;
 }
 .productPrize{
