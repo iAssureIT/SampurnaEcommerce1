@@ -133,6 +133,8 @@
 
 .disPriceColor{
 	color:#999;
+	text-decoration: line-through;
+    text-decoration-color: #DC1919;
 }
 
 .brandName{
@@ -143,4 +145,14 @@
 }
 .productDetailVendorName{
 	font-size: 12px;
+}
+
+.heartPosition{
+	position: absolute;
+	top: -225px;
+	right: 0px;
+}
+
+.topSpace{
+	margin-top: 60px;
 }

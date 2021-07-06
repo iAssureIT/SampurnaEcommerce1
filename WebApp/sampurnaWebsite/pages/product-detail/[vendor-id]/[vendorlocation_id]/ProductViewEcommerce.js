@@ -460,7 +460,7 @@ class ProductViewEcommerce extends Component {
 						{this.state.brandData && this.state.brandData.length>0?  
 							<div className="panel-group" >     
 								{this.state.brandData.length && this.state.brandData[0].brand!=' '>0?                 
-								<div className={style.categoryFilterTitle}> Brand </div>  
+								<div className={" " +style.categoryFilterTitle}> Brand </div>  
 								:null}
 								{
 								this.state.brandData && this.state.brandData.length > 0
@@ -497,7 +497,7 @@ class ProductViewEcommerce extends Component {
 								productData = {this.state.productData}
 							/>
 							:null}
-							<div className="col-12 col-xl-7 col-lg-7 col-md-12 col-sm-12 ">
+							<div className={"col-12 col-xl-7 col-lg-7 col-md-12 col-sm-12 " +Style.topSpace}>
 
 							<Message messageData={this.state.messageData} />
 							{this.state.productData?
@@ -524,7 +524,7 @@ class ProductViewEcommerce extends Component {
 										{                                  
 											this.state.productData.discountPercent ?
 											<div className="col-12 NoPadding priceWrapper">
-												<span className={" " +Style.f12}>Price : <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;
+												<span className={" " +Style.f12}>Price &nbsp;:&nbsp;&nbsp; <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;&nbsp;&nbsp;
 												<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
 												</span>
 											</div>
@@ -569,7 +569,7 @@ class ProductViewEcommerce extends Component {
 												</div>
 											}
 											
-											<div className="col-2 col-lg-2 col-xl-2 col-md-3 col-sm-3 col-xs-3 NoPadding mobileViewNoPadding">
+											<div className={"col-2 col-lg-2 col-xl-2 col-md-3 col-sm-3 col-xs-3 NoPadding mobileViewNoPadding " +Style.heartPosition}>
 												{this.state.user_ID?
 													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass}>
 														<i id={this.state.productData._id} className={"fa"+wishClass +" " +"fa-heart" +" heartIcon"}></i>
@@ -581,7 +581,7 @@ class ProductViewEcommerce extends Component {
 												}
 											</div>	
 											<div className="col-12 productDetailWrapper mt-4 NoPadding">
-												<div >Products Information</div>
+												<div ><b>Products Information</b></div>
 												{this.state.productData.weight &&
 												<div className="col-12 singleProductDetail">
 													<span className="col-4">Brand</span>
