@@ -199,55 +199,71 @@ export default class OrderDetails extends Component {
       "orderID": id,
       "userid": this.state.userID
     }
-    axios.patch('/api/orders/get/cancelOrder', formValues)
-      .then((response) => {
-        // console.log("cancel order response:",this.state.orderData);
-        $('.fullpageloader').hide();
-        this.getMyOrders();
-        const el = document.createElement('div')
-        el.innerHTML = "<a href='/CancellationPolicy' style='color:blue !important'>View Cancellation Policy</a>"
-        
-        axios.get('/api/orders/get/one/' +id)
-        .then((res) => {                                    
-            // =================== Notification OTP ==================
-        if(res){
-          var sendData = {
-            "event": "4",
-            "toUser_id": this.state.user_id,
-            "toUserRole": "user",
-            "variables": {
-                "Username": res.data.userFullName,
-                "orderId": res.data.orderID,
-                "orderdate": moment(res.data.createdAt).format('DD-MMM-YY LT'),
-            }
-          }        
-        // console.log('sendDataToUser==>', sendData)
-        axios.post('/api/masternotifications/post/sendNotification', sendData)
-        .then((res) => { })
-        .catch((error) => { console.log('notification error: ', error) })
-      }
+    swal({
+      title: "Are you sure?",
+      text: "Are you sure that you want to cancelled order?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: true,
     })
-      // =================== Notification ==================
 
-        this.setState({
-          messageData: {
-            "type": "outpage",
-            "icon": "fa fa-exclamation-circle",
-            "message": "Your order is cancelled. Refund will be made as per Cancellation Policy",
-            "class": "warning",
-            "autoDismiss": true
+    .then(willDelete => {
+      if (willDelete) {
+        axios.patch('/api/orders/get/cancelOrder', formValues)
+          .then((response) => {
+            // console.log("cancel order response:",this.state.orderData);
+            $('.fullpageloader').hide();
+            this.getMyOrders();
+            const el = document.createElement('div')
+            el.innerHTML = "<a href='/CancellationPolicy' style='color:blue !important'>View Cancellation Policy</a>"
+            
+            axios.get('/api/orders/get/one/' +id)
+            .then((res) => {                                    
+                // =================== Notification OTP ==================
+            if(res){
+              var sendData = {
+                "event": "4",
+                "toUser_id": this.state.user_id,
+                "toUserRole": "user",
+                "variables": {
+                    "Username": res.data.userFullName,
+                    "orderId": res.data.orderID,
+                    "orderdate": moment(res.data.createdAt).format('DD-MMM-YY LT'),
+                }
+              }        
+            // console.log('sendDataToUser==>', sendData)
+            axios.post('/api/masternotifications/post/sendNotification', sendData)
+            .then((res) => { })
+            .catch((error) => { console.log('notification error: ', error) })
           }
         })
-        setTimeout(() => {
-          this.setState({
-            messageData: {},
-          })
-        }, 3000);
+          // =================== Notification ==================
 
-      })
-      .catch((error) => {
-      })
+            this.setState({
+              messageData: {
+                "type": "outpage",
+                "icon": "fa fa-exclamation-circle",
+                "message": "Your order is cancelled. Refund will be made as per Cancellation Policy",
+                "class": "warning",
+                "autoDismiss": true
+              }
+            })
+            setTimeout(() => {
+              this.setState({
+                messageData: {},
+              })
+            }, 3000);
+
+          })
+          .catch((error) => {
+          })
+          swal("Cancelled!", "Your order cancelled successfully!", "success");
+      }else{
+        swal("Your order is safe!");
+      }
+    })
   }
+ 
   closeModal(event){
     this.setState({
       rating : "",
