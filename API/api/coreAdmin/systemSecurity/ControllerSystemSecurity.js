@@ -1622,44 +1622,58 @@ exports.set_send_emailotp_usingID = (req, res, next) => {
 		});
 };
 
-
-
-
-/**===========  ===========*/
+/**=========== Resend OTP on Signup ===========*/
 exports.set_send_mobileotp_usingID = (req, res, next) => {
-	User.findOne({ _id: req.params.ID})
+	User.findOne({ _id: (req.params.user_id)})
 	.then(user => {
 		if(user){
+			// var otpMobile = getRandomInt(1000, 9999);
 			var optMobile = 1234;
 			User.updateOne(
-			{ _id: req.params.ID},
+			{ _id: req.params.user_id},
 			{
 				$set: {
-					"profile.otpEmail": optMobile,
+					"profile.optMobile" : optMobile,
 				},
 			})
 			.exec()
-			.then(data => {
+			.then(async(data) => {
 				// if (data.nModified === 1) {
-					res.status(201).json({ message: "OTP_UPDATED", userID: user._id })
+					var otpMobile = getRandomInt(1000, 9999);
+					var userNotificationValues = {
+						"event"			: "SendOTP",
+						"toUser_id"		: user._id,
+						"toUserRole"	: user.roles[0],
+						"toMobileNumber": user.isdCode + user.mobile,								
+						"variables" 	: {
+							subject 	: "SignUp OTP",
+							OTP 		: otpMobile
+						}
+					}
+					var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
+						
+					res.status(201).json({ 
+						message 	: "OTP sent on your registered mobile id", 
+						userID 		: user._id 
+					})
 				// } else {
 				// 	res.status(200).json({ message: "OTP_NOT_UPDATED" })
 				// }
 			})
 			.catch(err => {
 				res.status(500).json({
-					message: "Failed to update User",
-					error: err
+					message 	: "Failed to update mobile OTP",
+					error 		: err
 				});
 			});
 		}else{
-			res.status(200).json({ message: "NOT_REGISTER" })
+			res.status(200).json({ message: "User is not registered" })
 		}
 	})
 	.catch(err => {
 		res.status(500).json({
-			message: "Failed to find User",
-			error: err
+			message 	: "Failed to find user",
+			error 		: err
 		});
 	});
 };
@@ -2367,61 +2381,91 @@ exports.user_signup_guest_login = (req, res, next) => {
 };
 
 
-
+/**=========== Forgot Password Send OTP ===========*/
 exports.set_send_otp = (req, res, next) => {
-	console.log("re body",req.body);
-	User.findOne({$or:[
-		{"profile.mobile" : req.params.username},
-		{$and:[
-			{"profile.email"  :  req.params.username},
-			{"profile.email"  :  {$ne:''}}
-		]
-		}]}
+	console.log("req body => ",req.params);
+	
+	User.findOne(
+		{$or:
+			[
+				{ "profile.mobile" : req.params.username },
+				{ $and : [
+						{"profile.email"  :  req.params.username},
+						{"profile.email"  :  { $ne : '' }}
+					]
+				}
+			]
+		}
 	)
 	.then(user => {
 		if(user){
-			console.log('user status====',user)
+			console.log('user => ',user)
  			if ((user.profile.status).toLowerCase() === "active") {
- 				var optEmail = getRandomInt(1000, 9999);
+ 				var otpMobile = getRandomInt(1000, 9999);
 				// console.log("optEmail", optEmail, req.body);
 				User.updateOne(
 					{ "_id": ObjectID(user._id)},
 					{
 						$set: {
-							"profile.otpEmail": '1234',
+							"profile.otpMobile": otpMobile,
 						},
 					}
 				)
 				.exec()
-				.then(data => {
+				.then(async(data) => {
 					console.log("data",data);
 					if (data.nModified === 1) {
-						res.status(200).json({ message: "OTP_UPDATED", ID: user._id,profile:user.profile })
+						var userNotificationValues = {
+							"event"			: "SendOTP",
+							"toUser_id"		: user._id,
+							"toUserRole"	: user.roles[0],
+							"toMobileNumber": user.isdCode + user.mobile,								
+							"variables" 	: {
+								subject 	: "Forgot Password",
+								OTP 		: otpMobile
+							}
+						}
+						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
+						res.status(200).json({ 
+							message : "OTP sent on registered mobile number", 
+							ID 		: user._id,
+							profile : user.profile 
+						})
 					} else {
-						res.status(200).json({ message: "OTP_NOT_UPDATED", ID: user._id,profile:user.profile })
+						res.status(200).json({ 
+							message : "Failed to send OTP", 
+							ID 		: user._id,
+							profile : user.profile 
+						})
 					}
 				})
 				.catch(err => {
 					res.status(500).json({
-						message: "Failed to update User",
-						error: err
+						message : "Failed to update User",
+						error 	: err
 					});
 				});
  			}else if ((user.profile.status).toLowerCase() == "blocked") {
 				// console.log("user.USER_BLOCK IN ==>")
-				res.status(200).json({ message: "USER_BLOCK" });
+				res.status(200).json({ 
+					message : "user is blocked" 
+				});
 			} else if ((user.profile.status).toLowerCase() == "unverified") {
-				res.status(200).json({ message: "USER_UNVERIFIED" });
+				res.status(200).json({ 
+					message : "User is unverified" 
+				});
 			}
 		}else{
-			res.status(200).json({ message: "NOT_REGISTER" })
+			res.status(200).json({ 
+				message : "User is not registered" 
+			})
 		}		
 	})
 	.catch(err => {
-		console.log("err",err)
+		console.log("Error : Failed to find User => ",err)
 		res.status(500).json({
-			message: "Failed to find User",
-			error: err
+			message : "Failed to find User",
+			error 	: err
 		});
 	});				
 };

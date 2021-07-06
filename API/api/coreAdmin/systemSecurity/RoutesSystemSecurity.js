@@ -26,15 +26,16 @@ router.post('/post/logout',             UserController.logouthistory); //Working
 router.post('/post/login/mobile',UserController.user_login_using_mobile); //Working
 router.post('/post/signup_user', UserController1.user_signup_user); //Working
 router.get('/get/checkmobileotp/usingID/:ID/:mobileotp',UserController.check_userID_MobileOTP);//Working
-router.patch('/patch/setsendmobileotpusingID/:ID',UserController.set_send_mobileotp_usingID);//working
+router.patch('/patch/setsendmobileotpusingID/:user_id',UserController.set_send_mobileotp_usingID);//working
 router.patch('/patch/setsendmobileotpusingMobile/:mobileNo',UserController.set_send_mobileotp_usingMobile);//working
 
 
 //new api for systemsecurity
 router.post('/post/login/mob_email',UserController.user_login_mob_email); 
 router.post('/post/signup/social_media',UserController.user_signup_social_media); 
-router.post('/post/signup/guest_login',UserController.user_signup_guest_login); 
-router.patch('/patch/set_send_otp/:username',UserController.set_send_otp); 
+router.post('/post/signup/guest_login',UserController.user_signup_guest_login);
+ 
+router.patch('/patch/set_send_otp/:username',   UserController.set_send_otp); 
 
 
 module.exports = router;
