@@ -97,8 +97,7 @@ export default class OrderDetails extends Component {
         socket.emit('signle_order',this.props.order_id);
         socket.on('getSingleOrder',(response)=>{
           if(response){
-            console.log("socket response.data=>",response);
-            // $('.fullpageloader').hide();
+            // console.log("socket response.data=>",response);
             this.setState({
               orderData: response,
               loading: false
@@ -141,13 +140,14 @@ export default class OrderDetails extends Component {
 			}
 		})
 	}
+
   getMyUser() {    
     axios.get("/api/users/get/id/" +this.state.user_ID)
       .then((response) => {
         this.setState({
           reviewuserData: response.data
         },()=>{
-          console.log("reviewuserData=",this.state.reviewuserData);
+          // console.log("reviewuserData=",this.state.reviewuserData);
         })
       })
       .catch((error) => {

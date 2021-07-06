@@ -62,12 +62,12 @@ class Wishlist extends Component {
     "userLat"             : this.state.userLongitude, 
     "userLong"            : this.state.userLongitude
   }
-    console.log("formValues=",formValues);
+    // console.log("formValues=",formValues);
 
     axios.post('/api/wishlist/get/userwishlist', formValues)    
       .then((response) => {
         if(response){
-          console.log('wishlist data', response.data);
+          // console.log('wishlist data', response.data);
           this.setState({
             wishlistData: response.data
           })

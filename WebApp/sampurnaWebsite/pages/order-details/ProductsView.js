@@ -107,7 +107,7 @@ class ProductsView extends Component {
         }else{
          var formValues = {
             "customer_id"       : this.props.user_ID,
-            "customerName"      : this.props.orderData.userFullName,
+            "customerName"      : this.props.orderData.userName,
             "order_id"          : this.props.orderData._id,
             "product_id"        : event.target.getAttribute('productid'),
             "rating"            : this.state.rating,
@@ -277,7 +277,7 @@ class ProductsView extends Component {
       "order_id"        		: orderID,
       "product_id"      		: productID
     }
-    // console.log("formValues=",formValues);
+    console.log("formValues=",formValues);
     if(formValues){
       axios.post("/api/customerReview/get/single/customer/review",formValues)
       .then((response) => {
@@ -357,7 +357,7 @@ class ProductsView extends Component {
   }
     
   render() {
-    // console.log("productdetails this.props ===",this.props);
+    console.log("productdetails this.props ===",this.props);
     return (
           <div className="col-12">
             <Message messageData={this.state.messageData} />
@@ -424,22 +424,22 @@ class ProductsView extends Component {
                                     {this.props.orderStatus === "Delivered"?
                                         <span>
                                             {productdata.isReview?
-                                              <div className={" "+Style.returnReviewBtn}  productId={productdata._id} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata.product_ID}>Edit Review</div>
+                                              <div className={" "+Style.returnReviewBtn}  productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata.product_ID}>Edit Review</div>
                                               :
-                                              <div className={" "+Style.returnReviewBtn}  productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata._id}>Add Review</div>
+                                              <div className={" "+Style.returnReviewBtn}  productId={productdata.product_ID} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata.product_ID}>Add Review</div>
                                             }
                                             {/* {productdata.productReturnable === "returnable"  && productdata.productStatus? */}
                                             { productdata.productStatus?
-                                              <div className={" "+Style.returnReviewBtn}    productId={productdata._id} >{productdata.productStatus}</div>
+                                              <div className={" "+Style.returnReviewBtn}    productId={productdata.product_ID} >{productdata.productStatus}</div>
                                             :
-                                              <div className={" "+Style.returnReviewBtn}    productId={productdata._id} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_"+productdata._id}>return</div>
+                                              <div className={" "+Style.returnReviewBtn}    productId={productdata.product_ID} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_"+productdata.product_ID}>return</div>
                                             }
                                         </span>
                                     :null
                                     }
 
                                     {/* Review and Rating */}
-                                    <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata._id} role="dialog">
+                                    <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata.product_ID} role="dialog">
                                         <div className="modal-content modalContent " style={{ 'background': '#fff'}}>
                                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                                               <div className="col-12">
@@ -491,7 +491,7 @@ class ProductsView extends Component {
                                             </div>
                                             <div className="modal-footer modalfooterborder ">
                                                 <div className="col-12 ">
-                                                    <button className="btn btn-primary pull-right mt15" onClick={this.submitReview.bind(this)}  vendorLocationId={this.props.vendorWiseOrderData.vendorLocation_id} productid={productdata && productdata._id}
+                                                    <button className="btn btn-primary pull-right mt15" onClick={this.submitReview.bind(this)}  vendorLocationId={this.props.vendorWiseOrderData.vendorLocation_id} productid={productdata && productdata.product_ID}
                                                     >{productdata.isReview ? 'Update' :'Submit'}</button>
                                                 </div>
                                             </div>
@@ -499,7 +499,7 @@ class ProductsView extends Component {
                                     </div>
 
                                     {/* Return product */}
-                                    <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"returnModal_"+productdata._id} role="dialog">
+                                    <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"returnModal_"+productdata.product_ID} role="dialog">
                                         <div className="modal-content modalContent " style={{ 'background': '#fff'}}>
                                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                                             <div className="col-12">

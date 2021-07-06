@@ -91,14 +91,13 @@ class ProductreviewList extends Component {
               {
                 this.state.reviewData && this.state.reviewData.length > 0 ?
                   this.state.reviewData.map((data, index) => {
-
                     // console.log("data==",data);
                     return (
                       <div key={index} className="col-12 reviewBox">
                         <div className="row">
                             <div className="col-4">
                                 <div className="col-4 offset-4">
-                                  <div className="customerPic" > {data.customerName.substring(0, 1)}</div>
+                                  <div className="customerPic" > {data.customerName?data.customerName.substring(0, 1):null}</div>
                                 </div>
                                 <div className="col-12 text-center">{data.customerName}</div>
                             </div>

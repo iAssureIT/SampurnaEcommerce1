@@ -38,39 +38,33 @@ class MyAccount extends Component{
     }
 
     componentDidMount(){
-        
+
         let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
-        let dynamicUrl=window.location.hash
+        let dynamicUrl=window.location.hash;
 
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
             if(userDetails.user_id){
 				this.setState({
-                    url:defaultUrl,
-                    url1:dynamicUrl,
-					user_ID :  userDetails.user_id,
+                    url           :defaultUrl,
+                    url1          :dynamicUrl,
+					user_ID       :  userDetails.user_id,
 					userLongitude : userDetails.userLatitude,
 					userLongitude : userDetails.userLongitude,
-                    authService : userDetails.authService
+                    authService   : userDetails.authService
 				},()=>{
                     this.getUserData();
-
-                    // console.log("54",this.state.url)
 				})
             }
         }
-       
-        // console.log("42",a)
     }
    
     getUserData(){
         axios.get('/api/users/get/id/'+this.state.user_ID)
         .then( (res)=>{
-            // $('.fullpageloader').hide();
             if(res){
                 if(res){
-                    // console.log("address response==",res);
                     this.setState({
                         firstName       : res.data.profile.firstname,
                         lastName        : res.data.profile.lastname,
@@ -93,35 +87,13 @@ class MyAccount extends Component{
                         // console.log("this.state.addressLine1=",this.state.addressLine1);
                     })
                 }
-                
             }
         })
         .catch((error)=>{
           console.log("account page getuser error = ",error);
         });
-       
     }
   
-
-    editUser(event){
-        event.preventDefault();
-        Router.push('/edit-account');
-    }
-    
-    getAddressId(event){
-        // event.preventDefault();
-        this.setState({
-            addressId : event.target.id            
-        },()=>{
-            console.log("addressId:",this.state.addressId);
-        });
-        
-    }
-    
-    opDone(){
-        this.getUserData();
-    }
-
     getOrderId(orderId){
         this.setState({order_id:orderId})
     }
@@ -139,16 +111,18 @@ class MyAccount extends Component{
                         <div className="row">
                             <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12 ">
                                 {/* <!-- Tabs nav --> */}
-                                {this.state.authService!=="guest"?
+                                {this.state.authService !=="guest" &&
                                 <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3  shadow active rounded":"nav-link mb-4 p-3  shadow"}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
-                                        <i className="fa fa-user-circle mr-3"></i>
-                                        <span className=" small text-uppercase">Account Dashboard</span></a>
-                
-                                    <a className="nav-link mb-4 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-                                        <i className="fa fa-info-circle mr-3"></i>
-                                        <span className=" small text-uppercase">Account Information</span></a>
-                
+                                    {this.state.authService==="" &&
+                                    <div className="col-12 NoPadding">
+                                        <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3  shadow active rounded":"nav-link mb-4 p-3  shadow"}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                            <i className="fa fa-user-circle mr-3"></i>
+                                            <span className=" small text-uppercase">Account Dashboard</span></a>
+                    
+                                        <a className="nav-link mb-4 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                            <i className="fa fa-info-circle mr-3"></i>
+                                            <span className=" small text-uppercase">Account Information</span></a>
+                                    </div>}
                                     <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
                                         <i className="fa fa-address-card mr-3"></i>
                                         <span className=" small text-uppercase">Address Book</span></a>
@@ -168,9 +142,9 @@ class MyAccount extends Component{
                                     {/* <a className="nav-link mb-5 p-3 shadow" id="v-pills-settings2-tab" data-toggle="pill" href="#v-pills-settings2" role="tab" aria-controls="v-pills-settings2" aria-selected="false">
                                     <i className="fa fa-star mr-3"></i>
                                     <span className=" small text-uppercase">My Product Reviews</span></a> */}
-
                                 </div>
-                                :
+                                }
+                                { this.state.authService==="guest"&&
                                     <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">   
                                          <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                         <i className="fa fa-shopping-cart mr-3"></i>

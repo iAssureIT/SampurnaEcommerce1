@@ -347,7 +347,7 @@ getProductList(productApiUrl,formValues){
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      console.log("response.data===",response.data);
+      // console.log("response.data===",response.data);
       this.setState({
         newProducts     : response.data,   
         // newProducts     : response.data.concat(this.state.newProducts),                         
@@ -370,11 +370,6 @@ getProductList(productApiUrl,formValues){
 submitCart(event) { 
     if(this.state.user_ID){
     var id = event.target.id;
-    if(this.state.websiteModel=== "FranchiseModel"){
-      var selectedSize = $('#'+id+"-size").val();      
-      var size = event.target.getAttribute('mainsize');      
-      var unit = event.target.getAttribute('unit');      
-    }    
     var availableQuantity = event.target.getAttribute('availablequantity');
     var currProId = event.target.getAttribute('currpro');
     var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
