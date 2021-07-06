@@ -90,6 +90,9 @@ class Header extends Component {
 		var token  			= userDetails.token;
 		axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 		
+		this.setState({
+			user_id : userDetails.user_id
+		})
 
 		axios.get('/api/users/get/' + userDetails.user_id)
 		.then((res) => {
@@ -200,7 +203,7 @@ class Header extends Component {
 			.then(companyDetails => {
 				console.log("companyDetails = ", companyDetails.data);
 				this.setState({
-					user_ID 		: userDetails.user_id,
+					user_id 		: userDetails.user_id,
 					email 			: userDetails.email,
 					profileImage 	: userDetails.image,
 					fullname 		: userDetails.firstName + ' ' + userDetails.lastName,
@@ -249,8 +252,8 @@ class Header extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.userdata();
-		const user_ID = localStorage.getItem("user_ID");
-		axios.get('/api/notifications/get/list/Unread/' + user_ID)
+		// const user_ID = localStorage.getItem("user_ID");
+		axios.get('/api/notifications/get/list/Unread/' + this.state.user_id)
 		.then(notifications => {
 			console.log("notifications ==> ", notifications)
 			this.setState({
@@ -332,9 +335,9 @@ class Header extends Component {
 
 	bellNotification(event) {
 		$('.bellnotification').toggle();
-		const user_ID = localStorage.getItem("user_ID");
-		console.log('user_ID   => ', user_ID)
-		axios.get('/api/notifications/get/list/Unread/' + user_ID)
+		// const user_ID = localStorage.getItem("user_ID");
+		// console.log('user_ID   => ', user_ID)
+		axios.get('/api/notifications/get/list/Unread/' + this.state.user_id)
 		.then(notifications => {
 			console.log('notifications: ==> ', notifications)
 			this.setState({ 
@@ -466,7 +469,7 @@ class Header extends Component {
 											</div>
 											<div className="btnDiv col-lg-12 col-md-12 col-sm-12 col-xs-12">
 												<span className="">
-													<a className="profileTitle btnpadd" href={"/profile/" + this.state.user_ID}>
+													<a className="profileTitle btnpadd" href={"/profile/" + this.state.user_id}>
 														<button type="button" className="profilebtn">Profile</button>
 													</a>
 												</span> &nbsp;
