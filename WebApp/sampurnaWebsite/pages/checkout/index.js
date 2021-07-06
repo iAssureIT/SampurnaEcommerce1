@@ -79,7 +79,7 @@ class Checkout extends Component {
             this.setState({
                 user_ID : userDetails.user_id,
                 email   : userDetails.email,
-                fullName: userDetails.firstname +" "+userDetails.lastname ,
+                fullName: userDetails.firstName +" "+userDetails.lastName ,
                 websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
                 currency     : currency,
             },()=>{
@@ -470,7 +470,6 @@ class Checkout extends Component {
                             vendorOrders              : vendorOrders,
                             paymentDetails            : this.state.recentCartData.paymentDetails,
                             deliveryAddress           : addressValues,
-                        
                         }
                         console.log("OrdersData===",orderData);
 
@@ -914,7 +913,7 @@ class Checkout extends Component {
                                                                                 <tr>
                                                                                     <td><img className="img orderImg" src={cartdata.product_ID.productImage[0] ? cartdata.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} /></td>
                                                                                     <td>
-                                                                                        <a href={"/productdetails/" + cartdata.product_ID}>
+                                                                                        <a href={"/product-detail/" + vendorWiseData.vendor_id._id + "/"+vendorWiseData.vendorLocation_id +"/" +cartdata.product_ID._id}>
                                                                                         {cartdata.product_ID.productNameRlang?
                                                                                             <h5 className="RegionalFont">{cartdata.product_ID.productNameRlang}</h5>
                                                                                         :
@@ -1150,15 +1149,14 @@ class Checkout extends Component {
                                             </div>
                                         </div>
 
-                                        <div className={"modal col-12 col-sm-12 col-xs-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 offset-3 checkoutAddressModal NoPadding mt-5 " } id="termsNconditionsmodal" role="dialog">
+                                        <div className={"modal NoPadding mt-5 " } id="termsNconditionsmodal" role="dialog">
                                             <div className="col-12 NoPadding ">
-                                                <div className={"modal-content  col-12 NoPadding " }>
-                                                    <div className={"modal-header globalBgColor checkoutAddressModal col-12 " +Style.modalHeader}>
-                                                        {/*<img src="/images/eCommerce/multistoreLogo.png" className="col-3" />*/}
+                                                <div className={"modal-content  col-md NoPadding " }>
+                                                    <div className={"modal-header globalBgColor col-12 " +Style.modalHeader}>
                                                         <div className={"modal-title col-10 modalheadingcont text-center underline " +Style.f14B }><u>TERMS AND CONDITIONS</u></div>
                                                         <button type="button" className="col-2 close modalclosebut " data-dismiss="modal">&times;</button>
                                                     </div>
-                                                    <div className={"modal-body col-12 checkoutAddressModal " +Style.modalHeader +" "+Style.modalBodyRadius}>
+                                                    <div className={"modal-body col-12 " +Style.modalHeader +" "+Style.modalBodyRadius}>
                                                         <ul className={"listStyle " +Style.listColor}>
                                                             <li>The price of products is as quoted on the site from time to time.</li>
                                                             <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
@@ -1166,10 +1164,6 @@ class Checkout extends Component {
                                                             <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
                                                         </ul>
                                                     </div>
-                                                    {/*<div className="modal-footer checkoutAddressModal col-12">
-                                                        <button type="button" className="btn globaleCommBtn" data-dismiss="modal">Cancel</button>
-
-                                                    </div>*/}
                                                 </div>
                                             </div>
                                         </div>

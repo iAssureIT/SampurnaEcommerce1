@@ -79,10 +79,11 @@ class CreditPoints extends Component{
                         </thead>
                         <tbody>
 
-                            {this.state.creditdata.transactions.map((data,index)=>{
+                            {this.state.creditdata.transactions && this.state.creditdata.transactions.length>0 && this.state.creditdata.transactions.map((data,index)=>{
+                                console.log("credit data===",this.state.creditdata.transactions);
                                 return(
                                     <tr key={index}>
-                                        <td className="text-center">{moment(data.transactionDate).format('MM/DD/YYYY')}</td>
+                                        <td className="text-center">{data.transactionDate ? moment(data.transactionDate).format('MM/DD/YYYY'):null}</td>
                                         <td className="text-center">
                                             
                                             <div ><b>{data.typeOfTransaction}</b></div>

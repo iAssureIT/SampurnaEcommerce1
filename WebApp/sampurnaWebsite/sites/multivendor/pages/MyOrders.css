@@ -38,8 +38,8 @@
 	font-size: 13px;
 }
 .orderStatusBadge{
-	height: 17px;
-	padding:5px;
+	/* height: 17px; */
+	padding:8px;
 }
 .cancelOrderStatus{
 	color: #f00;

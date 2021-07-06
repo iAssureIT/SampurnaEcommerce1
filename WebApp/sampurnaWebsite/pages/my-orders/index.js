@@ -170,29 +170,6 @@ export default class MyOrders extends Component {
         })
     }
   }
-  cancelProduct(event) {
-    $('#cancelProductModal').show();
-    var status = $(event.target).data('status');
-    var id = $(event.target).data('id');
-    var str = '';
-
-    if (status === "New Order" || status === "Verified" || status === "Packed") {
-      str = 'Do you want to cancel order?';
-      $('#cancelProductBtn').attr('data-id', id);
-      $('.cantcancel').hide();
-      $('.cancancel').show();
-    }
-    else {
-
-      str = status === "Delivery Initiated" || status === "Delivered & Paid" ? "This order is delivered. You cannot cancel this order." : "This order is being dispatched. You cannot cancel this order.";
-
-      $('.cantcancel').show();
-      $('.cancancel').hide();
-    }
-    $('#cancelProductModal .modaltext').html('');
-    $('#cancelProductModal .modaltext').append(str);
-  }
-
   cancelButton = (orderDate)=>{
     var min = moment(orderDate).add(this.state.orderData[0].maxDurationForCancelOrder, 'minutes');
     var duration = moment.duration(min.diff(new Date())).asSeconds();
@@ -208,9 +185,7 @@ export default class MyOrders extends Component {
   cancelProductAction(event) {
     event.preventDefault();
     $('.fullpageloader').show();
-    var orderId = event.target.id;
-    // var id = $(event.target).data('id');
-    // var vendorid = event.target.getAttribute('vendorId');
+    var orderId = event.target.id;    
     if(orderId){
       var formValues = {
         "order_id"   : orderId,
@@ -220,7 +195,7 @@ export default class MyOrders extends Component {
       }
     }
     if(formValues){
-    // console.log("formValues=",formValues);
+    console.log("formValues=",formValues);
     swal({
       title: "Are you sure?",
       text: "Are you sure that you want to cancelled order?",
@@ -451,31 +426,6 @@ export default class MyOrders extends Component {
                       <img src="/images/eCommerce/emptyorder.png" alt=""/>
                     </div>
                     }
-                    {/* cancelProductModal */}
-                    {/* <div className="modal" id="cancelProductModal" role="dialog">
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <img src="" alt="" />
-                            <button type="button" className="close modalclosebut" data-dismiss="modal">&times;</button>
-                            <h4 className="modalTitle modalheadingcont">CANCEL ORDER</h4>
-                          </div>
-                          <div className="modal-body">
-                            <h4 className="modaltext"></h4>
-                          </div>
-                          <div className="modal-footer">
-                            <div className="cantcancel">
-                              <a className="btn btn-warning" href="/ReturnPolicy">View Return Policy</a>
-                              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                            <div className="cancancel">
-                              <button className="btn btn-danger" onClick={this.cancelProductAction.bind(this)} id="cancelProductBtn" data-dismiss="modal"  >Yes</button>
-                              <button type="button" className="btn btn-default" data-dismiss="modal">No</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
                </div> 

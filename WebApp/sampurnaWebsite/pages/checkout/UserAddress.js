@@ -105,7 +105,7 @@ class UserAddress extends Component {
                 "latitude"          : this.state.latitude,
                 "longitude"         : this.state.longitude,
             }
-            console.log("formValues =",formValues);
+            // console.log("formValues =",formValues);
             if(this.state.deliveryAddressID){
                // if($("#modalAddressForm").valid() && this.state.pincodeExists){
                     if(this.validateForm()){
@@ -121,7 +121,7 @@ class UserAddress extends Component {
                         "class": "success",
                         "autoDismiss" : true
                       }
-                    })
+                    }) 
                     setTimeout(() => {
                         this.setState({
                             messageData   : {},
@@ -236,37 +236,37 @@ class UserAddress extends Component {
     
     render() {  
         return (
-            <div className="addressModal col-12 checkoutAddressModal">  
+            <div className="addressModal col-12 ">  
             <Message messageData={this.state.messageData} />
                 <div className="row">
                     <form id="modalAddressForm" className="col-12 ">
                         <div className="col-12 NoPadding">
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Full Name <span className="required">*</span></label>
-                                <input type="text" maxLength="40" ref="fullname" name="fullname" id="fullname" value={this.state.fullname} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
+                                <input type="text" maxLength="40" ref="fullname" name="fullname"  value={this.state.fullname} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 <div className="errorMsg">{this.state.errors.modalname}</div>
                             </div> 
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Mobile Number <span className="required">*</span></label>
-                                <input maxLength="10" placeholder="" type="text" ref="mobileNumber" name="mobileNumber" id="mobileNumber" value={this.state.mobileNumber} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
+                                <input maxLength="10" placeholder="" type="text" ref="mobileNumber" name="mobileNumber"  value={this.state.mobileNumber} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 <div className="errorMsg">{this.state.errors.modalmobileNumber}</div>
                             </div>
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">House No/Office No </label>
-                                <input type="text" ref="address1" name="address1" id="address1" value={this.state.address1} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
+                                <input type="text" ref="address1" name="address1" value={this.state.address1} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 <div className="errorMsg">{this.state.errors.modaladdressLine2}</div>
                             </div>
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Area / Street Name</label>
-                                <input type="text" ref="area" name="area" id="area" value={this.state.area} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
+                                <input type="text" ref="area" name="area" value={this.state.area} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Address</label>
-                                <input type="text" ref="address2" name="address2" id="address2" value={this.state.address} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
+                                <input type="text" ref="address2" name="address2" value={this.state.address} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">City</label>
-                                <input type="text" ref="city" name="city" id="modaladdressLine2" value={this.state.city} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
+                                <input type="text" ref="city" name="city" value={this.state.city} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
                             {/* <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Emirate</label>
@@ -274,15 +274,15 @@ class UserAddress extends Component {
                             </div> */}
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Country</label>
-                                <input type="text" ref="Country" name="Country" id="Country" value={this.state.country} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
+                                <input type="text" ref="Country" name="Country"  value={this.state.country} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Zip/Postal Code <span className="required">*</span></label>
-                                <input type="number" minLength="6" maxLength="6" ref="pincode" name="pincode" id="pincode" value={this.state.pincode}  className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
+                                <input type="number" minLength="6" maxLength="6" ref="pincode" name="pincode" value={this.state.pincode}  className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>   
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Address type <span className="required">*</span></label>
-                                <select id="modaladdType" name="modaladdType" ref="modaladdType" value={this.state.modaladdType} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1}>
+                                <select name="modaladdType" ref="modaladdType" value={this.state.modaladdType} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1}>
                                     <option >-- Select Address Type --</option>
                                     <option value="Home">Home (All day delivery) </option>
                                     <option value="Office">Office/Commercial (10 AM - 5 PM Delivery)</option>

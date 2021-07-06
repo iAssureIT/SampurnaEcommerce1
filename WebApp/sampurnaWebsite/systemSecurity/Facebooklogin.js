@@ -19,8 +19,8 @@ responseFacebook(response){
   if(response){
     console.log('response==',response);
     var formValues = {
-      firstname   : response.name.split(' ')[0],
-      lastname    : response.name.split(' ')[1],
+      firstname   : response.name && response.name.split(' ')[0],
+      lastname    : response.name && response.name.split(' ')[1],
       mobNumber   : "",
       pincode     : "",
       email       : response.email,
@@ -64,7 +64,7 @@ render() {
             <div className="col-12 NoPadding">
                 <FacebookLogin
                   appId="507698857234444"
-                  // autoLoad={true}
+                  autoLoad={false}
                   fields="name,email,picture"
                   scope="public_profile,email"
                   callback={this.responseFacebook}

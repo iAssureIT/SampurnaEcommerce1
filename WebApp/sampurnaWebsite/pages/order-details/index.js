@@ -166,39 +166,18 @@ export default class OrderDetails extends Component {
       return false;
     }
   }
-  
-  cancelProduct(event) {
-    $('#cancelProductModal').show();
-    var status = $(event.target).data('status');
-    var id = $(event.target).data('id');
-    var str = '';
-
-    if (status === "New Order" || status === "Verified" || status === "Packed") {
-      str = 'Do you want to cancel order?';
-      $('#cancelProductBtn').attr('data-id', id);
-      $('.cantcancel').hide();
-      $('.cancancel').show();
-    }
-    else {
-
-      str = status === "Delivery Initiated" || status === "Delivered & Paid" ? "This order is delivered. You cannot cancel this order." : "This order is being dispatched. You cannot cancel this order.";
-
-      $('.cantcancel').show();
-      $('.cancancel').hide();
-    }
-    $('#cancelProductModal .modaltext').html('');
-    $('#cancelProductModal .modaltext').append(str);
-  }
 
   cancelProductAction(event) {
     event.preventDefault();
-    $('.fullpageloader').show();
-    var id = $(event.target).data('id');
+    var vendorId = event.target.getAttribute('vendorId');
+    var orderId  = event.target.getAttribute('orderId');
 
     var formValues = {
-      "orderID": id,
-      "userid": this.state.userID
+      "order_id"  : orderId,
+      "type"      : "vendororder",
+      "vendor_id" : vendorId,
     }
+    console.log("formValues===",formValues);
     swal({
       title: "Are you sure?",
       text: "Are you sure that you want to cancelled order?",
@@ -209,10 +188,9 @@ export default class OrderDetails extends Component {
 
     .then(willDelete => {
       if (willDelete) {
-        axios.patch('/api/orders/get/cancelOrder', formValues)
+        axios.patch('/api/orders/cancel/order', formValues)
           .then((response) => {
             // console.log("cancel order response:",this.state.orderData);
-            $('.fullpageloader').hide();
             this.getMyOrders();
             const el = document.createElement('div')
             el.innerHTML = "<a href='/CancellationPolicy' style='color:blue !important'>View Cancellation Policy</a>"
@@ -274,9 +252,9 @@ export default class OrderDetails extends Component {
  
   render() {
     if(this.state.orderData){
-      // console.log("Order Details data====",this.state.orderData );
+      console.log("Order Details data====",this.state.orderData );
     }
-    
+    console.log("props Order Details data====",this.props );
     return (
       <div className={"col-12 NoPadding "+Style.orderDetailMainWrapper}>
         <div className={" " +Style.container1 }>
@@ -353,9 +331,17 @@ export default class OrderDetails extends Component {
                                       <span className="orderDetailsVendorName">{vendordata.vendorName}</span> &nbsp;
                                   </div>
                                   <div className="col-5 pull-right">
-                                    {this.cancelButton(this.state.orderData.createdAt)&&
+                                    {this.cancelButton(this.state.orderData.createdAt) && vendordata.orderStatus === "New" ?
                                       <div className="col-12 ">
-                                          <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                          <div className={"col-12 cancelOrderbtn " +Style.cancelBtn}  id={this.state.orderData._id} orderId={this.state.orderData._id} vendorId = {vendordata.vendor_id._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                      </div>
+                                      :
+                                      <div className="col-5 offset-7 ">
+                                        { vendordata.orderStatus=== "Cancelled"?
+                                            <span className={" col-12  orderStatusBadge badge badge-danger NoPadding pull-right "+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
+                                        :
+                                            <span className={" col-12  orderStatusBadge badge badge-primary NoPadding pull-right"+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
+                                        }
                                       </div>
                                     }
                                   </div>

@@ -28,7 +28,7 @@ responseGoogle(response){
     }
     axios.post('/api/auth/post/signup/social_media',formValues)
     .then((signupResponse)=>{
-      // console.log("signup===",signupResponse);
+      console.log("signup===",signupResponse);
       if(signupResponse?.data){
         var userDetails = {
           firstname   : signupResponse.data.userDetails.firstName,

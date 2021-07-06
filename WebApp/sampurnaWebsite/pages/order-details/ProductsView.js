@@ -3,7 +3,7 @@ import axios                from 'axios';
 import $                    from 'jquery';
 import moment               from 'moment';
 import Link                 from 'next/link';
-// import S3FileUpload         from 'react-s3';
+// import {S3FileUpload}         from 'react-s3';
 import StarRatingComponent  from 'react-star-rating-component';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import ProductReview        from './ProductsView.js';
@@ -11,7 +11,6 @@ import ReturnForm           from './ReturnForm.js';
 import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
-import { event } from 'jquery';
 
 class ProductsView extends Component {
   constructor(props) {
@@ -27,8 +26,29 @@ class ProductsView extends Component {
 
   componentDidMount() {
     this.getReturnReasons();
+    this.getS3Details();
   }
-
+  getS3Details(){
+    axios
+      .get('/api/projectSettings/get/S3')
+      .then((response)=>{
+          const config = {
+              bucketName      : response.data.bucket,
+              dirName         : process.env.ENVIRONMENT,
+              region          : response.data.region,
+              accessKeyId     : response.data.key,
+              secretAccessKey : response.data.secret,
+          }
+          if(config){
+            this.setState({
+              config : config,
+            });
+          }                         
+      })
+      .catch(function(error){
+          console.log(error);
+      })
+  }
   getReturnReasons(){
     // console.log("inside getReturnReasons");
     axios.get('/api/returnreasons/get/list')
@@ -107,7 +127,7 @@ class ProductsView extends Component {
         }else{
          var formValues = {
             "customer_id"       : this.props.user_ID,
-            "customerName"      : this.props.orderData.userName,
+            "customerName"      : this.props.orderData.userFullName,
             "order_id"          : this.props.orderData._id,
             "product_id"        : event.target.getAttribute('productid'),
             "rating"            : this.state.rating,
@@ -146,11 +166,7 @@ class ProductsView extends Component {
       this.setState({
           "productId":productId,
           "productData": event.currentTarget.getAttribute('productdata')
-        },()=>{
-            console.log("productData=",this.state.productData);
-            console.log("productId=",this.state.productId);
-        }
-        );
+        });
   }
 
   handleChangeReturn(event) {
@@ -169,85 +185,93 @@ class ProductsView extends Component {
       refundToError : event.target.value ? "" : "Please select your Refund source."
     })
   }
-
   uploadImage(event){
     event.preventDefault();
-    var returnProductImage = "";
-    if (event.currentTarget.files && event.currentTarget.files[0]) {
-        // for(var i=0; i<event.currentTarget.files.length; i++){
-            var file = event.currentTarget.files[0];
-            if (file) {
-                var fileName  = file.name; 
-                var ext = fileName.split('.').pop();  
-                if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
-                    if (file) {
-                        var objTitle = { fileInfo :file }
-                        returnProductImage = objTitle ;
-                        
-                    }else{          
-                        swal("Images not uploaded");  
-                    }//file
-                }else{ 
-                    swal("Allowed images formats are (jpg,png,jpeg)");   
-                }//file types
-            }//file
-        if(event.currentTarget.files){
-            this.setState({
-              returnProductImage : returnProductImage
-            });  
-            main().then(formValues=>{
-                this.setState({
-                  returnProductImage : formValues.returnProductImage
-                })
-            });
-            async function main(){
-                var config = await getConfig();
-                // console.log("line 429 config = ",config);
-                var s3url = await s3upload(returnProductImage.fileInfo, config, this);
+    var file = event.target.file[0];
 
-                const formValues = {
-                  "returnProductImage"    : s3url,
-                  // "status"           : "New"
-                };
-  
-                return Promise.resolve(formValues);
-            }
-            function s3upload(image,configuration){
-                return new Promise(function(resolve,reject){
-                    S3FileUpload
-                        .uploadFile(image,configuration)
-                        .then((Data)=>{
-                            resolve(Data.location);
-                        })
-                        .catch((error)=>{
-                            console.log("Image upload error=",error);
-                        })
-                })
-            }   
-
-            function getConfig(){
-                return new Promise(function(resolve,reject){
-                    axios
-                        .get('/api/projectSettings/get/S3')
-                        .then((response)=>{
-                            const config = {
-                                bucketName      : response.data.bucket,
-                                dirName         : process.env.ENVIRONMENT,
-                                region          : response.data.region,
-                                accessKeyId     : response.data.key,
-                                secretAccessKey : response.data.secret,
-                            }
-                            resolve(config);                           
-                        })
-                        .catch(function(error){
-                            console.log(error);
-                        })
+    // S3FileUpload
+    // .uploadFile(file, this.state.config)
+    // .then(data => console.log("fileUpload data=",data))
+    // .catch(err => console.error("fileUpload data=",err))
     
-                })
-            }        
-        }
-    }
   }
+
+  // uploadImage(event){
+  //   event.preventDefault();
+  //   var returnProductImage = "";
+  //   if (event.currentTarget.files && event.currentTarget.files[0]) {
+  //           var file = event.currentTarget.files[0];
+  //           if (file) {
+  //               var fileName  = file.name; 
+  //               var ext = fileName.split('.').pop();  
+  //               if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="JPG" || ext==="PNG" || ext==="JPEG"){
+  //                   if (file) {
+  //                       var objTitle = { fileInfo :file }
+  //                       returnProductImage = objTitle ;
+                        
+  //                   }else{          
+  //                       swal("Images not uploaded");  
+  //                   }//file
+  //               }else{ 
+  //                   swal("Allowed images formats are (jpg,png,jpeg)");   
+  //               }//file types
+  //           }//file
+  //       if(event.currentTarget.files){
+  //           this.setState({
+  //             returnProductImage : returnProductImage
+  //           });  
+  //           main().then(formValues=>{
+  //               this.setState({
+  //                 returnProductImage : formValues.returnProductImage
+  //               })
+  //           });
+  //           async function main(){
+  //               var config = await getConfig();
+  //               var s3url = await s3upload(returnProductImage.fileInfo, config, this);
+
+  //               const formValues = {
+  //                 "returnProductImage"    : s3url,
+  //               };
+  
+  //               return Promise.resolve(formValues);
+  //           }
+  //           function s3upload(image,configuration){
+  //               return new Promise(function(resolve,reject){
+  //                   S3FileUpload
+  //                   // ReactS3Client
+  //                       .uploadFile(image,configuration)
+  //                       .then((Data)=>{
+  //                           resolve(Data.location);
+  //                       })
+  //                       .catch((error)=>{
+  //                           console.log("Image upload error=",error);
+  //                       })
+  //               })
+  //           }   
+
+  //           function getConfig(){
+  //               return new Promise(function(resolve,reject){
+  //                   axios
+  //                       .get('/api/projectSettings/get/S3')
+  //                       .then((response)=>{
+  //                           const config = {
+  //                               bucketName      : response.data.bucket,
+  //                               dirName         : process.env.ENVIRONMENT,
+  //                               region          : response.data.region,
+  //                               accessKeyId     : response.data.key,
+  //                               secretAccessKey : response.data.secret,
+  //                           }
+  //                           resolve(config);                           
+  //                       })
+  //                       .catch(function(error){
+  //                           console.log(error);
+  //                       })
+    
+  //               })
+  //           }        
+  //          }
+  //   }
+  // }
 
   deleteImage(event){
     // console.log('delete');
@@ -379,7 +403,7 @@ class ProductsView extends Component {
                                 <tr key={index}>
                                 <td><img className="img orderImg" src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg"} /></td>
                                 <td>
-                                    <a href={"/product-detail/" +this.props.vendorWiseOrderData.vendor_id._id+"/"+this.props.vendorWiseOrderData.vendorLocation_id+"/"+productdata._id}>
+                                    <a href={"/product-detail/" +this.props.vendorWiseOrderData.vendor_id._id+"/"+this.props.vendorWiseOrderData.vendorLocation_id+"/"+productdata.product_ID}>
                                       {productdata.productNameRlang?
                                           <h5 className="RegionalFont">{productdata.productNameRlang}</h5>
                                       :
