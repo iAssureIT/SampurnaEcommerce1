@@ -83,7 +83,7 @@ class Login extends Component {
 			.then((response) => {
 				console.log("User Login Response => ",response.data)
 					// this.props.setGlobalUser(response.data.userDetails);
-				if (response.data.ID) {
+				if (response.data.userDetails.user_id) {
 					this.setState({ btnLoading: false });
 					var  userDetails = {
 						firstName 			: response.data.userDetails.firstName, 
@@ -96,8 +96,8 @@ class Login extends Component {
 						user_id   			: response.data.userDetails.user_id,
 						roles     			: response.data.userDetails.roles,
 						token     			: response.data.userDetails.token, 
-						loginTokens 		: response.data.loginTokens.ID,
-						loginTokensLastID 	: response.data.loginTokens._ID
+						loginTokens 		: response.data.loginTokens ? response.data.loginTokens : "",
+						loginTokensLastID 	: response.data.loginTokens ? response.data.loginTokens._id : ""
 					}
 					document.getElementById("logInBtn").value = 'Sign In';
 					localStorage.setItem('userDetails', JSON.stringify(userDetails));

@@ -830,7 +830,7 @@ exports.user_login_using_email = (req, res, next) => {
 	})
 	.exec()
 	.then(user => {
-		// console.log("user",user)
+		console.log("user",user)
 		if (user) {
 			if ((user.profile.status).toLowerCase() === "active") {
 				var pwd = user.services.password.bcrypt;
@@ -858,21 +858,20 @@ exports.user_login_using_email = (req, res, next) => {
 								{
 									$push: {
 										"services.resume.loginTokens": {
-											whenLogin: new Date(),
-											loginTimeStamp: new Date(),
-											hashedToken: token
+											whenLogin 		: new Date(),
+											loginTimeStamp 	: new Date(),
+											hashedToken 	: token
 										}
 									}
 								}
 							)
 							.then(updateUser => {
 								// console.log("updateUser ==>",updateUser)
-								if (updateUser.nModified == 1) {
+								if (updateUser.nModified === 1) {
 									res.status(200).json({
 										message 		: 'Login Auth Successful',
 										token 			: token,
 										roles 			: user.roles,
-										ID 				: user._id,
 										loginTokens 	: (user.services.resume.loginTokens).slice(-1)[0],
 										companyID 		: user.profile.companyID,
 										userDetails 	: {
@@ -895,7 +894,7 @@ exports.user_login_using_email = (req, res, next) => {
 									});
 								} else {
 									return res.status(200).json({
-										message: 'Auth failed'
+										message : 'Auth failed'
 									});
 								}
 							})
@@ -908,18 +907,18 @@ exports.user_login_using_email = (req, res, next) => {
 							});
 						} else {
 							return res.status(200).json({
-								message: 'INVALID_PASSWORD'
+								message : 'INVALID_PASSWORD'
 							});
 						}
 					})
 				} else {
 					res.status(200).json({ 
-						message: "INVALID_PASSWORD" 
+						message : "INVALID_PASSWORD" 
 					});
 				}
 			} else if ((user.profile.status).toLowerCase() == "blocked") {
 				res.status(200).json({ 
-					message: "USER_BLOCK" 
+					message : "USER_BLOCK" 
 				});
 			} else if ((user.profile.status).toLowerCase() == "unverified") {
 
@@ -928,7 +927,7 @@ exports.user_login_using_email = (req, res, next) => {
 				User.updateOne(
 					{ "username" : emailId.toLowerCase() },
 					{$set: {
-							"profile.otpEmail": emailOTP,
+							"profile.otpEmail" : emailOTP,
 						}
 					}
 				)
@@ -966,7 +965,7 @@ exports.user_login_using_email = (req, res, next) => {
 			}
 		} else {
 			res.status(200).json({ 
-				message: "NOT_REGISTER" 
+				message : "NOT_REGISTER" 
 			});
 		}
 	})
@@ -1349,12 +1348,16 @@ exports.logouthistory = (req, res, next) => {
 
 /**============ Reset Password ===========*/
 exports.resetPassword = (req, res, next) => {
+	console.log("req body => ",req.body)
 	User.findOne({ _id: req.body.user_id })
 	.then(user => {
 		if (user) {				
 			var previousPassword = user.services.password.bcrypt;
+			console.log("previousPassword => ",previousPassword);
 			if (previousPassword) {
 				bcrypt.compare(req.body.currentPassword, previousPassword, (err, result) => {
+					console.log("err => ",err)
+					console.log("result => ",result)
 					if (err) {
 						return res.status(200).json({
 							message 	: 'You entered wrong current password',
@@ -1376,6 +1379,7 @@ exports.resetPassword = (req, res, next) => {
 								}
 							)
 							.then(data => {
+								console.log("data => ",data)
 								if (data.nModified == 1) {
 									res.status(200).json({
 										message 	: "Password reset successfully",
