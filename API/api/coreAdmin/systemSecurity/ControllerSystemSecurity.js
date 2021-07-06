@@ -817,162 +817,166 @@ exports.check_username_EmailOTP = (req, res, next) => {
 		});
 };
 
+/**=========== User Login ===========*/
 exports.user_login_using_email = (req, res, next) => {
-	// console.log("user_login_using_email req.body = ",req.body);
-	// console.log("=================");
+	console.log("user_login_using_email req.body = ",req.body);
+	
 	var emailId = (req.body.email).toLowerCase(); 
-	var role = (req.body.role).toLowerCase();
+	var role  	= (req.body.role).toLowerCase();
+
 	User.findOne({
-		"username": emailId,
-		"roles": role,
+		"username" 	: emailId,
+		"roles" 	: role,
 	})
-		.exec()
-		.then(user => {
-			// console.log("user",user)
-			if (user) {
-				if ((user.profile.status).toLowerCase() == "active") {
-					var pwd = user.services.password.bcrypt;
-					// console.log('pwd', pwd);
-					if (pwd) {
-						bcrypt.compare(req.body.password, pwd, (err, result) => {
-							if (err) {
-								return res.status(200).json({
-									message: 'Auth failed'
-								});
-							}
-							if (result) {
-								const token = jwt.sign({
-									email: req.body.email,
-									userId: user._id,
-								}, globalVariable.JWT_KEY,
-									{
-										// expiresIn: "365d"
-										expiresIn: globalVariable.timeOutLimitSecs
-									}
-								);
+	.exec()
+	.then(user => {
+		// console.log("user",user)
+		if (user) {
+			if ((user.profile.status).toLowerCase() === "active") {
+				var pwd = user.services.password.bcrypt;
 
-								User.updateOne(
-									{ "username": emailId.toLowerCase() },
-									{
-										$push: {
-											"services.resume.loginTokens": {
-												whenLogin: new Date(),
-												loginTimeStamp: new Date(),
-												hashedToken: token
-											}
-										}
-									}
-								)
-									.exec()
-									.then(updateUser => {
-										// console.log("updateUser ==>",updateUser)
-										if (updateUser.nModified == 1) {
-											res.status(200).json({
-												message: 'Login Auth Successful',
-												token: token,
-												roles: user.roles,
-												ID: user._id,
-												loginTokens: (user.services.resume.loginTokens).slice(-1)[0],
-												companyID: user.profile.companyID,
-												userDetails: {
-													firstName: user.profile.firstname,
-													lastName: user.profile.lastname,
-													email: user.profile.email,
-													countryCode : user.profile.countryCode,
-													phone: user.profile.phone,
-													city: user.profile.city,
-													deliveryAddress: user.deliveryAddress,
-													pincode: user.profile.pincode,
-													companyID: user.profile.companyID,
-													company_id: user.profile.company_id,
-													companyName: user.profile.companyName,
-													locationID: user.profile.locationID,
-													user_id: user._id,
-													roles: user.roles,
-													token: token,
-												}
-											});
-										} else {
-											return res.status(200).json({
-												message: 'Auth failed'
-											});
-										}
-									})
-
-									.catch(err => {
-										console.log("500 err ", err);
-										res.status(500).json({
-											message: "Failed to save token",
-											error: err
-										});
-									});
-							} else {
-								return res.status(200).json({
-									message: 'INVALID_PASSWORD'
-								});
-							}
-						})
-					} else {
-						res.status(200).json({ message: "INVALID_PASSWORD" });
-					}
-				} else if ((user.profile.status).toLowerCase() == "blocked") {
-					res.status(200).json({ message: "USER_BLOCK" });
-				} else if ((user.profile.status).toLowerCase() == "unverified") {
-					// res.status(200).json({ message: "USER_UNVERIFIED" });
-					var emailOTP = getRandomInt(1000, 9999);
-					// console.log("emailOTP ===>",emailOTP);
-					User.updateOne(
-						{ "username": emailId.toLowerCase() },
-						{
-							$set: {
-								"profile.otpEmail": emailOTP,
-							}
-						}
-					)
-						.exec()
-						.then(data => {
-							// console.log("emailOTP  data===>",data);
-							if (data.nModified === 1) {
-								User.find({ "profile.email": emailId.toLowerCase() })
-									.exec()
-									.then(usersdata => {
-										// console.log("emailOTP  data===>",usersdata[0].profile);
-											res.status(200).json({
-												message: 'USER_UNVERIFIED',
-												userDetails: {
-													firstName: usersdata[0].profile.fullName,
-													email: usersdata[0].profile.email,
-													otpEmail: usersdata[0].profile.otpEmail,
-													phone: usersdata[0].profile.phone,
-													user_id: usersdata[0]._id,
-													roles: usersdata[0].roles,
-												}
-											});
-									});
-							} else {
-								res.status(200).json({ message: "SUCCESS_OTP_NOT_RESET" });
-							}
-						})
-						.catch(err => {
-							console.log('user error ', err);
-							res.status(500).json({
-								message: "Failed to update Email OTP",
-								error: err
+				if (pwd) {
+					bcrypt.compare(req.body.password, pwd, (err, result) => {
+						if (err) {
+							return res.status(200).json({
+								message: 'Auth failed'
 							});
-						})
-					
+						}
+						if (result) {
+							const token = jwt.sign({
+								email 	: req.body.email,
+								userId 	: user._id,
+							}, globalVariable.JWT_KEY,
+								{
+									// expiresIn: "365d"
+									expiresIn: globalVariable.timeOutLimitSecs
+								}
+							);
+
+							User.updateOne(
+								{ "username": emailId.toLowerCase() },
+								{
+									$push: {
+										"services.resume.loginTokens": {
+											whenLogin: new Date(),
+											loginTimeStamp: new Date(),
+											hashedToken: token
+										}
+									}
+								}
+							)
+							.then(updateUser => {
+								// console.log("updateUser ==>",updateUser)
+								if (updateUser.nModified == 1) {
+									res.status(200).json({
+										message 		: 'Login Auth Successful',
+										token 			: token,
+										roles 			: user.roles,
+										ID 				: user._id,
+										loginTokens 	: (user.services.resume.loginTokens).slice(-1)[0],
+										companyID 		: user.profile.companyID,
+										userDetails 	: {
+															firstName 		: user.profile.firstname,
+															lastName 		: user.profile.lastname,
+															email 			: user.profile.email,
+															countryCode 	: user.profile.countryCode,
+															phone 			: user.profile.phone,
+															city 			: user.profile.city,
+															deliveryAddress : user.deliveryAddress,
+															pincode 		: user.profile.pincode,
+															companyID 		: user.profile.companyID,
+															company_id 		: user.profile.company_id,
+															companyName 	: user.profile.companyName,
+															locationID 		: user.profile.locationID,
+															user_id 		: user._id,
+															roles 			: user.roles,
+															token 			: token,
+										}
+									});
+								} else {
+									return res.status(200).json({
+										message: 'Auth failed'
+									});
+								}
+							})
+							.catch(err => {
+								console.log("Error while Login => ", err);
+								res.status(500).json({
+									message 	: "Failed to save token",
+									error 		: err
+								});
+							});
+						} else {
+							return res.status(200).json({
+								message: 'INVALID_PASSWORD'
+							});
+						}
+					})
+				} else {
+					res.status(200).json({ 
+						message: "INVALID_PASSWORD" 
+					});
 				}
-			} else {
-				res.status(200).json({ message: "NOT_REGISTER" });
+			} else if ((user.profile.status).toLowerCase() == "blocked") {
+				res.status(200).json({ 
+					message: "USER_BLOCK" 
+				});
+			} else if ((user.profile.status).toLowerCase() == "unverified") {
+
+				var emailOTP = getRandomInt(1000, 9999);
+				// console.log("emailOTP ===>",emailOTP);
+				User.updateOne(
+					{ "username" : emailId.toLowerCase() },
+					{$set: {
+							"profile.otpEmail": emailOTP,
+						}
+					}
+				)
+				.exec()
+				.then(data => {
+					// console.log("emailOTP  data===>",data);
+					if (data.nModified === 1) {
+						User.find({ "profile.email": emailId.toLowerCase() })
+						.exec()
+						.then(usersdata => {
+							// console.log("emailOTP  data===>",usersdata[0].profile);
+							res.status(200).json({
+								message 	: 'USER_UNVERIFIED',
+								userDetails : {
+												firstName 	: usersdata[0].profile.fullName,
+												email 		: usersdata[0].profile.email,
+												otpEmail 	: usersdata[0].profile.otpEmail,
+												phone 		: usersdata[0].profile.phone,
+												user_id 	: usersdata[0]._id,
+												roles 		: usersdata[0].roles,
+								}
+							});
+						});
+					} else {
+						res.status(200).json({ message: "SUCCESS_OTP_NOT_RESET" });
+					}
+				})
+				.catch(err => {
+					console.log('Error while updating OTP => ', err);
+					res.status(500).json({
+						message : "Failed to update Email OTP",
+						error 	: err
+					});
+				})				
 			}
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({
-				message: "Failed to find the User",
-				error: err
+		} else {
+			res.status(200).json({ 
+				message: "NOT_REGISTER" 
 			});
+		}
+	})
+	.catch(err => {
+		console.log("Error whole finding user => ",err);
+		res.status(500).json({
+			message : "Failed to find the User",
+			error 	: err
 		});
+	});
 };
 
 
@@ -1342,49 +1346,87 @@ exports.logouthistory = (req, res, next) => {
 			});
 		});
 };
-exports.user_update_password_withoutotp_ID = (req, res, next) => {
-	User.findOne({ _id: req.params.ID })
-		.exec()
-		.then(user => {
-			if (user) {
-				bcrypt.hash(req.body.pwd, 10, (err, hash) => {
-					User.updateOne(
-						{ _id: req.params.ID },
-						{
-							$set: {
-								services: {
-									password: {
-										bcrypt: hash
-									},
-								},
-							}
-						}
-					)
-						.exec()
-						.then(data => {
-							if (data.nModified == 1) {
-								res.status(200).json("PASSWORD_RESET");
-							} else {
-								res.status(401).json("PASSWORD_NOT_RESET");
-							}
-						})
-						.catch(err => {
-							console.log(err);
-							res.status(500).json({
-								error: err
+
+/**============ Reset Password ===========*/
+exports.resetPassword = (req, res, next) => {
+	User.findOne({ _id: req.body.user_id })
+	.then(user => {
+		if (user) {				
+			var previousPassword = user.services.password.bcrypt;
+			if (previousPassword) {
+				bcrypt.compare(req.body.currentPassword, previousPassword, (err, result) => {
+					if (err) {
+						return res.status(200).json({
+							message 	: 'You entered wrong current password',
+							messageCode : false
+						});
+					}
+					if (result) {
+						bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
+							User.updateOne(
+								{ _id: req.body.user_id },
+								{
+									$set: {
+										services: {
+											password: {
+												bcrypt: hash
+											},
+										},
+									}
+								}
+							)
+							.then(data => {
+								if (data.nModified == 1) {
+									res.status(200).json({
+										message 	: "Password reset successfully",
+										messageCode : true
+									});
+								} else {
+									res.status(200).json({
+										message 	: "Failed to reset Password",
+										messageCode : false
+									});
+								}
+							})
+							.catch(err => {
+								console.log("Error while updating password => ",err);
+								res.status(500).json({
+									error 		: err,
+									message 	: "Error while updating password",
+									messageCode : false
+								});
 							});
 						});
+					}else{
+						console.log("You entered wrong current password")
+						return res.status(200).json({
+							message 	: 'You entered wrong current password',
+							messageCode : false
+						});
+					}
+				})
+			}else{
+				console.log("Something went wrong")
+				res.status(200).json({
+					message 	: "Something went wrong",
+					messageCode : false
 				});
-			} else {
-				res.status(404).json("User Not Found");
 			}
-		})
-		.catch(err => {
-			// console.log('update user status error ',err);
-			res.status(500).json({
-				error: err
+		} else {
+			res.status(200).json({
+				message 	: "User Not Found",
+				messageCode : false
 			});
+		}
+	})
+	.catch(err => {
+		console.log('Error while finding user ',err);
+		res.status(500).json({
+			error 		: err,
+			message 	: "Error while finding user",
+			messageCode : false
 		});
+	});
 };
 
 exports.user_update_password_withoutotp_username = (req, res, next) => {

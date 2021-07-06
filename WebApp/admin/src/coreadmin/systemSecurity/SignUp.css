@@ -264,6 +264,19 @@
   display: block;
 }
 
+.showPwd4{
+  display: block;
+}
+.hidePwd4{
+  display: none;
+}
+.showPwd5{
+  display: none;
+}
+.hidePwd5{
+  display: block;
+}
+
 .showPwdCon{
   display: block;
 }

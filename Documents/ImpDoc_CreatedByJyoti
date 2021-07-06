@@ -150,9 +150,19 @@ formValues  =  {
 
 Get Return Reasons
 
-API => http://localhost:3368/api/returnreasons/get/list
+API         => http://localhost:3368/api/returnreasons/get/list
 MethodType  => Get
 
+
+Reset Password
+
+API         => http://localhost:3368/api/patch/reset_password
+MethodType  => Patch
+formValues  =  {
+    "user_id"               : "60ade5ce4da4d2153ff7a608",
+    "newPassword"  	        : "admin",
+	"currentPassword"       : "admin123",
+}
 ==========================================================================
 Credit Points 
 

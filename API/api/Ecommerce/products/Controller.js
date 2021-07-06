@@ -1548,15 +1548,17 @@ exports.fetch_product = (req,res,next)=>{
     .exec()
     .then(product=>{
         if(product){
-            product.isWish = false;
+            product = {...product._doc, isWish:false};
+            // console.log("user_ID",user_ID);
             if(user_ID && user_ID!=='null'){
                 Wishlists.find({user_ID:user_ID})
                 .then(wish=>{
+                    // console.log("wish",wish);
                     if(wish.length > 0){
                         for(var i=0; i<wish.length; i++){
                             if(String(wish[i].product_ID) === String(product._id)){
-                                product.isWish = true;
-                                // break;
+                                product= {...product, isWish:true};
+                                break;
                             }
                         }   
                         if(i >= wish.length){
@@ -3931,6 +3933,7 @@ exports.search_suggestion = async(req,res,next)=>{
     var subCategory = await getSubCat(req.body.searchText);
     var brand       = await getBrand(req.body.searchText);
     var product     = await getProduct(req.body.searchText);
+    // var vendors     = await getVendors(req.body.searchText);
     var all         = await getAll(req.body.searchText);
     var result      = section.concat(category).concat(subCategory).concat(brand).concat(product);
     // var result      = all;
@@ -3953,7 +3956,22 @@ exports.search_suggestion = async(req,res,next)=>{
     res.status(200).json(result);
 }
 
-
+// function getVendors(searchText) {
+//     return new Promise(function(resolve,reject){  
+//         // Products.find({"section" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{section:1})
+//         Products.find({"section" : {'$regex' : searchText , $options: "i"}},{section:1})
+//         .limit(10)
+//         .then(data =>{
+//             var section = data.map(a=>a.section);
+//             // console.log("section => ",section)
+//             resolve(section);
+//         })
+//         .catch(err =>{
+//             console.log(err);
+//             reject(err);
+//         });
+//     });
+// }
 function getSection(searchText) {
     return new Promise(function(resolve,reject){  
         // Products.find({"section" : { $regex:new RegExp('^'+searchText+'.*', "i")}},{section:1})

@@ -62,6 +62,9 @@ class ResetPassword extends Component {
 
         $("#resetPassword").validate({
             rules: {
+                currentPassword: {
+                    required: true,
+                },
                 newPassword: {
                     required: true,
                 },
@@ -74,6 +77,9 @@ class ResetPassword extends Component {
                 confirmPassword:"Passwords do not match"
             },
             errorPlacement: function (error, element) {
+                if (element.attr("name") === "currentPassword") {
+                    error.insertAfter("#currentPasswordmsg");
+                }
                 if (element.attr("name") === "newPassword") {
                     error.insertAfter("#newPasswordmsg");
                 }
@@ -103,6 +109,16 @@ class ResetPassword extends Component {
         $('.hidePwd2').toggleClass('hidePwd3');
         return $('#confirmPassword').attr('type', 'password');
     }
+    showCurrentPass(){
+        $('.showPwd4').toggleClass('showPwd5');
+        $('.hidePwd4').toggleClass('hidePwd5');
+        return $('#currentPassword').attr('type', 'text');
+    }
+    hideCurrentPass(){
+        $('.showPwd4').toggleClass('showPwd5');
+        $('.hidePwd4').toggleClass('hidePwd5');
+        return $('#currentPassword').attr('type', 'password');
+    }
     render() {
         var projectName = process.env.REACT_APP_PROJECT_NAME ? process.env.REACT_APP_PROJECT_NAME : '';
         var customClass = 'defaultBgImg';
@@ -120,6 +136,16 @@ class ResetPassword extends Component {
                         this.state.showMessage === false ? 
                         <div>
                             <form id="resetPassword">
+                            <div className="form-group textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label>Current Password </label><label className="astricsign">*</label>
+                                <input type="password" id="currentPassword" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" ref="currentPassword" name="currentPassword" />
+                                <div className="showHideSignDiv">
+                                    <i className="fa fa-eye showPwd3 showEyeupSign" aria-hidden="true" onClick={this.showCurrentPass.bind(this)}></i>
+                                    <i className="fa fa-eye-slash hidePwd3 hideEyeSignup " aria-hidden="true" onClick={this.hideCurrentPass.bind(this)}></i>
+                                </div> 
+                                <br/>
+                                <div  id="currentPasswordmsg"></div>
+                            </div>
                             <div className="form-group textAlignLeft col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <label>New Password </label><label className="astricsign">*</label>
                                 <input type="password" id="newPassword" className="form-control col-lg-12 col-md-12 col-sm-12 col-xs-12" ref="newPassword" name="newPassword" />

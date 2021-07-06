@@ -5,17 +5,22 @@ const UserController  	= require('./ControllerSystemSecurity.js');
 const UserController1 	= require('./newController.js');
 
 router.post('/post/signup/user', UserController.user_signup_user); //Working
+
 router.post('/post/signup/user/otp', UserController.user_signup_user_otp); //Working
+
 router.get('/get/checkemailotp/usingID/:ID/:emailotp',UserController.check_userID_EmailOTP);
 router.get('/get/checkemailotp/usingUsername/:username/:emailotp',UserController.check_username_EmailOTP);
-router.post('/post/login',UserController.user_login_using_email); //Working
-router.post('/post/logout',UserController.logouthistory); //Working
 router.post('/post/loginwithcompanyid',UserController.user_login_with_companyID); //Working
-router.patch('/patch/change_password_withoutotp/id/:ID',UserController.user_update_password_withoutotp_ID);
 router.patch('/patch/change_password_withoutotp/username/:username',UserController.user_update_password_withoutotp_username);
 router.patch('/patch/setsendemailotpusingID/:ID',UserController.set_send_emailotp_usingID);
 router.patch('/patch/setsendemailotpusingEmail/:emailId',UserController.set_send_emailotp_usingEmail);
 
+/** Updated API's for MVMP */
+router.patch('/patch/reset_password',   UserController.resetPassword);
+
+router.post('/post/login',              UserController.user_login_using_email); //Working
+
+router.post('/post/logout',             UserController.logouthistory); //Working
 
 //API for Mobile app
 router.post('/post/login/mobile',UserController.user_login_using_mobile); //Working

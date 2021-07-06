@@ -531,7 +531,7 @@ exports.user_update_name_mobile = (req,res,next)=>{
 								'firstname'  : req.body.firstname ? req.body.firstname : user.profile.firstname,
 								'lastname'   : req.body.lastname ? req.body.lastname : user.profile.lastname,
 								'fullName'   : req.body.firstname && req.body.lastname ? req.body.firstname+' '+req.body.lastname : user.profile.firstname+''+user.profile.lastname,
-								'email'    : req.body.email ? req.body.email : user.profile.email,
+								'email'    	 : req.body.email ? req.body.email : user.profile.email,
 								'mobile'     : req.body.mobNumber ? req.body.mobNumber : user.profile.mobile,
 								'createdOn'  : new Date(),
 								'optEmail'   : 0,

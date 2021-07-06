@@ -1,412 +1,228 @@
-
-// import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-// import InputMask from 'react-input-mask';
-// import swal from 'sweetalert';
-// import $ from "jquery";
-
-// import 'font-awesome/css/font-awesome.min.css';
-// // import 'bootstrap/dist/css/bootstrap.min.css';
-// import './SignUp.css';
-// import axios from 'axios';
-
-// class ResetPassword extends Component {
-//   constructor(){
-//       super();
-//         this.state = {  
-//           'newpassword' : "",         
-//           'oldpassword' : "",         
-//           'confirmPassword' : "",         
-        
-//         }
-//         this.changepassword = this.changepassword.bind(this);
-//     }
-
-//     handleChange=(event)=>{
-//       event.preventDefault();
-//       var name = event.target.name;
-//       this.setState({
-//         [name] : event.target.value
-//       })
-//     }
-//     componentDidMount() {
-//         var userDetails = JSON.parse(localStorage.getItem("userDetails"));
-//         // var Uid = localStorage.getItem("admin_id");
-//         // var emailId = localStorage.getItem("email");
-//         var Uid = userDetails.user_id;
-//         var emailId = userDetails.email;
-//         this.setState({user_ID:Uid,emailId:emailId})          
-//         console.log("emailId==>>>",emailId,"userId==>",Uid);
-
-//       }
-//     oldpasswordChange = (oldpassword,emailId,newpassword,confirmPassword,user_id,value,key)=>{
-//         var loginValues = { email: emailId, password: oldpassword }
-//         axios.post('/api/users/post', loginValues)
-//         .then(response => {
-//           if(response.data.status === "verified"){
-//             this.setState({btnLoading: false})         
-//             if (this.validInput()) {
-//               if(newpassword == confirmPassword){
-//                 var body = {
-//                   pwd     : newpassword,
-//                   userID  : user_id,
-//                   emailId : emailId,
-//                 }
-//                 if(body && user_id){
-//                   axios.patch('/api/users/patch/one/resetpwd/'+user_id,body)
-//                   .then((response)=>{         
-                            
-//                   })
-//                   .catch((error)=>{
-//                      console.log('error',error)
-//                      if(error.message === "Request failed with status code 401")
-//                         {
-                             
-//                         }
-//                   })
-//                 }
-//               }else{
-//                 this.setState({invalid:true})
-//               }
-//             }
-//           }
-//         })
-//         .catch(error => {
-//           if (error.response.status == 401) {
-//             console.log("ERROR in Responce");
-//             this.setState({invalidpassword:true})
-//           }
-//         })
-//       }
-
-//       changepassword(event) {
-//         event.preventDefault();
-//         var user_id = this.state.user_ID;
-//         var auth= {
-//             email       : this.state.emailId,
-//             password    : this.state.oldpassword,
-//             roles        : "admin",
-//           }
-//       axios
-//         .post('/api/users/post/admin/',auth)
-//         .then(response => {
-//         if(response.data.useremailId === this.state.emailId){
-//             if(this.state.newpassword == this.state.confirmPassword){
-//                 var body = {
-//                     pwd     : this.state.newpassword,
-//                     user_id  : user_id,
-//                     emailId : this.state.emailId,
-//                 }    
-
-//                 axios.patch('/api/users/patch/one/resetpwd/'+user_id,body)
-//                 .then((response)=>{         
-//                     console.log("In response==>>>",response);
-//                     swal("Your Password has been changed");
-//                 })
-//                 .catch((error)=>{
-//                     console.log('error',error)
-//                 })
-                
-//             }else{
-//                 swal("Invalid Password","Please Enter valid New password and confirm password","warning");
-//             }
-//         }else{
-//             swal("Invalid Password","Please Enter valid Old password","warning");
-//         }
-//         })
-//         .catch(error => {
-//           if (error.response.status == 401) {
-//             console.log("ERROR in Responce");
-//             swal("Invalid Password","Please Enter correct password","warning");
-//             this.setState({invalidpassword:true})
-//           }
-//         })
-        
-//     }
-
-
-//   showSignPass(){
-//     $('.showPwd').toggleClass('showPwd1');
-//     $('.hidePwd').toggleClass('hidePwd1');
-//     return $('.inputTextPass').attr('type', 'text');
-//   }
-//   hideSignPass(){
-//     $('.showPwd').toggleClass('showPwd1');
-//     $('.hidePwd').toggleClass('hidePwd1');
-//     return $('.inputTextPass').attr('type', 'password');
-//   }  
-//   showSignPassC(){
-//     $('.showPwdC').toggleClass('showPwd1C');
-//     $('.hidePwdC').toggleClass('hidePwd1C');
-//     return $('.inputTextPassC').attr('type', 'text');
-//   }
-//   hideSignPassC(){
-//     $('.showPwdC').toggleClass('showPwd1C');
-//     $('.hidePwdC').toggleClass('hidePwd1C');
-//     return $('.inputTextPassC').attr('type', 'password');
-//   }
-  
-
-//   render(){
-//     var winHeight = window.innerHeight;
-//     var divHeight = winHeight/4.5+'px';
-//     return(
-//       <div>
-//         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mainBackgroundImg changePwdWrapper">
-//         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 signUpWrapper">
-//           <div className="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12 signupPadding signUpFormWrap ">
-//           {/* <div className="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12 signupPadding signUpFormWrap " style={{"height": divHeight}}> */}
-//             <div className="divLoginInWrap">
-//             <form id="resetPassword" >
-//                   <div className="form-group loginFormGroup pdleftclr veribtm col-lg-12 col-md-12 col-sm-12 col-xs-12">
-//                     <div className="input-group">
-                      
-//                       <input type="password" className="form-control loginInputs inputTextPass" ref="oldpassword" name="oldpassword" value={this.state.oldpassword} onChange={this.handleChange} placeholder="Old Password" aria-label="oldpassword" aria-describedby="basic-addon1" title="Password should be at least 6 characters long!" pattern=".{6,}" required/>
-//                       <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-//                         <i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
-//                         <i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
-//                       </span>
-//                     </div>
-//                   </div>
-//                   <div className="form-group loginFormGroup pdleftclr veribtm col-lg-12 col-md-12 col-sm-12 col-xs-12">
-//                     <div className="input-group">
-                      
-//                       <input type="password" className="form-control loginInputs inputTextPass" ref="newpassword" name="newpassword" value={this.state.newpassword} onChange={this.handleChange} placeholder="New Password" aria-label="Password" aria-describedby="basic-addon1" title="Password should be at least 6 characters long!" pattern=".{6,}" required/>
-//                       <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-//                         <i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
-//                         <i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
-//                       </span>
-//                     </div>
-//                   </div>
-//                   <div className="form-group loginFormGroup pdleftclr veribtm col-lg-12 col-md-12 col-sm-12 col-xs-12">
-//                     <div className="input-group">
-                      
-//                       <input type="password" className="form-control loginInputs inputTextPass" ref="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} placeholder="Confirm Password" aria-label="confirmPassword" aria-describedby="basic-addon1" title="Password should be at least 6 characters long!" pattern=".{6,}" required/>
-//                       <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-//                         <i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showSignPassC.bind(this)}></i>
-//                         <i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideSignPassC.bind(this)}></i>
-//                       </span>
-//                     </div>
-//                   </div>
-//                   <div className="submitButtonWrapper pdleftclr col-lg-12 col-md-12 col-sm-12 col-xs-12">
-//                     <button type="submit" onClick={this.changepassword.bind(this)} className="btn col-lg-12 col-md-12 col-sm-12 col-xs-12 submitBtn UMloginbutton">Reset Password</button>
-//                   </div>
-//                 </form>
-//             </div>
-//           </div>
-//         </div>
-//         </div>
-//     </div>
-//     );
-//   }
-// }
-// export default ResetPassword;
-
-
-
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import InputMask from 'react-input-mask';
-import swal from 'sweetalert';
-import $ from "jquery";
-
-import 'font-awesome/css/font-awesome.min.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } 			from 'react-router-dom';
+import InputMask 			from 'react-input-mask';
+import swal 				from 'sweetalert';
+import $ 					from "jquery";
+import jQuery 				from 'jquery';
+import axios 				from 'axios';
 import './SignUp.css';
-import axios from 'axios';
 
 class ResetPassword extends Component {
-  constructor() {
-    super();
-    this.state = {
-      'newpassword': "",
-      'confirmPassword': "",
+  	constructor() {
+		super();
+		this.state = {
+			'newPassword' 		: "",
+			'confirmPassword'	: "",
+			'currentPassword' 	: ""
+		}
+		this.changepassword 	= this.changepassword.bind(this);
+		this.showConfirmPass  	= this.showConfirmPass.bind(this);
+  	}
 
-    }
-    this.changepassword = this.changepassword.bind(this);
-    this.showSignPassC  = this.showSignPassC.bind(this);
-  }
+	/**=========== handleChange() ===========*/
+	handleChange = (event) => {
+		event.preventDefault();
+		
+		var name = event.target.name;
+		this.setState({
+			[name]: event.target.value
+		})
+	}
 
-  handleChange = (event) => {
-    event.preventDefault();
-    var name = event.target.name;
-    this.setState({
-      [name]: event.target.value
-    })
-  }
-  componentDidMount() {
-    var userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    var Uid = userDetails.user_id;
-    var emailId = userDetails.email;
-    this.setState({ user_ID: Uid, emailId: emailId })
-  }
-  logout() {
-    var token = localStorage.removeItem("token");
-    console.log(" token ->",localStorage.getItem("token"))
-    this.props.history.push('/login')
-  }
-  changepassword(event) {
-    event.preventDefault();
-    var userID = this.state.user_ID;
-    var formValues = {
-        "pwd" : this.state.newpassword
-    }
-    if($('#resetPassword').valid()){
-        $('.fullpageloader').show();
-        if(this.state.newpassword === this.state.confirmPassword){
-        if(formValues.pwd === "admin123" || formValues.pwd === "welcome123"){
-            swal("Your new password must be different from your old password.");
-        }else{
-            axios.patch('/api/auth/patch/change_password_withoutotp/id/'+userID, formValues)
-            .then((response)=>{
-                $('.fullpageloader').hide();
-                this.setState({
-                    "showMessage" : true,
-                })
-                swal("Your Password has been changed");
-                $('.logoutbtn').click();
-                // this.logout();
-            })
-            .catch((error)=>{
-                $('.fullpageloader').hide();
-            })
-        }
-      }else{
-          swal("Invalid Password", "Please Enter valid New password and confirm password", "warning");
-      }
-    }
-}
-  showSignPass() {
-    $('.showPwd').toggleClass('showPwd1');
-    $('.hidePwd').toggleClass('hidePwd1');
-    return $('.inputTextPass').attr('type', 'text');
-  }
-  hideSignPass() {
-    $('.showPwd').toggleClass('showPwd1');
-    $('.hidePwd').toggleClass('hidePwd1');
-    return $('.inputTextPass').attr('type', 'password');
-  }
-  showSignPassC() {
-    $('.showPwdCon').toggleClass('showPwdCon1');
-    $('.hidePwdCon').toggleClass('hidePwdCon1');
-    return $('.inputTextPassC').attr('type', 'text');
-  }
-  hideSignPassC() {
-    $('.showPwdCon').toggleClass('showPwdCon1');
-    $('.hidePwdCon').toggleClass('hidePwdCon1');
-    return $('.inputTextPassC').attr('type', 'password');
-  }
+	/**=========== handleChange() ===========*/
+	componentDidMount() {
+		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+		var user_id 	= userDetails.user_id;
+		var emailId 	= userDetails.email;
 
-  render() {
-    return (
-      <div className="container-fluid changePwdWrapper">
-        <div className="row">
-          <div className="formWrapper">
-            <section className="content">
-              <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent ">
-                <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 contactdeilsmg pageHeader">
-                  <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12 ">
-                    <h4 className="weighttitle NOpadding-right">Reset Password</h4>
+		this.setState({ 
+			user_id 	: user_id, 
+			emailId 	: emailId 
+		})
+		this.validation();
+	}
+
+	/**=========== validation() ===========*/
+	validation(){
+        jQuery.validator.setDefaults({
+            debug 	: true,
+            success : "valid"
+        });
+
+        $("#resetPasswordForm").validate({
+            rules: {
+                currentPassword: {
+                    required: true,
+                },
+                newPassword: {
+                    required: true,
+                },
+                confirmPassword: {
+                    required: true,
+                },
+            },
+            errorPlacement: function (error, element) {
+                if (element.attr("name") === "currentPassword") {
+                    error.insertAfter("#currentPasswordMsg");
+                }
+                if (element.attr("name") === "newPassword") {
+                    error.insertAfter("#newPasswordMsg");
+                }
+                if (element.attr("name") === "confirmPassword") {
+                    error.insertAfter("#confirmPasswordMsg");
+                }
+            }
+        });
+    }
+
+	/**=========== logout() ===========*/
+	logout() {
+		var userDetails = JSON.parse(localStorage.getItem("userDetails"));
+		// console.log(" token ->",localStorage.getItem("token"))
+		if (userDetails.token !== null) {
+			this.setState({
+				loggedIn: false
+			}, () => {
+				localStorage.clear();
+				window.location = "/login";
+			})
+		}
+		// this.props.history.push('/login')
+	}
+
+	/**=========== changepassword() ===========*/
+	changepassword(event) {
+		event.preventDefault();
+		
+		var formValues 	= {
+			newPassword  	: this.state.newPassword,
+			currentPassword : this.state.currentPassword,
+			user_id 		: this.state.user_id
+		}
+
+		if($('#resetPasswordForm').valid()){
+			$('.fullpageloader').show();
+
+			if(this.state.newPassword === this.state.confirmPassword){
+				if(this.state.currentPassword === this.state.newPassword){
+					swal("Your new password must be different from your old password.");
+				}else{
+					axios.patch('/api/auth/patch/reset_password', formValues)
+					.then((response)=>{
+						console.log("response => ",response.data)
+						$('.fullpageloader').hide();
+						if(response.data.messageCode){
+							swal("Your Password has been changed");
+							this.logout();
+						}else{
+							swal(response.data.message);
+						}
+					})
+					.catch((error)=>{
+						$('.fullpageloader').hide();
+					})
+				}
+			}else{
+				swal("New Password and Confirm Password should be same");
+			}
+		}
+	}
+
+	/**=========== Hide / Show Password ===========*/
+	showCurrentPass() {
+		$('.showPwd').toggleClass('showPwd1');
+		$('.hidePwd').toggleClass('hidePwd1');
+		return $('.currentPasswordInput').attr('type', 'text');
+	}
+
+	hideCurrentPass() {
+		$('.showPwd').toggleClass('showPwd1');
+		$('.hidePwd').toggleClass('hidePwd1');
+		return $('.currentPasswordInput').attr('type', 'password');
+	}
+
+	showNewPass() {
+		$('.showPwd2').toggleClass('showPwd3');
+		$('.hidePwd2').toggleClass('hidePwd3');
+		return $('.newPasswordInput').attr('type', 'text');
+	}
+
+	hideNewPass() {
+		$('.showPwd2').toggleClass('showPwd3');
+		$('.hidePwd2').toggleClass('hidePwd3');
+		return $('.newPasswordInput').attr('type', 'password');
+	}
+
+	showConfirmPass(){
+        $('.showPwd4').toggleClass('showPwd5');
+        $('.hidePwd4').toggleClass('hidePwd5');
+        return $('.confirmPasswordInput').attr('type', 'text');
+    }
+
+    hideConfirmPass(){
+        $('.showPwd4').toggleClass('showPwd5');
+        $('.hidePwd4').toggleClass('hidePwd5');
+        return $('.confirmPasswordInput').attr('type', 'password');
+    }
+
+	/**=========== render() ===========*/
+	render() {
+		return (
+			<div className="container-fluid changePwdWrapper">
+				<div className="row">
+					<div className="formWrapper">
+						<section className="content">
+							<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent ">
+								<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 contactdeilsmg pageHeader">
+									<div className="col-lg-6 col-md-6 col-xs-12 col-sm-12 ">
+										<h4 className="weighttitle NOpadding-right">Reset Password</h4>
 									</div>
-                </div>
-                <hr className="container-fluid row" />
-                <div className="box-body">
-                  <div className="row">
-
-                    <form id="resetPassword" >
-                      <div className="form-group loginFormGroup pdleftclr veribtm col-lg-6 col-lg-offset-3 col-md-6 col-sm-12 col-xs-12">
-                        <div className="input-group">
-                          <input type="password" className="form-control loginInputs inputTextPass" ref="newpassword" name="newpassword" value={this.state.newpassword} onChange={this.handleChange} placeholder="New Password" aria-label="Password" aria-describedby="basic-addon1" title="Password should be at least 6 characters long!" pattern=".{6,}" required />
-                          <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-                            <i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
-                            <i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="form-group loginFormGroup pdleftclr veribtm col-lg-6 col-lg-offset-3 col-md-6 col-sm-12 col-xs-12">
-                        <div className="input-group">
-
-                          <input type="password" className="form-control loginInputs inputTextPassC" ref="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} placeholder="Confirm Password" aria-label="confirmPassword" aria-describedby="basic-addon1" title="Password should be at least 6 characters long!" pattern=".{6,}" required />
-                          {/* <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-                            <i className="fa fa-eye Pass showPwdC" aria-hidden="true" onClick={this.showSignPassC.bind(this)}></i>
-                            <i className="fa fa-eye-slash Pass hidePwdC" aria-hidden="true" onClick={this.showSignPassC.bind(this)}></i>
-                          </span> */}
-                          <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-                            <i className="fa fa-eye Pass showPwdCon" aria-hidden="true" onClick={this.showSignPassC.bind(this)}></i>
-                            <i className="fa fa-eye-slash Pass hidePwdCon" aria-hidden="true" onClick={this.hideSignPassC.bind(this)}></i>
-                          </span>
-
-                        </div>
-                      </div>
-                      <div className="form-group loginFormGroup pdleftclr veribtm col-lg-6 col-lg-offset-3 col-md-6 col-sm-12 col-xs-12 mt25 mb25">
-                                <button className="btn resetBtn col-lg-12 col-md-12 col-sm-12 col-xs-12 btn loginBtn" onClick={this.changepassword.bind(this)}>Reset Password</button>
-                        </div>
-
-                      {/* <div className="submitButtonWrapper pdleftclr col-lg-4 col-lg-offset-4 col-md-12 col-sm-12 col-xs-12">
-                        <button type="submit" onClick={this.changepassword.bind(this)} className="col-lg-12 col-sm-12 col-xs-2 col-md-2 btn resetBtn ">Reset Password</button>
-                      </div> */}
-
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    );
-  }
+								</div>
+								<hr className="container-fluid row" />
+								<div className="box-body">
+									<div className="row">
+										<form id="resetPasswordForm" >										
+											<div className="form-group loginFormGroup pdleftclr veribtm col-lg-6 col-lg-offset-3 col-md-6 col-sm-12 col-xs-12">
+												<div className="input-group" id="currentPasswordMsg">
+													<input type="password" className="form-control loginInputs currentPasswordInput" ref="currentPassword" name="currentPassword" value={this.state.currentPassword} onChange={this.handleChange} placeholder="Current Password" aria-label="Password" aria-describedby="basic-addon1" required />
+													<span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
+														<i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showCurrentPass.bind(this)}></i>
+														<i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideCurrentPass.bind(this)}></i>
+													</span>
+												</div>
+											</div>
+											<div className="form-group loginFormGroup pdleftclr veribtm col-lg-6 col-lg-offset-3 col-md-6 col-sm-12 col-xs-12">
+												<div className="input-group" id="newPasswordMsg">
+													<input type="password" className="form-control loginInputs newPasswordInput" ref="newPassword" name="newPassword" value={this.state.newPassword} onChange={this.handleChange} placeholder="New Password" aria-label="Password" aria-describedby="basic-addon1" required />
+													<span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
+														<i className="fa fa-eye Pass showPwd2" aria-hidden="true" onClick={this.showNewPass.bind(this)}></i>
+														<i className="fa fa-eye-slash Pass hidePwd2" aria-hidden="true" onClick={this.hideNewPass.bind(this)}></i>
+													</span>
+												</div>
+											</div>
+											<div className="form-group loginFormGroup pdleftclr veribtm col-lg-6 col-lg-offset-3 col-md-6 col-sm-12 col-xs-12">
+												<div className="input-group" id="confirmPasswordMsg">
+													<input type="password" className="form-control loginInputs confirmPasswordInput" ref="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} placeholder="Confirm Password" aria-label="confirmPassword" aria-describedby="basic-addon1" required />
+													<span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
+														<i className="fa fa-eye Pass showPwd4" aria-hidden="true" onClick={this.showConfirmPass.bind(this)}></i>
+														<i className="fa fa-eye-slash Pass hidePwd4" aria-hidden="true" onClick={this.hideConfirmPass.bind(this)}></i>
+													</span>
+												</div>
+											</div>
+											<div className="form-group loginFormGroup pdleftclr veribtm col-lg-6 col-lg-offset-3 col-md-6 col-sm-12 col-xs-12 mt25 mb25">
+												<button className="btn resetBtn col-lg-12 col-md-12 col-sm-12 col-xs-12 btn loginBtn" onClick={this.changepassword.bind(this)}>Reset Password</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
-export default ResetPassword;
-  // render(){
-  //   var winHeight = window.innerHeight;
-  //   var divHeight = winHeight/4.5+'px';
-  //   return( 
-  //     <div>
-  //       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mainBackgroundImg ">
-  //       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 signUpWrapper">
-  //         <div className="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12 signupPadding signUpFormWrap ">
-  //         {/* <div className="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-12 signupPadding signUpFormWrap " style={{"height": divHeight}}> */}
-  //           <div className="divLoginInWrap">
-  //           <form id="resetPassword" >
-  //                 <div className="form-group loginFormGroup pdleftclr veribtm col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  //                   <div className="input-group">
-
-  //                     <input type="password" className="form-control loginInputs inputTextPass" ref="oldpassword" name="oldpassword" value={this.state.oldpassword} onChange={this.handleChange} placeholder="Old Password" aria-label="oldpassword" aria-describedby="basic-addon1" title="Password should be at least 6 characters long!" pattern=".{6,}" required/>
-  //                     <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-  //                       <i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
-  //                       <i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
-  //                     </span>
-  //                   </div>
-  //                 </div>
-  //                 <div className="form-group loginFormGroup pdleftclr veribtm col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  //                   <div className="input-group">
-
-  //                     <input type="password" className="form-control loginInputs inputTextPass" ref="newpassword" name="newpassword" value={this.state.newpassword} onChange={this.handleChange} placeholder="New Password" aria-label="Password" aria-describedby="basic-addon1" title="Password should be at least 6 characters long!" pattern=".{6,}" required/>
-  //                     <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-  //                       <i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
-  //                       <i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
-  //                     </span>
-  //                   </div>
-  //                 </div>
-  //                 <div className="form-group loginFormGroup pdleftclr veribtm col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  //                   <div className="input-group">
-
-  //                     <input type="password" className="form-control loginInputs inputTextPass" ref="confirmPassword" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} placeholder="Confirm Password" aria-label="confirmPassword" aria-describedby="basic-addon1" title="Password should be at least 6 characters long!" pattern=".{6,}" required/>
-  //                     <span className="input-group-addon addons glyphi-custommm padBoth" id="basic-addon1">
-  //                       <i className="fa fa-eye Pass showPwd" aria-hidden="true" onClick={this.showSignPassC.bind(this)}></i>
-  //                       <i className="fa fa-eye-slash Pass hidePwd" aria-hidden="true" onClick={this.hideSignPassC.bind(this)}></i>
-  //                     </span>
-  //                   </div>
-  //                 </div>
-  //                 <div className="submitButtonWrapper pdleftclr col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  //                   <button type="submit" onClick={this.changepassword.bind(this)} className="btn col-lg-12 col-md-12 col-sm-12 col-xs-12 submitBtn UMloginbutton">Reset Password</button>
-  //                 </div>
-  //               </form>
-  //           </div>
-  //         </div>
-  //       </div>
-  //       </div>
-  //   </div>
-  //   );
-  // }
+	
+	export default ResetPassword;
+  

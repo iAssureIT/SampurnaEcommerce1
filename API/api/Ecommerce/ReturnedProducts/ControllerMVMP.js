@@ -288,25 +288,30 @@ exports.return_status_update = (req, res, next) => {
 
 				/**--- 5. Update newly calculated order amount ---*/
 				Orders.updateOne(
-				{ _id: ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : ObjectId(returnProductData.vendor_id)},		
-				{
-					$set:{						
-						"paymentDetails.beforeDiscountTotal" 		: order_beforeDiscountTotal,
-						"paymentDetails.discountAmount" 			: order_discountAmount,
-						"paymentDetails.afterDiscountTotal" 		: order_afterDiscountTotal,
-						"paymentDetails.taxAmount" 					: order_taxAmount,
-						"paymentDetails.afterDiscountCouponAmount" 	: afterDiscountCouponAmount,
-						"paymentDetails.netPayableAmount" 			: netPayableAmount,
-						"vendorOrders.$.order_numberOfProducts" 	: order_numberOfProducts,
-						"vendorOrders.$.order_quantityOfProducts" 	: order_quantityOfProducts,
-						"vendorOrders.$.vendor_numberOfProducts" 	: vendor_numberOfProducts,
-						"vendorOrders.$.vendor_quantityOfProducts" 	: vendor_quantityOfProducts,
-						"vendorOrders.$.vendor_beforeDiscountTotal" : vendor_beforeDiscountTotal,
-						"vendorOrders.$.vendor_afterDiscountTotal"  : vendor_afterDiscountTotal,
-						"vendorOrders.$.vendor_discountAmount" 		: vendor_discountAmount,
-						"vendorOrders.$.vendor_taxAmount" 			: vendor_taxAmount						
-					}
-				})
+					{ _id: ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : ObjectId(returnProductData.vendor_id)},		
+					{$set:{						
+						"paymentDetails.beforeDiscountTotal" 					: order_beforeDiscountTotal,
+						"paymentDetails.discountAmount" 						: order_discountAmount,
+						"paymentDetails.afterDiscountTotal" 					: order_afterDiscountTotal,
+						"paymentDetails.taxAmount" 								: order_taxAmount,
+						"paymentDetails.afterDiscountCouponAmount" 				: afterDiscountCouponAmount,
+						"paymentDetails.netPayableAmount" 						: netPayableAmount,
+						"vendorOrders.$.order_numberOfProducts" 				: order_numberOfProducts,
+						"vendorOrders.$.order_quantityOfProducts" 				: order_quantityOfProducts,
+						"vendorOrders.$.vendor_numberOfProducts" 				: vendor_numberOfProducts,
+						"vendorOrders.$.vendor_quantityOfProducts" 				: vendor_quantityOfProducts,
+						"vendorOrders.$.vendor_beforeDiscountTotal" 			: vendor_beforeDiscountTotal,
+						"vendorOrders.$.vendor_afterDiscountTotal"  			: vendor_afterDiscountTotal,
+						"vendorOrders.$.vendor_discountAmount" 					: vendor_discountAmount,
+						"vendorOrders.$.vendor_taxAmount" 						: vendor_taxAmount,
+						'vendorOrders.$[outer].products.$[inner].productStatus' : req.body.returnStatus,						
+						},
+					},
+					{arrayFilters: [
+						{ 'outer.vendor_id' : returnProductData.vendor_id }, 
+						{ 'inner.product_ID': returnProductData.product_id }
+					]}
+				)
 				.then(async(updatedata) => {
 					console.log("updatedata => ",updatedata);
 					if (updatedata.nModified === 1) {
@@ -314,7 +319,7 @@ exports.return_status_update = (req, res, next) => {
 						// console.log("returnProductData.order_id => ",returnProductData.order_id);
 						// console.log("returnProductData.user_id => ",returnProductData.user_id);
 						await Orders.updateOne(
-							{'_id' : ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id},
+							{'_id' : ObjectId(returnProductData.order_id), 'vendorOrders.vendor_id' : req.body.vendor_id},
 							{$set:
 								{
 									'vendorOrders.$[outer].products.$[inner].productStatus' : "Return Requested",

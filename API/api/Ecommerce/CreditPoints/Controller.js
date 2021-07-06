@@ -20,7 +20,7 @@ exports.get_credit_points = (req, res, next) => {
 				_id 			: creditpointsdata._id,
 				user_id 		: creditpointsdata.user_id,
 				totalPoints 	: creditpointsdata.totalPoints,
-				totalPoinsValue : (creditpointsdata.totalPoints * creditPointValue).toFixed(2),
+				totalPointsValue : (creditpointsdata.totalPoints * creditPointValue).toFixed(2),
 				transactions 	: creditpointsdata.transactions && creditpointsdata.transactions.length > 0
 									? 
 										(creditpointsdata.transactions.map((a, i)=>{	
