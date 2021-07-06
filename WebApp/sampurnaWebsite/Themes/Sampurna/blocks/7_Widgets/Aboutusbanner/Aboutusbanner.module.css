@@ -1,31 +1,75 @@
-.blockWrapper{
-  height: auto;
-  min-height:60px;
-   /* background-size: 100% 100%; */
-} 
-.textWrapper{
-   /* margin-top: 60px; */
-   color: #000;
-   /* font-size: 35px; */
-   text-align: left;
+.simplePageBanner{
+	height: 250px;
+	text-align: center;
+	background-size: 250% 100%;
+	background-position: -270px 0px;
+	background-repeat: no-repeat;
+	margin-top: -0px !important;
+}
+.simplePageBannerTitle{
+	font-size: 45px;
+	font-weight: 700;
+	color: #fff;
+    padding-top: 100px;
+}
+.simplePageBanner ul{
+	list-style: none;
+	margin: auto;
+}
+.simplePageBanner ul li{
+	display: inline-block;
+	color: #fff;
+}
+.simplePageBanner ul li a{
+	font-size: 18px;
+	color: #fff;
+}
+.simplePageBanner ul li a:hover{
+	color: #86a844;
+	text-decoration: none;
 }
 
-.pageAboutText{
-   word-spacing: 3px;
-   font-size: 50px;
-   /* margin-top: -120px; */
-   /* padding-top: 130px; */
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  Start Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */
+
+
+/* (xs) Extra Small Devices (Portrait Phones, less than 575px) */
+@media (max-width: 575px){
+    /* No media query for 'xs' since this is the default in Bootstrap 4 */
 }
-.pageAboutText1{
-   position: absolute;
-   /* margin-top: 15px; */
-   word-spacing: 2px;
-   font-size: 35px;
-   /* color: #ff4157!important; */
-   font-weight: 900;
+
+/* (sm) Small Devices (Landscape Phones, 576px and up) */
+@media (min-width: 576px){
+
+	.simplePageBanner{
+		background-size: 190% 100%;
+		background-position: -270px 0px;
+	}
 }
-.subTitle{
-   /* margin-top: 15px; */
-   font-size: 18px;
-   /* margin-left: -60px; */
+
+/* (md) Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px){
+
 }
+
+/* (lg) Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px){
+
+	.simplePageBanner{
+		background-size: 150% 100%;
+		background-position: -150px 0px;
+	}
+}
+
+/* (xl) Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px){
+
+	.simplePageBanner{
+		margin-top: 85px;
+		background-size: 115% 100%;
+		background-position: -50px 0px;
+	}
+}
+
+
+/* NNNNNNNNNNNNNNNNNNNNNNNNN ++  End Media Query  ++ NNNNNNNNNNNNNNNNNNNNNNNNN */

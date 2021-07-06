@@ -6,33 +6,9 @@ import validate                   from "jquery-validation";
 import Swal					      from 'sweetalert2';
 import Link                   from 'next/link';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faFacebookF,
-  faTwitter,
-  faInstagram,
-  faYoutube,
-  faLinkedinIn,
-  faPaperPlane
-  
-} from '@fortawesome/free-brands-svg-icons';
 
-library.add(
-	faPhoneAlt,
-	faEnvelope,
-	faFacebookF,
-	faTwitter,
-	faInstagram,
-	faYoutube,
-	faLinkedinIn,
-	faPaperPlane
-  
-  );
 
 import S 					      from './ContactUsTrollyMart.module.css';
-import { faEnvelope,  faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
-
 
 
 export default class ContactUsTrollyMart extends Component{
@@ -48,7 +24,7 @@ export default class ContactUsTrollyMart extends Component{
 				clientEmail : "",
 			},
 			blocks: {
-				"blockType"       	  : "4_CustomisedBlocks",
+				"blockType"       	  : "7_Widgets",
 				"blockComponentName"  : "ContactUsTrollyMart",
 				"blockTitle"  		  : "AltMed Center",
 				"blockSubTitle"       : "Contact Us",
@@ -56,7 +32,7 @@ export default class ContactUsTrollyMart extends Component{
 				"bgImage" 			  : "/images/CMSImages/Sampurna/GetInTouch.png",
 				"blockContact"        : "9000900000 / 8000800000",
 				"blockEmail"          : "admin@iassureit.com",
-				
+
 			},
 			"blockID" 	: "",
 			"block_id" 	: ""
@@ -67,11 +43,9 @@ export default class ContactUsTrollyMart extends Component{
 	componentDidMount(){
 	  	this.dynamicvalidation();
 
-    	
-		  $('button').click(function(){
-			$(this).animate({height:'1000'})
-		})
-		
+
+
+
 
 		{
             axios.get('/api/blocks/get/'+this.props.block_id)
@@ -96,11 +70,11 @@ export default class ContactUsTrollyMart extends Component{
 			block_id:this.props.block_id
 		});
 
-		
+
 	}
 
 	dynamicvalidation(){
-   
+
         $.validator.addMethod("regxName", function (value, element, regexpr) {
             return regexpr.test(value);
         }, "Please enter valid name");
@@ -110,7 +84,7 @@ export default class ContactUsTrollyMart extends Component{
          $.validator.addMethod("regxMessage", function (value, element, regexpr) {
             return regexpr !== value;
         }, "Please enter appropriate message");
-      
+
 
 
         jQuery.validator.setDefaults({
@@ -125,21 +99,21 @@ export default class ContactUsTrollyMart extends Component{
                     required: true
                 },
 
-               
+
                 email: {
                     required: true,
                     regxEmail: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$|^$)/,
                 },
-               
+
                 message: {
                 	regxMessage:  /^[A-Za-z][A-Za-z0-9\-\s]/,
                     required: true
                 },
 				mobile: {
-                	regxMessage:/^[0-9-+()]*$/,
+                	regxMessage: /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/,
                     required: true
                 },
-                
+
             },
             errorPlacement: function (error, element) {
                 if (element.attr("name") === "name") {
@@ -154,14 +128,14 @@ export default class ContactUsTrollyMart extends Component{
                 if (element.attr("name") === "message") {
                     error.insertAfter("#message");
                 }
-              
-               
-               
-               
-                
+
+
+
+
+
             }
         });
-    
+
     }
 
 	handleChange(event){
@@ -204,7 +178,7 @@ export default class ContactUsTrollyMart extends Component{
 					showConfirmButton: false,
 
 				  })
-				  
+
 			     }
 			     else{
 			    //   Swal.fire("Please fill the details!")
@@ -217,8 +191,8 @@ export default class ContactUsTrollyMart extends Component{
 					showConfirmButton: false,
 				  })
 			  	 }
-			   
-		
+
+
 
 		this.setState({
 			name    : "",
@@ -227,7 +201,6 @@ export default class ContactUsTrollyMart extends Component{
 			mobile  : ""
 		});
 	}
-	
 
 	render(){
 		console.log("state ===", this.state.name,  + " |" + this.state.email  + "|" + this.state.message )
@@ -251,33 +224,33 @@ export default class ContactUsTrollyMart extends Component{
 												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="email" name="email" type="email" id="email" data-text="clientEmail" ref="email" required value={this.state.email} onChange={this.handleChange.bind(this)} /> </div>
 											<div className="form-group mt-5">
 												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>Phone</label>
-												<input maxLength="10" className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="text" maxLength="10" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} /> </div>
+												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="mobile" type="number" name="mobile" id="mobile" ref="mobile" required value={this.state.mobile} value={this.state.mobile} onChange={this.handleChange.bind(this)} /> </div>
 											<div className="form-group mt-5">
 												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
 												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} /> </div>
 											<div className={ "col-lg-12 pb-lg-5 pb-0 "}>
-												<button type="button" className={ " shadow-none btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<FontAwesomeIcon  icon={faPaperPlane} style={{width:"12px",color:"#033554"}}  /></button>
+												<button type="button" className={ "btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
 											</div>
 										</form> {/* </div> */} </div>
 							</div>
 							<div className={ "col-lg-4  mt-5 mt-lg-0 contactusFormWrapperRightSide "+S.contactusFormWrapperRightSide}>
 								<h3 className={ "col-lg-12 pt-lg-5 mt-lg-5  mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
-								<div className={ "col-lg-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}> <FontAwesomeIcon  icon={faPhoneAlt} style={{width:"20px",color:"#fff"}}  />&nbsp;&nbsp;&nbsp;
+								<div className={ "col-lg-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone-alt"}></i>&nbsp;&nbsp;&nbsp;
 									<label>+971 000 000 000</label>
 								</div>
-								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}> <FontAwesomeIcon  icon={faEnvelope} style={{width:"20px",color:"#fff"}}  />&nbsp;&nbsp;&nbsp;
+								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>&nbsp;&nbsp;&nbsp;
 									<label>hello@trollymaet.com</label>
 								</div>
 								<div className={ "hero "+S.hero}>
-									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""> <FontAwesomeIcon  icon={faInstagram} style={{width:"18px",color:"#033554"}}  /></a> <a href=""><FontAwesomeIcon  icon={faFacebookF} style={{width:"12px",color:"#033554"}}  /></a> <a href=""><FontAwesomeIcon  icon={faYoutube} style={{width:"20px",color:"#033554"}}  /></a> <a href=""><FontAwesomeIcon  icon={faLinkedinIn} style={{width:"12px",color:"#033554"}}  /></a> <a href=""><FontAwesomeIcon  icon={faTwitter} style={{width:"16px",color:"#033554"}}  /></a> </div>
+									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""><i className="fab fa-instagram"></i></a> <a href=""><i className="fab fa-facebook-f"></i></a> <a href=""><i className="fab fa-youtube"></i></a> <a href=""><i className="fab fa-linkedin"></i></a> <a href=""><i className="fab fa-twitter"></i></a> </div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
-            
-			
+
+
 		);
 	}
-}
+} 

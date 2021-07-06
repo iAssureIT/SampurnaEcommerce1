@@ -866,7 +866,7 @@ class Checkout extends Component {
                                                 }
                                             </div>
                                             <div className="col-12 mt2">
-                                                <div className={"btn col-12 " +Style.addBTN} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
+                                                <div className={"btn col-12 " +Style.addBTN1} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
                                             </div>
                                         </div>
                                         :
@@ -889,7 +889,9 @@ class Checkout extends Component {
                                                     <th className="textAlignRight">Quantity</th>
                                                     <th className="textAlignRight">SubTotal</th>
                                                 </tr>
+                                                
                                             </thead>
+                                            
                                             <tbody>
                                                 {
                                                    this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length > 0 ?
@@ -968,26 +970,26 @@ class Checkout extends Component {
                                                                     </table>
                                                                     </td>
                                                                 </tr>
-                                                                <tr className=" col-12 tableRow">
+                                                                <tr className={" col-12 tableRow "+Style.tableBorderNone}>
                                                                     <td className={" " +Style.f13N +" "+Style.bold +" "} colSpan="5"> 
-                                                                        <div className="col-6 offset-3">
+                                                                        <div className="col-6 offset-3 float-right pb-2">
                                                                             <span className="col-8 title">{vendorWiseData.vendorName}&nbsp; Total</span>
                                                                             <span className="col-4 textAlignRight title NoPadding">&nbsp; 
-                                                                                <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? (vendorWiseData.vendor_netPayableAmount).toFixed(2) : 0.00} 
+                                                                                <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{vendorWiseData.vendor_beforeDiscountTotal > 0 ? (vendorWiseData.vendor_netPayableAmount).toFixed(2) : 0.00}
                                                                             </span>
                                                                         </div>
-                                                                        <div className="col-6 offset-3">
+                                                                        <div className="col-6 offset-3 float-right">
                                                                             <span className="col-8 title">You Saved&nbsp;</span>
                                                                             <span className="col-4 textAlignRight title NoPadding">&nbsp; 
-                                                                                <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{vendorWiseData.total > 0 ? vendorWiseData.vendor_discountAmount : 0.00} 
+                                                                                <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;<span className={" "+Style.currencyColor1}>{vendorWiseData.total > 0 ? vendorWiseData.vendor_discountAmount : 0.00} </span>
                                                                             </span>
                                                                         </div>
-                                                                        <div className="col-6 offset-3">
+                                                                        {/* <div className="col-6 float-right">
                                                                             <span className="col-8 title">Tax &nbsp;</span>
                                                                             <span className="col-4 textAlignRight title NoPadding">&nbsp; 
                                                                                 <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{vendorWiseData.vendor_taxAmount > 0 ? vendorWiseData.vendor_taxAmount : 0.00} 
                                                                             </span>
-                                                                        </div>                                                                        
+                                                                        </div>                                                                         */}
                                                                     </td>
                                                                 </tr>
                                                             </div>
@@ -1001,7 +1003,7 @@ class Checkout extends Component {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div className="col-12  checkOutTerms">
+                                    <div className={"col-12  checkOutTerms "+Style.checkOutTerms}>
                                         <div className="col-12 ">
                                         {this.state.recentCartData?
                                         <div className="col-12">
@@ -1017,7 +1019,7 @@ class Checkout extends Component {
                                                         <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>
                                                     </div>
                                                 </div>
-                                                <div className={"col-12 mt-2 " +Style.f11N +" "+Style.grey}><div className={"col-4 NoPadding " +Style.orline}></div><span className={"col-1 " +Style.orclass}>OR</span><div className={"col-4 ml-4 NoPadding " +Style.orline}></div></div>
+                                                <div className={"col-12 mt-2 " +Style.f11N +" "+Style.grey}><div className={"col-4 NoPadding " +Style.orline}></div><span className={"col-1 font-weight-bold " +Style.orclass}>OR</span><div className={"col-4 ml-4 NoPadding " +Style.orline}></div></div>
                                                 <div className="row mt-4 mb-5 creditWrapper">
                                                     {this.state.creditdataTotalPoints > 0?
                                                         <label className={" " +Style.f13N}>Credit Points Available [{this.state.creditdataTotalPoints}] Points.  <span className={" " +Style.AEDColor}> Total Balance Available [{this.state.creditdataValue}] {this.state.currency}</span></label>
@@ -1035,11 +1037,11 @@ class Checkout extends Component {
                                                 </div>
                                             </div>    
                                             </div>
-                                            <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 ">
+                                            <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 font-weight-bold pt-3">
                                                 <div className={"row " +Style.f13N}>
-                                                    <span className="col-6 mb-1">Final Total Amount :</span><span className="col-6 mb-1 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
-                                                    <span className="col-6 mb-1">Total Saving Amount :</span><span className="col-6 mb-1 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
-                                                    <span className="col-6 mb-1">Total Tax :</span><span className="col-6 mb-1 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
+                                                    <span className="col-6 mb-1">Final Total Amount :</span><span className="col-6 mb-1 textAlignRight"><span className={"text-left "+Style.currencyColor}>{this.state.currency}</span> &nbsp; <span></span>{this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
+                                                    <span className="col-6 mb-1">Total Saving Amount :</span><span className="col-6 mb-1 textAlignRight"><span className={"text-center "+Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
+                                                    <span className="col-6 mb-1">Total Tax :</span><span className="col-6 mb-1 textAlignRight"><span className={"text-left mx-auto "+Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
                                                     <span className="col-6 mb-1">Discount Coupon :</span>
                                                     <span className="col-6 mb-1 textAlignRight">
                                                         <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount : 0.00}
@@ -1075,13 +1077,20 @@ class Checkout extends Component {
                                                         <div className="col-12 text-left NoPadding font-weight-bold">Total Delivery Charges : {this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
                                                     </ReactTooltip>
                                                     </span>
-                                                    
+                                                    <div className="col-12 grandTotal mt-4 mb-2 font-weight-bold">
+                                                        <div className={"row " +Style.f13N}>
+                                                            <span className={"col-6 orderTotalText " +Style.f16 +" "+Style.bold}><strong>Grand Total</strong></span>
+                                                            <span className={"col-6 textAlignRight " +Style.f16 +" "+Style.bold}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
+                                                                {(this.state.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                     
                                                     <div className="col-12 mt-5 shippingtimes">
                                                         <div className={"row " +Style.f13N}>
-                                                            <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />  &nbsp;
-                                                            <div className="col-10 col-xl-10 col-md-10 termsWrapper">
-                                                                <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree, to the Terms & Conditions</span> <span className="required">*</span>
+                                                            <input type="checkbox" name="termsNconditions" isChecked={this.state.isChecked} title="Please Read and Accept Terms & Conditions" onClick={this.checkboxClick.bind(this)} className="acceptTerms col-1" />  
+                                                            <div className="col-11 col-xl-11 col-md-11 termsWrapper">
+                                                                <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree to terms & conditions</span> <span className="required">*</span>
                                                             </div>
                                                             <div className="col-11">
                                                                 <div className="errorMsg termConditionErrorMsg col-12 ">{this.state.errors.termsNconditions}</div>
@@ -1089,8 +1098,8 @@ class Checkout extends Component {
                                                         </div> 
                                                     </div>
                                                     <div className={"col-12 " +Style.f13N}>
-                                                        <span className="col-12 col-xl-12 nopadding">Select Shipping Time<span className="required"></span></span>
-                                                        <select onChange={this.selectedTimings.bind(this)} className={"col-12  noPadding  form-control " +Style.f13N} ref="shippingtime" name="shippingtime" >
+                                                        <span className="col-12 col-xl-12 nopadding my-5 ">Select Shipping Time<span className="required"></span></span>
+                                                        <select onChange={this.selectedTimings.bind(this)} className={"col-6 float-right  noPadding  form-control " +Style.f13N} ref="shippingtime" name="shippingtime" >
                                                             <option name="shippingtime" disabled="disabled" selected="true">-- Select --</option>
                                                             {
                                                                 this.state.gettimes && this.state.gettimes.length > 0 ?
@@ -1104,18 +1113,28 @@ class Checkout extends Component {
                                                             }
                                                         </select>
                                                     </div>
+                                        <div className="col-12 pt-3">
+                                    {
+                                        !this.state.paymentMethods ?
+                                        <button className={"btn  col-12 float-right  " +Style.eCommTitle +" "+Style.addBTN +" "+Style.f16} onClick={this.placeOrder.bind(this)}><b>Place Order</b></button>
+                                        :
+                                        <div className="col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" >
+                                                <Loaderspinner
+                                                type="ThreeDots"
+                                                color="#80b435"
+                                                height={40}
+                                                width={40}
+                                                // timeout={5000} //3 secs
+                                            />
+                                        </div>
+                                    }
+                                        
+                                    </div>
 
                                                     <div className="col-12 mt15">
                                                         <div className="col-12 checkoutBorder"></div>
                                                     </div>
-                                                    <div className="col-12 grandTotal mt-4 mb-2">
-                                                        <div className={"row " +Style.f13N}>
-                                                            <span className={"col-6 orderTotalText " +Style.f16 +" "+Style.bold}>Grand Total</span>
-                                                            <span className={"col-6 textAlignRight " +Style.f16 +" "+Style.bold}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
-                                                                {(this.state.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }
-                                                            </span>
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                             </div>
@@ -1157,23 +1176,7 @@ class Checkout extends Component {
                                         </div>  
                                     </div>
 
-                                    <div className="col-12">
-                                    {
-                                        !this.state.paymentMethods ?
-                                        <button className={"btn offset-lg-6 col-lg-6 col-xl-3 offset-xl-9 col-md-6 offset-md-6 col-12 " +Style.eCommTitle +" "+Style.addBTN +" "+Style.f16} onClick={this.placeOrder.bind(this)}><b>Place Order</b></button>
-                                        :
-                                        <div className="col-xl-3 offset-xl-9 col-md-2 offset-md-10 col-12" >
-                                                <Loaderspinner
-                                                type="ThreeDots"
-                                                color="#80b435"
-                                                height={40}
-                                                width={40}
-                                                // timeout={5000} //3 secs
-                                            />
-                                        </div>
-                                    }
-                                        
-                                    </div>
+                                  
                                 </div>
                             </div>
                           </div>  

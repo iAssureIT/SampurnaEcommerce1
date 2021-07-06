@@ -1,7 +1,7 @@
 .singleVendorBox{
 	margin-bottom:25px;
 	border:1px solid #ddd;
-	border-radius:10px;
+	border-radius:19px;
 	padding:15px;
 }
 
@@ -9,7 +9,10 @@
 	margin-bottom:20px;
 	height:auto;
 }
-
+.discMsgColor{
+    color:black;
+    font-size: 12px;
+}
 .productName{
 	margin-bottom: 0.5rem;
     font-weight: 500;
@@ -34,10 +37,13 @@
 }
 
 .shopping{
-	color:#333 !important;
+	color:#033554 !important;
 	text-decoration: underline; 
 }
-
+.cardHeadingWrapper{
+    border-bottom: 1px solid #ddd;
+    
+}
 .cartSummary1 {
     display: inline-block;
     margin-top: 15px;

@@ -296,24 +296,39 @@ class CartProducts extends Component{
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
                                         // console.log("vendorWiseCartData==",vendorWiseCartData);
                                             return(  
+                                                
                                                 <div className={"row " +Style.singleRow} key={index}>
+                                                    <div className="col-12 mt-2 mb-3 mx-2"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
+
                                                     <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8 ">
                                                         <div className={"col-12 " +Style.singleVendorBox}>
-                                                        <div className="col-12 mt-2 mb-2 vendorName"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
+                                                            <div className="row ">
+                                                                <div className="col-6 font-weight-bold text-left">Product</div>
+                                                                <div className="col-3 font-weight-bold">Quantity</div>
+                                                                <div className="col-3 font-weight-bold">Total Price</div>
+                                                            </div>
+                                                            <div className={"col-12 pt-1 "+Style.cardHeadingWrapper}></div>
+
+                               
+                                                           
                                                         { vendorWiseCartData.cartItems.map((vendorData, index)=>{
                                                         return(
                                                             <div key={index}>
                                                                 <div className="col-12">
-                                                                    <div className={"row mb-4 " +Style.bbBox}>
+                                                                    
+                                                                    <div className={"row mb-4 "}>
                                                                         <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-2 col-xl-2 ForMobile">
+                                                                            <div className="row">
                                                                             <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
                                                                                 <img className="img  cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
                                                                             </a>
+                                                                            </div>
                                                                         </div>
-                                                                        <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail">
+                                                                        <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-4 col-xl-4 cartProductDetail my-4">
+                                                                        <div className="row">
                                                                             <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
                                                                                 {vendorData.product_ID.productNameRlang?
-                                                                                    <div className={"RegionalFont " +Style.productName}>{vendorData.product_ID.productNameRlang}</div>
+                                                                                    <div className={"RegionalFont  font-weight-bold" +Style.productName}>{vendorData.product_ID.productNameRlang}</div>
                                                                                 :
                                                                                     <div className={" " +Style.productName }>{vendorData.product_ID.productName}</div>
                                                                                 }
@@ -335,17 +350,17 @@ class CartProducts extends Component{
                                                                         {/* <div className=" NoPadding">
                                                                             <button productid={vendorData.product_ID._id} id={vendorData._id} onClick={this.moveWishlist.bind(this)} className=" btn wishlistBtn">Move To Wishlist</button>
                                                                         </div> */}
-
+                                                                            </div>
                                                                         </div> 
 
                                                                         <div className="nowrap col-12 col-sm-12 col-sx-12 col-md-4 col-lg-3 col-xl-2 mb-3 ">                                                         
                                                                         {
                                                                             vendorData.product_ID.availableQuantity > 0 ?
-                                                                            <div className="quantityWrapper">
-                                                                                <span className="minusQuantity fa fa-minus" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
+                                                                            <div className="quantityWrapper my-4 pt-1 text-left mx-2">
+                                                                                <span className=" pr-2 fa fa-minus cartPrice cursor-pointer" id={vendorData.product_ID._id} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} 
                                                                                     onClick={this.cartquantitydecrease.bind(this)}></span>&nbsp;
-                                                                                <span className="inputQuantity">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
-                                                                                <span className="plusQuantity fa fa-plus" vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
+                                                                                <span className="">{this.state['quantityAdded|'+vendorData._id] ? this.state['quantityAdded|'+vendorData._id] : vendorData.quantity}</span>&nbsp;
+                                                                                <span className={" pr-2 pl-2 fa fa-plus cartPrice "} vendor_id={vendorWiseCartData.vendor_id._id} size={vendorData.product_ID.size} unit={vendorData.product_ID.unit} productid={vendorData.product_ID._id} id={vendorData.product_ID._id} dataquntity={this.state.quantityAdded !== 0 ? this.state.quantityAdded : vendorData.quantity} availablequantity={vendorData.product_ID.availableQuantity}  
                                                                                     onClick={this.cartquantityincrease.bind(this)}></span><br/>   
                                                                                 { this.state.websiteModel === 'FranchiseModel'?                                                                 
                                                                                     <span className ="productUnit" id={vendorData.product_ID._id}> Of {vendorData.product_ID.size}&nbsp;<span className="CapsUnit">{vendorData.product_ID.unit}</span></span>
@@ -356,7 +371,7 @@ class CartProducts extends Component{
                                                                             <span className="sold textAlignCenter">SOLD OUT</span>
                                                                         }
                                                                         </div>  
-                                                                        <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3">
+                                                                        <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3 my-4 text-center ">
                                                                         {
                                                                             vendorData.product_ID.availableQuantity > 0 ?
                                                                                 <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice * vendorData.quantity :vendorData.product_ID.originalPrice * vendorData.quantity}</span>
@@ -364,15 +379,22 @@ class CartProducts extends Component{
                                                                             <span>-</span>
                                                                         }    
                                                                         </div>
-                                                                        <div className="col-6 col-sm-12 col-sx-12 col-md-4 col-lg-1 col-xl-1 text-right  ">
+                                                                        <div className="col-6 col-sm-12 col-sx-12 col-md-4 col-lg-1 col-xl-1 text-center my-4 ">
                                                                             <span className="fa fa-trash trashIcon" id={vendorData._id} vendorid={vendorWiseCartData.vendor_id._id} onClick={this.Removefromcart.bind(this)}><a href="/" style={{color:"#337ab7"}} > </a></span>
                                                                         </div>
                                                                     </div> 
                                                                 </div>
-                                                            </div>    
+                                                      
+                                                            </div>   
+                                                             
                                                         );
                                                         })
                                                     }
+                                                              <div className="col-12">
+                                                    <Link href="/">
+                                                        <a className={"shoppingLink " +Style.shopping}><i class="fa fa-arrow-left"></i>&nbsp;Contiune Shopping</a>
+                                                    </Link>
+                                                </div>
                                                     </div>
                                                     {
                                                     vendorWiseCartData.vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ?
@@ -394,23 +416,23 @@ class CartProducts extends Component{
                                                                 <tr>
                                                                     <td>Sub Total</td>
                                                                     <td className="textAlignRight">&nbsp; 
-                                                                    <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
+                                                                    <b>{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>You Saved</td>
                                                                     <td className="textAlignRight saving">&nbsp; 
-                                                                    <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
+                                                                    <b>{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
                                                                 </tr>                                                        
                                                                 <tr>
                                                                     <td>Tax</td>  
                                                                     <td className="textAlignRight ">&nbsp; 
-                                                                        <span> <b>{this.state.currency} &nbsp; {vendorWiseCartData.vendor_taxAmount}</b></span>
+                                                                        <span> <b>{vendorWiseCartData.vendor_taxAmount}</b></span>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td className="cartTotal"> <b>Totals</b> </td>
                                                                     <td className="textAlignRight cartTotal">&nbsp; 
-                                                                    <b>{this.state.currency} &nbsp;{vendorWiseCartData.vendor_netPayableAmount}</b>
+                                                                    <b>{vendorWiseCartData.vendor_netPayableAmount}</b>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -425,43 +447,39 @@ class CartProducts extends Component{
                                     <div className="col-12 CouponCode">
                                         <div className="row ">
                                             <div className="col-12 col-sm-12 col-sx-12 col-md-12 col-lg-8 col-xl-8  mt-1 mb-3 text-center">
-                                                <div className="col-12">
-                                                    <Link href="/">
-                                                        <a className={"shoppingLink " +Style.shopping}>Contiune Shopping</a>
-                                                    </Link>
-                                                </div>
+                                              
                                             </div>
                                             <div className="col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 NoPadding">
                                                 <div className={"col-12  " +Style.cartSummary1}>
-                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                    <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
                                                             <div className="col-8">Final Total Amount</div>
                                                             <div className="col-4 textAlignRight">&nbsp;
-                                                            {this.state.currency} &nbsp;{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? parseInt(this.props.recentCartData.paymentDetails.netPayableAmount) : 0.00} </div>
+                                                            {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? parseInt(this.props.recentCartData.paymentDetails.netPayableAmount) : 0.00} </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                    <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
                                                             <div className="col-7">Total Savings</div>
                                                             <div className="col-5 textAlignRight saving">&nbsp; 
-                                                                {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00} 
+                                                                { this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00} 
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                    <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
                                                             <div className="col-7">Total Tax</div>
                                                             <div className="col-5 textAlignRight">&nbsp; 
-                                                                {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00} 
+                                                               { this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00} 
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                    <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
                                                             <div className="col-8">Total Delivery Charges 
                                                             </div>
                                                             <div className="col-4 textAlignRight">&nbsp; 
-                                                                {this.state.currency} &nbsp;{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
+                                                                { this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
                                                                 
                                                                 <a data-tip data-for="vendorTooltip">
                                                                     &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
@@ -481,7 +499,7 @@ class CartProducts extends Component{
                                                                         )
                                                                         })
                                                                     }
-                                                                    <div className="col-12 text-left NoPadding font-weight-bold">Total Delivery Charges : {this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
+                                                                    <div className="col-12 text-left NoPadding font-weight-bold ">Total Delivery Charges : {this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
                                                                 </ReactTooltip>
                                                                 <div>
                                                                 
@@ -491,10 +509,10 @@ class CartProducts extends Component{
                                                         </div>
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right">
-                                                        <div className="row">
+                                                        <div className="row font-weight-bold">
                                                             <div className="col-7">Grand Total</div>
                                                             <div className="col-5 textAlignRight">&nbsp;
-                                                                {this.state.currency} {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00} 
+                                                                 {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00} 
                                                             </div>
                                                         </div>
                                                     </div>
@@ -509,7 +527,7 @@ class CartProducts extends Component{
                                                         </button>
                                                     </div>
                                                 :
-                                                    <div className="col-12 NoPadding">
+                                                    <div className="row">
                                                         <button  className={"col-12 btn checkoutBtn blockcartCheckout " +Style.checkoutBtn}
                                                             onClick={this.proceedToCheckout.bind(this)}>
                                                             PROCEED TO CHECKOUT
@@ -517,7 +535,7 @@ class CartProducts extends Component{
                                                     </div>
                                                 }
                                                 </div>
-                                                <div className="col-12 text-center couponMsg"> Proceed to checkout to apply discount coupon code </div>
+                                               <div className="row"><div className={"col-12 text-left my-3 "+Style.discMsgColor}> Proceed to checkout to add discount coupon</div></div> 
                                             </div>
                                         </div>
                                         </div>                              

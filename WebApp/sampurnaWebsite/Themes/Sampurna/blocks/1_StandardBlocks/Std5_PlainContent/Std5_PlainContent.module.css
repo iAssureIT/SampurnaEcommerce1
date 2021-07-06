@@ -1,22 +1,18 @@
-.trollyMartTCWrapper{
-    font-size: 13px;
-    line-height: 1.7;
-    letter-spacing: normal;
-    font-weight: 400;
-    color: #5f5f5f;
-    padding-bottom: 30px;
-    backface-visibility: hidden;
-    text-align: justify;
+.TrollyMartDescrWrapper{
+    font-size: 16px !important;
 }
-.trollyMartMainWrapper h2{
-    position: relative;
-    font-family: 'Oswald', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 45px;
-    text-transform: uppercase;
-    letter-spacing: -0.04em;
-    color: #000;
-    line-height: 100%;
-    z-index: 1;
+
+.simplePageBanner{
+	height: 250px;
+	text-align: center;
+	background-size: 250% 100%;
+	background-position: -270px 0px;
+	background-repeat: no-repeat;
+  margin-top: 0px !important;
+}
+.simplePageBannerTitle{
+	font-size: 45px;
+	font-weight: 700;
+	color: #fff;
+    padding-top: 100px;
 }

@@ -51,6 +51,7 @@ export default class Std1_RightImgLeftContent extends Component{
             axios
                 .get('/api/blocks/get/'+this.props.block_id)
                 .then((response)=>{
+                    console.log("std response data====", response); 
                     if(response.data){
                         this.setState({
                             blocks:response.data
@@ -87,20 +88,18 @@ export default class Std1_RightImgLeftContent extends Component{
                             </div>
                         </section>
                     :
-                        <section className="col-10 offset-1 stdBlockWrapper">
-                          <div className="row">
+                        <section className={"col-12 stdBlockWrapper "+S.stdBlockWrapper}>
                             {/* <StdBlockSeparatorBlue /> */}
                             <StdBlockTitleBlack blockTitle={this.state.blocks.blockTitle} />
                             <div className="col-12 stdBlockContentWrapper">
                                 <div className="row">
-                                    <div className="col-12 col-lg-6 my-auto stdBlockDescriptionWrapper">
-                                        <p className={"stdBlockDescriptionBlack "+S.stdBlockDescriptionBlack} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
+                                    <div className={"col-12 col-lg-6 my-auto pt-5 stdBlockDescriptionWrapper "+S.blockDescWrapper}>
+                                        <p className="stdBlockDescriptionBlack" dangerouslySetInnerHTML={ { __html:this.state.blocks.blockDescription}}></p>
                                     </div>
-                                    <div className="col-12 col-lg-6 my-auto stdBlockImageWrapper">
-                                        <img className={"mt-5  mt-lg-3 mt-xl-0 img-fluid stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="iAssureIT-Standard Block Image" title="iAssureIT-Standard Block Image" />
+                                    <div className="col-12 col-lg-6 stdBlockImageWrapper">
+                                        <img className={"mt-5 mt-lg-3 mt-xl-0 stdBlockFGImage "+S.stdBlockFGImage} src={this.state.blocks.fgImage1} alt="iAssureIT-Standard Block Image" title="iAssureIT-Standard Block Image" />
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </section>
                 }

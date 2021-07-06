@@ -159,13 +159,13 @@ export default class FAQ extends Component{
 
     render(){
         return(
-            <section className={"col-12 "+S.faqWrapper}>
-                <div className={"col-10 offset-1 "+S.faqTextWrapper}>
-                    {/* <h5 className={S.faqSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h5> */}
-                    <h2 className={S.faqTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockTitle}}></h2>
-                </div>
+            <section className={"container-flex "+S.faqWrapper}>
+              	<div className={"col-12  "+S.simplePageBanner} style={{backgroundImage:"url("+this.state.blocks.bgImage+")"}}>
+                  <h4 className={"text-center  col-10 offset-1 "+S.simplePageBannerTitle} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockTitle} }></h4>
+           
+              </div>
 
-                <div className={"col-12 "+S.faqContentWrapper}>
+                <div className={"col-12 pt-5 "+S.faqContentWrapper}>
                     <div className="row">
                         <div className={"col-12 accordion md-accordion  "+S.faqRepeatedBlockWrapper} id="accordionEx" role="tablist" aria-multiselectable="true">
                             <div className="row">

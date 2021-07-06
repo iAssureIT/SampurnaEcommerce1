@@ -74,18 +74,14 @@ export default class Aboutusbanner extends Component{
     render(){
         return(
             // <div className="row">
-                <section className={"col-12 "+S.blockWrapper}  style={{backgroundImage:"url("+this.state.blocks.bgImage+")"}}>
-                    <div className="row">
-                    <div className={"col-10 offset-1 col-lg-12 col-md-10 offset-md-1 "+S.textWrapper}> 
-                    <div className="row">
-                    
-                        <div className={" mt-3 "+S.pageAboutText} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockTitle} }></div>
-                        <span className={" "+S.pageAboutText1} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockDescription} }></span>
-                        <div className={"col-12 "+S.subTitle} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockSubTitle} }></div>
-                     </div>    
-                    </div> 
-                    </div>   
-                </section>
+            <section className={"col-12 "+S.simplePageBanner} style={{backgroundImage:"url("+this.state.blocks.bgImage+")"}}>
+          <div className="col-12"><div className="col-12"> <h4 className={"text-left  col-12 "+S.simplePageBannerTitle} dangerouslySetInnerHTML={{ __html: this.state.blocks.blockTitle} }></h4></div></div> 
+            {/* <ul className="col-12">
+                <li><a href="/" dangerouslySetInnerHTML={{ __html: this.state.blocks.blockSubTitle} }></a></li>
+                <li>&nbsp;/&nbsp;</li>
+                <li dangerouslySetInnerHTML={{ __html: this.state.blocks.blockDescription} }></li>
+            </ul> */}
+        </section>
             //  </div>
              
         );
