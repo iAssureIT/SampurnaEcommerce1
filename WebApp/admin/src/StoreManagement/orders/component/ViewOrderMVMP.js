@@ -3,6 +3,7 @@ import $                      from 'jquery';
 import axios                  from 'axios';
 import moment                 from "moment";
 import _                      from 'underscore';
+import swal                   from 'sweetalert';
 import '../css/viewOrder.css';
 
 class viewOrder extends Component{
@@ -28,6 +29,43 @@ class viewOrder extends Component{
 		var orderID = this.props.match.params.orderID;
 		this.getOneOrder(orderID);
 		this.getCompanyDetails(); 
+		this.getAdminPreferences();
+	}
+
+	//======= Admin Preferences ==========
+	getAdminPreferences(){
+		axios.get("/api/adminpreference/get")
+		.then(preferences =>{
+			if(preferences.data){
+				this.setState({
+					'websiteModel'     	: preferences.data[0].websiteModel,
+					'askPincodeToUser' 	: preferences.data[0].askPincodeToUser,
+					'showLoginAs'      	: preferences.data[0].showLoginAs,
+					'showInventory'    	: preferences.data[0].showInventory,
+					'showDiscount'    	: preferences.data[0].showDiscount,
+					'showCoupenCode'    : preferences.data[0].showCoupenCode,
+					'showOrderStatus'   : preferences.data[0].showOrderStatus,
+					'currency' 			: preferences.data[0].currency,
+					'unitOfDistance' 	: preferences.data[0].unitOfDistance
+				})									
+			}
+		})
+		.catch(error=>{
+			console.log("Error in preferences = ", error);
+			if(error.message === "Request failed with status code 401"){
+				var userDetails =  localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+						title : "Your Session is expired.",                
+						text  : "You need to login again. Click OK to go to Login Page"
+				})
+				.then(okay => {
+				if (okay) {
+						window.location.href = "/login";
+				}
+				});
+			}
+		})
 	}
 
 	getOneOrder(orderID){
@@ -134,22 +172,22 @@ class viewOrder extends Component{
 										<div className="box-content"> 
 											<div>
 												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Total Amount </b></span>  </div>
-												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span>{this.state.orderData.paymentDetails.currency + " "} {(this.state.orderData.paymentDetails.afterDiscountTotal).toFixed(2)}</span></b> </div> 
+												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span>{this.state.currency + " "} {(this.state.orderData.paymentDetails.afterDiscountTotal).toFixed(2)}</span></b> </div> 
 											</div>
 											<div>
 												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Shipping Charges  </b></span></div>
-												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span> {this.state.orderData.paymentDetails.currency + " "} {(this.state.orderData.paymentDetails.shippingCharges).toFixed(2)}</span></b></div>
+												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right"><b><span> {this.state.currency + " "} {(this.state.orderData.paymentDetails.shippingCharges).toFixed(2)}</span></b></div>
 											</div>
 										</div>
 										<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Tax Amount  </b></span></div>
 										<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">
-										<b><span>{this.state.orderData.paymentDetails.currency + " "} { (this.state.orderData.paymentDetails.taxAmount).toFixed(2) }</span> </b>
+										<b><span>{this.state.currency + " "} { (this.state.orderData.paymentDetails.taxAmount).toFixed(2) }</span> </b>
 										</div>
 										<div> 
 											<div>
 												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding"><span><b>Net Payable Amount </b></span></div>
 												<div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 NOpadding text-right">									
-													<b><span>{this.state.orderData.paymentDetails.currency + " "} { parseInt(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2) }</span></b>
+													<b><span>{this.state.currency + " "} { parseInt(this.state.orderData.paymentDetails.netPayableAmount).toFixed(2) }</span></b>
 												</div>
 											</div>
 										</div>
@@ -196,11 +234,11 @@ class viewOrder extends Component{
 																					{productData.discountedPrice 
 																					?
 																						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">                                                                                                
-																							<div className="discountedPrice"><span className="currencyStyle">{this.state.orderData.paymentDetails.currency + " "}</span>{productData.discountedPrice ? (productData.discountedPrice).toFixed(2) + "  " : (0).toFixed(2)}</div>
+																							<div className="discountedPrice"><span className="currencyStyle">{this.state.currency + " "}</span>{productData.discountedPrice ? (productData.discountedPrice).toFixed(2) + "  " : (0).toFixed(2)}</div>
 																							{ productData.discountPercent > 0 
 																							?	
 																								<div className="beforeDiscount">
-																									<span className="oldProductPrice">{this.state.orderData.paymentDetails.currency + " "} {productData.originalPrice ? (productData.originalPrice).toFixed(2) : (0).toFixed(2)}</span> &nbsp; &nbsp;
+																									<span className="oldProductPrice">{this.state.currency + " "} {productData.originalPrice ? (productData.originalPrice).toFixed(2) : (0).toFixed(2)}</span> &nbsp; &nbsp;
 																									<span className="productDiscountPercent"> {(productData.discountPercent)} % Off  </span>																								
 																								</div>
 																							:
@@ -221,7 +259,7 @@ class viewOrder extends Component{
 																						productData.discountedPrice 
 																						?
 																							// <span className="productPrize textAlignRight"><i className={"fa fa-" + productData.currency}></i> &nbsp;{parseInt(productData.discountedPrice).toFixed(2)}</span>
-																							<span className="productPrize textAlignRight">{this.state.orderData.paymentDetails.currency + " "}{parseInt(productData.discountedPrice).toFixed(2)}</span>
+																							<span className="productPrize textAlignRight">{this.state.currency + " "}{parseInt(productData.discountedPrice).toFixed(2)}</span>
 																						:
 																							<span>-</span>
 																					}
@@ -240,7 +278,7 @@ class viewOrder extends Component{
 																						productData.discountedPrice
 																						?
 																							<span className="productPrize textAlignRight">
-																								{this.state.orderData.paymentDetails.currency + " "}{(productData.discountedPrice * productData.quantity).toFixed(2)}
+																								{this.state.currency + " "}{(productData.discountedPrice * productData.quantity).toFixed(2)}
 																							</span>
 																						:
 																							<span>-</span>
@@ -260,7 +298,7 @@ class viewOrder extends Component{
 																		<div className="vendorTotalTitle">Total Amount</div>
 																	</td>
 																	<td>
-																		<div className="vendorTotalAmount">{this.state.orderData.paymentDetails.currency + " "}{vendorWiseData.vendor_afterDiscountTotal ? (vendorWiseData.vendor_afterDiscountTotal).toFixed(2) : (0).toFixed(2)} </div>	
+																		<div className="vendorTotalAmount">{this.state.currency + " "}{vendorWiseData.vendor_afterDiscountTotal ? (vendorWiseData.vendor_afterDiscountTotal).toFixed(2) : (0).toFixed(2)} </div>	
 																	</td>
 																</tr>
 																<tr className="vendorTotalRows">
@@ -268,7 +306,7 @@ class viewOrder extends Component{
 																		<div className="vendorTotalTitle">Discount Amount</div>
 																	</td>
 																	<td>
-																		<div className="vendorTotalAmount">{this.state.orderData.paymentDetails.currency + " "}{vendorWiseData.vendor_discountAmount ? (vendorWiseData.vendor_discountAmount).toFixed(2) : (0).toFixed(2)} </div>	
+																		<div className="vendorTotalAmount">{this.state.currency + " "}{vendorWiseData.vendor_discountAmount ? (vendorWiseData.vendor_discountAmount).toFixed(2) : (0).toFixed(2)} </div>	
 																	</td>
 																</tr>
 																<tr className="vendorTotalRows">
@@ -276,7 +314,7 @@ class viewOrder extends Component{
 																		<div className="vendorTotalTitle">Tax Amount</div>
 																	</td>
 																	<td>
-																		<div className="vendorTotalAmount">{this.state.orderData.paymentDetails.currency + " "}{vendorWiseData.vendor_taxAmount ? (vendorWiseData.vendor_taxAmount).toFixed(2) : (0).toFixed(2)} </div>	
+																		<div className="vendorTotalAmount">{this.state.currency + " "}{vendorWiseData.vendor_taxAmount ? (vendorWiseData.vendor_taxAmount).toFixed(2) : (0).toFixed(2)} </div>	
 																	</td>
 																</tr>                                                                
                                                             </div> 
@@ -296,7 +334,7 @@ class viewOrder extends Component{
 															<div className="vendorTotalTitle">Final Total Amount</div>
 														</td>
 														<td>
-															<div className="vendorTotalAmount">{this.state.orderData.paymentDetails.currency + " "}{this.state.orderData.paymentDetails.afterDiscountTotal ? (this.state.orderData.paymentDetails.afterDiscountTotal).toFixed(2) : (0).toFixed(2)} </div>	
+															<div className="vendorTotalAmount">{this.state.currency + " "}{this.state.orderData.paymentDetails.afterDiscountTotal ? (this.state.orderData.paymentDetails.afterDiscountTotal).toFixed(2) : (0).toFixed(2)} </div>	
 														</td>
 													</tr>
 													<tr className="orderTotalRows">
@@ -304,7 +342,7 @@ class viewOrder extends Component{
 															<div className="vendorTotalTitle">Total Tax Amount</div>
 														</td>
 														<td>
-															<div className="vendorTotalAmount">{this.state.orderData.paymentDetails.currency + " "}{this.state.orderData.paymentDetails.taxAmount ? (this.state.orderData.paymentDetails.taxAmount).toFixed(2) : (0).toFixed(2)} </div>	
+															<div className="vendorTotalAmount">{this.state.currency + " "}{this.state.orderData.paymentDetails.taxAmount ? (this.state.orderData.paymentDetails.taxAmount).toFixed(2) : (0).toFixed(2)} </div>	
 														</td>
 													</tr>
 													<tr className="orderTotalRows">
@@ -312,7 +350,7 @@ class viewOrder extends Component{
 															<div className="vendorTotalTitle">Shipping Charges</div>
 														</td>
 														<td>
-															<div className="vendorTotalAmount">{this.state.orderData.paymentDetails.currency + " "}{this.state.orderData.paymentDetails.shippingCharges ? (this.state.orderData.paymentDetails.shippingCharges).toFixed(2) : (0).toFixed(2)} </div>	
+															<div className="vendorTotalAmount">{this.state.currency + " "}{this.state.orderData.paymentDetails.shippingCharges ? (this.state.orderData.paymentDetails.shippingCharges).toFixed(2) : (0).toFixed(2)} </div>	
 														</td>
 													</tr>
 													<tr className="orderTotalRows">
@@ -320,7 +358,7 @@ class viewOrder extends Component{
 															<div className="vendorTotalTitle"> Net Payable Amount</div>
 														</td>
 														<td>
-															<div className="vendorTotalAmount">{this.state.orderData.paymentDetails.currency + " "}{this.state.orderData.paymentDetails.netPayableAmount ? (this.state.orderData.paymentDetails.netPayableAmount).toFixed(2) : (0).toFixed(2)} </div>	
+															<div className="vendorTotalAmount">{this.state.currency + " "}{this.state.orderData.paymentDetails.netPayableAmount ? (this.state.orderData.paymentDetails.netPayableAmount).toFixed(2) : (0).toFixed(2)} </div>	
 														</td>
 													</tr>											
                                             	</tbody>                                         

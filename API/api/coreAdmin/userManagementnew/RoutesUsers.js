@@ -70,6 +70,10 @@ router.get('/get/onlineUserCount/count',UserController.onlineUserCount);
 // router.delete('/delete/users',UserController.deleteAllUsers);
 router.delete('/get/deleteAllUsers',UserController.deleteAllUsers);
 
+// =============
 
+router.patch('/update/user_profile_details',    UserController.update_user_profile);
+
+router.patch('/update/verify_user_otp',         UserController.verify_user_otp);
 
 module.exports = router;

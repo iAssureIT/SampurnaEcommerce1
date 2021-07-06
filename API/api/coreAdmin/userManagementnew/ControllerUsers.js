@@ -5,6 +5,7 @@ var ObjectID 			= require('mongodb').ObjectID;
 var request         	= require('request-promise');
 const User 				= require('./ModelUsers.js');
 const globalVariable 	= require("../../../nodemon.js");
+const sendNotification 			= require("../../coreAdmin/notificationManagement/SendNotification.js");
 
 function getRandomInt(min, max) {
 	min = Math.ceil(min);
@@ -621,6 +622,55 @@ exports.user_update_name_mobile_profile = (req,res,next)=>{
 			});
 		});
 };
+
+exports.user_update_name_mobile_profile = (req,res,next)=>{
+	User.findOne({_id:req.params.ID})
+		.exec()
+		.then(user=>{
+			if(user){
+				User.updateOne(
+					{_id:req.params.ID},
+					{
+						$set:{
+							"profile.firstname"     : req.body.firstname,
+							"profile.lastname"      : req.body.lastname,
+							"profile.fullName"      : req.body.firstname+' '+req.body.lastname,
+							"profile.mobile"     	: req.body.mobNumber,
+							"profile.image"     	: req.body.image,
+							"role"     				: req.body.role,
+							"profile.email"    		: req.body.email,
+							
+						},
+					}
+				)
+				.exec()
+				.then(data=>{
+					if(data.nModified == 1){
+						res.status(200).json("USER_UPDATED");
+					}else{
+                        res.status(200).json({ 
+                            updated : false, 
+                            "message"    : "USER_NOT_UPDATED", 
+                        });
+						// res.status(401).status("USER_NOT_UPDATED")
+					}
+				})
+				.catch(err =>{
+					res.status(500).json({
+						error: err
+					});
+				});
+			}else{
+				res.status(404).json("User Not Found");
+			}
+		})
+		.catch(err=>{
+			res.status(500).json({
+				error:err
+			});
+		});
+};
+
 //=================================
 exports.user_update_status = (req,res,next)=>{
 	User.findOne({_id:req.params.ID})
@@ -2392,3 +2442,287 @@ exports.deleteAllUsers = (req, res, next) => {
 		});
 	  });
   };
+
+
+//   ============ New API by Jyoti ==============
+
+exports.update_user_profile = (req,res,next)=>{
+	console.log("body => ",req.body)
+	User.findOne({_id : req.body.user_id})
+	.exec()
+	.then(user=>{
+		if(user){
+			console.log("user => ",user)
+			if(req.body.mobileChange){
+				var otpMobile = getRandomInt(1000, 9999);
+
+				User.updateOne(
+					{_id : req.body.user_id},
+					{$set:{
+							"profile.otpMobile"     : otpMobile								
+						},
+					}
+				)
+				.exec()
+				.then(async(data)=>{
+					console.log("data => ",data)
+					if(data.nModified === 1){
+						var userNotificationValues = {
+							"event"			: "SendOTP",
+							"toUser_id"		: req.body.user_id,
+							"toUserRole"	: user.roles[0],
+							"toMobileNumber": req.body.isdCode + req.body.mobile,								
+							"variables" 	: {
+								subject 	: "Change Mobile Number",
+								OTP 		: otpMobile
+							}
+						}
+						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);							
+						res.status(200).json({
+							messageCode	: true,
+							message 	: "OTP sent on your mobile number"
+						});
+					}else{
+						res.status(200).json({ 
+							messageCode : false, 
+							message   	: "Failed to send OTP on mobile number", 
+						});
+						// res.status(401).status("USER_NOT_UPDATED")
+					}
+				})
+				.catch(err =>{
+					res.status(500).json({
+						error : err
+					});
+				});
+			}else if(req.body.emailChange){
+				var previousPassword = user.services.password.bcrypt;
+				console.log("previousPassword => ",previousPassword);
+				if (previousPassword) {
+					console.log(" Condition => ",(bcrypt.compare(req.body.currentPassword, previousPassword)))
+					bcrypt.compare(req.body.currentPassword, previousPassword, (error, result) => {
+						console.log("error => ",error)
+						console.log("result => ",result)
+						if (error) {
+							return res.status(200).json({
+								message 	: 'You entered wrong current password',
+								messageCode : false
+							});
+						}
+						if (result) {								
+							User.updateOne(
+								{_id : req.body.user_id},
+								{$set:{
+										"profile.email"     : req.body.email								
+									},
+								}
+							)
+							.then(data => {
+								console.log("data => ",data)
+								if (data.nModified === 1) {
+									res.status(200).json({
+										message 	: "Email Id updated successfully",
+										messageCode : true
+									});
+								} else {
+									res.status(200).json({
+										message 	: "Failed to update email",
+										messageCode : false
+									});
+								}
+							})
+							.catch(err => {
+								console.log("Error while updating email => ",err);
+								res.status(500).json({
+									error 		: err,
+									message 	: "Error while updating email",
+									messageCode : false
+								});
+							});
+						}else{
+							console.log("Current Password is wrong")
+							return res.status(200).json({
+								message 	: 'Current Password is wrong',
+								messageCode : false
+							});
+						}
+					})
+				}else{
+					console.log("Something went wrong")
+					res.status(200).json({
+						message 	: "Something went wrong",
+						messageCode : false
+					});
+				}
+			}else{
+				User.updateOne(
+					{_id : req.body.user_id},
+					{$set:{
+							"profile.firstname"     : req.body.firstname,
+							"profile.lastname"     	: req.body.lastname,
+							"image"					: req.body.image						
+						},
+					}
+				)
+				.then(data => {
+					console.log("data => ",data)
+					if (data.nModified === 1) {
+						res.status(200).json({
+							message 	: "User profile updated successfully",
+							messageCode : true
+						});
+					} else {
+						res.status(200).json({
+							message 	: "Failed to update profile",
+							messageCode : false
+						});
+					}
+				})
+				.catch(err => {
+					console.log("Error while updating profile details => ",err);
+					res.status(500).json({
+						error 		: err,
+						message 	: "Error while updating profile details",
+						messageCode : false
+					});
+				});
+			}
+		}else{
+			res.status(404).json("User Not Found");
+		}
+	})
+	.catch(err=>{
+		res.status(500).json({
+			error : err
+		});
+	});
+};
+
+/**=========== Verify OTP ===========*/
+exports.verify_user_otp = (req, res, next) => {
+	console.log("req body",req.body)
+	User.findOne({ "_id": ObjectID(req.body.user_id)})
+		.then(data => {
+			console.log("data",data);
+			if (data && data !== null) {
+				if (String(data.profile.otpMobile) === String(req.body.otp)) {
+					User.updateOne(
+						{ _id: ObjectID(req.body.user_id) },
+						{$set: {
+								"profile.otpMobile" 	: 0,
+								"profile.mobile" 		: req.body.mobile,
+								"profile.isdCode" 		: req.body.isdCode,
+								"profile.status" 		: "active",
+							}
+						}
+					)
+					.exec()
+					.then(data => {
+						if (data.nModified === 1) {
+							res.status(200).json({ 
+								messageCode : true,							
+								message 	: "Mobile number updated successfully"
+							});
+						} else {
+							res.status(200).json({ 
+								messageCode : false,	
+								message 	: "Failed to update Mobile Number" 
+							});
+						}
+					})
+					.catch(err => {
+						console.log('user error ', err);
+						res.status(500).json({
+							messageCode : false,
+							message 	: "Failed to update Mobile Number",
+							error 		: err
+						});
+					})
+				}else{
+					res.status(200).json({
+						messageCode 	: false,
+						message 		: "Wrong OTP"
+					});
+				}
+			} else {
+				res.status(200).json({
+					messageCode 	: false,
+					message 		: "No user found"
+				});
+			}
+		})
+		.catch(err => {
+			console.log('user error ', err);
+			res.status(500).json({
+				messageCode : false,
+				message 	: "Failed to find the user",
+				error 		: err
+			});
+		});
+};
+
+/**============ Update User Profile ===========*/
+// exports.set_send_emailotp_usingEmail = (req, res, next) => {
+// 	User.findOne({ "profile.email": req.params.emailId })
+// 	.then(user => {
+// 		if(user){
+// 			// console.log('user status====',user.profile.status)
+//  			if ((user.profile.status).toLowerCase() === "active") {
+//  				var optEmail = getRandomInt(1000, 9999);
+// 				// console.log("optEmail", optEmail, req.body);
+// 				User.updateOne(
+// 					{ "profile.email": req.params.emailId },
+// 					{
+// 						$set: {
+// 							"profile.otpEmail": optEmail,
+// 						},
+// 					}
+// 				)
+// 				.exec()
+// 				.then(data => {
+// 					if (data.nModified === 1) {
+// 						User.findOne({ "profile.email": req.params.emailId })
+// 							.then(user => {
+// 								if (user) {
+// 									main();
+// 									async function main(){ 
+// 										var sendMail = await sendEmail(req.params.emailId,req.body.emailSubject,req.body.emailContent + " Please enter this otp " + optEmail+ " to reset your password");
+// 										res.status(200).json({ message: "OTP_UPDATED", ID: user._id,profile:user.profile })
+// 									 }
+// 								} else {
+// 									res.status(200).json({ message: "User not found" });
+// 								}
+// 							})
+// 							.catch(err => {
+// 								res.status(500).json({
+// 									message: "Failed to find User",
+// 									error: err
+// 								});
+// 							});
+// 					} else {
+// 						res.status(401).json({ message: "OTP_NOT_UPDATED" })
+// 					}
+// 				})
+// 				.catch(err => {
+// 					res.status(500).json({
+// 						message: "Failed to update User",
+// 						error: err
+// 					});
+// 				});
+//  			}else if ((user.profile.status).toLowerCase() == "blocked") {
+// 				// console.log("user.USER_BLOCK IN ==>")
+// 				res.status(200).json({ message: "USER_BLOCK" });
+// 			} else if ((user.profile.status).toLowerCase() == "unverified") {
+// 				res.status(200).json({ message: "USER_UNVERIFIED" });
+// 			}
+// 		}else{
+// 			res.status(200).json({ message: "NOT_REGISTER" })
+// 		}		
+// 	})
+// 	.catch(err => {
+// 		res.status(500).json({
+// 			message: "Failed to find User",
+// 			error: err
+// 		});
+// 	});				
+// };

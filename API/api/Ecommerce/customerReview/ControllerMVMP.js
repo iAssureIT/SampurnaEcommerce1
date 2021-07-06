@@ -97,7 +97,6 @@ exports.get_single_review = (req,res,next)=>{
 	.populate("product_id")
 	.populate("vendor_id")
 	.populate("customer_id")
-	.exec()
 	.then(async(data)=>{
 		var vendorLocation 	= await data.vendor_id.locations.find(location => String(location._id) === String(data.vendorLocation_id));
 		var vendorContact 	= vendorLocation && vendorLocation !== undefined 

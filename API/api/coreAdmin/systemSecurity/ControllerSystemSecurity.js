@@ -978,7 +978,6 @@ exports.user_login_using_email = (req, res, next) => {
 	});
 };
 
-
 /**============ Reset Password ===========*/
 exports.resetPassword = (req, res, next) => {
 	console.log("req body => ",req.body)
@@ -987,11 +986,8 @@ exports.resetPassword = (req, res, next) => {
 		if (user) {				
 			var previousPassword = user.services.password.bcrypt;
 			console.log("previousPassword => ",previousPassword);
-			bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
-				var currentP = hash;
-				console.log("currentP => ",currentP);
-			})
 			if (previousPassword) {
+				console.log(" Condition => ",(bcrypt.compare(req.body.currentPassword, previousPassword)))
 				bcrypt.compare(req.body.currentPassword, previousPassword, (error, result) => {
 					console.log("error => ",error)
 					console.log("result => ",result)

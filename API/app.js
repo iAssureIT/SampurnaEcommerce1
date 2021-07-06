@@ -142,7 +142,7 @@ app.use("/startup", startupRoutes);
 /*========== Deals management ===========*/
 const addDeals                              = require("./api/Ecommerce/DealsManagement/Routes.js");
 
-app.use("/api/users", 						usersRoutes);
+// app.use("/api/users", 						usersRoutes);
 app.use("/api/auth", 						systemRoutes);
 app.use("/api/users", 						usersRoutes);	
 app.use("/api/ecommusers", 					eCommUsersRoutes);

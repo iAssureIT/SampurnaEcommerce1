@@ -623,9 +623,9 @@ function sendSMS(mobileNumber, textMsg){
                         console.log("SMS response => ",response);
                         resolve(true);
                     }else{
-                        console.log("error => ",error);
                         if(error && error !== undefined && error.data && error.data !== undefined){
-                            console.log("SMS error => ",error.data.errors.origin.errors);
+                            console.log("error => ",error.data);
+                            // console.log("SMS error => ",error.data.errors.origin.errors);
                         }
                         resolve(false);
                     }

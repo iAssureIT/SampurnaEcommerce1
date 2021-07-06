@@ -163,6 +163,35 @@ formValues  =  {
     "newPassword"  	        : "admin",
 	"currentPassword"       : "admin123",
 }
+
+Update User Profile, User Email, User Mobile, Resend OTP
+
+API         => http://localhost:3368/api/users/update/user_profile_details
+MethodType  => Patch
+{
+    "user_id"           : "60e2c4fb6749494a539aeb5f",
+    "firstname"         : "Jyoti",
+    "lastname"          : "Khedkar",
+    "image"     	    : [],
+    "isdCode"           : "971",
+    "mobile"     	    : "543079113",
+    "mobileChange"      : true,
+    "emailChange"       : false,
+    "currentPassword"   : "hello",
+    "email"    		    : "khedkarjyoti@gmail.com"
+}
+
+Verify User OTP 
+
+API         => http://localhost:3368/api/users/update/verify_user_otp
+MethodType  => Patch
+{
+    "user_id"       : "60e2c4fb6749494a539aeb5f",
+    "isdCode"       : "971",
+    "mobile"     	: "543079113",
+    "otp"           : "3961"
+}
+
 ==========================================================================
 Credit Points 
 
@@ -199,18 +228,22 @@ transactions        : [{
 
 ------------------------ Notification  Management -------------------------------
 
-Event => Place Order
+1. Event => Place Order
 
 Customer    - Mail, SMS, inApp Notification
 Admin       - Mail, SMS, inApp Notification
 Vendor      - 
 
-Event => SignUp
+2. Event => SignUp
 
 Customer    - Mail, SMS, inApp Notification
 Admin       - Mail, SMS, inApp Notification
 Vendor      - 
 
+3. Event => SendOTP
+Customer    - SMS (change mobile number)
+
+4.ForgotPassword =>
 
 what happen when admin or vendor rejects the customer request of product return.
 because we minus product cost from order and we are not accepting customer's return request 
