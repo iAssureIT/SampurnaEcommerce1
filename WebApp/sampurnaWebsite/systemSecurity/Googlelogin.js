@@ -26,6 +26,8 @@ responseGoogle(response){
       countryCode : "",
       authService : "google"
     }
+    console.log("formValues===",formValues);
+    
     axios.post('/api/auth/post/signup/social_media',formValues)
     .then((signupResponse)=>{
       console.log("signup===",signupResponse);

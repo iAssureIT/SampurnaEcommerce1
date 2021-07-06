@@ -30,6 +30,9 @@ responseFacebook(response){
       countryCode : "",
       authService : "facebook"
     }
+    
+    window.FB.logout();
+
     axios.post('/api/auth/post/signup/social_media',formValues)
     .then((signupResponse)=>{
       console.log("signup===",signupResponse);

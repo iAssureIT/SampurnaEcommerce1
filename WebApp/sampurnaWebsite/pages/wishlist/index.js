@@ -120,12 +120,10 @@ class Wishlist extends Component {
               {
                 Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?
                  this.state.wishlistData.map((areaWiseWishlist, index) => {  
-                  //  console.log("areaWiseWishlist==",areaWiseWishlist);
                    return(
                       <div className="col-12" key={index}> 
                           <div className="col-12 areaName mt-4 pb-4">{areaWiseWishlist.areaName}</div>
                           <div className="col-12">
-                              {/* <div>abc</div> */}
                                 {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?
                                   <ProductCarouselView 
@@ -133,17 +131,15 @@ class Wishlist extends Component {
                                       distance          = {areaWiseWishlist.distance}
                                       maxDistanceRadius = {areaWiseWishlist.maxDistanceRadius}
                                   />
-                                  // <div>abc</div>
                                 :
-                                  // null
-                                  <div>abc</div>
+                                  null
                                 }
                           </div>
                       </div>
                    )
                  })
                  :
-                 <div className="col-12 mt15 alert alert-warning textAlignCenter"><i className="fa fa-exclamation-circle"> </i>  Wishlist is empty </div>
+                 <div className="col-12 mt15 textAlignCenter"> Wishlist is empty </div>
               }
             </div>          
           </div>

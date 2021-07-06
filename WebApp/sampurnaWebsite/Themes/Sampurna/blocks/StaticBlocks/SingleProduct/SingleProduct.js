@@ -243,9 +243,6 @@ class SingleProduct extends Component{
 
       return (
         <div className="row">
-            {/* <div className="col-12">
-              <Message messageData={this.state.messageData} />  
-            </div> */}
             <Message messageData={this.state.messageData} /> 
             <div className={" col-12  " +Style.mobileViewPadding +" "+Style.productWrapper} > 
                 <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
@@ -266,11 +263,10 @@ class SingleProduct extends Component{
                         {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)} % </div> : null}
                     </div>
                     <div className={styleMedia.ImgWrapper}>
+                    {/* <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }> */}
                     <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }>
-                    {/* <a className={Style.product_item_photo } tabIndex="-1" > */}
                         <img                                           
                         src={Array.isArray(this.props.data.productImage) && this.props.data.productImage > 0 && this.props.data.productImage[0] ? this.props.data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
-                        // src={this.props.data.productSmallImage && this.props.data.productSmallImage.length>0 ? this.props.data.productSmallImage[0] : "/images/eCommerce/notavailable.jpg"}
                         alt="ProductImg" 
                         className={"img-responsive " +Style.NoAvailableImg }
                         height={150}
@@ -278,7 +274,6 @@ class SingleProduct extends Component{
                         layout={'intrinsic'}
                         />
                     </a>
-                    {/* </Link> */}
                     </div>
                     </div>
                     <div className={Style.productDetails +" " +"col-12 NoPadding " +Style.NoPadding}>                             
