@@ -979,6 +979,97 @@ exports.user_login_using_email = (req, res, next) => {
 };
 
 
+/**============ Reset Password ===========*/
+exports.resetPassword = (req, res, next) => {
+	console.log("req body => ",req.body)
+	User.findOne({ _id: req.body.user_id })
+	.then(user => {
+		if (user) {				
+			var previousPassword = user.services.password.bcrypt;
+			console.log("previousPassword => ",previousPassword);
+			bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
+				var currentP = hash;
+				console.log("currentP => ",currentP);
+			})
+			if (previousPassword) {
+				bcrypt.compare(req.body.currentPassword, previousPassword, (error, result) => {
+					console.log("error => ",error)
+					console.log("result => ",result)
+					if (error) {
+						return res.status(200).json({
+							message 	: 'You entered wrong current password',
+							messageCode : false
+						});
+					}
+					if (result) {
+						bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
+							User.updateOne(
+								{ _id: req.body.user_id },
+								{
+									$set: {
+										services: {
+											password: {
+												bcrypt: hash
+											},
+										},
+									}
+								}
+							)
+							.then(data => {
+								console.log("data => ",data)
+								if (data.nModified === 1) {
+									res.status(200).json({
+										message 	: "Password reset successfully",
+										messageCode : true
+									});
+								} else {
+									res.status(200).json({
+										message 	: "Failed to reset Password",
+										messageCode : false
+									});
+								}
+							})
+							.catch(err => {
+								console.log("Error while updating password => ",err);
+								res.status(500).json({
+									error 		: err,
+									message 	: "Error while updating password",
+									messageCode : false
+								});
+							});
+						});
+					}else{
+						console.log("You entered wrong current password")
+						return res.status(200).json({
+							message 	: 'You entered wrong current password',
+							messageCode : false
+						});
+					}
+				})
+			}else{
+				console.log("Something went wrong")
+				res.status(200).json({
+					message 	: "Something went wrong",
+					messageCode : false
+				});
+			}
+		} else {
+			res.status(200).json({
+				message 	: "User Not Found",
+				messageCode : false
+			});
+		}
+	})
+	.catch(err => {
+		console.log('Error while finding user ',err);
+		res.status(500).json({
+			error 		: err,
+			message 	: "Error while finding user",
+			messageCode : false
+		});
+	});
+};
+
 exports.user_login_using_mobile = (req, res, next) => {
 	var mobNumber = req.body.mobNumber;
 	var role = (req.body.role).toLowerCase();
@@ -1346,92 +1437,6 @@ exports.logouthistory = (req, res, next) => {
 		});
 };
 
-/**============ Reset Password ===========*/
-exports.resetPassword = (req, res, next) => {
-	console.log("req body => ",req.body)
-	User.findOne({ _id: req.body.user_id })
-	.then(user => {
-		if (user) {				
-			var previousPassword = user.services.password.bcrypt;
-			console.log("previousPassword => ",previousPassword);
-			if (previousPassword) {
-				bcrypt.compare(req.body.currentPassword, previousPassword, (err, result) => {
-					console.log("err => ",err)
-					console.log("result => ",result)
-					if (err) {
-						return res.status(200).json({
-							message 	: 'You entered wrong current password',
-							messageCode : false
-						});
-					}
-					if (result) {
-						bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
-							User.updateOne(
-								{ _id: req.body.user_id },
-								{
-									$set: {
-										services: {
-											password: {
-												bcrypt: hash
-											},
-										},
-									}
-								}
-							)
-							.then(data => {
-								console.log("data => ",data)
-								if (data.nModified == 1) {
-									res.status(200).json({
-										message 	: "Password reset successfully",
-										messageCode : true
-									});
-								} else {
-									res.status(200).json({
-										message 	: "Failed to reset Password",
-										messageCode : false
-									});
-								}
-							})
-							.catch(err => {
-								console.log("Error while updating password => ",err);
-								res.status(500).json({
-									error 		: err,
-									message 	: "Error while updating password",
-									messageCode : false
-								});
-							});
-						});
-					}else{
-						console.log("You entered wrong current password")
-						return res.status(200).json({
-							message 	: 'You entered wrong current password',
-							messageCode : false
-						});
-					}
-				})
-			}else{
-				console.log("Something went wrong")
-				res.status(200).json({
-					message 	: "Something went wrong",
-					messageCode : false
-				});
-			}
-		} else {
-			res.status(200).json({
-				message 	: "User Not Found",
-				messageCode : false
-			});
-		}
-	})
-	.catch(err => {
-		console.log('Error while finding user ',err);
-		res.status(500).json({
-			error 		: err,
-			message 	: "Error while finding user",
-			messageCode : false
-		});
-	});
-};
 
 exports.user_update_password_withoutotp_username = (req, res, next) => {
 	User.findOne({ username: req.params.username })
