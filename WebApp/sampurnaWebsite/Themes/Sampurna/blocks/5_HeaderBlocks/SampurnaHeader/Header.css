@@ -776,3 +776,7 @@ li a{
 .activeSection{
     color: #f00 !important;
 }
+
+.locationText{
+    color: #999;
+}
