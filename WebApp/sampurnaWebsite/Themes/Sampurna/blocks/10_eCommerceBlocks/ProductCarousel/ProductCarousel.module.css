@@ -160,6 +160,19 @@ color: #FBBD65!important;
 }
 .labelCategory{
   font-size: 12px !important;
+  margin-top: -40px;
+  /* background-color: #ddd; */
+  cursor: pointer;
+}
+.pcButtonwrapper{
+  height: 34px;
+  font-size: 14px;
+  background-color: #CBCBCB;
+  color: #000;
+  border-radius: 6px;
+  outline:none !important;
+  box-shadow: none;
+  border:none!important;
 }
 @media screen and (max-width: 480px) {
  .card{
@@ -389,9 +402,13 @@ background: #fff;
 .vendorName{
   font-size: 12px;
 }
-.chaneVendorBtn{
+.chaneVendorBtn a{
   text-decoration: underline;
   float: right;
+  color: #033554!important;
+}
+.chaneVendorBtn a:hover{
+  color: #033554!important;
 }
 .availablesize {
   padding: 0 10px!important;
@@ -490,6 +507,10 @@ background: #fff;
   padding: 20px 10px;
   font-weight: 700;
   border-bottom:solid 1px #ddd;
+  background-color: #F9F9F9;
+}
+.pcSubCatFlterWrapper{
+  box-shadow: 5px 0 5px -5px #333;
 }
 .activeSubCategory{
   /*background-color: #FFC0CB !important;*/
@@ -503,6 +524,7 @@ background: #fff;
 .filterBlockWrapper{
    border: solid 1px #eee;
    height: max-content;
+   box-shadow: 4px 3px 6px #00000029;
 }
 .accordion {
   background-color: #eee;
@@ -621,9 +643,7 @@ background: #fff;
   letter-spacing: 0.02em;
   font-size: 36px;
 }
-.ProductListWrapper{
-  /* margin-top: 20px !important; */
-}
+
 
 @media only screen and (max-device-width: 480px) {
 .mobileViewPadding{
@@ -670,6 +690,7 @@ background: #fff;
 
 .f14{
   font-size:14px !important;
+  margin-left: -130px;
 }
 
 .ecommerceTabContent .carouselWraper .rowPadding .react-multi-carousel-item{

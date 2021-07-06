@@ -8,7 +8,7 @@
 
 .paymentLeftSideWrapper{
     height: 450px;
-    background-color: #4aab64;
+    background-color:  #3E9D5E;
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
 }
@@ -32,6 +32,9 @@
 }
 .paymentLogoWrapper{
     height:35px;
+}
+.backtoMyOrdersDivWrapper a{
+color: #033554 !important;
 }
 
 .paymentAlertWrapper i{

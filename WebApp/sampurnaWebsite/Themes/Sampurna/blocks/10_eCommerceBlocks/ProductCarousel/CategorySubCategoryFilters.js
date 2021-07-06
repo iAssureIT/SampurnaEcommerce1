@@ -53,7 +53,7 @@ class CategorySubCategoryFilters extends Component{
     render(){
       // console.log("this.props.categoryData===",this.props.categoryData);
       return (
-          <div className="panel-group" id="accordion">                      
+          <div className={"panel-group "+Style.pcSubCatFlterWrapper}id="accordion ">                      
             <div className={Style.categoryFilterTitle}> Sub Categories </div>  
             {
             this.props.categoryData && this.props.categoryData.map((category,index)=>{

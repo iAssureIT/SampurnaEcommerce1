@@ -134,12 +134,12 @@ class Payment extends Component {
                         </div>  
                     </div>
 
-                <div className="backtoMyOrdersDiv col-12 mb-3 mt-5 pt-3 text-center">
+                <div className={"backtoMyOrdersDiv col-12 mb-3 mt-5 pt-3 text-center "+Style.backtoMyOrdersDivWrapper}>
                   <Link href="/my-account#v-pills-settings-tab">
                       <a><i className="fa fa-arrow-circle-left"></i> Go Back To My Orders</a>
                   </Link>
                 </div>
-                <div className="backtoMyOrdersDiv col-12 text-center">
+                <div className={"backtoMyOrdersDiv col-12 text-center "+Style.backtoMyOrdersDivWrapper}>
                   <Link href="/">
                       <a><i className="fa fa-arrow-circle-left"></i> Go Back To HomePage</a>
                   </Link>

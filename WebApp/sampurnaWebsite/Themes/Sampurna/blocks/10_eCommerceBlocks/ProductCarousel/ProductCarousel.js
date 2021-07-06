@@ -861,9 +861,9 @@ submitCart(event) {
                       <div className={"col-12 " +Style.rightSidefilter}>
                         <div className ="row">
                         <div className={"col-12 "}>
-                          <div className="col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding pull-right">     
-                            <div className="form-group ">
-                                <label className={"labelform col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding " +Style.f14}>Sort Product By<span className="astrick"></span></label>
+                          <div className="col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding float-right">     
+                            <div className="form-group float -right">
+                                <label className={"labelform col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
                                 <Select
                                     value={effect}
                                     onChange={this.sortProducts}
@@ -871,6 +871,7 @@ submitCart(event) {
                                     autoFocus = {false}
                                     className={" " +Style.labelCategory}
                                 />
+                                
                             </div> 
                           </div>
                         </div>                        
@@ -897,7 +898,7 @@ submitCart(event) {
                         <div className="col-12">
                           <div className="row">
                             
-                            <button className="btn btn-secondary col-2 offset-5 pull-right" onClick={this.showMoreProduct.bind(this)}>See more</button>
+                            <button className={"btn btn-secondary col-2 offset-5 pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
                           </div>
                         </div>
                     </div>

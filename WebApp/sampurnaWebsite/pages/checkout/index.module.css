@@ -1,3 +1,4 @@
+
 .orderReviewsWrapper{
 	margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -99,10 +100,14 @@
     color:#ccc ;
     height:15px;
 }
-
+.totalAmountWrapper{
+    margin-left: 70px!important;
+}
 .f13N{
 	font-size: 13px ! important;
     color: #000;
+    margin-top: -6px;
+    margin-left: 2px;
 }
 
 .f14B{
@@ -115,16 +120,18 @@
 }
 
 .bold{
-	font-weight:900!important;
+    font-weight:900!important;
     color: #000;
 }
 
 .border1{
-	border-radius:6px 0px 0px 6px !important;    
+	border-radius:6px 0px 0px 6px !important;  
+    height:38px !important;  
 }
 
 .border2{
 	border-radius:0px 6px 6px 0px !important;
+    height: 38px !important;
 }
 
 .orline{

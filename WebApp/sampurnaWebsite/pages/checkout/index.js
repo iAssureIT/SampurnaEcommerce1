@@ -1038,7 +1038,7 @@ class Checkout extends Component {
                                                 </div>
                                             </div>    
                                             </div>
-                                            <div className="col-12 col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12 font-weight-bold pt-3">
+                                            <div className={"col-12 col-lg-5 col-xl-5 col-md-5 col-sm-12 col-xs-12 font-weight-bold  pt-5 "+Style.totalAmountWrapper}>
                                                 <div className={"row " +Style.f13N}>
                                                     <span className="col-6 mb-1">Final Total Amount :</span><span className="col-6 mb-1 textAlignRight"><span className={"text-left "+Style.currencyColor}>{this.state.currency}</span> &nbsp; <span></span>{this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.afterDiscountTotal).toFixed(2) : 0.00 }</span>
                                                     <span className="col-6 mb-1">Total Saving Amount :</span><span className="col-6 mb-1 textAlignRight"><span className={"text-center "+Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
@@ -1057,7 +1057,7 @@ class Checkout extends Component {
                                                         <span className={Style.deleteCredit} onClick={this.deleteCredit.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                         }
                                                     </span>
-                                                    <span className="col-6 mb-1">Total Delivery Charges :</span><span className="col-md-6 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }
+                                                    <span className="col-7 mb-1">Total Delivery Charges :</span><span className="col-md-5 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }
                                                     <a data-tip data-for="vendorTooltip">
                                                         &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
                                                     </a>
@@ -1093,7 +1093,7 @@ class Checkout extends Component {
                                                             <div className="col-11 col-xl-11 col-md-11 termsWrapper">
                                                                 <span className="termsNconditionsmodal globalTermsAndCondition" data-toggle="modal" data-target="#termsNconditionsmodal">I agree to terms & conditions</span> <span className="required">*</span>
                                                             </div>
-                                                            <div className="col-11">
+                                                            <div className="col-11 pt-3">
                                                                 <div className="errorMsg termConditionErrorMsg col-12 ">{this.state.errors.termsNconditions}</div>
                                                             </div>
                                                         </div> 

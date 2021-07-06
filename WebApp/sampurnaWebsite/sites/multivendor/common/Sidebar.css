@@ -90,6 +90,29 @@ input[type='radio']:checked:after {
     border: 2px solid white;
     cursor: pointer;
 }
+
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+    right: 10px;
+    left: auto;
+    top: 148px !important;
+}
+.css-yk16xz-control {
+    background:#C2C1C1!important;
+    border-radius: 7px!important;
+    color: #222222 !important;
+    cursor: pointer !important;
+    height: 35px !important;
+}
+.css-1wa3eu0-placeholder {
+    color: #222222 !important;
+}
+.css-tlfecz-indicatorContainer {
+    color: #222222 !important;
+}
+.css-1okebmr-indicatorSeparator {
+    color: #222222!important;
+    background-color: #222222!important;
+}
 .Featured-Brands-tittle {
     font-size: 14px;
     font-weight: 700;
