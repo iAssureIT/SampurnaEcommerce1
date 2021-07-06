@@ -881,16 +881,7 @@ class Checkout extends Component {
                                     <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>ORDER REVIEWS</div>
                                     <div className={"col-12 " +Style.orderReviewsWrapper}>
                                         <table className="table table-borderless orderTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Products Image</th>
-                                                    <th>Products Name</th>
-                                                    <th className="textAlignRight">Price</th>
-                                                    <th className="textAlignRight">Quantity</th>
-                                                    <th className="textAlignRight">SubTotal</th>
-                                                </tr>
-                                                
-                                            </thead>
+                                            
                                             
                                             <tbody>
                                                 {
@@ -905,8 +896,18 @@ class Checkout extends Component {
                                                                         <thead>
                                                                             <tr>
                                                                                 <th colSpan="5">{vendorWiseData.vendor_id.companyName}</th>
+                                                                                
                                                                             </tr>
+                                                                            <tr className={" "+Style.productHeaderWrapper}>
+                                                                                <th>Products Image</th>
+                                                                                <th>Products Name</th>
+                                                                                <th className="textAlignRight">Price</th>
+                                                                                <th className="textAlignRight">Quantity</th>
+                                                                                <th className="textAlignRight">SubTotal</th>
+                                                                            </tr>
+                                                                            
                                                                         </thead>
+                                                                        
 
                                                                         {vendorWiseData.cartItems && vendorWiseData.cartItems.map((cartdata, index) => {
                                                                             return(
