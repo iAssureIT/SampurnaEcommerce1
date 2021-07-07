@@ -210,7 +210,6 @@ class Login extends Component {
                 </div>
 
                 <div className="textAlignLeft frmhgt col-12 NOpadding ">
-                  {/* <label>Password</label><label className="astricsign">*</label> */}
                   <input type="password" className="form-control formcontrol1" ref="loginpassword" name="loginpassword" id="loginpassword" placeholder="Password"  onChange={this.handleChange.bind(this)} autoComplete="off"/>
                   <div className="showHideSignDiv">
                     <i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
@@ -242,10 +241,10 @@ class Login extends Component {
                       <input id="logInBtn" type="button" className="col-12 btn signInBtn" value="Sign In" onClick={this.userlogin.bind(this)} />
                     </div>
                 }
-                <div className="col-12 ">
+              </form>
+              <div className="col-12 ">
                   <div className="col-12 NoPadding">
-                    <div className="row">                      
-
+                    <div className="row">   
                       <div className="col-12 ">
                         <div className="row">
                           <hr className="col-3 whiteClr" ></hr>
@@ -264,8 +263,7 @@ class Login extends Component {
                       </div>
                     </div>
                   </div>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

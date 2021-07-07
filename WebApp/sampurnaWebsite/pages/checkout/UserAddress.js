@@ -233,7 +233,6 @@ class UserAddress extends Component {
             "addType"         : '',
         });
     }
-    
     render() {  
         return (
             <div className="addressModal col-12 ">  
@@ -252,7 +251,7 @@ class UserAddress extends Component {
                                 <div className="errorMsg">{this.state.errors.modalmobileNumber}</div>
                             </div>
                             <div className="col-12 shippingInput mb-4">
-                                <label className="col-12 NoPadding">House No/Office No </label>
+                                <label className="col-12 NoPadding">House No/Office No/Building Name </label>
                                 <input type="text" ref="address1" name="address1" value={this.state.address1} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 <div className="errorMsg">{this.state.errors.modaladdressLine2}</div>
                             </div>

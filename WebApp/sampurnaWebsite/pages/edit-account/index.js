@@ -297,27 +297,27 @@ class EditAccount extends Component{
                                 <form id="editAccount">
                                     <div className="row">
 
-                                        <div className="col-12 ">
-                                            <div className="col-6 mb-2">
+                                        <div className="col-6 mt-4 ">
+                                            <div className="col-12 mb-2">
                                                 <label className="mt15">First Name <i className="requiredsign">*</i></label>
                                                 <br />
                                                 <div id="firstName" className="col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding">
                                                     <input maxLength="25" type="text" name="firstName" ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/> 
                                                 </div>
                                             </div>
-                                            <div className="col-6 mb-2">
+                                            <div className="col-12 mb-2">
                                                 <label className="mt15">Last Name <i className="requiredsign">*</i></label>
                                                 <br />
                                                 <div id="lastName" className="col-12 NoPadding">
                                                     <input maxLength="25" type="text" name="lastName" ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required /> </div>
                                             </div>
-                                            <div className="col-6 pull-right">
+                                            <div className="col-12 pull-left">
                                                 <button className="btn globalCommonBtn editAccount col-6 pull-right" onClick={this.updateUserinfo.bind(this)}>Submit</button>
                                             </div>
-                                            <hr className="col-12"></hr>
+                                            {/* <hr className="col-12 mt-4"></hr> */}
                                         </div>
 
-                                        <div className="col-6">
+                                        <div className="col-6 mt-4 ">
                                             <div className="col-12 mt-2 NoPadding">
                                                 <input type="checkbox" id="changeMobile" checked={this.state.changeMobile} onChange={this.changeMobile.bind(this)}/> &nbsp; <span>Change Mobile</span> 
                                             </div>

@@ -915,12 +915,12 @@ class Checkout extends Component {
 
                                                                                         {cartdata.product_ID.discountPercent ?
                                                                                             <div className={"col-12 NoPadding " +Style.f11N}>
-                                                                                                <span className={"cartOldprice " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{cartdata.product_ID.originalPrice}</span>&nbsp;
-                                                                                            <span className={"cartPrice " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.discountedPrice}</span> &nbsp; &nbsp;
+                                                                                                <span className={"cartOldprice " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;{cartdata.product_ID.originalPrice.toFixed(2)}</span>&nbsp;
+                                                                                            <span className={"cartPrice " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.discountedPrice.toFixed(2)}</span> &nbsp; &nbsp;
                                                                                             <span className={"cartDiscountPercent " +Style.f11N}>( {Math.floor(cartdata.product_ID.discountPercent)}% Off ) </span>
                                                                                             </div>
                                                                                             :
-                                                                                            <span className={"price " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.originalPrice}</span>
+                                                                                            <span className={"price " +Style.f11N}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{cartdata.product_ID.originalPrice.toFixed(2)}</span>
                                                                                         }
                                                                                         <div>
                                                                                             {cartdata.product_ID.color ? <span className={"cartColor " +Style.f11N}>Color : <span style={{ backgroundColor: cartdata.product_ID.color, padding: '0px 5px' }}>&nbsp;</span> {ntc.name(cartdata.product_ID.color)[1]}, </span> : null}

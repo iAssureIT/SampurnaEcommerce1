@@ -7,9 +7,7 @@ import {getCartData}        from '../../redux/actions/index.js';
 import  store               from '../../redux/store.js'; 
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
 import ProductListView      from '../../Themes/Sampurna/blocks/StaticBlocks/ProductListView/ProductListView.js';
-// import ProductCarouselView  from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
 import Style                from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
-
 class Wishlist extends Component {
   constructor(props) {
     super(props);

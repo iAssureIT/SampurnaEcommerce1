@@ -90,6 +90,17 @@ input[type=number] {
   color: #555;
   cursor: pointer;
   font-size: 16px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 100;
+}
+.formLabel{
+  color: #000;
+  font-size: 14px;
+}
+.infoText{
+  font-size: 12px;
+  color: #000;
 }
 .btnfrgt {
   border: none;
@@ -456,7 +467,7 @@ input[type=number] {
   display: inline-block !important;
 }
 .otpInputBox input{
-  width: 65px !important;
+  width: 50px !important;
   height: 60px !important;
   margin-left: 15px !important;
 }
@@ -464,8 +475,8 @@ input[type=number] {
   padding: 10px;
   border:solid 1px #fff !important;
   border-radius: 5px;
-  background: #fff !important;
-  color: #033554 !important;
+  background: #033554 !important;
+  color: #fff !important;
   font-weight: bold !important;
   cursor: pointer;
 }

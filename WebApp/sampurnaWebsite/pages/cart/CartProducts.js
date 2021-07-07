@@ -278,7 +278,7 @@ class CartProducts extends Component{
     }
 
     render(){
-        console.log("this.props.recentCartData===",this.props.recentCartData);
+        // console.log("this.props.recentCartData===",this.props.recentCartData);
         return(            
             <div className="container-fluid">
             <div className="col-12 cartHeight">
@@ -336,20 +336,20 @@ class CartProducts extends Component{
                                                                         {
                                                                             vendorData.product_ID.discountPercent  ?
                                                                                 <div className="col-12 NoPadding">
-                                                                                    <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice}</span> &nbsp; &nbsp;
-                                                                                    <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice}</span> &nbsp; &nbsp;
+                                                                                    <span className="cartOldprice">{this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span> &nbsp; &nbsp;
+                                                                                    <span className="cartPrice">{this.state.currency}&nbsp;{vendorData.product_ID.discountedPrice.toFixed(2)}</span> &nbsp; &nbsp;
                                                                                     <span className="cartDiscountPercent">( {Math.floor(vendorData.product_ID.discountPercent)}% Off )</span>
                                                                                 </div>
                                                                                 :
                                                                                 <div className="col-12 NoPadding">
                                                                                     <span className="price">
-                                                                                    {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice}</span>
+                                                                                    {this.state.currency}&nbsp;{vendorData.product_ID.originalPrice.toFixed(2)}</span>
                                                                                 </div>
-                                                                        }
+                                                                            }
 
-                                                                        {/* <div className=" NoPadding">
-                                                                            <button productid={vendorData.product_ID._id} id={vendorData._id} onClick={this.moveWishlist.bind(this)} className=" btn wishlistBtn">Move To Wishlist</button>
-                                                                        </div> */}
+                                                                            {/* <div className=" NoPadding">
+                                                                                <button productid={vendorData.product_ID._id} id={vendorData._id} onClick={this.moveWishlist.bind(this)} className=" btn wishlistBtn">Move To Wishlist</button>
+                                                                            </div> */}
                                                                             </div>
                                                                         </div> 
 
@@ -385,8 +385,7 @@ class CartProducts extends Component{
                                                                     </div> 
                                                                 </div>
                                                       
-                                                            </div>   
-                                                             
+                                                            </div>  
                                                         );
                                                         })
                                                     }
