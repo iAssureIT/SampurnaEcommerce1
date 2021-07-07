@@ -4,7 +4,7 @@ import $                    from 'jquery';
 import moment               from 'moment';
 import Link                 from 'next/link';
 // import {S3FileUpload}         from 'react-s3';
-import S3  from 'react-aws-s3';
+// import S3  from 'react-aws-s3';
 import StarRatingComponent  from 'react-star-rating-component';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import ProductReview        from './ProductsView.js';
@@ -13,13 +13,13 @@ import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
 
-const config = {
-"accessKeyId" : "AKIAQBHT57FYOQYPF7ER",
-"secretAccessKey" : "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",
-"bucketName" : "devtrollymart-2",
-"region" : "us-east-2",
-"type"   : "S3",
-}
+// const config = {
+// "accessKeyId" : "AKIAQBHT57FYOQYPF7ER",
+// "secretAccessKey" : "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",
+// "bucketName" : "devtrollymart-2",
+// "region" : "us-east-2",
+// "type"   : "S3",
+// }
 
 // const ReactS3Client = new S3(config);
 
