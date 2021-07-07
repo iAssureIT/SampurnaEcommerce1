@@ -398,13 +398,14 @@ background: #fff;
 }
 .productDetailVendorName{
   font-size: 13px !important;
+  background-color: #f6f6f6 !important;
 }
 .vendorName{
   font-size: 12px;
 }
 .chaneVendorBtn a{
   text-decoration: underline;
-  float: right;
+  margin-left: 78%;
   color: #033554!important;
 }
 .chaneVendorBtn a:hover{
@@ -504,7 +505,7 @@ background: #fff;
 /* css for filters */
 .categoryFilterTitle{
   font-size: 16px;
-  padding: 20px 10px;
+  padding: 20px 20px;
   font-weight: 700;
   border-bottom:solid 1px #ddd;
   background-color: #F9F9F9;
@@ -569,10 +570,31 @@ background: #fff;
   cursor: pointer;
   border-bottom: solid 1px #ccc;
 }
+.panelHeading span{
+  margin-left: 72px!important;
+  margin-top: -28px!important;
+}
+.panelHeading input{
+  margin-left: 46px!important;
+}
+
 .panelHeading h4 a{
   text-decoration: none !important;
   font-size: 15px !important;
   color: #000;
+  
+}
+.panelHeading h4{
+ margin-left: 72px!important;
+}
+.sortPbWrapper{
+  margin-left: 82%!important;
+}
+.vendorNameWrapper b{
+  margin-left: 53px;
+}
+.changeVendorWrapper{
+  margin-left: 10px;
 }
 .categoryUl{
   list-style-type:none;
@@ -661,7 +683,7 @@ background: #fff;
   width: 15px !important;
 }
 .brandInput{
-  padding: 5px 0px;
+  padding: 3px 0px;
 }
 
 .react-multiple-carousel__arrow::before {

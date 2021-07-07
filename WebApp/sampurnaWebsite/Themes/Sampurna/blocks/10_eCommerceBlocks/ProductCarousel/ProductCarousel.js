@@ -592,7 +592,7 @@ submitCart(event) {
           {this.state.newProducts && this.state.newProducts.length > 0 ?
             <div id="home" className={"col-12 " +Style.ecommerceTabContent}>
               <div className={"col-12 mt-50 mb-50 " +Style.carouselWraper}>
-                <div className={"col-12 "}>                    
+                <div className={"container-flex "}>                    
                   {this.state.ProductsLoading === false ?                     
                     <Loader type="carouselloader" productproductWrapperLoaderNo = {4}/>                    
                   :
@@ -766,16 +766,23 @@ submitCart(event) {
                     }
                   </Carousel>
                   : 
-                  <div className={"col-12 NoPadding " +Style.ProductListWrapper }>              
-                  <div className={"col-12  NoPadding " }>
-                  <div className={"col-12 NoPadding pt-2 mt-2 " +Style.productDetailVendorName}> 
-                    <span className="col-6 NoPadding "> 
-                       vendor  - &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+                  <div className={"row NoPadding " +Style.ProductListWrapper }>  
+                   <div className={"col-12 NoPadding p-2 mt-2 " +Style.productDetailVendorName}> 
+                   <div className="row">
+                   <span className={"col-6 "+Style.vendorNameWrapper}> 
+                       <b>vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
                     </span>
-                    <span className={"col-2 text-right pull-right "+Style.chaneVendorBtn }> 
-                        <Link href={"/vendor-list/"+this.state.sectionUrl} className="col-12 NoPadding text-right" >Change Vendor</Link>
+                    <span className={"col-6   "+Style.chaneVendorBtn }> 
+                        <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
                     </span>
-                  </div>
+                   </div>
+                    
+                  
+                   </div>              
+                  <div className={"col-12" }>
+
+                   
+                 
                   {this.state.blockSettings.showCarousel === false?
                       < CategoryBlock 
                         categoryData       = {this.state.categoryData}
@@ -827,7 +834,7 @@ submitCart(event) {
                       // />   
                       <div className="panel-group" >     
                         {this.state.brandData.length && this.state.brandData[0].brand!=' '>0?                 
-                          <div className={Style.categoryFilterTitle}> Brand </div>  
+                          <div className={Style.categoryFilterTitle}> Brands </div>  
                         :null}
                         {
                           this.state.brandData && this.state.brandData.length > 0
@@ -861,7 +868,7 @@ submitCart(event) {
                       <div className={"col-12 " +Style.rightSidefilter}>
                         <div className ="row">
                         <div className={"col-12 "}>
-                          <div className="col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding float-right">     
+                          <div className={"col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
                             <div className="form-group float -right">
                                 <label className={"labelform col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
                                 <Select
