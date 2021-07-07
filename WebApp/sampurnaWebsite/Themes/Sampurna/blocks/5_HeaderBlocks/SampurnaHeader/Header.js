@@ -80,7 +80,7 @@ class Header extends React.Component {
 
                                         <SearchBar />
                                         
-                                        <div className="col-8 col-lg-3 col-sm-2 d-flex flex-row-reverse systemSecurity"> 
+                                        <div className="col-8 col-lg-3 col-sm-2 mt-1 d-flex flex-row-reverse systemSecurity"> 
 
                                         {/*<div className="col-8 col-lg-3 col-sm-2 systemSecurity NoPadding"> */}
 

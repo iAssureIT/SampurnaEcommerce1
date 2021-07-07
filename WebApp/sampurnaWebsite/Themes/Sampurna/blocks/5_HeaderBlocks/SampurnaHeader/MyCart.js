@@ -29,7 +29,7 @@ class MyCart extends React.Component {
             <div className="col-12 NoPadding">
             {this.state.userID?
                 <a href="/cart" className="row cartHeader">  
-                        <div className="col-6 ml-4 NoPadding">
+                        <div className="col-6 ml-4 topCart NoPadding">
                             <Image
                             src={"/images/eCommerce/cart.png"}
                             className={"rotateImg" }

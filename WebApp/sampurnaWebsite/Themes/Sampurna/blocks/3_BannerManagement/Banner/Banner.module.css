@@ -82,10 +82,11 @@
   .nextPreArrows{
       opacity: 1;
   }
+
   .showDots{
     bottom: 0px !important;
     position: relative !important;
-    margin-top: 145px !important;
+    margin-top: -10px !important;
   }
   .titleWrapper{
       margin-top: -400px;

@@ -46,8 +46,8 @@ class DisplayLocation extends React.Component {
               this.props.sampurnaWebsiteDetails.deliveryLocation
               ?
                 <span className="row">
-                  <span className="col-10 mt-2  deliveryAddress"> 
-                  <i className="fa fa-globe"></i> &nbsp; <b>
+                  <span className="col-10 mt-1 deliveryAddress"> 
+                  {/*<i className="fa fa-globe"></i> &nbsp;*/} <b>
                   {/* <div className="col-1"><FontAwesomeIcon  icon={['fas', 'fa-globe']} /></div> */}
                   Your current location is - </b><span className="locationText ">{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span></span>  
                   <div className="col-2 pull-right">

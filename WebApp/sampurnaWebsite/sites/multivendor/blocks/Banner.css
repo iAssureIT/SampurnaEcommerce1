@@ -228,3 +228,7 @@ and (max-device-width : 1024px) {
   /* Styles */
    
 }
+
+.swiper-pagination-bullet-active {
+    background-color: #033554 !important;
+  }

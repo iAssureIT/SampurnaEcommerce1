@@ -14,7 +14,7 @@
 }
 
 .mtm10{
-        margin-top: -7px !important;
+        margin-top: -15px !important;
         line-height:1 !important;
 }
 
@@ -274,8 +274,8 @@ ul:hover > .dropDownLevel3 {
     /* border: dotted 1px #154799; */
     border-radius: 100%;
     font-size: 11px;
-    margin-top: -10px;
-    margin-left: -5px;
+    margin-top: -18px;
+    margin-left: -10px;
 }
 /*===========Megamenu===============*/
 .megamenu{
@@ -590,6 +590,11 @@ li a{
     border-radius: 100%;
     font-size: 10px;
 }
+
+.topCart{
+  margin-top: -5px;
+}
+
 .cartHeader{
     /* background-color: #3174E3; */
     height: 40px;
@@ -671,7 +676,7 @@ li a{
 }
 .changelocationBtn1{
     font-size: 11px !important;
-    padding  : 7px;
+    padding  : 4px;
     color: #222222;
     background-image: linear-gradient(to left, #cccccc, #d9d9d9, #e5e5e5, #f2f2f2, #ffffff);
     border: 1px solid #aaa;
@@ -739,6 +744,7 @@ li a{
 .AddressListWrapper{
     border-right: solid 1px #ccc;
     margin-bottom: 10px;
+    color: #000;
 }
 .singleAddressBlock{
 

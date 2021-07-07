@@ -12,7 +12,7 @@
 
 .gLocationMap{
     background: transparent linear-gradient(360deg, #000000 0%, #090909DB 31%, #484848C4 77%, #5454548F 100%) 0% 0% no-repeat padding-box; 
-    opacity: 0.69;
+    opacity: 1;
     z-index: 2;
 }
 
@@ -41,8 +41,8 @@
 }
 .zindex{
   position: absolute;
-  left: 0px;
-  top: -210px;
+  left: 7px;
+  top: -270px;
   z-index: 0;
 }
 .deliveryForm{
