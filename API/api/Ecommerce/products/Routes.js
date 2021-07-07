@@ -90,9 +90,9 @@ router.patch('/patch/bulkimages/', 										checkAuth, productController.upload
 
 router.patch('/remove/image', 											checkAuth, productController.remove_photo);
 
-// router.get('/get/one/:productID/:user_ID', 								productController.fetch_product);
+router.get('/get/one/:productID/:user_ID', 								productController.fetch_product);
 
-router.get('/get/one', 								                    productController.fetch_product);
+// router.get('/get/one', 								                    productController.fetch_product);
 
 router.get('/get/one/:productID', 								        productController.fetch_One_product);
 
