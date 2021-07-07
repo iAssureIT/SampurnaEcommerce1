@@ -509,3 +509,28 @@ input[type=number] {
 /*.loginUl ul{
   list-style-image: url('/images/eCommerce/loginPoint.png');
 }*/
+
+.form-control:focus {
+  border: none !important;
+  outline:none !important;
+  -webkit-box-shadow:none !important;
+  /*border-color: #fff !important;*/
+}
+
+.pb50{
+  padding-bottom: 50px;
+}
+
+input:focus {
+ outline:none !important;
+}
+
+input.middle:focus {
+    outline-width: 0;
+}
+
+.footerNew{
+  height: 57px;
+  background: #222222 0% 0% no-repeat padding-box;
+  opacity: 0.95;
+}

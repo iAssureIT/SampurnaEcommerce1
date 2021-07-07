@@ -51,6 +51,9 @@ export default class Footer extends Component {
     render(){
        return(
         <div className="col-12 NoPadding footerWrapper" >
+        <div className="footerNew">
+            
+        </div>
         {this.state.deliveryLocation?
        <div className="container-fluid">
         <div className="col-12 footer1">

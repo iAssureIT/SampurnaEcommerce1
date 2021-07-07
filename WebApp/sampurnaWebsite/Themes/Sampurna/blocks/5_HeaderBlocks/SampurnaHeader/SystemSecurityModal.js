@@ -190,11 +190,11 @@ class header extends React.Component {
                             <div className="modal-body LoginModalBody">  
                                 <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>  
                                 <div className="row"> 
-                                    <div className="col-7 pb-4 modalImgBlock">
+                                    <div className="col-7 NoPadding pb-4 modalImgBlock">
                                         <div className="col-6 offset-3 mt-5">
                                             <Websitelogo />                                            
                                         </div>
-                                        <div className="col-10 NoPadding offset-1 mt-3">
+                                        {/*<div className="col-10 NoPadding offset-1 mt-3">
                                             <h6 className="mb-4 ">Benefits of taking membership...</h6>
                                             <div className="loginUl">
                                                 <ul className="loginLine pull-left">
@@ -204,9 +204,9 @@ class header extends React.Component {
                                                     <li>Instruction 4 - The email is sent instantly but may be delayed by your firewall setup, so if you haven't received it after 5-10 minutes, refresh your email application and check your spam and junk mail folders</li>                                                    
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div>*/}
                                     </div>   
-                                    <div className="col-5 pl-0 pt-2 modalForm">                                                      
+                                    <div className="col-5 pl-0 pt-2 pb50 modalForm">                                                      
                                         {this.props.formToShow === "login" ?
                                             <div className="col-12 NoPadding loginForm mobileViewNoPadding">
                                                 <Login />

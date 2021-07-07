@@ -126,9 +126,9 @@ table > tfoot > tr > td:last-of-type {
     border-radius: 5px;
 }
 .orderIdborder{
-	border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+	border-top: 1px solid #707070;
+    border-left: 1px solid #707070;
+    border-right: 1px solid #707070;
     padding:  0px 10px;
     background : #eeeeee6b;
     border-top-left-radius: 10px;
@@ -136,7 +136,7 @@ table > tfoot > tr > td:last-of-type {
 }
 .orderbodyborder{
 	padding: 10px;
-	border: 1px solid #ccc;
+	border: 1px solid #707070;
 }
 
 .orderfooterborder{
@@ -212,7 +212,7 @@ text-align:right ! important;
     font-size: 14px ! important;
   }
 .orderTable h5{
-    font-size: 14px  ! important;
+    font-size: 15px  ! important;
 }  
  .cartColor span{
     font-size: 14px ! important;

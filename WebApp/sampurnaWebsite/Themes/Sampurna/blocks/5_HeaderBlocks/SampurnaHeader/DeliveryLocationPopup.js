@@ -343,14 +343,14 @@ class DeliveryLocationPopup extends React.Component {
        }else{
         var xlCol =  12;
         var offset = 0;
-        var xlForm = 8;
-        var formOffset = 2;
+        var xlForm = 10;
+        var formOffset = 1;
         var class1 = "zindex1"
        }
        
     return (
         <div className={"row locationPage locationBg " +Style.locationBg +" "+Style.locationPage} >
-            <div className={"col-12  " +Style.gLocationMap}>
+            <div className={"col-12  "}>
 
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
@@ -363,7 +363,7 @@ class DeliveryLocationPopup extends React.Component {
                 <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
                 <div className="col-12 offset-0 mobileViewNoPadding">
                     <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
-                        <div className="col-12 mt-5 ">
+                        <div className="col-12 ">
                             <div className="row">
                                 <div className={"col-4 NoPadding "}>
                                     <div className="col-12">

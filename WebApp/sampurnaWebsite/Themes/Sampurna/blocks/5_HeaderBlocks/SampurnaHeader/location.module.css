@@ -42,13 +42,15 @@
 .zindex{
   position: absolute;
   left: 7px;
-  top: -270px;
+  top: -278px;
   z-index: 0;
 }
 .deliveryForm{
+	position: absolute;
+	top: 160px;
 	z-index: 999 !important;
 	vertical-align: middle !important;
-	margin-top: 14%;
+	/*margin-top: 14%;*/
 }
 .googleMap{	
 	background-color: rgba(0,0,0,0.3) !important;   

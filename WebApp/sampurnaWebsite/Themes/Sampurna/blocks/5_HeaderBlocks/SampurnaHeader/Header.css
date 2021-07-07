@@ -745,6 +745,7 @@ li a{
     border-right: solid 1px #ccc;
     margin-bottom: 10px;
     color: #000;
+    float: left;
 }
 .singleAddressBlock{
 
