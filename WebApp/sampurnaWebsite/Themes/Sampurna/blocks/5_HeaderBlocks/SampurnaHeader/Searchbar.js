@@ -8,16 +8,6 @@ import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
 import { setSearchDetails }     from '../../../../../redux/actions/index.js'; 
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGoogle,
-} from '@fortawesome/free-brands-svg-icons';
-
-library.add(
-  faGoogle,
-);
-
 class Searchbar extends React.Component {
 	constructor(props) {
 		super(props);
@@ -41,53 +31,55 @@ class Searchbar extends React.Component {
             }
         }
     }
-    searchProducts() {        
-          var searchText = this.refs.tableSearch.value.trim();
-          if(searchText){     
-            var payload ={"searchText":searchText}
-            axios.post("/api/products/get/search/suggestion",payload)
-            .then((searchResponse)=>{
-                if(searchResponse){
-                    // console.log("searchResponse==",searchResponse.data);
-                    this.setState({
-                        "relatedSearches" : searchResponse.data,
-                        "searchText"      : searchText,
-                    },()=>{
-                       
-                    })
-                }
-            })
-            .catch((error)=>{
-                console.log(" search result error=",error);
-            })
 
-                      
-          }    
+    searchProducts(event) {   
+        // console.log("event.keycode",event.key);  
+        if (event.key === "Enter") {
+            this.getRelatedSearches(event);
+        }
       }
       getRelatedSearches(event){
-        //   console.log("inside getRelatedSearches");
-        event.preventDefault();
-        var formValues = {
-            "searchstr"         : this.state.searchText,
-            "user_id"           : this.state.user_ID,
-            "limit"             : 10,
-            "userLatitude"      : this.state.latitude,
-            "userLongitude"     : this.state.longitude
-
-        }
-        if(formValues){
-            axios.post("/api/products/get/search/website",formValues)
-            .then((searchProductRes)=>{
-                if(searchProductRes){
-                    store.dispatch(setSearchDetails(searchProductRes)) ;
-                    Router.push('/search-product/'+this.state.searchText);
-                }
-            })
-            .catch((error)=>{
-                console.log("error while search api=",error);
-            })
-        }
-      }
+        var searchText = this.refs.tableSearch.value.trim();
+        if(searchText){  
+          console.log("searchText===",searchText);   
+          var payload ={"searchText":searchText}
+          axios.post("/api/products/get/search/suggestion",payload)
+          .then((searchResponse)=>{
+              if(searchResponse){
+                  // console.log("searchResponse==",searchResponse.data);
+                  this.setState({
+                      "relatedSearches" : searchResponse.data,
+                      "searchText"      : searchText,
+                  },()=>{
+                     
+                      var formValues = {
+                          "searchstr"         : this.state.searchText,
+                          "user_id"           : this.state.user_ID,
+                          "limit"             : 10,
+                          "userLatitude"      : this.state.latitude,
+                          "userLongitude"     : this.state.longitude
+                      }
+                      if(formValues){
+                          axios.post("/api/products/get/search/website",formValues)
+                          .then((searchProductRes)=>{
+                              if(searchProductRes){
+                                  console.log("searchProductRes===",searchProductRes);
+                                  Router.push('/search-product/'+this.state.searchText);
+                                  store.dispatch(setSearchDetails(searchProductRes)) ;
+                              }
+                          })
+                          .catch((error)=>{
+                              console.log("error while search api=",error);
+                          })
+                      }
+                  })
+              }
+          })
+          .catch((error)=>{
+              console.log(" search result error=",error);
+          })        
+        }  
+      } 
 
    render(){
         return(  
@@ -96,15 +88,15 @@ class Searchbar extends React.Component {
                     <div className="row mtm3"> 
                         <input type="text" placeholder="What are you looking for?" id="browsers"
                         list="datalist"
-                        onChange={this.searchProducts.bind(this)} 
+                        onKeyPress={this.searchProducts.bind(this)} 
                         className="form-control tableSearch col-11" ref="tableSearch" id="tableSearch" name="tableSearch" />
-                        <div className="searchIcon" onClick={this.getRelatedSearches.bind(this)}>
+                        <div className="searchIcon" 
+                            onClick={this.getRelatedSearches.bind(this)}
+                        >
                             <i className="fa fa-search"></i>
-                            {/* <FontAwesomeIcon icon={['fas', 'f0ac']} style={{width:"20px",color:"#fff"}} /> */}
-                            {/* <FontAwesomeIcon  icon={faGoogle} style={{width:"20px",color:"#fff"}}  /> */}
                         </div>
 
-                        <datalist id="datalist" className="col-12" onClick={this.getRelatedSearches.bind(this)}>
+                        <datalist id="datalist" className="col-12">
                             {Array.isArray(this.state.relatedSearches) && 
                             this.state.relatedSearches.map((data,index)=>{
                                 // console.log("data",data);
@@ -121,7 +113,6 @@ class Searchbar extends React.Component {
 }
 
 const mapStateToProps = state => (
-    // console.log("1. state in header====",state.data),
     {
     }
 );

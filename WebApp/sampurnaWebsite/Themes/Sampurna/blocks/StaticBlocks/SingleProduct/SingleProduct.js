@@ -173,11 +173,7 @@ class SingleProduct extends Component{
               })
             }, 2000);
             this.props.getWishlistData();
-            // if(this.props.blockType === "wishlist"){
-            //     this.getWishListData();
-            // }else{
-            //   this.props.getWishlistData();
-            // }
+            window.location.reload();
             
           })
           .catch((error) => {

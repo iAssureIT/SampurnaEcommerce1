@@ -13,16 +13,6 @@ import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
 
-// const config = {
-// "accessKeyId" : "AKIAQBHT57FYOQYPF7ER",
-// "secretAccessKey" : "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",
-// "bucketName" : "devtrollymart-2",
-// "region" : "us-east-2",
-// "type"   : "S3",
-// }
-
-// const ReactS3Client = new S3(config);
-
 class ProductsView extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +53,6 @@ class ProductsView extends Component {
       })
   }
   getReturnReasons(){
-    // console.log("inside getReturnReasons");
     axios.get('/api/returnreasons/get/list')
     .then((reasonsResponse)=>{
         // console.log("reasonsResponse==",reasonsResponse);
@@ -91,8 +80,8 @@ class ProductsView extends Component {
       [event.target.name]: event.target.value,
       reviewStarError : event.target.value ? "" : "Please give star rating."
     },()=>{
-      console.log('ratingReview---', this.state.ratingReview);
-      console.log("reviewStarError===",this.state.reviewStarError);
+      // console.log('ratingReview---', this.state.ratingReview);
+      // console.log("reviewStarError===",this.state.reviewStarError);
     })
   }
 

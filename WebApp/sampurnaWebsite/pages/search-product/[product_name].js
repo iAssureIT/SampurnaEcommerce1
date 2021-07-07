@@ -40,13 +40,11 @@ class SearchProduct extends Component {
     }
   }
   componentDidMount(){
-    var url = window.location.href.split('/');
-    // console.log("url==",url[4]);
-    if(url){
+      var url = window.location.href.split('/');
+      if(url){
         this.setState({"searchProduct": url[4]},()=>{
-          // console.log("searchProduct=",this.state.searchProduct);
         })
-    }
+      }
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails        =  JSON.parse(localStorage.getItem('userDetails'));
         if( userDetails && userDetails.user_id){
@@ -62,9 +60,12 @@ class SearchProduct extends Component {
         }
   }
   render(){
+    // var url = window.location.href.split('/');
+    //   if(url){
+    //     this.setState({"searchProduct": url[4]},()=>{
+    //     })
+    //   }
       // console.log("serach props===",this.props);
-      // console.log("searchData=",this.props.searchData);
-      // console.log("data searchData=",this.props.searchData.data);
       return (
         <div className="row">
           < Header />

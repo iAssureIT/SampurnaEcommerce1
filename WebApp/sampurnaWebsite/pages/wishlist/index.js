@@ -6,7 +6,8 @@ import { connect }          from 'react-redux';
 import {getCartData}        from '../../redux/actions/index.js'; 
 import  store               from '../../redux/store.js'; 
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
-import ProductCarouselView  from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
+import ProductListView      from '../../Themes/Sampurna/blocks/StaticBlocks/ProductListView/ProductListView.js';
+// import ProductCarouselView  from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarouselView.js';
 import Style                from '../../Themes/Sampurna/blocks/10_eCommerceBlocks/ProductCarousel/ProductCarousel.module.css';
 
 class Wishlist extends Component {
@@ -126,7 +127,7 @@ class Wishlist extends Component {
                           <div className="col-12">
                                 {areaWiseWishlist && areaWiseWishlist.products && areaWiseWishlist.products.length > 0
                                 ?
-                                  <ProductCarouselView 
+                                  <ProductListView 
                                       newProducts       = {areaWiseWishlist.products}
                                       distance          = {areaWiseWishlist.distance}
                                       maxDistanceRadius = {areaWiseWishlist.maxDistanceRadius}
