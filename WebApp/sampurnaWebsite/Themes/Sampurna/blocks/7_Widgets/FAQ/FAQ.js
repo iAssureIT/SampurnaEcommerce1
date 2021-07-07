@@ -153,7 +153,7 @@ export default class FAQ extends Component{
 			$(e.target)
 			  .prev()
 			  .find("i:last-child")
-			  .toggleClass("fa-minus fa-plus");
+			  .toggleClass("fa-close fa-plus");
 		  });
 	}
 
@@ -170,13 +170,102 @@ export default class FAQ extends Component{
                         <div className={"col-12 accordion md-accordion  "+S.faqRepeatedBlockWrapper} id="accordionEx" role="tablist" aria-multiselectable="true">
                             <div className="row">
 
-								<div className="col-12 col-lg-10 offset-lg-1">
+
+
+								<div className="col-12 col-lg-10 offset-lg-1 my-5">
 								<div className="row">
-									<div className={"col-12 my-auto col-lg-4 "+S.faqImageWrapper}>
-										<img className={"faqImage "+S.faqImage} src={this.state.blocks.repeatedBlocks[0] ? this.state.blocks.repeatedBlocks[0].FGImage1 : ""} alt="" />
+									<div className="col-12 col-lg-6">
+									<div className="col-12 col-lg-12">
+										<div className={"col-12 card "+S.card}>
+											<div className="row">
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading6">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Title : ""}}></h6>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
+													</a>
+												</div>
+												<div id="collapse6" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading6" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Description : ""}}></p>
+												</div>
+											</div>
+										</div>
+
+										<div className={"col-12 card mt-2 "+S.card}>
+											<div className="row">
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading7">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[6] ? this.state.blocks.repeatedBlocks[6].Title : ""}}></h6>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
+													</a>
+												</div>
+												<div id="collapse7" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading7" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[6] ? this.state.blocks.repeatedBlocks[6].Description : ""}}></p>
+												</div>
+											</div>
+										</div>
+										
+										<div className={"col-12 card mt-2 "+S.card}>
+											<div className="row">
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading8">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[7] ? this.state.blocks.repeatedBlocks[7].Title : ""}}></h6>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
+													</a>
+												</div>
+												<div id="collapse8" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading8" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[7] ? this.state.blocks.repeatedBlocks[7].Description : ""}}></p>
+												</div>
+											</div>
+										</div>
+
+										<div className={"col-12 card mt-2 "+S.card}>
+											<div className="row">
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading9">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[8] ? this.state.blocks.repeatedBlocks[8].Title : ""}}></h6>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
+													</a>
+												</div>
+												<div id="collapse9" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading9" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[8] ? this.state.blocks.repeatedBlocks[8].Description : ""}}></p>
+												</div>
+											</div>
+										</div>
+										
+										<div className={"col-12 card mt-2 "+S.card}>
+											<div className="row">
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading10">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[9] ? this.state.blocks.repeatedBlocks[9].Title : ""}}></h6>
+														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
+													</a>
+												</div>
+												<div id="collapse10" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading10" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[9] ? this.state.blocks.repeatedBlocks[9].Description : ""}}></p>
+												</div>
+											</div>
+										</div>
+									</div>
+									</div>
+									<div className="col-6">
+									<div className={"col-12 my-auto pt-4 col-lg-10 mx-auto "+S.faqImageWrapper}>
+										<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].FGImage1 : ""} alt="" />
+									</div>
 									</div>
 									
-									<div className="col-12 col-lg-8">
+								</div>
+								</div>
+
+								<div className="col-12 col-lg-10 offset-lg-1">
+								<div className="row">
+								<div className="col-6">
+									<div className={"col-12 my-auto pt-4 col-lg-10 mx-auto "+S.faqImageWrapper}>
+										<img className={"faqImage "+S.faqImage} src={this.state.blocks.repeatedBlocks[0] ? this.state.blocks.repeatedBlocks[0].FGImage1 : ""} alt="" />
+									</div>
+								</div>	
+									
+								<div className="col-12 col-lg-6">
+									<div className="col-12 col-lg-12">
 										<div className={"col-12 card "+S.card}>
 											<div className="row">
 												<div className={"col-12 card-header card_header "+S.card_header} role="tab" id="heading1">
@@ -249,93 +338,103 @@ export default class FAQ extends Component{
 										</div>
 									</div>
 									</div>
+									</div>
 								</div>
 
+							
 								<div className="col-12 col-lg-10 offset-lg-1 my-5">
 								<div className="row">
-									<div className="col-12 col-lg-8">
+								<div className="col-12 col-lg-6">
+									<div className="col-12 col-lg-12">
+										
 										<div className={"col-12 card "+S.card}>
 											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading6">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Title : ""}}></h6>
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading16">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse16" aria-expanded="false" aria-controls="collapse16">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[15] ? this.state.blocks.repeatedBlocks[15].Title : ""}}></h6>
 														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
-												<div id="collapse6" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading6" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[5] ? this.state.blocks.repeatedBlocks[5].Description : ""}}></p>
+												<div id="collapse16" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading16" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[15] ? this.state.blocks.repeatedBlocks[15].Description : ""}}></p>
 												</div>
 											</div>
 										</div>
 
 										<div className={"col-12 card mt-2 "+S.card}>
 											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading7">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[6] ? this.state.blocks.repeatedBlocks[6].Title : ""}}></h6>
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading17">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse17" aria-expanded="false" aria-controls="collapse17">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[16] ? this.state.blocks.repeatedBlocks[16].Title : ""}}></h6>
 														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
-												<div id="collapse7" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading7" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[6] ? this.state.blocks.repeatedBlocks[6].Description : ""}}></p>
+												<div id="collapse17" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading17" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[16] ? this.state.blocks.repeatedBlocks[16].Description : ""}}></p>
 												</div>
 											</div>
 										</div>
 										
 										<div className={"col-12 card mt-2 "+S.card}>
 											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading8">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[7] ? this.state.blocks.repeatedBlocks[7].Title : ""}}></h6>
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading18">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[17] ? this.state.blocks.repeatedBlocks[17].Title : ""}}></h6>
 														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
-												<div id="collapse8" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading8" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[7] ? this.state.blocks.repeatedBlocks[7].Description : ""}}></p>
+												<div id="collapse18" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading18" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[17] ? this.state.blocks.repeatedBlocks[17].Description : ""}}></p>
 												</div>
 											</div>
 										</div>
 
 										<div className={"col-12 card mt-2 "+S.card}>
 											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading9">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[8] ? this.state.blocks.repeatedBlocks[8].Title : ""}}></h6>
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading19">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse19" aria-expanded="false" aria-controls="collapse19">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[18] ? this.state.blocks.repeatedBlocks[18].Title : ""}}></h6>
 														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
-												<div id="collapse9" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading9" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[8] ? this.state.blocks.repeatedBlocks[8].Description : ""}}></p>
+												<div id="collapse19" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading19" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[18] ? this.state.blocks.repeatedBlocks[18].Description : ""}}></p>
 												</div>
 											</div>
 										</div>
 										
 										<div className={"col-12 card mt-2 "+S.card}>
 											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading10">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[9] ? this.state.blocks.repeatedBlocks[9].Title : ""}}></h6>
+												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading20">
+													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse20" aria-expanded="false" aria-controls="collapse20">
+														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[19] ? this.state.blocks.repeatedBlocks[19].Title : ""}}></h6>
 														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
 													</a>
 												</div>
-												<div id="collapse10" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading10" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[9] ? this.state.blocks.repeatedBlocks[9].Description : ""}}></p>
+												<div id="collapse20" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading20" data-parent="#accordionEx">
+													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[19] ? this.state.blocks.repeatedBlocks[19].Description : ""}}></p>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div className={"col-12 my-auto col-lg-4 "+S.faqImageWrapper}>
-										<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[1] ? this.state.blocks.repeatedBlocks[1].FGImage1 : ""} alt="" />
+									</div>
+									<div className="col-6">
+									<div className={"col-12 my-auto pt-4 col-lg-10 mx-auto "+S.faqImageWrapper}>
+										<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].FGImage1 : ""} alt="" />
+									</div>
 									</div>
 								</div>
-								</div>
-
-								<div className="col-12 col-lg-10 offset-lg-1 my-5">
+                            </div>
+							<div className="col-12 col-lg-10 offset-lg-1 my-5">
 								<div className="row">
-									<div className={"col-12 my-auto col-lg-4 "+S.faqImageWrapper}>
+								<div className="col-6">
+									<div className={"col-12 my-auto pt-4 col-lg-10 mx-auto "+S.faqImageWrapper}>
 										<img className={S.faqImage} src={this.state.blocks.repeatedBlocks[2] ? this.state.blocks.repeatedBlocks[2].FGImage1 : ""} alt="" />
 									</div>
-									<div className="col-12 col-lg-8">
+								</div>
+
+									<div className="col-12 col-lg-6">
+									<div className="col-12 col-lg-12">
 										<div className={"col-12 card "+S.card}>
 											<div className="row">
 												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading11">
@@ -408,86 +507,9 @@ export default class FAQ extends Component{
 									</div>
 								</div>
 								</div>
-
-								<div className="col-12 col-lg-10 offset-lg-1 my-5">
-								<div className="row">
-									<div className="col-12 col-lg-8">
-										
-										<div className={"col-12 card "+S.card}>
-											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading16">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse16" aria-expanded="false" aria-controls="collapse16">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[15] ? this.state.blocks.repeatedBlocks[15].Title : ""}}></h6>
-														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
-													</a>
-												</div>
-												<div id="collapse16" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading16" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[15] ? this.state.blocks.repeatedBlocks[15].Description : ""}}></p>
-												</div>
-											</div>
-										</div>
-
-										<div className={"col-12 card mt-2 "+S.card}>
-											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading17">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse17" aria-expanded="false" aria-controls="collapse17">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[16] ? this.state.blocks.repeatedBlocks[16].Title : ""}}></h6>
-														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
-													</a>
-												</div>
-												<div id="collapse17" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading17" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[16] ? this.state.blocks.repeatedBlocks[16].Description : ""}}></p>
-												</div>
-											</div>
-										</div>
-										
-										<div className={"col-12 card mt-2 "+S.card}>
-											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading18">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[17] ? this.state.blocks.repeatedBlocks[17].Title : ""}}></h6>
-														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
-													</a>
-												</div>
-												<div id="collapse18" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading18" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[17] ? this.state.blocks.repeatedBlocks[17].Description : ""}}></p>
-												</div>
-											</div>
-										</div>
-
-										<div className={"col-12 card mt-2 "+S.card}>
-											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading19">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse19" aria-expanded="false" aria-controls="collapse19">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[18] ? this.state.blocks.repeatedBlocks[18].Title : ""}}></h6>
-														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
-													</a>
-												</div>
-												<div id="collapse19" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading19" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[18] ? this.state.blocks.repeatedBlocks[18].Description : ""}}></p>
-												</div>
-											</div>
-										</div>
-										
-										<div className={"col-12 card mt-2 "+S.card}>
-											<div className="row">
-												<div className={"col-12 card-header "+S.card_header} role="tab" id="heading20">
-													<a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapse20" aria-expanded="false" aria-controls="collapse20">
-														<h6 className={"mb-0 text-dark "+S.faqRepeatedBlockQuestion} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[19] ? this.state.blocks.repeatedBlocks[19].Title : ""}}></h6>
-														<i className={"fas fa-plus   pull-right plusIconWrapper "+S.plusIconWrapper}></i>
-													</a>
-												</div>
-												<div id="collapse20" className={"col-12 collapse "+S.collapse} role="tabpanel" aria-labelledby="heading20" data-parent="#accordionEx">
-													<p className={"card-body "+S.faqRepeatedBlockAnswer} dangerouslySetInnerHTML={ { __html:this.state.blocks.repeatedBlocks[19] ? this.state.blocks.repeatedBlocks[19].Description : ""}}></p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div className={"col-12 my-auto col-lg-4 "+S.faqImageWrapper}>
-										<img className={S.faqImage1} src={this.state.blocks.repeatedBlocks[3] ? this.state.blocks.repeatedBlocks[3].FGImage1 : ""} alt="" />
-									</div>
 								</div>
-                            </div>
+								
+
                         </div>
                     </div>
                 </div>
