@@ -1543,20 +1543,116 @@ exports.count_vendor_product = (req,res,next)=>{
     });
 };
 
+exports.fetch_product = (req,res,next)=>{
+    // console.log("req.body => ",req.body);
+    Products.findOne({"_id" : req.body.product_id})
+    .then(product=>{
+        Products.find({productCode : product.productCode, vendor_ID : ObjectId(req.body.vendor_id)})
+        .populate("vendor_ID")
+        .then(products=>{
+            // console.log("products => ",products)
+            if(products && products.length > 0){
+                // product = {...product._doc, isWish : false};
+                // console.log("user_ID",user_ID);
+                var variants = [...products.reduce((product, {size,color}) => {
+                    if (!product.has(size)) product.set(size, {size,color: []});
+                    product.get(size).color.push(color);
+                    return product;
+                }, new Map()).values()];
+
+                // console.log("variants => ",variants)
+
+                // const uniqueSizes = [...new Set(products.map(item => String(item.size)))];
+                // console.log("uniqueSizes => ",uniqueSizes)
+                // const uniqueColors = [...new Set(products.map(item => String(item.color)))];
+                // console.log("uniqueColors => ",uniqueColors)
+
+                if(req.body.user_id && req.body.user_id !== 'null' && req.body.user_id !== undefined){
+                    for (var i = 0; i < products.length; i++) {
+                        products[i] = {...products[i]._doc, isWish : false}; 
+
+                        Wishlists.find({user_ID : req.body.user_id})
+                        .then(async(wish)=>{
+                            // console.log("wish",wish);
+                            if(wish.length > 0){
+                                for(var j=0; j<wish.length; j++){
+                                    if(String(wish[j].product_ID) === String(products[j]._id)){
+                                        product[i] = {...products[i], isWish : true};
+                                        products[i].vendorLocation_id = await products[i].vendor_ID.locations && products[i].vendor_ID.locations.length > 0 
+                                                ? 
+                                                    products[i].vendor_ID.locations[0]._id 
+                                                : 
+                                                    "";
+                                        products[i].vendor_ID = products[i].vendor_ID._id;  
+                                        break;
+                                    }
+                                }   
+                                // if(j >= wish.length){
+                                                            //     res.status(200).json(product);
+                                // }       
+                            }else{
+                                console.log();
+                                // res.status(200).json(products);
+                            }
+                        })
+                        .catch(err =>{
+                            console.log(err);
+                            // res.status(500).json({
+                            //     error: err
+                            // });
+                        });                  
+                    }
+                    if(i >= products.length){
+                        res.status(200).json({
+                            products    : products,
+                            variants    : variants
+                        });
+                    }
+                }else{
+                    res.status(200).json({
+                        products    : products,
+                        variants    : variants
+                    });
+                }    
+            }else{
+                res.status(200).json({
+                    products    : products,
+                    variants    : variants
+                });
+            }
+        })
+        .catch(err =>{
+            console.log(err);
+            res.status(500).json({
+                error : err
+            });
+        });
+    })
+    .catch(err =>{
+        console.log(err);
+        res.status(500).json({
+            error : err
+        });
+    });
+};
+
+
 // exports.fetch_product = (req,res,next)=>{
-//     Products.find({productCode : ObjectId(req.body.productCode), vendor_ID : ObjectId(req.body.vendor_id)})
-//     .then(products=>{
-//         if(products && products.length > 0){
-//             // product = {...product._doc, isWish : false};
+//     const {user_ID}=req.params;
+//     Products.findOne({_id : req.params.productID})
+//     .exec()
+//     .then(product=>{
+//         if(product){
+//             product = {...product._doc, isWish:false};
 //             // console.log("user_ID",user_ID);
-//             if(req.body.user_id && req.body.user_id !== 'null' && req.body.user_id !== undefined){
-//                 Wishlists.find({user_ID : req.body.user_id})
+//             if(user_ID && user_ID!=='null'){
+//                 Wishlists.find({user_ID:user_ID})
 //                 .then(wish=>{
 //                     // console.log("wish",wish);
 //                     if(wish.length > 0){
 //                         for(var i=0; i<wish.length; i++){
 //                             if(String(wish[i].product_ID) === String(product._id)){
-//                                 product= {...product, isWish : true};
+//                                 product= {...product, isWish:true};
 //                                 break;
 //                             }
 //                         }   
@@ -1587,54 +1683,6 @@ exports.count_vendor_product = (req,res,next)=>{
 //         });
 //     });
 // };
-
-
-exports.fetch_product = (req,res,next)=>{
-    const {user_ID}=req.params;
-    Products.findOne({_id : req.params.productID})
-    .exec()
-    .then(product=>{
-        if(product){
-            product = {...product._doc, isWish:false};
-            // console.log("user_ID",user_ID);
-            if(user_ID && user_ID!=='null'){
-                Wishlists.find({user_ID:user_ID})
-                .then(wish=>{
-                    // console.log("wish",wish);
-                    if(wish.length > 0){
-                        for(var i=0; i<wish.length; i++){
-                            if(String(wish[i].product_ID) === String(product._id)){
-                                product= {...product, isWish:true};
-                                break;
-                            }
-                        }   
-                        if(i >= wish.length){
-                            res.status(200).json(product);
-                        }       
-                    }else{
-                        res.status(200).json(product);
-                    }
-                 })
-                 .catch(err =>{
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-            }else{
-                res.status(200).json(product);
-            }    
-        }else{
-            res.status(200).json(product);
-        }
-    })
-    .catch(err =>{
-        console.log(err);
-        res.status(500).json({
-            error: err
-        });
-    });
-};
 
 exports.fetch_One_product = (req,res,next)=>{
     Products.findOne({_id : req.params.productID})
@@ -1701,7 +1749,7 @@ exports.search_file = (req,res,next)=>{
         {
             "$and" : [
             { "$or": 
-                [{"fileName"                : {'$regex' : req.body.filename , $options: "i"} }]
+                [{"fileName" : {'$regex' : req.body.filename , $options: "i"} }]
             }]
         })
 

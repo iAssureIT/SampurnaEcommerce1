@@ -192,6 +192,17 @@ MethodType  => Patch
     "otp"           : "3961"
 }
 
+Forgot Password customer 
+
+API         => http://localhost:3368/api/auth/patch/set_send_otp/:username
+MethodType  => Patch
+
+Resend OTP 
+
+API         => http://localhost:3368/api/auth/patch/setsendmobileotpusingID/:user_id
+MethodType  => Patch
+
+
 ==========================================================================
 Credit Points 
 

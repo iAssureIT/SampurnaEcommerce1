@@ -2560,6 +2560,7 @@ exports.update_user_profile = (req,res,next)=>{
 					{$set:{
 							"profile.firstname"     : req.body.firstname,
 							"profile.lastname"     	: req.body.lastname,
+							"profile.fullName"     	: req.body.fullName,
 							"image"					: req.body.image						
 						},
 					}

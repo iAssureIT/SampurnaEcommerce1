@@ -1435,6 +1435,7 @@ exports.logouthistory = (req, res, next) => {
 
 
 exports.user_update_password_withoutotp_username = (req, res, next) => {
+	console.log()
 	User.findOne({ username: req.params.username })
 	.exec()
 	.then(user => {
@@ -1453,20 +1454,20 @@ exports.user_update_password_withoutotp_username = (req, res, next) => {
 						}
 					}
 				)
-					.exec()
-					.then(data => {
-						if (data.nModified == 1) {
-							res.status(200).json("PASSWORD_RESET");
-						} else {
-							res.status(401).json("PASSWORD_NOT_RESET");
-						}
-					})
-					.catch(err => {
-						console.log(err);
-						res.status(500).json({
-							error: err
-						});
+				.exec()
+				.then(data => {
+					if (data.nModified == 1) {
+						res.status(200).json("PASSWORD_RESET");
+					} else {
+						res.status(401).json("PASSWORD_NOT_RESET");
+					}
+				})
+				.catch(err => {
+					console.log(err);
+					res.status(500).json({
+						error: err
 					});
+				});
 			});
 		} else {
 			res.status(404).json("User Not Found");
