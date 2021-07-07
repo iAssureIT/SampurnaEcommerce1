@@ -542,6 +542,27 @@ input.middle:focus {
 
 .footerNew{
   height: 57px;
-  background: #222222 0% 0% no-repeat padding-box;
+  font-size: 15px;
+  background: #333 0% 0% no-repeat padding-box;
   opacity: 0.95;
+  z-index: 1;
+}
+
+.textEnd{
+  text-align: end;
+  padding: 18px;
+  z-index: 999;
+}
+
+.fIcon{
+  /*color: #FBFBFB;*/
+  color: #999;  
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.phoneT{
+  color: #999;
+  font-size: 14px;
+  font-weight: 300;
 }

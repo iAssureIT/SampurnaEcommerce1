@@ -51,8 +51,10 @@ export default class Footer extends Component {
     render(){
        return(
         <div className="col-12 NoPadding footerWrapper" >
-        <div className="footerNew">
-            
+        <div className="col-12 footerNew">
+            <div className="col-12 col-xl-6 offset-xl-6 col-lg-6 offset-lg-6">
+                <div className="col-12 textEnd "><i class="fas fa-phone-alt fIcon "></i><span className="phoneT">Phone &nbsp;&nbsp;:&nbsp;&nbsp;</span>  +971 000 000 000 &nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-envelope fIcon"></i><span className="phoneT">Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; </span> knockknock@gmail.com</div>
+            </div>
         </div>
         {this.state.deliveryLocation?
        <div className="container-fluid">
