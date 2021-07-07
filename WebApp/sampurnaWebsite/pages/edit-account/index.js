@@ -58,45 +58,40 @@ class EditAccount extends Component{
           console.log("error = ",error);
         });
     }
-    updateUser(event){
+    updateUserinfo(event){
         event.preventDefault();
-        var field = (this.state.changeEmail === true && this.state.changePassword === true? 'all' : (this.state.changeEmail === true ? 'email' : (this.state.changePassword === true? 'password' :"name")));
-        
         var formvalues = {
-            "field"         : field,
-            "firstName"     : this.refs.firstName.value,
-            "lastName"      : this.refs.lastName.value,
-            "mobileNumber"  : this.refs.mobNumber.value,
-            "emailId"       : this.state.emailId,
-            "newPassword"   : this.state.newPassword,
-            "oldPassword"   : this.state.oldPassword,
-            "changeEmail"   : this.state.changeEmail,
-            "changePassword": this.state.changePassword
+            "user_id"           : this.state.user_ID,
+            "firstname"         : this.state.firstName,
+            "lastname"          : this.state.lastName,
+            "image"     	    : [],
+            "isdCode"           : "971",
+            "mobile"     	    : this.state.mobNumber,
+            "mobileChange"      : false,
+            "emailChange"       : false,
+            "currentPassword"   : "",
+            "email"    		    : ""
         }
-       if($('#editAccount').valid()){
-            // $('.fullpageloader').show();
-            
-            axios.patch('/api/users/userdetails/'+this.state.user_ID, formvalues)
-            .then((response)=> {    
-                // $('.fullpageloader').hide();
-                // console.log(response.message);
-             this.setState({
-              messageData : {
-                "type" : "outpage",
-                "icon" : "fa fa-check-circle",
-                "message" : "&nbsp; "+"User data updated successfully",
-                "class": "success",
-                "autoDismiss" : true
-              }
-            })
-            
-            setTimeout(() => {
+        if(formvalues){
+            axios.patch('/api/users/update/user_profile_details', formvalues)
+            .then((response)=> {  
+                if(response){  
+                console.log("response==",response);
                 this.setState({
-                    messageData   : {},
-                })
-                // this.props.history.push('/account');
-            }, 3000);
-            
+                    messageData : {
+                        "type" : "outpage",
+                        "icon" : "fa fa-check-circle",
+                        "message" : "&nbsp; "+"User data updated successfully",
+                        "class": "success",
+                        "autoDismiss" : true
+                    }
+                    })
+                    setTimeout(() => {
+                        this.setState({
+                            messageData   : {},
+                        })
+                    }, 3000);
+                }
             })
             .catch((error,resp)=> {
                 this.setState({
@@ -115,8 +110,122 @@ class EditAccount extends Component{
                 }, 3000);
             });
        }
+
     }
 
+    updateUserMobile(event){
+        var formvalues = {
+            "user_id"           : this.state.user_ID,
+            "firstname"         : this.state.firstName,
+            "lastname"          : this.state.lastName,
+            "image"     	    : [],
+            "isdCode"           : "971",
+            "mobile"     	    : this.state.mobNumber,
+            "mobileChange"      : true,
+            "emailChange"       : false,
+            "currentPassword"   : "",
+            "email"    		    : ""
+        }
+        if(formvalues){
+            axios.patch('/api/users/update/user_profile_details', formvalues)
+            .then((response)=> {  
+                if(response){  
+                console.log("response==",response);
+                this.setState({
+                    messageData : {
+                        "type" : "outpage",
+                        "icon" : "fa fa-check-circle",
+                        "message" : "&nbsp; "+"User data updated successfully",
+                        "class": "success",
+                        "autoDismiss" : true
+                    }
+                    })
+                    setTimeout(() => {
+                        this.setState({
+                            messageData   : {},
+                        })
+                    }, 3000);
+                }
+            })
+            .catch((error,resp)=> {
+                this.setState({
+                  messageData : {
+                    "type" : "outpage",
+                    "icon" : "fa fa-times-circle",
+                    "message" : error.response.data.message,
+                    "class": "warning",
+                    "autoDismiss" : true
+                  }
+                })
+                setTimeout(() => {
+                    this.setState({
+                        messageData   : {},
+                    })
+                }, 3000);
+            });
+       }
+
+    }
+
+    // updateUser(event){
+    //     event.preventDefault();
+    //     var field = (this.state.changeEmail === true && this.state.changePassword === true? 'all' : (this.state.changeEmail === true ? 'email' : (this.state.changePassword === true? 'password' :"name")));
+        
+    //     var formvalues = {
+    //         "field"         : field,
+    //         "firstName"     : this.refs.firstName.value,
+    //         "lastName"      : this.refs.lastName.value,
+    //         "mobileNumber"  : this.refs.mobNumber.value,
+    //         "emailId"       : this.state.emailId,
+    //         "newPassword"   : this.state.newPassword,
+    //         "oldPassword"   : this.state.oldPassword,
+    //         "changeEmail"   : this.state.changeEmail,
+    //         "changePassword": this.state.changePassword
+    //     }
+    //    if($('#editAccount').valid()){
+    //         axios.patch('/api/users/userdetails/'+this.state.user_ID, formvalues)
+    //         .then((response)=> {    
+    //          this.setState({
+    //           messageData : {
+    //             "type" : "outpage",
+    //             "icon" : "fa fa-check-circle",
+    //             "message" : "&nbsp; "+"User data updated successfully",
+    //             "class": "success",
+    //             "autoDismiss" : true
+    //           }
+    //         })
+            
+    //         setTimeout(() => {
+    //             this.setState({
+    //                 messageData   : {},
+    //             })
+    //         }, 3000);
+            
+    //         })
+    //         .catch((error,resp)=> {
+    //             this.setState({
+    //               messageData : {
+    //                 "type" : "outpage",
+    //                 "icon" : "fa fa-times-circle",
+    //                 "message" : error.response.data.message,
+    //                 "class": "warning",
+    //                 "autoDismiss" : true
+    //               }
+    //             })
+    //             setTimeout(() => {
+    //                 this.setState({
+    //                     messageData   : {},
+    //                 })
+    //             }, 3000);
+    //         });
+    //    }
+    // }
+
+    changeMobile(event){
+        this.setState({
+            changeMobile : event.target.checked
+        })
+    }
     changeEmail(event){
         this.setState({
             changeEmail : event.target.checked
@@ -187,24 +296,42 @@ class EditAccount extends Component{
                             <div className="col-12 ">
                                 <form id="editAccount">
                                     <div className="row">
-                                        <div className="col-12 col-md-6 mb-2">
-                                            <label className="mt15">First Name <i className="requiredsign">*</i></label>
-                                            <br />
-                                            <div id="firstName" className="col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding">
-                                                <input maxLength="25" type="text" name="firstName" ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/> </div>
+
+                                        <div className="col-12 ">
+                                            <div className="col-6 mb-2">
+                                                <label className="mt15">First Name <i className="requiredsign">*</i></label>
+                                                <br />
+                                                <div id="firstName" className="col-xl-12 col-md-12 col-sm-12 col-xs-12 col-12 NoPadding">
+                                                    <input maxLength="25" type="text" name="firstName" ref="firstName" value={this.state.firstName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required/> 
+                                                </div>
+                                            </div>
+                                            <div className="col-6 mb-2">
+                                                <label className="mt15">Last Name <i className="requiredsign">*</i></label>
+                                                <br />
+                                                <div id="lastName" className="col-12 NoPadding">
+                                                    <input maxLength="25" type="text" name="lastName" ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required /> </div>
+                                            </div>
+                                            <div className="col-6 pull-right">
+                                                <button className="btn globalCommonBtn editAccount col-6 pull-right" onClick={this.updateUserinfo.bind(this)}>Submit</button>
+                                            </div>
+                                            <hr className="col-12"></hr>
                                         </div>
-                                        <div className="col-12 col-md-6 mb-2">
-                                            <label className="mt15">Last Name <i className="requiredsign">*</i></label>
-                                            <br />
-                                            <div id="lastName" className="col-12 NoPadding">
-                                                <input maxLength="25" type="text" name="lastName" ref="lastName" value={this.state.lastName} onChange={this.onChange.bind(this)} className="col-xl-12 col-md-12 col-sm-12 col-xs-12 form-control" required /> </div>
+
+                                        <div className="col-6">
+                                            <div className="col-12 mt-2 NoPadding">
+                                                <input type="checkbox" id="changeMobile" checked={this.state.changeMobile} onChange={this.changeMobile.bind(this)}/> &nbsp; <span>Change Mobile</span> 
+                                            </div>
+                                            <div className="col-12 mb-2">
+                                                <label className="mt15">Mobile Number<i className="requiredsign">*</i></label>
+                                                <br />
+                                                <div id="mobNumber" className="col-12 NoPadding">
+                                                    <input className="col-12 form-control" type="text" maxLength="10" ref="mobNumber" name="mobNumber" id="mobNumber" placeholder="Eg. 9876543210" value={this.state.mobNumber} onChange={this.onChange.bind(this)} required/> </div>
+                                            </div>
+                                            <div className="col-12 pull-right">
+                                                <button className="btn globalCommonBtn editAccount col-6 pull-right" onClick={this.updateUserinfo.bind(this)}>Submit</button>
+                                            </div>
                                         </div>
-                                        <div className="col-12 col-md-6 mb-2">
-                                            <label className="mt15">Mobile Number<i className="requiredsign">*</i></label>
-                                            <br />
-                                            <div id="mobNumber" className="col-12 NoPadding">
-                                                <input className="col-12 form-control" type="text" maxLength="10" ref="mobNumber" name="mobNumber" id="mobNumber" placeholder="Eg. 9876543210" value={this.state.mobNumber} onChange={this.onChange.bind(this)} required/> </div>
-                                        </div>
+
                                         <div className="col-12">
                                             <div className="col-12 col-md-6 mb-2 NoPadding">
                                                 <div className="col-12 mt-2 NoPadding">
@@ -213,21 +340,34 @@ class EditAccount extends Component{
                                                     <input type="checkbox" id="changePassword" checked={this.state.changePassword} onChange={this.changePassword.bind(this)}/> &nbsp; <span>Change Password</span> </div>
                                                 <div id="credentials" className="col-12 mt-2 NoPadding">
                                                     <div className="col-12 mt15 NoPadding">
-                                                        <h5>{(this.state.changeEmail === true && this.state.changePassword === true? 'Change Email and Password' : (this.state.changeEmail === true ? 'Change Email' : (this.state.changePassword === true? 'Change Password' :"")))}</h5> </div> { this.state.changeEmail === true?
+                                                        <h5>{(this.state.changeEmail === true && this.state.changePassword === true? 'Change Email and Password' : (this.state.changeEmail === true ? 'Change Email' : (this.state.changePassword === true? 'Change Password' :"")))}</h5> 
+                                                    </div> 
+                                                    { this.state.changeEmail === true?
                                                     <div className="col-12 mb-2 NoPadding">
                                                         <label className="mt15">Email <i className="requiredsign">*</i></label>
                                                         <br />
                                                         <div id="emailId" className="col-12 NoPadding">
-                                                            <input type="email" name="emailId" ref="emailId" value={this.state.emailId} onChange={this.onChange.bind(this)} className="col-12 col-md-8 form-control" /> </div>
-                                                    </div> : null } { this.state.changeEmail === true || this.state.changePassword === true?
+                                                            <input type="email" name="emailId" ref="emailId" value={this.state.emailId} onChange={this.onChange.bind(this)} className="col-12 col-md-8 form-control" /> 
+                                                        </div>
+                                                    </div> 
+                                                    : 
+                                                        null 
+                                                    } 
+                                                    { this.state.changeEmail === true || this.state.changePassword === true?
                                                     <div className="col-12 mb-2 NoPadding">
                                                         <label className="mt15">Current Password <i className="requiredsign">*</i></label>
                                                         <br />
                                                         <div id="oldPassword" className="col-12 NoPadding">
-                                                            <input type="text" id="oldPass" type="password" name="oldPassword" ref="oldPassword" value={this.state.oldPassword} onChange={this.onChange.bind(this)} className="col-xl-8 col-md-8 col-sm-12 col-xs-12 form-control" /> <span className=" showHideEyeDiv" onClick={this.showPassFun2.bind(this)}>
-                                                                                   <i className={this.state.showPassword2 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword2}></i>
-                                                                               </span> </div>
-                                                    </div> : null } { this.state.changePassword === true?
+                                                            <input type="text" id="oldPass" type="password" name="oldPassword" ref="oldPassword" value={this.state.oldPassword} onChange={this.onChange.bind(this)} className="col-xl-8 col-md-8 col-sm-12 col-xs-12 form-control" /> 
+                                                            <span className=" showHideEyeDiv" onClick={this.showPassFun2.bind(this)}>
+                                                                <i className={this.state.showPassword2 ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword2}></i>
+                                                            </span> 
+                                                        </div>
+                                                    </div> 
+                                                    : 
+                                                        null 
+                                                    } 
+                                                    { this.state.changePassword === true?
                                                     <div className="col-12 mb-2 NoPadding">
                                                         <label className="mt15">New Password <i className="requiredsign">*</i></label>
                                                         <br />
@@ -239,15 +379,20 @@ class EditAccount extends Component{
                                                         <br />
                                                         <div className="col-12 NoPadding">
                                                             <input type="password" className="loginPwdField col-xl-8 col-md-8 col-sm-12 col-xs-12 form-control" id="newPassword2" name="newPassword2" value={this.state.newPassword2} ref="newPassword2" onChange={this.handleChange.bind(this)} /> <span className=" showHideEyeDiv" onClick={this.showPassFun.bind(this)}>
-                                                                                   <i className={this.state.showPassword ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword}></i>
-                                                                               </span> </div>
-                                                    </div> : null } </div>
+                                                                <i className={this.state.showPassword ? "fa fa-eye" : "fa fa-eye-slash"} value={this.state.showPassword}></i>
+                                                            </span> 
+                                                        </div>
+                                                    </div> 
+                                                    : 
+                                                        null 
+                                                    } 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col-12">
-                                            <button className="btn globalCommonBtn editAccount col-xl-3 col-md-3 col-sm-3" onClick={this.updateUser.bind(this)}>Submit</button>
+                                            <button className="btn globalCommonBtn editAccount col-xl-3 col-md-3 col-sm-3" onClick={this.updateUserinfo.bind(this)}>Submit</button>
                                         </div>
                                     </div>
                                 </form>

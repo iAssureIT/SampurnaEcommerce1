@@ -4,6 +4,7 @@ import $                    from 'jquery';
 import moment               from 'moment';
 import Link                 from 'next/link';
 // import {S3FileUpload}         from 'react-s3';
+import S3 from 'react-aws-s3';
 import StarRatingComponent  from 'react-star-rating-component';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import ProductReview        from './ProductsView.js';
@@ -11,6 +12,23 @@ import ReturnForm           from './ReturnForm.js';
 import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
+
+const config = {
+//   bucketName: 'myBucket',
+//   dirName: 'media', /* optional */
+//   region: 'eu-west-1',
+//   accessKeyId: 'JAJHAFJFHJDFJSDHFSDHFJKDSF',
+//   secretAccessKey: 'jhsdf99845fd98qwed42ebdyeqwd-3r98f373f=qwrq3rfr3rf',
+//   s3Url: 'https:/your-custom-s3-url.com/', /* optional */
+
+"accessKeyId" : "AKIAQBHT57FYOQYPF7ER",
+"secretAccessKey" : "14/iqyGzWqg4VzEwW4EVgmNjHQMGLl2w/17hHgHj",
+"bucketName" : "devtrollymart-2",
+"region" : "us-east-2",
+"type"   : "S3",
+}
+
+const ReactS3Client = new S3(config);
 
 class ProductsView extends Component {
   constructor(props) {
@@ -42,6 +60,8 @@ class ProductsView extends Component {
           if(config){
             this.setState({
               config : config,
+            },()=>{
+              
             });
           }                         
       })
@@ -187,12 +207,15 @@ class ProductsView extends Component {
   }
   uploadImage(event){
     event.preventDefault();
-    var file = event.target.file[0];
+    console.log("file===",event.target.files[0]);
+    // var file = event.target.file;
+    const file = event.target.files[0];
 
     // S3FileUpload
-    // .uploadFile(file, this.state.config)
-    // .then(data => console.log("fileUpload data=",data))
-    // .catch(err => console.error("fileUpload data=",err))
+    ReactS3Client
+    .uploadFile(file, config)
+    .then(data => console.log("fileUpload data=",data))
+    .catch(err => console.error("fileUpload data=",err))
     
   }
 
@@ -581,6 +604,7 @@ class ProductsView extends Component {
                                                     <div className="row">
                                                       <div className=" col-4 mt-2">                                                               
                                                         <input type="file" onChange={this.uploadImage.bind(this)} title="upload product Image"  accept=".jpg,.jpeg,.png" />
+                                                        {/* <input type="submit" value="Submit"></input> */}
                                                       </div>
                                                       {
                                                         this.state.returnProductImage ? 

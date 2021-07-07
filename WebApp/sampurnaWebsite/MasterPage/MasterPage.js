@@ -9,9 +9,10 @@ import Head                  from 'next/head'
 // import BlogCarousel          from '../blockTemplate/BlogCarousel/BlogCarousel.js';
 
 const { publicRuntimeConfig } = getConfig();
-const SITE_NAME =  publicRuntimeConfig.SITE_NAME; 
-const Header = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/SampurnaHeader/Header.js'));
-const Footer = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/6_FooterBlocks/Footer/Footer.js'));
+const SITE_NAME   =  publicRuntimeConfig.SITE_NAME; 
+const MYSITE_NAME =  publicRuntimeConfig.MYSITE_NAME; 
+const Header      = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/5_HeaderBlocks/SampurnaHeader/Header.js'));
+const Footer      = dynamic(() => import('../Themes/'+SITE_NAME+'/blocks/6_FooterBlocks/Footer/Footer.js'));
 
 class MasterPage extends React.Component {
 	constructor(props) {
@@ -46,7 +47,7 @@ class MasterPage extends React.Component {
 			this.props.pageData && this.props.pageData.pageHead && Object.keys(this.props.pageData.pageHead).length > 0 ? 
 			<Head>
 				<meta charSet="UTF-8" />
-				<title>{SITE_NAME} | {this.props.pageData.pageTitle}</title>
+				<title>{MYSITE_NAME} | {this.props.pageData.pageTitle}</title>
 				<meta name="description" content={this.props.pageData.pageHead.pageDescription === undefined ? null : this.props.pageData.pageHead.pageDescription} /> 
 				<meta name="keywords" content={this.props.pageData.pageHead.pageWords[0]} />
 				<link rel="canonical" href="https://www.sampurna.com/"/>
@@ -58,7 +59,7 @@ class MasterPage extends React.Component {
 				<meta charSet="UTF-8" />
 				<meta name="author" content="" />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<title>{SITE_NAME}</title>
+				<title>{MYSITE_NAME}</title>
 			</Head>
 		)
 	}

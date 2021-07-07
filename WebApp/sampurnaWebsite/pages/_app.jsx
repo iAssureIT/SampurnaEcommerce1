@@ -14,6 +14,8 @@ import ReactDependentScript from "react-dependent-script";
 import 'firebase/database';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.min.css';
+
 import 'nprogress/nprogress.css'; //styles of nprogress
 import '../Themes/Sampurna/style/multivendor_global.css';
 import '../Themes/Sampurna/style/stdBlockStyle.css';
@@ -89,7 +91,8 @@ Router.events.on('routeChangeError', () => NProgress.done());
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>  
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossOrigin="anonymous"/>
+        <script type="module" src='https://kit.fontawesome.com/a076d05399.js'></script>
         <meta name="google-site-verification" content="S4EQiZdQjD1RPwW1XC994P0eEuR0rc0gv5uC-GKBpdQ" />
       </Head>
       {

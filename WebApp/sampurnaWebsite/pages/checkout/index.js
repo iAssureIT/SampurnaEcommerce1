@@ -687,11 +687,9 @@ class Checkout extends Component {
     applyCoupon(event){
         event.preventDefault();
         var couponCode = this.refs.couponCode.value;
-        // console.log("couponCode===",couponCode);
-        var userDetails = JSON.parse(localStorage.getItem('userDetails'));
-        var userId = userDetails.user_id;
+        console.log("couponCode===",couponCode);
             var payload={
-                "user_ID"     : userId,
+                "user_ID"     : this.state.user_ID,
                 "couponCode"  : couponCode
             }
             axios.patch('/api/carts/put/coupon',payload)
@@ -713,26 +711,24 @@ class Checkout extends Component {
             })
             .catch(err=>{
                 this.setState({coupenCode  : ''})
-                console.log("err",err);
+                console.log("couponcode error=",err);
             }) 
     }
     applyCreditPoint(event){
         event.preventDefault();
         var creaditPointValueEnter = this.refs.creaditPoint.value;
-        // console.log("my creaditPoint===",creaditPointValueEnter);
-        var userDetails = JSON.parse(localStorage.getItem('userDetails'));
-        var userId = userDetails.user_id;
+        console.log("my creaditPoint===",creaditPointValueEnter);
             const formValues ={
-                "user_ID"           : userId,
-                creditPointsValueUsed  : creaditPointValueEnter
+                "user_ID"           : this.state.user_ID,
+                creditPointsValueUsed  : parseFloat(creaditPointValueEnter)
             }
-            // console.log("formValues==",formValues);
-
+            console.log("formValues==",formValues);
+            console.log("this.state.creditdataValue===",this.state.creditdataValue);
             if(creaditPointValueEnter <= this.state.creditdataValue){
                 axios.patch('/api/carts/redeem/creditpoints',formValues)
                 .then(AfterCreditResponse=>{
                     if(AfterCreditResponse.data){
-                        // console.log("AfterCreditResponse=>",AfterCreditResponse.data);
+                        console.log("AfterCreditResponse=>",AfterCreditResponse.data);
 
                         this.setState({
                             applyCreditPoint : 0,
