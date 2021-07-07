@@ -25,7 +25,10 @@
     margin-top: -10px!important;
 }
 .productHeaderWrapper th{
-    font-size: 14px ! important;
+    font-size: 12px ! important;
+}
+.modalMainWrapper{
+    border-radius: 19px!important;
 }
 .productHeaderWrapper{
     border-bottom: 1px solid #ddd;
@@ -111,8 +114,41 @@
 }
 
 .f14B{
-	font-size:14px !important;
+	font-size:12px !important;
 	/*font-weight:bold;*/
+    margin-top: 2px;
+    
+}
+.f14BM p{
+	font-size: 12px !important;
+    /* font-weight: bold; */
+    margin-top: 15px;
+    margin-left: 71%;
+    position: absolute;
+    
+}
+.modalCloseButtonWrapper{
+    margin-left: -27px !important;
+    cursor: pointer!important;
+    margin-top: -25px!important;
+}
+.modalCloseButtonWrapperM{
+    margin-left: -27px !important;
+    cursor: pointer!important;
+    margin-top: -25px!important;
+    font-size: 24px!important;
+}
+.modalLogoWrapper{
+    position: absolute;
+    height: 29px!important;
+    margin-left: -128px;
+    margin-top: -4px !important;
+}
+.modalLogoWrapperM{
+    position: absolute;
+    height: 29px!important;
+    margin-left: -10px;
+    margin-top: 11px !important;
 }
 
 .f16{
@@ -167,6 +203,15 @@
 .modalHeader{
     background-color:#033554;
     border-bottom:0px !important;
+    border-top-left-radius: 19px!important;
+    border-top-right-radius: 19px!important;
+}
+.modalHeaderM{
+    background-color:#033554;
+    border-bottom:0px !important;
+    border-top-left-radius: 19px!important;
+    border-top-right-radius: 19px!important;
+    padding-bottom: 45px!important;
 }
 
  .close1 {
@@ -211,12 +256,14 @@
 }
 
 .modalBg{
-    background-color:#eee;
+    background-color:#fff;
     padding-bottom:50px !important;
+    border-bottom-left-radius: 19px!important;
+    border-bottom-right-radius: 19px !important;
 }
 
 .listColor{
-    color:#fff !important;
+    color:#333 !important;
     font-size:12px !important;
     font-weight:200 !important;
     min-height:300px;
@@ -226,6 +273,16 @@
 .saveBtn{
     background-color:#033554 !important;
     color:#fff !important;
+    height: 47px !important;
+    border: none !important;
+    border-radius: 6px!important;
+}
+.saveBtn:hover{
+    color:#000 !important;
+    height: 47px !important;
+    border: 1px solid lightgray!important;
+    border-radius: 6px!important;
+
 }
 
   .addBTN{
@@ -258,9 +315,15 @@
   }
 
   .modalBodyRadius{
-    border-radius:0px 0px 6px 6px;
+    border-radius:19px!important;
   }
-
+.modalContent{
+    border-radius: 25px !important;
+}
+.modalContentM{
+    border-radius: 25px !important;
+    margin-bottom: 45px!important;
+}
   .modal-content {
     border-radius:3px !important;
   }

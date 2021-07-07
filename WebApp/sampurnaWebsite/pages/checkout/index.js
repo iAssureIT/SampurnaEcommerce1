@@ -765,22 +765,18 @@ class Checkout extends Component {
                 <Message messageData={this.state.messageData} />
                 <div className="row">
                     {/* <Loader type="fullpageloader" /> */}
-                    <div className="modal col-12 col-sm-12 col-xs-12 col-md-12 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3 checkoutAddressModal NoPadding" id="checkoutAddressModal" role="dialog">  
-                        <div className="modal-content loginModalContent pb-0" style={{'background': '#fff'}}>    
-                            <div className={"modal-header col-12 NoPadding " +Style.modalHeader +" "+Style.headerH}>
-                                <div className="col-12 col-lg-4 col-xl-4 col-md-6 col-xs-12 col-sm-12 ">
-                                    < WebsiteLogo />
-                                </div>
-                                <div className="col-10 col-lg-7 col-xl-7 col-md-5 col-xs-11 col-sm-11 text-right">
-                                    <div className={"modal-title modalheadingcont " +Style.modalT}>SHIPPING ADDRESS</div>
-                                </div>
-                                <div className="col-2 col-lg-1 col-xl-1 col-md-1 col-xs-12 col-sm-12 text-top">
-                                    <button type="button" className={"text-top " +Style.close1}  data-dismiss="modal">&times;</button> 
-                                </div>
-                            </div>                        
+                    <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
+                    <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
+
+                        <div className={"modal-content  pb-0 "+Style.modalContentM}>    
+                        <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
+                            <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
+                            <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
+                        </div>                      
                             <div className={"modal-body addressModalBody "+Style.modalBg}>
                                 <UserAddress />
                             </div>
+                        </div>
                         </div>
                     </div>
 
@@ -896,7 +892,7 @@ class Checkout extends Component {
                                                                             <tr className={" "+Style.productHeaderWrapper}>
                                                                                 <th>Products Image</th>
                                                                                 <th>Products Name</th>
-                                                                                <th className="textAlignRight">Price</th>
+                                                                                <th className="">Price</th>
                                                                                 <th className="textAlignRight">Quantity</th>
                                                                                 <th className="textAlignRight">SubTotal</th>
                                                                             </tr>
@@ -1054,7 +1050,7 @@ class Checkout extends Component {
                                                     </span>
                                                     <span className="col-7 mb-1">Total Delivery Charges :</span><span className="col-md-5 col-12 textAlignRight"><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }
                                                     <a data-tip data-for="vendorTooltip">
-                                                        &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
+                                                    &nbsp; &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
                                                     </a>
                                                     <ReactTooltip id="vendorTooltip" className={"pb-2 pt-2" +Style.tooltipWrapper} place="left" effect="solid">
                                                     {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
@@ -1146,19 +1142,24 @@ class Checkout extends Component {
                                         </div>
 
                                         <div className={"modal NoPadding mt-5 " } id="termsNconditionsmodal" role="dialog">
-                                            <div className="col-12 NoPadding ">
-                                                <div className={"modal-content  col-md NoPadding " }>
+                                            <div className={"col-4 mx-auto NoPadding "+Style.modalMainWrapper}>
+                                                <div className={"modal-content  col-md NoPadding "+Style.modalContent }>
                                                     <div className={"modal-header globalBgColor col-12 " +Style.modalHeader}>
-                                                        <div className={"modal-title col-10 modalheadingcont text-center underline " +Style.f14B }><u>TERMS AND CONDITIONS</u></div>
-                                                        <button type="button" className="col-2 close modalclosebut " data-dismiss="modal">&times;</button>
+                                                        <div className={"modal-title col-12 modalheadingcont pb-2 text-center underline " +Style.f14B }><img className={" "+Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><u>TERMS AND CONDITIONS</u></div>
+                                                        <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapper} data-dismiss="modal">&times;</button>
                                                     </div>
-                                                    <div className={"modal-body col-12 " +Style.modalHeader +" "+Style.modalBodyRadius}>
+                                                    <div className={"modal-body col-12  "+Style.modalBodyRadius}>
                                                         <ul className={"listStyle " +Style.listColor}>
                                                             <li>The price of products is as quoted on the site from time to time.</li>
                                                             <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
                                                             <li>Products marked as 'non-returnable' on the product detail page cannot be returned.</li>
                                                             <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
-                                                        </ul>
+                                                            <li>The price of products is as quoted on the site from time to time.</li>
+                                                            <li>Price and delivery costs are liable to change at any time, but changes will not affect orders in respect of which we have already sent you a Despatch Confirmation.</li>
+                                                            <li>Products marked as 'non-returnable' on the product detail page cannot be returned.</li>
+                                                            <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
+                                                            <li>The price of products is as quoted on the site from time to time.</li>
+                                                                                                                    </ul>
                                                     </div>
                                                 </div>
                                             </div>
