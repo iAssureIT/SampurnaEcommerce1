@@ -99,10 +99,27 @@
 	/* padding-top: 1px; */
 	border-top: solid 1px #ccc;
 }
+.colorBox{
+	text-decoration: none !important;
+	width: 60px !important;
+	height: 40px;
+	display: inline-block;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+
+}
 .sizeBox{
 	border: solid 1px #ccc;
 	text-align: center;
 	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	color: #444;
+	text-decoration: none !important;
+	width: 80px !important;
+	display: inline-block;
 }
 
 .radiusB2{

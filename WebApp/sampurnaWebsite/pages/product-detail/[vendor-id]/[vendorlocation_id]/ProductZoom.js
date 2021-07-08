@@ -85,7 +85,7 @@ class ProductZoom extends Component {
 		// console.log("productZoom image  =====",this.props.productData.productImage);
 		
 		if(this.props.productData ){
-			myprops = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
+			myprops = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage && this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
 			// const props = { width: 200, height: 200, zoomWidth: 100, offset: { vertical: 100, horizontal: 100 }, zoomLensStyle: 'cursor: zoom-in;', zoomStyle: 'z-index:1000;background-color:#fff; height:400px;width:600px;box-shadow: 0 4px 20px 2px rgba(0,0,0,.2);border-radius: 8px;', img: this.props.productData.productImage.length > 0 ? this.props.productData.productImage[0] : '/images/eCommerce/notavailable.jpg' };
 		}
 		return (

@@ -26,14 +26,14 @@ class ProductViewEcommerce extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {		
-			"productData": {},
-			"subImgArray": [],
-			"totalQuanity": 1,
-			"quanityLimit": 5,
-			"reviewData" : [],
-			"imgsrc": "",
-			"wishIconClass" : "viewWishList",
-			"wishTooltip"   : "Add to wishlist",
+			"productData"    : {},
+			"subImgArray"    : [],
+			"totalQuanity"   : 1,
+			"quanityLimit"   : 5,
+			"reviewData"     : [],
+			"imgsrc"         : "",
+			"wishIconClass"  : "viewWishList",
+			"wishTooltip"    : "Add to wishlist",
 			"productID"      : '',
 			"user_ID"        : "",
 			"userLongitude"  : "",
@@ -96,13 +96,13 @@ class ProductViewEcommerce extends Component {
 			if(this.state.productID){
 				var formvalues = {
 					"user_id"           : this.state.user_ID !== ""? this.state.user_ID : null,
-					"product_id"       : this.state.productID,
+					"product_id"        : this.state.productID,
 					"vendor_id"         : this.state.vendor_ID,
 					"vendorLocation_id" : this.state.vendorlocation_ID,
 				}
-				console.log("formvalues  => ",formvalues)
+				// console.log("formvalues  => ",formvalues)
 				if(formvalues){
-					console.log("before formvalues=",formvalues);
+					// console.log("before formvalues=",formvalues);
 					const url = "/api/products/get/one";
 					this.getProductDetails(url,formvalues);
 				}		
@@ -114,96 +114,129 @@ class ProductViewEcommerce extends Component {
 
 	getProductDetails(url,formvalues){
 		console.log("url=",url);
-		console.log("formvalues=",formvalues);
+		// console.log("formvalues=",formvalues);
 		axios.post(url,formvalues)
 			.then((response) => {
 				if(response.data){
-
 					console.log("product response = ",response.data);
-					
-					var productData = response.data.products.filter((productItem) => productItem._id === this.state.productID);
-					console.log("productData",productData[0]);
-
-					this.setState({	
-						productVarient: response.data.variants,					
-						productData   : productData[0],
-						sectionUrl    : productData[0].section.split(' ').join('-').toLowerCase(),
-						categoryUrl   : productData[0].category.split(' ').join('-').toLowerCase(),
-						section_ID    : productData[0].section_ID,
-						category_ID   : productData[0].category_ID,
-						subCategoryUrl: productData[0].subCategory ? productData[0].subCategory.replace(' ','-').toLowerCase():"",
-						selectedImage : productData[0].productImage && productData[0].productImage.lenth > 0 ? productData[0].productImage[0] : "",
-						quanityLimit  : productData[0].availableQuantity,
-						selectedColor : productData[0].color,
-						selectedSize  : productData[0].size,
-						websiteModel  : this.state.websiteModel
-					},async()=>{
-						// console.log("api data=",this.state.sectionUrl,this.state.vendor_ID);
-						
-						await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
-						.then((categoryResponse)=>{
-							if(categoryResponse.data){    
-							this.setState({
-								categoryData     : categoryResponse.data.categoryList,  
-								brandData        : categoryResponse.data.brandList, 
-							},()=>{
-								// console.log("categoryData object==",this.state.categoryData);
-								// console.log("brandData object==",this.state.brandData);
-							}); 
-							// console.log("categoryUrl=",this.state.categoryUrl); 
-							// console.log("categoryResponse=",categoryResponse.data.categoryList);
-								
-									for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
-										// console.log("categoryResponse.data.categoryList[i].categoryUrl===",categoryResponse.data.categoryList[i].categoryUrl);
-										// console.log("this.state.categoryUrl===",this.state.categoryUrl);
-										if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
-										var subCategoryData = categoryResponse.data.categoryList[i].subCategory?categoryResponse.data.categoryList[i].subCategory:[];
-										if(subCategoryData){
-											this.setState({
-												subCategoryData  : subCategoryData,
-												brandData        : this.state.brandData
-											},()=>{
-												// console.log("subCategoryData==",subCategoryData);
-											});
-										}
-										break;
-									}
-								}
-							}
-						})
-						.catch((error)=>{
-							console.log("Error while getting subcategory=",error);
-						})
-
-						var similarProductsFormvalues = {
-							product_ID     : this.state.productID,
-							vendor_ID      : this.state.vendor_ID,
-							category_ID    : this.state.category_ID,
-							// subCategory_ID : productdata.subCategory_ID,
-							section_ID     : this.state.section_ID,
-							user_ID        : this.state.user_ID
-						}
-						if(similarProductsFormvalues){
-							// console.log("similarProductsFormvalues==",similarProductsFormvalues);
-							axios.post("/api/products/get/similar_products", similarProductsFormvalues)
-							.then((similarProductResponse)=>{
-								if(similarProductResponse){
-									// console.log("similarProductResponse==",similarProductResponse);
-									this.setState({
-										newProducts : similarProductResponse.data
-									})
-								}
-							})
-							.catch((error)=>{
-									console.log("error while getting similar product=",error);
-							})
-						}
+					this.setState({
+						variantProductsList : response.data.products,
+						variants            : response.data.variants
+					},()=>{
+						// this.setProductData();
+						this.filterdataWithId();
 					})
+					
 				}
 			})
 			.catch((error) => {
 				console.log('error', error);
 			})
+	}
+
+	filterdataWithId(){
+		var productData = this.state.variantProductsList.filter((productItem) => productItem._id === this.state.productID);
+		if(productData && productData.length >0){
+			this.setProductData(productData[0]);
+		}
+	}
+
+	filterdataWithSize(){
+		var productData = this.state.variantProductsList.filter((productItem) => productItem.size === this.state.currentSize);
+		// console.log("productData==",productData);
+		if(productData && productData.length >0){
+			this.setProductData(productData[0]);
+		}
+	}
+
+	filterdataWithColor(){
+		// var productData = this.state.variantProductsList.filter((productItem) => productItem.size === this.state.currentSize);
+		var productData = this.state.variantProductsList.filter((productItem) => productItem.color === this.state.productColor);
+		// console.log("productData==",productData);
+		if(productData && productData.length >0){
+			this.setProductData(productData[0]);
+		}
+	}
+
+	setProductData(productData){
+		// console.log("variants===",this.state.variants);
+		// var productData = this.state.variantProductsList.filter((productItem) => productItem._id === this.state.productID);
+		this.setState({	
+			activeColor   : productData.color ? productData.color:"",		
+			activeSize    : productData.size ? productData.size:"",			
+			productData   : productData,
+			sectionUrl    : productData.section.split(' ').join('-').toLowerCase(),
+			categoryUrl   : productData.category.split(' ').join('-').toLowerCase(),
+			section_ID    : productData.section_ID,
+			category_ID   : productData.category_ID,
+			subCategoryUrl: productData.subCategory ? productData.subCategory.replace(' ','-').toLowerCase():"",
+			selectedImage : productData.productImage && productData.productImage.lenth > 0 ? productData.productImage[0] : "",
+			quanityLimit  : productData.availableQuantity,
+			selectedColor : productData.color,
+			selectedSize  : productData.size,
+			websiteModel  : this.state.websiteModel
+		},async()=>{
+			console.log("api data=",this.state.sectionUrl,this.state.vendor_ID);
+			
+			await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
+			.then((categoryResponse)=>{
+				if(categoryResponse.data){    
+				this.setState({
+					categoryData     : categoryResponse.data.categoryList,  
+					brandData        : categoryResponse.data.brandList, 
+				},()=>{
+					// console.log("categoryData object==",this.state.categoryData);
+					// console.log("brandData object==",this.state.brandData);
+				}); 
+				// console.log("categoryUrl=",this.state.categoryUrl); 
+				// console.log("categoryResponse=",categoryResponse.data.categoryList);
+					
+						for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
+							// console.log("categoryResponse.data.categoryList[i].categoryUrl===",categoryResponse.data.categoryList[i].categoryUrl);
+							// console.log("this.state.categoryUrl===",this.state.categoryUrl);
+							if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
+							var subCategoryData = categoryResponse.data.categoryList[i].subCategory?categoryResponse.data.categoryList[i].subCategory:[];
+							if(subCategoryData){
+								this.setState({
+									subCategoryData  : subCategoryData,
+									brandData        : this.state.brandData
+								},()=>{
+									// console.log("subCategoryData==",subCategoryData);
+								});
+							}
+							break;
+						}
+					}
+				}
+			})
+			.catch((error)=>{
+				console.log("Error while getting subcategory=",error);
+			})
+
+			var similarProductsFormvalues = {
+				product_ID     : this.state.productID,
+				vendor_ID      : this.state.vendor_ID,
+				category_ID    : this.state.category_ID,
+				// subCategory_ID : productdata.subCategory_ID,
+				section_ID     : this.state.section_ID,
+				user_ID        : this.state.user_ID
+			}
+			if(similarProductsFormvalues){
+				// console.log("similarProductsFormvalues==",similarProductsFormvalues);
+				axios.post("/api/products/get/similar_products", similarProductsFormvalues)
+				.then((similarProductResponse)=>{
+					if(similarProductResponse){
+						// console.log("similarProductResponse==",similarProductResponse);
+						this.setState({
+							newProducts : similarProductResponse.data
+						})
+					}
+				})
+				.catch((error)=>{
+						console.log("error while getting similar product=",error);
+				})
+			}
+		})
 	}
 	addtocart(event) {
 		event.preventDefault();	
@@ -395,7 +428,7 @@ class ProductViewEcommerce extends Component {
 			"vendor_ID"      : this.state.vendor_ID, 
 			"sectionUrl"     : this.state.sectionUrl,
 			"categoryUrl"    : this.state.categoryUrl,
-			"subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
+			// "subCategoryUrl" : this.state.blockSettings.subCategory !== "all"?[this.state.blockSettings.subCategory.replace(/\s/g, '-').toLowerCase()]:[],
 			"userLatitude"   : this.state.userLatitude,
 			"userLongitude"  : this.state.userLongitude,
 			"startRange"     : 0,
@@ -404,11 +437,12 @@ class ProductViewEcommerce extends Component {
 			"brand"          : this.state.brandArray 
 		  }  
 			$("html, body").animate({ scrollTop: 0 }, 800);
-			this.getProductList(this.state.productApiUrl,formValues);
+			// this.getProductList(this.state.productApiUrl,formValues);
 		})
 	  }
 	
 	render() {
+		// console.log("this.state.currentSize",this.state.currentSize);
 		// console.log("product view eccomerce data  =====",this.state.productData);
 		var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.state.productData._id) : [];
 		var wishClass = '';
@@ -423,7 +457,7 @@ class ProductViewEcommerce extends Component {
 			tooltipMsg = 'Add To Wishlist';
 		} 
 		return (
-			<section>
+			 <section>
 				<div className={"col-12 pt-2 mt-2 " +Style.productDetailVendorName}> 
 					<div className="row">
 						<span className="col-10  "> 
@@ -507,18 +541,19 @@ class ProductViewEcommerce extends Component {
 
 					<div className="col-12 col-lg-9 col-xl-9 col-md-9 col-sm-12 col-xs-12 boxBorderInner mobileViewNoPadding mt50 ">
 						<div className="row mb-5">
-							{this.state.productData?
+						{this.state.productData?
 							<ProductZoom 
 								productData = {this.state.productData}
 							/>
-							:null}
+						:
+							null
+						}
 							<div className={"col-12 col-xl-7 col-lg-7 col-md-12 col-sm-12 " +Style.topSpace}>
 
 							<Message messageData={this.state.messageData} />
 							{this.state.productData?
 							<div className="col-12">
 								<div className="row">
-								
 								{this.state.productData.productNameRlang?
 									<div className={"col-12 globalProductItemName NoPadding productDetailsMB" } title={this.state.productData.productNameRlang}>
 										<span className={" RegionalFont ellipsis globalProdName  " +Style.productNameClassNew}>{this.state.productData.productNameRlang} </span>&nbsp;&nbsp;&nbsp;   
@@ -529,11 +564,6 @@ class ProductViewEcommerce extends Component {
 										<div ><span className={" " +Style.productNameClassNew}> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> </div>
 									</div>
 								}
-								{/* {!this.state.productData.brandNameRlang?
-									<div className={"col-12 globalProduct_brand RegionalFont mt-2 NoPadding " +Style.brandName} title={this.state.productData.brandNameRlang}>Brand : {this.state.productData.brandNameRlang}</div>
-									:
-									<div className={"col-12 globalProduct_brand NoPadding mt-2 "  +Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
-								} */}
 									<div className={"col-12 globalProduct_brand NoPadding mt-2 "  +Style.brandName} title={this.state.productData.brand}>Brand : {this.state.productData.brand}</div>
 									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
 										{                                  
@@ -553,17 +583,58 @@ class ProductViewEcommerce extends Component {
 
 									<div className={"col-12 NoPadding "  }>
 										<div className={"col-12 NoPadding pt-4 mt-4 "+Style.productSize}>
-											<span className={Style.brandName1}>Size :</span> 
-											<span>{this.state.productData.size}</span>&nbsp;{this.state.productData.unit} </div>
-											{
-												Array.isArray(this.state.productVarient) && this.state.productVarient.map((varientData,index)=>{
+											<span className={Style.brandName1}>Size : </span>&nbsp; 
+											<span>{this.state.productData.size}</span>&nbsp;{this.state.productData.unit} 
+										</div>
+										
+										{/* product variant code */}
+										<div className="container NoPadding mt-3">
+											<ul className="nav nav-tabs">
+												{Array.isArray(this.state.variants) && this.state.variants.map((productItem,index)=>{
 													return(
-														<div className={"col-2 "+Style.sizeBox} key={index}>
-															10
+														<li className="nav-item col-2 sizeVariantTab NoPadding ml-2 mb-4" key={index}>
+															<a className={"nav-link "+productItem.size === this.state.currentSize ? 'active ' :' '+Style.sizeBox} data-toggle="tab" href={"#"+productItem.size} 
+																onClick={()=>{
+																this.setState({
+																	currentSize      : productItem.size
+																},()=>{
+																		this.filterdataWithSize();
+																	}
+																)}}
+															>
+																{productItem.size}
+															</a>
+														</li>
+													)})											
+												}
+											</ul>
+											
+											<div class="tab-content">
+											{Array.isArray(this.state.variants) && this.state.variants.map((productItem,productIndex)=>{
+												return(	 
+													<div id={productItem.size} class={"container tab-pane " + (productItem.size === this.state.activeSize ? 'active ': 'fade')} key={productIndex}><br/>
+														<div className={ "col-12 NoPadding  " +Style.brandName1}>Color : {this.state.productData.color} </div>&nbsp;
+														<div className="row">
+														{Array.isArray(productItem.color) && productItem.color.map((colorItem,colorIndex)=>{
+															return(	
+																<div className={" col-2 NoPadding mt-2 "+colorItem === this.state.activeColor ? ' active ': ''}  key={colorIndex} productId = {this.state.productData._id} 
+																onClick={()=>{
+																	this.setState({
+																		productColor: colorItem,
+																	},()=>{
+																		this.filterdataWithColor();
+																	});
+																}}>
+																	<span className={"col-12 mr-2  "+Style.colorBox} style={{ backgroundColor: colorItem}}> </span>
+																</div>
+															)})
+														}
 														</div>
-													)
-												})
+													</div>
+												)})
 											}
+											</div>
+										</div>
 									</div>
 
 									<div className={"col-12 adCart mobileViewNoPadding mt-4 "+Style.productDetailsInfo}>

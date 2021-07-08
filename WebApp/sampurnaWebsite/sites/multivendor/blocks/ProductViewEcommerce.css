@@ -795,8 +795,6 @@ cursor: zoom-in;
 .zoom:hover,  
 .zoom:active,   
 .zoom:focus {
-/**adjust scale to desired size, 
-add browser prefixes**/
 transform: scale(1.2);
 position:relative;
 }
@@ -806,17 +804,6 @@ position:relative;
 #linkToFeatures ul {
     list-style: none;
 }
-
-
-
-
-
-
-.show {
-  /* width: 400px;
-  height: 400px; */
-}
-
 .small-img {
   width: 350px;
   height: 70px;
@@ -976,7 +963,7 @@ position:relative;
     top: 0px;
 }
 .productCode{
-    font-size: 14px !important;
+    font-size: 11px !important;
     font-weight: 500;
 }
 .discountPercent{
