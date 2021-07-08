@@ -184,15 +184,15 @@ class header extends React.Component {
                     </span> 
                 }
                 </div>
-                <div id="loginFormModal" className={"modal in " +Style.loginBGImg}  data-keyboard="false" >
+                <div id="loginFormModal" className={"modal in pb-4 " +Style.loginBGImg}  data-keyboard="false" >
                     <div className="modal-dialog modal-xl">                                        
                         <div className={"modal-content loginModalContent  loginBackImageHeight " +Style.signinBG} style={{'background': '#fff'}}>                            
                             <div className="modal-body LoginModalBody">  
                                 <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>  
                                 <div className="row"> 
                                     <div className="col-7 NoPadding pb-4 modalImgBlock">
-                                        <div className="col-6 offset-3 mt-5">
-                                            <Websitelogo />                                            
+                                        <div className="col-12 mx-auto">
+                                        <div className={"modal-title col-12 pt-5 modalheadingcont pb-2 text-center underline " +Style.f14B }><img className={" "+Style.modalLogoWrapper} src="/images/eCommerce/TrollyLogo.png" height="54px" alt="T&C MODAL-LOGO"/></div>
                                         </div>
                                         {/*<div className="col-10 NoPadding offset-1 mt-3">
                                             <h6 className="mb-4 ">Benefits of taking membership...</h6>

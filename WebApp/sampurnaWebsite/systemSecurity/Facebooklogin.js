@@ -66,11 +66,13 @@ render() {
     return (
             <div className="col-12 NoPadding">
                 <FacebookLogin
+                textButton="Continue with Facebook"
                   appId="507698857234444"
                   autoLoad={false}
                   fields="name,email,picture"
                   scope="public_profile,email"
                   callback={this.responseFacebook}
+                  className="facebookBtnWrapper"
                 />
             </div>
     );

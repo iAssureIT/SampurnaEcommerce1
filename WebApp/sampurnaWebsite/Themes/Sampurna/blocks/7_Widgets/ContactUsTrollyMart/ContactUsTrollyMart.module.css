@@ -18,7 +18,9 @@
   margin-bottom: 250px;
   /* background-color: brown; */
 }
-
+.getInTouchBtnMainWrapper{
+  margin-left: 13px!important;
+}
 .contactusFormWrapperLeftSide{
   min-height: 450px !important;;
   height: auto;

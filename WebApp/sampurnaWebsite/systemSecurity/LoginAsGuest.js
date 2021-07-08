@@ -65,7 +65,7 @@ customerloginAsGuest(event){
 render() {
     return (
         <div className="col-12 NoPadding">
-              <button className="btn guestBtn col-12 NoPadding" onClick={this.customerloginAsGuest.bind(this)}>Login As a Guest</button>
+              <button className="btn guestBtn col-12 NoPadding" onClick={this.customerloginAsGuest.bind(this)}>Continue As A Guest</button>
         </div>
     );
   }

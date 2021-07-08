@@ -59,15 +59,27 @@ responseGoogle(response){
 render() {
     return (
         <div className="col-12 NoPadding">
-              <GoogleLogin
+              {/* <GoogleLogin
                 clientId="289838416253-abo3h9t3cktstph4mp30vliol7d3ene5.apps.googleusercontent.com"
-                buttonText="Login"
+                buttonText="Continue with Google"
+               
                 onSuccess={this.responseGoogle.bind(this)}
                 // onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={false}
                 // onLogoutSuccess={logout}
-            />
+            /> */}
+            <GoogleLogin
+                clientId="289838416253-abo3h9t3cktstph4mp30vliol7d3ene5.apps.googleusercontent.com"
+                onSuccess={this.responseGoogle.bind(this)}
+                  // onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                  isSignedIn={false}
+                  className="googleBgColor text-center"
+                >
+    
+            <span className=" gooogleTextWrapper"> Continue with Google</span>
+          </GoogleLogin>
         </div>
     );
   }

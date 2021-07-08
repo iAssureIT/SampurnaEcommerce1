@@ -207,7 +207,7 @@ export default class ContactUsTrollyMart extends Component{
 		// console.log("this.state.blocks.bgImage ===", response.data )
 
 		return(
-			<section className={ "col-12 pt-4 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
+			<section className={ "col-12 pt-3 contactUsTrollyMainWrapper "+S.contactUsTrollyMainWrapper}>
 				<div className="row">
 					<div className={ "col-lg-12  contactUsTrollyBreadcumWrapper "+S.contactUsTrollyBreadcumWrapper} style={{backgroundImage: "url("+this.state.blocks.bgImage+ ")"}}></div>
 					<div className={ "col-lg-8 offset-lg-2 contactusFormWrapperMain "+S.contactusFormWrapperMain}>
@@ -228,7 +228,7 @@ export default class ContactUsTrollyMart extends Component{
 											<div className="form-group mt-5">
 												<label for="name" className={ "control-label contactusFormInputWrapper "+S.contactusFormInputWrapper}>How we can help you?</label>
 												<input className={ "form-control contactusFormInputInsideWrapper "+S.contactusFormInputInsideWrapper} for="message" name="message" id="message" rows="4" ref="message" required value={this.state.message} onChange={this.handleChange.bind(this)} /> </div>
-											<div className={ "col-lg-12 pb-lg-5 pb-0 "}>
+											<div className={ "col-lg-12 pb-lg-5 pb-0 "+S.getInTouchBtnMainWrapper}>
 												<button type="button" className={ "btn btn-default float-right getInTouchBtnWrapper "+S.getInTouchBtnWrapper} id="myBtn" value=" Send " onClick={this.Submit.bind(this)}>Send&nbsp;<i className="far fa-paper-plane" aria-hidden="true"></i></button>
 											</div>
 										</form> {/* </div> */} </div>
