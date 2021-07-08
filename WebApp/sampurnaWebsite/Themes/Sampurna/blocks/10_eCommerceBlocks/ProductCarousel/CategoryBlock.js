@@ -56,7 +56,7 @@ class CategoryBlock extends Component{
     render(){
       // console.log("props category ====",this.props.categoryData);
       return (
-        <div className={"container NoPadding " +Style.categoryCarousel}>
+        <div className={"container-fluid NoPadding " +Style.categoryCarousel}>
             <Carousel 
               className=""
                   swipeable={true}
