@@ -57,10 +57,10 @@ class ProductViewEcommerce extends Component {
 		if(userDetails){
             if(userDetails.user_id){
 				this.setState({
-					user_ID :  userDetails.user_id,
+					user_ID       :  userDetails.user_id,
 					userLongitude : userDetails.userLatitude,
 					userLongitude : userDetails.userLongitude,
-					"delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
+					"delLocation" : sampurnaWebsiteDetails.deliveryLocation.address,
 				},()=>{
 				})
             }
@@ -71,13 +71,13 @@ class ProductViewEcommerce extends Component {
 		  var vendor_ID              = url[4];
 		  var vendorlocation_ID      = url[5];
 		  var productId             = url[6];
-		  console.log("productId==",productId);
+		//   console.log("productId==",productId);
 		  this.setState({
 			"vendor_ID"         : vendor_ID,
 			"vendorlocation_ID" : vendorlocation_ID,
 			"productID"         : productId,
 		  },async()=>{
-			  console.log("productID===",this.state.productID);
+			//   console.log("productID===",this.state.productID);
 			if(this.state.vendor_ID){
 				await axios.get('/api/entitymaster/get/one/'+this.state.vendor_ID)    
 				.then((vendorResponse)=>{
@@ -92,36 +92,50 @@ class ProductViewEcommerce extends Component {
 				console.log("error in get vendor=",error);
 				})
 			}
+
 			if(this.state.productID){
-				if(this.state.user_ID !== ""){
-					var url = "/api/products/get/one/" + this.state.productID +"/" +this.state.user_ID;
-				}else{
-					var url = "/api/products/get/one/" + this.state.productID +"/" +null;
+				var formvalues = {
+					"user_id"           : this.state.user_ID !== ""? this.state.user_ID : null,
+					"product_id"       : this.state.productID,
+					"vendor_id"         : this.state.vendor_ID,
+					"vendorLocation_id" : this.state.vendorlocation_ID,
 				}
-				console.log("url",url);	
-				this.getProductDetails(url);		
+				console.log("formvalues  => ",formvalues)
+				if(formvalues){
+					console.log("before formvalues=",formvalues);
+					const url = "/api/products/get/one";
+					this.getProductDetails(url,formvalues);
+				}		
 			}
 			})
 		}
 		
 	}
 
-	getProductDetails(url){
-		axios.get(url)
+	getProductDetails(url,formvalues){
+		console.log("url=",url);
+		console.log("formvalues=",formvalues);
+		axios.post(url,formvalues)
 			.then((response) => {
 				if(response.data){
+
 					console.log("product response = ",response.data);
-					this.setState({						
-						productData   : response.data,
-						sectionUrl    : response.data.section.split(' ').join('-').toLowerCase(),
-						categoryUrl   : response.data.category.split(' ').join('-').toLowerCase(),
-						section_ID    : response.data.section_ID,
-						category_ID   : response.data.category_ID,
-						subCategoryUrl: response.data.subCategory ? response.data.subCategory.replace(' ','-').toLowerCase():"",
-						selectedImage : response.data.productImage && response.data.productImage.lenth > 0 ? response.data.productImage[0] : "",
-						quanityLimit  : response.data.availableQuantity,
-						selectedColor : response.data.color,
-						selectedSize  : response.data.size,
+					
+					var productData = response.data.products.filter((productItem) => productItem._id === this.state.productID);
+					console.log("productData",productData[0]);
+
+					this.setState({	
+						productVarient: response.data.variants,					
+						productData   : productData[0],
+						sectionUrl    : productData[0].section.split(' ').join('-').toLowerCase(),
+						categoryUrl   : productData[0].category.split(' ').join('-').toLowerCase(),
+						section_ID    : productData[0].section_ID,
+						category_ID   : productData[0].category_ID,
+						subCategoryUrl: productData[0].subCategory ? productData[0].subCategory.replace(' ','-').toLowerCase():"",
+						selectedImage : productData[0].productImage && productData[0].productImage.lenth > 0 ? productData[0].productImage[0] : "",
+						quanityLimit  : productData[0].availableQuantity,
+						selectedColor : productData[0].color,
+						selectedSize  : productData[0].size,
 						websiteModel  : this.state.websiteModel
 					},async()=>{
 						// console.log("api data=",this.state.sectionUrl,this.state.vendor_ID);
@@ -439,7 +453,7 @@ class ProductViewEcommerce extends Component {
 
 				<div className="col-12 mt20 mb20 boxBorder mobileViewNoPadding">
 				<div className="row">
-					<div className={"col-12 col-lg-3 col-xl-3 col-md-3 col-sm-12 col-xs-12 mt-2 FiltersBlock " +Style.FilterBlkBox}>
+					<div className={"col-12 col-lg-3 col-xl-3 col-md-3 col-sm-12 col-xs-12 mt-2 FiltersBlock NoPadding " +Style.FilterBlkBox}>
 						{ this.state.subCategoryData && this.state.subCategoryData.length>0?
 						< CategoryFilters 
 							categoryData       = {this.state.subCategoryData}
@@ -454,11 +468,12 @@ class ProductViewEcommerce extends Component {
 							limitRange         = {this.state.limitRange}
 						/>
 						:
-							<div className="col-12 pt-4"> No SubCategory available</div>
+							// <div className="col-12 pt-4"> No SubCategory available</div>
+							null
 						}
 
 						{this.state.brandData && this.state.brandData.length>0?  
-							<div className="panel-group" >     
+							<div className="panel-group NoPadding" >     
 								{this.state.brandData.length && this.state.brandData[0].brand!=' '>0?                 
 								<div className={" " +style.categoryFilterTitle}> Brand </div>  
 								:null}
@@ -523,19 +538,35 @@ class ProductViewEcommerce extends Component {
 									<div className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 NoPadding "  }>
 										{                                  
 											this.state.productData.discountPercent ?
-											<div className="col-12 NoPadding priceWrapper">
+											<div className="col-12 NoPadding priceWrapper mb-2">
 												<span className={" " +Style.f12}>Price &nbsp;:&nbsp;&nbsp; <strike className={" " +Style.disPriceColor}>&nbsp;{this.state.currency} &nbsp;{this.state.productData.originalPrice}&nbsp;</strike>&nbsp;&nbsp;&nbsp;
 												<span className={" " +Style.priceColor}>{this.state.currency} &nbsp;{(this.state.productData.discountedPrice).toFixed(2)}</span>
 												</span>
 											</div>
 											:  
 											<div className={"col-12 NoPadding  priceWrapper NoPadding"}>
-											<span className="price">
+												<span className="price">
 												{this.state.currency} &nbsp;{this.state.productData.originalPrice? (this.state.productData.originalPrice).toFixed(2):0} </span> &nbsp;                                      
 											</div> 
 										}
 									</div>
-									<div className="col-12 adCart mobileViewNoPadding">
+
+									<div className={"col-12 NoPadding "  }>
+										<div className={"col-12 NoPadding pt-4 mt-4 "+Style.productSize}>
+											<span className={Style.brandName1}>Size :</span> 
+											<span>{this.state.productData.size}</span>&nbsp;{this.state.productData.unit} </div>
+											{
+												Array.isArray(this.state.productVarient) && this.state.productVarient.map((varientData,index)=>{
+													return(
+														<div className={"col-2 "+Style.sizeBox} key={index}>
+															10
+														</div>
+													)
+												})
+											}
+									</div>
+
+									<div className={"col-12 adCart mobileViewNoPadding mt-4 "+Style.productDetailsInfo}>
 										<div className="row spc">
 											<form id="productView" className="col-12 NOpadding">
 												<div className="row">
@@ -607,12 +638,22 @@ class ProductViewEcommerce extends Component {
 											{this.state.productData.productReturnable === "returnable"?
 											<div className={"col-12 NoPadding mt-4"}>
 												<div className="row ">
-													<div className="col-1 mt-2">
+													<div className="col-12 mt-2">
 														<i className="fa fa-undo "></i>
+														<span className="col-12 returnabletxt">Enjoy Free return for this item
+															<i className="fa fa-angle-down"></i> <br/>
+														</span>
 													</div>
-													<div className="col-10">
-														<div className="col-12">FREE RETURNS</div>
-														<div className="col-12">Get free returns on eligible items</div>
+													<div className="col-12">
+														<p>Consumable products are eligible for return,<br/>
+															within 8 hours from the delivery time of the order.<br/>
+
+															Non consumable products are eligible for<br/>
+															return, within 5 days from the delivery<br/>
+															time of the order
+															 
+															return policy &nbsp;<Link href={"/privacy-policy"}>Read more</Link>
+														</p>
 													</div>
 												</div>
 											</div>
@@ -623,8 +664,14 @@ class ProductViewEcommerce extends Component {
 														<i className="fa fa-undo "></i>
 													</div>
 													<div className="col-10">
-														<div className="col-12">NO RETURNS</div>
-														<div className="col-12">Sorry, This product is non returnable</div>
+														<div className="col-12 returnabletxt">This item is non-returnable 
+														&nbsp;<i className="fa fa-angle-down"></i> <br/>
+														</div>
+														<div className="col-12">
+															<p>For more details about knock knock return <br/>
+															policy &nbsp;<Link href="/privacy-policy">Read more</Link>
+															</p>
+														</div>
 													</div>
 												</div>
 											</div>
