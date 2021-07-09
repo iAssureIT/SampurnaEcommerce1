@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react';
+import RadialGradient from 'react-native-radial-gradient';
 import {
   ScrollView,
   Text,
@@ -72,6 +73,13 @@ export const PrivacyPolicy  = (props)=>{
             /> */}
             <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
                 <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                    <View style={[styles.aboutUsHeader]}>
+                        <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
+                                colors={['#ffffff','#03355480']}
+                                radius={220}>
+                                <Text style={[styles.HeaderText]}>Privacy Policy</Text>
+                        </RadialGradient>
+                    </View>
                     {
                         pageBlockes && pageBlockes.length>0?
                             pageBlockes.map((item,index)=>{

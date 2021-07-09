@@ -1,7 +1,12 @@
 import React,{useEffect,useState,useRef} from 'react';
+import FontAwesome, { SolidIcons, RegularIcons, BrandIcons } from 'react-native-fontawesome';
 import {
   ScrollView,
   Text,
+  Image,
+  Input,
+  TextInput,
+  Button,
   View,StyleSheet,
 } from 'react-native';
 import {Icon,}                  from "react-native-elements";
@@ -134,13 +139,14 @@ const FormBody = (props) => {
     const [value, setValue] = useState("");
     const [valid, setValid] = useState(false);
     return (
-        <View style={{flex:1,backgroundColor:"#fff"}}>
-            <ScrollView contentContainerStyle={{padding:15,backgroundColor:"#fff"}}>
-                <View style={{ paddingHorizontal: 0 }}>
-                    <View style={{ flex: 1, marginBottom: 15, alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
-                        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: 15 }}>
+        <View style={{flex:1,backgroundColor:"#fff",paddingVertical:15}}>
+            <ScrollView contentContainerStyle={{paddingVertical:15,backgroundColor:"#fff"}}>
+                <View style={{ paddingHorizontal: 15 }}>
+                    <View style={{ flex: 1,height:230,backgroundColor:'#ccc',marginBottom: 15, alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
+                        {/* <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: 15 }}>
                             Are you facing any issue or do you have any feedback for {companyName}? Please choose any one of the options below to get in touch with us.
-                        </Text>
+                        </Text> */}
+                        <Image></Image>
                     </View>
                     {/* <View style={{ flex: 1, flexDirection:'row',marginBottom: 5,alignItems:'center' }}>
                         <View  style={{ flex: 0.1}}>
@@ -154,75 +160,42 @@ const FormBody = (props) => {
 
                         </View>
                     </View> */}
-
-                    <View style={{ flex: 1, flexDirection:'row',marginBottom: 5,alignItems:'center' }}>
-                        <View  style={{ flex: 0.1}}>
-                            <Icon size={25} name='phone' type='Feather' color='#77b5fe' style={{}}/>
-                        </View>
-                        <View  style={{ flex: 0.9}}>
-                            <Text onPress={()=>{Linking.openURL('tel:'+companyPhone);}} 
-                                style={[commonStyles.linkText,{color:'#0000FF'}]}>
-                            {companyPhone}
-                            </Text>
-                        </View>
-                    </View>
-
-                    <View style={{ flex: 1, flexDirection:'row', marginBottom: 5,alignItems:'center' }}>
-                        <View  style={{ flex: 0.1}}>
-                            <Icon size={25} name='gmail' type='material-community' color='red' style={{}}/>
-                        </View>
-                        <View  style={{ flex: 0.9}}>
-                            <Text onPress={() => Linking.openURL('mailto:'+companyEmail+'?subject=I need your help &body=Dear '+companyName+' Support,') }
-                            style={[commonStyles.linkText,{color:'#0000FF'}]}>
-                                {companyEmail}
-                            </Text>
-                        </View>
-                    </View>
-
-                    <View style={{ flex: 1, flexDirection:'row', marginBottom: 5,alignItems:'center' }}>
-                        <View  style={{ flex: 0.1}}>
-                            <Icon size={25} name='web' type='material-community' color='#666' style={{}}/>
-                        </View>
-                        <View  style={{ flex: 0.9}}>
-                            <Text onPress={() => Linking.openURL(website_url) } 
-                                style={[commonStyles.linkText,{color:'#0000FF'}]}>
-                                {website_url}
-                            </Text>
-                        </View>
-                    </View>
+                    <View style={{flex:1,alignSelf: 'center', justifyContent: 'center', alignItem: 'center'}}>
+                        <Text style={[styles.mailText]}>knockknock@gmail.com</Text>
+                    </View>                   
                 </View>  
 
                 <View style={{marginTop:15,paddingBottom:15}}>
                     <View style={{marginBottom:5}}>
                         <FormInput
                             labelName       = "Your Name"
-                            placeholder     = "Please enter your name..."
+                            // placeholder     = "Please enter your name..."
                             onChangeText    = {handleChange('name')}
                             required        = {true}
                             name            = "name"
                             errors          = {errors}
                             touched         = {touched}
-                            iconName        = {'user'}
+                            // iconName        = {'user'}
                             iconType        = {'font-awesome'}
                         />
                      </View>   
                      <View style={{marginBottom:5}}>
                         <FormInput
                             labelName       = "Email"
-                            placeholder     = "Please enter your email..."
+                            // placeholder     = "Please enter your email..."
                             onChangeText    = {handleChange('email')}
                             required        = {true}
                             name            = "email"
                             errors          = {errors}
                             touched         = {touched}
-                            iconName        = {'email'}
+                            // iconName        = {'email'}
                             iconType        = {'material-community'}
                             autoCapitalize  = "none"
                             keyboardType    = "email-address"
                         />
                     </View>    
                     <View style={{marginHorizontal:10,marginBottom:5}}>
-                        <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 14,paddingVertical:2}}>
+                        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingVertical:2}}>
                             <Text>Phone Number</Text>{' '}
                             <Text style={{color: 'red', fontSize: 12}}>
                             *
@@ -249,26 +222,93 @@ const FormBody = (props) => {
                         />
                         <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
                     </View> 
-                    <View style={{marginBottom:5}}>
+                    <View style={{marginBottom:20,marginHorizontal:10}}>
+                        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,paddingBottom:15}}>
+                            <Text>Message</Text>{' '}
+                            <Text style={{color: 'red', fontSize: 12}}>
+                            *
+                            </Text>
+                        </Text>
+                        <TextInput
+                            style={[styles.msgContainerStyle,{textAlignVertical:'top',paddingLeft:10, paddingTop: 5, paddingBottom:5}]}
+                            multiline={true}
+                            numberOfLines={5}
+                            label="Message"
+                            // placeholder="Type here to translate!"
+                            onChangeText={handleChange('message')}
+                            // defaultValue={text}
+                        />
+                    </View>
+                    {/* <View style={{marginBottom:0}}>
                         <FormInput
                             labelName     = "Message"
-                            placeholder   = "How we can help you?"
+                            // placeholder   = "How we can help you?"
                             onChangeText  = {handleChange('message')}
                             errors        = {errors}
                             name          = "message"
                             required      = {true}
                             touched       = {touched}
-                            iconName      = {'comment'}
+                            // iconName      = {'comment'}
+                            // style         = {{borderWidth:1,height:150,borderColor:"#ccc",marginTop:150,marginBottom:150}}
                             iconType      = {'material-community'}
                         />
-                    </View>    
-                    <FormButton
-                    title       = {'Send'}
-                    onPress     = {handleSubmit}
-                    background  = {true}
-                    // loading     = {btnLoading}
-                    />
+                    </View>  */}                    
+                    <View style={{marginLeft:250,marginRight:10}}>
+                        <FormButton
+                        title       = {'Send'}
+                        onPress     = {handleSubmit}
+                        background  = {true}
+                        iconName      = {'comment'}
+                        style       = {{borderBottomLeftRadius:9,borderBottomRightRadius:0,borderTopLeftRadius:9,borderTopRightRadius:9,justifyContent: 'end', alignItem: 'end'}}
+                        // loading     = {btnLoading}
+                        />
+                    </View>
+                    {/* <View
+                        style={styles.button}>
+                        <Icon
+                            name='fontawesome|paper-plane'
+                            size={25}
+                            color='#3b5998'
+                            style={{height:25,width:25}}/>
+                        <Text style={styles.buttonText}>Send</Text>
+                    </View> */}
+                    
                 </View>
+                <View style={{ flex: 1, flexDirection:'row',marginBottom: 5,alignItems:'center' }}>
+                        <View  style={{ flex: 0.1}}>
+                            <Icon size={25} name='phone' type='Feather' color='#77b5fe' style={{}}/>
+                        </View>
+                        <View  style={{ flex: 0.9}}>
+                            <Text onPress={()=>{Linking.openURL('tel:'+companyPhone);}} 
+                                style={[commonStyles.linkText,{color:'#000000'}]}>
+                            {companyPhone}
+                            </Text>
+                        </View>
+                    </View>
+
+                    <View style={{ flex: 1, flexDirection:'row', marginBottom: 5,alignItems:'center' }}>
+                        <View  style={{ flex: 0.1}}>
+                            <Icon size={25} name='gmail' type='material-community' color='red' style={{}}/>
+                        </View>
+                        <View  style={{ flex: 0.9}}>
+                            <Text onPress={() => Linking.openURL('mailto:'+companyEmail+'?subject=I need your help &body=Dear '+companyName+' Support,') }
+                            style={[commonStyles.linkText,{color:'#000000'}]}>
+                                {companyEmail}
+                            </Text>
+                        </View>
+                    </View>
+
+                    <View style={{ flex: 1,flexDirection:'row', marginBottom: 35,alignItems:'center' }}>
+                        <View  style={{ flex: 0.1}}>
+                            <Icon size={25} name='web' type='material-community' color='#666' style={{}}/>
+                        </View>
+                        <View  style={{ flex: 0.9}}>
+                            <Text onPress={() => Linking.openURL(website_url) } 
+                                style={[commonStyles.linkText,{color:'#000000'}]}>
+                                {website_url}
+                            </Text>
+                        </View>
+                    </View>
             </ScrollView>
         </View>
     );
@@ -277,10 +317,12 @@ const FormBody = (props) => {
 
 const styles1 = StyleSheet.create({
     containerStyle:{
-       borderWidth:1,
-       borderRadius:5,
+    //    borderWidth:1,
+    //    borderRadius:5,
        width:"100%",
-       borderColor:"#ccc",
+    //    borderColor:"#ccc",
+        borderBottomWidth:1,
+        borderBottomColor:"#ccc",
        backgroundColor:"#fff"
      },
      textInputStyle:{

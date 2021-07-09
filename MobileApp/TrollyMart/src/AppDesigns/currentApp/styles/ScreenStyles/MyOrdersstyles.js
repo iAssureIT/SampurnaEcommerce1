@@ -458,8 +458,22 @@ export default StyleSheet.create({
     // height:43,
   },
 
+  msgContainerStyle:{
+    borderWidth:1,
+    borderRadius:5,
+    height:100,
+    // marginBottom:20,
+    // marginVertical:5,
+    borderColor:"#ccc",
+    paddingHorizontal:0,    
+  },
 
-
+  msgInputPlace:{
+    fontSize:14,
+    fontFamily:'Montserrat-Medium',
+    // textAlignVertical:'top',
+    color:"#333",
+  },
 
   confirmbtn:{
     marginTop:15,
@@ -511,5 +525,65 @@ export default StyleSheet.create({
     borderBottomColor: '#ccc',
     paddingBottom:15,
     borderStyle: 'dotted',
+  },
+  aboutUsHeader:{
+    // flex:1,flexDirection:"row",
+    height:37,
+    marginTop:15,
+    marginBottom:15,
+    // backgroundImage: 'radial-gradient(circle, #ffffff, #e2e3ea, #c3c9d5, #a1b0c0, #7d98aa)',
+  },
+  HeaderText:{
+    fontSize:15,
+    fontWeight:'bold',
+    zIndex:999,
+    color:'#000',     
+  },
+  textBox:{
+    marginHorizontal:21,
+    paddingHorizontal:15,
+    borderRadius:9,
+    color:'#10344A',
+    fontSize:12,
+    height:95,
+    position:'absolute',
+    top:100,
+    backgroundColor:'#F5F5F5',
+    zIndex:999,
+  },
+
+  aboutImg:{
+    height:119,
+    width:"100%",
+    marginBottom:95,
+    // opacity: 0.8,
+    resizeMode:'cover',
+  },
+  queBox:{
+    maxHeight:50,
+    borderRadius:15,
+    marginBottom:15,
+    marginHorizontal:15,
+    elevation: 3,
+    color:'#000',
+  },
+  queAns:{
+    minHeight:118,
+    paddingHorizontal:10,
+    paddingVertical:10,
+    marginTop:-15,
+    marginBottom:15,
+    borderBottomLeftRadius:9,
+    borderBottomRightRadius:9,
+    elevation:2,
+    backgroundColor:'#fff',
+    borderColor:'#707070',
+  },
+
+  mailText:{
+    fontSize:14,
+    fontFamily:"Montserrat-SemiBold",
+    color:'#000',
+    marginBottom:15,
   },
 })

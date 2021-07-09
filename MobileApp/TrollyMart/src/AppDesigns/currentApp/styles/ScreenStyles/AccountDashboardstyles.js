@@ -91,6 +91,7 @@ export default StyleSheet.create({
   accuserinfo:{
     backgroundColor:'#fff',
     marginTop:0,
+    minHeight:400,
     paddingBottom:15,
     marginTop:15
   },
@@ -285,6 +286,31 @@ export default StyleSheet.create({
         alignItems:'center',
       }
     })
+  },
+
+  creditTitle:{
+    fontSize:18,
+    fontFamily:"Montserrat-Bold",
+    color:'#000',
+  },
+
+  headerText1:{
+    color:"#033554",
+    fontSize:12,
+  },
+
+  headerText2:{
+    color:"#707070",
+    fontSize:9,
+  },
+
+  cardCredit:{
+    // height:43,
+    marginVertical:10,
+    color:'#000',
+    // backgroundColor:'red',
+    borderBottomWidth:1,
+    borderColor:'#ccc',
   },
 
 })

@@ -77,10 +77,10 @@ export const ContactUs = (props)=>{
                 <View styles={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 20 }}>
                         <View styles={{ marginBottom: 10, borderWidth: 1, borderColor: '#aaa', borderRadius: 5, shadowRadius: 5, }}>
                         <View style={{ paddingHorizontal: 0 }}>
-                                <View style={{ flex: 1, paddingHorizontal: 20, marginTop: 15, alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
-                                    <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: 15 }}>
+                                <View style={{ flex: 1,height:230, paddingHorizontal: 20, marginTop: 15, alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
+                                    {/* <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: 15 }}>
                                         Are you facing any issue or do you have any feedback for {companyName}? Please choose any one of the options below to get in touch with us.
-                                    </Text>
+                                    </Text> */}
                                 </View>
                                 <View style={{ flex: 1, flexDirection:'row',   marginTop: 35 }}>
                                     <View  style={{ flex: 0.15,marginTop: 5}}>

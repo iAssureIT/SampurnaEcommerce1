@@ -12,7 +12,7 @@ export const FormInput = props => {
       placeholderTextColor={'#bbb'}
       errorMessage={touched[name] && errors[name] ? errors[name] : ''}
       label={
-        <Text style={{fontFamily:'Montserrat-SemiBold', fontSize: 12,}}>
+        <Text style={{fontFamily:'Montserrat-SemiBold',color:'#000', fontSize: 12,}}>
           <Text>{props.labelName}</Text>{' '}
           <Text style={{color: 'red', fontSize: 12}}>
             {props.required && '*'}

@@ -67,11 +67,6 @@ export const RewardsPoint =withCustomerToaster((props)=>{
 
   return (
     <React.Fragment>
-      {/* <HeaderBar3
-          goBack={navigation.goBack}
-          headerTitle={'Account Dashboard'}
-          navigate={navigation.navigate}
-      /> */}
       <View style={styles.acdashsuperparent}>
       {loading?
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
@@ -93,22 +88,6 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                   </View>                
                   <Text style={[styles.headerText2]}>Current Balance :  {creditPoints.totalPoinsValue} {currency}</Text>
                 </View>
-                {/* <View style={[styles.padhr18,{flex:1}]}> 
-                    <View style={styles.accusermobinfo}>
-                      <View style={{flex:.25}}>
-                        <Text style={[CommonStyles.label]}>Order ID</Text>
-                      </View>  
-                      <View style={{flex:.25}}>
-                        <Text style={[CommonStyles.label]}>Start Date</Text>
-                      </View>   
-                      <View style={{flex:.25}}>
-                        <Text style={[CommonStyles.label]}>End Date</Text>
-                      </View>    
-                      <View style={{flex:.25}}>
-                        <Text style={[CommonStyles.label,{alignSelf:"flex-end"}]}>Points</Text>
-                        </View>   
-                    </View>
-                </View> */}
                 {creditPoints.transactions && creditPoints.transactions.length > 0 ?
                 creditPoints.transactions.map((item,index)=>{
                   if(item!==null){
@@ -143,6 +122,3 @@ export const RewardsPoint =withCustomerToaster((props)=>{
       </React.Fragment>
     );  
 })
-
-
-

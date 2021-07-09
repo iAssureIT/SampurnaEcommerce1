@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react';
+import RadialGradient from 'react-native-radial-gradient';
 import {
   ScrollView,
   Text,
@@ -67,20 +68,30 @@ export const AboutUs = (props)=>{
                 toggle={() => toggle()}
                 openControlPanel={() => openControlPanel()}
             /> */}
+            
             <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
                 <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                <View style={[styles.aboutUsHeader]}>
+                    <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
+                            colors={['#ffffff','#03355480']}
+                            radius={220}>
+                            <Text style={[styles.HeaderText]}>About Us</Text>
+                    </RadialGradient>
+                </View>
                     {
                         pageBlockes && pageBlockes.length>0?
                             pageBlockes.map((item,index)=>{
                                 const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
                                 return(
-                                    <View style={{flex:1,paddingHorizontal:15}}>
-                                        {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}
+                                    <View style={{flex:1}}>
                                         {item.block_id.fgImage1 &&<Image
                                             source={{uri:item.block_id.fgImage1}}
-                                            style={{height:200,width:"100%"}}
+                                            style={[styles.aboutImg,{}]}
                                             resizeMode={"stretch"}
                                         />}
+                                        <View style={[styles.textBox]}>
+                                            {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}                                        
+                                        </View>                                        
                                     </View>                                    
                                 )
                             })
