@@ -290,7 +290,7 @@ class ProductViewEcommerceBestSellers extends Component {
                                       }
                                     </div>
                                     <div className="actions">
-                                      <button type="submit" id={data._id} availableQuantity={data.availableQuantity} onClick={this.addtocart.bind(this)} title="Add to Cart" className="actiontocart btn-warning fa fa-shopping-cart">
+                                      <button type="submit" id={data._id} availableQuantity={data.availableQuantity} onClick={this.addtocart.bind(this)} title="Add to Cart" className="actiontocart btn-warning ">
                                         &nbsp;Add to Cart
                                       </button>
                                     </div>

@@ -10,7 +10,10 @@
 .rightside{
 	text-align:right;
 }
-
+.myOrderVendorNameWrapper{
+	font-size:14px!important;
+	color: black!important;
+}
 .ptb15{
 	padding:15px 0px !important;
 	font-size:11px !important;

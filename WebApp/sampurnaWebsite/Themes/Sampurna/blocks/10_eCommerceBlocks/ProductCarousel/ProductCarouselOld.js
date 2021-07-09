@@ -987,20 +987,20 @@ class ProductCarousel extends Component {
                                                 </select>                                     
                                               </div>    
                                               <button type="submit" color={data.color} id={data._id} productcode={data.productCode} availablequantity={data.availableQuantity} currpro={data._id} mainsize={data.size} unit={data.unit}  onClick={this.submitCart.bind(this)} 
-                                                title="Add to Cart" className={"col-6 fa fa-shopping-cart "  }>                                                                         
+                                                title="Add to Cart" className={"col-6  "  }>                                                                         
                                                 &nbsp;Add
                                               </button>                          
                                             </div>
                                             :
                                             data.availableQuantity > 0 ?
-                                              // <button type="submit" id={data._id} className={"fa fa-shopping-cart pull-right" } color={data.color} productcode={data.productCode} availableQuantity={data.availablequantity} onClick={this.addtocart.bind(this)} title="Add to Cart" >
+                                              // <button type="submit" id={data._id} className={" pull-right" } color={data.color} productcode={data.productCode} availableQuantity={data.availablequantity} onClick={this.addtocart.bind(this)} title="Add to Cart" >
                                               <div>
                                               {this.state.user_ID?
-                                              <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                              <button type="submit" id={data._id} className={data.availableQuantity +"  globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                                   &nbsp;Add To Cart
                                               </button>
                                               :
-                                              <button type="submit" id={data._id} className={data.availableQuantity +" fa fa-shopping-cart globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                              <button type="submit" id={data._id} className={data.availableQuantity +"  globalAddToCartBtn "} color={data.color} productcode={data.productCode} availablequantity={data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
                                                   &nbsp;Add To Cart
                                               </button>
                                               }     

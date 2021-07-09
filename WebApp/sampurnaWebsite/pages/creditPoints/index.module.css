@@ -9,6 +9,8 @@
 .accountMainWrapper{
     /* border: solid 1px #033554; */
     border-radius: 20px;
+    min-height: 500px! important;
+    height: auto !important;
 }
 .creditHeader{
     padding: 15px;

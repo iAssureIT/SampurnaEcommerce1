@@ -432,7 +432,7 @@ class ProductModalViewEcommerce extends Component {
 										</div>
 										<div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 NoPadding">
 											<span onClick={this.addtocart.bind(this)} id={this.state.productData._id} className="qtycart clr cursorpointer">
-												<i className="fa fa-shopping-cart " aria-hidden="true" id={this.state.productData._id}></i> Add to Cart
+												<i className=" " aria-hidden="true" id={this.state.productData._id}></i> Add to Cart
 											</span>
 										</div>
 									</div>

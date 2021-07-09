@@ -427,7 +427,7 @@ class Ecommercenewproductcaro extends Component {
                                               data.availableQuantity > 0 ?
                                               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                                                 <div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                                                  <button type="submit" id={data._id} color={data.color} productCode={data.productCode} availableQuantity={data.availableQuantity} onClick={this.addtocart.bind(this)} title="Add to Cart" className="homeCart fa fa-shopping-cart">
+                                                  <button type="submit" id={data._id} color={data.color} productCode={data.productCode} availableQuantity={data.availableQuantity} onClick={this.addtocart.bind(this)} title="Add to Cart" className="homeCart ">
                                                       &nbsp;Add To Cart
                                                   </button>
                                                 </div>

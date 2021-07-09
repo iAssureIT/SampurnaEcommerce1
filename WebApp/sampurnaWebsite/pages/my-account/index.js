@@ -128,7 +128,7 @@ class MyAccount extends Component{
                                         <span className=" small text-uppercase">Address Book</span></a>
                 
                                     <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-                                        <i className="fa fa-shopping-cart mr-3"></i>
+                                        <i className=" fa fa-shopping-cart mr-3"></i>
                                         <span className=" small text-uppercase" > My Orders</span></a>
 
                                     <a className={this.state.url1==="#v-pills-settings1-tab" ?"nav-link mb-4 p-3 shadow active":"nav-link mb-4 p-3 shadow"} id="v-pills-settings1-tab" data-toggle="pill" href="#v-pills-settings1" role="tab" aria-controls="v-pills-settings1" aria-selected="false">
@@ -147,7 +147,7 @@ class MyAccount extends Component{
                                 { this.state.authService==="guest"&&
                                     <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">   
                                          <a className={this.state.url1==="#v-pills-settings-tab" ? "nav-link mb-4 p-3 shadow active": "nav-link mb-4 p-3 shadow "} id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-                                        <i className="fa fa-shopping-cart mr-3"></i>
+                                        <i className=" mr-3"></i>
                                         <span className=" small text-uppercase" > My Orders</span></a>
                                     </div>
                                 }

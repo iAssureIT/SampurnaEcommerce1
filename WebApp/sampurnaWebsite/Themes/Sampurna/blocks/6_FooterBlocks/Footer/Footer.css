@@ -424,7 +424,7 @@
 }
 .sectionurl span{
   margin-bottom: 20px !important;
-  line-height: 2;
+  line-height: 4!important;
 }
 .sectionName .sectionurl{
   /*color: #444 !important;*/
@@ -441,7 +441,7 @@
 .categortTitle span{
     /*font-weight: 500;*/
     /*font-size:14px;*/
-    font-size:12px;
+    font-size: 13px !important;;
     color:#fff;
     /*color: #444 !important;*/
     text-decoration: none !important;

@@ -22,7 +22,7 @@ export default class ProductViewEcommerceShopingFeature extends Component {
                 <div className="featurebx bluebx">
                   <div className="col-lg-12 pdnglft">
                     <span className="featurebxicon col-lg-2">
-                      <i className="fa fa-shopping-cart fntsize" aria-hidden="true"></i> 
+                      <i className=" fntsize" aria-hidden="true"></i> 
                     </span>
                     <span className="featuretxt text-left col-lg-10">
                       <span className="col-lg-12 featuretxtline">FREE SHIPPING</span><br/>

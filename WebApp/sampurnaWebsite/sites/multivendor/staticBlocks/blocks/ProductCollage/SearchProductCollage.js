@@ -385,7 +385,7 @@ class SearchProductCollage extends Component {
                                   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOpadding">
                                   {
                                     data.availableQuantity > 0 ?
-                                      <button type="submit" color={data.color} id={data._id} productCode={data.productCode} availableQuantity={data.availableQuantity} onClick={this.addtocart.bind(this)} title="Add to Cart" className="homeCart fa fa-shopping-cart">
+                                      <button type="submit" color={data.color} id={data._id} productCode={data.productCode} availableQuantity={data.availableQuantity} onClick={this.addtocart.bind(this)} title="Add to Cart" className="homeCart ">
                                         &nbsp;Add to Cart
                                       </button>
                                       :

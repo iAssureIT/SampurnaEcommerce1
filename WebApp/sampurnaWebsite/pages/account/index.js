@@ -100,39 +100,39 @@ class Account extends Component{
     render(){
         return(
             <div className={ "col-12 NoPadding accountMainWrapper "+Style.accountMainWrapper}> 
-                <div className="modal col-4 offset-4 checkoutAddressModal NOpadding" id="checkoutAddressModal" role="dialog">
-                    <div className="modal-content loginModalContent " style={{ 'background': '#fff'}}>
-                        <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
-                            <div className="col-4">
-                                < WebsiteLogo /> </div>
-                            <div className="col-7 text-center">
-                                <h6 className="modal-title modalheadingcont">SHIPPING ADDRESS</h6> </div>
-                            <div className="col-1 text-center">
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
+                    <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
+
+                        <div className={"modal-content  pb-0 "+Style.modalContentM}>    
+                        <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
+                            <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
+                            <button type="button" className={" close modalclosebut  "+Style.modalCloseButtonWrapperM} data-dismiss="modal">&times;</button>
+                        </div>                      
+                            <div className={"modal-body addressModalBody "+Style.modalBg}>
+                                <UserAddress />
                             </div>
                         </div>
-                        <div className="modal-body addressModalBody">
-                            <UserAddress /> 
                         </div>
                     </div>
-                </div>
                 <div className="col-12">
                     <div className={ "col-12 accountDashBoardwrapper py-3 "+Style.accountDashBoardwrapper}>
                         <h4 className="font-weight-bold">Account Dashboard</h4>
                         <div className={ "col-12 accountDashBoardInnerwrapper "+Style.accountDashBoardInnerwrapper}>
                             <p>
-                                <label className="col-12 mt-3">Hello {this.state.firstName}</label>
+                                <label className="col-12 mt-3"><b>Hello {this.state.firstName}</b></label>
                             </p>
                             <div className="row">
-                                <div className="col-12 col-lg-6 col-md-12">
-                                    <div className="col-12 accountDivHeader">Contact Information</div>
+                                <div className="col-12 col-lg-12 offset-1 col-md-12">
+                                <div className="row">
+                                    <div className="col-12"><b>Contact Information</b></div>
                                     <div className="col-12 mt-3 ">
                                         <div className={ "col-12 "+Style.accUserDetails}>
                                             <h6 className="col-12 textwrap">{this.state.fullName}</h6>
                                             <h6 className="col-12 ">{this.state.emailId}</h6>
                                             <h6 className="col-12 ">{this.state.mobileNumber}</h6> </div>
-                                        <div className="col-12 py-4">
-                                            <button className="btn globalCommonBtn col-12 col-sm-7 " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp; </div>
+                                        <div className="col-5 py-4 float-right">
+                                            <button className="btn globalCommonBtn mx-5 col-12 col-sm-7  " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT</button> &nbsp; &nbsp; </div>
+                                    </div>
                                     </div>
                                 </div>
                                 {/* <div className="col-12 col-lg-6 col-md-12">
@@ -155,47 +155,49 @@ class Account extends Component{
                                 <div className={ "box "+Style.box}> {/*
                                     <p>className="col-xs-12 col-sm-6"</P> */}
                                     <div className="col-12 pt-2">
-                                        <div className="col-12 container font-weight-bold  accountDivHeader">Default Billing Address</div>
+                                        <div className="col-12 container font-weight-bold pb-2">Default Billing Address</div>
                                     </div> { this.state.addressLine1 ?
-                                    <div className="col-12 pt-3 ">
+                                    <div className="col-12 ">
                                         <div className={ "col-12  "+Style.accUserDetails}>
-                                            <p className="col-12">{this.state.name}</p>
-                                            <p className="col-12"> {this.state.addressLine2} - &nbsp; {this.state.addressLine1} - &nbsp; {this.state.pincode},
+                                            <p className="col-12 my-0">{this.state.name}</p>
+                                            <p className="col-12"> {this.state.addressLine2} - &nbsp; {this.state.addressLine1} - &nbsp; {this.state.pincode}
+                                            <br /> Email: {this.state.emailId}
                                                 <br /> Contact Number: {this.state.mobileNumber} </p>
                                         </div>
                                         <div className="col-12">
-                                            <div className="col-12 py-4 ">
-                                                <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
-                                            </div>
+                                           
+                                                <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn float-right"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
+                                          
                                         </div>
                                     </div> :
                                     <div className="col-12 ">
                                         <p className="col-12">You have not set a default billing address.</p>
                                         <div className="col-12 ">
-                                            <button data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn col-12 col-sm-7"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
+                                            <button data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn col-12 col-sm-7 float-right"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
                                         </div>
                                     </div> } </div>
                             </div>
                             <div className="col-12 col-lg-6">
-                                <div className={ "box pb-3 "+Style.box}> {/*
+                                <div className={ "box  "+Style.box}> {/*
                                     <p>className="col-xs-12 col-sm-6"</P> */}
                                     <div className="col-12 pt-2">
-                                        <div className="col-12 accountDivHeader">Default Shipping Address</div>
+                                        <div className="col-12 font-weight-bold pb-2">Default Shipping Address</div>
                                     </div> { this.state.addressLine1 ?
-                                    <div className="col-12 mt-5">
-                                        <div className={ "col-12 NoPadding accUserDetails "+Style.accUserDetails}>
+                                    <div className="col-12">
+                                        <div className={ "col-12   "+Style.accUserDetails}>
+                                        <p className="col-12 my-0">{this.state.name}</p>
                                             <p className="col-12"> {this.state.addressLine2 ? this.state.addressLine2+"-" : null} &nbsp; {this.state.addressLine1}- &nbsp; {this.state.pincode}
                                                 <br /> Email: {this.state.emailId}
                                                 <br /> Contact Number: {this.state.mobileNumber} </p>
                                         </div>
-                                        <div className="col-12 pb-2 ">
-                                            <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
+                                        <div className="col-12  ">
+                                            <div data-toggle="modal" data-target="#checkoutAddressModal" onClick={this.getAddressId.bind(this)} id={this.state.deliveryAddressID} className="btn globalCommonBtn float-right"><i className="fa fa-pencil-square-o"></i> &nbsp; EDIT ADDRESS</div>
                                         </div>
                                     </div> :
-                                    <div className="col-12 ">
+                                    <div className="col-12 float-right ">
                                         <p className="col-12" style={{wordBreak : "break-word"}}>You have not set a default shipping/billing address.</p>
-                                        <div className="col-12 ">
-                                            <button data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn col-12 col-sm-7"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
+                                        <div className="col-12 float-right">
+                                            <button data-toggle="modal" data-target="#checkoutAddressModal" className="btn globalCommonBtn col-12 col-sm-7 float-right"><i className="fa fa-pencil-square-o"></i> &nbsp; ADD ADDRESS</button>
                                         </div>
                                     </div> } </div>
                             </div>

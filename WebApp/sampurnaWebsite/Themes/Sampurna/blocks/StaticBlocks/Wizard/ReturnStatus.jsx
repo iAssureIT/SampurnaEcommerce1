@@ -64,7 +64,7 @@ export default class ReturnStatus extends Component{
 	                    <li role="presentation" className=''>
 	                        <a href="/">
 	                            <span title="Cart" className="round-tab selectcart stepwizardclass" id= {"cartbg"+this.props.data._id}>
-	                                <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+	                                <i className="" aria-hidden="true"></i>
 	                            </span>
 	                        </a>
 	                        <div className="wiztextcontainer"><div className="wiztext">Return Approved</div>

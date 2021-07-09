@@ -325,25 +325,25 @@ export default class MyOrders extends Component {
                                 <div className="col-6">
                                     <div className="col-12"><b>{singleOrder.orderStatus}</b></div>
                                     <div className="col-12">{"Order ID : "+(singleOrder.orderID)}</div>
-                                    <div className="col-12"><b>{"Total amount : "+this.state.currency +" " +(singleOrder.paymentDetails.netPayableAmount)}</b></div>
+                                    <div className="col-12">Total Amount &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</b></div>
                                     <div className="col-12">
-                                      {/* <Link href="/my-account#v-pills-settings-tab"> */}
-                                        {"Credit Points Available : "+singleOrder.paymentDetails.creditPointsEarned +" ( "+this.state.currency+" "+singleOrder.paymentDetails.creditPointsValueEarned +" )"}
-                                      {/* </Link> */}
+                                     
+                                   Credits Points &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</b>
+                                     
                                     </div>
                                 </div>                       
                                 <div className={"col-6 " +Style.rightside}>
                                     <div className="row">
                                         <div className="col-12">
-                                          <span className="col-6 text-right">Date - {moment(singleOrder.createdAt).format("DD MMMM YYYY")}&nbsp;</span>
-                                          <span className="col-6 text-right">Time -  {moment(singleOrder.createdAt).format("HH:mm")}</span>
+                                          <span className="col-12 text-right">Date - {moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("HH:mm A")}</span>
+                                          {/* <span className="col-6 text-right"></span> */}
                                         </div>
                                         <div className="col-12">
-                                            <div className="col-12"> Cash on delivery</div> 
+                                            <div className="col-12"> <i class="fa fa-wallet"></i>&nbsp;Cash On Delivery</div> 
                                         </div>
                                         <div className="col-12">
                                             <div className="col-12 orderAddress"> 
-                                              {singleOrder.deliveryAddress.addressLine2}, <br/> {singleOrder.deliveryAddress.addressLine1}
+                                            <i class="fa fa-map-marker-alt"></i>  {singleOrder.deliveryAddress.addressLine2}, <br/> {singleOrder.deliveryAddress.addressLine1}
                                             </div> 
                                         </div>
                                     </div>
@@ -360,27 +360,22 @@ export default class MyOrders extends Component {
                                         <div className="col-12" >
                                         <div key={index} className={"row "}>
                                           <div className={"col-4 NoPadding "}>
-                                              <span className=""><b>{vendordata.vendorName}</b></span> &nbsp;
+                                              <span className={" "+Style.myOrderVendorNameWrapper}><b>{vendordata.vendorName}</b></span> &nbsp;
                                           </div>           
                                           <div className={"col-6 " +Style.middleText}>
                                               <div className="row ">                                                           
                                                   <div className="col-12">
                                                       <div className="row">
-                                                        <span className="col-4 ">Amount </span>
-                                                        <span className="col-1">:</span>
-                                                        <span className="col-6 "> 
-                                                            {this.state.currency} {vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} 
-                                                        </span>
+                                                        <span className="col-12 mx-5 ">Amount =   {vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} {this.state.currency}
+</span>
+                                                       
                                                       </div>
                                                   </div>
                                                   <div className="col-12 title NoPadding">
-                                                    <div className="row">
-                                                        <span className="col-4 ">No.Of Items </span>
-                                                        <span className="col-1">&nbsp;&nbsp;:</span>
-                                                        <span className="col-6 ">
-                                                            {vendordata.vendor_numberOfProducts} 
-                                                        </span>
-                                                    </div>
+                                                    
+                                                        <span className="col-12 mx-5 ">No.Of products : {vendordata.vendor_numberOfProducts} </span>
+                                                       
+                                                    
                                                   </div>       
                                               </div>
                                           </div>
@@ -406,7 +401,7 @@ export default class MyOrders extends Component {
                                       <div className="col-5 pull-left">
                                         {this.cancelButton(singleOrder.createdAt)&& singleOrder.orderStatus === "New" &&
                                           <div className="col-12 ">
-                                              <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                              <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
                                           </div>
                                         }
                                       </div>

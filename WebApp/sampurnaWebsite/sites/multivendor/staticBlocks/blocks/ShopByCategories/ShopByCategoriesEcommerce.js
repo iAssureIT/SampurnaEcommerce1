@@ -171,9 +171,9 @@ render() {
 																		
 																		{
 																						token ?
-																						<div className={data.webCategory == "Grocery fa fa-shopping-cart" ? "iconContainerGrocery fa fa-shopping-cart" : "iconContainerEcommerce fa fa-shopping-cart"} onClick={this.addtocart.bind(this)} id={data._id}></div>
+																						<div className={data.webCategory == "Grocery " ? "iconContainerGrocery " : "iconContainerEcommerce "} onClick={this.addtocart.bind(this)} id={data._id}></div>
 																			:
-																						<a href="/login"className="iconContainerEcommerce"><i className="fa fa-shopping-cart"></i></a>
+																						<a href="/login"className="iconContainerEcommerce"><i className=""></i></a>
 																					}
 																		</div>
 																		<div className="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-toggle="tooltip" title="Add to wishlist">
@@ -199,9 +199,9 @@ render() {
 																
 																	{
 																				token ?
-																				<div className={data.webCategory == "Grocery fa fa-shopping-cart" ? "iconContainerGrocery fa fa-shopping-cart" : "iconContainerEcommerce fa fa-shopping-cart"} onClick={this.addtocart.bind(this)} id={data._id}></div>
+																				<div className={data.webCategory == "Grocery " ? "iconContainerGrocery " : "iconContainerEcommerce "} onClick={this.addtocart.bind(this)} id={data._id}></div>
 																	:
-																					<a href="/login"className="iconContainerEcommerce"><i className="fa fa-shopping-cart"></i></a>
+																					<a href="/login"className="iconContainerEcommerce"><i className=""></i></a>
 																				}
 																	</div>
 																<div className="col-lg-3 col-md-3 col-sm-3 col-xs-3" data-toggle="tooltip" title="Add to wishlist">

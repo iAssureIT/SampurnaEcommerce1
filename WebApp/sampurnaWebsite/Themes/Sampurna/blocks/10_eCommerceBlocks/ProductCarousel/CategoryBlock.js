@@ -57,6 +57,8 @@ class CategoryBlock extends Component{
       // console.log("props category ====",this.props.categoryData);
       return (
         <div className={"container-fluid NoPadding " +Style.categoryCarousel}>
+          <div className="col-12">
+          <div className="col-12">
             <Carousel 
               className=""
                   swipeable={true}
@@ -107,6 +109,8 @@ class CategoryBlock extends Component{
                   }
               </Carousel>
           </div>
+         </div>
+         </div>
      ) 
     }
 }

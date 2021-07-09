@@ -296,31 +296,34 @@ export default class OrderDetails extends Component {
                         <div className="col-6 ">
                             <div className="col-12">{"Order Status : "+(this.state.orderData.orderStatus)}</div>
                             <div className="col-12">{"Order ID : "+(this.state.orderData.orderID)}</div>
-                            <div className="col-12">{"Total amount : "+(this.state.orderData.orderID)}</div>
+                            <div className="col-12">Total Amount <b>{this.state.orderData.orderID} {this.state.currency}</b></div>
                             <div className="col-12">
-                              {/* <Link href="/my-account#v-pills-settings-tab"> */}
-                              {this.state.orderData && this.state.orderData.paymentDetails &&
-                                "Credit Points Earned : "+this.state.orderData.paymentDetails.creditPointsEarned +" ( "+this.state.currency+" "+this.state.orderData.paymentDetails.creditPointsValueEarned +" )"
+                             
+                              {/* {this.state.orderData && this.state.orderData.paymentDetails &&
+                                "Credit Points  "+this.state.orderData.paymentDetails.creditPointsEarned +" ( "+this.state.currency+" "+this.state.orderData.paymentDetails.creditPointsValueEarned +" )"
+                              } */}{this.state.orderData && this.state.orderData.paymentDetails &&
+                              <span>Credits Points &nbsp;<b>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</b></span>
                               }
-                              {/* </Link> */}
+
+                            
                             </div>
                         </div>                       
                         <div className={"col-6 " +Style.rightside}>
                             <div className="row">
-                              <div className="col-12">
-                                <span className="col-6 text-right">Date - {moment(this.state.orderData.createdAt).format("DD MMMM YYYY")}&nbsp;</span>
-                                <span className="col-6 text-right">Time -  {moment(this.state.orderData.createdAt).format("HH:mm")}</span>
-                              </div>
-                              <div className="col-12">
-                                  <div className="col-12"> Cash on delivery</div> 
-                              </div>
-                              <div className="col-12">
-                                  <div className="col-12 orderAddress"> 
-                                    {/* {this.state.deliveryAddress.addressLine2}, <br/> {this.state.deliveryAddress.addressLine1} */}
-                                  </div> 
-                              </div>
+                                <div className="col-12">
+                                  <span className="col-12 text-right">Date - {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("HH:mm A")}</span>
+                                  {/* <span className="col-6 text-right"></span> */}
+                                </div>
+                                <div className="col-12">
+                                    <div className="col-12"> <i class="fa fa-wallet"></i>&nbsp;Cash On Delivery</div> 
+                                </div>
+                                <div className="col-12">
+                                    <div className="col-12 orderAddress"> 
+                                    {/* <i class="fa fa-map-marker-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1} */}
+                                    </div> 
+                                </div>
                             </div>
-                        </div>
+                          </div>    
                         {/* <div className="col-6 NOpadding">
                           <div className="actionbtn col-12   NOpadding">
                             { this.state.orderData.deliveryStatus[this.state.orderData.deliveryStatus.length - 1].status !== 'Cancelled' ? 

@@ -352,15 +352,15 @@ class SingleProduct extends Component{
                                 <div className={"col-12 " +Style.NoPadding}>
                                 {this.state.user_ID?
                                   this.props.distance > this.props.maxDistanceRadius?
-                                    <button type="submit" vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} id={this.props.data._id} disabled className={"col-12 fa fa-shopping-cart disableBtn globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                    <button type="submit" vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} id={this.props.data._id} disabled className={"col-12  disableBtn globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                         &nbsp;Add To Cart
                                     </button>
                                   :
-                                    <button type="submit" vendor_name={this.props.data.vendorName}  vendor_id={this.props.data.vendor_ID} id={this.props.data._id} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
+                                    <button type="submit" vendor_name={this.props.data.vendorName}  vendor_id={this.props.data.vendor_ID} id={this.props.data._id} className={"col-12  globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" >
                                         &nbsp;Add To Cart
                                     </button>
                                 :
-                                <button type="submit" id={this.props.data._id} vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} className={"col-12 fa fa-shopping-cart globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
+                                <button type="submit" id={this.props.data._id} vendor_name={this.props.data.vendorName} vendor_id={this.props.data.vendor_ID} className={"col-12  globalAddToCartBtn "} color={this.props.data.color} productcode={this.props.data.productCode} availablequantity={this.props.data.availableQuantity} onClick={this.submitCart.bind(this)} title="Add to Cart" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" >
                                     &nbsp;Add To Cart
                                 </button>
                                 }     

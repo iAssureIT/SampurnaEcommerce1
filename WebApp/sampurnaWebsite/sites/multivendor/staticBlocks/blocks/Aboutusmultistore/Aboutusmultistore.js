@@ -28,7 +28,7 @@ export default class Aboutusmultistore extends Component {
 						</div>
 						<div className="col-lg-4">
 						  <div className="col-lg-12">
-						  	<i class="fa fa-shopping-cart multiicon" aria-hidden="true"></i>
+						  	<i class=" multiicon" aria-hidden="true"></i>
 						  </div>
 						  <div className="col-lg-12">
 						  <h3><b>250,000</b></h3>
