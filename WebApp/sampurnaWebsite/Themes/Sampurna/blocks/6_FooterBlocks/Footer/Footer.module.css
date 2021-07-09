@@ -1,4 +1,11 @@
-
+@font-face {
+  font-family:'Montserrat-Regular';
+  src: url('../../../fonts/Montserrat-Thin.ttf');
+}
+@font-face {
+  font-family:'Montserrat-Thin';
+  src: url('../../../fonts/Montserrat-Regular.ttf');
+}
 .footer {
   text-align: center;
 }
@@ -402,7 +409,7 @@
 
 .footerBottom {
     min-height: 170px; 
-    /*padding-top: 45px;*/
+    padding-top: 38px;
 }
 
 .ml0{
@@ -425,7 +432,7 @@
 }
 .sectionurl span{
   margin-bottom: 20px !important;
-  line-height: 2;
+  line-height: 4;
 }
 .sectionName .sectionurl{
   /*color: #444 !important;*/
@@ -442,7 +449,7 @@
 .categortTitle span{
     /*font-weight: 500;*/
     /*font-size:14px;*/
-    font-size:12px;
+    font-size:14px;
     color:#fff;
     /*color: #444 !important;*/
     text-decoration: none !important;
@@ -486,6 +493,9 @@
 .socialMediaIcons{
   text-align: right;
 }
+.logoTop{
+  margin-top: 62px!important;
+}
 @media only screen and (max-device-width: 480px) {    
   .categoryFooterWrapper{
     margin-bottom: 20px;
@@ -518,7 +528,10 @@
 .FooterTitle{
   font-size: 14px ! important;
 }
-
+.footerTitleWrapper{
+  color: #fff!important;
+  position: absolute!important;
+}
 .f9{
   font-size:9px !important;
 }
@@ -597,7 +610,19 @@
 
 .aboutHeight{
   min-height:40px;
+  margin-top: -11px!important;
+  margin-bottom: -6px!important;
+  margin-left: 30px;
+  font-family:'Montserrat-Regular';
 }
+.aboutHeight1{
+  min-height:40px;
+  margin-top: 26px!important;
+}
+.footerTitleWrapper{
+  position: absolute!important;
+}
+
 
 /* .BookStore_logo a{
   float: right ! important;

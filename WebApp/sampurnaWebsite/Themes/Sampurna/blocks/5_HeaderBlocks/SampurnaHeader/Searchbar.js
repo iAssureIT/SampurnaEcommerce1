@@ -85,8 +85,8 @@ class Searchbar extends React.Component {
         return(  
             <div className="col-12 col-sm-7 ">                                
                 <div className="col-12 NoPadding">  
-                    <div className="row mtm3"> 
-                        <input type="text" placeholder="What are you looking for?" id="browsers"
+                    <div className="row mtm3 tableSearchWrapper"> 
+                        <input type="text" placeholder="Search the items" id="browsers"
                         list="datalist"
                         onKeyPress={this.searchProducts.bind(this)} 
                         className="form-control tableSearch col-11" ref="tableSearch" id="tableSearch" name="tableSearch" />

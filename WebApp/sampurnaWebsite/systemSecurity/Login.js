@@ -166,7 +166,7 @@ class Login extends Component {
   openForgotPasswordModal(event){
     event.preventDefault();
     this.props.updateFormValue("forgotPassword");   
-}
+  }
  
   showSignPass() {
     $(".hidePwd").css('display','block');

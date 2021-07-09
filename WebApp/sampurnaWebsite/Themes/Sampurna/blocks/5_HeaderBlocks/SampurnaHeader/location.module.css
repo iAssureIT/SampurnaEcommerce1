@@ -28,6 +28,10 @@
 .f12{
 	font-size:12px !important;
 }
+.f12afterLogin{
+    font-size:12px !important;
+    margin-left: -12px!important;
+}
 
 .locationBTN{
 	background-color:#033554;
@@ -35,9 +39,59 @@
 	font-weight:bold;
 	font-size: 13px;
 	padding: 11px;
+	width: 222px;
+    height: 46px;
+    box-shadow: 0px 3px 6px #000000a6;
+    border-radius: 10px;
+    opacity: 1;
+    margin-top: 6px!important;
 }
 .locationBTN:hover{
 	color: #fff !important;
+}
+.locationBTNafterLogin{
+    background-color:#033554;
+	color:#fff;
+	font-weight:bold;
+	font-size: 13px;
+	padding: 11px;
+	width: 163px;
+    height: 46px;
+    box-shadow: 0px 3px 6px #000000a6;
+    border-radius: 10px;
+    opacity: 1;
+    margin-top: 6px!important;
+    margin-left: -10px!important;
+}
+.locationBTNafterLogin{
+    color: #fff!important;
+}
+.locationBTN1{
+	margin-left: -62px!important;
+    background: #033554 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #000000a6;
+    border-radius: 10px;
+    opacity: 1;
+    color: #fff;
+	font-weight:bold;
+    font-size: 14px;
+    height: 46px;
+	position:absolute;
+}
+.locationBTN1:hover{
+	color: #fff !important;
+}
+.locationBTNafterLogin1{
+    margin-left: 15px!important;
+    background: #033554 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #000000a6;
+    border-radius: 10px;
+    opacity: 1;
+    color: #fff;
+	font-weight:bold;
+    font-size: 14px;
+    height: 46px;
+	position:absolute;
 }
 .zindex{
   position: absolute;
@@ -47,10 +101,16 @@
 }
 .deliveryForm{
 	position: absolute;
-	top: 160px;
-	z-index: 999 !important;
-	vertical-align: middle !important;
+    top: 220px;
+    z-index: 999 !important;
+    vertical-align: middle !important;
 	/*margin-top: 14%;*/
+}
+.deliveryFormAfterLogin{
+    position: absolute;
+    top: 195px;
+    z-index: 999 !important;
+    vertical-align: middle !important;
 }
 .googleMap{	
 	background-color: rgba(0,0,0,0.3) !important;   
@@ -78,14 +138,40 @@
 }
 
 .MapOr{
-	height: 100%;
-	width: 50%;
-	border-radius: 100%;
-	background-color: #fff;
-	padding: 5px;
-	float:left;
-	margin: 0px 8%;
-	margin-top: -2%;
+	height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    background-color: #fff;
+    padding: 5px;
+    float: left;
+    margin: 0px 8%;
+    margin-top: -5%;
+}
+.MapOrAfterLogin{
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    background-color: #fff;
+    padding: 5px;
+    float: left;
+    margin: 0px 5%;
+    margin-top: -5%;
+}
+.locationSearchWrapper input{
+	height: 42px!important;
+    border-radius: 10px!important;
+    width: 574px!important;
+    opacity: 0.72!important;
+    box-shadow: -3px 3px 6px #000000e8!important;
+    margin-left:-14px!important;
+}
+.locationSearchWrapperAfterLogin input{
+	height: 42px!important;
+    border-radius: 10px!important;
+    width: 507px!important;
+    opacity: 0.72!important;
+    box-shadow: -3px 3px 6px #000000e8!important;
+    margin-left:-25px!important;
 }
 
 .orline{
@@ -93,10 +179,26 @@
     float:left;
     margin-top: 10px !important;
 }
+.orlineAfterLOgin{
+    border-bottom:1px solid #ccc !important;
+    float:left;
+    margin-top: 10px !important;
+}
 
 .search{
 	position: absolute;
-	top: 20%;
-    right: 5%;
+    top: 25%;
+    right: 15%;
     color: #999;
+	z-index: 999;
+}
+.searchAfterLogin{
+    position: absolute;
+    top: 25%;
+    right: 1%;
+    color: #999;
+	z-index: 999;
+}
+.systemSecurityModalWrapper{
+    margin-right: -61px !important;
 }

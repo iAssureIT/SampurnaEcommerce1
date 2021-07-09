@@ -60,9 +60,9 @@ export default class Footer extends Component {
        <div className="container-fluid">
         <div className="col-12 footer1">
           <div className="row">
-            <div className="col-12 col-md-12 col-lg-12 categoryFooterWrapper">
+            <div className="col-12 col-md-12 col-lg-10 offset-lg-1 categoryFooterWrapper">
                 <div className="col-12  NoPadding">
-                    <div className="col-12 NoPadding  FooterTitle">Online Shopping</div>
+                    {/* <div className="col-12 NoPadding  FooterTitle">Online Shopping</div> */}
                     <div className="col-xl-3 col-md-3 col-12 hrLine"></div>
                 </div>
                 <div className="col-12  NoPadding">
@@ -110,10 +110,10 @@ export default class Footer extends Component {
             <div className="col-12 footer_bottom">
               <div className={"row " +S.footerBottom}>
               <div className={"col-12 col-sm-12 col-xl-3 col-lg-3 col-md-12 col-sx-12 " +S.logoTop}>
-                  < Websitelogo />
+                 <img src="/images/eCommerce/TrollyLogo.png" className="" alt="FooterLogo" width="" height="75px"/>
               </div>
 
-              <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-12 text_Center " }>
+              <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-12 text_Center mx-0 " }>
                 <div className={"col-12 col-sm-12 col-lg-12 col-md-12 text_Center mt-3 mb-3 " +S.icon}>
                     <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore" passHref={true}><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
                     <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore" passHref={true}><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
@@ -134,22 +134,22 @@ export default class Footer extends Component {
                           Conditions of Use & Sale &nbsp;&nbsp;&nbsp;&nbsp; Privacy Notice &nbsp;&nbsp;&nbsp;&nbsp; Interest-Based Ads
                       </div>
                       <div className="col-12 text-center">
-                        <p><i className="fa fa-copyright"></i>2021,Trollymart.com</p>
+                        <p className="footer3Class"><i className="fa fa-copyright footer3Class"></i>2021,Trollymart.com</p>
                       </div>                      
                   </div>
               </div>
               <div className={"col-12 col-sx-12 col-xl-3 col-lg-3 col-md-12 text_Center " +S.payDiv}>
-                  <div className={"col-12 col-sm-12 col-lg-12 col-md-12 md-mt-5  " +S.aboutHeight}>
-                        <div className="col-12 FooterTitle ">Payment card</div>
-                        <div className={"col-12 col-sm-6 col-lg-12 col-md-12 mt15 " }>
+                  <div className={"col-12 col-sm-12 col-lg-12 col-md-12 md-mt-5  " +S.aboutHeight1}>
+                        <div className={"col-12  "+S.footerTitleWrapper}>Payment card</div>
+                        <div className={"col-12 col-sm-6 col-lg-12 col-md-12 mt-4 " }>
                             <div className="payCard1 "></div>  
                             <div className="payCard2 "></div>  
                         </div>
                     </div> 
      
-                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 mt-3 ">
-                        <div className="col-12 FooterTitle ">We are in</div>
-                        <div className="col-12 col-sm-6 col-lg-12 col-md-12 mt15 width pr-0">
+                    <div className="col-12 col-sm-12 col-lg-12 col-md-12  ">
+                        <div className={"col-12 FooterTitle "+S.footerTitleWrapper}>We are in</div>
+                        <div className="col-12 col-sm-6 col-lg-12 col-md-12  width pr-0 mt-4">
                             <div className="appleCard"></div>
                             <div className="androidCard"></div>                        
                         </div>

@@ -8,7 +8,7 @@ import { connect }            from 'react-redux';
 import  store                 from '../../../../../redux/store.js';
 import SearchBar              from './Searchbar.js';
 import Megamenu               from './Megamenu.js';
-import DeliveryLocationPopup  from './DeliveryLocationPopup.js';
+import DeliveryLocationPopupAfterLogin  from './DeliveryLocationPopupAfterLogin.js';
 import DisplayLocation        from './DisplayLocation.js';
 import SystemSecurityModal    from './SystemSecurityModal.js';
 import Websitelogo            from './Websitelogo.js';
@@ -89,9 +89,10 @@ class Header extends React.Component {
                                                     < SystemSecurityModal />
                                                 </div>   
                                                  {this.state.user_ID && this.state.authService!=="guest"?                            
-                                                    <div className="col-2 NoPadding ">                                                   
-                                                        < Wishlist />                                                
-                                                    </div>   
+                                                    // <div className="col-2 NoPadding ">                                                   
+                                                    //     < Wishlist />                                                
+                                                    // </div>   
+                                                   null
                                                 :null}
                                                 <div className="col-4 NoPadding ">
                                                     < MyCart />    
@@ -123,7 +124,8 @@ class Header extends React.Component {
                                             <h6 className="modal-title">Your Delivery Location</h6>
                                         </div>
                                         <button type="button" className="close closeModalBtn"  data-dismiss="modal" >&times;</button>  
-                                        <DeliveryLocationPopup/>
+                                        {/* <DeliveryLocationPopup/> */}
+                                        <DeliveryLocationPopupAfterLogin/>
                                     </div>
                                 </div>
                             </div>  

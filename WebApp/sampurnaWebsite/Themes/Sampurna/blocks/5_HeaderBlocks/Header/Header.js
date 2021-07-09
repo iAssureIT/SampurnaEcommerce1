@@ -67,7 +67,7 @@ class Header extends React.Component {
                                 
                                 </div>
 
-                                <div className="rightNavbar ml-4 mr-4 col-12 col-sm-6 NoPadding">                                
+                                <div className="rightNavbar ml-4 mr-4 col-12 col-sm-6 NoPadding tableSearchWrapper">                                
                                     <div className="col-12 NoPadding">   
                                         <input type="text" placeholder="What are you looking for?" 
                                         onChange={this.searchProducts.bind(this)} 

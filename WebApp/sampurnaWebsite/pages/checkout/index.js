@@ -1071,8 +1071,8 @@ class Checkout extends Component {
                                                     </span>
                                                     <div className="col-12 grandTotal mt-4 mb-2 font-weight-bold">
                                                         <div className={"row " +Style.f13N}>
-                                                            <span className={"col-6 orderTotalText " +Style.f16 +" "+Style.bold}><strong>Grand Total</strong></span>
-                                                            <span className={"col-6 textAlignRight " +Style.f16 +" "+Style.bold}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
+                                                            <span className={"col-6 orderTotalText " +Style.f161 +" "+Style.bold}><strong>Grand Total</strong></span>
+                                                            <span className={"col-6 textAlignRight " +Style.f161 +" "+Style.bold}><span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp;
                                                                 {(this.state.recentCartData.paymentDetails.netPayableAmount).toFixed(2) }
                                                             </span>
                                                         </div>

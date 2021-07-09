@@ -19,7 +19,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-au
 
 import Style                  from './location.module.css';
 
-class DeliveryLocationPopup extends React.Component {
+class DeliveryLocationPopupAfterLogin extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
@@ -362,16 +362,16 @@ class DeliveryLocationPopup extends React.Component {
                 }
                 <div className={"col-"+xlCol +" offset-" +offset +" NoPadding "}>
                 <div className="col-12 offset-0 mobileViewNoPadding">
-                    <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryForm}>
+                    <form className={"col-"+xlForm +" " +"offset-"+formOffset +" " +Style.deliveryFormAfterLogin}>
                         <div className="col-12 ">
                             <div className="row">
                                 <div className={"col-4 NoPadding "}>
                                     <div className="col-12">
                                         <div className={"row " +Style.ma}>
                                             <div className=" col-9 NoPadding detectLocationBtn">
-                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}><i class="fa fa-map-marker-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
+                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTNafterLogin}  onClick={this.takeCurrentLocation.bind(this)}><i class="fa fa-map-marker-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
                                             </div>
-                                            <div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}><div className={"col-2 NoPadding " +Style.orline}></div><span className={"col-8 " +Style.MapOr}>OR</span><div className={"col-2 NoPadding " +Style.orline}></div></div>
+                                            <div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12afterLogin}><div className={"col-2 NoPadding " +Style.orlineAfterLOgin}></div><span className={"col-8 " +Style.MapOrAfterLogin}>OR</span><div className={"col-2 NoPadding " +Style.orline}></div></div>
 
                                             {/*<div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}>
                                                 <div className="col-1 " id="line"><hr /></div><span className={"col-8 " +Style.MapOr}>OR</span><div className="col-1 " id="line"><hr /></div></div>*/}
@@ -385,7 +385,7 @@ class DeliveryLocationPopup extends React.Component {
                                         onSelect={this.handleSelect}
                                         highlightFirstSuggestion={true}>
                                             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                            <div className={"col-12 NoPadding "+Style.locationSearchWrapper}>
+                                            <div className={"col-12 NoPadding "+Style.locationSearchWrapperAfterLogin}>
                                                 {/* <label className={" mt-2 searchAdrressLable " +Style.tw}> Search Location </label> */}
                                                 <input
                                                     {...getInputProps({
@@ -396,7 +396,7 @@ class DeliveryLocationPopup extends React.Component {
                                                         required: true
                                                     })}
                                                 />
-                                                <span className={" " +Style.search}><i className="fa fa-search " aria-hidden="true"></i></span>
+                                                <span className={" " +Style.searchAfterLogin}><i className="fa fa-search " aria-hidden="true"></i></span>
                                                 <div className="autocomplete-dropdown-container SearchListContainer">
                                                     {loading && <div>Loading...</div>}
                                                     {suggestions.map(suggestion => {
@@ -424,7 +424,7 @@ class DeliveryLocationPopup extends React.Component {
                                 </div>
                                 <div className="col-12 NoPadding">
                                     <div className="col-2 offset-9 mt-3 NoPadding ">
-                                        <button type="button" className={" btn col-12 NoPadding pull-right " +Style.locationBTN1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
+                                        <button type="button" className={" btn col-12 NoPadding pull-right " +Style.locationBTNafterLogin1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                     </div>
                                 </div>
                                 
@@ -464,5 +464,5 @@ const mapStateToProps = state => (
         setSampurnaWebsiteDetails : setSampurnaWebsiteDetails,    
     };
   
-export default connect(mapStateToProps, mapDispatchToProps)(DeliveryLocationPopup);
+export default connect(mapStateToProps, mapDispatchToProps)(DeliveryLocationPopupAfterLogin);
 
