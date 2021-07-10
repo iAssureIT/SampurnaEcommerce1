@@ -143,13 +143,14 @@ exports.insert_orders = (req, res, next) => {
 								// console.log("send_notification_to_user => ",send_notification_to_user);
 								
 								//send Notification, email, sms to admin
+								// var userData 	 = await User.findOne({"_id" : ObjectId(req.body.user_id)}); 
 								var adminNotificationValues = {
 									"event"			: "NewOrder",
 									// "toUser_id"		: req.body.user_ID,
 									"toUserRole"	: "admin",								
 									"variables" 	: {
-														"customerName" 			: userData.profile.fullName,
-														"customerEmail" 		: userData.profile.email,
+														"customerName" 			: req.body.userFullName,
+														"customerEmail" 		: req.body.userEmail,
 														"mobileNumber"			: orderdata.deliveryAddress.mobileNumber,
 														"orderID"  				: orderdata.orderID,
 														"deliveryAddress" 		: orderdata.deliveryAddress
