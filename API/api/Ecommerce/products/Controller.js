@@ -2073,7 +2073,6 @@ exports.list_productby_category = (req,res,next)=>{
 };
 
 
-
 exports.similar_products = (req,res,next)=>{
     // console.log("req.body",req.body);
     var {category_ID,user_ID,vendor_ID,section_ID,subCategory_ID,section_ID,product_ID} = req.body;

@@ -634,7 +634,7 @@ exports.count_cart = (req,res,next)=>{
     .exec()
     .then(data=>{
         console.log("data",data);
-        res.status(200).json(data && data.length>0 ? data[0].count : 0);
+        res.status(200).json(data && data.length > 0 ? data[0].count : 0);
     })
     .catch(err =>{
         console.log("err",err);

@@ -73,7 +73,7 @@ class BulkProductImageUpload extends Component{
 
 				if (file) {
 					var fileName  		= file.name; 
-					// var productCode 	= file.name.split('-')[0];
+					var productCode 	= file.name.split('-')[0];
 					var itemCode 		= file.name.split('-')[1];
 					var ext 			= fileName.split('.').pop();  
 
@@ -81,11 +81,11 @@ class BulkProductImageUpload extends Component{
 						if (file) {
 							var objTitle = { 
 								fileInfo 	: file,
-								// productCode : productCode,
+								productCode : productCode,
 								itemCode 	: itemCode
 							}
-							// if(itemCode && productCode){
-							if(itemCode){
+							if(itemCode && productCode){
+							// if(itemCode){
 								checkItemCode();
 								async function checkItemCode(){
 									// const res = await axios.get('api/products/check-item-code-exits/'+itemCode);
@@ -144,6 +144,7 @@ class BulkProductImageUpload extends Component{
 							s3urlArray.push({
 								productImage 		: s3url,
 								productSmallImage  	: productSmallImage,
+								productCode 		: productImage[i].productCode,
 								itemCode 			: productImage[i].itemCode
 							});
 						}
@@ -160,7 +161,7 @@ class BulkProductImageUpload extends Component{
 					
 					newImages.push(formValues.productImage);
 					this.setState({
-							productImageArray : _.flatten(newImages)
+						productImageArray : _.flatten(newImages)
 					})
 				});
 
@@ -247,6 +248,7 @@ class BulkProductImageUpload extends Component{
 			var formValue = {
 				productImage        : this.state.productImageArray[i].productImage,
 				productSmallImage   : this.state.productImageArray[i].productSmallImage,
+				productCode      	: this.state.productImageArray[i].productCode,
 				itemCode      		: this.state.productImageArray[i].itemCode
 			}
 			axios.patch('/api/products/patch/bulkimages/', formValue)
@@ -289,36 +291,37 @@ class BulkProductImageUpload extends Component{
 
 	deleteproductImages(event){
 		event.preventDefault(); 
-		var id = event.target.getAttribute('data-productid');
-		var image = event.target.getAttribute('data-image');
+		var id  	= event.target.getAttribute('data-productid');
+		var image 	= event.target.getAttribute('data-image');
+		
 		var formValues = {
 			product_ID    : id,
 			imageLik      : image
 		}
 
 		swal({
-					title: "Are you sure you want to delete this image?",
-					text: "Once deleted, you will not be able to recover this image!",
-					icon: "warning",
-					buttons: true,
-					dangerMode: true,
-				})
-				.then((success) => {
-						if (success) {
-							swal("Your image is deleted!");
-							
-								axios.patch('/api/products/remove/image', formValues)
-								.then((res)=>{
-									this.getData();
-								})
-								.catch((error)=>{
-									console.log('errro', error);
-								})
-						
-						} else {
-						swal("Your image is safe!");
-					}
-				});
+			title 		: "Are you sure you want to delete this image?",
+			text 		: "Once deleted, you will not be able to recover this image!",
+			// icon 		: "warning",
+			buttons 	: true,
+			dangerMode 	: true,
+		})
+		.then((success) => {
+			if (success) {
+				swal("Your image is deleted!");
+				
+					axios.patch('/api/products/remove/image', formValues)
+					.then((res)=>{
+						this.getData();
+					})
+					.catch((error)=>{
+						console.log('errro', error);
+					})
+			
+			} else {
+				swal("Your image is safe!");
+			}
+		});
 
  
 	}
@@ -426,6 +429,7 @@ class BulkProductImageUpload extends Component{
 															<thead className="tempTableHeader">
 																<tr >
 																	<th className="col-lg-1 umDynamicHeader srpadd">Sr no.</th>
+																	<th className="col-lg-2 umDynamicHeader srpadd">Product Code</th>
 																	<th className="col-lg-2 umDynamicHeader srpadd">Item Code</th>
 																	<th className="col-lg-2 umDynamicHeader srpadd">Product Name</th>
 																	<th className="col-lg-7 umDynamicHeader srpadd">Images</th>
@@ -437,20 +441,21 @@ class BulkProductImageUpload extends Component{
 																		
 																		return(
 																			<tr key ={index}>
-																				<td> {index+1}     </td>
-																				<td> {data.itemCode}    </td>
-																				<td> {data.productName}    </td>
+																				<td> {index+1} </td>
+																				<td> {data.productCode} </td>
+																				<td> {data.itemCode} </td>
+																				<td> {data.productName} </td>
 																				<td>
 																				{
 																					data.productImage.length > 0 ? 
-																						<div className="deleteimagewrapper bulkimagebg">  
+																						<div className="col-lg-12 col-md-12 col-sm-12, col-xs-12 deleteimagewrapper bulkimagebg">  
 																							{  
 																								data.productImage.map((imgdata,index)=>{
 																									return(
-																										<div className="col-lg-3 deleteImgBlkUpldCol-lg-3" key={index}>
-																											imgdata
-																											<i className="fa fa-times deleteImgBlkUpld" aria-hidden="true" data-image={imgdata} data-productid={data._id}   onClick={this.deleteproductImages.bind(this)}></i>
-																											<img src={imgdata} className="img-thumbnail"/>
+																										<div className="deleteImgBlkUpldCol" key={index}>
+																											{/* imgdata */}
+																											<i className="fa fa-times deleteImgBlkUpldSign" aria-hidden="true" data-image={imgdata} data-productid={data._id}   onClick={this.deleteproductImages.bind(this)}></i>
+																											<img src={imgdata} className=""/>
 																										</div>
 																									);
 																								})

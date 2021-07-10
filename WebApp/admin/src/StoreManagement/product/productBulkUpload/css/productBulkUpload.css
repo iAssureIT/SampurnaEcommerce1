@@ -69,3 +69,25 @@
 .btnDiv{
     margin-top:  2% !important;
 }
+.deleteImgBlkUpldCol{
+    width: 100px;
+    height: 100px;
+    margin :5px;
+    float: left;
+    position: relative;
+}
+.deleteImgBlkUpldSign{
+    position: absolute;
+    right: -5px;
+    top: -8px;
+    font-size: 15px;
+    background-color: #fff;
+    border: 2px solid red;
+    border-radius: 50%;
+    color: black;
+    padding: 3px;
+}
+.deleteImgBlkUpldCol img{
+    width: 100%;
+    height: 100%;
+}

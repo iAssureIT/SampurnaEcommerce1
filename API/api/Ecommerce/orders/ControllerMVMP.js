@@ -140,7 +140,6 @@ exports.insert_orders = (req, res, next) => {
 							async function processData(){
 
 								//send Notification, email, sms to customer
-								sta
 								// console.log("send_notification_to_user => ",send_notification_to_user);
 								
 								//send Notification, email, sms to admin
