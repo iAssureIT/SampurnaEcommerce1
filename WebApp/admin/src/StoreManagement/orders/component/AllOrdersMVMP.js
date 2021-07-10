@@ -152,6 +152,7 @@ class AllOrdersList extends Component{
 			order_user_id	: order_user_id
 		},()=>{
 			this.getOneOrder(this.state.order_id, this.state.vendor_id);
+			this.getData(this.state.startRange,this.state.limitRange);
 		})		
 	}
 	
@@ -236,7 +237,7 @@ class AllOrdersList extends Component{
 		// .then((response)=>{
 		socket.emit('adminOrtderListValues',formValues);
 		socket.on("adminBookingList", (response)=>{
-		console.log('order tableData', response);		               
+		// console.log('order tableData', response);		               
 		  	var tableData = response.map((a, i)=>{
 			// var tableData = response.data.reverse().map((a, i)=>{                      
 				return{ 
@@ -302,7 +303,7 @@ class AllOrdersList extends Component{
 					// 					: []
 				}
 			})
-			console.log("tableData",tableData);
+			// console.log("tableData",tableData);
 			this.setState({
 				tableData : tableData
 			},()=>{})

@@ -6,7 +6,7 @@ const orderController = require('./ControllerMVMP');
 
 router.post('/post', 																			orderController.insert_orders);
 
-router.patch('/changevendororderstatus', 													    orderController.change_vendor_orders_tatus);
+router.patch('/changevendororderstatus', 													    orderController.change_vendor_orders_status);
 
 router.post('/get/list_orders_by_status', 													    orderController.list_orders_by_status);
  

@@ -1,6 +1,6 @@
 const mongoose              = require("mongoose");
 const OrderStatusMaster     = require('./Model.js');
-const FailedRecords     = require('../failedRecords/Model');
+const FailedRecords         = require('../failedRecords/Model');
 
 exports.insertOrderStatus = (req,res,next)=>{
    processData();

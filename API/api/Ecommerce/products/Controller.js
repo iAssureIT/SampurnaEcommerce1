@@ -1549,7 +1549,7 @@ exports.fetch_product = (req,res,next)=>{
     .then(product=>{
         Products.find({productCode : product.productCode, vendor_ID : ObjectId(req.body.vendor_id)})
         .populate("vendor_ID")
-        .then(products=>{
+        .then(async(products)=>{
             // console.log("products => ",products)
             if(products && products.length > 0){
                 // product = {...product._doc, isWish : false};
@@ -1570,20 +1570,19 @@ exports.fetch_product = (req,res,next)=>{
                 if(req.body.user_id && req.body.user_id !== 'null' && req.body.user_id !== undefined){
                     for (var i = 0; i < products.length; i++) {
                         products[i] = {...products[i]._doc, isWish : false}; 
-
-                        Wishlists.find({user_ID : req.body.user_id})
-                        .then(async(wish)=>{
-                            // console.log("wish",wish);
-                            if(wish.length > 0){
-                                for(var j=0; j<wish.length; j++){
-                                    if(String(wish[j].product_ID) === String(products[j]._id)){
-                                        product[i] = {...products[i], isWish : true};
-                                        products[i].vendorLocation_id = await products[i].vendor_ID.locations && products[i].vendor_ID.locations.length > 0 
+                        products[i].vendorLocation_id = await products[i].vendor_ID.locations && products[i].vendor_ID.locations.length > 0 
                                                 ? 
                                                     products[i].vendor_ID.locations[0]._id 
                                                 : 
                                                     "";
-                                        products[i].vendor_ID = products[i].vendor_ID._id;  
+                        products[i].vendor_ID = products[i].vendor_ID._id;  
+                        Wishlists.find({user_ID : req.body.user_id})
+                        .then(wish=>{
+                            // console.log("wish",wish);
+                            if(wish.length > 0){
+                                for(var j=0; j<wish.length; j++){
+                                    if(String(wish[j].product_ID) === String(products[j]._id)){
+                                        product[i] = {...products[i], isWish : true};                                        
                                         break;
                                     }
                                 }   
@@ -2084,11 +2083,18 @@ exports.similar_products = (req,res,next)=>{
         var selector = {"status": "Publish", "vendor_ID": vendor_ID, "category_ID" : category_ID,"section_ID":section_ID,"_id":{$ne:product_ID}}
     }
     Products.find(selector)
+    .populate('vendor_ID')
     .exec()
-    .then(products=>{
+    .then(async(products)=>{
         if(products){
             for (let k = 0; k < products.length; k++) {
-                products[k] = {...products[k]._doc, isWish:false};
+                products[k] = {...products[k]._doc, isWish : false};
+                products[k].vendorLocation_id = await products[k].vendor_ID.locations && products[k].vendor_ID.locations.length > 0 
+                                        ? 
+                                            products[k].vendor_ID.locations[0]._id 
+                                        : 
+                                            "";
+                products[k].vendor_ID = products[k].vendor_ID._id; 
             }
             if(user_ID && user_ID!=='null'){
                 Wishlists.find({user_ID:user_ID})
@@ -2097,7 +2103,7 @@ exports.similar_products = (req,res,next)=>{
                         for(var i=0; i<wish.length; i++){
                             for(var j=0; j<products.length; j++){
                                 if(String(wish[i].product_ID) === String(products[j]._id)){
-                                    products[j]= {...products[j], isWish:true};
+                                    products[j]= {...products[j], isWish : true};
                                     break;
                                 }
                             }

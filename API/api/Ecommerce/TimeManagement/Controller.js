@@ -121,18 +121,18 @@ exports.count_section = (req,res,next)=>{
 
 exports.get_Time_with_limits = (req,res,next)=>{
     Time.find()  
-         .sort({createdAt : -1})
-        .skip(parseInt(req.params.startRange))
-        .limit(parseInt(req.params.limitRange))     
-        .exec()
-        .then(data=>{
-            res.status(200).json(data);
-        })
-        .catch(err =>{
-            res.status(500).json({
-                error: err
-            });
+    .sort({createdAt : -1})
+    .skip(parseInt(req.params.startRange))
+    .limit(parseInt(req.params.limitRange))     
+    .exec()
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error: err
         });
+    });
 };
 
 exports.get_megamenu_list = (req,res,next)=>{

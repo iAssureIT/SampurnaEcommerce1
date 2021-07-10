@@ -12,6 +12,7 @@ const Products 					= require('../products/Model');
 const Adminpreference 			= require('../adminPreference/Model');
 const StorePreferences  		= require('../StorePreferences/Model.js');
 const OrderCancellationPolicy   = require('../../Ecommerce/OrderCancellationPolicy/Model.js');
+const OrderStatusMaster     	= require('../orderStatusMaster/Model.js');
 const CreditPointsPolicy 		= require('../CreditPointsPolicy/Model.js');
 const CreditPoints 				= require('../CreditPoints/Model.js');
 const CustomerReview 			= require('../customerReview/ModelMVMP.js');
@@ -102,7 +103,7 @@ exports.insert_orders = (req, res, next) => {
 											itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
 										},
 										{ $inc :{
-												currentQuantity   : productQuantity
+												currentQuantity   : -productQuantity
 											},
 											$push : {								
 												updateLog       : {
@@ -139,22 +140,7 @@ exports.insert_orders = (req, res, next) => {
 							async function processData(){
 
 								//send Notification, email, sms to customer
-								var userData 	 = await User.findOne({"_id" : ObjectId(req.body.user_ID)}); 
-								console.log("userData => ",userData)
-								var userNotificationValues = {
-									"event"				: "NewOrder",
-									"toUser_id"			: req.body.user_ID,
-									"toUserRole"		: "user",
-									"toMobileNumber"	: orderdata.deliveryAddress.mobileNumber,								
-									"variables" 		: {
-															"customerName" 			: userData.profile.fullName,
-															"customerEmail" 		: userData.profile.email,
-															"mobileNumber"			: orderdata.deliveryAddress.mobileNumber,
-															"orderID"  				: orderdata.orderID,
-															"deliveryAddress" 		: orderdata.deliveryAddress
-									}
-								}								
-								var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
+								sta
 								// console.log("send_notification_to_user => ",send_notification_to_user);
 								
 								//send Notification, email, sms to admin
@@ -531,35 +517,41 @@ exports.cancel_order = (req, res, next) => {
 					// console.log(" => ",req.body.order_id, " ",orderdata.user_ID," ",orderdata.createdAt," ",vendor_order_afterDiscountTotal," ",vendor_order_shippingCharges," ", vendor_netPayableAmount," ")
 					var addCreditPoint = await addCreditPoints(orderdata._id, orderdata.user_ID, vendor_order_afterDiscountTotal, vendor_order_shippingCharges, vendor_netPayableAmount, "Vendor Order Cancelled", "minus");
 					// console.log("addCreditPoint => ",addCreditPoint)		
-					// ProductInventory.updateOne(
-					// 	{ 
-					// 		vendor_ID            : ObjectId(req.body.vendorOrders[l].vendor_id._id),
-					// 		productCode 		 : req.body.vendorOrders[l].products[m].productCode,
-					// 		itemCode 		 	 : req.body.vendorOrders[l].products[m].itemCode,
-					// 	},
-					// 	{ $inc :{
-					// 			currentQuantity   : productQuantity
-					// 		},
-					// 		$push : {								
-					// 			updateLog       : {
-					// 				date        : new Date(),
-					// 				updatedBy   : ObjectId(req.body.user_ID),
-					// 				// order_id    : ObjectId(orderdata._id),
-					// 			}
-					// 		}
-					// 	}
-					// )		 
-					// .then(inventoryupdateData=>{
-					// 	console.log("inventoryupdateData = ",inventoryupdateData);
-					// 	// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
-					// })
-					// .catch(err =>{
-					// 	console.log("Error While Updating Inventory")
-					// 	// res.status(500).json({
-					// 	// 	error 	: err,
-					// 	// 	message : 'Error While Updating Inventory'
-					// 	// });
-					// });
+
+					var vendorOrders = await Orders.findOne({"_id" : ObjectId(req.body.order_id), "vendorOrders.vendor_id" : ObjectId(req.body.vendor_id)},{'vendorOrders.$' : 1})
+					// console.log("vendorOrders => ",vendorOrders);
+					// console.log("condition => ",(vendorOrders && vendorOrders !== null && vendorOrders.vendorOrders && vendorOrders.vendorOrders.length > 0 && vendorOrders.vendorOrders[0].products && vendorOrders.vendorOrders[0].products.length > 0))
+					if(vendorOrders && vendorOrders !== null && vendorOrders.vendorOrders && vendorOrders.vendorOrders.length > 0 && vendorOrders.vendorOrders[0].products && vendorOrders.vendorOrders[0].products.length > 0){
+						var singleVendorOrder = vendorOrders.vendorOrders[0];
+						// console.log("vendorOrders => ",vendorOrders);
+						for (let i = 0; i < singleVendorOrder.products.length; i++) {
+							// console.log("singleVendorOrder.products[i] => ,",singleVendorOrder.products[i])
+							console.log(" => ",req.body.vendor_id ," ",singleVendorOrder.products[i].productCode, " ",singleVendorOrder.products[i].itemCode)
+							await ProductInventory.updateOne(
+								{ 
+									vendor_ID            : ObjectId(req.body.vendor_id),
+									productCode 		 : singleVendorOrder.products[i].productCode,
+									itemCode 		 	 : singleVendorOrder.products[i].itemCode,
+								},
+								{ $inc : {
+										currentQuantity   : -singleVendorOrder.products[i].quantity
+									}
+								}
+							)		 
+							.then(inventoryupdateData=>{
+								console.log("inventoryupdateData = ",inventoryupdateData);
+								// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
+							})
+							.catch(err =>{
+								console.log("Error While Updating Inventory")
+								// res.status(500).json({
+								// 	error 	: err,
+								// 	message : 'Error While Updating Inventory'
+								// });
+							});
+							
+						}
+					}					
 					res.status(200).json({
 						"message"	: "Order cancelled successfully."
 					});
@@ -605,7 +597,43 @@ exports.cancel_order = (req, res, next) => {
 				// console.log("orderdata=> ",orderdata)
 				var addCreditPoint 	= await addCreditPoints(orderdata._id, orderdata.user_ID, orderdata.paymentDetails.afterDiscountTotal, orderdata.paymentDetails.shippingCharges, orderdata.paymentDetails.netPayableAmount, "Whole Order Cancelled", "minus");
 				// console.log("else addCreditPoint => ",addCreditPoint)
-				
+				var vendorOrders = await Orders.findOne({"_id" : ObjectId(req.body.order_id)},{'vendorOrders' : 1})
+					// console.log("vendorOrders => ",vendorOrders);
+					// console.log("condition => ",(vendorOrders && vendorOrders !== null && vendorOrders.vendorOrders && vendorOrders.vendorOrders.length > 0 && vendorOrders.vendorOrders[0].products && vendorOrders.vendorOrders[0].products.length > 0))
+				if(vendorOrders && vendorOrders !== null && vendorOrders.vendorOrders && vendorOrders.vendorOrders.length > 0){
+					// console.log("vendorOrders => ",vendorOrders);
+					for (var i = 0; i < vendorOrders.length; i++) {
+						var vendorOrdersArray = vendorOrders.vendorOrders;
+					
+						for (let j = 0; j < vendorOrdersArray.products.length; j++) {
+							// console.log("singleVendorOrder.products[i] => ,",singleVendorOrder.products[i])
+							console.log(" => ",req.body.vendor_id ," ",vendorOrdersArray.products[i].productCode, " ",vendorOrdersArray.products[i].itemCode)
+							await ProductInventory.updateOne(
+								{ 
+									vendor_ID            : ObjectId(vendorOrdersArray[i].vendor_id),
+									productCode 		 : vendorOrdersArray[i].products[j].productCode,
+									itemCode 		 	 : vendorOrdersArray[i].products[j].itemCode,
+								},
+								{ $inc : {
+										currentQuantity   : -vendorOrdersArray[i].products[j].quantity
+									}
+								}
+							)		 
+							.then(inventoryupdateData=>{
+								console.log("inventoryupdateData = ",inventoryupdateData);
+								// console.log("Product Inventory Updated successfully for productCode = "+req.body.vendorOrders[l].products[m].productCode+" & ItemCode="+req.body.vendorOrders[l].products[m].itemCode);
+							})
+							.catch(err =>{
+								console.log("Error While Updating Inventory")
+								// res.status(500).json({
+								// 	error 	: err,
+								// 	message : 'Error While Updating Inventory'
+								// });
+							});
+							
+						}
+					}
+				}	
 				res.status(200).json({
 					"message"	: "Order cancelled successfully."
 				});
@@ -664,7 +692,7 @@ function getDistanceWiseShippinCharges(){
 
 /*========== List Status Wise Orders ==========*/
 exports.list_orders_by_status = (req, res, next) => {
-	// console.log("list_orders_by_status => ",req.body);
+	console.log("list_orders_by_status => ",req.body);
 	var selector        = {};
 	selector['$and']    = [];
 	if(req.body.status.toLowerCase() !== "all"){       
@@ -682,7 +710,7 @@ exports.list_orders_by_status = (req, res, next) => {
 			} 
 		})
 	}
-	// console.log("selector",selector);
+	console.log("selector",selector);
 	// console.log("selector => ",selector[0].vendorOrders)
 	Orders.find(selector)
 	// aggregate([
@@ -694,13 +722,13 @@ exports.list_orders_by_status = (req, res, next) => {
 	// 	{$match : selector}
 	// ])
 	.populate('vendorOrders.vendor_id')
-	.sort({ createdAt: 1 })
+	.sort({ createdAt: -1 })
 	.then(data => {
 		// console.log("allocatedToFranchise===>>>",data);
 		res.status(200).json(data);
 	})
 	.catch(err => {
-		console.log(err);
+		console.log("Error while finding order => ",error);
 		res.status(500).json({
 			error: err
 		});
@@ -924,13 +952,13 @@ function addSplitVendorOrders(orderID) {
 }
 
 /** =========== Change Vendor Order Status =========== */
-exports.change_vendor_orders_tatus = (req, res, next) => {
+exports.change_vendor_orders_status = (req, res, next) => {
 	// console.log("req.body => ",req.body)
 	Orders.updateOne(
 	{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 	{
 		$set:{
-			"vendorOrders.$.orderStatus"    			: req.body.changeStatus
+			"vendorOrders.$.orderStatus"  : req.body.changeStatus
 		},
 		$push: {	
 			"vendorOrders.$.deliveryStatus" : {
@@ -940,9 +968,59 @@ exports.change_vendor_orders_tatus = (req, res, next) => {
 			}
 		}
 	})
-	.then(updatedata => {
+	.then(async(updatedata) => {
 		// console.log("updatedata => ",updatedata);
 		if (updatedata.nModified === 1) {
+			var vendorOrders 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {vendorOrders : 1});
+			// console.log("OrderStatuses => ",OrderStatuses);
+			console.log("vendorOrders => ",vendorOrders);
+			var count = 0;
+			for(var i=0; i < vendorOrders.vendorOrders.length; i++){
+				console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
+				if(vendorOrders.vendorOrders[i].orderStatus === "Delivered" || vendorOrders.vendorOrders[i].orderStatus === "Cancelled"){
+					count += 1;
+					console.log("count 1 => ",count)
+				}
+			}
+			if(i >= vendorOrders.vendorOrders.length){
+				console.log("count => ",(count === vendorOrders.vendorOrders.length));
+				if(count === vendorOrders.vendorOrders.length){
+					Orders.updateOne(
+						{ _id: ObjectId(req.body.order_id)},		
+						{
+							$set:{
+								"orderStatus"  : req.body.changeStatus
+							}
+						}
+					)
+					.then(async(updateorderdata) => {
+						console.log("updateorderdata => ",updateorderdata)
+					
+						var orderdata 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {user_ID : 1, deliveryAddress : 1, orderID : 1});
+						var userData 	= await User.findOne({"_id" : ObjectId(orderdata.user_ID)}); 
+						console.log("userData => ",userData)
+						
+						var userNotificationValues = {
+							"event"				: "OrderStatusChange",
+							"toUser_id"			: orderdata.user_ID,
+							"toUserRole"		: "user",
+							"toMobileNumber"	: orderdata.deliveryAddress.mobileNumber,								
+							"variables" 		: {
+													"customerName" 			: userData.profile.fullName,
+													"customerEmail" 		: userData.profile.email,
+													"mobileNumber"			: orderdata.deliveryAddress.mobileNumber,
+													"orderID"  				: orderdata.orderID,
+													"deliveryAddress" 		: orderdata.deliveryAddress
+							}
+						}
+						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);	
+					})
+					.catch(err => {
+						console.log("Error => Failed to Update Complete Order Status")
+					})
+					
+				}
+			}
 			res.status(200).json({
 				"message"	: "Vendor Order Status Updated Successfully."
 			});
