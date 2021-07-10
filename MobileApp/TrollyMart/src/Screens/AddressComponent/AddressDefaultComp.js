@@ -22,6 +22,7 @@ import {setToast,
   import { SET_USER_ADDRESS}          from '../../redux/location/types';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
+import ActionButton from 'react-native-action-button';
 // export default class AddressDefaultComp extends React.Component {
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
@@ -165,26 +166,10 @@ import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
         /> */}
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+          <View style={{flexDirection:'row',alignItems:'flex-end',padding:15}}>
+                <Text style={{fontSize:22,fontFamily:"Montserrat-Bold",color:"#333"}}>My Address</Text>
+            </View> 
             <View style={styles.padhr15}>
-               <View style={styles.addcmpbtn}>
-               {/* <Button
-                    onPress={() => navigation.navigate('AddressComponent',{"delivery":delivery})}
-                    title={"ADD NEW ADDRESS"}
-                    buttonStyle={styles.button1}
-                    containerStyle={styles.buttonContainer1}
-                    titleStyle={styles.buttonTextEDIT}
-                  /> */}
-               {!disabled &&
-                  <FormButton
-                    title          = {"PROCEED TO CHECKOUT"}
-                    onPress={() => navigation.navigate('AddressComponent',{"delivery":delivery})}
-                    title={"ADD NEW ADDRESS"}
-                    background  = {true}
-                    // loading     = {btnLoading}
-                    // disabled       = {!disabled}
-                  />
-                  }
-              </View>
               {deliveryAddress ?
                 deliveryAddress.length > 0 ?
                 deliveryAddress.map((item, i) => {
@@ -198,55 +183,43 @@ import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
                       )]}>
                     {item.distance<=1 ?
                       <TouchableOpacity onPress={() => {selectedaddress(i,item._id,item)}} >
+                        <View style={{height:24,backgroundColor:"#5B8E7E",borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
+                            <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.white}/>
+                            {!disabled&&<Icon name="delete" type="AntDesign" size={10} iconStyle={{elevation:5}} color={colors.white}  onPress={() => deleteAdress(item._id)}/>}
+                        </View>  
                         <View style={styles.addchkbx}>
-                          <View style={[styles.nameofcontact,{paddingHorizontal:14}]}>
+                          <View style={[styles.nameofcontact]}>
                             <Text style={CommonStyles.label}> {item.name}</Text>
                           </View>
                           <View style={styles.chkvw}>
                           </View>
-                          <View style={styles.proddeletes}>
-                            {!disabled&&<Icon
-                              onPress={() => deleteAdress(item._id)}
-                              name="delete"
-                              type="AntDesign"
-                              size={18}
-                              color="#ff4444"
-                              iconStyle={styles.iconstyle}
-                            />}
-                          </View>
                         </View>
                         <View style={styles.padhr18}>
-                          <Text style={styles.text}>{item.addressLine1+", "+item.addressLine2}</Text>
+                          <Text style={CommonStyles.text}>{item.addressLine1+", "+item.addressLine2}</Text>
                           <View style={styles.mobflx}>
-                            <Text style={CommonStyles.label}>Mobile:</Text>
-                            <Text style={styles.text}>{item.mobileNumber}</Text>
+                            <Text style={CommonStyles.text}>Mobile : </Text>
+                            <Text style={CommonStyles.text}>{item.mobileNumber}</Text>
                           </View>
                         </View>
                       </TouchableOpacity>
                       :
-                      <View style={{backgroundColor:"#eee",borderRadius:15}} >
+                      <View style={{borderRadius:15}} >
+                         <View style={{height:24,backgroundColor:"#B7B7B7",borderTopLeftRadius:9,borderTopRightRadius:9,flexDirection:"row",justifyContent:'space-between',alignItems:'center',paddingHorizontal:15}}>
+                            <Icon name="home" type="material-community" size={10} iconStyle={{elevation:5}} color={colors.textLight}/>
+                            {!disabled&&<Icon name="delete" type="AntDesign" size={10} iconStyle={{elevation:5}} color={colors.textLight}  onPress={() => deleteAdress(item._id)}/>}
+                        </View>
                         <View style={styles.addchkbx}>
-                          <View style={[styles.nameofcontact,{paddingHorizontal:14}]}>
-                            <Text style={CommonStyles.text}> {item.name}</Text>
+                          <View style={[styles.nameofcontact]}>
+                            <Text style={CommonStyles.label}> {item.name}</Text>
                           </View>
                           <View style={styles.chkvw}>
                           </View>
-                          <View style={styles.proddeletes}>
-                            {!disabled&&<Icon
-                              onPress={() => deleteAdress(item._id)}
-                              name="delete"
-                              type="AntDesign"
-                              size={18}
-                              color="#ff4444"
-                              iconStyle={styles.iconstyle}
-                            />}
-                          </View>
                         </View>
                         <View style={styles.padhr18}>
-                          <Text style={styles.text}>{item.addressLine1+", "+item.addressLine2}</Text>
+                          <Text style={CommonStyles.text}>{item.addressLine1+", "+item.addressLine2}</Text>
                           <View style={styles.mobflx}>
-                            <Text style={CommonStyles.text}>Mobile:</Text>
-                            <Text style={styles.text}>{item.mobileNumber}</Text>
+                            <Text style={CommonStyles.text}>Mobile : </Text>
+                            <Text style={CommonStyles.text}>{item.mobileNumber}</Text>
                           </View>
                         </View>
                       </View>
@@ -282,6 +255,12 @@ import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
             </View>
           </ScrollView>
         </View>
+        {!disabled && <ActionButton 
+          buttonColor="#fff"  
+          style={{marginBottom:30,padding:0}} 
+          icon={<Icon name="plus-circle-outline" type="material-community" size={30} iconStyle={{elevation:5}} color={colors.cartButton}/>}
+          onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery})}
+        />}
       </React.Fragment>
     );
 })

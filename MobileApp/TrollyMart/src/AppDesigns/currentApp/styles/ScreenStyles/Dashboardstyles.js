@@ -210,4 +210,18 @@ borderRadiusRight:{
   borderTopRightRadius: 5,
   borderBottomRightRadius: 5,
 },
+
+locationInput:{
+  flexDirection:'row',
+  padding:10,
+  paddingVertical:15,
+  ...Platform.select({
+    ios:{
+     marginTop:30
+
+    },
+    android : {
+    }
+  })
+},
 });

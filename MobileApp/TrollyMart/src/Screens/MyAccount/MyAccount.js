@@ -6,7 +6,8 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  StyleSheet
+  StyleSheet,
+  Image
 } from 'react-native';
 import { Button,Icon}     from "react-native-elements";
 import axios          from "axios";
@@ -23,6 +24,7 @@ import { connect,
     useDispatch,
     useSelector }    from 'react-redux';
 import {USER_LOGOUT} from '../../redux/store';
+import {SocialMediaLogin} from '../SystemSecurity/RootLogIn/SocialMediaLogin.js'
 
 
 // export default class AccountDashboard extends React.Component{
@@ -43,77 +45,126 @@ export const MyAccount =(props)=>{
     navigation.navigate('Auth');
     
   };
+  console.log("userDetails",userDetails)
   
   return (
-    <View style={{flex:1,backgroundColor:"#f1f1f1"}}>
+    <View style={{flex:1,backgroundColor:"#fff"}}>
       {/* <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={'My Account'}
           navigate={navigation.navigate}
       /> */}
-      <ScrollView style={styles.acdashsuperparent}>
+      <ScrollView style={[styles.acdashsuperparent,{marginBottom:70}]}>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
-                <View style={{flexDirection:"row",justifyContent:'space-between',marginTop:5}}>   
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('AccountDashboard')}>
-                        <Icon size={30} name='user-circle-o' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>My Profile</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles1.HorizontalBoxRight} onPress={()=>navigation.navigate('MyOrder')}>
-                        <Icon size={30} name='shopping-bag' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>My Orders</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{flexDirection:"row",justifyContent:'space-between'}}>         
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('WishlistComponent')}>
-                        <Icon size={30} name='heart-o' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>My WishList</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles1.HorizontalBoxRight} onPress={()=>navigation.navigate('CartComponent', { userId: userDetails.user_id })}>
-                        <Icon size={30} name='shopping-cart' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>My Cart</Text>
-                    </TouchableOpacity>
+            {userDetails.authService=="guest" ?
+                <View>
+                    <View style={{flexDirection:'row',alignItems:'flex-end'}}>
+                        <Text style={{fontSize:22,fontFamily:"Montserrat-Bold"}}>My Account</Text>
+                    </View>  
+                    <View style={{marginLeft:24,marginTop:15}}>
+                        <View style={{flexDirection:'row'}}>
+                            <View style={{marginTop:20}}>
+                                <Text style={{fontSize:18,fontFamily:"Montserrat-SemiBold",paddingVertical:5}}>Hello</Text>
+                                <Text style={{fontSize:16,fontFamily:"Montserrat-Medium"}}>Welcome to</Text>
+                            </View>
+                            <Image
+                                resizeMode="contain"
+                                source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
+                                style={[styles1.syslogoimg1,{flex:0.5,marginLeft:5,marginTop:50}]}
+                            />
+                        </View>
+                    </View>
+                    <TouchableOpacity style={styles1.signSignUpBox} onPress={()=>logout()}>
+                        <Text>Sign In / Sign Up </Text>
+                    </TouchableOpacity> 
+                    <SocialMediaLogin/>
+                    </View> 
+                    :
+                 <View> 
+                     <View style={styles.syslogo}>
+                        <Image
+                        resizeMode="contain"
+                        source={require("../../AppDesigns/currentApp/images/trollymart-black.png")}
+                        style={styles1.syslogoimg}
+                        />
+                    </View>
+                    <View style={{flexDirection:'row',alignItems:'flex-end'}}>
+                        <Text style={{fontSize:22,fontFamily:"Montserrat-Bold",color:"#333"}}>Profile</Text>
+                        <TouchableOpacity  onPress={()=>navigation.navigate('AccountInformation')}>
+                            <Icon size={15} name='edit' type='font-awesome' color={colors.textLight} iconStyle={[styles1.iconStyle,{marginLeft:12}]}/>
+                        </TouchableOpacity>
+                    </View>  
+                    <View style={{marginLeft:20,marginTop:15}}>
+                        <Text style={{fontSize:18,fontFamily:"Montserrat-SemiBold",paddingVertical:5,color:"#333"}}>{userDetails.firstName+" "+userDetails.lastName}</Text>
+                        {userDetails.email ?<Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.email}</Text>: null}
+                        {userDetails.mobile ?<Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.mobile}</Text>: null}
+                    </View>       
+                </View>}    
+                <View style={styles1.horizontalLine} /> 
+                <View style={{flexDirection:'row',justifyContent:'center',paddingHorizontal:30}}>
+                    <View style={{alignItems:'center',paddingHorizontal:15}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('MyOrder')}>
+                            <Icon size={30} name='shopping-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={styles1.label}>My Orders</Text>
+                    </View>
+                    {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:15}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
+                            <Icon size={30} name='map-marker-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={[styles1.label]}>My Address</Text>
+                    </View>}
+                    {userDetails.authService!=="guest" &&<View style={{alignItems:'center',paddingHorizontal:15}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox} onPress={()=>navigation.navigate('RewardsPoint')}>
+                            <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={[styles1.label]}>Credit Points</Text>
+                    </View>}
+                </View>    
+                <View style={styles1.horizontalLine} />
+                <View style={{flexDirection:'row',justifyContent:'center'}}>
+                    <View style={{alignItems:'center',paddingHorizontal:20}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('AboutUs')}>
+                            <Icon size={20} name='shopping-bag' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={[styles1.label1]}>About Us</Text>
+                    </View>
+                    <View style={{alignItems:'center',paddingHorizontal:20}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('SupportSystem')} >
+                            <Icon size={20} name='card-account-mail-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={[styles1.label1]}>Contact Us</Text>
+                    </View>
+                    <View style={{alignItems:'center',paddingHorizontal:20}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('FAQ')}>
+                            <Icon size={20} name='frequently-asked-questions' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={[styles1.label1]}>FAQ</Text>
+                    </View>
                 </View>   
-                <View style={{flexDirection:"row",justifyContent:'space-between'}}>    
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('RewardsPoint')}>
-                        <Icon size={30} name='award' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>My Rewards</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles1.HorizontalBoxRight]} onPress={()=> navigation.navigate('AddressDefaultComp',{"delivery":false})} >
-                        <Icon size={30} name='address-book' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>My Addresses</Text>
-                    </TouchableOpacity>
+                <View style={{flexDirection:'row',justifyContent:'center',marginTop:30}}>
+                    <View style={{alignItems:'center',paddingHorizontal:15}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=>navigation.navigate('TermsConditions')}>
+                            <Icon size={20} name='text-box-check-outline' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={[styles1.label1]}>Terms and Conditions</Text>
+                    </View>
+                    <View style={{alignItems:'center',paddingHorizontal:15}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox1} onPress={()=> navigation.navigate('PrivacyPolicy')} >
+                            <Icon size={20} name='book-lock' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={[styles1.label1]}>Privacy Policy</Text>
+                    </View>
                 </View> 
-                <View style={{flexDirection:"row",justifyContent:'space-between'}}>    
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('AboutUs')}>
-                        <Icon size={30} name='info-circle' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>About Us</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles1.HorizontalBoxRight]} onPress={()=> navigation.navigate('SupportSystem')} >
-                        <Icon size={30} name='account-box' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>Contact Us</Text>
-                    </TouchableOpacity>
+                <View style={styles1.horizontalLine} />
+                <View style={{flexDirection:'row',justifyContent:'center'}}>
+                    <View style={{alignItems:'center',paddingHorizontal:15}}>   
+                        <TouchableOpacity style={styles1.HorizontalBox1}  onPress={()=> logout()} >
+                            <Icon size={20} name='logout' type='material-community' color={colors.theme} style={styles1.iconStyle}/>
+                        </TouchableOpacity>
+                        <Text style={[styles1.label1]}>Log Out</Text>
+                    </View>
                 </View> 
-                <View style={{flexDirection:"row",justifyContent:'space-between'}}>    
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('TermsConditions')}>
-                        <Icon size={30} name='file-contract' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>Terms and Conditions</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles1.HorizontalBoxRight]} onPress={()=> navigation.navigate('PrivacyPolicy')} >
-                        <Icon size={30} name='file-contract' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>Privacy Policy</Text>
-                    </TouchableOpacity>
-                </View> 
-                <View style={{flexDirection:"row",justifyContent:'space-between'}}>    
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('FAQ')}>
-                        <Icon size={30} name='question-circle' type='font-awesome-5' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>FAQ</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles1.HorizontalBoxRight]} onPress={()=> logout()} >
-                        <Icon size={30} name='logout' type='font-awesome5' color={colors.theme} style={styles1.iconStyle}/>
-                        <Text style={[CommonStyles.label]}>Log Out</Text>
-                    </TouchableOpacity>
-                </View>     
-                 
             </View>
         </ScrollView>
       </View>
@@ -122,30 +173,57 @@ export const MyAccount =(props)=>{
 
 
 const styles1 = StyleSheet.create({
-    HorizontalBoxLeft: {
+    HorizontalBox: {
         alignItems          : "center",
         justifyContent      : 'center',
         backgroundColor     : "#fff",
-        flex                : 0.47,
-        height              : 100,
-        marginLeft          : 15,
-        marginVertical      : 15,
-        elevation: 5
+        height              : 52,
+        width              : 52,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 2,
+        borderRadius :100,
+        marginVertical:5
     },
-    HorizontalBoxRight: {
-        height              : 30,
+    HorizontalBox1: {
         alignItems          : "center",
         justifyContent      : 'center',
         backgroundColor     : "#fff",
-        flex                : 0.47,
-        height              : 100,
-        marginRight         : 15,
-        marginVertical      : 15,
-        elevation: 5
+        height              : 40,
+        width              : 40,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 2,
+        borderRadius :100,
+        marginVertical:5
     },
     iconStyle:{
-        marginBottom:15
+        // marginBottom:15
         // width               :50
-    }
+    },
+    syslogoimg:{
+        width: '50%',
+        height:137
+    },
+    syslogoimg1:{
+        width: '50%',
+        height:50
+    },
+    label : {
+        fontFamily:"Montserrat-Medium",
+        fontSize:13
+    },
+    label1 : {
+        fontFamily:"Montserrat-Medium",
+        fontSize:11
+    },
+    signSignUpBox:{
+        marginTop:15,height:35,borderWidth:0.5,borderRadius:8,justifyContent:'center',alignItems:'center',width:333,alignSelf:'center'
+    },
+    horizontalLine:{borderWidth:0.5,borderColor:"#e1e1e1",width:300,alignSelf:'center',marginVertical:30}
   });
   

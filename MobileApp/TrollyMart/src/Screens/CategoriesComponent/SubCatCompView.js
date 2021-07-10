@@ -41,10 +41,14 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const [productReview,setProductReview]   = useState([]);
   const [number,setNumber]                = useState(1);
   const [loading,setLoading]          = useState(true);
+  const [variants,setvariants]        = useState([]);
+  const [productList,setProdctList] = useState([]);
+  const [sizeIndex,setSizeIndex] = useState(-1);
+  const [colorIndex,setColorIndex] = useState(-1);
   const dispatch 		= useDispatch();
   const isFocused = useIsFocused();
   const {navigation,route,setToast} =props;
-  const {productID,currency,vendorLocation_id,index}=route.params;
+  const {productID,currency,vendorLocation_id,index,vendor_id}=route.params;
 
 
   const store = useSelector(store => ({
@@ -109,10 +113,24 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   }
 
   const getProductsView=(productID,user_id)=>{
-    axios.get("/api/products/get/one/"+ productID+"/"+user_id)
+    var formValues = {
+      "user_id"           : user_id,
+      "product_id"        : productID,
+      "vendor_id"         : vendor_id
+    }
+    console.log("formValues",formValues);
+    axios.post("/api/products/get/one",formValues)
       .then((response) => {
         console.log("productdata response",response);
-        setProductData(response.data);
+        var product = response.data.products.filter(e=>e._id === productID );
+        var sizeIndex =  response.data.variants.findIndex(e=>e.size === product[0].size);
+        setProductData(product[0]);
+        setProdctList(response.data.products);
+        setvariants(response.data.variants);
+        setSizeIndex(sizeIndex);
+        var colorIndex = response.data.variants[sizeIndex].color.findIndex(e=>e === product[0].color);
+        console.log("colorIndex",colorIndex);
+        setColorIndex(colorIndex);
         setLoading(false);
       })
       .catch((error) => {
@@ -183,6 +201,21 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     }  
   }
 
+  const filterProductSize  =(index,size)=>{
+    setSizeIndex(index);
+    var product = productList.filter(e=>e.size === size);
+    setProductData(product[0]);
+    var colorIndex = variants[index].color.findIndex(e=>e === product[0].color)
+    setColorIndex(colorIndex);
+  }
+
+
+  const filterProductColor  =(index,color)=>{
+    setColorIndex(index);
+    var product = productList.filter(e=>e.color === color);
+    setProductData(product[0]);
+  }
+
 
     return (
       <View style={{backgroundColor:"#fff",flex:1}}>
@@ -216,7 +249,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         source={{ 
                           uri: image,
                           priority: FastImage.priority.high, 
-                          cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
+                          cache: FastImage.cacheControl.immutable,
                         }}
                         style={styles.saleimg}
                         resizeMode={FastImage.resizeMode.contain}
@@ -280,6 +313,42 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     value={countofprod}
                     onChange={(num)=>onChange(num)} />
                 </View>
+              </View>
+              <View style={{flexDirection:'row'}}>
+                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
+                  variants && variants.length > 0?
+                  variants.map((item,index)=>{
+                    return(
+                        <TouchableOpacity 
+                            style={{minWidth:100,height:50,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:sizeIndex === index ? 1 :0.5,paddingHorizontal:5}}
+                            onPress={()=>filterProductSize(index,item.size)}
+                            >
+                            <Text>{item.size}</Text>
+                        </TouchableOpacity> 
+                    )
+                  })
+                  :
+                  null
+                }
+                 </ScrollView>
+              </View>
+              <View style={{flexDirection:'row'}}>
+                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
+                  sizeIndex >=0 && variants[sizeIndex].color && variants[sizeIndex].color.length > 0 ?
+                  variants[sizeIndex].color.map((color,index)=>{
+                      return(
+                        <TouchableOpacity 
+                          style={{minWidth:100,height:50,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:colorIndex === index ? 1 :0.5,paddingHorizontal:5,backgroundColor:color.toLowerCase()}}
+                          onPress={()=>filterProductColor(index,color)}
+                          >
+                          {/* <Text>{color}</Text> */}
+                        </TouchableOpacity>  
+                      )
+                    })
+                    :
+                    []
+                }
+                 </ScrollView>
               </View>
               <View style={styles.detailclr}>
                 {productdata.color ? 

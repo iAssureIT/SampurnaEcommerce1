@@ -10,7 +10,7 @@ import {MarketingBlock}             from '../../ScreenComponents/MarketingBlock/
 import {MenuCarouselSection}        from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import {ProductList}                from'../../ScreenComponents/ProductList/ProductList.js';
 // import SearchProducts               from'../Search/SearchProducts.js';
-import {Footer}                       from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                       from '../../ScreenComponents/Footer/Footer.js';
 import Notification                 from '../../ScreenComponents/Notification/Notification.js'
 import { connect,useDispatch,useSelector }      from 'react-redux';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';

@@ -30,6 +30,7 @@ export const getUserDetails = (user_id) => {
           email       : res.data.profile.email,
           mobile      : res.data.profile.mobile,
           countryCode : res.data.profile.countryCode,
+          isdCode     : res.data.profile.isdCode,
           fullName    : res.data.profile.fullName,
           company_id  : res.data.profile.company_id,
           companyID   : res.data.profile.companyID,

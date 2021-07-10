@@ -17,7 +17,7 @@ import { ActivityIndicator }    from 'react-native-paper';
 import {HeaderBar3}             from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {MenuCarouselSection}    from '../../ScreenComponents/Section/MenuCarouselSection.js';
 import { ScrollView }           from 'react-native';
-import {Footer}                 from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}                 from '../../ScreenComponents/Footer/Footer.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
 import {STOP_SCROLL}          from '../../redux/productList/types';

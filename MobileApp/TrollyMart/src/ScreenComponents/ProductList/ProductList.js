@@ -224,7 +224,7 @@ export const ProductList = withCustomerToaster((props)=>{
     const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
     return (
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
-        <TouchableOpacity  disabled={props.disabled} onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location,index: index})}>
+        <TouchableOpacity  disabled={props.disabled} onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location,index: index,vendor_id:item.vendor_ID})}>
           <View style={styles.flx5}>
               {item.discountPercent && item.discountPercent >0?
                   <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
@@ -242,7 +242,7 @@ export const ProductList = withCustomerToaster((props)=>{
                     source={{ 
                       uri: item.productSmallImage[0],
                       priority: FastImage.priority.high, 
-                      cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     // LoadingIndicatorComponent={ActivityIndicator}
                     PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
@@ -371,7 +371,7 @@ export const ProductList = withCustomerToaster((props)=>{
           initialNumToRender            = {6}
           ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
           onEndReachedThreshold          = {onEndReachedThreshold}
-          onScroll={(e)=>props.onScroll(e)}
+          // onScroll={(e)=>props.onScroll(e)}
         //   ListEmptyComponent            = {
         //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
         //     <Image

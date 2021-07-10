@@ -107,7 +107,7 @@ export const HorizontalProductList =(props)=>{
                     source={{ 
                       uri: item.productSmallImage[0],
                       priority: FastImage.priority.high, 
-                      cache: (Platform.OS === 'ios' ? 'default' : FastImage.cacheControl.immutable),
+                      cache: FastImage.cacheControl.immutable,
                     }}
                     PlaceholderContent={<ActivityIndicator color={colors.theme}/>}
                     style={styles.subcatimg}

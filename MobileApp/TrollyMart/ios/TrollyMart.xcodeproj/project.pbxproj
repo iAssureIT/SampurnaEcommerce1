@@ -11,7 +11,6 @@
 		7C0C2C57266E381000D83162 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */; };
 		7C0C2C58266E381000D83162 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED5949263C9ABF00A70AD0 /* Montserrat-Regular.ttf */; };
 		7C0C2C59266E381000D83162 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CED594B263C9ABF00A70AD0 /* Montserrat-SemiBold.ttf */; };
-		7C2E6182266E5EE8001C5D72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C2E6181266E5EE7001C5D72 /* GoogleService-Info.plist */; };
 		7C2E618C266E6B01001C5D72 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7C2E618A266E67BE001C5D72 /* GoogleMaps.bundle */; };
 		7C2E61B3266E7434001C5D72 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968D266D1CD2008C2278 /* AntDesign.ttf */; };
 		7C2E61B4266E7434001C5D72 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C00968C266D1CD2008C2278 /* Entypo.ttf */; };
@@ -34,11 +33,13 @@
 		7C34B650266E593E0078724F /* libPods-TrollyMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B64F266E593E0078724F /* libPods-TrollyMart.a */; };
 		7C34B652266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */; };
 		7C43CF122671E8B6004E3DB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EC266F3605004A4ED2 /* Images.xcassets */; };
-		7C43CF1F267201D5004E3DB2 /* Icon-App-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C43CF1E267201D5004E3DB2 /* Icon-App-60x60@2x.png */; };
 		7C46EF13266E536A001EFAF2 /* TrollyMartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TrollyMartTests.m */; };
+		7C68E7D82694B449004C7F19 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C68E7D72694B449004C7F19 /* File.swift */; };
 		7C6A38EF266F3605004A4ED2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */; };
 		7C6A38F0266F3605004A4ED2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */; };
 		7C6A38F1266F3605004A4ED2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6A38EB266F3605004A4ED2 /* main.m */; };
+		7C90279B2694DB7800E9AC10 /* Icon-App-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C90279A2694DB7800E9AC10 /* Icon-App-60x60@2x.png */; };
+		7CFF629B2695A75B00B1EFD5 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CFF629A2695A75B00B1EFD5 /* AppCenter-Config.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,16 +84,19 @@
 		7C34B64F266E593E0078724F /* libPods-TrollyMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-TrollyMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C34B651266E594C0078724F /* libPods-TrollyMart-TrollyMartTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-TrollyMart-TrollyMartTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C43CF132671EA81004E3DB2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C43CF1E267201D5004E3DB2 /* Icon-App-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-App-60x60@2x.png"; path = "../../../../../../Downloads/logo-trollymart/ios/AppIcon.appiconset/Icon-App-60x60@2x.png"; sourceTree = "<group>"; };
+		7C68E7D62694B448004C7F19 /* TrollyMart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrollyMart-Bridging-Header.h"; sourceTree = "<group>"; };
+		7C68E7D72694B449004C7F19 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C6A38E9266F3605004A4ED2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C6A38EB266F3605004A4ED2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7C6A38EC266F3605004A4ED2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7C6A38ED266F3605004A4ED2 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		7C90279A2694DB7800E9AC10 /* Icon-App-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-App-60x60@2x.png"; path = "../../../../../../Downloads/appstore/ios/AppIcon.appiconset/Icon-App-60x60@2x.png"; sourceTree = "<group>"; };
 		7CED5949263C9ABF00A70AD0 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Regular.ttf"; path = "../../eCommApp/android/app/src/main/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		7CED594A263C9ABF00A70AD0 /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Bold.otf"; path = "../../eCommApp/android/app/src/main/assets/fonts/Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		7CED594B263C9ABF00A70AD0 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-SemiBold.ttf"; path = "../../eCommApp/android/app/src/main/assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		7CFF629A2695A75B00B1EFD5 /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		C6D636CFB416CE9C52A7F4EF /* Pods-TrollyMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart.debug.xcconfig"; path = "Target Support Files/Pods-TrollyMart/Pods-TrollyMart.debug.xcconfig"; sourceTree = "<group>"; };
 		EC8C99BD1BA77C745226BDE0 /* Pods-TrollyMart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrollyMart.release.xcconfig"; path = "Target Support Files/Pods-TrollyMart/Pods-TrollyMart.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -188,14 +192,15 @@
 		7C6A38E7266F3605004A4ED2 /* TrollyMart */ = {
 			isa = PBXGroup;
 			children = (
-				7C43CF1E267201D5004E3DB2 /* Icon-App-60x60@2x.png */,
 				7C6A38E8266F3605004A4ED2 /* LaunchScreen.storyboard */,
 				7C43CF132671EA81004E3DB2 /* Info.plist */,
 				7C6A38E9266F3605004A4ED2 /* AppDelegate.h */,
+				7C90279A2694DB7800E9AC10 /* Icon-App-60x60@2x.png */,
 				7C6A38EA266F3605004A4ED2 /* GoogleService-Info.plist */,
 				7C6A38EB266F3605004A4ED2 /* main.m */,
 				7C6A38EC266F3605004A4ED2 /* Images.xcassets */,
 				7C6A38ED266F3605004A4ED2 /* AppDelegate.m */,
+				7CFF629A2695A75B00B1EFD5 /* AppCenter-Config.plist */,
 			);
 			path = TrollyMart;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7C68E7D72694B449004C7F19 /* File.swift */,
 				7C6A38E7266F3605004A4ED2 /* TrollyMart */,
 				7C2E6181266E5EE7001C5D72 /* GoogleService-Info.plist */,
 				7C2E618A266E67BE001C5D72 /* GoogleMaps.bundle */,
@@ -221,6 +227,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				0456BDB5FCED668FF50AE356 /* Pods */,
+				7C68E7D62694B448004C7F19 /* TrollyMart-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -272,6 +279,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				341C4D9464D68352988D98A1 /* [CP] Embed Pods Frameworks */,
 				CCD67FEEA99F2FD9C730509B /* [CP] Copy Pods Resources */,
+				FA3FB519464EA3922BDE4D07 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -295,7 +303,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -332,11 +340,11 @@
 			files = (
 				7C2E61B3266E7434001C5D72 /* AntDesign.ttf in Resources */,
 				7C43CF122671E8B6004E3DB2 /* Images.xcassets in Resources */,
-				7C43CF1F267201D5004E3DB2 /* Icon-App-60x60@2x.png in Resources */,
 				7C2E61B4266E7434001C5D72 /* Entypo.ttf in Resources */,
 				7C2E61B5266E7434001C5D72 /* EvilIcons.ttf in Resources */,
 				7C2E61B6266E7434001C5D72 /* Feather.ttf in Resources */,
 				7C2E61B7266E7434001C5D72 /* FontAwesome.ttf in Resources */,
+				7C90279B2694DB7800E9AC10 /* Icon-App-60x60@2x.png in Resources */,
 				7C2E61B8266E7434001C5D72 /* FontAwesome5_Brands.ttf in Resources */,
 				7C2E61B9266E7434001C5D72 /* FontAwesome5_Regular.ttf in Resources */,
 				7C2E61BA266E7434001C5D72 /* FontAwesome5_Solid.ttf in Resources */,
@@ -347,13 +355,13 @@
 				7C2E61BE266E7434001C5D72 /* MaterialCommunityIcons.ttf in Resources */,
 				7C2E61BF266E7434001C5D72 /* MaterialIcons.ttf in Resources */,
 				7C2E61C0266E7434001C5D72 /* Octicons.ttf in Resources */,
+				7CFF629B2695A75B00B1EFD5 /* AppCenter-Config.plist in Resources */,
 				7C2E61C1266E7434001C5D72 /* SimpleLineIcons.ttf in Resources */,
 				7C2E61C2266E7434001C5D72 /* Zocial.ttf in Resources */,
 				7C6A38F0266F3605004A4ED2 /* GoogleService-Info.plist in Resources */,
 				7C2E618C266E6B01001C5D72 /* GoogleMaps.bundle in Resources */,
 				7C0C2C55266E381000D83162 /* Montserrat-Medium.ttf in Resources */,
 				7C0C2C57266E381000D83162 /* Montserrat-Bold.otf in Resources */,
-				7C2E6182266E5EE8001C5D72 /* GoogleService-Info.plist in Resources */,
 				7C0C2C58266E381000D83162 /* Montserrat-Regular.ttf in Resources */,
 				7C0C2C59266E381000D83162 /* Montserrat-SemiBold.ttf in Resources */,
 			);
@@ -462,8 +470,6 @@
 			);
 			inputFileListPaths = (
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
@@ -488,6 +494,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrollyMart-TrollyMartTests/Pods-TrollyMart-TrollyMartTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		FA3FB519464EA3922BDE4D07 /* [CP-User] [RNFB] Core Configuration */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "[CP-User] [RNFB] Core Configuration";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    _JSON_OUTPUT_BASE64=$(python -c 'import json,sys,base64;print(base64.b64encode(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"').read())['${_JSON_ROOT}'])))' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -524,6 +543,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C34B64D266E590B0078724F /* AppDelegate.m in Sources */,
+				7C68E7D82694B449004C7F19 /* File.swift in Sources */,
 				7C6A38F1266F3605004A4ED2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,6 +563,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 72C5A81AB5E516BB491819A5 /* Pods-TrollyMart-TrollyMartTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 62B33K4XW2;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -576,6 +597,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1070D0C083692586D4DADFFC /* Pods-TrollyMart-TrollyMartTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
@@ -609,7 +631,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -621,7 +643,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -630,6 +652,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ae.trollymart;
 				PRODUCT_NAME = TrollyMart;
+				SWIFT_OBJC_BRIDGING_HEADER = "TrollyMart-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -642,7 +665,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 62B33K4XW2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -653,7 +676,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -663,6 +686,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ae.trollymart;
 				PRODUCT_NAME = TrollyMart;
+				SWIFT_OBJC_BRIDGING_HEADER = "TrollyMart-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -14,7 +14,7 @@ import {
         Rating,
         Avatar }              from "react-native-elements";
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
-import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                  from 'axios';
 import AsyncStorage           from '@react-native-async-storage/async-storage';

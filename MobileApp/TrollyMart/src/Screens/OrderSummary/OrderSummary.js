@@ -27,6 +27,7 @@ import { SafeAreaView }         from 'react-native';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { RadioButton }        from 'react-native-paper';
 import HTML from 'react-native-render-html';
+import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view'
 // import {AppEventsLogger} from 'react-native-fbsdk';    
 
   export const OrderSummary = withCustomerToaster((props)=>{
@@ -256,8 +257,7 @@ import HTML from 'react-native-render-html';
           headerTitle={'Order Summary'}
           navigate={navigation.navigate}
         /> */}
-        <View style={styles.addsuperparent}>
-          <ScrollView contentContainerStyle={styles.container} style={{marginBottom:"15%"}} keyboardShouldPersistTaps="handled" >
+        <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1,marginBottom:Platform.OS === "ios" ?90:'15%'}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
             <View style={styles.padhr15}>
               <View style={styles.addcmporder}>
                 <View style={styles.orderaddchkbx}>
@@ -631,8 +631,7 @@ import HTML from 'react-native-render-html';
             </View>
             </View>
           </View>
-        </ScrollView>
-      </View>
+        </KeyboardAwareScrollView>
       <Modal isVisible={modal}
           onBackdropPress={() => setModal(false)}
           onRequestClose={() => setModal(false)}

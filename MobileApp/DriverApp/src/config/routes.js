@@ -53,10 +53,15 @@ import Drawer                     from 'react-native-drawer';
 import {AboutUs}                  from '../Screens/AboutUs/AboutUs.js';
 import {ContactUs}                from '../Screens/ContactUs/ContactUs.js';
 import {FAQ}                      from '../Screens/FAQ/FAQ.js';
-import {TermsAndConditions}               from '../Screens/TermsAndConditions/TermsAndConditions.js';
-import {PrivacyPolicy}               from '../Screens/PrivacyPolicy/PrivacyPolicy.js';
-import {RewardsPoint}               from '../Screens/RewardsPoints/RewardsPoint.js';
-import OrdersView               from '../Screens/ListofOrders/OrdersView.js';
+import {TermsAndConditions}       from '../Screens/TermsAndConditions/TermsAndConditions.js';
+import {PrivacyPolicy}            from '../Screens/PrivacyPolicy/PrivacyPolicy.js';
+import {RewardsPoint}             from '../Screens/RewardsPoints/RewardsPoint.js';
+import {OrdersView}                 from '../Screens/ListofOrders/OrdersView.js';
+import {NewOrders}                from '../Screens/ListofOrders/NewOrders.js';
+import {AcceptedOrders}           from '../Screens/ListofOrders/AcceptedOrders.js';
+import {RunningOrders}            from '../Screens/ListofOrders/RunningOrders.js';
+import {CompletedOrders}          from '../Screens/ListofOrders/CompletedOrders.js';
+import {MonthlyOrders}          from '../Screens/MonthlyOrders/MonthlyOrders.js';
 
 
 const Home = createDrawerNavigator();
@@ -126,10 +131,15 @@ export const HomeStack = () => (
     <Home.Screen name="AboutUs"                     component={AboutUs} options={getHeaderConfig("About Us",true)}/>
     <Home.Screen name="ContactUs"                   component={ContactUs} options={getHeaderConfig("Contact Us",true)}/>
     <Home.Screen name="TermsConditions"             component={TermsAndConditions} options={getHeaderConfig("Terms & Conditions",true)}/>
-    <Home.Screen name="PrivacyPolicy"             component={PrivacyPolicy} options={getHeaderConfig("Privacy Policy",true)}/>
-    <Home.Screen name="RewardsPoint"             component={RewardsPoint} options={getHeaderConfig("My Rewards",true)}/>
+    <Home.Screen name="PrivacyPolicy"               component={PrivacyPolicy} options={getHeaderConfig("Privacy Policy",true)}/>
+    <Home.Screen name="RewardsPoint"                component={RewardsPoint} options={getHeaderConfig("My Rewards",true)}/>
     <Home.Screen name="FAQ"                         component={FAQ} options={getHeaderConfig("Frequently Asked Questions",true)}/>
     <Home.Screen name="OrdersView"                  component={OrdersView} options={getHeaderConfig("OrdersList",true)}/>
+    <Home.Screen name="NewOrders"                   component={NewOrders} options={getHeaderConfig("New Orders",true)}/>
+    <Home.Screen name="AcceptedOrders"              component={AcceptedOrders} options={getHeaderConfig("Accepted Orders",true)}/>
+    <Home.Screen name="RunningOrders"               component={RunningOrders} options={getHeaderConfig("Running Orders",true)}/>
+    <Home.Screen name="CompletedOrders"             component={CompletedOrders} options={getHeaderConfig("Completed Orders",true)}/>
+    <Home.Screen name="MonthlyOrders"               component={MonthlyOrders} options={getHeaderConfig("Monthly Orders",true)}/>
   </Home.Navigator>
 );
 

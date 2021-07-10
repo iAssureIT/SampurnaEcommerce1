@@ -9,7 +9,7 @@ import {
   SafeAreaView
 } from 'react-native';
 import {HeaderBar3}        from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}           from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}           from '../../ScreenComponents/Footer/Footer.js';
 import BouncingPreloader  from 'react-native-bouncing-preloader';
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
 import {colors}           from '../../AppDesigns/currentApp/styles/styles.js';

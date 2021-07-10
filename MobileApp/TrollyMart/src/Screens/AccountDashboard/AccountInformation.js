@@ -25,7 +25,22 @@ import { useIsFocused } from "@react-navigation/native";
 
 const window = Dimensions.get('window');
 
-
+const intialSchema =Yup.object().shape({
+  firstName: Yup.string()
+  .required('This field is required')
+  .test(
+    'special character test',
+    'This field cannot contain only special characters or numbers',
+    specialCharacterValidator,
+  ),
+  lastName: Yup.string()
+  .required('This field is required')
+  .test(
+    'special character test',
+    'This field cannot contain only special characters or numbers',
+    specialCharacterValidator,
+  ),
+})
 
 
 export const AccountInformation=withCustomerToaster((props)=>{
@@ -37,6 +52,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
   const [user_id,setUserId]=useState('');
   const [checkedMobNo,setCheckedMobNo] = useState(false);
   const [checkedEmailId,setCheckedEmailId] = useState(false);
+  const [ schema, updateSchema ] = React.useState(intialSchema);
   useEffect(() => {
     getData();
     setCheckedMobNo(false);
@@ -67,131 +83,52 @@ export const AccountInformation=withCustomerToaster((props)=>{
     return (
       <React.Fragment>
        {isFocused && <Formik
-          onSubmit={(data) => {
-              setBtnLoading(true);
-              let {firstName, lastName,mobileNumber,email_id,current_password} = data;
-              var formValues = {
-                firstname         : firstName,
-                lastname          : lastName,
-                mobNumber         : mobileNumber,
-                email             : email_id,
-                current_password  : current_password,
-                otp               : '',
-              }
+          onSubmit={(values,fun) => {
+            fun.resetForm(values);
+              // setBtnLoading(true);
+              let {firstName, lastName,mobileNumber,email_id,current_password,isdCode,mobileChange,emailChange} = values;
+              var formValues={
+                "user_id"           : user_id,
+                "firstname"         : firstName,
+                "lastname"          : lastName,
+                "image"     	      : [],
+                "isdCode"           : isdCode,
+                "mobile"     	      : mobileNumber,
+                "mobileChange"      : mobileChange,
+                "emailChange"       : emailChange,
+                "currentPassword"   : current_password,
+                "email"    		      : email_id
+            }
               console.log("formValues",formValues);
-              // axios.patch('/api/users/patch/' + user_id, formValues)
-              // .then((response) => {
-              //   setBtnLoading(false);
-              //   setToast({text: 'Your profile is updated!', color: 'green'});
-              //   // this.setState({profileupdated:true});
-              // })
-              // .catch((error) => {
-              //   console.log("error",error);
-              //   setBtnLoading(false);
-              //   setToast({text: 'Something went wrong.', color: 'red'});
-              // })
-          }}
-          validationSchema={
-              checkedEmailId && checkedMobNo ?
-              Yup.object().shape({
-                firstName: Yup.string()
-                .required('This field is required')
-                .test(
-                  'special character test',
-                  'This field cannot contain only special characters or numbers',
-                  specialCharacterValidator,
-                ),
-                lastName: Yup.string()
-                .required('This field is required')
-                .test(
-                  'special character test',
-                  'This field cannot contain only special characters or numbers',
-                  specialCharacterValidator,
-                ),
-                mobileNumber: Yup.string()
-                .required('This field is required'),
-                email_id: Yup.string()
-                .required('This field is required')
-                  .test(
-                    'email validation test',
-                    'Enter a valid email address',
-                    emailValidator,
-                  ),
-                  current_password: Yup.string()
-                .required('This field is required')
-                })
-                :
-                checkedMobNo ?
-                Yup.object().shape({
-                firstName: Yup.string()
-                .required('This field is required')
-                .test(
-                  'special character test',
-                  'This field cannot contain only special characters or numbers',
-                  specialCharacterValidator,
-                ),
-                lastName: Yup.string()
-                .required('This field is required')
-                .test(
-                  'special character test',
-                  'This field cannot contain only special characters or numbers',
-                  specialCharacterValidator,
-                ),
-                mobileNumber: Yup.string()
-                .required('This field is required'),
+              axios.patch('/api/users/update/user_profile_details',formValues)
+              .then((response) => {
+                if(response.data.messageCode === true){
+                  setToast({text: response.data.message, color: 'green'});
+                  getData();
+                }else{
+                  setToast({text: response.data.message, color: colors.warning});
+                }
+                setBtnLoading(false);
+                // this.setState({profileupdated:true});
               })
-              :
-                checkedEmailId ?
-                Yup.object().shape({
-                  firstName: Yup.string()
-                  .required('This field is required')
-                  .test(
-                    'special character test',
-                    'This field cannot contain only special characters or numbers',
-                    specialCharacterValidator,
-                  ),
-                  lastName: Yup.string()
-                  .required('This field is required')
-                  .test(
-                    'special character test',
-                    'This field cannot contain only special characters or numbers',
-                    specialCharacterValidator,
-                  ),
-                  email_id: Yup.string()
-                  .required('This field is required')
-                    .test(
-                      'email validation test',
-                      'Enter a valid email address',
-                      emailValidator,
-                    ),
-                  current_password: Yup.string()
-                  .required('This field is required')
-                  })
-                :
-                Yup.object().shape({
-                  firstName: Yup.string()
-                  .required('This field is required')
-                  .test(
-                    'special character test',
-                    'This field cannot contain only special characters or numbers',
-                    specialCharacterValidator,
-                  ),
-                  lastName: Yup.string()
-                  .required('This field is required')
-                  .test(
-                    'special character test',
-                    'This field cannot contain only special characters or numbers',
-                    specialCharacterValidator,
-                  ),
-                })
-          }
+              .catch((error) => {
+                console.log("error",error);
+                setBtnLoading(false);
+                setToast({text: 'Something went wrong.', color: 'red'});
+              })
+          }}
+          validationSchema={schema}
           initialValues={{
             firstName         : userDetails && userDetails.firstname? userDetails.firstname:'',
             lastName          : userDetails && userDetails.lastname? userDetails.lastname:'',
             mobileNumber      : userDetails && userDetails.mobile? userDetails.mobile:'',
             email_id          : userDetails && userDetails.email ?userDetails.email:'',
             current_password  : '',
-          }}>
+            isdCode           : '',
+            countryCode      :  '',
+          }}
+          enableReinitialize
+          >
           {(formProps) => (
             <FormBody
               loading={loading}
@@ -202,6 +139,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
               setCheckedMobNo={setCheckedMobNo}
               checkedEmailId={checkedEmailId}
               setCheckedEmailId={setCheckedEmailId}
+              updateSchema={updateSchema}
               {...formProps}
             />
           )}
@@ -227,7 +165,8 @@ export const AccountInformation=withCustomerToaster((props)=>{
       checkedMobNo,
       setCheckedMobNo,
       checkedEmailId,
-      setCheckedEmailId
+      setCheckedEmailId,
+      updateSchema
     } = props;
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
@@ -240,6 +179,27 @@ export const AccountInformation=withCustomerToaster((props)=>{
 
     const [showCurrentPassword, toggleCurrentPassword] = useState(false);
     const phoneInput = useRef(null);
+
+    const handleMob = ()=>{
+      updateSchema(Yup.object().shape(
+        {mobileNumber: Yup.string()
+        .required('This field is required'),
+      }))
+      setFieldValue("mobileChange",true)
+      handleSubmit();
+    }
+    const handleEmail = ()=>{
+      updateSchema(Yup.object().shape({email_id: Yup.string()
+        .required('This field is required'),
+        // test(
+        //   'email validation test',
+        //   'Enter a valid email address',
+        //   emailValidator,
+        // )
+      }))
+      setFieldValue("emailChange",true);
+      handleSubmit();
+     }
     if (loading) {
       return (
         <Loading />
@@ -249,7 +209,7 @@ export const AccountInformation=withCustomerToaster((props)=>{
         <React.Fragment>
           <View style={styles.profileparent}>
             <View style={{flex:1,backgroundColor:"#fff"}}>
-            <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+            <ScrollView contentContainerStyle={styles.container} style={{marginBottom:50}} keyboardShouldPersistTaps="handled" >
                 <View style={{ paddingHorizontal: 15, marginBottom: 30 }}>
                   <View style={{ borderWidth: 1, borderColor: '#f1f1f1', backgroundColor: '#ccc', paddingVertical: 15, marginTop: 10 }}>
                     <Text style={{ fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#333', paddingHorizontal: 15 }}>Profile Details : </Text>
@@ -282,7 +242,12 @@ export const AccountInformation=withCustomerToaster((props)=>{
                           value           = {values.lastName} 
                           // autoCapitalize  = "none"
                         />
-
+                        <FormButton
+                          title       = {'Update Profile'}
+                          onPress     = {handleSubmit}
+                          background  = {true}
+                          loading     = {btnLoading}
+                        />
                         <CheckBox
                           title='Change Mobile No'
                           checked={checkedMobNo}
@@ -317,6 +282,12 @@ export const AccountInformation=withCustomerToaster((props)=>{
                               textInputStyle={styles1.textInputStyle}
                             />
                           <Text style={{fontSize:12,marginTop:2,color:"#f00"}}>{value ? !valid && "Enter a valid mobile number" :touched['mobileNumber'] && errors['mobileNumber'] ? errors['mobileNumber'] : ''}</Text>
+                          <FormButton
+                          title       = {'Update Mobile No'}
+                          onPress     = {handleMob}
+                          background  = {true}
+                          loading     = {btnLoading}
+                        />
                         </View> }
                         <CheckBox
                           title='Change Email Id'
@@ -361,14 +332,14 @@ export const AccountInformation=withCustomerToaster((props)=>{
                             }
                           secureTextEntry={!showCurrentPassword}
                         />
-                        </>
-                        }
                         <FormButton
-                          title       = {'Update Profile'}
-                          onPress     = {handleSubmit}
+                          title       = {'Update Email ID'}
+                          onPress     = {handleEmail}
                           background  = {true}
                           loading     = {btnLoading}
                         />
+                        </>
+                        }
                       </View>
                     </View>
                   </View>

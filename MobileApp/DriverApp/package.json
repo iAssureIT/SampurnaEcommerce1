@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.4",
     "@react-native-community/clipboard": "^1.5.1",
+    "@react-native-community/datetimepicker": "^3.5.2",
     "@react-native-community/push-notification-ios": "^1.8.0",
     "@react-native-firebase/app": "^12.1.0",
     "@react-native-firebase/messaging": "^12.1.0",
@@ -59,6 +60,7 @@
     "react-native-material-dropdown-v2": "^0.11.1",
     "react-native-material-textfield": "git+https://github.com/javarahulsharma/react-native-material-textfield.git",
     "react-native-modal": "^11.10.0",
+    "react-native-modal-datetime-picker": "^10.0.0",
     "react-native-modal-dropdown": "^1.0.0",
     "react-native-pager-view": "^5.1.8",
     "react-native-paper": "^4.8.1",

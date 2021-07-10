@@ -9,7 +9,7 @@ import {
 import { Button, Icon,}       from "react-native-elements";
 import Modal                  from "react-native-modal";
 import {HeaderBar3}           from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}               from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
 import axios                  from 'axios';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/PaymentMethodStyles.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';

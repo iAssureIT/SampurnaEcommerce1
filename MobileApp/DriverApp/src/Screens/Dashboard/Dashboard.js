@@ -18,6 +18,7 @@ import { getSectionList } 		      from '../../redux/section/actions';
 import { getPreferences } 		      from '../../redux/storeSettings/actions';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
 
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
@@ -66,11 +67,11 @@ const Dashboard = withCustomerToaster((props)=>{
         <View style={styles.superparent}>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
                 <View style={{flexDirection:"row",justifyContent:'space-between',marginTop:5}}>   
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('OrdersView')}>
+                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('NewOrders')}>
                         <Icon size={30} name='list' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
                         <Text style={[CommonStyles.label]}>New Orders</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles1.HorizontalBoxRight} onPress={()=>navigation.navigate('MyOrder')}>
+                    <TouchableOpacity style={styles1.HorizontalBoxRight} onPress={()=>navigation.navigate('AcceptedOrders')}>
                         <Icon size={30} name='list' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
                         <Text style={[CommonStyles.label]}>Accepted Orders</Text>
                     </TouchableOpacity>
@@ -81,7 +82,7 @@ const Dashboard = withCustomerToaster((props)=>{
                         <Text style={[CommonStyles.label]}>Total Orders</Text>
                         <Text style={[CommonStyles.label]}>Delivered Today</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles1.HorizontalBoxRight} onPress={()=>navigation.navigate('CartComponent', { userId: userDetails.user_id })}>
+                    <TouchableOpacity style={styles1.HorizontalBoxRight} onPress={()=>navigation.navigate('MonthlyOrders')}>
                         <Icon size={30} name='list' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
                         <Text style={[CommonStyles.label]}>Total Monthly</Text>
                         <Text style={[CommonStyles.label]}>Orders</Text>

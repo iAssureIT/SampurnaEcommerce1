@@ -7,21 +7,7 @@ export default StyleSheet.create({
         width: '100%',
         position: 'absolute',
         bottom: 0,
-        height: 70,
-        flexDirection: 'row',
-        backgroundColor: colors.footerColor,
-        shadowColor: "#000000",
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        shadowOffset: {
-          height: 1,
-          width: 1
-        },
-        elevation: 24,
-        borderColor: '#f1f1f1',
-        justifyContent: 'center',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
+        height: 100,
       },
       android: {
         width: '100%',

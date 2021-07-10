@@ -10,7 +10,7 @@ export default StyleSheet.create({
     flex:1
   },
   container:{
-    marginTop:15
+    // marginTop:15
   },  
   imageMenuWraper:{ 
     borderWidth:1,borderColor:'#f1f1f1',borderRadius:5,width: 150, height:85, backgroundColor: '#ccc',marginRight:15
@@ -130,7 +130,7 @@ export default StyleSheet.create({
     fontFamily:"Montserrat-Regular",
     backgroundColor:'transparent',
     paddingTop:0,
-    marginTop:-6,
+    // marginTop:-6,
     fontSize:14,
   },
   textLabel:{
@@ -268,7 +268,8 @@ export default StyleSheet.create({
   },
   addsuperparent:{
     flex:1,
-    marginBottom:55
+    marginBottom:55,
+    backgroundColor:"#fff"
   },
   flxdir1:{
     flex:1,flexDirection: "row"
@@ -310,7 +311,7 @@ export default StyleSheet.create({
     paddingHorizontal:15
   },
   padhr18:{
-    paddingHorizontal:22
+    paddingHorizontal:27
   },
   orderpadhr18:{
     paddingHorizontal:10
@@ -324,14 +325,14 @@ export default StyleSheet.create({
   addcmpchkbxslect:{
     backgroundColor:'#fff',
     marginTop:0,marginBottom:15,
-    borderRadius:15,
+    borderRadius:9,
     borderWidth:1,
     borderColor:colors.theme
   },
   addcmpchkbx:{
     backgroundColor:'#fff',
     marginTop:10,marginBottom:15,
-    borderRadius:15,
+    borderRadius:9,
     minHeight:50,
     borderWidth:0.5,
   },
@@ -352,10 +353,10 @@ export default StyleSheet.create({
     flex:0.1,
   },
   nameofcontact:{
-    flex:0.9,
+    flex:1,
   },
   addchkbx:{
-    flex:1,flexDirection:'row',paddingHorizontal:2,paddingVertical:2,alignItems:"center",
+    flex:1,flexDirection:'row',paddingHorizontal:15,paddingVertical:2,alignItems:"center",
     justifyContent:"center"
   },
   orderaddchkbx:{

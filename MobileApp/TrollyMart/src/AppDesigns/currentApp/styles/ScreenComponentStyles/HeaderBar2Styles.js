@@ -20,8 +20,7 @@ export default StyleSheet.create({
 
   searchvw: {
     flex:.65,
-    marginBottom: 10,
-    marginTop:10,
+    // marginTop:10,
     height: 40,
     paddingRight: 10,
   },
@@ -101,9 +100,23 @@ export default StyleSheet.create({
 
   header2main: {
     justifyContent:'center',
-    alignItems:'center',
     backgroundColor: colors.theme,
     flexDirection:"row",
+    ...Platform.select({
+      ios: {
+        height:100,
+        alignItems:'flex-end',
+        paddingBottom:10,
+        // paddingTop: 25,
+      },
+      android: {
+      alignItems:'center',
+      height:70,
+        // borderTopWidth: 3,
+        // borderTopColor: colors.theme,
+        // minHeight: 55,
+      }
+    })
   },
 
   leftside: {
@@ -152,7 +165,7 @@ export default StyleSheet.create({
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 10,
-    height: 40
+    height: 40,
   },
 
   searchInput: {
@@ -170,5 +183,16 @@ export default StyleSheet.create({
     // paddingHorizontal:5,
     flexDirection:"row",
     justifyContent:"space-between",
+    ...Platform.select({
+      ios: {
+        // marginBottom:10,
+        // paddingTop: 25,
+      },
+      android: {
+        // borderTopWidth: 3,
+        // borderTopColor: colors.theme,
+        // minHeight: 55,
+      }
+    })
   }
 });

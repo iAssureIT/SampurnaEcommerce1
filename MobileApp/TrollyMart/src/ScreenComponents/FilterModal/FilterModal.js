@@ -7,7 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   FlatList,
-  SafeAreaView
+  SafeAreaView,
+  Platform
 } from 'react-native';
 import {Header, Button, CheckBox}   from 'react-native-elements';
 import {connect}                    from 'react-redux';
@@ -126,6 +127,7 @@ const FilterModal = (props) => {
             height: window.height * 0.08,
             backgroundColor: '#fff',
             borderBottomWidth: 0.8,
+            height:80,
           }}
         />
         <View style={{flex: 1, borderTopWidth: 0.2}}>
@@ -194,7 +196,7 @@ const FilterModal = (props) => {
               }
             </View>
           </View>
-          <View style={{flexDirection: 'row', width: '100%'}}>
+          <View style={{flexDirection: 'row', width: '100%',marginBottom:Platform.OS === 'ios'?30:0}}>
             <Button
               title="Cancel"
               containerStyle={{

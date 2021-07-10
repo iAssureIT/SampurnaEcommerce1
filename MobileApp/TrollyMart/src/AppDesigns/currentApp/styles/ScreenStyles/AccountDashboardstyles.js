@@ -101,7 +101,8 @@ export default StyleSheet.create({
   },
   acdashsuperparent:{
     flex:1,
-    backgroundColor:'#f1f1f1'
+    backgroundColor:'#fff',
+    padding:20
   },
   button:{
     marginRight:10,

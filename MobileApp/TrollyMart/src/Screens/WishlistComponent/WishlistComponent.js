@@ -43,21 +43,40 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
           <SearchSuggetion />
           : 
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
-              <View style={styles.formWrapper}>
-                <View style={{marginTop:15,paddingBottom:60}}>
-                  {loading ?
-                    <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                    <ActivityIndicator size="large" color={colors.theme}/>
-                  </View>
-                  :
-                    wishList && wishList.length > 0 ?
-                    wishList.map((item,index)=>{
-                      return(
-                        <View key={index} style={{paddingHorizontal:15}}>
-                          <View style={{flexDirection:"row",paddingTop:15,}}>
-                            <Icon name= "crosshairs-gps" type = 'material-community' size={18} color= "black" style={{paddingHorizontal:5}}/>
-                            <Text style={[CommonStyles.label,{flex:1}]}>{item.areaName}</Text>
-                          </View>  
+            <View style={{flexDirection:'row',alignItems:'flex-end',padding:15}}>
+                <Text style={{fontSize:22,fontFamily:"Montserrat-Bold",color:"#333"}}>My Wishlist</Text>
+            </View> 
+              <View style={{paddingBottom:60}}>
+                {loading ?
+                  <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
+                  <ActivityIndicator size="large" color={colors.theme}/>
+                </View>
+                :
+                  wishList && wishList.length > 0 ?
+                  wishList.map((item,index)=>{
+                    console.log("item",item);
+                    return(
+                      <View key={index} style={{paddingHorizontal:15}}>
+                        <View style={{flexDirection:"row"}}>
+                          <Icon name= "map-marker" type = 'material-community' size={18} color= "red" style={{paddingHorizontal:5}}/>
+                          <Text style={[CommonStyles.label,{flex:1}]}>{item.areaName}</Text>
+                        </View>  
+                        <View style=
+                        {{
+                          // shadowColor: '#000',
+                          // borderColor:"#f1f1f1",
+                          backgroundColor: '#fff',
+                          width: '100%',
+                          minHeight: 200,
+                          marginTop:5,
+                          marginBottom:20,
+                          borderRadius:5,
+                          shadowColor: '#000',
+                          shadowOffset: { width: 1, height: 1 },
+                          shadowOpacity:  0.4,
+                          shadowRadius: 5,
+                          elevation: 5,
+                          }}>
                           <ProductList 
                             navigate    = {navigation.navigate} 
                             newProducts = {item.products}  
@@ -69,26 +88,26 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                             paddingBottom  = {0}
                             type           = {'wishlist'}
                         />
-                        </View>
-                      )
-                    })
-                    :
-                    <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-                      <Image
-                        source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-                      />
-                      <View style={{}}>
-                        <FormButton
-                            onPress={() => navigation.navigate('Dashboard')}
-                            // title={"Click Here To Continue Shopping"}
-                            title={"Add Products"}
-                            background={true}
-                        /> 
-                    </View> 
-                    </View>
-                }
-                </View>
-            </View>
+                      </View>  
+                      </View>
+                    )
+                  })
+                  :
+                  <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+                    <Image
+                      source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+                    />
+                    <View style={{}}>
+                      <FormButton
+                          onPress={() => navigation.navigate('Dashboard')}
+                          // title={"Click Here To Continue Shopping"}
+                          title={"Add Products"}
+                          background={true}
+                      /> 
+                  </View> 
+                  </View>
+              }
+              </View>
           </ScrollView>
           }
         </View>

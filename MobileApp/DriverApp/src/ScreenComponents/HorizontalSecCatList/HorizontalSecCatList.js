@@ -16,7 +16,7 @@ import { Header,
         SearchBar }             from "react-native-elements";
 import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
 import {HeaderBar3}             from '../HeaderBar3/HeaderBar3.js';
-import {Footer}                 from '../Footer/Footer1.js';
+import {Footer}                 from '../Footer/Footer.js';
 import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                    from 'axios';
 import AsyncStorage             from '@react-native-async-storage/async-storage';

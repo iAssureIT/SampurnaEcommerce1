@@ -19,6 +19,10 @@ import * as Yup             from 'yup';
 import {Formik}             from 'formik';
 import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
+import {USER_LOGOUT} from '../../redux/store';
+import { connect,
+  useDispatch,
+  useSelector }    from 'react-redux';
 
 const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
@@ -38,6 +42,8 @@ export const ResetPwd=withCustomerToaster((props)=>{
   const {setToast,navigation} = props; //setToast function bhetta
   const [userDetails , setUserDetails]=useState();
   const [user_id,setUserId]=useState('');
+  const [password_matched, setPasswordMatched] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     getData();
   },[props]);
@@ -62,23 +68,40 @@ export const ResetPwd=withCustomerToaster((props)=>{
     })
   }
 
+  const logout=()=>{
+    AsyncStorage.removeItem('user_id');
+    AsyncStorage.removeItem('token');
+    AsyncStorage.removeItem('location');
+    dispatch({type: USER_LOGOUT});
+    // navigation.closeDrawer();
+    navigation.navigate('Auth');
+    
+  };
+
   if(userDetails){
     return (
       <React.Fragment>
         <Formik
           onSubmit={(data) => {
               setBtnLoading(true);
-              let {firstName, lastName,mobileNumber,email_id} = data;
+              let {current_password, password,confirm_password} = data;
               var formValues = {
-                firstname   : firstName,
-                lastname    : lastName,
-                mobNumber   : mobileNumber,
-                email       : email_id,
+                user_id           : user_id,
+                newPassword       : password,
+                currentPassword   : current_password,
               }
-              axios.patch('/api/users/patch/' + user_id, formValues)
+              console.log("formValues",formValues);
+              axios.patch('/api/auth/patch/reset_password',formValues)
               .then((response) => {
+                console.log("response",response);
+                if(response.data.messageCode ===true){
+                  setToast({text: response.data.message, color: "green"});
+                  logout();
+                }else{
+                  setToast({text: response.data.message, color: colors.warning});
+                }
                 setBtnLoading(false);
-                setToast({text: 'Your profile is updated!', color: 'green'});
+                // setToast({text: 'Your profile is updated!', color: 'green'});
                 // this.setState({profileupdated:true});
               })
               .catch((error) => {
@@ -99,6 +122,8 @@ export const ResetPwd=withCustomerToaster((props)=>{
               btnLoading={btnLoading}
               navigation={navigation}
               setToast =   {setToast}
+              password_matched={password_matched}
+              setPasswordMatched={setPasswordMatched}
               {...formProps}
             />
           )}
@@ -108,6 +133,8 @@ export const ResetPwd=withCustomerToaster((props)=>{
       return <Loading/>
     }
  })   
+
+ 
 
   const FormBody = (props) => {
     const {
@@ -121,10 +148,23 @@ export const ResetPwd=withCustomerToaster((props)=>{
       values,
       btnLoading,
       setToast,
+      password_matched,
+      setPasswordMatched
     } = props;
     const [showCurrentPassword, toggleCurrentPassword] = useState(false);
     const [showPassword, togglePassword] = useState(false);
     const [showConfPassword, toggleConfPassword] = useState(false);
+    const checkPassword = () => {
+      if (values.password && values.confirm_password) {
+        if (values.password === values.confirm_password){
+          setPasswordMatched(true)
+          setToast({text: 'Password matched', color: 'green'});
+        }else{
+          setPasswordMatched(false)
+          setToast({text: 'Password not matched', color: 'red'});
+        }
+      }
+    }
     const phoneInput = useRef(null);
     if (loading) {
       return (
@@ -152,7 +192,7 @@ export const ResetPwd=withCustomerToaster((props)=>{
                           // iconName      = {'lock'}
                           // iconType      = {'font-awesome'}
                           rightIcon={
-                              <TouchableOpacity  style={{paddingHorizontal:'5%'}} onPress={() => toggleCurrentPassword(!current_showPassword)}>
+                              <TouchableOpacity  style={{paddingHorizontal:'5%'}} onPress={() => toggleCurrentPassword(!showCurrentPassword)}>
                                 {showCurrentPassword ? (
                                   <Icon name="eye" type="entypo" size={18} />
                                 ) : (
@@ -160,13 +200,14 @@ export const ResetPwd=withCustomerToaster((props)=>{
                                 )}
                               </TouchableOpacity>
                             }
-                          secureTextEntry={!showPassword}
+                          secureTextEntry={!showCurrentPassword}
                         />
                           <FormInput
                             labelName     = "Password"
                             // placeholder   = "Confirm Password"
                             onChangeText  = {handleChange('password')}
                             errors        = {errors}
+                            onBlur        = {checkPassword}
                             name          = "password"
                             required      = {true}
                             touched       = {touched}
@@ -181,11 +222,12 @@ export const ResetPwd=withCustomerToaster((props)=>{
                                   )}
                                 </TouchableOpacity>
                               }
-                              secureTextEntry={!showConfPassword}
+                              secureTextEntry={!showPassword}
                           />
                           <FormInput
                             labelName     = "Confirm Password"
                             // placeholder   = "Confirm Password"
+                            onBlur        = {checkPassword}
                             onChangeText  = {handleChange('confirm_password')}
                             errors        = {errors}
                             name          = "confirm_password"

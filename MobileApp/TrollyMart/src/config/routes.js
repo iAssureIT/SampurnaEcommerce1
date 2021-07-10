@@ -93,7 +93,7 @@ export const BottomNavScreen = () => (
   tabBar={props => <Footer {...props} />}
   tabBarOptions={{
     style: {
-      height: 40,
+      height: 0,
       margin:0,
       padding:0
    }

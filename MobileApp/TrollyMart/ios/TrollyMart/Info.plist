@@ -2,18 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Icon-App-60x60@2x.png</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>TrollyMart</string>
+	<string>Knock Knock</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon-App-60x60@2x.png</string>
+	</array>
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
@@ -29,7 +29,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -47,8 +47,12 @@
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The e-commerce app identify the user location and define the nearby vendor to supply the ordered items. Hence locatioin of the user is required.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The e-commerce app identify the user location and define the nearby vendor to supply the ordered items. Hence locatioin of the user is required.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The e-commerce app we are using photos uploading feature for return and review product.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

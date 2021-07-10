@@ -1,5 +1,5 @@
 import React,{ useState,useEffect,useRef}from 'react';
-import {View,Dimensions,Image,Modal,TouchableOpacity,StyleSheet,SafeAreaView,Text}            from 'react-native';
+import {View,Dimensions,Image,Modal,TouchableOpacity,StyleSheet,SafeAreaView,Text,Pla, Platform}            from 'react-native';
 import {Icon }                      from "react-native-elements";
 import {HeaderBar3}                 from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
@@ -230,7 +230,7 @@ export const Location = withCustomerToaster((props)=>{
 
     return (
         <View style={{flex:1}}>
-        <View style={{flexDirection:'row',padding:10,paddingVertical:15}}>
+        <View style={styles.locationInput}>
             <TouchableOpacity style={{justifyContent:'center',height:45,paddingRight:5}} onPress={()=> navigation.goBack()}>
                 <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
             </TouchableOpacity>   
@@ -373,7 +373,7 @@ export const Location = withCustomerToaster((props)=>{
                 ref={map => map = map}
                 region = {region}
                 style={[{width:window.width,height:window.height}]}
-                onRegionChangeComplete={addMarker}
+                onRegionChangeComplete={Platform.OS==="ios" ?()=>addMarker : addMarker}
                 customMapStyle={mapStyle}
            />}
        </View> 

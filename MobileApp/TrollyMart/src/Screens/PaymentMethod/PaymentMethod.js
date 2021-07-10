@@ -244,7 +244,8 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                     <View style={styles.flx3}>
                       <RadioButton
                         style={styles.radiobtn}
-                        value="first"
+                        value="Cash on Delivary"
+                        color={colors.theme}
                         status={checked === 'first' ? 'checked' : 'unchecked'}
                         onPress={() => {setChecked('first');setPaymentMethods('Cash On Delivery')}}
                       />
@@ -255,6 +256,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                     <View style={styles.flx3}>
                       <RadioButton
                         style={styles.radiobtn}
+                        color={colors.theme}
                         value="second"
                         status={checked === 'second' ? 'checked' : 'unchecked'}
                         onPress={() => {setChecked('second');setPaymentMethods('Card On Delivery')}}
@@ -266,6 +268,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                     <View style={styles.flx3}>
                       <RadioButton
                         value="third"
+                        color={colors.theme}
                         // disabled
                         status={checked === 'third' ? 'checked' : 'unchecked'}
                         onPress={() => paymentgateway()}

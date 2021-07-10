@@ -11,7 +11,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import { TextField } from 'react-native-material-textfield';
 import { Button, Icon, } from "react-native-elements";
 import {HeaderBar3} from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer} from '../../ScreenComponents/Footer/Footer1.js';
+import {Footer} from '../../ScreenComponents/Footer/Footer.js';
 import styles from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
 import Loading from '../../ScreenComponents/Loading/Loading.js';

@@ -96,7 +96,7 @@ import { useNavigation }      from '@react-navigation/native';
     return (
       <View style={styles.header2main}>
           {props?.scene?.route?.state && props?.scene?.route?.state?.index !==0  && <TouchableOpacity onPress={()=> navigation.goBack()}>
-          <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center'}}>
+          <View style={{justifyContent:'center',alignItems:'center',alignSelf:'center',height:40}}>
             <Icon size={25} name='arrow-left' type='material-community' color='#fff' />
           </View>
         </TouchableOpacity>}
