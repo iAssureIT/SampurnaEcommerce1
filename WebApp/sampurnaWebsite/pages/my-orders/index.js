@@ -33,6 +33,7 @@ export default class MyOrders extends Component {
 
   componentDidMount() {
     // console.log("this.props",this.props);
+      $(window).scrollTop(0);
       var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
       var currency = sampurnaWebsiteDetails.preferences.currency;
       var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
@@ -317,10 +318,13 @@ export default class MyOrders extends Component {
                   <div className="col-12">
                     {this.state.orderData && this.state.orderData.length > 0 ? 
                       this.state.orderData.map((singleOrder, index) => {
-                        // console.log("singleOrder=",singleOrder);
+                        console.log("singleOrder=",singleOrder);
                         return(
                           <div className={"col-12 NoPadding orderIdborder " +Style.orderIdborderNew} key={index}>
-                            <div className="col-12  NoPadding orderNowrapper mb-4 ">
+                            <div className="col-12  NoPadding orderNowrapper mb-4 " style={{'backgroundColor': singleOrder.orderStatus==="New"&& '#033554' ||
+                                                                                                              singleOrder.orderStatus==="Delivered" && '#3E9D5E' ||
+                                                                                                              singleOrder.orderStatus==="Cancelled" && '#E88686'
+                                                                                                               }}>
                               <div className={"row " +Style.ptb15}>
                                 <div className="col-6">
                                     <div className="col-12"><b>{singleOrder.orderStatus}</b></div>
@@ -367,14 +371,13 @@ export default class MyOrders extends Component {
                                                   <div className="col-12">
                                                       <div className="row">
                                                         <span className="col-12 mx-5 ">Amount =   {vendordata.vendor_beforeDiscountTotal > 0 ? (vendordata.vendor_beforeDiscountTotal).toFixed(2) : 0.00} {this.state.currency}
-</span>
+                                                        </span>
                                                        
                                                       </div>
                                                   </div>
                                                   <div className="col-12 title NoPadding">
                                                     
                                                         <span className="col-12 mx-5 ">No.Of products : {vendordata.vendor_numberOfProducts} </span>
-                                                       
                                                     
                                                   </div>       
                                               </div>

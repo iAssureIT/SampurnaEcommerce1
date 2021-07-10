@@ -175,8 +175,12 @@ body{
   line-height: 12px;
 }
 .sizeVariantTab .active{
-	border: solid 3px #033554 !important;
-    text-decoration: none !important;
+	border: solid 1px #033554 !important;
+  text-decoration: none !important;
+}
+.colorVariantTab .activeColor{
+  border: solid 3px rgb(119, 22, 59) !important;
+  text-decoration: none !important;
 }
 .globalSignoutBtn{
   background-color: var(--globalSignOutBtnBackColor) !important;

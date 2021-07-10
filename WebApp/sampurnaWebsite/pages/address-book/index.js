@@ -15,6 +15,7 @@ class AddressBook extends Component{
         }
     }
     componentDidMount(){
+        $(window).scrollTop(0);
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){

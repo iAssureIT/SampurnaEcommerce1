@@ -54,12 +54,19 @@ class ProductViewEcommerce extends Component {
 				currency     : sampurnaWebsiteDetails.preferences.currency,
 			})
 		}
+		if(sampurnaWebsiteDetails.deliveryLocation){
+			this.setState({ 
+				"userLatitude"  : sampurnaWebsiteDetails.deliveryLocation.latitude,
+				"userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude,
+				"delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
+			});
+		  }
 		if(userDetails){
             if(userDetails.user_id){
 				this.setState({
 					user_ID       :  userDetails.user_id,
-					userLongitude : userDetails.userLatitude,
-					userLongitude : userDetails.userLongitude,
+					// userLongitude : userDetails.userLatitude,
+					// userLongitude : userDetails.userLongitude,
 					"delLocation" : sampurnaWebsiteDetails.deliveryLocation.address,
 				},()=>{
 				})
@@ -118,7 +125,7 @@ class ProductViewEcommerce extends Component {
 		axios.post(url,formvalues)
 			.then((response) => {
 				if(response.data){
-					console.log("product response = ",response.data);
+					// console.log("product response = ",response.data);
 					this.setState({
 						variantProductsList : response.data.products,
 						variants            : response.data.variants
@@ -159,9 +166,11 @@ class ProductViewEcommerce extends Component {
 	}
 
 	setProductData(productData){
-		// console.log("variants===",this.state.variants);
+		// console.log("productData.color===",productData.color);
 		// var productData = this.state.variantProductsList.filter((productItem) => productItem._id === this.state.productID);
 		this.setState({	
+			// currentSize   : productData.color ? productData.color:"",
+			// currentColor   : productData.color ? productData.color:"",
 			activeColor   : productData.color ? productData.color:"",		
 			activeSize    : productData.size ? productData.size:"",			
 			productData   : productData,
@@ -242,14 +251,21 @@ class ProductViewEcommerce extends Component {
 		event.preventDefault();	
 		if(this.state.user_ID){
 			var id = event.target.id;
-			console.log("id ==",id)
 			var availableQuantity = event.target.getAttribute('availableQuantity');
 			const formValues = {
-				"user_ID"    : this.state.user_ID,
-				"product_ID" : event.target.id,
-				"quantity"   : 1,   
-				"vendor_ID"  : event.target.getAttribute('vendor_id'),       
+				"user_ID"             : this.state.user_ID,
+				"product_ID"          : event.target.id,
+				"quantity"            : 1,   
+				"vendor_ID"           : this.state.vendor_ID,  
+				"vendorLocation_id"   : this.state.vendorlocation_ID, 
+				"userLatitude"        : this.state.userLatitude,
+				"userLongitude"       : this.state.userLongitude,
+				"vendorName"          : event.target.getAttribute('vendor_name'),
+
 			  } 
+			  
+			if(formValues){
+			// console.log("formValues===",formValues);
 			axios.post('/api/carts/post', formValues)
 				.then((response) => {
 					this.props.fetchCartData();
@@ -272,7 +288,7 @@ class ProductViewEcommerce extends Component {
 				.catch((error) => {
 					console.log('error', error);
 				})
-			
+			}
 		}else{
 			if(this.state.websiteModel && this.state.showLoginAs==='modal'){
 				$('#loginFormModal').show();
@@ -299,7 +315,7 @@ class ProductViewEcommerce extends Component {
 		event.preventDefault();
 		if (this.state.user_ID) {
 			var id = event.target.id;
-			console.log("product id===",id);
+			// console.log("product id===",id);
 			axios.get('/api/products/get/one/' + id)
 				.then((response) => {
 					const formValues = {
@@ -554,6 +570,17 @@ class ProductViewEcommerce extends Component {
 							{this.state.productData?
 							<div className="col-12">
 								<div className="row">
+								<div className={"col-lg-2 col-xl-2 col-3  NoPadding mobileViewNoPadding pull-right " +Style.heartPosition}>
+									{this.state.user_ID?
+										<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass}>
+											<i id={this.state.productData._id} className={"fa"+wishClass +" " +"fa-heart" +" heartIcon"}></i>
+										</div>
+									:
+										<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
+											<i id={this.state.productData._id} className={"fa"+wishClass +"fa-heart"+ wishClass +" heartIcon"}></i>
+										</div>												
+									}
+								</div>
 								{this.state.productData.productNameRlang?
 									<div className={"col-12 globalProductItemName NoPadding productDetailsMB" } title={this.state.productData.productNameRlang}>
 										<span className={" RegionalFont ellipsis globalProdName  " +Style.productNameClassNew}>{this.state.productData.productNameRlang} </span>&nbsp;&nbsp;&nbsp;   
@@ -592,6 +619,7 @@ class ProductViewEcommerce extends Component {
 											<ul className="nav nav-tabs">
 												{Array.isArray(this.state.variants) && this.state.variants.map((productItem,index)=>{
 													return(
+														productItem.size !=="" && productItem.size !== "undefined" && productItem.size !== null &&
 														<li className="nav-item col-2 sizeVariantTab NoPadding ml-2 mb-4" key={index}>
 															<a className={"nav-link "+productItem.size === this.state.currentSize ? 'active ' :' '+Style.sizeBox} data-toggle="tab" href={"#"+productItem.size} 
 																onClick={()=>{
@@ -605,6 +633,7 @@ class ProductViewEcommerce extends Component {
 																{productItem.size}
 															</a>
 														</li>
+														
 													)})											
 												}
 											</ul>
@@ -617,15 +646,17 @@ class ProductViewEcommerce extends Component {
 														<div className="row">
 														{Array.isArray(productItem.color) && productItem.color.map((colorItem,colorIndex)=>{
 															return(	
-																<div className={" col-2 NoPadding mt-2 "+colorItem === this.state.activeColor ? ' active ': ''}  key={colorIndex} productId = {this.state.productData._id} 
-																onClick={()=>{
+																<div className={" col-2 NoPadding mt-2 colorVariantTab "+colorItem === this.state.activeColor ? 'active ': ''}  key={colorIndex} productId = {this.state.productData._id} 
+																	onClick={()=>{
 																	this.setState({
 																		productColor: colorItem,
 																	},()=>{
 																		this.filterdataWithColor();
 																	});
 																}}>
-																	<span className={"col-12 mr-2  "+Style.colorBox} style={{ backgroundColor: colorItem}}> </span>
+																	{colorItem !==" " && colorItem !== "undefined" && colorItem !== null&&
+																		<span className={"col-12 mr-2  "+Style.colorBox} style={{ backgroundColor: colorItem}}> </span>
+																	}
 																</div>
 															)})
 														}
@@ -643,7 +674,7 @@ class ProductViewEcommerce extends Component {
 												<div className="row">
 											{
 												this.state.productData.availableQuantity > 0 ?
-													<div className="col-7 NOpadding">
+													<div className="col-12 NOpadding">
 														<div className="row">
 															<div className="col-3 NoPadding">
 																<div className={"col-5 NoPadding float-left qtyIncrease  globaleCommLargeBtn " +Style.p17 +" "+Style.marginNo +" "+Style.radiusB1} id="totalQuanity">
@@ -655,7 +686,7 @@ class ProductViewEcommerce extends Component {
 																</div>
 															</div>
 															
-															<div className="col-8 NOpadding mobileViewPaddingLeft">
+															<div className="col-6 NOpadding mobileViewPaddingLeft">
 																{this.state.user_ID?
 																<div id={this.state.productData._id} vendor_id={this.state.productData.vendor_ID} availablequantity={this.state.productData.availableQuantity} onClick={this.addtocart.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.cartBTN}  > &nbsp; Add To Cart</div>
 																:
@@ -669,19 +700,7 @@ class ProductViewEcommerce extends Component {
 													<span className="soldOut">Sold Out</span>
 													<p className="soldOutP">This item is currently out of stock</p>
 												</div>
-											}
-											
-											<div className={"col-2 col-lg-2 col-xl-2 col-md-3 col-sm-3 col-xs-3 NoPadding mobileViewNoPadding " +Style.heartPosition}>
-												{this.state.user_ID?
-													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass}>
-														<i id={this.state.productData._id} className={"fa"+wishClass +" " +"fa-heart" +" heartIcon"}></i>
-													</div>
-												:
-													<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal">
-														<i id={this.state.productData._id} className={"fa"+wishClass +"fa-heart"+ wishClass +" heartIcon"}></i>
-													</div>												
-												}
-											</div>	
+											}	
 											<div className="col-12 productDetailWrapper mt-4 NoPadding">
 												<div ><b>Products Information</b></div>
 												{this.state.productData.weight &&

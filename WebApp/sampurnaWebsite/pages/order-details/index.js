@@ -39,6 +39,7 @@ export default class OrderDetails extends Component {
     }
   }
   componentDidMount() {
+      $(window).scrollTop(0);
       var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
       var currency = sampurnaWebsiteDetails.preferences.currency;
       var userDetails  = JSON.parse(localStorage.getItem('userDetails'));
@@ -54,7 +55,7 @@ export default class OrderDetails extends Component {
         // this.getAllorderStatus();
         var labels=[
           {
-            label: 'New',
+            label: 'New Order',
             name: 'step 1',
           },
           {
@@ -65,13 +66,13 @@ export default class OrderDetails extends Component {
             label: 'Ready to Dispatch',
             name: 'step 2',
           },
-          {
-            label: 'On the Way',
-            name: 'step 3',
-          },
+          // {
+          //   label: 'On the Way',
+          //   name: 'step 3',
+          // },
           {
             label: 'Delivered',
-            name: 'step 4',
+            name: 'step 3',
           }
         ]
         this.setState({labels:labels,labelsArray:labels})
@@ -110,8 +111,6 @@ export default class OrderDetails extends Component {
       // .catch((error) => {
       //   console.log('error', error);
       // })
-
-      
 
   }
 
@@ -167,38 +166,19 @@ export default class OrderDetails extends Component {
     }
   }
   
-  cancelProduct(event) {
-    $('#cancelProductModal').show();
-    var status = $(event.target).data('status');
-    var id = $(event.target).data('id');
-    var str = '';
-
-    if (status === "New Order" || status === "Verified" || status === "Packed") {
-      str = 'Do you want to cancel order?';
-      $('#cancelProductBtn').attr('data-id', id);
-      $('.cantcancel').hide();
-      $('.cancancel').show();
-    }
-    else {
-
-      str = status === "Delivery Initiated" || status === "Delivered & Paid" ? "This order is delivered. You cannot cancel this order." : "This order is being dispatched. You cannot cancel this order.";
-
-      $('.cantcancel').show();
-      $('.cancancel').hide();
-    }
-    $('#cancelProductModal .modaltext').html('');
-    $('#cancelProductModal .modaltext').append(str);
-  }
-
+  
   cancelProductAction(event) {
     event.preventDefault();
-    $('.fullpageloader').show();
-    var id = $(event.target).data('id');
+    var id = event.target.getAttribute('id');
+    // console.log("id===",id);
 
     var formValues = {
-      "orderID": id,
-      "userid": this.state.userID
+      "order_id"   : id,
+      "userid"    : this.state.user_ID,
+      "type"      : "vendororder",
+      "vendor_id" : '',
     }
+
     swal({
       title: "Are you sure?",
       text: "Are you sure that you want to cancelled order?",
@@ -209,7 +189,7 @@ export default class OrderDetails extends Component {
 
     .then(willDelete => {
       if (willDelete) {
-        axios.patch('/api/orders/get/cancelOrder', formValues)
+        axios.patch('/api/orders/cancel/order', formValues)
           .then((response) => {
             // console.log("cancel order response:",this.state.orderData);
             $('.fullpageloader').hide();
@@ -274,7 +254,7 @@ export default class OrderDetails extends Component {
  
   render() {
     if(this.state.orderData){
-      // console.log("Order Details data====",this.state.orderData );
+      console.log("Order Details data====",this.state.orderData );
     }
     
     return (
@@ -291,7 +271,10 @@ export default class OrderDetails extends Component {
                       <h4 className={"table-caption " +Style.mainTitle}>Orders Details</h4>
                   </div>
                   <div className={"col-12 NoPadding orderDetailsTopBlock"}>
-                    <div className="col-12 NoPadding orderDetailsTop ">
+                    <div className="col-12 NoPadding orderDetailsTop " style={{'backgroundColor': this.state.orderData.orderStatus === "New"&& '#033554' ||
+                                                                                                  this.state.orderData.orderStatus === "Delivered" && '#3E9D5E' ||
+                                                                                                  this.state.orderData.orderStatus === "Cancelled" && '#E88686'
+                                                                              }}>
                       <div className={"row " +Style.ptb15}>
                         <div className="col-6 ">
                             <div className="col-12">{"Order Status : "+(this.state.orderData.orderStatus)}</div>
@@ -356,11 +339,12 @@ export default class OrderDetails extends Component {
                                       <span className="orderDetailsVendorName">{vendordata.vendorName}</span> &nbsp;
                                   </div>
                                   <div className="col-5 pull-right">
-                                    {this.cancelButton(this.state.orderData.createdAt)&&
+                                  {this.state.orderData.orderStatus !== "Cancelled" &&
+                                    this.cancelButton(this.state.orderData.createdAt)&&
                                       <div className="col-12 NoPadding ">
                                           <div className={"col-12 text-right cancelOrderbtn " +Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
                                       </div>
-                                    }
+                                  }
                                   </div>
                                 </div>      
                               </div>
@@ -369,7 +353,7 @@ export default class OrderDetails extends Component {
                                     {/* <StepWizard data={vendordata} /> */}
                                     {/* <OrderStatusWizard data={vendordata} /> */}
                                     <StepProgressBar
-                                      startingStep={index1 === -1 ? 4 : index1}
+                                      startingStep={index1 === -1 ? 3 : index1}
                                       steps={labels}
                                     />
                                 </div> :null

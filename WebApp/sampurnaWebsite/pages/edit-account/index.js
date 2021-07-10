@@ -25,6 +25,7 @@ class EditAccount extends Component{
         }
     }
     componentDidMount(){
+        $(window).scrollTop(0);
         var sampurnaWebsiteDetails  = JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
         var currency = sampurnaWebsiteDetails.preferences.currency;
         var userDetails  = JSON.parse(localStorage.getItem('userDetails'));

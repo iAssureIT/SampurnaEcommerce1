@@ -118,7 +118,8 @@
 	cursor: pointer;
 	color: #444;
 	text-decoration: none !important;
-	width: 80px !important;
+	width: 100px !important;
+	font-size: 13px;
 	display: inline-block;
 }
 
@@ -181,7 +182,7 @@
 
 .heartPosition{
 	position: absolute;
-	top: -225px;
+	top: -70px;
 	right: 0px;
 }
 

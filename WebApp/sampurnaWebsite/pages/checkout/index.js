@@ -79,7 +79,7 @@ class Checkout extends Component {
             this.setState({
                 user_ID : userDetails.user_id,
                 email   : userDetails.email,
-                fullName: userDetails.firstName +" "+userDetails.lastName ,
+                fullName: userDetails.firstname +" "+userDetails.lastname ,
                 websiteModel : sampurnaWebsiteDetails.preferences.websiteModel,
                 currency     : currency,
             },()=>{
@@ -320,9 +320,9 @@ class Checkout extends Component {
         event.preventDefault();        
         var addressValues = {};
         $("html, body").animate({ scrollTop: 450 }, 800);
-        console.log("place order this.state.recentCartData.vendorOrders==",this.state.recentCartData);
+        // console.log("place order this.state.recentCartData.vendorOrders==",this.state.recentCartData);
         var vendorOrders = this.state.recentCartData.vendorOrders;
-        console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData);
+        // console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData);
         if(this.validateForm()){
             for(var i = 0; i<vendorOrders.length;i++){ 
                 vendorOrders[i].products =[];
@@ -430,7 +430,7 @@ class Checkout extends Component {
                 }
                 axios.patch('/api/carts/address', addressValues)
                     .then(async (response) => {
-                        // console.log("Response After inserting address to cart===",response);
+                        console.log("Response After inserting address to cart===",response);
                         for(i=0;i<this.state.recentCartData.vendorOrders.length;i++){
                         var cartItems = this.state.recentCartData.vendorOrders[i].products.map((a, i) => {
                             return {
@@ -478,9 +478,9 @@ class Checkout extends Component {
                                 .then(async( result) => {
                                     if(result.data && result.data.order_id){
                                         console.log("Order response ===",result.data);
-                                        if (this.state.paymentmethods === 'cod') {
+                                        if (this.state.paymentmethods === 'cod' || this.state.paymentmethods === 'cardOnDelivery') {
+                                            console.log("this.state.paymentmethods==",this.state.paymentmethods);
                                             this.setState({paymethods : true})
-                                            // $('.fullpageloader').show();
                                             this.props.fetchCartData();
                                             this.setState({
                                                 messageData: {

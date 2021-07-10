@@ -135,7 +135,7 @@ class ProductCarousel extends Component {
     if(sampurnaWebsiteDetails){
         // console.log("sampurnaWebsiteDetails=>",sampurnaWebsiteDetails);
       if(sampurnaWebsiteDetails.deliveryLocation){
-        this.setState({
+        this.setState({ 
             "userLatitude"  : sampurnaWebsiteDetails.deliveryLocation.latitude,
             "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.longitude,
             "delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
