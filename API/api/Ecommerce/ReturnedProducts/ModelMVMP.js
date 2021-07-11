@@ -8,6 +8,8 @@ const returnedProductSchema = mongoose.Schema({
 	vendor_id 				: { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
 	vendorLocation_id 		: { type: mongoose.Schema.Types.ObjectId, ref: 'entitymasters' },
 	product_id              : { type: mongoose.Schema.Types.ObjectId, ref: 'products' },
+	section_id              : { type: mongoose.Schema.Types.ObjectId, ref: 'sections' },
+	category_id             : { type: mongoose.Schema.Types.ObjectId, ref: 'categories' },	
 	productCode 			: String,
 	itemCode                : String ,
 	reasonForReturn         : String, 

@@ -2,11 +2,14 @@ import React,{Component} 	from 'react';
 import { render } 			from 'react-dom';
 import { BrowserRouter, Route, Switch,Link,location } from 'react-router-dom';
 import axios                from 'axios';
-import $ 					from "jquery";
+import $, { data } 					from "jquery";
 import moment 				from "moment";
 import AdminOrdersList 		from './AdminOrdersList.js';
 import swal         		from 'sweetalert';
 import IAssureTable           from "../ReturnProductTable/IAssureTable.jsx";
+import { CheckBoxSelection, 
+    Inject, 
+    MultiSelectComponent }  from '@syncfusion/ej2-react-dropdowns';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/js/modal.js';
 import 'bootstrap/js/tab.js';
@@ -23,6 +26,8 @@ export default class ReturnProducts extends Component{
 				"productImage"      : "Product Image",
                 "productName"       : "Product Name(Product Code)",
                 "vendorName"        : 'Vendor Name',
+                "section"        	: 'Section',
+                "category"        	: 'Category',
                 "customerName"      : 'Customer Name',
                 "reasonOfReturn"    : 'Reason of Return',
                 "OrderDate"        	: 'Ordered on',
@@ -32,7 +37,7 @@ export default class ReturnProducts extends Component{
             },
             tableObjects    : {
                 paginationApply : true,
-                searchApply     : true,
+                searchApply     : false,
                 deleteMethod    : 'delete',
                 apiLink         : '/api/returnedproducts',
             },
@@ -49,8 +54,69 @@ export default class ReturnProducts extends Component{
 		axios.defaults.headers.common['Authorization'] = 'Bearer '+ token;
 		this.getData(this.state.startRange, this.state.limitRange);
 		this.getCount();
+		this.getSectionData();
+        // this.getCategoryData();
+        this.getVendorList();
 	}    
 
+	productCountByStatus(){
+        axios.get('/api/products/get/productCountByStatus')
+            .then((response) => {
+
+                this.setState({
+                    productCountByStatus: response.data
+                })
+
+            })
+            .catch((error) => {
+
+            })
+    }
+
+	getVendorList() {
+        // axios.get('/api/vendors/get/list')
+        axios.get("/api/entitymaster/get/vendor")
+		.then((response) => {
+			this.setState({
+				vendorArray : response.data,
+				messageData : {}
+			})
+			// console.log("vendorArray",this.state.vendorArray);
+
+		})
+		.catch((error) => {
+			console.log('error', error);
+		})
+    }
+
+    getSectionData() {
+        axios.get('/api/sections/get/all/list')
+		.then((response) => {
+			this.setState({
+				sectionArray: response.data,
+				messageData: {}
+			})
+
+		})
+		.catch((error) => {
+			console.log('error', error);
+		})
+    }
+
+    getCategoryData(id) {
+        axios.get('/api/category/get/'+id)
+		.then((response) => {
+
+			this.setState({
+				categoryArray 	: response.data,
+				messageData 	: {}
+			})
+
+		})
+		.catch((error) => {
+			console.log('error', error);
+		})
+    }
 	/**=========== getCount() ===========*/
     getCount(){
         axios.get('/api/returnedproducts/get/count')
@@ -65,11 +131,35 @@ export default class ReturnProducts extends Component{
         })
     }
 
+	/**=========== getSearchText() ===========*/
+	getSearchText(searchText) {
+		console.log("searchText => ",searchText)
+		this.setState({
+			searchText : searchText
+		},()=>{
+			this.getData(this.state.startRange, this.state.limitRange);
+		})
+        // axios.get("/api/products/get/adminsearch/" + searchText)
+		// .then((response) => {
+		// 	this.setState({
+		// 		tableData : response.data,
+		// 		dataCount : response.data.length
+		// 	});
+		// })
+		// .catch((error) => {
+		// 	console.log('error', error);
+		// })
+    }
+
 	/**=========== getData() ===========*/
 	getData(startRange, limitRange){
 		var formValues = {
-            startRange : startRange,
-            limitRange : limitRange
+            startRange 		: startRange,
+            limitRange 		: limitRange,
+			vendor 			: this.state.vendor,
+			section 		: this.state.section,
+			category 		: this.state.category,
+			returnStatus 	: this.state.returnStatus
         }
 		axios.post("/api/returnedproducts/get/list", formValues)
 		.then((response)=>{
@@ -88,6 +178,8 @@ export default class ReturnProducts extends Component{
 												"<div class='productImgDiv'> <img src='/images/notavailable.jpg' class='img-responsive' /> </div>",
 						"productName"       : a.productDetails[0] && a.productDetails[0].productName ? (a.productDetails[0].productName+" "+"("+a.productDetails[0].productCode)+")" : "",
 						"vendorName"        : a.vendorDetails[0] && a.vendorDetails[0].companyName ? a.vendorDetails[0].companyName : "",
+						"section"        	: a.sectionDetails[0] && a.sectionDetails[0].section ? a.sectionDetails[0].section : "",
+						"category"        	: a.categoryDetails[0] && a.categoryDetails[0].category ? a.categoryDetails[0].category : "",
 						"customerName"      : a.userDetails[0] && a.userDetails[0].profile.fullName ? a.userDetails[0].profile.fullName : "-",
 						"reasonOfReturn"    : a.reasonForReturn,
 						"OrderDate"        	: moment(a.dateOfPurchase).format("DD MMMM YYYY, HH:mm a"),
@@ -124,6 +216,21 @@ export default class ReturnProducts extends Component{
 			}
 		})
 	}
+
+	handleChangeFilter(event){	
+		const name   = event.target.name;
+		const value     = event.target.value;
+		console.log("name => ",name);
+		console.log("value => ",value);
+		this.setState({
+			[name]: event.target.value,
+		},()=>{
+			if(name === "section"){
+				this.getCategoryData(value);
+			}
+			this.getData(this.state.startRange, this.state.limitRange);
+		});		
+	}
 			
 	/**=========== render() ===========*/
 	render(){		
@@ -139,6 +246,84 @@ export default class ReturnProducts extends Component{
 									</div>
 								</div>
 							</div>
+							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt NoPadding">
+								<div className="searchProductFromList col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTopp NOPadding">
+									
+									{/* {console.log("this.state.preference----",this.state.websiteModel)} */}
+									{/* {this.state.preference === "MarketPlace"  || this.state.websiteModel === "MarketPlace"
+										?  */}
+										<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+											<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Vendor</label>
+											<select className="form-control selectRole" ref="vendor" name="vendor" id="vendor" 
+												onChange={this.handleChangeFilter.bind(this)}>
+												<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
+												{
+													this.state.vendorArray && this.state.vendorArray.length > 0 ?
+														this.state.vendorArray.map((data, i)=>{
+															return(                                                                    
+																<option key={i} value={data._id}>{data.companyName}</option>
+																// <option key={i} id={data.entityCode}>{data.entityCode}</option>
+															);
+														})
+													:
+													null
+												}
+												
+											</select>
+										</div>
+										{/* :
+										null 
+									} */}
+
+									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Section</label>
+										<select className="form-control selectRole" ref="section" name="section" id="section" onChange={this.handleChangeFilter.bind(this)}>
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
+											{this.state.sectionArray && this.state.sectionArray.length > 0 
+											?
+												this.state.sectionArray.map((data, i)=>{
+													return(                                                                    
+														<option key={i} value={data._id}>{data.section}</option>
+														// <option key={i} id={data.entityCode}>{data.entityCode}</option>
+													);
+												})
+											:
+												null
+											}											
+										</select>
+									</div>
+									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Category</label>
+										<select className="form-control selectRole" ref="category" name="category" id="category" 
+											onChange={this.handleChangeFilter.bind(this)}>
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
+											{this.state.categoryArray && this.state.categoryArray.length > 0 
+											?
+												this.state.categoryArray.map((data, i)=>{
+													return(                                                                    
+														<option key={i} value={data._id}>{data.category}</option>
+														// <option key={i} id={data.entityCode}>{data.entityCode}</option>
+													);
+												})
+											:
+												null
+											}											
+										</select>
+									</div>
+									<div className="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6 mt">
+										<label className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-left">Status</label>
+										<select className="form-control selectRole" ref="returnStatus" name="returnStatus" id="returnStatus"
+											onChange={this.handleChangeFilter.bind(this)}>
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" disabled selected>-- Select --</option>  
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" value="Return Requested">Return Requested</option>  									
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" value="Return Request Approved">Return Request Approved</option> 									
+											<option className="col-lg-12 col-md-12 col-sm-12 col-xs-12" value="Return Request Rejected">Return Request Rejected</option>    
+										</select>
+									</div>
+								
+								</div>
+							</div>                                     
+							
 							<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<IAssureTable 
 									tableHeading    = {this.state.tableHeading}
@@ -147,7 +332,7 @@ export default class ReturnProducts extends Component{
 									tableData       = {this.state.tableData}
 									getData         = {this.getData.bind(this)}
 									tableObjects    = {this.state.tableObjects}
-									// getSearchText   = {this.getSearchText.bind(this)}
+									getSearchText   = {this.getSearchText.bind(this)}
 								/>
 							</div>				
 						</div>

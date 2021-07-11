@@ -54,6 +54,19 @@ exports.get_sections = (req,res,next)=>{
     });
 };
 
+exports.get_sections_list = (req,res,next)=>{
+    Sections.find() 
+    .sort({"sectionRank" : 1})
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        res.status(500).json({
+            error : err
+        });
+    });
+};
+
 exports.get_single_section = (req,res,next)=>{
     Sections.findOne({_id : req.params.sectionID})       
         .exec()

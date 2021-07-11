@@ -188,3 +188,13 @@ formValues  = {
     "product_id"        : "60e59673fd36c94b6d707cc5",
     "vendor_id"         : "609d0b947bdc653631fe1b27"
 }
+
+================================ Driver Mobile App API's ==========================================
+1. Single Vendor Order Details (Driver Mobile App API's)
+
+API         => http://localhost:3368/api/orders/get/single/vendor_order
+MethodType  => Post
+formValues  = {
+    "order_id"      : "60d0a92476433b57f602b021",
+    "vendor_id"     : "609d0b947bdc653631fe1b27"
+}

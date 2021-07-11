@@ -9,7 +9,38 @@ const CreditPointsPolicy 	= require('../CreditPointsPolicy/Model.js');
 
 
 exports.get_returned_products = (req,res,next)=>{
+	console.log("req.body => ",req.body)
+	var selector        = {};
+	selector['$and']    = [];
+
+	if(req.body.vendor !== "" && req.body.vendor !== undefined){
+		selector["$and"].push(
+			{"vendor_id" : ObjectId(req.body.vendor)}
+		)
+	}
+	if(req.body.section !== "" && req.body.section !== undefined){
+		selector["$and"].push(
+			{"section_id" : ObjectId(req.body.section)}
+		)
+	}
+	if(req.body.category !== "" && req.body.category !== undefined){
+		selector["$and"].push(
+			{"category_id" : ObjectId(req.body.category)}
+		)
+	}
+	if(req.body.returnStatus !== "" && req.body.returnStatus !== undefined){
+		selector["$and"].push(
+			{"returnStatus" : req.body.returnStatus}
+		)
+	}else{
+		selector["$and"].push(
+			{"returnStatus" : {$ne : ""}}
+		)
+	}
+	console.log("selector => ",selector)
+
 	ReturnedProducts.aggregate([
+		
 		{ $lookup:
 			{
 				from 			: 'products',
@@ -33,6 +64,21 @@ exports.get_returned_products = (req,res,next)=>{
 				as 					: 'userDetails'
 			}
 		},		
+		{ $lookup : {
+				from 				: 'sections',
+				localField 			: 'section_id',
+				foreignField 		: '_id',
+				as 					: 'sectionDetails'
+			}
+		},
+		{ $lookup : {
+				from 				: 'categories',
+				localField 			: 'category_id',
+				foreignField 		: '_id',
+				as 					: 'categoryDetails'
+			}
+		},
+		{$match : selector},		
 		{$sort: 
 			{
 				"createdAt": -1

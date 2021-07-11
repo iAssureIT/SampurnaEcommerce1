@@ -20,6 +20,8 @@ router.post('/get/list', 	                sectionsController.get_list_for_sectio
 
 router.get('/get/list', 					sectionsController.get_sections);
 
+router.get('/get/all/list', 					sectionsController.get_sections_list);
+
 router.get('/get/count', 					sectionsController.count_section);
 
 router.get('/get/one/:sectionID', 			sectionsController.get_single_section);

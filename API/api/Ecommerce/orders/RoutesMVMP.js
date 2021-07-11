@@ -124,4 +124,6 @@ router.delete('/get/deleteAllOrders', 															checkAuth, orderController.
 //Code By Rushikesh For Driver App
 router.post('/get/nearest_vendor_orders',                                                        orderController.nearest_vendor_orders)
 
+router.post('/get/single/vendor_order',                                                          orderController.get_single_vendor_order)
+
 module.exports = router; 

@@ -89,3 +89,9 @@ Product Review and Rating
 Credit Points
 Return Product
 Cancel Order
+
+
+In MVMP, we are treating each vendor location as new vendor and adding same product list data again with some changes in fields like (vendorID, quantity, price, discount, etc), but productCodes and itemCodes are remaining same for each location of that particular vendor.
+while uploading images using bulk upload we are saving images 
+
+we are saving images as (itemCode-01, itemCode-02, itemCode-03)

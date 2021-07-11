@@ -6,88 +6,146 @@ const moment            = require('moment-timezone');
 
 /*=========== Insert Customer Review ===========*/
 exports.insertCustomerReview = (req,res,next)=>{
-	console.log("req body customer Review => ", req.body);	
-	const customerReview = new CustomerReview({
-		_id             		: new mongoose.Types.ObjectId(),                    
-		customer_id     		: req.body.customer_id,
-		customerName    		: req.body.customerName,
-		order_id        		: req.body.order_id,
-		product_id      		: req.body.product_id,
-		vendor_id 				: req.body.vendor_id,
-		vendorLocation_id 	: req.body.vendorLocation_id,
-		rating          		: req.body.rating,
-		customerReview  		: req.body.customerReview,
-		reviewProductImages 	: req.body.reviewProductImages,
-		status          		: 'New',
-		createdAt       		: new Date()
-	});
-	customerReview.save()
-	.then(data=>{
-		res.status(200).json({
-			"message" : "Thanks for your review."
+	console.log("req body customer Review => ", req.body);
+	processData();
+	async function processData(){	
+		var product = await Products.findOne({"_id" : ObjectId(req.body.product_id)})
+		const customerReview = new CustomerReview({
+			_id             		: new mongoose.Types.ObjectId(),                    
+			customer_id     		: req.body.customer_id,
+			customerName    		: req.body.customerName,
+			order_id        		: req.body.order_id,
+			product_id      		: req.body.product_id,
+			vendor_id 				: req.body.vendor_id,
+			section_id 				: product.section_ID,
+			category_id 			: product.category_ID,
+			vendorLocation_id 		: req.body.vendorLocation_id,
+			rating          		: req.body.rating,
+			customerReview  		: req.body.customerReview,
+			reviewProductImages 	: req.body.reviewProductImages,
+			status          		: 'New',
+			createdAt       		: new Date()
 		});
+		customerReview.save()
+		.then(data=>{
+			res.status(200).json({
+				"message" : "Thanks for your review."
+			});
+		})
+		.catch(err =>{
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
+		});	
+	}	
+};
+
+/*=========== Get Review List ===========*/
+exports.list_review = (req,res,next)=>{
+	// console.log("req body get All Reviews => ", req.body)
+	var selector        = {};
+	selector['$and']    = [];
+
+	if(req.body.vendor !== "" && req.body.vendor !== undefined){
+		selector["$and"].push(
+			{"vendor_id" : ObjectId(req.body.vendor)}
+		)
+	}
+	if(req.body.section !== "" && req.body.section !== undefined){
+		selector["$and"].push(
+			{"section_id" : ObjectId(req.body.section)}
+		)
+	}
+	if(req.body.category !== "" && req.body.category !== undefined){
+		selector["$and"].push(
+			{"category_id" : ObjectId(req.body.category)}
+		)
+	}
+	if(req.body.status !== "" && req.body.status !== undefined){
+		selector["$and"].push(
+			{"status" : req.body.status}
+		)
+	}else{
+		selector["$and"].push(
+			{"status" : {$ne : ""}}
+		)
+	}
+	console.log("selector => ",selector)
+
+	CustomerReview.aggregate([
+		{ $match : selector },
+		{ $lookup:{
+				from 			: 'products',
+				localField 		: 'product_id',
+				foreignField 	: '_id',
+				as 				: 'productDetails'
+			}
+		},
+		{ $lookup : {
+				from 				: 'entitymasters',
+				localField 			: 'vendor_id',
+				foreignField 		: '_id',
+				as 					: 'vendorDetails'
+			}
+		},
+		{ $lookup : {
+				from 				: 'users',
+				localField 			: 'user_id',
+				foreignField 		: '_id',
+				as 					: 'userDetails'
+			}
+		},		
+		{ $lookup : {
+				from 				: 'sections',
+				localField 			: 'section_id',
+				foreignField 		: '_id',
+				as 					: 'sectionDetails'
+			}
+		},
+		{ $lookup : {
+				from 				: 'categories',
+				localField 			: 'category_id',
+				foreignField 		: '_id',
+				as 					: 'categoryDetails'
+			}
+		},
+		{ $sort: {
+				createdAt : -1
+			}
+		},
+		{$project : {
+				customer_id 					: 1,
+				customerName    				: 1,
+				order_id        				: 1,
+				product_id      				: 1,
+				vendor_id 						: 1,
+				vendorLocation_id 				: 1,
+				rating          				: 1,
+				customerReview  				: 1,
+				status          				: 1,
+				createdAt       				: 1,
+				"productDetails.productName"	: 1,
+				"productDetails.productCode" 	: 1,
+				"vendorDetails.companyName"		: 1,
+				"categoryDetails.category"		: 1,
+				"sectionDetails.section"		: 1
+			}
+		}
+	])
+	.skip(parseInt(req.body.startRange))
+	.limit(parseInt(req.body.limitRange))
+	.exec()
+	.then(data=>{
+		// console.log("data => ",data)
+		res.status(200).json(data);
 	})
 	.catch(err =>{
 		console.log(err);
 		res.status(500).json({
 			error: err
 		});
-	});		
-};
-
-/*=========== Get Review List ===========*/
-exports.list_review = (req,res,next)=>{
-	// console.log("req body get All Reviews => ", req.body)
-	 CustomerReview.aggregate([
-	{ $lookup:{
-			from 			: 'products',
-			localField 		: 'product_id',
-			foreignField 	: '_id',
-			as 				: 'productDetails'
-		}
-	},
-	{ $lookup : {
-			from 				: 'entitymasters',
-			localField 			: 'vendor_id',
-			foreignField 		: '_id',
-			as 					: 'vendorDetails'
-		}
-	},	
-	{ $sort: {
-		createdAt : -1
-	}
-},
-{
-	$project: {
-		customer_id 					: 1,
-		customerName    				: 1,
-		order_id        				: 1,
-		product_id      				: 1,
-		vendor_id 						: 1,
-		vendorLocation_id 				: 1,
-		rating          				: 1,
-		customerReview  				: 1,
-		status          				: 1,
-		createdAt       				: 1,
-		"productDetails.productName"	: 1,
-		"productDetails.productCode" 	: 1,
-		"vendorDetails.companyName"		: 1
-	}
-}
-])
-.skip(parseInt(req.body.startRange))
-.limit(parseInt(req.body.limitRange))
-.exec()
-.then(data=>{
-	// console.log("data => ",data)
-	res.status(200).json(data);
-})
-.catch(err =>{
-	console.log(err);
-	res.status(500).json({
-		error: err
 	});
-});
 };
 
 /*=========== Get Single Review ===========*/

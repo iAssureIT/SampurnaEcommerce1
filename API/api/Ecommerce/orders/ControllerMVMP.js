@@ -783,6 +783,8 @@ exports.returnProduct = (req, res, next) => {
 							customerComment 		: req.body.customerComment,
 							refundMode 				: req.body.refund,
 							returnProductImages 	: req.body.returnProductImages,
+							section_id 				: returnedProduct[0].section_ID,
+							category_id 			: returnedProduct[0].category_ID,
 							originalPrice           : returnedProduct[0].originalPrice,
 							discountPercent         : returnedProduct[0].discountPercent,
 							discountedPrice         : returnedProduct[0].discountedPrice,
@@ -3419,3 +3421,35 @@ function getDistanceLimit(){
         });
     });
  }
+
+// =========================================================== API's for Driver API ============================================
+// var vendorOrders = await Orders.findOne({"_id" : ObjectId(req.body.order_id), "vendorOrders.vendor_id" : ObjectId(req.body.vendor_id)},{'vendorOrders.$' : 1})
+
+exports.get_single_vendor_order = (req, res, next) => {
+	Orders.findOne(
+		{
+			"_id" 						: ObjectId(req.body.order_id), 
+			"vendorOrders.vendor_id" 	: ObjectId(req.body.vendor_id)
+		},
+		{
+			'orderID' 				: 1,
+			'userFullName'      	: 1,
+			'customerShippingTime' 	: 1,
+			'deliveryAddress' 		: 1,
+			'paymentDetails' 		: 1,
+			'createdAt' 			: 1,
+			'vendorOrders.$'   		: 1
+		}
+	)
+	.exec()
+	.then(data => {
+		res.status(200).json(data);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error : err
+		});
+	});
+};
+  
