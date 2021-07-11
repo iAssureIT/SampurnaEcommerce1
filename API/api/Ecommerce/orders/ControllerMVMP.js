@@ -3222,133 +3222,6 @@ exports.deleteAllOrders = (req, res, next) => {
 };
 
 
-exports.nearest_vendor_orders= (req, res, next) => {
-	const {status}=req.body;
-	Orders.aggregate([
-		{$match:{"vendorOrders.orderStatus":status}},
-		{ "$unwind": "$vendorOrders"},
-		{
-			"$lookup": {
-			  "from": "entitymasters",
-			  "as": "vendorDetails",
-			  "localField": "vendorOrders.vendor_id",
-			  "foreignField": "_id"
-			}
-		 },
-		 { "$unwind": "$vendorDetails"},
-		 {$match:{"vendorOrders.orderStatus":status}},
-		{
-			"$project": {
-			  	"_id": 1,
-				"orderID":1,
-				"user_ID":1,
-				"userName":1,
-				"vendorOrders.vendor_id":1,
-				"vendorOrders.vendorLocation_id":1,
-				"vendorOrders.orderStatus":1,
-				"deliveryAddress":1,
-				"vendorDetails.companyName":1,
-				"vendorDetails.companyLogo":1,
-				"vendorDetails.locations":1,
-				"vendorDetails.createdAt":1,
-			}
-		}	
-	])
-	// Orders.find({"vendorOrders.orderStatus":status},
-		
-	// 	{
-			
-	// 			"_id": 1,
-	// 			"orderID":1,
-	// 			"user_ID":1,
-	// 			"userName":1,
-	// 			"vendorOrders.$":1,
-	// 			// "vendorOrders.$.vendor_id":1,
-	// 			// "vendorOrders.$.vendorLocation_id":1,
-	// 			// "vendorOrders.$.orderStatus":1,
-	// 			// "vendorOrders.$.vendorName":1,
-	// 			// "vendorOrders.$.orderStatus":1,
-	// 			"deliveryAddress":1,
-	// 	}	
-	// )
-	// .populate('vendorOrders.vendor_id')
-	// .exec()
-	.then(async(data) => {
-		console.log("data",data);
-		var vendorLocations = [];
-		var location = await DriverTracking.aggregate([
-			{
-				$match:{user_id:ObjectId(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")}
-			},{
-				$project:{
-					// currentLocations:1,
-					lat :{$arrayElemAt:["$currentLocations.lat",-1]},
-					lng :{$arrayElemAt:["$currentLocations.lat",-1]}
-				}
-			}
-		])
-		var latitude = location[0].lat;
-		var longitude = location[0].lng;
-		for(var i = 0; i < data.length; i++){
-			if(data[i].vendorDetails && data[i].vendorDetails.locations){
-				for(var j = 0; j < data[i].vendorDetails.locations.length; j++){
-					var vendor_ID           = data[i].vendorDetails._id;
-					var vendorLogo          = data[i].vendorDetails.companyLogo[0];
-					var vendorName          = data[i].vendorDetails.companyName;
-					var address             = data[i].vendorDetails.locations[j].addressLine1;
-					var vendorLocation_id   = data[i].vendorDetails.locations[j]._id;
-					var vendorLat           = data[i].vendorDetails.locations[j].latitude;
-					var vendorLong          = data[i].vendorDetails.locations[j].longitude;
-					var custLat            	= data[i].deliveryAddress.latitude;
-					var custLng            	= data[i].deliveryAddress.longitude;
-					
-					// var latitude = await DriverTracking.findOne({user_id:ObjectID(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")})
-					;
-					if(latitude !== "" && longitude !== undefined && latitude !== "" && longitude !== undefined){
-						var vendorDist = await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
-						var vendorToCustDist = await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
-					}
-					data[i].vendorDetails.locations[j].vendorName =vendorName;
-					data[i].vendorDetails.locations[j].vendorLocation_id =vendorLocation_id;
-					data[i].vendorDetails.locations[j].vendorDist =vendorDist ? vendorDist.toFixed(2) : '';
-					data[i].vendorDetails.locations[j].vendorToCustDist =vendorToCustDist ? vendorToCustDist.toFixed(2) : '';
-					data[i].vendorDetails.locations[j].expectedReachedTime =(parseInt((60/20) * vendorDist));
-					// vendorLocations.push(data[i].vendorDetails.locationsj);
-				}
-			}
-		}
-		if(i >= data.length){
-			var distanceLimit = await getDistanceLimit();
-			// console.log("distanceLimit=>",distanceLimit)
-			// console.log("vendorLocations=>",vendorLocations)
-			if(vendorLocations && vendorLocations.length > 0){
-				const key = 'vendor_ID';
-				if(latitude && longitude){
-					if(distanceLimit){
-						var FinalVendorLocations = [...new Map(vendorLocations.filter(vendorLocation => vendorLocation.vendorDistance <= distanceLimit).sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
-						// console.log("FinalVendorLocations 1 =>",FinalVendorLocations)
-					}else{                                            
-						var FinalVendorLocations = [...new Map(vendorLocations.sort((b, a) => a.vendorDistance - b.vendorDistance).map(item =>[item[key], item])).values()];
-						// console.log("FinalVendorLocations 2 =>",FinalVendorLocations)
-					}
-				}else{
-					var FinalVendorLocations = [...new Map(vendorLocations.sort((a, b) => a.vendorName.localeCompare(b.vendorName)).map(item =>[item[key], item])).values()];
-					// console.log("FinalVendorLocations 3 =>",FinalVendorLocations)
-				}
-				res.status(200).json(FinalVendorLocations);
-			}                            
-		res.status(200).json(data);
-		}
-		
-	})
-	.catch(err => {
-	   console.log(err);
-	   res.status(500).json({
-		 error: err
-	   });
-	});
-};
-
 
 /**=========== calcUserVendorDist() ===========*/
 function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
@@ -3422,9 +3295,131 @@ function getDistanceLimit(){
     });
  }
 
-// =========================================================== API's for Driver API ============================================
-// var vendorOrders = await Orders.findOne({"_id" : ObjectId(req.body.order_id), "vendorOrders.vendor_id" : ObjectId(req.body.vendor_id)},{'vendorOrders.$' : 1})
+/*################## API's for Driver API ##################*/
 
+/*================= Get Nearest Ready to Dispatch Vendor Orders =================*/
+exports.nearest_vendor_orders= (req, res, next) => {
+	const {status} = req.body;
+	Orders.aggregate([
+		{ "$unwind" : "$vendorOrders"},
+		{ "$lookup" : 
+			{
+				"from"			: "entitymasters",
+				"as"			: "vendorDetails",
+				"localField"	: "vendorOrders.vendor_id",
+				"foreignField"	: "_id"
+			}
+		},
+		{ "$unwind" : "$vendorDetails" },
+		{ $match :
+			{ 
+				"vendorOrders.orderStatus" : status 
+			}
+		},
+		{ "$project" : 
+			{
+			  	"_id"								: 1,
+				"orderID"							: 1,
+				"user_ID"							: 1,
+				"userName"							: 1,
+				"vendorOrders.vendor_id"			: 1,
+				"vendorOrders.vendorLocation_id"	: 1,
+				"vendorOrders.orderStatus"			: 1,
+				"deliveryAddress"					: 1,
+				"vendorDetails.companyName"			: 1,
+				"vendorDetails.companyLogo"			: 1,
+				"vendorDetails.locations"			: 1,
+				"vendorDetails.createdAt"			: 1,
+			}
+		}	
+	])
+	.then(async(data) => {
+		// console.log("data",data);
+		if(data && data.length > 0){			
+			var location 		= await DriverTracking.aggregate([				
+										{$match : 
+											{
+												user_id 		: ObjectId(req.body.user_id),
+												currentDateStr 	: moment("2021-07-11 06:48:05.540Z").format("YYYY-MM-DD"),
+												status 			: "online"
+											}
+										},
+										{$project : 
+											{
+												lat : {$arrayElemAt : ["$currentLocations.lat",-1]},
+												lng : {$arrayElemAt : ["$currentLocations.lat",-1]}
+											}
+										}
+									])
+			// console.log("location => ",location)
+			var latitude 	= location[0].lat;
+			var longitude	= location[0].lng;
+
+			if(latitude !== "" && longitude !== undefined && latitude !== "" && longitude !== undefined){
+				for(var i = 0; i < data.length; i++){
+					if(data[i].vendorDetails && data[i].vendorDetails.locations && data[i].vendorDetails.locations.length > 0){
+						var vendorLocation = data[i].vendorDetails.locations.filter(location => String(location._id) === String(data[i].vendorOrders.vendorLocation_id))
+						// console.log("vendorLocation => ",vendorLocation)
+						
+						if(vendorLocation && vendorLocation.length > 0){
+							var vendor_id           = data[i].vendorDetails._id;
+							var vendorLogo          = data[i].vendorDetails.companyLogo[0];
+							var vendorName          = data[i].vendorDetails.companyName;
+							var address             = vendorLocation[0].addressLine1;
+							var vendorLocation_id   = vendorLocation[0]._id;
+							var vendorLat           = vendorLocation[0].latitude;
+							var vendorLong          = vendorLocation[0].longitude;
+							var custLat            	= data[i].deliveryAddress.latitude;
+							var custLng            	= data[i].deliveryAddress.longitude;
+							
+							// var latitude = await DriverTracking.findOne({user_id:ObjectID(req.body.user_id),currentDateStr:moment().format("YYYY-MM-DD")})
+							
+							
+							var vendorDist  		= await calcUserVendorDist(vendorLat,vendorLong, latitude, longitude);
+							var vendorToCustDist 	= await calcUserVendorDist(vendorLat,vendorLong, custLat, custLng);
+
+							data[i].vendorOrders.vendorDistance 		= vendorDist ? vendorDist.toFixed(2) : '';
+							data[i].vendorOrders.vendorToCustDist 		= vendorToCustDist ? vendorToCustDist.toFixed(2) : '';
+							data[i].vendorOrders.expectedReachedTime 	= (parseInt((60/20) * vendorDist));
+						}
+					}
+				}//for end
+				if(i >= data.length){
+					var distanceLimit = await getDistanceLimit();	
+
+					if(distanceLimit){
+						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
+							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
+						});
+						// console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
+					}else{                                            
+						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
+							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
+						});
+						// console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
+					}					
+					res.status(200).json(FinalVendorOrders);
+				}
+			}else{
+				res.status(200).json({
+					message : "Unable to get latitude and longitude"
+				});
+			}
+		}else{
+			res.status(200).json({
+				message : "No Orders Found"
+			});
+		}			
+	})
+	.catch(err => {
+	   console.log(err);
+	   res.status(500).json({
+		 error: err
+	   });
+	});
+};
+
+// ---------------- Get Single Vendor Order ----------------
 exports.get_single_vendor_order = (req, res, next) => {
 	Orders.findOne(
 		{

@@ -172,6 +172,8 @@ class AllOrdersList extends Component{
 					if(activeStatusObject && activeStatusObject.length > 0){
 						activeStatusRank  	= activeStatusObject[0].statusRank;
 					}
+						// activeStatus 		: activeStatus,
+						console.log("activeStatus => ",activeStatus)
 					this.setState({
 						activeStatus 		: activeStatus,
 						activeStatusRank 	: activeStatusRank
@@ -237,7 +239,7 @@ class AllOrdersList extends Component{
 		// .then((response)=>{
 		socket.emit('adminOrtderListValues',formValues);
 		socket.on("adminBookingList", (response)=>{
-		// console.log('order tableData', response);		               
+		console.log('order tableData', response);		               
 		  	var tableData = response.map((a, i)=>{
 			// var tableData = response.data.reverse().map((a, i)=>{                      
 				return{ 
@@ -250,12 +252,19 @@ class AllOrdersList extends Component{
 					vendors   		: a.vendorOrders && a.vendorOrders.length > 0
 										?
 											a.vendorOrders.map((vendorOrder, index)=>{
+												console.log("vendorOrder => ", vendorOrder)
 												return ({
 													vendorName 			: '<div>'+vendorOrder.vendor_id.companyName+'</div>',
 													vendorPrice 		: '<div>'+ this.state.currency + " " + vendorOrder.vendor_afterDiscountTotal + '</div>',
-													vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 ? vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
+													// vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 ? vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.deliveryStatus && vendorOrder.deliveryStatus.length > 0 
+													// 						? 
+													// 							(vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status)
+																				
+													// 						: 
+													// 							'') + '</div>',
+													vendorStatus 		: '<div class="statusDiv ' + (vendorOrder.orderStatus ? vendorOrder.orderStatus : "").replace(/\s+/g, '_').toLowerCase() + '">'+ ( vendorOrder.orderStatus 
 																			? 
-																				(vendorOrder.deliveryStatus[vendorOrder.deliveryStatus.length - 1].status)
+																				(vendorOrder.orderStatus)
 																				
 																			: 
 																				'') + '</div>',

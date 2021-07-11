@@ -18,8 +18,11 @@ exports.addActivity = (req, res, next) => {
             DriverTracking.updateOne(
                 {user_id: ObjectID(req.body.user_id)},
                 {
-                    $push:{
+                    $push : {
                         onlineActivities : req.body.onlineActivities,
+                    },
+                    $set : {
+                        status : req.body.onlineActivities.activity
                     }
                 }
             )
@@ -40,6 +43,7 @@ exports.addActivity = (req, res, next) => {
                 "user_id"           :   req.body.user_id,
                 "currentDate"       :   new Date(),
                 "currentDateStr"    :   moment().format("YYYY-MM-DD"),
+                "status"            : req.body.onlineActivities.activity,
                 "onlineActivities"  :   req.body.onlineActivities
             });
             tracking.save()

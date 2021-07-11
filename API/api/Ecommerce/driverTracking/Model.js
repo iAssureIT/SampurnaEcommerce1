@@ -5,6 +5,7 @@ const DriverTracking = mongoose.Schema({
     user_id             : { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     currentDate         : Date,
 	currentDateStr      : String,
+    status              : String,
 	onlineActivities    : [
         {
             activity    : String, 

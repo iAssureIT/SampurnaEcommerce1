@@ -198,3 +198,15 @@ formValues  = {
     "order_id"      : "60d0a92476433b57f602b021",
     "vendor_id"     : "609d0b947bdc653631fe1b27"
 }
+
+
+2. "Ready to Dispatch" vendor orders sorted by distance(ascending) from delivery person (Driver Mobile App API's)
+
+API         => http://localhost:3368/api/orders/get/nearest_vendor_orders
+MethodType  => Post
+formValues  = {
+    "user_id"   : "60c8be263ddce651477ba974",
+    "status"    : "Ready to Dispatch",
+    "lat"       : "25.206417",
+    "lng"       : "55.400298"
+}
