@@ -7,31 +7,7 @@ import Websitelogo                     from '../Themes/Sampurna/blocks/5_HeaderB
 import SearchBar                       from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Searchbar.js';
 import Footer                          from '../Themes/Sampurna/blocks/6_FooterBlocks/Footer/Footer.js';
 import GoogleMap                       from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Googlemap.js';
-
-// import {config, library } from '@fortawesome/fontawesome-svg-core';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import {faCode, faHighlighter } from '@fortawesome/free-solid-svg-icon';
-// library.add(faCode);
-// import { faUserGraduate } from '@fortawesome/pro-light-svg-icons';
-// import { faImages } from '@fortawesome/pro-solid-svg-icons';
-
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGithubAlt,
-  faGoogle,
-  faFacebook,
-  faTwitter
-} from '@fortawesome/free-brands-svg-icons';
-
-library.add(
-  faGithubAlt,
-  faGoogle,
-  faFacebook,
-  faTwitter
-);
-
-
+import SystemSecurityPopup             from '../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/SystemSecurityPopup.js';
 
 export default function App({pageData}) {
   const [sampurnaWebsiteDetails,setSampurnaWebsiteDetails]   = useState({});
@@ -75,6 +51,7 @@ export default function App({pageData}) {
                                                   </span>
                                               </a>          
                                           </div> 
+                                          < SystemSecurityPopup />
                                     </div>
                                 </div>                                                    
                             </div>

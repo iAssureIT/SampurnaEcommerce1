@@ -7,7 +7,6 @@ import Head      from 'next/head';
 import Router    from 'next/router';
 import Link      from 'next/link';
 import swal      from 'sweetalert';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import DeliveryLocationPopup from './DeliveryLocationPopup.js';
 
@@ -52,7 +51,7 @@ class DisplayLocation extends React.Component {
                   {/* <div className="col-1"><FontAwesomeIcon  icon={['fas', 'fa-globe']} /></div> */}
                   Your current location is - </b><span className="locationText ">{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span></span>  
                   <div className="col-2 changelocationBtn1Wrapper">
-                    <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Location &nbsp;&nbsp;<i class="fa fa-map-marker-alt" aria-hidden="true"></i></button>
+                    <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Location &nbsp;&nbsp;<i className="fa fa-map-marker-alt" aria-hidden="true"></i></button>
                   </div>
                 </span>
               :

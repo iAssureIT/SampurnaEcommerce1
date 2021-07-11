@@ -53,7 +53,7 @@ export default class Footer extends Component {
         <div className="col-12 NoPadding footerWrapper" >
         <div className="col-12 footerNew">
             <div className="col-12 col-xl-6 offset-xl-6 col-lg-6 offset-lg-6">
-                <div className="col-12 textEnd "><i class="fas fa-phone-alt fIcon "></i><span className="phoneT">Phone &nbsp;&nbsp;:&nbsp;&nbsp;</span>  +971 000 000 000 &nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-envelope fIcon"></i><span className="phoneT">Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; </span> knockknock@gmail.com</div>
+                <div className="col-12 textEnd "><i className="fas fa-phone-alt fIcon "></i><span className="phoneT">Phone &nbsp;&nbsp;:&nbsp;&nbsp;</span>  +971 04 591 1186 &nbsp;&nbsp;&nbsp;&nbsp; <i className="fas fa-envelope fIcon"></i><span className="phoneT">Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; </span> support@knock-knockeshop.com</div>
             </div>
         </div>
         {this.state.deliveryLocation?
@@ -72,7 +72,7 @@ export default class Footer extends Component {
                             index<10? 
                             <div className="col-6 col-xl-2 col-lg-2 col-md-4 col-sm-6 footerSection" key={index}>
                                 <div className=" col-12 NoPadding sectionName">
-                                    <Link href={"vendor-list/"+data.sectionUrl} passHref={true}>
+                                    <Link href={"vendor-list/"+data.sectionUrl} passhref={true}>
                                         <a className="sectionurl footerSubT " ><span>{data.section}</span></a>
                                     </Link>
                                     {/* <a href={"vendor-list/"+data.sectionUrl} className="sectionurl footerSubT" ><span>{data.section}</span></a> */}
@@ -82,7 +82,7 @@ export default class Footer extends Component {
                                         catindex<8?  
                                             <div key={catindex} className="">                                   
                                                 <div className="categortTitle">
-                                                    <Link href={""+data.sectionUrl} passHref={true}>
+                                                    <Link href={""+data.sectionUrl} passhref={true}>
                                                         <a><span className="f9">{cateoryDetails.category}</span></a>
                                                     </Link>
                                                      {/* <a href={""+data.sectionUrl}><span className="f9">{cateoryDetails.category}</span></a> */}
@@ -112,22 +112,21 @@ export default class Footer extends Component {
               <div className={"col-12 col-sm-12 col-xl-3 col-lg-3 col-md-12 col-sx-12 " +S.logoTop}>
                  <img src="/images/eCommerce/TrollyLogo.png" className="" alt="FooterLogo" width="" height="75px"/>
               </div>
-
               <div className={"col-12 col-sx-12 col-xl-6 col-lg-6 col-md-12 text_Center mx-0 " }>
                 <div className={"col-12 col-sm-12 col-lg-12 col-md-12 text_Center mt-3 mb-3 " +S.icon}>
-                    <div className="socialMediaIcons"><Link href="https://www.instagram.com/bookstore" passHref={true}><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
-                    <div className="socialMediaIcons"><Link href="https://www.facebook.com/bookstore" passHref={true}><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
-                    <div className="socialMediaIcons"><Link href="https://www.youtube.com/channel/UCOXIsYFFEHlzRnMI89Enoag" passHref={true}><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
-                    <div className="socialMediaIcons"><Link href="https://www.linkedin.com" passHref={true}><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
-                    <div className="socialMediaIcons"><Link href="https://www.twitter.com/bookstore" passHref={true}><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
+                    <div className="socialMediaIcons"><Link href="https://www.instagram.com/knockknock_eshop/" passhref={true}><a  target="_blank"><i className="fab fa-instagram mt15 ml0" aria-hidden="true"></i></a></Link></div>                
+                    <div className="socialMediaIcons"><Link href="https://www.facebook.com/Knock-Knock-103575731986682" passhref={true}><a  target="_blank"><i className="fab fa-facebook-f mt15"></i></a></Link></div>                        
+                    <div className="socialMediaIcons"><Link href="https://www.youtube.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-youtube mt15" aria-hidden="true"></i></a></Link></div>                                               
+                    <div className="socialMediaIcons"><Link href="https://www.linkedin.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-linkedin-in mt15" aria-hidden="true"></i></a></Link></div>
+                    <div className="socialMediaIcons"><Link href="https://twitter.com/knockknockeshop" passhref={true}><a  target="_blank"><i className="fab fa-twitter mt15" aria-hidden="true"></i></a></Link></div>                    
                 </div> 
                 <div className="col-12 col-sx-12 col-xl-12 col-lg-12 col-md-12 text_Center">
                     <div className={"col-12 text-center footer3Class " +S.aboutHeight}>
-                        <div className={" " +S.aboutClass}><Link href="/about-us" passHref={true}><a ><span>&nbsp;About Us</span></a></Link></div>
-                        <div className={" " +S.aboutClass}><Link href="/contact-us" passHref={true}><a ><span>&nbsp;Contact Us</span></a></Link></div>   
-                        <div className={" " +S.aboutClass}><Link href="/privacy-policy" passHref={true}><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
-                        <div className={" " +S.aboutClass}><Link href="/faq" passHref={true}><a ><span>&nbsp;FAQs</span></a></Link></div> 
-                        <div className={" " +S.aboutClass}><Link href="/terms-and-conditions" passHref={true}><a><span>Terms and Conditions</span></a></Link></div>
+                        <div className={" " +S.aboutClass}><Link href="/about-us" passhref={true}><a ><span>&nbsp;About Us</span></a></Link></div>
+                        <div className={" " +S.aboutClass}><Link href="/contact-us" passhref={true}><a ><span>&nbsp;Contact Us</span></a></Link></div>   
+                        <div className={" " +S.aboutClass}><Link href="/privacy-policy" passhref={true}><a ><span>&nbsp;Privacy Policy</span></a></Link></div>
+                        <div className={" " +S.aboutClass}><Link href="/faq" passhref={true}><a ><span>&nbsp;FAQs</span></a></Link></div> 
+                        <div className={" " +S.aboutClass}><Link href="/terms-and-conditions" passhref={true}><a><span>Terms and Conditions</span></a></Link></div>
                         <div className={" " +S.aboutClass}><Link href="/sitemap"><a ><span>&nbsp;Site Map</span></a></Link></div>  
                     </div>
                       <div className="col-12 text-center footer3Class">
@@ -147,11 +146,17 @@ export default class Footer extends Component {
                         </div>
                     </div> 
      
-                    <div className="col-12 col-sm-12 col-lg-12 col-md-12  ">
+                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 NoPadding ">
                         <div className={"col-12 FooterTitle "+S.footerTitleWrapper}>We are in</div>
                         <div className="col-12 col-sm-6 col-lg-12 col-md-12  width pr-0 mt-4">
-                            <div className="appleCard"></div>
-                            <div className="androidCard"></div>                        
+                            <div className="row">
+                                <a className="col-6 NoPadding" href={"https://www.apple.com/ae/app-store/"} passhref={"true"}>
+                                    <div className="appleCard col-12 NoPadding"></div>
+                                </a>
+                                <a className="col-6 NoPadding" href={"https://play.google.com/store/apps/details?id=com.trollymart"} passhref={"true"}>
+                                    <div className="androidCard col-12 NoPadding"></div>
+                                </a> 
+                            </div>                    
                         </div>
                     </div>
                 </div>

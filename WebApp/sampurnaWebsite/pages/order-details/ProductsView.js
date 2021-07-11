@@ -3,8 +3,15 @@ import axios                from 'axios';
 import $                    from 'jquery';
 import moment               from 'moment';
 import Link                 from 'next/link';
+import S3                   from 'react-aws-s3';
+// import Image                from 'next/image';
+
 // import {S3FileUpload}         from 'react-s3';
-// import S3  from 'react-aws-s3';
+// import aws                  from 'aws-sdk';
+// import S3                   from 'aws-sdk/clients/s3';
+
+import { useS3Upload }      from 'next-s3-upload';
+
 import StarRatingComponent  from 'react-star-rating-component';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import ProductReview        from './ProductsView.js';
@@ -21,10 +28,10 @@ class ProductsView extends Component {
         "rating"    : 1,
         "rating_ID" : '',
         "user_ID"   : '',
-        "paymentRefundSource" : "source"
+        "paymentRefundSource" : "source",
+        "config"    : {}
       }
   }
-
   componentDidMount() {
     this.getReturnReasons();
     this.getS3Details();
@@ -52,6 +59,7 @@ class ProductsView extends Component {
           console.log(error);
       })
   }
+  
   getReturnReasons(){
     axios.get('/api/returnreasons/get/list')
     .then((reasonsResponse)=>{
@@ -135,15 +143,13 @@ class ProductsView extends Component {
             "rating"            : this.state.rating,
             "customerReview"    : $('.feedbackForm textarea').val(),
             "vendor_id"         : this.props.vendorWiseOrderData.vendor_id._id,
-            "vendorLocation_id" : event.target.getAttribute('vendorLocationId'),
+            "vendorLocation_id" : event.target.getAttribute('vendorlocationid'),
             "status"            : "New"
           }
           console.log("formValues=",formValues);
           axios.post("/api/customerReview/post", formValues)
           .then((response) => {
             if(response){
-              // console.log("review response=",response.data);
-              // swal(response.data.message);
               swal({text:response.data.message}).then(function(){
                 window.location.reload();
               });
@@ -164,7 +170,7 @@ class ProductsView extends Component {
 
   setProductId(event){
       event.preventDefault();
-      var productId = event.currentTarget.getAttribute('productId');
+      var productId = event.currentTarget.getAttribute('productid');
       this.setState({
           "productId":productId,
           "productData": event.currentTarget.getAttribute('productdata')
@@ -187,19 +193,56 @@ class ProductsView extends Component {
       refundToError : event.target.value ? "" : "Please select your Refund source."
     })
   }
+
+  
   uploadImage(event){
     event.preventDefault();
-    console.log("file===",event.target.files[0]);
-    // var file = event.target.file;
-    const file = event.target.files[0];
-
-    // S3FileUpload
-    // ReactS3Client
-    // .uploadFile(file, config)
-    // .then(data => console.log("fileUpload data=",data))
-    // .catch(err => console.error("fileUpload data=",err))
-    
+    const file = event.currentTarget.files[0];
+    if(file){
+      axios
+        .get('/api/projectSettings/get/S3')
+        .then((response)=>{
+            const config = {
+                bucketName      : response.data.bucket,
+                dirName         : process.env.ENVIRONMENT,
+                region          : response.data.region,
+                accessKeyId     : response.data.key,
+                secretAccessKey : response.data.secret,
+                dirName         : 'propertiesImages',
+            }
+            if(config){
+              this.setState({
+                config : config,
+              },()=>{
+                const ReactS3Client = new S3(config);
+                if(ReactS3Client){
+                  // console.log("ReactS3Client===",ReactS3Client);
+                  // console.log("file===",file);
+                  // console.log("this.state.config===",this.state.config);
+                  // console.log("config===",config);
+                  // const newFileName = 'test-file';
+                ReactS3Client
+                .uploadFile(file)
+                .then(data => {
+                  console.log("fileUpload data=",data);
+                  console.log("fileUpload data=",data.location);
+                  this.setState({
+                      imgUrl : data.location
+                  });
+                  
+                })
+                .catch(err => console.error("fileUpload data=",err))
+                }
+              });
+            }                         
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+      }
   }
+
+  
 
   // uploadImage(event){
   //   event.preventDefault();
@@ -294,6 +337,7 @@ class ProductsView extends Component {
     });
   }
 
+
 }
   getSingleProductReview(event) {
     // console.log("getSingleProductdetails==")
@@ -364,7 +408,8 @@ class ProductsView extends Component {
       "reasonForReturn"       : this.state.reasonForReturn,
       "customerComment"       : this.state.customerReturnComment, 
       "refund"                : this.state.paymentRefundSource,
-      "returnProductImages"   : []
+
+      "returnProductImages"   : this.state.imgUrl
     }
 
     // console.log("formValues=",formValues);
@@ -386,7 +431,7 @@ class ProductsView extends Component {
   }
     
   render() {
-    console.log("productdetails this.props ===",this.props);
+    // console.log("productdetails this.props ===",this.props);
     return (
           <div className="col-12">
             <Message messageData={this.state.messageData} />
@@ -455,13 +500,13 @@ class ProductsView extends Component {
                                             {productdata.isReview?
                                               <div className={" "+Style.returnReviewBtn}  productId={productdata.product_ID} orderId={this.props.orderID} customerId={this.props.user_ID} onClick={this.getSingleProductReview.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata.product_ID}>Edit Review</div>
                                               :
-                                              <div className={" "+Style.returnReviewBtn}  productId={productdata.product_ID} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata.product_ID}>Add Review</div>
+                                              <div className={" "+Style.returnReviewBtn}  productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#reviewModal_"+productdata.product_ID}>Add Review</div>
                                             }
                                             {/* {productdata.productReturnable === "returnable"  && productdata.productStatus? */}
                                             { productdata.productStatus?
                                               <div className={" "+Style.returnReviewBtn}    productId={productdata.product_ID} >{productdata.productStatus}</div>
                                             :
-                                              <div className={" "+Style.returnReviewBtn}    productId={productdata.product_ID} onclick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_"+productdata.product_ID}>return</div>
+                                              <div className={" "+Style.returnReviewBtn}    productid={productdata.product_ID} onClick={this.setProductId.bind(this)} data-toggle="modal" data-target={"#returnModal_"+productdata.product_ID}>return</div>
                                             }
                                         </span>
                                     :null
@@ -520,7 +565,7 @@ class ProductsView extends Component {
                                             </div>
                                             <div className="modal-footer modalfooterborder ">
                                                 <div className="col-12 ">
-                                                    <button className="btn btn-primary pull-right mt15" onClick={this.submitReview.bind(this)}  vendorLocationId={this.props.vendorWiseOrderData.vendorLocation_id} productid={productdata && productdata.product_ID}
+                                                    <button className="btn btn-primary pull-right mt15" onClick={this.submitReview.bind(this)}  vendorlocationid={this.props.vendorWiseOrderData.vendorLocation_id} productid={productdata && productdata.product_ID}
                                                     >{productdata.isReview ? 'Update' :'Submit'}</button>
                                                 </div>
                                             </div>
@@ -555,12 +600,11 @@ class ProductsView extends Component {
                                                   <div className="col-4 total textAlignRight">{this.props.currency} {productdata.discountedPrice}</div>
                                                 </div>
                                               </div>
+
                                               <form className="feedbackForm col-12">
-                                                  <div className="col-12 row">
-                                                      <div className="clearfix "></div>
-                                                  </div>
-                                                  <label className="col-12 mt-4 text-left">Please Select Reasons </label>
-                                                  <select onChange={this.selecteReason.bind(this)} className={"col-12 mt-4 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
+                                                  <div className="errorMsg col-12 mt-4 mb-2 text-left">All feilds are mandetory</div>
+                                                  <label className="col-12 mt-4 text-left mt-2">Please Select Reasons </label>
+                                                  <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
                                                       <option name="reasonOfReturn"  selected="true">-- Select --</option>
                                                       {
                                                           this.state.returnReasons && this.state.returnReasons.length > 0 ?
@@ -573,7 +617,8 @@ class ProductsView extends Component {
                                                               <option value='user'>No Reasons available</option>
                                                       }
                                                   </select>
-                                                  <label className="error">{this.state.reviewStarError}</label>
+                                                  <label className="error ">{this.state.reviewStarError}</label>
+
                                                   <div className="row inputrow">
                                                       <label className="col-12 mt-4 text-left">Comment</label>
                                                       <div className="col-12 ">
@@ -582,20 +627,24 @@ class ProductsView extends Component {
                                                       </div>
                                                   </div>
 
+                                                  {/* <div className="col-12">
+                                                      < ReturnForm />
+                                                  </div> */}
+
+
                                                   <div className={"col-12 " +Style.ReturnImg}>   
                                                     <div className="row">
                                                       <div className=" col-4 mt-2">                                                               
                                                         <input type="file" onChange={this.uploadImage.bind(this)} title="upload product Image"  accept=".jpg,.jpeg,.png" />
-                                                        {/* <input type="submit" value="Submit"></input> */}
                                                       </div>
                                                       {
-                                                        this.state.returnProductImage ? 
+                                                        this.state.imgUrl ? 
                                                           <div className="col-lg-12 productImgCol">
                                                             <div className="prodImage">
                                                               <div className="prodImageInner">
-                                                                  <span className="prodImageCross" title="Delete" data-imageUrl={this.state.returnProductImage} onClick={this.deleteImage.bind(this)} >x</span>
+                                                                  <span className="prodImageCross" title="Delete" data-imageUrl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
                                                               </div>
-                                                              <img title="view Image" alt="Please wait..." data-imageurl={this.state.returnProductImage ? this.state.returnProductImage : "/images/notavailable.jpg"} className="img-responsive" />
+                                                              <img src={this.state.imgUrl} className={" col-2 img-responsive imp-thumbnail"}></img>
                                                             </div>    
                                                           </div>
                                                         :
@@ -606,15 +655,15 @@ class ProductsView extends Component {
                                                   
                                                   <div className={"col-12 NoPadding text-left "}>
                                                       <div className={"col-12 mt-2 mb-2 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>Refund to <span className="required">*</span></div>
-                                                      <div className="form-check">
-                                                        <label className="form-check-label">
+                                                      <div className="form-check mt-2">
+                                                        <label className="form-check-label ">
                                                           <input type="radio" className="form-check-input webModelInput codRadio" name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source" 
                                                           checked={this.state.paymentRefundSource === "source"} 
                                                           onClick={this.handleRefundPayment.bind(this)}
                                                           />The Source( valid for card payment only)
                                                         </label>
                                                       </div>
-                                                      <div className="form-check" >
+                                                      <div className="form-check mt-2" >
                                                         <label className="form-check-label" for="radio1">
                                                           <input type="radio" className="form-check-input webModelInput codRadio" name="paymentRefundSource" type="radio" id="paymentRefundSource" value="credit" 
                                                           checked={this.state.paymentRefundSource === "credit"} 
@@ -622,9 +671,9 @@ class ProductsView extends Component {
                                                           />Add To Credit Points
                                                         </label>
                                                       </div>
-                                                      
                                                       <div className="errorMsg col-11 ml-2">{this.state.refundToError}</div>
                                                   </div>
+
                                               </form>
                                             </div>
                                             <div className="modal-footer modalfooterborder ">
@@ -635,7 +684,7 @@ class ProductsView extends Component {
                                                     productid = {productdata && productdata.product_ID}
                                                     vendor_id = {this.props.vendorWiseOrderData.vendor_id}
                                                     orderId   = {this.props.orderID}
-                                                    vendorLocationId = {this.props.vendorWiseOrderData.vendorLocation_id} 
+                                                    vendorlocationid = {this.props.vendorWiseOrderData.vendorLocation_id} 
                                                     >Submit</button>
                                                     :null}
                                                 </div>

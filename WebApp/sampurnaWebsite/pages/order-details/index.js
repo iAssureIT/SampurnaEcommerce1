@@ -103,7 +103,7 @@ export default class OrderDetails extends Component {
               orderData: response,
               loading: false
             }, () => {
-              console.log("orderDetails orderData after setstate=>",this.state.orderData);
+              // console.log("orderDetails orderData after setstate=>",this.state.orderData);
             })
           }
       })
@@ -254,7 +254,7 @@ export default class OrderDetails extends Component {
  
   render() {
     if(this.state.orderData){
-      console.log("Order Details data====",this.state.orderData );
+      // console.log("Order Details data====",this.state.orderData );
     }
     
     return (
@@ -298,11 +298,11 @@ export default class OrderDetails extends Component {
                                   {/* <span className="col-6 text-right"></span> */}
                                 </div>
                                 <div className="col-12">
-                                    <div className="col-12"> <i class="fa fa-wallet"></i>&nbsp;Cash On Delivery</div> 
+                                    <div className="col-12"> <i className="fa fa-wallet"></i>&nbsp;Cash On Delivery</div> 
                                 </div>
                                 <div className="col-12">
                                     <div className="col-12 orderAddress"> 
-                                    {/* <i class="fa fa-map-marker-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1} */}
+                                    {/* <i className="fa fa-map-marker-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1} */}
                                     </div> 
                                 </div>
                             </div>
@@ -350,8 +350,6 @@ export default class OrderDetails extends Component {
                               </div>
                               { vendordata.deliveryStatus[vendordata.deliveryStatus.length - 1].status !== 'Cancelled' ?
                                 <div className="col-12 NoPadding ">
-                                    {/* <StepWizard data={vendordata} /> */}
-                                    {/* <OrderStatusWizard data={vendordata} /> */}
                                     <StepProgressBar
                                       startingStep={index1 === -1 ? 3 : index1}
                                       steps={labels}

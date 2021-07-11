@@ -70,6 +70,6 @@
 
 .ReturnImg{
 	height: 100px;
-	border: solid 1px #ddd;
+	border: solid 1px #ddd !important;
 }
 

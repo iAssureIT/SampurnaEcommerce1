@@ -183,7 +183,7 @@ class DeliveryLocationPopup extends React.Component {
                                     "latitude"       : position.coords.latitude,
                                     "longitude"      : position.coords.longitude,
                                 });
-                                console.log("deliveryLocation.country===",deliveryLocation.country);
+                                // console.log("deliveryLocation.country===",deliveryLocation.country);
                                 if(deliveryLocation.country === "United Arab Emirates"){
                                     if(that.props.sampurnaWebsiteDetails){
                                         // console.log("deliveryLocation=",deliveryLocation);
@@ -231,7 +231,7 @@ class DeliveryLocationPopup extends React.Component {
             "latitude"       : this.state.latitude,
             "longitude"      : this.state.longitude,
         }
-        console.log("this.state.country===",this.state.country);
+        // console.log("this.state.country===",this.state.country);
         if((this.state.country) === "United Arab Emirates"){     
             if(this.props.sampurnaWebsiteDetails){
                 var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;
@@ -427,7 +427,6 @@ class DeliveryLocationPopup extends React.Component {
                                         <button type="button" className={" btn col-12 NoPadding pull-right " +Style.locationBTN1 } onClick={this.saveLocation.bind(this)}>Save & Close</button>
                                     </div>
                                 </div>
-                                
                             </div>
                             {/* <div className={"col-sm-12 col-xs-12 col-md-12 col-lg-8 mt-4 " +Style.ma}>
                                 <div className="col-12">

@@ -350,7 +350,9 @@ class Checkout extends Component {
         // console.log("paymentMethod====",paymentMethod);
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
         var formValues = {
-            "paymentMethod": paymentMethod,
+            "paymentMethod": paymentMethod === "cardOnDelivery" && 'Card On Delivery' ||
+                             paymentMethod === "cardOnDelivery" && 'Card On Delivery' ||
+                             paymentMethod === "onlinePayment" && 'Online Payment',
             "user_ID"  : this.state.user_ID,
             "email"    : this.state.email,
             "fullName" : this.state.fullName
@@ -792,16 +794,16 @@ class Checkout extends Component {
                                     <div className={"col-12 NoPadding " +Style.paymentMethod}>
                                         <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>PAYMENT METHOD <span className="required">*</span></div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
-                                            <input name="paymentmethods" type="radio" value="cod" className="webModelInput codRadio col-2 col-md-1"
-                                                checked={this.state.paymentmethods === "cod"} onClick={this.handleChange.bind(this)} />
+                                            <input name="paymentmethods" type="radio" value="Cash On Delivery" className="webModelInput codRadio col-2 col-md-1"
+                                                checked={this.state.paymentmethods === "Cash On Delivery"} onClick={this.handleChange.bind(this)} />
                                             <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Cash On Delivery</span>
                                         </div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
-                                            <input name="paymentmethods" type="radio" value="onlinePayment" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "onlinePayment"} onClick={this.handleChange.bind(this)} />
+                                            <input name="paymentmethods" type="radio" value="Online Payment" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "Online Payment"} onClick={this.handleChange.bind(this)} />
                                             <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Credit / Debit Card</span>
                                         </div>
                                         <div className={"col-12 paymentInput " +Style.f14}>
-                                            <input name="paymentmethods" type="radio" value="cardOnDelivery" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "cardOnDelivery"} onClick={this.handleChange.bind(this)} />
+                                            <input name="paymentmethods" type="radio" value="Card On Delivery" className="webModelInput codRadio col-2 col-md-1" checked={this.state.paymentmethods === "Card On Delivery"} onClick={this.handleChange.bind(this)} />
                                             <span className={"col-12 col-md-11 col-sm-10 col-xs-10 " +Style.f14}>Card On Delivery</span>
                                         </div>
                                         <div className="errorMsg col-11 ml-2">{this.state.errors.paymentmethods}</div>
