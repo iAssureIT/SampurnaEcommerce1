@@ -3340,7 +3340,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 										{$match : 
 											{
 												user_id 		: ObjectId(req.body.user_id),
-												currentDateStr 	: moment("2021-07-11 06:48:05.540Z").format("YYYY-MM-DD"),
+												currentDateStr 	: moment().format("YYYY-MM-DD"),
 												status 			: "online"
 											}
 										},
@@ -3434,6 +3434,35 @@ exports.get_single_vendor_order = (req, res, next) => {
 			'paymentDetails' 		: 1,
 			'createdAt' 			: 1,
 			'vendorOrders.$'   		: 1
+		}
+	)
+	.exec()
+	.then(data => {
+		res.status(200).json(data);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error : err
+		});
+	});
+};
+  
+// ---------------- Deliver Single Vendor Order ----------------
+exports.deliver_single_vendor_order = (req, res, next) => {
+	Orders.updateOne(
+		{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
+		{
+			$set:{
+				"vendorOrders.$.orderStatus"  : "Delivered"
+			},
+			$push: {	
+				"vendorOrders.$.deliveryStatus" : {
+					status 				: req.body.changeStatus,
+					timestamp 			: new Date(),
+					statusUpdatedBy 	: req.body.userid
+				}
+			}
 		}
 	)
 	.exec()
