@@ -487,7 +487,7 @@ class CartProducts extends Component{
                                                                 {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
                                                                     // console.log("this.props.recentCartData.vendorOrders.length===",this.props.recentCartData.vendorOrders.length);
                                                                         return(
-                                                                            <div className={"row mb-2 text-left font-weight-bold " +Style.tooltipVendorCharges}>
+                                                                            <div className={"row mb-2 text-left font-weight-bold " +Style.tooltipVendorCharges} key={index}>
                                                                                 <div className={"col-12 text-left " +Style.vendorNameTooltip}>{vendorWiseCartData.vendorName}</div>
                                                                                 <div className="col-12 ">
                                                                                     <span className="col-5 text-left NoPadding">Delivery Charges </span> 

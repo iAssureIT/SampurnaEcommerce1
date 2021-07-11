@@ -318,7 +318,7 @@ export default class MyOrders extends Component {
                   <div className="col-12">
                     {this.state.orderData && this.state.orderData.length > 0 ? 
                       this.state.orderData.map((singleOrder, index) => {
-                        // console.log("singleOrder=",singleOrder);
+                        console.log("singleOrder=",singleOrder);
                         return(
                           <div className={"col-12 NoPadding orderIdborder " +Style.orderIdborderNew} key={index}>
                             <div className="col-12  NoPadding orderNowrapper mb-4 " style={{'backgroundColor': singleOrder.orderStatus==="New"&& '#033554' ||
@@ -343,7 +343,7 @@ export default class MyOrders extends Component {
                                           {/* <span className="col-6 text-right"></span> */}
                                         </div>
                                         <div className="col-12">
-                                            <div className="col-12"> <i className="fa fa-wallet"></i>&nbsp;Cash On Delivery</div> 
+                                            <div className="col-12"> <i className="fa fa-wallet"></i>&nbsp; {singleOrder.paymentDetails.paymentMethod}</div> 
                                         </div>
                                         <div className="col-12">
                                             <div className="col-12 orderAddress"> 

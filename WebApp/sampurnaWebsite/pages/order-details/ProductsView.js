@@ -186,8 +186,6 @@ class ProductsView extends Component {
 
   handleRefundPayment(event){
     event.preventDefault();
-    // console.log("paymentRefundSource name ===",event.target.name);
-    // console.log("paymentRefundSource value ===",event.target.value);
     this.setState({
       [event.target.name]: event.target.value,
       refundToError : event.target.value ? "" : "Please select your Refund source."
@@ -645,8 +643,8 @@ class ProductsView extends Component {
                                               </div>
 
                                               <form className="feedbackForm col-12">
-                                                  <div className="errorMsg col-12 mt-4 mb-2 text-left">All feilds are mandetory</div>
-                                                  <label className="col-12 mt-4 text-left mt-2">Please Select Reasons </label>
+                                                  <div className=" col-12 mt-2 mb-2 text-left">All feilds are mandetory</div>
+                                                  <label className="col-12 NoPadding text-left">Please Select Reasons <span className="errorMsg"> * </span></label>
                                                   <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
                                                       <option name="reasonOfReturn"  selected="true">-- Select --</option>
                                                       {
@@ -663,7 +661,7 @@ class ProductsView extends Component {
                                                   <label className="error ">{this.state.reviewStarError}</label>
 
                                                   <div className="row inputrow">
-                                                      <label className="col-12 mt-4 text-left">Comment</label>
+                                                      <label className="col-12 NoPadding text-left ">Comment <span className="errorMsg"> * </span></label>
                                                       <div className="col-12 ">
                                                       <textarea rows="5" className="col-12 " onChange={this.handleChangeReturn.bind(this)} value={ this.state.customerReturnComment} name="customerReturnComment"></textarea>
                                                       <label className="error">{this.state.returnTextError}</label>
@@ -677,7 +675,8 @@ class ProductsView extends Component {
 
                                                   <div className={"col-12 " +Style.ReturnImg}>   
                                                     <div className="row">
-                                                      <div className=" col-4 mt-2">                                                               
+                                                      <div className=" col-4 mt-2">    
+                                                      <label className="col-12 NoPadding ">Upload real images of the product <span className="errorMsg"> * </span></label>                                                           
                                                         <input type="file" onChange={this.uploadImage.bind(this)} title="upload product Image"  accept=".jpg,.jpeg,.png" />
                                                       </div>
                                                       {
@@ -697,7 +696,7 @@ class ProductsView extends Component {
                                                   </div>
                                                   
                                                   <div className={"col-12 NoPadding text-left "}>
-                                                      <div className={"col-12 mt-2 mb-2 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>Refund to <span className="required">*</span></div>
+                                                      <div className={"col-12 mt-2 mb-2 text-left" +Style.eCommTitle +" "+Style.paymentMethodTitle}>Refund to <span className="required">*</span></div>
                                                       <div className="form-check mt-2">
                                                         <label className="form-check-label ">
                                                           <input type="radio" className="form-check-input webModelInput codRadio" name="paymentRefundSource" type="radio" id="paymentRefundSource" value="source" 

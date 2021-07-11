@@ -228,20 +228,11 @@ class Checkout extends Component {
         let isChecked = !this.state.isChecked;
         // console.log("isChecked:", isChecked);
         this.setState({ isChecked }, () => {
-            // if (isChecked) {
-            //     this.setState({
-            //         isCheckedError: []
-            //     });
-            // } else {
-            //     this.setState({
-            //         isCheckedError: ["Please accept the terms & conditions."]
-            //     });
-            //     console.log("isCheckedError==", this.state.isCheckedError);
-            // }
+           
         });
 
         let fields = this.state.fields;
-        console.log("event.target.value===",isChecked);
+        // console.log("event.target.value===",isChecked);
 		fields[event.target.name] = isChecked;
 		this.setState({
 		  fields
@@ -348,7 +339,7 @@ class Checkout extends Component {
 
         var paymentMethod = $("input[name='paymentmethods']:checked").val();
 
-        console.log("paymentMethod====",paymentMethod);
+        // console.log("paymentMethod====",paymentMethod);
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
 
         var formValues = {
@@ -481,8 +472,8 @@ class Checkout extends Component {
                             axios.post('/api/orders/post', orderData)
                                 .then(async( result) => {
                                     if(result.data && result.data.order_id){
-                                        console.log("Order response ===",result.data);
-                                        if (this.state.paymentmethods === 'cod' || this.state.paymentmethods === 'cardOnDelivery') {
+                                        // console.log("Order response ===",result.data);
+                                        if (this.state.paymentmethods === 'Cash On Delivery' || this.state.paymentmethods === 'Card On Delivery') {
                                             console.log("this.state.paymentmethods==",this.state.paymentmethods);
                                             this.setState({paymethods : true})
                                             this.props.fetchCartData();
