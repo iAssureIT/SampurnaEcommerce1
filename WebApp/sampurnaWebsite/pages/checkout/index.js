@@ -347,20 +347,22 @@ class Checkout extends Component {
         
 
         var paymentMethod = $("input[name='paymentmethods']:checked").val();
-        // console.log("paymentMethod====",paymentMethod);
+
+        console.log("paymentMethod====",paymentMethod);
         var checkoutAddess = $("input[name='checkoutAddess']:checked").val();
+
         var formValues = {
             "paymentMethod": paymentMethod === "cardOnDelivery" && 'Card On Delivery' ||
                              paymentMethod === "cardOnDelivery" && 'Card On Delivery' ||
-                             paymentMethod === "onlinePayment" && 'Online Payment',
-            "user_ID"  : this.state.user_ID,
-            "email"    : this.state.email,
-            "fullName" : this.state.fullName
+                             paymentMethod === "onlinePayment"  && 'Online Payment',
+            "user_ID"       : this.state.user_ID,
+            "email"         : this.state.email,
+            "fullName"      : this.state.fullName
         }
 
             this.state.recentCartData.paymentDetails.paymentMethod = paymentMethod;
-
-            // console.log("Formvalues===",formValues);
+            console.log("Formvalues in order details page ===",formValues);
+            console.log("Formvalues===",formValues);
             for(var i=0;i<this.state.recentCartData.vendorOrders.length;i++){
                 var soldProducts = this.state.recentCartData.vendorOrders[i].products.filter((a, i) => {
                     return a.availableQuantity <= 0;

@@ -5,12 +5,10 @@ import moment               from 'moment';
 import Link                 from 'next/link';
 import S3                   from 'react-aws-s3';
 // import Image                from 'next/image';
-
 // import {S3FileUpload}         from 'react-s3';
 // import aws                  from 'aws-sdk';
 // import S3                   from 'aws-sdk/clients/s3';
-
-import { useS3Upload }      from 'next-s3-upload';
+// import { useS3Upload }      from 'next-s3-upload';
 
 import StarRatingComponent  from 'react-star-rating-component';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
@@ -32,10 +30,12 @@ class ProductsView extends Component {
         "config"    : {}
       }
   }
+
   componentDidMount() {
     this.getReturnReasons();
-    this.getS3Details();
+    // this.getS3Details();
   }
+
   getS3Details(){
     axios
       .get('/api/projectSettings/get/S3')
@@ -82,6 +82,7 @@ class ProductsView extends Component {
       reviewTextError : event.target.value ? "" : "Please Enter your feedback."
     })
   }
+
   ratingReview(event){
     // console.log("event.target.value---",event.target.value);
     this.setState({
@@ -109,12 +110,11 @@ class ProductsView extends Component {
             "rating"            : this.state.rating,
             "customerReview"    : $('.feedbackForm textarea').val(),
           }
-        
+
           console.log("formValues=",formValues);
           axios.patch("/api/customerReview/patch/customer/review", formValues)
           .then((response) => {
             this.setState({
-
               messageData: {
                 "type": "outpage",
                 "icon": "fa fa-check-circle",
@@ -242,6 +242,51 @@ class ProductsView extends Component {
       }
   }
 
+  deleteImage(event){
+    if(file){
+      console.log("file to be deleted==",event.currentTarget.file);
+      axios
+        .get('/api/projectSettings/get/S3')
+        .then((response)=>{
+            const config = {
+                bucketName      : response.data.bucket,
+                dirName         : process.env.ENVIRONMENT,
+                region          : response.data.region,
+                accessKeyId     : response.data.key,
+                secretAccessKey : response.data.secret,
+                dirName         : 'propertiesImages',
+            }
+            if(config){
+              this.setState({
+                config : config,
+              },()=>{
+                const ReactS3Client = new S3(config);
+                if(ReactS3Client){
+                  // console.log("ReactS3Client===",ReactS3Client);
+                  // console.log("file===",file);
+                  // console.log("this.state.config===",this.state.config);
+                  // console.log("config===",config);
+                  // const newFileName = 'test-file';
+                  ReactS3Client
+                  .deleteFile(file)
+                  .then(response =>{
+                    console.log("img deleted",response);
+                    this.setState({
+                      imgUrl : data.location
+                    });
+                  })
+                  .catch(err => console.error(err))
+                              
+                .catch(err => console.error("fileUpload data=",err))
+                }
+              });
+            }                         
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+      }
+  }
   
 
   // uploadImage(event){
@@ -321,12 +366,10 @@ class ProductsView extends Component {
   //   }
   // }
 
+  
   deleteImage(event){
-    // console.log('delete');
-    
     var id = event.target.id;
     var productImageArray = this.state.productImageArray;
-    // console.log('productImage', productImageArray, id);
     if(productImageArray && productImageArray > 0) {
     productImageArray.splice(productImageArray.findIndex(v => v == id), 1);
     this.setState({
@@ -640,11 +683,11 @@ class ProductsView extends Component {
                                                       {
                                                         this.state.imgUrl ? 
                                                           <div className="col-lg-12 productImgCol">
-                                                            <div className="prodImage">
-                                                              <div className="prodImageInner">
-                                                                  <span className="prodImageCross" title="Delete" data-imageUrl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                                            <div className="col-2 NoPadding prodImage">
+                                                              <div className="col-12 NoPadding prodImageInner">
+                                                                  <span className="prodImageCross" title="Delete Image" data-imageUrl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
                                                               </div>
-                                                              <img src={this.state.imgUrl} className={" col-2 img-responsive imp-thumbnail"}></img>
+                                                              <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail"}></img>
                                                             </div>    
                                                           </div>
                                                         :

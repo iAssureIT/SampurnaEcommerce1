@@ -78,7 +78,6 @@ class CreditPoints extends Component{
                             </tr>
                         </thead>
                         <tbody>
-
                             {this.state.creditdata.transactions && this.state.creditdata.transactions.length>0 && this.state.creditdata.transactions.map((data,index)=>{
                                 // console.log("credit data===",this.state.creditdata.transactions);
                                 return(
