@@ -912,6 +912,7 @@ exports.add_address_to_cart = (req, res, next)=>{
     Carts.findOne({"user_ID": req.body.user_ID})       
         .exec()
         .then(cartData=>{
+            console.log("cartData => ",cartData)
             if(cartData){
                 console.log("cartData._id===",cartData._id);
                 Carts.updateOne({ "_id" : cartData._id },
@@ -953,6 +954,10 @@ exports.add_address_to_cart = (req, res, next)=>{
                     res.status(500).json({
                         error: err
                     });
+                });
+            }else{
+                res.status(200).json({
+                    "message": "Failed to add Address into cart."
                 });
             }
         })
