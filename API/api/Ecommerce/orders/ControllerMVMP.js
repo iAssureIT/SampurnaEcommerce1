@@ -3299,7 +3299,7 @@ function getDistanceLimit(){
 
 /*================= Get Nearest Ready to Dispatch Vendor Orders =================*/
 exports.nearest_vendor_orders= (req, res, next) => {
-	console.log("req.body => ",req.body)
+	// console.log("req.body => ",req.body)
 	const {status} = req.body;
 	Orders.aggregate([
 		{ "$unwind" : "$vendorOrders"},
@@ -3335,7 +3335,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 		}	
 	])
 	.then(async(data) => {
-		console.log("data",data);
+		// console.log("data",data);
 		if(data && data.length > 0){			
 			var location 		= await DriverTracking.aggregate([				
 										{$match : 
@@ -3352,7 +3352,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 											}
 										}
 									])
-			console.log("location => ",location)
+			// console.log("location => ",location)
 			var latitude 	= location[0].lat;
 			var longitude	= location[0].lng;
 
@@ -3360,7 +3360,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 				for(var i = 0; i < data.length; i++){
 					if(data[i].vendorDetails && data[i].vendorDetails.locations && data[i].vendorDetails.locations.length > 0){
 						var vendorLocation = data[i].vendorDetails.locations.filter(location => String(location._id) === String(data[i].vendorOrders.vendorLocation_id))
-						console.log("vendorLocation => ",vendorLocation)
+						// console.log("vendorLocation => ",vendorLocation)
 						
 						if(vendorLocation && vendorLocation.length > 0){
 							var vendor_id           = data[i].vendorDetails._id;
@@ -3392,12 +3392,12 @@ exports.nearest_vendor_orders= (req, res, next) => {
 						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
 							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
 						});
-						console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
+						// console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
 					}else{                                            
 						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
 							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
 						});
-						console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
+						// console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
 					}					
 					res.status(200).json(FinalVendorOrders);
 				}
@@ -3451,24 +3451,84 @@ exports.get_single_vendor_order = (req, res, next) => {
   
 // ---------------- Deliver Single Vendor Order ----------------
 exports.deliver_single_vendor_order = (req, res, next) => {
+	console.log("body => ",req.body)
 	Orders.updateOne(
 		{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 		{
 			$set:{
-				"vendorOrders.$.orderStatus"  : "Delivered"
+				"vendorOrders.$.orderStatus"  	: "Delivered",
+				"vendorOrders.$.paymentDetails" : req.body.paymentDetails
 			},
 			$push: {	
 				"vendorOrders.$.deliveryStatus" : {
-					status 				: req.body.changeStatus,
+					status 				: "Delivered",
 					timestamp 			: new Date(),
-					statusUpdatedBy 	: req.body.userid
+					statusUpdatedBy 	: req.body.user_id
 				}
 			}
 		}
 	)
 	.exec()
-	.then(data => {
-		res.status(200).json(data);
+	.then(async(updatedata) => {
+		if (updatedata.nModified === 1) {
+			var vendorOrders 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {vendorOrders : 1});
+			// console.log("OrderStatuses => ",OrderStatuses);
+			console.log("vendorOrders => ",vendorOrders);
+			var count = 0;
+			for(var i=0; i < vendorOrders.vendorOrders.length; i++){
+				console.log("vendorOrders.vendorOrders.orderStatus => ",vendorOrders.vendorOrders[i].orderStatus)
+				if(vendorOrders.vendorOrders[i].orderStatus === "Delivered" || vendorOrders.vendorOrders[i].orderStatus === "Cancelled"){
+					count += 1;
+					console.log("count 1 => ",count)
+				}
+			}
+			if(i >= vendorOrders.vendorOrders.length){
+				console.log("count => ",(count === vendorOrders.vendorOrders.length));
+				if(count === vendorOrders.vendorOrders.length){
+					Orders.updateOne(
+						{ _id: ObjectId(req.body.order_id)},		
+						{
+							$set:{
+								"orderStatus"  : "Delivered"
+							}
+						}
+					)
+					.then(async(updateorderdata) => {
+						console.log("updateorderdata => ",updateorderdata)
+					
+						var orderdata 	= await Orders.findOne({ _id : ObjectId(req.body.order_id) }, {user_ID : 1, deliveryAddress : 1, orderID : 1});
+						var userData 	= await User.findOne({"_id" : ObjectId(orderdata.user_ID)}); 
+						console.log("userData => ",userData)
+						
+						var userNotificationValues = {
+							"event"				: "OrderStatusChange",
+							"toUser_id"			: orderdata.user_ID,
+							"toUserRole"		: "user",
+							"toMobileNumber"	: orderdata.deliveryAddress.mobileNumber,								
+							"variables" 		: {
+													"customerName" 			: userData.profile.fullName,
+													"customerEmail" 		: userData.profile.email,
+													"mobileNumber"			: orderdata.deliveryAddress.mobileNumber,
+													"orderID"  				: orderdata.orderID,
+													"deliveryAddress" 		: orderdata.deliveryAddress
+							}
+						}
+						var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);	
+					})
+					.catch(err => {
+						console.log("Error => Failed to Update Complete Order Status")
+					})
+					
+				}
+			}
+			res.status(200).json({
+				"message"	: "Order Delivered Successfully."
+			});
+		} else {
+			res.status(200).json({
+				"message" : "Failed to Deliver Order"
+			});
+		}
 	})
 	.catch(err => {
 		console.log(err);

@@ -39,12 +39,12 @@ exports.addActivity = (req, res, next) => {
             });
         }else{
             const tracking = new DriverTracking({
-                _id                 :   new mongoose.Types.ObjectId(),  
-                "user_id"           :   req.body.user_id,
-                "currentDate"       :   new Date(),
-                "currentDateStr"    :   moment().format("YYYY-MM-DD"),
+                _id                 : new mongoose.Types.ObjectId(),  
+                "user_id"           : req.body.user_id,
+                "currentDate"       : new Date(),
+                "currentDateStr"    : moment().format("YYYY-MM-DD"),
                 "status"            : req.body.onlineActivities.activity,
-                "onlineActivities"  :   req.body.onlineActivities
+                "onlineActivities"  : req.body.onlineActivities
             });
             tracking.save()
             .then(data=>{
