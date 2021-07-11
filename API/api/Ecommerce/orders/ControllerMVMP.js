@@ -3299,6 +3299,7 @@ function getDistanceLimit(){
 
 /*================= Get Nearest Ready to Dispatch Vendor Orders =================*/
 exports.nearest_vendor_orders= (req, res, next) => {
+	console.log("req.body => ",req.body)
 	const {status} = req.body;
 	Orders.aggregate([
 		{ "$unwind" : "$vendorOrders"},
@@ -3334,7 +3335,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 		}	
 	])
 	.then(async(data) => {
-		// console.log("data",data);
+		console.log("data",data);
 		if(data && data.length > 0){			
 			var location 		= await DriverTracking.aggregate([				
 										{$match : 
@@ -3351,7 +3352,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 											}
 										}
 									])
-			// console.log("location => ",location)
+			console.log("location => ",location)
 			var latitude 	= location[0].lat;
 			var longitude	= location[0].lng;
 
@@ -3359,7 +3360,7 @@ exports.nearest_vendor_orders= (req, res, next) => {
 				for(var i = 0; i < data.length; i++){
 					if(data[i].vendorDetails && data[i].vendorDetails.locations && data[i].vendorDetails.locations.length > 0){
 						var vendorLocation = data[i].vendorDetails.locations.filter(location => String(location._id) === String(data[i].vendorOrders.vendorLocation_id))
-						// console.log("vendorLocation => ",vendorLocation)
+						console.log("vendorLocation => ",vendorLocation)
 						
 						if(vendorLocation && vendorLocation.length > 0){
 							var vendor_id           = data[i].vendorDetails._id;
@@ -3391,12 +3392,12 @@ exports.nearest_vendor_orders= (req, res, next) => {
 						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
 							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
 						});
-						// console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
+						console.log("FinalVendorOrders 1 =>",FinalVendorOrders)
 					}else{                                            
 						var FinalVendorOrders = data.filter(vendor => vendor.vendorOrders.vendorDistance <= distanceLimit).sort(function (a, b) {
 							return (a.vendorOrders.vendorDistance - b.vendorOrders.vendorDistance);
 						});
-						// console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
+						console.log("FinalVendorOrders 2 =>",FinalVendorOrders)
 					}					
 					res.status(200).json(FinalVendorOrders);
 				}
