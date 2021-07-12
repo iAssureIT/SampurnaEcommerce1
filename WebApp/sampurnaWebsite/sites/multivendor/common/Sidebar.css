@@ -91,9 +91,9 @@ input[type='radio']:checked:after {
     cursor: pointer;
 }
 
-input:focus {
+input[type='text']:focus {
     /* outline:none; */
-    border: 0!important;
+    border: 1px solid lightgrey!important;
     }
 .swiper-button-next, .swiper-container-rtl .swiper-button-prev {
     right: 10px;
