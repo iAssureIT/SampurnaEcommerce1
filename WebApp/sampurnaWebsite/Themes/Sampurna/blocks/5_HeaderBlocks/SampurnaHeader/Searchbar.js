@@ -85,11 +85,11 @@ class Searchbar extends React.Component {
         return(  
             <div className="col-12 col-sm-7 ">                                
                 <div className="col-12 NoPadding">  
-                    <div className="row mtm3 tableSearchWrapper"> 
+                    <div className="row mt3 tableSearchWrapper"> 
                         <input type="text" placeholder="Search the items" id="browsers"
                         list="datalist"
                         onKeyPress={this.searchProducts.bind(this)} 
-                        className="form-control tableSearch col-11" ref="tableSearch" id="tableSearch" name="tableSearch" />
+                        className="form-control tableSearch col-12" ref="tableSearch" id="tableSearch" name="tableSearch" />
                         <div className="searchIcon" 
                             onClick={this.getRelatedSearches.bind(this)}
                         >

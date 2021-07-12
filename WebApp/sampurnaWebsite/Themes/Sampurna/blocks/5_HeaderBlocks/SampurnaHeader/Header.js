@@ -58,8 +58,6 @@ class Header extends React.Component {
                                             <Websitelogo />
                                         </div>
 
-                                        {/* <FontAwesomeIcon  icon={faGoogle} style={{width:"20px",color:"#fff"}}  /> */}
-
                                         <SearchBar />
                                         
                                         <div className="col-8 col-lg-3 col-sm-2 mt-1 d-flex flex-row-reverse systemSecurity"> 
