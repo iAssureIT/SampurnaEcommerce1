@@ -72,27 +72,39 @@ class SignUpOTP extends Component {
             console.log("error while resending otp==",error);
         })
   }
+  openSignUpModal(event){
+    event.preventDefault();
+		this.props.updateFormValue("login");
+		// $("#pageOpacity").show();
+    $('#loginFormModal').show();	 
+}
   render() {
     return (
         <div className="col-12 NoPadding signUpOtpWrapper">
-              <div className="col-12 innloginwrap mb25">
-                <h4>Confirm OTP</h4>
-              </div>
-              <div className="col-10 offset-1 mt-5">
+              
+              <div className="col-10 offset-1 mt-3 ">
+             <div className="col-12">
+                <a href='' className="OtpTitleWrapper1" onClick={this.openSignUpModal.bind(this)}><u className="mt-5 pt-5">Back to Login</u></a>
+              </div> 
+
+              <h5 className=" pb-2 text-center OtpTitleWrapper mt-5 pt-5  font-weight-bold ">OTP</h5>
                 <div className="row">
+                  
                 <OtpInput
-                    className="otpInputBox"
+                    className="otpInputBox "
                     value={this.state.otp}
                     onChange={this.handleChange}
                     numInputs={4}
                     separator={<span></span>}
                 />
                 </div>
+                <p className="OtpTitleWrapper2 text-center mt-3">Didn't receive code?&nbsp;<a className="OtpTitleWrapper3"href=""onClick={this.resendOTP.bind(this)}>Request again!</a></p>
+                {/* <div className="col-5 otpBtns text-center mr-2" onClick={this.resendOTP.bind(this)}> Resend OTP</div> */}
+
               </div>
-              <div className="col-10 offset-1 mt-5">
-                <div className="row">
-                  <div className="col-5 otpBtns text-center mr-2" onClick={this.resendOTP.bind(this)}> Resend OTP</div>
-                  <div className="col-5 otpBtns text-center ml-2" onClick={this.verifyOTP.bind(this)}> Verify OTP</div>
+              <div className="col-10 offset-1 mt-4">
+                <div className="col-12">
+                  <div className="col-12 otpBtns text-center ml-2" onClick={this.verifyOTP.bind(this)}> Verified</div>
                 </div>
               </div>
         </div>

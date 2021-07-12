@@ -111,7 +111,7 @@ class ForgotPassword extends Component {
                                         </div>
                                         :
                                         <div className="col-xl-12 col-md-12 col-sm-12 col-12 mt15 forgotPassBtn">
-                                            <button id="sendlink" type="button"  onClick={this.sendLink.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  btn loginBtn signInBtn waves-effect">Send OTP</button>                                                
+                                            <button id="sendlink" type="button"  onClick={this.sendLink.bind(this)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12  btn loginBtn otpBtns mt-2 waves-effect">Send OTP</button>                                                
                                         </div>
                                 }
                                 <div className="col-xl-12 col-md-12 col-sm-12 col-12 mt-2">

@@ -131,7 +131,9 @@
 .loginBGImg{
 	background-image:url("/images/eCommerce/visa-logo.png") 100% 100% no-repeat;
 }
-
+.modalLogoWrapper{
+    margin-top: 210px !important;
+}
 .modal-dialog {
     max-width: 1000px !important;
     margin: 1.75rem auto;

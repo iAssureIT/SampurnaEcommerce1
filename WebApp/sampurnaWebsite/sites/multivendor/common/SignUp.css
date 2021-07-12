@@ -491,22 +491,39 @@ input[type=number] {
 .signUpOtpWrapper{
     height: 400px;
 }
+.OtpTitleWrapper{
+  color: #033554 !important;
+}
 .otpInputBox{
   display: inline-block !important;
+  margin-left: 27px!important;
 }
 .otpInputBox input{
   width: 50px !important;
   height: 60px !important;
   margin-left: 15px !important;
+  border: none!important;
+  border-bottom: 2px solid #333 !important;
 }
 .otpBtns{
   padding: 10px;
   border:solid 1px #fff !important;
-  border-radius: 5px;
-  background: #033554 !important;
+  border-radius: 5px!important;
+  background: #333 !important;
   color: #fff !important;
   font-weight: bold !important;
   cursor: pointer;
+}
+.OtpTitleWrapper2{
+  color:#666!important;
+}
+.OtpTitleWrapper3{
+  color:#333!important;
+}
+.OtpTitleWrapper1{
+  margin-top: 10px!important;
+  position: absolute;
+  color: #033554!important;
 }
 
 /* facebook login */

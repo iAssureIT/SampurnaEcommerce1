@@ -400,7 +400,7 @@ class SignUp extends Component {
 							</div>
 							:
 							<div className="col-12 mb-3 mt-5">
-							<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn signInBtn">Sign Up</button>
+							<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn otpBtns">Sign Up</button>
 							</div>
 					}
 					
