@@ -1949,25 +1949,50 @@ exports.upload_photo = (req,res,next)=>{
 };
 exports.upload_photo_product_code = (req,res,next)=>{
     console.log("req.body",req.body);
-    Products.find({"itemCode" : req.body.itemCode, "productImage": req.body.productImage,"productSmallImage": req.body.productSmallImage})
+    // Products.find({"itemCode" : req.body.itemCode, "productCode" : req.body.productCode, "itemCode" : req.body.itemCode, "productImage": req.body.productImage,"productSmallImage": req.body.productSmallImage})
+    Products.aggregate([
+        {$lookup:
+            {
+                from            : 'entitymasters',
+                localField      : 'vendor_ID',
+                foreignField    : '_id',
+                as              : 'vendorDetails'
+            }
+        },
+        { "$unwind": "$vendorDetails" },
+        {$match : {        
+                "vendorDetails.companyID"   : parseInt(req.body.vendorID), 
+                "productCode"               : req.body.productCode, 
+                "itemCode"                  : req.body.itemCode, 
+                // "productImage"              : req.body.productImage,
+                // "productSmallImage"         : req.body.productSmallImage
+            }
+        }
+    ])
     .exec()
-    .then(data=>{    
-        if(data.length>0){
+    .then(data=>{  
+        console.log("data => ",data[0])  
+        if(data && data !== undefined && data !== null && data[0].productImage && data[0].productImage.length > 0 && data[0].productSmallImage && data[0].productSmallImage.length > 0){
             res.status(200).json({
                 "message": "Some images are already exist."
             });
         }else{
             Products.updateOne(
-                { "itemCode" : req.body.itemCode},
+                { 
+                    "vendor_ID"     : ObjectId(data[0].vendorDetails._id), 
+                    "productCode"   : req.body.productCode, 
+                    "itemCode"      : req.body.itemCode,
+                },
                 {   
                     $push:{                            
-                        "productImage" : req.body.productImage,   
+                        "productImage"      : req.body.productImage,   
                         "productSmallImage" : req.body.productSmallImage    
                     }
                 }
             )
             .exec()
-            .then(data=>{    
+            .then(updatedData=>{  
+                console.log("updatedData => ",updatedData)
                 res.status(200).json({
                     "message": "Images uploaded successfully"
                 });
@@ -1992,7 +2017,10 @@ exports.remove_photo = (req,res,next)=>{
     Products.updateOne(
         {"_id": req.body.product_ID},
         {
-            $pull: {"productImage": req.body.imageLik} 
+            $pull: {
+                "productImage"      : req.body.imageLink,
+                "productSmallImage" : req.body.smallImageLink
+            }
         }
     )
     .exec()
@@ -4034,7 +4062,7 @@ exports.search_suggestion = async(req,res,next)=>{
     var subCategory = await getSubCat(req.body.searchText);
     var brand       = await getBrand(req.body.searchText);
     var product     = await getProduct(req.body.searchText);
-    // var vendors     = await getVendors(req.body.searchText);
+    var vendors     = await getVendors(req.body.searchText);
     var all         = await getAll(req.body.searchText);
     var result      = section.concat(category).concat(subCategory).concat(brand).concat(product);
     // var result      = all;

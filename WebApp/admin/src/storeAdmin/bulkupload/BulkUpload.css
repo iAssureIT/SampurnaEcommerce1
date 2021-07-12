@@ -10,3 +10,7 @@
 .aHeadMarg{margin-right: 10px;}
 .NOpadding{padding:0;}
 .marginAll{margin: 2%;}
+.imageForm{
+    border: 1px solid #ccc;
+    padding: 30px;
+}

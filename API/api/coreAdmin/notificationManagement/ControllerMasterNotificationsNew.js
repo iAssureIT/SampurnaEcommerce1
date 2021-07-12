@@ -356,16 +356,23 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 //==============  Send Email ================
                 var toEmail         = userData.email;
                 const emailDetails  = await getTemplateDetailsEmail(company,templateName,userData.role,variables);
-                const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
-                resolve(sendMail);
+                if(!emailDetails){
+                    const sendMail      = await sendEmail(toEmail,emailDetails.subject,emailDetails.content,attachment)
+                    resolve(sendMail);
+                }else{
+                    resolve(false);
+                }
 
             }else if(mode === 'Notification'){
                 //==============  Send InApp Notification ================
                 var toUserId                = userData.id;
                 const notificationDetails   = await getTemplateDetailsInApp(company,templateName,userData.role,variables); 
-                const sendNotification      = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
-                resolve(sendNotification);
-
+                if(!notificationDetails){
+                    const sendNotification      = await sendInAppNotification(toUserId,userData.email,templateName,notificationDetails)
+                    resolve(sendNotification);
+                }else{
+                    resolve(false);
+                }
             }else if(mode === 'SMS'){
                 //==============  Send SMS ================
                 // console.log("Inside SMS",company,templateName,userData,role,variables);
@@ -373,25 +380,33 @@ function callTemplates(mode, userData, role, templateName, company, variables, a
                 if(toMobileNumber && toMobileNumber !== undefined){
                     // var toMobile        = userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
                     var toMobile        = toMobileNumber.replace(/[|&;$%@"<>()-+-,]/g, "");
-                    console.log("if toMobile => ",toMobile);
+                    // console.log("if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
-                    var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
-                    const sms           = await sendSMS(toMobile, textMsg);
-                    resolve(sms);   
-                    console.log("SMS if => ",sms)  
-                    resolve(true);            
+                    if(!smsDetails){
+                        var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                        const sms           = await sendSMS(toMobile, textMsg);
+                        resolve(sms);   
+                    }else{
+                        resolve(false)
+                    }
+                    // console.log("SMS if => ",sms)  
+                    // resolve(true);            
                 }else if(userData.mobile){
                     var isdCode         = userData.isdCode ? userData.isdCode : "";
-                    console.log("isdCode => ",isdCode)
+                    // console.log("isdCode => ",isdCode)
                     var toMobile        = isdCode + userData.mobile.replace(/[|&;$%@"<>()-+-,]/g, "");
-                    console.log("else if toMobile => ",toMobile);
+                    // console.log("else if toMobile => ",toMobile);
                     const smsDetails    = await getTemplateDetailsSMS(company, templateName, role, variables);
-                    var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
-                    console.log("toMobile",toMobile);
-                    const sms           = await sendSMS(toMobile, textMsg);
-                    resolve(sms);   
-                    console.log("SMS else if => ",sms)  
-                    // resolve(true); 
+                    if(!smsDetails){    
+                        var textMsg         = smsDetails.content.replace(/<[^>]+>/g, '');
+                        // console.log("toMobile",toMobile);
+                        const sms           = await sendSMS(toMobile, textMsg);
+                        // console.log("SMS else if => ",sms)  
+                        resolve(sms);   
+                        // resolve(true); 
+                    }else{
+                        resolve(false)
+                    }
                 }else{
                     resolve(false)
                 }
@@ -631,8 +646,6 @@ function sendSMS(mobileNumber, textMsg){
                     }
                     // resolve(true);
                 });
-
-
             }else{
                 console.log("SMS Gateway Details Not Found");
                 resolve(false)
@@ -744,7 +757,7 @@ function getTemplateDetailsEmail(company,templateName,role,variables) {
         Masternotifications.findOne({ "event": templateName, "templateType": 'Email', "company":company, "role":role, status:'active' })
             .exec()
             .then(NotificationData => {
-                if (NotificationData) {
+                if (NotificationData && NotificationData !== null) {
                     var content = NotificationData.content;
                     var wordsplit = [];
                     if (content.indexOf('[') > -1) {
@@ -779,6 +792,7 @@ function getTemplateDetailsEmail(company,templateName,role,variables) {
                     Masternotifications.findOne({ "event": templateName, "templateType": 'Email', "company":null, "role":role, status:'active' })
                     .exec()
                     .then(NotificationData => {
+                        if(NotificationData && NotificationData !== null){
                             var content = NotificationData.content;
                             var wordsplit = [];
                             if (content.indexOf('[') > -1) {
@@ -809,7 +823,9 @@ function getTemplateDetailsEmail(company,templateName,role,variables) {
                                     subject: NotificationData.subject
                                 });
                             }
-                        
+                        }else{
+                            resolve(false)
+                        }
                     })
                     .catch(err => {
                         console.log(err);
@@ -831,7 +847,7 @@ function getTemplateDetailsSMS(company, templateName,role,variables) {
         Masternotifications.findOne({ "event": templateName, "templateType": 'SMS', "company": company, "role":role, status:'active' })
             .exec()
             .then(NotificationData => {
-                if (NotificationData) {
+                if (NotificationData && NotificationData !== null) {
                     var content = NotificationData.content;
                     var wordsplit = [];
                     if (content.indexOf('[') > -1) {
@@ -861,7 +877,7 @@ function getTemplateDetailsSMS(company, templateName,role,variables) {
                      Masternotifications.findOne({ "event": templateName, "templateType": 'SMS', "company": null, "role":role, status:'active' })
                     .exec()
                     .then(NotificationData => {
-                        if (NotificationData) {
+                        if (NotificationData && NotificationData !== null) {
                             var content = NotificationData.content;
                             var wordsplit = [];
                             if (content.indexOf('[') > -1) {
@@ -887,7 +903,9 @@ function getTemplateDetailsSMS(company, templateName,role,variables) {
                                 subject: NotificationData.subject
                             }
                             resolve(tData);
-                        }//NotificationData
+                        }else{
+                            resolve(false)
+                        }
                     })
                     .catch(err => {
                         console.log(err);
@@ -913,7 +931,7 @@ function getTemplateDetailsInApp(company, templateName,role,variables) {
         Masternotifications.findOne({ "event": templateName, "templateType": 'Notification', "company": company, "role":role, status:'active' })
             .exec()
             .then(NotificationData => {
-                if (NotificationData) {
+                if (NotificationData && NotificationData !== null) {
                     var content = NotificationData.content;
                     var wordsplit = [];
                     if (content.indexOf('[') > -1) {
@@ -943,7 +961,7 @@ function getTemplateDetailsInApp(company, templateName,role,variables) {
                      Masternotifications.findOne({ "event": templateName, "templateType": 'Notification', "company": null, "role":role, status:'active' })
                     .exec()
                     .then(NotificationData => {
-                        if (NotificationData) {
+                        if (NotificationData && NotificationData !== null) {
                             var content = NotificationData.content;
                             var wordsplit = [];
                             if (content.indexOf('[') > -1) {
@@ -969,7 +987,9 @@ function getTemplateDetailsInApp(company, templateName,role,variables) {
                                 content: content,
                             }
                             resolve(tData);
-                        }//NotificationData
+                        }else{
+                            resolve(false)
+                        }
                     })
                     .catch(err => {
                         console.log(err);

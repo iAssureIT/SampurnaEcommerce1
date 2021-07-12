@@ -73,14 +73,16 @@ class BulkProductImageUpload extends Component{
 
 				if (file) {
 					var fileName  		= file.name; 
-					var productCode 	= file.name.split('-')[0];
-					var itemCode 		= file.name.split('-')[1];
+					var vendorID 		= file.name.split('-')[0];
+					var productCode 	= file.name.split('-')[1];
+					var itemCode 		= file.name.split('-')[2];
 					var ext 			= fileName.split('.').pop();  
 
 					if(ext==="jpg" || ext==="png" || ext==="jpeg" || ext==="webp" || ext==="JPG" || ext==="PNG" || ext==="JPEG" || ext==="WEBP"){
 						if (file) {
 							var objTitle = { 
 								fileInfo 	: file,
+								vendorID 	: vendorID,
 								productCode : productCode,
 								itemCode 	: itemCode
 							}
@@ -130,7 +132,7 @@ class BulkProductImageUpload extends Component{
 
 						for (var i = 0; i<productImage.length; i++) {
 							var compressed_image 	= await handleCompressedUpload(productImage[i].fileInfo);
-							compressed_image.name 	= compressed_image.name.split(".")[0]+"_small_iamge."+compressed_image.name.split(".")[1];
+							compressed_image.name 	= compressed_image.name.split(".")[0]+"_small_image."+compressed_image.name.split(".")[1];
 
 							var productSmallImage 	= await s3upload(compressed_image, config, this);
 							var s3url 				= await s3upload(productImage[i].fileInfo, config, this);
@@ -144,6 +146,7 @@ class BulkProductImageUpload extends Component{
 							s3urlArray.push({
 								productImage 		: s3url,
 								productSmallImage  	: productSmallImage,
+								vendorID 			: productImage[i].vendorID,
 								productCode 		: productImage[i].productCode,
 								itemCode 			: productImage[i].itemCode
 							});
@@ -248,6 +251,7 @@ class BulkProductImageUpload extends Component{
 			var formValue = {
 				productImage        : this.state.productImageArray[i].productImage,
 				productSmallImage   : this.state.productImageArray[i].productSmallImage,
+				vendorID      		: this.state.productImageArray[i].vendorID,
 				productCode      	: this.state.productImageArray[i].productCode,
 				itemCode      		: this.state.productImageArray[i].itemCode
 			}
@@ -291,12 +295,20 @@ class BulkProductImageUpload extends Component{
 
 	deleteproductImages(event){
 		event.preventDefault(); 
-		var id  	= event.target.getAttribute('data-productid');
-		var image 	= event.target.getAttribute('data-image');
+		var id  			= event.target.getAttribute('data-productid');
+		var image 			= event.target.getAttribute('data-image');
+		var imageName 		= image.split("/").pop();
+		var smallImageName 	= imageName.split(".")[0] + "_small_image." + imageName.split(".")[1];
+		var split 			= image.split("/");
+		var smallImageLink  = split.slice(0, split.length - 1).join("/") + "/" + smallImageName;
+		
+		console.log("image => ", image)
+		console.log("smallImageLink => ", smallImageLink)
 		
 		var formValues = {
-			product_ID    : id,
-			imageLik      : image
+			product_ID  	: id,
+			imageLink 		: image,
+			smallImageLink 	: smallImageLink
 		}
 
 		swal({
@@ -336,16 +348,37 @@ class BulkProductImageUpload extends Component{
 			<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 NOPadding">
 				<div className="row">
 					<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div className="formWrapper">
-						<section className="content">
-							<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent">
-								<div className="row">
+						<div className="formWrapper">
+							<section className="col-lg-12 col-md-12 col-xs-12 col-sm-12 content">
+								<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 pageContent">
+									<div className="row">
 										<div className="box-header with-border col-lg-12 col-md-12 col-xs-12 col-sm-12 NOpadding-right">
-													<h4 className="weighttitle NOpadding-right">  </h4>
+											<h4 className="weighttitle NOpadding-right"> Product Bulk Image Upload </h4>
 										</div>
-										 
-										<form className="addRolesInWrap newTemplateForm">
-											<div className="">
+										<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt">
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bulkEmployeeContent montserrat">
+												<div className="col-lg-10 col-md-10 col-sm-12 col-xs-12 bulkEmployeeVerif ">
+													<h5 className="montserrat">Instructions:</h5>
+													<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 upldImgTextColor NOPadding">
+														Image name must be saved in format <span className="upldImgTextColor1">Your Vendor Company ID</span> - <span className="upldImgTextColor1">Your Product Code</span> - <span className="upldImgTextColor1">Your Item Code</span> - <span className="upldImgTextColor2">Image Number for that product. </span><br/>
+														<ul className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<li>VendorCompanyID -> V1</li>
+															<li>ProductCode 	-> P1</li>
+															<li>ItemCode 		-> I1</li>
+															<li>Image Numbers   -> 01,02,03</li>
+														</ul>
+													</div>
+													<b>Examples : </b>
+													<ul className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+														<li>V1-P1-I1-01</li>
+														<li>V1-P1-I1-02</li>
+														<li>V1-P1-I1-03</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+										<form className="col-lg-12 col-md-12 col-sm-12 col-xs-12 addRolesInWrap newTemplateForm">
+											<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 imageForm">
 												<div className="col-lg-4 col-lg-offset-3  col-md-4 col-md-offset-3 col-sm-12 col-xs-12 marginTopp">
 													<div className="form-group">
 														<label className="col-lg-12 col-md-12 col-sm-12 col-xs-12 label-category imageuploadtitle">
@@ -377,54 +410,54 @@ class BulkProductImageUpload extends Component{
 												:'' */}
 											
 												
+												<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+													{/* <div className="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-sm-12 upldImgTextColor">
+														Image name must be saved in format <span className="upldImgTextColor1">Your Vendor Company ID</span> - <span className="upldImgTextColor1">Your Product Code</span> - <span className="upldImgTextColor1">Your Item Code</span> - <span className="upldImgTextColor2">Image Number for that product. </span>
+														eg. VendorCompanyID-ProductCode-ItemCode-01, VendorCompanyID-ProductCode-ItemCode-02, VendorCompanyID-ProductCode-ItemCode-03, ... etc.
+													</div> */}
+													{
+														this.state.progressLength === 0 || this.state.progressLength === 100 ?
+														null
+														:
+														<div className="progress img-progress col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-sm-12 NOpadding">
+															<div className="progress-bar col-lg-12 col-md-12 col-xs-12 col-sm-12" role="progressbar" style={{width:""+this.state.progressLength+"%" }}>
+																<span className="img-percent" style={{background:"#337ab7"}}>{this.state.progressLength}% Complete</span>
+															</div>
+														</div>
+													}
+													
+													<div className="col-lg-12">
+														{
+															this.state.notuploadedImages.length > 0 ?
+
+																<div className="notBlkUplImgListOuter">
+																	<div className="notBlkUplImgListTitle">
+																		Images not Uploaded
+																	</div>
+																	{
+																		this.state.notuploadedImages.map((data, index)=>{
+																			return (
+																				<div className="notBlkUplImgList" key={index}> 
+																					{data}
+																				</div>
+																			);
+																		})
+																	}
+																</div>
+															:
+
+															""
+														} 
+													</div>
+												</div>										
 											</div>
 										</form>
 										 
 
 										<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-											<div className="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-sm-12 upldImgTextColor">
-												Image name must be saved in format <span className="upldImgTextColor1">Your Item Code</span> - <span className="upldImgTextColor2">Image Number for that product. </span>
-												eg. ItemCode-01, ItemCode-02, ItemCode-03, ... etc.
-											</div>
-											{
-												this.state.progressLength === 0 || this.state.progressLength === 100 ?
-												null
-												:
-												<div className="progress img-progress col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-12 col-sm-12 NOpadding">
-													<div className="progress-bar col-lg-12 col-md-12 col-xs-12 col-sm-12" role="progressbar" style={{width:""+this.state.progressLength+"%" }}>
-														<span className="img-percent" style={{background:"#337ab7"}}>{this.state.progressLength}% Complete</span>
-													</div>
-												</div>
-											}
-											
-											<div className="col-lg-12">
-												{
-													this.state.notuploadedImages.length > 0 ?
-
-														<div className="notBlkUplImgListOuter">
-															<div className="notBlkUplImgListTitle">
-																Images not Uploaded
-															</div>
-															{
-																this.state.notuploadedImages.map((data, index)=>{
-																	return (
-																		<div className="notBlkUplImgList" key={index}> 
-																			{data}
-																		</div>
-																	);
-																})
-															}
-														</div>
-													:
-
-													""
-												} 
-											</div>
-										</div>
-										<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-											<div className="create-email-template-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
-												<div>
-													<div className="HRMSWrapper col-lg-12">
+											<div className="create-email-template-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+												<div className="col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">
+													<div className="HRMSWrapper col-lg-12 col-md-12 col-xs-12 col-sm-12 NOPadding">
 														<table className="table iAssureITtable-bordered table-striped table-hover">
 															<thead className="tempTableHeader">
 																<tr >

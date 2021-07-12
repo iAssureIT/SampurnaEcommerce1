@@ -210,3 +210,20 @@ formValues  = {
     "lat"       : "25.206417",
     "lng"       : "55.400298"
 }
+
+3. "Order Delivered" API (for Driver Mobile App)
+
+API         => http://localhost:3368/api/orders/deliver/vendor_order
+MethodType  => Patch
+formValues  = {
+    "order_id"          : "60e99752508384498c7a176a",
+    "vendor_id"         : "60c1c803ba2c3f1a6f528b02",
+    "user_id"           : "60a645f1f39e68d51b874b95",    
+    "paymentDetails"    : { 
+        "modeOfPayment"     : "Credit/Debit Card",
+        "amountPaid"        : 46,
+        "currency"          : "AED",
+        "deliveryPerson_id" : "60a645f1f39e68d51b874b95",
+        "transactionNumber" : "A56V78H89T"
+    }
+}
