@@ -115,7 +115,7 @@ class MyAccount extends Component{
                                 <div className={"nav flex-column nav-pills nav-pills-custom navPillsWrapper "+S.navPillsWrapper} id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     {this.state.authService==="" &&
                                     <div className="col-12 NoPadding">
-                                        <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3  shadow active rounded":"nav-link mb-4 p-3  shadow"}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                        <a className={this.state.url==="/my-account"?"nav-link mb-4 p-3  shadow active rounded":"nav-link mb-4 p-3  shadow"}  id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">
                                             <i className="fa fa-user-circle mr-3"></i>
                                             <span className=" small text-uppercase">Account Dashboard</span></a>
                     
@@ -123,7 +123,7 @@ class MyAccount extends Component{
                                             <i className="fa fa-info-circle mr-3"></i>
                                             <span className=" small text-uppercase">Account Information</span></a>
                                     </div>}
-                                    <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                    <a className="nav-link mb-4 p-3 shadow " id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="true">
                                         <i className="fa fa-address-card mr-3"></i>
                                         <span className=" small text-uppercase">Address Book</span></a>
                 
@@ -157,7 +157,7 @@ class MyAccount extends Component{
                                 {/* <!-- Tabs content --> */}
                                 <div className="tab-content" id="v-pills-tabContent">
                                     <div className={this.state.url==="/my-account"?"tab-pane fade shadow rounded bg-white  pb-5 show active":"tab-pane fade shadow rounded bg-white  pb-5"} id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                    <Account/>                          
+                                       <Account/>                          
                                     </div>
                                     
                                     <div className="tab-pane fade shadow rounded bg-white p-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
