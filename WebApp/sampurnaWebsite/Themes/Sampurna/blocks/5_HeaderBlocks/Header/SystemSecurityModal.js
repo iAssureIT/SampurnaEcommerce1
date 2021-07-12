@@ -94,9 +94,6 @@ class header extends React.Component {
     }
     async signOut(event) {
         event.preventDefault();
-        // localStorage.setItem("user_ID", "");
-        // localStorage.setItem("userDetails", "");
-        // this.props.fetchCartData(); 
         var token = localStorage.removeItem("user_ID");
         swal("Thank You.","You have been logged out Successfully!");
         if (token !== null) {
@@ -105,7 +102,6 @@ class header extends React.Component {
           })
         }
         Router.push('/');
-    
     }
    render() {
     return (

@@ -82,7 +82,7 @@ export default class Footer extends Component {
                                         catindex<8?  
                                             <div key={catindex} className="">                                   
                                                 <div className="categortTitle">
-                                                    <Link href={""+data.sectionUrl} passhref={true}>
+                                                    <Link href={"vendor-list/"+data.sectionUrl} passhref={true}>
                                                         <a><span className="f9">{cateoryDetails.category}</span></a>
                                                     </Link>
                                                      {/* <a href={""+data.sectionUrl}><span className="f9">{cateoryDetails.category}</span></a> */}

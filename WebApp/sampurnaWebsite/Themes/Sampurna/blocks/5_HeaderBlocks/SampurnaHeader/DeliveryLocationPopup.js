@@ -161,6 +161,16 @@ class DeliveryLocationPopup extends React.Component {
                                     }
                                 }
                             }
+                            that.setState({
+                                "address"        : response.results[0].formatted_address,
+                                "city"           : city,
+                                "area"           : area,
+                                "district"       : response.results[0].district,
+                                "pincode"        : pincode,
+                                "country"        : country,
+                                "latitude"       : position.coords.latitude,
+                                "longitude"      : position.coords.longitude,
+                            });
                             var deliveryLocation = {
                                 "address"        : response.results[0].formatted_address,
                                 "city"           : city,
@@ -183,15 +193,11 @@ class DeliveryLocationPopup extends React.Component {
                                     "latitude"       : position.coords.latitude,
                                     "longitude"      : position.coords.longitude,
                                 });
-                                // console.log("deliveryLocation.country===",deliveryLocation.country);
                                 if(deliveryLocation.country === "United Arab Emirates"){
                                     if(that.props.sampurnaWebsiteDetails){
-                                        // console.log("deliveryLocation=",deliveryLocation);
                                         var sampurnaWebsiteDetails = that.props.sampurnaWebsiteDetails;
                                         sampurnaWebsiteDetails = {...sampurnaWebsiteDetails, "deliveryLocation" : deliveryLocation};
-                                        // that.setState({
-                                        //     country : deliveryLocation.country
-                                        // })
+                      
                                         // console.log("** sampurnaWebsiteDetails = ", sampurnaWebsiteDetails) ;
                                     }else{
                                         var sampurnaWebsiteDetails = { "deliveryLocation" : deliveryLocation }
@@ -219,6 +225,7 @@ class DeliveryLocationPopup extends React.Component {
 
     saveLocation(event) {
         event.preventDefault();
+        // console.log("savelocation  this.state===",this.state.country);
         var deliveryLocation = {
             "address"        : this.state.address,
             "city"           : this.state.city,
@@ -231,7 +238,9 @@ class DeliveryLocationPopup extends React.Component {
             "latitude"       : this.state.latitude,
             "longitude"      : this.state.longitude,
         }
-        // console.log("this.state.country===",this.state.country);
+
+        console.log("savelocation this.state.country===",this.state.country);
+
         if((this.state.country) === "United Arab Emirates"){     
             if(this.props.sampurnaWebsiteDetails){
                 var sampurnaWebsiteDetails = this.props.sampurnaWebsiteDetails;

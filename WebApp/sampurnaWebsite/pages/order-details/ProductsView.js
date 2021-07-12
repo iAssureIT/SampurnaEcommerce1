@@ -27,7 +27,9 @@ class ProductsView extends Component {
         "rating_ID" : '',
         "user_ID"   : '',
         "paymentRefundSource" : "source",
-        "config"    : {}
+        "config"    : {},
+        "returnProductImages" : [],
+        "returnProductError"  : '',
       }
   }
 
@@ -63,11 +65,11 @@ class ProductsView extends Component {
   getReturnReasons(){
     axios.get('/api/returnreasons/get/list')
     .then((reasonsResponse)=>{
-        // console.log("reasonsResponse==",reasonsResponse);
+        console.log("reasonsResponse==",reasonsResponse);
         if(reasonsResponse){
 
             this.setState({
-              returnReasons : reasonsResponse.data
+              returnsReasons : reasonsResponse.data
             })
         }
     })
@@ -420,10 +422,11 @@ class ProductsView extends Component {
     axios.get('/api/returnreasons/get/list')
     .then((reasonsResponse)=>{
         if(reasonsResponse){
-          // console.log("reasonsResponse=",reasonsResponse.data);
+          console.log("reasonsResponse=",reasonsResponse.data);
             this.setState({
-              returnReasons : reasonsResponse.data
+              reasonsForReturn : reasonsResponse.data
             },()=>{
+              // var reasonForReturn = event.target.getAttribute('id');
               var reasonForReturn = event.target.value;
               this.setState({
                 reasonForReturn : reasonForReturn
@@ -449,13 +452,12 @@ class ProductsView extends Component {
       "reasonForReturn"       : this.state.reasonForReturn,
       "customerComment"       : this.state.customerReturnComment, 
       "refund"                : this.state.paymentRefundSource,
-
-      "returnProductImages"   : this.state.imgUrl
+      "returnProductImages"   : this.state.returnProductImages.push(this.state.imgUrl)
     }
 
-    // console.log("formValues=",formValues);
+    console.log("formValues=",formValues);
 
-    if(formValues){
+    if(formValues && this.state.reasonForReturn && this.state.customerReturnComment && this.state.paymentRefundSource && this.state.returnProductImages ){
       axios.patch("/api/orders/patch/returnproduct",formValues)
       .then((response) => {
         if(response.data){
@@ -468,6 +470,10 @@ class ProductsView extends Component {
       .catch((error) => {
         console.log('error', error);
       })
+    }else{
+        this.setState({
+          "returnProductError" : "All feilds are mandatory"
+        })
     }
   }
     
@@ -632,7 +638,7 @@ class ProductsView extends Component {
                                             </div>
                                             </div>
                                             <div className="modal-body addressModalBody">
-                                              <div className="col-12 mt-4 ">
+                                              <div className="col-12 mt-4 mb-4">
                                                 <div className="row">
                                                   <div className="col-3 orderimgsize">
                                                     <img src={productdata.productImage[0] ? productdata.productImage[0] : "/images/eCommerce/notavailable.jpg" } alt="" />
@@ -642,16 +648,16 @@ class ProductsView extends Component {
                                                 </div>
                                               </div>
 
-                                              <form className="feedbackForm col-12">
-                                                  <div className=" col-12 mt-2 mb-2 text-left">All feilds are mandetory</div>
+                                              <form className={"feedbackForm col-12 pt-2 mt-2 " +Style.returnForm}>
+                                                  <div className={" col-12 mt-2 mb-2 text-left NoPadding " +Style.errorMsg} >{this.state.returnProductError}</div>
                                                   <label className="col-12 NoPadding text-left">Please Select Reasons <span className="errorMsg"> * </span></label>
                                                   <select onChange={this.selecteReason.bind(this)} className={"col-12 form-control "} ref="reasonOfReturn" name="reasonOfReturn" >
                                                       <option name="reasonOfReturn"  selected="true">-- Select --</option>
                                                       {
-                                                          this.state.returnReasons && this.state.returnReasons.length > 0 ?
-                                                              this.state.returnReasons.map((data, index) => {
+                                                          this.state.returnsReasons && this.state.returnsReasons.length > 0 ?
+                                                              this.state.returnsReasons.map((data, index) => {
                                                                   return (
-                                                                      <option key={index} value={data._id}>{data.reasonOfReturn}</option>
+                                                                      <option key={index} id={data._id} value={data.reasonOfReturn}>{data.reasonOfReturn}</option>
                                                                   );
                                                               })
                                                               :
@@ -676,7 +682,7 @@ class ProductsView extends Component {
                                                   <div className={"col-12 " +Style.ReturnImg}>   
                                                     <div className="row">
                                                       <div className=" col-4 mt-2">    
-                                                      <label className="col-12 NoPadding ">Upload real images of the product <span className="errorMsg"> * </span></label>                                                           
+                                                      {/* <label className="col-12 NoPadding ">Upload real images of the product <span className="errorMsg"> * </span></label>                                                            */}
                                                         <input type="file" onChange={this.uploadImage.bind(this)} title="upload product Image"  accept=".jpg,.jpeg,.png" />
                                                       </div>
                                                       {
@@ -684,9 +690,9 @@ class ProductsView extends Component {
                                                           <div className="col-lg-12 productImgCol">
                                                             <div className="col-2 NoPadding prodImage">
                                                               <div className="col-12 NoPadding prodImageInner">
-                                                                  <span className="prodImageCross" title="Delete Image" data-imageUrl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                                                  <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
                                                               </div>
-                                                              <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail"}></img>
+                                                              <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail"} style={{height:'40px'}}></img>
                                                             </div>    
                                                           </div>
                                                         :
