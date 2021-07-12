@@ -183,7 +183,7 @@ const styles1 = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,
         shadowRadius: 2,
-        elevation: 2,
+        elevation: 10,
         borderRadius :100,
         marginVertical:5
     },
@@ -196,8 +196,8 @@ const styles1 = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,
-        shadowRadius: 2,
-        elevation: 2,
+        shadowRadius: 20,
+        elevation: 10,
         borderRadius :100,
         marginVertical:5
     },
@@ -215,11 +215,13 @@ const styles1 = StyleSheet.create({
     },
     label : {
         fontFamily:"Montserrat-Medium",
-        fontSize:13
+        fontSize:12,
+        color:'#000'        
     },
     label1 : {
         fontFamily:"Montserrat-Medium",
-        fontSize:11
+        fontSize:9,
+        color:'#000',        
     },
     signSignUpBox:{
         marginTop:15,height:35,borderWidth:0.5,borderRadius:8,justifyContent:'center',alignItems:'center',width:333,alignSelf:'center'

@@ -143,6 +143,15 @@ export default StyleSheet.create({
 		minHeight: 30,
 		width: "100%",
     },
+
+    addBtnStyle1: {
+		backgroundColor: '#5B8E7E',
+        minHeight: 30,
+        fontSize:14,
+        width: "100%",
+        justifyContent:'center',
+        // paddingRight:45,
+    },
     addBtnText:{
         fontFamily:"Montserrat-Regular",
         fontSize  : 12
@@ -156,5 +165,5 @@ export default StyleSheet.create({
         paddingVertical:15
         // alignSelf:'fl'
         // alignSelf:'center',
-    } 
+    },
 });

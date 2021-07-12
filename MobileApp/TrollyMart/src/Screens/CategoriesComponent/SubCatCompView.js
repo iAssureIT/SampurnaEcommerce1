@@ -14,10 +14,12 @@ import {
         Icon, 
         Rating,
         Avatar }              from "react-native-elements";
+import {STOP_SCROLL,SET_CATEGORY_WISE_LIST}          from '../../redux/productList/types';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
 import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                  from 'axios';
+import {CategoryList}    from '../../ScreenComponents/CategoryList/CategoryList.js';
 import AsyncStorage           from '@react-native-async-storage/async-storage';
 import Counter                from "react-native-counters";
 import Carousel               from 'react-native-banner-carousel-updated';
@@ -36,6 +38,7 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { SET_CATEGORY_LIST }  from '../../redux/productList/types.js';
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [countofprod,setCounterProd]        = useState(1);
+  const section = props.route.params?.section;
   const [user_id,setUserId]                = useState('');
   const [productdata,setProductData]        = useState([]);
   const [productReview,setProductReview]   = useState([]);
@@ -68,6 +71,32 @@ export const SubCatCompView = withCustomerToaster((props)=>{
         getProductsView(productID,data[0][1]);
         getProductReview(productID);
     })
+  }
+
+  const setCategory =(e)=>{
+    var subCategoryArray = e.subCategory.map((a, i)=>{
+      return {
+          label :a.subCategoryTitle,        
+          value :e.categoryUrl+"^"+a.subCategoryUrl,        
+      } 
+    })
+    dispatch({
+      type:STOP_SCROLL,
+      payload:false
+    })
+    setSubCategory(subCategoryArray);
+    payload.vendor_ID        = vendor.vendor_ID;
+    payload.sectionUrl      = sectionUrl;
+    payload.categoryUrl     = e.categoryUrl;
+    payload.subCategoryUrl  = e.subCategoryUrl ? e.subCategoryUrl : [] ;
+    payload.scroll          = false;
+    payload.startRange      = 0;
+    payload.limitRange      = 10;
+    dispatch({
+      type : SET_CATEGORY_WISE_LIST,
+      payload : []
+    })
+    dispatch(getCategoryWiseList(payload));
   }
 
   const addToWishList = (productid,vendor_ID,sectionUrl) => {
@@ -225,15 +254,69 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           :
           productdata && productdata.productName  && productdata.discountedPrice ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
-            <View style={styles.formWrapper}>
-              <Text numberOfLines={1} style={[CommonStyles.subHeaderText,{paddingVertical:15}]}>Vendor - {productdata.vendorName}</Text>
-              <View style={styles.imgvw}>
-              {productdata.discountPercent && productdata.discountPercent >0?
+            <View style={[styles.vendorNameBox,{}]}>
+                <Text numberOfLines={1} style={[styles.vendorName,{}]}>Vendor - {productdata.vendorName}</Text>
+            </View> 
+            
+            <View style={styles.formWrapper}>  
+              {/* <MenuCarouselSection
+                    navigation  = {navigation} 
+                    showImage   = {true}
+                    selected    = {section}
+                    boxHeight   = {40}
+                    index       = {index}
+                />                          */}
+                <CategoryList
+                  navigation  = {navigation}
+                  showImage = {true}
+                  boxHeight = {30}
+                  setCategory = {setCategory}
+                />
+              <View >
+              {/* {productdata.discountPercent && productdata.discountPercent >0?
                   <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
                     <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{productdata.discountPercent}%</Text>
                     <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
                   </ImageBackground> :null
-                } 
+                }  */}
+                <View style={{flex:1,flexDirection:'row',}}>
+                    <View style={styles.qtys}>
+                      <Counter start={1} min={1}
+                        buttonStyle={{
+                          borderColor: colors.theme,
+                          borderWidth: 1,
+                          borderRadius: 25,
+                          width: 33,
+                          height: 33
+                        }}
+                        buttonTextStyle={{
+                          color: colors.theme,
+                        }}
+                        countTextStyle={{
+                          color: colors.theme,
+                        }}
+                        size={5}
+                        value={countofprod}
+                        onChange={(num)=>onChange(num)} />
+                    </View>
+                    <View style={styles.addBTN}>
+                      <Button
+                          onPress={() => handlePressAddCart()}
+                          title={"ADD TO CART"}
+                          buttonStyle={CommonStyles.addBtnStyle1}
+                          // containerStyle={CommonStyles.addBtnContainer1}
+                          // icon={
+                          //   <Icon
+                          //     name="shopping-cart"
+                          //     type="feather"
+                          //     size={25}
+                          //     color="#fff"
+                          //     iconStyle={styles.mgrt10}
+                          //   />
+                          // }
+                        /> 
+                    </View>
+                </View>
                 {productdata.productImage && productdata.productImage.length>0 ?
                  <Carousel
                     autoplay={true}
@@ -264,10 +347,10 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     resizeMode="contain"
                   />
                 }
-                  <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
+                  {/* <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
                         onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
                     <Icon size={25} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.red} />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 <View style={styles.prodnameview}>
                   {/* (i % 2 == 0 ? {} : { marginLeft: 12 } */}
                   {/* {productdata.brandNameRlang && productdata.brandNameRlang!=="" ?
@@ -290,40 +373,21 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}  {productdata.size ? <Text style={styles.packofnos}> - {productdata.size}  {productdata.unit}</Text> : null}</Text>
                 </View>
               </View>
-              <View style={styles.orderstatus}>
+              {/* <View style={styles.orderstatus}>
                 <View style={styles.kgs}>
                   <Text style={styles.orderstatustxt}>{productdata.size} {productdata.unit !== 'Number' ? productdata.unit : ''}</Text>
-                </View>
-                <View style={styles.qtys}>
-                  <Counter start={1} min={1}
-                    buttonStyle={{
-                      borderColor: colors.theme,
-                      borderWidth: 1,
-                      borderRadius: 25,
-                      width: 20,
-                      height: 10
-                    }}
-                    buttonTextStyle={{
-                      color: colors.theme,
-                    }}
-                    countTextStyle={{
-                      color: colors.theme,
-                    }}
-                    size={5}
-                    value={countofprod}
-                    onChange={(num)=>onChange(num)} />
-                </View>
-              </View>
-              <View style={{flexDirection:'row'}}>
+                </View>                
+              </View> */}
+              <View style={{flexDirection:'row',marginLeft:30,}}>
                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
                   variants && variants.length > 0?
                   variants.map((item,index)=>{
                     return(
                         <TouchableOpacity 
-                            style={{minWidth:100,height:50,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:sizeIndex === index ? 1 :0.5,paddingHorizontal:5}}
+                            style={{minWidth:60,height:28,marginTop:5,marginRight:5,borderRadius:4,justifyContent:'center',alignItems:'center',borderWidth:sizeIndex === index ? 1 :0.5,paddingHorizontal:5}}
                             onPress={()=>filterProductSize(index,item.size)}
                             >
-                            <Text>{item.size}</Text>
+                            <Text style={{fontSize:9}}>{item.size}</Text>
                         </TouchableOpacity> 
                     )
                   })
@@ -332,13 +396,13 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 }
                  </ScrollView>
               </View>
-              <View style={{flexDirection:'row'}}>
+              <View style={{flexDirection:'row',marginLeft:30}}>
                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
                   sizeIndex >=0 && variants[sizeIndex].color && variants[sizeIndex].color.length > 0 ?
                   variants[sizeIndex].color.map((color,index)=>{
                       return(
                         <TouchableOpacity 
-                          style={{minWidth:100,height:50,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:colorIndex === index ? 1 :0.5,paddingHorizontal:5,backgroundColor:color.toLowerCase()}}
+                          style={{minWidth:60,height:28,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:colorIndex === index ? 1 :0.5,paddingHorizontal:5,backgroundColor:color.toLowerCase()}}
                           onPress={()=>filterProductColor(index,color)}
                           >
                           {/* <Text>{color}</Text> */}
@@ -360,23 +424,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     :
                     <Text style={styles.detaildetailstxt}>{productdata.productDetails.replace(/<[^>]*>/g, '').replace(/\&nbsp;/g, '')}</Text>
                 }
-                <View>
-                 <Button
-                    onPress={() => handlePressAddCart()}
-                    title={"ADD TO CART"}
-                    buttonStyle={CommonStyles.addBtnStyle}
-                    containerStyle={CommonStyles.addBtnContainer}
-                    icon={
-                      <Icon
-                        name="shopping-cart"
-                        type="feather"
-                        size={25}
-                        color="#fff"
-                        iconStyle={styles.mgrt10}
-                      />
-                    }
-                  /> 
-                </View>
+                
                 <HorizontalProductList 
                     blockTitle   = {"You May Also Like"}
                     blockApi     = {"/api/products/get/similar_products"}

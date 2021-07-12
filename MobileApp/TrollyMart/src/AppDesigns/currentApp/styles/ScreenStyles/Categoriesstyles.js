@@ -197,7 +197,7 @@ export default StyleSheet.create({
     justifyContent: "center"  
   },
   nameprod:{
-    fontSize:15,fontFamily:"Montserrat-SemiBold",color:'#666'
+    fontSize:18,fontFamily:"Montserrat-SemiBold",color:'#000'
   },
   urlprod:{
     flex:1,fontSize:13,flexWrap: "wrap",fontFamily:"Montserrat-Regular",color:'#666',paddingVertical:5
@@ -329,9 +329,17 @@ export default StyleSheet.create({
     flex:0.4,
   },
 
+  addBTN:{
+    flex:0.8,
+    alignItems:"flex-end",
+    marginVertical:10,
+    textAlign:"center"
+  },
+
   qtys:{
-    flex:0.6,
-    alignItems:"flex-end"
+    flex:0.2,
+    alignItems:"flex-start",
+    marginVertical:10,
   },
   icnstar:{
     marginTop:3,marginRight:5
@@ -446,9 +454,10 @@ export default StyleSheet.create({
   flxdirview:{
     flexDirection:'row',
     // flex:1,
-    justifyContent:"center",
+    justifyContent:"flex-start",
     fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333',
-    marginBottom:20,
+    marginBottom:10,
+    marginLeft:30,
   },
   // flxdir:{
   //   backgroundColor:'#fff',paddingHorizontal:15,marginBottom:"15%"
@@ -560,6 +569,17 @@ export default StyleSheet.create({
     paddingVertical: 30, 
     paddingHorizontal: 10,
     borderWidth:2,borderColor:colors.theme 
+  },
+
+  vendorNameBox:{
+    height:14,
+    backgroundColor:'#ccc',
+    marginBottom:10,
+  },
+
+  vendorName:{
+    fontSize:11,
+    color:'#000'
   },
 
 
