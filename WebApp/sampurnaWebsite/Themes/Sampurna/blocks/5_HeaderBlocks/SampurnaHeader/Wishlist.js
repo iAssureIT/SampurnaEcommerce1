@@ -22,8 +22,8 @@ class Wishlist extends React.Component {
    render(){
         return(  
             <div className="col-12 NoPadding my-auto">
-              <li  onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}>
-                  <Link href="/my-account#v-pills-settings1-tab">
+              {/* <li  onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}> */}
+                  <Link href="/my-account#v-pills-settings1-tab"onClick={()=>{this.state.currentUrl==="/"? null : window.location.reload()}}>
                      <a title="wishlistIcon " className="leftf ">
                         <Image
                         src={"/images/eCommerce/wishlist.png"}
@@ -34,7 +34,7 @@ class Wishlist extends React.Component {
                         />
                     </a>
                    </Link>
-             </li>                               
+             {/* </li>                                */}
             </div>
         );        
     }

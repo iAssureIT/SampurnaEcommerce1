@@ -52,7 +52,7 @@ export default class Footer extends Component {
        return(
         <div className="col-12 NoPadding footerWrapper" >
         <div className="col-12 footerNew">
-            <div className="col-12 col-xl-6 offset-xl-6 col-lg-6 offset-lg-6">
+            <div className="col-12 col-xl-8 col-lg-8 float-right">
                 <div className="col-12 textEnd "><i className="fas fa-phone-alt fIcon "></i><span className="phoneT">Phone &nbsp;&nbsp;:&nbsp;&nbsp;</span>  +971 04 591 1186 &nbsp;&nbsp;&nbsp;&nbsp; <i className="fas fa-envelope fIcon"></i><span className="phoneT">Mail Us &nbsp;&nbsp;:&nbsp;&nbsp; </span> support@knock-knockeshop.com</div>
             </div>
         </div>
@@ -146,8 +146,9 @@ export default class Footer extends Component {
                         </div>
                     </div> 
      
-                    <div className="col-12 col-sm-12 col-lg-12 col-md-12 NoPadding ">
+                    <div className="col-12 col-sm-12 col-lg-12 col-md-12  ">
                         <div className={"col-12 FooterTitle "+S.footerTitleWrapper}>We are in</div>
+                        <div className="col-12">
                         <div className="col-12 col-sm-6 col-lg-12 col-md-12  width pr-0 mt-4">
                             <div className="row">
                                 <a className="col-6 NoPadding" href={"https://www.apple.com/ae/app-store/"} passhref={"true"}>
@@ -157,6 +158,7 @@ export default class Footer extends Component {
                                     <div className="androidCard col-12 NoPadding"></div>
                                 </a> 
                             </div>                    
+                        </div>
                         </div>
                     </div>
                 </div>

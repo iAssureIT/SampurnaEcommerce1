@@ -444,7 +444,7 @@
   margin-bottom: 20px !important;
 }
 .categortTitle{
-  margin-bottom:8px;
+  /* margin-bottom:8px; */
 }
 .categortTitle span{
     /*font-weight: 500;*/
@@ -601,7 +601,7 @@
 .icon{
   height:60px;
   content:center;
-  margin-left:30%;
+  margin-left:27%;
 }
 
 .aboutClass a{
