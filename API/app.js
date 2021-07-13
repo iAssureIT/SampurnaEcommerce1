@@ -108,6 +108,7 @@ const creditPointsPolicyRoutes				= require("./api/Ecommerce/CreditPointsPolicy/
 const returnPolicyRoutes					= require("./api/Ecommerce/ReturnPolicy/Routes");
 const unitOfMeasurment    					= require("./api/Ecommerce/departmentMaster/RoutesUnitofmeasurment");
 const ReturnReasonsRoutes    				= require("./api/Ecommerce/ReturnReasons/Routes");
+const OrderRejectReasonsRoutes    			= require("./api/Ecommerce/OrderRejectReasons/Routes.js");
 const orderStatus    						= require("./api/Ecommerce/orderStatusMaster/Routes");
 const BannerImages         					= require("./api/Ecommerce/BannerImages/Routes.js");
 const DiscountManagement    				= require("./api/Ecommerce/DiscountManagement/Routes.js");
@@ -181,6 +182,7 @@ app.use("/api/shipping", 					ShippingRoutes);
 app.use("/api/time", 						TimingRoutes);
 app.use("/api/returnedProducts", 			ReturnedProductsRoutes);
 app.use("/api/returnreasons", 				ReturnReasonsRoutes);
+app.use("/api/orderrejectreasons", 			OrderRejectReasonsRoutes);
 app.use("/api/bulkUploadTemplate", 			BulkUploadTemplate);
 app.use("/api/unitofmeasurmentmaster", 		unitOfMeasurment);
 app.use("/api/orderstatus",					orderStatus);

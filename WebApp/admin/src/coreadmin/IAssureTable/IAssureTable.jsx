@@ -555,7 +555,7 @@ class IAssureTable extends Component {
 	
 	render() {
 		const ref = React.createRef();
-		// console.log("currentView",this.state.currentView)
+		console.log("currentView",this.state.currentView)
 		return (
 			<div id="tableComponent" className="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 				{
@@ -580,14 +580,14 @@ class IAssureTable extends Component {
 							<div className="col-lg-1 col-lg-offset-9 col-md-1 col-xs-12 col-sm-12  NoPadding downloadBtns pull-right "id="pdfWrap" iref={ref}>
 								<button type="button" className=" pull-left tableprintincon" title="Print Table" onClick={this.printTable}><i className="fa fa-print" aria-hidden="true"></i></button>
 								<ReactHTMLTableToExcel
-									id={this.state.currentView  ? this.state.currentView  : "table-to-xls"}
+									id={this.state.currentView && this.state.currentView !== "undefined"  ? this.state.currentView  : "table-to-xls"}
 									className={this.state.currentView +" download-table-xls-button fa tableicons pull-right"}
 									// className="download-table-xls-button fa tableicons pull-right"
 									table={"Download-"+this.state.currentView}
 									sheet="tablexls"
-									 filename={this.state.tableName ? this.state.tableName+'-'+this.state.date : 'table-'+this.state.date}
+									filename={this.state.tableName ? this.state.tableName+'-'+this.state.date : 'table-'+this.state.date}
 									buttonText={<i class="fa fa-download" aria-hidden="true"></i>}
-									/>
+								/>
 							</div>
 						</React.Fragment>
 						{/* : null

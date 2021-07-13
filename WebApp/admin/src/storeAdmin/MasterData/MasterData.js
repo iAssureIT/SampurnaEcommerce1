@@ -14,6 +14,7 @@ import TaxRate            			from './TaxRate/TaxRate.js';
 // import UnitOfMeasurment   		from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
 import UnitOfMeasurment   			from './UnitOfMeasurment/UnitOfMeasurmentMaster.js';
 import ReturnReasonsMaster   		from './ReturnReasonsMaster/ReturnReasonsMaster.js';
+import OrderRejectReasons   		from './OrderRejectReasons/OrderRejectReasons.js';
 import PhotoGallery       			from './Gallery/component/Gallery.js';
 import OrderStatus   				from './orderStatusManagement/OrderStatusMaster.js';
 import BannerImages       			from './BannerImages/component/BannerImages.js';
@@ -134,6 +135,7 @@ import ReturnProductPolicy      	from './ReturnProductPolicy/ReturnProductPolicy
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#TimeManagement" data-toggle="tab">Time Master </a></li>
 													{ this.state.showOrderStatus !== "No" ? <li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderStatus" data-toggle="tab">Order Status Master</a></li> : null }													
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#ReturnReasonsMaster" data-toggle="tab">Return Reason's Master</a></li>
+													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderRejectReasonsMaster" data-toggle="tab">Order Reject Reason's Master</a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderDeliveryPolicy" data-toggle="tab">Order Delivery Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#OrderCancellationPolicy" data-toggle="tab">Order Cancellation Policy </a></li>
 													<li className="col-lg-12 col-md-12 col-xs-12 col-sm-12"><a className="tabLeft lettersp tablefthr" href="#CreditPointsPolicy" data-toggle="tab">Credit Points Policy </a></li>
@@ -153,6 +155,7 @@ import ReturnProductPolicy      	from './ReturnProductPolicy/ReturnProductPolicy
 												{/* {console.log("this.state.websiteModel",this.state.websiteModel)} */}
 												{ this.state.showOrderStatus !== "No" ?<div className="tab-pane" id="OrderStatus"><OrderStatus editId={this.state.editId}/></div>  :null}
 												<div className="tab-pane" id="ReturnReasonsMaster"><ReturnReasonsMaster editId={this.state.editId}/></div>
+												<div className="tab-pane" id="OrderRejectReasonsMaster"><OrderRejectReasons editId={this.state.editId}/></div>
 												{/* <div className="tab-pane" id="TaxName">         <TaxName           editId={this.state.editId}/>  </div>
 												<div className="tab-pane" id="TaxRate">         <TaxRate           editId={this.state.editId}/>  </div> */}
 												{/* <div className="tab-pane" id="UnitOfMeasurment"><UnitOfMeasurment  editId={this.state.editId}/>  </div>   */}
