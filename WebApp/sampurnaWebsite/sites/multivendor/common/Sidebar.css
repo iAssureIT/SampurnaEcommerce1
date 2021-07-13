@@ -100,6 +100,11 @@ input[type='text']:focus {
     left: auto;
     top: 148px !important;
 }
+.otpInputBox input[type='text']:focus {
+    /* outline:none; */
+    border: none!important;
+    border-bottom: 2px solid #333 !important;
+    }
 .css-yk16xz-control {
     background:#C2C1C1!important;
     border-radius: 7px!important;

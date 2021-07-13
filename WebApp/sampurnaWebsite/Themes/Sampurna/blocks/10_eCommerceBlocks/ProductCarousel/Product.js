@@ -332,7 +332,7 @@ class Product extends Component{
                           }
                           {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}
                         </div>
-                        <div className={styleMedia.ImgWrapper}>
+                        <div className={Style.ImgWrapper}>
                         <Link href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+data._id}>
                         <a className={Style.product_item_photo } tabIndex="-1" >
                           <img 

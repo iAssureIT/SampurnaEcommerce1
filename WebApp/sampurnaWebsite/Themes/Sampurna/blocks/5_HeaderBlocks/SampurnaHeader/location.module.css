@@ -204,3 +204,26 @@
 .systemSecurityModalWrapper{
     margin-right: 9px !important;
 }
+
+
+
+/* =========================Media Query============================================== */
+
+@media only screen and (min-width: 1440px) {
+    /* styles for browsers larger than 1440px; */
+    .locationBTN1{
+        margin-left: -106px!important;
+        background: #033554 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #000000a6;
+        border-radius: 10px;
+        opacity: 1;
+        color: #fff;
+        font-weight:bold;
+        font-size: 14px;
+        height: 46px;
+        position:absolute;
+    }
+    .locationBTN1:hover{
+        color: #fff !important;
+    }
+}
