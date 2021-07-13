@@ -665,7 +665,7 @@ class ListOfSupplier extends TrackerReact(Component) {
 												        			<h5 className="titleprofile">{data.companyName}</h5>
 												        			<ul className="col-lg-9 col-md-9 col-sm-9 col-xs-9 listfont">
 												        				<li><i className="fa fa-user-o col-lg-1 noPadding" aria-hidden="true"></i>&nbsp;{data.name}</li>
-												        				<li><i className="fa fa-map-marker col-lg-1 noPadding" aria-hidden="true"></i>&nbsp;{data.city},&nbsp;{data.states},{data.pincode}</li>
+												        				<li><i className="fa fa-map-marker-alt col-lg-1 noPadding" aria-hidden="true"></i>&nbsp;{data.city},&nbsp;{data.states},{data.pincode}</li>
 												        				<li><i className="fa fa-arrows col-lg-1 noPadding" aria-hidden="true"></i>&nbsp;Category: {data.category}</li>
 												        				<li><i className="fa fa-globe col-lg-1 noPadding" aria-hidden="true"></i>&nbsp;{data.website}</li>
 												        			</ul>					        		

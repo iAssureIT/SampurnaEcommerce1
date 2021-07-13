@@ -31807,7 +31807,7 @@ class CompanyLocation extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
           columnNumber: 27
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker",
+        className: "fa fa-map-marker-alt",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -46695,7 +46695,7 @@ class BasicInfo extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 33
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker iconMarginLeft",
+      className: "fa fa-map-marker-alt iconMarginLeft",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -47873,7 +47873,7 @@ class ContactDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         var Location = contactOne.contactDetails[i].Location;
         if (contactOne.contactDetails[i].LocationLevel.length > 0) {
          var a = <div className="col-lg-12 col-md-12 col-sm-12 col-sm-12 tithead">
-               <h4><i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{contactOne.contactDetails[i].Location}</h4>
+               <h4><i className="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp;&nbsp;{contactOne.contactDetails[i].Location}</h4>
             </div>;
         }
       contactarray.push({
@@ -48254,7 +48254,7 @@ class ContactDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 25
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker iconMarginLeft",
+      className: "fa fa-map-marker-alt iconMarginLeft",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -48697,7 +48697,7 @@ class ContactDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
           columnNumber: 37
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker",
+        className: "fa fa-map-marker-alt",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -49654,7 +49654,7 @@ class LocationDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 25
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker iconMarginLeft",
+      className: "fa fa-map-marker-alt iconMarginLeft",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -49780,7 +49780,7 @@ class LocationDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 36
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker",
+      className: "fa fa-map-marker-alt",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -50344,7 +50344,7 @@ class LocationDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
           columnNumber: 37
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker",
+        className: "fa fa-map-marker-alt",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -52467,7 +52467,7 @@ class ListOfAllSupplier extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] 
           columnNumber: 15
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker addressIcon",
+        className: "fa fa-map-marker-alt addressIcon",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -52634,7 +52634,7 @@ class ListOfAllSupplier extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] 
           columnNumber: 15
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker addressIcon",
+        className: "fa fa-map-marker-alt addressIcon",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -53911,7 +53911,7 @@ class Leftsidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 19
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker",
+      className: "fa fa-map-marker-alt",
       __self: this,
       __source: {
         fileName: _jsxFileName,
@@ -60878,7 +60878,7 @@ class VendorOnboardingForm extends react__WEBPACK_IMPORTED_MODULE_0__["Component
         columnNumber: 14
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker",
+      className: "fa fa-map-marker-alt",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -61951,7 +61951,7 @@ class BasicInfo extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 21
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker iconMarginLeft",
+      className: "fa fa-map-marker-alt iconMarginLeft",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -63552,7 +63552,7 @@ class ContactDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
                 columnNumber: 10
               }
             }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-              className: "fa fa-map-marker",
+              className: "fa fa-map-marker-alt",
               "aria-hidden": "true",
               __self: this,
               __source: {
@@ -64093,7 +64093,7 @@ class ContactDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 14
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker iconMarginLeft",
+      className: "fa fa-map-marker-alt iconMarginLeft",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -64790,7 +64790,7 @@ class ContactDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
           columnNumber: 20
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker",
+        className: "fa fa-map-marker-alt",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -65690,7 +65690,7 @@ class LocationDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 15
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker iconMarginLeft",
+      className: "fa fa-map-marker-alt iconMarginLeft",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -65808,7 +65808,7 @@ class LocationDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         columnNumber: 19
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fa fa-map-marker",
+      className: "fa fa-map-marker-alt",
       "aria-hidden": "true",
       __self: this,
       __source: {
@@ -66462,7 +66462,7 @@ class LocationDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
           columnNumber: 21
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker",
+        className: "fa fa-map-marker-alt",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -67750,7 +67750,7 @@ class ListOfVendors extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
           columnNumber: 26
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker col-lg-1 noPadding",
+        className: "fa fa-map-marker-alt col-lg-1 noPadding",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -68011,7 +68011,7 @@ class VendorsDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     // 		var a =	<div className="col-lg-12 col-md-12 col-sm-12 col-sm-12 tithead1">
     // 					<div className="col-lg-12 col-md-12 col-sm-12 col-sm-12 locationHeadingMargin">
     // 						<div className="col-lg-1 col-md-1 col-sm-12 col-xs-12 mapIconMargin">
-    // 							<i className="fa fa-map-marker addressIcon" aria-hidden="true"></i>
+    // 							<i className="fa fa-map-marker-alt addressIcon" aria-hidden="true"></i>
     // 						</div>
     // 						<div className="col-lg-11 col-md-1 col-sm-12 col-xs-12">
     // 							<h4>Location Wise Contact Details</h4>
@@ -68523,7 +68523,7 @@ class VendorsDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
           columnNumber: 15
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker addressIcon",
+        className: "fa fa-map-marker-alt addressIcon",
         "aria-hidden": "true",
         __self: this,
         __source: {
@@ -68690,7 +68690,7 @@ class VendorsDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
           columnNumber: 15
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-map-marker addressIcon",
+        className: "fa fa-map-marker-alt addressIcon",
         "aria-hidden": "true",
         __self: this,
         __source: {

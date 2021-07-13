@@ -370,7 +370,7 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
                                     <div className="col-12">
                                         <div className={"row " +Style.ma}>
                                             <div className=" col-9 NoPadding detectLocationBtn">
-                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTNafterLogin}  onClick={this.takeCurrentLocation.bind(this)}><i className="fa fa-map-marker-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
+                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTNafterLogin}  onClick={this.takeCurrentLocation.bind(this)}><i className="fa fa-map-marker-alt-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
                                             </div>
                                             <div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12afterLogin}><div className={"col-2 NoPadding " +Style.orlineAfterLOgin}></div><span className={"col-8 " +Style.MapOrAfterLogin}>OR</span><div className={"col-2 NoPadding " +Style.orline}></div></div>
 

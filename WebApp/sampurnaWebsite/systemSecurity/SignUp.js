@@ -311,16 +311,16 @@ class SignUp extends Component {
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						<label className="blueText">First Name</label><label className="astricsign">*</label>
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="firstname" ref="firstname" name="firstname" placeholder="" onChange={this.handleChange} data-text="firstNameV" />
-						<div className="errorMsg">{this.state.errors.firstname}</div>
+						<div className="errorMsg mt-1">{this.state.errors.firstname}</div>
 
 					</div>
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6">
 						<label className="blueText">Last Name</label><label className="astricsign">*</label>
 						<input type="text" maxLength="25" className="form-control formcontrol1" id="lastname" ref="lastname" name="lastname" placeholder="" onChange={this.handleChange} data-text="lastNameV" />
-						<div className="errorMsg">{this.state.errors.lastname}</div>
+						<div className="errorMsg mt-1 ">{this.state.errors.lastname}</div>
 					</div>
 
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt-4 ">
 						{/* <label>Mobile Number</label><label className="astricsign">*</label>   */}
 						<PhoneInput
 						country={'ae'} 
@@ -353,37 +353,37 @@ class SignUp extends Component {
 					{/* <div className="errorMsg">{this.state.errors.mobNumber}</div>  */}
 					</div>
 
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt-4 ">
 						<label className="blueText">Email ID</label>
 						<input type="email" className="form-control formcontrol1" id="signupEmail" ref="signupEmail" name="signupEmail" placeholder="" onChange={this.handleChange} data-text="emailIDV" />
 						{/* <label className="checkUserExistsError">User already exists!!!</label> */}
-						<div className="errorMsg">{this.state.errors.signupEmail}</div>
+						<div className="errorMsg mt-2">{this.state.errors.signupEmail}</div>
 					</div>
 					
-					{/*<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+					{/*<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 ">
 						<label>Pincode</label><label className="astricsign">*</label>
 						<input minLength="6" maxLength="6" type="number" className="form-control formcontrol1" id="pincode" ref="pincode" placeholder="" name="pincode" onChange={this.handleChange} />
 						<div className="errorMsg">{this.state.errors.pincode}</div>
 					</div>*/}
 
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  mt-4">
 						<label className="blueText">Create Password</label><label className="astricsign">*</label>
 						<input minLength="6" type="password" className="form-control formcontrol1" id="signupPassword" ref="signupPassword" placeholder="" name="signupPassword" onChange={this.handleChange} autoComplete="off" />
 						<div className="showHideSignDiv">
 							<i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignUpPass.bind(this)}></i>
 							<i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignUpPass.bind(this)} style={{display:'none'}}></i>
 						</div>
-						<div className="errorMsg">{this.state.errors.signupPassword}</div>
+						<div className="errorMsg mt-1">{this.state.errors.signupPassword}</div>
 
 					</div>
-					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt15">
+					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6  mt-4">
 						<label className="blueText">Confirm Password</label><label className="astricsign">*</label>
 						<input minLength="6" type="password" className="form-control formcontrol1" id="signupConfirmPassword" ref="signupConfirmPassword" placeholder="" name="signupConfirmPassword" onChange={this.handleChange} autoComplete="off"/>
 						<div className="showHideSignDiv1">
 							<i className="fa fa-eye showConfirmPwd showEyeupSign" aria-hidden="true" onClick={this.showConfirmPass.bind(this)}></i>
 							<i className="fa fa-eye-slash hideConfirmPwd hideEyeSignup " aria-hidden="true" onClick={this.hideConfirmPass.bind(this)} style={{display:'none'}}></i>
 						</div>
-						<div className="errorMsg">{this.state.errors.signupConfirmPassword}</div>
+						<div className="errorMsg mt-1">{this.state.errors.signupConfirmPassword}</div>
 					</div>
 					{
 						this.state.btnLoading
@@ -399,8 +399,8 @@ class SignUp extends Component {
 								</div>
 							</div>
 							:
-							<div className="col-12 mb-3 mt-5">
-							<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn otpBtns">Sign Up</button>
+							<div className="col-12 mb-3 mt-5 ">
+							<button id="signUpBtn" onClick={this.userSignupWithOtp.bind(this)} className="col-12  btn otpBtns	">Sign Up</button>
 							</div>
 					}
 					

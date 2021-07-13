@@ -45,7 +45,7 @@ export default class Footer1 extends Component{
 						<ul>
 							<li><b>Address</b></li>
 							<li className={S.addressWrapperDash}></li>
-							<li><i className="fa fa-map-marker"></i>&nbsp; #323, Amanora Chambers,<br/>Amanora Town Center<br/>Pune, Maharashtra 411028</li>
+							<li><i className="fa fa-map-marker-alt"></i>&nbsp; #323, Amanora Chambers,<br/>Amanora Town Center<br/>Pune, Maharashtra 411028</li>
 							<li><i className="fa fa-whatsapp"></i>&nbsp; +91 99233 93733<br/>(WhatsApp-Only)</li>
 							<li><i className="fa fa-envelope"></i>&nbsp; info@iassureit.com</li>   
 						</ul>

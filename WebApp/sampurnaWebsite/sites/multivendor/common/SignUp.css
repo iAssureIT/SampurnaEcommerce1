@@ -267,6 +267,7 @@ input[type=number] {
   .frmhgt{
     height:50px;
     margin-bottom: 5px;
+    color: #033554 !important;
   }
   .frmhgt1{
     height:68px;

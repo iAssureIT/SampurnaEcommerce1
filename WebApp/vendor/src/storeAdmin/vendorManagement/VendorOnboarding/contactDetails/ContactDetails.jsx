@@ -437,7 +437,7 @@ class ContactDetails extends Component {
 					var Location = contactOne.contactDetails[i].Location;
 					if (contactOne.contactDetails[i].LocationLevel.length > 0) {
 						var a =	<div className="col-lg-12 col-md-12 col-sm-12 col-sm-12 tithead">
-									<h4><i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{contactOne.contactDetails[i].Location}</h4>
+									<h4><i className="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp;&nbsp;{contactOne.contactDetails[i].Location}</h4>
 								</div>;
 					}
 					contactarray.push({
@@ -632,7 +632,7 @@ class ContactDetails extends Component {
 												<li className="col-lg-2 col-md-2 col-sm-12 col-xs-12 transactionTab pdcls pdclsOne btn2 disabled">
 													<div className="triangletwo" id="triangle-right1"></div>
 													<a href="" className="basic-info-pillss pillsHover">
-													<i className="fa fa-map-marker iconMarginLeft" aria-hidden="true"></i>
+													<i className="fa fa-map-marker-alt iconMarginLeft" aria-hidden="true"></i>
 													Location
 													</a>
 													<div className="trianglethree" id="triangle-right"></div>
@@ -770,7 +770,7 @@ class ContactDetails extends Component {
 																	return (
 																		<div className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12 boxul1" key={index}>
 																			<div className="liheader1 col-lg-1 col-md-1 col-sm-1 col-xs-1">
-																				<i className="fa fa-map-marker" aria-hidden="true"></i>
+																				<i className="fa fa-map-marker-alt" aria-hidden="true"></i>
 																			</div>
 																			<ul className="col-lg-10 col-md-10 col-sm-10 col-xs-10 palfclr addrbox">
 																				<li>{data.Name}</li>

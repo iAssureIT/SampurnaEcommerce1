@@ -46,7 +46,7 @@ export default class Footer extends React.Component {
 				      <ul className="footer3">
 					    <li className="menubartitle3"><b>Address</b></li>
 						<li className="AddressDashLine"></li>
-					    <li className="footertitle3"><i className="fa fa-map-marker"></i>&nbsp;&nbsp;#323, Amanora Chambers,<br/>&nbsp;&nbsp;&nbsp;&nbsp;Amanora Town Center,Pune,<br/>&nbsp;&nbsp;&nbsp;&nbsp;Maharashtra 411028</li>
+					    <li className="footertitle3"><i className="fa fa-map-marker-alt"></i>&nbsp;&nbsp;#323, Amanora Chambers,<br/>&nbsp;&nbsp;&nbsp;&nbsp;Amanora Town Center,Pune,<br/>&nbsp;&nbsp;&nbsp;&nbsp;Maharashtra 411028</li>
 						<li className="footertitle4"><i className="fa fa-whatsapp"></i>&nbsp;(Whatsapp-Only)<br/> &nbsp;&nbsp; &nbsp;+91 99233 93733</li>
 						<li className="footertitle3"><i className="fa fa-envelope"></i>&nbsp;info@iassureit.com </li>   
 				      </ul>
@@ -58,7 +58,7 @@ export default class Footer extends React.Component {
 				      <ul className="footer3">
 					    <li className="menubartitle3"><b>Our Awards</b></li>
 						<li className="ourAwardDashLine"></li>
-					    {/* <li className="footertitle3"><i className="fa fa-map-marker"></i> &nbsp;&nbsp;#323 Amanora Chambers Magarpatta Pune Maharastra 411028</li>
+					    {/* <li className="footertitle3"><i className="fa fa-map-marker-alt"></i> &nbsp;&nbsp;#323 Amanora Chambers Magarpatta Pune Maharastra 411028</li>
 						<li className="footertitle4"><i className="fa fa-mobile"></i> &nbsp;+91 99233 93733</li><a href="https://api.WhatsApp.com/send?phone=+919923393733" title="Click To Chat"><img className="whstsappImgWrapper" src="/images/whatsapp-button.png" alt="whstsappImg"/></a>
 						<li className="footertitle3"><i className="fa fa-envelope"></i> &nbsp;&nbsp;info@iassureit.com </li>    */}
 				      </ul>

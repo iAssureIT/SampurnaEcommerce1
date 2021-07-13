@@ -1248,7 +1248,7 @@ class LocationDetails extends Component {
 										<li className="active col-lg-4 col-md-3 col-sm-12 col-xs-12 transactionTab pdcls  pdclsOne btn2 ">
 											<div className="triangletwo" id="triangle-right1"></div>
 											<a href={this.props.match.params.entityID ? "/"+this.props.entity+"/location-details/"+this.props.match.params.entityID : "/"+this.props.entity+"/location-details" } className="basic-info-pillss backcolor">
-												<i className="fa fa-map-marker iconMarginLeft" aria-hidden="true"></i> &nbsp;
+												<i className="fa fa-map-marker-alt iconMarginLeft" aria-hidden="true"></i> &nbsp;
 												Location
 											</a>
 											<div className="trianglethree triangleones forActive" id="triangle-right"></div>
@@ -1269,7 +1269,7 @@ class LocationDetails extends Component {
 												<div className="col-lg-12 col-md-12 col-sm-12 col-sm-12">
 													<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 														<div className="col-lg-6 col-md-6 col-sm-6 col-sm-6 locationTabs">
-															<h4><i className="fa fa-map-marker" aria-hidden="true"></i> Location Details</h4>
+															<h4><i className="fa fa-map-marker-alt" aria-hidden="true"></i> Location Details</h4>
 														</div>
 														<div className="col-lg-6 col-md-6 col-sm-6 col-sm-6 locationTabs">
 															<div className="button4  pull-right" onClick={this.openForm.bind(this)}>
@@ -1624,7 +1624,7 @@ class LocationDetails extends Component {
 																		<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_style">
 																			<div className=" col-lg-1 col-md-1 col-sm-1 col-xs-1 NOpadding">
 																				<div className="locationIcon col-lg-10 col-md-10 col-sm-10 col-xs-10 ">
-																					<i className="fa fa-map-marker" aria-hidden="true"></i>
+																					<i className="fa fa-map-marker-alt" aria-hidden="true"></i>
 																				</div>
 																			</div>
 																			<ul className="col-lg-10 col-md-10 col-sm-10 col-xs-10 palfclr addrbox">

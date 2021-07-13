@@ -738,7 +738,7 @@ class BasicInfo extends Component {
                                 <div className="triangletwo" id="triangle-right1"></div>
                                 
                                 <a  href="#" className="basic-info-pillss backcolor">
-                                <i className="fa fa-map-marker iconMarginLeft" aria-hidden="true"></i>
+                                <i className="fa fa-map-marker-alt iconMarginLeft" aria-hidden="true"></i>
                                 Location
                                 </a>
                                 <div className="trianglethree forActive" id="triangle-right"></div>

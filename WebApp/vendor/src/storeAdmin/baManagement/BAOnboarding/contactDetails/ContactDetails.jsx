@@ -487,7 +487,7 @@ class ContactDetails extends Component {
 
 		    	var a =	<div className="col-lg-12 col-md-12 col-sm-12 col-sm-12 tithead">
 
-								<h4><i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{contactOne.contactDetails[i].Location}</h4>
+								<h4><i className="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp;&nbsp;{contactOne.contactDetails[i].Location}</h4>
 							</div>;
 		    	}
 							// // console.log('{contactOne.contactDetails[i].Location}',contactOne.contactDetails[i].LocationLevel.length)
@@ -695,7 +695,7 @@ class ContactDetails extends Component {
 											<li className="col-lg-2 col-md-2 col-sm-12 col-xs-12 transactionTab pdcls pdclsOne btn2 disabled">
 												<div className="triangletwo" id="triangle-right1"></div>
 												<a href="" className="basic-info-pillss pillsHover">
-												<i className="fa fa-map-marker iconMarginLeft" aria-hidden="true"></i>
+												<i className="fa fa-map-marker-alt iconMarginLeft" aria-hidden="true"></i>
 												Location
 												</a>
 												<div className="trianglethree" id="triangle-right"></div>

@@ -55,7 +55,7 @@ componentDidMount(){
 								<div className="col-lg-12  col-md-12 col-sm-12 col-xs-12 backColorWhite storeInfo ">
 									<label className="onHover"><span>STORE INFORMATION</span></label><br/>
 										<ul className="productList1">
-											<li className="onHover"><i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;123 Sky Tower, West 21th Street, Suite, NY</li>
+											<li className="onHover"><i className="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp;&nbsp;123 Sky Tower, West 21th Street, Suite, NY</li>
 											<li className="onHover"><i className="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;01923-456-789</li>
 											<li className="onHover"><i className="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;info@domain.com</li>
 										</ul>

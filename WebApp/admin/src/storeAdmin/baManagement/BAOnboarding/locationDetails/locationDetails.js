@@ -596,7 +596,7 @@ export default class LocationDetails extends Component{
                       <li className="active col-lg-2 col-md-2 col-sm-12 col-xs-12 transactionTab pdcls pdclsOne btn2">
                         <div className="triangletwo" id="triangle-right1"></div>
                         <a href="#" className="basic-info-pillss">
-                        <i className="fa fa-map-marker iconMarginLeft" aria-hidden="true"></i>
+                        <i className="fa fa-map-marker-alt iconMarginLeft" aria-hidden="true"></i>
                         Location
                         </a>
                         <div className="trianglethree triangle3" id="triangle-right"></div>
@@ -618,7 +618,7 @@ export default class LocationDetails extends Component{
                           <div className="col-lg-12 col-md-12 col-sm-12 col-sm-12">
                               <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="col-lg-6 col-md-6 col-sm-6 col-sm-6 locationTabs">
-                                   <h4 className="MasterBudgetTitle"><i className="fa fa-map-marker" aria-hidden="true"></i> Location Details</h4>
+                                   <h4 className="MasterBudgetTitle"><i className="fa fa-map-marker-alt" aria-hidden="true"></i> Location Details</h4>
                                 </div>  
                                 <div className="col-lg-6 col-md-6 col-sm-6 col-sm-6 locationTabs">
                                   <div className="button4  pull-right">
@@ -749,7 +749,7 @@ export default class LocationDetails extends Component{
                                 return(
                                   <div className="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12 boxul1" key={index}>
                                     <div className="liheader1 col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                      <i className="fa fa-map-marker" aria-hidden="true"></i>
+                                      <i className="fa fa-map-marker-alt" aria-hidden="true"></i>
                                     </div>
                                     <ul className="col-lg-10 col-md-10 col-sm-10 col-xs-10 palfclr addrbox">
                                       <li>{location.addressLine1} , {location.addressLine2}</li>

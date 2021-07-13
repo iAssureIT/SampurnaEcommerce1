@@ -47,20 +47,20 @@ class DisplayLocation extends React.Component {
               ?
                 <span className="row">
                   <span className="col-10 ml-2 mt-1 deliveryAddress"> 
-                  <i className="fa fa-globe"></i> &nbsp; <b>
+                   &nbsp; <b>
                   Your current location is - </b><span className="locationText ">{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span></span>  
                   <div className="col-2 changelocationBtn1Wrapper">
-                    <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Location &nbsp;&nbsp;<i className="fa fa-map-marker" aria-hidden="true"></i></button>
+                    <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Location &nbsp;&nbsp;<i className="fa fa-map-marker-alt" aria-hidden="true"></i></button>
                   </div>
                 </span>
               :
                 <span className="row">
-                  <span className=" col-10 deliveryAddress"> <i className="fa fa-globe"></i> &nbsp; Your Delivery Location is not available </span>  
+                  <span className=" col-10 deliveryAddress">  &nbsp; Your Delivery Location is not available </span>  
                   <button type="button" className="col-2 pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
                 </span>
             :
               <span className="row">
-                <span className=" col-10 deliveryAddress"> <i className="fa fa-globe"></i> &nbsp; Your Delivery Location is not available </span>  
+                <span className=" col-10 deliveryAddress">  &nbsp; Your Delivery Location is not available </span>  
                 <button type="button" className="col-2 pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Select Your Delivery Location</button>  
               </span>
           }     

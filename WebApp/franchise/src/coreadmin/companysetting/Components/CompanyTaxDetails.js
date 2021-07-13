@@ -241,7 +241,7 @@ delTax(event){
                 return (
                   <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 boxTx" key={index}>
                       <div className="liheader1 col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                        <i className="fa fa-map-marker" aria-hidden="true"></i>
+                        <i className="fa fa-map-marker-alt" aria-hidden="true"></i>
                       </div>
                       <ul className="col-lg-10 col-md-10 col-sm-10 col-xs-10 palfclr addrbox">
                         <li>{taxData.taxType}</li>

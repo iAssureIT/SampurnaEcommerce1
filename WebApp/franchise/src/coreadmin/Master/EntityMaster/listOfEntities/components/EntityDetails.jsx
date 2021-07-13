@@ -243,7 +243,7 @@ class VendorsDetails extends Component {
 					        	this.state.locations && this.state.locations.length>0 &&
 					        	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 locationMainContainer">
 					        		<div className="col-lg-1 col-md-1 col-sm-12 col-xs-12 mapIconMargin">
-										<i className="fa fa-map-marker addressIcon" aria-hidden="true"></i>
+										<i className="fa fa-map-marker-alt addressIcon" aria-hidden="true"></i>
 									</div>
 									<div className="col-lg-6 col-md-1 col-sm-12 col-xs-12">
 										<h4>Location Details</h4>

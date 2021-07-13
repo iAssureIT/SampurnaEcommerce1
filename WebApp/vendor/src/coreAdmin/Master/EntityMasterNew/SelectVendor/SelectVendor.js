@@ -225,7 +225,7 @@ class SelectVendor extends React.Component {
                                                             <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 detailBox marbtm30">
                                                                     <div className="col-lg-1 col-md-1 col-sm-12 col-xs-12 mapIconMargin">
-                                                                        <i className="fa fa-map-marker addressIcon"></i>
+                                                                        <i className="fa fa-map-marker-alt addressIcon"></i>
                                                                     </div>
                                                                     <div className="col-lg-6 col-md-1 col-sm-12 col-xs-12">
                                                                         <h4>Location Details</h4>

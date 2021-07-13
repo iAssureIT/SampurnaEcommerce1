@@ -678,7 +678,7 @@ selectType(event){
                       <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 boxul1">
                         <div className=" col-lg-1 col-md-1 col-sm-1 col-xs-1 NOpadding">
                           <div className="locationIcon col-lg-10 col-md-10 col-sm-10 col-xs-10 ">
-                            <i className="fa fa-map-marker" aria-hidden="true"></i>
+                            <i className="fa fa-map-marker-alt" aria-hidden="true"></i>
                           </div>
                         </div>
 

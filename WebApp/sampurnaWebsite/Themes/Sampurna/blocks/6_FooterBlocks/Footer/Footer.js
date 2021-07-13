@@ -151,10 +151,10 @@ export default class Footer extends Component {
                         <div className="col-12">
                         <div className="col-12 col-sm-6 col-lg-12 col-md-12  width pr-0 mt-4">
                             <div className="row">
-                                <a className="col-6 NoPadding" href={"https://www.apple.com/ae/app-store/"} passhref={"true"}>
+                                <a className="col-6 NoPadding" href={"https://www.apple.com/ae/app-store/"} target="_blank" passhref={"true"}>
                                     <div className="appleCard col-12 NoPadding"></div>
                                 </a>
-                                <a className="col-6 NoPadding" href={"https://play.google.com/store/apps/details?id=com.trollymart"} passhref={"true"}>
+                                <a className="col-6 NoPadding" href={"https://play.google.com/store/apps/details?id=com.trollymart"} target="_blank" passhref={"true"}>
                                     <div className="androidCard col-12 NoPadding"></div>
                                 </a> 
                             </div>                    

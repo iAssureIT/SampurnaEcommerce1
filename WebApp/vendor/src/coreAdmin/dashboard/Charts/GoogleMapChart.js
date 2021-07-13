@@ -9,7 +9,7 @@ const Marker = ({ text }) =>{
   return (
      <div>
           <i className=
-          "fa fa-map-marker" style={{fontSize: "x-large",color:'red'}} title={text} />
+          "fa fa-map-marker-alt" style={{fontSize: "x-large",color:'red'}} title={text} />
       </div>
   )
   }

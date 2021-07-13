@@ -302,7 +302,7 @@ export default class OrderDetails extends Component {
                                 </div>
                                 <div className="col-12">
                                     <div className="col-12 orderAddress"> 
-                                    {/* <i className="fa fa-map-marker-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1} */}
+                                    {/* <i className="fa fa-map-marker-alt-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1} */}
                                     </div> 
                                 </div>
                             </div>

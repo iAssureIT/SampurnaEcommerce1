@@ -236,13 +236,13 @@ export default class ContactUsTrollyMart extends Component{
 							<div className={ "col-lg-4  mt-5 mt-lg-0 contactusFormWrapperRightSide "+S.contactusFormWrapperRightSide}>
 								<h3 className={ "col-lg-12 pt-lg-5 mt-lg-5  mt-4 pt-3 getInTouchSubTitle "+S.getInTouchSubTitle} dangerouslySetInnerHTML={ { __html:this.state.blocks.blockSubTitle}}></h3>
 								<div className={ "col-lg-12 pt-lg-4 pt-4 phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-phone-alt"}></i>&nbsp;&nbsp;&nbsp;
-									<label>+971 000 000 000</label>
+									<label>+971 04 591 1186 </label>
 								</div>
-								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>&nbsp;&nbsp;&nbsp;
-									<label>hello@trollymaet.com</label>
+								<div className={ "col-lg-12 pt-lg-4 pt-4  phoneFontAwesomeWrapper "+S.phoneFontAwesomeWrapper}><i className={"fa fa-envelope"}></i>
+									<label className={"col-12 "+S.emailWrapperContactUs}>support@knock-knockeshop.com</label>
 								</div>
 								<div className={ "hero "+S.hero}>
-									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href=""><i className="fab fa-instagram"></i></a> <a href=""><i className="fab fa-facebook-f"></i></a> <a href=""><i className="fab fa-youtube"></i></a> <a href=""><i className="fab fa-linkedin"></i></a> <a href=""><i className="fab fa-twitter"></i></a> </div>
+									<div className={ "social_links col-lg-12 pt-lg-4 pt-4 "+S.social_links}> <a href="https://www.instagram.com/knockknock_eshop/" target="_blank"><i className="fab fa-instagram"></i></a> <a href="https://www.facebook.com/Knock-Knock-103575731986682" target="_blank"><i className="fab fa-facebook-f"></i></a> <a href="https://www.youtube.com/knockknockeshop" target="_blank"><i className="fab fa-youtube" target="_blank"></i></a> <a href="https://www.linkedin.com/knockknockeshop" target="_blank"><i className="fab fa-linkedin"></i></a> <a href="https://twitter.com/knockknockeshop" target="_blank"><i className="fab fa-twitter"></i></a> </div>
 								</div>
 							</div>
 						</div>

@@ -122,7 +122,7 @@ export default class ListOfSupplierFilter extends TrackerReact(Component) {
 						        			<h5 className="titleprofile">Ameya Industrial Suppliers</h5>
 						        			<ul className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 						        				<li><i className="fa fa-user-o" aria-hidden="true"></i></li>
-						        				<li><i className="fa fa-map-marker" aria-hidden="true"></i></li>
+						        				<li><i className="fa fa-map-marker-alt" aria-hidden="true"></i></li>
 						        				<li><i className="fa fa-arrows" aria-hidden="true"></i></li>
 						        				<li><i className="fa fa-globe" aria-hidden="true"></i></li>
 						        			</ul>
@@ -142,7 +142,7 @@ export default class ListOfSupplierFilter extends TrackerReact(Component) {
 						        			<h5 className="titleprofile">Balaji Enterprises</h5>
 						        			<ul className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 						        				<li><i className="fa fa-user-o" aria-hidden="true"></i></li>
-						        				<li><i className="fa fa-map-marker" aria-hidden="true"></i></li>
+						        				<li><i className="fa fa-map-marker-alt" aria-hidden="true"></i></li>
 						        				<li><i className="fa fa-arrows" aria-hidden="true"></i></li>
 						        				<li><i className="fa fa-globe" aria-hidden="true"></i></li>
 						        			</ul>
@@ -162,7 +162,7 @@ export default class ListOfSupplierFilter extends TrackerReact(Component) {
 						        			<h5 className="titleprofile">Global Traders</h5>
 						        			<ul className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 						        				<li><i className="fa fa-user-o" aria-hidden="true"></i></li>
-						        				<li><i className="fa fa-map-marker" aria-hidden="true"></i></li>
+						        				<li><i className="fa fa-map-marker-alt" aria-hidden="true"></i></li>
 						        				<li><i className="fa fa-arrows" aria-hidden="true"></i></li>
 						        				<li><i className="fa fa-globe" aria-hidden="true"></i></li>
 						        			</ul>
@@ -182,7 +182,7 @@ export default class ListOfSupplierFilter extends TrackerReact(Component) {
 						        			<h5 className="titleprofile">SSS Services</h5>
 						        			<ul className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
 						        				<li><i className="fa fa-user-o" aria-hidden="true"></i></li>
-						        				<li><i className="fa fa-map-marker" aria-hidden="true"></i></li>
+						        				<li><i className="fa fa-map-marker-alt" aria-hidden="true"></i></li>
 						        				<li><i className="fa fa-arrows" aria-hidden="true"></i></li>
 						        				<li><i className="fa fa-globe" aria-hidden="true"></i></li>
 						        			</ul>

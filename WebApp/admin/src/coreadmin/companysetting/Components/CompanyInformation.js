@@ -627,7 +627,7 @@ class CompanyInformation extends Component{
             
           </div>
           {/*<div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <h4 className="basicinfotxt"><i className="fa fa-map-marker fonticons" aria-hidden="true"></i>&nbsp;&nbsp;Address</h4>
+            <h4 className="basicinfotxt"><i className="fa fa-map-marker-alt fonticons" aria-hidden="true"></i>&nbsp;&nbsp;Address</h4>
           </div>*/}
           {/*<div className="basicinfocmpset"> 
             <div className="col-lg-12 col-md-4 col-sm-12 col-xs-12">

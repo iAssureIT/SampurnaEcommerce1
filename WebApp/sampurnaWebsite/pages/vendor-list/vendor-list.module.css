@@ -27,8 +27,14 @@
 }
 
 .bgHeight{
-    min-height:1000px;
-    height:auto;
+    /* min-height:1000px; */
+    padding-bottom: 100px!important;
+    height: auto !important;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url(/images/eCommerce/vendorListBg.jpg)!important;
+    background-attachment: static!important;
+    background-position: center!important;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
 }
 
 .deliveryTime{

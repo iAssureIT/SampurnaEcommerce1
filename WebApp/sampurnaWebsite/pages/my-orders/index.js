@@ -347,7 +347,7 @@ export default class MyOrders extends Component {
                                         </div>
                                         <div className="col-12">
                                             <div className="col-12 orderAddress"> 
-                                            <i className="fa fa-map-marker-alt"></i>  {singleOrder.deliveryAddress.addressLine2}, <br/> {singleOrder.deliveryAddress.addressLine1}
+                                            <i className="fa fa-map-marker-alt-alt"></i>  {singleOrder.deliveryAddress.addressLine2}, <br/> {singleOrder.deliveryAddress.addressLine1}
                                             </div> 
                                         </div>
                                     </div>

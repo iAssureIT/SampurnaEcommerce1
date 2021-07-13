@@ -53,7 +53,7 @@ class ListOfAllSupplier extends TrackerReact(Component) {
 				var a =	<div className="col-lg-12 col-md-12 col-sm-12 col-sm-12 tithead1">
 							<div className="col-lg-12 col-md-12 col-sm-12 col-sm-12 locationHeadingMargin">
 								<div className="col-lg-1 col-md-1 col-sm-12 col-xs-12 mapIconMargin">
-									<i className="fa fa-map-marker addressIcon" aria-hidden="true"></i>
+									<i className="fa fa-map-marker-alt addressIcon" aria-hidden="true"></i>
 								</div>
 								<div className="col-lg-11 col-md-1 col-sm-12 col-xs-12">
 									<h4>Location Wise Contact Details</h4>

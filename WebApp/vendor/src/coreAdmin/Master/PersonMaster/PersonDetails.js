@@ -242,7 +242,7 @@ class PersonDetails extends Component {
 											null
 										}
 										<li><i className="fa fa-id-badge" aria-hidden="true"></i>&nbsp;&nbsp;{this.state.personInfo.companyID ? this.state.personInfo.companyName + " ( " + this.state.personInfo.companyID + " )" : " - "}</li>
-										<li><i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;{this.state.personInfo.workLocation ? this.state.personInfo.workLocation : " - "}</li>
+										<li><i className="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp;&nbsp;{this.state.personInfo.workLocation ? this.state.personInfo.workLocation : " - "}</li>
 
 										<li><i className="fa fa-envelope " aria-hidden="true"></i>&nbsp;&nbsp;{this.state.personInfo.email ? this.state.personInfo.email : " - "}</li>
 									</ul>
@@ -252,7 +252,7 @@ class PersonDetails extends Component {
 								this.props.type !== "guest" && this.state.address && this.state.address.length > 0 &&
 								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 locationMainContainer">
 									<div className="col-lg-1 col-md-1 col-sm-12 col-xs-12 mapIconMargin">
-										<i className="fa fa-map-marker addressIcon" aria-hidden="true"></i>
+										<i className="fa fa-map-marker-alt addressIcon" aria-hidden="true"></i>
 									</div>
 									<div className="col-lg-6 col-md-1 col-sm-12 col-xs-12">
 										<h5 className="locationHeading">Address</h5>
@@ -285,7 +285,7 @@ class PersonDetails extends Component {
 								this.props.type !== "guest" && this.state.Documentarray && this.state.Documentarray.length > 0 &&
 								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 locationMainContainer addMarginTopPM">
 									<div className="col-lg-1 col-md-1 col-sm-12 col-xs-12 mapIconMargin">
-										<i className="fa fa-map-marker addressIcon" aria-hidden="true"></i>
+										<i className="fa fa-map-marker-alt addressIcon" aria-hidden="true"></i>
 									</div>
 									<div className="col-lg-6 col-md-1 col-sm-12 col-xs-12">
 										<h5 className="locationHeading">Document List</h5>

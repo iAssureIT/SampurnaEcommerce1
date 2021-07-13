@@ -518,7 +518,7 @@ class ListOfVendors extends Component {
 												        				<li><i className="fa fa-user-o col-lg-1 noPadding" aria-hidden="true"></i>&nbsp;{data.companyName}</li>
 												        				{
 												        					data.locationDetails[0] ? 
-												        					<li><i className="fa fa-map-marker col-lg-1 noPadding" aria-hidden="true"></i>&nbsp;
+												        					<li><i className="fa fa-map-marker-alt col-lg-1 noPadding" aria-hidden="true"></i>&nbsp;
 												        					{data.locationDetails[0].district},&nbsp;{data.locationDetails[0].area},{data.locationDetails[0].pincode}</li>
 												        					: ""
 												        				}

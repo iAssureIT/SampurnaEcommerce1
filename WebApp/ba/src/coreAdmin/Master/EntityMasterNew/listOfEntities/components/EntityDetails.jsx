@@ -205,7 +205,7 @@ class EntityDetails extends Component {
 											<div className="col-lg-12 col-md-12 col-sm-12 col-sm-12 noPadding borderAllED" key={index}>
 												<div  className="col-lg-12 col-md-12 col-sm-12 col-xs-12 noPadding">
 													<ul className="col-lg-6 col-md-12 col-sm-12 col-xs-12 locationUL ">
-						        				<li><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<b> {locationArr.locationType}</b></li>
+						        				<li><i class="fa fa-map-marker-alt" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;<b> {locationArr.locationType}</b></li>
 						        				<i className="textAlignLeft noPadding changeColor col-lg-1 width18px" aria-hidden="true"></i> <li className="col-lg-10 noPadding">#{(locationArr.addressLine2 ? locationArr.addressLine2 +" , "  : "")+locationArr.addressLine1 } ,</li>
 						        				{ locationArr.GSTIN ?
 						        					<li title="GSTIN Number" className="col-lg-12 noPadding"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp; <b>GSTIN </b><br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ locationArr.GSTIN}</li>

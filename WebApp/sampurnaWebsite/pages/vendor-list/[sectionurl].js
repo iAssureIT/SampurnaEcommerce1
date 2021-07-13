@@ -63,20 +63,20 @@ class VendorList extends Component {
         return(
             <div className={ Style.bgGray}>
                 <Header /> 
-                <div className={"container " +Style.bgHeight}>
+                <div className={"col-12 " +Style.bgHeight}>
                     {!this.state.loading
                     ?
-                    <div className="col-12">
+                    <div className="col-10 offset-1">
                         <div className="col-12">
                             <div className={" row " }>
                                 <div className="col-12">
-                                    <div className={"col-12 text-center  mt-5 mb2 " +Style.vendorlistTitle}> <h6>Select Shop</h6></div>
+                                    <div className={"text-center  mt-5 mb2 " +Style.vendorlistTitle}> <h4 className="float-left font-weight-bold">Select Shop</h4></div>
                                 </div>
                                 { Array.isArray(this.state.vendorList) && this.state.vendorList.length >0?
                                         this.state.vendorList.map((vendordata, index)=>{
                                             return(
                                                 <div className="col-6" key={index}>
-                                                    <div className={"col-12 card mt-4 " +Style.vendorCard}>
+                                                    <div className={"col-12 card mt-2 mb-4 " +Style.vendorCard}>
                                                     <Link href={"/products/"+vendordata.vendor_ID+"/"+vendordata.vendorLocation_id +"/"+this.state.sectionurl} className={+Style.vedorLink}>
                                                         <div className={"row card-body " +Style.cardBody}>
                                                             <div className={ "col-3 NoPadding "+Style.vendorLogo}>

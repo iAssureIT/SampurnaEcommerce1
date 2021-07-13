@@ -472,7 +472,7 @@ class customerModal extends Component{
                                     <p>{this.state.email}</p>
                                 </div>
                                 <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <label><i class="fa fa-map-marker" aria-hidden="true"></i> Address </label>
+                                    <label><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Address </label>
                                     <p>{this.state.address}</p>
                                 </div>
                             </div>
@@ -485,7 +485,7 @@ class customerModal extends Component{
                                 : null }
                                 {this.state.pincode ? 
                                 <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <label><i class="fa fa-map-marker" aria-hidden="true"></i> Pincode </label>
+                                    <label><i class="fa fa-map-marker-alt" aria-hidden="true"></i> Pincode </label>
                                     <p>{this.state.pincode}</p>
                                 </div>
                                 : null }

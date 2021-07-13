@@ -72,7 +72,7 @@ export default class StepWizard extends Component{
 	                    <li role="presentation" className="">
 	                        <a>
 	                            <span title="Delivery Address" className="round-tab selectAddr stepwizardclass" id= {"outfrdelivery"+this.props.data._id}>
-	                                <i className="fa fa-map-marker" aria-hidden="true"></i>
+	                                <i className="fa fa-map-marker-alt" aria-hidden="true"></i>
 	                            </span>
 	                        </a>
 	                        <div className="wiztextcontainer"><div className="wiztext">Out for delivery</div>

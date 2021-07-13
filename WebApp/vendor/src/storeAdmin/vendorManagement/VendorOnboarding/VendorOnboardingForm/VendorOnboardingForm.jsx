@@ -36,7 +36,7 @@ class VendorOnboardingForm extends Component{
 								    </li>
 								    <li className="col-lg-2 col-md-2 col-sm-12 col-xs-12 transactionTab pdcls btn2">
 								    	<a data-toggle="pill" href="#locationdetails" className="pillss">
-								    	<i className="fa fa-map-marker" aria-hidden="true"></i>
+								    	<i className="fa fa-map-marker-alt" aria-hidden="true"></i>
 								    		Location Details
 								    	</a>
 								    </li>
