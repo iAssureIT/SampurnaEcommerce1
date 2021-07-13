@@ -3490,7 +3490,8 @@ exports.deliver_single_vendor_order = (req, res, next) => {
 						{ _id: ObjectId(req.body.order_id)},		
 						{
 							$set:{
-								"orderStatus"  : "Delivered"
+								"orderStatus"  		: "Delivered",
+								"deliveryPerson_id" : req.body.user_id
 							}
 						}
 					)
