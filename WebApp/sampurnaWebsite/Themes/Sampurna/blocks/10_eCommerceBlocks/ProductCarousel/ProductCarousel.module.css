@@ -565,11 +565,13 @@ background: #fff;
 .centreDetaillistItemEcommerce{
   font-size: 15px !important;
 }
+
 .panelHeading{
   padding: 5px 10px !important;
   cursor: pointer;
   border-bottom: solid 1px #ccc;
 }
+
 .panelHeading span{
   /* margin-left: 72px!important; */
   /* margin-top: -28px!important; */

@@ -4,7 +4,7 @@ import axios                  from 'axios';
 import Router                 from 'next/router';
 import Link                   from 'next/link';
 import { connect }            from 'react-redux';
-import {getCartData}          from '../../redux/actions/index.js'; 
+import {getCartData,updateCartCount}          from '../../redux/actions/index.js'; 
 import  store                 from '../../redux/store.js'; 
 import Message                from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js'
 import OrderSummury           from './OrderSummury.js';
@@ -82,7 +82,7 @@ class CartProducts extends Component{
             "cartItem_ID" : cartitemid,
             vendor_ID     : vendorid,
         }
-        console.log("Removefromcart===",formValues);
+        // console.log("Removefromcart===",formValues);
         axios.patch("/api/carts/remove" ,formValues)
         .then((response)=>{
             this.setState({
@@ -100,6 +100,7 @@ class CartProducts extends Component{
                 })
             }, 1500);
             this.props.fetchCartData();
+            this.props.updateCartCount();
             
         })
         .catch((error)=>{
@@ -374,7 +375,7 @@ class CartProducts extends Component{
                                                                         <div className="nowrap col-6 col-sm-12 col-sx-12 col-md-4 col-lg-2 col-xl-3 my-4 text-center ">
                                                                         {
                                                                             vendorData.product_ID.availableQuantity > 0 ?
-                                                                                <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice * vendorData.quantity :vendorData.product_ID.originalPrice * vendorData.quantity}</span>
+                                                                                <span className={"cartProductPrize "}> {this.state.currency}&nbsp;{vendorData.product_ID.discountPercent>0?vendorData.product_ID.discountedPrice.toFixed(2) * vendorData.quantity :vendorData.product_ID.originalPrice.toFixed(2) * vendorData.quantity}</span>
                                                                             :
                                                                             <span>-</span>
                                                                         }    
@@ -420,7 +421,7 @@ class CartProducts extends Component{
                                                                 <tr>
                                                                     <td>You Saved</td>
                                                                     <td className="textAlignRight saving">&nbsp; 
-                                                                    <b>{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount : 0.00}</b> </td>
+                                                                    <b>{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount.toFixed(2) : 0.00}</b> </td>
                                                                 </tr>                                                        
                                                                 <tr>
                                                                     <td>Tax</td>  
@@ -563,6 +564,7 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = {
     fetchCartData: getCartData, 
+    updateCartCount  : updateCartCount,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartProducts);

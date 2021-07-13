@@ -26,7 +26,7 @@ class SignUpOTP extends Component {
           var userID                = userDetails.user_id; 
           this.setState({
             userId  : userDetails.userId,
-            phone   : userDetails.phone,
+            phone   : userDetails.mobNumber,
           })
         }
   }
@@ -51,6 +51,9 @@ class SignUpOTP extends Component {
         .then((verifyOtpResponse)=>{
             if(verifyOtpResponse){
                 console.log("verifyOtpResponse==",verifyOtpResponse);
+                if(verifyOtpResponse.data.message === "FAILED"){
+                  swal('Wrong OTP.');
+                }else{
                 var userDetails = {
                     firstname	: verifyOtpResponse.data.userDetails.firstName,
                     lastname	: verifyOtpResponse.data.userDetails.lastName,
@@ -63,9 +66,12 @@ class SignUpOTP extends Component {
                     authService : "",
                 }
                     localStorage.setItem('userDetails', JSON.stringify(userDetails));
-                    swal({text:'Congratulations! You have been successfuly Login, Now you can place your order.'}).then(function(){
-                      window.location.reload();
-                    });
+                    window.location.reload();
+                    swal(response.data.message);
+                    // swal({text:'Congratulations! You have been successfuly Login, Now you can place your order.'}).then(function(){
+                    //   window.location.reload();
+                    // });
+              }
             }
         })
         .catch((error)=>{

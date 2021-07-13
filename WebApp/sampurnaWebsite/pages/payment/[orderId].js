@@ -49,14 +49,15 @@ class Payment extends Component {
       this.setState({
           user_ID : userDetails.user_id,
           email   : userDetails.email,
-          fullName: userDetails.firstName +" "+userDetails.lastName ,         
+          fullName: userDetails.firstName +" "+userDetails.lastName ,   
+          mobile  : userDetails.mobile,   
           currency     : currency,
       })
       
       
   }
   render() {
-    // console.log("this.state.orderData.vendorOrders===",this.state.orderData);
+    console.log("this.state.orderData.vendorOrders===",this.state.orderData);
     return (
       <div className="col-12 ">
         <div className="row">
@@ -105,7 +106,7 @@ class Payment extends Component {
                             </p>
                           </div>
                     </div>
-
+                    {this.state.email &&
                     <div className="col-12 mb-3">
                           <div className="row">
                            <span className="col-6">Email :</span> 
@@ -114,7 +115,17 @@ class Payment extends Component {
                             </p>
                           </div>
                     </div>
-                 
+                    }
+                    {this.state.orderData.deliveryAddress.mobileNumber &&
+                    <div className="col-12 mb-3">
+                          <div className="row">
+                           <span className="col-6">Mobile No. :</span> 
+                            <p className="col-6 text-right invoiceOrderTotal"> 
+                               {this.state.orderData.deliveryAddress.mobileNumber}
+                            </p>
+                          </div>
+                    </div>
+                    }
                     <div className="col-12 mb-3 ">
                           <div className="row">
                            <span className="col-6">Payment Method : </span> 

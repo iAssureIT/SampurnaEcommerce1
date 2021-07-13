@@ -210,7 +210,6 @@ class SignUp extends Component {
 			this.setState({
 				pinValid : pinValid,
 			}); 
-			// console.log("pincode valid ==",pinValid);
 		}
 		let fields = this.state.fields;
 		fields[event.target.name] = event.target.value;
@@ -282,7 +281,6 @@ class SignUp extends Component {
 	openSignInModal(event){
 		event.preventDefault();
 		this.props.updateFormValue("login");
-		// $("#pageOpacity").show();
       	$('#loginFormModal').show();	
 	}
 	render() {		
@@ -332,7 +330,7 @@ class SignUp extends Component {
 						// disabled={false}
 						// disableDropdown={false}
 						// enableAreaCodes={false}
-						// name="phone"
+						name="phone"
 						// className="col-12 formcontrol1"
 						// autoFormat={true}
 						// enableAreaCodes={true}

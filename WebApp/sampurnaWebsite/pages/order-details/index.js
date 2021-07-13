@@ -254,7 +254,7 @@ export default class OrderDetails extends Component {
  
   render() {
     if(this.state.orderData){
-      // console.log("Order Details data====",this.state.orderData );
+      console.log("Order Details data====",this.state.orderData );
     }
     
     return (
@@ -279,32 +279,37 @@ export default class OrderDetails extends Component {
                         <div className="col-6 ">
                             <div className="col-12">{"Order Status : "+(this.state.orderData.orderStatus)}</div>
                             <div className="col-12">{"Order ID : "+(this.state.orderData.orderID)}</div>
-                            <div className="col-12">Total Amount <b>{this.state.orderData.orderID} {this.state.currency}</b></div>
+                            {this.state.orderData && this.state.orderData.paymentDetails &&
+                              <div className="col-12">Total Amount : <b>{this.state.orderData.paymentDetails.netPayableAmount} {this.state.currency}</b></div>
+                            }
                             <div className="col-12">
                              
                               {/* {this.state.orderData && this.state.orderData.paymentDetails &&
                                 "Credit Points  "+this.state.orderData.paymentDetails.creditPointsEarned +" ( "+this.state.currency+" "+this.state.orderData.paymentDetails.creditPointsValueEarned +" )"
-                              } */}{this.state.orderData && this.state.orderData.paymentDetails &&
-                              <span>Credits Points &nbsp;<b>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</b></span>
+                              } */}
+                              {this.state.orderData && this.state.orderData.paymentDetails &&
+                                <span>Credits Points : &nbsp;<b>{this.state.currency} {this.state.orderData.paymentDetails.creditPointsEarned}{this.state.orderData.paymentDetails.creditPointsValueEarned}</b></span>
                               }
-
-                            
                             </div>
                         </div>                       
                         <div className={"col-6 " +Style.rightside}>
                             <div className="row">
                                 <div className="col-12">
-                                  <span className="col-12 text-right">Date - {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("HH:mm A")}</span>
+                                  <span className="col-12 text-right">Date - {moment(this.state.orderData.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(this.state.orderData.createdAt).format("hh:mm A")}</span>
                                   {/* <span className="col-6 text-right"></span> */}
                                 </div>
-                                <div className="col-12">
-                                    <div className="col-12"> <i className="fa fa-wallet"></i>&nbsp;Cash On Delivery</div> 
-                                </div>
-                                <div className="col-12">
-                                    <div className="col-12 orderAddress"> 
-                                    {/* <i className="fa fa-map-marker-alt-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1} */}
-                                    </div> 
-                                </div>
+                                {this.state.orderData && this.state.orderData.paymentDetails &&
+                                  <div className="col-12">
+                                      <div className="col-12"> <i className="fa fa-wallet"></i>&nbsp;{this.state.orderData.paymentDetails.paymentMethod}</div> 
+                                  </div>
+                                }
+                                {this.state.orderData.deliveryAddress && this.state.orderData.deliveryAddress.addressLine2 &&
+                                  <div className="col-12">
+                                      <div className="col-12 orderAddress"> 
+                                      <i className="fa fa-map-marker-alt"></i>  {this.state.orderData.deliveryAddress.addressLine2}, <br/> {this.state.orderData.deliveryAddress.addressLine1}
+                                      </div> 
+                                  </div>
+                                }
                             </div>
                           </div>    
                         {/* <div className="col-6 NOpadding">
@@ -342,7 +347,7 @@ export default class OrderDetails extends Component {
                                   {this.state.orderData.orderStatus !== "Cancelled" &&
                                     this.cancelButton(this.state.orderData.createdAt)&&
                                       <div className="col-12 NoPadding ">
-                                          <div className={"col-12 text-right cancelOrderbtn " +Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                          <div className={"col-12 text-right cancelOrderbtn " +Style.cancelBtn} id={this.state.orderData._id} onClick={this.cancelProductAction.bind(this)}> Cancel Order before  {moment(this.state.orderData.createdAt).add(this.state.orderData.maxDurationForCancelOrder, 'minutes').format("hh:mm A")  } </div>
                                       </div>
                                   }
                                   </div>
@@ -386,16 +391,6 @@ export default class OrderDetails extends Component {
                                       </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="col-12 ">
-                                <div className="row">
-                                  <div className="col-6">
-                                    <p className="orderfootertag"><span>Ordered On &nbsp;&nbsp;: </span>&nbsp;&nbsp;{moment(vendordata.createdAt).format("DD MMMM YYYY")} </p>
-                                  </div>
-                                  <div className="col-6">
-                                    <p className="orderfootertag2"><span>Ordered Total &nbsp;&nbsp;: </span>&nbsp;&nbsp;<span className="currencyColor">{this.state.currency}</span>&nbsp;<b>{vendordata.vendor_afterDiscountTotal}</b> </p>
-                                  </div>
-                                </div> 
                               </div>
                             </div>
                           );

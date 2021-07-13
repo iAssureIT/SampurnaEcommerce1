@@ -101,7 +101,7 @@ class SingleProduct extends Component{
         var recentCartData = this.props.recentCartData.length > 0 ? this.props.recentCartData[0].cartItems : [];
         var productCartData = recentCartData.filter((a) => a.product_ID === id);
         var quantityAdded = productCartData.length > 0 ? productCartData[0].quantity : 0;
-        console.log("quantityAdded===",quantityAdded,availableQuantity);
+        // console.log("quantityAdded===",quantityAdded,availableQuantity);
         // var quantityAdded=1;
         var formValues = {
           "user_ID"           : this.state.user_ID,
@@ -222,7 +222,7 @@ class SingleProduct extends Component{
     }
 
     render(){
-      // console.log("single productView props=",this.props);
+      // console.log("single productView props=",this.props.data);
       { var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === this.props.data._id) : [];                              
         var wishClass = 'r';
         var tooltipMsg = '';
@@ -366,7 +366,7 @@ class SingleProduct extends Component{
                                 }     
                                 </div>                                           
                                 :
-                                <div className={"col-12 " +Style.outOfStock}>Sold Out</div>
+                                <div className={"col-12 globalAddToCartBtn " +Style.outOfStock}>Sold Out</div>
                             }
                         </div>
                         </div>

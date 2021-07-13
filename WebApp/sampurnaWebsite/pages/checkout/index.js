@@ -43,7 +43,7 @@ class Checkout extends Component {
             },
             deliveryAddress   : [],
             pincodeExists     : true,
-            paymentmethods    : "cod",
+            paymentmethods    : "Cash On Delivery",
             paymethods        : false,
             addressLine1      : "",
             addType           : '',
@@ -171,7 +171,7 @@ class Checkout extends Component {
             .then( (creditRes)=>{
                 // console.log("credit response==",creditRes);
                 if(creditRes.data){
-                    console.log("credit response==",creditRes.data);
+                    // console.log("credit response==",creditRes.data);
                     if(creditRes.data === "You haven't earned any credit points yet"){
                         this.setState({
                             creditdata : creditRes.data
@@ -212,7 +212,7 @@ class Checkout extends Component {
                                     
                     fields["pincode"] = response.data.profile.pincode;
                     fields["addType"] = response.data.deliveryAddress[0] ? response.data.deliveryAddress[0].addType : null ;
-                    fields["paymentmethods"] = 'cod';
+                    fields["paymentmethods"] = 'Cash On Delivery';
                     this.setState({
                         fields
                     });
@@ -310,7 +310,7 @@ class Checkout extends Component {
     placeOrder(event) {
         event.preventDefault();        
         var addressValues = {};
-        $("html, body").animate({ scrollTop: 450 }, 800);
+        // $("html, body").animate({ scrollTop: 550 }, 800);
         // console.log("place order this.state.recentCartData.vendorOrders==",this.state.recentCartData);
         var vendorOrders = this.state.recentCartData.vendorOrders;
         // console.log("this.state.recentCartData.vendorOrders==",this.state.recentCartData);
@@ -352,8 +352,8 @@ class Checkout extends Component {
         }
 
             this.state.recentCartData.paymentDetails.paymentMethod = paymentMethod;
-            console.log("Formvalues in order details page ===",formValues);
-            console.log("Formvalues===",formValues);
+            // console.log("Formvalues in order details page ===",formValues);
+            // console.log("Formvalues===",formValues);
             for(var i=0;i<this.state.recentCartData.vendorOrders.length;i++){
                 var soldProducts = this.state.recentCartData.vendorOrders[i].products.filter((a, i) => {
                     return a.availableQuantity <= 0;
@@ -425,7 +425,7 @@ class Checkout extends Component {
                 }
                 axios.patch('/api/carts/address', addressValues)
                     .then(async (response) => {
-                        console.log("Response After inserting address to cart===",response);
+                        // console.log("Response After inserting address to cart===",response);
                         for(i=0;i<this.state.recentCartData.vendorOrders.length;i++){
                         var cartItems = this.state.recentCartData.vendorOrders[i].products.map((a, i) => {
                             return {
@@ -555,7 +555,7 @@ class Checkout extends Component {
                                     console.log(error);
                                 })
                         } else {
-                            $("html, body").animate({ scrollTop: 0 }, 800);
+                            // $("html, body").animate({ scrollTop: 400 }, 800);
                             this.setState({
                                 isCheckedError: ["Please accept the terms & conditions."]
                             });
@@ -568,7 +568,7 @@ class Checkout extends Component {
             }
         }
     } else{
-        $("html, body").animate({ scrollTop: 0 }, 500);
+        // $("html, body").animate({ scrollTop: 0 }, 500);
     }
    
     }
@@ -664,7 +664,8 @@ class Checkout extends Component {
     deleteCoupon(event){
         event.preventDefault();
         this.setState({
-            recentCartData: this.props.recentCartData
+            recentCartData: this.props.recentCartData,
+            couponCode : '',
         },()=>{
             $('.couponCreditWrapper').show(500);
         })
@@ -672,7 +673,8 @@ class Checkout extends Component {
     deleteCredit(event){
         event.preventDefault();
         this.setState({
-            recentCartData: this.props.recentCartData
+            recentCartData: this.props.recentCartData,
+            creaditPoint : '',
         },()=>{
             $('.couponCreditWrapper').show(500);
         })
@@ -712,13 +714,13 @@ class Checkout extends Component {
     applyCreditPoint(event){
         event.preventDefault();
         var creaditPointValueEnter = this.refs.creaditPoint.value;
-        console.log("my creaditPoint===",creaditPointValueEnter);
+        // console.log("my creaditPoint===",creaditPointValueEnter);
             const formValues ={
                 "user_ID"           : this.state.user_ID,
                 creditPointsValueUsed  : parseFloat(creaditPointValueEnter)
             }
-            console.log("formValues==",formValues);
-            console.log("this.state.creditdataValue===",this.state.creditdataValue);
+            // console.log("formValues==",formValues);
+            // console.log("this.state.creditdataValue===",this.state.creditdataValue);
             if(creaditPointValueEnter <= this.state.creditdataValue){
                 axios.patch('/api/carts/redeem/creditpoints',formValues)
                 .then(AfterCreditResponse=>{
@@ -733,7 +735,7 @@ class Checkout extends Component {
                         },()=>{
                             console.log("recentCartData=",this.state.recentCartData);
                         })
-                        swal('Credit point apply successfully');
+                        swal('Credit Point Applied successfully');
                         $('.couponCreditWrapper').hide();
                         // if(AfterCreditResponse.data.message === "Credit Applied Successfully!"){
                         //     $('.couponCreditWrapper').hide();
@@ -1000,7 +1002,7 @@ class Checkout extends Component {
                                                 <div className="row mt-5 couponWrapper ">
                                                     <label className={" " +Style.f13N}>Enter Discount Coupon Here</label>
                                                     <div className={"form-group col-8 NoPadding " +Style.border1}>                                                        
-                                                        <input type="text" className={"form-control couponCode " +Style.border1} ref="couponCode" id="couponCode" label="Supriya" name="couponCode" placeholder="Enter Discount Coupon Here..." />
+                                                        <input type="text" className={"form-control couponCode " +Style.border1} ref="couponCode" id="couponCode" label="couponCode" value={this.state.couponCode}  name="couponCode" placeholder="Enter Discount Coupon Here..." />
                                                     </div>
                                                     <div className="col-4 NoPadding">
                                                         <button type="button" className={"col-12 btn pull-right " +Style.border2 +" "+Style.cuponBtn} onClick={this.applyCoupon.bind(this)}>Apply</button>

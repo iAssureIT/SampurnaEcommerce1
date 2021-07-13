@@ -437,7 +437,6 @@ class Product extends Component{
                   </div>
                 </div>                            
               );
-            
             })
             :<div className ="text-center">Opps... Sorry... No Products Available</div>
             // <Loader type="carouselloader" productLoaderNo = {4}/>

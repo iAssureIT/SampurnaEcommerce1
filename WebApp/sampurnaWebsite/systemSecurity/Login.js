@@ -40,7 +40,6 @@ class Login extends Component {
       errors: {}
     }
   }
-
   componentDidMount() {
     $(".hidePwd").css('display','none');
   }
@@ -52,6 +51,34 @@ class Login extends Component {
       fields
     });
   }
+  validateForm() {
+    let fields = this.state.fields;
+    let errors = {};
+    let formIsValid = true;
+
+    if (!fields["loginusername"]) {
+      formIsValid = false;
+      errors["loginusername"] = "Username can't be empty.";
+    }
+    // if (typeof fields["loginusername"] !== "undefined") {
+    //   //regular expression for email validation
+    //   var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
+    //   if (!pattern.test(fields["loginusername"])) {
+    //     formIsValid = false;
+    //     errors["loginusername"] = "Please enter valid username.";
+    //   }
+    // }
+
+    if (!fields["loginpassword"]) {
+      formIsValid = false;
+      errors["loginpassword"] = "Password can't be empty.";
+    }
+
+    this.setState({
+      errors: errors
+    });
+    return formIsValid;
+  }
 
   userlogin(event) {
     event.preventDefault();
@@ -60,96 +87,44 @@ class Login extends Component {
       password: this.refs.loginpassword.value,
       role: "user"
     }
-    console.log("inside user login");
-      axios.post('/api/auth/post/login/mob_email', payload)
-        .then((response) => {
-          if(response.data){
-            console.log("login response=",response);
-            if (response.data.ID) {
-              var userDetails = {
-                firstName   : response.data.userDetails.firstName,
-                lastName    : response.data.userDetails.lastName,
-                companyID   : parseInt(response.data.userDetails.companyID),
-                email       : response.data.userDetails.email,
-                phone       : response.data.userDetails.phone,
-                pincode     : response.data.userDetails.pincode,
-                user_id     : response.data.userDetails.user_id,
-                roles       : response.data.userDetails.roles,
-                token       : response.data.userDetails.token,
-                authService : "",
-              }        
-              localStorage.setItem('userDetails', JSON.stringify(userDetails));
-              this.setState({
-                loggedIn: true
-              }, () => {
-                swal({text:'Thank You, You have been successfully logged in.'}).then(function(){
-                  window.location.reload();
-                });
-                
-              })
-            } else if (response.data.message === "USER_BLOCK") {
-              swal({
-                text: "You are blocked by admin. Please contact Admin."
-              });
-              document.getElementById("logInBtn").value = 'Sign In';
-            } else if (response.data.message === "NOT_REGISTER") {
-              swal({
-                text: "This Email ID is not registered. Please try again."
-              });
-              document.getElementById("logInBtn").value = 'Sign In';
-            } else if (response.data.message === "INVALID_PASSWORD") {
-              swal({
-                text: "You have entered wrong password. Please try again."
-              });
-              document.getElementById("logInBtn").value = 'Sign In';
-            } else if (response.data.message === "USER_UNVERIFIED") {
-              swal({
-                text: "You have not verified your account. Please verify your account."
-              })
-                .then((value) => {
-                  var emailText = {
-                    "emailSubject": "Email Verification",
-                    "emailContent": "As part of our registration process, we screen every new profile to ensure its credibility by validating email provided by user. While screening the profile, we verify that details put in by user are correct and genuine.",
+      if(this.validateForm()){
+        axios.post('/api/auth/post/login/mob_email', payload)
+          .then((response) => {
+            if(response.data){
+              console.log("login response=",response);
+              if (response.data.ID) {
+                var userDetails = {
+                  firstName   : response.data.userDetails.firstName,
+                  lastName    : response.data.userDetails.lastName,
+                  companyID   : parseInt(response.data.userDetails.companyID),
+                  email       : response.data.userDetails.email,
+                  phone       : response.data.userDetails.phone,
+                  pincode     : response.data.userDetails.pincode,
+                  user_id     : response.data.userDetails.user_id,
+                  roles       : response.data.userDetails.roles,
+                  token       : response.data.userDetails.token,
+                  authService : "",
+                }        
+                localStorage.setItem('userDetails', JSON.stringify(userDetails));
+                this.setState({
+                  loggedIn: true
+                }, () => {
+                  // swal({text:'Thank You, You have been successfully logged in.'}).then(function(){
+                  //   window.location.reload();
+                  // });
+                  if(response.data.message === "Login Auth Successful"){
+                    window.location.reload();
+                  }else{
+                    swal(response.data.message);
                   }
-                });
+                })
+              }
             }
-          }
-        })
-        .catch((error) => {
-          console.log("error while login user=", error);
-          swal({
-            text: "Please enter valid Email ID and Password"
           })
-        });
-  }
-
-  validateForm() {
-    let fields = this.state.fields;
-    let errors = {};
-    let formIsValid = true;
-
-    if (!fields["loginusername"]) {
-      formIsValid = false;
-      errors["loginusername"] = "Please enter your email.";
-    }
-    if (typeof fields["loginusername"] !== "undefined") {
-      //regular expression for email validation
-      var pattern = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
-      if (!pattern.test(fields["loginusername"])) {
-        formIsValid = false;
-        errors["loginusername"] = "Please enter valid email.";
+          .catch((error) => {
+            console.log("error while login user=", error);
+          });
       }
-    }
-
-    if (!fields["loginpassword"]) {
-      formIsValid = false;
-      errors["loginpassword"] = "Please enter your password.";
-    }
-
-    this.setState({
-      errors: errors
-    });
-    return formIsValid;
   }
 
   closeModal(event){

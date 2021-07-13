@@ -318,7 +318,7 @@ export default class MyOrders extends Component {
                   <div className="col-12">
                     {this.state.orderData && this.state.orderData.length > 0 ? 
                       this.state.orderData.map((singleOrder, index) => {
-                        console.log("singleOrder=",singleOrder);
+                        // console.log("singleOrder=",singleOrder);
                         return(
                           <div className={"col-12 NoPadding orderIdborder " +Style.orderIdborderNew} key={index}>
                             <div className="col-12  NoPadding orderNowrapper mb-4 " style={{'backgroundColor': singleOrder.orderStatus==="New"&& '#033554' ||
@@ -329,17 +329,17 @@ export default class MyOrders extends Component {
                                 <div className="col-6">
                                     <div className="col-12"><b>{singleOrder.orderStatus}</b></div>
                                     <div className="col-12">{"Order ID : "+(singleOrder.orderID)}</div>
-                                    <div className="col-12">Total Amount &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</b></div>
+                                    <div className="col-12">Total Amount : &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.netPayableAmount}</b></div>
                                     <div className="col-12">
                                      
-                                   Credits Points &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</b>
+                                   Credits Points : &nbsp;<b>{this.state.currency} {singleOrder.paymentDetails.creditPointsEarned}{singleOrder.paymentDetails.creditPointsValueEarned}</b>
                                      
                                     </div>
                                 </div>                       
                                 <div className={"col-6 " +Style.rightside}>
                                     <div className="row">
                                         <div className="col-12">
-                                          <span className="col-12 text-right">Date - {moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("HH:mm A")}</span>
+                                          <span className="col-12 text-right">Date : {moment(singleOrder.createdAt).format("DD/MM/YYYY")}&nbsp;&nbsp;{moment(singleOrder.createdAt).format("hh:mm A")}</span>
                                           {/* <span className="col-6 text-right"></span> */}
                                         </div>
                                         <div className="col-12">
@@ -383,11 +383,25 @@ export default class MyOrders extends Component {
                                               </div>
                                           </div>
 
-                                          {vendordata.orderStatus=== "Cancelled"?
+                                          {vendordata.orderStatus=== "Cancelled"&&
                                             <span className={" col-2  orderStatusBadge badge badge-danger NoPadding "+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
-                                          :
-                                            <span className={" col-2  orderStatusBadge badge badge-primary NoPadding "+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
                                           }
+                                          {vendordata.orderStatus=== "New"&&
+                                            <span className={" col-2  orderStatusBadge badge badge-primary NoPadding "+Style.orderStatusBadge}>{"Processing"}</span>
+                                          }
+                                          {vendordata.orderStatus=== "Processing"&&
+                                            <span className={" col-2  orderStatusBadge badge badge-primary NoPadding "+Style.orderStatusBadge}>{"Processing"}</span>
+                                          }
+                                          {vendordata.orderStatus=== "On the Way" &&
+                                            <span className={" col-2  orderStatusBadge badge badge-primary  NoPadding "+Style.orderStatusBadge +" " +Style.customeBadge}>On the Way</span>
+                                          }
+                                          {vendordata.orderStatus=== "Ready to Dispatch"&&
+                                            <span className={" col-2  orderStatusBadge badge badge-primary  NoPadding "+Style.orderStatusBadge +" " +Style.customeBadge}>On the Way</span>
+                                          }
+                                          {vendordata.orderStatus=== "Delivered"&&
+                                            <span className={" col-2  orderStatusBadge badge badge-success NoPadding "+Style.orderStatusBadge}>{vendordata.orderStatus}</span>
+                                          }
+                                          
                                         </div>
                                         </div>
                                       </div>
@@ -404,7 +418,7 @@ export default class MyOrders extends Component {
                                       <div className="col-5 pull-left">
                                         {this.cancelButton(singleOrder.createdAt)&& singleOrder.orderStatus === "New" &&
                                           <div className="col-12 ">
-                                              <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("HH:mm")  } </div>
+                                              <div className={"col-12 cancelOrderbtn " +Style.cancelBtn} id={singleOrder._id} onClick={this.cancelProductAction.bind(this)}> Cancel before  {moment(singleOrder.createdAt).add(singleOrder.maxDurationForCancelOrder, 'minutes').format("hh:mm:A")  } </div>
                                           </div>
                                         }
                                       </div>

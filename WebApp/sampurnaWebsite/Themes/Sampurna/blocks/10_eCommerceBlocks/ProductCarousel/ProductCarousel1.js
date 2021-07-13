@@ -148,7 +148,7 @@ class ProductCarousel extends Component {
     }
 
     var url = window.location.href.split('/');
-    // console.log("url===",url);
+    console.log("url===",url);
     if(url[3]===undefined){
       var addToCart = true
       this.setState({
@@ -183,9 +183,9 @@ class ProductCarousel extends Component {
           console.log("error in get vendor=",error);
         })
       }
-          // console.log("1.sectionUrl===",this.state.sectionUrl);
-          // console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
-          // console.log("2.categoryUrl===",this.state.categoryUrl);
+          console.log("1.sectionUrl===",this.state.sectionUrl);
+          console.log("1.subCategoryUrl===",this.state.subCategoryUrl);
+          console.log("2.categoryUrl===",this.state.categoryUrl);
       })
     }
     var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -212,25 +212,30 @@ class ProductCarousel extends Component {
         
       },async ()=>{
         if(this.state.blockSettings.showCarousel === false){
-          // console.log("this.state.sectionUrl===",this.state.sectionUrl,this.state.vendor_ID);
           await axios.get("/api/category/get/list/"+this.state.sectionUrl+"/" +this.state.vendor_ID)     
           .then((categoryResponse)=>{
             if(categoryResponse.data){     
               console.log("categoryResponse====",categoryResponse.data); 
                 for(let i=0 ;i<categoryResponse.data.categoryList.length;i++){
-                  // console.log("categoryResponse.data.categoryList[i].categoryUrl=",categoryResponse.data.categoryList[i].categoryUrl,"===",this.state.categoryUrl);
                     if(categoryResponse.data.categoryList[i].categoryUrl === this.state.categoryUrl){
                       var subCategoryData = categoryResponse.data.categoryList[i].subCategory;
+                      console.log("if subCategoryData array=>",subCategoryData);
                       subcategoryArray = true;
+                      this.setState({
+                        categoryUrl    :  categoryResponse.data.categoryList[0].categoryUrl,
+                        subCategoryUrl :  this.state.subCategoryUrl?'':subCategoryData[0].subCategoryUrl,
+                      })
                       noCategoryUrl = false;
                       break;
                      }
                 }
                   if(subcategoryArray === false){
                     var subCategoryData = categoryResponse.data.categoryList[0].subCategory;
-                      // console.log("else subCategoryData===",subCategoryData);
+                      console.log("else subCategoryData===",subCategoryData);
                       this.setState({
-                        categoryUrl :  categoryResponse.data.categoryList[0].categoryUrl,
+                        categoryUrl    :  categoryResponse.data.categoryList[0].categoryUrl,
+                        // subCategoryUrl :  subCategoryData[0].subCategoryUrl,
+                        subCategoryUrl :  this.state.subCategoryUrl?'':subCategoryData[0].subCategoryUrl,
                       })
                       noCategoryUrl = false;
                   }
@@ -240,10 +245,12 @@ class ProductCarousel extends Component {
                       // console.log("else subCategoryData===",subCategoryData);
                       this.setState({
                         categoryUrl :  categoryResponse.data.categoryList[0].categoryUrl,
+                        subCategoryUrl :  this.state.subCategoryUrl,
                       })
                   }
 
                   if(subCategoryData){
+                    console.log("if subCategoryData available ===",subCategoryData);
                         this.setState({
                           categoryData     : categoryResponse.data.categoryList,  
                           brandData        : categoryResponse.data.brandList, 
@@ -280,7 +287,7 @@ class ProductCarousel extends Component {
             "startRange"        : this.state.startRange,
             "limitRange"        : this.state.limitRange,
             }
-            // console.log("carousel formValues=>",formValues);
+            console.log("carousel formValues=>",formValues);
         }
         if(!this.state.blockSettings.showCarousel && this.state.filterSettings){
           var productApiUrl = this.props.productApiUrl;
@@ -298,7 +305,7 @@ class ProductCarousel extends Component {
               productApiUrl : productApiUrl,
             })
         }
-        console.log("getProductLIst productApiUrl===",this.state.productApiUrl,"Formvalues==",formValues,"BrandsData==",this.state.brandData,"categoryData==",this.state.subcategoryArray);
+        console.log("getProductLIst formvalues===",this.state.productApiUrl,formValues);
         this.getProductList(productApiUrl,formValues);
        
       });
@@ -336,7 +343,7 @@ getProductList(productApiUrl,formValues){
     axios.post(productApiUrl,formValues)     
     .then((response)=>{
       if(response.data){     
-      // console.log("response.data===",response.data);
+      console.log("response.data===",response.data);
       this.setState({
         newProducts     : response.data,   
         // newProducts     : response.data.concat(this.state.newProducts),                         
@@ -503,7 +510,7 @@ submitCart(event) {
 			let field = 'discountedPrice';
       sortBy = 'PH';
 		} 
-    // console.log("formValues===",formValues);
+    console.log("formValues===",formValues);
     // console.log("formValues===",formValues);
     var formValues = {
       "vendor_ID"      : "",
@@ -548,7 +555,7 @@ submitCart(event) {
         "sortProductBy"  : '',
         "brand"          : this.state.brandArray 
       }  
-      // console.log("formValues=",formValues);
+      console.log("formValues=",formValues);
         $("html, body").animate({ scrollTop: 0 }, 800);
         this.getProductList(this.state.productApiUrl,formValues);
     })

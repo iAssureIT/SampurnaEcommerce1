@@ -49,7 +49,7 @@ class CategoryBlock extends Component{
       }
 
       if(url[7] === undefined){
-        console.log("sucategory===",url[8]);
+        // console.log("sucategory===",url[8]);
         $('.category_'+0).addClass('activeCategory')
       }
     }

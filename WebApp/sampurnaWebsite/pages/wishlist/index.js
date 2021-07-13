@@ -31,6 +31,7 @@ class Wishlist extends Component {
   }
 
   async componentDidMount() {
+    console.log("insode wish");
     $(window).scrollTop(0);
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
     if(sampurnaWebsiteDetails.deliveryLocation){

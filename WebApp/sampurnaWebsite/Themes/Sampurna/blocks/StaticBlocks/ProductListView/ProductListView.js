@@ -252,7 +252,7 @@ render() {
                         Array.isArray(this.props.newProducts) && this.props.newProducts.length > 0 ?
                             Array.isArray(this.props.newProducts) && this.props.newProducts.map((data, index) => { 
                                 var x = this.props.recentWishlistData && this.props.recentWishlistData.length> 0 ? this.props.recentWishlistData.filter((wishlistItem) => wishlistItem.product_ID === data._id) : [];
-                              //  console.log("data===",data);
+                               console.log("data===",data);
                                 var wishClass = 'o';
                                 var tooltipMsg = '';
                                 if (x && x.length > 0) {
@@ -278,7 +278,7 @@ render() {
                                     user_ID            = {this.state.user_ID}
                                     // vendor_ID          = {this.props.vendor_ID}
                                     // vendorlocation_ID  = {this.props.vendorlocation_ID}
-                                    vendor_ID          = {data.vendor_ID}
+                                    vendor_ID          = {data.vendor_id}
                                     vendorlocation_ID  = {data.vendorLocation_id}
                                   />
                                 :
