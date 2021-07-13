@@ -378,7 +378,7 @@ class DeliveryLocationPopup extends React.Component {
                                     <div className="col-12">
                                         <div className={"row " +Style.ma}>
                                             <div className=" col-9 NoPadding detectLocationBtn">
-                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}><i class="fa fa-map-marker-alt" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
+                                                <button type="button" className={"btn pull-center mt-1 " +Style.locationBTN}  onClick={this.takeCurrentLocation.bind(this)}><i className="fa fa-map-marker" aria-hidden="true"></i> &nbsp;&nbsp;Current Location</button>
                                             </div>
                                             <div className={"text-center NoPadding orText1 col-3 mt-3 " +Style.tw +" "+Style.f12}><div className={"col-2 NoPadding " +Style.orline}></div><span className={"col-8 " +Style.MapOr}>OR</span><div className={"col-2 NoPadding " +Style.orline}></div></div>
 

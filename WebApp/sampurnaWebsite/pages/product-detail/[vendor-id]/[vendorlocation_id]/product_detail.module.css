@@ -54,8 +54,8 @@
     text-align: center;
 }
 .zoomImgWrapper img{
-	height: 300px !important;
-	width: 300px !important;
+	height: 400px !important;
+	width: 360px !important;
 	border: solid 1px #eee;
 }
 .f12{

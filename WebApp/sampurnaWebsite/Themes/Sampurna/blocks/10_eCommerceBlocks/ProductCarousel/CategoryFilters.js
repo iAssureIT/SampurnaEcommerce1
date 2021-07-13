@@ -41,7 +41,7 @@ class CategoryFilters extends Component{
 
     componentDidMount(){
       var url = window.location.href.split('/');
-      console.log("url[8]===",url[8]);
+      // console.log("url[8]===",url[8]);
       if(url[8] === undefined){
         console.log("sucategory===",url[8]);
         $('.panel-title_0').addClass('activeSubCategory');
@@ -65,7 +65,7 @@ class CategoryFilters extends Component{
     // }
 
     render(){
-      // console.log("this.props.categoryData===",this.props.categoryData);
+      console.log("category filter this.props.categoryData===",this.props);
       return (
           <div className="panel-group" id="accordion">    
             {this.props.categoryData && this.props.categoryData.length>0?                  

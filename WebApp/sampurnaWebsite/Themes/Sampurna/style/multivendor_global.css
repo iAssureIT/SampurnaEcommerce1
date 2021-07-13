@@ -422,7 +422,7 @@ body{
   /* border-radius: var(--globalborderRadious) !important; */
   text-align:center;
   padding: 10px 15px !important;
-  margin-top: 17px !important;
+  /* margin-top: 17px !important; */
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   margin-bottom: 0px;

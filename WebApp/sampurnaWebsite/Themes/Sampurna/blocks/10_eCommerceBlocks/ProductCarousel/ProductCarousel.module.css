@@ -365,8 +365,8 @@ font-weight: bold;
   transition: .4s ease;
 }
 .productWrapper{
-  padding-left: 8px;
-  padding-right: 8px;
+  /* padding-left: 8px; */
+  /* padding-right: 8px; */
   margin-bottom: 25px !important;
 }
 .productListWrapper{
@@ -505,7 +505,7 @@ background: #fff;
 /* css for filters */
 .categoryFilterTitle{
   font-size: 16px;
-  padding: 20px 20px;
+  padding: 20px 10px;
   font-weight: 700;
   border-bottom:solid 1px #ddd;
   background-color: #F9F9F9;
@@ -571,11 +571,11 @@ background: #fff;
   border-bottom: solid 1px #ccc;
 }
 .panelHeading span{
-  margin-left: 72px!important;
-  margin-top: -28px!important;
+  /* margin-left: 72px!important; */
+  /* margin-top: -28px!important; */
 }
 .panelHeading input{
-  margin-left: 46px!important;
+  /* margin-left: 46px!important; */
 }
 
 .panelHeading h4 a{
@@ -585,7 +585,7 @@ background: #fff;
   
 }
 .panelHeading h4{
- margin-left: 72px!important;
+ /* margin-left: 72px!important; */
 }
 .sortPbWrapper{
   margin-left: 82%!important;

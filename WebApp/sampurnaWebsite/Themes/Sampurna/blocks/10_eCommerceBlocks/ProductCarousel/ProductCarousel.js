@@ -24,8 +24,6 @@ const { publicRuntimeConfig } = getConfig();
 var projectName = publicRuntimeConfig.CURRENT_SITE;
 const productImgHeight = publicRuntimeConfig.IMGHeight;
 
-  
-
 const sortOptions = [
   { value: 'alphabeticallyAsc', label: 'Sort By A -> Z' },
   { value: 'alphabeticallyDsc', label: 'Sort By Z -> A' },
@@ -97,28 +95,28 @@ class ProductCarousel extends Component {
       userLatitude : "",
       userLatitude : "",
       startRange   : 0,
-      limitRange   : 10,
+      limitRange   : 28,
       vendor_ID    : "",
       categoryUrl  : "",
       brandArray   : [],
     };
   }
 
-  componentDidUpdate(){
-    if(this.state.categoryData.length < 1){
-			$('.filterWrapper').hide();
-			$('.ProductViewWrapper').removeClass('col-lg-9');
-			$('.ProductViewWrapper').removeClass('col-md-9');			
-			$('.ProductViewWrapper').addClass('col-lg-12');
-			$('.ProductViewWrapper').addClass('col-md-12');
-		}else{
-      $('.filterWrapper').show();
-			$('.ProductViewWrapper').addClass('col-lg-9');
-			$('.ProductViewWrapper').addClass('col-md-9');
-			$('.ProductViewWrapper').removeClass('col-lg-12');
-			$('.ProductViewWrapper').removeClass('col-md-12');	
-		}
-  }
+  // componentDidUpdate(){
+  //   if(this.state.categoryData.length < 1){
+	// 		$('.filterWrapper').hide();
+	// 		$('.ProductViewWrapper').removeClass('col-lg-9');
+	// 		$('.ProductViewWrapper').removeClass('col-md-9');			
+	// 		$('.ProductViewWrapper').addClass('col-lg-12');
+	// 		$('.ProductViewWrapper').addClass('col-md-12');
+	// 	}else{
+  //     $('.filterWrapper').show();
+	// 		$('.ProductViewWrapper').addClass('col-lg-9');
+	// 		$('.ProductViewWrapper').addClass('col-md-9');
+	// 		$('.ProductViewWrapper').removeClass('col-lg-12');
+	// 		$('.ProductViewWrapper').removeClass('col-md-12');	
+	// 	}
+  // }
   async componentDidMount(){
     var formValues = {};
     var subcategoryArray = false;
@@ -770,7 +768,7 @@ submitCart(event) {
                    <div className={"col-12 NoPadding p-2 mt-2 " +Style.productDetailVendorName}> 
                    <div className="row">
                    <span className={"col-6 "+Style.vendorNameWrapper}> 
-                       <b>vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
+                       <b>Vendor</b>- &nbsp;{this.state.vendorData? this.state.vendorData.companyName:null}
                     </span>
                     <span className={"col-6   "+Style.chaneVendorBtn }> 
                         <Link href={"/vendor-list/"+this.state.sectionUrl} className={"col-12 NoPadding t "+Style.changeVendorWrapper} >Change Vendor</Link>
@@ -799,9 +797,9 @@ submitCart(event) {
                   {/* Fitters code */}
                   {this.state.blockSettings.leftSideFilters === true?
                   <div className={"row " +Style.NoPadding +" " +Style.productListWrapper}>  
-                  <div className={"col-lg-3 col-md-3 col-sm-3 col-xs-12 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
-                    {this.state.categoryData && this.state.categoryData.length>0?    
-                    
+                  <div className={"col-xs-12 col-2 NoPadding  filterWrapper " +Style.filterBlockWrapper}>
+
+                    {this.state.categoryData && this.state.categoryData.length>0?   
                       < CategoryFilters 
                         categoryData       = {this.state.subCategoryData}
                         blockSettings      = {this.state.blockSettings}
@@ -846,8 +844,8 @@ submitCart(event) {
                               }else{
                                 return(
                                   <div className="col-12 noPadding panelCategory paneldefault" key={index}>
-                                      <div className={"row panel-heading "+Style.panelHeading}>
-                                          <div className={"NoPadding centreDetailContainerEcommerce "+Style.brandInput}>
+                                      <div className={"panel-heading row "+Style.panelHeading}>
+                                          <div className={"col-1 NoPadding  centreDetailContainerEcommerce "+Style.brandInput}>
                                             <input className="" type="checkbox" name="brands[]" className={Style.brandFilterInput} onChange={this.getBrandWiseData.bind(this)} value={brand} />
                                           </div>
                                           <span className="col-11 centreDetaillistItemEcommerce">{brand}</span>
@@ -863,25 +861,24 @@ submitCart(event) {
                     :' '
                     }
                  </div>
-                  <div className={"col-12 col-lg-9 col-xl-9 col-md-12 col-sm-12 col-xs-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
+                  <div className={"col-10 col-xs-12 ProductViewWrapper "+Style.ProductViewWrapper}> 
                     <div className="row">
                       <div className={"col-12 " +Style.rightSidefilter}>
                         <div className ="row">
-                        <div className={"col-12 "}>
-                          <div className={"col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
-                            <div className="form-group float -right">
-                                <label className={"labelform col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
-                                <Select
-                                    value={effect}
-                                    onChange={this.sortProducts}
-                                    options={sortOptions}
-                                    autoFocus = {false}
-                                    className={" " +Style.labelCategory}
-                                />
-                                
-                            </div> 
-                          </div>
-                        </div>                        
+                          <div className={"col-12 "}>
+                            <div className={"col-6 col-lg-2 col-xl-2 col-md-3 col-sm-4 col-xs-6 NoPadding  "+Style.sortPbWrapper}>     
+                              <div className="form-group float -right">
+                                  <label className={"labelform col-12 NoPadding  " +Style.f14}>Sort Product By<span className="astrick"></span></label>
+                                  <Select
+                                      value={effect}
+                                      onChange={this.sortProducts}
+                                      options={sortOptions}
+                                      autoFocus = {false}
+                                      className={" " +Style.labelCategory}
+                                  />
+                              </div> 
+                            </div>
+                          </div>                        
                         </div>
                       </div>
                     </div> 
