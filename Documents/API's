@@ -188,7 +188,11 @@ formValues  = {
     "product_id"        : "60e59673fd36c94b6d707cc5",
     "vendor_id"         : "609d0b947bdc653631fe1b27"
 }
+================================ Order Reject Reasons Master API's ==========================================
+1. Get Order Reject Reasons List
 
+API         => /api/orderrejectreasons/get/list
+MethodType  => Get
 ================================ Driver Mobile App API's ==========================================
 1. Single Vendor Order Details (Driver Mobile App API's)
 

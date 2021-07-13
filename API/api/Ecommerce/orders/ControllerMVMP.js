@@ -3541,6 +3541,8 @@ exports.deliver_single_vendor_order = (req, res, next) => {
 
 // ---------------- Get Daily Vendor Orders ----------------
 exports.daily_vendor_orders = (req, res, next) => {
+	console.log("date start => ", moment(new Date(req.body.deliveryDate)).utc().startOf('day').toDate())
+	console.log("date start => ", moment(new Date(req.body.deliveryDate)).utc().endOf('day').toDate())
 	Orders.find(
 		{
 			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
@@ -3567,7 +3569,7 @@ exports.daily_vendor_orders = (req, res, next) => {
 		}
 	)
 	.exec()
-	.then(data => {		
+	.then(data => {	
 		res.status(200).json(data);
 	})
 	.catch(err => {
