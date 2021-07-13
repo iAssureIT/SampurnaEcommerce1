@@ -3457,8 +3457,9 @@ exports.deliver_single_vendor_order = (req, res, next) => {
 		{ _id: ObjectId(req.body.order_id), 'vendorOrders.vendor_id' : ObjectId(req.body.vendor_id)},		
 		{
 			$set:{
-				"vendorOrders.$.orderStatus"  	: "Delivered",
-				"vendorOrders.$.paymentDetails" : req.body.paymentDetails
+				"vendorOrders.$.orderStatus"  		: "Delivered",
+				"vendorOrders.$.deliveryPerson_id" 	: req.body.user_id,
+				"vendorOrders.$.paymentDetails" 	: req.body.paymentDetails
 			},
 			$push: {	
 				"vendorOrders.$.deliveryStatus" : {
@@ -3490,8 +3491,7 @@ exports.deliver_single_vendor_order = (req, res, next) => {
 						{ _id: ObjectId(req.body.order_id)},		
 						{
 							$set:{
-								"orderStatus"  		: "Delivered",
-								"deliveryPerson_id" : req.body.user_id
+								"orderStatus"  		: "Delivered"								
 							}
 						}
 					)
