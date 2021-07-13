@@ -91,3 +91,25 @@ exports.startTracking = (req, res, next) => {
         });
     });
 }
+
+exports.getStatus = (req, res, next) => {
+    DriverTracking.findOne(
+        {
+            user_id         : ObjectID(req.params.user_id), 
+            currentDate     : {
+                $gte 	: moment().utc().startOf('day').toDate(),
+                $lte 	: moment().utc().endOf('day').toDate()
+            }
+        },
+        {status : 1}
+    )
+    .then(data=>{
+        res.status(200).json(data);
+    })
+    .catch(err =>{
+        // console.log('4',err);
+        res.status(500).json({
+            error: err
+        });
+    });
+}

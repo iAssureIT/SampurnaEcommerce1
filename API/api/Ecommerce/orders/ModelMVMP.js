@@ -79,8 +79,8 @@ const orderSchema = mongoose.Schema({
 											}
 										],
 										orderStatus               : String,  //new,verified,packing,inspection,dispatched,delivered,cancelled
-										delivery_person_id        : { type: mongoose.Schema.Types.ObjectId, ref: 'businessAssociate' }, 
-										delivery_person_name      : String,
+										deliveryPerson_id        : { type: mongoose.Schema.Types.ObjectId, ref: 'users' }, 
+										deliveryPerson_name      : String,
 
 										returnedProduct           : Array, // Array of Products returned by customer
 										vendor_numberOfProducts   : Number,  //Number of products. 
@@ -102,7 +102,7 @@ const orderSchema = mongoose.Schema({
 										deliveryStatus            : [{
 											status          	: String,  //Only 4 status to be shown to user: New, Packaging, Dispatched, Delivered
 											timestamp       	: Date,
-											statusUpdatedBy 	: String,
+											statusUpdatedBy 	: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
 											expDeliveryDate 	: Date,
 										}], 
 									}

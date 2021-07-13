@@ -480,6 +480,7 @@ exports.fetch_categories_by_vendor = (req,res,next)=>{
                         var brandList            = [...new Set(productData.map(product => product.brand))];               
                         var categories           = [...new Set(productData.map(product => String(product.category_ID)).filter(product => product !== 'undefined'))];
                         var subCategories        = [...new Set(productData.map(product => String(product.subCategory_ID)).filter(product => product !== 'undefined'))];
+                        // console.log("brandList",brandList);
                         // console.log("subCategories",subCategories);
                         var categoryAndSubcategoryList = await getSubCategoryList(categories, subCategories);
                         res.status(200).json({

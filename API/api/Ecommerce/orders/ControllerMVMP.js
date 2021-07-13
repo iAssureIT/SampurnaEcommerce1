@@ -1019,8 +1019,7 @@ exports.change_vendor_orders_status = (req, res, next) => {
 					})
 					.catch(err => {
 						console.log("Error => Failed to Update Complete Order Status")
-					})
-					
+					})					
 				}
 			}
 			res.status(200).json({
@@ -3225,6 +3224,8 @@ exports.deleteAllOrders = (req, res, next) => {
 
 /**=========== calcUserVendorDist() ===========*/
 function calcUserVendorDist(vendorLat,vendorLong, userLat, userLong){
+	console.log("vendorLat => ",vendorLat)
+	console.log("vendorLong => ",vendorLong)
     return new Promise(function(resolve,reject){
         processDistance()
 
@@ -3537,4 +3538,42 @@ exports.deliver_single_vendor_order = (req, res, next) => {
 		});
 	});
 };
-  
+
+// ---------------- Get Daily Vendor Orders ----------------
+exports.daily_vendor_orders = (req, res, next) => {
+	Orders.find(
+		{
+			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
+			"vendorOrders.orderStatus" 			: req.body.orderStatus,
+			"vendorOrders.deliveryStatus" : 
+			{"$elemMatch" : {
+					"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+					"status" 			: req.body.orderStatus,
+					"timestamp" 		: {
+						$gte 	: moment(req.body.deliveryDate).utc().startOf('day').toDate(),
+						$lte 	: moment(req.body.deliveryDate).utc().endOf('day').toDate()
+					}
+				}
+			}
+		},
+		{
+			'orderID' 				: 1,
+			'userFullName'      	: 1,
+			'customerShippingTime' 	: 1,
+			'deliveryAddress' 		: 1,
+			'paymentDetails' 		: 1,
+			'createdAt' 			: 1,
+			'vendorOrders.$'   		: 1
+		}
+	)
+	.exec()
+	.then(data => {		
+		res.status(200).json(data);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error : err
+		});
+	});
+};

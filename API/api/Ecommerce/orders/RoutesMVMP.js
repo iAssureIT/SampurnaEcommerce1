@@ -126,6 +126,8 @@ router.post('/get/nearest_vendor_orders',                                       
 
 router.post('/get/single/vendor_order',                                                          orderController.get_single_vendor_order)
 
-router.patch('/deliver/vendor_order',                                                             orderController.deliver_single_vendor_order)
+router.patch('/deliver/vendor_order',                                                            orderController.deliver_single_vendor_order)
+
+router.post('/get/daily/vendor_orders',                                                         orderController.daily_vendor_orders)
 
 module.exports = router; 

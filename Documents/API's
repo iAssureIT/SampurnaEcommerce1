@@ -227,3 +227,19 @@ formValues  = {
         "transactionNumber" : "A56V78H89T"
     }
 }
+
+4. "Datewise Orders Delivered" API 
+
+API         => http://localhost:3368/api/orders/get/daily/vendor_orders
+MethodType  => Post
+formValues  = {
+    "user_id"       : "60a645f1f39e68d51b874b95",
+    "deliveryDate"  : "2021-07-11T15:27:00.619Z",
+    "orderStatus"   : "Delivered" 
+}
+
+5. "Delivery Person's Current Status" API
+
+API         => http://localhost:3368/api/drivertracking/get/status/60c8be263ddce651477ba974
+MethodType  => Get
+Params      => user_id
