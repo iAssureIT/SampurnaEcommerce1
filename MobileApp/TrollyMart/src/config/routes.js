@@ -42,6 +42,8 @@ import {ResetPwd}                   from'../Screens/AccountDashboard/ResetPwd.js
 import MyProductReview            from'../Screens/MyProductReview/MyProductReview.js';
 import {OrderSummary}             from'../Screens/OrderSummary/OrderSummary.js';
 import {PaymentMethod}            from '../Screens/PaymentMethod/PaymentMethod.js';
+import {PaymentConfirmation}      from '../Screens/PaymentMethod/PaymentConfirmation.js';
+import {PaymentFailed}            from '../Screens/PaymentMethod/PaymentFailed.js';
 import {Location}                 from '../Screens/Location/Location.js';
 import {Confirmation}             from '../Screens/Location/Confirmation.js';
 import {VendorList}               from '../Screens/VendorList/VendorList.js';
@@ -51,7 +53,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import  HeaderBar2                 from '../ScreenComponents/HeaderBar2/HeaderBar2.js';
 // import Drawer                     from 'react-native-drawer';
 import {AboutUs}                  from '../Screens/AboutUs/AboutUs.js';
-import {ContactUs}                from '../Screens/ContactUs/ContactUs.js';
 import {FAQ}                      from '../Screens/FAQ/FAQ.js';
 import {TermsAndConditions}               from '../Screens/TermsAndConditions/TermsAndConditions.js';
 import {PrivacyPolicy}               from '../Screens/PrivacyPolicy/PrivacyPolicy.js';
@@ -124,13 +125,14 @@ export const BottomNavScreen = () => (
     <Tab.Screen name="SupportSystem"               component={SupportSystem} options={getHeaderConfig("Help & Support",true)}/>
     <Tab.Screen name="OrderSummary"                component={OrderSummary} options={getHeaderConfig("Order Summary",true)}/>
     <Tab.Screen name="PaymentMethod"               component={PaymentMethod} options={getHeaderConfig("Payment Methods",true)}/>
+    <Tab.Screen name="PaymentConfirmation"         component={PaymentConfirmation} options={getHeaderConfig("Payment Confirmation",true)}/>
+    <Tab.Screen name="PaymentFailed"              component={PaymentFailed} options={getHeaderConfig("Payment Failed",true)}/>
     <Tab.Screen name="Stores"                      component={Stores} options={getHeaderConfig("Dashboard")}/>
     <Tab.Screen name="StoreDetails"                component={StoreDetails} options={getHeaderConfig("Dashboard")}/>
     <Tab.Screen name="VendorList"                  component={VendorList} options={getHeaderConfig("Vendor List",true)}/>
     <Tab.Screen name="ProductVendorList"           component={ProductVendorList} options={getHeaderConfig("Vendor List",true)}/>
     <Tab.Screen name="VendorProducts"              component={VendorProducts} options={getHeaderConfig("Product List",true)}/>
     <Tab.Screen name="AboutUs"                     component={AboutUs} options={getHeaderConfig("About Us",true)}/>
-    <Tab.Screen name="ContactUs"                   component={ContactUs} options={getHeaderConfig("Contact Us",true)}/>
     <Tab.Screen name="TermsConditions"             component={TermsAndConditions} options={getHeaderConfig("Terms & Conditions",true)}/>
     <Tab.Screen name="PrivacyPolicy"             component={PrivacyPolicy} options={getHeaderConfig("Privacy Policy",true)}/>
     <Tab.Screen name="RewardsPoint"             component={RewardsPoint} options={getHeaderConfig("My Rewards",true)}/>

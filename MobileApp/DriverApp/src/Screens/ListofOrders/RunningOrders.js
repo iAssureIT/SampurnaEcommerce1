@@ -6,6 +6,8 @@ import {
   Text,
   StatusBar,
   FlatList,
+  Linking,
+  Platform
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Header, Icon, Card, Button }       from 'react-native-elements';
@@ -16,6 +18,9 @@ import {
     useSelector }           from 'react-redux';
 import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
 import moment from 'moment';
+import { TouchableOpacity } from 'react-native';
+import { useIsFocused } from "@react-navigation/native";
+import {colors}                         from '../../AppDesigns/currentApp/styles/styles.js';
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
   { id: '2', text: 'Learn React' },
@@ -24,9 +29,10 @@ const todoList = [
 
 export const RunningOrders =(props)=> {
     const [orderList,setOrderList] = useState([]);
+    const isFocused = useIsFocused()
     useEffect(() => {
         getList()
-    },[]);
+    },[props,isFocused]);
 
     const store = useSelector(store => ({
         userDetails     : store.userDetails,
@@ -104,35 +110,52 @@ export const RunningOrders =(props)=> {
     const swipeFromRightOpen = () => {
     //   alert('Swipe from right');
     };
+
+    const goToMap=(latitude,longitude)=>{
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${latitude},${longitude}`;
+        const label = 'Custom Label';
+        const url = Platform.select({
+          ios: `${scheme}${label}@${latLng}`,
+          android: `${scheme}${latLng}(${label})`
+        });
+        Linking.openURL(url); 
+      }
+
     const _renderlist = ({ item, index })=>{
         return (
-            <Card containerStyle={{padding:0}}>
-                <View
-                style={{
-                    paddingVertical: 5,
-                    paddingHorizontal:5,
-                    backgroundColor: 'white',
-                    height:100
-                }}
-                >
-               <View style={{flexDirection:'row',marginBottom:5}}>
-                    <View style={{flex:.4}}>
-                        <Text style={{}}>Order No{item.orderID}</Text>
+            <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
+                <Card containerStyle={{padding:0}}>
+                    <View
+                    style={{
+                        paddingVertical: 5,
+                        paddingHorizontal:5,
+                        backgroundColor: 'white',
+                        minHeight:100
+                    }}
+                    >
+                <View style={{flexDirection:'row',marginBottom:5}}>
+                        <View style={{flex:.4}}>
+                            <Text style={{}}>Order No :{item.orderID}</Text>
+                        </View>
+                        <View style={{flex:.6,alignItems:'flex-end'}}>
+                            <Text>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
+                        </View>    
+                </View>         
+                    <View style={{flexDirection:"row"}} >
+                    <Text style={CommonStyles.label}>Client Name:</Text>
+                    <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}> {item.deliveryAddress.name}</Text>
+                    <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}]} onPress={() => Linking.openURL(`tel:${item.deliveryAddress.mobileNumber}`)}> {item.deliveryAddress.mobileNumber}</Text>
                     </View>
-                    <View style={{flex:.6,alignItems:'flex-end'}}>
-                        <Text>Date {moment().format('DD-MM-YYYY hh:mm')}</Text>
-                    </View>    
-               </View>         
-                <View style={{flexDirection:"row"}} >
-                   <Text style={CommonStyles.label}>Client Name:</Text>
-                   <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}> {item.deliveryAddress.name}</Text>
-                   <Text style={[CommonStyles.label,{fontFamily:"Montserrat-Regular",textDecorationLine: 'underline',color:colors.cartButton}]}> {item.deliveryAddress.mobileNumber}</Text>
-                </View>
-                <View style={{flexDirection:"row"}} >
-                   <Text style={CommonStyles.label}>Address: <Text numberOfLines={2} style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}> {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text></Text>
-                </View>
-                </View>
-            </Card> 
+                    <View style={{flexDirection:"row",flex:1}} >
+                        <Text style={[CommonStyles.label,{flex:0.9}]}>Address: <Text numberOfLines={2} style={[CommonStyles.label,{fontFamily:"Montserrat-Regular"}]}> {item.deliveryAddress.addressLine1+" "+item.deliveryAddress.addressLine2}</Text></Text>
+                        <TouchableOpacity style={{justifyContent:'flex-end',alignItems:'flex-end',flex:0.1}} onPress={()=>goToMap(item.deliveryAddress.latitude,item.deliveryAddress.longitude)}>
+                            <Icon name="map-marker-radius" type="material-community" size={20} iconStyle={{ali:'flex-end'}}/>
+                        </TouchableOpacity>
+                    </View>
+                    </View>
+                </Card> 
+            </TouchableOpacity>    
         )    
     };
 
@@ -151,7 +174,6 @@ export const RunningOrders =(props)=> {
             <Footer selected={"2"}/>
         </>
     );
-
     }
 
 

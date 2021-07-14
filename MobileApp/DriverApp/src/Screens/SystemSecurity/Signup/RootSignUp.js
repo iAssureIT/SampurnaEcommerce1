@@ -46,6 +46,7 @@ const window = Dimensions.get('window');
     ),
     mobileNumber: Yup.string()
     .required('This field is required'),
+    
     email_id: Yup.string()
       .test(
         'email validation test',
@@ -66,10 +67,10 @@ const window = Dimensions.get('window');
       return (
         <React.Fragment>
           <Formik
-            onSubmit={(data) => {
+            onSubmit={(values,fun) => {
               if(password_matched){
                 setLoading(true);
-                let {firstName, lastName,mobileNumber,email_id,password,countryCode} = data;
+                let {firstName, lastName,mobileNumber,email_id,password,countryCode,callingCode} = values;
                 var formValues = {
                   firstname   : firstName,
                   lastname    : lastName,
@@ -80,12 +81,15 @@ const window = Dimensions.get('window');
                   role        : 'user',
                   status      : 'unverified',
                   countryCode : countryCode,
-                  username    : "MOBILE"
+                  username    : "MOBILE",
+                  isdCode     : callingCode
                 }
+                // console.log("formValues",formValues); 
                 axios.post('/api/auth/post/signup/user/otp',formValues)
                 .then((response) => {
+                  console.log("response",response);
                   setLoading(false)
-                  if(response.data.message == 'USER_CREATED'){            
+                  if(response.data.message == 'USER_CREATED'){   
                     var sendData = {
                       "event": "5",
                       "toUser_id": response.data.ID,
@@ -103,6 +107,7 @@ const window = Dimensions.get('window');
                       AsyncStorage.multiSet([
                         ['user_id_signup', response.data.ID],
                       ])
+                      fun.resetForm(values);
                       navigation.navigate('OTPVerification',{userID:response.data.ID,Username:response.data.result.profile.firstname});
                   }else{
                     setToast({text: response.data.message, color:  colors.warning});
@@ -126,7 +131,8 @@ const window = Dimensions.get('window');
               email_id          : '',
               password          : '',
               confirm_password  : '',
-              countryCode       : ''
+              countryCode       : '',
+              callingCode       : ''
             }}>
             {(formProps) => (
               <FormBody
@@ -158,12 +164,13 @@ const window = Dimensions.get('window');
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(values.mobileNumber);
     const [formattedValue, setFormattedValue] = useState("");
     const [valid, setValid] = useState(false);
     const [countryCode, setCountryCode] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
   const phoneInput = useRef(null);
+  console.log("phoneInput",phoneInput);
 
   const checkPassword = () => {
       if (values.password && values.confirm_password) {
@@ -177,45 +184,46 @@ const window = Dimensions.get('window');
       }
   }
 
-  const getCountryCode=(e)=>{
-      console.log("e",e);
-  } 
-
   return (
-       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-          <ScrollView contentContainerStyle={[commonStyles.container]} keyboardShouldPersistTaps="always" >
-              <View style={{paddingHorizontal:20,marginVertical:20}}>
+       <ImageBackground 
+       source={require("../../../AppDesigns/currentApp/images/s3.jpg")} 
+        style={commonStyles.container} resizeMode="cover" >
+        <ScrollView style={{flex:1}}>
+          <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
+              <View style={{}}>
                 <View style={styles.boxOpacity}>
-                  <View style={styles.syslogo}>
+                  <View style={styles.syslogo1}>
                       <Image
                       resizeMode="contain"
                       source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
-                      style={styles.syslogoimg}
+                      style={styles.syslogoimg1}
                       />
                   </View>
-                      <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign Up</Text></View>
+                      <View style={{marginBottom:30,}}><Text style={styles.signupTitle}>Create a account..!</Text></View>
                   <View style={commonStyles.formWrapper}>
                   <FormInput
                     labelName       = "First Name"
-                    placeholder     = "First Name"
+                    // placeholder     = "First Name"
                     onChangeText    = {handleChange('firstName')}
                     required        = {true}
                     name            = "firstName"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'user-circle-o'}
+                    value           = {values.firstName}
+                    // iconName        = {'user-circle-o'}
                     iconType        = {'font-awesome'}
                     // autoCapitalize  = "none"
                   />
                   <FormInput
                     labelName       = "Last Name"
-                    placeholder     = "Last Name"
+                    // placeholder     = "Last Name"
                     onChangeText    = {handleChange('lastName')}
                     required        = {true}
                     name            = "lastName"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'user-circle-o'}
+                    value           = {values.lastName}
+                    // iconName        = {'user-circle-o'}
                     iconType        = {'font-awesome'}
                     // autoCapitalize  = "none"
                   />
@@ -246,17 +254,19 @@ const window = Dimensions.get('window');
                     </Text>
                       <PhoneInput
                         ref={phoneInput}
-                        defaultValue={value}
                         defaultCode="AE"
                         layout="first"
+                        value={values.mobileNumber}
                         onChangeText={(text) => {
                           const checkValid = phoneInput.current?.isValidNumber(text);
                           const callingCode = phoneInput.current?.getCallingCode(text);
                           const countryCode = phoneInput.current?.getCountryCode(text);
+                          // console.log("callingCode",callingCode);
                           var mobileNumber = text;
                           setValue(text);
                           setFieldValue('mobileNumber',mobileNumber)
                           setFieldValue('countryCode',countryCode)
+                          setFieldValue('callingCode',callingCode)
                           setValid(checkValid);
                         }}
                         containerStyle= {styles1.containerStyle}
@@ -267,13 +277,14 @@ const window = Dimensions.get('window');
                   </View>       
                   <FormInput
                     labelName       = "Email Id"
-                    placeholder     = "Email Id"
+                    // placeholder     = "Email Id"
                     onChangeText    = {handleChange('email_id')}
                     required        = {false}
                     name            = "email_id"
                     errors          = {errors}
                     touched         = {touched}
-                    iconName        = {'email'}
+                    value           = {values.email_id}
+                    // iconName        = {'email'}
                     iconType        = {'material-community'}
                     autoCapitalize  = "none"
                     keyboardType    = "email-address"
@@ -281,14 +292,15 @@ const window = Dimensions.get('window');
                  
                   <FormInput
                     labelName     = "Password"
-                    placeholder   = "Password"
+                    // placeholder   = "Password"
                     onChangeText  = {handleChange("password")}
                     onBlur        = {checkPassword}
                     errors        = {errors}
                     name          = "password"
                     required      = {true}
                     touched       = {touched}
-                    iconName      = {'lock'}
+                    value         = {values.password}
+                    // iconName      = {'lock'}
                     iconType      = {'material-community'}
                     rightIcon ={
                       <TouchableOpacity
@@ -305,14 +317,15 @@ const window = Dimensions.get('window');
                   />
                   <FormInput
                     labelName     = "Confirm Password"
-                    placeholder   = "Confirm Password"
+                    // placeholder   = "Confirm Password"
                     onChangeText  = {handleChange('confirm_password')}
                     onBlur        = {checkPassword}
                     errors        = {errors}
                     name          = "confirm_password"
                     required      = {true}
                     touched       = {touched}
-                    iconName      = {'lock'}
+                    value         = {values.confirm_password}
+                    // iconName      = {'lock'}
                     iconType      = {'material-community'}
                     rightIcon ={
                       <TouchableOpacity
@@ -327,32 +340,34 @@ const window = Dimensions.get('window');
                     }
                     secureTextEntry={!showPassword}
                   />
+                  <View style={{paddingVertical:15}}>
                   <FormButton
                     title       = {'Sign Up'}
                     onPress     = {handleSubmit}
                     background  = {true}
                     loading     = {btnLoading}
                   />
+                </View>  
                  <View
                     style={[
                       {
                         flexDirection   : 'row',
                         alignItems      : 'center',
                         justifyContent  : 'center',
-                        marginTop       : '3%',
                         marginBottom    : 25,
                         paddingHorizontal:15
                       },
                     ]}>
                       <TouchableOpacity
                         onPress={() => navigation.navigate('LogIn')} style={{flexDirection:"row"}}>
-                          <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} />
+                          {/* <Icon name="chevron-double-left" type="material-community" size={22} color={colors.textLight} style={{}} /> */}
                         <Text style={commonStyles.linkText}>Sign In</Text>
                       </TouchableOpacity>
                   </View>
                 </View>
               </View>
             </View>
+        </View>
         </ScrollView>
     </ImageBackground>
   );
@@ -360,10 +375,12 @@ const window = Dimensions.get('window');
 
 const styles1 = StyleSheet.create({
   containerStyle:{
-     borderWidth:1,
-     borderRadius:5,
+    //  borderWidth:1,
+    //  borderRadius:5,
      width:"100%",
-     borderColor:"#ccc",
+    //  borderColor:"#ccc",
+    borderBottomWidth:1,
+    borderBottomColor:"#ccc",
      backgroundColor:"#fff"
    },
    textInputStyle:{

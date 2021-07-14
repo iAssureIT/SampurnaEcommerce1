@@ -15,12 +15,14 @@ import Geocoder                     from 'react-native-geocoding';
 import Geolocation                  from 'react-native-geolocation-service';
 import axios                        from "axios";
 import {BottomModal}                from '../../ScreenComponents/BottomModal/BottomModal';
-import {colors, Icon}                       from 'react-native-elements'
+import {colors, Icon}                       from 'react-native-elements';
+import {USER_LOGOUT} from '../../redux/store';
 const window = Dimensions.get('window');
 navigator.geolocation = require('react-native-geolocation-service');
 
 export const Confirmation = withCustomerToaster((props)=>{
     const {navigation}=props;
+    console.log("navigation",navigation);
     const [btnLoading,setBtnLoading] = useState(false);
     const [showModal,toggleModal] = useState(false);
     const [selection,setSelection] = useState({start:0,end:0});
@@ -68,15 +70,25 @@ export const Confirmation = withCustomerToaster((props)=>{
           });
     }
 
+    const logout=()=>{
+      AsyncStorage.removeItem('user_id');
+      AsyncStorage.removeItem('token');
+      AsyncStorage.removeItem('location');
+      dispatch({type: USER_LOGOUT});
+      // navigation.closeDrawer();
+      navigation.navigate('Auth');
+    };
+
   
-    console.log("userDetails",userDetails);
+    console.log("navigation.canGoBack()",navigation.canGoBack());
     return (
         <View>
             <ImageBackground source={require("../../AppDesigns/currentApp/images/LocationBg.jpg")} style={{height:window.height, justifyContent:"flex-end"}}>
                 <View style={{alignItems:"flex-start",paddingTop:15,paddingLeft:15}}>
-                  <TouchableOpacity onPress={()=> navigation.goBack()}>
+                  <TouchableOpacity onPress={()=> navigation.canGoBack() ?  navigation.goBack() : logout()}>
                     <Icon size={25} name='arrow-left' type='material-community' color={colors.theme} />
-                  </TouchableOpacity>   
+                  </TouchableOpacity> 
+                    
                 </View>  
                 <View style={{flex:.7,justifyContent:"flex-end",paddingHorizontal:40,paddingBottom:20}}>
                     {/* <Image source={require("../../AppDesigns/currentApp/images/delivery.jpeg")} style={{height:300,width:300}}/> */}

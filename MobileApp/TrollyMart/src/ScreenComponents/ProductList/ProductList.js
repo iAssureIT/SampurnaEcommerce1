@@ -371,14 +371,14 @@ export const ProductList = withCustomerToaster((props)=>{
           initialNumToRender            = {6}
           ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
           onEndReachedThreshold          = {onEndReachedThreshold}
-          // onScroll={(e)=>props.onScroll(e)}
-        //   ListEmptyComponent            = {
-        //     <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-        //     <Image
-        //       source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-        //     />
-        //   </View>
-        // }
+          onScroll={(e)=>props.onScroll(e)}
+          ListEmptyComponent            = {
+            <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
+            <Image
+              source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
+            />
+          </View>
+        }
           onEndReached={() => {
             // console.log("distanceFromEnd",distanceFromEnd);
             if(limit > 6 && !stop_scroll && !stop_scroll_search) {

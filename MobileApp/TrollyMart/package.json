@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.4",
     "@react-native-community/clipboard": "^1.5.1",
+    "@react-native-community/netinfo": "^6.0.0",
     "@react-native-community/push-notification-ios": "^1.8.0",
     "@react-native-firebase/app": "^12.1.0",
     "@react-native-firebase/messaging": "^12.1.0",
@@ -33,6 +34,7 @@
     "react-content-loader": "^6.0.3",
     "react-native": "0.64.1",
     "react-native-action-button": "^2.8.5",
+    "react-native-animated-splash-screen": "^2.0.5",
     "react-native-autocomplete-input": "^5.0.0",
     "react-native-aws3": "0.0.9",
     "react-native-banner-carousel-updated": "^1.2.1",

@@ -398,8 +398,8 @@ export const SubCatCompView = withCustomerToaster((props)=>{
               </View>
               <View style={{flexDirection:'row',marginLeft:30}}>
                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
-                  sizeIndex >=0 && variants[sizeIndex].color && variants[sizeIndex].color.length > 0 ?
-                  variants[sizeIndex].color.map((color,index)=>{
+                  sizeIndex >=0 && variants[sizeIndex].color && variants[sizeIndex]?.color.length > 0 ?
+                  variants[sizeIndex]?.color.map((color,index)=>{
                       return(
                         <TouchableOpacity 
                           style={{minWidth:60,height:28,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:colorIndex === index ? 1 :0.5,paddingHorizontal:5,backgroundColor:color.toLowerCase()}}
@@ -415,7 +415,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                  </ScrollView>
               </View>
               <View style={styles.detailclr}>
-                {productdata.color ? 
+                {productdata?.color ? 
                 <Text style={styles.detailcolor}>Details: {productdata.color}</Text>
                 : null}
                 {

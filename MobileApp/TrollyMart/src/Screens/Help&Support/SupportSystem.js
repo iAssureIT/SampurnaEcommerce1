@@ -27,7 +27,9 @@ import {FormInput}          from '../../ScreenComponents/FormInput/FormInput';
 import * as Yup             from 'yup';
 import {setToast, withCustomerToaster} from '../../redux/AppState.js';
 import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { Dimensions } from 'react-native';
 
+const window = Dimensions.get('window');
 const ValidationSchema = Yup.object().shape({
     name        : Yup.string().required('This field is required'),
     email       : Yup.string().required('This field is required')
@@ -142,30 +144,19 @@ const FormBody = (props) => {
         <View style={{flex:1,backgroundColor:"#fff",paddingVertical:15}}>
             <ScrollView contentContainerStyle={{paddingVertical:15,backgroundColor:"#fff"}}>
                 <View style={{ paddingHorizontal: 15 }}>
-                    <View style={{ flex: 1,height:230,backgroundColor:'#ccc',marginBottom: 15, alignSelf: 'center', justifyContent: 'center', alignItem: 'center' }}>
-                        {/* <Text style={{ fontFamily: 'Montserrat-SemiBold', color: '#333', fontSize: 15 }}>
-                            Are you facing any issue or do you have any feedback for {companyName}? Please choose any one of the options below to get in touch with us.
-                        </Text> */}
-                        <Image></Image>
+                    <View style={{ height:230,backgroundColor:'#fff',marginBottom: 15,marginLeft:5}}>
+                         <Image 
+                            source = {require("../../AppDesigns/currentApp/images/contact_us1.png")}
+                            style={{height:230, width:window.width-5}} 
+                            resizeMode={'contain'}
+                        />
                     </View>
-                    {/* <View style={{ flex: 1, flexDirection:'row',marginBottom: 5,alignItems:'center' }}>
-                        <View  style={{ flex: 0.1}}>
-                            <Icon size={25} name='whatsapp' type='material-community' color='#5FCD65' style={{}}/>
-                        </View>
-                        <View  style={{ flex: 0.9}}>
-                            <Text onPress={()=>{Linking.openURL('whatsapp://send?text='+companyName+' Support, I need your Help&phone='+companyPhone)}} 
-                                style={[commonStyles.linkText,{color:'#0000FF'}]}>
-                                {companyPhone}
-                            </Text>
-
-                        </View>
-                    </View> */}
                     <View style={{flex:1,alignSelf: 'center', justifyContent: 'center', alignItem: 'center'}}>
                         <Text style={[styles.mailText]}>knockknock@gmail.com</Text>
                     </View>                   
                 </View>  
 
-                <View style={{marginTop:15,paddingBottom:15}}>
+                <View style={{padding:21}}>
                     <View style={{marginBottom:5}}>
                         <FormInput
                             labelName       = "Your Name"
@@ -239,29 +230,23 @@ const FormBody = (props) => {
                             // defaultValue={text}
                         />
                     </View>
-                    {/* <View style={{marginBottom:0}}>
-                        <FormInput
-                            labelName     = "Message"
-                            // placeholder   = "How we can help you?"
-                            onChangeText  = {handleChange('message')}
-                            errors        = {errors}
-                            name          = "message"
-                            required      = {true}
-                            touched       = {touched}
-                            // iconName      = {'comment'}
-                            // style         = {{borderWidth:1,height:150,borderColor:"#ccc",marginTop:150,marginBottom:150}}
-                            iconType      = {'material-community'}
-                        />
-                    </View>  */}                    
-                    <View style={{marginLeft:250,marginRight:10}}>
-                        <FormButton
-                        title       = {'Send'}
-                        onPress     = {handleSubmit}
-                        background  = {true}
-                        iconName      = {'comment'}
-                        style       = {{borderBottomLeftRadius:9,borderBottomRightRadius:0,borderTopLeftRadius:9,borderTopRightRadius:9,justifyContent: 'end', alignItem: 'end'}}
-                        // loading     = {btnLoading}
-                        />
+                    <View style={{flex:1,alignItems:'flex-end',marginRight:10}}>
+                        <View style={{width:73}}>
+                            <FormButton
+                            title       = {'Send'}
+                            onPress     = {handleSubmit}
+                            background  = {true}
+                            iconName      = {'comment'}
+                            icon={{
+                                name: "paper-plane",
+                                size: 12,
+                                color: "white",
+                                type: 'font-awesome'
+                            }}
+                            iconPosition='right'
+                            // loading     = {btnLoading}
+                            />
+                        </View>
                     </View>
                     {/* <View
                         style={styles.button}>
@@ -274,41 +259,16 @@ const FormBody = (props) => {
                     </View> */}
                     
                 </View>
-                <View style={{ flex: 1, flexDirection:'row',marginBottom: 5,alignItems:'center' }}>
-                        <View  style={{ flex: 0.1}}>
-                            <Icon size={25} name='phone' type='Feather' color='#77b5fe' style={{}}/>
-                        </View>
-                        <View  style={{ flex: 0.9}}>
-                            <Text onPress={()=>{Linking.openURL('tel:'+companyPhone);}} 
-                                style={[commonStyles.linkText,{color:'#000000'}]}>
-                            {companyPhone}
-                            </Text>
-                        </View>
-                    </View>
-
-                    <View style={{ flex: 1, flexDirection:'row', marginBottom: 5,alignItems:'center' }}>
-                        <View  style={{ flex: 0.1}}>
-                            <Icon size={25} name='gmail' type='material-community' color='red' style={{}}/>
-                        </View>
-                        <View  style={{ flex: 0.9}}>
-                            <Text onPress={() => Linking.openURL('mailto:'+companyEmail+'?subject=I need your help &body=Dear '+companyName+' Support,') }
-                            style={[commonStyles.linkText,{color:'#000000'}]}>
-                                {companyEmail}
-                            </Text>
-                        </View>
-                    </View>
-
-                    <View style={{ flex: 1,flexDirection:'row', marginBottom: 35,alignItems:'center' }}>
-                        <View  style={{ flex: 0.1}}>
-                            <Icon size={25} name='web' type='material-community' color='#666' style={{}}/>
-                        </View>
-                        <View  style={{ flex: 0.9}}>
-                            <Text onPress={() => Linking.openURL(website_url) } 
-                                style={[commonStyles.linkText,{color:'#000000'}]}>
-                                {website_url}
-                            </Text>
-                        </View>
-                    </View>
+                <View  style={{marginBottom:50,paddingHorizontal:21}}>
+                    <Text onPress={()=>{Linking.openURL('tel:'+companyPhone);}} 
+                        style={[commonStyles.text,{color:'#000000',lineHeight:20}]}>
+                    {companyPhone}
+                    </Text>
+                    <Text onPress={() => Linking.openURL(website_url) } 
+                        style={[commonStyles.text,{color:'#000000',lineHeight:20}]}>
+                        {website_url}
+                    </Text>
+                </View>
             </ScrollView>
         </View>
     );

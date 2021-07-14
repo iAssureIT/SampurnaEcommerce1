@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     // marginVertical:15,
   },
   buttonStyle:{
-    backgroundColor:colors.theme,
+    backgroundColor:colors.cartButton,
     // borderRadius:100,
   },
    buttonStyle1:{

@@ -26,14 +26,14 @@ export default StyleSheet.create({
     },
     boxOpacity:{
         width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
-        backgroundColor:'#fff',
+        // backgroundColor:'#fff',
         // shadowOffset: { width: 0, height: 2 },
         // shadowOpacity: 0.8,
         // shadowRadius: 2,
         // elevation: 8,
     },
     boxOpacity1:{
-        width: '100%',borderColor:colors.theme,shadowColor: colors.theme,backgroundColor:colors.inputBackgroundColor,
+        width: '100%',borderColor:colors.theme,shadowColor: colors.theme,
         borderWidth:2,
         borderRadius:15,
         shadowOffset: { width: 0, height: 2 },

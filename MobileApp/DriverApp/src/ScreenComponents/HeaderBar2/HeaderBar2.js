@@ -15,16 +15,16 @@ import {
 } from 'react-native-elements';
 import axios                from 'axios'; 
 import styles               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/HeaderBar2Styles.js';
-import {useDispatch,useSelector }      from 'react-redux';
+import {useDispatch,useSelector } from 'react-redux';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage         from '@react-native-async-storage/async-storage';
-import { DrawerActions } from '@react-navigation/native';
-import { useNavigation }      from '@react-navigation/native';
+import { DrawerActions }    from '@react-navigation/native';
+import { useNavigation }    from '@react-navigation/native';
 import { request,
   check,
   PERMISSIONS,
-  RESULTS }                       from 'react-native-permissions';
-import Geolocation                  from 'react-native-geolocation-service';
+  RESULTS }                 from 'react-native-permissions';
+import Geolocation          from 'react-native-geolocation-service';
 
   const HeaderBars2=(props)=>{
     const [searchText,useSearchText] = useState('');
@@ -36,22 +36,18 @@ import Geolocation                  from 'react-native-geolocation-service';
     const [value,setValue]=useState('offline')
     var interval = 0;
     const store = useSelector(store => ({
-      globalSearch  : store.globalSearch,
       location      : store.location,
-      cartCount     : store.productList.cartCount,
       userDetails   : store.userDetails
     }));
-    const {globalSearch,location,cartCount,userDetails} = store;
+    const {location,userDetails} = store;
    
     useEffect(() => {
-      getData()
+      getData();
     },[props]);
-
-    
  
   const getData=()=>{
-    useSearchText(globalSearch.searchText);
     getNotificationList();
+    getUserStatus();
   }
 
   const getNotificationList=()=>{
@@ -72,6 +68,19 @@ import Geolocation                  from 'react-native-geolocation-service';
       });
   }
 
+  const getUserStatus = ()=>{
+    axios.get('/api/drivertracking/get/status/' + userDetails.user_id)
+    .then(res => {
+        if(res.data.status === "Online"){
+          setValue(res.data.status);
+          getCurrentPosition();
+        }
+    })
+    .catch(error => {
+        console.log('error', error)
+    })
+  }
+
   const setOnOff=(val)=>{
     console.log("val",val);
     request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
@@ -88,17 +97,17 @@ import Geolocation                  from 'react-native-geolocation-service';
                           activity    : val, 
                           timestamp   : new Date() , 
                           lat         : latitude, 
-                          long        : latitude
+                          long        : longitude
                       },
                   }
                   console.log("payload",payload);
                   axios.post('/api/drivertracking/post/add_tracking',payload)
                   if(val==="online"){
-                    interval = setInterval(() => {
+                    // interval = setInterval(() => {
                       getCurrentPosition();
-                    }, 15000);
+                    // }, 15000);
                   }else if(val==="offline"){
-                    clearInterval(interval);
+                    Geolocation.clearWatch(watchID);
                   }
                 },
                 (error) => {
@@ -134,7 +143,7 @@ import Geolocation                  from 'react-native-geolocation-service';
          
           break;
         case RESULTS.GRANTED:
-            Geolocation.getCurrentPosition(
+          watchID = Geolocation.watchPosition(
                 (position) => {
                     console.log("position",position);
                   const {latitude,longitude} = position.coords;
@@ -144,7 +153,7 @@ import Geolocation                  from 'react-native-geolocation-service';
                       currentLocations    : {
                             timestamp   : new Date() , 
                             lat         : latitude, 
-                            long        : latitude
+                            long        : longitude
                         },
                     }
                     axios.post('/api/drivertracking/post/start_racking',payload)
@@ -159,8 +168,17 @@ import Geolocation                  from 'react-native-geolocation-service';
                   // See error code charts below.
                   console.log(error.code, error.message);
                 },
-                { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+                { 
+                  enableHighAccuracy: true,
+                  distanceFilter: 0,
+                  interval:1000,
+                  fastestInterval:1000,
+                  forceRequestLocation:true,
+                  showLocationDialog:true,
+                  useSignificantChanges:true
+                }
             );
+            console.log("watchID",watchID);
           break;
         case RESULTS.BLOCKED:
           console.log('The permission is denied and not requestable anymore');

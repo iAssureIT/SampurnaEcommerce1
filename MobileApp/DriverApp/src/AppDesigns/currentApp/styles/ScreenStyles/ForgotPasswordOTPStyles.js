@@ -187,7 +187,9 @@ export default StyleSheet.create({
   },
 
   underlineStyleHighLighted: {
-    borderColor: "#03DAC6",
+    // borderColor: "#03DAC6",
+    borderColor: "#033554",
+
   },
 });
 

@@ -10,7 +10,6 @@ import {
 import axios                      from "axios";
 import AsyncStorage               from '@react-native-async-storage/async-storage';
 import {getUserDetails}           from '../../redux/user/actions';
-import { getCartCount } 		              from '../../redux/productList/actions';
 import { connect,
         useDispatch,
         useSelector }             from 'react-redux';
@@ -46,7 +45,6 @@ import { ActivityIndicator } from 'react-native-paper';
       setLoading(false)
       if(user_id&& userToken){
            dispatch(getUserDetails(user_id));
-           dispatch(getCartCount(user_id));
           axios.defaults.headers.common['Authorization'] = 'Bearer '+ userToken;
       }
     };
@@ -57,10 +55,7 @@ import { ActivityIndicator } from 'react-native-paper';
           </View>  
         :
         user_id ?
-          location ?
             <AppContainer/>
-          :
-          <LocationContainer/>
         :
         <AuthContainer/>
     );

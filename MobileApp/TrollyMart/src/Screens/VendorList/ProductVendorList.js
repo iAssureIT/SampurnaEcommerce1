@@ -63,6 +63,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
     }
         axios.post('/api/vendorlist/post/productwise/vendor/list',formValues)
         .then(res=>{
+            console.log("res",res);
             setLoading(false);
             // setLimit(limitRange);
             // if(vendorList.length > 0){
@@ -80,7 +81,9 @@ export const ProductVendorList = withCustomerToaster((props)=>{
 
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity style={{paddingHorizontal:15,paddingLeft:30,marginBottom:5}} onPress={()=> navigation.navigate('SubCatCompView', { productID: product_id ,currency:store?.preferences?.currency,vendorLocation_id:item.vendorLocation_id,location:store.location})} activeOpacity={1}>                  
+            <TouchableOpacity style={{paddingHorizontal:15,paddingLeft:30,marginBottom:5}} 
+                onPress={()=> navigation.navigate('SubCatCompView', { productID: product_id ,currency:store?.preferences?.currency,vendorLocation_id:item.vendorLocation_id,location:store.location,vendor_id:item.vendor_ID})} activeOpacity={1}
+            >                  
             <Card containerStyle={{padding:0,borderRadius:7,height:100,marginRight:0,elevation:5}} wrapperStyle={{alignItems:'center',flexDirection:'row'}}>
                 <View style={styles.logoBox1}>
                     {item.vendorLogo ? <ImageBackground source={{uri:item.vendorLogo}} style={{height:80,width:80}} imageStyle={{borderRadius:100,borderWidth:0.5,borderColor:  '#033554'}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></ImageBackground> :null}
@@ -88,7 +91,7 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                     <View style={{flex:1,height:100,justifyContent:'center',paddingLeft:60}}>
                         <Text style={[CommonStyles.subHeaderText,{color:"#000",alignSelf:"flex-start"}]}>{item.vendorName}</Text >
                         <Text numberOfLines={2} style={[CommonStyles.text,{color:"#000"}]}>{item.productName}</Text>
-                        <Text style={[CommonStyles.text,{color:"#000"}]}>{store?.preferences?.currency} {item.productPrice.toFixed()}</Text>
+                        <Text style={[CommonStyles.text,{color:"#000"}]}>{store?.preferences?.currency} {item.productPrice.toFixed(2)}</Text>
                     </View> 
                     <ImageBackground 
                         source={require("../../AppDesigns/currentApp/images/Time.png")} 

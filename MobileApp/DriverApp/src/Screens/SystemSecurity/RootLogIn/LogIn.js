@@ -1,13 +1,15 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {
   Text,
   View,
   Dimensions,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
   Image,
   Modal,
-  Alert
+  Alert,
+  BackHandler
 } from 'react-native';
 import { Icon }             from "react-native-elements";
 import axios                from "axios";
@@ -36,6 +38,7 @@ import {
   LoginManager
 } from 'react-native-fbsdk';
 import { ActivityIndicator } from 'react-native';
+import { useIsFocused } from "@react-navigation/native";
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -55,11 +58,31 @@ const window = Dimensions.get('window');
     const [facebookLoading, setFacebookLoading] = useState(false);
     const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
+    const isFocused = useIsFocused();
+
+    const backAction = () => {
+      Alert.alert("Confirmation!", "Are you sure you want to exit app?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    
+    useEffect(() => {
+      BackHandler.addEventListener("hardwareBackPress", backAction);
+      return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  },[]);
+
       return (
         <React.Fragment>
-          <Formik
+           {isFocused &&<Formik
             onSubmit={(values,fun) => {
-              fun.resetForm(values);
               setLoading(true);
               let {username, password} = values;
               const payload = {
@@ -70,6 +93,7 @@ const window = Dimensions.get('window');
               axios
                 .post('/api/auth/post/login/mob_email', payload)
                 .then((res) => {
+                  console.log("res",res);
                   setLoading(false);
                   if(res.data.message === "Login Auth Successful"){
                     if(res.data.passwordreset === false  ){
@@ -97,7 +121,8 @@ const window = Dimensions.get('window');
                           role        : res.data.roles
                         }),
                       );
-                      navigation.navigate('LocationMain');
+                      fun.resetForm(values);
+                      navigation.navigate('App');
                     }
                   }else if(res.data.message === 'INVALID_PASSWORD'){
                     setToast({text: "Please enter correct password", color: colors.warning});
@@ -136,7 +161,9 @@ const window = Dimensions.get('window');
             initialValues={{
               username: '',
               password: '',
-            }}>
+            }}
+            enableReinitialize
+            >
             {(formProps) => (
               <FormBody
                 btnLoading={btnLoading}
@@ -146,7 +173,7 @@ const window = Dimensions.get('window');
                 {...formProps}
               />
             )}
-          </Formik>
+          </Formik>}
         </React.Fragment>
       );
     });
@@ -161,7 +188,8 @@ const window = Dimensions.get('window');
       setFieldValue,
       setLoading,
       navigation,
-      dispatch
+      dispatch,
+      values
     } = props;
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
@@ -248,11 +276,12 @@ const window = Dimensions.get('window');
     };
 
     const loginWithFacebook = () => {
-      setLoading(true);
+      // setLoading(true);
       // Attempt a login using the Facebook login dialog asking for default permissions.
       LoginManager.logInWithPermissions(['public_profile']).then(
         login => {
           if (login.isCancelled) {
+            // setLoading(false);
             console.log('Login cancelled');
           } else {
             AccessToken.getCurrentAccessToken().then(data => {
@@ -301,12 +330,12 @@ const window = Dimensions.get('window');
                 role        : res.data.roles,
               }),
             );
-            navigation.navigate('LocationMain');
+            navigation.navigate('App');
           }
         }
       })
       .catch((error) => {
-        console.log("error",error);
+        // console.log("error",error);
         setLoading(false);
         setToast({text: 'Something went wrong.', color: 'red'});
       })
@@ -368,16 +397,18 @@ const window = Dimensions.get('window');
         }
       })
       .catch((error) => {
-        console.log("error",error);
+        // console.log("error",error);
         setLoading(false);
         setToast({text: 'Something went wrong.', color: 'red'});
       })
     }
 
     return (
-      <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-      <View style={{paddingHorizontal:20}}>
-          <View style={styles.boxOpacity}>
+      <ImageBackground 
+        source={require("../../../AppDesigns/currentApp/images/s2.jpg")} 
+        style={commonStyles.container} 
+        resizeMode="contain" >
+        <ScrollView style={{}}>
               <View style={styles.syslogo}>
                   <Image
                   resizeMode="contain"
@@ -385,35 +416,40 @@ const window = Dimensions.get('window');
                   style={styles.syslogoimg}
                   />
               </View>
-              <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
+              <View style={styles.textTitleWrapper}>
+                <Text style={{fontSize:10,color:"#bbb"}}>Welcome to</Text>
+                <Text style={{fontSize:15,fontWeight:'bold',color:"#000000"}}>Knock Knock</Text>
+              </View>
             
             <View style={commonStyles.formWrapper}>
             <FormInput
-              labelName       = "Email Id/Mobile No"
-              placeholder     = "Enter Email Id / Mobile No"
+              // style={[styles.inputBoxStyle]}
+              labelName       = "Mobile No / Email Id"
+              // placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"
               errors          = {errors}
               touched         = {touched}
-              iconName        = {'email'}
+              // iconName        = {'email'}
               iconType        = {'material-community'}
               autoCapitalize  = "none"
               keyboardType    = "email-address"
+              value           = {values.username}
             />
             <FormInput
               labelName     = "Password"
-              placeholder   = "Enter Password"
+              // placeholder   = "Enter Password"
               onChangeText  = {handleChange('password')}
               errors        = {errors}
               name          = "password"
               required      = {true}
               touched       = {touched}
-              iconName      = {'lock'}
+              // iconName      = {'lock'}
               iconType      = {'material-community'}
               rightIcon ={
                 <TouchableOpacity
-                  style={{paddingHorizontal: '5%'}}
+                  style={{paddingRight: '5%'}}
                   onPress={() => togglePassword(!showPassword)}>
                   {showPassword ? (
                     <Icon name="eye-with-line" type="entypo" size={18} />
@@ -423,7 +459,14 @@ const window = Dimensions.get('window');
                 </TouchableOpacity>
               }
               secureTextEntry={!showPassword}
+              value = {values.password}
             />
+            <View style={{flexDirection:"row",paddingHorizontal:15,paddingBottom:20,}}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:1,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                <Text style={[commonStyles.linkText]}>Forgot Password?</Text>
+              </TouchableOpacity>
+            </View>
             <FormButton
               title       = {'Login'}
               onPress     = {handleSubmit}
@@ -440,59 +483,16 @@ const window = Dimensions.get('window');
                   // marginBottom    : 25,
                 },
               ]}>
-                <View style={{flexDirection:"row",paddingHorizontal:15}}>
+                {/* <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('Signup')} style={{flex:.5,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={commonStyles.linkText}>Sign Up</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('ForgotPassword')}  style={{flex:0.5,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                  <Text style={commonStyles.linkText}>Forgot Password</Text>
-                </TouchableOpacity>
-                </View>
+                  onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={{fontSize:10}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10}]}> Sign Up</Text></Text>                  
+                </TouchableOpacity>                
+                </View> */}
             </View>
-           <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
-            <View style={{alignItems:"center",justifyContent:"center",flexDirection:'row'}}>
-              <GoogleSigninButton
-                style={{ width: 60, height: 60,marginRight:15}}
-                size={GoogleSigninButton.Size.Wide}
-                color={GoogleSigninButton.Color.Light}
-                onPress={()=>google_login()}
-                // loading={googleLoading}
-                // disabled={true} 
-                />
-                <TouchableOpacity
-                  onPress={loginWithFacebook}
-                  style={{
-                    backgroundColor: '#fff',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 50, 
-                    height: 50,
-                    shadowColor: "#000",
-                    shadowOffset: {
-                      width: 0,
-                      height: 2,
-                    },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 5,
-                  }}>
-                  <Icon name='facebook' type='font-awesome' size={25} color="#4267B2"/>
-                </TouchableOpacity>
-            </View>
-            <Text style={{paddingVertical:10,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text>
-            <View style={{alignItems:"center",justifyContent:"center",marginBottom:15}}>
-                <FormButton
-                  title       = {'Continue As a Guest'}
-                  // onPress     = {()=>navigation.navigate('LocationMain')}
-                  onPress     = {()=>login_guest()}
-                  background  = {true}
-                  // loading     = {btnLoading}
-              />
-            </View>
+            {/* <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold"}}>OR</Text> */}
+            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold",color:"#aaa"}}>V 0.0.4</Text>
           </View>
-        </View>
         <Modal 
           animationType="slide"
           transparent={true}
@@ -500,7 +500,7 @@ const window = Dimensions.get('window');
         >
         <View 
           style={{
-            backgroundColor: 'rgba(0,0,0,0.4)',
+            backgroundColor: 'rgba(0,0,0,0)',
             flex:1,
             justifyContent:'center',
             alignItems:'center'
@@ -508,7 +508,7 @@ const window = Dimensions.get('window');
             <ActivityIndicator color={colors.theme} size={40}/>
         </View>
         </Modal>
-      </View>
+      </ScrollView>
     </ImageBackground>
   );
 };

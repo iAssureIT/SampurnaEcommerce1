@@ -8,5 +8,4 @@
         android:height="200dp"
         android:drawable="@mipmap/logo"
         android:gravity="center" />
-
 </layer-list>

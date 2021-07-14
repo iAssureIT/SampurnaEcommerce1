@@ -14,7 +14,6 @@ import { useIsFocused }             from "@react-navigation/native";
 import styles                       from '../../AppDesigns/currentApp/styles/ScreenStyles/Dashboardstyles.js';
 import Loading                      from '../../ScreenComponents/Loading/Loading.js';
 import {withCustomerToaster}        from '../../redux/AppState.js';
-import { getSectionList } 		      from '../../redux/section/actions';
 import { getPreferences } 		      from '../../redux/storeSettings/actions';
 import {colors}             from '../../AppDesigns/currentApp/styles/styles.js';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
@@ -25,13 +24,12 @@ TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delay
 const Dashboard = withCustomerToaster((props)=>{
   const isFocused             = useIsFocused();
   const dispatch              = useDispatch();
-  const {setToast,navigation,productList,wishList,globalSearch,preferences,user_id} = props; 
+  const {setToast,navigation} = props; 
   const [isOpen,setOpen]      = useState(false);
   const [blocks,setBlocks]    = useState([]);
   const [loading,setLoading]  = useState(true);
   const limit                 = 6;
     useEffect(() => {
-        dispatch(getSectionList());
         dispatch(getPreferences());
         getBlocks();
     },[]);
@@ -77,7 +75,7 @@ const Dashboard = withCustomerToaster((props)=>{
                     </TouchableOpacity>
                 </View>
                 <View style={{flexDirection:"row",justifyContent:'space-between'}}>         
-                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('WishlistComponent')}>
+                    <TouchableOpacity style={styles1.HorizontalBoxLeft} onPress={()=>navigation.navigate('CompletedOrders')}>
                         <Icon size={30} name='list' type='font-awesome' color={colors.theme} style={styles1.iconStyle}/>
                         <Text style={[CommonStyles.label]}>Total Orders</Text>
                         <Text style={[CommonStyles.label]}>Delivered Today</Text>
@@ -125,9 +123,6 @@ const styles1 = StyleSheet.create({
 
 const mapStateToProps = (store)=>{
   return {
-    productList     : store.productList,
-    wishList        : store.wishDetails.wishList,
-    globalSearch    : store.globalSearch,
     location        : store.location,
     preferences     : store.storeSettings.preferences,
     user_id         : store.userDetails.user_id ? store.userDetails.user_id : null

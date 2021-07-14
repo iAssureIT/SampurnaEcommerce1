@@ -296,12 +296,7 @@ export const Location = withCustomerToaster((props)=>{
                 }}
 
                 renderLeftButton={() => (
-                    <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}
-                        onPress={() => {
-                            ref.current?.clear(address);
-                            ref.current?.setAddressText('');
-                        }}
-                    >
+                    <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}>
                     <Icon name="crosshairs-gps" type='material-community' size={15} style={styles.fabButton}/>
                 </View>
                 )}
@@ -310,10 +305,14 @@ export const Location = withCustomerToaster((props)=>{
                     <View style={{height:44,width:30,backgroundColor:"#fff",justifyContent:'center'}}
                     onPress={() => {
                         ref.current?.clear(address);
+                            ref.current?.setAddressText('');
                     }}
                 >
                     <Icon name="close" type='material-community' size={15} style={styles.fabButton}
-                        onPress={() => {ref.current?.clear(address)}}
+                        onPress={() => {
+                            ref.current?.clear(address);
+                            ref.current?.setAddressText('');
+                        }}
                     />
                 </View>
                 )}
@@ -332,8 +331,8 @@ export const Location = withCustomerToaster((props)=>{
                     listView:{
                         position: 'absolute',
                         zIndex: 9999,
-                        top: 59,
-                        paddingHorizontal:15
+                        top: 50,
+                        // paddingHorizontal:15
                     } ,
                     row:{
                         backgroundColor: 'white'

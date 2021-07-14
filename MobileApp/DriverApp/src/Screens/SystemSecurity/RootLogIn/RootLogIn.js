@@ -112,13 +112,13 @@ const window = Dimensions.get('window');
                       }
                       axios.post('/api/masternotifications/post/sendNotification', sendData)
                       .then((res) => {
-                        console.log('sendDataToUser in result==>>>', res.data)
+                        // console.log('sendDataToUser in result==>>>', res.data)
                       })
                       .catch((error) => { console.log('notification error: ',error)})
                   }
                 })
                 .catch((error) => {
-                  console.log("error",error);
+                  // console.log("error",error);
                   setLoading(false);
                   setToast({text: 'Something went wrong.', color: 'red'});
                 });
@@ -154,32 +154,6 @@ const window = Dimensions.get('window');
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
     
-
-  const _signIn = async () => {
-      try {
-        await GoogleSignin.hasPlayServices();
-        const userInfo = await GoogleSignin.signIn();
-        await GoogleSignin.revokeAccess();
-        }catch(error){
-          if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-            console.log("sign in was cancelled");
-            // sign in was cancelled
-            // Alert.alert('cancelled');
-          } else if (error.code === statusCodes.IN_PROGRESS) {
-            console.log("in progress");
-            // operation in progress already
-            // Alert.alert('in progress');
-          } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-            console.log('play services not available or outdated');
-            // Alert.alert('play services not available or outdated');
-          } else {
-            console.log('Something went wrong', error);
-            // Alert.alert('Something went wrong', error);
-          }
-        }
-    }; 
-
-
   return (
       <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
       <View style={{paddingHorizontal:20}}>

@@ -42,6 +42,7 @@ const window = Dimensions.get('window');
                 let {username} = data;
                 axios.patch('/api/auth/patch/set_send_otp/'+username)
                   .then(response => {
+                    console.log("response",response);
                       setLoading(false);
                         if(response.data.message == 'OTP_UPDATED') {
                           // var sendData = {
@@ -107,33 +108,39 @@ const window = Dimensions.get('window');
     const [image, setImage] = useState({profile_photo: '', image: ''});
     
   return (
-      <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-      <View style={{paddingHorizontal:20}}>
-          <View style={styles.boxOpacity}>
-                <View style={styles.syslogo}>
-                    <Image
-                    resizeMode="contain"
-                    source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
-                    style={styles.syslogoimg}
-                    />
-                </View>
-                <View style={styles.textTitleWrapper}><Text style={commonStyles.headerText}>Sign In</Text></View>
+      <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={commonStyles.container} resizeMode="cover" >
+      <View style={{flex:1}}>
+          <View style={[styles.boxOpacity]}>
+            <View style={styles.syslogo}>
+                <Image
+                resizeMode="contain"
+                source={require("../../../AppDesigns/currentApp/images/trollymart-black.png")}
+                style={styles.syslogoimg}
+                />
+            </View>
+            <View style={styles.textTitleWrapper}>
+              <Text style={{fontSize:10,color:"#bbb"}}>Knock Knock</Text>
+              <Text style={{fontSize:15,fontWeight:'bold',color:"#000000"}}>Forgot your password?</Text>
+            </View>
+            <View style={styles.textTitleWrapper}>
+              <Text style={commonStyles.label}>Enter your email address and we'll send</Text>
+            <Text style={commonStyles.label}>you a link to reset your password.</Text></View>
             <View style={commonStyles.formWrapper}>
             <FormInput
-              labelName       = "Email Id/Mobile No"
-              placeholder     = "Email Id/Mobile No"
+              labelName       = "Mobile No / Email Id"
+              // placeholder     = "Enter Mobile No / Email Id..."
               onChangeText    = {handleChange('username')}
               required        = {true}
               name            = "username"
               errors          = {errors}
               touched         = {touched}
-              iconName        = {'email'}
+              // iconName        = {'email'}
               iconType        = {'material-community'}
               autoCapitalize  = "none"
               keyboardType    = "email-address"
             />
             <FormButton
-              title       = {'Forgot Password'}
+              title       = {'Reset Password'}
               onPress     = {handleSubmit}
               background  = {true}
               loading     = {btnLoading}
@@ -148,20 +155,27 @@ const window = Dimensions.get('window');
                   marginBottom    : 25,
                 },
               ]}>
+              <View
+              style={[
+                {
+                  flexDirection   : 'row',
+                  alignItems      : 'center',
+                  justifyContent  : 'center',
+                  marginTop       : '3%',
+                  // marginBottom    : 25,
+                },
+              ]}>
                 <View style={{flexDirection:"row",paddingHorizontal:15}}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('Signup')} style={{flex:.5,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                  <Text style={commonStyles.linkText}>Sign Up</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('RootLogIn')}  style={{flex:0.5,alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                  <Text style={commonStyles.linkText}>Sign In</Text>
-                </TouchableOpacity>
+                  onPress={() => navigation.navigate('Signup')} style={{flex:1,alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+                  <Text style={{fontSize:10}}>Don't have an account?<Text style={[commonStyles.linkText,{fontSize:10}]}> Sign Up</Text></Text>                  
+                </TouchableOpacity>                
                 </View>
+            </View>
             </View>
           </View>
         </View>
       </View>
-    </ImageBackground>
+   </ImageBackground>
   );
 };

@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useRef} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,6 +17,7 @@ import {
 import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native';
+import { useIsFocused } from "@react-navigation/native";
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
   { id: '2', text: 'Learn React' },
@@ -25,9 +26,11 @@ const todoList = [
 
 export const NewOrders =(props)=> {
     const [orderList,setOrderList] = useState([]);
+    const isFocused = useIsFocused();
+    const ref = useRef()
     useEffect(() => {
         getList()
-    },[]);
+    },[props,isFocused]);
 
     const store = useSelector(store => ({
         userDetails     : store.userDetails,
@@ -42,7 +45,8 @@ export const NewOrders =(props)=> {
         axios.post('/api/orders/get/nearest_vendor_orders',payload)
         .then(res=>{
             console.log("res1",res);
-            setOrderList(res.data)
+            setOrderList(res.data);
+            ref?.current?.close()
         })
         .catch(err=>{
             console.log("err",err);
@@ -76,7 +80,7 @@ export const NewOrders =(props)=> {
             order_id        : order_id,
             vendor_id       : vendor_id,
             userid          : store.userDetails.user_id,
-            changeStatus    : "Allocate"
+            changeStatus    : "Allocated"
         }
         console.log("payload",payload);
         axios.patch('/api/orders/changevendororderstatus',payload)
@@ -91,12 +95,20 @@ export const NewOrders =(props)=> {
     const swipeFromRightOpen = () => {
     //   alert('Swipe from right');
     };
+
+
+
+    console.log("ref",ref);
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity onClick={()=>props.navigation.navigate('OrderSummery')}>
+            <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
             <Card containerStyle={{padding:0}}>
             <Swipeable
+                ref={ref}
                 renderLeftActions={LeftSwipeActions}
+                key={index}
+                // onSwipeableClose={()=>}
+                // close={closeRow(index)}
                 // renderRightActions={rightSwipeActions}
                 // onSwipeableRightOpen={swipeFromRightOpen}
                 onSwipeableLeftOpen={()=>swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id,)}
@@ -117,7 +129,7 @@ export const NewOrders =(props)=> {
                     paddingVertical: 5,
                     paddingHorizontal:5,
                     backgroundColor: 'white',
-                    height:150
+                    // height:150
                 }}
                 >
                <View style={{flexDirection:'row',marginBottom:5}}>
@@ -135,7 +147,7 @@ export const NewOrders =(props)=> {
                         </View>    
                         <View style={styles.box1}>
                             <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} />
-                            <Text style={[CommonStyles.label]}>{item.vendorDetails.locations[0].vendorDist} Km away</Text>
+                            <Text style={[CommonStyles.label]}>{item.vendorOrders.vendorDistance} Km away</Text>
                         </View>
                         <View style={{flexDirection:'row',paddingVertical:5}}>
                             <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} />
@@ -151,7 +163,7 @@ export const NewOrders =(props)=> {
                         </View>    
                         <View style={styles.box1}>
                             <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} />
-                            <Text style={[CommonStyles.label]}>{item.vendorDetails.locations[0].vendorToCustDist} Km away</Text>
+                            <Text style={[CommonStyles.label]}>{item.vendorOrders.vendorToCustDist} Km away</Text>
                         </View>
                         <View style={styles.box1}>
                             <Icon name="map-marker-radius" type="material-community" size={20} color={"#aaa"} />
