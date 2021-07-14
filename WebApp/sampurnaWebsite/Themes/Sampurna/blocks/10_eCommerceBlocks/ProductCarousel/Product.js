@@ -18,7 +18,6 @@ class Product extends Component{
             newProducts : [],
             wishList    : [],
             blockSettings : [],
-            
         }
     }
 

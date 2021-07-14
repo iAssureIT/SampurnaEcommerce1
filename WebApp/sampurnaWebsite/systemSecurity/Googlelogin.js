@@ -45,9 +45,10 @@ responseGoogle(response){
           authService : signupResponse.data.authService,
         }
         localStorage.setItem('userDetails', JSON.stringify(userDetails));
-        swal({text:'Congratulations! You have been successfully Login, Now you can place your order.'}).then(function(){
-          window.location.reload();
-        });
+        // swal({text:'Congratulations! You have been successfully Login, Now you can place your order.'}).then(function(){
+        //   window.location.reload();
+        // });
+        window.location.reload();
     }
     })
     .catch((error)=>{

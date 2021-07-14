@@ -244,7 +244,7 @@ class ProductsView extends Component {
 
   deleteImage(event){
     if(file){
-      console.log("file to be deleted==",event.currentTarget.file);
+      // console.log("file to be deleted==",event.currentTarget.file);
       axios
         .get('/api/projectSettings/get/S3')
         .then((response)=>{
@@ -262,11 +262,6 @@ class ProductsView extends Component {
               },()=>{
                 const ReactS3Client = new S3(config);
                 if(ReactS3Client){
-                  // console.log("ReactS3Client===",ReactS3Client);
-                  // console.log("file===",file);
-                  // console.log("this.state.config===",this.state.config);
-                  // console.log("config===",config);
-                  // const newFileName = 'test-file';
                   ReactS3Client
                   .deleteFile(file)
                   .then(response =>{
@@ -379,8 +374,6 @@ class ProductsView extends Component {
         // console.log('subcatgArr', this.state.subcatgArr);
     });
   }
-
-
 }
   getSingleProductReview(event) {
     // console.log("getSingleProductdetails==")
@@ -560,7 +553,7 @@ class ProductsView extends Component {
                                     }
 
                                     {/* Review and Rating */}
-                                    <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata.product_ID} role="dialog">
+                                    {/* <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata.product_ID} role="dialog">
                                         <div className="modal-content modalContent " style={{ 'background': '#fff'}}>
                                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                                               <div className="col-12">
@@ -606,6 +599,31 @@ class ProductsView extends Component {
                                                     <label className="error">{this.state.reviewTextError}</label>
                                                     </div>
                                                 </div>
+                                                <div className={"col-12 " +Style.ReturnImg}>   
+                                                    <div className="row">
+                                                      <div className=" col-4 mt-2">  
+                                                        <div className="row"> 
+                                                          <span className={"col-1 " +Style.errormsg}>*</span>                                                        
+                                                          <input type="file" className="col-10" onChange={this.uploadImage.bind(this)} title="Choose Image"  accept=".jpg,.jpeg,.png" />
+                                                        </div>
+                                                        <span className={"col-12 " +Style.errormsg}>{this.state.reviewImageError}</span>
+                                                      </div>
+                                                      {
+                                                        this.state.imgUrl ? 
+                                                          <div className="col-lg-12 productImgCol">
+                                                            <div className={"col-2 NoPadding "+Style.prodImage}>
+                                                              <div className="col-12 NoPadding prodImageInner">
+                                                                  <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
+                                                              </div>
+                                                              <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail "+Style.reviewImg} style={{height:'40px'}}></img>
+                                                            </div> 
+                                                            <div className="errorMsg">{this.state.errors.reviewImg}</div>   
+                                                          </div>
+                                                        :
+                                                        null
+                                                      }
+                                                    </div>
+                                                </div>
                                                 <div className="row inputrow">
                                                 </div>
                                             </form>
@@ -617,7 +635,8 @@ class ProductsView extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
+                                    < ProductReview />
 
                                     {/* Return product */}
                                     <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"returnModal_"+productdata.product_ID} role="dialog">
@@ -688,11 +707,11 @@ class ProductsView extends Component {
                                                       {
                                                         this.state.imgUrl ? 
                                                           <div className="col-lg-12 productImgCol">
-                                                            <div className="col-2 NoPadding prodImage">
+                                                            <div className={"col-2 NoPadding "+Style.prodImage}>
                                                               <div className="col-12 NoPadding prodImageInner">
                                                                   <span className="prodImageCross" title="Delete Image" data-imageurl={this.state.imgUrl} onClick={this.deleteImage.bind(this)} >x</span>
                                                               </div>
-                                                              <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail"} style={{height:'40px'}}></img>
+                                                              <img src={this.state.imgUrl} className={" col-12 NoPadding img-responsive imp-thumbnail " +Style.reviewImg} style={{height:'40px'}}></img>
                                                             </div>    
                                                           </div>
                                                         :

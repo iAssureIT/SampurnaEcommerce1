@@ -91,7 +91,7 @@ class Login extends Component {
         axios.post('/api/auth/post/login/mob_email', payload)
           .then((response) => {
             if(response.data){
-              console.log("login response=",response);
+              // console.log("login response=",response);
               if (response.data.ID) {
                 var userDetails = {
                   firstName   : response.data.userDetails.firstName,

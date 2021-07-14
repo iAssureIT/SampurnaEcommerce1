@@ -14,8 +14,8 @@ class ProductReview extends Component {
 render() {
     // console.log(" productView this.state.orderData.vendorOrders===",this.props.productData);
     return (
-        <div className="col-12">
-            
+      <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata.product_ID} role="dialog">
+            Product Review
         </div>
     );
   }

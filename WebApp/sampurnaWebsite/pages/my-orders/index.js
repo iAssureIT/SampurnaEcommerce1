@@ -295,6 +295,7 @@ export default class MyOrders extends Component {
       customerReview : ""
     })
   }
+  
   showOrdersDetails(event){
       event.preventDefault();
   }

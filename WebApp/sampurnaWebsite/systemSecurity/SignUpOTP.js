@@ -110,7 +110,7 @@ class SignUpOTP extends Component {
               </div>
               <div className="col-10 offset-1 mt-4">
                 <div className="col-12">
-                  <div className="col-12 otpBtns text-center ml-2" onClick={this.verifyOTP.bind(this)}> Verified</div>
+                  <div className="col-12 otpBtns text-center ml-2" onClick={this.verifyOTP.bind(this)}> Verifiy</div>
                 </div>
               </div>
         </div>

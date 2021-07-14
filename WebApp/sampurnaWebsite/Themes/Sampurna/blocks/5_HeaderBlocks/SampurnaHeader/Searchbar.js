@@ -33,51 +33,57 @@ class Searchbar extends React.Component {
     }
 
     searchProducts(event) {   
-        // console.log("event.keycode",event.key);  
-        if (event.key === "Enter") {
-            this.getRelatedSearches(event);
-        }
+        console.log("event.keycode",event.key);  
+        this.getRelatedSearches(event);
+        // if (event.key === "Enter") {
+        //     this.getRelatedSearches(event);
+        // }
       }
       getRelatedSearches(event){
         var searchText = this.refs.tableSearch.value.trim();
-        if(searchText){  
+        console.log("searchText==",searchText);
+        if(searchText !== null){  
           console.log("searchText===",searchText);   
           var payload ={"searchText":searchText}
-          axios.post("/api/products/get/search/suggestion",payload)
-          .then((searchResponse)=>{
-              if(searchResponse){
-                  // console.log("searchResponse==",searchResponse.data);
-                  this.setState({
-                      "relatedSearches" : searchResponse.data,
-                      "searchText"      : searchText,
-                  },()=>{
-                     
-                      var formValues = {
-                          "searchstr"         : this.state.searchText,
-                          "user_id"           : this.state.user_ID,
-                          "limit"             : 10,
-                          "userLatitude"      : this.state.latitude,
-                          "userLongitude"     : this.state.longitude
-                      }
-                      if(formValues){
-                          axios.post("/api/products/get/search/website",formValues)
-                          .then((searchProductRes)=>{
-                              if(searchProductRes){
-                                  console.log("searchProductRes===",searchProductRes);
-                                  Router.push('/search-product/'+this.state.searchText);
-                                  store.dispatch(setSearchDetails(searchProductRes)) ;
-                              }
-                          })
-                          .catch((error)=>{
-                              console.log("error while search api=",error);
-                          })
-                      }
-                  })
-              }
-          })
-          .catch((error)=>{
-              console.log(" search result error=",error);
-          })        
+          console.log("payload==",payload);
+          if(payload){
+            axios.post("/api/products/get/search/suggestion",payload)
+            .then((searchResponse)=>{
+                console.log("searchResponse==",searchResponse);
+                if(searchResponse){
+                    console.log("searchResponse==",searchResponse.data);
+                    this.setState({
+                        "relatedSearches" : searchResponse.data,
+                        "searchText"      : searchText,
+                    },()=>{
+                        
+                        var formValues = {
+                            "searchstr"         : this.state.searchText,
+                            "user_id"           : this.state.user_ID,
+                            "limit"             : 10,
+                            "userLatitude"      : this.state.latitude,
+                            "userLongitude"     : this.state.longitude
+                        }
+                        if(formValues){
+                            axios.post("/api/products/get/search/website",formValues)
+                            .then((searchProductRes)=>{
+                                if(searchProductRes){
+                                    console.log("searchProductRes===",searchProductRes);
+                                    Router.push('/search-product/'+this.state.searchText);
+                                    store.dispatch(setSearchDetails(searchProductRes)) ;
+                                }
+                            })
+                            .catch((error)=>{
+                                console.log("error while search api=",error);
+                            })
+                        }
+                    })
+                }
+            })
+            .catch((error)=>{
+                console.log(" search result error=",error);
+            })  
+          }      
         }  
       } 
 
@@ -88,12 +94,13 @@ class Searchbar extends React.Component {
                     <div className="row mt3 tableSearchWrapper"> 
                         <input type="text" placeholder="Search the items" id="browsers"
                         list="datalist"
-                        onKeyPress={this.searchProducts.bind(this)} 
+                        // onKeyPress={this.searchProducts.bind(this)} 
+                        onChange={this.searchProducts.bind(this)} 
                         className="form-control tableSearch col-12" ref="tableSearch" id="tableSearch" name="tableSearch" />
                         <div className="searchIcon" 
                             onClick={this.getRelatedSearches.bind(this)}
                         >
-                            <i className="fa fa-search"></i>
+                            <i className="fas fa-search"></i>
                         </div>
 
                         <datalist id="datalist" className="col-12">

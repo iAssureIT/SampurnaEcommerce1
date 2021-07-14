@@ -35,7 +35,7 @@ responseFacebook(response){
 
     axios.post('/api/auth/post/signup/social_media',formValues)
     .then((signupResponse)=>{
-      console.log("signup===",signupResponse);
+      // console.log("signup===",signupResponse);
       if(signupResponse?.data){
         var userDetails = {
           firstname   : signupResponse.data.userDetails.firstName,
@@ -50,10 +50,11 @@ responseFacebook(response){
           authService : signupResponse.data.authService,
         }
         localStorage.setItem('userDetails', JSON.stringify(userDetails));
-        swal({text:'Congratulations! You have been successfully Login, Now you can place your order.'})
-        .then(function(){
-          window.location.reload();
-        });
+        // swal({text:'Congratulations! You have been successfully Login, Now you can place your order.'})
+        // .then(function(){
+        //   window.location.reload();
+        // });
+        window.location.reload();
     }
     })
     .catch((error)=>{

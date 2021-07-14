@@ -254,7 +254,7 @@ export default class OrderDetails extends Component {
  
   render() {
     if(this.state.orderData){
-      console.log("Order Details data====",this.state.orderData );
+      // console.log("Order Details data====",this.state.orderData );
     }
     
     return (
