@@ -40,8 +40,8 @@ class Productreview extends Component {
         },()=>{
             this.getMyReview();
         })
-    
   }
+
   getMyReview() {
     
     axios.get("/api/customerReview/get/user/list/" + this.state.user_ID)
@@ -56,19 +56,6 @@ class Productreview extends Component {
       .catch((error) => {
         console.log('error', error);
       })
-  }
-
-  Closepagealert(event) {
-    event.preventDefault();
-    $(".toast-error").html('');
-    $(".toast-success").html('');
-    $(".toast-info").html('');
-    $(".toast-warning").html('');
-    $(".toast-error").removeClass('toast');
-    $(".toast-success").removeClass('toast');
-    $(".toast-info").removeClass('toast');
-    $(".toast-warning").removeClass('toast');
-
   }
 
   submitReview(event) {
@@ -108,13 +95,14 @@ class Productreview extends Component {
           $('.modal-backdrop').remove();
         })
         .catch((error) => {
+          
         })
-
       console.log(formValues);
     } else {
       swal("Blank Review cant be submitted")
     }
   }
+
   getoneproductdetails(event) {
     var productID = event.target.id;
     var customerID = localStorage.getItem('user_ID');

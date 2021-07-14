@@ -13,6 +13,7 @@ class ProductreviewList extends Component {
     }
   }
   componentDidMount() {
+      this.getProductReview();
       var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
       var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
       if(userDetails){
@@ -22,21 +23,21 @@ class ProductreviewList extends Component {
               userLongitude : userDetails.userLatitude,
               userLongitude : userDetails.userLongitude,
             },()=>{
-              this.getProductReview();
+              
             })
           }
       }
   }
 
   getProductReview() {
-    console.log("this.props.productID====",this.props.productID);
+    // console.log("this.props.productID====",this.props.productID);
     axios.get("/api/customerReview/get/list/" + this.props.productID)
       .then((response) => {
         if(response){
           this.setState({
             reviewData: response.data,
           }, () => {
-            console.log("reviewData=========================>",this.state.reviewData);
+            // console.log("reviewData=========================>",this.state.reviewData);
             // console.log("reviewuserid",this.state.reviewuserid);
           })
       }

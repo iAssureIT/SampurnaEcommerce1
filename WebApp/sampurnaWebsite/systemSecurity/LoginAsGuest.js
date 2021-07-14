@@ -12,7 +12,6 @@ class LoginAsGuest extends Component {
 
 componentDidMount() {
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-    
 }
 
 getRandomInt=(min, max)=>{
@@ -51,10 +50,11 @@ customerloginAsGuest(event){
                 authService : guestResponse.data.authService,
             }
             localStorage.setItem('userDetails', JSON.stringify(userDetails));
-            swal({text:'Congratulations! You have been successfully logged in as guest, Now you can place your order.'})
-            .then(function(){
+            // swal({text:'Congratulations! You have been successfully logged in as guest, Now you can place your order.'})
+            // .then(function(){
+            // window.location.reload();
+            // });
             window.location.reload();
-            });
         }
     })
     .catch((error)=>{

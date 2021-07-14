@@ -296,8 +296,7 @@ class CartProducts extends Component{
                                     {    
                                         this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{  
                                         // console.log("vendorWiseCartData==",vendorWiseCartData);
-                                            return(  
-                                                
+                                            return( 
                                                 <div className={"row " +Style.singleRow} key={index}>
                                                     <div className="col-12 mt-2 mb-3 mx-2"><b>{vendorWiseCartData.vendor_id.companyName}</b></div>
 
@@ -390,23 +389,23 @@ class CartProducts extends Component{
                                                         );
                                                         })
                                                     }
-                                                              <div className="col-12">
-                                                    <Link href="/">
+                                                <div className="col-12">
+                                                    <Link href={"/products/"+vendorWiseCartData.vendor_id._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"}>
                                                         <a className={"shoppingLink " +Style.shopping}><i class="fa fa-arrow-left"></i>&nbsp;Contiune Shopping</a>
                                                     </Link>
                                                 </div>
+                                            </div>
+                                            {
+                                            vendorWiseCartData.vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ?
+                                                    <div className="col-12"> 
+                                                        <div className="col-12 vendorWarning">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
+                                                        <div className="col-12 text-center">
+                                                            <a href={"/products/"+vendorWiseCartData.vendor_id._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"} className="vendorShoppinglink">To continue shopping click here</a>
+                                                        </div>
                                                     </div>
-                                                    {
-                                                    vendorWiseCartData.vendor_netPayableAmount < this.props.recentCartData.minOrderAmount ?
-                                                            <div className="col-12"> 
-                                                                <div className="col-12 vendorWarning">Order total amount should be greater than AED&nbsp; {this.props.recentCartData.minOrderAmount}. Please add some more products.</div>
-                                                                <div className="col-12 text-center">
-                                                                    <a href={"/products/"+vendorWiseCartData.vendor_id._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"} className="vendorShoppinglink">To continue shopping click here</a>
-                                                                </div>
-                                                            </div>
-                                                        :null
-                                                    }
-                                                    </div>
+                                                :null
+                                            }
+                                        </div>
                                                     
                                                     <div className={"col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 vendorWiseSummury pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
                                                         {/* <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong> */}
