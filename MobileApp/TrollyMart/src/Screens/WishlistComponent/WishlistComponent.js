@@ -43,9 +43,9 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
           <SearchSuggetion />
           : 
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
-            <View style={{flexDirection:'row',alignItems:'flex-end',padding:15}}>
-                <Text style={{fontSize:22,fontFamily:"Montserrat-Bold",color:"#333"}}>My Wishlist</Text>
-            </View> 
+            <View style={{paddingVertical:24,paddingHorizontal:20}}>
+              <Text style={CommonStyles.screenHeader}>My Wishlist</Text>
+            </View>
               <View style={{paddingBottom:60}}>
                 {loading ?
                   <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>

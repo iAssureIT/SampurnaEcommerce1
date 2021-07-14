@@ -104,8 +104,8 @@ export const Footer =(props)=>{
               </TouchableOpacity>
               
             </View>
-            {userDetails.authService!=="guest" &&<View style={styles.iconOuterWrapper}>
-              <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate('WishlistComponent')}}>
+            {<View style={styles.iconOuterWrapper}>
+              <TouchableOpacity onPress={() =>{dispatch(getWishList(userDetails.user_id));navigation.navigate(userDetails.authService!=="guest" ? 'WishlistComponent' :"Auth")}}>
                 <Icon name={props?.state?.index === 3 ? "heart":"heart-outline"} type="material-community" size={20} color={props?.state?.index === 3 ? colors.footerText :colors.theme}  />
                 <Text  style={[styles.footerTitle,{color:props?.state?.index === 3 ? colors.footerText :colors.theme}]}>Wishlist</Text>
               </TouchableOpacity>

@@ -33,27 +33,15 @@ export const OTPVerification = withCustomerToaster((props) => {
   return (
     <React.Fragment>
       <Formik
-        onSubmit={(data) => {
+        onSubmit={(values,fun) => {
             setLoading(true);
-            let { otp } = data;
+            fun.resetForm(values);
+            let { otp } = values;
             console.log("otp",otp);
             axios.get('/api/auth/get/checkmobileotp/usingID/'+userID+"/"+otp)
             .then(res => {
                 setLoading(false);
                 if(res.data.message == 'Login Auth Successful') {
-                  // var sendData = {
-                  //   "event": "1",
-                  //   "toUser_id": userID,
-                  //   "toUserRole":"user",
-                  //   "variables": {
-                  //     // "Username" : this.state.fullName,
-                  //     }
-                  // }
-                  //   axios.post('/api/masternotifications/post/sendNotification', sendData)
-                  //   .then((res) => {
-                  //   console.log('sendDataToUser in result==>>>', res.data)
-                  //   })
-                  //   .catch((error) => { console.log('notification error: ',error)})
                     AsyncStorage.multiSet([
                       ['user_id', res.data.ID],
                       ['token', res.data.token],
@@ -168,7 +156,8 @@ const FormBody = (props) => {
             codeInputHighlightStyle={styles.underlineStyleHighLighted}
             onCodeFilled = {handleSubmit}
             onCodeChanged = {handleChange('otp')}
-            // clearInputs
+            code={values.otp}
+            // clearInputs={isEmptyString(values.otp)}  
             />
            <Text style={{fontSize:12,color:"#f00",alignSelf:"center"}}>{touched['otp'] && errors['otp'] ? errors['otp'] : ''}</Text>
             <View style={{flexDirection:"row",justifyContent:"space-between"}}>

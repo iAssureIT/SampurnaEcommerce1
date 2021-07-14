@@ -66,13 +66,6 @@ export const FAQ = (props)=>{
     } else {
         return (
             <View style={{flex:1,backgroundColor:"#fff"}}>
-            {/* <HeaderBar3
-                goBack={navigation.goBack}
-                navigate={navigation.navigate}
-                headerTitle={"Help & Support"}
-                toggle={() => toggle()}
-                openControlPanel={() => openControlPanel()}
-            /> */}
             <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
                 <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                     <View style={[styles.aboutUsHeader]}>
@@ -89,7 +82,7 @@ export const FAQ = (props)=>{
                                 console.log("result",item.block_id.fgImage1)
                                 return(
                                     <View>
-                                        <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={CommonStyles.normalText}>
+                                        <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#333"}]}>
                                             <View style={[styles.queAns,{marginHorizontal:30}]}>
                                                 <Text style={CommonStyles.normalText}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
                                             </View>

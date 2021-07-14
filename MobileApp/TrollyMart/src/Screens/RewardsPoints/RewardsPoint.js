@@ -36,6 +36,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
   }));
+  console.log("preferences",store.preferences);
   const {currency}=store.preferences;
   
   const getData=()=>{
@@ -46,7 +47,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
       setLoading(false);
       axios.get('/api/creditpoints/get/'+data[1][1])
       .then((res) => {
-            // console.log("res",res)
+            console.log("res",res)
             setCreditPoints(res.data);
       })
       .catch((error) => {
@@ -72,61 +73,54 @@ export const RewardsPoint =withCustomerToaster((props)=>{
           headerTitle={'Account Dashboard'}
           navigate={navigation.navigate}
       /> */}
-      <View style={styles.acdashsuperparent}>
       {loading?
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
           <ActivityIndicator/>
         </View>   
           :
-          <ScrollView contentContainerStyle={[styles.container]} keyboardShouldPersistTaps="handled" >
-            <View style={{paddingHorizontal:15,paddingTop:15}}>
-            <Text style={[styles.creditTitle]}>My Credit Points</Text>
+          <ScrollView contentContainerStyle={[styles.container]} style={{flex:1,backgroundColor:"#fff"}} keyboardShouldPersistTaps="handled" >
+            <View style={{paddingVertical:24,paddingHorizontal:20}}>
+              <Text style={CommonStyles.screenHeader}>My Credit Points</Text>
             </View>
             {creditPoints&&<View style={styles.acdashparent}>
-              <View style={[styles.accuserinfo]}>
-                <View style={[styles.padhr15,styles.cardCredit,{paddingBottom:10}]}>
-                  <View style={{flex:.5}}>
-                    <Text style={[styles.headerText1]}>Total Credit Points </Text>                    
+                <View style={[styles.cardCredit,{paddingTop:0}]}>
+                  <View style={{flexDirection:'row',flex:1}}>
+                    <View style={{flex:0.5}}>
+                     <Text style={[styles.headerText1]}>Total Points </Text> 
+                    </View> 
+                    <View style={{flex:0.5}}>
+                      <Text style={[styles.headerText1,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPoints} Points</Text>                    
+                      </View>
                   </View>
-                  <View style={{flex:.5}}>
-                    <Text style={[styles.headerText1],{fontWeight:'bold',alignSelf:"flex-end"}}>{creditPoints.totalPoints} Points</Text>                    
-                  </View>                
-                  <Text style={[styles.headerText2]}>Current Balance :  {creditPoints.totalPoinsValue} {currency}</Text>
+                  <View style={{flexDirection:'row',flex:1}}>
+                    <View style={{flex:0.5}}>
+                      <Text style={[styles.headerText2]}>Current Balance</Text>
+                    </View> 
+                    <View style={{flex:0.5}}>
+                    <Text style={[styles.headerText2,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPointsValue +" "+currency}</Text>
+                     </View>
+                  </View>
                 </View>
-                {/* <View style={[styles.padhr18,{flex:1}]}> 
-                    <View style={styles.accusermobinfo}>
-                      <View style={{flex:.25}}>
-                        <Text style={[CommonStyles.label]}>Order ID</Text>
-                      </View>  
-                      <View style={{flex:.25}}>
-                        <Text style={[CommonStyles.label]}>Start Date</Text>
-                      </View>   
-                      <View style={{flex:.25}}>
-                        <Text style={[CommonStyles.label]}>End Date</Text>
-                      </View>    
-                      <View style={{flex:.25}}>
-                        <Text style={[CommonStyles.label,{alignSelf:"flex-end"}]}>Points</Text>
-                        </View>   
-                    </View>
-                </View> */}
+                <View style={{borderWidth:0.3,width:280,borderColor:"#ddd",alignSelf:'center'}} />
                 {creditPoints.transactions && creditPoints.transactions.length > 0 ?
                 creditPoints.transactions.map((item,index)=>{
                   if(item!==null){
                     return(
-                        <View style={[styles.padhr18,styles.cardCredit,{flex:1}]}> 
+                        <View style={[,styles.cardCredit]}> 
                             <View style={styles.accusermobinfo}>
                             <View style={{flex:.3}}>
-                                <Text style={[styles.accusermob,{fontSize:12,fontFamily:"Montserrat-Regular",color:'#000'}]}>{moment(item.orderDate).format('MM-DD-YYYY')}</Text>
+                                <Text style={[styles.accusermob,{fontSize:12,fontFamily:"Montserrat-Medium",color:'#000'}]}>{moment(item.orderDate).format('MM/DD/YYYY')}</Text>
                               </View> 
                               <View style={{flex:.5,paddingHorizontal:5}}>
-                               <Text style={[styles.accusermob,{fontSize:12,color:'#000',fontWeight:'bold'}]}>{item.typeOfTransaction ? item.typeOfTransaction:""}</Text>
-                                <Text style={[styles.accusermob,{fontSize:11}]}>{item.orderID ? item.orderID:""}</Text>
-                                <Text style={[styles.accusermob,{fontSize:11}]}>{moment(item.expiryDate).format('MM-DD-YYYY')}</Text>
+                               <Text style={[styles.accusermob,{fontSize:12,color:'#000',fontFamily:"Montserrat-Medium"}]}>{item.typeOfTransaction ? item.typeOfTransaction:""}</Text>
+                                <Text style={[styles.accusermob,{fontSize:11}]}>{item.orderID ? "#"+item.orderID:""}</Text>
+                                <Text style={[styles.accusermob,{fontSize:11}]}>{moment(item.expiryDate).format('MM/DD/YYYY')} Expiry</Text>
                               </View>  
-                              <View style={{flex:.2}}>
-                                <Text style={[styles.accusermob,{alignSelf:"flex-end",color:'#3E9D5E',fontSize:16,fontWeight:'bold'}]}><Text>+</Text> {item.earnedPoints}</Text>
+                              <View style={{flex:.2,justifyContent:'center'}}>
+                                <Text style={[styles.accusermob,{alignSelf:"flex-end",color:'#3E9D5E',fontSize:16,fontFamily:"Montserrat-Medium"}]}><Text>+</Text> {item.earnedPoints}</Text>
                                 </View>   
                             </View>
+                            <View style={{borderWidth:0.3,width:280,borderColor:"#ddd",marginTop:15,alignSelf:'center'}} />
                         </View>
                     )
                   }
@@ -135,11 +129,8 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                 :
                 []
             }
-            </View>
             </View>}
           </ScrollView>}
-           
-        </View>
       </React.Fragment>
     );  
 })

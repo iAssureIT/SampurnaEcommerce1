@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {
   Text,
   View,
@@ -8,7 +8,8 @@ import {
   ScrollView,
   Image,
   Modal,
-  Alert
+  Alert,
+  BackHandler
 } from 'react-native';
 import { Icon }             from "react-native-elements";
 import axios                from "axios";
@@ -37,6 +38,7 @@ import {
   LoginManager
 } from 'react-native-fbsdk';
 import { ActivityIndicator } from 'react-native';
+import { useIsFocused } from "@react-navigation/native";
 
 GoogleSignin.configure({
   // scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -56,11 +58,31 @@ const window = Dimensions.get('window');
     const [facebookLoading, setFacebookLoading] = useState(false);
     const {setToast,navigation} = props; //setToast function bhetta
     const dispatch = useDispatch();
+    const isFocused = useIsFocused();
+
+    const backAction = () => {
+      Alert.alert("Confirmation!", "Are you sure you want to exit app?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    
+    useEffect(() => {
+      BackHandler.addEventListener("hardwareBackPress", backAction);
+      return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  },[]);
+
       return (
         <React.Fragment>
-          <Formik
+           {isFocused &&<Formik
             onSubmit={(values,fun) => {
-              fun.resetForm(values);
               setLoading(true);
               let {username, password} = values;
               const payload = {
@@ -71,6 +93,7 @@ const window = Dimensions.get('window');
               axios
                 .post('/api/auth/post/login/mob_email', payload)
                 .then((res) => {
+                  console.log("res",res);
                   setLoading(false);
                   if(res.data.message === "Login Auth Successful"){
                     if(res.data.passwordreset === false  ){
@@ -98,6 +121,7 @@ const window = Dimensions.get('window');
                           role        : res.data.roles
                         }),
                       );
+                      fun.resetForm(values);
                       navigation.navigate('LocationMain');
                     }
                   }else if(res.data.message === 'INVALID_PASSWORD'){
@@ -128,7 +152,7 @@ const window = Dimensions.get('window');
                   }
                 })
                 .catch((error) => {
-                  // console.log("error",error);
+                  console.log("error",error);
                   setLoading(false);
                   setToast({text: 'Something went wrong.', color: 'red'});
                 });
@@ -137,7 +161,9 @@ const window = Dimensions.get('window');
             initialValues={{
               username: '',
               password: '',
-            }}>
+            }}
+            enableReinitialize
+            >
             {(formProps) => (
               <FormBody
                 btnLoading={btnLoading}
@@ -147,7 +173,7 @@ const window = Dimensions.get('window');
                 {...formProps}
               />
             )}
-          </Formik>
+          </Formik>}
         </React.Fragment>
       );
     });
@@ -162,7 +188,8 @@ const window = Dimensions.get('window');
       setFieldValue,
       setLoading,
       navigation,
-      dispatch
+      dispatch,
+      values
     } = props;
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
@@ -249,11 +276,12 @@ const window = Dimensions.get('window');
     };
 
     const loginWithFacebook = () => {
-      setLoading(true);
+      // setLoading(true);
       // Attempt a login using the Facebook login dialog asking for default permissions.
       LoginManager.logInWithPermissions(['public_profile']).then(
         login => {
           if (login.isCancelled) {
+            // setLoading(false);
             console.log('Login cancelled');
           } else {
             AccessToken.getCurrentAccessToken().then(data => {
@@ -376,9 +404,11 @@ const window = Dimensions.get('window');
     }
 
     return (
-      // <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-      <ScrollView style={{flex:1,backgroundColor:"#fff"}}>
-          <View style={styles.boxOpacity}>
+      <ImageBackground 
+        source={require("../../../AppDesigns/currentApp/images/s2.jpg")} 
+        style={commonStyles.container} 
+        resizeMode="contain" >
+        <ScrollView style={{}}>
               <View style={styles.syslogo}>
                   <Image
                   resizeMode="contain"
@@ -405,6 +435,7 @@ const window = Dimensions.get('window');
               iconType        = {'material-community'}
               autoCapitalize  = "none"
               keyboardType    = "email-address"
+              value           = {values.username}
             />
             <FormInput
               labelName     = "Password"
@@ -428,6 +459,7 @@ const window = Dimensions.get('window');
                 </TouchableOpacity>
               }
               secureTextEntry={!showPassword}
+              value = {values.password}
             />
             <View style={{flexDirection:"row",paddingHorizontal:15,paddingBottom:20,}}>
               <TouchableOpacity
@@ -525,9 +557,8 @@ const window = Dimensions.get('window');
                   // loading     = {btnLoading}
               />
             </View>
-            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold",color:"#aaa"}}>V 0.0.1</Text>
+            <Text style={{paddingVertical:10,fontSize:9,alignSelf:"center",fontFamily:"Montserrat-Bold",color:"#aaa"}}>V 0.0.4</Text>
           </View>
-        </View>
         <Modal 
           animationType="slide"
           transparent={true}
@@ -535,7 +566,7 @@ const window = Dimensions.get('window');
         >
         <View 
           style={{
-            backgroundColor: 'rgba(0,0,0,0.4)',
+            backgroundColor: 'rgba(0,0,0,0)',
             flex:1,
             justifyContent:'center',
             alignItems:'center'
@@ -544,6 +575,6 @@ const window = Dimensions.get('window');
         </View>
         </Modal>
       </ScrollView>
-    // </ImageBackground>
+    </ImageBackground>
   );
 };

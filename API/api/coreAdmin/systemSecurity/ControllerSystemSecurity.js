@@ -1949,7 +1949,15 @@ exports.user_login_mob_email = (req, res, next) => {
 					var emailOTP = getRandomInt(1000, 9999);
 					// console.log("emailOTP ===>",emailOTP);
 					User.updateOne(
-						{ "username": emailId.toLowerCase() },
+						{$or:[
+							{"profile.mobile" : username},
+							{$and:[
+								{"profile.email"  :  username},
+								{"profile.email"  :  {$ne:''}},
+								{"authService"    :  {$eq:''}}
+							]
+							},
+						]},
 						{
 							$set: {
 								"profile.otpEmail": emailOTP,

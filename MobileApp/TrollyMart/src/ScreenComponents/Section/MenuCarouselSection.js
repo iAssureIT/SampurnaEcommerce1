@@ -13,7 +13,7 @@ import { ScrollView }           from "react-native-gesture-handler";
 import {SET_CATEGORY_LIST,
        SET_CATEGORY_WISE_LIST}  from '../../redux/productList/types';
 import commonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import {useRoute} from '@react-navigation/native';
+import {useRoute}               from  '@react-navigation/native';
 
 export const MenuCarouselSection = (props)=>{
   const {navigation,showImage,boxHeight}=props;

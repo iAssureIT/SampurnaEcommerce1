@@ -166,9 +166,9 @@ import ActionButton from 'react-native-action-button';
         /> */}
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
-          <View style={{flexDirection:'row',alignItems:'flex-end',padding:15}}>
-                <Text style={{fontSize:22,fontFamily:"Montserrat-Bold",color:"#333"}}>My Address</Text>
-            </View> 
+            <View style={{paddingVertical:24,paddingHorizontal:20}}>
+              <Text style={CommonStyles.screenHeader}>My Address</Text>
+            </View>
             <View style={styles.padhr15}>
               {deliveryAddress ?
                 deliveryAddress.length > 0 ?

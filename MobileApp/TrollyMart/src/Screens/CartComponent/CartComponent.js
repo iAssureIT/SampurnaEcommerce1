@@ -20,10 +20,11 @@ import {useDispatch,
 import {KeyboardAwareScrollView}  from 'react-native-keyboard-aware-scroll-view'
 import commonStyles               from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import AsyncStorage               from '@react-native-async-storage/async-storage';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
+import { getCartCount}                      from '../../redux/productList/actions';
 
 export const CartComponent = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
@@ -115,6 +116,7 @@ const getshippingamount=(startRange, limitRange)=>{
     axios.patch("/api/carts/remove", formValues)
       .then((response) => {
         if(userId){
+          dispatch(getCartCount(userId));
           getCartItems(userId);
         }
         setRemoveFromCart(false)
@@ -324,7 +326,7 @@ const getshippingamount=(startRange, limitRange)=>{
                           <View style={styles.flxmg2}>
                             <View style={styles.proddeletes}>
                               <TouchableOpacity style={[styles.flx1, styles.wishlisthrt]} onPress={() => addToWishList(item.product_ID._id)} >
-                                <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.theme} />
+                                <Icon size={20} name={item.product_ID.isWish ? 'heart' : 'heart-o'} type='font-awesome' color="red"/>
                               </TouchableOpacity>
                               <Icon
                                 onPress={() => deleteItemFromCart(item._id,vendor.vendor_id._id)}
@@ -456,12 +458,14 @@ const getshippingamount=(startRange, limitRange)=>{
                     </View>
                     <View style={{flex:0.05,justifyContent:"center",alignItems:"center"}} >
                       <Tooltip 
-                      containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
-                      width={300} 
-                      height={tooltipSize.h + 30}
-                      backgroundColor={colors.theme}
-                      popover={tooltipClone}>
-                        <Icon name="info-circle" type={"font-awesome"} size={11} />
+                        containerStyle={{justifyContent:'flex-start',alignItems:'flex-start'}}
+                        width={300} 
+                        height={tooltipSize.h + 30}
+                        backgroundColor={colors.theme}
+                        popover={tooltipClone}
+                        withOverlay={false}
+                        >
+                        <Icon name="info-circle" type={"font-awesome"} size={12} />
                       </Tooltip>
                     </View>  
                   </View>

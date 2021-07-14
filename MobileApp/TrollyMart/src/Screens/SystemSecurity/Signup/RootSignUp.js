@@ -67,10 +67,10 @@ const window = Dimensions.get('window');
       return (
         <React.Fragment>
           <Formik
-            onSubmit={(data) => {
+            onSubmit={(values,fun) => {
               if(password_matched){
                 setLoading(true);
-                let {firstName, lastName,mobileNumber,email_id,password,countryCode,callingCode} = data;
+                let {firstName, lastName,mobileNumber,email_id,password,countryCode,callingCode} = values;
                 var formValues = {
                   firstname   : firstName,
                   lastname    : lastName,
@@ -87,8 +87,9 @@ const window = Dimensions.get('window');
                 // console.log("formValues",formValues); 
                 axios.post('/api/auth/post/signup/user/otp',formValues)
                 .then((response) => {
+                  console.log("response",response);
                   setLoading(false)
-                  if(response.data.message == 'USER_CREATED'){            
+                  if(response.data.message == 'USER_CREATED'){   
                     var sendData = {
                       "event": "5",
                       "toUser_id": response.data.ID,
@@ -106,13 +107,14 @@ const window = Dimensions.get('window');
                       AsyncStorage.multiSet([
                         ['user_id_signup', response.data.ID],
                       ])
+                      fun.resetForm(values);
                       navigation.navigate('OTPVerification',{userID:response.data.ID,Username:response.data.result.profile.firstname});
                   }else{
                     setToast({text: response.data.message, color:  colors.warning});
                   }
                 })
                 .catch((error) => {
-                  // console.log("error",error);
+                  console.log("error",error);
                   setLoading(false);
                   setToast({text: 'Something went wrong.', color: 'red'});
                 })
@@ -162,12 +164,13 @@ const window = Dimensions.get('window');
     const [openModal, setModal] = useState(false);
     const [showPassword, togglePassword] = useState(false);
     const [image, setImage] = useState({profile_photo: '', image: ''});
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(values.mobileNumber);
     const [formattedValue, setFormattedValue] = useState("");
     const [valid, setValid] = useState(false);
     const [countryCode, setCountryCode] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
   const phoneInput = useRef(null);
+  console.log("phoneInput",phoneInput);
 
   const checkPassword = () => {
       if (values.password && values.confirm_password) {
@@ -182,8 +185,10 @@ const window = Dimensions.get('window');
   }
 
   return (
-      //  <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-        <ScrollView style={{flex:1,backgroundColor:"#fff"}}>
+       <ImageBackground 
+       source={require("../../../AppDesigns/currentApp/images/s3.jpg")} 
+        style={commonStyles.container} resizeMode="cover" >
+        <ScrollView style={{flex:1}}>
           <View contentContainerStyle={[commonStyles.container,{flex:1}]} keyboardShouldPersistTaps="always" >
               <View style={{}}>
                 <View style={styles.boxOpacity}>
@@ -204,6 +209,7 @@ const window = Dimensions.get('window');
                     name            = "firstName"
                     errors          = {errors}
                     touched         = {touched}
+                    value           = {values.firstName}
                     // iconName        = {'user-circle-o'}
                     iconType        = {'font-awesome'}
                     // autoCapitalize  = "none"
@@ -216,6 +222,7 @@ const window = Dimensions.get('window');
                     name            = "lastName"
                     errors          = {errors}
                     touched         = {touched}
+                    value           = {values.lastName}
                     // iconName        = {'user-circle-o'}
                     iconType        = {'font-awesome'}
                     // autoCapitalize  = "none"
@@ -247,9 +254,9 @@ const window = Dimensions.get('window');
                     </Text>
                       <PhoneInput
                         ref={phoneInput}
-                        defaultValue={value}
                         defaultCode="AE"
                         layout="first"
+                        value={values.mobileNumber}
                         onChangeText={(text) => {
                           const checkValid = phoneInput.current?.isValidNumber(text);
                           const callingCode = phoneInput.current?.getCallingCode(text);
@@ -276,6 +283,7 @@ const window = Dimensions.get('window');
                     name            = "email_id"
                     errors          = {errors}
                     touched         = {touched}
+                    value           = {values.email_id}
                     // iconName        = {'email'}
                     iconType        = {'material-community'}
                     autoCapitalize  = "none"
@@ -291,6 +299,7 @@ const window = Dimensions.get('window');
                     name          = "password"
                     required      = {true}
                     touched       = {touched}
+                    value         = {values.password}
                     // iconName      = {'lock'}
                     iconType      = {'material-community'}
                     rightIcon ={
@@ -315,6 +324,7 @@ const window = Dimensions.get('window');
                     name          = "confirm_password"
                     required      = {true}
                     touched       = {touched}
+                    value         = {values.confirm_password}
                     // iconName      = {'lock'}
                     iconType      = {'material-community'}
                     rightIcon ={
@@ -359,7 +369,7 @@ const window = Dimensions.get('window');
             </View>
         </View>
         </ScrollView>
-    // </ImageBackground>
+    </ImageBackground>
   );
 };
 

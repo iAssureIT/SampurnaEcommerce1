@@ -108,8 +108,8 @@ const window = Dimensions.get('window');
     const [image, setImage] = useState({profile_photo: '', image: ''});
     
   return (
-      // <ImageBackground source={require("../../../AppDesigns/currentApp/images/Background.png")} style={commonStyles.container} resizeMode="cover" >
-      <View style={{flex:1,backgroundColor:"#fff"}}>
+      <ImageBackground source={require("../../../AppDesigns/currentApp/images/s1.jpg")} style={commonStyles.container} resizeMode="cover" >
+      <View style={{flex:1}}>
           <View style={[styles.boxOpacity]}>
             <View style={styles.syslogo}>
                 <Image
@@ -176,6 +176,6 @@ const window = Dimensions.get('window');
           </View>
         </View>
       </View>
-    // </ImageBackground>
+   </ImageBackground>
   );
 };

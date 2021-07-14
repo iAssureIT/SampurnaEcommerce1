@@ -62,7 +62,7 @@ export default StyleSheet.create({
   },
   accusermobinfo:{
     flexDirection:'row',
-    marginTop:15
+    alignItems:'center'
   },
   accuseraddress:{
     fontSize:12,fontFamily:"Montserrat-Regular",
@@ -93,11 +93,11 @@ export default StyleSheet.create({
     marginTop:0,
     minHeight:400,
     paddingBottom:15,
-    marginTop:15
   },
   acdashparent:{
-    paddingHorizontal:15,
+    paddingHorizontal:43,
     marginBottom:'20%',
+    backgroundColor:"#fff"
   },
   acdashsuperparent:{
     flex:1,
@@ -307,11 +307,11 @@ export default StyleSheet.create({
 
   cardCredit:{
     // height:43,
-    marginVertical:10,
+    paddingVertical:10,
     color:'#000',
     // backgroundColor:'red',
-    borderBottomWidth:1,
-    borderColor:'#ccc',
+    // borderBottomWidth:1,
+    // borderColor:'#ccc',
   },
 
 })

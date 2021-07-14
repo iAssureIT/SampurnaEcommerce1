@@ -7,8 +7,9 @@ const window = Dimensions.get('window');
 export default StyleSheet.create({
     // Screen Container
     container:{
-        minHeight:'100%',
+        height:"100%",
         width: window.width,
+        backgroundColor:"#fff",
         justifyContent:"center"
     },
 
@@ -116,16 +117,16 @@ export default StyleSheet.create({
         fontSize: 15, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
     },
     label :{
-        fontSize: 15, fontFamily: 'Montserrat-Medium',color:"#333"
+        fontSize: 15, fontFamily: 'Montserrat-SemiBold',color:"#333",lineHeight:19
     },
     text :{
-        fontSize: 13, fontFamily: 'Montserrat-Regular',color:"#333"
+        fontSize: 15, fontFamily: 'Montserrat-Regular',color:"#333"
     },
     linkText:{
-        color: colors.textLight,
-        fontSize: 15,
+        color: colors.cartButton,
+        fontSize: 10,
         fontFamily:"Montserrat-SemiBold",
-        textDecorationLine: 'underline'
+        // textDecorationLine: 'underline'
     },
     linkLightText:{
         color: colors.textLight,
@@ -135,6 +136,12 @@ export default StyleSheet.create({
     noDataFound :{
         fontSize: 20, fontFamily: 'Montserrat-SemiBold',alignSelf:"center",color:"#333"
     },
+    screenHeader:{
+        fontSize:18,
+        fontFamily:"Montserrat-Bold",
+        color:'#000',
+        lineHeight:22
+      },
 
 
     //add Button Style
@@ -146,6 +153,10 @@ export default StyleSheet.create({
     addBtnText:{
         fontFamily:"Montserrat-Regular",
         fontSize  : 12
+    },
+
+    formWrapper:{
+        paddingHorizontal:20,
     },
     addBtnContainer:{
         // marginTop:15,

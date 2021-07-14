@@ -160,10 +160,11 @@ export const PaymentMethod = withCustomerToaster((props)=>{
       //   .then((result) => {
           axios.get('/api/orders/get/one/' + result.order_id)
             .then((res) => {
+              console.log(" PaymentCosnfirmation res",res);
               dispatch(getCartCount(userID))
               if (paymentmethods === 'Cash On Delivery' || paymentmethods === 'Card On Delivery') {
-
-                navigation.navigate('OrderDetails', { orderid: res.data._id })
+                // navigation.popToTop();
+                navigation.navigate('PaymentConfirmation', { order: res.data })
                 setPaymentMethods("Cash On Delivery");
                 setBtnLoading(false);
                 // setPaymentMode(true);
@@ -294,7 +295,7 @@ export const PaymentMethod = withCustomerToaster((props)=>{
                       background  = {true}
                       // buttonStyle={styles.button1}
                       // containerStyle={styles.buttonContainer1}
-                      loading={btnLoading}
+                      // loading={btnLoading}
                     />
                   </View>
                 </View>

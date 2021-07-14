@@ -8,7 +8,7 @@ import {
   Animated
 } from 'react-native';
 import { Icon,ButtonGroup }  from "react-native-elements";
-import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles';
+import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/vendorListStyles.js';
 import AsyncStorage           from '@react-native-async-storage/async-storage';
 import { useIsFocused }       from "@react-navigation/native";
 import {ProductList}          from'../../ScreenComponents/ProductList/ProductList.js';

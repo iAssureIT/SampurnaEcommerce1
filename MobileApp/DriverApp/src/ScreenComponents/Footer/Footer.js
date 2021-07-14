@@ -9,13 +9,8 @@ import axios                              from 'axios';
 import { connect,
         useDispatch,
         useSelector }                     from 'react-redux';
-import { getWishList } 		                from '../../redux/wishDetails/actions';
 import {withCustomerToaster}              from '../../redux/AppState.js';
 import { useNavigation }                  from '@react-navigation/native';
-import { SET_SEARCH_CALL,
-  SET_SEARCH_TEXT,
-  SET_SUGGETION_LIST,
-  SET_SERACH_LIST} 	          from '../../redux/globalSearch/types';
 import { colors } from "../../AppDesigns/currentApp/styles/styles.js";
 
 export const Footer =(props)=>{
@@ -23,7 +18,6 @@ export const Footer =(props)=>{
   const dispatch = useDispatch();
   const store = useSelector(store => ({
     userDetails  : store.userDetails,
-    cartCount     : store.productList.cartCount,
   }));
   const {userDetails,cartCount} = store;
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};

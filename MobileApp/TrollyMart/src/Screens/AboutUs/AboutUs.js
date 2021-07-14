@@ -37,6 +37,7 @@ export const AboutUs = (props)=>{
     const getData=()=>{
         Axios.get('/api/pages/get/page_block/about-us')
         .then(res=>{
+            console.log("res",res);
             setLoading(false);
             setPageBlocks(res.data.pageBlocks)
         })
@@ -89,9 +90,9 @@ export const AboutUs = (props)=>{
                                             style={[styles.aboutImg,{}]}
                                             resizeMode={"stretch"}
                                         />}
-                                        <View style={[styles.textBox]}>
-                                            {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription}/>}                                        
-                                        </View>                                        
+                                        {index!==0 &&<View style={[styles.textBox]}>
+                                            {result!=="" && <HTML ignoredTags={['br']} html={item.block_id.blockDescription} containerStyle={{paddingLeft:15}}/>}                                        
+                                        </View>}                                        
                                     </View>                                    
                                 )
                             })

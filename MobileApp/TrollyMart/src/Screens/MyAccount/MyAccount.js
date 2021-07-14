@@ -24,13 +24,14 @@ import { connect,
     useDispatch,
     useSelector }    from 'react-redux';
 import {USER_LOGOUT} from '../../redux/store';
-import {SocialMediaLogin} from '../SystemSecurity/RootLogIn/SocialMediaLogin.js'
+import {SocialMediaLogin} from '../SystemSecurity/RootLogIn/SocialMediaLogin.js';
 
 
 // export default class AccountDashboard extends React.Component{
 export const MyAccount =(props)=>{
   const {navigation}=props;
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const store = useSelector(store => ({
     userDetails  : store.userDetails,
   }));
@@ -43,18 +44,17 @@ export const MyAccount =(props)=>{
     dispatch({type: USER_LOGOUT});
     // navigation.closeDrawer();
     navigation.navigate('Auth');
-    
   };
   console.log("userDetails",userDetails)
   
   return (
-    <View style={{flex:1,backgroundColor:"#fff"}}>
+    isFocused &&<View style={{flex:1,backgroundColor:"#fff"}}>
       {/* <HeaderBar3
           goBack={navigation.goBack}
           headerTitle={'My Account'}
           navigate={navigation.navigate}
       /> */}
-      <ScrollView style={[styles.acdashsuperparent,{marginBottom:70}]}>
+     <ScrollView style={[styles.acdashsuperparent,{marginBottom:70}]}>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
             {userDetails.authService=="guest" ?
                 <View>
@@ -89,13 +89,13 @@ export const MyAccount =(props)=>{
                         />
                     </View>
                     <View style={{flexDirection:'row',alignItems:'flex-end'}}>
-                        <Text style={{fontSize:22,fontFamily:"Montserrat-Bold",color:"#333"}}>Profile</Text>
+                        <Text style={CommonStyles.screenHeader}>Profile</Text>
                         <TouchableOpacity  onPress={()=>navigation.navigate('AccountInformation')}>
                             <Icon size={15} name='edit' type='font-awesome' color={colors.textLight} iconStyle={[styles1.iconStyle,{marginLeft:12}]}/>
                         </TouchableOpacity>
                     </View>  
                     <View style={{marginLeft:20,marginTop:15}}>
-                        <Text style={{fontSize:18,fontFamily:"Montserrat-SemiBold",paddingVertical:5,color:"#333"}}>{userDetails.firstName+" "+userDetails.lastName}</Text>
+                        <Text style={[CommonStyles.label,{paddingVertical:5}]}>{userDetails.firstName+" "+userDetails.lastName}</Text>
                         {userDetails.email ?<Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.email}</Text>: null}
                         {userDetails.mobile ?<Text style={{fontSize:16,fontFamily:"Montserrat-Medium",color:"#aaa"}}>{userDetails.mobile}</Text>: null}
                     </View>       
@@ -215,8 +215,12 @@ const styles1 = StyleSheet.create({
     },
     label : {
         fontFamily:"Montserrat-Medium",
+<<<<<<< Updated upstream
         fontSize:12,
         color:'#000'        
+=======
+        fontSize:12
+>>>>>>> Stashed changes
     },
     label1 : {
         fontFamily:"Montserrat-Medium",

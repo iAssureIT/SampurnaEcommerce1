@@ -3,6 +3,7 @@ import {ScrollView,
         View,
         FlatList, 
         TouchableOpacity,
+        BackHandler,
         Keyboard}                   from 'react-native';
 import {Icon }                      from "react-native-elements";
 import AsyncStorage                 from '@react-native-async-storage/async-storage';
@@ -38,11 +39,28 @@ const Dashboard = withCustomerToaster((props)=>{
   const [blocks,setBlocks]    = useState([]);
   const [loading,setLoading]  = useState(true);
   const limit                 = 6;
+
+  const backAction = () => {
+    Alert.alert("Confirmation!", "Are you sure you want to exit app?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "YES", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+  };
+
+  
     useEffect(() => {
         dispatch(getSectionList());
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+        return () =>
+        BackHandler.removeEventListener("hardwareBackPress", backAction);
     },[]);
     const store = useSelector(store => ({
       userDetails : store.userDetails,
