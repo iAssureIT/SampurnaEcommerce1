@@ -36,7 +36,12 @@
 }
 .navHeaderCollapse{
     background-color: #E8E8E8;
-    margin-top: 38px;
+    margin-top: 38px!important;
+   
+}
+.navHeaderCollapse ul{
+   margin-left: 19px!important;
+   
 }
 #pageOpacity {
     height: 700px;
@@ -73,7 +78,7 @@
     font-weight: 700;
     letter-spacing: 0.1px;
     transition: 0.6s ease;
-    margin-left: 45px!important;
+    margin-left: 27px!important;
   }
   .dropDownLevel1 a:hover,
   .dropDownLevel1 .sectionForMobile:hover{

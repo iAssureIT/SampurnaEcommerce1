@@ -304,8 +304,8 @@ class CartProducts extends Component{
                                                         <div className={"col-12 " +Style.singleVendorBox}>
                                                             <div className="row ">
                                                                 <div className="col-6 font-weight-bold text-left">Product</div>
-                                                                <div className="col-3 font-weight-bold">Quantity</div>
-                                                                <div className="col-3 font-weight-bold">Total Price</div>
+                                                                <div className="col-2 font-weight-bold">Quantity</div>
+                                                                <div className="col-3 font-weight-bold text-center">Total Price</div>
                                                             </div>
                                                             <div className={"col-12 pt-1 "+Style.cardHeadingWrapper}></div>
 

@@ -779,7 +779,7 @@ class Checkout extends Component {
 
                     {/*<SmallBanner bannerData={this.state.bannerData} />*/}
 
-                    <div className={"col-12 " +Style.cartTitle}>Order Summary</div>
+                    <div className={"col-10 offset-1 " +Style.cartTitle}>Order Summary</div>
                     {this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length>0?
                     <div className="container-fluid">
                         <form className="col-12 " id="checkout">
@@ -853,7 +853,7 @@ class Checkout extends Component {
                                                     null
                                                 }
                                             </div>
-                                            <div className="col-12 mt2">
+                                            <div className=" mt2">
                                                 <div className={"btn col-12 " +Style.addBTN1} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
                                             </div>
                                         </div>
