@@ -1,3 +1,13 @@
+@font-face {
+  font-family:'Montserrat-Bold';
+  src: url('../../../fonts/Montserrat-Bold.ttf');
+}
+@font-face {
+  font-family:'Montserrat-Regular';
+  src: url('../../../fonts/Montserrat-Regular.ttf');
+}
+
+
 .breadCrumbs{
   background-color: #efefef;
   padding: 25px;
@@ -236,12 +246,13 @@ color: #FBBD65!important;
   width: 100%;
 }
 .NoAvailableImg{
-  width: 100%;
+  /* width: 100%; */
   background-image: url("/images/eCommerce/productloader.gif");
   background-size: contain;
   background-repeat: no-repeat;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+  margin-left: 38px!important;
 }
 
 .hoveractions1 a{
@@ -311,7 +322,7 @@ font-weight: bold;
 }
 .priceWrapper{
   height: 25px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 .price{
   font-size: 14px;
@@ -379,7 +390,7 @@ font-weight: bold;
 }
 .ProductViewWrapper{
   padding-bottom: 20px;
-  /*background : #E8E8E8;*/
+  background : #f9f9f9;
 }
 .productCaroselBlock{
   border: 1px solid #ddd;
@@ -504,11 +515,14 @@ background: #fff;
 }
 /* css for filters */
 .categoryFilterTitle{
-  font-size: 16px;
-  padding: 20px 10px;
-  font-weight: 700;
+  font-size: 13px;
+  padding: 20px 28px;
+  /* font-weight: 900; */
   border-bottom:solid 1px #ddd;
   background-color: #F9F9F9;
+  opacity: 1;
+  letter-spacing: 0px;
+  font-family:'Montserrat-Bold'!important;
 }
 .pcSubCatFlterWrapper{
   box-shadow: 5px 0 5px -5px #333;
@@ -526,6 +540,7 @@ background: #fff;
    border: solid 1px #eee;
    height: max-content;
    box-shadow: 4px 3px 6px #00000029;
+   z-index: 999!important;
 }
 .accordion {
   background-color: #eee;
@@ -576,7 +591,12 @@ background: #fff;
 .panelHeading span{
   margin-left: 50px!important;
   margin-top: -24px!important;
-  font-size: 15px !important;
+  font-size: 14px !important;
+  color: #000;
+
+  /* font-family:'Montserrat-Regular'!important; */
+  font-weight: 900!important;
+
 }
 .panelHeading input{
   margin-left: 36px!important;
@@ -584,9 +604,11 @@ background: #fff;
 
 .panelHeading h4 a{
   text-decoration: none !important;
-  font-size: 15px !important;
+  font-size: 14px !important;
   color: #000;
-  margin-left: 50px!important;
+  font-weight: 900!important;
+  margin-left: 57px!important;
+  /* font-family:'Montserrat-Regular'!important; */
 
   
 }
@@ -598,7 +620,7 @@ background: #fff;
   margin-left: 82%!important;
 }
 .vendorNameWrapper b{
-  margin-left: 53px;
+  margin-left: 58px;
 }
 .changeVendorWrapper{
   margin-left: 10px;

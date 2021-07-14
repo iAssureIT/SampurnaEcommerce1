@@ -98,7 +98,7 @@ class SystemSecurityPopup extends React.Component {
    render() {
     return (
         <div id="loginFormModal" className={"modal in pb-4 " +Style.loginBGImg}  data-keyboard="false" >
-                    <div className="modal-dialog modal-lg">                                        
+                    <div className="modal-dialog modal-xl">                                        
                         <div className={"modal-content loginModalContent  loginBackImageHeight " +Style.signinBG} style={{'background': '#fff'}}>                            
                             <div className="modal-body LoginModalBody">  
                                 <button type="button" className="close"  data-dismiss="modal" onClick={this.CloseModal.bind(this)}>&times;</button>  
