@@ -579,7 +579,8 @@ export default StyleSheet.create({
 
   vendorName:{
     fontSize:11,
-    color:'#000'
+    color:'#000',
+    marginVertical:2,
   },
 
 

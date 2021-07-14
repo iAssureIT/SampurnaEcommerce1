@@ -215,12 +215,8 @@ const styles1 = StyleSheet.create({
     },
     label : {
         fontFamily:"Montserrat-Medium",
-<<<<<<< Updated upstream
         fontSize:12,
-        color:'#000'        
-=======
-        fontSize:12
->>>>>>> Stashed changes
+        color:'#000',
     },
     label1 : {
         fontFamily:"Montserrat-Medium",
