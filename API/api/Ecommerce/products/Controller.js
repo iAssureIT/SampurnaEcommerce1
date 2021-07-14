@@ -4062,7 +4062,7 @@ exports.search_suggestion = async(req,res,next)=>{
     var subCategory = await getSubCat(req.body.searchText);
     var brand       = await getBrand(req.body.searchText);
     var product     = await getProduct(req.body.searchText);
-    var vendors     = await getVendors(req.body.searchText);
+    // var vendors     = await getVendors(req.body.searchText);
     var all         = await getAll(req.body.searchText);
     var result      = section.concat(category).concat(subCategory).concat(brand).concat(product);
     // var result      = all;

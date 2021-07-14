@@ -3553,8 +3553,8 @@ exports.daily_vendor_orders = (req, res, next) => {
 					"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
 					"status" 			: req.body.orderStatus,
 					"timestamp" 		: {
-						$gte 	: moment(req.body.deliveryDate).utc().startOf('day').toDate(),
-						$lte 	: moment(req.body.deliveryDate).utc().endOf('day').toDate()
+						$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),
+						$lte 	: moment(new Date(req.body.deliveryDate)).endOf('day').toDate()
 					}
 				}
 			}
@@ -3579,4 +3579,103 @@ exports.daily_vendor_orders = (req, res, next) => {
 			error : err
 		});
 	});
+};
+
+exports.monthly_vendor_orders = (req, res, next) => {
+	const monthyear = req.body.monthyear;
+    const monyr     = monthyear.split("-");
+    const year      = monyr[0];
+    const month     = monyr[1];
+	// var startDate = req.body.startDate;
+	// var endDate = req.body.endDate;
+	var startDate = moment([year, month-1]).format();
+	console.log("startDate => ",new Date(startDate));
+	var endDate = moment(startDate).endOf('month').format();
+	console.log("endDate => ",new Date(endDate));
+	console.log("Start  => ",moment(startDate).utc().startOf('day').toDate());
+	console.log("End => ",moment(endDate).utc().endOf('day').toDate());
+	console.log("new Start1  => ",moment(new Date(startDate)).startOf('day').toDate());
+	console.log("new End1 => ",moment(new Date(endDate)).endOf('day').toDate());
+	Orders.find(
+		{
+			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
+			"vendorOrders.orderStatus" 			: req.body.orderStatus,
+			"vendorOrders.deliveryStatus" : 
+			{"$elemMatch" : {
+					"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+					"status" 			: req.body.orderStatus,
+					"timestamp" 		: {
+						$gte 	: moment(new Date(startDate)).startOf('day').toDate(),
+						$lte 	: moment(new Date(endDate)).endOf('day').toDate()
+					}
+				}
+			}
+		},
+		{
+			'orderID' 				: 1,
+			'userFullName'      	: 1,
+			'customerShippingTime' 	: 1,
+			'deliveryAddress' 		: 1,
+			'paymentDetails' 		: 1,
+			'createdAt' 			: 1,
+			'vendorOrders.$'   		: 1
+		}
+	)
+	.exec()
+	.then(async(orderdata) => {	
+		allDays  = await getDaysInMonth(parseInt(month-1),parseInt(year));
+		var totalOrdersDelivered 	= 0;
+		var monthDays 				= [];
+		for(var i=0; i<allDays.length; i++) {
+			var ordersDelivered = 0;
+			for(var j=0; j<orderdata.length; j++){
+				console.log("allDays i => ", moment(allDays[i]).format('L'))
+				console.log("orderData j => ", orderdata[j])
+				if(moment(allDays[i]).format('L') === moment(orderdata[j].createdAt).format('L')){
+					console.log("orders count => ",orderdata[j].vendorOrders.length)
+					ordersDelivered += orderdata[j].vendorOrders.length;
+					
+				}
+				
+			}
+			if(j>=orderdata.length){
+				console.log("day => ",moment(allDays[i]).format('L'))
+				totalOrdersDelivered += ordersDelivered;
+				var ordersObj = {
+					monthDay 		: moment(allDays[i]).format('L'),
+					ordersDelivered : ordersDelivered,
+				}
+				monthDays.push(ordersObj)
+				console.log("monthDays => ",monthDays)
+				console.log("ordersObj => ",ordersObj)
+			}			
+		}
+		if(i>=allDays.length){
+			var returnData = {
+				totalOrdersDelivered 	: totalOrdersDelivered,
+				monthDays 				: monthDays
+			}
+			res.status(200).json(returnData);
+		}
+		// res.status(200).json(data);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error : err
+		});
+	});
+
+	function getDaysInMonth(month, year) {
+		return new Promise(function(resolve,reject){
+			var date = new Date(Date.UTC(year, month, 1));
+			var days = [];
+
+			while (date.getUTCMonth() === month) {
+				days.push(new Date(date));
+				date.setUTCDate(date.getUTCDate() + 1);
+			}
+			resolve(days);
+		})
+	}
 };
