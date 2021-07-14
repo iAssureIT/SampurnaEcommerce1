@@ -266,12 +266,12 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     boxHeight   = {40}
                     index       = {index}
                 />                          */}
-                <CategoryList
+                {/* <CategoryList
                   navigation  = {navigation}
                   showImage = {true}
                   boxHeight = {30}
                   setCategory = {setCategory}
-                />
+                /> */}
               <View >
               {/* {productdata.discountPercent && productdata.discountPercent >0?
                   <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>

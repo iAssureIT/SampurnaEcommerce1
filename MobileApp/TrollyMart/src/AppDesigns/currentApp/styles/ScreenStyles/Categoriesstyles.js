@@ -572,7 +572,7 @@ export default StyleSheet.create({
   },
 
   vendorNameBox:{
-    height:14,
+    height:20,
     backgroundColor:'#ccc',
     marginBottom:10,
   },
