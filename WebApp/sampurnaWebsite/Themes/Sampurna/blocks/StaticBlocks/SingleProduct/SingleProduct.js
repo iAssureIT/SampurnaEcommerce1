@@ -258,7 +258,7 @@ class SingleProduct extends Component{
                         }
                         {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)} % </div> : null}
                     </div>
-                    <div className={styleMedia.ImgWrapper}>
+                    <div className={Style.ImgWrapper}>
                     {/* <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }> */}
                     <a href={"/product-detail/" +this.props.vendor_ID+"/"+this.props.vendorlocation_ID+"/"+this.props.data._id} className={Style.product_item_photo }>
                         <img                                           

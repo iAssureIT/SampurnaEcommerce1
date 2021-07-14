@@ -588,7 +588,7 @@ class ProductViewEcommerce extends Component {
 						<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div className="row">
 								<div id="brand"><label className="productNameClassNewBrand"> {this.state.productData.brand} </label></div>
-								<div ><span className="productNameClassNew"> {this.state.productData.productName}</span> <span className="productCode"> (Product Code: {this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> ( <span className="marathiName">{this.state.productData.shortDescription}</span> )</div>
+								<div ><span className="productNameClassNew"> {this.state.productData.productName}</span> <span className="productCode"> ({this.state.productData.productCode+'-'+this.state.productData.itemCode})</span> ( <span className="marathiName">{this.state.productData.shortDescription}</span> )</div>
 								<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 									<div className="row">
 										 {/* <p className="">{this.state.reviewData.length>0?<a href="#gotoreview" className="anchorclr">Be the first to review this product</a>: null} </p> */}

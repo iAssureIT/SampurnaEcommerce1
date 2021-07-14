@@ -252,7 +252,21 @@ color: #FBBD65!important;
   background-repeat: no-repeat;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  margin-left: 38px!important;
+  margin: auto!important;
+  /* padding-top: 10px!important; */
+  position: relative;
+  top: 10px;
+  margin-bottom: 10px!important;
+}
+.NoAvailableImg1{
+  /* width: 100%; */
+  background-image: url("/images/eCommerce/productloader.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  /* margin-left: 32px!important;
+  margin-top: 52px!important; */
 }
 
 .hoveractions1 a{

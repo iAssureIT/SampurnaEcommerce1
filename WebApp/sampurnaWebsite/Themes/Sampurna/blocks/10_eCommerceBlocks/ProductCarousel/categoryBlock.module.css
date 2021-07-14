@@ -55,11 +55,13 @@
 }
 
 .NoAvailableImg{
-  width: 100%;
+  /* width: 100%; */
   background-image: url("/images/eCommerce/productloader.gif");
   background-size: contain;
   background-repeat: no-repeat;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   /* height: 120px; */
+  margin-left: 0px!important;
+  margin-top: 0px!important;
 }

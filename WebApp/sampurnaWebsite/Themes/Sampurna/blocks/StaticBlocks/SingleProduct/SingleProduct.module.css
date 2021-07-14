@@ -55,12 +55,14 @@
     width: 100%;
   }
   .NoAvailableImg{
-    width: 100%;
+    /* width: 100%; */
     background-image: url("/images/eCommerce/productloader.gif");
     background-size: contain;
     background-repeat: no-repeat;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    margin-left: 45px!important;
+  margin-top: 52px!important;
   }
   .hoveractions1 a{
     display: block;

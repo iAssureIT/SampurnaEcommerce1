@@ -1,10 +1,17 @@
-.f12{
+@font-face {
+	font-family:'Montserrat-Regular.ttf';
+	src: url('/WebApp/sampurnaWebsite/Themes/Sampurna/fonts/Montserrat-Regular.ttf');
+  }
+
+
+.f123{
 	font-size:12px !important;
 }
 
 .FilterBlkBox{
-	box-shadow: 0 2px 4px 2px rgba(0,0,0,.1);
+	/* box-shadow: 0 2px 4px 2px rgba(0,0,0,.1); */
 	padding-bottom:30px;
+	box-shadow: 4px 3px 6px #00000029!important;
 }
 
 .ma{
@@ -14,7 +21,17 @@
 .smallBoxImg{
 	width:110px !important;
 }
-
+.vendorNameWrapper b{
+	margin-left: 58px;
+  }
+  .chaneVendorBtn a{
+	text-decoration: underline;
+	margin-left: 74.9%;
+	color: #033554!important;
+  }
+  .chaneVendorBtn a:hover{
+	color: #033554!important;
+  }
 .p17{
 	padding:16px;
 }
@@ -45,21 +62,31 @@
 }
 
 .cartBTN {
-    background-color: #033554;
-    color: #fff; 
-    padding:15px;
-    border-radius:5px;
-	cursor: pointer;
-    /*border: var(--globaleCommBtnBorder) !important; */
-    text-align: center;
+color: #fff;
+padding: 15px;
+border-radius: 5px;
+cursor: pointer;
+border: var(--globaleCommBtnBorder) !important;
+text-align: center;
+width: 373px;
+height: 53px;
+background: #033554 0% 0% no-repeat padding-box;
+border-radius: 7px;
+opacity: 1;
+margin-left: -72px;
+border: none!important;
+}
+.productInformationWrapper{
+	color: #000!important;
 }
 .zoomImgWrapper img{
 	height: 400px !important;
 	width: 360px !important;
-	border: solid 1px #eee;
+	/* border: solid 1px #eee; */
 }
 .f12{
 	font-size:12px !important;
+	margin-left: -28px!important;
 }
 .discountBadge{
 	position: absolute;
@@ -86,8 +113,8 @@
 }
 
 .cartBTN:before {
-    font-family: "Font Awesome 5 Free";
-    content: "\f07a";
+    /* font-family: "Font Awesome 5 Free";
+    content: "\f07a"; */
     display: inline-block;
     padding-right: 3px;
     vertical-align: middle;
@@ -95,9 +122,12 @@
 }
 
 .productSize{
-	font-size: 16px;
+	/* font-size: 16px; */
 	/* padding-top: 1px; */
-	border-top: solid 1px #ccc;
+	/* border-top: solid 1px #ccc; */
+}
+.ProductSize1 ul{
+	margin-left: 29px!important;
 }
 .colorBox{
 	text-decoration: none !important;
@@ -151,7 +181,7 @@
 
 .productNameClassNew {
     font-size: 25px;
-    color: #333;
+    color: #000;
     font-weight:bold;
     margin-bottom: 5px;
 }
@@ -175,6 +205,52 @@
 	padding-bottom:30px;
 	margin-bottom:20px;
 	border-bottom:1px solid #ccc;
+	font-size: 12px!important;
+	margin: left 1px !important;
+	/* font-family:'Montserrat-Regular.ttf'; */
+ font-style: normal!important;
+}
+.brandName1{
+	color:#033554 !important;
+	padding-bottom:30px;
+	margin-bottom:20px;
+	/* border-bottom:1px solid #ccc; */
+	font-size: 12px!important;
+	margin: left 1px !important;
+	/* font-family:'Montserrat-Regular.ttf'; */
+ font-style: normal!important;
+}
+.brandNameColor{
+	color:#033554 !important;
+	padding-bottom:30px;
+	margin-bottom:20px;
+	/* border-bottom:1px solid #ccc; */
+	font-size: 12px!important;
+	margin-left: -14px !important;
+	/* font-family:'Montserrat-Regular.ttf'; */
+ font-style: normal!important;
+ margin-top: -30px !important;
+}
+.ColorTabWrapper{
+	margin-top: -64px!important;
+margin-left: 23px!important;
+}
+.OrderNumIncWrapper{
+	height: 53px !important;
+}
+.OrderNumIncWrapper1{
+	height: 26.5px !important;
+}
+.brandName2{
+	color:#000 !important;
+	padding-bottom:30px;
+	margin-bottom:20px;
+	/* border-bottom:1px solid #ccc; */
+	font-size: 12px!important;
+	margin: left 1px !important;
+	font-weight: 900!important;
+	/* font-family:'Montserrat-Regular.ttf'; */
+ font-style: normal!important;
 }
 .productDetailVendorName{
 	font-size: 12px;

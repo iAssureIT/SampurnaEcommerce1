@@ -27,7 +27,7 @@
 
 }
 .singleProductDetail{
-    border-bottom: solid 1px #ddd;
+    /* border-bottom: solid 1px #ddd; */
     padding-bottom: 5px;
 }
 .FiltersBlock{
@@ -619,8 +619,11 @@
 
 .product-details-tabs .nav-tabs {
      /* border: none; */
-     /*border-bottom: 1px solid #ddd;*/
+     border-bottom: none !important;
      margin-bottom: 20px!important;
+}
+.nav-tabs{
+    border-bottom: none !important;
 }
 
 .product-details-tabs {

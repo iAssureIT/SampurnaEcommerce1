@@ -646,7 +646,7 @@ submitCart(event) {
                                         <Image                                           
                                           src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                                           alt="ProductImg" 
-                                          className={"img-responsive " +Style.NoAvailableImg }
+                                          className={"img-responsive m-auto " +Style.NoAvailableImg }
                                           height={200}
                                           width={265} 
                                           layout={'intrinsic'}
