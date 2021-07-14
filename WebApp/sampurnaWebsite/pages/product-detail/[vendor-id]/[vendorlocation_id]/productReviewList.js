@@ -83,8 +83,9 @@ class ProductreviewList extends Component {
   }
   render() {
     return (
-    <div>
-      <div className="col-12 ">
+    <div className="col-12 ">
+      <h5>Customer Feedback</h5>
+      <div className="col-12   ">
         {/* <Message messageData={this.state.messageData} /> */}
         <div className=" container">
           <br />
@@ -94,13 +95,16 @@ class ProductreviewList extends Component {
                   this.state.reviewData.map((data, index) => {
                     // console.log("data==",data);
                     return (
-                      <div key={index} className="col-12 reviewBox">
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="col-4 offset-4">
+                      <div key={index} className="col-12 ">
+                        {/* <div className="row">
+                            <div className="col-3">
+                                <div className="col-12 mx-auto">
                                   <div className="customerPic" > {data.customerName?data.customerName.substring(0, 1):null}</div>
                                 </div>
-                                <div className="col-12 text-center">{data.customerName}</div>
+                                <div className="row  mx-auto ">
+                                <div className="col-12" > {data.customerName}</div>
+
+                                 </div>
                             </div>
                             <div className="col-8">
                                 <div className="col-12 starRatingBlock mb-4">
@@ -116,6 +120,40 @@ class ProductreviewList extends Component {
                                 
                             </div>
                             
+                        </div> */}
+                        <div className="row h-100">
+                            <div className="col-2"></div>
+                            <div className="col-10 reviewBox h-100 text-center">
+                            <div className="row h-100">
+                              <div className="col-2 h-75 ">
+                              <img  className="customerPic mt-5"src="/images/eCommerce/notavailable.jpg" alt="Customer-Pic"/>  
+                              {/* {data.customerName?data.customerName.substring(0, 1):null} */}
+                              <div > {data.customerName}</div>
+
+                              </div>
+                              <div className="col-7 bg-default text-left mt-4 pb-4 h-100">
+                              <div className="col-12 starRatingBlock mb-4">
+                                  <StarRatingComponent 
+                                        name="rate1" 
+                                        starCount={5}
+                                        value={data.rating}
+                                        // onStarClick={this.onStarClick.bind(this)}
+                                  /> 
+                                  <span className="col-1 ratingCount mt-2 ">{data.rating}</span>
+                                </div>
+                                <div className="col-12 customerReview text-justify " >{data.customerReview}</div>
+                              </div>
+                              <div className="col-3">
+                                
+                                <img  className=" ProductPic float-left "src="/images/eCommerce/notavailable.jpg" alt="Product-Pic"/>  
+                                <img  className=" ProductPic "src="/images/eCommerce/notavailable.jpg" alt="Product-Pic"/>                                 
+                               
+                                
+ 
+
+                              </div>
+                            </div>
+                            </div>
                         </div>
                         
                       </div>

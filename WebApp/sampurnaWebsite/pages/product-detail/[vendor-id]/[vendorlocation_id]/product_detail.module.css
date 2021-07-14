@@ -84,6 +84,10 @@ border: none!important;
 	width: 360px !important;
 	/* border: solid 1px #eee; */
 }
+.ShopBySubCategories h5{
+	color: #000 !important;
+	font-weight: 900!important;
+}
 .f12{
 	font-size:12px !important;
 	margin-left: -28px!important;

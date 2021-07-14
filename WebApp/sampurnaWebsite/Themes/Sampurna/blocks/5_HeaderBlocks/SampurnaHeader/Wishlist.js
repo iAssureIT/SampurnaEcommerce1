@@ -25,7 +25,7 @@ class Wishlist extends React.Component {
    render(){
         return(  
             <div className="col-12 NoPadding my-auto">
-              <li  onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
+              <li  className="d-block" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}>
                   <Link className="bottom" href="/my-account#v-pills-settings1-tab">
                      <a title="wishlistIcon " className="leftf ">
                         <Image

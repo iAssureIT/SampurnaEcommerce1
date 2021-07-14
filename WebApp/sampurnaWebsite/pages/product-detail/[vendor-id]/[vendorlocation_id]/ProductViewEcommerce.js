@@ -473,7 +473,7 @@ class ProductViewEcommerce extends Component {
 			tooltipMsg = 'Add To Wishlist';
 		} 
 		return (
-			 <section>
+			 <section className={" "+Style.ShopBySubCategories}>
 				<div className="row">
 					<div className={"col-12 NoPadding pb-2 pt-2 " +Style.productDetailVendorName}> 
 						<div className="col-12  ">
@@ -806,7 +806,7 @@ class ProductViewEcommerce extends Component {
 								/>
 							:null
 						}
-						<div className="mb-5"></div>
+						
 						{this.state.subCategoryData && this.state.subCategoryData.length>0
 							?
 								<SubCategoryBlock 
@@ -819,10 +819,12 @@ class ProductViewEcommerce extends Component {
 									sectionUrl         = {this.state.sectionUrl}
 									subCategoryUrl     = {this.state.subCategoryUrl}
 									categoryUrl        = {this.state.categoryUrl}
-									className          ="font-weight-bold"
+									className          ={"font-weight-bold "+Style.ShopBySubCategories}
 								/>
 						:null
 						}
+						
+					
 						{this.state.productID
 						?
 							< ProductReviewList 

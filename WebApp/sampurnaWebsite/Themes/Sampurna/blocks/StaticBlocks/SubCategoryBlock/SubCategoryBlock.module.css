@@ -26,6 +26,7 @@
 .itemImg img{
 	background-size:100% 100% !important;
 	min-width:100% !important;
+	border-radius: 7px!important;
 }
 
 .react-multi-carousel-item img{
