@@ -16,3 +16,6 @@
 	color: #fff;
     padding-top: 100px;
 }
+.stdBlockSeparatorBlueWrapper{
+	display: none !important;
+}

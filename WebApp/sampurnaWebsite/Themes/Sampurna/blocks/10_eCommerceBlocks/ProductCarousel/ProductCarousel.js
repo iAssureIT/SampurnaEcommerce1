@@ -347,7 +347,11 @@ getProductList(productApiUrl,formValues){
             ProductsLoading : true,
             loading         : false
           });  
+        } 
+        if(this.state.newProducts.length <= this.state.limitRange){
+            $('.seeMoreBtnWrapper').hide();
         }
+
       });
     }
     })
@@ -646,7 +650,7 @@ submitCart(event) {
                                         <Image                                           
                                           src={data.productImage[0] ? data.productImage[0] : "/images/eCommerce/notavailable.jpg"}
                                           alt="ProductImg" 
-                                          className={"img-responsive m-auto " +Style.NoAvailableImg }
+                                          className={"img-responsive " +Style.NoAvailableImg }
                                           height={200}
                                           width={265} 
                                           layout={'intrinsic'}
@@ -894,9 +898,8 @@ submitCart(event) {
                             <img loading="lazy" src="/images/eCommerce/no-products-found1.png" className="lazyload"></img>
                         </div>
                         }
-                        <div className="col-12">
+                        <div className="col-12 seeMoreBtnWrapper">
                           <div className="row">
-                            
                             <button className={"btn btn-secondary col-2 offset-5 pull-right "+Style.pcButtonwrapper} onClick={this.showMoreProduct.bind(this)}>See more</button>
                           </div>
                         </div>

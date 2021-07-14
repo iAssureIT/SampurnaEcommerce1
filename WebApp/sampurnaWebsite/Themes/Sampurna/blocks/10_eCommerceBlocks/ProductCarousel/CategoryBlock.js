@@ -39,18 +39,15 @@ class CategoryBlock extends Component{
     }
 
     componentDidMount(){
-
       var url = window.location.href.split('/');
-      
+      // console.log("url[7])===",url);
       if(url[7]){
         this.setState({
           sectedCategory  : url[7],
         })
       }
-
       if(url[7] === undefined){
-        // console.log("sucategory===",url[8]);
-        $('.category_'+0).addClass('activeCategory')
+        $('.category_0').addClass('activeCategory');
       }
     }
     render(){
@@ -88,7 +85,7 @@ class CategoryBlock extends Component{
                       <div className={"col-12 productsCategoryBlock "}  key={index}> 
                           <Link href={url} className ={"col-12 "}> 
                             <a className ={"col-12 " +Style.categoryBlock}>
-                              <div className={"itemImg col-12 NoPadding category_"+index +" " +Style.categoryPhoto +" "+Style.itemImg}>
+                              <div className={"itemImg col-12 NoPadding category_"+index +" " +Style.categoryPhoto +" "+Style.itemImg }>
                                   <Image    
                                     id="prodImg"                                       
                                     src={categorydata.categoryImage ? categorydata.categoryImage : "/images/eCommerce/notavailable.jpg"}

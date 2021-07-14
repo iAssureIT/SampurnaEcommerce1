@@ -33,13 +33,64 @@ class Searchbar extends React.Component {
     }
 
     searchProducts(event) {   
-        console.log("event.keycode",event.key);  
-        this.getRelatedSearches(event);
-        // if (event.key === "Enter") {
-        //     this.getRelatedSearches(event);
-        // }
+        // console.log("event.keycode",event.key);  
+        // this.getRelatedSearches(event);
+        if (event.key === "Enter") {
+            this.getRelatedSearches1(event);
+        }
       }
+
       getRelatedSearches(event){
+        var searchText = this.refs.tableSearch.value.trim();
+        if(searchText !== null){    
+          var payload ={"searchText":searchText}
+          if(payload){
+            axios.post("/api/products/get/search/suggestion",payload)
+            .then((searchResponse)=>{
+                // console.log("searchResponse==",searchResponse);
+                if(searchResponse){
+                    // console.log("searchResponse==",searchResponse.data);
+                    this.setState({
+                        "relatedSearches" : searchResponse.data,
+                        "searchText"      : searchText,
+                    },()=>{
+                        
+                       
+                    })
+                }
+            })
+            .catch((error)=>{
+                console.log(" search result error=",error);
+            })  
+          }      
+        }  
+      }
+
+      getProducts(event){
+          event.preventDefault();
+        var formValues = {
+            "searchstr"         : this.state.searchText,
+            "user_id"           : this.state.user_ID,
+            "limit"             : 10,
+            "userLatitude"      : this.state.latitude,
+            "userLongitude"     : this.state.longitude
+        }
+        console.log("formValues==",formValues);
+        if(formValues){
+            axios.post("/api/products/get/search/website",formValues)
+            .then((searchProductRes)=>{
+                if(searchProductRes){
+                    console.log("searchProductRes===",searchProductRes);
+                    Router.push('/search-product/'+this.state.searchText);
+                    store.dispatch(setSearchDetails(searchProductRes)) ;
+                }
+            })
+            .catch((error)=>{
+                console.log("error while search api=",error);
+            })
+        }
+      }
+      getRelatedSearches1(event){
         var searchText = this.refs.tableSearch.value.trim();
         console.log("searchText==",searchText);
         if(searchText !== null){  
@@ -95,19 +146,20 @@ class Searchbar extends React.Component {
                         <input type="text" placeholder="Search the items" id="browsers"
                         list="datalist"
                         // onKeyPress={this.searchProducts.bind(this)} 
-                        onChange={this.searchProducts.bind(this)} 
+                        // onClick={this.searchProducts.bind(this)}
+                        onChange={this.getRelatedSearches.bind(this)} 
                         className="form-control tableSearch col-12" ref="tableSearch" id="tableSearch" name="tableSearch" />
                         <div className="searchIcon" 
-                            onClick={this.getRelatedSearches.bind(this)}
+                            onClick={this.getProducts.bind(this)}
                         >
                             <i className="fas fa-search"></i>
                         </div>
 
                         <datalist id="datalist" className="col-12">
                             {Array.isArray(this.state.relatedSearches) && 
-                            this.state.relatedSearches.map((data,index)=>{
+                                this.state.relatedSearches.map((data,index)=>{
                                 // console.log("data",data);
-                               return( <option value={data}>{data}</option>)
+                               return( <option value={data} onSelect={this.getProducts}>{data}</option>)
                             })
                             }
                         </datalist>

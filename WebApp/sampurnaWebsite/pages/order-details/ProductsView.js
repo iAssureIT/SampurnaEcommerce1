@@ -430,7 +430,6 @@ class ProductsView extends Component {
     .catch((error)=>{
         console.log("error while getting return resons=",error);
     })
-    
   }
 
   returnProduct(event) {
@@ -448,7 +447,7 @@ class ProductsView extends Component {
       "returnProductImages"   : this.state.returnProductImages.push(this.state.imgUrl)
     }
 
-    console.log("formValues=",formValues);
+    // console.log("formValues=",formValues);
 
     if(formValues && this.state.reasonForReturn && this.state.customerReturnComment && this.state.paymentRefundSource && this.state.returnProductImages ){
       axios.patch("/api/orders/patch/returnproduct",formValues)
@@ -553,7 +552,7 @@ class ProductsView extends Component {
                                     }
 
                                     {/* Review and Rating */}
-                                    {/* <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata.product_ID} role="dialog">
+                                    <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"reviewModal_"+productdata.product_ID} role="dialog">
                                         <div className="modal-content modalContent " style={{ 'background': '#fff'}}>
                                             <div className="modal-header checkoutAddressModalHeader globalBgColor1 col-12 NoPadding">
                                               <div className="col-12">
@@ -635,8 +634,7 @@ class ProductsView extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> */}
-                                    < ProductReview />
+                                    </div>
 
                                     {/* Return product */}
                                     <div className="modal col-6 offset-3 NOpadding mt-4 feedBackModal" id={"returnModal_"+productdata.product_ID} role="dialog">
