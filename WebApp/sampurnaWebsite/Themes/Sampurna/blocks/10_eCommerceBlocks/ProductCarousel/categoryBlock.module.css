@@ -4,6 +4,7 @@
 }
 .categoryCarousel{
     /* margin-bottom: 20px; */
+    margin-top: -18px!important;
 }
 .categoryName{
     font-size: 21px;

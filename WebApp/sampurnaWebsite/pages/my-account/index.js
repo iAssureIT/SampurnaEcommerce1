@@ -38,7 +38,7 @@ class MyAccount extends Component{
     }
 
     componentDidMount(){
-
+        window.scrollTo(0,0);
         let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
         let dynamicUrl=window.location.hash;
 
@@ -58,6 +58,7 @@ class MyAccount extends Component{
 				})
             }
         }
+        
     }
    
     getUserData(){
@@ -97,8 +98,15 @@ class MyAccount extends Component{
     getOrderId(orderId){
         this.setState({order_id:orderId})
     }
-
+    
     render(){
+        let scrollHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+        );
+        console.log('Full document height, with scrolled out part: ' + scrollHeight);
+
         return(
             // <!-- Demo header-->
             <section className="header ">

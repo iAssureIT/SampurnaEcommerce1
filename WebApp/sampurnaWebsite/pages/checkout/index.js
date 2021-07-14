@@ -857,6 +857,7 @@ class Checkout extends Component {
                                                 <div className={"btn col-12 " +Style.addBTN1} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
                                             </div>
                                         </div>
+                                        
                                         :
                                         <div className="col-12 shippingAddress NoPadding">
                                             <div className={"col-12 shippingAddressTitle " +Style.eCommTitle}>SHIPPING ADDRESS</div>
@@ -1049,22 +1050,36 @@ class Checkout extends Component {
                                                     <a data-tip data-for="vendorTooltip">
                                                     &nbsp; &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
                                                     </a>
-                                                    <ReactTooltip id="vendorTooltip" className={"pb-2 pt-2" +Style.tooltipWrapper} place="left" effect="solid">
-                                                    {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
-                                                        return(
-                                                            <div className={"row mb-2 text-left font-weight-bold " +Style.tooltipVendorCharges}>
-                                                                <div className={"col-12 text-left " +Style.vendorNameTooltip}>{vendorWiseCartData.vendorName}</div>
-                                                                <div className="col-12 ">
-                                                                    <span className="col-5 text-left NoPadding">Delivery Charges </span> 
-                                                                    <span className="col-1">:</span>
-                                                                    <span className="col-6 text-right NoPadding">{vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</span>
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                        })
-                                                    }
-                                                        <div className="col-12 text-left NoPadding font-weight-bold">Total Delivery Charges : {this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
-                                                    </ReactTooltip>
+                                                    <ReactTooltip id="vendorTooltip" className={"pb-2 pt-2 " +Style.tooltipWrapper} place="left" effect="solid">
+                                                                {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
+                                                                    // console.log("this.props.recentCartData.vendorOrders.length===",this.props.recentCartData.vendorOrders.length);
+                                                                        return(
+                                                                            <div className={"row mb-2 text-left font-weight-bold container pt-4  " +Style.tooltipVendorCharges} key={index}>
+                                                                                <div className={"col-12 text-left " +Style.vendorNameTooltip}><h5 className="font-weight-bold">{vendorWiseCartData.vendorName}</h5></div>
+                                                                                {/* <div className="col-12 ">
+                                                                                    <span className="col-5 text-left NoPadding">Delivery Charges </span> 
+                                                                                    <span className="col-1">:</span>
+                                                                                    <span className="col-6 text-right NoPadding"> {vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</span>
+                                                                                </div> */}
+                                                                                <div className="container">
+                                                                                    <div className="row">
+                                                                                    <div className="col-6 text-left">Delivery Charges&nbsp; :</div>
+                                                                                    <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;{vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        )
+                                                                        })
+                                                                    }
+                                                                    
+                                                                        <div className="container pb-4">
+                                                                        <div className="row">
+                                                                          <div className="col-6 text-left">Total Delivery Charges&nbsp; :</div>&nbsp;&nbsp;
+                                                                          <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
+                                                                        </div>
+                                                                       </div>
+                                                                    
+                                                                </ReactTooltip>
                                                     </span>
                                                     <div className="col-12 grandTotal mt-4 mb-2 font-weight-bold">
                                                         <div className={"row " +Style.f13N}>

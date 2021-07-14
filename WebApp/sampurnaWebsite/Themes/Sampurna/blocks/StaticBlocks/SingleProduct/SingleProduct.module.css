@@ -61,8 +61,11 @@
     background-repeat: no-repeat;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    margin-left: 45px!important;
-  margin-top: 52px!important;
+    margin: auto!important;
+    /* padding-top: 10px!important; */
+    position: relative;
+    top: 10px;
+    margin-bottom: 10px!important;
   }
   .hoveractions1 a{
     display: block;
