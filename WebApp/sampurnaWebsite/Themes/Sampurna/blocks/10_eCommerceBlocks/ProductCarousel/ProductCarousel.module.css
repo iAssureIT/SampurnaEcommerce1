@@ -570,24 +570,29 @@ background: #fff;
   padding: 5px 10px !important;
   cursor: pointer;
   border-bottom: solid 1px #ccc;
+  
 }
 
 .panelHeading span{
-  /* margin-left: 72px!important; */
-  /* margin-top: -28px!important; */
+  margin-left: 50px!important;
+  margin-top: -24px!important;
+  font-size: 15px !important;
 }
 .panelHeading input{
-  /* margin-left: 46px!important; */
+  margin-left: 36px!important;
 }
 
 .panelHeading h4 a{
   text-decoration: none !important;
   font-size: 15px !important;
   color: #000;
+  margin-left: 50px!important;
+
   
 }
 .panelHeading h4{
  /* margin-left: 72px!important; */
+ 
 }
 .sortPbWrapper{
   margin-left: 82%!important;

@@ -38,6 +38,7 @@
 }
 .infoCircle{
     color: #ccc;
+    cursor: pointer!important;
 }
 .paymentMethod {
     margin-top: 30px;

@@ -46,8 +46,8 @@ class DisplayLocation extends React.Component {
               this.props.sampurnaWebsiteDetails.deliveryLocation
               ?
                 <span className="row">
-                  <span className="col-10 ml-2 mt-1 deliveryAddress"> 
-                   &nbsp; <b>
+                  <span className="col-10 ml-4 mt-1 deliveryAddress"> 
+                   &nbsp;&nbsp;&nbsp; <b>
                   Your current location is - </b><span className="locationText ">{this.props.sampurnaWebsiteDetails.deliveryLocation.address}</span></span>  
                   <div className="col-2 changelocationBtn1Wrapper">
                     <button type="button" className="pull-right changelocationBtn1" data-toggle="modal" data-target="#locationModal" data-backdrop="true" >Change Location &nbsp;&nbsp;<i className="fa fa-map-marker-alt" aria-hidden="true"></i></button>

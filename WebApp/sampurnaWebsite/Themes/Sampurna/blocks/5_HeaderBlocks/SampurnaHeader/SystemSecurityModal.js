@@ -166,7 +166,7 @@ class header extends React.Component {
                             </div>
                         :
                             <div className="col-12 NoPadding">
-                                <li className="col-12 NOpadding myAccMenuGuest text-center"><Link href="/my-account#v-pills-settings-tab"><a>My Orders</a></Link></li>
+                                <li className="col-12 NOpadding myAccMenuGuest text-center" onClick={()=>{(this.state.currentUrl==="/my-account#v-pills-settings-tab"||this.state.currentUrl==="/my-account#v-pills-settings1-tab"||this.state.currentUrl==="/my-account#v-pills-settings3-tab"||this.state.currentUrl==="/my-account")? window.location.reload() :null }}><Link href="/my-account#v-pills-settings-tab"><a>My Orders</a></Link></li>
                                 <li className="col-12 NOpadding myAccMenu globalSignoutBtn signoutBtn outBTN" data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal" area-hidden ="true">Sign In</li>
                             </div>
                         }

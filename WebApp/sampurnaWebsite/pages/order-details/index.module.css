@@ -23,7 +23,9 @@
 .vendorRow{
 	padding:10px;
 }
-
+.orderDetaiAmount{
+	margin-left: 37%!important;
+}
 .middleText{
 	font-size:11px;
 }

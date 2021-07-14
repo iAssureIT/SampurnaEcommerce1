@@ -321,7 +321,7 @@ class CartProducts extends Component{
                                                                         <div className="col-12 col-sm-12 col-sx-12 col-md-6 col-lg-2 col-xl-2 ForMobile">
                                                                             <div className="row">
                                                                             <a href={"/product-detail/" + vendorWiseCartData.vendor_id._id + "/"+vendorWiseCartData.vendorLocation_id +"/" +vendorData.product_ID._id}>
-                                                                                <img className="img  cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
+                                                                                <img className="img mt-1 cartProductImg col-12" src={vendorData.product_ID.productImage[0] ? vendorData.product_ID.productImage[0] : "images/eCommerce/notavailable.jpg"} alt="ProductImg"/>
                                                                             </a>
                                                                             </div>
                                                                         </div>
@@ -409,30 +409,30 @@ class CartProducts extends Component{
                                                     </div>
                                                     
                                                     <div className={"col-12 col-sm-12 col-sx-12 offset-md-2 col-md-8 offset-lg-1 col-lg-3 offset-xl-1 col-xl-3 vendorWiseSummury pull-right " +Style.summaryClass +" " +vendorWiseCartData.invalidOrder}>
-                                                        <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong>
+                                                        {/* <strong className="cartSummaryTitle ">{vendorWiseCartData.vendor_id.companyName}&nbsp;Order Summary</strong> */}
                                                             {/* < OrderSummury  vendorWiseCartData= {vendorWiseCartData} /> */}                                            
                                                         <table className="table table-responsive summaryTable">
                                                             <tbody>
                                                                 <tr>
                                                                     <td>Sub Total</td>
                                                                     <td className="textAlignRight">&nbsp; 
-                                                                    <b>{vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
+                                                                    <b>{this.state.currency}  {vendorWiseCartData.vendor_afterDiscountTotal > 0 ? vendorWiseCartData.vendor_afterDiscountTotal : 0.00}</b> </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>You Saved</td>
                                                                     <td className="textAlignRight saving">&nbsp; 
-                                                                    <b>{vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount.toFixed(2) : 0.00}</b> </td>
+                                                                    <b>{this.state.currency}  {vendorWiseCartData.vendor_discountAmount > 0 ? vendorWiseCartData.vendor_discountAmount.toFixed(2) : 0.00}</b> </td>
                                                                 </tr>                                                        
                                                                 <tr>
                                                                     <td>Tax</td>  
                                                                     <td className="textAlignRight ">&nbsp; 
-                                                                        <span> <b>{vendorWiseCartData.vendor_taxAmount}</b></span>
+                                                                        <span> <b>{this.state.currency}  {vendorWiseCartData.vendor_taxAmount}</b></span>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td className="cartTotal"> <b>Totals</b> </td>
                                                                     <td className="textAlignRight cartTotal">&nbsp; 
-                                                                    <b>{vendorWiseCartData.vendor_netPayableAmount}</b>
+                                                                    <b>{this.state.currency}  {vendorWiseCartData.vendor_netPayableAmount}</b>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -455,14 +455,14 @@ class CartProducts extends Component{
                                                         <div className="row">
                                                             <div className="col-8">Final Total Amount</div>
                                                             <div className="col-4 textAlignRight">&nbsp;
-                                                            {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? parseInt(this.props.recentCartData.paymentDetails.netPayableAmount) : 0.00} </div>
+                                                            {this.state.currency}  {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? parseInt(this.props.recentCartData.paymentDetails.netPayableAmount) : 0.00} </div>
                                                         </div>
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
                                                             <div className="col-7">Total Savings</div>
                                                             <div className="col-5 textAlignRight saving">&nbsp; 
-                                                                { this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00} 
+                                                            {this.state.currency}  { this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00} 
                                                             </div>
                                                         </div>
                                                     </div>
@@ -470,7 +470,7 @@ class CartProducts extends Component{
                                                         <div className="row">
                                                             <div className="col-7">Total Tax</div>
                                                             <div className="col-5 textAlignRight">&nbsp; 
-                                                               { this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00} 
+                                                            {this.state.currency}  { this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00} 
                                                             </div>
                                                         </div>
                                                     </div>
@@ -479,10 +479,10 @@ class CartProducts extends Component{
                                                             <div className="col-8">Total Delivery Charges 
                                                             </div>
                                                             <div className="col-4 textAlignRight">&nbsp; 
-                                                                { this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
+                                                            {this.state.currency}  { this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
                                                                 
                                                                 <a data-tip data-for="vendorTooltip">
-                                                                    &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
+                                                                    <i className={"fa fa-info-circle "+Style.infoCircle}></i>
                                                                 </a>
                                                                 <ReactTooltip id="vendorTooltip" className={"pb-2 pt-2" +Style.tooltipWrapper} place="left" effect="solid">
                                                                 {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
@@ -493,7 +493,7 @@ class CartProducts extends Component{
                                                                                 <div className="col-12 ">
                                                                                     <span className="col-5 text-left NoPadding">Delivery Charges </span> 
                                                                                     <span className="col-1">:</span>
-                                                                                    <span className="col-6 text-right NoPadding">{vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</span>
+                                                                                    <span className="col-6 text-right NoPadding">{this.state.currency}  {vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</span>
                                                                                 </div>
                                                                             </div>
                                                                         )
@@ -512,7 +512,7 @@ class CartProducts extends Component{
                                                         <div className="row font-weight-bold">
                                                             <div className="col-7">Grand Total</div>
                                                             <div className="col-5 textAlignRight">&nbsp;
-                                                                 {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00} 
+                                                            {this.state.currency}  {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00} 
                                                             </div>
                                                         </div>
                                                     </div>

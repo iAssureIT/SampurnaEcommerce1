@@ -68,6 +68,10 @@
 }
 .infoCircle{
     color: #999 !important;
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 2px!important;
+    cursor: pointer !important;
 }
 .vendorNameTooltip{
     font-size: 18px;
