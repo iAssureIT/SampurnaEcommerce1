@@ -5,9 +5,6 @@ import Link                   from 'next/link';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-
 class ShoppingVerticals extends Component {
   constructor(props) {
     super(props);
@@ -51,12 +48,12 @@ class ShoppingVerticals extends Component {
            groupSettings    : blockresponse.data.groupSettings,   
            blockTitle       : blockresponse.data.blockTitle,
         },()=>{
-          console.log("after setstate groupSettings===",this.state.groupSettings);
+          // console.log("after setstate groupSettings===",this.state.groupSettings);
           axios.post(this.state.groupSettings.blockApi, this.state.groupSettings)      
           .then((blockApiResponse)=>{
             // console.log("blockApiResponse = > ",blockApiResponse)
             if(blockApiResponse.data){   
-              console.log("blockApiResponse.data===",blockApiResponse.data); 
+              // console.log("blockApiResponse.data===",blockApiResponse.data); 
             for(var i=0;i<blockApiResponse.data.length;i++){ 
                   itemList.push({
                     "itemImg" : blockApiResponse.data[i].itemImg?blockApiResponse.data[i].itemImg:"",

@@ -97,18 +97,19 @@ class header extends React.Component {
         this.props.updateFormValue("login");
     }
     
-    async signOut(event) {
+    signOut(event) {
         event.preventDefault();
         var token = localStorage.removeItem("userDetails");
-        swal({text:'Thank You. You have been logged out Successfully!'}).then(function(){
-            Router.push('/');
-            window.location.reload();
-          });
+        Router.push('/');
         if (token !== null) {
           this.setState({
             loggedIn: false
           })
         }
+        // swal({text:'Thank You. You have been logged out Successfully!'}).then(function(){
+        //     Router.push('/');
+        //     window.location.reload();
+        // });
     }
     
    render() {

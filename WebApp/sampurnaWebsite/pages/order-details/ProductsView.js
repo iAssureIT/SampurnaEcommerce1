@@ -30,12 +30,13 @@ class ProductsView extends Component {
         "config"    : {},
         "returnProductImages" : [],
         "returnProductError"  : '',
+        fields: {},
+        errors: {}
       }
   }
 
   componentDidMount() {
     this.getReturnReasons();
-    // this.getS3Details();
   }
 
   getS3Details(){
@@ -78,39 +79,66 @@ class ProductsView extends Component {
     })
   }
 
-  handleChangeReview(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-      reviewTextError : event.target.value ? "" : "Please Enter your feedback."
-    })
-  }
-
-  ratingReview(event){
-    // console.log("event.target.value---",event.target.value);
-    this.setState({
-      [event.target.name]: event.target.value,
-      reviewStarError : event.target.value ? "" : "Please give star rating."
-    },()=>{
-      // console.log('ratingReview---', this.state.ratingReview);
-      // console.log("reviewStarError===",this.state.reviewStarError);
-    })
-  }
+  // ratingReview(event){
+  //   // console.log("event.target.value---",event.target.value);
+  //   this.setState({
+  //     [event.target.name]: event.target.value,
+  //     reviewStarError : event.target.value ? "" : "Please give star rating."
+  //   },()=>{
+  //     // console.log('ratingReview---', this.state.ratingReview);
+  //     // console.log("reviewStarError===",this.state.reviewStarError);
+  //   })
+  // }
 
   onStarClick(nextValue, prevValue, name) {
     this.setState({rating: nextValue},()=>{
         // console.log("Rating value :",this.state.rating);
     });
+
+  }
+
+  validateReviewForm() {
+    let fields = this.state.fields;
+    let errors = {};
+    let formIsValid = true;
+
+    if (!fields["customerReview"]) {
+      console.log("!fields==",!fields["customerReview"]);
+      formIsValid = false;
+      errors["customerReview"] = "Please add your review.";
+    }
+
+
+    this.setState({
+      errors: errors
+    });
+
+    return formIsValid;
+  }
+
+  handleChangeReview(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+      reviewTextError : event.target.value ? "" : "Please Enter your feedback."
+    })
+
+    let fields = this.state.fields;
+    fields[event.target.name] = event.target.value;
+    this.setState({
+      fields
+    });
+
   }
 
   submitReview(event) {
     event.preventDefault();
-      if (this.state.customerReview) {
+      if (this.validateReviewForm()){
         if(this.state.rating_ID){
-
           var formValues = {
             "review_id"         : this.state.rating_ID,
             "rating"            : this.state.rating,
             "customerReview"    : $('.feedbackForm textarea').val(),
+            "reviewProductImages" : [],
           }
 
           console.log("formValues=",formValues);
@@ -137,6 +165,7 @@ class ProductsView extends Component {
           .catch((error) => {
           })
         }else{
+         var reviewProductImages = [];
          var formValues = {
             "customer_id"       : this.props.user_ID,
             "customerName"      : this.props.orderData.userFullName,
@@ -146,7 +175,8 @@ class ProductsView extends Component {
             "customerReview"    : $('.feedbackForm textarea').val(),
             "vendor_id"         : this.props.vendorWiseOrderData.vendor_id._id,
             "vendorLocation_id" : event.target.getAttribute('vendorlocationid'),
-            "status"            : "New"
+            "status"            : "New",
+            "reviewProductImages" : reviewProductImages.push(this.state.imgUrl),
           }
           console.log("formValues=",formValues);
           axios.post("/api/customerReview/post", formValues)
@@ -162,10 +192,6 @@ class ProductsView extends Component {
           .catch((error) => {
           })
         }//end else
-      }else{
-        this.setState({
-          reviewTextError: "Please Enter your feedback."
-        })
       }
     //}
   }
@@ -216,16 +242,11 @@ class ProductsView extends Component {
               },()=>{
                 const ReactS3Client = new S3(config);
                 if(ReactS3Client){
-                  // console.log("ReactS3Client===",ReactS3Client);
-                  // console.log("file===",file);
-                  // console.log("this.state.config===",this.state.config);
-                  // console.log("config===",config);
-                  // const newFileName = 'test-file';
                 ReactS3Client
                 .uploadFile(file)
                 .then(data => {
-                  console.log("fileUpload data=",data);
-                  console.log("fileUpload data=",data.location);
+                  // console.log("fileUpload data=",data);
+                  // console.log("fileUpload data=",data.location);
                   this.setState({
                       imgUrl : data.location
                   });
@@ -400,7 +421,14 @@ class ProductsView extends Component {
             orderID         : response.data.order_id,
             productID       : response.data.productID,
             rating          : response.data.rating,
-            ratingReview    : response.data.rating
+            ratingReview    : response.data.rating,
+            reviewProductImages : [],
+          },()=>{
+            let fields = this.state.fields;
+            fields["customerReview"] = response.data.profile.fullName;
+            this.setState({
+                fields
+            });
           })
         }
       })
@@ -590,12 +618,12 @@ class ProductsView extends Component {
                                                     /> 
                                                     <div className="clearfix "></div>
                                                 </div>
-                                                <label className="error">{this.state.reviewStarError}</label>
+                                                <span className={"col-12 " +Style.errormsg}>{this.state.reviewStarError}</span>
                                                 <div className="row inputrow">
                                                     <label className="col-12 mt15 text-left">Write review</label>
                                                     <div className="col-12 ">
                                                     <textarea rows="5" className="col-12 " onChange={this.handleChangeReview.bind(this)} value={ this.state.customerReview} name="customerReview"></textarea>
-                                                    <label className="error">{this.state.reviewTextError}</label>
+                                                    <div className={"col-12 text-left NoPadding " +Style.errormsg}>{this.state.errors.customerReview}</div>
                                                     </div>
                                                 </div>
                                                 <div className={"col-12 " +Style.ReturnImg}>   
@@ -605,7 +633,8 @@ class ProductsView extends Component {
                                                           <span className={"col-1 " +Style.errormsg}>*</span>                                                        
                                                           <input type="file" className="col-10" onChange={this.uploadImage.bind(this)} title="Choose Image"  accept=".jpg,.jpeg,.png" />
                                                         </div>
-                                                        <span className={"col-12 " +Style.errormsg}>{this.state.reviewImageError}</span>
+                                                        {/* <span className={"col-12 " +Style.errormsg}>{this.state.imgUrl}</span> */}
+                                                        <div className={"col-12 " +Style.errormsg}>{this.state.errors.imgUrl}</div>
                                                       </div>
                                                       {
                                                         this.state.imgUrl ? 

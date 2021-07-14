@@ -157,7 +157,7 @@ class ProductCarousel extends Component {
     }
     
     if(url[4] !== "undefined"){
-      console.log("inside if",url[3]);
+      // console.log("inside if",url[3]);
       var vendor_ID              = url[4];
       var vendorlocation_ID      = url[5];
       var sectionUrl             = url[6];

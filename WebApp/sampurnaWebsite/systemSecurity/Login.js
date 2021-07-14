@@ -90,7 +90,7 @@ class Login extends Component {
       if(this.validateForm()){
         axios.post('/api/auth/post/login/mob_email', payload)
           .then((response) => {
-            if(response.data){
+            if(response.data.message === "Login Auth Successful"){
               // console.log("login response=",response);
               if (response.data.ID) {
                 var userDetails = {
@@ -112,12 +112,18 @@ class Login extends Component {
                   // swal({text:'Thank You, You have been successfully logged in.'}).then(function(){
                   //   window.location.reload();
                   // });
-                  if(response.data.message === "Login Auth Successful"){
+                  // if(response.data.message === "Login Auth Successful"){
                     window.location.reload();
-                  }else{
-                    swal(response.data.message);
-                  }
+                  // }
                 })
+              }
+            }else{
+              if(response.data.message === "INVALID_PASSWORD"){
+                  swal("Your password is wrong");
+              }else if(response.data.message === "NOT_REGISTER"){
+                  swal("Invalid user");
+              }else{
+                swal(response.data.message);
               }
             }
           })
@@ -163,6 +169,7 @@ class Login extends Component {
   render() {
     return ( 
         <div id="loginFormModal"  className="col-12 NoPadding LoginWrapper mobileViewNoPadding">    
+        {this.state.loggedIn === false &&
         <div className="col-12 mobileViewNoPadding">
           <div className="col-12 NoPadding ">
             <div className="col-12 NoPadding">
@@ -242,6 +249,7 @@ class Login extends Component {
             </div>
           </div>
         </div>
+        }
       </div>
     );
   }
