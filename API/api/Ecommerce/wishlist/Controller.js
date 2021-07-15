@@ -3,7 +3,8 @@ var ObjectID            = require('mongodb').ObjectID;
 const Wishlists         = require('./Model');
 const AdminPreferences  = require('../../Ecommerce/adminPreference/Model.js');
 const StorePreferences  = require('../../Ecommerce/StorePreferences/Model.js');
-const _                         = require('underscore');  
+const ProductInventory 	= require('../ProductInventory/Model.js');
+const _                 = require('underscore');  
 const haversine         = require('haversine-distance')
 
 exports.insert_wishlist = (req,res,next)=>{
@@ -159,6 +160,9 @@ exports.get_user_wishlist = (req,res,next)=>{
             maxDistanceRadius = maxKmRadius.maxRadius;
         }
         for (var i = 0; i < wishdata.length; i++) {
+            var inventoryData = await ProductInventory.findOne({productCode : x.product_ID.productCode, itemCode : x.product_ID.itemCode, vendor_ID : ObjectId(x.product_ID.vendor_ID)},{currentQuantity : 1})
+			console.log("inventoryData => ",inventoryData)
+
             var product = {
                 vendor_id           : wishdata[i].vendor_id,
                 vendorLocation_id   : wishdata[i].vendorLocation_id,
@@ -167,6 +171,7 @@ exports.get_user_wishlist = (req,res,next)=>{
                 productNameRlang    : wishdata[i].product_ID.productNameRlang,
                 brandNameRlang      : wishdata[i].product_ID.brandNameRlang,
                 productUrl          : wishdata[i].product_ID.productUrl,
+                availableQuantity	: inventoryData && inventoryData !== null ? inventoryData.currentQuantity : 0,
                 originalPrice       : wishdata[i].product_ID.originalPrice,
                 availableQuantity   : wishdata[i].product_ID.availableQuantity,
                 size                : wishdata[i].product_ID.size,
