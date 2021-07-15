@@ -392,11 +392,7 @@ font-weight: bold;
   margin-bottom: 25px !important;
 }
 .productListWrapper{
-<<<<<<< Updated upstream
-  margin-top: -15px;
-=======
   margin-top: -17px;
->>>>>>> Stashed changes
   border-top: solid 1px #eee;
   padding-bottom: 20px;
 }
@@ -758,12 +754,4 @@ background: #fff;
 .f14{
   font-size:14px !important;
   margin-left: -130px;
-}
-
-.ecommerceTabContent .carouselWraper .rowPadding .react-multi-carousel-item{
-    /*min-width: 4% !important;*/
-} 
-
-.rowPadding{
-    /*/padding:25px 40px 0px 40px !important;*/
 }
