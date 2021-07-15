@@ -1550,7 +1550,7 @@ exports.fetch_product = (req,res,next)=>{
         Products.find({productCode : product.productCode, vendor_ID : ObjectId(req.body.vendor_id)})
         .populate("vendor_ID")
         .then(async(products)=>{
-            // console.log("products => ",products)
+            console.log("products => ",products)
             if(products && products.length > 0){
                 // product = {...product._doc, isWish : false};
                 // console.log("user_ID",user_ID);
