@@ -1569,7 +1569,7 @@ exports.fetch_product = (req,res,next)=>{
 
 				if(req.body.user_id && req.body.user_id !== 'null' && req.body.user_id !== undefined){
 					for (var i = 0; i < products.length; i++) {
-						var inventoryData               = await ProductInventory.findOne({productCode : products[i].productCode, itemCode : products[i].itemCode, vendor_ID : ObjectId(products[i].vendor_ID)},{currentQuantity : 1})
+						var inventoryData               = await ProductInventory.findOne({productCode : products[i].productCode, itemCode : products[i].itemCode, vendor_ID : ObjectId(products[i].vendor_ID._id)},{currentQuantity : 1})
 						console.log("inventoryData => ",inventoryData)
 						products[i]                     = {...products[i]._doc, isWish : false}; 
 						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 
@@ -4358,7 +4358,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 				if(products && products.length > 0){ 
 					// var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
 					for (let k = 0; k < products.length; k++) {
-						console.log("products_by_lowest_price products => ",products[i]);
+						console.log("products_by_lowest_price products => ",products[k]);
 						var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID)},{currentQuantity : 1});
 						console.log("inventoryData => ",inventoryData)
 						products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
