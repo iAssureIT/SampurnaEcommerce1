@@ -10,6 +10,7 @@ const AdminPreferences          = require('../../Ecommerce/adminPreference/Model
 const StorePreferences          = require('../../Ecommerce/StorePreferences/Model.js');
 const CreditPointsPolicy 		= require('../CreditPointsPolicy/Model');
 const CreditPoints 		        = require('../CreditPoints/Model');
+const ProductInventory 			= require('../ProductInventory/Model.js');
 const _                         = require('underscore');  
 const moment 	                = require('moment-timezone');
 const haversine                 = require('haversine-distance')  
