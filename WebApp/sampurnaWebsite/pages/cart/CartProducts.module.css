@@ -57,6 +57,9 @@
     /* padding: 15px; */
     
 }
+.tdCartWrapper{
+    right: -13% !important;
+}
 
 .checkoutBtn{
     background-color: #033554 !important;
@@ -78,6 +81,14 @@
 }
 .cartInnerTitleWrapper{
     font-size:  13px !important;
+    left: -4%!important;
+}
+.cartInnerTitleWrapper1{
+    font-size:  13px !important;
+    right: -5%!important;
+}
+.savingaMTcOLOR{
+    color: #3e9d5e !important;
 }
 .vendorNameTooltip{
     font-size: 18px;

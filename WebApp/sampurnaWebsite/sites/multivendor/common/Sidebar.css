@@ -189,3 +189,19 @@ ul.Featured-Brands li {
     padding: 10px;
 }
  
+::-webkit-input-placeholder {
+    color: peachpuff;
+    font-size: 2px!important;
+  }
+  ::-moz-placeholder {
+    color: peachpuff;
+    font-size: 2px !important;
+  }
+  :-ms-input-placeholder {
+    color: peachpuff;
+    font-size: 2px !important;
+  }
+  ::placeholder {
+    color: peachpuff;
+    font-size: 2px !important;
+  }

@@ -3,6 +3,7 @@
 }
 .cartProduct{
     margin-top: 40px;
+    overflow: hidden!important;
 }
 .cartProductImg{
     background-size: 100%,100%;
@@ -65,8 +66,9 @@
 .totalAmounts{
     font-size: 14px;
 }
-.totalAmountsG span {
-    font-size: 18px!important;
+.totalAmountsG{
+    font-size: 16px!important;
+    font-family: 'Montserrat-Medium'!important;
 }
 
 .minusQuantity,

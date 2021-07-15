@@ -748,13 +748,13 @@ class ProductViewEcommerce extends Component {
 											{this.state.productData.productReturnable === "returnable"?
 											<div className={"col-12 NoPadding mt-4"}>
 												<div className="row ">
-													<div className="col-12 mt-2">
-														<i className="fa fa-undo "></i>
-														<span className="col-12 returnabletxt">Enjoy Free return for this item
-															<i className="fa fa-angle-down"></i> <br/>
+													<div className="koh-faq-question">
+														{/* <i className="fa fa-undo "></i> */}
+														<span className="col-12 returnabletxt koh-faq-question-span">Enjoy Free return for this item
+														<i className="fa fa-chevron-right" aria-hidden="true"></i> <br/>
 														</span>
 													</div>
-													<div className="col-12">
+													<div className="col-12 koh-faq-answer d-none">
 														<p>Consumable products are eligible for return,<br/>
 															within 8 hours from the delivery time of the order.<br/>
 
@@ -765,15 +765,28 @@ class ProductViewEcommerce extends Component {
 															return policy &nbsp;<Link href={"/privacy-policy"}>Read more</Link>
 														</p>
 													</div>
+													<div class="koh-tab-content d-none">
+														<div class="koh-tab-content-body">
+															<div class="koh-faq">
+															<div class="koh-faq-question">
+																<i class="fa fa-chevron-right" aria-hidden="true"></i>
+																<span class="koh-faq-question-span"> Test Question 1 </span>
+															</div>
+															<div class="koh-faq-answer">
+																Test Answer 1
+															</div>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 											:
-											<div className={"col-12 NoPadding mt-4"}>
+											<div className={"container-flex NoPadding mt-4"}>
 												<div className="row ">
 													
-													<div className="col-10 koh-faq-question">
-														<div className="col-12 returnabletxt koh-faq-question-span">This item is non-returnable 
-														&nbsp;<i className="fa fa-angle-down"></i> <br/>
+													<div className="koh-faq-question">
+														<div className="col-12 returnabletxt koh-faq-question-span ">This item is non-returnable 
+														&nbsp;<i className="fa fa-chevron-right" aria-hidden="true"></i> <br/>
 														</div>
 														<div className="col-12 koh-faq-answer d-none ">
 															<p >For more details about knock knock return <br/>

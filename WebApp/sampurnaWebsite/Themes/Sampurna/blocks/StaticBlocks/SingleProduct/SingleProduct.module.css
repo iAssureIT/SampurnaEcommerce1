@@ -298,7 +298,7 @@
     z-index: 1;
     background: transparent;
     position: absolute;
-    left: 80%;
+    left: 85%!important;
     top: 2%;
     font-size: 20px;
     font-weight: 700;

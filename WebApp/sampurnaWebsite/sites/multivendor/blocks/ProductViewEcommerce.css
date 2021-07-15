@@ -1079,37 +1079,40 @@ position:relative;
 
 }
 
-.koh-faqs-page-title {
+/* .koh-faqs-page-title {
   font-family: Nexa W01 Heavy;
   font-size: 30px;
   color: #04202E;
   font-weight: 700;
-}
+} */
 
 .koh-faq-question-span {
-  font-family: Helvetica Neue LT Pro Roman !important;
   font-size: 16px !important;
   color: #000 !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   display: inline-block;
 }
 
-.koh-faq-answer {
+/* .koh-faq-answer {
   font-family: Helvetica Neue LT Pro Roman;
   color: #000;
   font-weight: 400;
   display: none;
-}
+} */
 
-.icon {
+.koh-faq-question  .icon {
   font-size: 10px;
   padding-right: 5px;
 }
 
-.koh-faq-question.fa {
+.koh-faq-question .fa {
   transition: transform .2s;
+  z-index: 999!important;
+  cursor: pointer;
 }
 
 .koh-faq-question .fa.active {
   transform: rotateZ(90deg);
+  z-index: 999 !important;
+  cursor: pointer;
 }

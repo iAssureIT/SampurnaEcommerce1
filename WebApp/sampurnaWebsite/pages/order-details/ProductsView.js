@@ -504,8 +504,8 @@ class ProductsView extends Component {
             <table className={"table table-borderless orderTable " +Style.table}>
                 <thead>
                     <tr>
-                        <th>Products Image</th>
-                        <th>Products Name</th>
+                        <th className="font-weight-bold">Product</th>
+                        <th className={" "+Style.pnHIdden}>Products Name</th>
                         <th className="textAlignLeft">Price</th>
                         <th className="textAlignCenter">Quantity</th>
                         <th className="textAlignRight">SubTotal</th>

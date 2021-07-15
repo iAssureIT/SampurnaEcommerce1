@@ -39,6 +39,7 @@
 .infoCircle{
     color: #ccc;
     cursor: pointer!important;
+    margin-left: -15px!important;
 }
 .paymentMethod {
     margin-top: 30px;
@@ -70,9 +71,12 @@
     padding-bottom: 30px;
     /* border: 1px solid #ddd; */
     margin-bottom: 20px;
-    border-radius: 6px;    
+    border-radius: 6px; 
+    overflow-x: hidden!important;   
 }
-
+.pnHidden{
+    color: #fff !important;
+}
 .f14{
 	font-size:14px;
 }
@@ -115,6 +119,9 @@
     color: #000;
     margin-top: -6px;
     margin-left: 2px;
+}
+.f13N input{
+    height: 18px !important;
 }
 
 .f14B{
@@ -161,6 +168,13 @@
 .f161{
     font-size:16px !important; 
     font-family:'Montserrat-Black';
+    
+}
+
+.f1612{
+    font-size:16px !important; 
+    font-family:'Montserrat-Black';
+    margin-left: -4% !important;
 }
 
 .bold{
@@ -198,6 +212,12 @@
 }
 .currencyColor1{
 	color: #3E9D5E !important;
+}
+.checkoutCurrencyWrapper{
+    right: -20% !important;
+}
+.checkoutCurrencyWrapper2{
+    right: -11% !important;
 }
 
 .addressWrapper{

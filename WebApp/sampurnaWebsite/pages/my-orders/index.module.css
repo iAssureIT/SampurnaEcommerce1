@@ -33,6 +33,16 @@
 	height:27px!important;
 	padding:8px!important;
 }
+.orderStatusBadge1{
+	height:27px!important;
+	padding:8px!important;
+	background-color: #033554!important;
+}
+.orderStatusBadge2{
+	height:27px!important;
+	padding:8px!important;
+	background-color: #e88686!important;
+}
 
 .orderIdborderNew{
 	background:#ffffff !important;
