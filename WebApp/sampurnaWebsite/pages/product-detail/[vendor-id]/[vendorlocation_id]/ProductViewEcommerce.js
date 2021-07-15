@@ -71,6 +71,7 @@ class ProductViewEcommerce extends Component {
             if(userDetails.user_id){
 				this.setState({
 					user_ID       :  userDetails.user_id,
+					authService   :  userDetails.authService,
 					// userLongitude : userDetails.userLatitude,
 					// userLongitude : userDetails.userLongitude,
 					"delLocation" : sampurnaWebsiteDetails.deliveryLocation.address,
@@ -113,7 +114,7 @@ class ProductViewEcommerce extends Component {
 					"vendor_id"         : this.state.vendor_ID,
 					"vendorLocation_id" : this.state.vendorlocation_ID,
 				}
-				// console.log("formvalues  => ",formvalues)
+				console.log("formvalues  => ",formvalues)
 				if(formvalues){
 					// console.log("before formvalues=",formvalues);
 					const url = "/api/products/get/one";
@@ -589,7 +590,7 @@ class ProductViewEcommerce extends Component {
 							<div className="col-12">
 								<div className="row">
 								<div className={"col-lg-2 col-xl-2 col-3  NoPadding mobileViewNoPadding pull-right " +Style.heartPosition}>
-									{this.state.user_ID?
+									{this.state.user_ID && this.state.authService!=="guest"?
 										<div id={this.state.productData._id} title={this.state.wishTooltip} onClick={this.addtowishlist.bind(this)} className={" col-lg-12 col-md-12 col-sm-12 col-xs-12 " +Style.wishClass}>
 											<i id={this.state.productData._id} className={"fa"+wishClass +" " +"fa-heart" +" heartIcon"}></i>
 										</div>

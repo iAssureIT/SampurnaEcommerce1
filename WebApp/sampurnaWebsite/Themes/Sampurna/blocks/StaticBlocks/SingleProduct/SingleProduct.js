@@ -25,7 +25,9 @@ class SingleProduct extends Component{
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
           var user_ID                = userDetails.user_id; 
+          var authService            = userDetails.authService;
         }
+        
         if(sampurnaWebsiteDetails.deliveryLocation){
           this.setState({
             "userLongitude" : sampurnaWebsiteDetails.deliveryLocation.latitude,
@@ -33,6 +35,7 @@ class SingleProduct extends Component{
             "delLocation"   : sampurnaWebsiteDetails.deliveryLocation.address,
           })
         }
+
         if(sampurnaWebsiteDetails.preferences){
           this.setState({
             currency      : sampurnaWebsiteDetails.preferences.currency,
@@ -44,6 +47,7 @@ class SingleProduct extends Component{
         if(user_ID!==null){     
           this.setState({
             user_ID       : user_ID,
+            authService   : authService,
           },()=>{
               this.props.getWishlistData();
           }); 
@@ -246,14 +250,14 @@ class SingleProduct extends Component{
                     <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
                     <div className={"col-12 NoPadding " +Style.wishlistBtn}>
                         {this.props.productSettings.displayWishlist === true?
-                            this.state.user_ID?
+                            this.state.user_ID && this.state.authService!=="guest"?
                             <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                               // this.props.data.isWish?
                               //   <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"fa fa-heart wishListIconColor "}></i></button>
                               //   :
                               //   <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={this.props.data._id} className={"far fa-heart wishListIconColor "}></i></button>
                             :
-                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                            <button type="submit" id={this.props.data._id} title={tooltipMsg} className={Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={this.props.data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                         :null
                         }
                         {this.props.data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(this.props.data.discountPercent)} % </div> : null}

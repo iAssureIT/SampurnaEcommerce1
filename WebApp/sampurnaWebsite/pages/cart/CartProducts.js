@@ -82,31 +82,47 @@ class CartProducts extends Component{
             "cartItem_ID" : cartitemid,
             vendor_ID     : vendorid,
         }
-        // console.log("Removefromcart===",formValues);
-        axios.patch("/api/carts/remove" ,formValues)
-        .then((response)=>{
-            this.setState({
-                messageData : {
-                  "type" : "outpage",
-                  "icon" : "fa fa-check-circle",
-                  "message" : response.data.message,
-                  "class": "success",
-                  "autoDismiss" : true
-                }
-            })
-            setTimeout(() => {
-                this.setState({
-                    messageData   : {},
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure that you want to removed this product?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: true,
+          })
+          .then(willDelete => {
+            if (willDelete) {
+                axios.patch("/api/carts/remove" ,formValues)
+                .then((response)=>{
+                    if(response){
+                        this.setState({
+                            messageData : {
+                            "type" : "outpage",
+                            "icon" : "fa fa-check-circle",
+                            "message" : response.data.message,
+                            "class": "success",
+                            "autoDismiss" : true
+                            }
+                        })
+                        setTimeout(() => {
+                            this.setState({
+                                messageData   : {},
+                            })
+                        }, 1500);
+                        this.props.fetchCartData();
+                        this.props.updateCartCount();
+                    }
                 })
-            }, 1500);
-            this.props.fetchCartData();
-            this.props.updateCartCount();
-            
+                .catch((error)=>{
+                    console.log("error => ",error);
+                })
+      
+            }else{
+              swal("Your product is safe!");
+            }
         })
-        .catch((error)=>{
-            console.log("error => ",error);
-        })
+        
     }
+
     cartquantityincrease(event){
         event.preventDefault();
         const product_ID = event.target.getAttribute('productid');   
@@ -391,7 +407,7 @@ class CartProducts extends Component{
                                                     }
                                                 <div className="col-12">
                                                     <Link href={"/products/"+vendorWiseCartData.vendor_id._id+"/"+vendorWiseCartData.vendorLocation_id+"/supermarket"}>
-                                                        <a className={"shoppingLink " +Style.shopping}><i class="fa fa-arrow-left"></i>&nbsp;Contiune Shopping</a>
+                                                        <a className={"shoppingLink " +Style.shopping}><i class="fa fa-arrow-left"></i>&nbsp;Continue Shopping</a>
                                                     </Link>
                                                 </div>
                                             </div>

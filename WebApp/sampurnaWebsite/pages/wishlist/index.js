@@ -67,7 +67,7 @@ class Wishlist extends Component {
     axios.post('/api/wishlist/get/userwishlist', formValues)    
       .then((response) => {
         if(response){
-          // console.log('wishlist data', response.data);
+          console.log('wishlist data', response.data);
           this.setState({
             wishlistData: response.data
           })
@@ -76,7 +76,7 @@ class Wishlist extends Component {
       .catch((error) => {
         console.log('error', error);
       })
-  }
+    }
 
   // removefromwishlist(event) {
   //   event.preventDefault();

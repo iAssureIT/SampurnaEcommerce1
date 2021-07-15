@@ -27,6 +27,7 @@ class Product extends Component{
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(userDetails){
           var user_ID                = userDetails.user_id; 
+          var authService            = userDetails.authService;
         }
         if(sampurnaWebsiteDetails.deliveryLocation){
           this.setState({
@@ -46,6 +47,7 @@ class Product extends Component{
         if(user_ID!==null){     
           this.setState({
             user_ID       : user_ID,
+            authService   : authService,
           },()=>{
               this.props.getWishlistData();
           }); 
@@ -321,12 +323,12 @@ class Product extends Component{
                   <div className={"col-12 NoPadding " +Style.productBlock +" " +Style.productInnerWrap +" " +Style.NoPadding}>                                 
                     <div className={"col-12 NoPadding"}>
                       <div className={"col-12 NoPadding " +Style.NoPadding +" " +Style.productImg}>
-                      <div className={"col-12 NoPadding " +Style.wishlistBtn}>
+                        <div className={"col-12 NoPadding " +Style.wishlistBtn}>
                           {this.props.productSettings.displayWishlist === true?
-                              this.state.user_ID?
+                              this.state.user_ID && this.state.authService!=="guest"?
                               <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)}><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                               :
-                              <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } onClick={this.addtowishlist.bind(this)} data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
+                              <button type="submit" id={data._id} title={tooltipMsg} className={Style.wishIcon } data-toggle="modal" data-target="#loginFormModal" data-backdrop="true" id="loginModal"><i id={data._id} className={"fa" +wishClass +" fa-heart wishListIconColor "}></i></button>
                           :null
                           }
                           {data.discountPercent ? <div className={"col-3 "  +Style.discounttag}>{Math.floor(data.discountPercent)} % </div> : null}

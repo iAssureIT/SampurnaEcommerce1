@@ -93,10 +93,10 @@ class SignUp extends Component {
 		// 	}
 		//   }
 	  
-		// if (!fields["mobNumber"]) {
-		// 	formIsValid = false;
-		// 	errors["mobNumber"] = "This field is required.";
-		// }
+		if (!fields["mobNumber"]) {
+			formIsValid = false;
+			errors["mobNumber"] = "This field is required.";
+		}
 		// if (typeof fields["mobNumber"] !== "undefined") {
 		// 	//regular expression for email validation
 		// 	var pattern = new RegExp(/^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/)
@@ -341,14 +341,14 @@ class SignUp extends Component {
 								// this.setState({
 								// 	mobNumber : this.state.mobNumber,
 								// }); 
-								// let fields = this.state.fields;
-								// fields["mobNumber"] = this.state.mobNumber;
-								// this.setState({
-								// fields
-								// });
+								let fields = this.state.fields;
+								fields["mobNumber"] = this.state.mobNumber;
+								this.setState({
+								fields
+								});
 						}}
 					/>    
-					{/* <div className="errorMsg">{this.state.errors.mobNumber}</div>  */}
+					<div className="errorMsg">{this.state.errors.mobNumber}</div> 
 					</div>
 
 					<div className="form-group frmhgt textAlignLeft col-12 col-lg-6 mt-4 ">

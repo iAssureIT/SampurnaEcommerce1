@@ -12,8 +12,9 @@ import SystemSecurityPopup             from '../Themes/Sampurna/blocks/5_HeaderB
 export default function App({pageData}) {
   const [sampurnaWebsiteDetails,setSampurnaWebsiteDetails]   = useState({});
   const [userDetails,setUserDetails]           = useState({});
-  const [userId,setUserId]           = useState({});
-  
+  const [userId,setUserId]           = useState();
+  var user_details              =  JSON.parse(localStorage.getItem('userDetails'));
+  console.log("user_details",user_details);
   const signOut = (e) => {
       var token = localStorage.removeItem("userDetails");
       swal({text:'Thank You. You have been logged out Successfully!'}).then(function(){
@@ -27,10 +28,10 @@ export default function App({pageData}) {
 
   useEffect(()=>{
     var sampurnaWebsiteDetailsObj =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));
-    var user_details              =  JSON.parse(localStorage.getItem('userDetails'));
     // console.log("sampurnaWebsiteDetails.deliveryLocation=>",sampurnaWebsiteDetailsObj);
     if(user_details && user_details.user_id){
       setUserId(user_details.user_id);
+      // console.log("userId===",userId);
     }
     if(sampurnaWebsiteDetailsObj){
         if(sampurnaWebsiteDetailsObj.deliveryLocation){
@@ -39,12 +40,11 @@ export default function App({pageData}) {
           setUserDetails(user_details);
         }
     }
-  },[])
+  },[user_details?.user_id])
  
   return (
-  
     <div className="col-12">
-      {console.log("userId===",userId)}
+      {/* {console.log("userId===",userId)} */}
       <div className="row">
         {sampurnaWebsiteDetails && sampurnaWebsiteDetails.deliveryLocation  && sampurnaWebsiteDetails.deliveryLocation.address ?	
           <MasterPage pageData = {pageData}/>
@@ -63,7 +63,7 @@ export default function App({pageData}) {
                                           <div className="col-9 text-center searchTitle"></div>
                                           {userId ?
                                           <div className=" col-1 NoPadding signInBlock" >
-                                              <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" onClick={()=>signOut}  id="loginModal" area-hidden ="true"> 
+                                              <a href="" className="faIcon faLoginIcon  col-12 NoPadding pull-right" onClick={()=>signOut()}  id="loginModal" area-hidden ="true"> 
                                                   <span className="col-12 loginView">Sign Out &nbsp;
                                                       <img src="/images/eCommerce/userIcon.png" className="userIconImg"></img>
                                                   </span>

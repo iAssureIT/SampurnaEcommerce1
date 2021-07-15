@@ -66,12 +66,12 @@ class Header extends React.Component {
 
                                         <SearchBar />
                                         
-                                        <div className={"col-8 col-lg-"+colWithLogin+" col-sm-"+colWithLogin +" mt-1 d-flex flex-row-reverse systemSecurity"}> 
+                                        <div className={"col-8 col-lg-"+colWithLogin+" col-sm-"+colWithLogin +" mt-1 systemSecurity"}> 
 
                                         {/*<div className="col-8 col-lg-3 col-sm-2 systemSecurity NoPadding"> */}
 
                                             <div className="row">   
-                                                <div className="col-6 NoPadding ">
+                                                <div className="col-6 ">
                                                     < SystemSecurityModal />
                                                 </div>   
                                                  {this.state.user_ID && this.state.authService!=="guest"?                            

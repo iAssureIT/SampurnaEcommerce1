@@ -28,6 +28,7 @@ class MyCart extends React.Component {
         return(  
             <div className="col-12 NoPadding">
             {this.state.userID?
+<<<<<<< Updated upstream
                 <a href="/cart" className="row cartHeader">  
                         <div className="col-6 ml-4 topCart NoPadding">
                             <Image
@@ -37,15 +38,29 @@ class MyCart extends React.Component {
                             width={100}
                             layout={'intrinsic'}
                         />
+=======
+                <div className="row cartHeader">  
+                        <div className="col-5 ml-4 topCart NoPadding">
+                            <a href="/cart" className="row cartHeader">
+                                <Image
+                                src={"/images/eCommerce/cart.png"}
+                                className={"rotateImg" }
+                                height ={40}
+                                width={60}
+                                layout={'intrinsic'}
+                                />
+                            </a>
+>>>>>>> Stashed changes
                         </div>
                         <div className="col-2 cartCount NoPadding">
                             <div className="cartCountCircle">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
                             &nbsp;                                
                         </div>
-                </a>
+                </div>
                 :
-                <a href="" className="row cartHeader" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
+                <div className="row cartHeader" >
                         <div className="col-6 NoPadding ml-4">
+<<<<<<< Updated upstream
                             <Image
                             src={"/images/eCommerce/cart.png"}
                             className={"" }
@@ -53,12 +68,23 @@ class MyCart extends React.Component {
                             width={100}
                             layout={'intrinsic'}
                         />
+=======
+                            <a href="" data-toggle="modal" data-target="#loginFormModal" data-backdrop="false" id="loginModal" title="Please Login">
+                                <Image
+                                src={"/images/eCommerce/cart.png"}
+                                className={"rotateImg" }
+                                height ={40}
+                                width={60}
+                                layout={'intrinsic'}
+                                />
+                            </a>
+>>>>>>> Stashed changes
                         </div>
                         <div className="col-2 cartCount NoPadding">
                             <div className="cartCountCircle ">{this.props.cartCount>0? this.props.cartCount : 0 }</div>
                             &nbsp;                                
                         </div>
-                </a>
+                </div>
             }
             </div>
         );        
