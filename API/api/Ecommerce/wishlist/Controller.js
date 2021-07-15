@@ -173,7 +173,6 @@ exports.get_user_wishlist = (req,res,next)=>{
                 productUrl          : wishdata[i].product_ID.productUrl,
                 availableQuantity	: inventoryData && inventoryData !== null ? inventoryData.currentQuantity : 0,
                 originalPrice       : wishdata[i].product_ID.originalPrice,
-                availableQuantity   : wishdata[i].product_ID.availableQuantity,
                 size                : wishdata[i].product_ID.size,
                 shortDescription    : wishdata[i].product_ID.shortDescription,
                 unit                : wishdata[i].product_ID.unit, 
