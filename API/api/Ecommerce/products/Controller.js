@@ -1572,7 +1572,7 @@ exports.fetch_product = (req,res,next)=>{
 						var inventoryData               = await ProductInventory.findOne({productCode : products[i].productCode, itemCode : products[i].itemCode, vendor_ID : ObjectId(products[i].vendor_ID._id)},{currentQuantity : 1})
 						console.log("inventoryData => ",inventoryData)
 						products[i]                     = {...products[i]._doc, isWish : false}; 
-						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 
+						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
 						products[i].vendorLocation_id   = await products[i].vendor_ID.locations && products[i].vendor_ID.locations.length > 0 
 															? 
 																products[i].vendor_ID.locations[0]._id 
@@ -1608,7 +1608,7 @@ exports.fetch_product = (req,res,next)=>{
 					for (var i = 0; i < products.length; i++) {
 						var inventoryData               = await ProductInventory.findOne({productCode : wishdata[i].product_ID.productCode, itemCode : wishdata[i].product_ID.itemCode, vendor_ID : ObjectId(wishdata[i].product_ID.vendor_ID)},{currentQuantity : 1});
 						console.log("inventoryData => ",inventoryData);
-						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 
+						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
 					}
 					if(i >= products.length){
 						res.status(200).json({
@@ -2121,7 +2121,7 @@ exports.similar_products = (req,res,next)=>{
 			for (let k = 0; k < products.length; k++) {
 				var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID._id)},{currentQuantity : 1});
 				console.log("inventoryData => ",inventoryData)
-				products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
+				products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 						
 				products[k]                     = {...products[k]._doc, isWish : false};
 				products[k].vendorLocation_id 	= await products[k].vendor_ID.locations && products[k].vendor_ID.locations.length > 0 
 													? 
@@ -4358,11 +4358,12 @@ exports.products_by_lowest_price = (req,res,next)=>{
 				if(products && products.length > 0){ 
 					// var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
 					for (let k = 0; k < products.length; k++) {
-						console.log("products_by_lowest_price products => ",products[k]);
+						// console.log("products_by_lowest_price products => ",products[k]);
 						var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID)},{currentQuantity : 1});
-						console.log("inventoryData => ",inventoryData)
-						products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
+						// console.log("inventoryData => ",inventoryData)
+						products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 						
 						products[k] 					= {...products[k], isWish : false};
+						// console.log("products_by_lowest_price products => ",products[k]);
 					}
 					if(req.body.user_id && req.body.user_id !== 'null'){
 						Wishlists.find({user_ID : req.body.user_id})
