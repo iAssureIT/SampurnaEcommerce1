@@ -510,7 +510,7 @@ input[type=number] {
 .otpInputBox input{
   width: 50px !important;
   height: 60px !important;
-  margin-left: 40px !important;
+  margin-left: 15px !important;
   border: none!important;
   border-bottom: 2px solid #333 !important;
 }

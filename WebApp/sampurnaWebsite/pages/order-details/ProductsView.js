@@ -107,8 +107,7 @@ class ProductsView extends Component {
       formIsValid = false;
       errors["customerReview"] = "Please add your review.";
     }
-
-
+    
     this.setState({
       errors: errors
     });

@@ -139,8 +139,14 @@ class Searchbar extends React.Component {
       } 
 
    render(){
+        var colWithLogin;
+       if(this.state.user_ID){
+          colWithLogin = 7;
+       }else{
+        colWithLogin = 8;
+       }
         return(  
-            <div className="col-12 col-sm-7 ">                                
+            <div className={"col-12 col-sm-"+colWithLogin}>                                
                 <div className="col-12 NoPadding">  
                     <div className="row mt3 tableSearchWrapper"> 
                         <input type="text" placeholder="Search the items" id="browsers"

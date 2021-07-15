@@ -83,10 +83,9 @@ class ProductreviewList extends Component {
   }
   render() {
     return (
-    <div className="col-12 ">
-      <h5>Customer Feedback</h5>
+    <div className="col-12 mb-10">
+      {/* <h5>Customer Feedback</h5> */}
       <div className="col-12   ">
-        {/* <Message messageData={this.state.messageData} /> */}
         <div className=" container">
           <br />
           <div className="row"> 
@@ -122,8 +121,8 @@ class ProductreviewList extends Component {
                             
                         </div> */}
                         <div className="row h-100">
-                            <div className="col-2"></div>
-                            <div className="col-10 reviewBox h-100 text-center">
+                            {/* <div className="col-2"></div> */}
+                            <div className="col-12 reviewBox h-100 text-center">
                             <div className="row h-100">
                               <div className="col-2 h-75 ">
                               <img  className="customerPic mt-5"src="/images/eCommerce/notavailable.jpg" alt="Customer-Pic"/>  

@@ -46,6 +46,12 @@ class Header extends React.Component {
     }
 
     render(){
+        var colWithLogin;
+        if(this.state.user_ID){
+            colWithLogin = 3;
+        }else{
+          colWithLogin = 2;
+        }
         return(   
             <div className="col-12 headerWrapper NoPadding">
                 <div className="col-12 NoPadding multilevelType2MenuWrapper"> 
@@ -60,7 +66,7 @@ class Header extends React.Component {
 
                                         <SearchBar />
                                         
-                                        <div className="col-8 col-lg-3 col-sm-2 mt-1 d-flex flex-row-reverse systemSecurity"> 
+                                        <div className={"col-8 col-lg-"+colWithLogin+" col-sm-"+colWithLogin +" mt-1 d-flex flex-row-reverse systemSecurity"}> 
 
                                         {/*<div className="col-8 col-lg-3 col-sm-2 systemSecurity NoPadding"> */}
 

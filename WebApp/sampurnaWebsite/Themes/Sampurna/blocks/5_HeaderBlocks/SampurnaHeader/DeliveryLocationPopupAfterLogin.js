@@ -342,17 +342,16 @@ class DeliveryLocationPopupAfterLogin extends React.Component {
            var formOffset = 0;
            var class1 = "zindex";
        }else{
-        var xlCol =  12;
-        var offset = 0;
-        var xlForm = 10;
-        var formOffset = 1;
-        var class1 = "zindex1"
+            var xlCol =  12;
+            var offset = 0;
+            var xlForm = 10;
+            var formOffset = 1;
+            var class1 = "zindex1"
        }
        
     return (
         <div className={"row locationPage locationBg " +Style.locationBg +" "+Style.locationPage} >
             <div className={"col-12  "}>
-
                 {
                     this.state.userDetails && this.state.userDetails.token && this.state.userAddress.length>0? 
                     <div className="col-3 NoPadding AddressListWrapper">
