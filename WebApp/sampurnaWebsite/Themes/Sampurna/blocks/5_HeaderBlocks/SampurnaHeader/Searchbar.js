@@ -19,7 +19,10 @@ class Searchbar extends React.Component {
         var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if( userDetails && userDetails.user_id){
-            this.setState({user_ID : userDetails.user_id})
+            this.setState({
+                user_ID : userDetails.user_id,
+                authService : userDetails.authService
+            })
         }
         if(sampurnaWebsiteDetails){
             if(sampurnaWebsiteDetails.deliveryLocation){
@@ -140,7 +143,7 @@ class Searchbar extends React.Component {
 
    render(){
         var colWithLogin;
-       if(this.state.user_ID){
+       if(this.state.user_ID && this.state.authService !=="Guest"){
           colWithLogin = 7;
        }else{
         colWithLogin = 8;

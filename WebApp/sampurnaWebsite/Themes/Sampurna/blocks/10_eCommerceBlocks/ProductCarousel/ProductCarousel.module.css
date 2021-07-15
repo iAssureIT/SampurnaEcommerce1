@@ -743,14 +743,11 @@ background: #fff;
     min-width: 30px;
     min-height: 30px;
 }
-
-
 .titleFont{
   font-size:30px !important;  
   margin-top:40px !important;
   margin-bottom:60px !important;
 }
-
 .f14{
   font-size:14px !important;
   margin-left: -130px;

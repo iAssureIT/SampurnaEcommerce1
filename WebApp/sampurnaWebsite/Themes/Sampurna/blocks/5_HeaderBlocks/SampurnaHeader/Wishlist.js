@@ -16,9 +16,7 @@ class Wishlist extends React.Component {
         let defaultUrl=window.location.href.replace(/.*\/\/[^\/]*/, '');
         this.setState({
             currentUrl:defaultUrl,
-            
         })
-       
     }
     
 
