@@ -2119,7 +2119,7 @@ exports.similar_products = (req,res,next)=>{
 	.then(async(products)=>{
 		if(products && products.length > 0){
 			for (let k = 0; k < products.length; k++) {
-				var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID)},{currentQuantity : 1});
+				var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID._id)},{currentQuantity : 1});
 				console.log("inventoryData => ",inventoryData)
 				products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
 				products[k]                     = {...products[k]._doc, isWish : false};
