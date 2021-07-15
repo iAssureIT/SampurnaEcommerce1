@@ -45,6 +45,12 @@ class ProductViewEcommerce extends Component {
 	}
 
 	async componentDidMount(){
+		$(document).ready(function() {
+			$(this).on("click", ".koh-faq-question", function() {
+			  $(this).parent().find(".koh-faq-answer").toggleClass("d-block");
+			  $(this).find(".fa").toggleClass('active');
+			});
+		  });
 		var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
         var userDetails            =  JSON.parse(localStorage.getItem('userDetails'));
         if(sampurnaWebsiteDetails && sampurnaWebsiteDetails.preferences){
@@ -764,18 +770,29 @@ class ProductViewEcommerce extends Component {
 											:
 											<div className={"col-12 NoPadding mt-4"}>
 												<div className="row ">
-													<div className="col-1 mt-2">
-														<i className="fa fa-undo "></i>
-													</div>
-													<div className="col-10">
-														<div className="col-12 returnabletxt">This item is non-returnable 
+													
+													<div className="col-10 koh-faq-question">
+														<div className="col-12 returnabletxt koh-faq-question-span">This item is non-returnable 
 														&nbsp;<i className="fa fa-angle-down"></i> <br/>
 														</div>
-														<div className="col-12">
-															<p>For more details about knock knock return <br/>
+														<div className="col-12 koh-faq-answer d-none ">
+															<p >For more details about knock knock return <br/>
 															policy &nbsp;<Link href="/privacy-policy">Read more</Link>
 															</p>
 														</div>
+													</div>
+													<div class="koh-tab-content d-none">
+													<div class="koh-tab-content-body">
+														<div class="koh-faq">
+														<div class="koh-faq-question">
+															<i class="fa fa-chevron-right" aria-hidden="true"></i>
+															<span class="koh-faq-question-span"> Test Question 1 </span>
+														</div>
+														<div class="koh-faq-answer">
+															Test Answer 1
+														</div>
+														</div>
+													</div>
 													</div>
 												</div>
 											</div>

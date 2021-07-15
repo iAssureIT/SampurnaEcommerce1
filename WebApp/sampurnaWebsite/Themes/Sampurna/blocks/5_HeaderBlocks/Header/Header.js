@@ -88,13 +88,13 @@ class Header extends React.Component {
                                                 {this.state.userID?
                                                     <Link href="/cart">
                                                         <a className=" " title="Go to cart page" >
-                                                            <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                                            <img className="img-responsive r" src="/images/eCommerce/cart.png"></img>
                                                         </a>
                                                     </Link>
                                                 :
                                                 <Link href="/cart">
                                                     <a className=" " title="Go to cart page" >
-                                                        <img className="img-responsive rotateImg" src="/images/eCommerce/cart.png"></img>
+                                                        <img className="img-responsive " src="/images/eCommerce/cart.png"></img>
                                                     </a>
                                                 </Link>
                                                 }

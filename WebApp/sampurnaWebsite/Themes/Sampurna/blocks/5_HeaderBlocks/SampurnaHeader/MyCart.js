@@ -32,7 +32,7 @@ class MyCart extends React.Component {
                         <div className="col-6 ml-4 topCart NoPadding">
                             <Image
                             src={"/images/eCommerce/cart.png"}
-                            className={"rotateImg" }
+                            className={"" }
                             height ={60}
                             width={100}
                             layout={'intrinsic'}
@@ -48,7 +48,7 @@ class MyCart extends React.Component {
                         <div className="col-6 NoPadding ml-4">
                             <Image
                             src={"/images/eCommerce/cart.png"}
-                            className={"rotateImg" }
+                            className={"" }
                             height ={60}
                             width={100}
                             layout={'intrinsic'}

@@ -395,7 +395,7 @@ font-weight: bold;
   margin-bottom: 25px !important;
 }
 .productListWrapper{
-  margin-top: 20px;
+  margin-top: -15px;
   border-top: solid 1px #eee;
   padding-bottom: 20px;
 }
@@ -492,7 +492,7 @@ background: #fff;
 }
 .wishIcon{ 
   margin-top: 5px;
-  padding: 0px 6px;
+  padding: 0px 19px;
   font-weight: bold;
   font-size: 12px;
   border: transparent;
@@ -749,7 +749,7 @@ background: #fff;
 
 
 .titleFont{
-  font-size:36px !important;  
+  font-size:30px !important;  
   margin-top:40px !important;
   margin-bottom:60px !important;
 }

@@ -452,36 +452,36 @@ class CartProducts extends Component{
                                                 <div className={"col-12  " +Style.cartSummary1}>
                                                     <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
-                                                            <div className="col-8">Final Total Amount</div>
-                                                            <div className="col-4 textAlignRight">&nbsp;
-                                                            {this.state.currency}  {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? parseInt(this.props.recentCartData.paymentDetails.netPayableAmount) : 0.00} </div>
+                                                            <div className={"col-7 "+Style.cartInnerTitleWrapper}>Final Total Amount</div>
+                                                            <div className="col-5 ">
+                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? parseInt(this.props.recentCartData.paymentDetails.netPayableAmount) : 0.00}</span>  </div>
                                                         </div>
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
-                                                            <div className="col-7">Total Savings</div>
-                                                            <div className="col-5 textAlignRight saving">&nbsp; 
-                                                            {this.state.currency}  { this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00} 
+                                                            <div className={"col-7 "+Style.cartInnerTitleWrapper}>Total Savings</div>
+                                                            <div className="col-5 ">
+                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{ this.props.recentCartData.paymentDetails.discountAmount>0?this.props.recentCartData.paymentDetails.discountAmount : 0.00}</span> 
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
-                                                            <div className="col-7">Total Tax</div>
-                                                            <div className="col-5 textAlignRight">&nbsp; 
-                                                            {this.state.currency}  { this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00} 
+                                                            <div className={"col-7 "+Style.cartInnerTitleWrapper}>Total Tax</div>
+                                                            <div className="col-5 "> 
+                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{ this.props.recentCartData.paymentDetails.taxAmount>0 ? this.props.recentCartData.paymentDetails.taxAmount : 0.00}</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="col-12 totalAmounts mb-2 pull-right font-weight-bold">
                                                         <div className="row">
-                                                            <div className="col-8">Total Delivery Charges 
+                                                            <div className={"col-7 "+Style.cartInnerTitleWrapper}>Total Delivery Charges 
                                                             </div>
-                                                            <div className="col-4 textAlignRight">&nbsp; 
-                                                            {this.state.currency}  { this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00} 
+                                                            <div className="col-5 "> 
+                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : 0.00}</span> 
                                                                 
                                                                 <a data-tip data-for="vendorTooltip">
-                                                                    <i className={"fa fa-info-circle "+Style.infoCircle}></i>
+                                                                    <i className={"fa fa-info-circle  "+Style.infoCircle}></i>
                                                                 </a>
                                                                 <ReactTooltip id="vendorTooltip" className={"pb-2 pt-2 " +Style.tooltipWrapper} place="left" effect="solid">
                                                                 {this.props.recentCartData.vendorOrders.length>0 && this.props.recentCartData.vendorOrders.map((vendorWiseCartData,index) =>{ 
@@ -507,7 +507,7 @@ class CartProducts extends Component{
                                                                     
                                                                         <div className="container pb-4">
                                                                         <div className="row">
-                                                                          <div className="col-6 text-left">Total Delivery Charges&nbsp; :</div>&nbsp;&nbsp;
+                                                                          <div className={"col-6 text-left "+Style.cartInnerTitleWrapper}>Total Delivery Charges&nbsp; :</div>&nbsp;&nbsp;
                                                                           <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
                                                                         </div>
                                                                        </div>
@@ -520,17 +520,17 @@ class CartProducts extends Component{
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-12 totalAmounts mb-2 pull-right">
+                                                    <div className="col-12 totalAmountsG mb-3 mt-2 pull-right">
                                                         <div className="row font-weight-bold">
-                                                            <div className="col-7">Grand Total</div>
-                                                            <div className="col-5 textAlignRight">&nbsp;
-                                                            {this.state.currency}  {this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00} 
+                                                            <div className="col-7 "><h5 className="font-weight-bold">Grand Total</h5></div>
+                                                            <div className="col-5 ">
+                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{this.props.recentCartData.paymentDetails.netPayableAmount > 0 ? this.props.recentCartData.paymentDetails.netPayableAmount  : 0.00}</span> 
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="col-12">
-                                                <div className="col-12 NoPadding checkoutBtn">
+                                                <div className="col-12 NoPadding mx-2    checkoutBtn">
                                                 {
                                                     this.props.recentCartData.cartBtnDisabled?
                                                     <div className="col-12 NoPadding">
@@ -547,7 +547,7 @@ class CartProducts extends Component{
                                                     </div>
                                                 }
                                                 </div>
-                                               <div className="row"><div className={"col-12 text-left my-3 "+Style.discMsgColor}> Proceed to checkout to add discount coupon</div></div> 
+                                               <div className="row"><div className={"col-12 text-center mx-2 my-2 "+Style.discMsgColor}> Proceed to checkout to add discount coupon</div></div> 
                                             </div>
                                         </div>
                                         </div>                              
