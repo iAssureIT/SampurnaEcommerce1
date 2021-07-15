@@ -58,6 +58,29 @@
 .noVendor{
     margin-top: 100px;
 }
+.deliveryTimeWrapper{
+    background-color: #3E9D5E!important;
+    height: 45px !important; 
+    color: #fff !important;  
+}
+.deliveryTimeWrapperDesc{
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    left: 33%;
+    font-size: 18px;
+}
+
+.deliveryTimeWrapperDesc1{
+    color: red!important;
+    font-size: 20px;
+    font-weight: 900!important;
+}
+.deliveryTimeWrapperDesc2{
+    color: red!important;
+    font-size: 20px;
+    font-weight: 900!important;
+}
 .vendorName{
     font-size: 25px;
     overflow-wrap: break-word;
