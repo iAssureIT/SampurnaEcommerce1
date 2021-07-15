@@ -120,7 +120,7 @@ class ProductreviewList extends Component {
                             </div>
                             
                         </div> */}
-                        <div className="row h-100">
+                        <div className="row h-100 mb-4">
                             {/* <div className="col-2"></div> */}
                             <div className="col-12 reviewBox h-100 text-center">
                             <div className="row h-100">
