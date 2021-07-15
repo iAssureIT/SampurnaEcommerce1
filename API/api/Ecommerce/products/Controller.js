@@ -1576,31 +1576,23 @@ exports.fetch_product = (req,res,next)=>{
                                                 : 
                                                     "";
                         products[i].vendor_ID = products[i].vendor_ID._id;  
-                        Wishlists.find({user_ID : req.body.user_id})
-                        .then(wish=>{
-                            // console.log("wish",wish);
-                            if(wish && wish.length > 0){
-                                console.log("product => ",products[i])
-                                for(var j=0; j<wish.length; j++){
-                                    if(String(wish[j].product_ID) === String(products[i]._id)){
-                                        product[i] = {...products[i], isWish : true};                                        
-                                        break;
-                                    }
-                                }   
-                                // if(j >= wish.length){
-                                                            //     res.status(200).json(product);
-                                // }       
-                            }else{
-                                console.log();
-                                // res.status(200).json(products);
-                            }
-                        })
-                        .catch(err =>{
-                            console.log(err);
-                            // res.status(500).json({
-                            //     error: err
-                            // });
-                        });                  
+                        var wish = await Wishlists.find({user_ID : req.body.user_id})
+                        
+                        if(wish && wish.length > 0){
+                            console.log("product => ",products[i])
+                            for(var j=0; j<wish.length; j++){
+                                if(String(wish[j].product_ID) === String(products[i]._id)){
+                                    product[i] = {...products[i], isWish : true};                                        
+                                    break;
+                                }
+                            }   
+                            // if(j >= wish.length){
+                                                        //     res.status(200).json(product);
+                            // }       
+                        }else{
+                            console.log("No wished Products");
+                            // res.status(200).json(products);
+                        }                                         
                     }
                     if(i >= products.length){
                         res.status(200).json({
