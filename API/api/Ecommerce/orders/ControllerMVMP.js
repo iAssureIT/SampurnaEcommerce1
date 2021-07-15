@@ -3541,45 +3541,62 @@ exports.deliver_single_vendor_order = (req, res, next) => {
 };
 
 // ---------------- Get Daily Vendor Orders ----------------
-exports.daily_vendor_orders = (req, res, next) => {
-	console.log("date start => ", moment(new Date(req.body.deliveryDate)).utc().startOf('day').toDate())
-	console.log("date start => ", moment(new Date(req.body.deliveryDate)).utc().endOf('day').toDate())
-	Orders.find(
-		{
-			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
-			"vendorOrders.orderStatus" 			: req.body.orderStatus,
-			"vendorOrders.deliveryStatus" : 
-			{"$elemMatch" : {
-					"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
-					"status" 			: req.body.orderStatus,
-					"timestamp" 		: {
-						$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),
-						$lte 	: moment(new Date(req.body.deliveryDate)).endOf('day').toDate()
-					}
-				}
-			}
-		},
-		{
-			'orderID' 				: 1,
-			'userFullName'      	: 1,
-			'customerShippingTime' 	: 1,
-			'deliveryAddress' 		: 1,
-			'paymentDetails' 		: 1,
-			'createdAt' 			: 1,
-			'vendorOrders.$'   		: 1
-		}
-	)
-	.exec()
-	.then(data => {	
-		res.status(200).json(data);
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(500).json({
-			error : err
-		});
-	});
-};
+// exports.daily_vendor_orders = (req, res, next) => {
+// 	console.log("date start => ", moment(new Date(req.body.deliveryDate)).utc().startOf('day').toDate())
+// 	console.log("date start => ", moment(new Date(req.body.deliveryDate)).utc().endOf('day').toDate())
+// 	Orders.aggregate([
+// 		{
+// 			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
+// 			"vendorOrders.orderStatus" 			: req.body.orderStatus,
+// 			"vendorOrders.deliveryStatus" 		: 
+// 			{"$elementMatch" : {
+// 					"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+// 					"status" 			: req.body.orderStatus,
+// 					"timestamp" 		: {
+// 						$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),
+// 						$lte 	: moment(new Date(req.body.deliveryDate)).endOf('day').toDate()
+// 					}
+// 				}
+// 			}
+// 		},
+// 		// {$project : {
+// 		// 	'orderID' 				: 1,
+// 		// 	'userFullName'      	: 1,
+// 		// 	'customerShippingTime' 	: 1,
+// 		// 	'deliveryAddress' 		: 1,
+// 		// 	'paymentDetails' 		: 1,
+// 		// 	'createdAt' 			: 1,
+// 			// "vendorOrders" : {
+// 			// 	"$filter" : {
+// 			// 	   "input" : "$vendorOrders",
+// 			// 	   "as" : "vendorOrders",
+// 			// 	   "cond" : {
+// 			// 		  "$and" : [
+// 			// 			//  { "$eq" 	: [ "$$vendorOrders.deliveryPerson_id", ObjectId(req.body.user_id) ] },
+// 			// 			//  { "$eq" 	: [ "$$vendorOrders.orderStatus", req.body.orderStatus ] },
+// 			// 			//  { "$eq" 	: [ "$$vendorOrders.deliveryStatus.statusUpdatedBy", ObjectId(req.body.user_id) ] },
+// 			// 			 { "$eq" 	: [ "$$vendorOrders.deliveryStatus.status", req.body.orderStatus ] },
+// 			// 			//  { "$gte" 	: [ "$$vendorOrders.deliveryStatus.timestamp", moment(new Date(req.body.deliveryDate)).startOf('day').toDate() ] },
+// 			// 			//  { "$lte" 	: [ "$$vendorOrders.deliveryStatus.timestamp", moment(new Date(req.body.deliveryDate)).endOf('day').toDate() ] }
+// 			// 		  ]
+// 			// 	   }
+// 			// 	}
+// 			//  }
+// 			// 'vendorOrders'   		: 1
+// 		// }
+// 	// }
+// 		])
+// 	.exec()
+// 	.then(data => {	
+// 		res.status(200).json(data);
+// 	})
+// 	.catch(err => {
+// 		console.log(err);
+// 		res.status(500).json({
+// 			error : err
+// 		});
+// 	});
+// };
 
 exports.monthly_vendor_orders = (req, res, next) => {
 	const monthyear = req.body.monthyear;
@@ -3589,13 +3606,14 @@ exports.monthly_vendor_orders = (req, res, next) => {
 	// var startDate = req.body.startDate;
 	// var endDate = req.body.endDate;
 	var startDate = moment([year, month-1]).format();
-	console.log("startDate => ",new Date(startDate));
+	console.log("startDate => ",startDate);
 	var endDate = moment(startDate).endOf('month').format();
 	console.log("endDate => ",new Date(endDate));
 	console.log("Start  => ",moment(startDate).utc().startOf('day').toDate());
 	console.log("End => ",moment(endDate).utc().endOf('day').toDate());
 	console.log("new Start1  => ",moment(new Date(startDate)).startOf('day').toDate());
 	console.log("new End1 => ",moment(new Date(endDate)).endOf('day').toDate());
+
 	Orders.find(
 		{
 			"vendorOrders.deliveryPerson_id" 	: ObjectId(req.body.user_id), 
@@ -3629,25 +3647,23 @@ exports.monthly_vendor_orders = (req, res, next) => {
 		for(var i=0; i<allDays.length; i++) {
 			var ordersDelivered = 0;
 			for(var j=0; j<orderdata.length; j++){
-				console.log("allDays i => ", moment(allDays[i]).format('L'))
-				console.log("orderData j => ", orderdata[j])
+				// console.log("allDays i => ", moment(allDays[i]).format('L'))
+				// console.log("orderData j => ", orderdata[j])
 				if(moment(allDays[i]).format('L') === moment(orderdata[j].createdAt).format('L')){
-					console.log("orders count => ",orderdata[j].vendorOrders.length)
-					ordersDelivered += orderdata[j].vendorOrders.length;
-					
-				}
-				
+					// console.log("orders count => ",orderdata[j].vendorOrders.length)
+					ordersDelivered += orderdata[j].vendorOrders.length;					
+				}				
 			}
 			if(j>=orderdata.length){
-				console.log("day => ",moment(allDays[i]).format('L'))
+				// console.log("day => ",moment(allDays[i]).format('L'))
 				totalOrdersDelivered += ordersDelivered;
 				var ordersObj = {
 					monthDay 		: moment(allDays[i]).format('L'),
 					ordersDelivered : ordersDelivered,
 				}
 				monthDays.push(ordersObj)
-				console.log("monthDays => ",monthDays)
-				console.log("ordersObj => ",ordersObj)
+				// console.log("monthDays => ",monthDays)
+				// console.log("ordersObj => ",ordersObj)
 			}			
 		}
 		if(i>=allDays.length){
@@ -3678,4 +3694,83 @@ exports.monthly_vendor_orders = (req, res, next) => {
 			resolve(days);
 		})
 	}
+};
+
+// ---------------- Get Daily Vendor Orders ----------------
+exports.daily_vendor_orders = (req, res, next) => {
+	console.log("start => ", moment(new Date(req.body.deliveryDate)).startOf('day').toDate());
+	console.log("end => ", moment(new Date(req.body.deliveryDate)).endOf('day').toDate());
+	Orders.aggregate([	   
+		{ "$match": 
+			{"vendorOrders": 
+				{"$elemMatch":
+					{
+						"orderStatus"		: req.body.orderStatus,
+						"deliveryPerson_id" : ObjectId(req.body.user_id),
+						"deliveryStatus" 	: {
+							"$elemMatch" : {
+								"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+								"status" 			: req.body.orderStatus,
+								"timestamp" 		: {
+									$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),
+									$lte 	: moment(new Date(req.body.deliveryDate)).endOf('day').toDate()
+								}
+							}
+						}
+					}
+				}
+		  	}
+		},
+		{ "$addFields"	: 
+			{ "vendorOrders" : 
+				{ "$filter" : 
+					{
+						"input" : "$vendorOrders",  
+						"as"    : "sa",
+						"cond"  : {
+							"$and" : [
+								{ "$eq" : [ "$$sa.orderStatus", req.body.orderStatus ] },
+								{ "$eq" : [ "$$sa.deliveryPerson_id", ObjectId(req.body.user_id) ] },
+								// {"$$sa.deliveryStatus" 	: 
+								// 	// {"$all": 
+								// 		{"$elemMatch": 	
+								// 			{
+								// 				"$$sa.deliveryStatus.statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+								// 				"$$sa.deliveryStatus.status" 			: req.body.orderStatus,
+								// 				"$$sa.deliveryStatus.timestamp" 		: {
+								// 					$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),
+								// 					$lte 	: moment(new Date(req.body.deliveryDate)).endOf('day').toDate()
+								// 				}
+								// 			}
+								// 		}
+								// 	// }
+								// }] },
+								// { "$eq" : [ "$$sa.deliveryStatus.statusUpdatedBy", ObjectId(req.body.user_id) ] },
+								//  { "$gt": [ { "$size": "$$sa.deliveryStatus" }, 0 ] }
+							]
+						}
+			  		}
+				}
+		  	}	
+		}
+	])
+	.then(data => {
+		console.log("data => ",data);
+		//   var tableData = data.map((a, i) => {
+		// 	return {
+		// 	   "orderID": a.orderID,
+		// 	   "userFullName": a.userFullName,
+		// 	   "products": ((a.products.map((b, j) => { return '<div><p>Product Name: ' + b.productName + '</p><p>Product Code: ' + b.productDetail.productCode + '-' + b.productDetail.itemCode + '</p><p>Sell Quantity: ' + b.quantity + '</p><p>Price: <span class="ororiginalPrice">' + (b.discountPercent > 0 ? b.originalPrice : '') + '</span>  <span>' + b.discountedPrice + '</span>  <span class="orPercent">' + (b.discountPercent > 0 ? b.discountPercent + '%' : '') + '</span>  </p>' + '</div><br/>' })).toString()).replace(/,/g, " "),
+		// 	   "cartQuantity": a.cartQuantity,
+		// 	   "status": a.status
+		// 	}
+		//   })
+		res.status(200).json(data);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+		error: err
+		});
+	});
 };

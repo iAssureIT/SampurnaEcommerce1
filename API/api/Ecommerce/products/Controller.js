@@ -1578,7 +1578,7 @@ exports.fetch_product = (req,res,next)=>{
                         products[i].vendor_ID = products[i].vendor_ID._id;  
                         Wishlists.find({user_ID : req.body.user_id})
                         .then(wish=>{
-                            // console.log("wish",wish);
+                            console.log("wish",wish);
                             if(wish.length > 0){
                                 for(var j=0; j<wish.length; j++){
                                     if(String(wish[j].product_ID) === String(products[j]._id)){
