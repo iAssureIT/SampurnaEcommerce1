@@ -1570,7 +1570,7 @@ exports.fetch_product = (req,res,next)=>{
 				if(req.body.user_id && req.body.user_id !== 'null' && req.body.user_id !== undefined){
 					for (var i = 0; i < products.length; i++) {
 						var inventoryData               = await ProductInventory.findOne({productCode : products[i].productCode, itemCode : products[i].itemCode, vendor_ID : ObjectId(products[i].vendor_ID)},{currentQuantity : 1})
-						// console.log("inventoryData => ",inventoryData)
+						console.log("inventoryData => ",inventoryData)
 						products[i]                     = {...products[i]._doc, isWish : false}; 
 						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 
 						products[i].vendorLocation_id   = await products[i].vendor_ID.locations && products[i].vendor_ID.locations.length > 0 
@@ -1580,10 +1580,10 @@ exports.fetch_product = (req,res,next)=>{
 																"";
 						products[i].vendor_ID = products[i].vendor_ID._id;  
 						var wish = await Wishlists.find({user_ID : req.body.user_id})
-						console.log("wish => ",wish)
+						// console.log("wish => ",wish)
 						if(wish && wish.length > 0){
 							
-							console.log("product => ",products[i])
+							// console.log("product => ",products[i])
 							for(var j=0; j<wish.length; j++){
 								if(String(wish[j].product_ID) === String(products[i]._id)){
 									products[i] = {...products[i], isWish : true};                                        
@@ -1607,6 +1607,7 @@ exports.fetch_product = (req,res,next)=>{
 				}else{
 					for (var i = 0; i < products.length; i++) {
 						var inventoryData               = await ProductInventory.findOne({productCode : wishdata[i].product_ID.productCode, itemCode : wishdata[i].product_ID.itemCode, vendor_ID : ObjectId(wishdata[i].product_ID.vendor_ID)},{currentQuantity : 1});
+						console.log("inventoryData => ",inventoryData);
 						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 
 					}
 					if(i >= products.length){
@@ -2119,6 +2120,7 @@ exports.similar_products = (req,res,next)=>{
 		if(products && products.length > 0){
 			for (let k = 0; k < products.length; k++) {
 				var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID)},{currentQuantity : 1});
+				console.log("inventoryData => ",inventoryData)
 				products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
 				products[k]                     = {...products[k]._doc, isWish : false};
 				products[k].vendorLocation_id 	= await products[k].vendor_ID.locations && products[k].vendor_ID.locations.length > 0 
@@ -4357,6 +4359,7 @@ exports.products_by_lowest_price = (req,res,next)=>{
 					// var ordered_array = mapOrder(products, FinalVendorLocations, 'vendor_ID');
 					for (let k = 0; k < products.length; k++) {
 						var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID)},{currentQuantity : 1});
+						console.log("inventoryData => ",inventoryData)
 						products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.availableQuantity : 0; 						
 						products[k] 					= {...products[k], isWish : false};
 					}
