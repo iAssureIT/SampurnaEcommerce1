@@ -1581,7 +1581,7 @@ exports.fetch_product = (req,res,next)=>{
                             console.log("wish",wish);
                             if(wish.length > 0){
                                 for(var j=0; j<wish.length; j++){
-                                    if(String(wish[j].product_ID) === String(products[j]._id)){
+                                    if(String(wish[j].product_ID) === String(products[i]._id)){
                                         product[i] = {...products[i], isWish : true};                                        
                                         break;
                                     }
