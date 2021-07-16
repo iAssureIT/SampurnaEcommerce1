@@ -25,59 +25,46 @@ const todoList = [
 ];
 
 export const MonthlyOrders =(props)=> {
-    const [orderList,setOrderList] = useState([
-        {
-            date : "1st July",
-            orders : 36
-        },
-        {
-            date : "2nd July",
-            orders : 15
-        },
-        {
-            date : "3rd July",
-            orders : 36
-        },
-        {
-            date : "4th July",
-            orders : 10
-        },{
-            date : "5th July",
-            orders : 36
-        },
-        {
-            date : "6th July",
-            orders : 35
-        },
-        {
-            date : "7th July",
-            orders : 17
-        },
-        {
-            date : "8th July",
-            orders : 12
-        },{
-            date : "9th July",
-            orders : 26
-        }
-    ]);
+    const [orderList,setOrderList] = useState();
     const monthNames  = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     const d           = new Date();
     console.log("localization",localization);
     const [date, setDate] = useState(new Date());
     const [monthNumber, setMonthNumber] = useState(d.getMonth());
+    console.log("monthNumber",monthNumber);
     const [month, setMonth] = useState(monthNames[monthNumber]);
     const [year, setYear] = useState(d.getFullYear());
     const [monthNow, setMonthNow] = useState(month);
     const [yearNow, setYearNow] = useState(year);
     const [monthYear, setMonthYear] = useState(month+" "+year);
-    useEffect(() => {
-        // getList()
-    },[]);
-
+  
     const store = useSelector(store => ({
         userDetails     : store.userDetails,
       }));
+
+    useEffect(() => {
+        getList()
+    },[]);
+
+
+    const getList = ()=>{
+        var formValues ={
+            user_id :store.userDetails.user_id,
+            monthyear : year+"-"+(monthNumber+1),
+            orderStatus : "Delivered" 
+        }
+        console.log("formValues",formValues);
+        axios.post('/api/orders/get/monthly/vendor_orders',formValues)
+        .then(res=>{
+            console.log("res",res);
+            setOrderList(res.data);
+        })
+        .catch(err=>{
+            console.log('err',err);
+        })
+    }
+
+    
 
       const priviousDate = (prev)=>{
         if(monthNumber > 0){
@@ -112,18 +99,16 @@ export const MonthlyOrders =(props)=> {
         }
       };
       
-      
-
     const _renderlist = ({ item, index })=>{
         return (
-            <TouchableOpacity onClick={()=>props.navigation.navigate('OrderSummery')}>
+            <TouchableOpacity onPress={()=>props.navigation.navigate('CompletedOrders',{new_date:item.monthDay})}>
                 <Card containerStyle={{flex:1}}>
                     <View style={{flexDirection:'row'}}>
                         <View style={{flex:0.5}}>
-                            <Text>{item.date}</Text>
+                            <Text>{moment(item.monthDay).locale("en", localization).format("LL")}</Text>
                         </View> 
                         <View style={{flex:0.5,alignItems:"flex-end"}}>
-                            <Text>{item.orders}</Text>
+                            <Text>{item.ordersDelivered}</Text>
                         </View>     
                     </View>    
                 </Card>    
@@ -132,7 +117,7 @@ export const MonthlyOrders =(props)=> {
     };
 
     return (
-        <>
+        <View style={{flex:1,marginBottom:70}}>
             <View style={{flexDirection:'row'}}>
                 <TouchableOpacity style={{alignItems:"center",justifyContent:"flex-start",flex:0.3}} onPress={priviousDate}>
                   <Icon size={40} name='chevrons-left' type='feather' color='#333' />
@@ -153,18 +138,21 @@ export const MonthlyOrders =(props)=> {
                 }
             </View>
             <View style={{justifyContent:'center',alignItems:'center'}}>
-                <Text>Total Deliveries : 639</Text>
+                <Text>Total Deliveries : {orderList?.totalOrdersDelivered}</Text>
             </View>    
-           {orderList  && orderList.length >0?<FlatList
-            data={orderList}
-            keyExtractor={(item) => item.id}
-            renderItem={_renderlist} 
-                />
+           {orderList  && orderList?.monthDays?.length >0?
+                <View style={{}}>
+                    <FlatList
+                        data={orderList.monthDays}
+                        keyExtractor={(item) => item.id}
+                        renderItem={_renderlist} 
+                    />
+                </View>
             :
             <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text>No Order Found</Text>
             </View>}
-        </>
+        </View>
     );
 
     }

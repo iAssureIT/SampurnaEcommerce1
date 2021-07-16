@@ -64,9 +64,11 @@ export default StyleSheet.create({
   },
   discountpricecut: {
 		textDecorationLine: 'line-through',
-    fontSize:18,
-    fontFamily:"Montserrat-Bold",
-    color : "#aaa",
+    fontSize:15,
+    fontFamily:"Montserrat-Regular",
+    color: "#000000",
+    opacity: 0.5,
+    alignSelf:'flex-end'
 	},
   subcatimgbig:{
     height:180,
@@ -85,10 +87,10 @@ export default StyleSheet.create({
 				marginRight:8,
 			}
 		})
-		
 	}, 
 	addbtn: {
 		flex:0.5,
+    alignItems:'center'
 	}, 
   formWrapper:{
     flex:1,
@@ -180,7 +182,12 @@ export default StyleSheet.create({
   wishlisthrtproductview:{
     position:'absolute',
     bottom:"5%",
-    top: 10,right:20
+    top: 10,right:3,
+  },
+  share:{
+    position:'absolute',
+    bottom:"5%",
+    top: 50,right:3
   },
   width160:{
     // width:180,
@@ -197,7 +204,7 @@ export default StyleSheet.create({
     justifyContent: "center"  
   },
   nameprod:{
-    fontSize:18,fontFamily:"Montserrat-SemiBold",color:'#000'
+    fontSize:18,fontFamily:"Montserrat-SemiBold",color:'#000',textTransform:'capitalize'
   },
   urlprod:{
     flex:1,fontSize:13,flexWrap: "wrap",fontFamily:"Montserrat-Regular",color:'#666',paddingVertical:5
@@ -249,7 +256,7 @@ export default StyleSheet.create({
   prodnameview:{
     flex:1,
     fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333',
-    alignItems : "center",marginBottom:10,
+   marginBottom:10,
   },
   disCountLabel: {
 		position: 'absolute',
@@ -281,9 +288,9 @@ export default StyleSheet.create({
 		})
   },
   brandname: {
-		fontSize: 12, 
-		fontFamily: "Montserrat-SemiBold", 
-		marginLeft: 2, color: '#666', 
+		fontSize: 14, 
+		fontFamily: "Montserrat-Medium", 
+		marginLeft: 2, color: '#000000', 
 		alignItems: 'center',
 	},
   packofnos: {
@@ -293,9 +300,16 @@ export default StyleSheet.create({
 		alignItems: 'center',
 	},
   proddetprice:{
-    fontSize:18,
+    fontSize:28,
     fontFamily:"Montserrat-Bold",
-    color : "#333",
+    color:"#000000",
+
+  },
+  prodcurrency:{
+    fontSize:18,
+    fontFamily:"Montserrat-SemiBold",
+    color:"#000000",
+
   },
   star:{
     flex:0.2,backgroundColor:'#388e3c',borderRadius:3,paddingVertical:3,
@@ -330,16 +344,17 @@ export default StyleSheet.create({
   },
 
   addBTN:{
-    flex:0.8,
-    alignItems:"flex-end",
+    flex:0.6,
+    // alignItems:"center",
     marginVertical:10,
-    textAlign:"center"
+    textAlign:"center",
+    backgroundColor:"#ff0"
   },
 
   qtys:{
-    flex:0.2,
-    alignItems:"flex-start",
-    marginVertical:10,
+    flex:0.4,
+    alignItems:"center",
+    justifyContent:'center'
   },
   icnstar:{
     marginTop:3,marginRight:5
@@ -455,9 +470,11 @@ export default StyleSheet.create({
     flexDirection:'row',
     // flex:1,
     justifyContent:"flex-start",
+    alignItems:'flex-end',
     fontSize:13,fontFamily:"Montserrat-SemiBold",color:'#333',
     marginBottom:10,
     marginLeft:30,
+    height:34,
   },
   // flxdir:{
   //   backgroundColor:'#fff',paddingHorizontal:15,marginBottom:"15%"
@@ -575,6 +592,8 @@ export default StyleSheet.create({
     height:20,
     backgroundColor:'#ccc',
     marginBottom:10,
+    paddingHorizontal:10,
+    justifyContent:'center',
   },
 
   vendorName:{
@@ -600,5 +619,43 @@ export default StyleSheet.create({
       }
     })
   },
+  ddContainer:{
+    backgroundColor:'transparent',
+    paddingLeft:4,
+    borderWidth: 1,
+    borderRadius:4
+    // fontFamily:"Montserrat-Regular"
+  },
+  ddItemText:{
+    fontFamily:"Montserrat-Regular",
+    opacity: 1,
+    fontSize:9,
+    color: "#000000"
+  },
+  ddInputContainer:{
+    borderBottomColor: 'transparent',
+    borderWidth: 0,
+  },
+  ddLabelText:{
+    backgroundColor:'#fff',
+    top:0,
+    // left:5,
+    fontFamily:"Montserrat-Regular",
+    fontSize:15,
+    paddingHorizontal:2,
+  },
+  ddStyle:{
+    fontFamily:"Montserrat-Regular",
+    backgroundColor:"#fff",
+    height:28,
+    opacity: 1,
+    fontSize:11,
+    color: "#000000"
+  },
+  discountPercent:{
+    fontFamily:"Montserrat-Regular",
+    color: "#5B8E7E",
+    opacity: 1
+  }
   
 })

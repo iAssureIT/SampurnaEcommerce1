@@ -33,8 +33,12 @@ export const CompletedOrders =(props)=> {
     const [date,setDate] = useState(new Date());
     const isFocused = useIsFocused()
     const [datePicker,openDatePicker] = useState(false);
+    const new_date=props?.route?.params?.new_date;
     useEffect(() => {
-        getList()
+        if(new_date!==undefined){
+            setDate(new Date(new_date));
+        }
+        getList(date);
     },[props,isFocused]);
 
     const store = useSelector(store => ({

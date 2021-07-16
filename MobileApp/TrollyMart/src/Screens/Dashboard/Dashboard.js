@@ -58,9 +58,9 @@ const Dashboard = withCustomerToaster((props)=>{
         dispatch(getPreferences());
         dispatch(getS3Details());
         getBlocks();
-        BackHandler.addEventListener("hardwareBackPress", backAction);
-        return () =>
-        BackHandler.removeEventListener("hardwareBackPress", backAction);
+        // BackHandler.addEventListener("hardwareBackPress", backAction);
+        // return () =>
+        // BackHandler.removeEventListener("hardwareBackPress", backAction);
     },[]);
     const store = useSelector(store => ({
       userDetails : store.userDetails,

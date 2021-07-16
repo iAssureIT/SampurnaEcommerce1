@@ -7,19 +7,20 @@ import {
   TouchableOpacity,
   Image,ActivityIndicator,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  Share
 } from 'react-native';
 import { 
         Button, 
         Icon, 
         Rating,
         Avatar }              from "react-native-elements";
-import {STOP_SCROLL,SET_CATEGORY_WISE_LIST}          from '../../redux/productList/types';
 import styles                 from '../../AppDesigns/currentApp/styles/ScreenStyles/Categoriesstyles.js';
 import {Footer}               from '../../ScreenComponents/Footer/Footer.js';
 import { colors }             from '../../AppDesigns/currentApp/styles/styles.js';
 import axios                  from 'axios';
-import {CategoryList}    from '../../ScreenComponents/CategoryList/CategoryList.js';
+import {CategoryList}         from '../../ScreenComponents/CategoryList/CategoryList.js';
+import {SubCategoryList}      from '../../ScreenComponents/SubCategoryList/SubCategoryList.js';
 import AsyncStorage           from '@react-native-async-storage/async-storage';
 import Counter                from "react-native-counters";
 import Carousel               from 'react-native-banner-carousel-updated';
@@ -28,14 +29,14 @@ import {withCustomerToaster}  from '../../redux/AppState.js';
 import CommonStyles           from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {getCartCount}         from '../../redux/productList/actions';
 import {useDispatch,useSelector } from 'react-redux';
-import Loading from '../../ScreenComponents/Loading/Loading.js';
-import { useIsFocused } from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
-import { Card } from 'react-native-elements/dist/card/Card';
-import {HorizontalSecCatList}       from '../../ScreenComponents/HorizontalSecCatList/HorizontalSecCatList.js';
-import {HorizontalProductList}      from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
-import { getCategoryWiseList }  from '../../redux/productList/actions.js';
-import { SET_CATEGORY_LIST }  from '../../redux/productList/types.js';
+import Loading                from '../../ScreenComponents/Loading/Loading.js';
+import { useIsFocused }       from '@react-navigation/native';
+import FastImage              from 'react-native-fast-image';
+import { Card }               from 'react-native-elements/dist/card/Card';
+import {HorizontalProductList} from '../../ScreenComponents/HorizontalProductList/HorizontalProductList.js';
+import { getCategoryWiseList } from '../../redux/productList/actions.js';
+import { Dropdown }            from 'react-native-material-dropdown-v2';
+
 export const SubCatCompView = withCustomerToaster((props)=>{
   const [countofprod,setCounterProd]        = useState(1);
   const section = props.route.params?.section;
@@ -50,14 +51,18 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const [colorIndex,setColorIndex] = useState(-1);
   const dispatch 		= useDispatch();
   const isFocused = useIsFocused();
+  const [tab,selectedTab] = useState(0);
+
   const {navigation,route,setToast} =props;
-  const {productID,currency,vendorLocation_id,index,vendor_id}=route.params;
+  const {productID,currency,vendorLocation_id,index,vendor_id,category,subCategory}=route.params;
+  const [sizes,setSizes] = useState([])
 
 
   const store = useSelector(store => ({
-    location:store.location
+    location:store.location,
+    payload     : store.productList.searchPayload,
   }));
-  const {location} = store;
+  const {location,payload} = store;
 
   useEffect(() => {
     setLoading(true);
@@ -73,31 +78,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     })
   }
 
-  const setCategory =(e)=>{
-    var subCategoryArray = e.subCategory.map((a, i)=>{
-      return {
-          label :a.subCategoryTitle,        
-          value :e.categoryUrl+"^"+a.subCategoryUrl,        
-      } 
-    })
-    dispatch({
-      type:STOP_SCROLL,
-      payload:false
-    })
-    setSubCategory(subCategoryArray);
-    payload.vendor_ID        = vendor.vendor_ID;
-    payload.sectionUrl      = sectionUrl;
-    payload.categoryUrl     = e.categoryUrl;
-    payload.subCategoryUrl  = e.subCategoryUrl ? e.subCategoryUrl : [] ;
-    payload.scroll          = false;
-    payload.startRange      = 0;
-    payload.limitRange      = 10;
-    dispatch({
-      type : SET_CATEGORY_WISE_LIST,
-      payload : []
-    })
-    dispatch(getCategoryWiseList(payload));
-  }
+  
 
   const addToWishList = (productid,vendor_ID,sectionUrl) => {
     if(user_id){
@@ -112,6 +93,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
         "vendor_id"          : vendor_ID,
         "vendorLocation_id"  : vendorLocation_id,
       }
+      console.log("wishValues",wishValues);
       axios.post('/api/wishlist/post', wishValues)
         .then((response) => {
           getProductsView(productID,user_id);
@@ -145,20 +127,22 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     var formValues = {
       "user_id"           : user_id,
       "product_id"        : productID,
-      "vendor_id"         : vendor_id
+      "vendor_id"         : vendor_id,
+      "vendorLocation_id"   : vendorLocation_id
     }
     console.log("formValues",formValues);
     axios.post("/api/products/get/one",formValues)
       .then((response) => {
-        console.log("productdata response",response);
+        console.log("response getProductsView",response);
         var product = response.data.products.filter(e=>e._id === productID );
         var sizeIndex =  response.data.variants.findIndex(e=>e.size === product[0].size);
         setProductData(product[0]);
         setProdctList(response.data.products);
         setvariants(response.data.variants);
+        var sizes = response.data.variants.map((e,i)=>{return{"label":e.size,"value":i+"^"+e.size}})
+        setSizes(sizes);
         setSizeIndex(sizeIndex);
         var colorIndex = response.data.variants[sizeIndex].color.findIndex(e=>e === product[0].color);
-        console.log("colorIndex",colorIndex);
         setColorIndex(colorIndex);
         setLoading(false);
       })
@@ -178,8 +162,6 @@ export const SubCatCompView = withCustomerToaster((props)=>{
   const getProductReview=(productID)=>{
     axios.get("/api/customerReview/get/list/"+productID)
       .then((response) => {
-        console.log("response",response);
-        console.log("response",response);
         setProductReview(response.data);
         setLoading(false);
       })
@@ -230,7 +212,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     }  
   }
 
-  const filterProductSize  =(index,size)=>{
+  const filterProductSize  =(value)=>{
+    var index = value.split("^")[0];
+    var size = value.split("^")[1];
     setSizeIndex(index);
     var product = productList.filter(e=>e.size === size);
     setProductData(product[0]);
@@ -245,7 +229,26 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     setProductData(product[0]);
   }
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:'https://devwebsite.knock-knockeshop.com/product-detail/'+productdata.vendor_ID+'/'+productdata.vendorLocation_id+'/'+productdata._id,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
+  console.log("productData",productdata);
     return (
       <View style={{backgroundColor:"#fff",flex:1}}>
         <View style={styles.prodviewcatsuperparent}>
@@ -255,7 +258,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
           productdata && productdata.productName  && productdata.discountedPrice ?
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
             <View style={[styles.vendorNameBox,{}]}>
-                <Text numberOfLines={1} style={[styles.vendorName,{}]}>Vendor - {productdata.vendorName}</Text>
+                <Text numberOfLines={1} style={[CommonStyles.text,{fontSize:14,fontFamily:"Montserrat-Medium",color:"#000"}]}>Vendor - {productdata.vendorName}</Text>
             </View> 
             
             <View style={styles.formWrapper}>  
@@ -273,53 +276,50 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   setCategory = {setCategory}
                 /> */}
               <View >
-              {/* {productdata.discountPercent && productdata.discountPercent >0?
-                  <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
-                    <Text style={{fontSize:12,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-SemiBold"}}>{productdata.discountPercent}%</Text>
-                    <Text style={{fontSize:10,color:"#fff",alignSelf:"center",fontFamily:"Montserrat-Regular"}}>OFF</Text>
-                  </ImageBackground> :null
-                }  */}
-                <View style={{flex:1,flexDirection:'row',}}>
-                    <View style={styles.qtys}>
-                      <Counter start={1} min={1}
-                        buttonStyle={{
-                          borderColor: colors.theme,
-                          borderWidth: 1,
-                          borderRadius: 25,
-                          width: 33,
-                          height: 33
-                        }}
-                        buttonTextStyle={{
-                          color: colors.theme,
-                        }}
-                        countTextStyle={{
-                          color: colors.theme,
-                        }}
-                        size={5}
-                        value={countofprod}
-                        onChange={(num)=>onChange(num)} />
-                    </View>
-                    <View style={styles.addBTN}>
-                      <Button
-                          onPress={() => handlePressAddCart()}
-                          title={"ADD TO CART"}
-                          buttonStyle={CommonStyles.addBtnStyle1}
-                          // containerStyle={CommonStyles.addBtnContainer1}
-                          // icon={
-                          //   <Icon
-                          //     name="shopping-cart"
-                          //     type="feather"
-                          //     size={25}
-                          //     color="#fff"
-                          //     iconStyle={styles.mgrt10}
-                          //   />
-                          // }
-                        /> 
-                    </View>
+                <View style={styles.formWrapper}>  
+                <SubCategoryList
+                  navigation        = {navigation}
+                  showImage         = {true}
+                  boxHeight         = {34}
+                  subCategoryList   =  {subCategory}
+                  selected          = {productdata.subCategory}
+                  category          = {category ? category : productdata.category}
+                  vendorLocation_id ={vendorLocation_id}
+                />
+              </View>
+              <View style={{flex:1,flexDirection:'row',}}>
+                  <View style={styles.qtys}>
+                    <Counter start={1} min={1}
+                      buttonStyle={{
+                        borderColor: "#00000040",
+                        borderWidth: 1,
+                        borderRadius: 25,
+                        width: 33,
+                        height: 33,
+                        backgroundColor:"#CFCFCF"
+                      }}
+                      buttonTextStyle={{
+                        color: colors.theme,
+                        fontSize:20
+                      }}
+                      countTextStyle={{
+                        color: colors.theme,
+                      }}
+                      size={5}
+                      value={countofprod}
+                      onChange={(num)=>onChange(num)} />
+                  </View>
+                  <View style={styles.addBTN}>
+                    <Button
+                        onPress={() => handlePressAddCart()}
+                        title={"ADD TO CART"}
+                        buttonStyle={[CommonStyles.addBtnStyle1]}
+                      /> 
+                  </View>
                 </View>
                 {productdata.productImage && productdata.productImage.length>0 ?
                  <Carousel
-                    autoplay={true}
+                    autoplay={false}
                     autoplayTimeout={10000}
                     loop={false}
                     index={0}
@@ -336,7 +336,16 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                         }}
                         style={styles.saleimg}
                         resizeMode={FastImage.resizeMode.contain}
-                    />
+                    >
+                      <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
+                        onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
+                        <Icon size={20} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{backgroundColor:"#E6E6E6",padding:5,borderRadius:100}}/>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={[styles.flx1, styles.share]}
+                        onPress={() =>onShare()} >
+                        <Icon size={20} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",padding:5,borderRadius:100}} />
+                      </TouchableOpacity>
+                    </FastImage>
                     );
                   })}
                   </Carousel>
@@ -347,93 +356,130 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     resizeMode="contain"
                   />
                 }
-                  {/* <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
-                        onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
-                    <Icon size={25} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={colors.red} />
-                  </TouchableOpacity> */}
+                  
                 <View style={styles.prodnameview}>
-                  {/* (i % 2 == 0 ? {} : { marginLeft: 12 } */}
-                  {/* {productdata.brandNameRlang && productdata.brandNameRlang!=="" ?
-                    <Text numberOfLines={1} style={[styles.brandname]} style={styles.regionalBrandName}>{productdata.brandNameRlang}</Text>
-                    :  */}
                     <Text  style={[styles.brandname]}>{productdata.brand}</Text>
-                  {/* } */}
-                  {/* {productdata.productNameRlang && productdata.productNameRlang !==""?
-                    <Text numberOfLines={1} style={[styles.nameprod]} style={styles.regionalProductName}>{productdata.productNameRlang}</Text>
-                    : */}
                     <Text style={[styles.nameprod]}>{productdata.productName}</Text>
-                  {/* } */}
-                  {/* <Text numberOfLines={1} style={styles.brandname}>{brand}</Text>
-                  <Text numberOfLines={1} style={styles.productname}>{productName}</Text>
-                  <Text numberOfLines={1} style={styles.shortDescription}>{shortDescription}</Text> */}
                 </View>
                 <View style={styles.flxdirview}>
-                  <Text style={styles.proddetprice}>{currency} </Text>
-                  <Text style={styles.discountpricecut}> {productdata.originalPrice.toFixed()}</Text>
-                  <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}  {productdata.size ? <Text style={styles.packofnos}> - {productdata.size}  {productdata.unit}</Text> : null}</Text>
+                  <Text style={styles.prodcurrency}>{currency} </Text>
+                  {productdata.discountPercent > 0 && <Text style={styles.discountpricecut}> {productdata.originalPrice.toFixed()}</Text>}
+                  <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}</Text>
+                  {productdata.discountPercent > 0 && <Text style={styles.discountPercent}> {productdata.discountPercent}%</Text>}
                 </View>
+                <View style={{height:60,width:80,marginLeft:30}}>
+                  <Text style={{color: "#000000",opacity: 0.5,fontSize:11}}>Size</Text>
+                  <Dropdown
+                    underlineColorAndroid ='transparent'
+                    onChangeText        = {(value) => filterProductSize(value)}
+                    data                = {sizes}
+                    value               = {sizes[sizeIndex]?.label}
+                    containerStyle      = {styles.ddContainer}
+                    dropdownOffset      = {{ top: 0, left: 0 }}
+                    itemTextStyle       = {styles.ddItemText}
+                    inputContainerStyle = {styles.ddInputContainer}
+                    labelHeight         = {10}
+                    tintColor           = {'#FF8800'}
+                    labelFontSize       = {15}
+                    fontSize            = {15}
+                    baseColor           = {'#666'}
+                    textColor           = {'#333'}
+                    labelTextStyle      = {{ left: 5 }}
+                    style               = {styles.ddStyle}
+                    disabledLineType    = 'none'
+                  />
+                </View>  
               </View>
-              {/* <View style={styles.orderstatus}>
-                <View style={styles.kgs}>
-                  <Text style={styles.orderstatustxt}>{productdata.size} {productdata.unit !== 'Number' ? productdata.unit : ''}</Text>
-                </View>                
-              </View> */}
-              <View style={{flexDirection:'row',marginLeft:30,}}>
-                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
-                  variants && variants.length > 0?
-                  variants.map((item,index)=>{
-                    return(
-                        <TouchableOpacity 
-                            style={{minWidth:60,height:28,marginTop:5,marginRight:5,borderRadius:4,justifyContent:'center',alignItems:'center',borderWidth:sizeIndex === index ? 1 :0.5,paddingHorizontal:5}}
-                            onPress={()=>filterProductSize(index,item.size)}
+              <View style={{marginLeft:30}}>
+              <Text style={{color: "#000000",opacity: 0.5,fontSize:11}}>Colour</Text>
+                <View style={{flexDirection:'row'}}>
+                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
+                    sizeIndex >=0 && variants[sizeIndex]?.color && variants[sizeIndex]?.color.length > 0 ?
+                    variants[sizeIndex]?.color.map((color,index)=>{
+                        return(
+                          <TouchableOpacity 
+                            style={{width:18,height:16,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:colorIndex === index ? 1 :0.5,paddingHorizontal:5,backgroundColor:color.toLowerCase()}}
+                            onPress={()=>filterProductColor(index,color)}
                             >
-                            <Text style={{fontSize:9}}>{item.size}</Text>
-                        </TouchableOpacity> 
-                    )
-                  })
+                            {/* <Text>{color}</Text> */}
+                          </TouchableOpacity>  
+                        )
+                      })
+                      :
+                      []
+                  }
+                  </ScrollView>
+                </View>
+              </View>    
+              <View style={{marginTop:15,flexDirection:'row'}}>
+                <Icon name="clipboard-arrow-left" type="material-community" size={15}/>
+                {productdata.productReturnable &&  productdata.productReturnable === "returnable" ?
+                  <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>Product return available.</Text>
                   :
-                  null
+                  <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>This item is non-returnable.</Text>
                 }
-                 </ScrollView>
               </View>
-              <View style={{flexDirection:'row',marginLeft:30}}>
-                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{flex:1}}>{
-                  sizeIndex >=0 && variants[sizeIndex].color && variants[sizeIndex]?.color.length > 0 ?
-                  variants[sizeIndex]?.color.map((color,index)=>{
+              <View style={{flexDirection:'row',height:32,marginTop:12}}>
+                  <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 0 ? "#E6E6E6" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(0)}>
+                      <Text style={CommonStyles.label,{color:colors.cartButton}}>Product Information</Text>
+                  </TouchableOpacity>  
+                  <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 1 ? "#E6E6E6" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(1)}>
+                      <Text style={CommonStyles.label,{color:colors.cartButton}}>Rating & Feedback</Text>
+                  </TouchableOpacity>  
+              </View>
+              <View style={{backgroundColor:"#E6E6E6",padding:5}}>
+                {tab === 0 ?
+                <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
+                :
+                productReview && productReview.length >0 ?
+                    productReview.map((item,index)=>{
                       return(
-                        <TouchableOpacity 
-                          style={{minWidth:60,height:28,marginTop:5,marginRight:5,justifyContent:'center',alignItems:'center',borderWidth:colorIndex === index ? 1 :0.5,paddingHorizontal:5,backgroundColor:color.toLowerCase()}}
-                          onPress={()=>filterProductColor(index,color)}
-                          >
-                          {/* <Text>{color}</Text> */}
-                        </TouchableOpacity>  
+                        <Card containerStyle={{backgroundColor:"#E6E6E6",marginHorizontal:0,margin:0,borderWidth:0,paddingHorizontal:0}} wrapperStyle={{flexDirection:"row",flex:1}}>
+                          <View style={{flex:0.25,alignItems:'center'}}>
+                          <Avatar
+                            size="small"
+                            overlayContainerStyle={{backgroundColor: '#ddd'}}
+                            rounded
+                            title={item.customerName.charAt(0)}
+                            activeOpacity={0.7}
+                          />
+                          </View>  
+                          <View style={{flex:0.75}}>
+                            <Text>{item.customerName.split(' ')[0]}</Text>
+                            <Text style={[CommonStyles.label,{marginTop:5}]}>{item.customerReview}</Text>
+                          </View>
+                          <View style={{flex:0.75}}>
+                            <Text>{item.customerName.split(' ')[0]}</Text>
+                            <View style={{flexDirection:'row'}}>
+                              <Rating
+                                // showRating
+                                ratingBackgroundColor='#E6E6E6'
+                                startingValue={item.rating}
+                                // onFinishRating={(e)=>setRating(e)}
+                                style={{alignSelf:"flex-start",backgroundColor:'#E6E6E6'}}
+                                imageSize={20}
+                                readonly
+                              />
+                              <Text style={[CommonStyles.label,{paddingLeft:5}]}>{item.rating}</Text>
+                            </View>  
+                          </View>    
+                      </Card>
                       )
                     })
                     :
-                    []
-                }
-                 </ScrollView>
-              </View>
+                    <Text style={{alignSelf:'center',color:"#333"}}>No review added.</Text>
+                  }  
+              </View>  
               <View style={styles.detailclr}>
-                {productdata?.color ? 
-                <Text style={styles.detailcolor}>Details: {productdata.color}</Text>
-                : null}
-                {
-                  productdata.productDetails == "-" ?
-                    <Text style={styles.detaildetailstxt}>"Product details not available"</Text>
-                    :
-                    <Text style={styles.detaildetailstxt}>{productdata.productDetails.replace(/<[^>]*>/g, '').replace(/\&nbsp;/g, '')}</Text>
-                }
-                
                 <HorizontalProductList 
-                    blockTitle   = {"You May Also Like"}
+                    // blockTitle   = {"You May Also Like"}
                     blockApi     = {"/api/products/get/similar_products"}
                     payload      = {{
-                      product_ID      : productdata._id,
-                      vendor_ID       : productdata.vendor_ID,
-                      category_ID     : productdata.category_ID,
-                      section_ID      : productdata.section_ID,
-                      user_ID         : user_id,
+                      product_ID        : productdata._id,
+                      vendor_ID         : productdata.vendor_ID,
+                      category_ID       : productdata.category_ID,
+                      section_ID        : productdata.section_ID,
+                      user_ID           : user_id,
                       vendorLocation_id : vendorLocation_id
                     }}
                     currency    = {currency}
@@ -448,7 +494,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   navigation  = {navigation}
                 /> */}
 
-               <HorizontalSecCatList 
+               {/* <HorizontalSecCatList 
                   blockTitle          = "All Sub Categories"
                   section             = {productdata.section_ID}
                   category            = {productdata.category_ID}
@@ -459,42 +505,9 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   showOnlySubCategory = {true}
                   navigation          = {navigation}
                   user_id             = {user_id}
-                />
+                /> */}
                 <View>
-                  {productReview && productReview.length >0 ?
-                    productReview.map((item,index)=>{
-                      return(
-                        <Card containerStyle={{backgroundColor:"#fff",marginHorizontal:0}} wrapperStyle={{flexDirection:"row",flex:1}}>
-                          <View style={{flex:0.25,alignItems:'center'}}>
-                          <Avatar
-                            size="small"
-                            overlayContainerStyle={{backgroundColor: '#ddd'}}
-                            rounded
-                            title={item.customerName.charAt(0)}
-                            activeOpacity={0.7}
-                          />
-                              <Text>{item.customerName.split(' ')[0]}</Text>
-                          </View>  
-                          <View style={{flex:0.75}}>
-                            <View style={{flexDirection:'row'}}>
-                              <Rating
-                                // showRating
-                                startingValue={item.rating}
-                                // onFinishRating={(e)=>setRating(e)}
-                                style={{alignSelf:"flex-start"}}
-                                imageSize={20}
-                                readonly
-                              />
-                              <Text style={[CommonStyles.label,{paddingLeft:5}]}>{item.rating}</Text>
-                            </View>  
-                            <Text style={[CommonStyles.label,{marginTop:5}]}>{item.customerReview}</Text>
-                          </View>  
-                      </Card>
-                      )
-                    })
-                    :
-                    []
-                  }   
+                  
                </View> 
               </View>
             </View>

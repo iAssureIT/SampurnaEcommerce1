@@ -5,7 +5,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert,ActivityIndicator
+  Alert,ActivityIndicator,
+  Image
 } from 'react-native';
 // import { RadioButton } from 'react-native-paper';
 import { Button, Icon,Card}    from "react-native-elements";
@@ -258,7 +259,8 @@ import ActionButton from 'react-native-action-button';
         {!disabled && <ActionButton 
           buttonColor="#fff"  
           style={{marginBottom:30,padding:0}} 
-          icon={<Icon name="plus-circle-outline" type="material-community" size={30} iconStyle={{elevation:5}} color={colors.cartButton}/>}
+          // icon={<Icon name="plus-circle-outline" type="material-community" size={30} iconStyle={{elevation:5}} color={colors.cartButton}/>}
+          icon={<Image source={require("../../AppDesigns/currentApp/images/addAddress.png")} style={{ height: 35, width: 35 }} />}
           onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery})}
         />}
       </React.Fragment>

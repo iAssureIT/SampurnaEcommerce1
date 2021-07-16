@@ -27,7 +27,8 @@ import FastImage              from 'react-native-fast-image';
 TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
 
 export const ProductList = withCustomerToaster((props)=>{
-  const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor,onEndReachedThreshold,type} = props; 
+  console.log("props",props);
+  const {setToast,category_ID,loading,section_id,list_type,payload,vendorLocation_id,vendor,onEndReachedThreshold,type,subCategory} = props; 
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const dispatch 		= useDispatch();
@@ -39,7 +40,6 @@ export const ProductList = withCustomerToaster((props)=>{
   useEffect(() => {
     getData();
   },[props.limit,props.newProducts,isFocused]);
-  console.log("props.newProducts",props.newProducts);
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
@@ -224,7 +224,18 @@ export const ProductList = withCustomerToaster((props)=>{
     const packsizes = availablessiz && availablessiz.length > 0 ? availablessiz[0].value : '';
     return (
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
-        <TouchableOpacity  disabled={props.disabled} onPress={() => navigation.navigate('SubCatCompView', { productID: item._id ,currency:currency,vendorLocation_id:vendorLocation_id,location:store.location,index: index,vendor_id:item.vendor_ID})}>
+        <TouchableOpacity  disabled={props.disabled} onPress={() => 
+          navigation.navigate('SubCatCompView', { 
+              productID           : item._id,
+              currency            : currency,
+              vendorLocation_id   : vendorLocation_id,
+              location            : store.location,
+              index               : index,
+              vendor_id           : item.vendor_id?item.vendor_id:item.vendor_ID,
+              category            : props.category,
+              subCategory         : subCategory
+              })
+          }>
           <View style={styles.flx5}>
               {item.discountPercent && item.discountPercent >0?
                   <ImageBackground source={require('../../AppDesigns/currentApp/images/offer_tag.png')} style={styles.disCountLabel}>
@@ -339,6 +350,8 @@ export const ProductList = withCustomerToaster((props)=>{
       </View>
     )
   }
+
+  console.log("productsDetails",productsDetails);
 
   return (
     <React.Fragment>

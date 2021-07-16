@@ -78,28 +78,51 @@ export const ProductVendorList = withCustomerToaster((props)=>{
         })
     }
 
+    const getCategoryList=(item)=>{
+        var payload ={
+            "vendor_ID"         : item.vendor_ID,
+            "sectionUrl"        : sectionUrl,
+            "startRange"        : 0,
+            "limitRange"        : 10,
+        } 
+        console.log("payload",payload);
+        dispatch(getCategoryWiseList(payload));
+    }
+
 
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity style={{paddingHorizontal:15,paddingLeft:30,marginBottom:5}} 
-                onPress={()=> navigation.navigate('SubCatCompView', { productID: product_id ,currency:store?.preferences?.currency,vendorLocation_id:item.vendorLocation_id,location:store.location,vendor_id:item.vendor_ID})} activeOpacity={1}
+                onPress={()=> 
+                {
+                    navigation.navigate('SubCatCompView', { 
+                        productID           : product_id,
+                        currency            : store?.preferences?.currency,
+                        vendorLocation_id   : item.vendorLocation_id,
+                        location            : store.location,
+                        vendor_id           : item.vendor_ID,
+                        // category            : props.category,
+                        // subCategory         : subCategory
+                }),getCategoryList(item)}} 
+                activeOpacity={1}
             >                  
             <Card containerStyle={{padding:0,borderRadius:7,height:100,marginRight:0,elevation:5}} wrapperStyle={{alignItems:'center',flexDirection:'row'}}>
                 <View style={styles.logoBox1}>
                     {item.vendorLogo ? <ImageBackground source={{uri:item.vendorLogo}} style={{height:80,width:80}} imageStyle={{borderRadius:100,borderWidth:0.5,borderColor:  '#033554'}} resizeMode="cover" PlaceholderContent={<ActivityIndicator color={colors.theme}/>}></ImageBackground> :null}
                 </View>
-                    <View style={{flex:1,height:100,justifyContent:'center',paddingLeft:60}}>
-                        <Text style={[CommonStyles.subHeaderText,{color:"#000",alignSelf:"flex-start"}]}>{item.vendorName}</Text >
-                        <Text numberOfLines={2} style={[CommonStyles.text,{color:"#000"}]}>{item.productName}</Text>
-                        <Text style={[CommonStyles.text,{color:"#000"}]}>{store?.preferences?.currency} {item.productPrice.toFixed(2)}</Text>
-                    </View> 
-                    <ImageBackground 
-                        source={require("../../AppDesigns/currentApp/images/Time.png")} 
-                        style={{height:20,justifyContent:"center",alignSelf:"flex-end",marginBottom:5}} 
-                        resizeMode="contain" 
-                        PlaceholderContent={<ActivityIndicator color={colors.theme}/>}>
-                        <Text style={[{color:"#000",opacity:1,marginRight:25,fontSize:10}]}>60 Mins </Text>
-                    </ImageBackground>
+                <View style={{flex:1,height:100,justifyContent:'center',paddingLeft:60}}>
+                    <Text style={[CommonStyles.subHeaderText,{color:"#000",alignSelf:"flex-start"}]}>{item.vendorName}</Text >
+                    <Text numberOfLines={2} style={[CommonStyles.text,{color:"#000"}]}>{item.productName}</Text>
+                    <Text style={[CommonStyles.text,{color:"#000"}]}>{store?.preferences?.currency} {item.productPrice.toFixed(2)}</Text>
+                </View> 
+                <ImageBackground 
+                    source              = {require("../../AppDesigns/currentApp/images/Time.png")} 
+                    style               = {{height:20,justifyContent:"center",alignSelf:"flex-end",marginBottom:5}} 
+                    resizeMode          = "contain" 
+                    PlaceholderContent  = {<ActivityIndicator color={colors.theme}/>}
+                >
+                    <Text style={[{color:"#000",opacity:1,marginRight:25,fontSize:10}]}>60 Mins </Text>
+                </ImageBackground>
             </Card>   
         </TouchableOpacity>   
         )
@@ -108,13 +131,6 @@ export const ProductVendorList = withCustomerToaster((props)=>{
 
     return (
         <View style={{flex:1,backgroundColor:"#fff"}}>
-            {/* <HeaderBar3
-                goBack={navigation.goBack}
-                navigate={navigation.navigate}
-                headerTitle={"Vendor List"}
-                toggle={() => toggle()}
-                openControlPanel={() => openControlPanel()}
-            /> */}
             {
             globalSearch.search ?
             <SearchSuggetion />
@@ -139,26 +155,9 @@ export const ProductVendorList = withCustomerToaster((props)=>{
                         showsVerticalScrollIndicator  = {false}
                         renderItem                    = {_renderlist} 
                         nestedScrollEnabled           = {true}
-                        // numColumns                    = {2}
-                        //   keyExtractor                  = {item => item._id.toString()}
-                        // nestedScrollEnabled
                         initialNumToRender            = {6}
                         ListFooterComponent           = {()=>loading && <ActivityIndicator color={colors.theme}/>}
                         onEndReachedThreshold         = {0.5}
-                        // onEndReached={({ distanceFromEnd }) => {
-                        //     if(distanceFromEnd >= 0 && limit > 6) {
-                        //     onEnd();
-                        //         //Call pagination function
-                        //     }
-                        // }}
-                        // onEndReached                  = {()=>{limit > 6 && onEnd()}}
-                        // onScroll                      = {()=>{limit > 6 && onEnd()}}       
-                        // refreshControl={
-                        //     <RefreshControl
-                        //       refreshing={refresh}
-                        //       onRefresh={() => refreshControl()}
-                        //     />
-                        // } 
                     /> 
                     :
                     <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>

@@ -1,135 +1,105 @@
 
 import React, { useState,useEffect } from 'react';
 import {
-  ScrollView,
   Text,
   View,
   TouchableOpacity,
-  ImageBackground,
-  Image,ActivityIndicator,
-  Dimensions,
   FlatList
 } from 'react-native';
-import { Header, 
-        Button, 
-        Icon, 
-        SearchBar }             from "react-native-elements";
-import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/SimilarProductStyles.js';
-import {HeaderBar3}             from '../HeaderBar3/HeaderBar3.js';
-import {Footer}                 from '../Footer/Footer.js';
-import { colors }               from '../../AppDesigns/currentApp/styles/styles.js';
-import axios                    from 'axios';
-import AsyncStorage             from '@react-native-async-storage/async-storage';
-import Counter                  from "react-native-counters";
-import Modal                    from "react-native-modal";
-import Carousel                 from 'react-native-banner-carousel-updated';
-import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import { useNavigation }        from '@react-navigation/native';
+import styles                   from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
 import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import { connect,useDispatch,useSelector }      from 'react-redux';
+import {SET_CATEGORY_WISE_LIST} from '../../redux/productList/types';
 
 export const SubCategoryList =(props)=>{
-  const {user_id,navigation} =props;
+  const {user_id,navigation,boxHeight} =props;
+  const [selected,setSelected]=useState('');
+  const [subCategoryList,setSubCategoryList] = useState([])
   // const BannerWidth = Dimensions.get('window').width-100;
   const [productList,setProductList]=useState([]);
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
   const dispatch = useDispatch();
+
+  const store = useSelector(store => ({
+    payload       : store.productList.searchPayload,
+    categoryList  : store.productList.categoryList.categoryList,
+  }));
+
+  const {payload,categoryList}=store;
+
   useEffect(() => {
-    getData();
-  },[]);
-
-  const getData=()=>{
-    axios.get("/api/category/get/list/"+props.sectionUrl+"/"+props.vendor_ID)
-      .then((response) => {
-        setProductList(response.data);
+    const index = categoryList.findIndex(e=>e.category === props.category);
+      var subCategoryArray = categoryList[index]?.subCategory.map((a, i)=>{
+        return {
+            label :a.subCategoryTitle,        
+            value :categoryList[index]?.categoryUrl+"^"+a.subCategoryUrl,        
+        } 
       })
-      .catch((error) => {
-        console.log('error', error);
-      })
-  }
- 
+      setSubCategoryList(subCategoryArray)
+ },[]);
 
-  const _renderlist = ({ item, index })=>{
+  const _renderlist = ({ item, i })=>{
     return (
-      <TouchableOpacity style={{width:160,marginRight:10,backgroundColor:"#fff"}} 
-          onPress={() =>{
-              navigation.navigate('SubCategoriesComp',{category_ID:item._id, categoryName:item.itemName})
-              dispatch(getCategoryWiseList(item._id,user_id ? user_id : null,"lowestprice",props.section));
-              navigation.navigate("VendorList",{sectionUrl:item.section?.replace(/\s/g, '-').toLowerCase(),section:item.section})
-            }  
-          }>
-            <View style={styles.flx1}>
+      <View key={i} style={[{paddingHorizontal:15}]}>
+       {props.selected ===item.label ? 
+       <TouchableOpacity style={{borderRadius:5}} onPress={()=>{
+          payload.subCategoryUrl  = item.value.split("^")[1];
+          payload.scroll          = false;
+          payload.startRange      = 0;
+          payload.limitRange      = 10;
+          dispatch({
+            type : SET_CATEGORY_WISE_LIST,
+            payload : []
+          })
+          dispatch(getCategoryWiseList(payload));
+            navigation.navigate('VendorProducts',
             {
-              item.itemImg?
-                <Image
-                  source = {{ uri: item.itemImg }}
-                  style={styles.subcatimg}
-                  resizeMode="stretch"
-                />
-                :
-                <Image
-                  source={require("../../AppDesigns/currentApp/images/notavailable.jpg")}
-                  style={styles.subcatimg}
-                />
-            }
+              category:item.category,
+              section:props.section,
+              index:props.index,
+              vendorLocation_id:props.vendorLocation_id,
+            });
+        }}>
+              <Text style={[styles.sectionTitle,{color:"#033554",fontSize:16,fontFamily:"Montserrat-Bold",textDecorationLine:'underline'}]}>{item.label}</Text>
+        </TouchableOpacity>
+        :
+        <TouchableOpacity style={{borderRadius:5}} onPress={()=>{
+          payload.subCategoryUrl  = item.value.split("^")[1];
+          payload.scroll          = false;
+          payload.startRange      = 0;
+          payload.limitRange      = 10;
+          dispatch({
+            type : SET_CATEGORY_WISE_LIST,
+            payload : []
+          })
+          dispatch(getCategoryWiseList(payload));
+            navigation.navigate('VendorProducts',
             {
-              item.discountPercent > 0 ?
-                <Text style={styles.peroff}> {item.discountPercent}% OFF</Text>
-                :
-                null
-            }
-            <View style={[styles.flx1, styles.protxt]}>
-              <Text numberOfLines={2} style={styles.nameprod}>{item.itemName}</Text>
-            </View>
-            <View style={[styles.flx1, styles.prdet]}>
-            <View style={[styles.flxdir,{justifyContent:"center",alignItems:"center"}]}>
-              <View style={[styles.flxdir]}>
-                <Icon
-                  name={item.currency}
-                  type="font-awesome"
-                  size={13}
-                  color="#333"
-                  iconStyle={{ marginTop: 5, marginRight: 3 }}
-                />
-                <Text style={styles.discountpricecut}>{item.originalPrice}</Text>
-              </View>
-              <View style={[styles.flxdir,{marginLeft:10,alignItems:"center"}]}>
-                <Icon
-                  name={item.currency}
-                  type="font-awesome"
-                  size={13}
-                  color="#333"
-                  iconStyle={{ marginTop: 5}}
-                />
-                {item.discountPercent > 0 ?
-                      <Text style={styles.ogprice}>{item.discountedPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : ''} {item.unit !== 'Number' ? item.unit : '' */}</Text>
-                      </Text>
-                    :
-                    <Text style={styles.ogprice}>{item.originalPrice} <Text style={styles.packofnos}>{/* item.size ? '-'+item.size : '' */} {/* item.unit !== 'Number' ? item.unit : '' */}</Text> </Text>
-                  }
-              </View>
-            </View>
-          </View>
-            </View>
-      </TouchableOpacity>  
+              category:item.category,
+              section:props.section,
+              index:props.index,
+              vendorLocation_id:props.vendorLocation_id,
+            });
+        }}>
+            <Text style={[styles.sectionTitle,{color:"#848586",fontSize:11,fontFamily:"Montserrat-SemiBold"}]}>{item.label}</Text>
+          </TouchableOpacity>  
+        }
+      </View>
     )
   }
 
     return (
-      productList && productList.length > 0 ?
-        <View style={{}}>
-        <Text style={styles.title}>{props.blockTitle}</Text>
-          <View style={styles.proddets}>
-            
+      subCategoryList && subCategoryList.length > 0 ?
+          <View style={[styles.proddets,{height:44,alignItems:'center',backgroundColor:"#CDD7DE"}]}>
               <FlatList
                 horizontal = {true}
-                data={productList}
+                data={subCategoryList}
                 renderItem={item => _renderlist(item)}
                 keyExtractor={item => item._id}
+                showsHorizontalScrollIndicator={false}
                 // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
-            />
+            /> 
           </View>
-      </View>
       :[]
     );
   }

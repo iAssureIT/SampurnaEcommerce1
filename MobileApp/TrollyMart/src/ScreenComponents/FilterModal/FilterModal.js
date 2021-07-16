@@ -33,13 +33,10 @@ const FilterModal = (props) => {
         subCategory,
         brandsArray,
         sizeArray,
-        vendor_id,
-        user_id,
-        userLatitude,
-        userLongitude,
-        sectionUrl
+        category
     } = props;
   const [activeTab, setActiveTab] = useState(filterOptions[0]);
+  const [current_category, setCategory] = useState(filterOptions[0]);
   const [localFilters, setFilters] = useState({
     subCategory: [],
     brandsArray:[],
@@ -52,46 +49,17 @@ const FilterModal = (props) => {
 //     setFilterListLocal(filterList);
 //   }, [filterList]);
   useEffect(() => {
-    setFilters({
-      subCategory: [],
-      brandsArray:[],
-      sizeArray:[],
-    })
-    // axios
-    //   .post('/call_run_time_master', {
-    //     lang_id: '1',
-    //     type_id: localFilters?.vehicleTypes.map((type) => type.value),
-    //     brand_id: localFilters?.vehicleBrands.map((brand) => brand.value),
-    //     category_id: localFilters?.serviceCategories.map((cat) => cat.value),
-    //   })
-    //   .then((res) => {
-    //     const model = res.data.result.data.model;
-    //     const category = res.data.result.data.category;
-    //     const services = res.data.result.data.services;
-    //     if (!!model && model.length > 0) {
-    //       setFilterListLocal({...filterListLocal, modelList: model});
-    //     } else {
-    //       setFilterListLocal({...filterListLocal, modelList: []});
-    //     }
-    //     if (!!category && category.length > 0) {
-    //       setFilterListLocal({
-    //         ...filterListLocal,
-    //         serviceCategoryList: category,
-    //       });
-    //     } else {
-    //       setFilterListLocal({...filterListLocal, serviceCategoryList: []});
-    //     }
-    //     if (!!services && services.length > 0) {
-    //       setFilterListLocal({...filterListLocal, servicesList: category});
-    //     } else {
-    //       setFilterListLocal({...filterListLocal, servicesList: []});
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log('filter error', err);
-    //   });
+    setCategory(category);
+    // if(current_category !== category){
+      setFilters({
+        subCategory: [],
+        brandsArray:[],
+        sizeArray:[],
+      })
+    // }
+   
   }, [props]);
-//   console.log('filterLIST', filterListLocal);
+
   return (
     <SafeAreaView forceInset={{vertical: 'always'}} >
       <Modal
@@ -220,15 +188,9 @@ const FilterModal = (props) => {
               }}
               title='Apply'
               onPress={async() => {
-                // var payload ={
-                //     "categoryUrl"       : localFilters.subCategory[0]?.value.split("^")[0],
-                //     "subCategoryUrl"    : localFilters.subCategory.map(e=>e.value?.split("^")[1]),
-                //     "startRange"        : 0,
-                //     "limitRange"        : 20,
-                //     "brand"             : localFilters.brandsArray.map(e=>e.value),
-                //   } 
                 payload.categoryUrl     = localFilters.subCategory[0]?.value.split("^")[0];
                 payload.subCategoryUrl  = localFilters.subCategory.map(e=>e.value?.split("^")[1]);
+                payload.subCategory     = localFilters.subCategory.map(e=>e.label);
                 payload.brand           = localFilters.brandsArray.map(e=>e.value);
                 payload.scroll          = false;
                 payload.startRange      = 0;

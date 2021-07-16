@@ -1,77 +1,134 @@
-import React, { useState,useEffect,useRef } from 'react';
+import React, { useState,useEffect } from 'react';
 import {Text,View,
       TouchableOpacity,
-      Dimensions,
       ImageBackground,
       FlatList
-    }                         from 'react-native';
-import styles                 from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
-import axios                  from 'axios';
-import Animated               from "react-native-reanimated";
-import { connect,useDispatch,useSelector }      from 'react-redux';
-import { colors, sizes } from '../../AppDesigns/currentApp/styles/styles.js';
-import { useIsFocused }       from "@react-navigation/native";
+    }                                       from 'react-native';
+import styles                               from '../../AppDesigns/currentApp/styles/ScreenComponentStyles/MenuCarouselSectionStyles.js';
+import Animated                             from "react-native-reanimated";
+import {useDispatch,useSelector }           from 'react-redux';
+import { colors, sizes }                    from '../../AppDesigns/currentApp/styles/styles.js';
+import { getCategoryWiseList }              from '../../redux/productList/actions.js';
+import {SET_CATEGORY_WISE_LIST}             from '../../redux/productList/types';
+import { Alert } from 'react-native';
+
 export const CategoryList = (props)=>{
-  const {navigation,showImage,boxHeight}=props;
+  const {navigation,boxHeight}=props;
   const noImage = require('../../AppDesigns/currentApp/images/noimagesection.jpeg');
-  const SCREEN_WIDTH = Dimensions.get("window").width;
   const [selected,setSelected]=useState('');
-  const isFocused = useIsFocused();
+  const dispatch 		= useDispatch();
   const store = useSelector(store => ({
     categoryList  : store.productList.categoryList.categoryList,
+    payload       : store.productList.searchPayload,
   }));
-  const {categoryList}=store;
-
-
+  const {categoryList,payload}=store;
   useEffect(() => {
-    if(categoryList && categoryList.length >0){
-      props.setCategory(categoryList[0])
-      setSelected(categoryList[0]?.category);
-    }
-   },[categoryList && categoryList.length>0 ?categoryList[0]?.category : '']);
+      if(categoryList && categoryList.length>0){
+        if(props.category!==""){
+          setSelected(props.category);
+          const index = categoryList.findIndex(e=>e.category === props.category);
+          var subCategoryArray = categoryList[index]?.subCategory.map((a, i)=>{
+            return {
+                label :a.subCategoryTitle,        
+                value :categoryList[index]?.categoryUrl+"^"+a.subCategoryUrl,        
+            } 
+          })
+        }else{
+          setSelected(categoryList[0]?.category);
+          var subCategoryArray = categoryList[0]?.subCategory.map((a, i)=>{
+            return {
+                label :a.subCategoryTitle,        
+                value :categoryList[0]?.categoryUrl+"^"+a.subCategoryUrl,        
+            } 
+          })
+        }
+        if(props.setSubCategory){
+          props.setSubCategory(subCategoryArray);
+        }  
+      }
+   },[props.selected,props.index,props.category,categoryList]);
+
   const xOffset = new Animated.Value(0); 
+
   const _renderlist = ({ item, i })=>{
     return (
       <View key={i} style={[styles.mainrightside]}>
-        <TouchableOpacity style={{borderWidth:selected===item.category ? 2:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{props.setCategory(item);setSelected(item.category)}}>
-          {!showImage ?
-            <ImageBackground  source={item.sectionImage ? {uri : item.sectionImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{opacity:0.6}}>
-              <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
+       {selected===item.category ? 
+       <TouchableOpacity style={{borderWidth:2,borderRadius:5,borderColor:colors.cartButton,marginTop:5}} onPress={()=>{
+              setSelected(item.category);
+              var subCategoryArray = item.subCategory.map((a, i)=>{
+                return {
+                    label :a.subCategoryTitle,        
+                    value :item.categoryUrl+"^"+a.subCategoryUrl,        
+                } 
+              })
+              if(props.setSubCategory){
+                props.setSubCategory(subCategoryArray);
+              }
+              payload.categoryUrl     = item.categoryUrl;
+              payload.subCategoryUrl  = item.subCategoryUrl ? item.subCategoryUrl : [] ;
+              payload.scroll          = false;
+              payload.startRange      = 0;
+              payload.limitRange      = 10;
+              dispatch({
+                type : SET_CATEGORY_WISE_LIST,
+                payload : []
+              })
+              dispatch(getCategoryWiseList(payload));
+                navigation.navigate('VendorProducts',
+                {
+                  category          : item.category,
+                  section           : props.section,
+                  index             : props.index,
+                  vendorLocation_id : props.vendorLocation_id,
+                });
+            }}>
+            <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#333",height:boxHeight}]} imageStyle={{opacity:0.6,borderRadius: 5}}>
+              <Text style={[styles.sectionTitle,{color:item.categoryImage?"#fff":"#333"}]}>{item.category}</Text>
             </ImageBackground>
-            :
-            <View style={[styles.sectionImages,{height:boxHeight}]}>
-              <Text style={[styles.sectionTitle,selected===item.category ? {color:"#333"}: {color:"#666"}]}>{item.category}</Text>
-            </View>  
-          }
         </TouchableOpacity>
+        :
+          <View>
+            <TouchableOpacity style={{borderWidth:1,borderRadius:5,borderColor:colors.cartButton }} onPress={()=>{  setSelected(item.category);
+              var subCategoryArray = item.subCategory.map((a, i)=>{
+                return {
+                    label :a.subCategoryTitle,        
+                    value :item.categoryUrl+"^"+a.subCategoryUrl,        
+                } 
+              })
+              if(props.setSubCategory){
+                props.setSubCategory(subCategoryArray);
+              }
+              payload.categoryUrl     = item.categoryUrl;
+              payload.subCategoryUrl  = item.subCategoryUrl ? item.subCategoryUrl : [] ;
+              payload.scroll          = false;
+              payload.startRange      = 0;
+              payload.limitRange      = 10;
+              dispatch({
+                type : SET_CATEGORY_WISE_LIST,
+                payload : []
+              })
+              dispatch(getCategoryWiseList(payload));
+                navigation.navigate('VendorProducts',
+                {
+                  category:item.category,
+                  section:props.section,
+                  index:props.index,
+                  vendorLocation_id:props.vendorLocation_id,
+                });
+            }}>
+              <ImageBackground  source={item.categoryImage ? {uri : item.categoryImage}:null} style={[styles.sectionImages,{backgroundColor:"#fff",height:boxHeight}]} imageStyle={{borderRadius: 5}}>
+              </ImageBackground>
+            </TouchableOpacity>
+            <Text style={[styles.sectionTitle,{color:item.sectionImage?"#fff":"#333"}]}>{item.category}</Text>
+          </View>  
+        }
       </View>
     )
   }
 
-
-  const onViewableItemsChanged = (e) => {
-    // // Get the first viewable item
-    // const firstViewableItem = viewableItems[0].key;
-  
-    // // Get its index into the items
-    // const index = this.state.items.findIndex(item => item.key === firstViewableItem);
-  
-    // // If the index is a multiple of the number of items displayable on the screen
-    // // by checking for a reminder on the modulo operation
-    // if ((index % NB_ITEMS_SCREEN) === 0) {
-  
-    //   // get page
-    //   const currentPage = index / NB_ITEMS_SCREEN;
-    //   if (currentPage !== this.state.currentPage) {
-    //     // Do something and update currentPage in this.state
-    //   }
-    // }
-  }
-
-
   return (
     <View>
-      {/* <Text style={styles.title}>List of Sections</Text> */}
         <View style={styles.categoryContainer}>
           {
           categoryList && categoryList.length > 0 ?
@@ -85,7 +142,6 @@ export const CategoryList = (props)=>{
               // style={{width: SCREEN_WIDTH + 5, height:'100%'}}
           />:[]} 
         </View>
-      {/* <View style={styles.menuborderstyle}></View> */}
     </View>
   );
 }
