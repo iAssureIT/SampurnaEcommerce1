@@ -82,21 +82,56 @@ export const SupportSystem = withCustomerToaster((props)=>{
               }  
         })
     }
-    
-      return (
+
+    return (
         <React.Fragment>
           <Formik
             onSubmit={(data) => {
                 console.log("data",data);
               setLoading(true);
-            //   let {username, password} = data;
-            //   const payload = {
-            //     name        : username,
-            //     password  : password,
-            //     role      : "user"
-            //   };
+              let {username, password} = data;
+              const payload = {
+                name      : username,
+                password  : password,
+                role      : "user"
+              };
+
+              const formValues2 = {
+                "email" 	: 'supriya16ghatge@gmail.com',
+                "text"		: "",
+                "mail"		: 'Dear Admin, <br/>'+
+                                "Following new query/feedback came from website! <br/> <br/>" +
+                                "============================  <br/> <br/>" + 
+                                "<b>Client Name: </b>"   + data.name + '<br/>'+
+                                "<b>Client Email: </b>"  + data.email + '<br/><br/>'+
+                                "<pre> " + data.message + "</pre>" + 
+                                "<br/><br/> ============================ " + 
+                                "<br/><br/> This is a system generated email! " ,
+            };
+    
+            console.log("formValues2" , formValues2);                   
+                    
+            Axios.post('/send-email-mobile',formValues2)
+                .then((response)=>{
+                	console.log("res=-0-0",response);
+                                
+				})           
+                .catch(function(error){
+					console.log(error);
+                    if(error.message === "Request failed with status code 401"){
+						// swal("Your session is expired! Please login again.","", "error");
+					}
+              	})
+		
+            // this.setState({
+            //     name    : "",
+            //     email   : "",
+            //     message : "",
+            //     mobile  : ""
+            // });
              
-            }}
+            }}          
+
             validationSchema={ValidationSchema}
             initialValues={{
                 name: '',

@@ -392,5 +392,4 @@ export default StyleSheet.create({
   marTp15:{
     marginTop:15
   },
-
 })

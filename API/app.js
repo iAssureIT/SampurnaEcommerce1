@@ -273,6 +273,43 @@ app.post('/send-email', (req, res)=> {
 });
 
 
+app.post('/send-email-mobile', (req, res)=> {
+	// console.log("inside app.js req:", req.body);
+	let transporter = nodeMailer.createTransport({
+		host: globalVariable.emailHost,
+		port: globalVariable.emailPort,
+		auth: {
+			user: globalVariable.user,
+			pass: globalVariable.pass
+		}
+	});
+	
+	let mailOptions = {
+		from   : req.body.email, // list of receivers
+		to     : globalVariable.project+'<'+globalVariable.user+'>', // sender address
+		subject: req.body.subject, // Subject line
+		text   : req.body.text, // plain text body
+		html   : req.body.mail // html body
+	};	
+
+	transporter.sendMail(mailOptions, (error, info) => {
+		if (error) {			
+			return "Failed";
+		}
+		if(info){
+			res.status(200).json({ 
+				message: "Success",
+			});
+		}else{
+			res.status(200).json({ 
+				message: "Failed",
+			});
+		}
+		res.render('index');
+	});
+});
+
+
 app.use((req, res, next) => {
 	const error = new Error("This Page Is Not Found");
 	error.status = 404;
