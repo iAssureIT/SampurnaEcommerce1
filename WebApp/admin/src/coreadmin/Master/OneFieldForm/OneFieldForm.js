@@ -560,12 +560,12 @@ class OneFieldForm extends React.Component {
                                                                     </div>
                                                             </div>
                                                             <br />
-                                                            <div className="form-margin col-lg-6 col-lg-offset-6 col-md-6 col-sm-12 col-xs-12">
+                                                            <div className="form-margin col-lg-12 col-md-6 col-sm-12 col-xs-12" style={{marginLeft: "16.2%"}}>
                                                                 {
                                                                     (this.props.editId !== "" && typeof this.props.editId !== 'undefined') ?
-                                                                        <button onClick={this.updateType.bind(this)} className="btn button3 pull-right">Update</button>
+                                                                        <button onClick={this.updateType.bind(this)} className="btn button3 col-lg-4">Update</button>
                                                                         :
-                                                                        <button onClick={this.submitType.bind(this)} className="btn button3 pull-right">Submit</button>
+                                                                        <button onClick={this.submitType.bind(this)} className="btn button3 col-lg-4 " >Submit</button>
                                                                 }
                                                             </div>
                                                         </form>

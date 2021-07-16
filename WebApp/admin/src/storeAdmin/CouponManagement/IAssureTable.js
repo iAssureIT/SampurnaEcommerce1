@@ -851,7 +851,7 @@ class IAssureTable extends Component {
 															</span>
 														<div className="modal fade" id={"showDeleteModal-"+(value._id)} role="dialog">
 	                                                        <div className=" adminModal adminModal-dialog col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                                                          <div className="modal-content adminModal-content col-lg-6 col-lg-offset-4 col-md-6 col-md-offset-4 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
+	                                                          <div className="modal-content adminModal-content col-lg-4 col-md-6 col-md-offset-4 col-sm-10 col-sm-offset-1 col-xs-12 noPadding">
 	                                                            <div className="modal-header adminModal-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	                                                            <div className="adminCloseCircleDiv pull-right  col-lg-1 col-lg-offset-11 col-md-1 col-md-offset-11 col-sm-1 col-sm-offset-11 col-xs-12 NOpadding-left NOpadding-right">
 	                                                              <button type="button" className="adminCloseButton" data-dismiss="modal" data-target={"#showDeleteModal-"+(value._id)}>&times;</button>

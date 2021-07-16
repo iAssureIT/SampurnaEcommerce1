@@ -132,7 +132,7 @@ class CategoryManagement extends Component{
 		  	return arg !== value;
 		}, "Please select the section");
 		$.validator.addMethod("letterswithspace", function(value, element) {
-		  	return this.optional(element) || /^[a-z][a-z\s]*$/i.test(value);
+		  	return this.optional(element) || /^[a-zA-Z]*$/g.test(value);
 		}, "Please enter letters only");
 		$.validator.addMethod("charactersLength", function(value, element) {
 		  	return this.optional(element) || value.length <= 128;
@@ -158,17 +158,22 @@ class CategoryManagement extends Component{
 			 	},
 			 	category : {
 					required 			: true,
-					// letterswithspace 	: true,
+					letterswithspace 	: true,
 					charactersLength 	: true
 			 	},
 				categoryRank : {
 					required 			: true,
 					digitsLength 		: true
-			 	}
+			 	},
 			 // categoryDescription: {
 			 //   required: true,
 			 //   // regxA1: /^[A-Za-z][A-Za-z0-9\-\s]/, 
 			 // },
+			 categoryDescription : {
+					required 			: true,
+					letterswithspace 	: true,
+					charactersLength 	: true 
+			 }
 		  	},
 		  	
 			errorPlacement: function(error, element) {
@@ -182,9 +187,9 @@ class CategoryManagement extends Component{
 					error.insertAfter("#categoryRank");
 			 	}
 			
-				// if (element.attr("name") === "categoryDescription"){
-				//   error.insertAfter("#categoryDescription");
-				// }         
+				if (element.attr("name") === "categoryDescription"){
+				  error.insertAfter("#categoryDescription");
+				}         
 			}
 		});
 
@@ -1144,14 +1149,16 @@ class CategoryManagement extends Component{
 																<input value={this.state.categoryNameRlang} name="categoryNameRlang" id="categoryNameRlang" onChange={this.handleChange.bind(this)} type="text" className="form-control categoryNameRlang RegionalFont" placeholder="कॅटेगरी नेम इन रिजनल लँग्वेज" aria-label="categoryNameRlang" aria-describedby="basic-addon1" ref="categoryNameRlang" />
 															{/* </div> */}
 														</div>
-
+														<div className="container-flex">
+                                                        <div className="container-flex">
+														<label>Category Image</label> 
 														{this.state.categoryImage 
 														?
 															null
 														:
-															<div className="divideCatgRows categoryImgWrapper">
-																<label>Category Image</label>                                                                    
-																<input type="file" name="file" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="" accept=".jpg,.jpeg,.png" />
+															<div className="divideCatgRows col-lg-12 categoryImgWrapper1">
+																                                                                    
+																<input type="file" name="file" onChange={this.uploadImage.bind(this)} title="Click to Edit Photo" className="col-lg-12" accept=".jpg,.jpeg,.png" />
 															</div>
 														}
 														{this.state.categoryImage 
@@ -1169,6 +1176,8 @@ class CategoryManagement extends Component{
 														:
 															null
 														}
+														</div>
+														</div>
 													</div>
 													<div className="col-lg-12 subCatAddLabel">
 														<label>Subcategories </label>
@@ -1226,26 +1235,26 @@ class CategoryManagement extends Component{
 															null
 														}
 													</div>												
-													<div className="col-lg-6 col-md-6">
-														<div onClick={this.addNewSubCatArray.bind(this)}  className="submitBtn btn categoryBtn button3 col-lg-12">Add New Subcategory</div>
+													<div className="col-lg-12">
+														<div onClick={this.addNewSubCatArray.bind(this)}  className="submitBtn btn categoryBtn button3 col-lg-4">Add New Subcategory</div>
 													</div>
-													<div className="col-lg-12 NOpadding-right">
-														<div className="addCategoryNewBtn col-lg-12 NOpadding-right">
-															<div className="pull-right col-lg-6 NOpadding-right">
-																{/*<div className=" col-lg-6">
-																	<div onClick={this.cancelCategoryUpdate.bind(this)} className="edit-cancel-catg btn col-lg-12 col-md-12 col-sm-12 col-xs-12">Cancel</div>
-																</div>*/}
-																<div className=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													
+														
+														{/*<div className=" col-lg-6">
+															<div onClick={this.cancelCategoryUpdate.bind(this)} className="edit-cancel-catg btn col-lg-12 col-md-12 col-sm-12 col-xs-12">Cancel</div>
+														</div>*/}
+														<div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
+															<div className="row">
+																<div className="col-lg-4">
 																	{this.state.editId 
 																	? 
-																		<button onClick={this.updateCategory.bind(this)} className="btn button3 pull-right">Update</button>
+																		<button onClick={this.updateCategory.bind(this)} className="btn button3 col-lg-12">Update</button>
 																	:
-																		<button onClick={this.submitCategory.bind(this)} className="btn button3 pull-right">Submit</button>
+																		<button onClick={this.submitCategory.bind(this)} className="btn button3 col-lg-12">Submit</button>
 																	}
-																</div>													
-															</div>
-														</div>												
-													</div>
+																</div>											
+															</div>												
+														</div>
 												</form>
 											</div>
 											<div className="modal col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12" id={"subCategoryModal"} aria-hidden="false" role="dialog">

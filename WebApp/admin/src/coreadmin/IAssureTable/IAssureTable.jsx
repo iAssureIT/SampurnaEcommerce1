@@ -715,14 +715,22 @@ class IAssureTable extends Component {
 																			<h4 className="blackLightFont textAlignCenter examDeleteFont col-lg-12 col-md-12 col-sm-12 col-xs-12">Are you sure you want to delete?</h4>
 																		</div>
 
-																		<div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
-																			<div className="col-lg-5 col-lg-offset-1  col-md-6 col-sm-6 col-xs-12">
+																		{/* <div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
+																			<div className="col-lg-6  col-md-6 col-sm-6 col-xs-12">
 																				<button type="button" className="btn adminCancel-btn col-lg-7 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1" data-dismiss="modal">CANCEL</button>
 																			</div>
-																			<div className="col-lg-5 col-lg-offset-1   col-md-6 col-sm-6 col-xs-12">
-																				<button onClick={this.delete.bind(this)} id={(value._id).replace(/-/g, "/")} type="button" className="btn examDelete-btn col-lg-7 col-lg-offset-5 col-md-7 col-md-offset-5 col-sm-8 col-sm-offset-3 col-xs-10 col-xs-offset-1" data-dismiss="modal">DELETE</button>
+																			<div className="col-lg-6   col-md-6 col-sm-6 col-xs-12">
+																				<button onClick={this.delete.bind(this)} id={(value._id).replace(/-/g, "/")} type="button" className="btn examDelete-btn col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-5 col-sm-8 col-sm-offset-3 col-xs-10 col-xs-offset-1" data-dismiss="modal">DELETE</button>
 																			</div>
-																		</div>
+																		</div> */}
+																		<div className="modal-footer adminModal-footer col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                                                                <button type="button" className="btn adminCancel-btn col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1" data-dismiss="modal"style={{width: "70%"}}>CANCEL</button>
+	                                                              </div>
+	                                                              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	                                                                <button onClick={this.delete.bind(this)} id={(value._id).replace(/-/g, "/")} type="button" className="btn examDelete-btn col-lg-4 col-lg-offset-7 col-md-4 col-md-offset-7 col-sm-8 col-sm-offset-3 col-xs-10 col-xs-offset-1 floatRight" data-dismiss="modal"style={{width: "70%"}}>DELETE</button>
+	                                                              </div>
+	                                                            </div>
 																	</div>
 																</div>
 															</div>

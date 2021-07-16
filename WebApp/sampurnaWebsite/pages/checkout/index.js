@@ -1064,7 +1064,7 @@ class Checkout extends Component {
                                                         }
                                                     </span> */}
                                                     <span className={"col-6 mb-1 "+Style.checkoutCurrencyWrapper}>
-                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount : 0.00}</span>
+                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount : "0.00"}</span>
                                                         {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0&&
                                                         <span className="deleteCoupon" onClick={this.deleteCoupon.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                         }
@@ -1077,7 +1077,7 @@ class Checkout extends Component {
                                                         }
                                                     </span> */}
                                                     <span className={"col-6 mb-1 "+Style.checkoutCurrencyWrapper}>
-                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.creditPointsValueUsed>0? this.state.recentCartData.paymentDetails.creditPointsValueUsed : 0.00}</span>
+                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.creditPointsValueUsed>0? this.state.recentCartData.paymentDetails.creditPointsValueUsed : "0.00"}</span>
                                                         {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 &&
                                                         <span className={Style.deleteCredit} onClick={this.deleteCredit.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                         }

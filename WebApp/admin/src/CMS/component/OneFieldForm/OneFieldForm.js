@@ -456,7 +456,7 @@ class OneFieldForm extends React.Component {
                                                             <div className="form-margin col-lg-6 col-lg-offset-6 col-md-6 col-sm-12 col-xs-12">
                                                                 {
                                                                     (this.props.editId !== "" && typeof this.props.editId !== 'undefined') ?
-                                                                        <button onClick={this.updateType.bind(this)} className="btn button3 pull-right">Update</button>
+                                                                        <button onClick={this.updateType.bind(this)} className="btn  pull-right">Update</button>
                                                                         :
                                                                         <button onClick={this.submitType.bind(this)} className="btn button3 pull-right">Submit</button>
                                                                 }

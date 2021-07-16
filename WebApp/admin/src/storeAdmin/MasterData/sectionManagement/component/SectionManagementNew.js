@@ -91,7 +91,7 @@ class SectionManagement extends Component {
         }
         
         $.validator.addMethod("letterswithspace", function(value, element) {
-            return this.optional(element) || /^[a-z][a-z\s]*$/i.test(value);
+            return this.optional(element) || /^[a-zA-Z]*$/g.test(value);
         }, "Please enter letters only");
 
         $.validator.addMethod("charactersLength", function(value, element) {
@@ -102,6 +102,10 @@ class SectionManagement extends Component {
         $.validator.addMethod("digitsLength", function(value, element) {
             return this.optional(element) || value.length <= 5;
         }, "Please enter max 5 digits only.");
+
+        $.validator.addMethod("digitsOnly", function(value, element) {
+            return this.optional(element) || /^[0-9]*$/.test(value);
+        }, "Decimal is not accepted.");
 
 
 
@@ -114,13 +118,15 @@ class SectionManagement extends Component {
             rules: {
                 section: {
                     required            : true,
-                    // letterswithspace    : true,
+                    letterswithspace    : true,
+                    // number          : false,
                     charactersLength    : true
                 },
                 sectionRank: {
                     required        : true,
                     number          : true,
-                    digitsLength    : true
+                    digitsLength    : true,
+                    digitsOnly      :true
                 },
                 // /^[^-\s][a-zA-Z0-9_\s-]+$/
             },
@@ -513,11 +519,13 @@ class SectionManagement extends Component {
                                                             <input disabled value={this.state.sectionUrl} onChange={this.handleChange.bind(this)} id="sectionUrl" name="sectionUrl" type="text" className="form-control sectionUrl" placeholder="Section URL" ref="sectionUrl" />
                                                         </div>                            
                                                     </div>
-                                                    <div className="col-lg-5 fieldWrapper">
-                                                        <div className="col-lg-12">
-                                                            <label>Section Rank <i className="redFont">*</i></label>                                                                    
-                                                            <input value={this.state.sectionRank} onChange={this.handleChange.bind(this)} id="sectionRank" name="sectionRank" type="number" className="form-control sectionRank" placeholder="Section Rank" ref="sectionRank" min="1"  required/>
-                                                        </div>
+                                                    <div className="col-lg-12 fieldWrapperSectionRank">
+                                                        <div className="col-12">
+                                                            <div className="col-lg-5">
+                                                                <label>Section Rank <i className="redFont">*</i></label>                                                                    
+                                                                <input value={this.state.sectionRank} onChange={this.handleChange.bind(this)} id="sectionRank" name="sectionRank" type="number" className="form-control sectionRank" placeholder="Section Rank" ref="sectionRank" min="1"  required/>
+                                                            </div>
+                                                        </div>                           
                                                     </div>
                                                     <div className="col-lg-10 fieldWrapper">
                                                         <div className="col-lg-10">
@@ -548,14 +556,14 @@ class SectionManagement extends Component {
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div className="form-margin col-lg-6 col-lg-offset-6 col-md-6 col-sm-12 col-xs-12">
-                                                        <div className="col-lg-4 btnWrapper pull-right">
-                                                            <label>&nbsp;</label>
+                                                    <div className="form-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div className="col-lg-4">
+                                                            
                                                             {this.state.editId 
                                                             ?
-                                                                <button onClick={this.updatesection.bind(this)} className="btn button3 pull-right">Update</button>
+                                                                <button onClick={this.updatesection.bind(this)} className="btn button3 col-lg-12">Update</button>
                                                             :
-                                                                <button onClick={this.submitsection.bind(this)} className="btn button3 pull-right">Submit</button>
+                                                                <button onClick={this.submitsection.bind(this)} className="btn button3 col-lg-12">Submit</button>
                                                             }
                                                         </div>
                                                     </div>                                         
