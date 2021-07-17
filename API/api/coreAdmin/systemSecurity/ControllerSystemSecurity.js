@@ -1974,6 +1974,17 @@ exports.user_login_mob_email = (req, res, next) => {
 						.exec()
 						.then(usersdata => {
 							// console.log("emailOTP  data===>",usersdata[0].profile);
+								var userNotificationValues = {
+									"event"			: "SendOTP",
+									"toUser_id"		: updatedata._id,
+									"toUserRole"	: updatedata.roles[0],
+									"toMobileNumber": updatedata.isdCode + updatedata.mobile,								
+									"variables" 	: {
+										subject 	: "Verify User",
+										OTP 		: otpMobile
+									}
+								}
+								var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
 								res.status(200).json({
 									message 	: 'USER_UNVERIFIED',
 									ID 			: usersdata[0]._id,
