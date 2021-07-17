@@ -1951,15 +1951,7 @@ exports.user_login_mob_email = (req, res, next) => {
 				var mobileOTP = 1234;
 
 				User.updateOne(
-					{$or:[
-						{"profile.mobile" : username},
-						{$and:[
-							{"profile.email"  :  username},
-							{"profile.email"  :  {$ne:''}},
-							{"authService"    :  {$eq:''}}
-						]
-						},
-					]},
+					{"_id" : ObjectId(user._id)},
 					{
 						$set: {
 							"profile.otpMobile": mobileOTP,
@@ -1968,32 +1960,42 @@ exports.user_login_mob_email = (req, res, next) => {
 				)
 				.exec()
 				.then(updatedata => {
-					// console.log("emailOTP  data===>",data);
-					if (updatedata.nModified === 1) {
-						User.find({ "profile.email": emailId.toLowerCase() })
-						.exec()
-						.then(async(usersdata) => {
-							console.log("emailOTP  data===>",usersdata[0].profile);
+					console.log("updatedata ===> ",updatedata);
+					// if (updatedata.nModified === 1) {
+						// User.find( 
+						// 	{$or:[
+						// 		{"profile.mobile" : username},
+						// 		// {$and:[
+						// 			{"profile.email"  :  username},
+						// 			// {"profile.email"  :  {$ne:''}},
+						// 			// {"authService"    :  {$eq:''}}
+						// 		// ]
+						// 		// },
+						// 	]},
+						// )
+						// .exec()
+						// .then(async(usersdata) => {
+							// console.log("emailOTP  data===>",usersdata[0].profile);
 								var userNotificationValues = {
 									"event"			: "SendOTP",
-									"toUser_id"		: updatedata._id,
-									"toUserRole"	: updatedata.roles[0],
-									"toMobileNumber": updatedata.isdCode + updatedata.mobile,								
+									"toUser_id"		: user._id,
+									"toUserRole"	: user.roles[0],
+									"toMobileNumber": user.isdCode + user.mobile,								
 									"variables" 	: {
 										subject 	: "Verify User",
-										OTP 		: updatedata.profile.otpMobile
+										OTP 		: mobileOTP
 									}
 								}
 								var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
 								res.status(200).json({
 									message 	: 'USER_UNVERIFIED',
-									ID 			: usersdata[0]._id,
-									result 		: usersdata[0]
+									ID 			: user._id,
+									result 		: user
 								});
-						});
-					} else {
-						res.status(200).json({ message: "SUCCESS_OTP_NOT_RESET" });
-					}
+						// });
+					// } else {
+					// 	res.status(200).json({ message: "SUCCESS_OTP_NOT_RESET" });
+					// }
 				})
 				.catch(err => {
 					console.log('user error ', err);
