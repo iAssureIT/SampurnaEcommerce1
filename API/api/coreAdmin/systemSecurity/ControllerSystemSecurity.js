@@ -1973,7 +1973,7 @@ exports.user_login_mob_email = (req, res, next) => {
 						User.find({ "profile.email": emailId.toLowerCase() })
 						.exec()
 						.then(usersdata => {
-							// console.log("emailOTP  data===>",usersdata[0].profile);
+							console.log("emailOTP  data===>",usersdata[0].profile);
 								var userNotificationValues = {
 									"event"			: "SendOTP",
 									"toUser_id"		: updatedata._id,
@@ -1981,7 +1981,7 @@ exports.user_login_mob_email = (req, res, next) => {
 									"toMobileNumber": updatedata.isdCode + updatedata.mobile,								
 									"variables" 	: {
 										subject 	: "Verify User",
-										OTP 		: otpMobile
+										OTP 		: updatedata.profile.otpMobile
 									}
 								}
 								var send_notification_to_user = await sendNotification.send_notification_function(userNotificationValues);
