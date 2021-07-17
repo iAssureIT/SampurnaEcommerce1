@@ -553,7 +553,7 @@ class CartProducts extends Component{
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-12">
+                                                <div className="col-12 ">
                                                 <div className="col-12 NoPadding mx-2    checkoutBtn">
                                                 {
                                                     this.props.recentCartData.cartBtnDisabled?
@@ -563,12 +563,13 @@ class CartProducts extends Component{
                                                         </button>
                                                     </div>
                                                 :
+
                                                     <div className="row">
                                                         <button  className={"col-12 btn checkoutBtn blockcartCheckout " +Style.checkoutBtn}
                                                             onClick={this.proceedToCheckout.bind(this)}>
                                                             PROCEED TO CHECKOUT
                                                         </button> 
-                                                    </div>
+                                                    </div>  
                                                 }
                                                 </div>
                                                <div className="row"><div className={"col-12 text-center mx-2 my-2 "+Style.discMsgColor}> Proceed to checkout to add discount coupon</div></div> 
