@@ -1606,7 +1606,7 @@ exports.fetch_product = (req,res,next)=>{
 					}
 				}else{
 					for (var i = 0; i < products.length; i++) {
-						var inventoryData               = await ProductInventory.findOne({productCode : wishdata[i].product_ID.productCode, itemCode : wishdata[i].product_ID.itemCode, vendor_ID : ObjectId(wishdata[i].product_ID.vendor_ID)},{currentQuantity : 1});
+						var inventoryData               = await ProductInventory.findOne({productCode : products[i].productCode, itemCode : products[i].itemCode, vendor_ID : ObjectId(products[i].vendor_ID._id)},{currentQuantity : 1});
 						// console.log("inventoryData => ",inventoryData);
 						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
 					}
