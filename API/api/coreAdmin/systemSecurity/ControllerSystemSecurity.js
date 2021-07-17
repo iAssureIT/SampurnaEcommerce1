@@ -1960,7 +1960,7 @@ exports.user_login_mob_email = (req, res, next) => {
 				)
 				.exec()
 				.then(updatedata => {
-					console.log("emailOTP  data===>",data);
+					console.log("updatedata ===> ",updatedata);
 					// if (updatedata.nModified === 1) {
 						// User.find( 
 						// 	{$or:[
