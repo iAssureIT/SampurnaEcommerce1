@@ -3779,6 +3779,7 @@ exports.daily_vendor_orders = (req, res, next) => {
 // ---------------- Ready to Dispatch Vendor Orders for Dispatch Center ----------------
 exports.list_ready_to_dispatch_orders = (req, res, next) => {
 	console.log("req.body => ",req.body)
+	console.log("req.body => ",req.body)
 	// console.log("start => ", moment(new Date(req.body.deliveryDate)).startOf('day').toDate());
 	// console.log("end => ", moment(new Date(req.body.deliveryDate)).endOf('day').toDate());
 	Orders.aggregate([	   
