@@ -51,6 +51,7 @@ class Login extends Component {
       fields
     });
   }
+  
   validateForm() {
     let fields = this.state.fields;
     let errors = {};

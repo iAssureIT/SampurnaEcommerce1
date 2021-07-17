@@ -68,6 +68,7 @@ class UserAddress extends Component {
             }); 
         } 
     }
+
     validateForm(){
 		let fields = this.state.fields;
 		let errors = {};
@@ -301,7 +302,8 @@ class UserAddress extends Component {
                             </div>
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Zip/Postal Code</label>
-                                <input type="number" minLength="6" maxLength="6" ref="pincode" name="pincode" value={this.state.pincode}  className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
+                                <input type="number" minLength="6" maxLength="6" ref="pincode" name="pincode" value={this.state.pincode}  className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
+                                <div className="errorMsg">{this.state.errors.modalPincode}</div>
                             </div>   
                             <div className="col-12 shippingInput mb-4">
                                 <label className="col-12 NoPadding">Address type <span className="required">*</span></label>

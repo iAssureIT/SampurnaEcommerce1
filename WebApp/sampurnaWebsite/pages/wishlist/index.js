@@ -117,6 +117,9 @@ class Wishlist extends Component {
         <Message messageData={this.state.messageData} />
           <div className="row">
             <div className={"col-12"}>
+              <div className="col-12 table-caption">
+                  <h4 className="table-caption"> <b>My Wishlist</b></h4>
+              </div>
               {
                 Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?
                  this.state.wishlistData.map((areaWiseWishlist, index) => {  

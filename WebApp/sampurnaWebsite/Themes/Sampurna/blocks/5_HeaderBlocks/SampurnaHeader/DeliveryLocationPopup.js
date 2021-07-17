@@ -225,6 +225,9 @@ class DeliveryLocationPopup extends React.Component {
 
     saveLocation(event) {
         event.preventDefault();
+        // var address = this.name.address.value;
+        // var address = this.refs.address.value;
+        // console.log("Address===",address);
         // console.log("savelocation  this.state===",this.state.country);
         var deliveryLocation = {
             "address"        : this.state.address,
@@ -402,6 +405,7 @@ class DeliveryLocationPopup extends React.Component {
                                                         className: 'location-search-input mt-2 form-control',
                                                         id: "address",
                                                         name: "address",
+                                                        refs:"address",
                                                         required: true
                                                     })}
                                                 />
