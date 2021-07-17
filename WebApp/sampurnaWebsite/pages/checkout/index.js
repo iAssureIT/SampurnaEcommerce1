@@ -932,7 +932,7 @@ class Checkout extends Component {
                                                                                         {
                                                                                             cartdata.product_ID.availableQuantity > 0 ?
                                                                                                 // <span className="productPrize textAlignRight"><i className={"fa fa-" + cartdata.product_ID.currency}></i> &nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>
-                                                                                                <span className={"productPrize textAlignRight " +Style.f11N +" "+Style.bold}><span className={" " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>
+                                                                                                <span className={"productPrize textAlignRight " +Style.f11N +" "+Style.bold}><span className={"  " +Style.currencyColor}>{this.state.currency}</span>&nbsp;{parseInt(cartdata.product_ID.discountedPrice).toFixed(2)}</span>
                                                                                                 :
                                                                                                 <span>-</span>
                                                                                         }
@@ -948,10 +948,10 @@ class Checkout extends Component {
                                                                                     <td className="textAlignRight">
                                                                                         {
                                                                                             cartdata.product_ID.availableQuantity > 0 ?
-                                                                                                <span className={"productPrize textAlignRight " +Style.f11N +" "+Style.bold}>
+                                                                                                <span className={"abc productPrize textAlignRight " +Style.f11N +" "+Style.bold}>
                                                                                                     <span className={" " +Style.currencyColor}>{this.state.currency}</span>
                                                                                                     {/* {cartdata.product_ID.currency} */}
-                                                                                                    &nbsp;{cartdata.product_ID.discountedPrice}</span>
+                                                                                                    &nbsp;{cartdata.product_ID.discountedPrice.toFixed(2)}</span>
                                                                                                 :
                                                                                                 <span>-</span>
                                                                                         }
@@ -1046,7 +1046,7 @@ class Checkout extends Component {
                                                         <span className={"text-center "+Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}
                                                     </span> */}
                                                     <span className={"col-6 mb-1 "+Style.checkoutCurrencyWrapper}>
-                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount : "0.00"}</span>
+                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.discountAmount>0 ? this.state.recentCartData.paymentDetails.discountAmount.toFixed(2) : "0.00"}</span>
                                                     </span>
 
                                                     <span className="col-6 mb-1">Total Tax :</span>
@@ -1054,7 +1054,7 @@ class Checkout extends Component {
                                                         <span className={"text-left mx-auto "+Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}
                                                     </span> */}
                                                     <span className={"col-6 mb-1 "+Style.checkoutCurrencyWrapper}>
-                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount : "0.00"}</span>
+                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.taxAmount>0 ? this.state.recentCartData.paymentDetails.taxAmount.toFixed(2) : "0.00"}</span>
                                                     </span>
                                                     <span className="col-6 mb-1">Discount Coupon :</span>
                                                     {/* <span className="col-6 mb-1 textAlignRight">
@@ -1064,7 +1064,7 @@ class Checkout extends Component {
                                                         }
                                                     </span> */}
                                                     <span className={"col-6 mb-1 "+Style.checkoutCurrencyWrapper}>
-                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount : "0.00"}</span>
+                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0? this.state.recentCartData.paymentDetails.afterDiscountCouponAmount.toFixed(2) : "0.00"}</span>
                                                         {this.state.recentCartData.paymentDetails.afterDiscountCouponAmount>0&&
                                                         <span className="deleteCoupon" onClick={this.deleteCoupon.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                         }
@@ -1077,7 +1077,7 @@ class Checkout extends Component {
                                                         }
                                                     </span> */}
                                                     <span className={"col-6 mb-1 "+Style.checkoutCurrencyWrapper}>
-                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.creditPointsValueUsed>0? this.state.recentCartData.paymentDetails.creditPointsValueUsed : "0.00"}</span>
+                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails.creditPointsValueUsed>0? this.state.recentCartData.paymentDetails.creditPointsValueUsed.toFixed(2) : "0.00"}</span>
                                                         {this.state.recentCartData.paymentDetails.creditPointsValueUsed > 0 &&
                                                         <span className={Style.deleteCredit} onClick={this.deleteCredit.bind(this)}> &nbsp;<i className="fa fa-trash"></i></span>
                                                         }
@@ -1104,7 +1104,7 @@ class Checkout extends Component {
                                                                                 <div className="container">
                                                                                     <div className="row">
                                                                                     <div className="col-6 text-left">Delivery Charges&nbsp; :</div>
-                                                                                    <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;{vendorWiseCartData.vendor_shippingCharges} &nbsp;{this.state.currency}</div>
+                                                                                    <div className="col-6 text-right NoPadding font-weight-bold "> &nbsp;{vendorWiseCartData.vendor_shippingCharges.toFixed(2)} &nbsp;{this.state.currency}</div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1115,7 +1115,7 @@ class Checkout extends Component {
                                                                         <div className="container pb-4">
                                                                         <div className="row">
                                                                           <div className="col-6 text-left">Total Delivery Charges&nbsp; :</div>&nbsp;&nbsp;
-                                                                          <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData.paymentDetails.shippingCharges} &nbsp;{this.state.currency}</div>
+                                                                          <div className="col-5 text-right NoPadding font-weight-bold ">&nbsp;&nbsp;&nbsp;{this.props.recentCartData.paymentDetails.shippingCharges.toFixed(2)} &nbsp;{this.state.currency}</div>
                                                                         </div>
                                                                        </div>
                                                                     
@@ -1211,7 +1211,7 @@ class Checkout extends Component {
                                                             <li>Products marked as 'non-returnable' on the product detail page cannot be returned.</li>
                                                             <li>Products may not be eligible for return in some cases, including cases of buyer's remorse such as incorrect model or color of product ordered or incorrect product ordered.</li>
                                                             <li>The price of products is as quoted on the site from time to time.</li>
-                                                                                                                    </ul>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
