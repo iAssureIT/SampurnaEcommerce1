@@ -46,6 +46,7 @@ import AllOrdersList                from './StoreManagement/orders/component/All
 // import DispatchedOrdersList         from './StoreManagement/orders/component/DispatchedOrdersList.js';
 // import DeliveryInitiatedOrders      from './StoreManagement/orders/component/DeliveryInitiatedOrders.js';
 // import DeliveredOrders              from './StoreManagement/orders/component/DeliveredOrders.js';
+import OrderDispatchCenter          from './StoreManagement/OrderDispatchCenter/OrderDispatchCenter.js';
 import ReturnedProducts               from './StoreManagement/orders/component/ReturnedProducts.js';
 import ViewReturnedProduct           from './StoreManagement/orders/component/ViewReturnedProduct.js';
 
@@ -269,6 +270,7 @@ class Layout extends Component  {
                                                         <Route path="/dispatched-orders-list"                           exact strict component={DispatchedOrdersList} />
                                                         <Route path="/delivery-initiated-orders"                        exact strict component={DeliveryInitiatedOrders} />
                                                         <Route path="/delivered-orders-list"                            exact strict component={DeliveredOrders} /> */}
+                                                        <Route path="/order-dispatch-center"                                exact strict component={OrderDispatchCenter} />
                                                         <Route path="/returned-products"                                exact strict component={ReturnedProducts} />
                                                         <Route path="/returned-product/:return_id"                     exact strict component={ViewReturnedProduct} />
 
