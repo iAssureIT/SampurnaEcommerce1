@@ -1972,7 +1972,7 @@ exports.user_login_mob_email = (req, res, next) => {
 					if (updatedata.nModified === 1) {
 						User.find({ "profile.email": emailId.toLowerCase() })
 						.exec()
-						.then(usersdata => {
+						.then(async(usersdata) => {
 							console.log("emailOTP  data===>",usersdata[0].profile);
 								var userNotificationValues = {
 									"event"			: "SendOTP",
