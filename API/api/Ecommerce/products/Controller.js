@@ -1550,7 +1550,7 @@ exports.fetch_product = (req,res,next)=>{
 		Products.find({productCode : product.productCode, vendor_ID : ObjectId(req.body.vendor_id)})
 		.populate("vendor_ID")
 		.then(async(products)=>{
-			console.log("products => ",products)
+			// console.log("products => ",products)
 			if(products && products.length > 0){
 				// product = {...product._doc, isWish : false};
 				// console.log("user_ID",user_ID);
@@ -1570,7 +1570,7 @@ exports.fetch_product = (req,res,next)=>{
 				if(req.body.user_id && req.body.user_id !== 'null' && req.body.user_id !== undefined){
 					for (var i = 0; i < products.length; i++) {
 						var inventoryData               = await ProductInventory.findOne({productCode : products[i].productCode, itemCode : products[i].itemCode, vendor_ID : ObjectId(products[i].vendor_ID._id)},{currentQuantity : 1})
-						console.log("inventoryData => ",inventoryData)
+						// console.log("inventoryData => ",inventoryData)
 						products[i]                     = {...products[i]._doc, isWish : false}; 
 						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
 						products[i].vendorLocation_id   = await products[i].vendor_ID.locations && products[i].vendor_ID.locations.length > 0 
@@ -1607,7 +1607,7 @@ exports.fetch_product = (req,res,next)=>{
 				}else{
 					for (var i = 0; i < products.length; i++) {
 						var inventoryData               = await ProductInventory.findOne({productCode : wishdata[i].product_ID.productCode, itemCode : wishdata[i].product_ID.itemCode, vendor_ID : ObjectId(wishdata[i].product_ID.vendor_ID)},{currentQuantity : 1});
-						console.log("inventoryData => ",inventoryData);
+						// console.log("inventoryData => ",inventoryData);
 						products[i].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 
 					}
 					if(i >= products.length){
@@ -1975,7 +1975,7 @@ exports.upload_photo_product_code = (req,res,next)=>{
 	])
 	.exec()
 	.then(data=>{  
-		console.log("data => ",data[0])  
+		// console.log("data => ",data[0])  
 		if(data && data !== undefined && data !== null && data[0].productImage && data[0].productImage.length > 0 && data[0].productSmallImage && data[0].productSmallImage.length > 0){
 			res.status(200).json({
 				"message": "Some images are already exist."
@@ -2120,7 +2120,7 @@ exports.similar_products = (req,res,next)=>{
 		if(products && products.length > 0){
 			for (let k = 0; k < products.length; k++) {
 				var inventoryData             	= await ProductInventory.findOne({productCode : products[k].productCode, itemCode : products[k].itemCode, vendor_ID : ObjectId(products[k].vendor_ID._id)},{currentQuantity : 1});
-				console.log("inventoryData => ",inventoryData)
+				// console.log("inventoryData => ",inventoryData)
 				products[k].availableQuantity   = inventoryData  && inventoryData !== null ? inventoryData.currentQuantity : 0; 						
 				products[k]                     = {...products[k]._doc, isWish : false};
 				products[k].vendorLocation_id 	= await products[k].vendor_ID.locations && products[k].vendor_ID.locations.length > 0 
