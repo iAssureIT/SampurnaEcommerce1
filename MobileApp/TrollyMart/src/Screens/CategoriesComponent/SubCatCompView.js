@@ -291,15 +291,15 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                   <View style={styles.qtys}>
                     <Counter start={1} min={1}
                       buttonStyle={{
-                        borderColor: "#00000040",
+                        borderColor: "#707070",
                         borderWidth: 1,
                         borderRadius: 25,
                         width: 33,
                         height: 33,
-                        backgroundColor:"#CFCFCF"
+                        backgroundColor:"#707070"
                       }}
                       buttonTextStyle={{
-                        color: colors.theme,
+                        color: '#fff',
                         fontSize:20
                       }}
                       countTextStyle={{
@@ -339,11 +339,11 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                     >
                       <TouchableOpacity style={[styles.flx1, styles.wishlisthrtproductview]}
                         onPress={() =>addToWishList(productID,productdata.vendor_ID,productdata.section.replace(/\s/g, '-'))} >
-                        <Icon size={20} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{backgroundColor:"#E6E6E6",padding:5,borderRadius:100}}/>
+                        <Icon size={18} name={productdata.isWish ? 'heart' : 'heart-o'} type='font-awesome' color={productdata.isWish ? "#DC1919":"#707070" } iconStyle={{backgroundColor:"#E6E6E6",padding:8,borderRadius:100}}/>
                       </TouchableOpacity>
                       <TouchableOpacity style={[styles.flx1, styles.share]}
                         onPress={() =>onShare()} >
-                        <Icon size={20} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",padding:5,borderRadius:100}} />
+                        <Icon size={16} name="share-alt" type='font-awesome-5'  color={"#707070"} iconStyle={{backgroundColor:"#E6E6E6",padding:8,borderRadius:100}} />
                       </TouchableOpacity>
                     </FastImage>
                     );
@@ -364,7 +364,7 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 <View style={styles.flxdirview}>
                   <Text style={styles.prodcurrency}>{currency} </Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountpricecut}> {productdata.originalPrice.toFixed()}</Text>}
-                  <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}</Text>
+                  <Text style={styles.proddetprice}> {productdata.discountedPrice.toFixed(2)}&nbsp;</Text>
                   {productdata.discountPercent > 0 && <Text style={styles.discountPercent}> {productdata.discountPercent}%</Text>}
                 </View>
                 <View style={{height:60,width:80,marginLeft:30}}>
@@ -412,29 +412,29 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                 </View>
               </View>    
               <View style={{marginTop:15,flexDirection:'row'}}>
-                <Icon name="clipboard-arrow-left" type="material-community" size={15}/>
+                <Icon color="#5B8E7E" name="clipboard-arrow-left" type="material-community" size={15}/>
                 {productdata.productReturnable &&  productdata.productReturnable === "returnable" ?
-                  <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>Product return available.</Text>
+                  <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>&nbsp;&nbsp;Product return available.</Text>
                   :
-                  <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>This item is non-returnable.</Text>
+                  <Text style={{color:"#000000",fontSize:12,fontFamily:"Montserrat-SemiBold"}}>&nbsp;&nbsp;This item is non-returnable.</Text>
                 }
               </View>
               <View style={{flexDirection:'row',height:32,marginTop:12}}>
-                  <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 0 ? "#E6E6E6" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(0)}>
+                  <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 0 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(0)}>
                       <Text style={CommonStyles.label,{color:colors.cartButton}}>Product Information</Text>
                   </TouchableOpacity>  
-                  <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 1 ? "#E6E6E6" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(1)}>
+                  <TouchableOpacity style={{flex:0.5,height:"100%",justifyContent:'center',alignItems:'center',backgroundColor:tab === 1 ? "#EEEEEE" :"#fff",borderTopRightRadius:4,borderTopLeftRadius:4}} onPress={()=>selectedTab(1)}>
                       <Text style={CommonStyles.label,{color:colors.cartButton}}>Rating & Feedback</Text>
                   </TouchableOpacity>  
               </View>
-              <View style={{backgroundColor:"#E6E6E6",padding:5}}>
+              <View style={{backgroundColor:"#EEEEEE",padding:5}}>
                 {tab === 0 ?
                 <Text style={styles.detaildetailstxt}>{productdata.productDetails}</Text>
                 :
                 productReview && productReview.length >0 ?
                     productReview.map((item,index)=>{
                       return(
-                        <Card containerStyle={{backgroundColor:"#E6E6E6",marginHorizontal:0,margin:0,borderWidth:0,paddingHorizontal:0}} wrapperStyle={{flexDirection:"row",flex:1}}>
+                        <Card containerStyle={{backgroundColor:"#EEEEEE",marginHorizontal:0,margin:0,borderWidth:0,paddingHorizontal:0}} wrapperStyle={{flexDirection:"row",flex:1}}>
                           <View style={{flex:0.25,alignItems:'center'}}>
                           <Avatar
                             size="small"
@@ -445,22 +445,22 @@ export const SubCatCompView = withCustomerToaster((props)=>{
                           />
                           </View>  
                           <View style={{flex:0.75}}>
-                            <Text>{item.customerName.split(' ')[0]}</Text>
-                            <Text style={[CommonStyles.label,{marginTop:5}]}>{item.customerReview}</Text>
+                            <Text style={{color:'#000',fontSize:16}}>{item.customerName.split(' ')[0]}</Text>
+                            <Text style={[CommonStyles.label,{marginTop:5,fontSize:11}]}>{item.customerReview}</Text>
                           </View>
                           <View style={{flex:0.75}}>
-                            <Text>{item.customerName.split(' ')[0]}</Text>
+                            {/* <Text>{item.customerName.split(' ')[0]}</Text> */}
                             <View style={{flexDirection:'row'}}>
                               <Rating
                                 // showRating
-                                ratingBackgroundColor='#E6E6E6'
+                                ratingBackgroundColor='#EEEEEE'
                                 startingValue={item.rating}
                                 // onFinishRating={(e)=>setRating(e)}
-                                style={{alignSelf:"flex-start",backgroundColor:'#E6E6E6'}}
-                                imageSize={20}
+                                style={{alignSelf:"flex-start",backgroundColor:'#EEEEEE'}}
+                                imageSize={12}
                                 readonly
                               />
-                              <Text style={[CommonStyles.label,{paddingLeft:5}]}>{item.rating}</Text>
+                              <Text style={[CommonStyles.label,{paddingLeft:5,fontSize:7}]}>&nbsp;&nbsp;{item.rating}</Text>
                             </View>  
                           </View>    
                       </Card>

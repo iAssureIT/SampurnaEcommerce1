@@ -64,11 +64,12 @@ export default StyleSheet.create({
   },
   discountpricecut: {
 		textDecorationLine: 'line-through',
-    fontSize:15,
+    fontSize:11,
     fontFamily:"Montserrat-Regular",
     color: "#000000",
     opacity: 0.5,
-    alignSelf:'flex-end'
+    alignSelf:'flex-end',
+    marginTop:5,
 	},
   subcatimgbig:{
     height:180,
@@ -182,12 +183,12 @@ export default StyleSheet.create({
   wishlisthrtproductview:{
     position:'absolute',
     bottom:"5%",
-    top: 10,right:3,
+    top: 10,right:30,
   },
   share:{
     position:'absolute',
     bottom:"5%",
-    top: 50,right:3
+    top: 50,right:30
   },
   width160:{
     // width:180,
@@ -300,7 +301,7 @@ export default StyleSheet.create({
 		alignItems: 'center',
 	},
   proddetprice:{
-    fontSize:28,
+    fontSize:24,
     fontFamily:"Montserrat-Bold",
     color:"#000000",
 
@@ -655,7 +656,8 @@ export default StyleSheet.create({
   discountPercent:{
     fontFamily:"Montserrat-Regular",
     color: "#5B8E7E",
-    opacity: 1
+    opacity: 1,
+    fontSize:9
   }
   
 })

@@ -558,20 +558,25 @@ export default StyleSheet.create({
     // opacity: 0.8,
     resizeMode:'cover',
   },
+
+  outerFaq:{
+    
+  },
   queBox:{
     height  :42,
     borderRadius:15,
     marginBottom:15,
     paddingVertical:0,
     marginHorizontal:15,
-    borderWidth:0.5,
-    borderColor:"#aaa"
+  //  borderWidth:0.5,
+    // borderColor:"#aaa",
+    elevation:2
   },
   queAns:{
     minHeight:118,
     paddingHorizontal:10,
     paddingVertical:10,
-    marginTop:-15,
+    marginTop:-13,
     marginBottom:15,
     borderBottomLeftRadius:9,
     borderBottomRightRadius:9,
