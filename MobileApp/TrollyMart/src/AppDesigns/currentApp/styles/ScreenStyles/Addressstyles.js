@@ -392,4 +392,20 @@ export default StyleSheet.create({
   marTp15:{
     marginTop:15
   },
+
+  addBtnClass:{
+    height: 40, 
+    width: 40,
+    padding:15,
+    borderRadius:100,
+    elevation:2
+  },
+
+  addBtnImg:{
+    height: 20, 
+    width: 20,
+    resizeMode:'cover',
+    marginTop:-3,
+    marginLeft:-4,
+  },
 })

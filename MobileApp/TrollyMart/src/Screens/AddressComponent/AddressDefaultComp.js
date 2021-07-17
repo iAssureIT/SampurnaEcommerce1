@@ -259,9 +259,11 @@ import ActionButton from 'react-native-action-button';
 
         {!disabled && <ActionButton 
           buttonColor="#fff" 
-          style={{marginBottom:30,padding:0}} 
+          style={{marginBottom:20,marginRight:-20,padding:0}} 
           // icon={<Icon name="plus-circle-outline" type="material-community" size={30} iconStyle={{elevation:5}} color={colors.cartButton}/>}
-          icon={<Image source={require("../../AppDesigns/currentApp/images/addAddress.png")} style={{ height: 35, width: 35 }} />}
+          icon={<View style={styles.addBtnClass}>
+            <Image source={require("../../AppDesigns/currentApp/images/addAddress.png")} style={styles.addBtnImg} />
+          </View>}
           onPress={()=> navigation.navigate('AddressComponent',{"delivery":delivery})}
         />}
       </React.Fragment>
