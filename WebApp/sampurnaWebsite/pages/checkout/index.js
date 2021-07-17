@@ -1085,7 +1085,7 @@ class Checkout extends Component {
                                                     <span className="col-7 mb-1">Total Delivery Charges :</span>
                                                     <span className={"col-md-5 col-12 "+Style.checkoutCurrencyWrapper2}>
                                                         {/* <span className={" " +Style.currencyColor}>{this.state.currency}</span> &nbsp; {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 } */}
-                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : 0.00 }</span>
+                                                        <span className={"col-3 mr-0 pr-0 "+Style.currencyColor}>{this.state.currency}</span><span className="col-3 pl-0"> {this.state.recentCartData.paymentDetails? (this.state.recentCartData.paymentDetails.shippingCharges).toFixed(2) : "0.00" }</span>
 
                                                     <a data-tip data-for="vendorTooltip">
                                                     &nbsp; &nbsp;<i className={"fa fa-info-circle "+Style.infoCircle}></i>
