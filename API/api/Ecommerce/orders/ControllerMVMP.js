@@ -3774,3 +3774,83 @@ exports.daily_vendor_orders = (req, res, next) => {
 		});
 	});
 };
+
+
+// ---------------- Ready to Dispatch Vendor Orders for Dispatch Center ----------------
+exports.list_ready_to_dispatch_orders = (req, res, next) => {
+	console.log("start => ", moment(new Date(req.body.deliveryDate)).startOf('day').toDate());
+	console.log("end => ", moment(new Date(req.body.deliveryDate)).endOf('day').toDate());
+	Orders.aggregate([	   
+		{ "$match": 
+			{"vendorOrders": 
+				{"$elemMatch":
+					{
+						"orderStatus"		: req.body.orderStatus,
+						"deliveryPerson_id" : ObjectId(req.body.user_id),
+						"deliveryStatus" 	: {
+							"$elemMatch" : {
+								"statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+								"status" 			: req.body.orderStatus,
+								"timestamp" 		: {
+									$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),
+									$lte 	: moment(new Date(req.body.deliveryDate)).endOf('day').toDate()
+								}
+							}
+						}
+					}
+				}
+		  	}
+		},
+		{ "$addFields"	: 
+			{ "vendorOrders" : 
+				{ "$filter" : 
+					{
+						"input" : "$vendorOrders",  
+						"as"    : "sa",
+						"cond"  : {
+							"$and" : [
+								{ "$eq" : [ "$$sa.orderStatus", req.body.orderStatus ] },
+								{ "$eq" : [ "$$sa.deliveryPerson_id", ObjectId(req.body.user_id) ] },
+								// {"$$sa.deliveryStatus" 	: 
+								// 	// {"$all": 
+								// 		{"$elemMatch": 	
+								// 			{
+								// 				"$$sa.deliveryStatus.statusUpdatedBy" 	: ObjectId(req.body.user_id), 
+								// 				"$$sa.deliveryStatus.status" 			: req.body.orderStatus,
+								// 				"$$sa.deliveryStatus.timestamp" 		: {
+								// 					$gte 	: moment(new Date(req.body.deliveryDate)).startOf('day').toDate(),
+								// 					$lte 	: moment(new Date(req.body.deliveryDate)).endOf('day').toDate()
+								// 				}
+								// 			}
+								// 		}
+								// 	// }
+								// }] },
+								// { "$eq" : [ "$$sa.deliveryStatus.statusUpdatedBy", ObjectId(req.body.user_id) ] },
+								//  { "$gt": [ { "$size": "$$sa.deliveryStatus" }, 0 ] }
+							]
+						}
+			  		}
+				}
+		  	}	
+		}
+	])
+	.then(data => {
+		console.log("data => ",data);
+		//   var tableData = data.map((a, i) => {
+		// 	return {
+		// 	   "orderID": a.orderID,
+		// 	   "userFullName": a.userFullName,
+		// 	   "products": ((a.products.map((b, j) => { return '<div><p>Product Name: ' + b.productName + '</p><p>Product Code: ' + b.productDetail.productCode + '-' + b.productDetail.itemCode + '</p><p>Sell Quantity: ' + b.quantity + '</p><p>Price: <span class="ororiginalPrice">' + (b.discountPercent > 0 ? b.originalPrice : '') + '</span>  <span>' + b.discountedPrice + '</span>  <span class="orPercent">' + (b.discountPercent > 0 ? b.discountPercent + '%' : '') + '</span>  </p>' + '</div><br/>' })).toString()).replace(/,/g, " "),
+		// 	   "cartQuantity": a.cartQuantity,
+		// 	   "status": a.status
+		// 	}
+		//   })
+		res.status(200).json(data);
+	})
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+		error: err
+		});
+	});
+};

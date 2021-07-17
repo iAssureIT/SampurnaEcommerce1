@@ -138,7 +138,7 @@ class OrderDispatchCenter extends Component{
 	
 	/* ======= get Single order ========== */
 	getOneOrder(order_id, vendor_id){
-		axios.get('/api/orders/get/one/order/'+order_id)
+		axios.get('/api/orders/dispatchcenter/one/order/'+order_id + "/" +vendor_id)
 		.then((response) => {
 			// console.log("get one order response ==>",response.data)
 			if (response.data && response.data.vendorOrders && response.data.vendorOrders.length > 0) {
@@ -185,7 +185,7 @@ class OrderDispatchCenter extends Component{
 		.then(preferences =>{
 			if(preferences.data && preferences.data.length > 0){
 				this.setState({
-					'currency' 			: preferences.data[0].currency
+					'currency' 	: preferences.data[0].currency
 				})									
 			}
 		})
@@ -212,13 +212,13 @@ class OrderDispatchCenter extends Component{
 		var formValues = await {
 		  startRange : startRange,
 		  limitRange : limitRange,
-		  status 	 : this.state.orderStatus
+		  status 	 : ["Ready to Dispatch", "Allocated", "Allocation Rejected"]
 		}
 		
-		// axios.post('/api/orders/get/list_orders_by_status',formValues)
-		// .then((response)=>{
-		socket.emit('adminOrtderListValues',formValues);
-		socket.on("adminBookingList", (response)=>{
+		axios.post('/api/orders/get/list_ready_to_dispatch_orders',formValues)
+		.then((response)=>{
+		// socket.emit('adminOrtderListValues',formValues);
+		// socket.on("adminBookingList", (response)=>{
 		console.log('order tableData', response);		               
 		  	var tableData = response.map((a, i)=>{
 			// var tableData = response.data.reverse().map((a, i)=>{                      
@@ -297,22 +297,22 @@ class OrderDispatchCenter extends Component{
 				tableData : tableData
 			},()=>{})
 		})
-		// .catch((error)=>{
-		// 	console.log('error', error);
-		// 	if(error.message === "Request Failed with Status Code 401"){
-		// 		localStorage.removeItem("userDetails");
-		// 		localStorage.clear();
-		// 		swal({  
-		// 			title : "Your Session is Expired.",                
-		// 			text  : "You need to login again. Click OK to Go to Login Page"
-		// 		})
-		// 		.then(okay => {
-		// 			if (okay) {
-		// 				window.location.href = "/login";
-		// 			}
-		// 		});
-		// 	}
-		// });
+		.catch((error)=>{
+			console.log('error', error);
+			if(error.message === "Request Failed with Status Code 401"){
+				localStorage.removeItem("userDetails");
+				localStorage.clear();
+				swal({  
+					title : "Your Session is Expired.",                
+					text  : "You need to login again. Click OK to Go to Login Page"
+				})
+				.then(okay => {
+					if (okay) {
+						window.location.href = "/login";
+					}
+				});
+			}
+		});
 	}
 
 	/*======== openCancelledRemarkModal() ========*/

@@ -118,11 +118,11 @@ router.get('/get/inStoreBillCounts/:franchiseID', 											    checkAuth, orde
 
 router.delete('/get/deleteAllOrders', 															checkAuth, orderController.deleteAllOrders);
 
-//code by madhuri ghute end
+// Order Dispatch Center
 
+router.post('/get/list_ready_to_dispatch_orders',                                               orderController.list_ready_to_dispatch_orders)
 
-//Code By Rushikesh For Driver App
-router.post('/get/nearest_vendor_orders',                                                        orderController.nearest_vendor_orders)
+//Mobile Driver App
 
 router.post('/get/single/vendor_order',                                                          orderController.get_single_vendor_order)
 
@@ -131,5 +131,8 @@ router.patch('/deliver/vendor_order',                                           
 router.post('/get/daily/vendor_orders',                                                         orderController.daily_vendor_orders)
 
 router.post('/get/monthly/vendor_orders',                                                         orderController.monthly_vendor_orders)
+
+//Code By Rushikesh For Driver App
+router.post('/get/nearest_vendor_orders',                                                        orderController.nearest_vendor_orders)
 
 module.exports = router; 
