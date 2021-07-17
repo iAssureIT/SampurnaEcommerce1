@@ -65,6 +65,11 @@ class OneFieldForm extends React.Component {
         $.validator.addMethod("regxonefield", function (value, element, regexpr) {
             return regexpr.test(value.trim());
         }, "Please enter valid field value");
+
+        $.validator.addMethod("letterswithspace", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z]*$/g.test(value);
+        }, "Please enter letters only");
+
         jQuery.validator.setDefaults({
             debug: true,
             success: "valid"
@@ -75,6 +80,7 @@ class OneFieldForm extends React.Component {
                 fieldName: {
                     required: true,
                     regxonefield: /^[-a-zA-Z0-9-()&]+(\s+[-a-zA-Z0-9-()&]+)*$/,
+                    letterswithspace: true
                 },
             },
            

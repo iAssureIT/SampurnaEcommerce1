@@ -18,7 +18,8 @@ class Department extends Component {
       "fields" : {
           placeholder     : "Enter Unit Of Measurment..",
           title           : "Unit Of Measurment Master",
-          attributeName   : "unit"
+          attributeName   : "unit",
+          name            :"vvv"
       },
       "tableHeading": {
           unit: "Unit Of Measurment",
@@ -204,6 +205,7 @@ class Department extends Component {
               // goodRecordsTable={this.state.goodRecordsTable}
               // goodDataCount={this.state.goodDataCount}
               tableName = {this.state.tableName}
+              fields    ={this.state.fields}
               />
           </div>
         </div>
