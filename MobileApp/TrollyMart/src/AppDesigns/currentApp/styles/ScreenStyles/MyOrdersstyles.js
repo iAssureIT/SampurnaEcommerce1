@@ -580,7 +580,7 @@ export default StyleSheet.create({
     marginBottom:15,
     borderBottomLeftRadius:9,
     borderBottomRightRadius:9,
-    elevation:2,
+    elevation:2,    
     backgroundColor:'#fff',
     borderColor:'#707070',
   },
