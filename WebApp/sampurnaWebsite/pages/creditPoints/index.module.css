@@ -3,6 +3,8 @@
     /* border: solid 1px #033554; */
     height: 440px;
     border-radius: 20px;
+    height:fit-content! important;
+    margin-top: -45px! important;
     
 
 }
