@@ -1959,7 +1959,7 @@ exports.user_login_mob_email = (req, res, next) => {
 					}
 				)
 				.exec()
-				.then(updatedata => {
+				.then(async(updatedata) => {
 					console.log("updatedata ===> ",updatedata);
 					// if (updatedata.nModified === 1) {
 						// User.find( 
