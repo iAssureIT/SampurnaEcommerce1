@@ -262,19 +262,16 @@ export const SubCatCompView = withCustomerToaster((props)=>{
             </View> 
             
             <View style={styles.formWrapper}>  
-              {/* <MenuCarouselSection
-                    navigation  = {navigation} 
-                    showImage   = {true}
-                    selected    = {section}
-                    boxHeight   = {40}
-                    index       = {index}
-                />                          */}
-                {/* <CategoryList
-                  navigation  = {navigation}
-                  showImage = {true}
-                  boxHeight = {30}
-                  setCategory = {setCategory}
-                /> */}
+                <CategoryList
+                  navigation        = {navigation}
+                  showImage         = {true}
+                  boxHeight         = {34}
+                  // setSubCategory    = {setSubCategory}
+                  section           = {productdata.section}
+                  index             = {index}
+                  vendorLocation_id = {vendorLocation_id}
+                  category          = {category ? category : productdata.category}
+                />
               <View >
                 <View style={styles.formWrapper}>  
                 <SubCategoryList
@@ -521,6 +518,5 @@ export const SubCatCompView = withCustomerToaster((props)=>{
     </View>
   );
 })
-
 
 

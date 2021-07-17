@@ -37,7 +37,7 @@ const VendorProducts = (props)=>{
   const [subCategory,setSubCategory]= useState([]);
   const {navigation,route}=props;
   const [showSort, toggleSort] = useState(false);
-  const {vendor,sectionUrl,section,index,vendorLocation_id,vendor_ID}=route.params;
+  const {vendor,sectionUrl,section,index,vendorLocation_id,category}=route.params;
   const dispatch 		= useDispatch();
 
   TouchableOpacity.defaultProps = {...(TouchableOpacity.defaultProps || {}), delayPressIn: 0};
@@ -215,6 +215,5 @@ const mapDispatchToProps = (dispatch)=>{
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(VendorProducts);
-
 
 
