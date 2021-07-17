@@ -70,9 +70,9 @@ class SubCategoryBlock extends Component{
                                     width={100} 
                                     layout={'intrinsic'}
                                   />
-                              <div className={"col-12 text-center " +Style.categoryName} title={categorydata.subCategoryTitle}>{categorydata.subCategoryTitle}</div>
-
+                                  <div className={"col-12 text-center " +Style.categoryName} title={categorydata.subCategoryTitle}>{categorydata.subCategoryTitle}</div>
                               </div>
+                              
                             </a>
                           </Link>
                       </div>                            

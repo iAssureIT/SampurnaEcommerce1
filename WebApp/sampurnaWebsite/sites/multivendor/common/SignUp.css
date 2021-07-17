@@ -377,6 +377,17 @@ input[type=number] {
   font-weight: bold;
 }
 
+/* hideshoew password */
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+
+
 @media only screen and (max-device-width: 480px) {
     
     .loginforgotpass label,

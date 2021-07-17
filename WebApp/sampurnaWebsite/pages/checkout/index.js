@@ -12,14 +12,15 @@ import UserAddress          from './UserAddress.js';
 import Loader               from '../../Themes/Sampurna/blocks/StaticBlocks/loader/Loader.js';
 import {ntc}                from '../../Themes/Sampurna/blocks/StaticBlocks/ntc/ntc.js';
 import { connect }          from 'react-redux';
-import {getCartData}        from '../../redux/actions/index.js'; 
 import  store               from '../../redux/store.js'; 
+import {getCartData,getAddressData}                        from '../../redux/actions/index.js'; 
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import moment               from 'moment';
 import swal                 from 'sweetalert';
 import WebsiteLogo          from '../../Themes/Sampurna/blocks/5_HeaderBlocks/SampurnaHeader/Websitelogo.js';
 import Style                from './index.module.css';
 import ReactTooltip         from 'react-tooltip';
+
 
 class Checkout extends Component {
     constructor(props) {
@@ -63,6 +64,7 @@ class Checkout extends Component {
     }
     async componentDidMount() {
         await this.props.fetchCartData();
+        
         this.setState({
             recentCartData: this.props.recentCartData
         })
@@ -84,7 +86,9 @@ class Checkout extends Component {
                 currency     : currency,
             },()=>{
                 this.getCreditData();
-                this.getAddressWithDistanceLimit();
+                // this.getAddressWithDistanceLimit();
+                this.props.fetchAddressData();
+
                 axios.get('/api/users/get/' + this.state.user_ID)
                 .then(result => {
                     this.setState({
@@ -98,6 +102,23 @@ class Checkout extends Component {
             })
         }
         this.gettimes(this.state.startRange, this.state.limitRange); 
+    }
+    static getDerivedStateFromProps(props, state) {
+        // Any time the current user changes,
+        // Reset any parts of state that are tied to that user.
+        // In this simple example, that's just the email.
+        // if (props.props.recentAddressData !== state.prevPropsUserID) {
+        console.log("props.recentAddressData===",props.recentAddressData);
+        if (props.recentAddressData) {
+          return {
+            deliveryAddress: props.recentAddressData,
+            
+          };
+        }
+        return null;
+    }
+    getDerivedStateFromProps(){
+
     }
     getAddressWithDistanceLimit(){
         var formValues = {
@@ -134,7 +155,6 @@ class Checkout extends Component {
         .catch((error)=>{
             console.log("Error while getting getAddressWithDistanceLimit:",error);
         })
-
     }
     
     validateForm() {
@@ -755,16 +775,17 @@ class Checkout extends Component {
 
     render() {
         // console.log("this.state.recentCartData===",this.props.recentCartData);
+        console.log("fetchAddressData===",this.props.recentAddressData);
         return (
             <div className="col-12 NoPadding">
             < Header/>
             <div className="col-12 checkoutWrapper" style={{ backgroundColor: "#ffffff" }}>
                 <Message messageData={this.state.messageData} />
+                
                 <div className="row">
                     {/* <Loader type="fullpageloader" /> */}
                     <div className="modal  mt-4 mb-4 " id="checkoutAddressModal" role="dialog">  
                     <div className={"col-5 mx-auto NoPadding "+Style.modalMainWrapper}>
-
                         <div className={"modal-content  pb-0 "+Style.modalContentM}>    
                         <div className={"modal-header globalBgColor col-12 " +Style.modalHeaderM}>
                             <div className={"modal-title col-12 modalheadingcont pb-3  underline " +Style.f14BM }><img className={" "+Style.modalLogoWrapperM} src="/images/eCommerce/TrollyLogo.png" alt="T&C MODAL-LOGO"/><p>Shipping Address</p></div>
@@ -774,13 +795,16 @@ class Checkout extends Component {
                                 <UserAddress />
                             </div>
                         </div>
-                        </div>
+                    </div>
                     </div>
 
                     {/*<SmallBanner bannerData={this.state.bannerData} />*/}
 
                     <div className={"col-10 offset-1 " +Style.cartTitle}>Order Summary</div>
-                    {this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length>0?
+                    {this.props.loading ?
+                        <Loader type="fullpageloader"/>
+                    :
+                    this.state.recentCartData && this.state.recentCartData.vendorOrders && this.state.recentCartData.vendorOrders.length>0?
                     <div className="container-fluid">
                         <form className="col-12 " id="checkout">
                            <div className="row">
@@ -805,16 +829,16 @@ class Checkout extends Component {
                                     </div>
                                 </div>
                                 {
-                                    this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
+                                    this.props.recentAddressData && this.props.recentAddressData.length > 0 ?
                                        <div className="">
                                         <div className={"col-12 NoPadding " +Style.shippingAddress}>
                                             <div className={"col-12 " +Style.eCommTitle +" "+Style.paymentMethodTitle}>Shipping Address <span className="required">*</span></div>
                                             <div className={"col-12 pt-4 " +Style.addressWrapper}>
                                             <div className=" col-12 errorMsg mb-2">{this.state.errors.checkoutAddess}</div>
-                                                {this.state.deliveryAddress && this.state.deliveryAddress.length > 0 ?
-                                                    this.state.deliveryAddress.map((data, index) => {
-                                                        // console.log("address data ==", data);
-                                                        {data.distance >=1
+                                                {this.props.recentAddressData && this.props.recentAddressData.length > 0 ?
+                                                    this.props.recentAddressData.map((data, index) => {
+                                                        console.log("address data ==", data);
+                                                        {data.distance.toFixed(2) >=1
                                                         ?   
                                                             $('.addressList_'+data._id).addClass('addressDesabled')
                                                         :
@@ -854,10 +878,9 @@ class Checkout extends Component {
                                                     null
                                                 }
                                             </div>
-                                            
                                         </div>
                                         <div className=" mt2">
-                                                <div className={"btn col-12 " +Style.addBTN1} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
+                                                <div className={"btn col-12 mb-4 " +Style.addBTN1} data-toggle="modal" data-target="#checkoutAddressModal">Add New Address</div>
                                         </div>
                                         </div>
                                         
@@ -1175,11 +1198,11 @@ class Checkout extends Component {
                                         
                                     </div>
 
-                                                    <div className="col-12 mt15">
-                                                        <div className="col-12 checkoutBorder"></div>
-                                                    </div>
+                                        <div className="col-12 mt15">
+                                            <div className="col-12 checkoutBorder"></div>
+                                        </div>
                                                     
-                                                </div>
+                                    </div>
                                             </div>
                                             </div>
                                         </div> 
@@ -1216,7 +1239,6 @@ class Checkout extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                         </div>  
                                     </div>
 
@@ -1232,6 +1254,7 @@ class Checkout extends Component {
                     </div> 
                     }
                 </div>
+                
             </div>
             <Footer />
             </div>
@@ -1241,11 +1264,14 @@ class Checkout extends Component {
 const mapStateToProps = state => (
     // console.log("state in checkout====",state.data.recentCartData),
     {
-      recentCartData: state.data.recentCartData,
+      recentCartData    : state.data.recentCartData,
+      recentAddressData : state.data.recentAddressData,
+      loading           : state.data.loading,
     } 
 );
 const mapDispatchToProps = {
-    fetchCartData: getCartData, 
+    fetchCartData    : getCartData, 
+    fetchAddressData : getAddressData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

@@ -5,6 +5,7 @@ const initialState = {
 	cartData	 	      : [],
 	cartTotal 		      : 0,
     recentCartData        : [],
+    recentAddressData     : [],
     recentWishlistData    :[],
     recentCategoryData    :[],
 	wishlistCount 	      : 0,
@@ -20,8 +21,8 @@ const initialState = {
     pincodeStatus         : '',
     value                 : 0,
     pageData              : [],
-    productApiUrl         :''
-
+    productApiUrl         :'',
+    loading               : false
 }
 const reducer = (state = initialState,action) =>{
     switch (action.type) {
@@ -33,7 +34,7 @@ const reducer = (state = initialState,action) =>{
             // console.log(" set block data===",action.payload);
             return {...state, pageData: action.payload};
         case  'SET_CURRENCY_DATA':
-            console.log(" set CURRENCY data===",action.payload);
+            // console.log(" set CURRENCY data===",action.payload);
             return {...state, pageData: action.payload};
         case  'CART_COUNT_INITIALLY' :
             return {...state, cartCount: action.cartCount};
@@ -43,6 +44,10 @@ const reducer = (state = initialState,action) =>{
         case "FETCH_CART_DATA" :
             // console.log("reducer action.recentcartdata===",action.cartData);
             return {...state, recentCartData: action.cartData};
+        case "FETCH_ADDRESS_DATA" :
+            console.log("reducer action.recentcartdata===",action.addressData);
+            return {...state, recentAddressData: action.addressData};
+            
         case "FETCH_WISHLIST_DATA" :
             // console.log("reducer.wishlistData===",action.wishlistData);
             return {...state, recentWishlistData: action.wishlistData};
@@ -74,7 +79,9 @@ const reducer = (state = initialState,action) =>{
         case "SET_LATLONG" : 
             return {...state, getLatlong: action.setLocations}
         
-           
+        case "SET_LOADING" : 
+            return {...state, loading: action.loading}
+        
             
         default:
             return {...state};

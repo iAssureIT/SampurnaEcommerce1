@@ -155,7 +155,7 @@
 }
 
 .summaryTable>tbody>tr>td {
-    /*white-space: nowrap;*/
+    white-space: nowrap;
     padding: 12px 8px;
     line-height: 1.42857143;
     vertical-align: top;

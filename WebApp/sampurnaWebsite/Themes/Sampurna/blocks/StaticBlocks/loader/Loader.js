@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 
 export default class Loader extends Component {
-  // constructor(props) {
-  //   super(props);
-
-  // }
 
   render() {
-
-    //var tempdata = [1,2,3];
     var tempdata = [];
-
     for (var i = 0; i < this.props.productLoaderNo; i++) {
       tempdata.push(i);
     }

@@ -151,22 +151,22 @@ class Login extends Component {
   }
  
   showSignPass() {
-    $(".hidePwd").css('display','block');
-    $(".showPwd").css('display','none');
+  //   $(".hidePwd").css('display','block');
+  //   $(".showPwd").css('display','none');
 
-    $('.showPwd').toggleClass('showPwd1');
-    $('.hidePwd').toggleClass('hidePwd1');
-    return $('#loginpassword').attr('type', 'text');
+  //   $('.showPwd').toggleClass('showPwd1');
+  //   $('.hidePwd').toggleClass('hidePwd1');
+  //   return $('#loginpassword').attr('type', 'text');
   }
   hideSignPass() {
-    $(".hidePwd").css('display','none');
-    $(".showPwd").css('display','block');
+  //   $(".hidePwd").css('display','none');
+  //   $(".showPwd").css('display','block');
 
-    $('.showPwd').toggleClass('showPwd1');
-    $('.hidePwd').toggleClass('hidePwd1');
+  //   $('.showPwd').toggleClass('showPwd1');
+  //   $('.hidePwd').toggleClass('hidePwd1');
     return $('#loginpassword').attr('type', 'password');
   }
-
+  
   render() {
     return ( 
         <div id="loginFormModal"  className="col-12 NoPadding LoginWrapper mobileViewNoPadding">    
@@ -195,9 +195,19 @@ class Login extends Component {
                 <div className="textAlignLeft frmhgt col-12 NOpadding ">
                   <input type="password" className="form-control formcontrol1" ref="loginpassword" name="loginpassword" id="loginpassword" placeholder="Password"  onChange={this.handleChange.bind(this)} autoComplete="off"/>
                   <div className="showHideSignDiv">
-                    <i className="fa fa-eye showPwd showEyeupSign" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
-                    <i className="fa fa-eye-slash hidePwd hideEyeSignup " aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
+                    <i className="fa fa-eye showEyeSign" aria-hidden="true" onClick={this.showSignPass.bind(this)}></i>
+                    <i className="fa fa-eye-slash hideEyeSignup " aria-hidden="true" onClick={this.hideSignPass.bind(this)}></i>
                   </div>
+
+                  {/* <div className="textAlignLeft frmhgt col-12 NOpadding">
+                      <input id="password-field" type="password" class="form-control passswordInput" name="password" value="secret"
+                        onChange={this.handleChange.bind(this)} autoComplete="off"
+                      />
+                      <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"
+                        onCLick={this.togglePassword.bind(this)}
+                      ></span>
+                  </div> */}
+
                   <div className="errorMsg">{this.state.errors.loginpassword}</div>
                 </div>
 

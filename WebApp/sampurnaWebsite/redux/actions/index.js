@@ -25,6 +25,12 @@ export const fetchcartdata = cartdata => ({
   type: 'FETCH_CART_DATA',
   cartData: cartdata
 });
+
+export const fetchaddressdata = addressdata => ({
+  type: 'FETCH_ADDRESS_DATA',
+  addressData: addressdata
+});
+
 export const cartCount = count => ({
   type: 'CART_COUNT',
   cartCount: count
@@ -62,7 +68,6 @@ export function updateForm(formValue) {
     formToShow: formValue
   }
 }
-
 export function updateCartCount() {
     return dispatch =>{
       var userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -88,6 +93,10 @@ export function getCartData() {
     if(userDetails){
       var userid = userDetails.user_id;
       if (userid) {
+        dispatch({
+          type: 'SET_LOADING',
+          loading: true
+        });
         return axios.get("/api/carts/get/cartproductlist/"+userid)
           .then((response)=>{ 
             if(response){   
@@ -106,6 +115,10 @@ export function getCartData() {
               }
               // console.log("cart response =",response.data);
               dispatch(fetchcartdata(response.data));
+              dispatch({
+                type: 'SET_LOADING',
+                loading: false
+              });
             }
           })
           .catch((error)=>{ 
@@ -116,6 +129,42 @@ export function getCartData() {
       }
   }
   }  
+}
+
+export function getAddressData(){
+  return dispatch =>{
+    var userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    if(userDetails){
+      var userid = userDetails.user_id;
+    }
+    var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails')); 
+      if(sampurnaWebsiteDetails){
+        if(sampurnaWebsiteDetails.deliveryLocation){
+          var deliveryLocation =  sampurnaWebsiteDetails.deliveryLocation;
+            var  latitude  = deliveryLocation.latitude;
+            var longitude = deliveryLocation.longitude;
+        }
+      }
+    if(userDetails && deliveryLocation){
+    var formValues = {
+        "user_id"       : userid,
+        "latitude"      : latitude,
+        "longitude"     : longitude,
+    }
+    console.log("formValues=>",formValues);
+    axios.post('/api/ecommusers/myaddresses',formValues)
+      .then(response => {
+          console.log("address response===",response);
+          if(response){
+             dispatch(fetchaddressdata(response.data.deliveryAddress));
+          }
+      })
+      .catch((error)=>{
+          console.log("Error while getting getAddressWithDistanceLimit:",error);
+          dispatch(fetchaddressdata([]));
+      })
+    }
+  }
 }
 
 //getWishlist new

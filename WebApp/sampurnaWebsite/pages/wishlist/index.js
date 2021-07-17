@@ -31,7 +31,7 @@ class Wishlist extends Component {
   }
 
   async componentDidMount() {
-    $(window).scrollTop(0);
+    // $(window).scrollTop(0);
     var sampurnaWebsiteDetails =  JSON.parse(localStorage.getItem('sampurnaWebsiteDetails'));      
     if(sampurnaWebsiteDetails.deliveryLocation){
       this.setState({
@@ -67,7 +67,7 @@ class Wishlist extends Component {
     axios.post('/api/wishlist/get/userwishlist', formValues)    
       .then((response) => {
         if(response){
-          console.log('wishlist data', response.data);
+          // console.log('wishlist data', response.data);
           this.setState({
             wishlistData: response.data
           })
@@ -117,8 +117,10 @@ class Wishlist extends Component {
         <Message messageData={this.state.messageData} />
           <div className="row">
             <div className={"col-12"}>
-              <div className="col-12 table-caption">
-                  <h4 className="table-caption"> <b>My Wishlist</b></h4>
+              <div className="col-12 mt-2 table-caption">
+                  <div className="col-12">
+                    <h4 className="table-caption"> <b>My Wishlist</b></h4>
+                  </div>
               </div>
               {
                 Array.isArray(this.state.wishlistData) && this.state.wishlistData.length > 0 ?

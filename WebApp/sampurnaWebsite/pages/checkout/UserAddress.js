@@ -6,6 +6,9 @@ import swal                 from 'sweetalert';
 import PhoneInput 			from 'react-phone-input-2';
 import Message              from '../../Themes/Sampurna/blocks/StaticBlocks/Message/Message.js';
 import Style                from './index.module.css';
+import { connect }          from 'react-redux';
+import  store               from '../../redux/store.js'; 
+import {getAddressData}     from '../../redux/actions/index.js'; 
 
 
 class UserAddress extends Component {
@@ -137,12 +140,9 @@ class UserAddress extends Component {
             }
             // console.log("formValues =",formValues);
             if(this.state.deliveryAddressID){
-               // if($("#modalAddressForm").valid() && this.state.pincodeExists){
                     if(this.validateForm()){
-                    // console.log('if form deliveryAddressID', formValues);
                     axios.patch('/api/ecommusers/updateuseraddress', formValues)
                     .then((response)=>{
-                        // console.log("response after update:",response.data.message);
                     this.setState({
                       messageData : {
                         "type" : "outpage",
@@ -157,10 +157,9 @@ class UserAddress extends Component {
                             messageData   : {},
                         })
                     }, 3000);
-                        // swal(response.data);
                         swal({text:response.data}).then(function(){
-                            window.location.reload();
-                          });
+                            this.props.fetchAddressData();
+                        });
                     })
                     .catch((error)=>{
                         console.log('Address error===', error)
@@ -169,28 +168,13 @@ class UserAddress extends Component {
             }else{ 
                 if(this.validateForm()){
                     axios.patch('/api/ecommusers/patch/address', formValues)
-                            .then((response)=>{
-                            // this.setState({
-                            // messageData : {
-                            //     "type" : "outpage",
-                            //     "icon" : "fa fa-check-circle",
-                            //     "message" : "&nbsp; "+response.data.message,
-                            //     "class": "success",
-                            //     "autoDismiss" : true
-                            // }
-                            // })
-                            // setTimeout(() => {
-                            //     this.setState({
-                            //         messageData   : {},
-                            //     })
-                            // }, 3000);
-                            swal("Thank You!!! Address Save successfuly");
-                            window.location.reload();
-                            
-                            })
-                            .catch((error)=>{
-                                console.log('error', error)
-                            });  
+                    .then((response)=>{
+                    swal("Thank You!!! Address Save successfuly");
+                    this.props.fetchAddressData();
+                    })
+                    .catch((error)=>{
+                        console.log('error', error)
+                    });  
                 } 
             }
         }
@@ -279,33 +263,33 @@ class UserAddress extends Component {
                                     }} /> */}
                                 <div className="errorMsg">{this.state.errors.mobileNumber}</div>
                             </div>
-                            <div className="col-12 shippingInput mb-4">
+                            <div className="col-12 shippingInput mb-2">
                                 <label className="col-12 NoPadding">House No/Office No/Building Name <span className="required">*</span> </label>
                                 <input type="text" ref="address1" name="address1" value={this.state.address1} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
                                 <div className="errorMsg">{this.state.errors.address1}</div>
                             </div>
-                            <div className="col-12 shippingInput mb-4">
+                            <div className="col-12 shippingInput mb-2">
                                 <label className="col-12 NoPadding">Area / Street Name</label>
                                 <input type="text" ref="area" name="area" value={this.state.area} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
-                            <div className="col-12 shippingInput mb-4">
+                            <div className="col-12 shippingInput mb-2">
                                 <label className="col-12 NoPadding">Address</label>
                                 <input type="text" ref="address2" name="address2" value={this.state.address} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
-                            <div className="col-12 shippingInput mb-4">
+                            <div className="col-12 shippingInput mb-2">
                                 <label className="col-12 NoPadding">City</label>
                                 <input type="text" ref="city" name="city" value={this.state.city} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
-                            <div className="col-12 shippingInput mb-4">
+                            <div className="col-12 shippingInput mb-2">
                                 <label className="col-12 NoPadding">Country</label>
                                 <input type="text" ref="Country" name="Country"  value={this.state.country} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} disabled />
                             </div>
-                            <div className="col-12 shippingInput mb-4">
+                            <div className="col-12 shippingInput mb-2">
                                 <label className="col-12 NoPadding">Zip/Postal Code</label>
                                 <input type="number" minLength="6" maxLength="6" ref="pincode" name="pincode" value={this.state.pincode}  className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1} />
-                                <div className="errorMsg">{this.state.errors.modalPincode}</div>
+                                
                             </div>   
-                            <div className="col-12 shippingInput mb-4">
+                            <div className="col-12 shippingInput mb-2">
                                 <label className="col-12 NoPadding">Address type <span className="required">*</span></label>
                                 <select name="modaladdType" ref="modaladdType" value={this.state.modaladdType} onChange={this.handleChange.bind(this)} className={"col-lg-12 col-md-12 col-sm-12 col-xs-12 form-control " +Style.formcontrol1}>
                                     <option >-- Select Address Type --</option>
@@ -316,7 +300,7 @@ class UserAddress extends Component {
                                 </select>
                                 <div className="errorMsg">{this.state.errors.modaladdType}</div>
                             </div>
-                            <div className=" checkoutAddressModal col-12 mt-4">
+                            <div className=" checkoutAddressModal col-12 mt-2">
                                 <div className={"col-8 mx-auto NoPadding " +Style.ma}>
                                     <button type="button" className={"btn globaleCommBtn align-center saveAddressBtn col-12 " +Style.saveBtn} onClick={this.saveAddress.bind(this)}>{this.props.addressId ? 'Update Address' :'Save Address'}</button>
                                 </div>
@@ -329,4 +313,13 @@ class UserAddress extends Component {
     }
 }
 
-export default UserAddress;
+const mapStateToProps = state => (
+    {
+      recentAddressData : state.data.recentAddressData,
+    } 
+);
+const mapDispatchToProps = {
+    fetchAddressData : getAddressData
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserAddress);
