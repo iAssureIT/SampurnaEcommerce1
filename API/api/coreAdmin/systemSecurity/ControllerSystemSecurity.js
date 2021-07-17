@@ -1951,7 +1951,7 @@ exports.user_login_mob_email = (req, res, next) => {
 				var mobileOTP = 1234;
 
 				User.updateOne(
-					{"_id" : ObjectId(user._id)},
+					{"_id" : ObjectID(user._id)},
 					{
 						$set: {
 							"profile.otpMobile": mobileOTP,

@@ -341,6 +341,12 @@ export default class AdminDashboard extends Component{
 
 							</ul>
 						</li>
+						<li className="singleTreeview" onClick={this.clickDashboard.bind(this)}>
+							<a href="/order-dispatch-center" title="Master Data" onClick={()=>this.openMenu("dashboard")}>
+								<i className="fa fa-th-large" aria-hidden="true"></i>
+								<span className="sidebarMenuTitle">Order Dispatch Center</span>
+							</a>
+						</li>
 						{this.state.websiteModel !== 'SingleOwner' 
 						?
 							this.state.showInventory === 'Yes' 							
