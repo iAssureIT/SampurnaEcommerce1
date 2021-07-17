@@ -504,7 +504,7 @@ class CartProducts extends Component{
                                                             <div className={"col-7 "+Style.cartInnerTitleWrapper}>Total Delivery Charges 
                                                             </div>
                                                             <div className={"col-5 "+Style.cartInnerTitleWrapper1}> 
-                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? this.props.recentCartData.paymentDetails.shippingCharges : "0.00"}</span> 
+                                                            <span className="col-1 px-1">{this.state.currency}</span><span className="col-3 p-0">{ this.props.recentCartData.paymentDetails.shippingCharges>0 ? (this.props.recentCartData.paymentDetails.shippingCharges).toFixed(2) : "0.00"}</span> 
                                                                 
                                                                 <a data-tip data-for="vendorTooltip">
                                                                     <i className={"fa fa-info-circle  "+Style.infoCircle}></i>
