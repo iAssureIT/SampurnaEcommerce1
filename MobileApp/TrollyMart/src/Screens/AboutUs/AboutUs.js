@@ -15,6 +15,8 @@ import Axios                    from 'axios';
 import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 import HTML from 'react-native-render-html';
+import { connect,useDispatch,useSelector }  from 'react-redux';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 
 export const AboutUs = (props)=>{
     const {navigation}=props;
@@ -22,6 +24,10 @@ export const AboutUs = (props)=>{
     const [pageBlockes,setPageBlocks]       = useState([])
     const [loading,setLoading]              = useState(true);
     
+    const store = useSelector(store => ({
+        globalSearch : store.globalSearch
+      }));
+
     useEffect(() => {
         AsyncStorage.multiGet(['token', 'user_id'])
         .then((data) => {
@@ -63,7 +69,7 @@ export const AboutUs = (props)=>{
         return (
             <View style={{flex:1,backgroundColor:"#fff"}}>
             {
-                globalSearch.search ?
+                store.globalSearch.search ?
                   <SearchSuggetion />
                 :
                 <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>

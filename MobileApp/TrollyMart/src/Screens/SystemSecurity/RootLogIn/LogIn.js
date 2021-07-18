@@ -135,20 +135,7 @@ const window = Dimensions.get('window');
                     setLoading(false);
                   }else if(res.data.message === 'USER_UNVERIFIED'){
                     setToast({text: "Your verification is still pending.", color: colors.warning});
-                    var sendData = {
-                      "event": "2",
-                      "toUser_id": res.data.userDetails.user_id,
-                      "toUserRole":"user",
-                        "variables": {
-                          "Username" : res.data.userDetails.firstName,
-                          "OTP" : res.data.userDetails.otpEmail,
-                        }
-                      }
-                      axios.post('/api/masternotifications/post/sendNotification', sendData)
-                      .then((res) => {
-                        console.log('sendDataToUser in result==>>>', res.data)
-                      })
-                      .catch((error) => { console.log('notification error: ',error)})
+                    navigation.navigate('OTPVerification',{userID:res.data.ID,Username:res.data.result.profile.firstname});
                   }
                 })
                 .catch((error) => {

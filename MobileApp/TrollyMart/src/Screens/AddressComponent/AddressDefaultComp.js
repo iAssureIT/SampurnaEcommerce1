@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
   Alert,ActivityIndicator,
 } from 'react-native';
-// import { RadioButton } from 'react-native-paper';
-import { Button, Icon,Card}    from "react-native-elements";
+import {Icon}    from "react-native-elements";
 import axios              from "axios";
 import styles             from '../../AppDesigns/currentApp/styles/ScreenStyles/Addressstyles.js';
 import { colors }         from '../../AppDesigns/currentApp/styles/styles.js';
@@ -24,13 +23,14 @@ import {setToast,
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import ActionButton from 'react-native-action-button';
-// export default class AddressDefaultComp extends React.Component {
+import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+
+
   export const AddressDefaultComp = withCustomerToaster((props)=>{
     const {setToast,navigation,route} = props; 
     const isFocused = useIsFocused();
     console.log("isFocused",isFocused);
     const [isChecked,setIsChecked] = useState(false);
-    const [checked,setChecked]     = useState('first');
     const [deliveryAddress,setDeliveryAddress]  = useState([]);
     const [addressid,setAddressId]  = useState('');
     const [adddata,setAddData]  = useState('');
@@ -40,6 +40,7 @@ import ActionButton from 'react-native-action-button';
     const {delivery,disabled}=route.params;
     const store = useSelector(store => ({
       location : store.location,
+      globalSearch: store.globalSearch
     }));
 
     
@@ -160,11 +161,10 @@ import ActionButton from 'react-native-action-button';
   console.log("addressid",addressid);
     return (
       <React.Fragment>
-        {/* <HeaderBar3
-          goBack={navigation.goBack}
-          headerTitle={delivery ? 'Delivery Addresses' : 'My Addresses'}
-          navigate={navigation.navigate}
-        /> */}
+        {
+        store.globalSearch.search ?
+            <SearchSuggetion />
+        :
         <View style={styles.addsuperparent}>
           <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
             <View style={{paddingVertical:24,paddingHorizontal:20}}>
@@ -255,7 +255,7 @@ import ActionButton from 'react-native-action-button';
               </View>}
             </View>
           </ScrollView>
-        </View>
+        </View>}
 
         {!disabled && <ActionButton 
           buttonColor="#fff" 

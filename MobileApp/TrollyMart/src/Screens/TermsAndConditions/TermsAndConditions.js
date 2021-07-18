@@ -15,6 +15,8 @@ import Axios                    from 'axios';
 import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 import HTML from 'react-native-render-html';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { useSelector }        from 'react-redux';
 
 export const TermsAndConditions  = (props)=>{
     const {navigation}=props;
@@ -57,6 +59,9 @@ export const TermsAndConditions  = (props)=>{
     }
 
     const regex = /(<([^>]+)>)/ig;
+    const store = useSelector(store => ({
+        globalSearch    : store.globalSearch
+      }));
     
     if (loading) {
         return (
@@ -64,16 +69,11 @@ export const TermsAndConditions  = (props)=>{
         );
     } else {
         return (
-            <View style={{flex:1,backgroundColor:"#fff"}}>
-            {/* <HeaderBar3
-                goBack={navigation.goBack}
-                navigate={navigation.navigate}
-                headerTitle={"Help & Support"}
-                toggle={() => toggle()}
-                openControlPanel={() => openControlPanel()}
-            /> */}
+        <View style={{flex:1,backgroundColor:"#fff"}}>
           <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
-                <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                {store.globalSearch.search ?
+                    <SearchSuggetion />
+                :<ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
                                 colors={['#ffffff','#03355480']}
@@ -99,7 +99,7 @@ export const TermsAndConditions  = (props)=>{
                         :
                         []
                     }
-                </ScrollView>
+                </ScrollView>}
             </View>
            
             </View>

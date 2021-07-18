@@ -28,7 +28,8 @@ import {emailValidator,
 import {Formik}                     from 'formik';
 import {FormButton}                 from '../../ScreenComponents/FormButton/FormButton';
 import PhoneInput                   from "react-native-phone-number-input";
-import { useIsFocused }     from "@react-navigation/native";
+import { useIsFocused }             from "@react-navigation/native";
+import SearchSuggetion              from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 
   const window = Dimensions.get('window');
   const LoginSchema = Yup.object().shape({
@@ -64,7 +65,7 @@ import { useIsFocused }     from "@react-navigation/native";
     const [googleapikey,setGoogleAPIKey] = useState('');
     const store = useSelector(store => ({
       userDetails : store.userDetails,
-      location    : store.location
+      location    : store.location,
     }));
 
     const {userDetails,location}= store;
@@ -171,7 +172,7 @@ import { useIsFocused }     from "@react-navigation/native";
         values,
         setToast,
         googleapikey,
-        delivery
+        delivery,
       } = props;
       const [value, setValue] = useState("");
       const [valid, setValid] = useState(false);
@@ -200,9 +201,15 @@ import { useIsFocused }     from "@react-navigation/native";
             }
           });
       }
+
+      const globalSearch = useSelector(store =>  store.globalSearch);
   
     return (
       <React.Fragment>
+      {
+        globalSearch.search ?
+            <SearchSuggetion />
+        :
         <View style={styles.addsuperparent}>
             <ScrollView style={styles.formWrapper} keyboardShouldPersistTaps="handled">
               <View style={{ backgroundColor: '#fff', paddingVertical: 20, paddingHorizontal: 15, marginTop: 15, marginBottom: "5%" }}>
@@ -444,7 +451,7 @@ import { useIsFocused }     from "@react-navigation/native";
               </View>
           </ScrollView>
           {/* */}
-        </View>
+        </View>}
       </React.Fragment>
     );
   }

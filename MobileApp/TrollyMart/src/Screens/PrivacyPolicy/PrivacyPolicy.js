@@ -15,6 +15,8 @@ import Axios                    from 'axios';
 import { colors,website_url }   from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
 import HTML from 'react-native-render-html';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { useSelector }        from 'react-redux';
 
 export const PrivacyPolicy  = (props)=>{
     const {navigation}=props;
@@ -56,6 +58,10 @@ export const PrivacyPolicy  = (props)=>{
     }
 
     const regex = /(<([^>]+)>)/ig;
+
+    const store = useSelector(store => ({
+        globalSearch    : store.globalSearch
+      }));
     
     if (loading) {
         return (
@@ -72,6 +78,9 @@ export const PrivacyPolicy  = (props)=>{
                 openControlPanel={() => openControlPanel()}
             /> */}
             <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
+            {store.globalSearch.search ?
+              <SearchSuggetion />
+                :
                 <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
                     <View style={[styles.aboutUsHeader]}>
                         <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
@@ -98,7 +107,7 @@ export const PrivacyPolicy  = (props)=>{
                         :
                         []
                     }
-                </ScrollView>
+                </ScrollView>}
             </View>
            
             </React.Fragment>

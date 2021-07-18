@@ -25,6 +25,7 @@ import { connect,
     useSelector }    from 'react-redux';
 import {USER_LOGOUT} from '../../redux/store';
 import {SocialMediaLogin} from '../SystemSecurity/RootLogIn/SocialMediaLogin.js';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 
 
 // export default class AccountDashboard extends React.Component{
@@ -34,8 +35,9 @@ export const MyAccount =(props)=>{
   const isFocused = useIsFocused();
   const store = useSelector(store => ({
     userDetails  : store.userDetails,
+    globalSearch  : store.globalSearch
   }));
-  const {userDetails} = store;
+  const {userDetails,globalSearch} = store;
 
   const logout=()=>{
     AsyncStorage.removeItem('user_id');
@@ -49,11 +51,10 @@ export const MyAccount =(props)=>{
   
   return (
     isFocused &&<View style={{flex:1,backgroundColor:"#fff"}}>
-      {/* <HeaderBar3
-          goBack={navigation.goBack}
-          headerTitle={'My Account'}
-          navigate={navigation.navigate}
-      /> */}
+   {
+    globalSearch.search ?
+        <SearchSuggetion />
+    :
      <ScrollView style={[styles.acdashsuperparent,{marginBottom:70}]}>
             <View style={{flex:1,marginBottom:65,justifyContent:'center'}}>
             {userDetails.authService=="guest" ?
@@ -212,7 +213,7 @@ export const MyAccount =(props)=>{
                 </View> 
                 }
             </View>
-        </ScrollView>
+        </ScrollView>}
       </View>
     );  
 }

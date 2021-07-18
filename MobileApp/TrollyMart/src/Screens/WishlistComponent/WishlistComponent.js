@@ -4,11 +4,10 @@ import {
   View,
   Image,
   ActivityIndicator,
-  Text
+  Text,
+  Dimensions
 } from 'react-native';
 import { Button,Icon}            from "react-native-elements";
-import {HeaderBar3}         from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}             from '../../ScreenComponents/Footer/Footer.js';
 import styles               from '../../AppDesigns/currentApp/styles/ScreenStyles/Wishliststyles.js';
 import { colors }           from '../../AppDesigns/currentApp/styles/styles.js';
 ;
@@ -18,6 +17,7 @@ import {ProductList}        from'../../ScreenComponents/ProductList/ProductList.
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
+const window = Dimensions.get('window');
 
 export const WishlistComponent  = withCustomerToaster((props)=>{
   const {navigation}=props;
@@ -33,27 +33,26 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
   },[]); 
 
   console.log("wishList",wishList);
-  console.log("loading",loading);
   
     return (
       <React.Fragment>
-        <View style={styles.addsuperparent}>
+        <View style={[styles.addsuperparent]}>
         {
           globalSearch.search ?
           <SearchSuggetion />
           : 
-          <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+          loading ?
+            <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
+            <ActivityIndicator size="large" color={colors.theme}/>
+          </View>
+          :
+          wishList && wishList.length > 0 ?
+          <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" >
             <View style={{paddingVertical:24,paddingHorizontal:20}}>
               <Text style={CommonStyles.screenHeader}>My Wishlist</Text>
             </View>
               <View style={{paddingBottom:60}}>
-                {loading ?
-                  <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
-                  <ActivityIndicator size="large" color={colors.theme}/>
-                </View>
-                :
-                  wishList && wishList.length > 0 ?
-                  wishList.map((item,index)=>{
+                  {wishList.map((item,index)=>{
                     console.log("item",item);
                     return(
                       <View key={index} style={{paddingHorizontal:15}}>
@@ -63,8 +62,6 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                         </View>  
                         <View style=
                         {{
-                          // shadowColor: '#000',
-                          // borderColor:"#f1f1f1",
                           backgroundColor: '#fff',
                           width: '100%',
                           minHeight: 200,
@@ -83,8 +80,8 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                             userId      = {user_id} 
                             categories  = {[]}
                             loading     = {loading}
-                            disabled    = {parseInt(item.distance) <= item.maxDistanceRadius ? false :true}
-                            marginTop   = {0}
+                            disabled      = {parseInt(item.distance) <= item.maxDistanceRadius ? false :true}
+                            marginTop     = {0}
                             paddingBottom  = {0}
                             type           = {'wishlist'}
                         />
@@ -92,23 +89,24 @@ export const WishlistComponent  = withCustomerToaster((props)=>{
                       </View>
                     )
                   })
-                  :
-                  <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-                    <Image
-                      source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-                    />
-                    <View style={{}}>
-                      <FormButton
-                          onPress={() => navigation.navigate('Dashboard')}
-                          // title={"Click Here To Continue Shopping"}
-                          title={"Add Products"}
-                          background={true}
-                      /> 
-                  </View> 
-                  </View>
-              }
+                }
               </View>
           </ScrollView>
+          :
+          <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
+            <Image
+              source={require("../../AppDesigns/currentApp/images/empty_wishlist.png")}
+              style={{width:window.width,height:300}}
+              resizeMode='contain'
+            />
+            <View style={{alignItems:'center'}}>
+              <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:22,color:"#DC1919",opacity: 1}}>Your Wishlist is empty!</Text>
+              <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
+                <Text style={[CommonStyles.linkText,{textDecoration: "underline",fontFamily:"Montserrat-SemiBold",fontSize:14}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
+              </View>
+            </View> 
+        </View>
           }
         </View>
       </React.Fragment>

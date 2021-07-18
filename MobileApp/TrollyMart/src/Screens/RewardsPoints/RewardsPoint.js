@@ -4,25 +4,18 @@ import {
   ScrollView,
   Text,
   View,
-  TouchableOpacity,
-  Alert,
 } from 'react-native';
-import { Button,Card}       from "react-native-elements";
-import axios            from "axios";
-import {Menu}           from '../../ScreenComponents/Menu/Menu.js';
-import {HeaderBar3}     from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
-import {Footer}         from '../../ScreenComponents/Footer/Footer.js';
-import styles           from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
-import {colors}         from '../../AppDesigns/currentApp/styles/styles.js';
-import Loading          from '../../ScreenComponents/Loading/Loading.js';
-import AsyncStorage     from '@react-native-async-storage/async-storage';
-import { useIsFocused } from "@react-navigation/native";
-import { useSelector }        from 'react-redux';
-import moment      from 'moment';
-import { withCustomerToaster } from '../../redux/AppState.js';
-import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
-import { ActivityIndicator } from 'react-native-paper';
-// export default class AccountDashboard extends React.Component{
+import axios                    from "axios";
+import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/AccountDashboardstyles';
+import AsyncStorage             from '@react-native-async-storage/async-storage';
+import { useIsFocused }         from "@react-navigation/native";
+import { useSelector }          from 'react-redux';
+import moment                   from 'moment';
+import { withCustomerToaster }  from '../../redux/AppState.js';
+import CommonStyles             from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import { ActivityIndicator }    from 'react-native-paper';
+import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+
 export const RewardsPoint =withCustomerToaster((props)=>{
   const {navigation,setToast}=props;
   const [loading,setLoading]=useState(true);
@@ -35,6 +28,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
 
   const store = useSelector(store => ({
     preferences     : store.storeSettings.preferences,
+    globalSearch    : store.globalSearch
   }));
   console.log("preferences",store.preferences);
   const {currency}=store.preferences;
@@ -68,15 +62,13 @@ export const RewardsPoint =withCustomerToaster((props)=>{
 
   return (
     <React.Fragment>
-      {/* <HeaderBar3
-          goBack={navigation.goBack}
-          headerTitle={'Account Dashboard'}
-          navigate={navigation.navigate}
-      /> */}
       {loading?
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
           <ActivityIndicator/>
         </View>   
+          :
+          store.globalSearch.search ?
+              <SearchSuggetion />
           :
           <ScrollView contentContainerStyle={[styles.container]} style={{flex:1,backgroundColor:"#fff"}} keyboardShouldPersistTaps="handled" >
             <View style={{paddingVertical:24,paddingHorizontal:20}}>
@@ -89,7 +81,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                      <Text style={[styles.headerText1]}>Total Points </Text> 
                     </View> 
                     <View style={{flex:0.5}}>
-                      <Text style={[styles.headerText1,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPoints} Points</Text>                    
+                      <Text style={[styles.headerText1,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPoints ? creditPoints.totalPoints : 0} Points</Text>                    
                       </View>
                   </View>
                   <View style={{flexDirection:'row',flex:1}}>
@@ -97,7 +89,7 @@ export const RewardsPoint =withCustomerToaster((props)=>{
                       <Text style={[styles.headerText2]}>Current Balance</Text>
                     </View> 
                     <View style={{flex:0.5}}>
-                    <Text style={[styles.headerText2,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPointsValue +" "+currency}</Text>
+                    <Text style={[styles.headerText2,{fontWeight:'bold',alignSelf:"flex-end"}]}>{creditPoints.totalPointsValue ? creditPoints.totalPointsValue : 0+" "+currency}</Text>
                      </View>
                   </View>
                 </View>

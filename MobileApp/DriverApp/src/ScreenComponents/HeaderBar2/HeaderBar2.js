@@ -50,6 +50,8 @@ import Geolocation          from 'react-native-geolocation-service';
     getUserStatus();
   }
 
+  console.log("userDetails",userDetails);
+
   const getNotificationList=()=>{
     AsyncStorage.multiGet(['token', 'user_id'])
       .then((data) => {
@@ -69,16 +71,19 @@ import Geolocation          from 'react-native-geolocation-service';
   }
 
   const getUserStatus = ()=>{
-    axios.get('/api/drivertracking/get/status/' + userDetails.user_id)
-    .then(res => {
-        if(res.data.status === "Online"){
-          setValue(res.data.status);
-          getCurrentPosition();
-        }
-    })
-    .catch(error => {
-        console.log('error', error)
-    })
+    if(userDetails.user_id){
+      axios.get('/api/drivertracking/get/status/' + userDetails.user_id)
+      .then(res => {
+      console.log("res",res);
+          if(res.data.status === "online"){
+            setValue(res.data.status);
+            getCurrentPosition();
+          }
+      })
+      .catch(error => {
+          console.log('error1', error)
+      })
+    }  
   }
 
   const setOnOff=(val)=>{
@@ -171,8 +176,8 @@ import Geolocation          from 'react-native-geolocation-service';
                 { 
                   enableHighAccuracy: true,
                   distanceFilter: 0,
-                  interval:1000,
-                  fastestInterval:1000,
+                  interval:15000,
+                  fastestInterval:15000,
                   forceRequestLocation:true,
                   showLocationDialog:true,
                   useSignificantChanges:true

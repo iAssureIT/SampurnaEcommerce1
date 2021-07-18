@@ -17,12 +17,18 @@ import AsyncStorage             from '@react-native-async-storage/async-storage'
 import HTML from 'react-native-render-html';
 import {List} from 'react-native-paper';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles.js';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { useSelector }        from 'react-redux';
 
 export const FAQ = (props)=>{
     const {navigation}=props;
     const [user_id,setUserId]               = useState('');
     const [pageBlockes,setPageBlocks]       = useState([])
     const [loading,setLoading]              = useState(true);
+    
+    const store = useSelector(store => ({
+    globalSearch    : store.globalSearch
+    }));
     
     useEffect(() => {
         AsyncStorage.multiGet(['token', 'user_id'])
@@ -66,35 +72,38 @@ export const FAQ = (props)=>{
     } else {
         return (
             <View style={{flex:1,backgroundColor:"#fff"}}>
-            <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
-                <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
-                    <View style={[styles.aboutUsHeader]}>
-                        <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
-                                colors={['#ffffff','#03355480']}
-                                radius={220}>
-                                <Text style={[styles.HeaderText]}>FAQ</Text>
-                        </RadialGradient>
-                    </View>
-                    {
-                        pageBlockes && pageBlockes.length>0?
-                            pageBlockes.map((item,index)=>{
-                                const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
-                                console.log("result",item.block_id.fgImage1)
-                                return(
-                                    <View style={[styles.outerFaq]}>
-                                        <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#333"}]}>
-                                            <View style={[styles.queAns,{marginHorizontal:30}]}>
-                                                <Text style={CommonStyles.normalText}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
-                                            </View>
-                                        </List.Accordion>
-                                    </View>                                    
-                                )
-                            })
-                        :
-                        []
-                    }
-                </ScrollView>
-            </View>
+                {store.globalSearch.search ?
+                    <SearchSuggetion />
+                :
+                <View style={[styles.superparent,{paddingBottom:60,backgroundColor:"#fff"}]}>
+                    <ScrollView contentContainerStyle={styles.container}  keyboardShouldPersistTaps="handled" >
+                        <View style={[styles.aboutUsHeader]}>
+                            <RadialGradient style={{flex:1,justifyContent: 'center',alignItems: 'center',}}
+                                    colors={['#ffffff','#03355480']}
+                                    radius={220}>
+                                    <Text style={[styles.HeaderText]}>FAQ</Text>
+                            </RadialGradient>
+                        </View>
+                        {
+                            pageBlockes && pageBlockes.length>0?
+                                pageBlockes.map((item,index)=>{
+                                    const result = item.block_id.blockDescription.replace(/<[^>]+>/g, '');
+                                    console.log("result",item.block_id.fgImage1)
+                                    return(
+                                        <View style={[styles.outerFaq]}>
+                                            <List.Accordion style={[styles.queBox]} title={"FAQ" + (index+1)} titleStyle={[CommonStyles.normalText,{fontSize:18,color:"#333"}]}>
+                                                <View style={[styles.queAns,{marginHorizontal:30}]}>
+                                                    <Text style={CommonStyles.normalText}>Suspendisse at consectetuer amet sit ligula, accumsan in vel, facilisi vulputate, maxime in lacinia suscipit sagittis diam, cras risus aliquam quis sit. Velit elit nec. Nec non et curabitur augue, aliquet sit. Cursus duis in eget in libero etiam, ac ante magna nec, ante lectus, consectetuer neque.</Text>
+                                                </View>
+                                            </List.Accordion>
+                                        </View>                                    
+                                    )
+                                })
+                            :
+                            []
+                        }
+                    </ScrollView>
+                </View>}
             </View>
         );
     }

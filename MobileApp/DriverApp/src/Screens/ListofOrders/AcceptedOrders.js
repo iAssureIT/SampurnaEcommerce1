@@ -9,7 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { Header, Icon, Card, Button }       from 'react-native-elements';
+import { Header, Icon, Card, Button, colors }       from 'react-native-elements';
 import axios from 'axios';
 import CommonStyles from '../../AppDesigns/currentApp/styles/CommonStyles';
 import {
@@ -17,7 +17,10 @@ import {
     useSelector }           from 'react-redux';
 import {Footer}                     from '../../ScreenComponents/Footer/Footer.js';
 import { useIsFocused } from "@react-navigation/native";
+import Modal                from "react-native-modal";
+import { Dropdown }             from 'react-native-material-dropdown-v2';
 import moment from 'moment';
+import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 const todoList = [
   { id: '1', text: 'Learn JavaScript' },
   { id: '2', text: 'Learn React' },
@@ -27,9 +30,17 @@ const todoList = [
 export const AcceptedOrders =(props)=> {
     const [orderList,setOrderList] = useState([]);
     const isFocused = useIsFocused();
-    const ref = useRef()
+    const [getReasons,setGetReasons]=useState([]);
+    const [modal,setModal] = useState(false);
+    const [reason,setReason]=useState('');
+    const [order_id,setOrderId] = useState('');
+    const [vendor_id,setVendorId] = useState('');
+    const ref =useRef(null);
+    let row: Array<any> = [];
+    let prevOpenedRow;
     useEffect(() => {
-        getList()
+        getList();
+        getReasons_func();
     },[props,isFocused]);
     const store = useSelector(store => ({
         userDetails     : store.userDetails,
@@ -45,12 +56,30 @@ export const AcceptedOrders =(props)=> {
         .then(res=>{
             console.log("res",res);
             setOrderList(res.data);
-            ref?.current?.close()
         })
         .catch(err=>{
             console.log("err",err);
         })
     }
+
+    const getReasons_func=()=>{
+        axios.get('/api/orderrejectreasons/get/list')
+          .then((response) => {
+            console.log("getReasons_func",response);
+            var array = response.data.map((a, i) => { return { label: a.reasonOfOrderReject, value: a.reasonOfOrderReject } })
+            setGetReasons(array);
+          })
+          .catch((error) => {
+            if (error.response.status == 401) {
+              AsyncStorage.removeItem('user_id');
+              AsyncStorage.removeItem('token');
+              setToast({text: 'Your Session is expired. You need to login again.', color: 'warning'});
+              navigation.navigate('Auth')
+            }else{
+              setToast({text: 'Something went wrong.', color: 'red'});
+            }  
+          });
+      }
 
 
     const Separator = () => <View style={styles.itemSeparator} />;
@@ -74,7 +103,8 @@ export const AcceptedOrders =(props)=> {
     );
     };
   
-    const swipeFromLeftOpen = (order_id,vendor_id) => {
+    const swipeFromLeftOpen = (order_id,vendor_id,index) => {
+       
         var payload = {
             order_id        : order_id,
             vendor_id       : vendor_id,
@@ -85,23 +115,109 @@ export const AcceptedOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
-            getList();
+            if (prevOpenedRow && prevOpenedRow !== row[index]) {
+                prevOpenedRow.close();
+
+              }
+              prevOpenedRow = row[index];
+              console.log("index",index);
+              getList();
+
         })
         .catch(err=>{
             console.log("err",err);
         })
     };;
+
+    const rightSwipeActions = () => {
+        return (
+            <View
+            style={{ flex: 1, backgroundColor:colors.warning, justifyContent: 'center' }}
+            >
+            <Text
+                style={{
+                color: '#fff',
+                paddingHorizontal: 10,
+                fontWeight: '600',
+                paddingHorizontal: 30,
+                paddingVertical: 20,
+                alignSelf:'flex-end'
+                }}
+            >
+               Reject
+            </Text>
+            </View>
+        );
+        };
+      
+        const swipeFromRightOpen = (order_id,vendor_id,index) => {
+            setModal(true);
+            setOrderId(order_id);
+            setVendorId(vendor_id);
+            if (prevOpenedRow && prevOpenedRow !== row[index]) {
+                prevOpenedRow.close();
+              }
+              prevOpenedRow = row[index];
+            // var payload = {
+            //     order_id        : order_id,
+            //     vendor_id       : vendor_id,
+            //     userid          : store.userDetails.user_id,
+            //     changeStatus    : "On the Way"
+            // }
+            // console.log("payload",payload);
+            // axios.patch('/api/orders/changevendororderstatus',payload)
+            // .then(res=>{
+            //     console.log("res",res);
+            //     getList();
+            // })
+            // .catch(err=>{
+            //     console.log("err",err);
+            // })
+        };
+
+       const  handleSubmit=()=>{
+            var payload = {
+                order_id        : order_id,
+                vendor_id       : vendor_id,
+                userid          : store.userDetails.user_id,
+                changeStatus    : "Allocation Rejected",
+                reason          : reason
+            }
+            console.log("payload",payload);
+            axios.patch('/api/orders/changevendororderstatus',payload)
+            .then(res=>{
+                console.log("res",res);
+                setModal(false);
+                setOrderId('');
+                setVendorId('');
+                getList();
+            })
+            .catch(err=>{
+                console.log("err",err);
+            })
+        }
+
+        const closeRow=(index)=>{
+            if (prevOpenedRow && prevOpenedRow !== row[index]) {
+              prevOpenedRow.close();
+            }
+            prevOpenedRow = row[index];
+          }
+
+       
     const _renderlist = ({ item, index })=>{
         return (
             <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
             <Card containerStyle={{padding:0}}>
             <Swipeable
-                key={index}
-                ref={ref}
+               ref={ref => row[index] = ref}
+               friction={2}
+               leftThreshold={80}
+               rightThreshold={40}
                 renderLeftActions={LeftSwipeActions}
-                // renderRightActions={rightSwipeActions}
-                // onSwipeableRightOpen={swipeFromRightOpen}
-                onSwipeableLeftOpen={()=>swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id,)}
+                renderRightActions={rightSwipeActions}
+                onSwipeableRightOpen={()=>swipeFromRightOpen(item._id,item.vendorOrders.vendor_id,index)}
+                onSwipeableLeftOpen={()=>swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id,index)}
             >
                 {/* <View
                 style={{
@@ -164,6 +280,43 @@ export const AcceptedOrders =(props)=> {
                 </View>
             </Swipeable>
             </Card> 
+            <Modal isVisible={modal}
+                onBackdropPress={() => setModal(false)}
+                onRequestClose={() => setModal(false)}
+                coverScreen={true}
+                hideModalContentWhileAnimating={true}
+                style={{ zIndex: 999 }}
+                animationOutTiming={500}>
+                <View style={{ backgroundColor: "#fff", borderRadius: 20, paddingVertical: 30, paddingHorizontal: 10}}>
+                <Dropdown
+                  underlineColorAndroid ='transparent'
+                    placeholder         = {"Reason for Return..."}
+                    onChangeText        = {(value) => setReason(value)}
+                    data                = {getReasons}
+                    value               = {reason}
+                    containerStyle      = {styles.ddContainer}
+                    dropdownOffset      = {{ top: 0, left: 0 }}
+                    itemTextStyle       = {styles.ddItemText}
+                    inputContainerStyle = {styles.ddInputContainer}
+                    labelHeight         = {10}
+                    tintColor           = {'#FF8800'}
+                    labelFontSize       = {15}
+                    fontSize            = {15}
+                    baseColor           = {'#666'}
+                    textColor           = {'#333'}
+                    labelTextStyle      = {{ left: 5 }}
+                    style               = {styles.ddStyle}
+                    disabledLineType    = 'none'
+                  />
+                  <View style={{marginVertical:15}}>
+                    <FormButton 
+                        onPress    = {()=>{handleSubmit()}}
+                        title       = {'Submit'}
+                        background  = {true}
+                    />
+                 </View>   
+                </View>
+            </Modal>
           </TouchableOpacity>
         )    
     };

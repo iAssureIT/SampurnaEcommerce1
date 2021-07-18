@@ -9,12 +9,8 @@ import {
   Button,
   View,StyleSheet,
 } from 'react-native';
-import {Icon,}                  from "react-native-elements";
-import {HeaderBar3}               from '../../ScreenComponents/HeaderBar3/HeaderBar3.js';
 import {Footer}                   from '../../ScreenComponents/Footer/Footer.js';
-import styles                   from '../../AppDesigns/currentApp/styles/ScreenStyles/MyOrdersstyles.js';
 import Loading                  from '../../ScreenComponents/Loading/Loading.js';
-import {Linking}                from 'react-native'
 import Axios                    from 'axios';
 import { colors }   from '../../AppDesigns/currentApp/styles/styles.js';
 import AsyncStorage             from '@react-native-async-storage/async-storage';
@@ -28,6 +24,8 @@ import * as Yup             from 'yup';
 import {setToast, withCustomerToaster} from '../../redux/AppState.js';
 import commonStyles         from '../../AppDesigns/currentApp/styles/CommonStyles.js';
 import { Dimensions } from 'react-native';
+import SearchSuggetion      from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
+import { useSelector }        from 'react-redux';
 
 const window = Dimensions.get('window');
 const ValidationSchema = Yup.object().shape({
@@ -176,8 +174,14 @@ const FormBody = (props) => {
     const phoneInput = useRef(null);
     const [value, setValue] = useState("");
     const [valid, setValid] = useState(false);
+    const store = useSelector(store => ({
+        globalSearch    : store.globalSearch
+      }));
     return (
         <View style={{flex:1,backgroundColor:"#fff",paddingVertical:15}}>
+        {store.globalSearch.search ?
+              <SearchSuggetion />
+          :
             <ScrollView contentContainerStyle={{paddingVertical:15,backgroundColor:"#fff"}}>
                 <View style={{ paddingHorizontal: 15 }}>
                     <View style={{ height:230,backgroundColor:'#fff',marginBottom: 15,marginLeft:5}}>
@@ -305,7 +309,7 @@ const FormBody = (props) => {
                         {website_url}
                     </Text>
                 </View>
-            </ScrollView>
+            </ScrollView>}
         </View>
     );
 }        

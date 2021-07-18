@@ -28,7 +28,8 @@ export const SubCategoryList =(props)=>{
   const {payload,categoryList}=store;
 
   useEffect(() => {
-    const index = categoryList.findIndex(e=>e.category === props.category);
+    if(categoryList && categoryList.length>0){
+      const index = categoryList.findIndex(e=>e.category === props.category);
       var subCategoryArray = categoryList[index]?.subCategory.map((a, i)=>{
         return {
             label :a.subCategoryTitle,        
@@ -36,6 +37,7 @@ export const SubCategoryList =(props)=>{
         } 
       })
       setSubCategoryList(subCategoryArray)
+    }
  },[]);
 
   const _renderlist = ({ item, i })=>{

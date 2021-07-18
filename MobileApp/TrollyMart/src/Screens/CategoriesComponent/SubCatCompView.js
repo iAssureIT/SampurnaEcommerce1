@@ -137,15 +137,22 @@ export const SubCatCompView = withCustomerToaster((props)=>{
       .then((response) => {
         console.log("response getProductsView",response);
         var product = response.data.products.filter(e=>e._id === productID );
-        var sizeIndex =  response.data.variants.findIndex(e=>e.size === product[0].size);
-        setProductData(product[0]);
-        setProdctList(response.data.products);
-        setvariants(response.data.variants);
-        var sizes = response.data.variants.map((e,i)=>{return{"label":e.size,"value":i+"^"+e.size}})
-        setSizes(sizes);
-        setSizeIndex(sizeIndex);
-        var colorIndex = response.data.variants[sizeIndex].color.findIndex(e=>e === product[0].color);
-        setColorIndex(colorIndex);
+        console.log("product",product);
+        if(product && product.length>0 && response.data.variants && response.data.variants.length >0){
+          var sizeIndex_temp =  response.data.variants.findIndex(e=>e.size === product[0].size);
+          console.log("sizeIndex_temp",sizeIndex_temp);
+          setProductData(product[0]);
+          setProdctList(response.data.products);
+          setvariants(response.data.variants);
+          var sizes = response.data.variants.map((e,i)=>{return{"label":e.size,"value":i+"^"+e.size}})
+          setSizes(sizes);
+          setSizeIndex(sizeIndex_temp);
+          if(sizeIndex_temp){
+            var colorIndex = response.data.variants[sizeIndex_temp].color.findIndex(e=>e === product[0].color);
+            console.log("colorIndex",colorIndex);
+            setColorIndex(colorIndex);
+          }
+        }
         setLoading(false);
       })
       .catch((error) => {

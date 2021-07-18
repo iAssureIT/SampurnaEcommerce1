@@ -27,7 +27,9 @@ const todoList = [
 export const NewOrders =(props)=> {
     const [orderList,setOrderList] = useState([]);
     const isFocused = useIsFocused();
-    const ref = useRef()
+    const ref =useRef(null);
+    let row: Array<any> = [];
+    let prevOpenedRow;
     useEffect(() => {
         getList()
     },[props,isFocused]);
@@ -37,6 +39,7 @@ export const NewOrders =(props)=> {
       }));
 
     const getList =()=>{
+
         var payload={
             "status" : "Ready to Dispatch",
             "user_id" : store.userDetails.user_id
@@ -46,7 +49,12 @@ export const NewOrders =(props)=> {
         .then(res=>{
             console.log("res1",res);
             setOrderList(res.data);
-            ref?.current?.close()
+            if (prevOpenedRow && prevOpenedRow !== row[index]) {
+                prevOpenedRow.close();
+
+              }
+              prevOpenedRow = row[index];
+              console.log("index",index);
         })
         .catch(err=>{
             console.log("err",err);
@@ -74,8 +82,11 @@ export const NewOrders =(props)=> {
         </View>
     );
     };
+
+ 
   
-    const swipeFromLeftOpen = (order_id,vendor_id) => {
+    const swipeFromLeftOpen = (order_id,vendor_id,index) => {
+       
         var payload = {
             order_id        : order_id,
             vendor_id       : vendor_id,
@@ -86,31 +97,28 @@ export const NewOrders =(props)=> {
         axios.patch('/api/orders/changevendororderstatus',payload)
         .then(res=>{
             console.log("res",res);
-            getList();
+            
+              getList(index);
+
         })
         .catch(err=>{
             console.log("err",err);
         })
-    };
+    };;
     const swipeFromRightOpen = () => {
     //   alert('Swipe from right');
     };
-
-
-
-    console.log("ref",ref);
     const _renderlist = ({ item, index })=>{
+        console.log("index",index);
         return (
             <TouchableOpacity onPress={()=>props.navigation.navigate('OrderSummary',{order_id: item._id,vendor_id: item.vendorOrders.vendor_id})}>
             <Card containerStyle={{padding:0}}>
             <Swipeable
-                ref={ref}
-                renderLeftActions={LeftSwipeActions}
-                key={index}
-                // onSwipeableClose={()=>}
-                // close={closeRow(index)}
-                // renderRightActions={rightSwipeActions}
-                // onSwipeableRightOpen={swipeFromRightOpen}
+                 ref={ref => row[index] = ref}
+                 friction={2}
+                 leftThreshold={80}
+                 rightThreshold={40}
+                 renderLeftActions={LeftSwipeActions}
                 onSwipeableLeftOpen={()=>swipeFromLeftOpen(item._id,item.vendorOrders.vendor_id,)}
             >
                 {/* <View

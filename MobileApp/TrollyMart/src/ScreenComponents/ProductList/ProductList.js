@@ -218,6 +218,17 @@ export const ProductList = withCustomerToaster((props)=>{
     }
   }
 
+  const getCategoryList=(item)=>{
+    var payload ={
+        "vendor_ID"         : item.vendor_id?item.vendor_id:item.vendor_ID,
+        "sectionUrl"        : item.section?.replace(/\s/g, '-').toLowerCase(),
+        "startRange"        : 0,
+        "limitRange"        : 10,
+    } 
+    console.log("payload",payload);
+    dispatch(getCategoryWiseList(payload));
+}
+
   const _renderlist = ({ item, index })=>{
     var availablessiz = [];
     availablessiz = item.availableSizes ? item.availableSizes.map((a, i) => { return { value: a.productSize === 1000 ? "1 KG" : a.productSize === 2000 ? "2 KG" : a.productSize + " " + item.unit, size: a.packSize } }) : []
@@ -225,7 +236,7 @@ export const ProductList = withCustomerToaster((props)=>{
     return (
       <View key={index}  style={[styles.productContainer,{marginLeft:'5%'}]} >
         <TouchableOpacity  disabled={props.disabled} onPress={() => 
-          navigation.navigate('SubCatCompView', { 
+          {navigation.navigate('SubCatCompView', { 
               productID           : item._id,
               currency            : currency,
               vendorLocation_id   : vendorLocation_id,
@@ -234,7 +245,9 @@ export const ProductList = withCustomerToaster((props)=>{
               vendor_id           : item.vendor_id?item.vendor_id:item.vendor_ID,
               category            : props.category,
               subCategory         : subCategory
-              })
+              });
+              getCategoryList(item)
+            }
           }>
           <View style={styles.flx5}>
               {item.discountPercent && item.discountPercent >0?

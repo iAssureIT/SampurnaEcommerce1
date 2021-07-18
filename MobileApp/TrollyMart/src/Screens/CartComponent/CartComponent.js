@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   Image,ActivityIndicator,
+  Dimensions
 } from 'react-native';
 import {Button,Icon,Tooltip}              from "react-native-elements";
 import Modal                      from "react-native-modal";
@@ -25,6 +26,7 @@ import { getCategoryWiseList }  from '../../redux/productList/actions.js';
 import SearchSuggetion          from '../../ScreenComponents/SearchSuggetion/SearchSuggetion.js';
 import {FormButton}         from '../../ScreenComponents/FormButton/FormButton';
 import { getCartCount}                      from '../../redux/productList/actions';
+const window = Dimensions.get('window');
 
 export const CartComponent = withCustomerToaster((props)=>{
   const dispatch = useDispatch();
@@ -247,6 +249,7 @@ const getshippingamount=(startRange, limitRange)=>{
       globalSearch.search ?
         <SearchSuggetion />
         :
+        cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
         <KeyboardAwareScrollView contentContainerStyle={{}} style={{flex:1}} keyboardShouldPersistTaps="always" extraScrollHeight={130}  enableAutomaticScroll enableOnAndroid	>
           <View style={{paddingVertical:15}}>            
             <FormButton
@@ -258,7 +261,6 @@ const getshippingamount=(startRange, limitRange)=>{
               />
           </View>
         <View style={{flex:1}}>
-          {cartData && cartData.vendorOrders && cartData.vendorOrders.length>0?
             <View style={styles.cartdetails}>
             {cartData.vendorOrders.map((vendor, i) => {
               return (
@@ -511,23 +513,24 @@ const getshippingamount=(startRange, limitRange)=>{
                   </View>
                 </View>
           </View>
-          :
-          <View style={{ flex: 1, alignItems: 'center', marginTop: '10%' }}>
-            <Image
-              source={require("../../AppDesigns/currentApp/images/noproduct.jpeg")}
-            />
-            <View style={{}}>
-              <FormButton
-                  onPress={() => navigation.navigate('Dashboard')}
-                  // title={"Click Here To Continue Shopping"}
-                  title={"Add Products"}
-                  background={true}
-              /> 
-           </View>   
-          </View>   
-        }
+         
         </View>
       </KeyboardAwareScrollView>
+       :
+       <View style={{height:window.height-120,justifyContent:'center',alignItems:'center'}}>
+       <Image
+         source={require("../../AppDesigns/currentApp/images/empty-cart.png")}
+         style={{width:window.width,height:300}}
+         resizeMode='contain'
+       />
+         <View style={{alignItems:'center'}}>
+           <Text style={{fontFamily:"Montserrat-SemiBold",fontSize:22,color:"#DC1919",opacity: 1}}>Your Cart is empty!</Text>
+           <View style={{marginTop:15,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+             <Icon name="undo-variant" type="material-community" size={15}  color={colors.cartButton}/>
+             <Text style={[CommonStyles.linkText,{textDecoration: "underline",fontFamily:"Montserrat-SemiBold",fontSize:14}]} onPress={() => navigation.navigate('Dashboard')}>Continue shopping</Text>
+           </View>
+         </View> 
+     </View>
       :
       <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
         <ActivityIndicator size="large" color={colors.theme} />
